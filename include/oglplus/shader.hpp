@@ -269,7 +269,7 @@ public:
 	 */
 	ObjectOps& CompileInclude(
 		GLsizei count,
-		const GLchar *const *paths,
+		const GLchar **paths,
 		const GLint *lengths
 	);
 

@@ -61,7 +61,7 @@ public:
 			"{"
 			"	gl_Position = Position;"
 			"}"
-		).Compile();
+		);
 
 		// set the fragment shader source and compile it
 		fs.Source(
@@ -72,11 +72,11 @@ public:
 			"{"
 			"	fragColor = vec4(Color, 1.0);"
 			"}"
-		).Compile();
+		);
 
 		// attach the shaders to the program
 		// link and use it
-		prog.AttachShader(vs).AttachShader(fs).Link().Use();
+		prog.AttachShader(vs).AttachShader(fs).Build().Use();
 
 		// the series of cubic bezier curves
 		Vec2f bezier_cps[] = {

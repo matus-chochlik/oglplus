@@ -137,7 +137,7 @@ public:
 			"		CameraMatrix *"
 			"		gl_Position;"
 			"}"
-		).CompileInclude("/");
+		);
 
 		torus_fs.Source(
 			"#version 330\n"
@@ -151,11 +151,11 @@ public:
 			"	) % 2;"
 			"	fragColor = vec4(1-i/2, 1-i/2, 1-i/2, 1.0);"
 			"}"
-		).Compile();
+		);
 
 		torus_prog.AttachShader(torus_vs);
 		torus_prog.AttachShader(torus_fs);
-		torus_prog.Link();
+		torus_prog.BuildInclude("/");
 		torus_prog.Use();
 
 		// bind the VAO for the torus

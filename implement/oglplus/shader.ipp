@@ -59,7 +59,7 @@ ObjectOps<tag::DirectState, tag::Shader>&
 ObjectOps<tag::DirectState, tag::Shader>::
 CompileInclude(
 	GLsizei count,
-	const GLchar *const *paths,
+	const GLchar **paths,
 	const GLint *lengths
 )
 {

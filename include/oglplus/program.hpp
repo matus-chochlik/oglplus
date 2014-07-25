@@ -256,6 +256,66 @@ public:
 	 */
 	ObjectOps& Link(void);
 
+	/// builds this shading language program
+	/** This function checks if all attached shaders are compiled
+	 *  and if they are not the it compiles them and then links
+	 *  this Program.
+	 *
+	 *  @post IsLinked()
+	 *  @throws Error LinkError
+	 *  @see IsLinked
+	 *
+	 *  @glsymbols
+	 *  @glfunref{CompileShader}
+	 *  @glfunref{LinkProgram}
+	 *  @glfunref{GetProgram}
+	 *  @glfunref{GetProgramInfoLog}
+	 */
+	ObjectOps& Build(void);
+
+#if OGLPLUS_DOCUMENTATION_ONLY ||\
+	GL_ARB_shading_language_include
+
+	/// builds this shading language program using specified include paths
+	/** This function checks if all attached shaders are compiled
+	 *  and if they are not the it compiles them and then links
+	 *  this Program.
+	 *
+	 *  @post IsLinked()
+	 *  @throws Error LinkError
+	 *  @see IsLinked
+	 *
+	 *  @glsymbols
+	 *  @glfunref{CompileShader}
+	 *  @glfunref{LinkProgram}
+	 *  @glfunref{GetProgram}
+	 *  @glfunref{GetProgramInfoLog}
+	 */
+	ObjectOps& BuildInclude(
+		GLsizei count,
+		const GLchar **paths,
+		const GLint *lengths
+	);
+
+	ObjectOps& BuildInclude(const GLSLString& incl)
+	{
+		return BuildInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+
+	ObjectOps& BuildInclude(const GLSLStrings& incl)
+	{
+		return BuildInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+#endif
+
 	/// Returns true if the program is validated, false otherwise
 	/**
 	 *  @see Validate
@@ -427,9 +487,19 @@ public:
 		{ }
 	};
 
+	struct IteratedShaderName
+	 : ShaderName
+	{
+		IteratedShaderName(
+			const ShaderIterationContext& context,
+			unsigned index
+		): ShaderName(context._shader_names.at(index))
+		{ }
+	};
+
 	typedef aux::ContextElementRange<
 			ShaderIterationContext,
-			ShaderName
+			IteratedShaderName
 	> ShaderRange;
 #endif // !OGLPLUS_DOCUMENTATION_ONLY
 
