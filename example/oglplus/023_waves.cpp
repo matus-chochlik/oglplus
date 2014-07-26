@@ -76,7 +76,6 @@ public:
 			"	vertDistance = distance(CameraPosition, Position);"
 			"}"
 		));
-		vs.Compile();
 		prog.AttachShader(vs);
 
 		TessControlShader cs(ObjectDesc("TessControl"));
@@ -123,7 +122,6 @@ public:
 			"	}"
 			"}"
 		);
-		cs.Compile();
 		prog.AttachShader(cs);
 
 		TessEvaluationShader es(ObjectDesc("TessEvaluation"));
@@ -189,7 +187,6 @@ public:
 			"	teevDistance = distance(CameraPosition, Pos);"
 			"}"
 		);
-		es.Compile();
 		prog.AttachShader(es);
 
 		FragmentShader fs(ObjectDesc("Fragment"));
@@ -227,10 +224,9 @@ public:
 			"	fragColor = mix(WaveColor, FogColor, 1.0-Dim);"
 			"}"
 		));
-		fs.Compile();
 		prog.AttachShader(fs);
 
-		prog.Link();
+		prog.Build();
 		gl.Use(prog);
 
 		gl.Bind(plane);
