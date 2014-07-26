@@ -57,7 +57,6 @@ private:
 	GLSLSource(const GLSLSource&);
 public:
 #endif
-
 	explicit GLSLSource(const StrLit& source)
 	 : _impl(make_impl<aux::LitGLSLSrcWrap>(source))
 	{ }
@@ -77,11 +76,25 @@ public:
 	))
 	{ }
 
+	GLSLSource(const std::vector<String>& strs)
+	 : _impl(make_impl<aux::StrsGLSLSrcWrap>(
+		strs.begin(),
+		strs.end()
+	))
+	{ }
+
 #if !OGLPLUS_NO_INITIALIZER_LISTS
 	GLSLSource(std::initializer_list<StrLit> lits)
 	 : _impl(make_impl<aux::LitsGLSLSrcWrap>(
 		lits.begin(),
 		lits.end()
+	))
+	{ }
+
+	GLSLSource(std::initializer_list<String> strs)
+	 : _impl(make_impl<aux::StrsGLSLSrcWrap>(
+		strs.begin(),
+		strs.end()
 	))
 	{ }
 #endif

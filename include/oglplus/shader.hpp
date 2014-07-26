@@ -189,7 +189,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	ObjectOps& Source(const GLSLString& source)
+	ObjectOps& Source(GLSLString&& source)
 	{
 		return SourceTpl(source);
 	}
@@ -199,7 +199,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	ObjectOps& Source(const GLSLStrings& source)
+	ObjectOps& Source(GLSLStrings&& source)
 	{
 		return SourceTpl(source);
 	}
@@ -298,6 +298,15 @@ public:
 	}
 
 	ObjectOps& CompileInclude(const GLSLStrings& incl)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+
+	ObjectOps& CompileInclude(const GLSLSource& incl)
 	{
 		return CompileInclude(
 			incl.Count(),

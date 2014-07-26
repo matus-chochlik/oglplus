@@ -126,12 +126,45 @@ public:
 
 	const GLchar* const* Parts(void) const
 	{
-		return const_cast<const GLchar**>(&_ptr);
+		return &_ptr;
 	}
 
 	const GLint* Lengths(void) const
 	{
 		return &_size;
+	}
+};
+
+class StrsGLSLSrcWrap
+ : public GLSLSourceWrapper
+{
+private:
+	std::vector<String> _storage;
+	std::vector<const GLchar*> _ptrs;
+	std::vector<GLint> _sizes;
+
+	void _init(void);
+public:
+	StrsGLSLSrcWrap(
+		AnyInputIter<String>&& i,
+		AnyInputIter<String>&& e
+	);
+
+	StrsGLSLSrcWrap(std::vector<String>&& storage);
+
+	GLsizei Count(void) const
+	{
+		return GLsizei(_storage.size());
+	}
+
+	const GLchar* const* Parts(void) const
+	{
+		return _ptrs.data();
+	}
+
+	const GLint* Lengths(void) const
+	{
+		return _sizes.data();
 	}
 };
 

@@ -297,7 +297,7 @@ public:
 		const GLint* lengths
 	);
 
-	ObjectOps& BuildInclude(const GLSLString& incl)
+	ObjectOps& BuildInclude(GLSLString&& incl)
 	{
 		return BuildInclude(
 			incl.Count(),
@@ -306,7 +306,16 @@ public:
 		);
 	}
 
-	ObjectOps& BuildInclude(const GLSLStrings& incl)
+	ObjectOps& BuildInclude(GLSLStrings&& incl)
+	{
+		return BuildInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+
+	ObjectOps& BuildInclude(const GLSLSource&& incl)
 	{
 		return BuildInclude(
 			incl.Count(),
@@ -990,7 +999,7 @@ public:
 	 */
 	ShaderProgram(
 		ShaderType shader_type,
-		const GLSLString& source
+		GLSLString&& source
 	): Program(_make(shader_type, source))
 	{ _check(); }
 
@@ -1000,7 +1009,7 @@ public:
 	 */
 	ShaderProgram(
 		ShaderType shader_type,
-		const GLSLString& source,
+		GLSLString&& source,
 		ObjectDesc&& object_desc
 	): Program(_make(shader_type, source), std::move(object_desc))
 	{ _check(); }
@@ -1011,7 +1020,7 @@ public:
 	 */
 	ShaderProgram(
 		ShaderType shader_type,
-		const GLSLStrings& source
+		GLSLStrings&& source
 	): Program(_make(shader_type, source))
 	{ _check(); }
 
@@ -1021,7 +1030,7 @@ public:
 	 */
 	ShaderProgram(
 		ShaderType shader_type,
-		const GLSLStrings& source,
+		GLSLStrings&& source,
 		ObjectDesc&& object_desc
 	): Program(_make(shader_type, source), std::move(object_desc))
 	{ _check(); }

@@ -36,6 +36,36 @@ LitsGLSLSrcWrap::LitsGLSLSrcWrap(
 }
 
 OGLPLUS_LIB_FUNC
+void StrsGLSLSrcWrap::_init(void)
+{
+	for(std::size_t i=0, n=_storage.size(); i!=n; ++i)
+	{
+		_ptrs[i] = _storage[i].c_str();
+		_sizes[i] = GLint(_storage[i].size());
+	}
+}
+
+OGLPLUS_LIB_FUNC
+StrsGLSLSrcWrap::StrsGLSLSrcWrap(
+	AnyInputIter<String>&& i,
+	AnyInputIter<String>&& e
+): _storage(i, e)
+ , _ptrs(_storage.size(), nullptr)
+ , _sizes(_storage.size(), 0)
+{
+	_init();
+}
+
+OGLPLUS_LIB_FUNC
+StrsGLSLSrcWrap::StrsGLSLSrcWrap(std::vector<String>&& storage)
+ : _storage(std::move(storage))
+ , _ptrs(_storage.size(), nullptr)
+ , _sizes(_storage.size(), 0)
+{
+	_init();
+}
+
+OGLPLUS_LIB_FUNC
 GLint InputStreamGLSLSrcWrap::_check_and_get_size(std::istream& in)
 {
 	GLint default_size = 1023;
