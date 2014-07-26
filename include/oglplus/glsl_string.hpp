@@ -17,10 +17,13 @@
 #include <oglplus/string/ref.hpp>
 #include <oglplus/string/literal.hpp>
 
+#include <cassert>
 #include <utility>
 #include <vector>
 #include <array>
-#include <cassert>
+#if !OGLPLUS_NO_INITIALIZER_LISTS
+#include <initializer_list>
+#endif
 
 namespace oglplus {
 
@@ -61,19 +64,25 @@ public:
 	 , _len(GLint(v.size()))
 	{ }
 
+	template <std::size_t N>
+	GLSLString(const std::array<GLchar, N>& a)
+	 : _str(a.data())
+	 , _len(GLint(a.size()))
+	{ }
+
 	GLsizei Count(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return 1;
 	}
 
-	const GLchar** Parts(void) const
+	const GLchar* const* Parts(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return const_cast<const GLchar**>(&_str);
+		return &_str;
 	}
 
-	const GLint* Lengths(void) const
+	GLint const * Lengths(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return (_len<0)?(nullptr):(&_len);
@@ -86,16 +95,23 @@ class GLSLStrings
 {
 private:
 	GLsizei _count;
-	const GLchar** _strs;
+	const GLchar* const* _strs;
 	const GLint* _lens;
 
 	GLSLStrings(const GLSLStrings&);
 public:
-	GLSLStrings(GLsizei count, const GLchar** strs)
+	GLSLStrings(GLsizei count, const GLchar* const * strs)
 	OGLPLUS_NOEXCEPT(true)
 	 : _count(count)
 	 , _strs(strs)
 	 , _lens(nullptr)
+	{ }
+
+	GLSLStrings(GLsizei count, const GLchar* const* strs, const GLint* lens)
+	OGLPLUS_NOEXCEPT(true)
+	 : _count(count)
+	 , _strs(strs)
+	 , _lens(lens)
 	{ }
 
 	template <std::size_t N>
@@ -108,16 +124,24 @@ public:
 
 	GLSLStrings(const std::vector<const GLchar*>& v)
 	 : _count(GLsizei(v.size()))
-	 , _strs(const_cast<const GLchar**>(v.data()))
+	 , _strs(v.data())
 	 , _lens(nullptr)
 	{ }
 
 	template <std::size_t N>
 	GLSLStrings(const std::array<const GLchar*, N>& a)
 	 : _count(GLsizei(a.size()))
-	 , _strs(const_cast<const GLchar**>(a.data()))
+	 , _strs(a.data())
 	 , _lens(nullptr)
 	{ }
+
+#if !OGLPLUS_NO_INITIALIZER_LISTS
+	GLSLStrings(const std::initializer_list<const GLchar*>& l)
+	 : _count(GLsizei(l.size()))
+	 , _strs(l.begin())
+	 , _lens(nullptr)
+	{ }
+#endif
 
 	GLsizei Count(void) const
 	OGLPLUS_NOEXCEPT(true)
@@ -125,13 +149,13 @@ public:
 		return _count;
 	}
 
-	const GLchar** Parts(void) const
+	const GLchar* const* Parts(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _strs;
 	}
 
-	const GLint* Lengths(void) const
+	GLint const * Lengths(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _lens;

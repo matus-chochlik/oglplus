@@ -293,8 +293,8 @@ public:
 	 */
 	ObjectOps& BuildInclude(
 		GLsizei count,
-		const GLchar **paths,
-		const GLint *lengths
+		const GLchar* const* paths,
+		const GLint* lengths
 	);
 
 	ObjectOps& BuildInclude(const GLSLString& incl)
@@ -973,7 +973,7 @@ private:
 	static GLuint _make(
 		ShaderType shader_type,
 		GLsizei count,
-		const GLchar** strings
+		const GLchar* const* strings
 	);
 
 	template <typename Src>

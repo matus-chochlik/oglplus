@@ -32,7 +32,7 @@ struct GLSLSourceWrapper
 
 	virtual GLsizei Count(void) const = 0;
 
-	virtual const GLchar** Parts(void) const = 0;
+	virtual const GLchar* const* Parts(void) const = 0;
 
 	virtual const GLint* Lengths(void) const = 0;
 };
@@ -56,9 +56,9 @@ public:
 		return GLsizei(1);
 	}
 
-	const GLchar** Parts(void) const
+	const GLchar* const* Parts(void) const
 	{
-		return const_cast<const GLchar**>(&_ptr);
+		return &_ptr;
 	}
 
 	const GLint* Lengths(void) const
@@ -84,9 +84,9 @@ public:
 		return GLsizei(_ptrs.size());
 	}
 
-	const GLchar** Parts(void) const
+	const GLchar* const* Parts(void) const
 	{
-		return const_cast<const GLchar**>(_ptrs.data());
+		return _ptrs.data();
 	}
 
 	const GLint* Lengths(void) const
@@ -124,7 +124,7 @@ public:
 		return GLsizei(1);
 	}
 
-	const GLchar** Parts(void) const
+	const GLchar* const* Parts(void) const
 	{
 		return const_cast<const GLchar**>(&_ptr);
 	}
@@ -153,7 +153,7 @@ public:
 		return GLsizei(1);
 	}
 
-	const GLchar** Parts(void) const
+	const GLchar* const* Parts(void) const
 	{
 		return const_cast<const GLchar**>(&_pdata);
 	}

@@ -59,8 +59,8 @@ ObjectOps<tag::DirectState, tag::Shader>&
 ObjectOps<tag::DirectState, tag::Shader>::
 CompileInclude(
 	GLsizei count,
-	const GLchar **paths,
-	const GLint *lengths
+	const GLchar* const* paths,
+	const GLint* lengths
 )
 {
 	assert(_name != 0);

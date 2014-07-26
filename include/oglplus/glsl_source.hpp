@@ -135,7 +135,7 @@ public:
 	}
 
 	/// Pointers to the individual parts of the source
-	const GLchar** Parts(void) const
+	const GLchar* const* Parts(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_impl);
@@ -143,7 +143,7 @@ public:
 	}
 
 	/// Pointer to the lengths of the individual parts of the source
-	const GLint* Lengths(void) const
+	GLint const * Lengths(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_impl);

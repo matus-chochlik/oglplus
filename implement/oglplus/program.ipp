@@ -114,8 +114,8 @@ ObjectOps<tag::DirectState, tag::Program>&
 ObjectOps<tag::DirectState, tag::Program>::
 BuildInclude(
 	GLsizei count,
-	const GLchar **paths,
-	const GLint *lengths
+	const GLchar* const* paths,
+	const GLint* lengths
 )
 {
 	ShaderRange shaders = AttachedShaders();
@@ -539,13 +539,13 @@ OGLPLUS_LIB_FUNC
 GLuint ShaderProgram::_make(
 	ShaderType shader_type,
 	GLsizei count,
-	const GLchar** strings
+	const GLchar* const* strings
 )
 {
 	GLuint program = OGLPLUS_GLFUNC(CreateShaderProgramv)(
 		GLenum(shader_type),
 		count,
-		strings
+		const_cast<const GLchar**>(strings)
 	);
 	OGLPLUS_CHECK(
 		CreateShaderProgramv,

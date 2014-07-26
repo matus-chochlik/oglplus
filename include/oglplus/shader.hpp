@@ -159,12 +159,17 @@ public:
 	 */
 	ObjectOps& Source(
 		const GLsizei count,
-		const GLchar** srcs,
+		const GLchar* const * srcs,
 		const GLint* lens
 	)
 	{
 		assert(_name != 0);
-		OGLPLUS_GLFUNC(ShaderSource)(_name, count, srcs, lens);
+		OGLPLUS_GLFUNC(ShaderSource)(
+			_name,
+			count,
+			const_cast<const GLchar**>(srcs),
+			lens
+		);
 		OGLPLUS_VERIFY(
 			ShaderSource,
 			ObjectError,
@@ -269,8 +274,8 @@ public:
 	 */
 	ObjectOps& CompileInclude(
 		GLsizei count,
-		const GLchar **paths,
-		const GLint *lengths
+		const GLchar* const* paths,
+		const GLint* lengths
 	);
 
 	/// Compiles the shader using the specified include paths
