@@ -38,6 +38,8 @@ private:
 			std::forward<P2>(p2)
 		);
 	}
+
+	GLSLSource(const GLSLSource&);
 public:
 	~GLSLSource(void)
 	{
@@ -50,13 +52,6 @@ public:
 		tmp._impl = nullptr;
 	}
 
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
-	GLSLSource(const GLSLSource&) = delete;
-#else
-private:
-	GLSLSource(const GLSLSource&);
-public:
-#endif
 	explicit GLSLSource(const StrLit& source)
 	 : _impl(make_impl<aux::LitGLSLSrcWrap>(source))
 	{ }
