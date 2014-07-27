@@ -288,7 +288,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompileShaderIncludeARB}
 	 */
-	ObjectOps& CompileInclude(const GLSLString& incl)
+	ObjectOps& CompileInclude(GLSLString&& incl)
 	{
 		return CompileInclude(
 			incl.Count(),
@@ -297,7 +297,7 @@ public:
 		);
 	}
 
-	ObjectOps& CompileInclude(const GLSLStrings& incl)
+	ObjectOps& CompileInclude(GLSLStrings&& incl)
 	{
 		return CompileInclude(
 			incl.Count(),
@@ -380,30 +380,50 @@ public:
 	/// Construction with type and source code wrapper
 	Shader(
 		ShaderType type,
-		const GLSLSource& glsl_source
+		GLSLString&& glsl_source
 	): Object<ShaderOps>(type)
 	{
-		this->Source(glsl_source);
+		this->Source(std::move(glsl_source));
 		this->Compile();
 	}
 
-	/// Construction with type, description and source code string
+	/// Construction with type, description and source code wrapper
 	Shader(
 		ShaderType type,
 		ObjectDesc&& description,
-		const GLchar* glsl_source
+		GLSLString&& glsl_source
 	): Object<ShaderOps>(type, std::move(description))
 	{
-		this->Source(glsl_source);
+		this->Source(std::move(glsl_source));
 		this->Compile();
 	}
 
-	/// Construction with type, description and source code string
+	/// Construction with type and source code wrapper
+	Shader(
+		ShaderType type,
+		GLSLStrings&& glsl_source
+	): Object<ShaderOps>(type)
+	{
+		this->Source(std::move(glsl_source));
+		this->Compile();
+	}
+
+	/// Construction with type, description and source code wrapper
 	Shader(
 		ShaderType type,
 		ObjectDesc&& description,
-		const StrLit& glsl_source
+		GLSLStrings&& glsl_source
 	): Object<ShaderOps>(type, std::move(description))
+	{
+		this->Source(std::move(glsl_source));
+		this->Compile();
+	}
+
+	/// Construction with type and source code wrapper
+	Shader(
+		ShaderType type,
+		const GLSLSource& glsl_source
+	): Object<ShaderOps>(type)
 	{
 		this->Source(glsl_source);
 		this->Compile();
@@ -466,22 +486,32 @@ public:
 	{ }
 
 	/// Construction with a source code wrapper
+	SpecShader(GLSLString&& glsl_source)
+	 : Shader(ShType, std::move(glsl_source))
+	{ }
+
+	/// Construction with description and source code wrapper
+	SpecShader(
+		ObjectDesc&& description,
+		GLSLString&& glsl_source
+	): Shader(ShType, std::move(description), std::move(glsl_source))
+	{ }
+
+	/// Construction with a source code wrapper
+	SpecShader(GLSLStrings&& glsl_source)
+	 : Shader(ShType, std::move(glsl_source))
+	{ }
+
+	/// Construction with description and source code wrapper
+	SpecShader(
+		ObjectDesc&& description,
+		GLSLStrings&& glsl_source
+	): Shader(ShType, std::move(description), std::move(glsl_source))
+	{ }
+
+	/// Construction with a source code wrapper
 	SpecShader(const GLSLSource& glsl_source)
 	 : Shader(ShType, glsl_source)
-	{ }
-
-	/// Construction with description and source code string
-	SpecShader(
-		ObjectDesc&& description,
-		const GLchar* glsl_source
-	): Shader(ShType, std::move(description), glsl_source)
-	{ }
-
-	/// Construction with description and source code string
-	SpecShader(
-		ObjectDesc&& description,
-		const StrLit& glsl_source
-	): Shader(ShType, std::move(description), glsl_source)
 	{ }
 
 	/// Construction with description and source code wrapper
