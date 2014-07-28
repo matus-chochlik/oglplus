@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <sstream>
 #include <stdexcept>
+#include <cassert>
 
 namespace oglplus {
 namespace shapes {
@@ -19,10 +20,18 @@ namespace shapes {
 OGLPLUS_LIB_FUNC
 bool ObjMesh::_load_index(
 	GLuint& value,
+	GLuint n_verts,
 	std::string::const_iterator& i,
 	std::string::const_iterator& e
 )
 {
+	bool neg = false;
+	if((i != e) && (*i == '-'))
+	{
+		neg = true;
+		++i;
+		while((i != e) && (std::isspace(*i))) ++i;
+	}
 	if((i != e) && (*i >= '0') && (*i <= '9'))
 	{
 		value = 0;
@@ -32,6 +41,11 @@ bool ObjMesh::_load_index(
 			value += *i-'0';
 			++i;
 		}
+		if(neg)
+		{
+			assert(n_verts > value);
+			value = n_verts - value;
+		}
 		return true;
 	}
 	return false;
@@ -40,13 +54,15 @@ bool ObjMesh::_load_index(
 OGLPLUS_LIB_FUNC
 bool ObjMesh::_load_indices(
 	_vert_indices& indices,
+	const _vert_indices& counts,
 	std::string::const_iterator& i,
 	std::string::const_iterator& e
 )
 {
 	indices = _vert_indices();
+
 	while((i != e) && (std::isspace(*i))) ++i;
-	if(_load_index(indices._pos, i, e))
+	if(_load_index(indices._pos, counts._pos, i, e))
 	{
 		if(i == e) return true;
 		if(std::isspace(*i)) return true;
@@ -54,18 +70,22 @@ bool ObjMesh::_load_indices(
 		{
 			++i;
 			if(i == e) return false;
-			if((*i >= '0') && (*i <= '9'))
+			if(*i != '/')
 			{
-				if(!_load_index(indices._tex, i, e))
+				if(!_load_index(indices._tex,counts._tex, i, e))
+				{
 					return false;
+				}
 			}
 			if(*i == '/')
 			{
 				++i;
 				if(i == e) return false;
 				if(std::isspace(*i)) return false;
-				if(!_load_index(indices._nml, i, e))
+				if(!_load_index(indices._nml,counts._nml, i, e))
+				{
 					return false;
+				}
 			}
 			return (i == e) || std::isspace(*i);
 		}
@@ -95,9 +115,16 @@ void ObjMesh::_load_meshes(
 	std::vector<double> tex_data(unused, unused+3);
 	// unused material
 	std::vector<double> mtl_data(1, 0);
+	// vertex attrib tuple counts
+	_vert_indices n_attr;
+	n_attr._pos = 1;
+	n_attr._nml = 1;
+	n_attr._tex = 1;
+	n_attr._mtl = 1;
 	// unused index
 	std::vector<_vert_indices> idx_data(1, _vert_indices());
 	_mtl_names.push_back(std::string());
+	// the current count of vertices
 
 	std::vector<std::string> mesh_names;
 	std::vector<GLuint> mesh_offsets;
@@ -179,9 +206,21 @@ void ObjMesh::_load_meshes(
 				str >> v[0];
 				str >> v[1];
 				str >> v[2];
-				if(t == ' ') pos_data.insert(pos_data.end(), v, v+3);
-				if(t == 'n') nml_data.insert(nml_data.end(), v, v+3);
-				if(t == 't') tex_data.insert(tex_data.end(), v, v+3);
+				if(t == ' ')
+				{
+					pos_data.insert(pos_data.end(), v, v+3);
+					++n_attr._pos;
+				}
+				if(t == 'n')
+				{
+					nml_data.insert(nml_data.end(), v, v+3);
+					++n_attr._nml;
+				}
+				if(t == 't')
+				{
+					tex_data.insert(tex_data.end(), v, v+3);
+					++n_attr._tex;
+				}
 			}
 		}
 		else if(*i == 'f')
@@ -191,7 +230,7 @@ void ObjMesh::_load_meshes(
 			_vert_indices vi1[3];
 			for(std::size_t n=0; n!=3; ++n)
 			{
-				if(!_load_indices(vi1[n], i, e))
+				if(!_load_indices(vi1[n], n_attr, i, e))
 				{
 					throw std::runtime_error(
 						"Obj file loader: Error reading indices: "+
@@ -202,7 +241,7 @@ void ObjMesh::_load_meshes(
 			}
 			idx_data.insert(idx_data.end(), vi1, vi1+3);
 			_vert_indices vi2[3] = {vi1[0], vi1[2], _vert_indices()};
-			while(_load_indices(vi2[2], i, e))
+			while(_load_indices(vi2[2], n_attr, i, e))
 			{
 				vi2[2]._mtl = curr_mtl;
 				idx_data.insert(idx_data.end(), vi2, vi2+3);

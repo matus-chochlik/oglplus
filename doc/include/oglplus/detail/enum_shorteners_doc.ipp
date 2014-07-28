@@ -24017,6 +24017,39 @@ template <typename Enum> friend bool operator==(Enum value, ShaderImageAccess);
 template <typename Enum> friend bool operator!=(Enum value, ShaderImageAccess);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ShaderInclude value.
+/**
+ *  @see @ref oglplus::NamedStringType "NamedStringType"
+ *
+ *  @glsymbols
+ *  @gldefref{SHADER_INCLUDE_ARB}
+ *
+ *  @ingroup smart_enums
+ */
+struct ShaderInclude {
+
+/// Conversion to any @p Enum type having the ShaderInclude value.
+/** Instances of the @ref oglplus::smart_enums::ShaderInclude "ShaderInclude"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ShaderInclude value.
+ */
+template <typename Enum, Enum = Enum::ShaderInclude> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ShaderInclude value.
+/** Instances of the @c smart_enums::ShaderInclude type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ShaderInclude value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ShaderInclude);
+
+/// Non-equality comparison with any @p Enum type having the ShaderInclude value.
+/** Instances of the @c smart_enums::ShaderInclude type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ShaderInclude value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ShaderInclude);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ShaderStorage value.
 /**
  *  @see @ref oglplus::BufferIndexedTarget "BufferIndexedTarget"

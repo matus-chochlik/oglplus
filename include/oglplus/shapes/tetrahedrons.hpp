@@ -28,6 +28,7 @@ namespace shapes {
 /// Provides data and instructions for rendering of cube filling tetrahedrons
 class Tetrahedrons
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	GLdouble _side;
@@ -134,10 +135,10 @@ public:
 	typedef std::vector<GLuint> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray IndicesWithAdjacency(void) const;
+	IndexArray Indices(WithAdjacency = WithAdjacency()) const;
 
 	/// Returns the instructions for rendering
-	DrawingInstructions InstructionsWithAdjacency(void) const;
+	DrawingInstructions Instructions(WithAdjacency = WithAdjacency()) const;
 };
 
 } // shapes

@@ -28,6 +28,9 @@ of Boost.Config is disabled by default.
 #include <boost/config.hpp>
 #endif
 
+// The default values for the preprocessor symbols indicating
+// compiler capabilities are also defined here.
+
 } // namespace oglplus
 //]
 

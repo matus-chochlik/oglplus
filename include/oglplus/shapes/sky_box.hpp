@@ -25,6 +25,7 @@ namespace shapes {
 /// Class providing vertex attributes and instructions for drawing of a sky box
 class SkyBox
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 public:
@@ -81,7 +82,7 @@ public:
 	typedef std::vector<GLushort> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const
+	IndexArray Indices(Default = Default()) const
 	{
 		const GLushort _indices[6*5] = {
 			1, 3, 5, 7, 9,
@@ -95,7 +96,7 @@ public:
 	}
 
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const
+	DrawingInstructions Instructions(Default = Default()) const
 	{
 		DrawOperation operation;
 		operation.method = DrawOperation::Method::DrawElements;

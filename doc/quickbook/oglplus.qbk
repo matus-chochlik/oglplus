@@ -17,6 +17,9 @@
 
 [def __OGLPLUS_NO_SITE_CONFIG [link oglplus.quickref.config.compiler [^OGLPLUS_NO_SITE_CONFIG]]]
 
+[def __OGLPLUS_USE_BOOST_CONFIG [link oglplus.quickref.config.site.boost_config
+[^OGLPLUS_USE_BOOST_CONFIG]]]
+
 [def __OGLPLUS_LOW_PROFILE [link oglplus.quickref.config.basic [^OGLPLUS_LOW_PROFILE]]]
 [def __OGLPLUS_LINK_LIBRARY [link oglplus.quickref.config.basic [^OGLPLUS_LINK_LIBRARY]]]
 

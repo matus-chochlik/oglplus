@@ -192,8 +192,8 @@ bool SpectraVisDataUploader::DoWork(void)
 
 		spectrum_data.Bind(oglplus::Buffer::Target::Texture);
 		oglplus::Buffer::SubData(
-			oglplus::Buffer::Target::Texture,
-			spectrum_size*current_row,
+			oglplus::BufferTarget::Texture,
+			oglplus::BufferSize::Of<GLfloat>(spectrum_size*current_row),
 			spectrum_size*n,
 			data_buf.data()
 		);

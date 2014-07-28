@@ -104,10 +104,10 @@ private:
 	GLuint width, height;
 public:
 	DOFExample(const ExampleParams& params)
-	 : face_instr(make_cube.Instructions())
-	 , edge_instr(make_cube.EdgeInstructions())
-	 , face_indices(make_cube.Indices())
-	 , edge_indices(make_cube.EdgeIndices())
+	 : face_instr(make_cube.Instructions(shapes::DrawMode::Default()))
+	 , edge_instr(make_cube.Instructions(shapes::DrawMode::Edges()))
+	 , face_indices(make_cube.Indices(shapes::DrawMode::Default()))
+	 , edge_indices(make_cube.Indices(shapes::DrawMode::Edges()))
 	 , cube_matrices(MakeCubeMatrices(100, 10.0))
 	 , viewport_width(dof_prog, "ViewportWidth")
 	 , viewport_height(dof_prog, "ViewportHeight")

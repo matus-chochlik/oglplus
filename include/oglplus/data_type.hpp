@@ -51,7 +51,7 @@ template <>
 struct DataTypeCT<GLbyte>
  : public std::integral_constant<
 	typename enums::EnumValueType<DataType>::Type,
-	OGLPLUS_CONST_ENUM_VALUE(DataType::Byte)
+	DataType::Byte
 >
 { };
 
@@ -59,7 +59,7 @@ template <>
 struct DataTypeCT<GLshort>
  : public std::integral_constant<
 	typename enums::EnumValueType<DataType>::Type,
-	OGLPLUS_CONST_ENUM_VALUE(DataType::Short)
+	DataType::Short
 >
 { };
 
@@ -67,7 +67,7 @@ template <>
 struct DataTypeCT<GLint>
  : public std::integral_constant<
 	typename enums::EnumValueType<DataType>::Type,
-	OGLPLUS_CONST_ENUM_VALUE(DataType::Int)
+	DataType::Int
 >
 { };
 
@@ -75,7 +75,7 @@ template <>
 struct DataTypeCT<GLubyte>
  : public std::integral_constant<
 	typename enums::EnumValueType<DataType>::Type,
-	OGLPLUS_CONST_ENUM_VALUE(DataType::UnsignedByte)
+	DataType::UnsignedByte
 >
 { };
 
@@ -83,7 +83,7 @@ template <>
 struct DataTypeCT<GLushort>
  : public std::integral_constant<
 	typename enums::EnumValueType<DataType>::Type,
-	OGLPLUS_CONST_ENUM_VALUE(DataType::UnsignedShort)
+	DataType::UnsignedShort
 >
 { };
 
@@ -91,7 +91,7 @@ template <>
 struct DataTypeCT<GLuint>
  : public std::integral_constant<
 	typename enums::EnumValueType<DataType>::Type,
-	OGLPLUS_CONST_ENUM_VALUE(DataType::UnsignedInt)
+	DataType::UnsignedInt
 >
 { };
 
@@ -99,7 +99,7 @@ template <>
 struct DataTypeCT<GLfloat>
  : public std::integral_constant<
 	typename enums::EnumValueType<DataType>::Type,
-	OGLPLUS_CONST_ENUM_VALUE(DataType::Float)
+	DataType::Float
 >
 { };
 
@@ -108,7 +108,7 @@ template <>
 struct DataTypeCT<GLdouble>
  : public std::integral_constant<
 	typename enums::EnumValueType<DataType>::Type,
-	OGLPLUS_CONST_ENUM_VALUE(DataType::Double)
+	DataType::Double
 >
 { };
 #endif

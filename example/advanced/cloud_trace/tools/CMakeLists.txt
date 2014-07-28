@@ -15,6 +15,10 @@ add_executable(
 	EXCLUDE_FROM_ALL
 	blender2csv.cpp
 )
+set_property(
+	TARGET blender2csv
+	PROPERTY FOLDER "Example/Advanced/CloudTrace/Tools"
+)
 
 add_dependencies(oglplus-advanced-example-cloud_trace-tools blender2csv)
 add_dependencies(oglplus-advanced-examples oglplus-advanced-example-cloud_trace-tools)

@@ -158,26 +158,30 @@ public:
 	 *  @glfunref{ShaderSource}
 	 */
 	ObjectOps& Source(
-		const GLchar** srcs,
-		const GLint* lens,
-		int count
+		const GLsizei count,
+		const GLchar* const * srcs,
+		const GLint* lens
 	)
 	{
 		assert(_name != 0);
-		OGLPLUS_GLFUNC(ShaderSource)(_name, count, srcs, lens);
+		OGLPLUS_GLFUNC(ShaderSource)(
+			_name,
+			count,
+			const_cast<const GLchar**>(srcs),
+			lens
+		);
+		OGLPLUS_VERIFY(
+			ShaderSource,
+			ObjectError,
+			Object(*this)
+		);
 		return *this;
 	}
 
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
-	ObjectOps& Source(const String& source)
+	template <typename Src>
+	ObjectOps& SourceTpl(const Src& src)
 	{
-		const GLchar* srcs[1] = {source.c_str()};
-		GLint lens[1] = {GLint(source.size())};
-		return Source(srcs, lens, 1);
+		return Source(src.Count(), src.Parts(), src.Lengths());
 	}
 
 	/// Set the source code of the shader
@@ -185,11 +189,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	ObjectOps& Source(const StrLit& source)
+	ObjectOps& Source(GLSLString&& source)
 	{
-		const GLchar* srcs[1] = {source.c_str()};
-		GLint lens[1] = {GLint(source.size())};
-		return Source(srcs, lens, 1);
+		return SourceTpl(source);
 	}
 
 	/// Set the source code of the shader
@@ -197,50 +199,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	ObjectOps& Source(const GLchar* source)
+	ObjectOps& Source(GLSLStrings&& source)
 	{
-		return Source(&source, nullptr, 1);
-	}
-
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
-	ObjectOps& Source(const GLchar** srcs, int count)
-	{
-		return Source(srcs, nullptr, count);
-	}
-
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
-	ObjectOps& Source(const std::vector<const GLchar*>& srcs)
-	{
-		return Source(
-			const_cast<const GLchar**>(srcs.data()),
-			nullptr,
-			srcs.size()
-		);
-	}
-
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
-	template <std::size_t N>
-	ObjectOps& Source(
-		const std::array<const GLchar*, N>& srcs
-	)
-	{
-		return Source(
-			const_cast<const GLchar**>(srcs.data()),
-			nullptr,
-			srcs.size()
-		);
+		return SourceTpl(source);
 	}
 
 	/// Set the source code of the shader
@@ -250,11 +211,7 @@ public:
 	 */
 	ObjectOps& Source(const GLSLSource& glsl_source)
 	{
-		return Source(
-			glsl_source.Parts(),
-			glsl_source.Lengths(),
-			glsl_source.Count()
-		);
+		return SourceTpl(glsl_source);
 	}
 
 	/// Returns true if the shader is already compiled, returns false otherwise
@@ -300,6 +257,64 @@ public:
 	 *  @glfunref{CompileShader}
 	 */
 	ObjectOps& Compile(void);
+
+
+#if OGLPLUS_DOCUMENTATION_ONLY || \
+	GL_ARB_shading_language_include
+
+	/// Compiles the shader using the specified include paths
+	/**
+	 *  @post IsCompiled()
+	 *  @throws Error CompileError
+	 *  @see IsCompiled
+	 *
+	 *  @glverreq{ARB,shading_language_include}
+	 *  @glsymbols
+	 *  @glfunref{CompileShaderIncludeARB}
+	 */
+	ObjectOps& CompileInclude(
+		GLsizei count,
+		const GLchar* const* paths,
+		const GLint* lengths
+	);
+
+	/// Compiles the shader using the specified include paths
+	/**
+	 *  @post IsCompiled()
+	 *  @throws Error CompileError
+	 *  @see IsCompiled
+	 *
+	 *  @glverreq{ARB,shading_language_include}
+	 *  @glsymbols
+	 *  @glfunref{CompileShaderIncludeARB}
+	 */
+	ObjectOps& CompileInclude(GLSLString&& incl)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+
+	ObjectOps& CompileInclude(GLSLStrings&& incl)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+
+	ObjectOps& CompileInclude(const GLSLSource& incl)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || \
 	GL_ES_VERSION_3_0 || \
@@ -365,30 +380,50 @@ public:
 	/// Construction with type and source code wrapper
 	Shader(
 		ShaderType type,
-		const GLSLSource& glsl_source
+		GLSLString&& glsl_source
 	): Object<ShaderOps>(type)
 	{
-		this->Source(glsl_source);
+		this->Source(std::move(glsl_source));
 		this->Compile();
 	}
 
-	/// Construction with type, description and source code string
+	/// Construction with type, description and source code wrapper
 	Shader(
 		ShaderType type,
 		ObjectDesc&& description,
-		const GLchar* glsl_source
+		GLSLString&& glsl_source
 	): Object<ShaderOps>(type, std::move(description))
 	{
-		this->Source(glsl_source);
+		this->Source(std::move(glsl_source));
 		this->Compile();
 	}
 
-	/// Construction with type, description and source code string
+	/// Construction with type and source code wrapper
+	Shader(
+		ShaderType type,
+		GLSLStrings&& glsl_source
+	): Object<ShaderOps>(type)
+	{
+		this->Source(std::move(glsl_source));
+		this->Compile();
+	}
+
+	/// Construction with type, description and source code wrapper
 	Shader(
 		ShaderType type,
 		ObjectDesc&& description,
-		const StrLit& glsl_source
+		GLSLStrings&& glsl_source
 	): Object<ShaderOps>(type, std::move(description))
+	{
+		this->Source(std::move(glsl_source));
+		this->Compile();
+	}
+
+	/// Construction with type and source code wrapper
+	Shader(
+		ShaderType type,
+		const GLSLSource& glsl_source
+	): Object<ShaderOps>(type)
 	{
 		this->Source(glsl_source);
 		this->Compile();
@@ -451,22 +486,32 @@ public:
 	{ }
 
 	/// Construction with a source code wrapper
+	SpecShader(GLSLString&& glsl_source)
+	 : Shader(ShType, std::move(glsl_source))
+	{ }
+
+	/// Construction with description and source code wrapper
+	SpecShader(
+		ObjectDesc&& description,
+		GLSLString&& glsl_source
+	): Shader(ShType, std::move(description), std::move(glsl_source))
+	{ }
+
+	/// Construction with a source code wrapper
+	SpecShader(GLSLStrings&& glsl_source)
+	 : Shader(ShType, std::move(glsl_source))
+	{ }
+
+	/// Construction with description and source code wrapper
+	SpecShader(
+		ObjectDesc&& description,
+		GLSLStrings&& glsl_source
+	): Shader(ShType, std::move(description), std::move(glsl_source))
+	{ }
+
+	/// Construction with a source code wrapper
 	SpecShader(const GLSLSource& glsl_source)
 	 : Shader(ShType, glsl_source)
-	{ }
-
-	/// Construction with description and source code string
-	SpecShader(
-		ObjectDesc&& description,
-		const GLchar* glsl_source
-	): Shader(ShType, std::move(description), glsl_source)
-	{ }
-
-	/// Construction with description and source code string
-	SpecShader(
-		ObjectDesc&& description,
-		const StrLit& glsl_source
-	): Shader(ShType, std::move(description), glsl_source)
 	{ }
 
 	/// Construction with description and source code wrapper
@@ -487,8 +532,7 @@ public:
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Vertex)>
-	VertexShader;
+typedef SpecShader<ShaderType::Vertex> VertexShader;
 
 /// Geometry shader wrapper
 /**
@@ -496,8 +540,7 @@ typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Vertex)>
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Geometry)>
-	GeometryShader;
+typedef SpecShader<ShaderType::Geometry> GeometryShader;
 
 /// Fragment shader wrapper
 /**
@@ -505,8 +548,7 @@ typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Geometry)>
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Fragment)>
-	FragmentShader;
+typedef SpecShader<ShaderType::Fragment> FragmentShader;
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_TESS_CONTROL_SHADER
 /// Tesselation control shader wrapper
@@ -515,8 +557,7 @@ typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Fragment)>
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessControl)>
-	TessControlShader;
+typedef SpecShader<ShaderType::TessControl> TessControlShader;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_TESS_EVALUATION_SHADER
@@ -526,8 +567,7 @@ typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessControl)>
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessEvaluation)>
-	TessEvaluationShader;
+typedef SpecShader<ShaderType::TessEvaluation> TessEvaluationShader;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_COMPUTE_SHADER
@@ -537,8 +577,7 @@ typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessEvaluation)>
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Compute)>
-	ComputeShader;
+typedef SpecShader<ShaderType::Compute> ComputeShader;
 #endif
 
 } // namespace oglplus

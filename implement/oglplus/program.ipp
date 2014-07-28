@@ -11,6 +11,8 @@
 
 #include <oglplus/lib/incl_begin.ipp>
 #include <oglplus/detail/info_log.hpp>
+#include <oglplus/object/reference.hpp>
+#include <oglplus/shader.hpp>
 #include <oglplus/lib/incl_end.ipp>
 
 namespace oglplus {
@@ -87,6 +89,52 @@ Link(void)
 	);
 	return *this;
 }
+
+OGLPLUS_LIB_FUNC
+ObjectOps<tag::DirectState, tag::Program>&
+ObjectOps<tag::DirectState, tag::Program>::
+Build(void)
+{
+	ShaderRange shaders = AttachedShaders();
+	while(!shaders.Empty())
+	{
+		Reference<ShaderOps> shader = shaders.Front();
+		if(!shader.IsCompiled())
+		{
+			shader.Compile();
+		}
+		shaders.Next();
+	}
+	return Link();
+}
+
+#if GL_ARB_shading_language_include
+OGLPLUS_LIB_FUNC
+ObjectOps<tag::DirectState, tag::Program>&
+ObjectOps<tag::DirectState, tag::Program>::
+BuildInclude(
+	GLsizei count,
+	const GLchar* const* paths,
+	const GLint* lengths
+)
+{
+	ShaderRange shaders = AttachedShaders();
+	while(!shaders.Empty())
+	{
+		Reference<ShaderOps> shader = shaders.Front();
+		if(!shader.IsCompiled())
+		{
+			shader.CompileInclude(
+				count,
+				paths,
+				lengths
+			);
+		}
+		shaders.Next();
+	}
+	return Link();
+}
+#endif
 
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>&
@@ -491,13 +539,13 @@ OGLPLUS_LIB_FUNC
 GLuint ShaderProgram::_make(
 	ShaderType shader_type,
 	GLsizei count,
-	const GLchar** strings
+	const GLchar* const* strings
 )
 {
 	GLuint program = OGLPLUS_GLFUNC(CreateShaderProgramv)(
 		GLenum(shader_type),
 		count,
-		strings
+		const_cast<const GLchar**>(strings)
 	);
 	OGLPLUS_CHECK(
 		CreateShaderProgramv,

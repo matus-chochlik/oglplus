@@ -183,13 +183,7 @@ public:
 				);
 		}
 		// typechecked uniform with exact data type
-		// on compilers supporting strongly typed enums
-		// you can use:
-		//Typechecked<Uniform<SLtoCpp<SLDataType::Sampler2D>>>(prog, "TexUnit").Set(0);
-		// without strongly typed enums you need to do:
-		typedef SLtoCpp<OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2D)> GLSLsampler2D;
-		Typechecked<Uniform<GLSLsampler2D>>(prog, "TexUnit").Set(0);
-
+		Typechecked<Uniform<SLtoCpp<SLDataType::Sampler2D>>>(prog, "TexUnit").Set(0);
 		//
 		Uniform<Vec3f>(prog, "LightPos").Set(4.0f, 4.0f, -8.0f);
 

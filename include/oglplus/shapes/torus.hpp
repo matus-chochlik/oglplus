@@ -27,6 +27,7 @@ namespace shapes {
 /// Class providing vertex attributes and instructions for rendering of a Torus
 class Torus
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	GLdouble _radius_out, _radius_in;
@@ -230,16 +231,22 @@ public:
 	typedef std::vector<GLushort> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const;
+	IndexArray Indices(Default = Default()) const;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray IndicesWithAdjacency(void) const;
+	IndexArray Indices(Quads) const;
+
+	/// Returns element indices that are used with the drawing instructions
+	IndexArray Indices(WithAdjacency) const;
 
 	/// Returns the instructions for rendering
-	DrawingInstructions Instructions(void) const;
+	DrawingInstructions Instructions(Default = Default()) const;
 
 	/// Returns the instructions for rendering
-	DrawingInstructions InstructionsWithAdjacency(void) const;
+	DrawingInstructions Instructions(Quads) const;
+
+	/// Returns the instructions for rendering
+	DrawingInstructions Instructions(WithAdjacency) const;
 };
 
 } // shapes

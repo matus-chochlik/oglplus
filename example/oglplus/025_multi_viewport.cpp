@@ -67,7 +67,6 @@ private:
 			"	vertLightRefl = reflect(-vertLightDir, vertNormal);"
 			"}"
 		);
-		vs.Compile();
 
 		GeometryShader gs;
 		gs.Source(
@@ -118,7 +117,6 @@ private:
 			"	}"
 			"}"
 		);
-		gs.Compile();
 
 		FragmentShader fs;
 		fs.Source(
@@ -152,13 +150,12 @@ private:
 			"	);"
 			"}"
 		);
-		fs.Compile();
 
 		Program prog;
 		prog.AttachShader(vs);
 		prog.AttachShader(gs);
 		prog.AttachShader(fs);
-		prog.Link();
+		prog.Build();
 		prog.Use();
 		return prog;
 	}
@@ -328,7 +325,6 @@ public:
 			ModelMatrixf::RotationX(FullCircles(time / 10.0))
 		);
 
-		shape.Bind();
 		shape_instr.Draw(shape_indices);
 	}
 

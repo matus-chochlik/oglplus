@@ -27,6 +27,7 @@ namespace shapes {
 /// Class providing vertex attributes and instructions for rendering of a vector
 class PointAndVector
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	GLdouble _x, _y, _z;
@@ -105,13 +106,13 @@ public:
 	typedef std::vector<GLushort> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const
+	IndexArray Indices(Default = Default()) const
 	{
 		return IndexArray();
 	}
 
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const
+	DrawingInstructions Instructions(Default = Default()) const
 	{
 		DrawOperation operation;
 		operation.method = DrawOperation::Method::DrawArrays;

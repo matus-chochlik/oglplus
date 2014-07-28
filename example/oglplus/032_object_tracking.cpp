@@ -548,10 +548,12 @@ public:
 	 , instance_count(count)
 	 , matrix_buffer(MakeModelMatrices(instance_count))
 	{
-		std::vector<GLfloat> data(instance_count*4, 0.0f);
-
 		track_buffer.Bind(Buffer::Target::CopyRead);
-		Buffer::Data(Buffer::Target::CopyRead, data, BufferUsage::DynamicCopy);
+		Buffer::Resize(
+			BufferTarget::CopyRead,
+			BufferSize::Of<GLfloat>(instance_count*4),
+			BufferUsage::DynamicCopy
+		);
 
 		track_xfb.Bind();
 		track_buffer.Bind(Buffer::Target::TransformFeedback);

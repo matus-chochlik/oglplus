@@ -296,8 +296,8 @@ public:
 	Grid(const Program& prog, float quality)
 	 : grid_div(64 + (quality > 0.75 ? 64 : 0))
 	 , make_grid(1.0, grid_div)
-	 , grid_instr(make_grid.InstructionsWithAdjacency())
-	 , grid_indices(make_grid.IndicesWithAdjacency())
+	 , grid_instr(make_grid.Instructions())
+	 , grid_indices(make_grid.Indices())
 	{
 		// bind the VAO for the shape
 		vao.Bind();

@@ -31,6 +31,7 @@ namespace shapes {
 /// Class providing vertex attributes and instructions for rendering of a Screen
 class Screen
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 public:
 	/// Returns the winding direction of faces
@@ -176,13 +177,13 @@ public:
 	typedef std::vector<GLuint> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const
+	IndexArray Indices(Default = Default()) const
 	{
 		return IndexArray();
 	}
 
 	/// Returns the instructions for rendering
-	DrawingInstructions Instructions(void) const
+	DrawingInstructions Instructions(Default = Default()) const
 	{
 		auto instructions = this->MakeInstructions();
 

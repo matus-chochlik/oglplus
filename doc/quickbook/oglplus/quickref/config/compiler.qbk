@@ -8,6 +8,15 @@
 
 [header oglplus/config/compiler.hpp]
 
+This header is used by the rest of the library to determine the
+[link oglplus.quickref.config.site.compiler capabilities]
+of the currently used compiler.
+The values are taken either externally from the build system
+through the compiler command-line or an IDE or from the
+[link oglplus.quickref.config.site site-configuration header]
+or from the [link oglplus.quickref.config.boost_config Boost.Config]
+library.
+
 [import compiler.hpp]
 [oglplus_config_compiler]
 

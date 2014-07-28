@@ -53,5 +53,32 @@ Compile(void)
 	return *this;
 }
 
+#if GL_ARB_shading_language_include
+OGLPLUS_LIB_FUNC
+ObjectOps<tag::DirectState, tag::Shader>&
+ObjectOps<tag::DirectState, tag::Shader>::
+CompileInclude(
+	GLsizei count,
+	const GLchar* const* paths,
+	const GLint* lengths
+)
+{
+	assert(_name != 0);
+	OGLPLUS_GLFUNC(CompileShaderIncludeARB)(
+		_name,
+		count,
+		const_cast<const GLchar**>(paths),
+		lengths
+	);
+	OGLPLUS_CHECK(
+		CompileShaderIncludeARB,
+		ObjectError,
+		Object(*this).
+		EnumParam(Type())
+	);
+	return *this;
+}
+#endif
+
 } // namespace oglplus
 

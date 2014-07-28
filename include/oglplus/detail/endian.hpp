@@ -136,31 +136,23 @@ template <
 struct EndianReorderer;
 
 template <>
-struct EndianReorderer<
-	OGLPLUS_CONST_ENUM_VALUE(Endian::Little),
-	OGLPLUS_CONST_ENUM_VALUE(Endian::Little)
->: EndianNoReorder
+struct EndianReorderer<Endian::Little, Endian::Little>
+ : EndianNoReorder
 { };
 
 template <>
-struct EndianReorderer<
-	OGLPLUS_CONST_ENUM_VALUE(Endian::Big),
-	OGLPLUS_CONST_ENUM_VALUE(Endian::Big)
->: EndianNoReorder
+struct EndianReorderer<Endian::Big, Endian::Big>
+ : EndianNoReorder
 { };
 
 template <>
-struct EndianReorderer<
-	OGLPLUS_CONST_ENUM_VALUE(Endian::Big),
-	OGLPLUS_CONST_ENUM_VALUE(Endian::Little)
->: EndianDoReorder
+struct EndianReorderer<Endian::Big, Endian::Little>
+ : EndianDoReorder
 { };
 
 template <>
-struct EndianReorderer<
-	OGLPLUS_CONST_ENUM_VALUE(Endian::Little),
-	OGLPLUS_CONST_ENUM_VALUE(Endian::Big)
->: EndianDoReorder
+struct EndianReorderer<Endian::Little, Endian::Big>
+ : EndianDoReorder
 { };
 
 template <typename oglplus::enums::EnumValueType<Endian>::Type From>

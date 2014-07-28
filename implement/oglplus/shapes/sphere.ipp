@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,7 +13,8 @@ namespace oglplus {
 namespace shapes {
 
 OGLPLUS_LIB_FUNC
-Sphere::IndexArray Sphere::Indices(void) const
+Sphere::IndexArray
+Sphere::Indices(Sphere::Default) const
 {
 	assert((1<<(sizeof(GLushort)*8))-1>=((_rings+2)*(_sections+1)));
 	//
@@ -40,7 +41,8 @@ Sphere::IndexArray Sphere::Indices(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions Sphere::Instructions(void) const
+DrawingInstructions
+Sphere::Instructions(Sphere::Default) const
 {
 	auto instructions = this->MakeInstructions();
 

@@ -61,21 +61,23 @@ void DrawOperation::Draw_(
 {
 	switch(method)
 	{
-		case OGLPLUS_CONST_ENUM_VALUE(
-			Method::DrawArrays
-		): return DrawArrays_(
-			inst_count,
-			base_inst
-		);
+		case Method::DrawArrays:
+		{
+			return DrawArrays_(
+				inst_count,
+				base_inst
+			);
+		}
 
-		case OGLPLUS_CONST_ENUM_VALUE(
-			Method::DrawElements
-		): return DrawElements_(
-			indices,
-			index_data_type,
-			inst_count,
-			base_inst
-		);
+		case Method::DrawElements:
+		{
+			return DrawElements_(
+				indices,
+				index_data_type,
+				inst_count,
+				base_inst
+			);
+		}
 	}
 }
 

@@ -490,7 +490,7 @@ public:
 		GLint values_per_vertex,
 		std::integral_constant<
 			typename enums::EnumValueType<DataType>::Type,
-			OGLPLUS_CONST_ENUM_VALUE(DataType::Float)
+			DataType::Float
 		>
 	) const
 	{
@@ -508,7 +508,7 @@ public:
 		GLint values_per_vertex,
 		std::integral_constant<
 			typename enums::EnumValueType<DataType>::Type,
-			OGLPLUS_CONST_ENUM_VALUE(DataType::Double)
+			DataType::Double
 		>
 	) const
 	{

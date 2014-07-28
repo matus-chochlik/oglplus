@@ -28,6 +28,7 @@ namespace shapes {
 /// Class providing vertex attributes and instructions for rendering of a cube
 class Cube
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	GLdouble _sx, _sy, _sz;
@@ -183,19 +184,19 @@ public:
 	typedef std::vector<GLushort> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const
+	IndexArray Indices(Default = Default()) const
 	{
 		return IndexArray();
 	}
 
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const;
+	DrawingInstructions Instructions(Default = Default()) const;
 
 	/// Returns element indices for the Cube's edges
-	IndexArray EdgeIndices(void) const;
+	IndexArray Indices(Edges) const;
 
 	/// Returns the instructions for rendering of edges
-	DrawingInstructions EdgeInstructions(void) const;
+	DrawingInstructions Instructions(Edges) const;
 };
 
 } // shapes
