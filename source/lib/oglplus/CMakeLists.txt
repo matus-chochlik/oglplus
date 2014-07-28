@@ -37,6 +37,10 @@ if(HAS_GL_KHR_debug)
 endif()
 
 add_library(oglplus EXCLUDE_FROM_ALL ${OGLPLUS_LIB_SOURCES})
+set_property(
+	TARGET oglplus
+	PROPERTY FOLDER "Library/OGLplus"
+)
 
 if(PNG_FOUND)
 	target_link_libraries(oglplus ${PNG_LIBRARIES})

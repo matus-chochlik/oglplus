@@ -12,4 +12,8 @@ if(OPENAL_FOUND)
 		error.cpp
 		context.cpp
 	)
+	set_property(
+		TARGET oalplus
+		PROPERTY FOLDER "Library/OALplus"
+	)
 endif()
