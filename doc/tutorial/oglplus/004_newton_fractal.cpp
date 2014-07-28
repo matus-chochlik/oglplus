@@ -154,10 +154,10 @@
  *  by using the @c Buffer 's @c Data static function.
  *  @skipline Buffer::Data(
  *
- *  Then we use a oglplus::VertexAttribArray object referencing the @c Position
+ *  Then we use a oglplus::VertexArrayAttrib object referencing the @c Position
  *  input variable in the @c prog program, to tell OpenGL about the structure
  *  of the data in the currently bound VBO and to enable this vertex attribute.
- *  @skipline VertexAttribArray vert_attr
+ *  @skipline VertexArrayAttrib vert_attr
  *  @until vert_attr.Enable
  *
  *  That's it for the vertex data specification. Now we specify the values of
@@ -177,8 +177,8 @@
  *  This tutorial uses a specialization of @c Uniform for @c GLfloat and its
  *  @c SetVector member function to set the value of the 3D float vectors that
  *  store the color values.
- *  @skipline Uniform<GLfloat>(prog, "Color1")
- *  @until Uniform<GLfloat>(prog, "Color2")
+ *  @skipline Uniform<Vec3f>(prog, "Color1")
+ *  @until Uniform<Vec3f>(prog, "Color2")
  *
  *  As the last step of initialization we disable depth testing since
  *  we do not need it in this example:

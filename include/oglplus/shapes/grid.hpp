@@ -29,6 +29,7 @@ namespace shapes {
 /// Class providing vertex attributes and instructions for rendering of a grid
 class Grid
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	Vec3f _point;
@@ -229,10 +230,10 @@ public:
 	typedef std::vector<GLuint> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const;
+	IndexArray Indices(Default = Default()) const;
 
 	/// Returns the instructions for rendering
-	DrawingInstructions Instructions(void) const;
+	DrawingInstructions Instructions(Default = Default()) const;
 };
 
 } // shapes

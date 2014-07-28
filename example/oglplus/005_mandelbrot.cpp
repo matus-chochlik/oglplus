@@ -49,8 +49,6 @@ public:
 				gl_Position = vec4(Position, 0.0, 1.0); \
 			} \
 		"));
-		// compile it
-		vs.Compile();
 
 		// Fragment shader
 		FragmentShader fs;
@@ -90,14 +88,12 @@ public:
 				} \
 			} \
 		"));
-		// compile it
-		fs.Compile();
 
 		// attach the shaders to the program
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
-		// link and use it
-		prog.Link();
+		// compile, link and use it
+		prog.Build();
 		prog.Use();
 
 		// bind the VAO for the rectangle

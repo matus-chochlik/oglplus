@@ -47,7 +47,7 @@ set_property(TARGET oglplus_test_fixture PROPERTY FOLDER "Test/OGLplus")
 # make a list of libraries that we're going to link to
 set(OGLPLUS_TEST_LIBS
 	oglplus_test_fixture
-	${OGLPLUS_GL_LIBS}
+	${OGLPLUS_GL_LIBRARIES}
 )
 
 

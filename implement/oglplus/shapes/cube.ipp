@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -183,7 +183,8 @@ std::vector<GLfloat> Cube::_tex_coords(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions Cube::Instructions(void) const
+DrawingInstructions
+Cube::Instructions(Cube::Default) const
 {
 	DrawOperation operation;
 	operation.method = DrawOperation::Method::DrawArrays;
@@ -197,7 +198,8 @@ DrawingInstructions Cube::Instructions(void) const
 }
 
 OGLPLUS_LIB_FUNC
-Cube::IndexArray Cube::EdgeIndices(void) const
+Cube::IndexArray
+Cube::Indices(Cube::Edges) const
 {
 	/*
 	 *   (E)-----(A)
@@ -223,7 +225,8 @@ Cube::IndexArray Cube::EdgeIndices(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions Cube::EdgeInstructions(void) const
+DrawingInstructions
+Cube::Instructions(Cube::Edges) const
 {
 	auto instructions = this->MakeInstructions();
 	for(unsigned r=0; r!=6; ++r)

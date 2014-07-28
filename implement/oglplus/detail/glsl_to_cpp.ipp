@@ -14,12 +14,12 @@
 # pragma push_macro("Float")
 # undef Float
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Float)
+	SLDataType::Float
 > { typedef GLfloat Type; };
 # pragma pop_macro("Float")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Float)
+	SLDataType::Float
 > { typedef GLfloat Type; };
 # endif
 #endif // FLOAT
@@ -29,12 +29,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("FloatVec2")
 # undef FloatVec2
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatVec2)
+	SLDataType::FloatVec2
 > { typedef oglplus::Vector<GLfloat, 2> Type; };
 # pragma pop_macro("FloatVec2")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatVec2)
+	SLDataType::FloatVec2
 > { typedef oglplus::Vector<GLfloat, 2> Type; };
 # endif
 #endif // FLOAT_VEC2
@@ -44,12 +44,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("FloatVec3")
 # undef FloatVec3
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatVec3)
+	SLDataType::FloatVec3
 > { typedef oglplus::Vector<GLfloat, 3> Type; };
 # pragma pop_macro("FloatVec3")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatVec3)
+	SLDataType::FloatVec3
 > { typedef oglplus::Vector<GLfloat, 3> Type; };
 # endif
 #endif // FLOAT_VEC3
@@ -59,12 +59,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("FloatVec4")
 # undef FloatVec4
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatVec4)
+	SLDataType::FloatVec4
 > { typedef oglplus::Vector<GLfloat, 4> Type; };
 # pragma pop_macro("FloatVec4")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatVec4)
+	SLDataType::FloatVec4
 > { typedef oglplus::Vector<GLfloat, 4> Type; };
 # endif
 #endif // FLOAT_VEC4
@@ -74,12 +74,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Double")
 # undef Double
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Double)
+	SLDataType::Double
 > { typedef GLdouble Type; };
 # pragma pop_macro("Double")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Double)
+	SLDataType::Double
 > { typedef GLdouble Type; };
 # endif
 #endif // DOUBLE
@@ -89,12 +89,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("DoubleVec2")
 # undef DoubleVec2
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleVec2)
+	SLDataType::DoubleVec2
 > { typedef oglplus::Vector<GLdouble, 2> Type; };
 # pragma pop_macro("DoubleVec2")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleVec2)
+	SLDataType::DoubleVec2
 > { typedef oglplus::Vector<GLdouble, 2> Type; };
 # endif
 #endif // DOUBLE_VEC2
@@ -104,12 +104,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("DoubleVec3")
 # undef DoubleVec3
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleVec3)
+	SLDataType::DoubleVec3
 > { typedef oglplus::Vector<GLdouble, 3> Type; };
 # pragma pop_macro("DoubleVec3")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleVec3)
+	SLDataType::DoubleVec3
 > { typedef oglplus::Vector<GLdouble, 3> Type; };
 # endif
 #endif // DOUBLE_VEC3
@@ -119,12 +119,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("DoubleVec4")
 # undef DoubleVec4
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleVec4)
+	SLDataType::DoubleVec4
 > { typedef oglplus::Vector<GLdouble, 4> Type; };
 # pragma pop_macro("DoubleVec4")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleVec4)
+	SLDataType::DoubleVec4
 > { typedef oglplus::Vector<GLdouble, 4> Type; };
 # endif
 #endif // DOUBLE_VEC4
@@ -134,12 +134,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Int")
 # undef Int
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Int)
+	SLDataType::Int
 > { typedef GLint Type; };
 # pragma pop_macro("Int")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Int)
+	SLDataType::Int
 > { typedef GLint Type; };
 # endif
 #endif // INT
@@ -149,12 +149,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntVec2")
 # undef IntVec2
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntVec2)
+	SLDataType::IntVec2
 > { typedef oglplus::Vector<GLint, 2> Type; };
 # pragma pop_macro("IntVec2")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntVec2)
+	SLDataType::IntVec2
 > { typedef oglplus::Vector<GLint, 2> Type; };
 # endif
 #endif // INT_VEC2
@@ -164,12 +164,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntVec3")
 # undef IntVec3
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntVec3)
+	SLDataType::IntVec3
 > { typedef oglplus::Vector<GLint, 3> Type; };
 # pragma pop_macro("IntVec3")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntVec3)
+	SLDataType::IntVec3
 > { typedef oglplus::Vector<GLint, 3> Type; };
 # endif
 #endif // INT_VEC3
@@ -179,12 +179,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntVec4")
 # undef IntVec4
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntVec4)
+	SLDataType::IntVec4
 > { typedef oglplus::Vector<GLint, 4> Type; };
 # pragma pop_macro("IntVec4")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntVec4)
+	SLDataType::IntVec4
 > { typedef oglplus::Vector<GLint, 4> Type; };
 # endif
 #endif // INT_VEC4
@@ -194,12 +194,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedInt")
 # undef UnsignedInt
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedInt)
+	SLDataType::UnsignedInt
 > { typedef GLuint Type; };
 # pragma pop_macro("UnsignedInt")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedInt)
+	SLDataType::UnsignedInt
 > { typedef GLuint Type; };
 # endif
 #endif // UNSIGNED_INT
@@ -209,12 +209,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntVec2")
 # undef UnsignedIntVec2
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntVec2)
+	SLDataType::UnsignedIntVec2
 > { typedef oglplus::Vector<GLuint, 2> Type; };
 # pragma pop_macro("UnsignedIntVec2")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntVec2)
+	SLDataType::UnsignedIntVec2
 > { typedef oglplus::Vector<GLuint, 2> Type; };
 # endif
 #endif // UNSIGNED_INT_VEC2
@@ -224,12 +224,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntVec3")
 # undef UnsignedIntVec3
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntVec3)
+	SLDataType::UnsignedIntVec3
 > { typedef oglplus::Vector<GLuint, 3> Type; };
 # pragma pop_macro("UnsignedIntVec3")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntVec3)
+	SLDataType::UnsignedIntVec3
 > { typedef oglplus::Vector<GLuint, 3> Type; };
 # endif
 #endif // UNSIGNED_INT_VEC3
@@ -239,12 +239,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntVec4")
 # undef UnsignedIntVec4
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntVec4)
+	SLDataType::UnsignedIntVec4
 > { typedef oglplus::Vector<GLuint, 4> Type; };
 # pragma pop_macro("UnsignedIntVec4")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntVec4)
+	SLDataType::UnsignedIntVec4
 > { typedef oglplus::Vector<GLuint, 4> Type; };
 # endif
 #endif // UNSIGNED_INT_VEC4
@@ -254,12 +254,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Bool")
 # undef Bool
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Bool)
+	SLDataType::Bool
 > { typedef GLboolean Type; };
 # pragma pop_macro("Bool")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Bool)
+	SLDataType::Bool
 > { typedef GLboolean Type; };
 # endif
 #endif // BOOL
@@ -269,12 +269,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("BoolVec2")
 # undef BoolVec2
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::BoolVec2)
+	SLDataType::BoolVec2
 > { typedef oglplus::Vector<GLboolean, 2> Type; };
 # pragma pop_macro("BoolVec2")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::BoolVec2)
+	SLDataType::BoolVec2
 > { typedef oglplus::Vector<GLboolean, 2> Type; };
 # endif
 #endif // BOOL_VEC2
@@ -284,12 +284,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("BoolVec3")
 # undef BoolVec3
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::BoolVec3)
+	SLDataType::BoolVec3
 > { typedef oglplus::Vector<GLboolean, 3> Type; };
 # pragma pop_macro("BoolVec3")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::BoolVec3)
+	SLDataType::BoolVec3
 > { typedef oglplus::Vector<GLboolean, 3> Type; };
 # endif
 #endif // BOOL_VEC3
@@ -299,12 +299,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("BoolVec4")
 # undef BoolVec4
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::BoolVec4)
+	SLDataType::BoolVec4
 > { typedef oglplus::Vector<GLboolean, 4> Type; };
 # pragma pop_macro("BoolVec4")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::BoolVec4)
+	SLDataType::BoolVec4
 > { typedef oglplus::Vector<GLboolean, 4> Type; };
 # endif
 #endif // BOOL_VEC4
@@ -314,12 +314,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("FloatMat2")
 # undef FloatMat2
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat2)
+	SLDataType::FloatMat2
 > { typedef oglplus::Matrix<GLfloat, 2, 2> Type; };
 # pragma pop_macro("FloatMat2")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat2)
+	SLDataType::FloatMat2
 > { typedef oglplus::Matrix<GLfloat, 2, 2> Type; };
 # endif
 #endif // FLOAT_MAT2
@@ -329,12 +329,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("FloatMat3")
 # undef FloatMat3
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat3)
+	SLDataType::FloatMat3
 > { typedef oglplus::Matrix<GLfloat, 3, 3> Type; };
 # pragma pop_macro("FloatMat3")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat3)
+	SLDataType::FloatMat3
 > { typedef oglplus::Matrix<GLfloat, 3, 3> Type; };
 # endif
 #endif // FLOAT_MAT3
@@ -344,12 +344,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("FloatMat4")
 # undef FloatMat4
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat4)
+	SLDataType::FloatMat4
 > { typedef oglplus::Matrix<GLfloat, 4, 4> Type; };
 # pragma pop_macro("FloatMat4")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat4)
+	SLDataType::FloatMat4
 > { typedef oglplus::Matrix<GLfloat, 4, 4> Type; };
 # endif
 #endif // FLOAT_MAT4
@@ -359,12 +359,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("FloatMat2x3")
 # undef FloatMat2x3
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat2x3)
+	SLDataType::FloatMat2x3
 > { typedef oglplus::Matrix<GLfloat, 3, 2> Type; };
 # pragma pop_macro("FloatMat2x3")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat2x3)
+	SLDataType::FloatMat2x3
 > { typedef oglplus::Matrix<GLfloat, 3, 2> Type; };
 # endif
 #endif // FLOAT_MAT2x3
@@ -374,12 +374,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("FloatMat2x4")
 # undef FloatMat2x4
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat2x4)
+	SLDataType::FloatMat2x4
 > { typedef oglplus::Matrix<GLfloat, 4, 2> Type; };
 # pragma pop_macro("FloatMat2x4")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat2x4)
+	SLDataType::FloatMat2x4
 > { typedef oglplus::Matrix<GLfloat, 4, 2> Type; };
 # endif
 #endif // FLOAT_MAT2x4
@@ -389,12 +389,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("FloatMat3x2")
 # undef FloatMat3x2
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat3x2)
+	SLDataType::FloatMat3x2
 > { typedef oglplus::Matrix<GLfloat, 2, 3> Type; };
 # pragma pop_macro("FloatMat3x2")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat3x2)
+	SLDataType::FloatMat3x2
 > { typedef oglplus::Matrix<GLfloat, 2, 3> Type; };
 # endif
 #endif // FLOAT_MAT3x2
@@ -404,12 +404,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("FloatMat3x4")
 # undef FloatMat3x4
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat3x4)
+	SLDataType::FloatMat3x4
 > { typedef oglplus::Matrix<GLfloat, 4, 3> Type; };
 # pragma pop_macro("FloatMat3x4")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat3x4)
+	SLDataType::FloatMat3x4
 > { typedef oglplus::Matrix<GLfloat, 4, 3> Type; };
 # endif
 #endif // FLOAT_MAT3x4
@@ -419,12 +419,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("FloatMat4x2")
 # undef FloatMat4x2
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat4x2)
+	SLDataType::FloatMat4x2
 > { typedef oglplus::Matrix<GLfloat, 2, 4> Type; };
 # pragma pop_macro("FloatMat4x2")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat4x2)
+	SLDataType::FloatMat4x2
 > { typedef oglplus::Matrix<GLfloat, 2, 4> Type; };
 # endif
 #endif // FLOAT_MAT4x2
@@ -434,12 +434,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("FloatMat4x3")
 # undef FloatMat4x3
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat4x3)
+	SLDataType::FloatMat4x3
 > { typedef oglplus::Matrix<GLfloat, 3, 4> Type; };
 # pragma pop_macro("FloatMat4x3")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::FloatMat4x3)
+	SLDataType::FloatMat4x3
 > { typedef oglplus::Matrix<GLfloat, 3, 4> Type; };
 # endif
 #endif // FLOAT_MAT4x3
@@ -449,12 +449,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("DoubleMat2")
 # undef DoubleMat2
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat2)
+	SLDataType::DoubleMat2
 > { typedef oglplus::Matrix<GLdouble, 2, 2> Type; };
 # pragma pop_macro("DoubleMat2")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat2)
+	SLDataType::DoubleMat2
 > { typedef oglplus::Matrix<GLdouble, 2, 2> Type; };
 # endif
 #endif // DOUBLE_MAT2
@@ -464,12 +464,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("DoubleMat3")
 # undef DoubleMat3
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat3)
+	SLDataType::DoubleMat3
 > { typedef oglplus::Matrix<GLdouble, 3, 3> Type; };
 # pragma pop_macro("DoubleMat3")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat3)
+	SLDataType::DoubleMat3
 > { typedef oglplus::Matrix<GLdouble, 3, 3> Type; };
 # endif
 #endif // DOUBLE_MAT3
@@ -479,12 +479,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("DoubleMat4")
 # undef DoubleMat4
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat4)
+	SLDataType::DoubleMat4
 > { typedef oglplus::Matrix<GLdouble, 4, 4> Type; };
 # pragma pop_macro("DoubleMat4")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat4)
+	SLDataType::DoubleMat4
 > { typedef oglplus::Matrix<GLdouble, 4, 4> Type; };
 # endif
 #endif // DOUBLE_MAT4
@@ -494,12 +494,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("DoubleMat2x3")
 # undef DoubleMat2x3
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat2x3)
+	SLDataType::DoubleMat2x3
 > { typedef oglplus::Matrix<GLdouble, 3, 2> Type; };
 # pragma pop_macro("DoubleMat2x3")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat2x3)
+	SLDataType::DoubleMat2x3
 > { typedef oglplus::Matrix<GLdouble, 3, 2> Type; };
 # endif
 #endif // DOUBLE_MAT2x3
@@ -509,12 +509,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("DoubleMat2x4")
 # undef DoubleMat2x4
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat2x4)
+	SLDataType::DoubleMat2x4
 > { typedef oglplus::Matrix<GLdouble, 4, 2> Type; };
 # pragma pop_macro("DoubleMat2x4")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat2x4)
+	SLDataType::DoubleMat2x4
 > { typedef oglplus::Matrix<GLdouble, 4, 2> Type; };
 # endif
 #endif // DOUBLE_MAT2x4
@@ -524,12 +524,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("DoubleMat3x2")
 # undef DoubleMat3x2
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat3x2)
+	SLDataType::DoubleMat3x2
 > { typedef oglplus::Matrix<GLdouble, 2, 3> Type; };
 # pragma pop_macro("DoubleMat3x2")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat3x2)
+	SLDataType::DoubleMat3x2
 > { typedef oglplus::Matrix<GLdouble, 2, 3> Type; };
 # endif
 #endif // DOUBLE_MAT3x2
@@ -539,12 +539,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("DoubleMat3x4")
 # undef DoubleMat3x4
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat3x4)
+	SLDataType::DoubleMat3x4
 > { typedef oglplus::Matrix<GLdouble, 4, 3> Type; };
 # pragma pop_macro("DoubleMat3x4")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat3x4)
+	SLDataType::DoubleMat3x4
 > { typedef oglplus::Matrix<GLdouble, 4, 3> Type; };
 # endif
 #endif // DOUBLE_MAT3x4
@@ -554,12 +554,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("DoubleMat4x2")
 # undef DoubleMat4x2
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat4x2)
+	SLDataType::DoubleMat4x2
 > { typedef oglplus::Matrix<GLdouble, 2, 4> Type; };
 # pragma pop_macro("DoubleMat4x2")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat4x2)
+	SLDataType::DoubleMat4x2
 > { typedef oglplus::Matrix<GLdouble, 2, 4> Type; };
 # endif
 #endif // DOUBLE_MAT4x2
@@ -569,12 +569,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("DoubleMat4x3")
 # undef DoubleMat4x3
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat4x3)
+	SLDataType::DoubleMat4x3
 > { typedef oglplus::Matrix<GLdouble, 3, 4> Type; };
 # pragma pop_macro("DoubleMat4x3")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::DoubleMat4x3)
+	SLDataType::DoubleMat4x3
 > { typedef oglplus::Matrix<GLdouble, 3, 4> Type; };
 # endif
 #endif // DOUBLE_MAT4x3
@@ -584,12 +584,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Sampler1D")
 # undef Sampler1D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler1D)
+	SLDataType::Sampler1D
 > { typedef GLint Type; };
 # pragma pop_macro("Sampler1D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler1D)
+	SLDataType::Sampler1D
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_1D
@@ -599,12 +599,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Sampler2D")
 # undef Sampler2D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2D)
+	SLDataType::Sampler2D
 > { typedef GLint Type; };
 # pragma pop_macro("Sampler2D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2D)
+	SLDataType::Sampler2D
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_2D
@@ -614,12 +614,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Sampler3D")
 # undef Sampler3D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler3D)
+	SLDataType::Sampler3D
 > { typedef GLint Type; };
 # pragma pop_macro("Sampler3D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler3D)
+	SLDataType::Sampler3D
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_3D
@@ -629,12 +629,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("SamplerCube")
 # undef SamplerCube
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::SamplerCube)
+	SLDataType::SamplerCube
 > { typedef GLint Type; };
 # pragma pop_macro("SamplerCube")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::SamplerCube)
+	SLDataType::SamplerCube
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_CUBE
@@ -644,12 +644,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Sampler1DShadow")
 # undef Sampler1DShadow
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler1DShadow)
+	SLDataType::Sampler1DShadow
 > { typedef GLint Type; };
 # pragma pop_macro("Sampler1DShadow")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler1DShadow)
+	SLDataType::Sampler1DShadow
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_1D_SHADOW
@@ -659,12 +659,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Sampler2DShadow")
 # undef Sampler2DShadow
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DShadow)
+	SLDataType::Sampler2DShadow
 > { typedef GLint Type; };
 # pragma pop_macro("Sampler2DShadow")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DShadow)
+	SLDataType::Sampler2DShadow
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_2D_SHADOW
@@ -674,12 +674,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Sampler1DArray")
 # undef Sampler1DArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler1DArray)
+	SLDataType::Sampler1DArray
 > { typedef GLint Type; };
 # pragma pop_macro("Sampler1DArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler1DArray)
+	SLDataType::Sampler1DArray
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_1D_ARRAY
@@ -689,12 +689,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Sampler2DArray")
 # undef Sampler2DArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DArray)
+	SLDataType::Sampler2DArray
 > { typedef GLint Type; };
 # pragma pop_macro("Sampler2DArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DArray)
+	SLDataType::Sampler2DArray
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_2D_ARRAY
@@ -704,12 +704,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("SamplerCubeMapArray")
 # undef SamplerCubeMapArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::SamplerCubeMapArray)
+	SLDataType::SamplerCubeMapArray
 > { typedef GLint Type; };
 # pragma pop_macro("SamplerCubeMapArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::SamplerCubeMapArray)
+	SLDataType::SamplerCubeMapArray
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_CUBE_MAP_ARRAY
@@ -719,12 +719,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Sampler1DArrayShadow")
 # undef Sampler1DArrayShadow
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler1DArrayShadow)
+	SLDataType::Sampler1DArrayShadow
 > { typedef GLint Type; };
 # pragma pop_macro("Sampler1DArrayShadow")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler1DArrayShadow)
+	SLDataType::Sampler1DArrayShadow
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_1D_ARRAY_SHADOW
@@ -734,12 +734,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Sampler2DArrayShadow")
 # undef Sampler2DArrayShadow
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DArrayShadow)
+	SLDataType::Sampler2DArrayShadow
 > { typedef GLint Type; };
 # pragma pop_macro("Sampler2DArrayShadow")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DArrayShadow)
+	SLDataType::Sampler2DArrayShadow
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_2D_ARRAY_SHADOW
@@ -749,12 +749,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Sampler2DMultisample")
 # undef Sampler2DMultisample
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DMultisample)
+	SLDataType::Sampler2DMultisample
 > { typedef GLint Type; };
 # pragma pop_macro("Sampler2DMultisample")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DMultisample)
+	SLDataType::Sampler2DMultisample
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_2D_MULTISAMPLE
@@ -764,12 +764,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Sampler2DMultisampleArray")
 # undef Sampler2DMultisampleArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DMultisampleArray)
+	SLDataType::Sampler2DMultisampleArray
 > { typedef GLint Type; };
 # pragma pop_macro("Sampler2DMultisampleArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DMultisampleArray)
+	SLDataType::Sampler2DMultisampleArray
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_2D_MULTISAMPLE_ARRAY
@@ -779,12 +779,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("SamplerCubeShadow")
 # undef SamplerCubeShadow
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::SamplerCubeShadow)
+	SLDataType::SamplerCubeShadow
 > { typedef GLint Type; };
 # pragma pop_macro("SamplerCubeShadow")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::SamplerCubeShadow)
+	SLDataType::SamplerCubeShadow
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_CUBE_SHADOW
@@ -794,12 +794,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("SamplerCubeMapArrayShadow")
 # undef SamplerCubeMapArrayShadow
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::SamplerCubeMapArrayShadow)
+	SLDataType::SamplerCubeMapArrayShadow
 > { typedef GLint Type; };
 # pragma pop_macro("SamplerCubeMapArrayShadow")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::SamplerCubeMapArrayShadow)
+	SLDataType::SamplerCubeMapArrayShadow
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_CUBE_MAP_ARRAY_SHADOW
@@ -809,12 +809,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("SamplerBuffer")
 # undef SamplerBuffer
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::SamplerBuffer)
+	SLDataType::SamplerBuffer
 > { typedef GLint Type; };
 # pragma pop_macro("SamplerBuffer")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::SamplerBuffer)
+	SLDataType::SamplerBuffer
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_BUFFER
@@ -824,12 +824,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Sampler2DRect")
 # undef Sampler2DRect
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DRect)
+	SLDataType::Sampler2DRect
 > { typedef GLint Type; };
 # pragma pop_macro("Sampler2DRect")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DRect)
+	SLDataType::Sampler2DRect
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_2D_RECT
@@ -839,12 +839,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Sampler2DRectShadow")
 # undef Sampler2DRectShadow
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DRectShadow)
+	SLDataType::Sampler2DRectShadow
 > { typedef GLint Type; };
 # pragma pop_macro("Sampler2DRectShadow")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Sampler2DRectShadow)
+	SLDataType::Sampler2DRectShadow
 > { typedef GLint Type; };
 # endif
 #endif // SAMPLER_2D_RECT_SHADOW
@@ -854,12 +854,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntSampler1D")
 # undef IntSampler1D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler1D)
+	SLDataType::IntSampler1D
 > { typedef GLint Type; };
 # pragma pop_macro("IntSampler1D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler1D)
+	SLDataType::IntSampler1D
 > { typedef GLint Type; };
 # endif
 #endif // INT_SAMPLER_1D
@@ -869,12 +869,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntSampler2D")
 # undef IntSampler2D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler2D)
+	SLDataType::IntSampler2D
 > { typedef GLint Type; };
 # pragma pop_macro("IntSampler2D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler2D)
+	SLDataType::IntSampler2D
 > { typedef GLint Type; };
 # endif
 #endif // INT_SAMPLER_2D
@@ -884,12 +884,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntSampler3D")
 # undef IntSampler3D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler3D)
+	SLDataType::IntSampler3D
 > { typedef GLint Type; };
 # pragma pop_macro("IntSampler3D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler3D)
+	SLDataType::IntSampler3D
 > { typedef GLint Type; };
 # endif
 #endif // INT_SAMPLER_3D
@@ -899,12 +899,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntSamplerCube")
 # undef IntSamplerCube
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSamplerCube)
+	SLDataType::IntSamplerCube
 > { typedef GLint Type; };
 # pragma pop_macro("IntSamplerCube")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSamplerCube)
+	SLDataType::IntSamplerCube
 > { typedef GLint Type; };
 # endif
 #endif // INT_SAMPLER_CUBE
@@ -914,12 +914,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntSampler1DArray")
 # undef IntSampler1DArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler1DArray)
+	SLDataType::IntSampler1DArray
 > { typedef GLint Type; };
 # pragma pop_macro("IntSampler1DArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler1DArray)
+	SLDataType::IntSampler1DArray
 > { typedef GLint Type; };
 # endif
 #endif // INT_SAMPLER_1D_ARRAY
@@ -929,12 +929,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntSampler2DArray")
 # undef IntSampler2DArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler2DArray)
+	SLDataType::IntSampler2DArray
 > { typedef GLint Type; };
 # pragma pop_macro("IntSampler2DArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler2DArray)
+	SLDataType::IntSampler2DArray
 > { typedef GLint Type; };
 # endif
 #endif // INT_SAMPLER_2D_ARRAY
@@ -944,12 +944,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntSamplerCubeMapArray")
 # undef IntSamplerCubeMapArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSamplerCubeMapArray)
+	SLDataType::IntSamplerCubeMapArray
 > { typedef GLint Type; };
 # pragma pop_macro("IntSamplerCubeMapArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSamplerCubeMapArray)
+	SLDataType::IntSamplerCubeMapArray
 > { typedef GLint Type; };
 # endif
 #endif // INT_SAMPLER_CUBE_MAP_ARRAY
@@ -959,12 +959,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntSampler2DMultisample")
 # undef IntSampler2DMultisample
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler2DMultisample)
+	SLDataType::IntSampler2DMultisample
 > { typedef GLint Type; };
 # pragma pop_macro("IntSampler2DMultisample")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler2DMultisample)
+	SLDataType::IntSampler2DMultisample
 > { typedef GLint Type; };
 # endif
 #endif // INT_SAMPLER_2D_MULTISAMPLE
@@ -974,12 +974,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntSampler2DMultisampleArray")
 # undef IntSampler2DMultisampleArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler2DMultisampleArray)
+	SLDataType::IntSampler2DMultisampleArray
 > { typedef GLint Type; };
 # pragma pop_macro("IntSampler2DMultisampleArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler2DMultisampleArray)
+	SLDataType::IntSampler2DMultisampleArray
 > { typedef GLint Type; };
 # endif
 #endif // INT_SAMPLER_2D_MULTISAMPLE_ARRAY
@@ -989,12 +989,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntSamplerBuffer")
 # undef IntSamplerBuffer
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSamplerBuffer)
+	SLDataType::IntSamplerBuffer
 > { typedef GLint Type; };
 # pragma pop_macro("IntSamplerBuffer")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSamplerBuffer)
+	SLDataType::IntSamplerBuffer
 > { typedef GLint Type; };
 # endif
 #endif // INT_SAMPLER_BUFFER
@@ -1004,12 +1004,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntSampler2DRect")
 # undef IntSampler2DRect
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler2DRect)
+	SLDataType::IntSampler2DRect
 > { typedef GLint Type; };
 # pragma pop_macro("IntSampler2DRect")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntSampler2DRect)
+	SLDataType::IntSampler2DRect
 > { typedef GLint Type; };
 # endif
 #endif // INT_SAMPLER_2D_RECT
@@ -1019,12 +1019,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntSampler1D")
 # undef UnsignedIntSampler1D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler1D)
+	SLDataType::UnsignedIntSampler1D
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntSampler1D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler1D)
+	SLDataType::UnsignedIntSampler1D
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_SAMPLER_1D
@@ -1034,12 +1034,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntSampler2D")
 # undef UnsignedIntSampler2D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler2D)
+	SLDataType::UnsignedIntSampler2D
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntSampler2D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler2D)
+	SLDataType::UnsignedIntSampler2D
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_SAMPLER_2D
@@ -1049,12 +1049,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntSampler3D")
 # undef UnsignedIntSampler3D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler3D)
+	SLDataType::UnsignedIntSampler3D
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntSampler3D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler3D)
+	SLDataType::UnsignedIntSampler3D
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_SAMPLER_3D
@@ -1064,12 +1064,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntSamplerCube")
 # undef UnsignedIntSamplerCube
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSamplerCube)
+	SLDataType::UnsignedIntSamplerCube
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntSamplerCube")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSamplerCube)
+	SLDataType::UnsignedIntSamplerCube
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_SAMPLER_CUBE
@@ -1079,12 +1079,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntSampler1DArray")
 # undef UnsignedIntSampler1DArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler1DArray)
+	SLDataType::UnsignedIntSampler1DArray
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntSampler1DArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler1DArray)
+	SLDataType::UnsignedIntSampler1DArray
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_SAMPLER_1D_ARRAY
@@ -1094,12 +1094,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntSampler2DArray")
 # undef UnsignedIntSampler2DArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler2DArray)
+	SLDataType::UnsignedIntSampler2DArray
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntSampler2DArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler2DArray)
+	SLDataType::UnsignedIntSampler2DArray
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_SAMPLER_2D_ARRAY
@@ -1109,12 +1109,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntSamplerCubeMapArray")
 # undef UnsignedIntSamplerCubeMapArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSamplerCubeMapArray)
+	SLDataType::UnsignedIntSamplerCubeMapArray
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntSamplerCubeMapArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSamplerCubeMapArray)
+	SLDataType::UnsignedIntSamplerCubeMapArray
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY
@@ -1124,12 +1124,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntSampler2DMultisample")
 # undef UnsignedIntSampler2DMultisample
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler2DMultisample)
+	SLDataType::UnsignedIntSampler2DMultisample
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntSampler2DMultisample")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler2DMultisample)
+	SLDataType::UnsignedIntSampler2DMultisample
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE
@@ -1139,12 +1139,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntSampler2DMultisampleArray")
 # undef UnsignedIntSampler2DMultisampleArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler2DMultisampleArray)
+	SLDataType::UnsignedIntSampler2DMultisampleArray
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntSampler2DMultisampleArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler2DMultisampleArray)
+	SLDataType::UnsignedIntSampler2DMultisampleArray
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY
@@ -1154,12 +1154,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntSamplerBuffer")
 # undef UnsignedIntSamplerBuffer
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSamplerBuffer)
+	SLDataType::UnsignedIntSamplerBuffer
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntSamplerBuffer")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSamplerBuffer)
+	SLDataType::UnsignedIntSamplerBuffer
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_SAMPLER_BUFFER
@@ -1169,12 +1169,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntSampler2DRect")
 # undef UnsignedIntSampler2DRect
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler2DRect)
+	SLDataType::UnsignedIntSampler2DRect
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntSampler2DRect")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntSampler2DRect)
+	SLDataType::UnsignedIntSampler2DRect
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_SAMPLER_2D_RECT
@@ -1184,12 +1184,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Image1D")
 # undef Image1D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image1D)
+	SLDataType::Image1D
 > { typedef GLint Type; };
 # pragma pop_macro("Image1D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image1D)
+	SLDataType::Image1D
 > { typedef GLint Type; };
 # endif
 #endif // IMAGE_1D
@@ -1199,12 +1199,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Image2D")
 # undef Image2D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image2D)
+	SLDataType::Image2D
 > { typedef GLint Type; };
 # pragma pop_macro("Image2D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image2D)
+	SLDataType::Image2D
 > { typedef GLint Type; };
 # endif
 #endif // IMAGE_2D
@@ -1214,12 +1214,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Image3D")
 # undef Image3D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image3D)
+	SLDataType::Image3D
 > { typedef GLint Type; };
 # pragma pop_macro("Image3D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image3D)
+	SLDataType::Image3D
 > { typedef GLint Type; };
 # endif
 #endif // IMAGE_3D
@@ -1229,12 +1229,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Image2DRect")
 # undef Image2DRect
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image2DRect)
+	SLDataType::Image2DRect
 > { typedef GLint Type; };
 # pragma pop_macro("Image2DRect")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image2DRect)
+	SLDataType::Image2DRect
 > { typedef GLint Type; };
 # endif
 #endif // IMAGE_2D_RECT
@@ -1244,12 +1244,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("ImageCube")
 # undef ImageCube
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::ImageCube)
+	SLDataType::ImageCube
 > { typedef GLint Type; };
 # pragma pop_macro("ImageCube")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::ImageCube)
+	SLDataType::ImageCube
 > { typedef GLint Type; };
 # endif
 #endif // IMAGE_CUBE
@@ -1259,12 +1259,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("ImageBuffer")
 # undef ImageBuffer
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::ImageBuffer)
+	SLDataType::ImageBuffer
 > { typedef GLint Type; };
 # pragma pop_macro("ImageBuffer")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::ImageBuffer)
+	SLDataType::ImageBuffer
 > { typedef GLint Type; };
 # endif
 #endif // IMAGE_BUFFER
@@ -1274,12 +1274,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Image1DArray")
 # undef Image1DArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image1DArray)
+	SLDataType::Image1DArray
 > { typedef GLint Type; };
 # pragma pop_macro("Image1DArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image1DArray)
+	SLDataType::Image1DArray
 > { typedef GLint Type; };
 # endif
 #endif // IMAGE_1D_ARRAY
@@ -1289,12 +1289,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Image2DArray")
 # undef Image2DArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image2DArray)
+	SLDataType::Image2DArray
 > { typedef GLint Type; };
 # pragma pop_macro("Image2DArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image2DArray)
+	SLDataType::Image2DArray
 > { typedef GLint Type; };
 # endif
 #endif // IMAGE_2D_ARRAY
@@ -1304,12 +1304,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Image2DMultisample")
 # undef Image2DMultisample
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image2DMultisample)
+	SLDataType::Image2DMultisample
 > { typedef GLint Type; };
 # pragma pop_macro("Image2DMultisample")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image2DMultisample)
+	SLDataType::Image2DMultisample
 > { typedef GLint Type; };
 # endif
 #endif // IMAGE_2D_MULTISAMPLE
@@ -1319,12 +1319,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("Image2DMultisampleArray")
 # undef Image2DMultisampleArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image2DMultisampleArray)
+	SLDataType::Image2DMultisampleArray
 > { typedef GLint Type; };
 # pragma pop_macro("Image2DMultisampleArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::Image2DMultisampleArray)
+	SLDataType::Image2DMultisampleArray
 > { typedef GLint Type; };
 # endif
 #endif // IMAGE_2D_MULTISAMPLE_ARRAY
@@ -1334,12 +1334,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntImage1D")
 # undef IntImage1D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage1D)
+	SLDataType::IntImage1D
 > { typedef GLint Type; };
 # pragma pop_macro("IntImage1D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage1D)
+	SLDataType::IntImage1D
 > { typedef GLint Type; };
 # endif
 #endif // INT_IMAGE_1D
@@ -1349,12 +1349,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntImage2D")
 # undef IntImage2D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage2D)
+	SLDataType::IntImage2D
 > { typedef GLint Type; };
 # pragma pop_macro("IntImage2D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage2D)
+	SLDataType::IntImage2D
 > { typedef GLint Type; };
 # endif
 #endif // INT_IMAGE_2D
@@ -1364,12 +1364,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntImage3D")
 # undef IntImage3D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage3D)
+	SLDataType::IntImage3D
 > { typedef GLint Type; };
 # pragma pop_macro("IntImage3D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage3D)
+	SLDataType::IntImage3D
 > { typedef GLint Type; };
 # endif
 #endif // INT_IMAGE_3D
@@ -1379,12 +1379,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntImage2DRect")
 # undef IntImage2DRect
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage2DRect)
+	SLDataType::IntImage2DRect
 > { typedef GLint Type; };
 # pragma pop_macro("IntImage2DRect")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage2DRect)
+	SLDataType::IntImage2DRect
 > { typedef GLint Type; };
 # endif
 #endif // INT_IMAGE_2D_RECT
@@ -1394,12 +1394,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntImageCube")
 # undef IntImageCube
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImageCube)
+	SLDataType::IntImageCube
 > { typedef GLint Type; };
 # pragma pop_macro("IntImageCube")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImageCube)
+	SLDataType::IntImageCube
 > { typedef GLint Type; };
 # endif
 #endif // INT_IMAGE_CUBE
@@ -1409,12 +1409,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntImageBuffer")
 # undef IntImageBuffer
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImageBuffer)
+	SLDataType::IntImageBuffer
 > { typedef GLint Type; };
 # pragma pop_macro("IntImageBuffer")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImageBuffer)
+	SLDataType::IntImageBuffer
 > { typedef GLint Type; };
 # endif
 #endif // INT_IMAGE_BUFFER
@@ -1424,12 +1424,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntImage1DArray")
 # undef IntImage1DArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage1DArray)
+	SLDataType::IntImage1DArray
 > { typedef GLint Type; };
 # pragma pop_macro("IntImage1DArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage1DArray)
+	SLDataType::IntImage1DArray
 > { typedef GLint Type; };
 # endif
 #endif // INT_IMAGE_1D_ARRAY
@@ -1439,12 +1439,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntImage2DArray")
 # undef IntImage2DArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage2DArray)
+	SLDataType::IntImage2DArray
 > { typedef GLint Type; };
 # pragma pop_macro("IntImage2DArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage2DArray)
+	SLDataType::IntImage2DArray
 > { typedef GLint Type; };
 # endif
 #endif // INT_IMAGE_2D_ARRAY
@@ -1454,12 +1454,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntImage2DMultisample")
 # undef IntImage2DMultisample
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage2DMultisample)
+	SLDataType::IntImage2DMultisample
 > { typedef GLint Type; };
 # pragma pop_macro("IntImage2DMultisample")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage2DMultisample)
+	SLDataType::IntImage2DMultisample
 > { typedef GLint Type; };
 # endif
 #endif // INT_IMAGE_2D_MULTISAMPLE
@@ -1469,12 +1469,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("IntImage2DMultisampleArray")
 # undef IntImage2DMultisampleArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage2DMultisampleArray)
+	SLDataType::IntImage2DMultisampleArray
 > { typedef GLint Type; };
 # pragma pop_macro("IntImage2DMultisampleArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::IntImage2DMultisampleArray)
+	SLDataType::IntImage2DMultisampleArray
 > { typedef GLint Type; };
 # endif
 #endif // INT_IMAGE_2D_MULTISAMPLE_ARRAY
@@ -1484,12 +1484,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntImage1D")
 # undef UnsignedIntImage1D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage1D)
+	SLDataType::UnsignedIntImage1D
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntImage1D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage1D)
+	SLDataType::UnsignedIntImage1D
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_IMAGE_1D
@@ -1499,12 +1499,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntImage2D")
 # undef UnsignedIntImage2D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage2D)
+	SLDataType::UnsignedIntImage2D
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntImage2D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage2D)
+	SLDataType::UnsignedIntImage2D
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_IMAGE_2D
@@ -1514,12 +1514,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntImage3D")
 # undef UnsignedIntImage3D
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage3D)
+	SLDataType::UnsignedIntImage3D
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntImage3D")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage3D)
+	SLDataType::UnsignedIntImage3D
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_IMAGE_3D
@@ -1529,12 +1529,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntImage2DRect")
 # undef UnsignedIntImage2DRect
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage2DRect)
+	SLDataType::UnsignedIntImage2DRect
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntImage2DRect")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage2DRect)
+	SLDataType::UnsignedIntImage2DRect
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_IMAGE_2D_RECT
@@ -1544,12 +1544,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntImageCube")
 # undef UnsignedIntImageCube
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImageCube)
+	SLDataType::UnsignedIntImageCube
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntImageCube")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImageCube)
+	SLDataType::UnsignedIntImageCube
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_IMAGE_CUBE
@@ -1559,12 +1559,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntImageBuffer")
 # undef UnsignedIntImageBuffer
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImageBuffer)
+	SLDataType::UnsignedIntImageBuffer
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntImageBuffer")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImageBuffer)
+	SLDataType::UnsignedIntImageBuffer
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_IMAGE_BUFFER
@@ -1574,12 +1574,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntImage1DArray")
 # undef UnsignedIntImage1DArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage1DArray)
+	SLDataType::UnsignedIntImage1DArray
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntImage1DArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage1DArray)
+	SLDataType::UnsignedIntImage1DArray
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_IMAGE_1D_ARRAY
@@ -1589,12 +1589,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntImage2DArray")
 # undef UnsignedIntImage2DArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage2DArray)
+	SLDataType::UnsignedIntImage2DArray
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntImage2DArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage2DArray)
+	SLDataType::UnsignedIntImage2DArray
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_IMAGE_2D_ARRAY
@@ -1604,12 +1604,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntImage2DMultisample")
 # undef UnsignedIntImage2DMultisample
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage2DMultisample)
+	SLDataType::UnsignedIntImage2DMultisample
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntImage2DMultisample")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage2DMultisample)
+	SLDataType::UnsignedIntImage2DMultisample
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_IMAGE_2D_MULTISAMPLE
@@ -1619,12 +1619,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntImage2DMultisampleArray")
 # undef UnsignedIntImage2DMultisampleArray
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage2DMultisampleArray)
+	SLDataType::UnsignedIntImage2DMultisampleArray
 > { typedef GLint Type; };
 # pragma pop_macro("UnsignedIntImage2DMultisampleArray")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntImage2DMultisampleArray)
+	SLDataType::UnsignedIntImage2DMultisampleArray
 > { typedef GLint Type; };
 # endif
 #endif // UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY
@@ -1634,12 +1634,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("UnsignedIntAtomicCounter")
 # undef UnsignedIntAtomicCounter
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntAtomicCounter)
+	SLDataType::UnsignedIntAtomicCounter
 > { typedef GLuint Type; };
 # pragma pop_macro("UnsignedIntAtomicCounter")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::UnsignedIntAtomicCounter)
+	SLDataType::UnsignedIntAtomicCounter
 > { typedef GLuint Type; };
 # endif
 #endif // UNSIGNED_INT_ATOMIC_COUNTER
@@ -1649,12 +1649,12 @@ template <> struct GLSL2Cpp<
 # pragma push_macro("None")
 # undef None
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::None)
+	SLDataType::None
 > { typedef void Type; };
 # pragma pop_macro("None")
 # else
 template <> struct GLSL2Cpp<
-	OGLPLUS_CONST_ENUM_VALUE(SLDataType::None)
+	SLDataType::None
 > { typedef void Type; };
 # endif
 #endif // NONE

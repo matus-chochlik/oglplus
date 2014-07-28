@@ -341,7 +341,7 @@ public:
 		tfb_positions.Bind(se::TransformFeedback());
 
 		Buffer::Data(se::Array(), pos_data);
-		Buffer::Data(se::TransformFeedback(), pos_data);
+		Buffer::Resize(se::TransformFeedback(), pos_data);
 
 		tfb_positions.BindBase(se::TransformFeedback(), 0);
 
@@ -354,7 +354,7 @@ public:
 		tfb_velocities.Bind(se::TransformFeedback());
 
 		Buffer::Data(se::Array(), vel_data);
-		Buffer::Data(se::TransformFeedback(), vel_data);
+		Buffer::Resize(se::TransformFeedback(), vel_data);
 
 		tfb_velocities.BindBase(se::TransformFeedback(), 1);
 
@@ -916,7 +916,7 @@ private:
 		tfb_positions.Bind(se::TransformFeedback());
 
 		Buffer::Data(se::Array(), pos_data);
-		Buffer::Data(se::TransformFeedback(), pos_data);
+		Buffer::Resize(se::TransformFeedback(), pos_data);
 
 		positions.BindBase(se::Uniform(), 0);
 		tfb_positions.BindBase(se::TransformFeedback(), 0);
@@ -965,7 +965,7 @@ private:
 		tfb_velocities.Bind(se::TransformFeedback());
 
 		Buffer::Data(se::Array(), vel_data);
-		Buffer::Data(se::TransformFeedback(), vel_data);
+		Buffer::Resize(se::TransformFeedback(), vel_data);
 
 		tfb_velocities.BindBase(se::TransformFeedback(), 1);
 

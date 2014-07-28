@@ -221,7 +221,7 @@ public:
 
 		const GLuint tmp[3] = {0u, 0u, 0u};
 		Buffer::SubData(
-			Buffer::Target::AtomicCounter,
+			BufferTarget::AtomicCounter,
 			0, 3, tmp
 		);
 	}

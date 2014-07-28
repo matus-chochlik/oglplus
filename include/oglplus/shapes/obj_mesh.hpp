@@ -34,6 +34,7 @@ namespace shapes {
 /// Class providing attributes and instructions for drawing of mesh loaded from obj
 class ObjMesh
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	struct _loading_options
@@ -132,12 +133,14 @@ private:
 
 	bool _load_index(
 		GLuint& value,
+		GLuint count,
 		std::string::const_iterator& i,
 		std::string::const_iterator& e
 	);
 
 	bool _load_indices(
 		_vert_indices& indices,
+		const _vert_indices& counts,
 		std::string::const_iterator& i,
 		std::string::const_iterator& e
 	);
@@ -294,7 +297,7 @@ public:
 	typedef std::vector<GLuint> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const
+	IndexArray Indices(Default = Default()) const
 	{
 		return IndexArray();
 	}
@@ -303,7 +306,7 @@ public:
 	DrawingInstructions Instructions(PrimitiveType primitive) const;
 
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const
+	DrawingInstructions Instructions(Default = Default()) const
 	{
 		return Instructions(PrimitiveType::Triangles);
 	}

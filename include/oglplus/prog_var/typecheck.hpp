@@ -28,7 +28,7 @@ struct GLSLtoCppTypeMatcher;
 
 #if !OGLPLUS_NO_UNIFORM_TYPECHECK
 
-OGLPLUS_ENUM_CLASS_FWD_EVT(SLDataType, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(SLDataType, GLenum)
 
 template <typename enums::EnumValueType<oglplus::SLDataType>::Type>
 struct SLtoCpp;

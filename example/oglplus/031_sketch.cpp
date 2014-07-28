@@ -345,10 +345,10 @@ protected:
 public:
 	Shape(const Program& prog, const ShapeBuilder& builder)
 	 : make_shape(builder)
-	 , shape_instr(make_shape.Instructions())
-	 , edge_instr(make_shape.EdgeInstructions())
-	 , shape_indices(make_shape.Indices())
-	 , edge_indices(make_shape.EdgeIndices())
+	 , shape_instr(make_shape.Instructions(shapes::DrawMode::Default()))
+	 , edge_instr(make_shape.Instructions(shapes::DrawMode::Edges()))
+	 , shape_indices(make_shape.Indices(shapes::DrawMode::Default()))
+	 , edge_indices(make_shape.Indices(shapes::DrawMode::Edges()))
 	 , vbos(3)
 	{
 		// bind the VAO for the shape

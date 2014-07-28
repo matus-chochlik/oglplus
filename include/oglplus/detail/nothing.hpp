@@ -18,7 +18,6 @@ namespace oglplus {
 struct Nothing
 {
 	typedef Nothing Type;
-	typedef int _value_type; // usid by SCOPED_ENUMS emulation
 };
 
 } // namespace oglplus

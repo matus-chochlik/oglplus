@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -353,7 +353,8 @@ std::vector<GLfloat> TwistedTorus::_tex_coords(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions TwistedTorus::Instructions(void) const
+DrawingInstructions
+TwistedTorus::Instructions(TwistedTorus::Default) const
 {
 	auto instructions = this->MakeInstructions();
 	unsigned strip = 2*(_rings + 1);

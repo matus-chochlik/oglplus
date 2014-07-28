@@ -22,9 +22,9 @@
 #include <oglplus/buffer_storage_bit.hpp>
 #include <oglplus/buffer_target.hpp>
 #include <oglplus/buffer_map.hpp>
+#include <oglplus/buffer_data.hpp>
 #include <oglplus/buffer_gpu_addr.hpp>
 #include <oglplus/access_specifier.hpp>
-#include <oglplus/math/vector.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
 
@@ -158,16 +158,16 @@ public:
 		IndexedTarget target,
 		GLuint index,
 		BufferName buffer,
-		GLintptr offset,
-		GLsizeiptr size
+		BufferSize offset,
+		BufferSize size
 	)
 	{
 		OGLPLUS_GLFUNC(BindBufferRange)(
 			GLenum(target),
 			index,
 			GetGLName(buffer),
-			offset,
-			size
+			GLintptr(offset.Get()),
+			GLsizeiptr(size.Get())
 		);
 		OGLPLUS_VERIFY(
 			BindBufferRange,
@@ -347,8 +347,8 @@ public:
 	void BindRange(
 		IndexedTarget target,
 		GLuint index,
-		GLintptr offset,
-		GLsizeiptr size
+		BufferSize offset,
+		BufferSize size
 	) const
 	{
 		BindRange(target, index, *this, offset, size);
@@ -384,12 +384,12 @@ public:
 	 *
 	 *  @glvoereq{4,3,ARB,invalidate_subdata}
 	 */
-	void InvalidateSubData(GLintptr offset, GLsizeiptr size)
+	void InvalidateSubData(GLintptr offset, BufferSize size)
 	{
 		OGLPLUS_GLFUNC(InvalidateBufferSubData)(
 			_name,
 			offset,
-			size
+			GLsizeiptr(size.Get())
 		);
 		OGLPLUS_CHECK(
 			InvalidateBufferSubData,
@@ -440,6 +440,83 @@ public:
 	}
 #endif // GL_VERSION_3_0
 
+	/// Allocates buffer storage to the specified size without any data
+	/** This member function allows to (re-)allocate the buffer storage
+	 *  to the specifies @p size, without uploading any data.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BufferData}
+	 *
+	 *  @see SubData
+	 *  @throws Error
+	 */
+	static void Resize(
+		Target target,
+		BufferSize size,
+		BufferUsage usage = BufferUsage::StaticDraw
+	)
+	{
+		OGLPLUS_GLFUNC(BufferData)(
+			GLenum(target),
+			size.Get(),
+			nullptr,
+			GLenum(usage)
+		);
+		OGLPLUS_CHECK(
+			BufferData,
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(usage)
+		);
+	}
+
+	/// Uploads (sets) the buffer data
+	/** This member function uploads the specified @data to the buffer bound
+	 *  to the specified @p target using the @p usage as hint.
+	 *
+	 *  @see SubData
+	 *  @see CopySubData
+	 *  @throws Error
+	 */
+	static void Data(
+		Target target,
+		const BufferData& data,
+		BufferUsage usage = BufferUsage::StaticDraw
+	)
+	{
+		OGLPLUS_GLFUNC(BufferData)(
+			GLenum(target),
+			GLsizei(data.Size()),
+			data.Data(),
+			GLenum(usage)
+		);
+		OGLPLUS_CHECK(
+			BufferData,
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(usage)
+		);
+	}
+
+	/// Uploads (sets) the buffer data
+	/** This member function uploads @p size bytes
+	 *  from the location pointed to by @p data to the buffer bound
+	 *  to the specified @p target using the @p usage as hint.
+	 *
+	 *  @see SubData
+	 *  @see CopySubData
+	 *  @throws Error
+	 */
+	static void RawData(
+		Target target,
+		BufferSize size,
+		const GLvoid* data,
+		BufferUsage usage = BufferUsage::StaticDraw
+	)
+	{
+		Data(target, BufferData(size, data), usage);
+	}
+
 	/// Uploads (sets) the buffer data
 	/** This member function uploads @p count units of @c sizeof(GLtype)
 	 *  from the location pointed to by @p data to the buffer bound
@@ -457,96 +534,25 @@ public:
 		BufferUsage usage = BufferUsage::StaticDraw
 	)
 	{
-		OGLPLUS_GLFUNC(BufferData)(
-			GLenum(target),
-			count * sizeof(GLtype),
-			data,
-			GLenum(usage)
-		);
-		OGLPLUS_CHECK(
-			BufferData,
-			ObjectError,
-			ObjectBinding(target).
-			EnumParam(usage)
-		);
+		Data(target, BufferData(count, data), usage);
 	}
 
-	template <typename GLtype, std::size_t Count>
-	static void Data(
+	static void SubData(
 		Target target,
-		const GLtype (&data)[Count],
-		BufferUsage usage = BufferUsage::StaticDraw
+		BufferSize offset,
+		const BufferData& data
 	)
 	{
-		OGLPLUS_GLFUNC(BufferData)(
+		OGLPLUS_GLFUNC(BufferSubData)(
 			GLenum(target),
-			Count * sizeof(GLtype),
-			data,
-			GLenum(usage)
+			GLintptr(offset.Get()),
+			GLsizei(data.Size()),
+			data.Data()
 		);
 		OGLPLUS_CHECK(
-			BufferData,
+			BufferSubData,
 			ObjectError,
-			ObjectBinding(target).
-			EnumParam(usage)
-		);
-	}
-
-	/// Uploads (sets) the buffer data
-	/** This member function uploads @p data.size() units of @c sizeof(GLtype)
-	 *  from the location pointed to by @p data.data() to the buffer bound
-	 *  to the specified @p target using the @p usage as hint.
-	 *
-	 *  @see SubData
-	 *  @see CopySubData
-	 *  @throws Error
-	 */
-	template <typename GLtype>
-	static void Data(
-		Target target,
-		const std::vector<GLtype>& data,
-		BufferUsage usage = BufferUsage::StaticDraw
-	)
-	{
-		OGLPLUS_GLFUNC(BufferData)(
-			GLenum(target),
-			data.size() * sizeof(GLtype),
-			data.data(),
-			GLenum(usage)
-		);
-		OGLPLUS_CHECK(
-			BufferData,
-			ObjectError,
-			ObjectBinding(target).
-			EnumParam(usage)
-		);
-	}
-
-	/// Uploads (sets) the buffer data
-	/**
-	 *  @see SubData
-	 *  @see CopySubData
-	 *  @throws Error
-	 */
-	template <typename GLtype, std::size_t N>
-	static void Data(
-		Target target,
-		const std::vector<Vector<GLtype, N> >& data,
-		BufferUsage usage = BufferUsage::StaticDraw
-	)
-	{
-		//TODO: is this a good idea ?
-		OGLPLUS_GLFUNC(BufferData)(
-			GLenum(target),
-			data.size() * sizeof(GLtype) * N,
-			reinterpret_cast<const GLtype*>(data.data()),
-			GLenum(usage)
-		);
-		OGLPLUS_CHECK(
-			BufferData,
-			ObjectError,
-			ObjectBinding(target).
-			EnumParam(usage)
+			ObjectBinding(target)
 		);
 	}
 
@@ -559,68 +565,12 @@ public:
 	template <typename GLtype>
 	static void SubData(
 		Target target,
-		GLintptr offset,
+		BufferSize offset,
 		GLsizei count,
 		const GLtype* data
 	)
 	{
-		OGLPLUS_GLFUNC(BufferSubData)(
-			GLenum(target),
-			offset * sizeof(GLtype),
-			count * sizeof(GLtype),
-			data
-		);
-		OGLPLUS_CHECK(
-			BufferSubData,
-			ObjectError,
-			ObjectBinding(target)
-		);
-	}
-
-	template <typename GLtype, std::size_t Count>
-	static void SubData(
-		Target target,
-		GLintptr offset,
-		const GLtype (&data)[Count]
-	)
-	{
-		OGLPLUS_GLFUNC(BufferSubData)(
-			GLenum(target),
-			offset * sizeof(GLtype),
-			Count * sizeof(GLtype),
-			data
-		);
-		OGLPLUS_CHECK(
-			BufferSubData,
-			ObjectError,
-			ObjectBinding(target)
-		);
-	}
-
-	/// Uploads (sets) a subrange of the buffer data
-	/**
-	 *  @see Data
-	 *  @see CopySubData
-	 *  @throws Error
-	 */
-	template <typename GLtype>
-	static void SubData(
-		Target target,
-		GLintptr offset,
-		const std::vector<GLtype>& data
-	)
-	{
-		OGLPLUS_GLFUNC(BufferSubData)(
-			GLenum(target),
-			offset * sizeof(GLtype),
-			data.size() * sizeof(GLtype),
-			data.data()
-		);
-		OGLPLUS_CHECK(
-			BufferSubData,
-			ObjectError,
-			ObjectBinding(target)
-		);
+		SubData(target, offset, BufferData(count, data));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1 || GL_ARB_copy_buffer
@@ -635,17 +585,17 @@ public:
 	static inline void CopySubData(
 		BufferTarget readtarget,
 		BufferTarget writetarget,
-		GLintptr readoffset,
-		GLintptr writeoffset,
-		GLsizeiptr size
+		BufferSize readoffset,
+		BufferSize writeoffset,
+		BufferSize size
 	)
 	{
 		OGLPLUS_GLFUNC(CopyBufferSubData)(
 			GLenum(readtarget),
 			GLenum(writetarget),
-			readoffset,
-			writeoffset,
-			size
+			GLintptr(readoffset.Get()),
+			GLintptr(writeoffset.Get()),
+			GLsizeiptr(size.Get())
 		);
 		OGLPLUS_CHECK(
 			CopyBufferSubData,
@@ -705,8 +655,8 @@ public:
 	static void ClearSubData(
 		Target target,
 		PixelDataInternalFormat internal_format,
-		GLintptr offset,
-		GLsizeiptr size,
+		BufferSize offset,
+		BufferSize size,
 		PixelDataFormat format,
 		const GLtype* data
 	)
@@ -714,8 +664,8 @@ public:
 		OGLPLUS_GLFUNC(ClearBufferSubData)(
 			GLenum(target),
 			GLenum(internal_format),
-			offset,
-			size,
+			GLintptr(offset.Get()),
+			GLsizeiptr(size.Get()),
 			GLenum(format),
 			GLenum(GetDataType<GLtype>()),
 			data
@@ -744,14 +694,14 @@ public:
 	 */
 	static void Storage(
 		Target target,
-		GLsizeiptr size,
+		BufferSize size,
 		const void* data,
 		Bitfield<BufferStorageBit> flags
 	)
 	{
 		OGLPLUS_GLFUNC(BufferStorage)(
 			GLenum(target),
-			size,
+			GLsizeiptr(size.Get()),
 			data,
 			GLbitfield(flags)
 		);
@@ -958,9 +908,9 @@ inline BufferOpsAndIdxTgt operator << (
 struct BufferTargetAndOffset
 {
 	BufferTarget target;
-	GLintptr offset;
+	BufferSize offset;
 
-	BufferTargetAndOffset(BufferTarget t, GLintptr o)
+	BufferTargetAndOffset(BufferTarget t, BufferSize o)
 	 : target(t)
 	 , offset(o)
 	{ }
@@ -968,7 +918,7 @@ struct BufferTargetAndOffset
 
 inline BufferTargetAndOffset operator + (
 	BufferTarget target,
-	GLintptr offset
+	BufferSize offset
 )
 {
 	return BufferTargetAndOffset(target, offset);
@@ -995,10 +945,9 @@ inline const BufferOps& operator << (
 }
 
 // Data
-template <typename GLtype>
 inline BufferTarget operator << (
 	BufferTarget target,
-	const std::vector<GLtype>& data
+	const BufferData& data
 )
 {
 	BufferOps::Data(target, data);
@@ -1006,32 +955,9 @@ inline BufferTarget operator << (
 }
 
 // Data
-template <typename GLtype>
 inline BufferTarget operator << (
 	BufferTargetAndUsage&& tau,
-	const std::vector<GLtype>& data
-)
-{
-	BufferOps::Data(tau.target, data, tau.usage);
-	return tau.target;
-}
-
-// Data
-template <typename GLtype, std::size_t Count>
-inline BufferTarget operator << (
-	BufferTarget target,
-	const GLtype (&data)[Count]
-)
-{
-	BufferOps::Data(target, data);
-	return target;
-}
-
-// Data
-template <typename GLtype, std::size_t Count>
-inline BufferTarget operator << (
-	BufferTargetAndUsage&& tau,
-	const GLtype (&data)[Count]
+	const BufferData& data
 )
 {
 	BufferOps::Data(tau.target, data, tau.usage);
@@ -1042,18 +968,7 @@ inline BufferTarget operator << (
 template <typename GLtype>
 inline BufferTarget operator << (
 	BufferTargetAndOffset&& tao,
-	const std::vector<GLtype>& data
-)
-{
-	BufferOps::SubData(tao.target, tao.offset, data);
-	return tao.target;
-}
-
-// SubData
-template <typename GLtype, std::size_t Count>
-inline BufferTarget operator << (
-	BufferTargetAndOffset&& tao,
-	const GLtype (&data)[Count]
+	const BufferData& data
 )
 {
 	BufferOps::SubData(tao.target, tao.offset, data);

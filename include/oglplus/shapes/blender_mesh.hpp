@@ -37,6 +37,7 @@ namespace shapes {
 /// Class providing vertex attributes and instructions for drawing of a mesh
 class BlenderMesh
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	struct _loading_options
@@ -291,13 +292,13 @@ public:
 	typedef std::vector<GLuint> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const
+	IndexArray Indices(Default = Default()) const
 	{
 		return _idx_data;
 	}
 
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const;
+	DrawingInstructions Instructions(Default = Default()) const;
 };
 
 } // shapes

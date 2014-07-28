@@ -50,6 +50,8 @@
 #include <oglplus/shader.hpp>
 #include <oglplus/sync.hpp>
 
+#include <oglplus/named_string.hpp>
+
 #include <oglplus/object/group.hpp>
 #include <oglplus/object/array.hpp>
 #include <oglplus/object/optional.hpp>

@@ -49,7 +49,12 @@ private:
 			return val;
 		}
 
-		static const char* _conv(const std::string& val)
+		template <typename U>
+		static typename std::enable_if<
+			std::is_same<T, const char*>::value &&
+			std::is_same<U, std::string>::value,
+			const char*
+		>::type _conv(const U& val)
 		{
 			return val.c_str();
 		}
@@ -103,6 +108,11 @@ private:
 	}
 public:
 	typedef T value_type;
+	typedef T* pointer;
+	typedef T& reference;
+	typedef const T& const_reference;
+	typedef std::ptrdiff_t difference_type;
+	typedef std::input_iterator_tag iterator_category;
 
 	template <typename Iter>
 	AnyInputIter(Iter i)

@@ -34,27 +34,27 @@ _translate_ref(ShaderType shader_type)
 	switch(shader_type)
 	{
 #ifdef GL_VERTEX_SHADER
-		case OGLPLUS_CONST_ENUM_VALUE(ShaderType::Vertex):
+		case ShaderType::Vertex:
 		return GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER;
 #endif
 #ifdef GL_TESS_CONTROL_SHADER
-		case OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessControl):
+		case ShaderType::TessControl:
 		return GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER;
 #endif
 #ifdef GL_TESS_EVALUATION_SHADER
-		case OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessEvaluation):
+		case ShaderType::TessEvaluation:
 		return GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER;
 #endif
 #ifdef GL_GEOMETRY_SHADER
-		case OGLPLUS_CONST_ENUM_VALUE(ShaderType::Geometry):
+		case ShaderType::Geometry:
 		return GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER;
 #endif
 #ifdef GL_FRAGMENT_SHADER
-		case OGLPLUS_CONST_ENUM_VALUE(ShaderType::Fragment):
+		case ShaderType::Fragment:
 		return GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER;
 #endif
 #ifdef GL_COMPUTE_SHADER
-		case OGLPLUS_CONST_ENUM_VALUE(ShaderType::Compute):
+		case ShaderType::Compute:
 		return GL_UNIFORM_BLOCK_REFERENCED_BY_COMPUTE_SHADER;
 #endif
 	}
@@ -68,27 +68,27 @@ _translate_max(ShaderType shader_type)
 	switch(shader_type)
 	{
 #ifdef GL_VERTEX_SHADER
-		case OGLPLUS_CONST_ENUM_VALUE(ShaderType::Vertex):
+		case ShaderType::Vertex:
 		return GL_MAX_VERTEX_UNIFORM_BLOCKS;
 #endif
 #ifdef GL_TESS_CONTROL_SHADER
-		case OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessControl):
+		case ShaderType::TessControl:
 		return GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS;
 #endif
 #ifdef GL_TESS_EVALUATION_SHADER
-		case OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessEvaluation):
+		case ShaderType::TessEvaluation:
 		return GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS;
 #endif
 #ifdef GL_GEOMETRY_SHADER
-		case OGLPLUS_CONST_ENUM_VALUE(ShaderType::Geometry):
+		case ShaderType::Geometry:
 		return GL_MAX_GEOMETRY_UNIFORM_BLOCKS;
 #endif
 #ifdef GL_FRAGMENT_SHADER
-		case OGLPLUS_CONST_ENUM_VALUE(ShaderType::Fragment):
+		case ShaderType::Fragment:
 		return GL_MAX_FRAGMENT_UNIFORM_BLOCKS;
 #endif
 #ifdef GL_COMPUTE_SHADER
-		case OGLPLUS_CONST_ENUM_VALUE(ShaderType::Compute):
+		case ShaderType::Compute:
 		return GL_MAX_COMPUTE_UNIFORM_BLOCKS;
 #endif
 	}

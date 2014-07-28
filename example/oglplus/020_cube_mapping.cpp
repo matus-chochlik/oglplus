@@ -188,12 +188,7 @@ public:
 			}
 		}
 		// typechecked uniform with the exact sampler type
-		// on compilers supporting strongly typed enums
-		// you can use:
-		//Typechecked<Uniform<SLtoCpp<SLDataType::SamplerCube>>>(prog, "TexUnit").Set(0);
-		// without strongly typed enums you need to do:
-		typedef SLtoCpp<OGLPLUS_CONST_ENUM_VALUE(SLDataType::SamplerCube)> GLSLsamplerCube;
-		Typechecked<Uniform<GLSLsamplerCube>>(prog, "TexUnit").Set(0);
+		Typechecked<Uniform<SLtoCpp<SLDataType::SamplerCube>>>(prog, "TexUnit").Set(0);
 
 		//
 		Uniform<Vec3f>(prog, "LightPos").Set(Vec3f(3.0f, 5.0f, 4.0f));

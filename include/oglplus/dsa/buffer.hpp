@@ -59,6 +59,80 @@ public:
 		return GetIntParam(GL_BUFFER_MAPPED) == GL_TRUE;
 	}
 
+	/// Allocates buffer storage to the specified size without any data
+	/** This member function allows to (re-)allocate the buffer storage
+	 *  to the specifies @p size, without uploading any data.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{NamedBufferDataEXT}
+	 *
+	 *  @see SubData
+	 *  @throws Error
+	 */
+	void Resize(
+		BufferSize size,
+		BufferUsage usage = BufferUsage::StaticDraw
+	)
+	{
+		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
+			_name,
+			size.Get(),
+			nullptr,
+			GLenum(usage)
+		);
+		OGLPLUS_CHECK(
+			NamedBufferDataEXT,
+			ObjectError,
+			Object(*this).
+			EnumParam(usage)
+		);
+	}
+
+	/// Uploads (sets) the buffer data
+	/** This member function uploads the specified @data to this buffer
+	 *  using the @p usage as hint.
+	 *
+	 *  @see SubData
+	 *  @see CopySubData
+	 *  @throws Error
+	 */
+	void Data(
+		const BufferData& data,
+		BufferUsage usage = BufferUsage::StaticDraw
+	) const
+	{
+		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
+			_name,
+			GLsizei(data.Size()),
+			data.Data(),
+			GLenum(usage)
+		);
+		OGLPLUS_CHECK(
+			NamedBufferDataEXT,
+			ObjectError,
+			Object(*this).
+			EnumParam(usage)
+		);
+	}
+
+	/// Uploads (sets) the buffer data
+	/** This member function uploads @p size bytes
+	 *  from the location pointed to by @p data to this buffer
+	 *  using the @p usage as hint.
+	 *
+	 *  @see SubData
+	 *  @see CopySubData
+	 *  @throws Error
+	 */
+	void RawData(
+		BufferSize size,
+		const GLvoid* data,
+		BufferUsage usage = BufferUsage::StaticDraw
+	) const
+	{
+		Data(BufferData(size, data), usage);
+	}
+
 	/// Uploads (sets) the buffer data
 	/** This member function uploads @p count units of @c sizeof(GLtype)
 	 *  from the location pointed to by @p data to this buffer
@@ -71,97 +145,34 @@ public:
 	template <typename GLtype>
 	void Data(
 		GLsizei count,
-		GLtype* data,
+		const GLtype* data,
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
 	{
-		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
-			_name,
-			count * sizeof(GLtype),
-			data,
-			GLenum(usage)
-		);
-		OGLPLUS_CHECK(
-			NamedBufferDataEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(usage)
-		);
+		Data(BufferData(count, data), usage);
 	}
 
-	template <typename GLtype, std::size_t Count>
-	void Data(
-		GLtype (&data)[Count],
-		BufferUsage usage = BufferUsage::StaticDraw
-	) const
-	{
-		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
-			_name,
-			Count * sizeof(GLtype),
-			data,
-			GLenum(usage)
-		);
-		OGLPLUS_CHECK(
-			NamedBufferDataEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(usage)
-		);
-	}
-
-	/// Uploads (sets) the buffer data
-	/** This member function uploads @p data.size() units of @c sizeof(GLtype)
-	 *  from the location pointed to by @p data.data() to this buffer
-	 *  using the @p usage as hint.
-	 *
-	 *  @see SubData
-	 *  @see CopySubData
-	 *  @throws Error
-	 */
-	template <typename GLtype>
-	void Data(
-		const std::vector<GLtype>& data,
-		BufferUsage usage = BufferUsage::StaticDraw
-	) const
-	{
-		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
-			_name,
-			data.size() * sizeof(GLtype),
-			data.data(),
-			GLenum(usage)
-		);
-		OGLPLUS_CHECK(
-			NamedBufferDataEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(usage)
-		);
-	}
-
-	/// Uploads (sets) the buffer data
+	/// Uploads (sets) a subrange of the buffer data
 	/**
-	 *  @see SubData
+	 *  @see Data
 	 *  @see CopySubData
 	 *  @throws Error
 	 */
-	template <typename GLtype, std::size_t N>
-	void Data(
-		const std::vector<Vector<GLtype, N> >& data,
-		BufferUsage usage = BufferUsage::StaticDraw
+	void SubData(
+		BufferSize offset,
+		const BufferData& data
 	) const
 	{
-		//TODO: is this a good idea ?
-		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
+		OGLPLUS_GLFUNC(NamedBufferSubDataEXT)(
 			_name,
-			data.size() * sizeof(GLtype) * N,
-			reinterpret_cast<const GLtype*>(data.data()),
-			GLenum(usage)
+			GLintptr(offset.Get()),
+			GLsizei(data.Size()),
+			data.Data()
 		);
 		OGLPLUS_CHECK(
-			NamedBufferDataEXT,
+			NamedBufferSubDataEXT,
 			ObjectError,
-			Object(*this).
-			EnumParam(usage)
+			Object(*this)
 		);
 	}
 
@@ -173,66 +184,12 @@ public:
 	 */
 	template <typename GLtype>
 	void SubData(
-		GLintptr offset,
+		BufferSize offset,
 		GLsizei count,
 		GLtype* data
 	) const
 	{
-		OGLPLUS_GLFUNC(NamedBufferSubDataEXT)(
-			_name,
-			offset * sizeof(GLtype),
-			count * sizeof(GLtype),
-			data
-		);
-		OGLPLUS_CHECK(
-			NamedBufferSubDataEXT,
-			ObjectError,
-			Object(*this)
-		);
-	}
-
-	template <typename GLtype, std::size_t Count>
-	void SubData(
-		GLintptr offset,
-		GLtype (&data)[Count]
-	) const
-	{
-		OGLPLUS_GLFUNC(NamedBufferSubDataEXT)(
-			_name,
-			offset * sizeof(GLtype),
-			Count * sizeof(GLtype),
-			data
-		);
-		OGLPLUS_CHECK(
-			NamedBufferSubDataEXT,
-			ObjectError,
-			Object(*this)
-		);
-	}
-
-	/// Uploads (sets) a subrange of the buffer data
-	/**
-	 *  @see Data
-	 *  @see CopySubData
-	 *  @throws Error
-	 */
-	template <typename GLtype>
-	void SubData(
-		GLintptr offset,
-		const std::vector<GLtype>& data
-	) const
-	{
-		OGLPLUS_GLFUNC(NamedBufferSubDataEXT)(
-			_name,
-			offset * sizeof(GLtype),
-			data.size() * sizeof(GLtype),
-			data.data()
-		);
-		OGLPLUS_CHECK(
-			NamedBufferSubDataEXT,
-			ObjectError,
-			Object(*this)
-		);
+		SubData(offset, BufferData(count, data));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1 || GL_ARB_copy_buffer
@@ -247,17 +204,17 @@ public:
 	static void CopySubData(
 		BufferName readbuffer,
 		BufferName writebuffer,
-		GLintptr readoffset,
-		GLintptr writeoffset,
-		GLsizeiptr size
+		BufferSize readoffset,
+		BufferSize writeoffset,
+		BufferSize size
 	)
 	{
 		OGLPLUS_GLFUNC(NamedCopyBufferSubDataEXT)(
 			GetGLName(readbuffer),
 			GetGLName(writebuffer),
-			readoffset,
-			writeoffset,
-			size
+			GLintptr(readoffset.Get()),
+			GLintptr(writeoffset.Get()),
+			GLsizeiptr(size.Get())
 		);
 		OGLPLUS_CHECK(
 			NamedCopyBufferSubDataEXT,
@@ -316,8 +273,8 @@ public:
 	template <typename GLtype>
 	void ClearSubData(
 		PixelDataInternalFormat internal_format,
-		GLintptr offset,
-		GLsizeiptr size,
+		BufferSize offset,
+		BufferSize size,
 		PixelDataFormat format,
 		const GLtype* data
 	) const
@@ -325,8 +282,8 @@ public:
 		OGLPLUS_GLFUNC(ClearNamedBufferSubDataEXT)(
 			_name,
 			GLenum(internal_format),
-			offset,
-			size,
+			GLintptr(offset.Get()),
+			GLsizeiptr(size.Get()),
 			GLenum(format),
 			GLenum(GetDataType<GLtype>()),
 			data

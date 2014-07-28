@@ -209,7 +209,10 @@ public:
 		);
 		{
 			std::vector<DepthAndID> data(36, DepthAndID(0.0, 0));
-			Buffer::Data(Buffer::Target::TransformFeedback, data);
+			Buffer::Resize(
+				BufferTarget::TransformFeedback,
+				BufferSize::Of<DepthAndID>(36)
+			);
 		}
 
 		// bind the VBO for the cube vertices

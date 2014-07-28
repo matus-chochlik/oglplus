@@ -256,6 +256,75 @@ public:
 	 */
 	ObjectOps& Link(void);
 
+	/// builds this shading language program
+	/** This function checks if all attached shaders are compiled
+	 *  and if they are not the it compiles them and then links
+	 *  this Program.
+	 *
+	 *  @post IsLinked()
+	 *  @throws Error LinkError
+	 *  @see IsLinked
+	 *
+	 *  @glsymbols
+	 *  @glfunref{CompileShader}
+	 *  @glfunref{LinkProgram}
+	 *  @glfunref{GetProgram}
+	 *  @glfunref{GetProgramInfoLog}
+	 */
+	ObjectOps& Build(void);
+
+#if OGLPLUS_DOCUMENTATION_ONLY ||\
+	GL_ARB_shading_language_include
+
+	/// builds this shading language program using specified include paths
+	/** This function checks if all attached shaders are compiled
+	 *  and if they are not the it compiles them and then links
+	 *  this Program.
+	 *
+	 *  @post IsLinked()
+	 *  @throws Error LinkError
+	 *  @see IsLinked
+	 *
+	 *  @glsymbols
+	 *  @glfunref{CompileShader}
+	 *  @glfunref{LinkProgram}
+	 *  @glfunref{GetProgram}
+	 *  @glfunref{GetProgramInfoLog}
+	 */
+	ObjectOps& BuildInclude(
+		GLsizei count,
+		const GLchar* const* paths,
+		const GLint* lengths
+	);
+
+	ObjectOps& BuildInclude(GLSLString&& incl)
+	{
+		return BuildInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+
+	ObjectOps& BuildInclude(GLSLStrings&& incl)
+	{
+		return BuildInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+
+	ObjectOps& BuildInclude(const GLSLSource&& incl)
+	{
+		return BuildInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+#endif
+
 	/// Returns true if the program is validated, false otherwise
 	/**
 	 *  @see Validate
@@ -427,9 +496,19 @@ public:
 		{ }
 	};
 
+	struct IteratedShaderName
+	 : ShaderName
+	{
+		IteratedShaderName(
+			const ShaderIterationContext& context,
+			unsigned index
+		): ShaderName(context._shader_names.at(index))
+		{ }
+	};
+
 	typedef aux::ContextElementRange<
 			ShaderIterationContext,
-			ShaderName
+			IteratedShaderName
 	> ShaderRange;
 #endif // !OGLPLUS_DOCUMENTATION_ONLY
 
@@ -903,8 +982,14 @@ private:
 	static GLuint _make(
 		ShaderType shader_type,
 		GLsizei count,
-		const GLchar** strings
+		const GLchar* const* strings
 	);
+
+	template <typename Src>
+	static GLuint _make(ShaderType shader_type, const Src& source)
+	{
+		return _make(shader_type, source.Count(), source.Parts());
+	}
 
 	void _check(void);
 public:
@@ -914,8 +999,8 @@ public:
 	 */
 	ShaderProgram(
 		ShaderType shader_type,
-		const GLchar* source
-	): Program(_make(shader_type, 1, &source))
+		GLSLString&& source
+	): Program(_make(shader_type, source))
 	{ _check(); }
 
 	/// Creates a program with a single shader with specified type and source
@@ -924,9 +1009,30 @@ public:
 	 */
 	ShaderProgram(
 		ShaderType shader_type,
-		const GLchar* source,
+		GLSLString&& source,
 		ObjectDesc&& object_desc
-	): Program(_make(shader_type, 1, &source), std::move(object_desc))
+	): Program(_make(shader_type, source), std::move(object_desc))
+	{ _check(); }
+
+	/// Creates a program with a single shader with specified type and source
+	/**
+	 *  @throws ValidationError
+	 */
+	ShaderProgram(
+		ShaderType shader_type,
+		GLSLStrings&& source
+	): Program(_make(shader_type, source))
+	{ _check(); }
+
+	/// Creates a program with a single shader with specified type and source
+	/**
+	 *  @throws ValidationError
+	 */
+	ShaderProgram(
+		ShaderType shader_type,
+		GLSLStrings&& source,
+		ObjectDesc&& object_desc
+	): Program(_make(shader_type, source), std::move(object_desc))
 	{ _check(); }
 
 	/// Creates a program with a single shader with specified type and source

@@ -243,8 +243,6 @@ public:
 			"		gl_Position;"
 			"}"
 		);
-		// compile it
-		sphere_vs.Compile();
 
 		// set the fragment shader source
 		sphere_fs.Source(
@@ -277,14 +275,11 @@ public:
 			"	);"
 			"}"
 		);
-		// compile it
-		sphere_fs.Compile();
-
 		// attach the shaders to the program
 		sphere_prog.AttachShader(sphere_vs);
 		sphere_prog.AttachShader(sphere_fs);
-		// link and use it
-		sphere_prog.Link();
+		// compile, link and use it
+		sphere_prog.Build();
 		sphere_prog.Use();
 
 		sphere_projection_matrix.BindTo("ProjectionMatrix");
@@ -373,8 +368,6 @@ public:
 			"		gl_Position;"
 			"}"
 		);
-		// compile it
-		cube_vs.Compile();
 
 		// set the fragment shader source
 		cube_fs.Source(
@@ -394,14 +387,12 @@ public:
 			"	fragColor = vec4(vertColor*i, 1.0);"
 			"}"
 		);
-		// compile it
-		cube_fs.Compile();
 
 		// attach the shaders to the program
 		cube_prog.AttachShader(cube_vs);
 		cube_prog.AttachShader(cube_fs);
-		// link and use it
-		cube_prog.Link();
+		// compile, link and use it
+		cube_prog.Build();
 		cube_prog.Use();
 
 		cube_projection_matrix.BindTo("ProjectionMatrix");
@@ -430,8 +421,6 @@ public:
 			"	tempLight = LightPos.xyz - gl_Position.xyz;"
 			"}"
 		);
-		// compile it
-		cmap_vs.Compile();
 
 		// Set the geometry shader source
 		cmap_gs.Source(
@@ -499,15 +488,13 @@ public:
 			"	}"
 			"}"
 		);
-		// compile it
-		cmap_gs.Compile();
 
 		// attach the shaders to the program
 		cmap_prog.AttachShader(cmap_vs);
 		cmap_prog.AttachShader(cmap_gs);
 		cmap_prog.AttachShader(cube_fs);
-		// link and use it
-		cmap_prog.Link();
+		// compile, link and use it
+		cmap_prog.Build();
 		cmap_prog.Use();
 
 		cmap_light_pos.BindTo("LightPos");

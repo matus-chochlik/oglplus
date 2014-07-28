@@ -12,4 +12,8 @@ if(EGL_FOUND)
 		error.cpp
 		configs.cpp
 	)
+	set_property(
+		TARGET eglplus
+		PROPERTY FOLDER "Library/EGLplus"
+	)
 endif()

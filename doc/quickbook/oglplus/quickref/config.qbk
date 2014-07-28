@@ -24,5 +24,6 @@ preprocessor symbols on the command-line or in an IDE).
 [include config/compiler.qbk]
 [include config/basic.qbk]
 [include config/error.qbk]
+[include config/enums.qbk]
 
 [endsect]

@@ -1,3 +1,26 @@
+Version 0.49.0
+
+- Wrappers for the ARB_shading_language_include extension was added.
+- The Program::Build functions were added.
+- The GLSLString and GLSLStrings classes were added.
+- The GLSLSource class was updated.
+- The implementation of Shader::Source and ShaderProgram was updated.
+- The BufferSize and BufferData types were added.
+- The {DSA}Buffer::Data and {DSA}Buffer::SubData functions were changed
+  to use the BufferSize and BufferData types.
+- The {DSA}Buffer::RawData functions were added.
+- The {DSA}Buffer::Resize functions were added.
+- The Indices() and Instructions() member functions of the shape
+  generators/loaders were made more generic.
+- Several bugs were fixed:
+  - Some shader errors in examples.
+  - A problem in the ObjMesh loader was fixed.
+  - Several problems in the build-system
+- Several examples were updated to show the usage of the new features.
+- The documentation was updated.
+- The pre-generated MSVC10 solution and projects were removed.
+
+
 Version 0.48.0
 
 - Wrapper for the ARB_copy_image extension was added.

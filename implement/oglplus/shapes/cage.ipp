@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -424,7 +424,8 @@ std::vector<GLfloat> Cage::_tex_coords(void) const
 }
 
 OGLPLUS_LIB_FUNC
-Cage::IndexArray Cage::Indices(void) const
+Cage::IndexArray
+Cage::Indices(Cage::Default) const
 {
 	IndexArray indices(_index_count(), _pri());
 	auto i=indices.begin();
@@ -487,7 +488,8 @@ Cage::IndexArray Cage::Indices(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions Cage::Instructions(void) const
+DrawingInstructions
+Cage::Instructions(Cage::Default) const
 {
 	DrawOperation operation;
 	operation.method = DrawOperation::Method::DrawElements;

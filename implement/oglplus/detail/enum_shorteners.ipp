@@ -3619,6 +3619,11 @@ template <typename Enum, Enum = Enum::ShaderImageAccess> operator Enum (void) co
 template <typename Enum> friend bool operator==(Enum value, ShaderImageAccess){ return value == Enum::ShaderImageAccess; }
 template <typename Enum> friend bool operator!=(Enum value, ShaderImageAccess){ return value != Enum::ShaderImageAccess; }
 };
+struct ShaderInclude {
+template <typename Enum, Enum = Enum::ShaderInclude> operator Enum (void) const{ return Enum::ShaderInclude; }
+template <typename Enum> friend bool operator==(Enum value, ShaderInclude){ return value == Enum::ShaderInclude; }
+template <typename Enum> friend bool operator!=(Enum value, ShaderInclude){ return value != Enum::ShaderInclude; }
+};
 struct ShaderStorage {
 template <typename Enum, Enum = Enum::ShaderStorage> operator Enum (void) const{ return Enum::ShaderStorage; }
 template <typename Enum> friend bool operator==(Enum value, ShaderStorage){ return value == Enum::ShaderStorage; }

@@ -1,71 +1,55 @@
 ================================
-Release notes for version 0.48.0
+Release notes for version 0.49.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
+.. _ARB_shading_language_include: http://www.opengl.org/registry/specs/ARB/shading_language_include.txt
 
 Overview
 ========
 
-This release of `OGLplus`_ brings some changes to oglplus, oalplus and
-eglplus exception classes, updates in the BezierCurves class, new wrappers
-for GL extensions, refactored oalplus::Device class, updated docs, etc.
-Several bugs were fixed and one of the older examples was removed.
+This release of `OGLplus`_ brings changes to the functions for specifying Buffer
+data and sub-data, new types representing buffer data and its size, new classes
+for specifying GLSL shader source strings, support for ``#include`` directives
+in GLSL, changes in the shape loader/generator framework, several bugfixes,
+minor updates to the documentation, etc. 
 
 Changes
 =======
 
- - Changes to ``oglplus::Error``
+ - Buffer data specification
 
-   * ``Error::GLLib`` function was added.
-   * ``Error::GLFuncName`` function was renamed to ``GLFunc``.
+   * The ``BufferSize`` and ``BufferData`` classes used for specifying GPU buffer size and data were added.
+   * The ``Buffer::Data``, ``Buffer::SubData`` and some other functions were changed to used the new classes.
+   * In case of ``Buffer::SubData`` an interface-breaking change was made -- the offset is now specified in bytes.
+   * The ``Buffer::Resize`` function for resizing of a GPU buffer without specifying the data was added.
+   * The ``Buffer::RawData`` function for specifying untyped buffer data was added.
+   * Similar changes were also made to the ``DSABuffer`` class.
 
- - Changes to ``oalplus::Error``
+ - Shader source specification
 
-   * ``Error::ALLibName`` function was renamed to ``ALLib``.
-   * ``Error::ALFuncName`` function was renamed to ``ALFunc``.
+   * The new ``GLSLString`` and ``GLSLStrings`` classes which serve as adapters for specifying GLSL shader source strings were added.
+   * The constructors and some member functions of the ``GLSLSource`` class were updated.
+   * The ``Shader::Source`` function and the constructors of ``ShaderProgram`` were updated to use the new classes.
 
- - Changes to ``oalplus::ALCError``
+ - New functions for building of GPU programs were added
 
-   * ``ALCError::Device`` function was added.
+   * The ``Program::Build`` function checks all shaders attached to a ``Program`` and compiles those which are not yet compiled, befor linking the program.
 
- - Changes to ``eglplus::Error``
+ - Wrapper for the `ARB_shading_language_include`_ extension was added
 
-   * ``Error::EGLFuncName`` function was renamed to ``EGLFunc``.
+   * The ``NamedStringType`` enumeration and the ``NamedString`` class were added.
+   * The ``Shader::CompileInclude`` and ``Program::BuildInclude`` functions were added which allow to compile shaders with ``#include`` directives.
 
- - Changes to ``oalplus::Device``
-
-   * The capture functionality was refactored into the separate ``CaptureDevice`` class.
-   * The ``Specifier``, ``CaptureSpecifier`` and ``Extensions`` functions were added.
-
- - Changes to ``oglplus::BezierCurves``
-
-   * New constructors were added.
-   * Support for non-connected sequences of bezier curve segments was added.
-   * The ``Derivative`` function was added.
-
- - New wrappers for GL extensions
-
-   * ``GL_ARB_copy_image``
-   * ``GLX_NV_copy_image``
-   * ``GL_NV_copy_image``
+ - Some of the existing examples were updated to show the usage of the new features.
 
  - Fixed bugs
 
-   * Fixed problems with support of Pango/Cairo in build system and sources.
-   * Added an ``#ifdef`` to Texture fixing problems with older versions of GL API headers.
+   * Negative indices are now supported by the ``ObjMesh`` shape loader.
+   * Several problems in the build-system were fixed.
+   * Some bugs in the OGLplus examples were fixed.
 
- - Moved the auto-generated configuration files:
+Breaking changes
+================
 
-   * ``oglplus/fix_gl_version.hpp`` to ``oglplus/config/fix_gl_version.hpp``
-   * ``oglplus/site_config.hpp`` to ``oglplus/config/site.hpp``
-
- - Quickbook-based documentation was started.
-
-Known issues
-============
-
-* Only partial support for MSVC 2010. Support for this compiler will be dropped in the next release.
-* The doxygen documentation is incomplete.
-
-
+ - As mentioned above the offset parameter of ``Buffer::SubData`` is now specified in bytes (by using the ``BufferSize`` class) instead of units of the uploaded data type.

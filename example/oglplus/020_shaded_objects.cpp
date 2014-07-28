@@ -256,7 +256,7 @@ private:
 	{
 		Shader shader(ShaderType::Fragment, ObjectDesc(desc));
 		const GLchar* src[3] = {fs_prologue(), color_fs, fs_epilogue()};
-		shader.Source(src, 3);
+		shader.Source(src);
 		shader.Compile();
 		return shader;
 	}
