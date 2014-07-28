@@ -50,7 +50,7 @@ if((wxWidgets_FOUND) AND (OPENAL_FOUND))
 	)
 
 	target_link_libraries(spectra ${wxWidgets_LIBRARIES})
-	target_link_libraries(spectra ${OGLPLUS_GL_LIBS})
+	target_link_libraries(spectra ${OGLPLUS_GL_LIBRARIES})
 	target_link_libraries(spectra ${OPENAL_LIBRARIES})
 	add_dependencies(oglplus-advanced-example-spectra spectra)
 	add_dependencies(oglplus-advanced-examples oglplus-advanced-example-spectra)

@@ -67,7 +67,7 @@ CompileInclude(
 	OGLPLUS_GLFUNC(CompileShaderIncludeARB)(
 		_name,
 		count,
-		paths,
+		const_cast<const GLchar**>(paths),
 		lengths
 	);
 	OGLPLUS_CHECK(
