@@ -5,7 +5,6 @@
  */
 
 //[oglplus_config_enums
-namespace oglplus {
 
 #ifndef OGLPLUS_NO_ENUM_VALUE_NAMES /*<
 Compile-time switch disabling the functions returning enumerated value names.
@@ -35,6 +34,5 @@ and disabled otherwise.
 # define OGLPLUS_NO_ENUM_VALUE_RANGES OGLPLUS_LOW_PROFILE
 #endif
 
-} // namespace oglplus
 //]
 

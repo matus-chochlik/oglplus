@@ -5,7 +5,6 @@
  */
 
 //[oglplus_config_compiler
-namespace oglplus {
 
 #ifndef OGLPLUS_NO_SITE_CONFIG /*<
 Disables the usage of the automatically-generated
@@ -31,6 +30,5 @@ of Boost.Config is disabled by default.
 // The default values for the preprocessor symbols indicating
 // compiler capabilities are also defined here.
 
-} // namespace oglplus
 //]
 

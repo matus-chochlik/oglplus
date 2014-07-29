@@ -5,7 +5,6 @@
  */
 
 //[oglplus_config_basic
-namespace oglplus {
 
 #ifndef OGLPLUS_LOW_PROFILE
 # define OGLPLUS_LOW_PROFILE 0 /*<
@@ -50,6 +49,5 @@ Disables the usage of the automatically-generated
 #include <oglplus/config/site.hpp>
 #endif
 
-} // namespace oglplus
 //]
 

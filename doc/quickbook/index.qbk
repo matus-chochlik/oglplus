@@ -34,6 +34,8 @@
 
 [def nullptr [^nullptr]]
 
+[def __UNSPECIFIED <UNSPECIFIED>]
+
 [/--------]
 [/Chapters]
 [/--------]
