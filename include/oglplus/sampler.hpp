@@ -438,6 +438,39 @@ public:
 		);
 	}
 
+	/// Sets both the minification and magnification filter
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_MIN_FILTER}
+	 *  @gldefref{TEXTURE_MAG_FILTER}
+	 */
+	void Filter(TextureFilter filter) const
+	{
+		OGLPLUS_GLFUNC(SamplerParameteri)(
+			_name,
+			GL_TEXTURE_MIN_FILTER,
+			GLenum(filter)
+		);
+		OGLPLUS_CHECK(
+			SamplerParameteri,
+			ObjectError,
+			Object(*this).
+			EnumParam(filter)
+		);
+		OGLPLUS_GLFUNC(SamplerParameteri)(
+			_name,
+			GL_TEXTURE_MAG_FILTER,
+			GLenum(filter)
+		);
+		OGLPLUS_CHECK(
+			SamplerParameteri,
+			ObjectError,
+			Object(*this).
+			EnumParam(filter)
+		);
+	}
+
 	/// Gets the magnification filter
 	/**
 	 *  @glsymbols
@@ -701,6 +734,126 @@ public:
 /// Sampler operations with direct state access
 typedef ObjectOps<tag::DirectState, tag::Sampler>
 	SamplerOps;
+
+// Helper class for syntax-sugar operators
+struct SamplerOpsAndSlot
+{
+	SamplerOps& sam;
+	GLint slot;
+
+	SamplerOpsAndSlot(SamplerOps& sa, GLint sl)
+	 : sam(sa)
+	 , slot(sl)
+	{ }
+};
+
+// syntax sugar operators
+inline SamplerOpsAndSlot operator | (
+	SamplerOps& sam,
+	GLuint slot
+)
+{
+	return SamplerOpsAndSlot(sam, slot);
+}
+
+// Bind
+inline SamplerOps& operator << (
+	SamplerOps& sam,
+	TextureUnitSelector tus
+)
+{
+	sam.Bind(tus);
+	return sam;
+}
+
+// Filter
+inline SamplerOps& operator << (
+	SamplerOps& sam,
+	TextureFilter filter
+)
+{
+	sam.Filter(filter);
+	return sam;
+}
+
+// MinFilter
+inline SamplerOps& operator << (
+	SamplerOps& sam,
+	TextureMinFilter filter
+)
+{
+	sam.MinFilter(filter);
+	return sam;
+}
+
+// MagFilter
+inline SamplerOps& operator << (
+	SamplerOps& sam,
+	TextureMagFilter filter
+)
+{
+	sam.MagFilter(filter);
+	return sam;
+}
+
+// CompareMode
+inline SamplerOps& operator << (
+	SamplerOps& sam,
+	TextureCompareMode mode
+)
+{
+	sam.CompareMode(mode);
+	return sam;
+}
+
+// CompareFunc
+inline SamplerOps& operator << (
+	SamplerOps& sam,
+	CompareFunction func
+)
+{
+	sam.CompareFunc(func);
+	return sam;
+}
+
+// Wrap
+inline SamplerOps& operator << (
+	SamplerOps& sam,
+	TextureWrap wrap
+)
+{
+	sam.WrapR(wrap);
+	sam.WrapT(wrap);
+	sam.WrapS(wrap);
+	return sam;
+}
+
+// Wrap
+inline SamplerOps& operator << (
+	SamplerOpsAndSlot sas,
+	TextureWrap wrap
+)
+{
+	switch(sas.slot)
+	{
+		case 0: sas.sam.WrapS(wrap); break;
+		case 1: sas.sam.WrapT(wrap); break;
+		case 2: sas.sam.WrapR(wrap); break;
+		default: assert(!"Invalid texture wrap slot");
+	}
+	return sas.sam;
+}
+
+// BorderColor
+template <typename T>
+inline SamplerOps& operator << (
+	SamplerOps& sam,
+	const Vector<T, 4>& col
+)
+{
+	sam.BorderColor(col);
+	return sam;
+}
 
 /// Class that can be used to unbind the currently bound sampler
 /**
