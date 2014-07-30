@@ -9,7 +9,7 @@
 [header oglplus/config/error.hpp]
 
 The following options ['disable] some of the attributes of OGLplus'
-[link oglplus.quickref.errors exception classes]. By ['disabling]
+[link oglplus.quickref.error exception classes]. By ['disabling]
 we mean, that various member functions of __Error or its descendants,
 (like SourceFunc, SourceLine, etc.) return a default value
 (nullptr, zero, empty string, etc.) instead of the real value related

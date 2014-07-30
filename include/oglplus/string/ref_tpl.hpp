@@ -15,6 +15,8 @@
 
 #include <oglplus/string/utf8.hpp>
 #include <oglplus/config/compiler.hpp>
+#include <array>
+#include <vector>
 #include <string>
 #include <cstring>
 #include <cstddef>
@@ -70,11 +72,34 @@ public:
 	 , _size(ssize)
 	{ _validate(); }
 
-	/// Construction from a std::string
-	StrCRefTpl(const std::string& sstr)
+	/// Construction from a character array with known size
+	template <std::size_t N>
+	StrCRefTpl(const Char (&cary)[N])
+	OGLPLUS_NOEXCEPT(true)
+	 : _c_str(cary)
+	 , _size(N)
+	{ _validate(); }
+
+	/// Construction from a std::basic_string<Char>
+	StrCRefTpl(const std::basic_string<Char>& sstr)
 	OGLPLUS_NOEXCEPT(true)
 	 : _c_str(sstr.c_str())
 	 , _size(sstr.size())
+	{ _validate(); }
+
+	/// Construction from a std::vector<Char>
+	StrCRefTpl(const std::vector<Char>& cvec)
+	OGLPLUS_NOEXCEPT(true)
+	 : _c_str(cvec.data())
+	 , _size(cvec.size())
+	{ _validate(); }
+
+	/// Construction from a std::array<Char, N>
+	template <std::size_t N>
+	StrCRefTpl(const std::array<Char, N>& cvec)
+	OGLPLUS_NOEXCEPT(true)
+	 : _c_str(cvec.data())
+	 , _size(cvec.size())
 	{ _validate(); }
 
 	/// Return the size (length) string

@@ -1,0 +1,25 @@
+[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Software License, Version 1.0. (See accompanying file            ]
+[/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
+
+[/------------------]
+[section:ref StrCRef]
+[/------------------]
+
+[header oglplus/string/ref.hpp]
+
+The [^StrCRef] class stores a reference to an UTF-8 encoded character string.
+It is used as an adaptor or a type erasure for other types storing strings,
+(like __String, [^std::vector<GLchar>], [^const GLchar*], etc.) and is used
+as parameter type to limit the number of overloads of functions performing
+the same task on strings stored in different manner.
+
+The lifetime management of the memory block where the string is stored
+is outside the scope of this class. This means that the actual type storing
+the string must not be destroyed while an instance of [^StrCRef] wrapping
+it is being used.
+
+[import ref.hpp]
+[oglplus_string_ref]
+
+[endsect]

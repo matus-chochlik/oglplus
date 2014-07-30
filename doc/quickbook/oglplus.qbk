@@ -13,6 +13,8 @@
 
 [/Quick reference links]
 
+[def __String [link oglplus.quickref.string.def [^String]]]
+
 [def __ObjTag [link oglplus.quickref.object.tags ObjTag]]
 [def __ObjectName [link oglplus.quickref.object.name ObjectName]]
 [def __FramebufferName [link oglplus.quickref.object.name.typedefs FramebufferName]]
@@ -29,12 +31,12 @@
 [def __PathNVName [link oglplus.quickref.object.name.typedefs PathNVName]]
 
 
-[def __Error [link oglplus.quickref.errors.basic [^Error]]]
-[def __MissingFunction [link oglplus.quickref.errors.glfunc [^MissingFunction]]]
-[def __LimitError [link oglplus.quickref.errors.limit [^LimitError]]]
-[def __ObjectError [link oglplus.quickref.errors.object [^ObjectError]]]
-[def __SubjectError [link oglplus.quickref.errors.object [^SubjectError]]]
-[def __ProgramBuildError [link oglplus.quickref.errors.program [^ProgramBuildError]]]
+[def __Error [link oglplus.quickref.error.basic [^Error]]]
+[def __MissingFunction [link oglplus.quickref.error.glfunc [^MissingFunction]]]
+[def __LimitError [link oglplus.quickref.error.limit [^LimitError]]]
+[def __ObjectError [link oglplus.quickref.error.object [^ObjectError]]]
+[def __SubjectError [link oglplus.quickref.error.object [^SubjectError]]]
+[def __ProgramBuildError [link oglplus.quickref.error.program [^ProgramBuildError]]]
 
 [def __OGLPLUS_NO_SITE_CONFIG [link oglplus.quickref.config.compiler [^OGLPLUS_NO_SITE_CONFIG]]]
 

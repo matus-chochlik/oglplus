@@ -9,29 +9,6 @@ body hr
 	display: none;
 }
 
-
-a
-{
-	text-decoration: none;
-	text-shadow: 1px 1px 1px rgba(40, 40, 40, 0.2);
-}
-
-a:link
-{
-	color: #6060A0;
-}
-
-a:visited
-{
-	color: #404080;
-}
-
-a:hover
-{
-	color: #202040;
-	text-shadow: 1px 1px 1px rgba(40, 40, 40, 0.5);
-}
-
 body > div.spirit-nav
 {
 	background-color: #9090D0;
@@ -103,5 +80,28 @@ pre.programlisting
 
 code.literal
 {
-	color: #202080;
+	color: #101020;
 }
+
+a
+{
+	text-decoration: none;
+	text-shadow: 1px 1px 1px rgba(40, 40, 40, 0.2);
+}
+
+a:link
+{
+	color: #6060A0;
+}
+
+a:visited
+{
+	color: #404080;
+}
+
+a:hover
+{
+	color: #202040;
+	text-shadow: 1px 1px 1px rgba(40, 40, 40, 0.5);
+}
+
