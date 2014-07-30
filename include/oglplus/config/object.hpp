@@ -16,25 +16,6 @@
 #include <oglplus/config/basic.hpp>
 
 #if OGLPLUS_DOCUMENTATION_ONLY
-/// Compile-time switch disabling the testing of object type on construction
-/** Setting this preprocessor option to a non-zero integer value
- *  disables the additional checking of the type of object
- *  returned by OpenGL's @c glGen*(...) functions during the construction
- *  of an Object. Setting it to zero enables the check.
- *
- *  By default this option is set to 1, i.e. object type tests are disabled.
- *
- *  @ingroup compile_time_config
- */
-#define OGLPLUS_DONT_TEST_OBJECT_TYPE
-#else
-# ifndef OGLPLUS_DONT_TEST_OBJECT_TYPE
-#  define OGLPLUS_DONT_TEST_OBJECT_TYPE 1
-# endif
-#endif
-
-
-#if OGLPLUS_DOCUMENTATION_ONLY
 /// Compile-time switch disabling textual object descriptions
 /** Setting this preprocessor option to a non-zero integer value
  *  disables the @ref oglplus_object_description attached to

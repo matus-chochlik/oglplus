@@ -19,6 +19,7 @@
 #include "implement.ipp"
 
 #include <oglplus/error/basic.hpp>
+#include <oglplus/error/glfunc.hpp>
 #include <oglplus/error/limit.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/error/program.hpp>

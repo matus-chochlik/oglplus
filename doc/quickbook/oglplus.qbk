@@ -13,7 +13,28 @@
 
 [/Quick reference links]
 
+[def __ObjTag [link oglplus.quickref.object.tags ObjTag]]
+[def __ObjectName [link oglplus.quickref.object.name ObjectName]]
+[def __FramebufferName [link oglplus.quickref.object.name.typedefs FramebufferName]]
+[def __TextureName [link oglplus.quickref.object.name.typedefs TextureName]]
+[def __BufferName [link oglplus.quickref.object.name.typedefs BufferName]]
+[def __QueryName [link oglplus.quickref.object.name.typedefs QueryName]]
+[def __ProgramPipelineName [link oglplus.quickref.object.name.typedefs ProgramPipelineName]]
+[def __ProgramName [link oglplus.quickref.object.name.typedefs ProgramName]]
+[def __TransformFeedbackName [link oglplus.quickref.object.name.typedefs TransformFeedbackName]]
+[def __SamplerName [link oglplus.quickref.object.name.typedefs SamplerName]]
+[def __VertexArrayName [link oglplus.quickref.object.name.typedefs VertexArrayName]]
+[def __ShaderName [link oglplus.quickref.object.name.typedefs ShaderName]]
+[def __PerfMonitorAMDName [link oglplus.quickref.object.name.typedefs PerfMonitorAMDName]]
+[def __PathNVName [link oglplus.quickref.object.name.typedefs PathNVName]]
+
+
 [def __Error [link oglplus.quickref.errors.basic [^Error]]]
+[def __MissingFunction [link oglplus.quickref.errors.glfunc [^MissingFunction]]]
+[def __LimitError [link oglplus.quickref.errors.limit [^LimitError]]]
+[def __ObjectError [link oglplus.quickref.errors.object [^ObjectError]]]
+[def __SubjectError [link oglplus.quickref.errors.object [^SubjectError]]]
+[def __ProgramBuildError [link oglplus.quickref.errors.program [^ProgramBuildError]]]
 
 [def __OGLPLUS_NO_SITE_CONFIG [link oglplus.quickref.config.compiler [^OGLPLUS_NO_SITE_CONFIG]]]
 
@@ -29,6 +50,7 @@
 [def __OGLPLUS_ERROR_NO_GL_LIB [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_GL_LIB]]]
 [def __OGLPLUS_ERROR_NO_GL_FUNC [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_GL_FUNC]]]
 [def __OGLPLUS_ERROR_NO_GL_SYMBOL [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_GL_SYMBOL]]]
+[def __OGLPLUS_NO_GLFUNC_CHECKS [link oglplus.quickref.config.gl [^OGLPLUS_NO_GLFUNC_CHECKS]]]
 
 [/--------]
 [/Chapters]

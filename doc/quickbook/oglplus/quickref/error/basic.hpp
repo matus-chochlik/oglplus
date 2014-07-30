@@ -4,7 +4,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_error_1
+//[oglplus_error_Error_1
 namespace oglplus {
 
 class Error
@@ -89,7 +89,7 @@ public:
 	returns a negative integer.
 	>*/
 //]
-//[oglplus_error_2
+//[oglplus_error_Error_2
 	virtual GLfloat Value(void) const; /*<
 	Returns a value parameter related to the error, if applicable,
 	returns zero otherwise.
