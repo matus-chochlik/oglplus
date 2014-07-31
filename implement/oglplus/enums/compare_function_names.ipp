@@ -4,13 +4,13 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/compare_function.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	CompareFunction*,
 	GLenum value
 )
@@ -21,33 +21,33 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_LEQUAL
-	case GL_LEQUAL: return StrLit("LEQUAL");
+	case GL_LEQUAL: return StrCRef("LEQUAL");
 #endif
 #if defined GL_GEQUAL
-	case GL_GEQUAL: return StrLit("GEQUAL");
+	case GL_GEQUAL: return StrCRef("GEQUAL");
 #endif
 #if defined GL_LESS
-	case GL_LESS: return StrLit("LESS");
+	case GL_LESS: return StrCRef("LESS");
 #endif
 #if defined GL_GREATER
-	case GL_GREATER: return StrLit("GREATER");
+	case GL_GREATER: return StrCRef("GREATER");
 #endif
 #if defined GL_EQUAL
-	case GL_EQUAL: return StrLit("EQUAL");
+	case GL_EQUAL: return StrCRef("EQUAL");
 #endif
 #if defined GL_NOTEQUAL
-	case GL_NOTEQUAL: return StrLit("NOTEQUAL");
+	case GL_NOTEQUAL: return StrCRef("NOTEQUAL");
 #endif
 #if defined GL_ALWAYS
-	case GL_ALWAYS: return StrLit("ALWAYS");
+	case GL_ALWAYS: return StrCRef("ALWAYS");
 #endif
 #if defined GL_NEVER
-	case GL_NEVER: return StrLit("NEVER");
+	case GL_NEVER: return StrCRef("NEVER");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

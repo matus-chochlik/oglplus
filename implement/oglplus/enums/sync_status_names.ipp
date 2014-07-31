@@ -4,13 +4,13 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/sync_status.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	SyncStatus*,
 	GLenum value
 )
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_SIGNALED
-	case GL_SIGNALED: return StrLit("SIGNALED");
+	case GL_SIGNALED: return StrCRef("SIGNALED");
 #endif
 #if defined GL_UNSIGNALED
-	case GL_UNSIGNALED: return StrLit("UNSIGNALED");
+	case GL_UNSIGNALED: return StrCRef("UNSIGNALED");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

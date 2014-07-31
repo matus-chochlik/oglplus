@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	BufferStorageBit*,
 	GLbitfield value
 )
@@ -21,27 +21,27 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_MAP_READ_BIT
-	case GL_MAP_READ_BIT: return StrLit("MAP_READ_BIT");
+	case GL_MAP_READ_BIT: return StrCRef("MAP_READ_BIT");
 #endif
 #if defined GL_MAP_WRITE_BIT
-	case GL_MAP_WRITE_BIT: return StrLit("MAP_WRITE_BIT");
+	case GL_MAP_WRITE_BIT: return StrCRef("MAP_WRITE_BIT");
 #endif
 #if defined GL_MAP_PERSISTENT_BIT
-	case GL_MAP_PERSISTENT_BIT: return StrLit("MAP_PERSISTENT_BIT");
+	case GL_MAP_PERSISTENT_BIT: return StrCRef("MAP_PERSISTENT_BIT");
 #endif
 #if defined GL_MAP_COHERENT_BIT
-	case GL_MAP_COHERENT_BIT: return StrLit("MAP_COHERENT_BIT");
+	case GL_MAP_COHERENT_BIT: return StrCRef("MAP_COHERENT_BIT");
 #endif
 #if defined GL_DYNAMIC_STORAGE_BIT
-	case GL_DYNAMIC_STORAGE_BIT: return StrLit("DYNAMIC_STORAGE_BIT");
+	case GL_DYNAMIC_STORAGE_BIT: return StrCRef("DYNAMIC_STORAGE_BIT");
 #endif
 #if defined GL_CLIENT_STORAGE_BIT
-	case GL_CLIENT_STORAGE_BIT: return StrLit("CLIENT_STORAGE_BIT");
+	case GL_CLIENT_STORAGE_BIT: return StrCRef("CLIENT_STORAGE_BIT");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

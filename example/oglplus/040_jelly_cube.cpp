@@ -45,7 +45,7 @@ private:
 	static Program make(void)
 	{
 		Shader vs(se::Vertex(), ObjectDesc("Metal vertex"));
-		vs.Source(StrLit("#version 330\n"
+		vs.Source("#version 330\n"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"uniform vec3 CameraPosition, LightPosition;"
 
@@ -67,11 +67,11 @@ private:
 			"	vertTexCoord = TexCoord * 100.0;"
 			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
-		));
+		);
 		vs.Compile();
 
 		Shader fs(se::Fragment(), ObjectDesc("Metal fragment"));
-		fs.Source(StrLit("#version 330\n"
+		fs.Source("#version 330\n"
 			"const vec3 Color1 = vec3(0.5, 0.7, 0.6);"
 			"const vec3 Color2 = vec3(0.7, 0.9, 0.8);"
 
@@ -121,7 +121,7 @@ private:
 			"		LightColor * Color * Diffuse + "
 			"		LightColor * Specular;"
 			"}"
-		));
+		);
 		fs.Compile();
 
 		Program prog;
@@ -192,7 +192,7 @@ private:
 	static Program make(void)
 	{
 		Shader tfbs(se::Vertex(), ObjectDesc("Camera drive"));
-		tfbs.Source(StrLit(
+		tfbs.Source(
 			"#version 330\n"
 
 			"uniform float Interval, Mass, TargetDistance, Elevation;"
@@ -264,7 +264,7 @@ private:
 			"	tfbVelocity = vec4(Velocity + (Force * Interval) / Mass, 1.0);"
 			"	tfbPosition = vec4(Position + tfbVelocity.xyz * Interval,1.0);"
 			"}"
-		));
+		);
 
 		tfbs.Compile();
 
@@ -422,7 +422,7 @@ private:
 	static Program make(void)
 	{
 		Shader tfbs(se::Vertex(), ObjectDesc("Jelly physics"));
-		tfbs.Source(StrLit(
+		tfbs.Source(
 			"#version 330\n"
 
 			"uniform vec3 ImpulseCenter;"
@@ -570,7 +570,7 @@ private:
 			"	tfbVelocity = vec4(Velocity + (Force * Interval) / Mass, 1.0);"
 			"	tfbPosition = vec4(Position + tfbVelocity.xyz * Interval,1.0);"
 			"}"
-		));
+		);
 		tfbs.Compile();
 
 		Program prog;
@@ -604,7 +604,7 @@ private:
 	static Program make(void)
 	{
 		Shader vs(se::Vertex(), ObjectDesc("Draw vertex"));
-		vs.Source(StrLit(
+		vs.Source(
 			"#version 330\n"
 
 			"uniform vec3 LightPosition;"
@@ -618,11 +618,11 @@ private:
 			"	gl_Position = vec4(Position, 1.0);"
 			"	vertLightDir = normalize(LightPosition - Position);"
 			"}"
-		));
+		);
 		vs.Compile();
 
 		Shader gs(se::Geometry(), ObjectDesc("Draw geometry"));
-		gs.Source(StrLit(
+		gs.Source(
 			"#version 330\n"
 			"layout(triangles_adjacency) in;"
 			"layout(triangle_strip, max_vertices = 3) out;"
@@ -671,11 +671,11 @@ private:
 			"	make_vertex(4);"
 			"	EndPrimitive();"
 			"}"
-		));
+		);
 		gs.Compile();
 
 		Shader fs(se::Fragment(), ObjectDesc("Draw fragment"));
-		fs.Source(StrLit(
+		fs.Source(
 			"#version 330\n"
 
 			"uniform vec3 AmbientColor, DiffuseColor;"
@@ -696,7 +696,7 @@ private:
 			"		Ambient * AmbientColor+"
 			"		Diffuse * DiffuseColor;"
 			"}"
-		));
+		);
 		fs.Compile();
 
 		Program prog;
@@ -731,7 +731,7 @@ private:
 	static Program make(void)
 	{
 		Shader vs(se::Vertex(), ObjectDesc("Shadow vertex"));
-		vs.Source(StrLit(
+		vs.Source(
 			"#version 330\n"
 
 			"uniform vec3 LightPosition;"
@@ -745,11 +745,11 @@ private:
 			"	gl_Position = vec4(Position, 1.0);"
 			"	vertLightDir = LightPosition - Position;"
 			"}"
-		));
+		);
 		vs.Compile();
 
 		Shader gs(se::Geometry(), ObjectDesc("Shadow geometry"));
-		gs.Source(StrLit(
+		gs.Source(
 			"#version 330\n"
 			"layout(triangles_adjacency) in;"
 			"layout(triangle_strip, max_vertices = 12) out;"
@@ -818,7 +818,7 @@ private:
 			"		make_plane(0, 4);"
 			"	}"
 			"}"
-		));
+		);
 		gs.Compile();
 
 		Program prog;

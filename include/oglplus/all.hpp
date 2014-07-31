@@ -15,6 +15,8 @@
 
 #include <oglplus/fwd.hpp>
 
+#include <oglplus/string/ref_ios.hpp>
+
 #include <oglplus/math/angle.hpp>
 #include <oglplus/math/vector.hpp>
 #include <oglplus/math/quaternion.hpp>

@@ -45,7 +45,7 @@ public:
 	 , rndr(tr.GetRenderer(
 			oglplus::FragmentShader(
 				oglplus::ObjectDesc("Pixel color"),
-				oglplus::StrLit("#version 330\n"
+				"#version 330\n"
 				"uniform vec3 Color;"
 				"uniform float Opacity;"
 				"vec4 PixelColor("
@@ -58,7 +58,7 @@ public:
 				")"
 				"{"
 				"	return vec4(Color, TexelColor.r*Opacity);"
-				"}")
+				"}"
 			)
 		)
 	), rndr_color(rndr.GetUniform<oglplus::Vec3f>("Color"))

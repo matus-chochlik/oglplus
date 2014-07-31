@@ -4,13 +4,13 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/polygon_mode.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	PolygonMode*,
 	GLenum value
 )
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_POINT
-	case GL_POINT: return StrLit("POINT");
+	case GL_POINT: return StrCRef("POINT");
 #endif
 #if defined GL_LINE
-	case GL_LINE: return StrLit("LINE");
+	case GL_LINE: return StrCRef("LINE");
 #endif
 #if defined GL_FILL
-	case GL_FILL: return StrLit("FILL");
+	case GL_FILL: return StrCRef("FILL");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

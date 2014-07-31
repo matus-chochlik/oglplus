@@ -15,7 +15,7 @@
 
 #include <oglplus/fwd.hpp>
 #include <oglplus/string/def.hpp>
-#include <oglplus/string/literal.hpp>
+#include <oglplus/string/ref.hpp>
 
 #include <oglplus/detail/any_iter.hpp>
 
@@ -37,15 +37,15 @@ struct GLSLSourceWrapper
 	virtual const GLint* Lengths(void) const = 0;
 };
 
-class LitGLSLSrcWrap
+class StrCRefGLSLSrcWrap
  : public GLSLSourceWrapper
 {
 private:
 	const GLchar* _ptr;
 	const GLint _size;
 public:
-	LitGLSLSrcWrap(const StrLit& source)
-	 : _ptr(source.c_str())
+	StrCRefGLSLSrcWrap(const StrCRef& source)
+	 : _ptr(source.begin())
 	 , _size(GLint(source.size()))
 	{
 		assert(_ptr != nullptr);
@@ -67,16 +67,16 @@ public:
 	}
 };
 
-class LitsGLSLSrcWrap
+class StrCRefsGLSLSrcWrap
  : public GLSLSourceWrapper
 {
 private:
 	std::vector<const GLchar*> _ptrs;
 	std::vector<GLint> _sizes;
 public:
-	LitsGLSLSrcWrap(
-		AnyInputIter<StrLit>&& i,
-		AnyInputIter<StrLit>&& e
+	StrCRefsGLSLSrcWrap(
+		AnyInputIter<StrCRef>&& i,
+		AnyInputIter<StrCRef>&& e
 	);
 
 	GLsizei Count(void) const

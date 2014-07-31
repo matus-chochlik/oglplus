@@ -38,7 +38,7 @@ private:
 	static Program make_prog(void)
 	{
 		VertexShader vs;
-		vs.Source(StrLit(
+		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, ModelMatrix, CameraMatrix;"
 			"uniform vec4 ClipPlane;"
@@ -57,11 +57,11 @@ private:
 			"		CameraMatrix *"
 			"		gl_Position;"
 			"}"
-		));
+		);
 		vs.Compile();
 
 		FragmentShader fs;
-		fs.Source(StrLit(
+		fs.Source(
 			"#version 330\n"
 			"in vec2 vertTexCoord;"
 			"out vec4 fragColor;"
@@ -75,7 +75,7 @@ private:
 			"		fragColor = vec4(1-i/2, 1-i/2, 1-i/2, 1.0);"
 			"	else fragColor = vec4(0+i/2, 0+i/2, 0+i/2, 1.0);"
 			"}"
-		));
+		);
 		fs.Compile();
 
 		Program prog;

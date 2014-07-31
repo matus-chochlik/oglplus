@@ -60,7 +60,7 @@ public:
 	 , prev_period(-1)
 	{
 		VertexShader vs(ObjectDesc("Vertex"));
-		vs.Source(StrLit(
+		vs.Source(
 			"#version 330\n"
 
 			"uniform vec3 CameraPosition;"
@@ -75,7 +75,7 @@ public:
 			"	vertPosition = Position;"
 			"	vertDistance = distance(CameraPosition, Position);"
 			"}"
-		));
+		);
 		prog.AttachShader(vs);
 
 		TessControlShader cs(ObjectDesc("TessControl"));
@@ -190,7 +190,7 @@ public:
 		prog.AttachShader(es);
 
 		FragmentShader fs(ObjectDesc("Fragment"));
-		fs.Source(StrLit(
+		fs.Source(
 			"#version 330\n"
 
 			"uniform samplerCube EnvMap;"
@@ -223,7 +223,7 @@ public:
 
 			"	fragColor = mix(WaveColor, FogColor, 1.0-Dim);"
 			"}"
-		));
+		);
 		prog.AttachShader(fs);
 
 		prog.Build();

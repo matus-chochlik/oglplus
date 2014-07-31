@@ -41,7 +41,7 @@ private:
 
 		prog.AttachShader(VertexShader(
 			ObjectDesc("Draw vertex"),
-			StrLit("#version 330\n"
+			StrCRef("#version 330\n"
 			"uniform vec3 LightPosition;"
 			"uniform mat4 ModelMatrix;"
 			"in vec4 Position;"
@@ -70,7 +70,7 @@ private:
 
 		prog.AttachShader(GeometryShader(
 			ObjectDesc("Draw geometry"),
-			StrLit("#version 330\n"
+			StrCRef("#version 330\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 6) out;"
 
@@ -120,7 +120,7 @@ private:
 
 		prog.AttachShader(FragmentShader(
 			ObjectDesc("Draw fragment"),
-			StrLit("#version 330\n"
+			StrCRef("#version 330\n"
 			"uniform sampler2D MetalTexture;"
 			"in vec3 geomNormal;"
 			"in vec3 geomTangent;"
@@ -289,7 +289,7 @@ private:
 
 		prog.AttachShader(VertexShader(
 			ObjectDesc("Clear vertex"),
-			StrLit("#version 330\n"
+			StrCRef("#version 330\n"
 			"in vec4 Position;"
 			"void main(void)"
 			"{"
@@ -299,7 +299,7 @@ private:
 
 		prog.AttachShader(GeometryShader(
 			ObjectDesc("Clear geometry"),
-			StrLit("#version 330\n"
+			StrCRef("#version 330\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 6) out;"
 
@@ -331,7 +331,7 @@ private:
 
 		prog.AttachShader(FragmentShader(
 			ObjectDesc("Clear fragment"),
-			StrLit("#version 330\n"
+			StrCRef("#version 330\n"
 
 			"in vec3 geomColor1, geomColor2;"
 			"in vec2 geomPosition, geomOrigin;"
@@ -379,7 +379,7 @@ private:
 
 		prog.AttachShader(VertexShader(
 			ObjectDesc("Transition vertex"),
-			StrLit("#version 400\n"
+			StrCRef("#version 400\n"
 			"in vec4 Position;"
 			"out vec2 vertPosition, vertTexCoord;"
 			"void main(void)"
@@ -395,7 +395,7 @@ private:
 
 		prog.AttachShader(FragmentShader(
 			ObjectDesc("Transition fragment"),
-			StrLit("#version 400\n"
+			StrCRef("#version 400\n"
 
 			"uniform sampler2DArray FrameTex;"
 			"uniform sampler2D NoiseTex;"

@@ -35,7 +35,7 @@ public:
 	CubeVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Cube vertex"),
-		StrLit("#version 400\n"
+		"#version 400\n"
 		"uniform vec3 LightPosition;"
 		"uniform vec3 CameraPosition;"
 		"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -58,7 +58,7 @@ public:
 		"	vertViewDir = normalize(CameraPosition - gl_Position.xyz);"
 		"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 		"	vertTexCoord = TexCoord.xy;"
-		"}")
+		"}"
 	)
 	{ }
 };
@@ -70,7 +70,7 @@ public:
 	CubeFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Cube fragment"),
-		StrLit("#version 400\n"
+		"#version 400\n"
 
 		"subroutine vec3 pixelColorFuncType(vec2 TexCoord);"
 
@@ -183,7 +183,7 @@ public:
 		"		Diffuse, "
 		"		Specular "
 		"	);"
-		"}")
+		"}"
 	)
 	{ }
 };

@@ -161,7 +161,7 @@ do
 	EnumBaseType=$(MakeEnumBaseType ${InputFile})
 	#
 	echo "namespace enums {"
-	echo "${LibNameUC}_LIB_FUNC StrLit ValueName_("
+	echo "${LibNameUC}_LIB_FUNC StrCRef ValueName_("
 	echo "	${EnumClass}*,"
 	echo "	${LibPrefixUC}${EnumBaseType} value"
 	echo ")"
@@ -178,13 +178,13 @@ do
 	do
 		LibPrefix=${PREFIX:-${LibPrefixUC}}
 		echo "#if defined ${LibPrefix}_${XL_DEF}"
-		echo "	case ${LibPrefix}_${XL_DEF}: return StrLit(\"${XL_DEF}\");"
+		echo "	case ${LibPrefix}_${XL_DEF}: return StrCRef(\"${XL_DEF}\");"
 		echo "#endif"
 	done
 	echo "	default:;"
 	echo "}"
 	echo "${LibNameUC}_FAKE_USE(value);"
-	echo "return StrLit();"
+	echo "return StrCRef();"
 	echo "}"
 	echo "#else"
 	echo ";"

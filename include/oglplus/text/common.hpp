@@ -205,19 +205,6 @@ public:
 
 	/// Sets a new text to be layed-out
 	/** This function lays-out a new sequence of glyphs representing
-	 *  the text specified by the @c string_literal argument.
-	 *  The previous glyph layout (if any) is discarded.
-	 *
-	 *  The @c string_literal must be encoded in (normalized) UTF-8.
-	 *  The number of code points after the conversion to UTF-32 must not
-	 *  exceed the value returned by @c Capacity.
-	 *
-	 *  @see Capacity
-	 */
-	void Set(StrLit string_literal);
-
-	/// Sets a new text to be layed-out
-	/** This function lays-out a new sequence of glyphs representing
 	 *  the text specified by the @c string argument.
 	 *  The previous glyph layout (if any) is discarded.
 	 *
@@ -227,7 +214,7 @@ public:
 	 *
 	 *  @see Capacity
 	 */
-	void Set(String string);
+	void Set(StrCRef string);
 };
 
 

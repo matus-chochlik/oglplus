@@ -4,13 +4,13 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/access_specifier.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	AccessSpecifier*,
 	GLenum value
 )
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_READ_ONLY
-	case GL_READ_ONLY: return StrLit("READ_ONLY");
+	case GL_READ_ONLY: return StrCRef("READ_ONLY");
 #endif
 #if defined GL_WRITE_ONLY
-	case GL_WRITE_ONLY: return StrLit("WRITE_ONLY");
+	case GL_WRITE_ONLY: return StrCRef("WRITE_ONLY");
 #endif
 #if defined GL_READ_WRITE
-	case GL_READ_WRITE: return StrLit("READ_WRITE");
+	case GL_READ_WRITE: return StrCRef("READ_WRITE");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

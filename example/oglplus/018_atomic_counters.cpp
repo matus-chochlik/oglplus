@@ -61,7 +61,7 @@ public:
 	 , plane_indices(make_plane.Indices())
 	{
 		VertexShader vs;
-		vs.Source(StrLit(
+		vs.Source(
 			"#version 420\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 
@@ -85,12 +85,12 @@ public:
 			"		0.0 "
 			"	)*max(vc_int, 0.0);"
 			"}"
-		));
+		);
 		vs.Compile();
 		prog.AttachShader(vs);
 
 		GeometryShader gs;
-		gs.Source(StrLit(
+		gs.Source(
 			"#version 420\n"
 			"layout (triangles) in;"
 			"layout (triangle_strip, max_vertices = 3) out;"
@@ -118,12 +118,12 @@ public:
 			"	}"
 			"	EndPrimitive();"
 			"}"
-		));
+		);
 		gs.Compile();
 		prog.AttachShader(gs);
 
 		FragmentShader fs;
-		fs.Source(StrLit(
+		fs.Source(
 			"#version 420\n"
 
 			"layout(binding = 0, offset = 8) uniform atomic_uint fc;"
@@ -143,7 +143,7 @@ public:
 			"	)*max(fc_int, 0.0);"
 			"	fragColor = geomColor + Color;"
 			"}"
-		));
+		);
 		fs.Compile();
 		prog.AttachShader(fs);
 

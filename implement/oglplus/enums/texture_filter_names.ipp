@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	TextureFilter*,
 	GLenum value
 )
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_NEAREST
-	case GL_NEAREST: return StrLit("NEAREST");
+	case GL_NEAREST: return StrCRef("NEAREST");
 #endif
 #if defined GL_LINEAR
-	case GL_LINEAR: return StrLit("LINEAR");
+	case GL_LINEAR: return StrCRef("LINEAR");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

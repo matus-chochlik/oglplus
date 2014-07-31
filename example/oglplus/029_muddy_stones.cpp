@@ -40,7 +40,7 @@ private:
 	{
 		Program prog;
 		VertexShader vs;
-		vs.Source(StrLit(
+		vs.Source(StrCRef(
 			"#version 330\n"
 			"in vec3 Position;"
 			"in vec2 TexCoord;"
@@ -54,7 +54,7 @@ private:
 		prog.AttachShader(vs);
 
 		GeometryShader gs;
-		gs.Source(StrLit(
+		gs.Source(StrCRef(
 			"#version 330\n"
 			"#extension GL_ARB_gpu_shader5 : enable\n"
 			"layout(triangles, invocations = 7) in;"
@@ -228,7 +228,7 @@ private:
 		prog.AttachShader(gs);
 
 		FragmentShader fs;
-		fs.Source(StrLit(
+		fs.Source(StrCRef(
 			"#version 330\n"
 
 			"uniform float Time;"

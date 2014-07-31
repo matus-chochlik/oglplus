@@ -14,9 +14,9 @@ namespace oglplus {
 namespace aux {
 
 OGLPLUS_LIB_FUNC
-LitsGLSLSrcWrap::LitsGLSLSrcWrap(
-	AnyInputIter<StrLit>&& i,
-	AnyInputIter<StrLit>&& e
+StrCRefsGLSLSrcWrap::StrCRefsGLSLSrcWrap(
+	AnyInputIter<StrCRef>&& i,
+	AnyInputIter<StrCRef>&& e
 ): _ptrs(distance(i, e))
  , _sizes(distance(i, e))
 {
@@ -26,7 +26,7 @@ LitsGLSLSrcWrap::LitsGLSLSrcWrap(
 	{
 		assert(pptr != _ptrs.end());
 		assert(psize != _sizes.end());
-		*pptr = i->c_str();
+		*pptr = i->begin();
 		*psize = i->size();
 		++i;
 		++pptr;

@@ -4,13 +4,13 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oalplus/distance_model.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 namespace enums {
-OALPLUS_LIB_FUNC StrLit ValueName_(
+OALPLUS_LIB_FUNC StrCRef ValueName_(
 	DistanceModel*,
 	ALenum value
 )
@@ -21,30 +21,30 @@ OALPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined AL_NONE
-	case AL_NONE: return StrLit("NONE");
+	case AL_NONE: return StrCRef("NONE");
 #endif
 #if defined AL_INVERSE_DISTANCE
-	case AL_INVERSE_DISTANCE: return StrLit("INVERSE_DISTANCE");
+	case AL_INVERSE_DISTANCE: return StrCRef("INVERSE_DISTANCE");
 #endif
 #if defined AL_INVERSE_DISTANCE_CLAMPED
-	case AL_INVERSE_DISTANCE_CLAMPED: return StrLit("INVERSE_DISTANCE_CLAMPED");
+	case AL_INVERSE_DISTANCE_CLAMPED: return StrCRef("INVERSE_DISTANCE_CLAMPED");
 #endif
 #if defined AL_LINEAR_DISTANCE
-	case AL_LINEAR_DISTANCE: return StrLit("LINEAR_DISTANCE");
+	case AL_LINEAR_DISTANCE: return StrCRef("LINEAR_DISTANCE");
 #endif
 #if defined AL_LINEAR_DISTANCE_CLAMPED
-	case AL_LINEAR_DISTANCE_CLAMPED: return StrLit("LINEAR_DISTANCE_CLAMPED");
+	case AL_LINEAR_DISTANCE_CLAMPED: return StrCRef("LINEAR_DISTANCE_CLAMPED");
 #endif
 #if defined AL_EXPONENT_DISTANCE
-	case AL_EXPONENT_DISTANCE: return StrLit("EXPONENT_DISTANCE");
+	case AL_EXPONENT_DISTANCE: return StrCRef("EXPONENT_DISTANCE");
 #endif
 #if defined AL_EXPONENT_DISTANCE_CLAMPED
-	case AL_EXPONENT_DISTANCE_CLAMPED: return StrLit("EXPONENT_DISTANCE_CLAMPED");
+	case AL_EXPONENT_DISTANCE_CLAMPED: return StrCRef("EXPONENT_DISTANCE_CLAMPED");
 #endif
 	default:;
 }
 OALPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;
