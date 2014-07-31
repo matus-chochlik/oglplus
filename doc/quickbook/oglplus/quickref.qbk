@@ -7,6 +7,22 @@
 	[id oglplus.quickref]
 ]
 
+[section:intro Introduction]
+
+This quick reference describes the public API of the __OGLplus__ library.
+
+Note, that several classes or types described here (for example function
+parameter types or return value types), are just concepts - list of type
+constraints not concrete types. The actual types conforming to these concepts
+are implementation details and usually instantiation of templates.
+If values of such types are returned from a function and need to be stored
+in variables, then the [^auto] type specifier (or the [^decltype] operator)
+should be used to determine the actual type.
+Whenever this is the case, it is clearly noted in the section describing
+the concept.
+
+[endsect]
+
 [include quickref/string.qbk]
 [include quickref/error.qbk]
 [include quickref/object.qbk]

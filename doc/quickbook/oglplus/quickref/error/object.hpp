@@ -49,13 +49,13 @@ public:
 };
 //]
 
-//[oglplus_error_SubjectError
+//[oglplus_error_ObjectPairError
 
-class SubjectError
+class ObjectPairError
  : public __ObjectError
 {
 public:
-	SubjectError(const char* message);
+	ObjectPairError(const char* message);
 
 	GLenum SubjectType(void) const; /*<
 	Returns the OpenGL constant value determining the type of the subject,

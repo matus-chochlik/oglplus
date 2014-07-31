@@ -22,33 +22,33 @@ public:
 	~Error(void) throw() { }
 
 	const char* SourceFile(void) const; /*<
-	Returns the name of the source file where the error occured.
+	Returns the name of the OGLplus source file where the error occured.
 	The result of this function is also influenced by the
 	__OGLPLUS_ERROR_NO_FILE preprocessor configuration option.
-	If set to zero this function behaves as described above, otherwise it
+	If set to zero, this function behaves as described above, otherwise it
 	returns a nullptr.
 	>*/
 	const char* SourceFunc(void) const; /*<
-	Returns the name of the function where the error occured.
+	Returns the name of the OGLplus function where the error occured.
 	The result of this function is also influenced by the
 	__OGLPLUS_ERROR_NO_FUNC preprocessor configuration option.
-	If set to zero this function behaves as described above, otherwise it
+	If set to zero, this function behaves as described above, otherwise it
 	returns a nullptr.
 	>*/
 	unsigned SourceLine(void) const; /*<
-	Returns the line of the source file where the error occured.
+	Returns the line of the OGLplus source file where the error occured.
 	The result of this function is also influenced by the
 	__OGLPLUS_ERROR_NO_LINE preprocessor configuration option.
-	If set to zero this function behaves as described above, otherwise it
+	If set to zero, this function behaves as described above, otherwise it
 	returns zero.
 	>*/
 
 	const char* GLLib(void) const; /*<
-	This function returns the name of the GL library (gl, wgl, glX)
-	where the error occured.
+	This function returns the name of the GL library ([^"gl"], [^"wgl"],
+	[^"glX"]) where the error occured.
 	The result of this function is also influenced by the
 	__OGLPLUS_ERROR_NO_GL_LIB preprocessor configuration option.
-	If set to zero this function behaves as described above, otherwise it
+	If set to zero, this function behaves as described above, otherwise it
 	returns nullptr.
 	>*/
 	const char* GLFunc(void) const; /*<
@@ -56,7 +56,7 @@ public:
 	(without the [^gl] prefix) which is related to the error.
 	The result of this function is also influenced by the
 	__OGLPLUS_ERROR_NO_GL_FUNC preprocessor configuration option.
-	If set to zero this function behaves as described above, otherwise it
+	If set to zero, this function behaves as described above, otherwise it
 	returns nullptr.
 	>*/
 
@@ -65,7 +65,7 @@ public:
 	If no enum parameter is available, this function returns zero.
 	The result of this function is also influenced by the
 	__OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
-	If set to zero this function behaves as described above, otherwise it
+	If set to zero, this function behaves as described above, otherwise it
 	returns zero.
 	>*/
 	const char* EnumParamName(void) const; /*<
@@ -74,7 +74,7 @@ public:
 	zero.
 	The result of this function is also influenced by the
 	__OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
-	If set to zero this function behaves as described above, otherwise it
+	If set to zero, this function behaves as described above, otherwise it
 	returns nullptr.
 	>*/
 
@@ -85,7 +85,7 @@ public:
 	integer.
 	The result of this function is also influenced by the
 	__OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
-	If set to zero this function behaves as described above, otherwise it
+	If set to zero, this function behaves as described above, otherwise it
 	returns a negative integer.
 	>*/
 //]

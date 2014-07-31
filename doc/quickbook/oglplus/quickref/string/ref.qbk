@@ -2,9 +2,9 @@
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
-[/------------------]
-[section:ref StrCRef]
-[/------------------]
+[/------------------------------------]
+[section:ref String constant reference]
+[/------------------------------------]
 
 [header oglplus/string/ref.hpp]
 
@@ -21,5 +21,12 @@ it is being used.
 
 [import ref.hpp]
 [oglplus_string_ref]
+
+[header oglplus/string/ref_ios.hpp]
+
+Output of __StrCRef to [^std::ostream] is implemented in a separate header file.
+
+[import ref_ios.hpp]
+[oglplus_string_ref_ios]
 
 [endsect]
