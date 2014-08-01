@@ -20,8 +20,8 @@ public:
 	Vector(void)
 	{ }
 
-	template <typename U>
-	Vector(const Vector<U, 4>& vector)
+	template <typename U, std::size_t M>
+	Vector(const Vector<U, M>& vector)
 	 : Base(vector)
 	{ }
 

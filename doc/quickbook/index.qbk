@@ -22,6 +22,7 @@
 
 [template header [path] [*[^#include]] [^<[path]>]]
 
+[def __pi__ \u03C0]
 
 [def __OGLplus__ [@ http://oglplus.org/ OGLplus]]
 [def __OpenGL__ [@ http://www.opengl.org/ OpenGL]]

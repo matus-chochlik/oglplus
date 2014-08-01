@@ -20,8 +20,8 @@ public:
 	Vector(void)
 	{ }
 
-	template <typename U>
-	Vector(const Vector<U, 3>& vector)
+	template <typename U, std::size_t M>
+	Vector(const Vector<U, M>& vector)
 	 : Base(vector)
 	{ }
 
@@ -59,14 +59,6 @@ public:
 		this->_elem[0] = v[0];
 		this->_elem[1] = v[1];
 		this->_elem[2] = v2;
-	}
-
-	Vector(const Vector<T, 4>& v)
-	 : Base(oglplus::Nothing())
-	{
-		this->_elem[0] = v[0];
-		this->_elem[1] = v[1];
-		this->_elem[2] = v[2];
 	}
 
 	Vector(Unit_, std::size_t axis)

@@ -10,6 +10,9 @@
 [section:intro Introduction]
 
 This quick reference describes the public API of the __OGLplus__ library.
+The implementation details, i.e. parts of of OGLplus not listed in this
+reference should not be used by the library users and are subject to
+change without any prior notice.
 
 Note, that several classes or types described here (for example function
 parameter types or return value types), are just concepts - list of type
@@ -27,4 +30,5 @@ the concept.
 [include quickref/error.qbk]
 [include quickref/object.qbk]
 [include quickref/config.qbk]
+[include quickref/math.qbk]
 

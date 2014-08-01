@@ -124,8 +124,8 @@ public:
 	{ }
 
 	/// Copy construction from a vector with different element type
-	template <typename U>
-	Vector(const Vector<U, N>& vector)
+	template <typename U, size_t M>
+	Vector(const Vector<U, M>& vector)
 	 : Base(vector)
 	{ }
 

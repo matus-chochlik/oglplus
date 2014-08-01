@@ -152,11 +152,25 @@ protected:
 		std::fill(_elem+n, _elem+N, def);
 	}
 
-	template <typename U>
-	VectorBase(const VectorBase<U, N>& vector)
+	template <std::size_t M>
+	VectorBase(
+		const VectorBase<T, M>& v,
+		typename std::enable_if<(N < M)>::type* = nullptr
+	)
+	{
+		std::copy(v.Data(), v.Data()+N, _elem);
+	}
+
+	template <typename U, std::size_t M>
+	VectorBase(
+		const VectorBase<U, M>& v,
+		typename std::enable_if<
+			(N <= M) and not(std::is_same<T, U>())
+		>::type* = nullptr
+	)
 	{
 		for(std::size_t i=0; i!=N; ++i)
-			_elem[i] = T(vector.At(i));
+			_elem[i] = T(v.At(i));
 	}
 
 	explicit VectorBase(const Matrix<T, 1, N>& matrix)

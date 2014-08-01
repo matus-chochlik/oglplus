@@ -17,11 +17,11 @@ public:
 	StrCRef(const GLchar* cstr) noexcept; /*<
 	Constructs a reference to a C-string.
 	>*/
-	StrCRef(const GLchar* cstr, std::size_t size) noexcept; /*<
+	StrCRef(const GLchar* cstr, size_t size) noexcept; /*<
 	Constructs a reference to a C-string with a specific size.
 	>*/
 
-	template <std::size_t N>
+	template <size_t N>
 	StrCRef(const GLchar (&cary)[N]) noexcept; /*<
 	Constructs a reference to a character array with a known size.
 	>*/
@@ -34,12 +34,12 @@ public:
 	Constructs a reference to a string stored inside of a [^std::vector].
 	>*/
 
-	template <std::size_t N>
+	template <size_t N>
 	StrCRef(const std::array<GLchar, N>& cvec) noexcept; /*<
 	Constructs a reference to a string stored inside of a [^std::array].
 	>*/
 
-	std::size_t size(void) const noexcept; /*<
+	size_t size(void) const noexcept; /*<
 	Returns the lenght of the string, not counting any terminating
 	characters.
 	>*/

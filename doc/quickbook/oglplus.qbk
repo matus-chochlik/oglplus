@@ -16,6 +16,8 @@
 [def __String [link oglplus.quickref.string.def [^String]]]
 [def __StrCRef [link oglplus.quickref.string.ref [^StrCRef]]]
 
+[def __Vector [link oglplus.quickref.math.vector [^Vector]]]
+
 [def __ObjTag [link oglplus.quickref.object.tags ObjTag]]
 [def __ObjectName [link oglplus.quickref.object.name ObjectName]]
 [def __FramebufferName [link oglplus.quickref.object.name.typedefs FramebufferName]]
