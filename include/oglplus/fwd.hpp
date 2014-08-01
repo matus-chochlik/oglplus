@@ -106,6 +106,7 @@ struct Uniform;
 struct UniformBlock;
 struct Subroutine;
 struct SubroutineUniform;
+struct FragData;
 
 struct NativeTypes;
 struct MatrixTypes;
@@ -187,6 +188,7 @@ typedef ProgVarLoc<tag::Uniform> UniformLoc;
 typedef ProgVarLoc<tag::UniformBlock> UniformBlockLoc;
 typedef ProgVarLoc<tag::Subroutine> SubroutineLoc;
 typedef ProgVarLoc<tag::SubroutineUniform> SubroutineUniformLoc;
+typedef ProgVarLoc<tag::FragData> FragDataLoc;
 
 template <typename VarTag>
 class ProgVarLocOps;

@@ -34,13 +34,15 @@
 #include <oglplus/data_type.hpp>
 #include <oglplus/primitive_type.hpp>
 
-#include <oglplus/buffer.hpp>
 #include <oglplus/uniform.hpp>
 #include <oglplus/dsa/uniform.hpp>
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/vertex_attrib.hpp>
+#include <oglplus/frag_data.hpp>
+
 #include <oglplus/vertex_array.hpp>
+#include <oglplus/buffer.hpp>
 #include <oglplus/texture.hpp>
 #include <oglplus/sampler.hpp>
 #include <oglplus/framebuffer.hpp>

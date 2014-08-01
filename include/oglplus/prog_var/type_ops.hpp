@@ -37,6 +37,12 @@ struct AdjustProgVar
 };
 
 template <>
+struct AdjustProgVar<void>
+{
+	typedef void BaseType;
+};
+
+template <>
 struct AdjustProgVar<bool>
 {
 	typedef GLboolean BaseType;

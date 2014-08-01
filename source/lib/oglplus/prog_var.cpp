@@ -28,4 +28,5 @@
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/vertex_attrib.hpp>
+#include <oglplus/frag_data.hpp>
 #include "epilogue.ipp"
