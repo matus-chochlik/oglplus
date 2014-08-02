@@ -95,10 +95,63 @@ public:
 	Construction from a single column __Matrix.
 >*/
 //]
-//[oglplus_math_vector_bla
 
+//[oglplus_math_vector_swizzle
+	T x(void) const; /*<
+	Returns the [^0]th component of the vector.
+	This function is available in all specializations of [^Vector].
+	>*/
+	T y(void) const; /*<
+	Returns the [^1]st component of the vector.
+	This function is available only if [^N >= 2].
+	>*/
+	T z(void) const; /*<
+	Returns the [^2]nd component of the vector.
+	This function is available only if [^N >= 3].
+	>*/
+	T w(void) const; /*<
+	Returns the [^3]rd component of the vector.
+	This function is available only if [^N >= 4].
+	>*/
 
+	Vector<T, 2> xy(void) const; /*<
+	Returns a subvector with the first two components.
+	This function is available only if [^N >= 2].
+	>*/
+	Vector<T, 3> xyz(void) const; /*<
+	Returns a subvector with the first three components.
+	This function is available only if [^N >= 3].
+>*/
+//]
+
+//[oglplus_math_vector_ops
+	Vector& operator += (const Vector& v);
+	Vector& operator -= (const Vector& v);
+	Vector& operator *= (T c);
+	Vector& operator *= (const Vector& v); /*<
+	Per-component multiplication.
+>*/
+	Vector& operator /= (T c);
+//]
+
+//[oglplus_math_vector_end
 }; // class Vector
+//]
+
+//[oglplus_math_vector_friend_ops
+Vector operator + (const Vector& a);
+Vector operator - (const Vector& a);
+Vector operator + (const Vector& a, const Vector& b);
+Vector operator - (const Vector& a, const Vector& b);
+Vector operator * (const Vector& a, T c);
+Vector operator * (T c, const Vector& a);
+Vector operator / (const Vector& a, T c);
+
+template <size_t Cols>
+Vector<T, Cols> operator * (const Vector& v, const __Matrix<T, N, Cols>& m);
+
+template <size_t Rows>
+Vector<T, Rows> operator * (const __Matrix<T, Rows, N>& m, const Vector& v);
 //]
 
 //[oglplus_math_vector_typedefs

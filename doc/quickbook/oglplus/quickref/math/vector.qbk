@@ -33,9 +33,17 @@ are noted below.
 
 [heading:ctrs Constructors]
 
-The common constructors:
-
 [oglplus_math_vector_ctrs]
+
+[heading:swizzle Basic swizzle functions]
+
+[oglplus_math_vector_swizzle]
+
+[oglplus_math_vector_end]
+
+[heading:friend_ops Friend operators]
+
+[oglplus_math_vector_friend_ops]
 
 [heading:typedefs Typedefs]
 
