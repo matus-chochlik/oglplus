@@ -45,19 +45,21 @@ public:
 		this->_elem[2] = v2;
 	}
 
-	Vector(const Vector<T, 1>& v, T v1, T v2)
+	template <typename U>
+	Vector(const Vector<U, 1>& v, T v1, T v2)
 	 : Base(oglplus::Nothing())
 	{
-		this->_elem[0] = v[0];
+		this->_elem[0] = T(v[0]);
 		this->_elem[1] = v1;
 		this->_elem[2] = v2;
 	}
 
-	Vector(const Vector<T, 2>& v, T v2)
+	template <typename U>
+	Vector(const Vector<U, 2>& v, T v2)
 	 : Base(oglplus::Nothing())
 	{
-		this->_elem[0] = v[0];
-		this->_elem[1] = v[1];
+		this->_elem[0] = T(v[0]);
+		this->_elem[1] = T(v[1]);
 		this->_elem[2] = v2;
 	}
 

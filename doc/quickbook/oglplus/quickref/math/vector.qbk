@@ -9,7 +9,7 @@
 [header oglplus/math/vector.hpp]
 
 The [^Vector] class is used by OGLplus as the native template for
-['1-D], ['2-D], ['3-D] and ['4-D] vector types. Values of [^Vector]
+(degenerate) ['1-D] and ['2-D], ['3-D] and ['4-D] vector types. Values of [^Vector]
 are mostly used to specify GLSL [^vec2], [^vec3], [^vec4]
 uniform values, but [^Vector] is powerful enough to be used as
 a general-purpose N-dimensional space vector type in many other situations
@@ -23,14 +23,24 @@ The actual class is implemented as a set
 of template specializations which have many common member and friend functions,
 but there are also some differences between vectors of different dimensions.
 
+[heading Definition]
+
 The following unspecialized template is a synopsis of the interface common
-to all instantiations of [^Vector]. The differences with the specializations
+to all instantiations of [^Vector]. The differences to the specializations
 are noted below.
 
-[oglplus_math_vector_N]
+[oglplus_math_vector]
+
+[heading:ctrs Constructors]
 
 The common constructors:
 
-[oglplus_math_vector_N_ctrs]
+[oglplus_math_vector_ctrs]
+
+[heading:typedefs Typedefs]
+
+This header also defines several 1 to 4-dimensional __Vector [^typedef]s for convenience.
+
+[oglplus_math_vector_typedefs]
 
 [endsect]

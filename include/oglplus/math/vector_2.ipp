@@ -44,10 +44,11 @@ public:
 		this->_elem[1] = v1;
 	}
 
-	Vector(const Vector<T, 1>& v, T v1)
+	template <typename U>
+	Vector(const Vector<U, 1>& v, T v1)
 	 : Base(oglplus::Nothing())
 	{
-		this->_elem[0] = v[0];
+		this->_elem[0] = T(v[0]);
 		this->_elem[1] = v1;
 	}
 

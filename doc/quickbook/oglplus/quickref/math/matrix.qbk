@@ -2,12 +2,14 @@
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
-[/==========================]
-[section:math Math utilities]
-[/==========================]
+[/----------------------]
+[section:matrix Matrices]
+[/----------------------]
 
-[include math/constants.qbk]
-[include math/vector.qbk]
-[include math/matrix.qbk]
+[header oglplus/math/matrix.hpp]
+
+[import matrix.hpp]
+
+[oglplus_math_matrix]
 
 [endsect]

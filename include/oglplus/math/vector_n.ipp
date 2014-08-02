@@ -171,13 +171,13 @@ public:
 	template <typename ... P>
 	Vector(const Vector<T, M>& a, P ... p);
 #else
-	template <typename ... P>
-	Vector(const Vector<T, N-1-sizeof...(P)>& a, T v, P ... p)
+	template <typename U, typename ... P>
+	Vector(const Vector<U, N-1-sizeof...(P)>& a, T v, P ... p)
 	 : Base(oglplus::Nothing())
 	{
 		const std::size_t M = N-1-sizeof...(P);
 		for(std::size_t i=0; i!=M; ++i)
-			this->_elem[i] = a[i];
+			this->_elem[i] = T(a[i]);
 		_init_by_pack(M, v, p...);
 	}
 #endif
