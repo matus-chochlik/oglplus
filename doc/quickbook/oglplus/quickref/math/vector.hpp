@@ -123,37 +123,72 @@ public:
 	This function is available only if [^N >= 3].
 >*/
 //]
-
 //[oglplus_math_vector_ops
-	Vector& operator += (const Vector& v);
-	Vector& operator -= (const Vector& v);
+	Vector& operator += (const Vector& a);
+	Vector& operator -= (const Vector& a);
 	Vector& operator *= (T c);
-	Vector& operator *= (const Vector& v); /*<
+	Vector& operator *= (const Vector& a); /*<
 	Per-component multiplication.
 >*/
 	Vector& operator /= (T c);
 //]
+//[oglplus_math_vector_friend_ops
+	friend Vector operator + (const Vector& a);
+	friend Vector operator - (const Vector& a);
+	friend Vector operator + (const Vector& a, const Vector& b);
+	friend Vector operator - (const Vector& a, const Vector& b);
+	friend Vector operator * (const Vector& a, T c);
+	friend Vector operator * (T c, const Vector& a);
+	friend Vector operator / (const Vector& a, T c);
 
+	template <size_t Cols>
+	friend Vector<T, Cols> operator * (const Vector& v, const __Matrix<T, N, Cols>& m); /*<
+	__Vector __times__  __Matrix multiplication.
+	>*/
+	template <size_t Rows>
+	friend Vector<T, Rows> operator * (const __Matrix<T, Rows, N>& m, const Vector& v); /*<
+	__Matrix __times__  __Vector multiplication.
+>*/
+//]
+//[oglplus_math_vector_fns
+	Vector& operator Add(const Vector& a); /*<
+	Adds [^a] to [^this].
+	>*/
+	Vector& operator Subtract(const Vector& a); /*<
+	Subtracts [^a] from [^this].
+	>*/
+	Vector& operator MultiplyBy(T c); /*<
+	Multiplies [^this] by [^c].
+	>*/
+	Vector& operator DivideBy(T c); /*<
+	Divides [^this] by [^c].
+>*/
+//]
+//[oglplus_math_vector_friend_fns
+	friend Vector Negated(const Vector& a);
+	friend Vector Added(const Vector& a, const Vector& b);
+	friend Vector Subtracted(const Vector& a, const Vector& b);
+	friend Vector Multiplied(const Vector& a, T c);
+	friend Vector Divided(const Vector& a, T c);
+
+	friend T Dot(const Vector& a, const Vector& b); /*<
+	Dot product of two vectors.
+	>*/
+	friend T Length(const Vector& a); /*<
+	The length (magnitude) of a vector.
+	>*/
+	friend T Distance(const Vector& a, const Vector& b); /*<
+	The distance between two vectors.
+	>*/
+
+	friend Vector Normalized(Vector a); /*<
+	Returns a normalized vector pointing in the same direction as the vector
+	passed as argument.
+>*/
+//]
 //[oglplus_math_vector_end
 }; // class Vector
 //]
-
-//[oglplus_math_vector_friend_ops
-Vector operator + (const Vector& a);
-Vector operator - (const Vector& a);
-Vector operator + (const Vector& a, const Vector& b);
-Vector operator - (const Vector& a, const Vector& b);
-Vector operator * (const Vector& a, T c);
-Vector operator * (T c, const Vector& a);
-Vector operator / (const Vector& a, T c);
-
-template <size_t Cols>
-Vector<T, Cols> operator * (const Vector& v, const __Matrix<T, N, Cols>& m);
-
-template <size_t Rows>
-Vector<T, Rows> operator * (const __Matrix<T, Rows, N>& m, const Vector& v);
-//]
-
 //[oglplus_math_vector_typedefs
 
 #ifdef GL_INT
