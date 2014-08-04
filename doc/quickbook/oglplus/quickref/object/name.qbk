@@ -6,6 +6,8 @@
 [section:name Name]
 [/----------------]
 
+[header oglplus/object/name.hpp]
+
 The `ObjectName` template wraps the raw `GLuint` name
 of a GL object (texture, VBO, FBO, RBO, sampler, query, etc.).
 Since all types of GL objects share the same namespace (the domain of the `GLuint`

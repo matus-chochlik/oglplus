@@ -8,8 +8,27 @@
 
 [header oglplus/math/angle.hpp]
 
+__Angle is a lightweight class allowing more natural construction and
+usage of planar angle values. The storage requirements are the same
+as for the template parameter type [^T], but the [^Angle] template gives
+the [^T] type special meaning and implements a set of angle-related member
+and friend functions. There are also several associated free functions
+for creating new instances of [^Angle].
+
 [import angle.hpp]
 
+[heading Definition]
+
 [oglplus_math_angle]
+
+[heading:ctrs Constructors]
+
+[oglplus_math_angle_ctrs]
+
+[heading:ctr_fns Construction functions]
+
+[oglplus_math_angle_ctr_fns]
+
+[oglplus_math_angle_end]
 
 [endsect]

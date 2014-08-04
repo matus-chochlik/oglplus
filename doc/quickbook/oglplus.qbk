@@ -16,6 +16,8 @@
 [def __String [link oglplus.quickref.string.def [^String]]]
 [def __StrCRef [link oglplus.quickref.string.ref [^StrCRef]]]
 
+[def __Angle [link oglplus.quickref.math.angle [^Angle]]]
+[def __Plane [link oglplus.quickref.math.plane [^Plane]]]
 [def __Vector [link oglplus.quickref.math.vector [^Vector]]]
 [def __Matrix [link oglplus.quickref.math.matrix [^Matrix]]]
 
@@ -34,6 +36,7 @@
 [def __PerfMonitorAMDName [link oglplus.quickref.object.name.typedefs PerfMonitorAMDName]]
 [def __PathNVName [link oglplus.quickref.object.name.typedefs PathNVName]]
 
+[def __ObjectDesc [link oglplus.quickref.object.desc ObjectDesc]]
 
 [def __Error [link oglplus.quickref.error.basic [^Error]]]
 [def __MissingFunction [link oglplus.quickref.error.glfunc [^MissingFunction]]]
