@@ -133,6 +133,8 @@ public:
 	Vector& operator /= (T c);
 //]
 //[oglplus_math_vector_friend_ops
+	friend Vector operator == (const Vector& a, const Vector& b);
+	friend Vector operator != (const Vector& a, const Vector& b);
 	friend Vector operator + (const Vector& a);
 	friend Vector operator - (const Vector& a);
 	friend Vector operator + (const Vector& a, const Vector& b);
@@ -165,6 +167,8 @@ public:
 >*/
 //]
 //[oglplus_math_vector_friend_fns
+	friend bool Equal(const Vector& a, const Vector& b);
+
 	friend Vector Negated(const Vector& a);
 	friend Vector Added(const Vector& a, const Vector& b);
 	friend Vector Subtracted(const Vector& a, const Vector& b);
@@ -188,6 +192,20 @@ public:
 //]
 //[oglplus_math_vector_end
 }; // class Vector
+//]
+//[oglplus_math_vector_spec_friends
+	template <typename T>
+	Vector<T, 2> Perpendicular(const Vector<T, 2>& a); /*<
+	Returns a vector perpendicular to the given vector.
+	Available only for 2-dimensional vectors.
+	>*/
+
+	template <typename T>
+	Vector<T, 3> Cross(const Vector<T, 3>& a, const Vector<T, 3>& b); /*<
+	Returns a vector perpendicular to the given two vectors.
+	Available only for 3-dimensional vectors.
+	>*/
+
 //]
 //[oglplus_math_vector_typedefs
 

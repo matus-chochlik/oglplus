@@ -61,6 +61,10 @@ Friend operators returning new vectors without modifying the arguments.
 
 [oglplus_math_vector_end]
 
+[heading:spec_friends Special friend functions]
+
+[oglplus_math_vector_spec_friends]
+
 [heading:typedefs Typedefs]
 
 This header also defines several 1 to 4-dimensional __Vector [^typedef]s for convenience.
