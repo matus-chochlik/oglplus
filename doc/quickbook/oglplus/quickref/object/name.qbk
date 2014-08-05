@@ -20,12 +20,8 @@ a texture name to a function requiring a buffer, etc.
 [import name.hpp]
 [oglplus_object_name]
 
-[/------------------------------------]
-[section:typedefs Convenience typedefs]
-[/------------------------------------]
+[heading:typedefs Convenience typedefs]
 
 [oglplus_object_name_typedefs]
-
-[endsect]
 
 [endsect]

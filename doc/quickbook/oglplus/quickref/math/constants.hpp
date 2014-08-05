@@ -12,11 +12,11 @@ Returns the value of ['__pi__] using a floating-point type
 with appropriate precision.
 >*/
 auto TwoPi(void); /*<
-Returns the value of ['2 __pi__] using a floating-point type
+Returns the value of ['__two_pi__] using a floating-point type
 with appropriate precision.
 >*/
 auto HalfPi(void); /*<
-Returns the value of ['__pi__ / 2] using a floating-point type
+Returns the value of ['__half_pi__] using a floating-point type
 with appropriate precision.
 >*/
 

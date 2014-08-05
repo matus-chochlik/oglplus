@@ -19,7 +19,9 @@
 [def __Angle [link oglplus.quickref.math.angle [^Angle]]]
 [def __Plane [link oglplus.quickref.math.plane [^Plane]]]
 [def __Vector [link oglplus.quickref.math.vector [^Vector]]]
-[def __Matrix [link oglplus.quickref.math.matrix [^Matrix]]]
+[def __Matrix [link oglplus.quickref.math.matrix.basic [^Matrix]]]
+[def __ModelMatrix [link oglplus.quickref.math.matrix.model [^ModelMatrix]]]
+[def __CameraMatrix [link oglplus.quickref.math.matrix.camera [^CameraMatrix]]]
 
 [def __ObjTag [link oglplus.quickref.object.tags ObjTag]]
 [def __ObjectName [link oglplus.quickref.object.name ObjectName]]

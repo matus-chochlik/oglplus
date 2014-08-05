@@ -20,23 +20,26 @@ public:
 	Vector(void); /*<
 	Constructs a vector with all components initialized to zero.
 	>*/
-	Vector(const T* v, size_t n); /*<
+	Vector(const __T (&v)[__N]); /*<
+	Construction from a const C-array of [^__T] with known size.
+	>*/
+	Vector(const __T* v, size_t n); /*<
 	Construction from a pointer to data and number of elements.
 	The memory pointed-to by [^v] must hold at least [^n] valid instances
-	of type [^T] and [^n] must be greater or equal to [^N] - the
+	of type [^__T] and [^n] must be greater or equal to [^__N] - the
 	dimension of the vector.
 	>*/
-	Vector(const T* v, size_t n, T def); /*<
+	Vector(const __T* v, size_t n, __T def); /*<
 	Construction from a pointer to data, number of elements and a default.
 	The first [^n] coordinates of the resulting vector are initialized
 	by the first [^n] values from the memory pointed-to by [^v].
-	If [^n] is less than [^N], then the remaining values are
+	If [^n] is less than [^__N], then the remaining values are
 	initialized to [^def].
 	The memory pointed-to by [^v] must hold at least [^n] valid instances
-	of type [^T].
+	of type [^__T].
 	>*/
 
-	explicit Vector(T v); /*<
+	explicit Vector(__T v); /*<
 	Constructs a vector having all coordinates initialized
 	to the specified value [^v].
 	>*/
@@ -45,13 +48,8 @@ public:
 	Vector(P ... p);  /*<
 	Constructs a vector having its components initialized by the
 	values [^p] from the parameter pack. Available only if the number
-	of arguments in the pack equals [^N] and all types in [^P] are
-	convertible to [^T].
-	>*/
-
-	template <size_t N>
-	Vector(const T (&v)[N]); /*<
-	Construction from a const C-array of [^T] with known size.
+	of arguments in the pack equals [^__N] and all types in [^P] are
+	convertible to [^__T].
 	>*/
 
 	template <typename U, size_t M>
@@ -59,18 +57,18 @@ public:
 	Truncation of a vector of higher or equal dimension possibly with
 	a different underlying type.
 	The resulting [^Vector] has the same coordinates as the first
-	[^N] coordinates of the vector [^v] passed as argument converted
-	to [^T].
+	[^__N] coordinates of the vector [^v] passed as argument converted
+	to [^__T].
 	>*/
 
 	template <typename U, size_t M, typename ... P>
 	Vector(const Vector<U, M>& v, P ... p);  /*<
 	Construction from a vector of smaller dimension and a pack of
 	values. The resulting vector has the first M components initialized
-	from the vector [^m] and the remaining [^N-M] values from the
-	pack [^p]. This constructor is available only if [^M < N] and the number
-	of arguments in the pack equals [^N - M] and all types in [^P] are
-	convertible to [^T].
+	from the vector [^m] and the remaining [^__N-M] values from the
+	pack [^p]. This constructor is available only if [^M<__N] and the number
+	of arguments in the pack equals [^__N-M] and all types in [^P] are
+	convertible to [^__T].
 	>*/
 
 
@@ -80,57 +78,57 @@ public:
 	Vector(Unit_, size_t i); /*<
 	Constructs a vector with all components set to zero except
 	for the [^i]th coordinate, which is set to one. The value of
-	[^i] must be less than [^N].
+	[^i] must be less than [^__N].
 	>*/
 	static __Vector Unit(size_t i); /*<
 	Returns a vector with all components set to zero except
 	for the [^i]th coordinate, which is set to one. Equal to calling
-	[^Vector(Vector::Unit_(), i)]. The value of [^i] must be less than [^N].
+	[^Vector(Vector::Unit_(), i)]. The value of [^i] must be less than [^__N].
 	>*/
 
-	explicit Vector(const __Matrix<T, 1, N>& matrix); /*<
+	explicit Vector(const __Matrix<__T, 1, __N>& matrix); /*<
 	Construction from a single row __Matrix.
 	>*/
-	explicit Vector(const __Matrix<T, N, 1>& matrix); /*<
+	explicit Vector(const __Matrix<__T, __N, 1>& matrix); /*<
 	Construction from a single column __Matrix.
 >*/
 //]
 
 //[oglplus_math_vector_swizzle
-	T x(void) const; /*<
+	__T x(void) const; /*<
 	Returns the [^0]th component of the vector.
 	This function is available in all specializations of [^Vector].
 	>*/
-	T y(void) const; /*<
+	__T y(void) const; /*<
 	Returns the [^1]st component of the vector.
-	This function is available only if [^N >= 2].
+	This function is available only if [^__N >= 2].
 	>*/
-	T z(void) const; /*<
+	__T z(void) const; /*<
 	Returns the [^2]nd component of the vector.
-	This function is available only if [^N >= 3].
+	This function is available only if [^__N >= 3].
 	>*/
-	T w(void) const; /*<
+	__T w(void) const; /*<
 	Returns the [^3]rd component of the vector.
-	This function is available only if [^N >= 4].
+	This function is available only if [^__N >= 4].
 	>*/
 
-	Vector<T, 2> xy(void) const; /*<
+	Vector<__T, 2> xy(void) const; /*<
 	Returns a subvector with the first two components.
-	This function is available only if [^N >= 2].
+	This function is available only if [^__N >= 2].
 	>*/
-	Vector<T, 3> xyz(void) const; /*<
+	Vector<__T, 3> xyz(void) const; /*<
 	Returns a subvector with the first three components.
-	This function is available only if [^N >= 3].
+	This function is available only if [^__N >= 3].
 >*/
 //]
 //[oglplus_math_vector_ops
 	Vector& operator += (const Vector& a);
 	Vector& operator -= (const Vector& a);
-	Vector& operator *= (T c);
+	Vector& operator *= (__T c);
 	Vector& operator *= (const Vector& a); /*<
 	Per-component multiplication.
 >*/
-	Vector& operator /= (T c);
+	Vector& operator /= (__T c);
 //]
 //[oglplus_math_vector_friend_ops
 	friend Vector operator == (const Vector& a, const Vector& b);
@@ -139,16 +137,16 @@ public:
 	friend Vector operator - (const Vector& a);
 	friend Vector operator + (const Vector& a, const Vector& b);
 	friend Vector operator - (const Vector& a, const Vector& b);
-	friend Vector operator * (const Vector& a, T c);
-	friend Vector operator * (T c, const Vector& a);
-	friend Vector operator / (const Vector& a, T c);
+	friend Vector operator * (const Vector& a, __T c);
+	friend Vector operator * (__T c, const Vector& a);
+	friend Vector operator / (const Vector& a, __T c);
 
 	template <size_t Cols>
-	friend Vector<T, Cols> operator * (const Vector& v, const __Matrix<T, N, Cols>& m); /*<
+	friend Vector<__T, Cols> operator * (const Vector& v, const __Matrix<__T, __N, Cols>& m); /*<
 	__Vector __times__  __Matrix multiplication.
 	>*/
 	template <size_t Rows>
-	friend Vector<T, Rows> operator * (const __Matrix<T, Rows, N>& m, const Vector& v); /*<
+	friend Vector<__T, Rows> operator * (const __Matrix<__T, Rows, __N>& m, const Vector& v); /*<
 	__Matrix __times__  __Vector multiplication.
 >*/
 //]
@@ -159,10 +157,10 @@ public:
 	Vector& operator Subtract(const Vector& a); /*<
 	Subtracts [^a] from [^this].
 	>*/
-	Vector& operator MultiplyBy(T c); /*<
+	Vector& operator Multiply(__T c); /*<
 	Multiplies [^this] by [^c].
 	>*/
-	Vector& operator DivideBy(T c); /*<
+	Vector& operator Divide(__T c); /*<
 	Divides [^this] by [^c].
 >*/
 //]
@@ -172,16 +170,16 @@ public:
 	friend Vector Negated(const Vector& a);
 	friend Vector Added(const Vector& a, const Vector& b);
 	friend Vector Subtracted(const Vector& a, const Vector& b);
-	friend Vector Multiplied(const Vector& a, T c);
-	friend Vector Divided(const Vector& a, T c);
+	friend Vector Multiplied(const Vector& a, __T c);
+	friend Vector Divided(const Vector& a, __T c);
 
-	friend T Dot(const Vector& a, const Vector& b); /*<
+	friend __T Dot(const Vector& a, const Vector& b); /*<
 	Dot product of two vectors.
 	>*/
-	friend T Length(const Vector& a); /*<
+	friend __T Length(const Vector& a); /*<
 	The length (magnitude) of a vector.
 	>*/
-	friend T Distance(const Vector& a, const Vector& b); /*<
+	friend __T Distance(const Vector& a, const Vector& b); /*<
 	The distance between two vectors.
 	>*/
 

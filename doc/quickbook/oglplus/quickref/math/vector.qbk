@@ -16,14 +16,16 @@ a general-purpose N-dimensional space vector type in many other situations
 and is used ubiquitously in the oglplus examples.
 
 [import vector.hpp]
+[def __T [link oglplus.quickref.math.vector.def T]]
+[def __N [link oglplus.quickref.math.vector.def N]]
 
-The [^Vector] class is a template with a pair of parameters; [^T] and [^N]
+The [^Vector] class is a template with a pair of parameters; [^__T] and [^__N]
 denoting the underlying data-type and the dimension of the vector.
 The actual class is implemented as a set
 of template specializations which have many common member and friend functions,
 but there are also some differences between vectors of different dimensions.
 
-[heading Definition]
+[heading:def Definition]
 
 The following unspecialized template is a synopsis of the interface common
 to all instantiations of [^Vector]. The differences to the specializations

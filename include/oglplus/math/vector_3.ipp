@@ -137,13 +137,13 @@ public:
 
 	Vector& operator *= (T v)
 	{
-		this->MultiplyBy(v);
+		this->Multiply(v);
 		return *this;
 	}
 
 	Vector& operator *= (const Vector& v)
 	{
-		this->MultiplyBy(v);
+		this->Multiply(v);
 		return *this;
 	}
 
@@ -154,7 +154,7 @@ public:
 
 	Vector& operator /= (T v)
 	{
-		this->DivideBy(v);
+		this->Divide(v);
 		return *this;
 	}
 };

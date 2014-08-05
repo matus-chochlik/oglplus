@@ -24,6 +24,8 @@
 
 [def __times__ \u00D7]
 [def __pi__ \u03C0]
+[def __two_pi__ 2\u03C0]
+[def __half_pi__ \u03C0/2]
 
 [def __OGLplus__ [@ http://oglplus.org/ OGLplus]]
 [def __OpenGL__ [@ http://www.opengl.org/ OpenGL]]

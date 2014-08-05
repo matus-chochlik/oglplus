@@ -9,7 +9,61 @@
 [header oglplus/math/matrix.hpp]
 
 [import matrix.hpp]
+[def __T [link oglplus.quickref.math.matrix.basic.def T]]
+[def __Rows [link oglplus.quickref.math.matrix.basic.def Rows]]
+[def __Cols [link oglplus.quickref.math.matrix.basic.def Cols]]
+
+[/-------------------------]
+[section:basic Basic matrix]
+[/-------------------------]
+
+[heading:def Definition]
 
 [oglplus_math_matrix]
+
+[heading:ctrs Constructors]
+
+[oglplus_math_matrix_ctrs]
+
+[heading:ops Operators]
+
+[oglplus_math_matrix_friend_ops]
+
+[heading:fns Member functions]
+
+[oglplus_math_matrix_fns]
+
+[heading:friend_fns Friend functions]
+
+[oglplus_math_matrix_friend_fns]
+
+[heading:friend_row_ops Row operations]
+
+[oglplus_math_matrix_friend_row_ops]
+
+
+[oglplus_math_matrix_end]
+
+[heading:typedefs Matrix typedefs]
+
+[oglplus_math_matrix_typedefs]
+
+[endsect]
+
+[/-------------------------]
+[section:model Model matrix]
+[/-------------------------]
+
+[oglplus_math_matrix_model]
+
+[endsect]
+
+[/---------------------------]
+[section:camera Camera matrix]
+[/---------------------------]
+
+[oglplus_math_matrix_camera]
+
+[endsect]
 
 [endsect]
