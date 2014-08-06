@@ -1,0 +1,31 @@
+//  File doc/quickbook/eglplus/quickref/enums/opengl_rns.hpp
+//
+//  Automatically generated file, DO NOT modify manually.
+//  Edit the source 'source/enums/eglplus/opengl_rns.txt'
+//  or the 'source/enums/make_enum.py' script instead.
+//
+//  Copyright 2010-2014 Matus Chochlik.
+//  Distributed under the Boost Software License, Version 1.0.
+//  See accompanying file LICENSE_1_0.txt or copy at
+//  http://www.boost.org/LICENSE_1_0.txt
+//
+//[oglplus_enums_opengl_rns
+namespace eglplus {
+
+enum class OpenGLResetNotificationStrategy : EGLenum
+{
+	NoResetNotification = EGL_NO_RESET_NOTIFICATION,
+	LoseContextOnReset  = EGL_LOSE_CONTEXT_ON_RESET
+};
+
+#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
+template <>
+__Range<OpenGLResetNotificationStrategy> __EnumValueName<OpenGLResetNotificationStrategy>(void);
+#endif
+
+#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
+__StrCRef __EnumValueName(OpenGLResetNotificationStrategy);
+#endif
+
+} // namespace eglplus
+//]
