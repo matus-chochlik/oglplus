@@ -20,7 +20,7 @@ enum class GLColorspace : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<GLColorspace> __EnumValueName<GLColorspace>(void);
+__Range<GLColorspace> __EnumValueRange<GLColorspace>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -21,7 +21,7 @@ enum class ContextFlag : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ContextFlag> __EnumValueName<ContextFlag>(void);
+__Range<ContextFlag> __EnumValueRange<ContextFlag>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

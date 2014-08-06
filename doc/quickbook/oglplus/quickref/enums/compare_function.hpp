@@ -26,7 +26,7 @@ enum class CompareFunction : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<CompareFunction> __EnumValueName<CompareFunction>(void);
+__Range<CompareFunction> __EnumValueRange<CompareFunction>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

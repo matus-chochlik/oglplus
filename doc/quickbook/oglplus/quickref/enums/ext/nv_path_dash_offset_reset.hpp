@@ -20,7 +20,7 @@ enum class PathNVDashOffsetReset : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PathNVDashOffsetReset> __EnumValueName<PathNVDashOffsetReset>(void);
+__Range<PathNVDashOffsetReset> __EnumValueRange<PathNVDashOffsetReset>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

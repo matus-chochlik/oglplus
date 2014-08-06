@@ -41,7 +41,7 @@ enum class Capability : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<Capability> __EnumValueName<Capability>(void);
+__Range<Capability> __EnumValueRange<Capability>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -24,7 +24,7 @@ enum class QueryTarget : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<QueryTarget> __EnumValueName<QueryTarget>(void);
+__Range<QueryTarget> __EnumValueRange<QueryTarget>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

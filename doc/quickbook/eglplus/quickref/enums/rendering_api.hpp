@@ -22,7 +22,7 @@ enum class RenderingAPI : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<RenderingAPI> __EnumValueName<RenderingAPI>(void);
+__Range<RenderingAPI> __EnumValueRange<RenderingAPI>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

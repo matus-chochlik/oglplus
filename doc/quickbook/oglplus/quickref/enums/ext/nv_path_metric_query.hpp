@@ -40,7 +40,7 @@ enum class PathNVMetricQuery : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PathNVMetricQuery> __EnumValueName<PathNVMetricQuery>(void);
+__Range<PathNVMetricQuery> __EnumValueRange<PathNVMetricQuery>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

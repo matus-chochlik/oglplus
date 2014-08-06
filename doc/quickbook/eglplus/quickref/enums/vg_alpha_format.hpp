@@ -20,7 +20,7 @@ enum class VGAlphaFormat : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<VGAlphaFormat> __EnumValueName<VGAlphaFormat>(void);
+__Range<VGAlphaFormat> __EnumValueRange<VGAlphaFormat>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

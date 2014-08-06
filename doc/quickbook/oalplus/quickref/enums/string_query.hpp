@@ -22,7 +22,7 @@ enum class StringQuery : ALenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<StringQuery> __EnumValueName<StringQuery>(void);
+__Range<StringQuery> __EnumValueRange<StringQuery>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

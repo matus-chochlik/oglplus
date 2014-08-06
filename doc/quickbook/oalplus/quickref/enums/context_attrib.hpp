@@ -23,7 +23,7 @@ enum class ContextAttrib : ALenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ContextAttrib> __EnumValueName<ContextAttrib>(void);
+__Range<ContextAttrib> __EnumValueRange<ContextAttrib>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

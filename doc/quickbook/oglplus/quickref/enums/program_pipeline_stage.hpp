@@ -25,7 +25,7 @@ enum class ProgramPipelineStage : GLbitfield
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ProgramPipelineStage> __EnumValueName<ProgramPipelineStage>(void);
+__Range<ProgramPipelineStage> __EnumValueRange<ProgramPipelineStage>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

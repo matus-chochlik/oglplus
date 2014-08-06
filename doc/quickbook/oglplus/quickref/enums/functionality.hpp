@@ -19,7 +19,7 @@ enum class Functionality : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<Functionality> __EnumValueName<Functionality>(void);
+__Range<Functionality> __EnumValueRange<Functionality>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

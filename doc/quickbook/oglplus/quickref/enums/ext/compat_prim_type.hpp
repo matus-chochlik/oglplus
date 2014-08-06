@@ -28,7 +28,7 @@ enum class CompatibilityPrimitiveType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<CompatibilityPrimitiveType> __EnumValueName<CompatibilityPrimitiveType>(void);
+__Range<CompatibilityPrimitiveType> __EnumValueRange<CompatibilityPrimitiveType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

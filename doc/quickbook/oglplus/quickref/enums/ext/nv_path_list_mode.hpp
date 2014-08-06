@@ -21,7 +21,7 @@ enum class PathNVListMode : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PathNVListMode> __EnumValueName<PathNVListMode>(void);
+__Range<PathNVListMode> __EnumValueRange<PathNVListMode>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

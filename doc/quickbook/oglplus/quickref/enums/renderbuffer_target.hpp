@@ -19,7 +19,7 @@ enum class RenderbufferTarget : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<RenderbufferTarget> __EnumValueName<RenderbufferTarget>(void);
+__Range<RenderbufferTarget> __EnumValueRange<RenderbufferTarget>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

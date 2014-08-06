@@ -21,7 +21,7 @@ enum class Face : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<Face> __EnumValueName<Face>(void);
+__Range<Face> __EnumValueRange<Face>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

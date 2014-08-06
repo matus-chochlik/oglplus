@@ -52,7 +52,7 @@ enum class PathNVCommand : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PathNVCommand> __EnumValueName<PathNVCommand>(void);
+__Range<PathNVCommand> __EnumValueRange<PathNVCommand>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

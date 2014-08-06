@@ -118,7 +118,7 @@ enum class PixelDataInternalFormat : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PixelDataInternalFormat> __EnumValueName<PixelDataInternalFormat>(void);
+__Range<PixelDataInternalFormat> __EnumValueRange<PixelDataInternalFormat>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

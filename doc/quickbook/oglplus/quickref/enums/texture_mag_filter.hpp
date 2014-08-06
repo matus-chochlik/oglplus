@@ -20,7 +20,7 @@ enum class TextureMagFilter : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<TextureMagFilter> __EnumValueName<TextureMagFilter>(void);
+__Range<TextureMagFilter> __EnumValueRange<TextureMagFilter>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

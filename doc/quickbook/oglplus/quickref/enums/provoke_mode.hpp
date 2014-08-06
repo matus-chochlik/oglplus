@@ -20,7 +20,7 @@ enum class ProvokeMode : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ProvokeMode> __EnumValueName<ProvokeMode>(void);
+__Range<ProvokeMode> __EnumValueRange<ProvokeMode>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

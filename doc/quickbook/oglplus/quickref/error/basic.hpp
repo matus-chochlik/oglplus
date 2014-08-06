@@ -21,6 +21,10 @@ public:
 	>*/
 	~Error(void) throw() { }
 
+	__ErrorCode Code(void) const; /*<
+	Return the GL error code associated with this error.
+	>*/
+
 	const char* SourceFile(void) const; /*<
 	Returns the name of the OGLplus source file where the error occured.
 	The result of this function is also influenced by the

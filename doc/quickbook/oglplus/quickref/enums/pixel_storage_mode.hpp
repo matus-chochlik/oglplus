@@ -42,7 +42,7 @@ enum class PixelStorageMode : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PixelStorageMode> __EnumValueName<PixelStorageMode>(void);
+__Range<PixelStorageMode> __EnumValueRange<PixelStorageMode>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

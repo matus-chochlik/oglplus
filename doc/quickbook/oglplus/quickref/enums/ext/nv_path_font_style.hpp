@@ -20,7 +20,7 @@ enum class PathNVFontStyle : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PathNVFontStyle> __EnumValueName<PathNVFontStyle>(void);
+__Range<PathNVFontStyle> __EnumValueRange<PathNVFontStyle>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -24,7 +24,7 @@ enum class ShaderType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ShaderType> __EnumValueName<ShaderType>(void);
+__Range<ShaderType> __EnumValueRange<ShaderType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

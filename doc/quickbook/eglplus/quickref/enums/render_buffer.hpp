@@ -20,7 +20,7 @@ enum class RenderBuffer : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<RenderBuffer> __EnumValueName<RenderBuffer>(void);
+__Range<RenderBuffer> __EnumValueRange<RenderBuffer>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

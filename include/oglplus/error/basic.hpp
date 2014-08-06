@@ -14,7 +14,7 @@
 #define OGLPLUS_ERROR_BASIC_1107121317_HPP
 
 #include <oglplus/config/error.hpp>
-#include <oglplus/enumerations.hpp>
+#include <oglplus/error/code.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/string/empty.hpp>
@@ -85,7 +85,7 @@ public:
 	}
 
 	/// Returns the GL error code related to the error
-	GLenum Code(void) const { return _code; }
+	ErrorCode Code(void) const { return ErrorCode(_code); }
 
 	Error& SourceFile(const char* file)
 	{

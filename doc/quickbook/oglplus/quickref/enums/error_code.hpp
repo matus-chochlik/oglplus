@@ -27,7 +27,7 @@ enum class ErrorCode : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ErrorCode> __EnumValueName<ErrorCode>(void);
+__Range<ErrorCode> __EnumValueRange<ErrorCode>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

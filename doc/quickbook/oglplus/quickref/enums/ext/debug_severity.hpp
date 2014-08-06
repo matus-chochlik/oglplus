@@ -23,7 +23,7 @@ enum class DebugSeverity : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<DebugSeverity> __EnumValueName<DebugSeverity>(void);
+__Range<DebugSeverity> __EnumValueRange<DebugSeverity>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

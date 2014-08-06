@@ -27,7 +27,7 @@ enum class BufferUsage : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<BufferUsage> __EnumValueName<BufferUsage>(void);
+__Range<BufferUsage> __EnumValueRange<BufferUsage>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

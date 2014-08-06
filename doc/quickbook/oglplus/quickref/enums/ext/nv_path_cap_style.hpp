@@ -22,7 +22,7 @@ enum class PathNVCapStyle : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PathNVCapStyle> __EnumValueName<PathNVCapStyle>(void);
+__Range<PathNVCapStyle> __EnumValueRange<PathNVCapStyle>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

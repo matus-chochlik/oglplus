@@ -21,7 +21,7 @@ enum class TransformFeedbackPrimitiveType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<TransformFeedbackPrimitiveType> __EnumValueName<TransformFeedbackPrimitiveType>(void);
+__Range<TransformFeedbackPrimitiveType> __EnumValueRange<TransformFeedbackPrimitiveType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

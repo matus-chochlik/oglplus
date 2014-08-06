@@ -19,7 +19,7 @@ enum class SyncCondition : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<SyncCondition> __EnumValueName<SyncCondition>(void);
+__Range<SyncCondition> __EnumValueRange<SyncCondition>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

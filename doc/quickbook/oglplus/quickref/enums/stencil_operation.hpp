@@ -26,7 +26,7 @@ enum class StencilOperation : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<StencilOperation> __EnumValueName<StencilOperation>(void);
+__Range<StencilOperation> __EnumValueRange<StencilOperation>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

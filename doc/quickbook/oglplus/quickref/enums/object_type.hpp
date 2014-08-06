@@ -30,7 +30,7 @@ enum class ObjectType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ObjectType> __EnumValueName<ObjectType>(void);
+__Range<ObjectType> __EnumValueRange<ObjectType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

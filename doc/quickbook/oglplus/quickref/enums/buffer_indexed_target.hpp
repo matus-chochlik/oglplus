@@ -22,7 +22,7 @@ enum class BufferIndexedTarget : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<BufferIndexedTarget> __EnumValueName<BufferIndexedTarget>(void);
+__Range<BufferIndexedTarget> __EnumValueRange<BufferIndexedTarget>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

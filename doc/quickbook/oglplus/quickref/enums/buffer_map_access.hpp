@@ -26,7 +26,7 @@ enum class BufferMapAccess : GLbitfield
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<BufferMapAccess> __EnumValueName<BufferMapAccess>(void);
+__Range<BufferMapAccess> __EnumValueRange<BufferMapAccess>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

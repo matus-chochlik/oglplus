@@ -25,7 +25,7 @@ enum class DebugOutputARBType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<DebugOutputARBType> __EnumValueName<DebugOutputARBType>(void);
+__Range<DebugOutputARBType> __EnumValueRange<DebugOutputARBType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

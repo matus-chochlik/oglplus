@@ -24,7 +24,7 @@ enum class PathNVColorFormat : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PathNVColorFormat> __EnumValueName<PathNVColorFormat>(void);
+__Range<PathNVColorFormat> __EnumValueRange<PathNVColorFormat>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

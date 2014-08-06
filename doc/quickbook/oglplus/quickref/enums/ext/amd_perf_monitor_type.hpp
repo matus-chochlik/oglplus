@@ -22,7 +22,7 @@ enum class PerfMonitorAMDType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PerfMonitorAMDType> __EnumValueName<PerfMonitorAMDType>(void);
+__Range<PerfMonitorAMDType> __EnumValueRange<PerfMonitorAMDType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -21,7 +21,7 @@ enum class PatchParameter : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PatchParameter> __EnumValueName<PatchParameter>(void);
+__Range<PatchParameter> __EnumValueRange<PatchParameter>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

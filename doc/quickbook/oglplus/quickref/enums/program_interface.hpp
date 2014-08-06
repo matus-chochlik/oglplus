@@ -38,7 +38,7 @@ enum class ProgramInterface : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ProgramInterface> __EnumValueName<ProgramInterface>(void);
+__Range<ProgramInterface> __EnumValueRange<ProgramInterface>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

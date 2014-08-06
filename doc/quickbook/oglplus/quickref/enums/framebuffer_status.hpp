@@ -25,7 +25,7 @@ enum class FramebufferStatus : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<FramebufferStatus> __EnumValueName<FramebufferStatus>(void);
+__Range<FramebufferStatus> __EnumValueRange<FramebufferStatus>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -21,7 +21,7 @@ enum class TextureWrapCoord : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<TextureWrapCoord> __EnumValueName<TextureWrapCoord>(void);
+__Range<TextureWrapCoord> __EnumValueRange<TextureWrapCoord>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

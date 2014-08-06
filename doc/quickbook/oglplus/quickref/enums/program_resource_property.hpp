@@ -45,7 +45,7 @@ enum class ProgramResourceProperty : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ProgramResourceProperty> __EnumValueName<ProgramResourceProperty>(void);
+__Range<ProgramResourceProperty> __EnumValueRange<ProgramResourceProperty>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

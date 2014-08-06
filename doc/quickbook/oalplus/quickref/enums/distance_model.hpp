@@ -25,7 +25,7 @@ enum class DistanceModel : ALenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<DistanceModel> __EnumValueName<DistanceModel>(void);
+__Range<DistanceModel> __EnumValueRange<DistanceModel>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

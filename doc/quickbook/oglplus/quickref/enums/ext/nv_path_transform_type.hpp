@@ -27,7 +27,7 @@ enum class PathNVTransformType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PathNVTransformType> __EnumValueName<PathNVTransformType>(void);
+__Range<PathNVTransformType> __EnumValueRange<PathNVTransformType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

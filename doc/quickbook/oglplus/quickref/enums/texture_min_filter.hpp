@@ -24,7 +24,7 @@ enum class TextureMinFilter : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<TextureMinFilter> __EnumValueName<TextureMinFilter>(void);
+__Range<TextureMinFilter> __EnumValueRange<TextureMinFilter>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

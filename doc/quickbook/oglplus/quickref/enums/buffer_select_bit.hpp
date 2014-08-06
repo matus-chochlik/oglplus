@@ -21,7 +21,7 @@ enum class BufferSelectBit : GLbitfield
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<BufferSelectBit> __EnumValueName<BufferSelectBit>(void);
+__Range<BufferSelectBit> __EnumValueRange<BufferSelectBit>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

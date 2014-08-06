@@ -21,7 +21,7 @@ enum class PathNVFontTarget : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PathNVFontTarget> __EnumValueName<PathNVFontTarget>(void);
+__Range<PathNVFontTarget> __EnumValueRange<PathNVFontTarget>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -33,7 +33,7 @@ enum class MemoryBarrierBit : GLbitfield
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<MemoryBarrierBit> __EnumValueName<MemoryBarrierBit>(void);
+__Range<MemoryBarrierBit> __EnumValueRange<MemoryBarrierBit>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

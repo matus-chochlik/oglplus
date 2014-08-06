@@ -20,7 +20,7 @@ enum class VGColorspace : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<VGColorspace> __EnumValueName<VGColorspace>(void);
+__Range<VGColorspace> __EnumValueRange<VGColorspace>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

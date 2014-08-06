@@ -34,7 +34,7 @@ enum class BufferTarget : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<BufferTarget> __EnumValueName<BufferTarget>(void);
+__Range<BufferTarget> __EnumValueRange<BufferTarget>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

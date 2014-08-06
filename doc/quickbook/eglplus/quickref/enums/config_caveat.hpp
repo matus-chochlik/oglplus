@@ -21,7 +21,7 @@ enum class ConfigCaveat : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ConfigCaveat> __EnumValueName<ConfigCaveat>(void);
+__Range<ConfigCaveat> __EnumValueRange<ConfigCaveat>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

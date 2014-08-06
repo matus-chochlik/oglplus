@@ -6,6 +6,7 @@
 [section:error Error handling]
 [/============================]
 
+[include error/code.qbk]
 [include error/basic.qbk]
 [include error/glfunc.qbk]
 [include error/limit.qbk]

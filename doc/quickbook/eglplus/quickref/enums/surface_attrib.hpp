@@ -35,7 +35,7 @@ enum class SurfaceAttrib : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<SurfaceAttrib> __EnumValueName<SurfaceAttrib>(void);
+__Range<SurfaceAttrib> __EnumValueRange<SurfaceAttrib>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

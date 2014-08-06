@@ -37,7 +37,7 @@ enum class PixelDataFormat : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PixelDataFormat> __EnumValueName<PixelDataFormat>(void);
+__Range<PixelDataFormat> __EnumValueRange<PixelDataFormat>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -25,7 +25,7 @@ enum class SurfaceTypeBit : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<SurfaceTypeBit> __EnumValueName<SurfaceTypeBit>(void);
+__Range<SurfaceTypeBit> __EnumValueRange<SurfaceTypeBit>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

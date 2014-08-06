@@ -1,0 +1,27 @@
+[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Software License, Version 1.0. (See accompanying file            ]
+[/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
+
+[/=========================]
+[section:enums Enumerations]
+[/=========================]
+
+OGLplus defines many enumeration types grouping together GL constants
+that logically belong together. The strong typing on the enumerations
+also prevents in many cases errors like passing invalid constant to
+a GL function since the OGLplus function wrappers use appropriate
+enumeration types for parameters instead of the generic [^GLenum] type.
+
+[note Many of the GL constant values used in the enumerations are only
+available in specific GL versions or with certain GL extensions. If
+the underlying GL constant is not defined when the enumeration definition
+is processed then the corresponding value is not present in the enumeration.
+]
+
+[import enums.hpp]
+
+For (almost) all enumeration types the following functions are overloaded.
+
+[oglplus_enums_functions]
+
+[endsect]

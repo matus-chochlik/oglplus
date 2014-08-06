@@ -19,7 +19,7 @@ enum class NamedStringType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<NamedStringType> __EnumValueName<NamedStringType>(void);
+__Range<NamedStringType> __EnumValueRange<NamedStringType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

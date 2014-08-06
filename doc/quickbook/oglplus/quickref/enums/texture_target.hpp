@@ -35,7 +35,7 @@ enum class TextureTarget : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<TextureTarget> __EnumValueName<TextureTarget>(void);
+__Range<TextureTarget> __EnumValueRange<TextureTarget>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

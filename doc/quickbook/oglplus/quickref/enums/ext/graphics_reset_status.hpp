@@ -22,7 +22,7 @@ enum class GraphicsResetStatus : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<GraphicsResetStatus> __EnumValueName<GraphicsResetStatus>(void);
+__Range<GraphicsResetStatus> __EnumValueRange<GraphicsResetStatus>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -23,7 +23,7 @@ enum class PathNVJoinStyle : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PathNVJoinStyle> __EnumValueName<PathNVJoinStyle>(void);
+__Range<PathNVJoinStyle> __EnumValueRange<PathNVJoinStyle>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

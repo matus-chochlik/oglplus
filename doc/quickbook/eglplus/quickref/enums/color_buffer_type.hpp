@@ -20,7 +20,7 @@ enum class ColorBufferType : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ColorBufferType> __EnumValueName<ColorBufferType>(void);
+__Range<ColorBufferType> __EnumValueRange<ColorBufferType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -15,7 +15,8 @@ reference should not be used by the library users and are subject to
 change without any prior notice.
 
 Note, that several classes or types described here (for example function
-parameter types or return value types), are just concepts - list of type
+parameter types or return value types), are just
+[link oglplus.quickref.concept concepts] - named lists of type
 constraints not concrete types. The actual types conforming to these concepts
 are implementation details and usually instantiation of templates.
 If values of such types are returned from a function and need to be stored
@@ -31,4 +32,5 @@ the concept.
 [include quickref/object.qbk]
 [include quickref/config.qbk]
 [include quickref/math.qbk]
-
+[include quickref/concept.qbk]
+[include quickref/enums.qbk]

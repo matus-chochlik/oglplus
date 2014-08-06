@@ -20,7 +20,7 @@ enum class TextureFilter : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<TextureFilter> __EnumValueName<TextureFilter>(void);
+__Range<TextureFilter> __EnumValueRange<TextureFilter>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

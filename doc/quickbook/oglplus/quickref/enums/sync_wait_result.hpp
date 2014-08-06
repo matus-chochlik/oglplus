@@ -22,7 +22,7 @@ enum class SyncWaitResult : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<SyncWaitResult> __EnumValueName<SyncWaitResult>(void);
+__Range<SyncWaitResult> __EnumValueRange<SyncWaitResult>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

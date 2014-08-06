@@ -23,7 +23,7 @@ enum class BlendEquation : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<BlendEquation> __EnumValueName<BlendEquation>(void);
+__Range<BlendEquation> __EnumValueRange<BlendEquation>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

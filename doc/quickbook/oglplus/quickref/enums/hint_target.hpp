@@ -22,7 +22,7 @@ enum class HintTarget : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<HintTarget> __EnumValueName<HintTarget>(void);
+__Range<HintTarget> __EnumValueRange<HintTarget>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

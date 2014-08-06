@@ -40,12 +40,18 @@
 
 [def __ObjectDesc [link oglplus.quickref.object.desc ObjectDesc]]
 
+[def __ErrorCode [link oglplus.quickref.error.code [^ErrorCode]]]
 [def __Error [link oglplus.quickref.error.basic [^Error]]]
 [def __MissingFunction [link oglplus.quickref.error.glfunc [^MissingFunction]]]
 [def __LimitError [link oglplus.quickref.error.limit [^LimitError]]]
 [def __ObjectError [link oglplus.quickref.error.object [^ObjectError]]]
 [def __ObjectPairError [link oglplus.quickref.error.object [^ObjectPairError]]]
 [def __ProgramBuildError [link oglplus.quickref.error.program [^ProgramBuildError]]]
+
+[def __Range [link oglplus.quickref.concept.range [^Range]]]
+
+[def __EnumValueRange [link oglplus.quickref.enums [^EnumValueRange]]]
+[def __EnumValueName [link oglplus.quickref.enums [^EnumValueName]]]
 
 [def __OGLPLUS_NO_SITE_CONFIG [link oglplus.quickref.config.compiler [^OGLPLUS_NO_SITE_CONFIG]]]
 
@@ -62,6 +68,9 @@
 [def __OGLPLUS_ERROR_NO_GL_FUNC [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_GL_FUNC]]]
 [def __OGLPLUS_ERROR_NO_GL_SYMBOL [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_GL_SYMBOL]]]
 [def __OGLPLUS_NO_GLFUNC_CHECKS [link oglplus.quickref.config.gl [^OGLPLUS_NO_GLFUNC_CHECKS]]]
+
+[def __OGLPLUS_NO_ENUM_VALUE_RANGES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_RANGES]]]
+[def __OGLPLUS_NO_ENUM_VALUE_NAMES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_NAMES]]]
 
 [/--------]
 [/Chapters]

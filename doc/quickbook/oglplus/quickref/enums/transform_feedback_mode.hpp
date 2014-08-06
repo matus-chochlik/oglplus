@@ -20,7 +20,7 @@ enum class TransformFeedbackMode : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<TransformFeedbackMode> __EnumValueName<TransformFeedbackMode>(void);
+__Range<TransformFeedbackMode> __EnumValueRange<TransformFeedbackMode>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

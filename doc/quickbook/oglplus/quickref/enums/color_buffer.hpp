@@ -28,7 +28,7 @@ enum class ColorBuffer : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ColorBuffer> __EnumValueName<ColorBuffer>(void);
+__Range<ColorBuffer> __EnumValueRange<ColorBuffer>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

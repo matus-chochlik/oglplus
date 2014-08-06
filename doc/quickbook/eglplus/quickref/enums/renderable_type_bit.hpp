@@ -23,7 +23,7 @@ enum class RenderableTypeBit : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<RenderableTypeBit> __EnumValueName<RenderableTypeBit>(void);
+__Range<RenderableTypeBit> __EnumValueRange<RenderableTypeBit>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

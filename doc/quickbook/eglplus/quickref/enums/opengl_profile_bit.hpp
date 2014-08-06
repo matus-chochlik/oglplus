@@ -20,7 +20,7 @@ enum class OpenGLProfileBit : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<OpenGLProfileBit> __EnumValueName<OpenGLProfileBit>(void);
+__Range<OpenGLProfileBit> __EnumValueRange<OpenGLProfileBit>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

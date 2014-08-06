@@ -20,7 +20,7 @@ enum class OpenGLResetNotificationStrategy : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<OpenGLResetNotificationStrategy> __EnumValueName<OpenGLResetNotificationStrategy>(void);
+__Range<OpenGLResetNotificationStrategy> __EnumValueRange<OpenGLResetNotificationStrategy>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -20,7 +20,7 @@ enum class PathNVFormat : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PathNVFormat> __EnumValueName<PathNVFormat>(void);
+__Range<PathNVFormat> __EnumValueRange<PathNVFormat>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

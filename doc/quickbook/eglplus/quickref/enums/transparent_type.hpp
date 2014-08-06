@@ -20,7 +20,7 @@ enum class TransparentType : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<TransparentType> __EnumValueName<TransparentType>(void);
+__Range<TransparentType> __EnumValueRange<TransparentType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

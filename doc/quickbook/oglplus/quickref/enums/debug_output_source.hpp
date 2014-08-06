@@ -25,7 +25,7 @@ enum class DebugOutputSource : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<DebugOutputSource> __EnumValueName<DebugOutputSource>(void);
+__Range<DebugOutputSource> __EnumValueRange<DebugOutputSource>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

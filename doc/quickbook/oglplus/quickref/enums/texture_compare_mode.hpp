@@ -20,7 +20,7 @@ enum class TextureCompareMode : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<TextureCompareMode> __EnumValueName<TextureCompareMode>(void);
+__Range<TextureCompareMode> __EnumValueRange<TextureCompareMode>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

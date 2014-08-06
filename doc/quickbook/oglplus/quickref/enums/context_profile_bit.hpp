@@ -20,7 +20,7 @@ enum class ContextProfileBit : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ContextProfileBit> __EnumValueName<ContextProfileBit>(void);
+__Range<ContextProfileBit> __EnumValueRange<ContextProfileBit>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

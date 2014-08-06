@@ -21,7 +21,7 @@ enum class CompatibilityClientAttributeGroup : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<CompatibilityClientAttributeGroup> __EnumValueName<CompatibilityClientAttributeGroup>(void);
+__Range<CompatibilityClientAttributeGroup> __EnumValueRange<CompatibilityClientAttributeGroup>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -20,7 +20,7 @@ enum class FramebufferTarget : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<FramebufferTarget> __EnumValueName<FramebufferTarget>(void);
+__Range<FramebufferTarget> __EnumValueRange<FramebufferTarget>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

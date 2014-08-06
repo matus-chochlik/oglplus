@@ -21,7 +21,7 @@ enum class SourceType : ALenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<SourceType> __EnumValueName<SourceType>(void);
+__Range<SourceType> __EnumValueRange<SourceType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

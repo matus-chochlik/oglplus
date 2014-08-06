@@ -20,7 +20,7 @@ enum class PathNVTextEncoding : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PathNVTextEncoding> __EnumValueName<PathNVTextEncoding>(void);
+__Range<PathNVTextEncoding> __EnumValueRange<PathNVTextEncoding>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

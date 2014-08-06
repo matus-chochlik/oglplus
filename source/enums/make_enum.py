@@ -106,7 +106,7 @@ def action_qbk_hpp(options):
 	print_newline(options)
 	print_line(options, "#if !__OGLPLUS_NO_ENUM_VALUE_RANGES")
 	print_line(options, "template <>")
-	print_line(options, "__Range<%s> __EnumValueName<%s>(void);" % (
+	print_line(options, "__Range<%s> __EnumValueRange<%s>(void);" % (
 		options.enum_name,
 		options.enum_name
 	))

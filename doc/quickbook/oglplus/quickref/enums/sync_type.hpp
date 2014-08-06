@@ -19,7 +19,7 @@ enum class SyncType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<SyncType> __EnumValueName<SyncType>(void);
+__Range<SyncType> __EnumValueRange<SyncType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

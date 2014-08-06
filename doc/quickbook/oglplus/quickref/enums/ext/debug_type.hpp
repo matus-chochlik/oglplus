@@ -28,7 +28,7 @@ enum class DebugType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<DebugType> __EnumValueName<DebugType>(void);
+__Range<DebugType> __EnumValueRange<DebugType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

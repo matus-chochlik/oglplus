@@ -40,7 +40,7 @@ enum class CompatibilityAttributeGroup : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<CompatibilityAttributeGroup> __EnumValueName<CompatibilityAttributeGroup>(void);
+__Range<CompatibilityAttributeGroup> __EnumValueRange<CompatibilityAttributeGroup>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

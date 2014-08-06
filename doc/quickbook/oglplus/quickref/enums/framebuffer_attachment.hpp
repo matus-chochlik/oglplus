@@ -37,7 +37,7 @@ enum class FramebufferAttachment : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<FramebufferAttachment> __EnumValueName<FramebufferAttachment>(void);
+__Range<FramebufferAttachment> __EnumValueRange<FramebufferAttachment>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

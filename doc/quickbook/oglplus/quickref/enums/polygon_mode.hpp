@@ -21,7 +21,7 @@ enum class PolygonMode : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PolygonMode> __EnumValueName<PolygonMode>(void);
+__Range<PolygonMode> __EnumValueRange<PolygonMode>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

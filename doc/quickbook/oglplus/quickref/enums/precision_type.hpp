@@ -24,7 +24,7 @@ enum class PrecisionType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PrecisionType> __EnumValueName<PrecisionType>(void);
+__Range<PrecisionType> __EnumValueRange<PrecisionType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -57,7 +57,7 @@ enum class ImageUnitFormat : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ImageUnitFormat> __EnumValueName<ImageUnitFormat>(void);
+__Range<ImageUnitFormat> __EnumValueRange<ImageUnitFormat>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

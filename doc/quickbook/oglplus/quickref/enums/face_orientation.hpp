@@ -20,7 +20,7 @@ enum class FaceOrientation : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<FaceOrientation> __EnumValueName<FaceOrientation>(void);
+__Range<FaceOrientation> __EnumValueRange<FaceOrientation>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

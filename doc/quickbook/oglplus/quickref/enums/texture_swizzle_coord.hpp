@@ -23,7 +23,7 @@ enum class TextureSwizzleCoord : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<TextureSwizzleCoord> __EnumValueName<TextureSwizzleCoord>(void);
+__Range<TextureSwizzleCoord> __EnumValueRange<TextureSwizzleCoord>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

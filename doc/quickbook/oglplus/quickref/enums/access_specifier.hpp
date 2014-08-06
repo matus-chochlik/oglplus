@@ -21,7 +21,7 @@ enum class AccessSpecifier : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<AccessSpecifier> __EnumValueName<AccessSpecifier>(void);
+__Range<AccessSpecifier> __EnumValueRange<AccessSpecifier>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

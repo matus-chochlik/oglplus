@@ -37,7 +37,7 @@ enum class BlendFunction : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<BlendFunction> __EnumValueName<BlendFunction>(void);
+__Range<BlendFunction> __EnumValueRange<BlendFunction>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

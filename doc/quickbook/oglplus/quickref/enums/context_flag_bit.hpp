@@ -21,7 +21,7 @@ enum class ContextFlagBit : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ContextFlagBit> __EnumValueName<ContextFlagBit>(void);
+__Range<ContextFlagBit> __EnumValueRange<ContextFlagBit>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

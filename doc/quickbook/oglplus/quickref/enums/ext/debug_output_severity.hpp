@@ -22,7 +22,7 @@ enum class DebugOutputARBSeverity : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<DebugOutputARBSeverity> __EnumValueName<DebugOutputARBSeverity>(void);
+__Range<DebugOutputARBSeverity> __EnumValueRange<DebugOutputARBSeverity>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

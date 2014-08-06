@@ -20,7 +20,7 @@ enum class PathNVMissingGlyph : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PathNVMissingGlyph> __EnumValueName<PathNVMissingGlyph>(void);
+__Range<PathNVMissingGlyph> __EnumValueRange<PathNVMissingGlyph>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -20,7 +20,7 @@ enum class SwapBehavior : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<SwapBehavior> __EnumValueName<SwapBehavior>(void);
+__Range<SwapBehavior> __EnumValueRange<SwapBehavior>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

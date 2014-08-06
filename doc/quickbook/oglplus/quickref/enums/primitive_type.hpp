@@ -30,7 +30,7 @@ enum class PrimitiveType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PrimitiveType> __EnumValueName<PrimitiveType>(void);
+__Range<PrimitiveType> __EnumValueRange<PrimitiveType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

@@ -126,7 +126,7 @@ enum class LimitQuery : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<LimitQuery> __EnumValueName<LimitQuery>(void);
+__Range<LimitQuery> __EnumValueRange<LimitQuery>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

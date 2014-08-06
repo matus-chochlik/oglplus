@@ -34,7 +34,7 @@ enum class ColorLogicOperation : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ColorLogicOperation> __EnumValueName<ColorLogicOperation>(void);
+__Range<ColorLogicOperation> __EnumValueRange<ColorLogicOperation>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

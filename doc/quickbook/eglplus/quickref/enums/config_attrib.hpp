@@ -50,7 +50,7 @@ enum class ConfigAttrib : EGLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ConfigAttrib> __EnumValueName<ConfigAttrib>(void);
+__Range<ConfigAttrib> __EnumValueRange<ConfigAttrib>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

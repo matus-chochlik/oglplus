@@ -20,7 +20,7 @@ enum class BlitFilter : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<BlitFilter> __EnumValueName<BlitFilter>(void);
+__Range<BlitFilter> __EnumValueRange<BlitFilter>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

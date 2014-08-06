@@ -22,7 +22,7 @@ enum class DataFormat : ALenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<DataFormat> __EnumValueName<DataFormat>(void);
+__Range<DataFormat> __EnumValueRange<DataFormat>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

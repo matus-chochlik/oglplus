@@ -21,7 +21,7 @@ enum class TessGenPrimitiveSpacing : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<TessGenPrimitiveSpacing> __EnumValueName<TessGenPrimitiveSpacing>(void);
+__Range<TessGenPrimitiveSpacing> __EnumValueRange<TessGenPrimitiveSpacing>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

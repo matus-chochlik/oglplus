@@ -20,7 +20,7 @@ enum class ResetNotificationStrategy : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<ResetNotificationStrategy> __EnumValueName<ResetNotificationStrategy>(void);
+__Range<ResetNotificationStrategy> __EnumValueRange<ResetNotificationStrategy>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

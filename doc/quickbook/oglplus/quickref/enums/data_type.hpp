@@ -28,7 +28,7 @@ enum class DataType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<DataType> __EnumValueName<DataType>(void);
+__Range<DataType> __EnumValueRange<DataType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

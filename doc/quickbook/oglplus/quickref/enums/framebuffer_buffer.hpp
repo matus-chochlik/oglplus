@@ -22,7 +22,7 @@ enum class FramebufferBuffer : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<FramebufferBuffer> __EnumValueName<FramebufferBuffer>(void);
+__Range<FramebufferBuffer> __EnumValueRange<FramebufferBuffer>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

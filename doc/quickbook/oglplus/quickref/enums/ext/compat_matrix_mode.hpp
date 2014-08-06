@@ -22,7 +22,7 @@ enum class CompatibilityMatrixMode : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<CompatibilityMatrixMode> __EnumValueName<CompatibilityMatrixMode>(void);
+__Range<CompatibilityMatrixMode> __EnumValueRange<CompatibilityMatrixMode>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES

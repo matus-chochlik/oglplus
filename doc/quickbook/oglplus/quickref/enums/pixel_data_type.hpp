@@ -42,7 +42,7 @@ enum class PixelDataType : GLenum
 
 #if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
-__Range<PixelDataType> __EnumValueName<PixelDataType>(void);
+__Range<PixelDataType> __EnumValueRange<PixelDataType>(void);
 #endif
 
 #if !__OGLPLUS_NO_ENUM_VALUE_NAMES
