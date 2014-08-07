@@ -6,6 +6,8 @@
 [section:enums Enumerations]
 [/=========================]
 
+[heading oglplus/enumerations.hpp]
+
 OGLplus defines many enumeration types grouping together GL constants
 that logically belong together. The strong typing on the enumerations
 also prevents in many cases errors like passing invalid constant to
@@ -20,8 +22,20 @@ is processed then the corresponding value is not present in the enumeration.
 
 [import enums.hpp]
 
+[heading:functions Functions]
+
 For (almost) all enumeration types the following functions are overloaded.
 
 [oglplus_enums_functions]
+
+[heading:array Enum arrays]
+
+The [^EnumArray] template class is used by several functions as the parameter
+type and allows to pass an array of multiple enumerated values to be passed
+as an argument.
+[note The lifetime of an instance of [^EnumArray] must not exceed the lifetime
+of the original array of [^Enum]s from which the [^EnumArray] was initialized.]
+
+[oglplus_enums_EnumArray]
 
 [endsect]

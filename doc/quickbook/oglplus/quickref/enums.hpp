@@ -32,6 +32,18 @@ preprocessor-symbol. If it is set to a nonzero value then
 [^EnumValueName(enum_value)] returns an empty string.
 >*/
 #endif
+//]
+//[oglplus_enums_EnumArray
+
+template <typename Enum>
+class EnumArray
+{
+public:
+	template <std::size_t N>
+	EnumArray(const Enum (&enums)[N]);
+	EnumArray(const std::vector<Enum>& enums);
+	EnumArray(size_t count, const Enum* enums);
+};
 
 } // namespace oglplus
 //]

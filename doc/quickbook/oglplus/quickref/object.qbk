@@ -7,8 +7,11 @@
 [/=============================]
 
 [include object/tags.qbk]
+[include object/type.qbk]
 [include object/name.qbk]
 [include object/name.qbk]
 [include object/desc.qbk]
+
+[include object/wrapper.qbk]
 
 [endsect]

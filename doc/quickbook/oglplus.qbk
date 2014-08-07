@@ -24,6 +24,8 @@
 [def __CameraMatrix [link oglplus.quickref.math.matrix.camera [^CameraMatrix]]]
 
 [def __ObjTag [link oglplus.quickref.object.tags ObjTag]]
+[def __ObjectType [link oglplus.quickref.object.type ObjectType]]
+[def __ObjTypeOps [link oglplus.quickref.object.type.ops ObjTypeOps]]
 [def __ObjectName [link oglplus.quickref.object.name ObjectName]]
 [def __FramebufferName [link oglplus.quickref.object.name.typedefs FramebufferName]]
 [def __TextureName [link oglplus.quickref.object.name.typedefs TextureName]]
@@ -39,6 +41,7 @@
 [def __PathNVName [link oglplus.quickref.object.name.typedefs PathNVName]]
 
 [def __ObjectDesc [link oglplus.quickref.object.desc ObjectDesc]]
+[def __Object [link oglplus.quickref.object.wrapper Object]]
 
 [def __ErrorCode [link oglplus.quickref.error.code [^ErrorCode]]]
 [def __Error [link oglplus.quickref.error.basic [^Error]]]
@@ -50,8 +53,9 @@
 
 [def __Range [link oglplus.quickref.concept.range [^Range]]]
 
-[def __EnumValueRange [link oglplus.quickref.enums [^EnumValueRange]]]
-[def __EnumValueName [link oglplus.quickref.enums [^EnumValueName]]]
+[def __EnumValueRange [link oglplus.quickref.enums.functions [^EnumValueRange]]]
+[def __EnumValueName [link oglplus.quickref.enums.functions [^EnumValueName]]]
+[def __EnumArray [link oglplus.quickref.enums.array [^EnumArray]]]
 
 [def __OGLPLUS_NO_SITE_CONFIG [link oglplus.quickref.config.compiler [^OGLPLUS_NO_SITE_CONFIG]]]
 
