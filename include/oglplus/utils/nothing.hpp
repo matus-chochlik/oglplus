@@ -1,5 +1,5 @@
 /**
- *  .file oglplus/detail/nothing.hpp
+ *  .file oglplus/utils/nothing.hpp
  *  .brief Declaration of the Nothing utility type.
  *
  *  @author Matus Chochlik
@@ -9,8 +9,8 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#ifndef OGLPLUS_AUX_NOTHING_1405300736_HPP
-#define OGLPLUS_AUX_NOTHING_1405300736_HPP
+#ifndef OGLPLUS_UTILS_NOTHING_1405300736_HPP
+#define OGLPLUS_UTILS_NOTHING_1405300736_HPP
 
 namespace oglplus {
 

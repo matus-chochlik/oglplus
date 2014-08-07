@@ -15,7 +15,7 @@
 
 #include <oglplus/object/reference.hpp>
 #include <oglplus/object/seq_tpl.hpp>
-#include <oglplus/detail/nothing.hpp>
+#include <oglplus/utils/nothing.hpp>
 
 #include <vector>
 #include <cassert>

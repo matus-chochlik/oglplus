@@ -20,7 +20,7 @@ The object type can be obtained by calling the [^ObjectType] static member funct
 of [^ObjTypeOps<__ObjTag>], which is a public base class of OGLplus
 [link oglplus.quickref.object.wrapper object wrappers].
 It can also be used as a standalone class when instantiated with one of the
-[link oglplus.quckref.object.tags object tags]. For example
+[link oglplus.quickref.object.tags object tags]. For example
 [^ObjTypeOps<tag::Buffer>::ObjectType()] returns [^__ObjectType::Buffer], etc.
 
 [note If the underlying GL constant value like [^GL_FRAMEBUFFER] or [^GL_TEXTURE], etc.

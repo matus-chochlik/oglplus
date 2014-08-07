@@ -27,10 +27,12 @@ the concept.
 
 [endsect]
 
+[include quickref/concept.qbk]
 [include quickref/string.qbk]
 [include quickref/error.qbk]
+[include quickref/ops_tags.qbk]
 [include quickref/object.qbk]
 [include quickref/config.qbk]
 [include quickref/math.qbk]
-[include quickref/concept.qbk]
 [include quickref/enums.qbk]
+[include quickref/utils.qbk]

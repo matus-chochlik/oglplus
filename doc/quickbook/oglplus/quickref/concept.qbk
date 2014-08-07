@@ -18,5 +18,6 @@ then the [^auto] type specifier (or the [^decltype] operator) should be used to
 determine the concrete type.
 
 [include concept/range.qbk]
+[include concept/metafunction.qbk]
 
 [endsect]

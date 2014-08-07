@@ -14,7 +14,7 @@
 #define OGLPLUS_VECTOR_1107121519_HPP
 
 #include <oglplus/config/compiler.hpp>
-#include <oglplus/detail/nothing.hpp>
+#include <oglplus/utils/nothing.hpp>
 #include <oglplus/fwd.hpp>
 #include <cassert>
 #include <cmath>

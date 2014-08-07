@@ -16,7 +16,7 @@
 #include <oglplus/object/desc.hpp>
 #include <oglplus/object/name_tpl.hpp>
 #include <oglplus/object/seq_tpl.hpp>
-#include <oglplus/detail/nothing.hpp>
+#include <oglplus/utils/nothing.hpp>
 #include <type_traits>
 #include <cassert>
 
@@ -178,19 +178,19 @@ public:
 		_describe(std::move(description));
 	}
 
+	typedef typename ObjectSubtype<ObjTag>::Type Subtype;
+
 	/// Construction with subtype specification
-	Object(typename ObjectSubtype<ObjTag>::Type type)
+	Object(Subtype subtype)
 	{
-		_init(type);
+		_init(subtype);
 	}
 
 	/// A textual description can be attached to objects
-	Object(
-		typename ObjectSubtype<ObjTag>::Type type,
-		ObjectDesc&& description
+	Object(Subtype subtype, ObjectDesc&& description
 	)
 	{
-		_init(type);
+		_init(subtype);
 		_describe(std::move(description));
 	}
 
