@@ -7,8 +7,12 @@
 [/===========================]
 
 This section lists several miscelaneous utility types and functions not related
-directly to wrapping OpenGL, but used by other parts of OGLplus.
+directly to work with OpenGL, but used by other parts of OGLplus and also utilities
+that are not included by [^oglplus/all.hpp], but can be optionally included
+and used by the library end-users.
 
 [include utils/nothing.qbk]
+
+[include opt/ranges.qbk]
 
 [endsect]

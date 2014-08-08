@@ -14,6 +14,9 @@ to this concept must satisfy. If this function is used as a function return valu
 type, then the actual type must be obtained by using the [^auto] type specifier or
 with the [^decltype] operator.
 
+There is also a whole [link oglplus.quickref.utils.ranges set of utilities] for working
+with real types conforming to the __Range concept.
+
 [import range.hpp]
 
 [oglplus_concept_Range]
