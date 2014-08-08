@@ -12,6 +12,11 @@
 [include object/name.qbk]
 [include object/desc.qbk]
 
+
 [include object/wrapper.qbk]
+
+[include object/optional.qbk]
+[include object/reference.qbk]
+[include object/sequence.qbk]
 
 [endsect]

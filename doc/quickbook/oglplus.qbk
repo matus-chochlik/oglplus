@@ -53,6 +53,11 @@
 [def __ObjectDesc [link oglplus.quickref.object.desc ObjectDesc]]
 [def __Object [link oglplus.quickref.object.wrapper Object]]
 
+[def __OptionalObject [link oglplus.quickref.object.optional Optional]]
+
+[def __Reference [link oglplus.quickref.object.reference Reference]]
+[def __Sequence [link oglplus.quickref.object.sequence Sequence]]
+
 [def __ErrorCode [link oglplus.quickref.error.code ErrorCode]]
 [def __Error [link oglplus.quickref.error.basic Error]]
 [def __MissingFunction [link oglplus.quickref.error.glfunc MissingFunction]]

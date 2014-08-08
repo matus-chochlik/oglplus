@@ -31,7 +31,13 @@ protected:
 //[oglplus_object_ObjectOps
 
 template <typename __OpsTag, typename __ObjTag>
-class ObjectOps;
+class ObjectOps
+ : public __ObjectName<__ObjTag>
+{
+public: /*<
+The public interface depends on the __OpsTag and __ObjTag.
+>*/
+};
 
 //]
 //[oglplus_object_ObjectSubtype
@@ -52,18 +58,18 @@ class Object<ObjectOps<__OpsTag, __ObjTag>>
  , public __ObjectOps<__OpsTag, __ObjTag>
 {
 public:
-	Object(const Object&) = delete; /*< Objects are non-copyable. >*/
-	Object(Object&& temp) noexcept; /*< Objects are move-constructible >*/
-	Object& operator = (Object&& temp) /*< Objects are move-assignable.  >*/
+	Object(const Object&) = delete; /*< [^Object]s are non-copyable. >*/
+	Object(Object&& temp) noexcept; /*< [^Object]s are move-constructible >*/
+	Object& operator = (Object&& temp) /*< [^Object]s are move-assignable.  >*/
 
 	Object(void); /*<
-	Default-constructs an Object. This function creates a new GL object
+	Default-constructs an [^Object]. This function creates a new GL object
 	by calling the appropriate [^glGen*] or [^glCreate*] function.
 	Note that object types with a [^Subtype] may not support default
 	construction and may require that the subtype is specified.
 	>*/
 	Object(__ObjectDesc&& description); /*<
-	Constructs an Object and attaches the specified [^description] to it.
+	Constructs an [^Object] and attaches the specified [^description] to it.
 	>*/
 
 	typedef typename __ObjectSubtype<__ObjTag>::Type Subtype; /*<
@@ -97,7 +103,7 @@ public:
 	>*/
 
 	operator __Sequence<__ObjectName<__ObjTag>> (void) const; /*<
-	Objects are implicitly convertible to a sequence of object names.
+	[^Object]s are implicitly convertible to a sequence of object names.
 	Note that the returned sequence must not be used after
 	this object has been destroyed.
 	>*/
