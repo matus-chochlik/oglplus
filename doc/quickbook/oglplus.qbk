@@ -58,6 +58,8 @@
 [def __Reference [link oglplus.quickref.object.reference Reference]]
 [def __Sequence [link oglplus.quickref.object.sequence Sequence]]
 
+[def __ShaderType [link oglplus.quickref.shader_type ShaderType]]
+
 [def __ErrorCode [link oglplus.quickref.error.code ErrorCode]]
 [def __Error [link oglplus.quickref.error.basic Error]]
 [def __MissingFunction [link oglplus.quickref.error.glfunc MissingFunction]]

@@ -41,6 +41,11 @@ public:
 		return _index == _count;
 	}
 
+	std::size_t Size(void) const
+	{
+		return _count;
+	}
+
 	String Front(void) const
 	{
 		assert(!Empty());

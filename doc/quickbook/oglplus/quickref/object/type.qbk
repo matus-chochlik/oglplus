@@ -8,7 +8,7 @@
 
 [header oglplus/object/type.hpp]
 
-The [^ErrorCode] type [link oglplus.quickref.enums enumerates] the GL object type values.
+The [^ObjectType] type [link oglplus.quickref.enums enumerates] the GL object type values.
 
 [import ../enums/object_type.hpp]
 

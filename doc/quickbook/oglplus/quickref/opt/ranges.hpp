@@ -72,6 +72,18 @@ is empty or if a value satisfying the predicate is found.
 The resulting range is returned.
 >*/
 
+template <typename Range>
+bool Contains(__Range range, typename __Range::ValueType value); /*<
+Returns true if [^range] contains at least one element with
+the specified value.
+>*/
+
+template <typename Range, typename Predicate>
+bool Has(__Range range, Predicate predicate); /*<
+Returns true if [^range] contains at least one element
+satisfying the specified [^predicate].
+>*/
+
 template <typename Range, typename Transf>
 __Range Transform(__Range range, Transf transform); /*<
 Transforms the elements in a range by an unary function.
@@ -87,6 +99,12 @@ Fold gradually updates the [^state] value by successively calling the specified
 [^Front] element of the [^range] as the second argument. The result of each call
 replaces the value stored in [^state]. After the whole [^range] is traversed
 the resulting [^state] is returned.
+>*/
+
+template <typename Range, typename Predicate>
+size_t CountIf(Range range, Predicate predicate); /*<
+Counts and returns the number of elements in a __Range satisfying
+the specified [^predicate].
 >*/
 
 template <typename Range, typename Predicate>

@@ -51,4 +51,12 @@ and the [^__ShaderType] enumerations to the standard output.
 
 [oglplus_opt_ranges_ex_for_cat_tfm]
 
+Check if the [^GL_EXT_direct_state_access] extension is implemented.
+
+[oglplus_opt_ranges_ex_ext_dsa]
+
+Pring the number of [^ARB] GL extensions.
+
+[oglplus_opt_ranges_ex_cnt_arb_ext]
+
 [endsect]

@@ -32,6 +32,9 @@ the concept.
 [include quickref/error.qbk]
 [include quickref/ops_tags.qbk]
 [include quickref/object.qbk]
+
+[include quickref/shader_type.qbk]
+
 [include quickref/config.qbk]
 [include quickref/math.qbk]
 [include quickref/enums.qbk]
