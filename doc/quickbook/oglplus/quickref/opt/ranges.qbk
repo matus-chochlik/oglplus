@@ -12,6 +12,7 @@ This header implements utilities for working with types conforming to
 the __Range concept.
 
 [import ranges.hpp]
+[import ranges.cpp]
 
 All range-related utilities are implemented in the [^oglplus::ranges]
 namespace:
@@ -34,6 +35,20 @@ implementing complex range algorithms.
 
 [oglplus_opt_ranges_AnyRange]
 
+[heading:funcs Functions]
+
+The following functions traverse, filter of modify ranges and can be
+easily composed into complex algorithms.
+
+[oglplus_opt_ranges_funcs]
+
 [oglplus_opt_ranges_end]
+
+[heading:examples Examples]
+
+Print the value names of all values in the [^__ObjectType]
+and the [^__ShaderType] enumerations to the standard output.
+
+[oglplus_opt_ranges_ex_for_cat_tfm]
 
 [endsect]

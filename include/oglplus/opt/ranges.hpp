@@ -488,7 +488,7 @@ public:
 };
 
 template <typename Element, typename R1, typename R2>
-Concatenated<Element, R1, R2> Concatenate(R1 r1, R2 r2)
+inline Concatenated<Element, R1, R2> Concatenate(R1 r1, R2 r2)
 {
 	static_assert(
 		IsRange<R1>::Type::value,
@@ -500,7 +500,6 @@ Concatenated<Element, R1, R2> Concatenate(R1 r1, R2 r2)
 	);
 	return Concatenated<Element, R1, R2>(r1, r2);
 }
-
 
 } // namespace ranges
 } // namespace oglplus
