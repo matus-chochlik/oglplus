@@ -44,3 +44,24 @@ std::cout << CountIf(
 ) << std::endl;
 //]
 
+//[oglplus_opt_ranges_ex_max_ext_name
+using namespace oglplus::ranges;
+
+typedef std::pair<std::size_t, std::string> length_and_name;
+
+__Context gl;
+
+std::cout << Fold(
+	gl.Extensions(),
+	length_and_name(0, "N/A"),
+	[](length_and_name state, std::string ext) -> length_and_name
+	{
+		if(state.first < ext.length())
+		{
+			state.first = ext.length();
+			state.second = std::move(ext);
+		}
+		return state;
+	}
+).second << std::endl;
+//]

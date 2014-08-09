@@ -55,8 +55,12 @@ Check if the [^GL_EXT_direct_state_access] extension is implemented.
 
 [oglplus_opt_ranges_ex_ext_dsa]
 
-Pring the number of [^ARB] GL extensions.
+Print the number of [^ARB] GL extensions.
 
 [oglplus_opt_ranges_ex_cnt_arb_ext]
+
+Print the GL extension with the longest name.
+
+[oglplus_opt_ranges_ex_max_ext_name]
 
 [endsect]
