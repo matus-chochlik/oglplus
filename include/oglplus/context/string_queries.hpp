@@ -46,7 +46,7 @@ public:
 		return _count;
 	}
 
-	String Front(void) const
+	StrCRef Front(void) const
 	{
 		assert(!Empty());
 		const GLubyte* result = OGLPLUS_GLFUNC(GetStringi)(
@@ -54,7 +54,7 @@ public:
 			_index
 		);
 		OGLPLUS_VERIFY_SIMPLE(GetStringi);
-		return String((const GLchar*)result);
+		return StrCRef((const GLchar*)result);
 	}
 
 	void Next(void)

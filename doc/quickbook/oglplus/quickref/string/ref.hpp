@@ -68,6 +68,15 @@ public:
 	__String str(void) const; /*<
 	Returns the referenced character string as a __String.
 	>*/
+
+	friend bool operator == (const StrCRef& a, const StrCRef& b); /*<
+	Comparison operators.
+	>*/
+	friend bool operator == (const StrCRef& a, const Char* b);
+	friend bool operator == (const Char* a, const StrCRef& b);
+	friend bool operator != (const StrCRef& a, const StrCRef& b);
+	friend bool operator != (const StrCRef& a, const Char* b);
+	friend bool operator != (const Char* a, const StrCRef& b);
 };
 
 } // namespace oglplus

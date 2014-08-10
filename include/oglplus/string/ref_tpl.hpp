@@ -203,6 +203,51 @@ public:
 		assert(is_nts());
 		return begin();
 	}
+
+	static bool Equal(const StrCRefTpl& a, const StrCRefTpl& b)
+	{
+		return	(a.size() == b.size()) &&
+			(std::strncmp(a.begin(), b.begin(), a.size()) == 0);
+	}
+
+	static bool Equal(const StrCRefTpl& a, const Char* b)
+	{
+		if(a.is_nts()) return std::strcmp(a.c_str(), b) == 0;
+
+		std::size_t size = std::strlen(b);
+		return	(a.size() == size) &&
+			(std::strncmp(a.begin(), b, a.size()) == 0);
+	}
+
+	friend bool operator == (const StrCRefTpl& a, const StrCRefTpl& b)
+	{
+		return StrCRefTpl::Equal(a, b);
+	}
+
+	friend bool operator == (const StrCRefTpl& a, const Char* b)
+	{
+		return StrCRefTpl::Equal(a, b);
+	}
+
+	friend bool operator == (const Char* a, const StrCRefTpl& b)
+	{
+		return StrCRefTpl::Equal(b, a);
+	}
+
+	friend bool operator != (const StrCRefTpl& a, const StrCRefTpl& b)
+	{
+		return !StrCRefTpl::Equal(a, b);
+	}
+
+	friend bool operator != (const StrCRefTpl& a, const Char* b)
+	{
+		return !StrCRefTpl::Equal(a, b);
+	}
+
+	friend bool operator != (const Char* a, const StrCRefTpl& b)
+	{
+		return !StrCRefTpl::Equal(b, a);
+	}
 };
 
 template <typename Char>
