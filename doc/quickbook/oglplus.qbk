@@ -57,6 +57,8 @@
 
 [def __Reference [link oglplus.quickref.object.reference Reference]]
 [def __Sequence [link oglplus.quickref.object.sequence Sequence]]
+[def __Group [link oglplus.quickref.object.group Group]]
+[def __StaticGroup [link oglplus.quickref.object.group StaticGroup]]
 
 [def __ShaderType [link oglplus.quickref.shader_type ShaderType]]
 
@@ -92,6 +94,8 @@
 
 [def __OGLPLUS_NO_ENUM_VALUE_RANGES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_RANGES]]]
 [def __OGLPLUS_NO_ENUM_VALUE_NAMES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_NAMES]]]
+
+[def __OGLPLUS_NO_INITIALIZER_LISTS [link oglplus.quickref.config.site.compiler [^OGLPLUS_NO_INITIALIZER_LISTS]]]
 
 [/--------]
 [/Chapters]
