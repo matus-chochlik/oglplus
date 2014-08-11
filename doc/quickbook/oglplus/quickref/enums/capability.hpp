@@ -35,7 +35,9 @@ enum class Capability : GLenum
 	SampleAlphaToCoverage  = GL_SAMPLE_ALPHA_TO_COVERAGE,
 	SampleAlphaToOne       = GL_SAMPLE_ALPHA_TO_ONE,
 	SampleCoverage         = GL_SAMPLE_COVERAGE,
+	SampleMask             = GL_SAMPLE_MASK,
 	FramebufferSRGB        = GL_FRAMEBUFFER_SRGB,
+	DebugOutputSynchronous = GL_DEBUG_OUTPUT_SYNCHRONOUS,
 	StreamRasterization    = GL_STREAM_RASTERIZATION_AMD
 };
 

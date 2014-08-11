@@ -38,4 +38,20 @@ of the original array of [^Enum]s from which the [^EnumArray] was initialized.]
 
 [oglplus_enums_EnumArray]
 
+[heading:one_of OneOf]
+
+The [^OneOf] template class is used to merge several enumeration types
+into a single type. Instances of [^OneOf] can be implicitly constructed from
+a value from any of the merged enumeration types. [^OneOf] is mostly used
+as the parameter type in functions that can accept values from multiple
+different enumerations.
+
+[note The following definition is just a pseudo-code used for documentation
+purposes and differs from the actual implementation of [^OneOf] in certain
+aspects. [^OneOf] should not be used in library client code directly,
+the only supported operation is construction from an enumeration value.
+]
+
+[oglplus_enums_OneOf]
+
 [endsect]

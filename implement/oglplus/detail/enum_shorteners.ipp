@@ -824,6 +824,11 @@ template <typename Enum, Enum = Enum::Debug> operator Enum (void) const{ return 
 template <typename Enum> friend bool operator==(Enum value, Debug){ return value == Enum::Debug; }
 template <typename Enum> friend bool operator!=(Enum value, Debug){ return value != Enum::Debug; }
 };
+struct DebugOutputSynchronous {
+template <typename Enum, Enum = Enum::DebugOutputSynchronous> operator Enum (void) const{ return Enum::DebugOutputSynchronous; }
+template <typename Enum> friend bool operator==(Enum value, DebugOutputSynchronous){ return value == Enum::DebugOutputSynchronous; }
+template <typename Enum> friend bool operator!=(Enum value, DebugOutputSynchronous){ return value != Enum::DebugOutputSynchronous; }
+};
 struct Decr {
 template <typename Enum, Enum = Enum::Decr> operator Enum (void) const{ return Enum::Decr; }
 template <typename Enum> friend bool operator==(Enum value, Decr){ return value == Enum::Decr; }
@@ -3473,6 +3478,11 @@ struct SampleCoverage {
 template <typename Enum, Enum = Enum::SampleCoverage> operator Enum (void) const{ return Enum::SampleCoverage; }
 template <typename Enum> friend bool operator==(Enum value, SampleCoverage){ return value == Enum::SampleCoverage; }
 template <typename Enum> friend bool operator!=(Enum value, SampleCoverage){ return value != Enum::SampleCoverage; }
+};
+struct SampleMask {
+template <typename Enum, Enum = Enum::SampleMask> operator Enum (void) const{ return Enum::SampleMask; }
+template <typename Enum> friend bool operator==(Enum value, SampleMask){ return value == Enum::SampleMask; }
+template <typename Enum> friend bool operator!=(Enum value, SampleMask){ return value != Enum::SampleMask; }
 };
 struct Sampler {
 template <typename Enum, Enum = Enum::Sampler> operator Enum (void) const{ return Enum::Sampler; }

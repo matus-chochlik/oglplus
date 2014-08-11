@@ -1,0 +1,40 @@
+[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Software License, Version 1.0. (See accompanying file            ]
+[/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
+
+[/=================================]
+[section:context Current GL context]
+[/=================================]
+
+This section describes classes and functions wrapping operations on the current
+OpenGL context, which are not related to any explicitly allocated
+object or resource, i.e. operations like enabling and disabling
+various OpenGL capabilities and changing the state
+values of the current context.
+
+[def __context_Errors [link oglplus.quickref.context.errors context::Errors]]
+[def __context_Capabilities [link oglplus.quickref.context.capabilities context::Capabilities]]
+[def __context_ViewportOps [link oglplus.quickref.context.viewport context::ViewportOps]]
+[def __context_BufferSelection [link oglplus.quickref.context.buffer_selection context::BufferSelection]]
+[def __context_BufferMasking [link oglplus.quickref.context.buffer_masking context::BufferMasking]]
+[def __context_Blending [link oglplus.quickref.context.blending context::Blending]]
+
+[heading [^Context]]
+
+[header oglplus/context.hpp]
+
+[^Context] is a stateless class wrapping all current GL context operations.
+The actual functionality is implemented by subclasses in the [^context] namespace,
+but the library end-users should rarely need to use them directly.
+
+[import context.hpp]
+[oglplus_Context]
+
+[include context/errors.qbk]
+[include context/capabilities.qbk]
+[include context/viewport.qbk]
+[include context/buffer_selection.qbk]
+[include context/buffer_masking.qbk]
+[include context/blending.qbk]
+
+[endsect]

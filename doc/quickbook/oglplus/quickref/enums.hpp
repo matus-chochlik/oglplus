@@ -44,6 +44,18 @@ public:
 	EnumArray(const std::vector<Enum>& enums);
 	EnumArray(size_t count, const Enum* enums);
 };
+//]
+
+//[oglplus_enums_OneOf
+template <typename ... Enum>
+class OneOf
+{
+public:
+	OneOf(Enum)...; /*<
+	(['Pseudocode]) - [^OneOf] has a constructor for each enumeration
+	type passed in the template argument pack.
+	>*/
+};
 
 } // namespace oglplus
 //]

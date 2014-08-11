@@ -33,6 +33,13 @@ the concept.
 [include quickref/ops_tags.qbk]
 [include quickref/object.qbk]
 
+[include quickref/context.qbk]
+
+[include quickref/capability.qbk]
+
+[include quickref/face_mode.qbk]
+[include quickref/blend_func.qbk]
+[include quickref/color_buffer.qbk]
 [include quickref/shader_type.qbk]
 
 [include quickref/config.qbk]

@@ -60,8 +60,6 @@
 [def __Group [link oglplus.quickref.object.group Group]]
 [def __StaticGroup [link oglplus.quickref.object.group StaticGroup]]
 
-[def __ShaderType [link oglplus.quickref.shader_type ShaderType]]
-
 [def __ErrorCode [link oglplus.quickref.error.code ErrorCode]]
 [def __Error [link oglplus.quickref.error.basic Error]]
 [def __MissingFunction [link oglplus.quickref.error.glfunc MissingFunction]]
@@ -70,9 +68,21 @@
 [def __ObjectPairError [link oglplus.quickref.error.object ObjectPairError]]
 [def __ProgramBuildError [link oglplus.quickref.error.program ProgramBuildError]]
 
+[def __Context [link oglplus.quickref.context Context]]
+
+[def __Capability [link oglplus.quickref.capability Capability]]
+[def __Functionality [link oglplus.quickref.capability.functionality Functionality]]
+[def __Face [link oglplus.quickref.face_mode.face Face]]
+[def __FaceOrientation [link oglplus.quickref.face_mode.orientation FaceOrientation]]
+[def __BlendFunction [link oglplus.quickref.blend_func BlendFunction]]
+[def __BlendEquation [link oglplus.quickref.blend_func BlendEquation]]
+[def __ColorBuffer [link oglplus.quickref.color_buffer ColorBuffer]]
+[def __ShaderType [link oglplus.quickref.shader_type ShaderType]]
+
 [def __EnumValueRange [link oglplus.quickref.enums.functions EnumValueRange]]
 [def __EnumValueName [link oglplus.quickref.enums.functions EnumValueName]]
 [def __EnumArray [link oglplus.quickref.enums.array EnumArray]]
+[def __OneOf [link oglplus.quickref.enums.one_of OneOf]]
 
 [def __AnyRange [link oglplus.quickref.utils.ranges.any AnyRange]]
 
@@ -96,6 +106,13 @@
 [def __OGLPLUS_NO_ENUM_VALUE_NAMES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_NAMES]]]
 
 [def __OGLPLUS_NO_INITIALIZER_LISTS [link oglplus.quickref.config.site.compiler [^OGLPLUS_NO_INITIALIZER_LISTS]]]
+
+[/---------]
+[/Templates]
+[/---------]
+
+[template glfunc[Name] [^'''<ulink url="http://www.opengl.org/sdk/docs/man4/xhtml/gl'''[Name]'''.xml">gl'''[Name]'''</ulink>''']]
+[template glconst[Name] [*[^GL_[Name]]]]
 
 [/--------]
 [/Chapters]
