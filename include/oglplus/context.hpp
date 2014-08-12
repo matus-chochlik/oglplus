@@ -33,7 +33,7 @@
 #include <oglplus/context/limit_queries.hpp>
 #include <oglplus/context/numeric_queries.hpp>
 #include <oglplus/context/string_queries.hpp>
-#include <oglplus/context/binding.hpp>
+#include <oglplus/context/object_binding.hpp>
 #include <oglplus/context/object_dsa.hpp>
 
 #include <oglplus/face_mode.hpp>

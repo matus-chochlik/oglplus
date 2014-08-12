@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/context/binding.hpp
+ *  @file oglplus/context/object_binding.hpp
  *  @brief Wrappers for object binding operations
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_CONTEXT_BINDING_1404142131_HPP
-#define OGLPLUS_CONTEXT_BINDING_1404142131_HPP
+#ifndef OGLPLUS_CONTEXT_OBJECT_BINDING_1404142131_HPP
+#define OGLPLUS_CONTEXT_OBJECT_BINDING_1404142131_HPP
 
 #include <oglplus/object/wrapper.hpp>
 

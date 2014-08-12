@@ -72,6 +72,8 @@
 
 [def __Capability [link oglplus.quickref.capability Capability]]
 [def __Functionality [link oglplus.quickref.capability.functionality Functionality]]
+[def __HintTarget [link oglplus.quickref.hint.target HintTarget]]
+[def __HintOption [link oglplus.quickref.hint.option HintOption]]
 [def __Face [link oglplus.quickref.face_mode.face Face]]
 [def __FaceOrientation [link oglplus.quickref.face_mode.orientation FaceOrientation]]
 [def __BlendFunction [link oglplus.quickref.blend_func BlendFunction]]
@@ -80,6 +82,14 @@
 [def __BufferSelectBit [link oglplus.quickref.buffer_select_bit BufferSelectBit]]
 [def __ClearBit [link oglplus.quickref.context.buffer_clearing ClearBit]]
 [def __ShaderType [link oglplus.quickref.shader_type ShaderType]]
+[def __PixelDataType [link oglplus.quickref.pixel_data.type PixelDataType]]
+[def __PixelDataFormat [link oglplus.quickref.pixel_data.format PixelDataFormat]]
+[def __PixelDataInternalFormat [link oglplus.quickref.pixel_data.internal_fmt PixelDataInternalFormat]]
+[def __ImageUnitFormat [link oglplus.quickref.pixel_data.image_unit_fmt ImageUnitFormat]]
+[def __Format [link oglplus.quickref.pixel_data.typedefs Format]]
+[def __InternalFormat [link oglplus.quickref.pixel_data.typedefs Format]]
+[def __PixelStorageMode [link oglplus.quickref.pixel_storage_mode PixelStorageMode]]
+[def __BlitFilter [link oglplus.quickref.blit_filter BlitFilter]]
 
 [def __EnumValueRange [link oglplus.quickref.enums.functions EnumValueRange]]
 [def __EnumValueName [link oglplus.quickref.enums.functions EnumValueName]]
