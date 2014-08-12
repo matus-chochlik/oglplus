@@ -26,14 +26,10 @@ enum class ColorBuffer : GLenum
 	FrontAndBack = GL_FRONT_AND_BACK
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ColorBuffer> __EnumValueRange<ColorBuffer>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ColorBuffer);
-#endif
 
 } // namespace oglplus
 //]

@@ -19,14 +19,10 @@ enum class TextureWrapCoord : GLenum
 	R = GL_TEXTURE_WRAP_R
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TextureWrapCoord> __EnumValueRange<TextureWrapCoord>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TextureWrapCoord);
-#endif
 
 } // namespace oglplus
 //]

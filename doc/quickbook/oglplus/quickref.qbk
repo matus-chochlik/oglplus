@@ -40,6 +40,7 @@ the concept.
 [include quickref/face_mode.qbk]
 [include quickref/blend_func.qbk]
 [include quickref/color_buffer.qbk]
+[include quickref/buffer_select_bit.qbk]
 [include quickref/shader_type.qbk]
 
 [include quickref/config.qbk]

@@ -18,14 +18,10 @@ enum class TransparentType : EGLenum
 	TransparentRGB = EGL_TRANSPARENT_RGB
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TransparentType> __EnumValueRange<TransparentType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TransparentType);
-#endif
 
 } // namespace eglplus
 //]

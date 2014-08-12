@@ -43,14 +43,10 @@ enum class ProgramResourceProperty : GLenum
 	TransformFeedbackBufferStride    = GL_TRANSFORM_FEEDBACK_BUFFER_STRIDE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ProgramResourceProperty> __EnumValueRange<ProgramResourceProperty>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ProgramResourceProperty);
-#endif
 
 } // namespace oglplus
 //]

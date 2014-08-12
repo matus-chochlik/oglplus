@@ -13,7 +13,7 @@ class Context
  , public __context_ViewportOps
  , public __context_BufferSelection
  , public __context_BufferMasking
- , public __context_ClearBuffers
+ , public __context_BufferClearing
  , public __context_Rasterization
  , public __context_Drawing
  , public __context_Computing

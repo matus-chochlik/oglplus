@@ -24,14 +24,12 @@ enum class BufferMapAccess : GLbitfield
 	Unsynchronized   = GL_MAP_UNSYNCHRONIZED_BIT
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<BufferMapAccess> __EnumValueRange<BufferMapAccess>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(BufferMapAccess);
-#endif
+
+__Bitfield<BufferMapAccess> operator | (BufferMapAccess b1, BufferMapAccess b2);
 
 } // namespace oglplus
 //]

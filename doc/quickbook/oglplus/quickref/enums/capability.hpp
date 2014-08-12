@@ -41,14 +41,10 @@ enum class Capability : GLenum
 	StreamRasterization    = GL_STREAM_RASTERIZATION_AMD
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<Capability> __EnumValueRange<Capability>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(Capability);
-#endif
 
 } // namespace oglplus
 //]

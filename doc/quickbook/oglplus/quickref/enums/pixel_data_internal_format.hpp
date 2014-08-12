@@ -116,14 +116,10 @@ enum class PixelDataInternalFormat : GLenum
 	CompressedSignedRG11EAC               = GL_COMPRESSED_SIGNED_RG11_EAC
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PixelDataInternalFormat> __EnumValueRange<PixelDataInternalFormat>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PixelDataInternalFormat);
-#endif
 
 } // namespace oglplus
 //]

@@ -19,14 +19,10 @@ enum class TransformFeedbackPrimitiveType : GLenum
 	Points    = GL_POINTS
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TransformFeedbackPrimitiveType> __EnumValueRange<TransformFeedbackPrimitiveType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TransformFeedbackPrimitiveType);
-#endif
 
 } // namespace oglplus
 //]

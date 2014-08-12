@@ -19,14 +19,12 @@ enum class BufferSelectBit : GLbitfield
 	StencilBuffer = GL_STENCIL_BUFFER_BIT
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<BufferSelectBit> __EnumValueRange<BufferSelectBit>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(BufferSelectBit);
-#endif
+
+__Bitfield<BufferSelectBit> operator | (BufferSelectBit b1, BufferSelectBit b2);
 
 } // namespace oglplus
 //]

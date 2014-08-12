@@ -25,14 +25,10 @@ enum class ErrorCode : GLenum
 	TableTooLarge               = GL_TABLE_TOO_LARGE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ErrorCode> __EnumValueRange<ErrorCode>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ErrorCode);
-#endif
 
 } // namespace oglplus
 //]

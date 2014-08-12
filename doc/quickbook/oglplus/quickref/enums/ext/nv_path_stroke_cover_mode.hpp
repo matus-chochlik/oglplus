@@ -20,14 +20,10 @@ enum class PathNVStrokeCoverMode : GLenum
 	StrokeCover                = GL_PATH_STROKE_COVER_MODE_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVStrokeCoverMode> __EnumValueRange<PathNVStrokeCoverMode>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVStrokeCoverMode);
-#endif
 
 } // namespace oglplus
 //]

@@ -18,14 +18,10 @@ enum class PathNVMissingGlyph : GLenum
 	Use  = GL_USE_MISSING_GLYPH_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVMissingGlyph> __EnumValueRange<PathNVMissingGlyph>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVMissingGlyph);
-#endif
 
 } // namespace oglplus
 //]

@@ -50,14 +50,10 @@ enum class PathNVCommand : GLenum
 	RelativeArcTo                  = GL_RELATIVE_ARC_TO_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVCommand> __EnumValueRange<PathNVCommand>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVCommand);
-#endif
 
 } // namespace oglplus
 //]

@@ -35,14 +35,10 @@ enum class PixelDataFormat : GLenum
 	BGRAInteger    = GL_BGRA_INTEGER
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PixelDataFormat> __EnumValueRange<PixelDataFormat>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PixelDataFormat);
-#endif
 
 } // namespace oglplus
 //]

@@ -35,14 +35,10 @@ enum class BlendFunction : GLenum
 	OneMinusSrc1Alpha     = GL_ONE_MINUS_SRC1_ALPHA
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<BlendFunction> __EnumValueRange<BlendFunction>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(BlendFunction);
-#endif
 
 } // namespace oglplus
 //]

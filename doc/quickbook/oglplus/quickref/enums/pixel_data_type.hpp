@@ -40,14 +40,10 @@ enum class PixelDataType : GLenum
 	Float_32UnsignedInt_24_8_Rev = GL_FLOAT_32_UNSIGNED_INT_24_8_REV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PixelDataType> __EnumValueRange<PixelDataType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PixelDataType);
-#endif
 
 } // namespace oglplus
 //]

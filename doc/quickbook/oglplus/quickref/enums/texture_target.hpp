@@ -33,14 +33,10 @@ enum class TextureTarget : GLenum
 	CubeMapNegativeZ    = GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TextureTarget> __EnumValueRange<TextureTarget>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TextureTarget);
-#endif
 
 } // namespace oglplus
 //]

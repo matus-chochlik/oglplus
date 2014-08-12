@@ -126,14 +126,10 @@ enum class SLDataType : GLenum
 	None                                 = GL_NONE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<SLDataType> __EnumValueRange<SLDataType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(SLDataType);
-#endif
 
 } // namespace oglplus
 //]

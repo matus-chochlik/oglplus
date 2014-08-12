@@ -22,14 +22,10 @@ enum class TextureMinFilter : GLenum
 	LinearMipmapLinear   = GL_LINEAR_MIPMAP_LINEAR
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TextureMinFilter> __EnumValueRange<TextureMinFilter>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TextureMinFilter);
-#endif
 
 } // namespace oglplus
 //]

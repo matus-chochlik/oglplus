@@ -21,14 +21,10 @@ enum class ContextAttrib : EGLenum
 	OpenGLResetNotificationStrategy = EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ContextAttrib> __EnumValueRange<ContextAttrib>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ContextAttrib);
-#endif
 
 } // namespace eglplus
 //]

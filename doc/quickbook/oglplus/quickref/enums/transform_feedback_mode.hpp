@@ -18,14 +18,10 @@ enum class TransformFeedbackMode : GLenum
 	SeparateAttribs    = GL_SEPARATE_ATTRIBS
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TransformFeedbackMode> __EnumValueRange<TransformFeedbackMode>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TransformFeedbackMode);
-#endif
 
 } // namespace oglplus
 //]

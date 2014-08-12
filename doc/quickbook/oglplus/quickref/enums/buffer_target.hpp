@@ -32,14 +32,10 @@ enum class BufferTarget : GLenum
 	ExternalVirtualMemory = GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<BufferTarget> __EnumValueRange<BufferTarget>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(BufferTarget);
-#endif
 
 } // namespace oglplus
 //]

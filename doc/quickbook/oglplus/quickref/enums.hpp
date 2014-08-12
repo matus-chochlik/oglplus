@@ -33,6 +33,48 @@ preprocessor-symbol. If it is set to a nonzero value then
 >*/
 #endif
 //]
+//[oglplus_enums_Bitfield
+
+template <typename Bits>
+class Bitfield
+{
+public:
+	Bitfield(void); /*<
+	Constructs an empty (zero) bitfield.
+	>*/
+	Bitfield(Bits _bit); /*<
+	Construct a bitfield from a single strongly-typed enumeration value.
+	>*/
+	Bitfield(Bits _bit_a, Bits _bit_b); /*<
+	Construct a bitfield from a pair of strongly-typed enumeration values.
+	>*/
+
+#if !__OGLPLUS_NO_INITIALIZER_LISTS
+	Bitfield(const std::initializer_list<Bits>& bits); /*<
+	Construct a bitfield from an initializer list of enumeration values.
+	>*/
+#endif
+	template <typename Iter>
+	Bitfield(Iter pos, Iter end); /*<
+	Construction from a pair of iterators through [^Bits].
+	>*/
+
+	friend Bitfield operator | (Bitfield bf, Bits b); /*<
+	Bitwise-or operator for combining enumeration values into a bitfield.
+	>*/
+	Bitfield& operator |= (Bits b); /*<
+	Bitwise-or operator for combining enumeration values into a bitfield.
+	>*/
+
+	bool Test(Bits b) const; /*<
+	Tests if a specified bit is set.
+	>*/
+};
+
+template <typename Bits>
+__Bitfield<Bits> operator | (Bits b1, Bits b2);
+
+//]
 //[oglplus_enums_EnumArray
 
 template <typename Enum>

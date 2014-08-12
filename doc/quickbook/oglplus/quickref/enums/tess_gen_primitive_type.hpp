@@ -19,14 +19,10 @@ enum class TessGenPrimitiveType : GLenum
 	Isolines  = GL_ISOLINES
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TessGenPrimitiveType> __EnumValueRange<TessGenPrimitiveType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TessGenPrimitiveType);
-#endif
 
 } // namespace oglplus
 //]

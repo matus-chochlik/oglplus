@@ -18,14 +18,10 @@ enum class SyncStatus : GLenum
 	Unsignaled = GL_UNSIGNALED
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<SyncStatus> __EnumValueRange<SyncStatus>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(SyncStatus);
-#endif
 
 } // namespace oglplus
 //]

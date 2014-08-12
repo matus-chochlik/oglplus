@@ -18,14 +18,10 @@ enum class ContextProfileBit : GLenum
 	Compatibility = GL_CONTEXT_COMPATIBILITY_PROFILE_BIT
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ContextProfileBit> __EnumValueRange<ContextProfileBit>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ContextProfileBit);
-#endif
 
 } // namespace oglplus
 //]

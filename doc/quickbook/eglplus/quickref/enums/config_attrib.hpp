@@ -48,14 +48,10 @@ enum class ConfigAttrib : EGLenum
 	TransparentBlueValue  = EGL_TRANSPARENT_BLUE_VALUE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ConfigAttrib> __EnumValueRange<ConfigAttrib>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ConfigAttrib);
-#endif
 
 } // namespace eglplus
 //]

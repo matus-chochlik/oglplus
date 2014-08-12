@@ -20,14 +20,10 @@ enum class PerfMonitorAMDType : GLenum
 	Percentage    = GL_PERCENTAGE_AMD
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PerfMonitorAMDType> __EnumValueRange<PerfMonitorAMDType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PerfMonitorAMDType);
-#endif
 
 } // namespace oglplus
 //]

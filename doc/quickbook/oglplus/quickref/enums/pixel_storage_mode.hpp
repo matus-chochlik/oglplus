@@ -40,14 +40,10 @@ enum class PixelStorageMode : GLenum
 	UnpackCompressedBlockSize   = GL_UNPACK_COMPRESSED_BLOCK_SIZE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PixelStorageMode> __EnumValueRange<PixelStorageMode>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PixelStorageMode);
-#endif
 
 } // namespace oglplus
 //]

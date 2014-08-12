@@ -19,14 +19,10 @@ enum class PatchParameter : GLenum
 	PatchDefaultInnerLevel = GL_PATCH_DEFAULT_INNER_LEVEL
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PatchParameter> __EnumValueRange<PatchParameter>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PatchParameter);
-#endif
 
 } // namespace oglplus
 //]

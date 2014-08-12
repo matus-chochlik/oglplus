@@ -19,14 +19,10 @@ enum class ConfigCaveat : EGLenum
 	NonConformantConfig = EGL_NON_CONFORMANT_CONFIG
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ConfigCaveat> __EnumValueRange<ConfigCaveat>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ConfigCaveat);
-#endif
 
 } // namespace eglplus
 //]

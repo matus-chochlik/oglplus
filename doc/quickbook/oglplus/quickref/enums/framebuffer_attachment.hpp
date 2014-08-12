@@ -35,14 +35,10 @@ enum class FramebufferAttachment : GLenum
 	DepthStencil = GL_DEPTH_STENCIL_ATTACHMENT
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<FramebufferAttachment> __EnumValueRange<FramebufferAttachment>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(FramebufferAttachment);
-#endif
 
 } // namespace oglplus
 //]

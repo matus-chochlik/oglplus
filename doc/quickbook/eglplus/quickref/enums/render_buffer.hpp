@@ -18,14 +18,10 @@ enum class RenderBuffer : EGLenum
 	BackBuffer   = EGL_BACK_BUFFER
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<RenderBuffer> __EnumValueRange<RenderBuffer>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(RenderBuffer);
-#endif
 
 } // namespace eglplus
 //]

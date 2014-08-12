@@ -23,14 +23,10 @@ enum class SurfaceTypeBit : EGLenum
 	VGAlphaFormatPre      = EGL_VG_ALPHA_FORMAT_PRE_BIT
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<SurfaceTypeBit> __EnumValueRange<SurfaceTypeBit>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(SurfaceTypeBit);
-#endif
 
 } // namespace eglplus
 //]

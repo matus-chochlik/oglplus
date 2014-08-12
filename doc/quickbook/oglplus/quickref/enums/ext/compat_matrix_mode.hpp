@@ -20,14 +20,10 @@ enum class CompatibilityMatrixMode : GLenum
 	Color      = GL_COLOR
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<CompatibilityMatrixMode> __EnumValueRange<CompatibilityMatrixMode>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(CompatibilityMatrixMode);
-#endif
 
 } // namespace oglplus
 //]

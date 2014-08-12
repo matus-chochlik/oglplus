@@ -19,14 +19,10 @@ enum class PolygonMode : GLenum
 	Fill  = GL_FILL
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PolygonMode> __EnumValueRange<PolygonMode>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PolygonMode);
-#endif
 
 } // namespace oglplus
 //]

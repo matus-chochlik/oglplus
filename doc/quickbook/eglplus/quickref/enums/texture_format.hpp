@@ -19,14 +19,10 @@ enum class TextureFormat : EGLenum
 	NoTexture = EGL_NO_TEXTURE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TextureFormat> __EnumValueRange<TextureFormat>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TextureFormat);
-#endif
 
 } // namespace eglplus
 //]

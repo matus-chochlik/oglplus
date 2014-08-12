@@ -21,14 +21,10 @@ enum class TextureSwizzleCoord : GLenum
 	RGBA = GL_TEXTURE_SWIZZLE_RGBA
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TextureSwizzleCoord> __EnumValueRange<TextureSwizzleCoord>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TextureSwizzleCoord);
-#endif
 
 } // namespace oglplus
 //]

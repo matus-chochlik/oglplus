@@ -77,10 +77,13 @@
 [def __BlendFunction [link oglplus.quickref.blend_func BlendFunction]]
 [def __BlendEquation [link oglplus.quickref.blend_func BlendEquation]]
 [def __ColorBuffer [link oglplus.quickref.color_buffer ColorBuffer]]
+[def __BufferSelectBit [link oglplus.quickref.buffer_select_bit BufferSelectBit]]
+[def __ClearBit [link oglplus.quickref.context.buffer_clearing ClearBit]]
 [def __ShaderType [link oglplus.quickref.shader_type ShaderType]]
 
 [def __EnumValueRange [link oglplus.quickref.enums.functions EnumValueRange]]
 [def __EnumValueName [link oglplus.quickref.enums.functions EnumValueName]]
+[def __Bitfield [link oglplus.quickref.enums.bitfield Bitfield]]
 [def __EnumArray [link oglplus.quickref.enums.array EnumArray]]
 [def __OneOf [link oglplus.quickref.enums.one_of OneOf]]
 

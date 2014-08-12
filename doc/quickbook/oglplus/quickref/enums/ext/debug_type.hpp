@@ -26,14 +26,10 @@ enum class DebugType : GLenum
 	DontCare           = GL_DONT_CARE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<DebugType> __EnumValueRange<DebugType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(DebugType);
-#endif
 
 } // namespace oglplus
 //]

@@ -19,14 +19,10 @@ enum class HintOption : GLenum
 	DontCare = GL_DONT_CARE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<HintOption> __EnumValueRange<HintOption>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(HintOption);
-#endif
 
 } // namespace oglplus
 //]

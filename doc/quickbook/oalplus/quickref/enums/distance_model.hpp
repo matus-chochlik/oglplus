@@ -23,14 +23,10 @@ enum class DistanceModel : ALenum
 	ExponentDistanceClamped = AL_EXPONENT_DISTANCE_CLAMPED
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<DistanceModel> __EnumValueRange<DistanceModel>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(DistanceModel);
-#endif
 
 } // namespace oalplus
 //]

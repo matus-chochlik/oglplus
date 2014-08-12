@@ -38,14 +38,10 @@ enum class PathNVMetricQuery : GLenum
 	FontHasKerning                = GL_FONT_HAS_KERNING_BIT_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVMetricQuery> __EnumValueRange<PathNVMetricQuery>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVMetricQuery);
-#endif
 
 } // namespace oglplus
 //]

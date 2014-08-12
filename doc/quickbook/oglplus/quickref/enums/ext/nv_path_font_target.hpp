@@ -19,14 +19,10 @@ enum class PathNVFontTarget : GLenum
 	FileName = GL_FILE_NAME_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVFontTarget> __EnumValueRange<PathNVFontTarget>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVFontTarget);
-#endif
 
 } // namespace oglplus
 //]

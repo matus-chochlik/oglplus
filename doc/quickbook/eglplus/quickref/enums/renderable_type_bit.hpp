@@ -21,14 +21,10 @@ enum class RenderableTypeBit : EGLenum
 	OpenVG     = EGL_OPENVG_BIT
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<RenderableTypeBit> __EnumValueRange<RenderableTypeBit>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(RenderableTypeBit);
-#endif
 
 } // namespace eglplus
 //]

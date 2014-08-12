@@ -24,14 +24,10 @@ enum class StencilOperation : GLenum
 	DecrWrap = GL_DECR_WRAP
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<StencilOperation> __EnumValueRange<StencilOperation>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(StencilOperation);
-#endif
 
 } // namespace oglplus
 //]

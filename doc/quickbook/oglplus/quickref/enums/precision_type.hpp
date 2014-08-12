@@ -22,14 +22,10 @@ enum class PrecisionType : GLenum
 	HighInt     = GL_HIGH_INT
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PrecisionType> __EnumValueRange<PrecisionType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PrecisionType);
-#endif
 
 } // namespace oglplus
 //]

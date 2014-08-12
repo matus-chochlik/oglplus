@@ -20,14 +20,10 @@ enum class SourceState : ALenum
 	Stopped = AL_STOPPED
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<SourceState> __EnumValueRange<SourceState>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(SourceState);
-#endif
 
 } // namespace oalplus
 //]

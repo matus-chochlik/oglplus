@@ -18,14 +18,10 @@ enum class BlitFilter : GLenum
 	Linear  = GL_LINEAR
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<BlitFilter> __EnumValueRange<BlitFilter>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(BlitFilter);
-#endif
 
 } // namespace oglplus
 //]

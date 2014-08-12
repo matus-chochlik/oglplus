@@ -18,14 +18,10 @@ enum class SwapBehavior : EGLenum
 	BufferDestroyed = EGL_BUFFER_DESTROYED
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<SwapBehavior> __EnumValueRange<SwapBehavior>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(SwapBehavior);
-#endif
 
 } // namespace eglplus
 //]

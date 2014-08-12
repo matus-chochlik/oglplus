@@ -18,14 +18,10 @@ enum class FramebufferTarget : GLenum
 	Read = GL_READ_FRAMEBUFFER
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<FramebufferTarget> __EnumValueRange<FramebufferTarget>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(FramebufferTarget);
-#endif
 
 } // namespace oglplus
 //]

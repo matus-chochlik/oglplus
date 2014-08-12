@@ -25,14 +25,10 @@ enum class PathNVTransformType : GLenum
 	TransposeAffine3D = GL_TRANSPOSE_AFFINE_3D_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVTransformType> __EnumValueRange<PathNVTransformType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVTransformType);
-#endif
 
 } // namespace oglplus
 //]

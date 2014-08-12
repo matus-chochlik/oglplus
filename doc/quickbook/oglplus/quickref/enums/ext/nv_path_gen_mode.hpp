@@ -20,14 +20,10 @@ enum class PathNVGenMode : GLenum
 	ObjectBoundingBox = GL_PATH_OBJECT_BOUNDING_BOX_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVGenMode> __EnumValueRange<PathNVGenMode>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVGenMode);
-#endif
 
 } // namespace oglplus
 //]

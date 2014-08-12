@@ -17,6 +17,7 @@ values of the current context.
 [def __context_ViewportOps [link oglplus.quickref.context.viewport context::ViewportOps]]
 [def __context_BufferSelection [link oglplus.quickref.context.buffer_selection context::BufferSelection]]
 [def __context_BufferMasking [link oglplus.quickref.context.buffer_masking context::BufferMasking]]
+[def __context_BufferClearing [link oglplus.quickref.context.buffer_clearing context::BufferClearing]]
 [def __context_Blending [link oglplus.quickref.context.blending context::Blending]]
 
 [heading [^Context]]
@@ -35,6 +36,7 @@ but the library end-users should rarely need to use them directly.
 [include context/viewport.qbk]
 [include context/buffer_selection.qbk]
 [include context/buffer_masking.qbk]
+[include context/buffer_clearing.qbk]
 [include context/blending.qbk]
 
 [endsect]

@@ -18,14 +18,10 @@ enum class OpenGLResetNotificationStrategy : EGLenum
 	LoseContextOnReset  = EGL_LOSE_CONTEXT_ON_RESET
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<OpenGLResetNotificationStrategy> __EnumValueRange<OpenGLResetNotificationStrategy>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(OpenGLResetNotificationStrategy);
-#endif
 
 } // namespace eglplus
 //]

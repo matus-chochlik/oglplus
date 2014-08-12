@@ -18,7 +18,7 @@
 #include <oglplus/context/viewport.hpp>
 #include <oglplus/context/buffer_selection.hpp>
 #include <oglplus/context/buffer_masking.hpp>
-#include <oglplus/context/clear_buffers.hpp>
+#include <oglplus/context/buffer_clearing.hpp>
 #include <oglplus/context/rasterization.hpp>
 #include <oglplus/context/drawing.hpp>
 #include <oglplus/context/computing.hpp>
@@ -64,7 +64,7 @@ class Context
  , public context::ViewportOps
  , public context::BufferSelection
  , public context::BufferMasking
- , public context::ClearBuffers
+ , public context::BufferClearing
  , public context::Rasterization
  , public context::Drawing
  , public context::Computing

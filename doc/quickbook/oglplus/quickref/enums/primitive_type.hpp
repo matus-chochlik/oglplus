@@ -28,14 +28,10 @@ enum class PrimitiveType : GLenum
 	Patches                = GL_PATCHES
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PrimitiveType> __EnumValueRange<PrimitiveType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PrimitiveType);
-#endif
 
 } // namespace oglplus
 //]

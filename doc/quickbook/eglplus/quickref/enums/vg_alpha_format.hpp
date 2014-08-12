@@ -18,14 +18,10 @@ enum class VGAlphaFormat : EGLenum
 	NonPre = EGL_VG_ALPHA_FORMAT_NONPRE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<VGAlphaFormat> __EnumValueRange<VGAlphaFormat>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(VGAlphaFormat);
-#endif
 
 } // namespace eglplus
 //]

@@ -20,14 +20,10 @@ enum class HintTarget : GLenum
 	FragmentShaderDerivative = GL_FRAGMENT_SHADER_DERIVATIVE_HINT
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<HintTarget> __EnumValueRange<HintTarget>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(HintTarget);
-#endif
 
 } // namespace oglplus
 //]

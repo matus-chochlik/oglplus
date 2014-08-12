@@ -22,14 +22,10 @@ enum class TextureSwizzle : GLenum
 	One   = GL_ONE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TextureSwizzle> __EnumValueRange<TextureSwizzle>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TextureSwizzle);
-#endif
 
 } // namespace oglplus
 //]

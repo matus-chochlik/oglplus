@@ -21,14 +21,10 @@ enum class TextureWrap : GLenum
 	MirrorClampToEdge = GL_MIRROR_CLAMP_TO_EDGE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TextureWrap> __EnumValueRange<TextureWrap>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TextureWrap);
-#endif
 
 } // namespace oglplus
 //]

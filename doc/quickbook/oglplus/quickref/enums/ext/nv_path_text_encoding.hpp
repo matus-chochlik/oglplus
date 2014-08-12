@@ -18,14 +18,10 @@ enum class PathNVTextEncoding : GLenum
 	UTF16 = GL_UTF16_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVTextEncoding> __EnumValueRange<PathNVTextEncoding>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVTextEncoding);
-#endif
 
 } // namespace oglplus
 //]

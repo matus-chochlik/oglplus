@@ -36,14 +36,10 @@ enum class ProgramInterface : GLenum
 	ShaderStorageBlock              = GL_SHADER_STORAGE_BLOCK
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ProgramInterface> __EnumValueRange<ProgramInterface>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ProgramInterface);
-#endif
 
 } // namespace oglplus
 //]

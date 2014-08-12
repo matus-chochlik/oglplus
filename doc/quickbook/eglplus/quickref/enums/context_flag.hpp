@@ -19,14 +19,10 @@ enum class ContextFlag : EGLenum
 	OpenGLRobustAccess      = EGL_CONTEXT_OPENGL_ROBUST_ACCESS_BIT
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ContextFlag> __EnumValueRange<ContextFlag>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ContextFlag);
-#endif
 
 } // namespace eglplus
 //]

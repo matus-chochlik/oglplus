@@ -26,14 +26,10 @@ enum class DataType : GLenum
 	UnsignedInt   = GL_UNSIGNED_INT
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<DataType> __EnumValueRange<DataType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(DataType);
-#endif
 
 } // namespace oglplus
 //]

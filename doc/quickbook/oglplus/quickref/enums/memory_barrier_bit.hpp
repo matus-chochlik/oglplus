@@ -31,14 +31,12 @@ enum class MemoryBarrierBit : GLbitfield
 	All                = GL_ALL_BARRIER_BITS
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<MemoryBarrierBit> __EnumValueRange<MemoryBarrierBit>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(MemoryBarrierBit);
-#endif
+
+__Bitfield<MemoryBarrierBit> operator | (MemoryBarrierBit b1, MemoryBarrierBit b2);
 
 } // namespace oglplus
 //]

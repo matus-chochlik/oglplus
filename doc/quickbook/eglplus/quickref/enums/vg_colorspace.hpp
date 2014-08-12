@@ -18,14 +18,10 @@ enum class VGColorspace : EGLenum
 	Linear = EGL_VG_COLORSPACE_LINEAR
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<VGColorspace> __EnumValueRange<VGColorspace>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(VGColorspace);
-#endif
 
 } // namespace eglplus
 //]

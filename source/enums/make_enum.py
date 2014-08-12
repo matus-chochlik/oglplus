@@ -104,18 +104,25 @@ def action_qbk_hpp(options):
 
 	print_line(options, "};")
 	print_newline(options)
-	print_line(options, "#if !__OGLPLUS_NO_ENUM_VALUE_RANGES")
 	print_line(options, "template <>")
 	print_line(options, "__Range<%s> __EnumValueRange<%s>(void);" % (
 		options.enum_name,
 		options.enum_name
 	))
-	print_line(options, "#endif")
 	print_newline(options)
-	print_line(options, "#if !__OGLPLUS_NO_ENUM_VALUE_NAMES")
 	print_line(options, "__StrCRef __EnumValueName(%s);" % options.enum_name)
-	print_line(options, "#endif")
 	print_newline(options)
+
+	if options.enum_type == "bitfield":
+		print_line(
+			options,
+			"__Bitfield<%s> operator | (%s b1, %s b2);" % (
+				options.enum_name,
+				options.enum_name,
+				options.enum_name
+			)
+		)
+		print_newline(options)
 	print_line(options, "} // namespace %s" % options.library)
 	print_line(options, "//]")
 

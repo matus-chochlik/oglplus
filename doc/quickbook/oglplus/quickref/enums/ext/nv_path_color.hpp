@@ -18,14 +18,10 @@ enum class PathNVColor : GLenum
 	Secondary = GL_SECONDARY_COLOR_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVColor> __EnumValueRange<PathNVColor>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVColor);
-#endif
 
 } // namespace oglplus
 //]

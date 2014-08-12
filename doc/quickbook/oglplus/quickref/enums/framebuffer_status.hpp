@@ -23,14 +23,10 @@ enum class FramebufferStatus : GLenum
 	IncompleteLayerTargets      = GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<FramebufferStatus> __EnumValueRange<FramebufferStatus>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(FramebufferStatus);
-#endif
 
 } // namespace oglplus
 //]

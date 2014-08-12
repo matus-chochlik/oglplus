@@ -18,14 +18,10 @@ enum class TextureMagFilter : GLenum
 	Linear  = GL_LINEAR
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TextureMagFilter> __EnumValueRange<TextureMagFilter>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TextureMagFilter);
-#endif
 
 } // namespace oglplus
 //]

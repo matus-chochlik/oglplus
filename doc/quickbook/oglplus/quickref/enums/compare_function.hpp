@@ -24,14 +24,10 @@ enum class CompareFunction : GLenum
 	Never    = GL_NEVER
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<CompareFunction> __EnumValueRange<CompareFunction>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(CompareFunction);
-#endif
 
 } // namespace oglplus
 //]

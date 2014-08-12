@@ -17,14 +17,10 @@ enum class SyncType : GLenum
 	Fence = GL_SYNC_FENCE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<SyncType> __EnumValueRange<SyncType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(SyncType);
-#endif
 
 } // namespace oglplus
 //]

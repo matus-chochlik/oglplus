@@ -19,14 +19,10 @@ enum class SourceType : ALenum
 	Streaming    = AL_STREAMING
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<SourceType> __EnumValueRange<SourceType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(SourceType);
-#endif
 
 } // namespace oalplus
 //]

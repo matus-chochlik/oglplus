@@ -20,14 +20,10 @@ enum class PathNVCapStyle : GLenum
 	Triangular = GL_TRIANGULAR_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVCapStyle> __EnumValueRange<PathNVCapStyle>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVCapStyle);
-#endif
 
 } // namespace oglplus
 //]

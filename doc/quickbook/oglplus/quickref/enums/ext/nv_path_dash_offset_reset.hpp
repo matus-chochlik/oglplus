@@ -18,14 +18,10 @@ enum class PathNVDashOffsetReset : GLenum
 	MoveToContinues = GL_MOVE_TO_CONTINUES_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVDashOffsetReset> __EnumValueRange<PathNVDashOffsetReset>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVDashOffsetReset);
-#endif
 
 } // namespace oglplus
 //]

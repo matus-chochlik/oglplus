@@ -23,14 +23,10 @@ enum class DebugSource : GLenum
 	DontCare       = GL_DONT_CARE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<DebugSource> __EnumValueRange<DebugSource>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(DebugSource);
-#endif
 
 } // namespace oglplus
 //]

@@ -23,14 +23,10 @@ enum class DebugOutputARBSource : GLenum
 	DontCare       = GL_DONT_CARE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<DebugOutputARBSource> __EnumValueRange<DebugOutputARBSource>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(DebugOutputARBSource);
-#endif
 
 } // namespace oglplus
 //]

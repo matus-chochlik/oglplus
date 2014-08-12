@@ -124,14 +124,10 @@ enum class LimitQuery : GLenum
 	MinSampleShadingValue                      = GL_MIN_SAMPLE_SHADING_VALUE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<LimitQuery> __EnumValueRange<LimitQuery>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(LimitQuery);
-#endif
 
 } // namespace oglplus
 //]

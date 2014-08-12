@@ -20,14 +20,10 @@ enum class StringQuery : EGLenum
 	Version    = EGL_VERSION
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<StringQuery> __EnumValueRange<StringQuery>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(StringQuery);
-#endif
 
 } // namespace eglplus
 //]

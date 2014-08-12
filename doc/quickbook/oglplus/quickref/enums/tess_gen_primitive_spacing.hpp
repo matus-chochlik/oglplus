@@ -19,14 +19,10 @@ enum class TessGenPrimitiveSpacing : GLenum
 	Equal          = GL_EQUAL
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TessGenPrimitiveSpacing> __EnumValueRange<TessGenPrimitiveSpacing>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TessGenPrimitiveSpacing);
-#endif
 
 } // namespace oglplus
 //]

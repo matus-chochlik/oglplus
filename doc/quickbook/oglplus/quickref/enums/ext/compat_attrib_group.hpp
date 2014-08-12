@@ -38,14 +38,10 @@ enum class CompatibilityAttributeGroup : GLenum
 	AllAttribs     = GL_ALL_ATTRIB_BITS
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<CompatibilityAttributeGroup> __EnumValueRange<CompatibilityAttributeGroup>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(CompatibilityAttributeGroup);
-#endif
 
 } // namespace oglplus
 //]

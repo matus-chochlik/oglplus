@@ -19,14 +19,10 @@ enum class Face : GLenum
 	FrontAndBack = GL_FRONT_AND_BACK
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<Face> __EnumValueRange<Face>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(Face);
-#endif
 
 } // namespace oglplus
 //]

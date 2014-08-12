@@ -22,14 +22,10 @@ enum class PathNVColorFormat : GLenum
 	RGBA           = GL_RGBA
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVColorFormat> __EnumValueRange<PathNVColorFormat>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVColorFormat);
-#endif
 
 } // namespace oglplus
 //]

@@ -18,14 +18,10 @@ enum class PathNVFontStyle : GLenum
 	Italic = GL_ITALIC_BIT_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVFontStyle> __EnumValueRange<PathNVFontStyle>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVFontStyle);
-#endif
 
 } // namespace oglplus
 //]

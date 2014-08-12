@@ -19,14 +19,10 @@ enum class ContextFlagBit : GLenum
 	RobustAccess      = GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ContextFlagBit> __EnumValueRange<ContextFlagBit>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ContextFlagBit);
-#endif
 
 } // namespace oglplus
 //]

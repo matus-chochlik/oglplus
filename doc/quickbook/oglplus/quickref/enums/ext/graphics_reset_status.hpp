@@ -20,14 +20,10 @@ enum class GraphicsResetStatus : GLenum
 	UnknownContextReset  = GL_UNKNOWN_CONTEXT_RESET_ARB
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<GraphicsResetStatus> __EnumValueRange<GraphicsResetStatus>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(GraphicsResetStatus);
-#endif
 
 } // namespace oglplus
 //]

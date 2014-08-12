@@ -21,14 +21,10 @@ enum class BlendEquation : GLenum
 	Max             = GL_MAX
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<BlendEquation> __EnumValueRange<BlendEquation>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(BlendEquation);
-#endif
 
 } // namespace oglplus
 //]

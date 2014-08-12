@@ -20,14 +20,10 @@ enum class RenderingAPI : EGLenum
 	None      = EGL_NONE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<RenderingAPI> __EnumValueRange<RenderingAPI>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(RenderingAPI);
-#endif
 
 } // namespace eglplus
 //]

@@ -18,14 +18,10 @@ enum class TextureCompareMode : GLenum
 	CompareRefToTexture = GL_COMPARE_REF_TO_TEXTURE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TextureCompareMode> __EnumValueRange<TextureCompareMode>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TextureCompareMode);
-#endif
 
 } // namespace oglplus
 //]

@@ -30,14 +30,10 @@ enum class ErrorCode : EGLenum
 	ContextLost       = EGL_CONTEXT_LOST
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ErrorCode> __EnumValueRange<ErrorCode>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ErrorCode);
-#endif
 
 } // namespace eglplus
 //]

@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/context/clear_buffers.hpp
+ *  @file oglplus/context/buffer_clearing.hpp
  *  @brief Wrappers for operations clearing the buffers
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_CONTEXT_CLEAR_BUFFERS_1201040722_HPP
-#define OGLPLUS_CONTEXT_CLEAR_BUFFERS_1201040722_HPP
+#ifndef OGLPLUS_CONTEXT_BUFFER_CLEARING_1201040722_HPP
+#define OGLPLUS_CONTEXT_BUFFER_CLEARING_1201040722_HPP
 
 #include <oglplus/glfunc.hpp>
 #include <oglplus/buffer_select_bit.hpp>
@@ -28,7 +28,7 @@ typedef BufferSelectBit ClearBit;
 
 namespace context {
 
-class ClearBuffers;
+class BufferClearing;
 
 /// Helper structure storing the clear color components
 struct RGBAValue
@@ -61,7 +61,7 @@ struct RGBAValue
 	}
 };
 
-/// Helper class used by ClearBuffers::Clear()
+/// Helper class used by BufferClearing::Clear()
 /** Instances of this class cause the write buffers to be cleared
  *  depending on which member functions were called during the life-time
  *  of the instance.
@@ -69,8 +69,8 @@ struct RGBAValue
  *  @note The actual clearing of the buffers is done when the instance
  *  is destroyed.
  *
- *  @see ClearBuffers
- *  @see ClearBuffers::Clear()
+ *  @see BufferClearing
+ *  @see BufferClearing::Clear()
  *
  *  @ingroup ogl_context
  */
@@ -86,7 +86,7 @@ private:
 		return res;
 	}
 
-	friend class ClearBuffers;
+	friend class BufferClearing;
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
 	ClrBits(void) = delete;
@@ -180,7 +180,7 @@ public:
 /**
  *  @ingroup ogl_context
  */
-class ClearBuffers
+class BufferClearing
 {
 public:
 	/// Sets the clear color

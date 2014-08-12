@@ -20,14 +20,10 @@ enum class StringQuery : GLenum
 	ShadingLanguageVersion = GL_SHADING_LANGUAGE_VERSION
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<StringQuery> __EnumValueRange<StringQuery>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(StringQuery);
-#endif
 
 } // namespace oglplus
 //]

@@ -18,14 +18,10 @@ enum class ResetNotificationStrategy : GLenum
 	LoseContextOnReset  = GL_LOSE_CONTEXT_ON_RESET_ARB
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ResetNotificationStrategy> __EnumValueRange<ResetNotificationStrategy>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ResetNotificationStrategy);
-#endif
 
 } // namespace oglplus
 //]

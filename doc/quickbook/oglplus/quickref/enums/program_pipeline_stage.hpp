@@ -23,14 +23,12 @@ enum class ProgramPipelineStage : GLbitfield
 	AllShaders           = GL_ALL_SHADER_BITS
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ProgramPipelineStage> __EnumValueRange<ProgramPipelineStage>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ProgramPipelineStage);
-#endif
+
+__Bitfield<ProgramPipelineStage> operator | (ProgramPipelineStage b1, ProgramPipelineStage b2);
 
 } // namespace oglplus
 //]

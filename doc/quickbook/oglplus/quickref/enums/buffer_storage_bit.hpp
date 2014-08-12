@@ -22,14 +22,12 @@ enum class BufferStorageBit : GLbitfield
 	ClientStorage  = GL_CLIENT_STORAGE_BIT
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<BufferStorageBit> __EnumValueRange<BufferStorageBit>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(BufferStorageBit);
-#endif
+
+__Bitfield<BufferStorageBit> operator | (BufferStorageBit b1, BufferStorageBit b2);
 
 } // namespace oglplus
 //]

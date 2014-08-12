@@ -18,14 +18,10 @@ enum class TextureTarget : EGLenum
 	Texture2d = EGL_TEXTURE_2D
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<TextureTarget> __EnumValueRange<TextureTarget>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(TextureTarget);
-#endif
 
 } // namespace eglplus
 //]

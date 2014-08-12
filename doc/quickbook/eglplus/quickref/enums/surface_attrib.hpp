@@ -33,14 +33,10 @@ enum class SurfaceAttrib : EGLenum
 	TextureTarget        = EGL_TEXTURE_TARGET
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<SurfaceAttrib> __EnumValueRange<SurfaceAttrib>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(SurfaceAttrib);
-#endif
 
 } // namespace eglplus
 //]

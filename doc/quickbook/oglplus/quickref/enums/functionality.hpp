@@ -17,14 +17,10 @@ enum class Functionality : GLenum
 	ClipDistance = GL_CLIP_DISTANCE0
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<Functionality> __EnumValueRange<Functionality>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(Functionality);
-#endif
 
 } // namespace oglplus
 //]

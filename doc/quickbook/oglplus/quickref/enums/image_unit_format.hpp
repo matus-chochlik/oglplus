@@ -55,14 +55,10 @@ enum class ImageUnitFormat : GLenum
 	R8SNorm      = GL_R8_SNORM
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ImageUnitFormat> __EnumValueRange<ImageUnitFormat>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ImageUnitFormat);
-#endif
 
 } // namespace oglplus
 //]

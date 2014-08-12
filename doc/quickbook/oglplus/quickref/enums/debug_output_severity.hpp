@@ -21,14 +21,10 @@ enum class DebugOutputSeverity : GLenum
 	DontCare     = GL_DONT_CARE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<DebugOutputSeverity> __EnumValueRange<DebugOutputSeverity>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(DebugOutputSeverity);
-#endif
 
 } // namespace oglplus
 //]

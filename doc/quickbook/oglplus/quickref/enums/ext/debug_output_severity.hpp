@@ -20,14 +20,10 @@ enum class DebugOutputARBSeverity : GLenum
 	DontCare = GL_DONT_CARE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<DebugOutputARBSeverity> __EnumValueRange<DebugOutputARBSeverity>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(DebugOutputARBSeverity);
-#endif
 
 } // namespace oglplus
 //]

@@ -18,14 +18,10 @@ enum class MultisampleResolve : EGLenum
 	Box     = EGL_MULTISAMPLE_RESOLVE_BOX
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<MultisampleResolve> __EnumValueRange<MultisampleResolve>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(MultisampleResolve);
-#endif
 
 } // namespace eglplus
 //]

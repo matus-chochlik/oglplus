@@ -20,14 +20,10 @@ enum class SyncWaitResult : GLenum
 	WaitFailed         = GL_WAIT_FAILED
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<SyncWaitResult> __EnumValueRange<SyncWaitResult>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(SyncWaitResult);
-#endif
 
 } // namespace oglplus
 //]

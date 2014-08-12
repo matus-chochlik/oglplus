@@ -25,14 +25,10 @@ enum class BufferUsage : GLenum
 	DynamicCopy = GL_DYNAMIC_COPY
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<BufferUsage> __EnumValueRange<BufferUsage>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(BufferUsage);
-#endif
 
 } // namespace oglplus
 //]

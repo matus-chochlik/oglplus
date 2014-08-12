@@ -20,14 +20,10 @@ enum class BufferIndexedTarget : GLenum
 	Uniform           = GL_UNIFORM_BUFFER
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<BufferIndexedTarget> __EnumValueRange<BufferIndexedTarget>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(BufferIndexedTarget);
-#endif
 
 } // namespace oglplus
 //]

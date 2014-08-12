@@ -18,14 +18,10 @@ enum class ColorBufferType : EGLenum
 	LuminanceBuffer = EGL_LUMINANCE_BUFFER
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<ColorBufferType> __EnumValueRange<ColorBufferType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(ColorBufferType);
-#endif
 
 } // namespace eglplus
 //]

@@ -18,14 +18,10 @@ enum class PathNVFormat : GLenum
 	PS  = GL_PATH_FORMAT_PS_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVFormat> __EnumValueRange<PathNVFormat>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVFormat);
-#endif
 
 } // namespace oglplus
 //]

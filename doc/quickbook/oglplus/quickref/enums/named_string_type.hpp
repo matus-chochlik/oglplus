@@ -17,14 +17,10 @@ enum class NamedStringType : GLenum
 	ShaderInclude = GL_SHADER_INCLUDE_ARB
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<NamedStringType> __EnumValueRange<NamedStringType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(NamedStringType);
-#endif
 
 } // namespace oglplus
 //]

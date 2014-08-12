@@ -19,14 +19,10 @@ enum class AccessSpecifier : GLenum
 	ReadWrite = GL_READ_WRITE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<AccessSpecifier> __EnumValueRange<AccessSpecifier>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(AccessSpecifier);
-#endif
 
 } // namespace oglplus
 //]

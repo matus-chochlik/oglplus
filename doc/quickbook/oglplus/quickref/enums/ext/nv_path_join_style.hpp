@@ -21,14 +21,10 @@ enum class PathNVJoinStyle : GLenum
 	MiterTruncate = GL_MITER_TRUNCATE_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVJoinStyle> __EnumValueRange<PathNVJoinStyle>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVJoinStyle);
-#endif
 
 } // namespace oglplus
 //]

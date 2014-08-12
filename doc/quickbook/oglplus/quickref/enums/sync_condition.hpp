@@ -17,14 +17,10 @@ enum class SyncCondition : GLenum
 	GPUCommandsComplete = GL_SYNC_GPU_COMMANDS_COMPLETE
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<SyncCondition> __EnumValueRange<SyncCondition>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(SyncCondition);
-#endif
 
 } // namespace oglplus
 //]

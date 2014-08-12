@@ -17,14 +17,10 @@ enum class RenderbufferTarget : GLenum
 	Renderbuffer = GL_RENDERBUFFER
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<RenderbufferTarget> __EnumValueRange<RenderbufferTarget>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(RenderbufferTarget);
-#endif
 
 } // namespace oglplus
 //]

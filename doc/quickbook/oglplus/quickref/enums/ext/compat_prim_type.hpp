@@ -26,14 +26,10 @@ enum class CompatibilityPrimitiveType : GLenum
 	Polygon       = GL_POLYGON
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<CompatibilityPrimitiveType> __EnumValueRange<CompatibilityPrimitiveType>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(CompatibilityPrimitiveType);
-#endif
 
 } // namespace oglplus
 //]

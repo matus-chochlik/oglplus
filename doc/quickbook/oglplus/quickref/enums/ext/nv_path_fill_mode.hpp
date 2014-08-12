@@ -20,14 +20,10 @@ enum class PathNVFillMode : GLenum
 	FillMode  = GL_PATH_FILL_MODE_NV
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<PathNVFillMode> __EnumValueRange<PathNVFillMode>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(PathNVFillMode);
-#endif
 
 } // namespace oglplus
 //]

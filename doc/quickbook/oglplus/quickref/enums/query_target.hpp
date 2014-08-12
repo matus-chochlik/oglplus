@@ -22,14 +22,10 @@ enum class QueryTarget : GLenum
 	TransformFeedbackPrimitivesWritten = GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<QueryTarget> __EnumValueRange<QueryTarget>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(QueryTarget);
-#endif
 
 } // namespace oglplus
 //]

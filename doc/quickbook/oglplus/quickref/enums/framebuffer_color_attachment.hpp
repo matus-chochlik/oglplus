@@ -32,14 +32,10 @@ enum class FramebufferColorAttachment : GLenum
 	_15 = GL_COLOR_ATTACHMENT15
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<FramebufferColorAttachment> __EnumValueRange<FramebufferColorAttachment>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(FramebufferColorAttachment);
-#endif
 
 } // namespace oglplus
 //]

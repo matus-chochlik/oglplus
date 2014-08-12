@@ -20,14 +20,10 @@ enum class DataFormat : ALenum
 	Stereo16 = AL_FORMAT_STEREO16
 };
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <>
 __Range<DataFormat> __EnumValueRange<DataFormat>(void);
-#endif
 
-#if !__OGLPLUS_NO_ENUM_VALUE_NAMES
 __StrCRef __EnumValueName(DataFormat);
-#endif
 
 } // namespace oalplus
 //]
