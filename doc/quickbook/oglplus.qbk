@@ -145,3 +145,4 @@
 
 [include oglplus/intro.qbk]
 [include oglplus/quickref.qbk]
+[include oglplus/gl_index.qbk]

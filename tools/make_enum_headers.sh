@@ -324,131 +324,6 @@ git add ${OutputPath}
 )} # MakeEnumValueRange
 
 
-# Creates the ${LibName}/detail/enum_shorteners.ipp file
-function MakeEnumShorteners()
-{
-LibPrefixUC="${1}"
-LibNameLC="${2}"
-LibNameUC=${LibNameLC^^}
-local InputFiles="${InputDir}/${LibNameLC}/*.txt"
-shift 2
-for SubDir
-do InputFiles="${InputFiles} ${InputDir}/${LibNameLC}/${SubDir}/*.txt"
-done
-
-for InputFile in ${InputFiles}
-do
-(
-	EnumClass=$(MakeEnumClass ${InputFile})
-
-	IFS=':'
-
-	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read XL_DEF OXLPLUS_DEF X
-	do
-		if [ "${OXLPLUS_DEF}" == "" ]
-		then OXLPLUS_DEF=$(echo ${XL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
-		fi
-
-		mkdir -p ${ShortEnumTempDir}
-		echo "${XL_DEF}:${EnumClass}" >> ${ShortEnumTempDir}/${OXLPLUS_DEF}
-	done
-)
-done
-
-(
-	# first the real-deal
-	OutputFile="${LibNameLC}/detail/enum_shorteners.ipp"
-	OutputPath="${RootDir}/implement/${OutputFile}"
-
-	mkdir -p $(dirname ${OutputPath})
-	exec > ${OutputPath}
-	PrintFileHeader "${RootDir}/source/enums/${LibNameLC}/.*.txt" ${OutputFile}
-
-	# the enumeration name shorteners
-	find ${ShortEnumTempDir}/ -mindepth 1 -maxdepth 1 -type f |
-	sort |
-	while read InputFile
-	do
-		OXLPLUS_DEF=$(basename ${InputFile})
-
-		echo -n "struct ${OXLPLUS_DEF} {"
-		echo
-		echo -n "template <typename Enum, Enum = Enum::${OXLPLUS_DEF}> operator Enum (void) const"
-		echo -n "{ return Enum::${OXLPLUS_DEF}; }"
-		echo
-		echo -n "template <typename Enum> friend bool operator==(Enum value, ${OXLPLUS_DEF})"
-		echo -n "{ return value == Enum::${OXLPLUS_DEF}; }"
-		echo
-		echo -n "template <typename Enum> friend bool operator!=(Enum value, ${OXLPLUS_DEF})"
-		echo -n "{ return value != Enum::${OXLPLUS_DEF}; }"
-		echo
-		echo "};"
-	done
-
-	git add ${OutputPath}
-
-	# now the documentation
-	OutputFile="${LibNameLC}/detail/enum_shorteners_doc.ipp"
-	OutputPath="${RootDir}/doc/include/${OutputFile}"
-
-	mkdir -p $(dirname ${OutputPath})
-	exec > ${OutputPath}
-	PrintFileHeader "${RootDir}/source/enums/${LibNameLC}/.*.txt" ${OutputFile}
-
-	# the enumeration name shorteners
-	find ${ShortEnumTempDir}/ -mindepth 1 -maxdepth 1 -type f |
-	sort |
-	while read InputFile
-	do
-		OXLPLUS_DEF=$(basename ${InputFile})
-
-		echo "/// @ref ${LibNameLC}_smart_enums \"Smart enum\" for enumerations with the @c ${OXLPLUS_DEF} value."
-		echo "/**"
-		for OXLPLUS_ENUM in $(cut -d':' -f2 < ${InputFile} | sort | uniq)
-		do echo " *  @see @ref ${LibNameLC}::${OXLPLUS_ENUM} \"${OXLPLUS_ENUM}\""
-		done
-		echo " *"
-		echo " *  @${LibPrefixUC,,}symbols"
-		for XL_DEF in $(cut -d':' -f1 < ${InputFile} | sort | uniq)
-		do echo " *  @${LibPrefixUC,,}defref{${XL_DEF}}"
-		done
-		echo " *"
-		echo " *  @ingroup smart_enums"
-		echo " */"
-		echo "struct ${OXLPLUS_DEF} {"
-		echo
-		echo "/// Conversion to any @p Enum type having the ${OXLPLUS_DEF} value."
-		echo "/** Instances of the @ref ${LibNameLC}::smart_enums::${OXLPLUS_DEF} \"${OXLPLUS_DEF}\""
-		echo " *  type are convertible to instances of any enumeration type having"
-		echo " *  the @c ${OXLPLUS_DEF} value."
-		echo " */"
-		echo "template <typename Enum, Enum = Enum::${OXLPLUS_DEF}> operator Enum (void) const;"
-		echo
-		echo "/// Equality comparison with any @p Enum type having the ${OXLPLUS_DEF} value."
-		echo "/** Instances of the @c smart_enums::${OXLPLUS_DEF} type can be compared"
-		echo " *  for equality to instances of any enumeration type having"
-		echo " *  the @c ${OXLPLUS_DEF} value."
-		echo " */"
-		echo "template <typename Enum> friend bool operator==(Enum value, ${OXLPLUS_DEF});"
-		echo
-		echo "/// Non-equality comparison with any @p Enum type having the ${OXLPLUS_DEF} value."
-		echo "/** Instances of the @c smart_enums::${OXLPLUS_DEF} type can be compared"
-		echo " *  for non-equality to instances of any enumeration type having"
-		echo " *  the @c ${OXLPLUS_DEF} value."
-		echo " */"
-		echo "template <typename Enum> friend bool operator!=(Enum value, ${OXLPLUS_DEF});"
-		echo "};"
-		echo
-	done
-
-	git add ${OutputPath}
-)
-
-rm -rf ${ShortEnumTempDir}
-} # MakeEnumShorteners()
-
-
 # the mapping of target def. to binding query def.
 function MakeEnumBQHeaders()
 {
@@ -589,7 +464,6 @@ then
 	MakeEnumHeaders GL oglplus ext
 	MakeEnumValueName GL oglplus ext
 	MakeEnumValueRange GL oglplus ext
-	MakeEnumShorteners GL oglplus ext
 	MakeEnumBQHeaders GL oglplus ext
 	MakeGLSLtoCPPtypeHeader GL oglplus
 fi

@@ -15,10 +15,10 @@ struct RGBAValue /*<
 Helper structure storing the clear color components.
 >*/
 {
-	bool Red(void) const;
-	bool Green(void) const;
-	bool Blue(void) const;
-	bool Alpha(void) const;
+	GLfloat Red(void) const;
+	GLfloat Green(void) const;
+	GLfloat Blue(void) const;
+	GLfloat Alpha(void) const;
 };
 
 class ClrBits /*<

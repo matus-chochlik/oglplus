@@ -25,7 +25,7 @@ def print_header(options, cs):
 		print_comment(options, cs, "  Edit the source '%s'" % options.rel_input)
 		print_comment(options, cs, "  or the '%s' script instead." % options.rel_self)
 	else:
-		print_comment(options, cs, "  Edit the enumeration source files in 'source/enums' ")
+		print_comment(options, cs, "  Edit the enumeration source files in 'source/enums/%s'" % options.library)
 		print_comment(options, cs, "  or the '%s' script instead." % options.rel_self)
 	print_comment(options, cs)
 	print_comment(options, cs, "  Copyright 2010-%d Matus Chochlik." % options.year)
@@ -40,12 +40,16 @@ def print_cpp_header(options):
 def print_scr_header(options):
 	print_header(options, "#")
 
-def parse_source(options, index=0):
+def parse_source(options, input_file = None):
+
+	if not input_file:
+		input_file = options.input[0]
+
 	result = list()
 
 	attribs = ["src_name", "dst_name", "aq", "doc", "bind_query", "prefix"]
 
-	with open(options.input[index], "r") as f:
+	with open(input_file, "r") as f:
 		for line in f:
 			line = line.strip()
 			if line and not line.startswith("#"):
@@ -126,19 +130,56 @@ def action_qbk_hpp(options):
 	print_line(options, "} // namespace %s" % options.library)
 	print_line(options, "//]")
 
+def action_smart_enums_ipp(options):
+
+	enum_values = set()
+
+	for input_file in options.input:
+		items = parse_source(options, input_file)
+		for item in items:
+			enum_values.add(item.dst_name)
+
+	print_cpp_header(options)
+	for enum_value in sorted(enum_values):
+		evp = (enum_value, enum_value)
+		print_line(options, "struct %s {" % enum_value)
+		print_line(options, "template <typename Enum, Enum = Enum::%s> operator Enum (void) const{ return Enum::%s; }" % evp)
+		print_line(options, "template <typename Enum> friend bool operator==(Enum value, %s){ return value == Enum::%s; }" % evp)
+		print_line(options, "template <typename Enum> friend bool operator!=(Enum value, %s){ return value != Enum::%s; }" % evp)
+		print_line(options, "};")
+
+def action_smart_enum_values_ipp(options):
+
+	enum_values = set()
+
+	for input_file in options.input:
+		items = parse_source(options, input_file)
+		for item in items:
+			enum_values.add(item.dst_name)
+
+	print_cpp_header(options)
+	for enum_value in sorted(enum_values):
+		evp = (enum_value, enum_value)
+		print_line(options, "OGLPLUS_CONSTEXPR oglplus::smart_enums::%s %s;" % evp);
 
 actions = {
 	"info":    action_info,
-	"qbk_hpp": action_qbk_hpp
+	"qbk_hpp": action_qbk_hpp,
+	"smart_enums_ipp": action_smart_enums_ipp,
+	"smart_enum_values_ipp": action_smart_enum_values_ipp
 }
 
+multi_file_actions = ["smart_enums_ipp", "smart_enum_values_ipp"]
+
 def dispatch_action(options):
-	if len(options.input) < 1:
-		msg = "Missing input file for action '%s'!" % options.action
-		raise RuntimeError(msg)
-	if len(options.input) > 1:
-		msg = "Too many input files for action '%s'!" % options.action
-		raise RuntimeError(msg)
+	if not options.action in multi_file_actions:
+		print(options)
+		if len(options.input) < 1:
+			msg = "Missing input file for action '%s'!" % options.action
+			raise RuntimeError(msg)
+		if len(options.input) > 1:
+			msg = "Too many input files for action '%s'!" % options.action
+			raise RuntimeError(msg)
 	if not options.output_id:
 		raise RuntimeError("No output-id was specified!")
 
@@ -188,6 +229,14 @@ def get_argument_parser():
 	)
 
 	argparser.add_argument(
+		"inputs",
+		metavar="FILE",
+		type=os.path.abspath,
+		nargs="*",
+		help="""Path to the input text file(s) to be processed. """
+	)
+
+	argparser.add_argument(
 		"--input",
 		type=os.path.abspath,
 		default=list(),
@@ -228,6 +277,9 @@ def get_options():
 
 	argparser = get_argument_parser()
 	options = argparser.parse_args()
+
+	options.input += options.inputs
+	options.inputs = None
 
 	options.root_dir = os.path.abspath(options.root_dir)
 	options.rel_self = os.path.relpath(sys.argv[0], options.root_dir)
