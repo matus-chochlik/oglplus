@@ -8,7 +8,7 @@
 
 [header oglplus/string/ref.hpp]
 
-The [^StrCRef] class stores a reference to an UTF-8 encoded character string.
+The [^StrCRef] class stores a reference to an UTF-8 encoded constant character string.
 It is used as an adaptor or a type erasure for other types storing strings,
 (like __String, [^std::vector<GLchar>], [^const GLchar*], etc.) and is used
 as parameter type to limit the number of overloads of functions performing

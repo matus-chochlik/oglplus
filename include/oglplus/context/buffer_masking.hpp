@@ -184,6 +184,11 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return GLuint(result);
 	}
+
+	static GLuint StencilWriteMask(Face face)
+	{
+		return StencilWriteMask(face == Face::Back);
+	}
 };
 
 } // namespace context

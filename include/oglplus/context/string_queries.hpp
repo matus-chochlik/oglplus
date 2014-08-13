@@ -243,7 +243,7 @@ public:
 	 *  @glfunref{GetString}
 	 *  @gldefref{EXTENSIONS}
 	 */
-	static Range<String> Extensions(void);
+	static Range<StrCRef> Extensions(void);
 #else
 	static aux::StrQueryRange Extensions(void)
 	{

@@ -11,7 +11,21 @@ namespace context {
 class Computing
 {
 public:
-	// TODO
+#if GL_VERSION_4_3
+	static void DispatchCompute(
+		GLuint num_groups_x,
+		GLuint num_groups_y,
+		GLuint num_groups_z
+	); /*<
+	Launches the specified number of compute work groups.
+	See [glfunc DispatchCompute].
+	>*/
+
+	static void DispatchComputeIndirect(GLintptr indirect); /*<
+	Launches indirectly several compute work groups.
+	See [glfunc DispatchComputeIndirect].
+	>*/
+#endif
 };
 
 } // namespace context

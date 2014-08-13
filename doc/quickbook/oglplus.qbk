@@ -74,6 +74,13 @@
 [def __Functionality [link oglplus.quickref.capability.functionality Functionality]]
 [def __HintTarget [link oglplus.quickref.hint.target HintTarget]]
 [def __HintOption [link oglplus.quickref.hint.option HintOption]]
+[def __LimitQuery [link oglplus.quickref.limit_query LimitQuery]]
+[def __StringQuery [link oglplus.quickref.string_query StringQuery]]
+[def __CompareFunction [link oglplus.quickref.compare_func CompareFunction]]
+[def __CompareFn [link oglplus.quickref.compare_func.typedefs CompareFn]]
+[def __StencilOperation [link oglplus.quickref.stencil_op StencilOperation]]
+[def __StencilOp [link oglplus.quickref.stencil_op.typedefs StencilOp]]
+
 [def __Face [link oglplus.quickref.face_mode.face Face]]
 [def __FaceOrientation [link oglplus.quickref.face_mode.orientation FaceOrientation]]
 [def __BlendFunction [link oglplus.quickref.blend_func BlendFunction]]
@@ -90,6 +97,11 @@
 [def __InternalFormat [link oglplus.quickref.pixel_data.typedefs Format]]
 [def __PixelStorageMode [link oglplus.quickref.pixel_storage_mode PixelStorageMode]]
 [def __BlitFilter [link oglplus.quickref.blit_filter BlitFilter]]
+
+[def __MemoryBarrierBit [link oglplus.quickref.memory_barrier MemoryBarrierBit]]
+
+[def __ContextProfileBit [link oglplus.quickref.context_profile_bit ContextProfileBit]]
+[def __ContextFlagBit [link oglplus.quickref.context_flag_bit ContextFlagBit]]
 
 [def __EnumValueRange [link oglplus.quickref.enums.functions EnumValueRange]]
 [def __EnumValueName [link oglplus.quickref.enums.functions EnumValueName]]

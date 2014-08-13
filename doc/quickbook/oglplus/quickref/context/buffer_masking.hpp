@@ -60,6 +60,7 @@ public:
 	See [glfunc Get], [glconst STENCIL_WRITEMASK] and
 	[glconst STENCIL_BACK_WRITEMASK].
 	>*/
+	static GLuint StencilWriteMask(__Face face);
 };
 
 } // namespace context

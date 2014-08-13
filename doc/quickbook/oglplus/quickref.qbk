@@ -37,6 +37,10 @@ the concept.
 
 [include quickref/capability.qbk]
 [include quickref/hint.qbk]
+[include quickref/limit_query.qbk]
+[include quickref/string_query.qbk]
+[include quickref/compare_func.qbk]
+[include quickref/stencil_op.qbk]
 
 [include quickref/face_mode.qbk]
 [include quickref/blend_func.qbk]
@@ -46,6 +50,11 @@ the concept.
 [include quickref/pixel_data.qbk]
 [include quickref/pixel_storage_mode.qbk]
 [include quickref/blit_filter.qbk]
+
+[include quickref/memory_barrier.qbk]
+
+[include quickref/context_profile_bit.qbk]
+[include quickref/context_flag_bit.qbk]
 
 [include quickref/config.qbk]
 [include quickref/math.qbk]

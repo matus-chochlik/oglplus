@@ -11,7 +11,14 @@ namespace context {
 class DepthTest
 {
 public:
-	// TODO
+	static void DepthFunc(__CompareFunction function); /*<
+	Sets the depth comparison [^function].
+	See [glfunc DepthFunc].
+	>*/
+	static __CompareFunction DepthFunc(void); /*<
+	Returns the currently set depth comparison function.
+	See [glfunc Get], [glconst DEPTH_FUNC].
+	>*/
 };
 
 } // namespace context

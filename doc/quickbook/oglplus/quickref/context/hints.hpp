@@ -15,7 +15,7 @@ public:
 	Sets a hint [^option] for a hint [^target].
 	See [glfunc Hint].
 	>*/
-	static __HintOption Hint(HintTarget target); /*<
+	static __HintOption Hint(__HintTarget target); /*<
 	Queries the currently set hint option for a hint [^target].
 	>*/
 };
