@@ -79,7 +79,7 @@ public:
 	 , refl_camera_matrix(prog_refl)
 	 , refl_model_matrix(prog_refl)
 	{
-		namespace se = oglplus::smart_enum_values;
+		namespace sv = oglplus::smart_values;
 		// Set the normal object vertex shader source
 		vs_norm.Source(
 			"#version 330\n"
@@ -212,12 +212,12 @@ public:
 		torus.Bind();
 
 		// bind the VBO for the torus vertices
-		torus_verts.Bind(se::Array);
+		torus_verts.Bind(sv::Array);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_torus.Positions(data);
 			// upload the data
-			Buffer::Data(se::Array, data);
+			Buffer::Data(sv::Array, data);
 
 			// setup the vertex attribs array for the vertices
 			typedef VertexArrayAttrib VAA;
@@ -232,12 +232,12 @@ public:
 		}
 
 		// bind the VBO for the torus normals
-		torus_normals.Bind(se::Array);
+		torus_normals.Bind(sv::Array);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_torus.Normals(data);
 			// upload the data
-			Buffer::Data(se::Array, data);
+			Buffer::Data(sv::Array, data);
 
 			// setup the vertex attribs array for the normals
 			typedef VertexArrayAttrib VAA;
@@ -255,7 +255,7 @@ public:
 		plane.Bind();
 
 		// bind the VBO for the plane vertices
-		plane_verts.Bind(se::Array);
+		plane_verts.Bind(sv::Array);
 		{
 			GLfloat data[4*3] = {
 				-2.0f, 0.0f,  2.0f,
@@ -264,7 +264,7 @@ public:
 				 2.0f, 0.0f, -2.0f
 			};
 			// upload the data
-			Buffer::Data(se::Array, 4*3, data);
+			Buffer::Data(sv::Array, 4*3, data);
 			// setup the vertex attribs array for the vertices
 			prog_norm.Use();
 			VertexArrayAttrib attr(prog_norm, "Position");
@@ -273,7 +273,7 @@ public:
 		}
 
 		// bind the VBO for the torus normals
-		plane_normals.Bind(se::Array);
+		plane_normals.Bind(sv::Array);
 		{
 			GLfloat data[4*3] = {
 				-0.1f, 1.0f,  0.1f,
@@ -282,7 +282,7 @@ public:
 				 0.1f, 1.0f, -0.1f
 			};
 			// upload the data
-			Buffer::Data(se::Array, 4*3, data);
+			Buffer::Data(sv::Array, 4*3, data);
 			// setup the vertex attribs array for the normals
 			prog_norm.Use();
 			VertexArrayAttrib attr(prog_norm, "Normal");
@@ -316,7 +316,7 @@ public:
 
 	void Render(double time)
 	{
-		namespace se = oglplus::smart_enum_values;
+		namespace sv = oglplus::smart_values;
 		gl.Clear().ColorBuffer().DepthBuffer().StencilBuffer();
 		// make the camera matrix orbiting around the origin
 		// at radius of 3.5 with elevation between 15 and 90 degrees
@@ -334,21 +334,21 @@ public:
 		// draw the plane into the stencil buffer
 		prog_norm.Use();
 
-		gl.Disable(se::Blend);
-		gl.Disable(se::DepthTest);
-		gl.Enable(se::StencilTest);
+		gl.Disable(sv::Blend);
+		gl.Disable(sv::DepthTest);
+		gl.Enable(sv::StencilTest);
 		gl.ColorMask(false, false, false, false);
-		gl.StencilFunc(se::Always, 1, 1);
-		gl.StencilOp(se::Keep, se::Keep, se::Replace);
+		gl.StencilFunc(sv::Always, 1, 1);
+		gl.StencilOp(sv::Keep, sv::Keep, sv::Replace);
 
 		norm_model_matrix.Set(identity);
 		plane.Bind();
-		gl.DrawArrays(se::TriangleStrip, 0, 4);
+		gl.DrawArrays(sv::TriangleStrip, 0, 4);
 
 		gl.ColorMask(true, true, true, true);
-		gl.Enable(se::DepthTest);
-		gl.StencilFunc(se::Equal, 1, 1);
-		gl.StencilOp(se::Keep, se::Keep, se::Keep);
+		gl.Enable(sv::DepthTest);
+		gl.StencilFunc(sv::Equal, 1, 1);
+		gl.StencilOp(sv::Keep, sv::Keep, sv::Keep);
 
 		// draw the torus using the reflection program
 		prog_refl.Use();
@@ -356,7 +356,7 @@ public:
 		torus.Bind();
 		torus_instr.Draw(torus_indices);
 
-		gl.Disable(se::StencilTest);
+		gl.Disable(sv::StencilTest);
 
 		prog_norm.Use();
 		// draw the torus using the normal object program
@@ -364,11 +364,11 @@ public:
 		torus_instr.Draw(torus_indices);
 
 		// blend-in the plane
-		gl.Enable(se::Blend);
-		gl.BlendEquation(se::Max);
+		gl.Enable(sv::Blend);
+		gl.BlendEquation(sv::Max);
 		norm_model_matrix.Set(identity);
 		plane.Bind();
-		gl.DrawArrays(se::TriangleStrip, 0, 4);
+		gl.DrawArrays(sv::TriangleStrip, 0, 4);
 	}
 
 	bool Continue(double time)

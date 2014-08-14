@@ -148,7 +148,7 @@ def action_smart_enums_ipp(options):
 		print_line(options, "template <typename Enum> friend bool operator!=(Enum value, %s){ return value != Enum::%s; }" % evp)
 		print_line(options, "};")
 
-def action_smart_enum_values_ipp(options):
+def action_smart_values_ipp(options):
 
 	enum_values = set()
 
@@ -166,10 +166,10 @@ actions = {
 	"info":    action_info,
 	"qbk_hpp": action_qbk_hpp,
 	"smart_enums_ipp": action_smart_enums_ipp,
-	"smart_enum_values_ipp": action_smart_enum_values_ipp
+	"smart_values_ipp": action_smart_values_ipp
 }
 
-multi_file_actions = ["smart_enums_ipp", "smart_enum_values_ipp"]
+multi_file_actions = ["smart_enums_ipp", "smart_values_ipp"]
 
 def dispatch_action(options):
 	if not options.action in multi_file_actions:

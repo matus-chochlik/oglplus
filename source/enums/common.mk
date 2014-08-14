@@ -6,7 +6,7 @@ ROOT = $(PARENT)/../..
 MAKE_ENUM = $(PARENT)/make_enum.py
 
 .PHONY: all
-all: _smart_enums_ipp _smart_enum_values_ipp _qbk_qref_hpp
+all: _smart_enums_ipp _smart_values_ipp _qbk_qref_hpp
 
 .PHONY: _smart_enums_ipp
 _smart_enums_ipp: $(ROOT)/implement/$(LIBRARY)/detail/smart_enums.ipp
@@ -21,14 +21,14 @@ $(ROOT)/implement/$(LIBRARY)/detail/smart_enums.ipp: $(SOURCES) $(MAKE_ENUM)
 		$(filter %.txt,$^)
 	git add "$@"
 
-.PHONY: _smart_enum_values_ipp
-_smart_enums_ipp: $(ROOT)/implement/$(LIBRARY)/detail/smart_enum_values.ipp
+.PHONY: _smart_values_ipp
+_smart_enums_ipp: $(ROOT)/implement/$(LIBRARY)/detail/smart_values.ipp
 
-$(ROOT)/implement/$(LIBRARY)/detail/smart_enum_values.ipp: $(SOURCES) $(MAKE_ENUM)
+$(ROOT)/implement/$(LIBRARY)/detail/smart_values.ipp: $(SOURCES) $(MAKE_ENUM)
 	$(MAKE_ENUM) \
 		--library $(LIBRARY) \
 		--base-lib-prefix $(LIB_PREFIX)\
-		--action smart_enum_values_ipp \
+		--action smart_values_ipp \
 		--output "$@" \
 		--output-id "none" \
 		$(filter %.txt,$^)

@@ -1,4 +1,4 @@
-//  File implement/oalplus/detail/smart_enum_values.ipp
+//  File implement/oalplus/detail/smart_values.ipp
 //
 //  Automatically generated file, DO NOT modify manually.
 //  Edit the enumeration source files in 'source/enums/oalplus'
