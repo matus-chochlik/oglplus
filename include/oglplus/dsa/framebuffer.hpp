@@ -50,8 +50,6 @@ public:
 		typedef FramebufferStatus Status;
 	};
 
-	typedef typename Property::Attachment Attachment_;
-
 	using ObjZeroOps<tag::DirectState, tag::Framebuffer>::Bind;
 	void Bind(void)
 	{
@@ -138,7 +136,7 @@ public:
 	 *  @glfunref{FramebufferRenderbuffer}
 	 */
 	void AttachRenderbuffer(
-		Attachment_ attachment,
+		Property::Attachment attachment,
 		RenderbufferName renderbuffer
 	)
 	{
@@ -203,7 +201,7 @@ public:
 	 *  @glfunref{FramebufferTexture}
 	 */
 	void AttachTexture(
-		Attachment_ attachment,
+		Property::Attachment attachment,
 		TextureName texture,
 		GLint level
 	)
@@ -272,7 +270,7 @@ public:
 	 *  @glfunref{FramebufferTexture1D}
 	 */
 	void AttachTexture1D(
-		Attachment_ attachment,
+		Property::Attachment attachment,
 		TextureTarget textarget,
 		TextureName texture,
 		GLint level
@@ -308,7 +306,7 @@ public:
 	 *  @glfunref{FramebufferTexture2D}
 	 */
 	void AttachTexture2D(
-		Attachment_ attachment,
+		Property::Attachment attachment,
 		TextureTarget textarget,
 		TextureName texture,
 		GLint level
@@ -344,7 +342,7 @@ public:
 	 *  @glfunref{FramebufferTexture3D}
 	 */
 	void AttachTexture3D(
-		Attachment_ attachment,
+		Property::Attachment attachment,
 		TextureTarget textarget,
 		TextureName texture,
 		GLint level,
@@ -382,7 +380,7 @@ public:
 	 *  @glfunref{FramebufferTextureLayer}
 	 */
 	void AttachTextureLayer(
-		Attachment_ attachment,
+		Property::Attachment attachment,
 		TextureName texture,
 		GLint level,
 		GLint layer

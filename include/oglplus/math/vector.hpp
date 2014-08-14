@@ -165,7 +165,7 @@ protected:
 	VectorBase(
 		const VectorBase<U, M>& v,
 		typename std::enable_if<
-			(N <= M) and not(std::is_same<T, U>())
+			(N <= M) && (!std::is_same<T, U>::value)
 		>::type* = nullptr
 	)
 	{

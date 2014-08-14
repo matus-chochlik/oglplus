@@ -179,9 +179,6 @@ public:
 		typedef FramebufferStatus Status;
 	};
 
-	typedef typename Property::Buffer Buffer_;
-	typedef typename Property::Attachment Attachment_;
-
 	/// Checks the status of the framebuffer
 	/** Returns one of the values in the @c FramebufferStatus enumeration.
 	 *  For complete framebuffers this member function returns
@@ -245,7 +242,7 @@ public:
 	 */
 	static void AttachRenderbuffer(
 		Target target,
-		Attachment_ attachment,
+		Property::Attachment attachment,
 		RenderbufferName renderbuffer
 	)
 	{
@@ -313,7 +310,7 @@ public:
 	 */
 	static void AttachTexture(
 		Target target,
-		Attachment_ attachment,
+		Property::Attachment attachment,
 		TextureName texture,
 		GLint level
 	)
@@ -385,7 +382,7 @@ public:
 	 */
 	static void AttachTexture1D(
 		Target target,
-		Attachment_ attachment,
+		Property::Attachment attachment,
 		TextureTarget textarget,
 		TextureName texture,
 		GLint level
@@ -423,7 +420,7 @@ public:
 	 */
 	static void AttachTexture2D(
 		Target target,
-		Attachment_ attachment,
+		Property::Attachment attachment,
 		TextureTarget textarget,
 		TextureName texture,
 		GLint level
@@ -461,7 +458,7 @@ public:
 	 */
 	static void AttachTexture3D(
 		Target target,
-		Attachment_ attachment,
+		Property::Attachment attachment,
 		TextureTarget textarget,
 		TextureName texture,
 		GLint level,
@@ -501,7 +498,7 @@ public:
 	 */
 	static void AttachTextureLayer(
 		Target target,
-		Attachment_ attachment,
+		Property::Attachment attachment,
 		TextureName texture,
 		GLint level,
 		GLint layer
@@ -532,7 +529,7 @@ public:
 	 */
 	static void Invalidate(
 		Target target,
-		const EnumArray<Buffer_>& buffers
+		const EnumArray<Property::Buffer>& buffers
 	)
 	{
 		OGLPLUS_GLFUNC(InvalidateFramebuffer)(
@@ -556,12 +553,12 @@ public:
 	static void Invalidate(
 		Target target,
 		GLsizei count,
-		const Buffer_* buffers
+		const Property::Buffer* buffers
 	)
 	{
 		Invalidate(
 			target,
-			EnumArray<Buffer_>(count, buffers)
+			EnumArray<Property::Buffer>(count, buffers)
 		);
 	}
 
@@ -573,7 +570,7 @@ public:
 	 */
 	static void Invalidate(
 		Target target,
-		const EnumArray<Buffer_>& buffers,
+		const EnumArray<Property::Buffer>& buffers,
 		GLint x,
 		GLint y,
 		GLsizei width,
@@ -605,7 +602,7 @@ public:
 	static void Invalidate(
 		Target target,
 		GLsizei count,
-		const Buffer_* buffers,
+		const Property::Buffer* buffers,
 		GLint x,
 		GLint y,
 		GLsizei width,
@@ -614,7 +611,7 @@ public:
 	{
 		Invalidate(
 			target,
-			EnumArray<Buffer_>(count, buffers),
+			EnumArray<Property::Buffer>(count, buffers),
 			x,
 			y,
 			width,
