@@ -32,12 +32,20 @@ template <>
 class ObjGenDelOps<tag::VertexArray>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenVertexArrays)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenVertexArrays);
 	}
+#if GL_VERSION_4_5
+	static void Gen(tag::Create, GLsizei count, GLuint* names)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(CreateVertexArrays)(count, names);
+		OGLPLUS_CHECK_SIMPLE(CreateVertexArrays);
+	}
+#endif
 
 	static void Delete(GLsizei count, GLuint* names)
 	{

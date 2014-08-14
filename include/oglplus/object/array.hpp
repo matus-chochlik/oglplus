@@ -39,7 +39,9 @@ class Array
  : public ObjGenDelOps<typename Classify<Object>::ObjTag>
 {
 private:
+	typedef typename Classify<Object>::OpsTag OpsTag;
 	typedef typename Classify<Object>::ObjTag ObjTag;
+	typedef typename ObjGenTag<OpsTag, ObjTag>::Type GenTag;
 	typedef ObjGenDelOps<ObjTag> GenDelOps;
 
 	/// Array is not copyable
@@ -50,7 +52,7 @@ protected:
 
 	void _init(Nothing)
 	{
-		GenDelOps::Gen(GLsizei(_names.size()), _names.data());
+		GenDelOps::Gen(GenTag(), GLsizei(_names.size()), _names.data());
 	}
 
 	template <typename ObjectSubtype>

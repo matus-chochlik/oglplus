@@ -87,6 +87,9 @@ struct ObjectOps;
 struct Object;
 struct ProgVar;
 
+struct Generate;
+struct Create;
+
 struct Renderbuffer;
 struct Framebuffer;
 struct Texture;
@@ -136,6 +139,9 @@ class Sequence;
 
 template <typename ObjTag>
 class ObjGenDelOps;
+
+template <typename OpsTag, typename ObjTag>
+struct ObjGenTag;
 
 template <typename ObjTag>
 class ObjBindingOps;

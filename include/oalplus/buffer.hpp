@@ -36,7 +36,7 @@ template <>
 class ObjGenDelOps<tag::Buffer>
 {
 protected:
-	static void Gen(ALsizei count, ALuint* names)
+	static void Gen(tag::Generate, ALsizei count, ALuint* names)
 	{
 		assert(names != nullptr);
 		OALPLUS_ALFUNC(GenBuffers)(count, names);
@@ -223,7 +223,8 @@ class ObjectOps<OpsTag, oalplus::tag::Buffer>
 } // namespace oglplus
 namespace oalplus {
 
-typedef oglplus::ObjectOps<tag::DirectState, tag::Buffer> BufferOps;
+typedef oglplus::ObjectOps<tag::DirectState, tag::Buffer>
+	BufferOps;
 
 /// An @ref oalplus_object encapsulating the OpenAL buffer functionality
 /**

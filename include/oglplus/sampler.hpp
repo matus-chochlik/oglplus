@@ -44,12 +44,20 @@ template <>
 class ObjGenDelOps<tag::Sampler>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenSamplers)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenSamplers);
 	}
+#if GL_VERSION_4_5
+	static void Gen(tag::Create, GLsizei count, GLuint* names)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(CreateSamplers)(count, names);
+		OGLPLUS_CHECK_SIMPLE(CreateSamplers);
+	}
+#endif
 
 	static void Delete(GLsizei count, GLuint* names)
 	{

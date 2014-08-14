@@ -43,12 +43,20 @@ template <>
 class ObjGenDelOps<tag::Framebuffer>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenFramebuffers)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenFramebuffers);
 	}
+#if GL_VERSION_4_5
+	static void Gen(tag::Create, GLsizei count, GLuint* names)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(CreateFramebuffers)(count, names);
+		OGLPLUS_CHECK_SIMPLE(CreateFramebuffers);
+	}
+#endif
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
@@ -171,6 +179,9 @@ public:
 		typedef FramebufferStatus Status;
 	};
 
+	typedef typename Property::Buffer Buffer_;
+	typedef typename Property::Attachment Attachment_;
+
 	/// Checks the status of the framebuffer
 	/** Returns one of the values in the @c FramebufferStatus enumeration.
 	 *  For complete framebuffers this member function returns
@@ -234,7 +245,7 @@ public:
 	 */
 	static void AttachRenderbuffer(
 		Target target,
-		Property::Attachment attachment,
+		Attachment_ attachment,
 		RenderbufferName renderbuffer
 	)
 	{
@@ -302,7 +313,7 @@ public:
 	 */
 	static void AttachTexture(
 		Target target,
-		Property::Attachment attachment,
+		Attachment_ attachment,
 		TextureName texture,
 		GLint level
 	)
@@ -374,7 +385,7 @@ public:
 	 */
 	static void AttachTexture1D(
 		Target target,
-		Property::Attachment attachment,
+		Attachment_ attachment,
 		TextureTarget textarget,
 		TextureName texture,
 		GLint level
@@ -412,7 +423,7 @@ public:
 	 */
 	static void AttachTexture2D(
 		Target target,
-		Property::Attachment attachment,
+		Attachment_ attachment,
 		TextureTarget textarget,
 		TextureName texture,
 		GLint level
@@ -450,7 +461,7 @@ public:
 	 */
 	static void AttachTexture3D(
 		Target target,
-		Property::Attachment attachment,
+		Attachment_ attachment,
 		TextureTarget textarget,
 		TextureName texture,
 		GLint level,
@@ -490,7 +501,7 @@ public:
 	 */
 	static void AttachTextureLayer(
 		Target target,
-		Property::Attachment attachment,
+		Attachment_ attachment,
 		TextureName texture,
 		GLint level,
 		GLint layer
@@ -521,7 +532,7 @@ public:
 	 */
 	static void Invalidate(
 		Target target,
-		const EnumArray<Property::Buffer>& buffers
+		const EnumArray<Buffer_>& buffers
 	)
 	{
 		OGLPLUS_GLFUNC(InvalidateFramebuffer)(
@@ -545,12 +556,12 @@ public:
 	static void Invalidate(
 		Target target,
 		GLsizei count,
-		const Property::Buffer* buffers
+		const Buffer_* buffers
 	)
 	{
 		Invalidate(
 			target,
-			EnumArray<Property::Buffer>(count, buffers)
+			EnumArray<Buffer_>(count, buffers)
 		);
 	}
 
@@ -562,7 +573,7 @@ public:
 	 */
 	static void Invalidate(
 		Target target,
-		const EnumArray<Property::Buffer>& buffers,
+		const EnumArray<Buffer_>& buffers,
 		GLint x,
 		GLint y,
 		GLsizei width,
@@ -594,7 +605,7 @@ public:
 	static void Invalidate(
 		Target target,
 		GLsizei count,
-		const Property::Buffer* buffers,
+		const Buffer_* buffers,
 		GLint x,
 		GLint y,
 		GLsizei width,
@@ -603,7 +614,7 @@ public:
 	{
 		Invalidate(
 			target,
-			EnumArray<Property::Buffer>(count, buffers),
+			EnumArray<Buffer_>(count, buffers),
 			x,
 			y,
 			width,

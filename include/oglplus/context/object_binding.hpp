@@ -90,7 +90,7 @@ public:
 	{
 		typedef typename Classify<Object>::ObjTag ObjTag;
 
-		return Reference<ObjectOps<tag::CurrentBound, ObjTag >>();
+		return Reference<ObjectOps<tag::CurrentBound, ObjTag>>();
 	}
 
 	/// Returns a managed reference to the object currently bound to target

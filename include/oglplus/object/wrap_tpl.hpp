@@ -21,10 +21,22 @@
 #include <cassert>
 
 namespace oglplus {
+namespace tag {
+
+struct Generate { };
+struct Create { };
+
+} // namespace tag
 
 template <typename ObjTag>
 struct ObjectSubtype : Nothing
 { };
+
+template <typename OpsTag, typename ObjTag>
+struct ObjGenTag
+{
+	typedef tag::Generate Type;
+};
 
 template <typename ObjTag>
 class ObjGenDelOps;
@@ -96,6 +108,7 @@ class Object<ObjectOps<OpsTag, ObjTag>>
 {
 private:
 	typedef typename ObjTag::NameType NameT;
+	typedef typename ObjGenTag<OpsTag, ObjTag>::Type GenTag;
 
 	// Object is not copy-constructible
 	Object(const Object&);
@@ -119,7 +132,7 @@ private:
 
 	void _init(Nothing)
 	{
-		ObjGenDelOps<ObjTag>::Gen(1, &this->_name);
+		ObjGenDelOps<ObjTag>::Gen(GenTag(), 1, &this->_name);
 	}
 
 	template <typename ObjectSubtype>

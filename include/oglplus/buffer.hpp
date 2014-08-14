@@ -45,12 +45,20 @@ template <>
 class ObjGenDelOps<tag::Buffer>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenBuffers)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenBuffers);
 	}
+#if GL_VERSION_4_5
+	static void Gen(tag::Create, GLsizei count, GLuint* names)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(GenBuffers)(count, names);
+		OGLPLUS_CHECK_SIMPLE(GenBuffers);
+	}
+#endif
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
