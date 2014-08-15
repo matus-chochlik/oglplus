@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
-#  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
@@ -114,7 +114,8 @@ def action_mirror_master():
 	git_command(["pull", "origin", "master-with-history"], root_dir)
 	git_command(["merge", "master"], root_dir)
 	git_command(["push", "origin", "master-with-history"], root_dir)
-	git_command(["push", "sourceforge", "master-with-history:master"], root_dir)
+	#git_command(["push", "sourceforge", "master-with-history:master"], root_dir)
+	git_command(["checkout", "develop"], root_dir)
 
 # Begins a new release
 def action_begin_release():
