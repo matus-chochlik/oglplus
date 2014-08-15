@@ -39,10 +39,14 @@
 [def nullptr [^nullptr]]
 
 [def __UNSPECIFIED <UNSPECIFIED>]
+[def __Unspecified <Unspecified>]
 
 [/--------]
 [/Chapters]
 [/--------]
+
+[note This documentation is work-in progress and currently does not
+cover many of the implemented features.]
 
 [include oglplus.qbk]
 [include oalplus.qbk]

@@ -4,14 +4,16 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_ops_tags
+//[oglplus_gen_tags
 namespace oglplus {
 namespace tag {
 
-struct ExplicitSel; /*< Operations with ['explicit selector]. >*/
-struct ImplicitSel; /*< Operations with ['implicit selector]. >*/
-struct DirectState; /*< Operations with ['direct state access]. >*/
-struct CurrentBound;
+struct Generate; /*<
+Indicates that a [^glGen*] function should be used.
+>*/
+struct Create ; /*<
+Indicates that a [^glCreate*] function should be used.
+>*/
 
 } // namespace tag
 } // namespace oglplus

@@ -42,8 +42,9 @@ wraps texture-related GL functions with direct state access, etc.
 
 [header oglplus/object/wrapper.hpp]
 
-Some object types (for example __Shader) can be further classified into
-subtypes. The [^ObjectSubtype] __Metafunction allows to query the type
+Some object types (for example __Shader, __Texture or __Query) can be
+further classified into subtypes.
+The [^ObjectSubtype] __Metafunction allows to query the type
 (usually an [link oglplus.quickref.enums enumeration]) that is used
 to distinguish the individual subtypes.
 

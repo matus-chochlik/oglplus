@@ -28,6 +28,7 @@
 [def __ModelMatrix [link oglplus.quickref.math.matrix.model ModelMatrix]]
 [def __CameraMatrix [link oglplus.quickref.math.matrix.camera CameraMatrix]]
 
+[def __GenTag [link oglplus.quickref.gen_tags GenTag]]
 [def __OpsTag [link oglplus.quickref.ops_tags OpsTag]]
 
 [def __ObjTag [link oglplus.quickref.object.tags ObjTag]]
@@ -52,6 +53,18 @@
 
 [def __ObjectDesc [link oglplus.quickref.object.desc ObjectDesc]]
 [def __Object [link oglplus.quickref.object.wrapper Object]]
+
+[def __Buffer [link oglplus.quickref.buffer Buffer]]
+[def __VertexArray [link oglplus.quickref.vertex_array VertexArray]]
+[def __Texture [link oglplus.quickref.texture Texture]]
+[def __Sampler [link oglplus.quickref.sampler Sampler]]
+[def __Framebuffer [link oglplus.quickref.framebuffer Framebuffer]]
+[def __Renderbuffer [link oglplus.quickref.renderbuffer Renderbuffer]]
+[def __Shader [link oglplus.quickref.shader Shader]]
+[def __Program [link oglplus.quickref.program Program]]
+[def __ProgramPipeline [link oglplus.quickref.program_pipeline ProgramPipeline]]
+[def __Query [link oglplus.quickref.query Query]]
+[def __TransformFeedback [link oglplus.quickref.transform_feedback TransformFeedback]]
 
 [def __OptionalObject [link oglplus.quickref.object.optional Optional]]
 

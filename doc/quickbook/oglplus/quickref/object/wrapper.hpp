@@ -11,9 +11,9 @@ template <typename __ObjTag>
 class ObjGenDelOps
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names); /*<
-	Generates [^count] objects of the type specified by __ObjTag
-	and stores them in [^names].
+	static void Gen(__GenTag gen_tag, GLsizei count, GLuint* names); /*<
+	Generates [^count] objects of the type specified by [^__ObjTag],
+	using the method specified by [^gen_tag] and stores them in [^names].
 	Note that [^names] must provide enough space for at least [^count]
 	instances of [^GLuint].
 	>*/
@@ -59,8 +59,10 @@ class Object<ObjectOps<__OpsTag, __ObjTag>>
 {
 public:
 	Object(const Object&) = delete; /*< [^Object]s are non-copyable. >*/
-	Object(Object&& temp) noexcept; /*< [^Object]s are move-constructible >*/
-	Object& operator = (Object&& temp) /*< [^Object]s are move-assignable.  >*/
+	Object(Object&& temp) noexcept; /*<
+	[^Object]s are move-constructible and move assignable.
+	>*/
+	Object& operator = (Object&& temp);
 
 	Object(void); /*<
 	Default-constructs an [^Object]. This function creates a new GL object
@@ -68,9 +70,14 @@ public:
 	Note that object types with a [^Subtype] may not support default
 	construction and may require that the subtype is specified.
 	>*/
+	Object(__GenTag gen_tag); /*<
+	Constructs an [^object] with [^gen_tag] explicitly specifying
+	the GL [link oglplus.quickref.gen_tags object creation method].
+	>*/
 	Object(__ObjectDesc&& description); /*<
 	Constructs an [^Object] and attaches the specified [^description] to it.
 	>*/
+	Object(__GenTag gen_tag, __ObjectDesc&& description);
 
 	typedef typename __ObjectSubtype<__ObjTag>::Type Subtype; /*<
 	The subtype of the object. If this object type does not have
@@ -82,10 +89,12 @@ public:
 	If [^subtype] is __Nothing then this constructor is equivalent
 	to the default constructor.
 	>*/
+	Object(__GenTag gen_tag, Subtype subtype);
 	Object(Subtype subtype, __ObjectDesc&& description); /*<
 	Constructs an object of the specified [^subtype] and attaches
 	the specified [^description] to it.
 	>*/
+	Object(__GenTag gen_tag, Subtype subtype, __ObjectDesc&& description);
 
 	~Object(void) noexcept; /*<
 	Cleans up the wrapped GL object by calling

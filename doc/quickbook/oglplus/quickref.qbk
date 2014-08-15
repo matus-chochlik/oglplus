@@ -30,8 +30,21 @@ the concept.
 [include quickref/concept.qbk]
 [include quickref/string.qbk]
 [include quickref/error.qbk]
+[include quickref/gen_tags.qbk]
 [include quickref/ops_tags.qbk]
 [include quickref/object.qbk]
+
+[include quickref/buffer.qbk]
+[include quickref/vertex_array.qbk]
+[include quickref/texture.qbk]
+[include quickref/sampler.qbk]
+[include quickref/framebuffer.qbk]
+[include quickref/renderbuffer.qbk]
+[include quickref/shader.qbk]
+[include quickref/program.qbk]
+[include quickref/program_pipeline.qbk]
+[include quickref/query.qbk]
+[include quickref/transform_feedback.qbk]
 
 [include quickref/context.qbk]
 
