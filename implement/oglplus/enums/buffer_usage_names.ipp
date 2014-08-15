@@ -4,13 +4,13 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/buffer_usage.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	BufferUsage*,
 	GLenum value
 )
@@ -21,36 +21,36 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_STREAM_DRAW
-	case GL_STREAM_DRAW: return StrLit("STREAM_DRAW");
+	case GL_STREAM_DRAW: return StrCRef("STREAM_DRAW");
 #endif
 #if defined GL_STREAM_READ
-	case GL_STREAM_READ: return StrLit("STREAM_READ");
+	case GL_STREAM_READ: return StrCRef("STREAM_READ");
 #endif
 #if defined GL_STREAM_COPY
-	case GL_STREAM_COPY: return StrLit("STREAM_COPY");
+	case GL_STREAM_COPY: return StrCRef("STREAM_COPY");
 #endif
 #if defined GL_STATIC_DRAW
-	case GL_STATIC_DRAW: return StrLit("STATIC_DRAW");
+	case GL_STATIC_DRAW: return StrCRef("STATIC_DRAW");
 #endif
 #if defined GL_STATIC_READ
-	case GL_STATIC_READ: return StrLit("STATIC_READ");
+	case GL_STATIC_READ: return StrCRef("STATIC_READ");
 #endif
 #if defined GL_STATIC_COPY
-	case GL_STATIC_COPY: return StrLit("STATIC_COPY");
+	case GL_STATIC_COPY: return StrCRef("STATIC_COPY");
 #endif
 #if defined GL_DYNAMIC_DRAW
-	case GL_DYNAMIC_DRAW: return StrLit("DYNAMIC_DRAW");
+	case GL_DYNAMIC_DRAW: return StrCRef("DYNAMIC_DRAW");
 #endif
 #if defined GL_DYNAMIC_READ
-	case GL_DYNAMIC_READ: return StrLit("DYNAMIC_READ");
+	case GL_DYNAMIC_READ: return StrCRef("DYNAMIC_READ");
 #endif
 #if defined GL_DYNAMIC_COPY
-	case GL_DYNAMIC_COPY: return StrLit("DYNAMIC_COPY");
+	case GL_DYNAMIC_COPY: return StrCRef("DYNAMIC_COPY");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

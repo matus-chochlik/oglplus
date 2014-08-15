@@ -49,7 +49,7 @@ template <>
 class ObjGenDelOps<tag::PathNV>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		GLuint base = OGLPLUS_GLFUNC(GenPathsNV)(count);

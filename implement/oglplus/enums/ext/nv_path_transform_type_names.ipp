@@ -4,13 +4,13 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/ext/nv_path_transform_type.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	PathNVTransformType*,
 	GLenum value
 )
@@ -21,36 +21,36 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_NONE
-	case GL_NONE: return StrLit("NONE");
+	case GL_NONE: return StrCRef("NONE");
 #endif
 #if defined GL_TRANSLATE_X_NV
-	case GL_TRANSLATE_X_NV: return StrLit("TRANSLATE_X_NV");
+	case GL_TRANSLATE_X_NV: return StrCRef("TRANSLATE_X_NV");
 #endif
 #if defined GL_TRANSLATE_Y_NV
-	case GL_TRANSLATE_Y_NV: return StrLit("TRANSLATE_Y_NV");
+	case GL_TRANSLATE_Y_NV: return StrCRef("TRANSLATE_Y_NV");
 #endif
 #if defined GL_TRANSLATE_2D_NV
-	case GL_TRANSLATE_2D_NV: return StrLit("TRANSLATE_2D_NV");
+	case GL_TRANSLATE_2D_NV: return StrCRef("TRANSLATE_2D_NV");
 #endif
 #if defined GL_TRANSLATE_3D_NV
-	case GL_TRANSLATE_3D_NV: return StrLit("TRANSLATE_3D_NV");
+	case GL_TRANSLATE_3D_NV: return StrCRef("TRANSLATE_3D_NV");
 #endif
 #if defined GL_AFFINE_2D_NV
-	case GL_AFFINE_2D_NV: return StrLit("AFFINE_2D_NV");
+	case GL_AFFINE_2D_NV: return StrCRef("AFFINE_2D_NV");
 #endif
 #if defined GL_AFFINE_3D_NV
-	case GL_AFFINE_3D_NV: return StrLit("AFFINE_3D_NV");
+	case GL_AFFINE_3D_NV: return StrCRef("AFFINE_3D_NV");
 #endif
 #if defined GL_TRANSPOSE_AFFINE_2D_NV
-	case GL_TRANSPOSE_AFFINE_2D_NV: return StrLit("TRANSPOSE_AFFINE_2D_NV");
+	case GL_TRANSPOSE_AFFINE_2D_NV: return StrCRef("TRANSPOSE_AFFINE_2D_NV");
 #endif
 #if defined GL_TRANSPOSE_AFFINE_3D_NV
-	case GL_TRANSPOSE_AFFINE_3D_NV: return StrLit("TRANSPOSE_AFFINE_3D_NV");
+	case GL_TRANSPOSE_AFFINE_3D_NV: return StrCRef("TRANSPOSE_AFFINE_3D_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

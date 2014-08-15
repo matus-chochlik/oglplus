@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	DebugSeverity*,
 	GLenum value
 )
@@ -21,24 +21,24 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_DEBUG_SEVERITY_HIGH
-	case GL_DEBUG_SEVERITY_HIGH: return StrLit("DEBUG_SEVERITY_HIGH");
+	case GL_DEBUG_SEVERITY_HIGH: return StrCRef("DEBUG_SEVERITY_HIGH");
 #endif
 #if defined GL_DEBUG_SEVERITY_MEDIUM
-	case GL_DEBUG_SEVERITY_MEDIUM: return StrLit("DEBUG_SEVERITY_MEDIUM");
+	case GL_DEBUG_SEVERITY_MEDIUM: return StrCRef("DEBUG_SEVERITY_MEDIUM");
 #endif
 #if defined GL_DEBUG_SEVERITY_LOW
-	case GL_DEBUG_SEVERITY_LOW: return StrLit("DEBUG_SEVERITY_LOW");
+	case GL_DEBUG_SEVERITY_LOW: return StrCRef("DEBUG_SEVERITY_LOW");
 #endif
 #if defined GL_DEBUG_SEVERITY_NOTIFICATION
-	case GL_DEBUG_SEVERITY_NOTIFICATION: return StrLit("DEBUG_SEVERITY_NOTIFICATION");
+	case GL_DEBUG_SEVERITY_NOTIFICATION: return StrCRef("DEBUG_SEVERITY_NOTIFICATION");
 #endif
 #if defined GL_DONT_CARE
-	case GL_DONT_CARE: return StrLit("DONT_CARE");
+	case GL_DONT_CARE: return StrCRef("DONT_CARE");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

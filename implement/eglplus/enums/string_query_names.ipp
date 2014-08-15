@@ -4,13 +4,13 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/eglplus/string_query.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 namespace enums {
-EGLPLUS_LIB_FUNC StrLit ValueName_(
+EGLPLUS_LIB_FUNC StrCRef ValueName_(
 	StringQuery*,
 	EGLenum value
 )
@@ -21,21 +21,21 @@ EGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined EGL_CLIENT_APIS
-	case EGL_CLIENT_APIS: return StrLit("CLIENT_APIS");
+	case EGL_CLIENT_APIS: return StrCRef("CLIENT_APIS");
 #endif
 #if defined EGL_EXTENSIONS
-	case EGL_EXTENSIONS: return StrLit("EXTENSIONS");
+	case EGL_EXTENSIONS: return StrCRef("EXTENSIONS");
 #endif
 #if defined EGL_VENDOR
-	case EGL_VENDOR: return StrLit("VENDOR");
+	case EGL_VENDOR: return StrCRef("VENDOR");
 #endif
 #if defined EGL_VERSION
-	case EGL_VERSION: return StrLit("VERSION");
+	case EGL_VERSION: return StrCRef("VERSION");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

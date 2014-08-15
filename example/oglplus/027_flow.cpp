@@ -40,7 +40,7 @@ private:
 		Program prog(ObjectDesc("Flow map"));
 		prog.AttachShader(VertexShader(
 			ObjectDesc("Flow map vertex"),
-			StrLit(
+			StrCRef(
 			"#version 330\n"
 
 			"in vec4 Position;"
@@ -56,7 +56,7 @@ private:
 			)
 		)).AttachShader(FragmentShader(
 			ObjectDesc("Flow map fragment"),
-			StrLit(
+			StrCRef(
 			"#version 330\n"
 
 			"uniform sampler2D HMap1, HMap2;"
@@ -329,7 +329,7 @@ private:
 
 		prog.AttachShader(VertexShader(
 			ObjectDesc("Screen vertex"),
-			StrLit(
+			StrCRef(
 			"#version 330\n"
 
 			"in vec4 Position;"
@@ -345,7 +345,7 @@ private:
 			)
 		)).AttachShader(FragmentShader(
 			ObjectDesc("Screen fragment"),
-			StrLit(
+			StrCRef(
 			"#version 330\n"
 
 			"uniform sampler2D Background, NormalMap;"

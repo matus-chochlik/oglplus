@@ -39,7 +39,7 @@ template <>
 class ObjGenDelOps<tag::Shader>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names, GLenum type)
+	static void Gen(tag::Create, GLsizei count, GLuint* names, GLenum type)
 	{
 		assert(names != nullptr);
 		for(GLsizei i=0; i<count; ++i)
@@ -51,9 +51,9 @@ protected:
 
 	GLenum _type;
 
-	void Gen(GLsizei count, GLuint* names) const
+	void Gen(tag::Create create, GLsizei count, GLuint* names) const
 	{
-		Gen(count, names, _type);
+		Gen(create, count, names, _type);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
@@ -73,6 +73,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(IsShader);
 		return result;
 	}
+};
+
+template <>
+struct ObjGenTag<tag::DirectState, tag::Shader>
+{
+	typedef tag::Create Type;
 };
 
 /// Common shader operations

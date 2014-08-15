@@ -15,12 +15,57 @@
 
 #include <oglplus/string/utf8.hpp>
 #include <oglplus/config/compiler.hpp>
+#include <array>
+#include <vector>
 #include <string>
 #include <cstring>
 #include <cstddef>
 #include <cassert>
 
 namespace oglplus {
+
+// helper class used for implementation of concatenation of string references
+template <typename Char, typename Left, typename Right>
+class StrCRefChainTpl
+{
+private:
+	Left _left;
+	Right _right;
+public:
+	StrCRefChainTpl(Left left, Right right)
+	 : _left(left)
+	 , _right(right)
+	{ }
+
+	bool empty(void) const
+	{
+		return _left.empty() && _right.empty();
+	}
+
+	std::size_t size(void) const
+	{
+		return _left.size() + _right.size();
+	}
+
+	void append_to(std::basic_string<Char>& dest) const
+	{
+		_left.append_to(dest);
+		_right.append_to(dest);
+	}
+
+	std::basic_string<Char> str(void) const
+	{
+		std::basic_string<Char> result;
+		result.reserve(this->size()+1);
+		this->append_to(result);
+		return result;
+	}
+
+	OGLPLUS_EXPLICIT operator std::basic_string<Char>(void) const
+	{
+		return str();
+	}
+};
 
 /// String const reference wrapper template
 template <typename Char>
@@ -70,11 +115,34 @@ public:
 	 , _size(ssize)
 	{ _validate(); }
 
-	/// Construction from a std::string
-	StrCRefTpl(const std::string& sstr)
+	/// Construction from a character array with known size
+	template <std::size_t N>
+	StrCRefTpl(const Char (&cary)[N])
+	OGLPLUS_NOEXCEPT(true)
+	 : _c_str(cary)
+	 , _size(N)
+	{ _validate(); }
+
+	/// Construction from a std::basic_string<Char>
+	StrCRefTpl(const std::basic_string<Char>& sstr)
 	OGLPLUS_NOEXCEPT(true)
 	 : _c_str(sstr.c_str())
 	 , _size(sstr.size())
+	{ _validate(); }
+
+	/// Construction from a std::vector<Char>
+	StrCRefTpl(const std::vector<Char>& cvec)
+	OGLPLUS_NOEXCEPT(true)
+	 : _c_str(cvec.data())
+	 , _size(cvec.size())
+	{ _validate(); }
+
+	/// Construction from a std::array<Char, N>
+	template <std::size_t N>
+	StrCRefTpl(const std::array<Char, N>& cvec)
+	OGLPLUS_NOEXCEPT(true)
+	 : _c_str(cvec.data())
+	 , _size(cvec.size())
 	{ _validate(); }
 
 	/// Return the size (length) string
@@ -135,7 +203,75 @@ public:
 		assert(is_nts());
 		return begin();
 	}
+
+	static bool Equal(const StrCRefTpl& a, const StrCRefTpl& b)
+	{
+		return	(a.size() == b.size()) &&
+			(std::strncmp(a.begin(), b.begin(), a.size()) == 0);
+	}
+
+	static bool Equal(const StrCRefTpl& a, const Char* b)
+	{
+		if(a.is_nts()) return std::strcmp(a.c_str(), b) == 0;
+
+		std::size_t size = std::strlen(b);
+		return	(a.size() == size) &&
+			(std::strncmp(a.begin(), b, a.size()) == 0);
+	}
+
+	friend bool operator == (const StrCRefTpl& a, const StrCRefTpl& b)
+	{
+		return StrCRefTpl::Equal(a, b);
+	}
+
+	friend bool operator == (const StrCRefTpl& a, const Char* b)
+	{
+		return StrCRefTpl::Equal(a, b);
+	}
+
+	friend bool operator == (const Char* a, const StrCRefTpl& b)
+	{
+		return StrCRefTpl::Equal(b, a);
+	}
+
+	friend bool operator != (const StrCRefTpl& a, const StrCRefTpl& b)
+	{
+		return !StrCRefTpl::Equal(a, b);
+	}
+
+	friend bool operator != (const StrCRefTpl& a, const Char* b)
+	{
+		return !StrCRefTpl::Equal(a, b);
+	}
+
+	friend bool operator != (const Char* a, const StrCRefTpl& b)
+	{
+		return !StrCRefTpl::Equal(b, a);
+	}
 };
+
+template <typename Char>
+inline
+StrCRefChainTpl<Char, StrCRefTpl<Char>, StrCRefTpl<Char>>
+operator + (StrCRefTpl<Char> left, StrCRefTpl<Char> right)
+{
+	return StrCRefChainTpl<Char, StrCRefTpl<Char>, StrCRefTpl<Char>>(
+		left,
+		right
+	);
+}
+
+template <typename Char, typename Left, typename Right>
+inline
+StrCRefChainTpl<Char, StrCRefChainTpl<Char, Left, Right>, StrCRefTpl<Char> >
+operator + (StrCRefChainTpl<Char, Left, Right> left, StrCRefTpl<Char> right)
+{
+	return StrCRefChainTpl<
+		Char,
+		StrCRefChainTpl<Char,Left,Right>,
+		StrCRefTpl<Char>
+	>(left, right);
+}
 
 } // namespace oglplus
 

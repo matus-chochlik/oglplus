@@ -87,6 +87,25 @@ struct ViewportExtents
 	}
 };
 
+/// Helper structure storing the min/max bounds range
+struct BoundsRange
+{
+	// private implementation detail, do not use
+	GLfloat _v[2];
+
+	/// The min limit
+	GLfloat Min(void) const
+	{
+		return _v[0];
+	}
+
+	/// The max limit
+	GLfloat Max(void) const
+	{
+		return _v[1];
+	}
+};
+
 /// Helper structure storing the near/far depth range
 struct DepthRange
 {
@@ -139,6 +158,22 @@ public:
 		OGLPLUS_CHECK_SIMPLE(Viewport);
 	}
 
+	/// Returns the extents of the current viewport
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{VIEWPORT}
+	 */
+	static ViewportExtents Viewport(void)
+	{
+		ViewportExtents result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_VIEWPORT, result._v);
+		OGLPLUS_CHECK_SIMPLE(GetFloatv);
+		return result;
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
 	/// Returns the implementation-dependent viewport bounds range
 	/**
@@ -148,9 +183,9 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{VIEWPORT_BOUNDS_RANGE}
 	 */
-	static ViewportPosition ViewportBoundsRange(void)
+	static BoundsRange ViewportBoundsRange(void)
 	{
-		ViewportPosition result;
+		BoundsRange result;
 		OGLPLUS_GLFUNC(GetFloatv)(
 			GL_VIEWPORT_BOUNDS_RANGE,
 			result._v
@@ -346,7 +381,7 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{DEPTH_RANGE}
 	 */
-	static oglplus::context::DepthRange DepthRange(GLuint viewport)
+	static oglplus::context::DepthRange ViewportDepthRange(GLuint viewport)
 	{
 		oglplus::context::DepthRange result;
 		OGLPLUS_GLFUNC(GetFloati_v)(GL_DEPTH_RANGE, viewport,result._v);

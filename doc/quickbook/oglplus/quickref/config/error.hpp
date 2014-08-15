@@ -5,7 +5,6 @@
  */
 
 //[oglplus_config_error
-namespace oglplus {
 
 #ifndef OGLPLUS_ERROR_NO_FILE /*<
 Disables the [^SourceFile] attribute of __Error.
@@ -50,6 +49,5 @@ Enabled by default.
 # define OGLPLUS_ERROR_NO_GL_SYMBOL 0
 #endif
 
-} // namespace oglplus
 //]
 

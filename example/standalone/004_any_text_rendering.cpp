@@ -45,13 +45,14 @@ public:
 	 : gl()
 	 , tr(oglplus::text::STBTrueTypeRendering(0, 1, 2))
 	 , font(tr.LoadFont((argc>1)?argv[1]:"FreeSans"))
-	 , oglp_layout(tr.MakeLayout(font, oglplus::StrLit("OGLplus")))
-	 , desc_layout(tr.MakeLayout(font, oglplus::StrLit(u8"a C++ wrapper for OpenGL©")))
+	 , oglp_layout(tr.MakeLayout(font, "OGLplus"))
+	 , desc_layout(tr.MakeLayout(font, u8"a C++ wrapper for OpenGL©"))
 	 , time_layout(tr.MakeLayout(font, 25))
 	 , rndr(tr.GetRenderer(
 			oglplus::FragmentShader(
 				oglplus::ObjectDesc("Pixel color"),
-				oglplus::StrLit("#version 330\n"
+				oglplus::StrCRef(
+				"#version 330\n"
 				"vec4 PixelColor("
 				"	vec4 TexelColor,"
 				"	vec3 GlyphPosition,"

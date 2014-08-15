@@ -41,7 +41,12 @@ public:
 		return _index == _count;
 	}
 
-	String Front(void) const
+	std::size_t Size(void) const
+	{
+		return _count;
+	}
+
+	StrCRef Front(void) const
 	{
 		assert(!Empty());
 		const GLubyte* result = OGLPLUS_GLFUNC(GetStringi)(
@@ -49,7 +54,7 @@ public:
 			_index
 		);
 		OGLPLUS_VERIFY_SIMPLE(GetStringi);
-		return String((const GLchar*)result);
+		return StrCRef((const GLchar*)result);
 	}
 
 	void Next(void)
@@ -238,7 +243,7 @@ public:
 	 *  @glfunref{GetString}
 	 *  @gldefref{EXTENSIONS}
 	 */
-	static Range<String> Extensions(void);
+	static Range<StrCRef> Extensions(void);
 #else
 	static aux::StrQueryRange Extensions(void)
 	{

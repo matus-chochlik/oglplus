@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-EGLPLUS_LIB_FUNC StrLit ValueName_(
+EGLPLUS_LIB_FUNC StrCRef ValueName_(
 	OpenGLResetNotificationStrategy*,
 	EGLenum value
 )
@@ -21,15 +21,15 @@ EGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined EGL_NO_RESET_NOTIFICATION
-	case EGL_NO_RESET_NOTIFICATION: return StrLit("NO_RESET_NOTIFICATION");
+	case EGL_NO_RESET_NOTIFICATION: return StrCRef("NO_RESET_NOTIFICATION");
 #endif
 #if defined EGL_LOSE_CONTEXT_ON_RESET
-	case EGL_LOSE_CONTEXT_ON_RESET: return StrLit("LOSE_CONTEXT_ON_RESET");
+	case EGL_LOSE_CONTEXT_ON_RESET: return StrCRef("LOSE_CONTEXT_ON_RESET");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

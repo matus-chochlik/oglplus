@@ -4,13 +4,13 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/stencil_operation.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	StencilOperation*,
 	GLenum value
 )
@@ -21,33 +21,33 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_KEEP
-	case GL_KEEP: return StrLit("KEEP");
+	case GL_KEEP: return StrCRef("KEEP");
 #endif
 #if defined GL_ZERO
-	case GL_ZERO: return StrLit("ZERO");
+	case GL_ZERO: return StrCRef("ZERO");
 #endif
 #if defined GL_REPLACE
-	case GL_REPLACE: return StrLit("REPLACE");
+	case GL_REPLACE: return StrCRef("REPLACE");
 #endif
 #if defined GL_INCR
-	case GL_INCR: return StrLit("INCR");
+	case GL_INCR: return StrCRef("INCR");
 #endif
 #if defined GL_DECR
-	case GL_DECR: return StrLit("DECR");
+	case GL_DECR: return StrCRef("DECR");
 #endif
 #if defined GL_INVERT
-	case GL_INVERT: return StrLit("INVERT");
+	case GL_INVERT: return StrCRef("INVERT");
 #endif
 #if defined GL_INCR_WRAP
-	case GL_INCR_WRAP: return StrLit("INCR_WRAP");
+	case GL_INCR_WRAP: return StrCRef("INCR_WRAP");
 #endif
 #if defined GL_DECR_WRAP
-	case GL_DECR_WRAP: return StrLit("DECR_WRAP");
+	case GL_DECR_WRAP: return StrCRef("DECR_WRAP");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

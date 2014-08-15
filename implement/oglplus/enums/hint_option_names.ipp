@@ -4,13 +4,13 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/hint_option.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	HintOption*,
 	GLenum value
 )
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_FASTEST
-	case GL_FASTEST: return StrLit("FASTEST");
+	case GL_FASTEST: return StrCRef("FASTEST");
 #endif
 #if defined GL_NICEST
-	case GL_NICEST: return StrLit("NICEST");
+	case GL_NICEST: return StrCRef("NICEST");
 #endif
 #if defined GL_DONT_CARE
-	case GL_DONT_CARE: return StrLit("DONT_CARE");
+	case GL_DONT_CARE: return StrCRef("DONT_CARE");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

@@ -77,14 +77,6 @@ public:
 		Typecheck::CheckType(program, this->_location, identifier);
 	}
 
-	ProgVar operator[](std::size_t offset) const
-	{
-		return ProgVar(
-			ProgramName(this->_program),
-			this->_location+offset
-		);
-	}
-
 	ProgVar& BindTo(StrCRef identifier)
 	{
 		BaseGetSetOps::BindTo(identifier);
@@ -94,6 +86,14 @@ public:
 			identifier
 		);
 		return *this;
+	}
+
+	ProgVar operator[](std::size_t offset) const
+	{
+		return ProgVar(
+			ProgramName(this->_program),
+			this->_location+offset
+		);
 	}
 
 	ProgVar& operator = (ProgVarLoc<VarTag> pvloc)
@@ -157,6 +157,39 @@ public:
 		this->Set(value);
 		return *this;
 	}
+};
+
+template <typename OpsTag, typename VarTag>
+class ProgVar<OpsTag, VarTag, tag::NoTypecheck, void>
+ : public ProgVarCommonOps<VarTag>
+{
+private:
+	typedef ProgVarCommonOps<VarTag> BaseOps;
+public:
+	/// Default construction
+	ProgVar(void)
+	 : BaseOps(ProgVarLoc<VarTag>())
+	{ }
+
+	/// Variable from a ProgVarLoc
+	ProgVar(ProgVarLoc<VarTag> pvloc)
+	 : BaseOps(pvloc)
+	{ }
+
+	/// Variable with the specified @p location in the specified @p program
+	ProgVar(ProgramName program, GLuint location)
+	 : BaseOps(ProgVarLoc<VarTag>(program, GLint(location)))
+	{ }
+
+	/// Variable with the specified @p identifier in the specified @p program
+	ProgVar(ProgramName program, StrCRef identifier)
+	 : BaseOps(ProgVarLoc<VarTag>(program, identifier))
+	{ }
+
+	/// Variable with the specified @p identifier in the specified @p program
+	ProgVar(ProgramName program, StrCRef identifier, bool active_only)
+	 : BaseOps(ProgVarLoc<VarTag>(program, identifier, active_only))
+	{ }
 };
 
 #if !OGLPLUS_NO_INHERITED_CONSTRUCTORS

@@ -267,14 +267,14 @@ public:
 		Group(
 			DebugOutputSource source,
 			GLuint id,
-			const StrLit& message
+			StrCRef message
 		)
 		{
 			OGLPLUS_GLFUNC(PushDebugGroup)(
 				GLenum(source),
 				id,
 				message.size(),
-				message.c_str()
+				message.begin()
 			);
 			OGLPLUS_VERIFY_SIMPLE(PushDebugGroup);
 		}
@@ -403,7 +403,7 @@ public:
 		DebugOutputType type,
 		GLuint id,
 		DebugOutputSeverity severity,
-		const StrLit& message
+		StrCRef message
 	)
 	{
 		OGLPLUS_GLFUNC(DebugMessageInsert)(

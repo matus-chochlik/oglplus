@@ -35,7 +35,7 @@ public:
 	BlobVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Blob vertex shader"),
-		StrLit("#version 330\n"
+		"#version 330\n"
 		"uniform vec3 GridOffset;"
 		"uniform sampler1D Metaballs;"
 
@@ -69,7 +69,7 @@ public:
 		"	if(Sum > 0.0) vertCenter = vertCenter / Sum;"
 		"	vertInside = (vertValue >= 0.0)?1:0;"
 		"	gl_Position = vec4(vertPosition, 1.0);"
-		"}")
+		"}"
 	)
 	{ }
 };
@@ -83,7 +83,7 @@ public:
 	BlobGeomShader(void)
 	 : GeometryShader(
 		ObjectDesc("Blob geometry shader"),
-		StrLit("#version 330\n"
+		"#version 330\n"
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 4) out;"
 
@@ -161,7 +161,7 @@ public:
 		"void main(void)"
 		"{"
 		"	process_tetrahedron(0, 2, 4, 1);"
-		"}")
+		"}"
 	)
 	{
 		Texture::Active(0);
@@ -207,7 +207,7 @@ public:
 	BlobFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Blob fragment shader"),
-		StrLit("#version 330\n"
+		"#version 330\n"
 
 		"in vec3 geomNormal, geomLightDir, geomViewDir;"
 
@@ -244,7 +244,7 @@ public:
 		"		LightColor * Specular, "
 		"		1.0"
 		"	);"
-		"}")
+		"}"
 	)
 	{ }
 };
@@ -351,7 +351,7 @@ public:
 	MetalVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Metal vertex shader"),
-		StrLit("#version 330\n"
+		"#version 330\n"
 		"uniform mat4 CameraMatrix;"
 		"uniform vec3 CameraPosition, LightPosition;"
 		"in vec4 Position;"
@@ -371,7 +371,7 @@ public:
 		"	vertBitangent = cross(vertNormal, vertTangent);"
 		"	vertTexCoord = TexCoord * 9.0;"
 		"	gl_Position = CameraMatrix * gl_Position;"
-		"}")
+		"}"
 	)
 	{ }
 };
@@ -383,7 +383,7 @@ public:
 	MetalFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Metal fragment shader"),
-		StrLit("#version 330\n"
+		"#version 330\n"
 		"const vec3 Color1 = vec3(0.7, 0.6, 0.5);"
 		"const vec3 Color2 = vec3(0.9, 0.8, 0.7);"
 
@@ -431,7 +431,7 @@ public:
 		"		Color * Ambient +"
 		"		LightColor * Color * Diffuse + "
 		"		LightColor * Specular;"
-		"}")
+		"}"
 	)
 	{ }
 };

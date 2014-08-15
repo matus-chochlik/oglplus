@@ -16,15 +16,27 @@
 #include <oglplus/object/desc.hpp>
 #include <oglplus/object/name_tpl.hpp>
 #include <oglplus/object/seq_tpl.hpp>
-#include <oglplus/detail/nothing.hpp>
+#include <oglplus/utils/nothing.hpp>
 #include <type_traits>
 #include <cassert>
 
 namespace oglplus {
+namespace tag {
+
+struct Generate { };
+struct Create { };
+
+} // namespace tag
 
 template <typename ObjTag>
 struct ObjectSubtype : Nothing
 { };
+
+template <typename OpsTag, typename ObjTag>
+struct ObjGenTag
+{
+	typedef tag::Generate Type;
+};
 
 template <typename ObjTag>
 class ObjGenDelOps;
@@ -96,6 +108,7 @@ class Object<ObjectOps<OpsTag, ObjTag>>
 {
 private:
 	typedef typename ObjTag::NameType NameT;
+	typedef typename ObjGenTag<OpsTag, ObjTag>::Type GenTag;
 
 	// Object is not copy-constructible
 	Object(const Object&);
@@ -119,7 +132,7 @@ private:
 
 	void _init(Nothing)
 	{
-		ObjGenDelOps<ObjTag>::Gen(1, &this->_name);
+		ObjGenDelOps<ObjTag>::Gen(GenTag(), 1, &this->_name);
 	}
 
 	template <typename ObjectSubtype>
@@ -178,19 +191,19 @@ public:
 		_describe(std::move(description));
 	}
 
+	typedef typename ObjectSubtype<ObjTag>::Type Subtype;
+
 	/// Construction with subtype specification
-	Object(typename ObjectSubtype<ObjTag>::Type type)
+	Object(Subtype subtype)
 	{
-		_init(type);
+		_init(subtype);
 	}
 
 	/// A textual description can be attached to objects
-	Object(
-		typename ObjectSubtype<ObjTag>::Type type,
-		ObjectDesc&& description
+	Object(Subtype subtype, ObjectDesc&& description
 	)
 	{
-		_init(type);
+		_init(subtype);
 		_describe(std::move(description));
 	}
 

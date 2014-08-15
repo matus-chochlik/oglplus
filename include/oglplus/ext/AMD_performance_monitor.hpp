@@ -308,7 +308,7 @@ template <>
 class ObjGenDelOps<tag::PerfMonitorAMD>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenPerfMonitorsAMD)(count, names);

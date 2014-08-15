@@ -36,6 +36,11 @@ class ObjectOps;
 
 using oglplus::Object;
 
+namespace tag {
+
+using oglplus::tag::Generate;
+
+} // namespace tags
 } // namespace oalplus
 
 #endif // include guard

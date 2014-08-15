@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	NamedStringType*,
 	GLenum value
 )
@@ -21,12 +21,12 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_SHADER_INCLUDE_ARB
-	case GL_SHADER_INCLUDE_ARB: return StrLit("SHADER_INCLUDE_ARB");
+	case GL_SHADER_INCLUDE_ARB: return StrCRef("SHADER_INCLUDE_ARB");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

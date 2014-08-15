@@ -107,8 +107,8 @@ public:
 
 		const GLsizei kmin = (dims == 3)?-1:0;
 		const GLsizei kmax = (dims == 3)?+2:1;
-		const GLsizei jmin = (dims == 2)?-1:0;
-		const GLsizei jmax = (dims == 2)?+2:1;
+		const GLsizei jmin = (dims >= 2)?-1:0;
+		const GLsizei jmax = (dims >= 2)?+2:1;
 		const GLsizei imin = -1;
 		const GLsizei imax = +2;
 

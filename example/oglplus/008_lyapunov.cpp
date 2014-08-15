@@ -44,7 +44,7 @@ public:
 		// Vertex shader
 		VertexShader vs;
 		// Set the vertex shader source
-		vs.Source(StrLit(" \
+		vs.Source(" \
 			#version 330\n \
 			uniform float ScrollFactor; \
 			in vec2 Position; \
@@ -55,14 +55,14 @@ public:
 				vertCoord = ScrollFactor * Coord; \
 				gl_Position = vec4(Position, 0.0, 1.0); \
 			} \
-		"));
+		");
 		// compile it
 		vs.Compile();
 
 		// Fragment shader
 		FragmentShader fs;
 		// set the fragment shader source
-		fs.Source(StrLit(" \
+		fs.Source(" \
 			#version 330\n \
 			in vec2 vertCoord; \
 			out vec4 fragColor; \
@@ -116,7 +116,7 @@ public:
 					} \
 				} \
 			} \
-		"));
+		");
 		// compile it
 		fs.Compile();
 

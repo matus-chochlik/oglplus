@@ -349,6 +349,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_SAMPLE_MASK
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined SampleMask
+#  pragma push_macro("SampleMask")
+#  undef SampleMask
+   OGLPLUS_ENUM_CLASS_VALUE(SampleMask, GL_SAMPLE_MASK)
+#  pragma pop_macro("SampleMask")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(SampleMask, GL_SAMPLE_MASK)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #if defined GL_FRAMEBUFFER_SRGB
 # if OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
@@ -360,6 +376,22 @@
 #  pragma pop_macro("FramebufferSRGB")
 # else
    OGLPLUS_ENUM_CLASS_VALUE(FramebufferSRGB, GL_FRAMEBUFFER_SRGB)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DEBUG_OUTPUT_SYNCHRONOUS
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined DebugOutputSynchronous
+#  pragma push_macro("DebugOutputSynchronous")
+#  undef DebugOutputSynchronous
+   OGLPLUS_ENUM_CLASS_VALUE(DebugOutputSynchronous, GL_DEBUG_OUTPUT_SYNCHRONOUS)
+#  pragma pop_macro("DebugOutputSynchronous")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(DebugOutputSynchronous, GL_DEBUG_OUTPUT_SYNCHRONOUS)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1

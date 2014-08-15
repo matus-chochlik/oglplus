@@ -50,12 +50,32 @@ template <>
 class ObjGenDelOps<tag::Texture>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenTextures)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenTextures);
 	}
+#if GL_VERSION_4_5
+	static void Gen(
+		tag::Create,
+		GLenum target,
+		GLsizei count,
+		GLuint* names
+	)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(CreateTextures)(target, count, names);
+		OGLPLUS_CHECK_SIMPLE(CreateTextures);
+	}
+
+	GLenum _type;
+
+	void Gen(tag::Create create, GLsizei count, GLuint* names)
+	{
+		Gen(create, _type, count, names);
+	}
+#endif
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
@@ -71,6 +91,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(IsTexture);
 		return result;
 	}
+};
+
+template <>
+struct ObjectSubtype<tag::Texture>
+{
+	typedef TextureTarget Type;
 };
 
 /// Texture binding operations

@@ -50,12 +50,32 @@ template <>
 class ObjGenDelOps<tag::Query>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenQueries)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenQueries);
 	}
+#if GL_VERSION_4_5
+	static void Gen(
+		tag::Create,
+		GLenum target,
+		GLsizei count,
+		GLuint* names
+	)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(CreateQueries)(target, count, names);
+		OGLPLUS_CHECK_SIMPLE(CreateQueries);
+	}
+
+	GLenum _type;
+
+	void Gen(tag::Create create, GLsizei count, GLuint* names)
+	{
+		Gen(create, _type, count, names);
+	}
+#endif
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
@@ -71,6 +91,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(IsQuery);
 		return result;
 	}
+};
+
+template <>
+struct ObjectSubtype<tag::Query>
+{
+	typedef QueryTarget Type;
 };
 
 class QueryActivator;

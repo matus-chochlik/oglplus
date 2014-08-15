@@ -38,12 +38,20 @@ template <>
 class ObjGenDelOps<tag::TransformFeedback>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenTransformFeedbacks)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenTransformFeedbacks);
 	}
+#if GL_VERSION_4_5
+	static void Gen(tag::Create, GLsizei count, GLuint* names)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(CreateTransformFeedbacks)(count, names);
+		OGLPLUS_CHECK_SIMPLE(CreateTransformFeedbacks);
+	}
+#endif
 
 	static void Delete(GLsizei count, GLuint* names)
 	{

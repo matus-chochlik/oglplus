@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	GraphicsResetStatus*,
 	GLenum value
 )
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_NO_ERROR
-	case GL_NO_ERROR: return StrLit("NO_ERROR");
+	case GL_NO_ERROR: return StrCRef("NO_ERROR");
 #endif
 #if defined GL_GUILTY_CONTEXT_RESET_ARB
-	case GL_GUILTY_CONTEXT_RESET_ARB: return StrLit("GUILTY_CONTEXT_RESET_ARB");
+	case GL_GUILTY_CONTEXT_RESET_ARB: return StrCRef("GUILTY_CONTEXT_RESET_ARB");
 #endif
 #if defined GL_INNOCENT_CONTEXT_RESET_ARB
-	case GL_INNOCENT_CONTEXT_RESET_ARB: return StrLit("INNOCENT_CONTEXT_RESET_ARB");
+	case GL_INNOCENT_CONTEXT_RESET_ARB: return StrCRef("INNOCENT_CONTEXT_RESET_ARB");
 #endif
 #if defined GL_UNKNOWN_CONTEXT_RESET_ARB
-	case GL_UNKNOWN_CONTEXT_RESET_ARB: return StrLit("UNKNOWN_CONTEXT_RESET_ARB");
+	case GL_UNKNOWN_CONTEXT_RESET_ARB: return StrCRef("UNKNOWN_CONTEXT_RESET_ARB");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

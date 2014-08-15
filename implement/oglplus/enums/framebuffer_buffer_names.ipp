@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	FramebufferBuffer*,
 	GLenum value
 )
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_COLOR
-	case GL_COLOR: return StrLit("COLOR");
+	case GL_COLOR: return StrCRef("COLOR");
 #endif
 #if defined GL_DEPTH
-	case GL_DEPTH: return StrLit("DEPTH");
+	case GL_DEPTH: return StrCRef("DEPTH");
 #endif
 #if defined GL_STENCIL
-	case GL_STENCIL: return StrLit("STENCIL");
+	case GL_STENCIL: return StrCRef("STENCIL");
 #endif
 #if defined GL_DEPTH_STENCIL
-	case GL_DEPTH_STENCIL: return StrLit("DEPTH_STENCIL");
+	case GL_DEPTH_STENCIL: return StrCRef("DEPTH_STENCIL");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

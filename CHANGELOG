@@ -1,3 +1,29 @@
+Version 0.50.0
+
+- Support for different methods of GL object construction was added.
+- The implementation of smart-enums was updated and the smart-enum-values
+  were added.
+- The context::ClearBuffers class was renamed to context::BufferClearing.
+- The Capability enumeration was updated.
+- The StaticGroup class template was updated.
+- The Range utilities were updated, the Contains, Has and CountIf
+  functionw were added.
+- The StrQueryRange::Size member function was added.
+- The implementation of Nothing was moved from ./detail/ to ./utils/.
+- The Error::Code function was added.
+- The MultiplyBy and DivideBy functions in Vector were renabled to
+  Multiply and Divide.
+- The FragData class was added.
+- The Set function was removed from UniformBlock.
+- New constructors and comparison operators were added to StrCRef.
+- All occurences of StrLit were replaced by StrCRef and the StrLit class
+  was completely removed.
+- Syntax sugar operators for Sampler were added.
+- The MissingFunction exception class was moved into a separate file.
+- Several examples were updated and/or fixed.
+- Detection of GL version 4.5 was added to the build system.
+- The Quickbook documentation was updated.
+
 Version 0.49.0
 
 - Wrappers for the ARB_shading_language_include extension was added.

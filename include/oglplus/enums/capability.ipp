@@ -53,8 +53,12 @@ SampleAlphaToCoverage,
 SampleAlphaToOne,
 /// SAMPLE_COVERAGE
 SampleCoverage,
+/// SAMPLE_MASK
+SampleMask,
 /// FRAMEBUFFER_SRGB
 FramebufferSRGB,
+/// DEBUG_OUTPUT_SYNCHRONOUS
+DebugOutputSynchronous,
 /// STREAM_RASTERIZATION_AMD
 StreamRasterization
 

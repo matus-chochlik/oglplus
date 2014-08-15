@@ -16,7 +16,7 @@
 #include <oglplus/config/compiler.hpp>
 #include <oglplus/config/enums.hpp>
 #include <oglplus/string/def.hpp>
-#include <oglplus/string/literal.hpp>
+#include <oglplus/string/ref.hpp>
 #include <oglplus/detail/enum_class.hpp>
 #include <oglplus/detail/base_range.hpp>
 #include <vector>
@@ -38,7 +38,7 @@ namespace oglplus {
  *  @ingroup enumerations
  *  @see OGLPLUS_NO_ENUM_VALUE_NAMES
  */
-StrLit EnumValueName(Enum enum_value);
+StrCRef EnumValueName(Enum enum_value);
 
 /// Returns a @c Range of values in an @p Enumeration
 /** This template function is available for the enumerated types defined by
@@ -65,13 +65,13 @@ struct EnumBaseType
 	typedef GLenum Type;
 };
 
-inline StrLit ValueName_(GLenum*, GLenum)
+inline StrCRef ValueName_(GLenum*, GLenum)
 {
-	return StrLit();
+	return StrCRef();
 }
 
 template <typename EnumType>
-inline StrLit EnumValueName(EnumType enum_value)
+inline StrCRef EnumValueName(EnumType enum_value)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 	typedef typename EnumBaseType<EnumType>::Type BaseType;
@@ -81,7 +81,7 @@ inline StrLit EnumValueName(EnumType enum_value)
 	);
 #else
 	OGLPLUS_FAKE_USE(enum_value);
-	return StrLit();
+	return StrCRef();
 #endif
 }
 

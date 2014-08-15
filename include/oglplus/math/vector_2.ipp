@@ -20,8 +20,8 @@ public:
 	Vector(void)
 	{ }
 
-	template <typename U>
-	Vector(const Vector<U, 2>& vector)
+	template <typename U, std::size_t M>
+	Vector(const Vector<U, M>& vector)
 	 : Base(vector)
 	{ }
 
@@ -44,25 +44,12 @@ public:
 		this->_elem[1] = v1;
 	}
 
-	Vector(const Vector<T, 1>& v, T v1)
+	template <typename U>
+	Vector(const Vector<U, 1>& v, T v1)
 	 : Base(oglplus::Nothing())
 	{
-		this->_elem[0] = v[0];
+		this->_elem[0] = T(v[0]);
 		this->_elem[1] = v1;
-	}
-
-	Vector(const Vector<T, 3>& v)
-	 : Base(oglplus::Nothing())
-	{
-		this->_elem[0] = v[0];
-		this->_elem[1] = v[1];
-	}
-
-	Vector(const Vector<T, 4>& v)
-	 : Base(oglplus::Nothing())
-	{
-		this->_elem[0] = v[0];
-		this->_elem[1] = v[1];
 	}
 
 	Vector(Unit_, std::size_t axis)
@@ -129,13 +116,13 @@ public:
 
 	Vector& operator *= (T v)
 	{
-		this->MultiplyBy(v);
+		this->Multiply(v);
 		return *this;
 	}
 
 	Vector& operator *= (const Vector& v)
 	{
-		this->MultiplyBy(v);
+		this->Multiply(v);
 		return *this;
 	}
 
@@ -146,7 +133,7 @@ public:
 
 	Vector& operator /= (T v)
 	{
-		this->DivideBy(v);
+		this->Divide(v);
 		return *this;
 	}
 };

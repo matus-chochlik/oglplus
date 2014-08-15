@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	ResetNotificationStrategy*,
 	GLenum value
 )
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_NO_RESET_NOTIFICATION_ARB
-	case GL_NO_RESET_NOTIFICATION_ARB: return StrLit("NO_RESET_NOTIFICATION_ARB");
+	case GL_NO_RESET_NOTIFICATION_ARB: return StrCRef("NO_RESET_NOTIFICATION_ARB");
 #endif
 #if defined GL_LOSE_CONTEXT_ON_RESET_ARB
-	case GL_LOSE_CONTEXT_ON_RESET_ARB: return StrLit("LOSE_CONTEXT_ON_RESET_ARB");
+	case GL_LOSE_CONTEXT_ON_RESET_ARB: return StrCRef("LOSE_CONTEXT_ON_RESET_ARB");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;
