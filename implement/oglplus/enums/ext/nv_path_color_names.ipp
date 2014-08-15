@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	PathNVColor*,
 	GLenum value
 )
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_PRIMARY_COLOR_NV
-	case GL_PRIMARY_COLOR_NV: return StrLit("PRIMARY_COLOR_NV");
+	case GL_PRIMARY_COLOR_NV: return StrCRef("PRIMARY_COLOR_NV");
 #endif
 #if defined GL_SECONDARY_COLOR_NV
-	case GL_SECONDARY_COLOR_NV: return StrLit("SECONDARY_COLOR_NV");
+	case GL_SECONDARY_COLOR_NV: return StrCRef("SECONDARY_COLOR_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

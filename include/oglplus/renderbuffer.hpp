@@ -35,12 +35,20 @@ template <>
 class ObjGenDelOps<tag::Renderbuffer>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenRenderbuffers)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenRenderbuffers);
 	}
+#if GL_VERSION_4_5
+	static void Gen(tag::Create, GLsizei count, GLuint* names)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(CreateRenderbuffers)(count, names);
+		OGLPLUS_CHECK_SIMPLE(CreateRenderbuffers);
+	}
+#endif
 
 	static void Delete(GLsizei count, GLuint* names)
 	{

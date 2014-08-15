@@ -14,6 +14,7 @@
 #include <oglplus/ext/ARB_debug_output/severity.hpp>
 #include <oglplus/ext/ARB_debug_output/source.hpp>
 #include <oglplus/ext/ARB_debug_output/type.hpp>
+#include <oglplus/error/glfunc.hpp>
 
 #include "implement.ipp"
 

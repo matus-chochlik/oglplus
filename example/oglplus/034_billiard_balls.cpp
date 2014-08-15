@@ -60,8 +60,8 @@ class CommonVertShader
 public:
 	CommonVertShader(void)
 	 : VertexShader(
-		ObjectDesc(StrLit("Common vertex shader")),
-		StrLit("#version 330\n"
+		ObjectDesc("Common vertex shader"),
+		StrCRef("#version 330\n"
 		"uniform mat4 ModelMatrix;"
 		"uniform mat3 TextureMatrix;"
 		"uniform vec3 CameraPosition, LightPosition;"
@@ -100,8 +100,8 @@ class DefaultGeomShader
 public:
 	DefaultGeomShader(void)
 	 : GeometryShader(
-		ObjectDesc(StrLit("Default geometry shader")),
-		StrLit("#version 330\n"
+		ObjectDesc("Default geometry shader"),
+		StrCRef("#version 330\n"
 		"layout(triangles) in;"
 		"layout(triangle_strip, max_vertices = 3) out;"
 		"uniform mat4 CameraMatrix, ProjectionMatrix;"
@@ -157,8 +157,8 @@ class CubemapGeomShader
 public:
 	CubemapGeomShader(void)
 	 : GeometryShader(
-		ObjectDesc(StrLit("Cubemap geometry shader")),
-		StrLit("#version 330\n"
+		ObjectDesc("Cubemap geometry shader"),
+		StrCRef("#version 330\n"
 		"layout(triangles) in;"
 		"layout(triangle_strip, max_vertices = 18) out;"
 		"uniform mat4 ProjectionMatrix, CameraMatrix;"
@@ -288,8 +288,8 @@ class ClothFragmentShader
 public:
 	ClothFragmentShader(void)
 	 : FragmentShader(
-		ObjectDesc(StrLit("Cloth fragment shader")),
-		StrLit("#version 330\n"
+		ObjectDesc("Cloth fragment shader"),
+		StrCRef("#version 330\n"
 		"uniform vec3 Color1, Color2;"
 		"uniform sampler2D ClothTex, LightMap;"
 		"in vec3 geomNormal;"
@@ -370,8 +370,8 @@ class BallFragmentShader
 public:
 	BallFragmentShader(void)
 	 : FragmentShader(
-		ObjectDesc(StrLit("Ball fragment shader")),
-		StrLit("#version 330\n"
+		ObjectDesc("Ball fragment shader"),
+		StrCRef("#version 330\n"
 		"uniform vec3 Color1, Color2;"
 		"uniform sampler2DArray NumberTex;"
 		"uniform samplerCube ReflectTex;"
@@ -458,8 +458,8 @@ class LightmapVertShader
 public:
 	LightmapVertShader(void)
 	 : VertexShader(
-		ObjectDesc(StrLit("Lightmap vertex shader")),
-		StrLit("#version 330\n"
+		ObjectDesc("Lightmap vertex shader"),
+		StrCRef("#version 330\n"
 		"uniform mat4 TransformMatrix;"
 		"in vec4 Position;"
 		"out vec3 vertPosition;"
@@ -478,8 +478,8 @@ class LightmapFragShader
 public:
 	LightmapFragShader(void)
 	 : FragmentShader(
-		ObjectDesc(StrLit("Lightmap fragment shader")),
-		StrLit("#version 330\n"
+		ObjectDesc("Lightmap fragment shader"),
+		StrCRef("#version 330\n"
 		"uniform vec3 LightPosition;"
 		"uniform vec3 BallPositions[" OGLPLUS_EXAMPLE_034BB_BALL_COUNT_TXT "];"
 		"in vec3 vertPosition;"

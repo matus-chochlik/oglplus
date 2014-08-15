@@ -51,6 +51,7 @@ html_images: \
 	html/images/callouts/13.png \
 	html/images/callouts/14.png \
 	html/images/callouts/15.png \
+	html/images/note.png \
 	html/images/home.png \
 	html/images/next.png \
 	html/images/prev.png \

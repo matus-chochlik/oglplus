@@ -40,7 +40,7 @@ public:
 	 , fs(ShaderType::Fragment)
 	{
 		// Set the vertex shader source
-		vs.Source(StrLit(" \
+		vs.Source(" \
 			#version 330\n \
 			in vec2 Position; \
 			out vec2 vertCoord; \
@@ -49,12 +49,12 @@ public:
 				vertCoord = Position; \
 				gl_Position = vec4(Position, 0.0, 1.0); \
 			} \
-		"));
+		");
 		// compile it
 		vs.Compile();
 
 		// set the fragment shader source
-		fs.Source(StrLit(" \
+		fs.Source(" \
 			#version 330\n \
 			const float radius = 0.4; \
 			in vec2 vertCoord; \
@@ -74,7 +74,7 @@ public:
 					1.0 \
 				); \
 			} \
-		"));
+		");
 		// compile it
 		fs.Compile();
 

@@ -7,7 +7,56 @@
 	[id oglplus.quickref]
 ]
 
-[include quickref/error.qbk]
-[include quickref/object.qbk]
-[include quickref/config.qbk]
+[section:intro Introduction]
 
+This quick reference describes the public API of the __OGLplus__ library.
+The implementation details, i.e. parts of of OGLplus not listed in this
+reference should not be used by the library users and are subject to
+change without any prior notice.
+
+Note, that several classes or types described here (for example function
+parameter types or return value types), are just
+[link oglplus.quickref.concept concepts] - named lists of type
+constraints not concrete types. The actual types conforming to these concepts
+are implementation details and usually instantiation of templates.
+If values of such types are returned from a function and need to be stored
+in variables, then the [^auto] type specifier (or the [^decltype] operator)
+should be used to determine the actual type.
+Whenever this is the case, it is clearly noted in the section describing
+the concept.
+
+[endsect]
+
+[include quickref/concept.qbk]
+[include quickref/string.qbk]
+[include quickref/error.qbk]
+[include quickref/ops_tags.qbk]
+[include quickref/object.qbk]
+
+[include quickref/context.qbk]
+
+[include quickref/capability.qbk]
+[include quickref/hint.qbk]
+[include quickref/limit_query.qbk]
+[include quickref/string_query.qbk]
+[include quickref/compare_func.qbk]
+[include quickref/stencil_op.qbk]
+
+[include quickref/face_mode.qbk]
+[include quickref/blend_func.qbk]
+[include quickref/color_buffer.qbk]
+[include quickref/buffer_select_bit.qbk]
+[include quickref/shader_type.qbk]
+[include quickref/pixel_data.qbk]
+[include quickref/pixel_storage_mode.qbk]
+[include quickref/blit_filter.qbk]
+
+[include quickref/memory_barrier.qbk]
+
+[include quickref/context_profile_bit.qbk]
+[include quickref/context_flag_bit.qbk]
+
+[include quickref/config.qbk]
+[include quickref/math.qbk]
+[include quickref/enums.qbk]
+[include quickref/utils.qbk]

@@ -4,13 +4,13 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/ext/compat_prim_type.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	CompatibilityPrimitiveType*,
 	GLenum value
 )
@@ -21,39 +21,39 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_POINTS
-	case GL_POINTS: return StrLit("POINTS");
+	case GL_POINTS: return StrCRef("POINTS");
 #endif
 #if defined GL_LINE_STRIP
-	case GL_LINE_STRIP: return StrLit("LINE_STRIP");
+	case GL_LINE_STRIP: return StrCRef("LINE_STRIP");
 #endif
 #if defined GL_LINE_LOOP
-	case GL_LINE_LOOP: return StrLit("LINE_LOOP");
+	case GL_LINE_LOOP: return StrCRef("LINE_LOOP");
 #endif
 #if defined GL_LINES
-	case GL_LINES: return StrLit("LINES");
+	case GL_LINES: return StrCRef("LINES");
 #endif
 #if defined GL_TRIANGLE_STRIP
-	case GL_TRIANGLE_STRIP: return StrLit("TRIANGLE_STRIP");
+	case GL_TRIANGLE_STRIP: return StrCRef("TRIANGLE_STRIP");
 #endif
 #if defined GL_TRIANGLE_FAN
-	case GL_TRIANGLE_FAN: return StrLit("TRIANGLE_FAN");
+	case GL_TRIANGLE_FAN: return StrCRef("TRIANGLE_FAN");
 #endif
 #if defined GL_TRIANGLES
-	case GL_TRIANGLES: return StrLit("TRIANGLES");
+	case GL_TRIANGLES: return StrCRef("TRIANGLES");
 #endif
 #if defined GL_QUADS
-	case GL_QUADS: return StrLit("QUADS");
+	case GL_QUADS: return StrCRef("QUADS");
 #endif
 #if defined GL_QUAD_STRIP
-	case GL_QUAD_STRIP: return StrLit("QUAD_STRIP");
+	case GL_QUAD_STRIP: return StrCRef("QUAD_STRIP");
 #endif
 #if defined GL_POLYGON
-	case GL_POLYGON: return StrLit("POLYGON");
+	case GL_POLYGON: return StrCRef("POLYGON");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

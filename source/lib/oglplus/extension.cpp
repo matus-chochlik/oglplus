@@ -11,6 +11,7 @@
 
 #include "prologue.ipp"
 #include <oglplus/error/basic.hpp>
+#include <oglplus/error/glfunc.hpp>
 
 #include "implement.ipp"
 

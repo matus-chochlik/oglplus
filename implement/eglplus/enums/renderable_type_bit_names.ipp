@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-EGLPLUS_LIB_FUNC StrLit ValueName_(
+EGLPLUS_LIB_FUNC StrCRef ValueName_(
 	RenderableTypeBit*,
 	EGLenum value
 )
@@ -21,24 +21,24 @@ EGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined EGL_OPENGL_BIT
-	case EGL_OPENGL_BIT: return StrLit("OPENGL_BIT");
+	case EGL_OPENGL_BIT: return StrCRef("OPENGL_BIT");
 #endif
 #if defined EGL_OPENGL_ES_BIT
-	case EGL_OPENGL_ES_BIT: return StrLit("OPENGL_ES_BIT");
+	case EGL_OPENGL_ES_BIT: return StrCRef("OPENGL_ES_BIT");
 #endif
 #if defined EGL_OPENGL_ES2_BIT
-	case EGL_OPENGL_ES2_BIT: return StrLit("OPENGL_ES2_BIT");
+	case EGL_OPENGL_ES2_BIT: return StrCRef("OPENGL_ES2_BIT");
 #endif
 #if defined EGL_OPENGL_ES3_BIT
-	case EGL_OPENGL_ES3_BIT: return StrLit("OPENGL_ES3_BIT");
+	case EGL_OPENGL_ES3_BIT: return StrCRef("OPENGL_ES3_BIT");
 #endif
 #if defined EGL_OPENVG_BIT
-	case EGL_OPENVG_BIT: return StrLit("OPENVG_BIT");
+	case EGL_OPENVG_BIT: return StrCRef("OPENVG_BIT");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

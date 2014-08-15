@@ -5,12 +5,11 @@
  */
 
 //[oglplus_config_enums
-namespace oglplus {
 
 #ifndef OGLPLUS_NO_ENUM_VALUE_NAMES /*<
 Compile-time switch disabling the functions returning enumerated value names.
 Setting this preprocessor symbol to a non-zero value causes that
-the [^EnumValueName(Enum)] functions always return an empty string.
+the __EnumValueName functions always return an empty string.
 When set to zero these functions return a textual name of an enumerated
 value passed as argument.
 
@@ -24,7 +23,7 @@ and disabled otherwise.
 #ifndef OGLPLUS_NO_ENUM_VALUE_RANGES /*<
 Compile-time switch disabling the functions returning enumerated value ranges.
 Setting this preprocessor symbol to a nonzero value causes that
-the [^EnumValueRange<Enum>()] functions always return an empty range.
+the __EnumValueRange functions always return an empty range.
 When set to zero these functions return a range of all values in the
 enumeration passed as the template argument.
 
@@ -35,6 +34,5 @@ and disabled otherwise.
 # define OGLPLUS_NO_ENUM_VALUE_RANGES OGLPLUS_LOW_PROFILE
 #endif
 
-} // namespace oglplus
 //]
 

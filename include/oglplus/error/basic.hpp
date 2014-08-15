@@ -14,7 +14,7 @@
 #define OGLPLUS_ERROR_BASIC_1107121317_HPP
 
 #include <oglplus/config/error.hpp>
-#include <oglplus/enumerations.hpp>
+#include <oglplus/error/code.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/string/empty.hpp>
@@ -85,7 +85,7 @@ public:
 	}
 
 	/// Returns the GL error code related to the error
-	GLenum Code(void) const { return _code; }
+	ErrorCode Code(void) const { return ErrorCode(_code); }
 
 	Error& SourceFile(const char* file)
 	{
@@ -326,34 +326,6 @@ public:
 	 *  Otherwise the result is an empty String.
 	 */
 	virtual const String& Log(void) const { return EmptyString(); }
-};
-
-/// Exception class for situations when a pointer to a GL function is invalid.
-/** @OGLplus optionally (based on the value of the #OGLPLUS_NO_GLFUNC_CHECKS
- *  compile-time switch) checks, if pointers to OpenGL functions are valid
- *  (i.e. not @c nullptr). OpenGL functions are usually called through pointers,
- *  when using a library such as GLEW, which tries to find and get the addresses
- *  of GL functions from the GL library dynamically at run-time. Sometimes
- *  the pointers to several of the functions remain uninitialized and usually
- *  result in a memory violation and program termination if called.
- *
- *  The MissingFunction exception class indicates that the usage
- *  of such uninitialized function pointer was detected at run-time
- *  and allows the application to terminate more gracefully.
- *
- *  @see #OGLPLUS_NO_GLFUNC_CHECKS
- *
- *  @ingroup error_handling
- */
-class MissingFunction
- : public Error
-{
-public:
-	static const char* Message(void);
-
-	MissingFunction(const char* message)
-	 : Error(message)
-	{ }
 };
 
 /// Generic error handling function

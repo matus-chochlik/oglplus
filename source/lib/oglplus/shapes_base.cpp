@@ -14,6 +14,7 @@
 #include <oglplus/string/empty.hpp>
 #include <oglplus/string/utf8.hpp>
 #include <oglplus/error/limit.hpp>
+#include <oglplus/error/glfunc.hpp>
 #include <oglplus/face_mode.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/primitive_type.hpp>

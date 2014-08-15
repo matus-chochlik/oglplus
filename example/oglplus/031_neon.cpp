@@ -338,7 +338,7 @@ private:
 		Program prog(ObjectDesc("Particle"));
 
 		VertexShader vs(ObjectDesc("Particle vertex"));
-		vs.Source(StrLit(
+		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"uniform vec3 LightPosition;"
@@ -361,11 +361,11 @@ private:
 			"	vertType = gl_InstanceID / 10;"
 			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
-		)).Compile();
+		).Compile();
 		prog.AttachShader(vs);
 
 		FragmentShader fs(ObjectDesc("Particle fragment"));
-		fs.Source(StrLit(
+		fs.Source(
 			"#version 330\n"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"
@@ -435,7 +435,7 @@ private:
 			"		vec4(1.0, 1.0, 1.0, 1.0):"
 			"		vec4(color[vertType] * intensity, 1.0);"
 			"}"
-		)).Compile();
+		).Compile();
 		prog.AttachShader(fs);
 
 		prog.Link().Use();
@@ -481,7 +481,7 @@ private:
 		Program prog(ObjectDesc("Trail"));
 
 		VertexShader vs(ObjectDesc("Trail vertex"));
-		vs.Source(StrLit(
+		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"uniform float Time;"
@@ -496,11 +496,11 @@ private:
 			"	vertAge = Time - PositionAndTime.w;"
 			"	gl_Position = ProjectionMatrix * CameraMatrix * Position;"
 			"}"
-		)).Compile();
+		).Compile();
 		prog.AttachShader(vs);
 
 		FragmentShader fs(ObjectDesc("Trail fragment"));
-		fs.Source(StrLit(
+		fs.Source(
 			"#version 330\n"
 
 			"in float vertAge;"
@@ -512,7 +512,7 @@ private:
 			"	float a = exp(-vertAge);"
 			"	fragColor = vec4(a, a, a, a);"
 			"}"
-		)).Compile();
+		).Compile();
 		prog.AttachShader(fs);
 
 		prog.Link().Use();

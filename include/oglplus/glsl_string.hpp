@@ -15,7 +15,7 @@
 
 #include <oglplus/config/compiler.hpp>
 #include <oglplus/string/ref.hpp>
-#include <oglplus/string/literal.hpp>
+#include <oglplus/string/def.hpp>
 
 #include <cassert>
 #include <utility>
@@ -49,14 +49,14 @@ public:
 	 , _len(N)
 	{ }
 
-	GLSLString(const String& str)
-	 : _str(str.c_str())
+	GLSLString(const StrCRef& str)
+	 : _str(str.begin())
 	 , _len(GLint(str.size()))
 	{ }
 
-	GLSLString(const StrLit& lit)
-	 : _str(lit.c_str())
-	 , _len(GLint(lit.size()))
+	GLSLString(const String& str)
+	 : _str(str.c_str())
+	 , _len(GLint(str.size()))
 	{ }
 
 	GLSLString(const std::vector<GLchar>& v)

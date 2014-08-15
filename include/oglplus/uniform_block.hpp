@@ -168,21 +168,6 @@ public:
 	}
 };
 
-template <typename OpsTag>
-class ProgVarGetSetOps<OpsTag, tag::UniformBlock, UniformBufferBindingPoint>
- : public ProgVarCommonOps<tag::UniformBlock>
-{
-protected:
-	ProgVarGetSetOps(UniformBlockLoc ubloc)
-	 : ProgVarCommonOps<tag::UniformBlock>(ubloc)
-	{ }
-public:
-	void SetValue(UniformBufferBindingPoint value)
-	{
-		this->Binding(value);
-	}
-};
-
 /// Encapsulates uniform block operations
 /**
  *  @see Uniform
@@ -195,7 +180,7 @@ typedef ProgVar<
 	tag::ImplicitSel,
 	tag::UniformBlock,
 	tag::NoTypecheck,
-	UniformBufferBindingPoint
+	void
 > UniformBlock;
 
 #endif // uniform buffer object

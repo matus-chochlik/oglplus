@@ -9,7 +9,8 @@
 [header oglplus/config/enums.hpp]
 
 The preprocessor options defined here control behavior related
-to the OGLplus enumerations. The functions for iteration through all
+to the OGLplus [link oglplus.quickref.enums enumerations].
+The functions for iteration through all
 available values in an enumerated type and the functions for returning
 the GL names of the enumeration values can be either enabled or
 disabled by these options.

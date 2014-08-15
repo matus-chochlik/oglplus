@@ -276,6 +276,21 @@ inline Range Find(Range range, typename Range::ValueType value)
 	return range;
 }
 
+template <typename Range>
+inline bool Contains(Range range, typename Range::ValueType value)
+{
+	static_assert(
+		IsRange<Range>::Type::value,
+		"A Range is expected as the first argument"
+	);
+	while(!range.Empty())
+	{
+		if(range.Front() == value) return true;
+		range.Next();
+	}
+	return false;
+}
+
 template <typename Range, typename Predicate>
 inline Range& AdvanceUntil(Range& range, Predicate predicate)
 {
@@ -291,6 +306,22 @@ inline Range& AdvanceUntil(Range& range, Predicate predicate)
 	return range;
 }
 
+template <typename Range, typename Predicate>
+inline std::size_t CountIf(Range range, Predicate predicate)
+{
+	static_assert(
+		IsRange<Range>::Type::value,
+		"A Range is expected as the first argument"
+	);
+	std::size_t result = 0;
+	while(!range.Empty())
+	{
+		if(predicate(range.Front())) ++result;
+		range.Next();
+	}
+	return result;
+}
+
 /// Finds the first a value satisfying a predicate in a range
 /** This function traverses a range and stops either if the range
  *  is empty or if a value satisfying the predicate is found.
@@ -303,6 +334,12 @@ template <typename Range, typename Predicate>
 inline Range FindIf(Range range, Predicate predicate)
 {
 	return AdvanceUntil(range, predicate);
+}
+
+template <typename Range, typename Predicate>
+inline bool Has(Range range, Predicate predicate)
+{
+	return !AdvanceUntil(range, predicate).Empty();
 }
 
 template <typename Range, typename Transf>
@@ -412,7 +449,7 @@ public:
 
 	size_t Size(void) const
 	{
-		return _range.Size();
+		return CountIf(*this, _pred);
 	}
 
 	void Next(void)
@@ -488,7 +525,7 @@ public:
 };
 
 template <typename Element, typename R1, typename R2>
-Concatenated<Element, R1, R2> Concatenate(R1 r1, R2 r2)
+inline Concatenated<Element, R1, R2> Concatenate(R1 r1, R2 r2)
 {
 	static_assert(
 		IsRange<R1>::Type::value,
@@ -500,7 +537,6 @@ Concatenated<Element, R1, R2> Concatenate(R1 r1, R2 r2)
 	);
 	return Concatenated<Element, R1, R2>(r1, r2);
 }
-
 
 } // namespace ranges
 } // namespace oglplus

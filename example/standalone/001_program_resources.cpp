@@ -40,17 +40,17 @@ int main(int argc, char* argv[])
 		if(arg >= argc)
 		{
 			// attach a default vertex shader
-			prog.AttachShader(VertexShader(GLSLSource(StrLit(
+			prog.AttachShader(VertexShader(
 				"#version 330\n"
 				"in vec3 Position;"
 				"void main(void)"
 				"{"
 				"	gl_Position = vec4(Position, 1.0);"
 				"}"
-			))));
+			));
 
 			// and a default fragment shader
-			prog.AttachShader(FragmentShader(GLSLSource(StrLit(
+			prog.AttachShader(FragmentShader(
 				"#version 330\n"
 				"uniform vec4 Color1, Color2;"
 				"uniform float Mult;"
@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
 				"{"
 				"	fragColor = Mult*Color1 + Color2;"
 				"}"
-			))));
+			));
 		}
 		else while(arg != argc)
 		{

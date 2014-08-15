@@ -4,13 +4,13 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/data_type.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	DataType*,
 	GLenum value
 )
@@ -21,39 +21,39 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_BYTE
-	case GL_BYTE: return StrLit("BYTE");
+	case GL_BYTE: return StrCRef("BYTE");
 #endif
 #if defined GL_SHORT
-	case GL_SHORT: return StrLit("SHORT");
+	case GL_SHORT: return StrCRef("SHORT");
 #endif
 #if defined GL_INT
-	case GL_INT: return StrLit("INT");
+	case GL_INT: return StrCRef("INT");
 #endif
 #if defined GL_FIXED
-	case GL_FIXED: return StrLit("FIXED");
+	case GL_FIXED: return StrCRef("FIXED");
 #endif
 #if defined GL_FLOAT
-	case GL_FLOAT: return StrLit("FLOAT");
+	case GL_FLOAT: return StrCRef("FLOAT");
 #endif
 #if defined GL_HALF_FLOAT
-	case GL_HALF_FLOAT: return StrLit("HALF_FLOAT");
+	case GL_HALF_FLOAT: return StrCRef("HALF_FLOAT");
 #endif
 #if defined GL_DOUBLE
-	case GL_DOUBLE: return StrLit("DOUBLE");
+	case GL_DOUBLE: return StrCRef("DOUBLE");
 #endif
 #if defined GL_UNSIGNED_BYTE
-	case GL_UNSIGNED_BYTE: return StrLit("UNSIGNED_BYTE");
+	case GL_UNSIGNED_BYTE: return StrCRef("UNSIGNED_BYTE");
 #endif
 #if defined GL_UNSIGNED_SHORT
-	case GL_UNSIGNED_SHORT: return StrLit("UNSIGNED_SHORT");
+	case GL_UNSIGNED_SHORT: return StrCRef("UNSIGNED_SHORT");
 #endif
 #if defined GL_UNSIGNED_INT
-	case GL_UNSIGNED_INT: return StrLit("UNSIGNED_INT");
+	case GL_UNSIGNED_INT: return StrCRef("UNSIGNED_INT");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

@@ -67,7 +67,7 @@ public:
 	 , viewport_dimensions(prog, "ViewportDimensions")
 	 , edge_width(prog, "EdgeWidth")
 	{
-		vs.Source(StrLit(
+		vs.Source(
 			"#version 330\n"
 
 			"const vec3 LightPosition = vec3(10.0, 10.0, 7.0);"
@@ -96,10 +96,10 @@ public:
 			"		CameraMatrix *"
 			"		gl_Position;"
 			"}"
-		));
+		);
 		vs.Compile();
 
-		gs.Source(StrLit(
+		gs.Source(
 			"#version 330\n"
 			"layout (triangles) in;"
 			"layout (triangle_strip, max_vertices = 3) out;"
@@ -163,10 +163,10 @@ public:
 			"	}"
 			"	EndPrimitive();"
 			"}"
-		));
+		);
 		gs.Compile();
 
-		fs.Source(StrLit(
+		fs.Source(
 			"#version 330\n"
 
 			"uniform float EdgeWidth;"
@@ -194,7 +194,7 @@ public:
 
 			"	fragColor = mix(FaceColor, EdgeColor, EdgeAlpha);"
 			"}"
-		));
+		);
 		fs.Compile();
 
 		prog.AttachShader(vs);

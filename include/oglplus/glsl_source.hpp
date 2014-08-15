@@ -52,20 +52,20 @@ public:
 		tmp._impl = nullptr;
 	}
 
-	explicit GLSLSource(const StrLit& source)
-	 : _impl(make_impl<aux::LitGLSLSrcWrap>(source))
+	explicit GLSLSource(const StrCRef& source)
+	 : _impl(make_impl<aux::StrCRefGLSLSrcWrap>(source))
 	{ }
 
-	GLSLSource(const std::vector<StrLit>& lits)
-	 : _impl(make_impl<aux::LitsGLSLSrcWrap>(
+	GLSLSource(const std::vector<StrCRef>& lits)
+	 : _impl(make_impl<aux::StrCRefsGLSLSrcWrap>(
 		lits.begin(),
 		lits.end()
 	))
 	{ }
 
 	template <size_t N>
-	GLSLSource(const StrLit (&lits)[N])
-	 : _impl(make_impl<aux::LitsGLSLSrcWrap>(
+	GLSLSource(const StrCRef (&lits)[N])
+	 : _impl(make_impl<aux::StrCRefsGLSLSrcWrap>(
 		lits,
 		lits+N
 	))
@@ -79,8 +79,8 @@ public:
 	{ }
 
 #if !OGLPLUS_NO_INITIALIZER_LISTS
-	GLSLSource(std::initializer_list<StrLit> lits)
-	 : _impl(make_impl<aux::LitsGLSLSrcWrap>(
+	GLSLSource(std::initializer_list<StrCRef> lits)
+	 : _impl(make_impl<aux::StrCRefsGLSLSrcWrap>(
 		lits.begin(),
 		lits.end()
 	))
@@ -95,7 +95,7 @@ public:
 #endif
 
 	template <typename Head, typename Tail>
-	GLSLSource(const aux::StrLitCatTpl<GLchar, Head, Tail>& source)
+	GLSLSource(const StrCRefChainTpl<GLchar, Head, Tail>& source)
 	 : _impl(make_impl<aux::StrGLSLSrcWrap>(source.str()))
 	{ }
 

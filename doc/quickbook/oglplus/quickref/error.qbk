@@ -3,9 +3,16 @@
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
 [/============================]
-[section:errors Error handling]
+[section:error Error handling]
 [/============================]
 
+[include error/code.qbk]
 [include error/basic.qbk]
+[include error/glfunc.qbk]
+[include error/limit.qbk]
+[include error/object.qbk]
+[include error/prog_var.qbk]
+[include error/program.qbk]
+[include error/framebuffer.qbk]
 
 [endsect]

@@ -14,7 +14,7 @@ of the currently used compiler.
 The values are taken either externally from the build system
 through the compiler command-line or an IDE or from the
 [link oglplus.quickref.config.site site-configuration header]
-or from the [link oglplus.quickref.config.boost_config Boost.Config]
+or from the [link oglplus.quickref.config.site.boost_config Boost.Config]
 library.
 
 [import compiler.hpp]

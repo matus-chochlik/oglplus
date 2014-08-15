@@ -109,7 +109,7 @@ private:
 	{
 		Program prog;
 
-		prog << VertexShader(ObjectDesc("Mesh"), StrLit(
+		prog << VertexShader(ObjectDesc("Mesh"),
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
@@ -119,9 +119,9 @@ private:
 			"	gl_Position = "
 			"		ProjectionMatrix*CameraMatrix*ModelMatrix*Position;"
 			"}"
-		));
+		);
 
-		prog << FragmentShader(ObjectDesc("Mesh"), StrLit(
+		prog << FragmentShader(ObjectDesc("Mesh"),
 			"#version 330\n"
 			"out vec3 fragColor;"
 
@@ -129,7 +129,7 @@ private:
 			"{"
 			"	fragColor = vec3(0.1);"
 			"}"
-		));
+		);
 		prog.Link();
 
 		return prog;
@@ -154,7 +154,7 @@ private:
 	{
 		Program prog;
 
-		prog << VertexShader(ObjectDesc("Dist"), StrLit(
+		prog << VertexShader(ObjectDesc("Dist"),
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"in vec4 Position;"
@@ -166,7 +166,7 @@ private:
 			"	xfbIndex = uint(gl_VertexID);"
 			"	xfbDistance = p.z;"
 			"}"
-		));
+		);
 
 		prog << TransformFeedbackMode::SeparateAttribs
 			<< "xfbIndex"
@@ -195,7 +195,7 @@ private:
 	{
 		Program prog;
 
-		prog << VertexShader(ObjectDesc("Sort"), StrLit(
+		prog << VertexShader(ObjectDesc("Sort"),
 			"#version 330\n"
 			"uniform usampler2DRect SortNW;"
 			"uniform int Pass;"
@@ -224,7 +224,7 @@ private:
 			"	}"
 			"	xfbIndex = Index;"
 			"}"
-		));
+		);
 
 		prog.TransformFeedbackVarying("xfbIndex");
 		prog.Link();
@@ -251,7 +251,7 @@ private:
 	{
 		Program prog;
 
-		prog << VertexShader(ObjectDesc("Draw"), StrLit(
+		prog << VertexShader(ObjectDesc("Draw"),
 			"#version 330\n"
 			"uniform mat4 CameraMatrix;"
 			"in vec4 Position;"
@@ -262,9 +262,9 @@ private:
 			"	gl_Position = CameraMatrix * Position;"
 			"	vertColor = normalize(vec3(1)-Position.rgb);"
 			"}"
-		));
+		);
 
-		prog << GeometryShader(ObjectDesc("Draw"), StrLit(
+		prog << GeometryShader(ObjectDesc("Draw"),
 			"#version 330\n"
 			"layout(points) in;"
 			"layout(triangle_strip, max_vertices = 4) out;"
@@ -294,9 +294,9 @@ private:
 			"	}"
 			"	EndPrimitive();"
 			"}"
-		));
+		);
 
-		prog << FragmentShader(ObjectDesc("Draw"), StrLit(
+		prog << FragmentShader(ObjectDesc("Draw"),
 			"#version 330\n"
 			"in vec3 geomColor;"
 			"out vec4 fragColor;"
@@ -306,7 +306,7 @@ private:
 			"	float a = 1.0/16.0;"
 			"	fragColor = vec4(geomColor, a);"
 			"}"
-		));
+		);
 
 		prog.Link();
 

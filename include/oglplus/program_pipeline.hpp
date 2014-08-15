@@ -40,12 +40,21 @@ template <>
 class ObjGenDelOps<tag::ProgramPipeline>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenProgramPipelines)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenProgramPipelines);
 	}
+
+#if GL_VERSION_4_5
+	static void Gen(tag::Create, GLsizei count, GLuint* names)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(CreateProgramPipelines)(count, names);
+		OGLPLUS_CHECK_SIMPLE(CreateProgramPipelines);
+	}
+#endif
 
 	static void Delete(GLsizei count, GLuint* names)
 	{

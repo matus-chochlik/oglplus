@@ -64,7 +64,7 @@ private:
 	static Program make(void)
 	{
 		Program prog;
-		prog.AttachShader(VertexShader(ObjectDesc("Metal vertex"), StrLit(
+		prog.AttachShader(VertexShader(ObjectDesc("Metal vertex"),
 			"#version 330\n"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"uniform vec3 CameraPosition, LightPosition;"
@@ -87,9 +87,9 @@ private:
 			"	vertTexCoord = TexCoord * 50.0;"
 			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
-		)));
+		));
 
-		prog.AttachShader(FragmentShader(ObjectDesc("Metal fragment"), StrLit(
+		prog.AttachShader(FragmentShader(ObjectDesc("Metal fragment"),
 			"#version 330\n"
 			"const vec3 Color1 = vec3(0.5, 0.5, 0.6);"
 			"const vec3 Color2 = vec3(0.7, 0.7, 0.8);"
@@ -139,7 +139,7 @@ private:
 			"		LightColor * Color * Diffuse + "
 			"		LightColor * Specular;"
 			"}"
-		)));
+		));
 
 		prog.Link();
 		return prog;
@@ -462,7 +462,7 @@ private:
 	static Program make(void)
 	{
 		Program prog;
-		prog.AttachShader(VertexShader(ObjectDesc("Draw vertex"), StrLit(
+		prog.AttachShader(VertexShader(ObjectDesc("Draw vertex"),
 			"#version 330\n"
 
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
@@ -498,9 +498,9 @@ private:
 			"	vertViewDir = CameraPosition - gl_Position.xyz;"
 			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
-		)));
+		));
 
-		prog.AttachShader(FragmentShader(ObjectDesc("Draw fragment"), StrLit(
+		prog.AttachShader(FragmentShader(ObjectDesc("Draw fragment"),
 			"#version 330\n"
 
 			"uniform float LightMultiplier;"
@@ -539,7 +539,7 @@ private:
 			"		LightColor * Color * (Ambient+Diffuse)+"
 			"		LightColor * Specular;"
 			"}"
-		)));
+		));
 
 		prog.Link();
 		return prog;
@@ -568,7 +568,7 @@ private:
 	static Program make(void)
 	{
 		Program prog;
-		prog.AttachShader(VertexShader(ObjectDesc("Shadow vertex"), StrLit(
+		prog.AttachShader(VertexShader(ObjectDesc("Shadow vertex"),
 			"#version 330\n"
 
 			"uniform vec3 LightPosition;"
@@ -594,9 +594,9 @@ private:
 			"	vertNormal = Normal;"
 			"	vertLightDir = LightPosition - gl_Position.xyz;"
 			"}"
-		)));
+		));
 
-		prog.AttachShader(GeometryShader(ObjectDesc("Shadow geometry"), StrLit(
+		prog.AttachShader(GeometryShader(ObjectDesc("Shadow geometry"),
 			"#version 330\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 12) out;"
@@ -655,7 +655,7 @@ private:
 			"		make_plane(0, 2);"
 			"	}"
 			"}"
-		)));
+		));
 
 		prog.Link();
 		return prog;

@@ -7,7 +7,7 @@
 //[oglplus_object_name
 namespace oglplus {
 
-template <typename ObjTag>
+template <typename __ObjTag>
 class ObjectName
 {
 public:
@@ -32,9 +32,15 @@ public:
 	friend bool operator <  (ObjectName, ObjectName);
 };
 
-typedef ObjectName<tag::Renderbuffer> RenderbufferName; /*<
-	Object name typedefs.
+template <typename ObjTag>
+GLuint GetGLName(__ObjectName<__ObjTag> named); /*<
+	Allows to access the 'raw' GL object name.
 >*/
+
+//]
+//[oglplus_object_name_typedefs
+
+typedef __ObjectName<tag::Renderbuffer> RenderbufferName;
 typedef ObjectName<tag::Framebuffer> FramebufferName;
 typedef ObjectName<tag::Texture> TextureName;
 typedef ObjectName<tag::Buffer> BufferName;
@@ -47,11 +53,6 @@ typedef ObjectName<tag::VertexArray> VertexArrayName;
 typedef ObjectName<tag::Shader> ShaderName;
 typedef ObjectName<tag::PerfMonitorAMD> PerfMonitorAMDName;
 typedef ObjectName<tag::PathNV> PathNVName;
-
-template <typename ObjTag>
-GLuint GetGLName(ObjectName<ObjTag> named); /*<
-	Allows to access the 'raw' GL object name.
->*/
 
 } // namespace oglplus
 //]

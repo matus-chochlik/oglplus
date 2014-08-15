@@ -14,11 +14,13 @@
 #include <oglplus/string/empty.hpp>
 #include <oglplus/string/utf8.hpp>
 #include <oglplus/object/type.hpp>
+#include <oglplus/error/code.hpp>
 #include <oglplus/framebuffer_status.hpp>
 
 #include "implement.ipp"
 
 #include <oglplus/error/basic.hpp>
+#include <oglplus/error/glfunc.hpp>
 #include <oglplus/error/limit.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/error/program.hpp>

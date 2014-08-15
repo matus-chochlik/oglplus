@@ -1,0 +1,72 @@
+[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Software License, Version 1.0. (See accompanying file            ]
+[/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
+
+[/=================================]
+[section:context Current GL context]
+[/=================================]
+
+This section describes classes and functions wrapping operations on the current
+OpenGL context, which are not related to any explicitly allocated
+object or resource, i.e. operations like enabling and disabling
+various OpenGL capabilities and changing the state
+values of the current context.
+
+[def __context_Errors [link oglplus.quickref.context.errors context::Errors]]
+[def __context_Capabilities [link oglplus.quickref.context.capabilities context::Capabilities]]
+[def __context_ViewportOps [link oglplus.quickref.context.viewport context::ViewportOps]]
+[def __context_BufferSelection [link oglplus.quickref.context.buffer_selection context::BufferSelection]]
+[def __context_BufferMasking [link oglplus.quickref.context.buffer_masking context::BufferMasking]]
+[def __context_BufferClearing [link oglplus.quickref.context.buffer_clearing context::BufferClearing]]
+[def __context_Rasterization [link oglplus.quickref.context.rasterization context::Rasterization]]
+[def __context_Drawing [link oglplus.quickref.context.drawing context::Drawing]]
+[def __context_Computing [link oglplus.quickref.context.computing context::Computing]]
+[def __context_DepthTest [link oglplus.quickref.context.depth_test context::DepthTest]]
+[def __context_StencilTest [link oglplus.quickref.context.stencil_test context::StencilTest]]
+[def __context_ScissorTest [link oglplus.quickref.context.scissor_test context::ScissorTest]]
+[def __context_LogicalOps [link oglplus.quickref.context.logical_ops context::LogicalOps]]
+[def __context_PixelOps [link oglplus.quickref.context.pixel_ops context::PixelOps]]
+[def __context_Blending [link oglplus.quickref.context.blending context::Blending]]
+[def __context_Synchronization [link oglplus.quickref.context.synchronization context::Synchronization]]
+[def __context_Hints [link oglplus.quickref.context.hints context::Hints]]
+[def __context_LimitQueries [link oglplus.quickref.context.limit_queries context::LimitQueries]]
+[def __context_NumericQueries [link oglplus.quickref.context.numeric_queries context::NumericQueries]]
+[def __context_StringQueries [link oglplus.quickref.context.string_queries context::StringQueries]]
+[def __context_ObjectBinding [link oglplus.quickref.context.object_binding context::ObjectBinding]]
+[def __context_ObjectDSA [link oglplus.quickref.context.object_dsa context::ObjectDSA]]
+
+[heading [^Context]]
+
+[header oglplus/context.hpp]
+
+[^Context] is a stateless class wrapping all current GL context operations.
+The actual functionality is implemented by subclasses in the [^context] namespace,
+but the library end-users should rarely need to use them directly.
+
+[import context.hpp]
+[oglplus_Context]
+
+[include context/errors.qbk]
+[include context/capabilities.qbk]
+[include context/viewport.qbk]
+[include context/buffer_selection.qbk]
+[include context/buffer_masking.qbk]
+[include context/buffer_clearing.qbk]
+[include context/rasterization.qbk]
+[include context/drawing.qbk]
+[include context/computing.qbk]
+[include context/depth_test.qbk]
+[include context/stencil_test.qbk]
+[include context/scissor_test.qbk]
+[include context/logical_ops.qbk]
+[include context/pixel_ops.qbk]
+[include context/blending.qbk]
+[include context/synchronization.qbk]
+[include context/hints.qbk]
+[include context/limit_queries.qbk]
+[include context/numeric_queries.qbk]
+[include context/string_queries.qbk]
+[include context/object_binding.qbk]
+[include context/object_dsa.qbk]
+
+[endsect]

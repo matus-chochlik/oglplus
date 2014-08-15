@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	ContextProfileBit*,
 	GLenum value
 )
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_CONTEXT_CORE_PROFILE_BIT
-	case GL_CONTEXT_CORE_PROFILE_BIT: return StrLit("CONTEXT_CORE_PROFILE_BIT");
+	case GL_CONTEXT_CORE_PROFILE_BIT: return StrCRef("CONTEXT_CORE_PROFILE_BIT");
 #endif
 #if defined GL_CONTEXT_COMPATIBILITY_PROFILE_BIT
-	case GL_CONTEXT_COMPATIBILITY_PROFILE_BIT: return StrLit("CONTEXT_COMPATIBILITY_PROFILE_BIT");
+	case GL_CONTEXT_COMPATIBILITY_PROFILE_BIT: return StrCRef("CONTEXT_COMPATIBILITY_PROFILE_BIT");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

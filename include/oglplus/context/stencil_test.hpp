@@ -132,6 +132,11 @@ public:
 		return CompareFunction(result);
 	}
 
+	static CompareFunction StencilFunc(Face face)
+	{
+		return StencilFunc(face == Face::Back);
+	}
+
 	/// Returns the value of stencil mask
 	/**
 	 *  @glsymbols
@@ -150,6 +155,11 @@ public:
 		);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return GLuint(result);
+	}
+
+	static GLuint StencilValueMask(Face face)
+	{
+		return StencilValueMask(face == Face::Back);
 	}
 
 	/// Returns the stencil reference value
@@ -172,6 +182,11 @@ public:
 		return GLuint(result);
 	}
 
+	static GLuint StencilRef(Face face)
+	{
+		return StencilRef(face == Face::Back);
+	}
+
 	/// Returns the stencil-fail action
 	/**
 	 *  @glsymbols
@@ -190,6 +205,11 @@ public:
 		);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return StencilOperation(result);
+	}
+
+	static StencilOperation StencilFail(Face face)
+	{
+		return StencilFail(face == Face::Back);
 	}
 
 	/// Returns the stencil-pass depth-fail action
@@ -212,6 +232,11 @@ public:
 		return StencilOperation(result);
 	}
 
+	static StencilOperation StencilPassDepthFail(Face face)
+	{
+		return StencilPassDepthFail(face == Face::Back);
+	}
+
 	/// Returns the stencil-pass depth-pass action
 	/**
 	 *  @glsymbols
@@ -231,6 +256,12 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return StencilOperation(result);
 	}
+
+	static StencilOperation StencilPassDepthPass(Face face)
+	{
+		return StencilPassDepthPass(face == Face::Back);
+	}
+
 };
 
 } // namespace context

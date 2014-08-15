@@ -4,13 +4,13 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/ext/nv_path_list_mode.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit ValueName_(
+OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	PathNVListMode*,
 	GLenum value
 )
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 switch(value)
 {
 #if defined GL_ACCUM_ADJACENT_PAIRS_NV
-	case GL_ACCUM_ADJACENT_PAIRS_NV: return StrLit("ACCUM_ADJACENT_PAIRS_NV");
+	case GL_ACCUM_ADJACENT_PAIRS_NV: return StrCRef("ACCUM_ADJACENT_PAIRS_NV");
 #endif
 #if defined GL_ADJACENT_PAIRS_NV
-	case GL_ADJACENT_PAIRS_NV: return StrLit("ADJACENT_PAIRS_NV");
+	case GL_ADJACENT_PAIRS_NV: return StrCRef("ADJACENT_PAIRS_NV");
 #endif
 #if defined GL_FIRST_TO_REST_NV
-	case GL_FIRST_TO_REST_NV: return StrLit("FIRST_TO_REST_NV");
+	case GL_FIRST_TO_REST_NV: return StrCRef("FIRST_TO_REST_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrLit();
+return StrCRef();
 }
 #else
 ;

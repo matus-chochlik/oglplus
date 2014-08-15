@@ -87,6 +87,9 @@ struct ObjectOps;
 struct Object;
 struct ProgVar;
 
+struct Generate;
+struct Create;
+
 struct Renderbuffer;
 struct Framebuffer;
 struct Texture;
@@ -106,6 +109,7 @@ struct Uniform;
 struct UniformBlock;
 struct Subroutine;
 struct SubroutineUniform;
+struct FragData;
 
 struct NativeTypes;
 struct MatrixTypes;
@@ -135,6 +139,9 @@ class Sequence;
 
 template <typename ObjTag>
 class ObjGenDelOps;
+
+template <typename OpsTag, typename ObjTag>
+struct ObjGenTag;
 
 template <typename ObjTag>
 class ObjBindingOps;
@@ -187,6 +194,7 @@ typedef ProgVarLoc<tag::Uniform> UniformLoc;
 typedef ProgVarLoc<tag::UniformBlock> UniformBlockLoc;
 typedef ProgVarLoc<tag::Subroutine> SubroutineLoc;
 typedef ProgVarLoc<tag::SubroutineUniform> SubroutineUniformLoc;
+typedef ProgVarLoc<tag::FragData> FragDataLoc;
 
 template <typename VarTag>
 class ProgVarLocOps;

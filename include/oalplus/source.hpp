@@ -41,7 +41,7 @@ template <>
 class ObjGenDelOps<tag::Source>
 {
 protected:
-	static void Gen(ALsizei count, ALuint* names)
+	static void Gen(tag::Generate, ALsizei count, ALuint* names)
 	{
 		assert(names != nullptr);
 		OALPLUS_ALFUNC(GenSources)(count, names);
@@ -1047,7 +1047,8 @@ class ObjectOps<OpsTag, oalplus::tag::Source>
 } // namespace oglplus
 namespace oalplus {
 
-typedef oglplus::ObjectOps<tag::DirectState, tag::Source> SourceOps;
+typedef oglplus::ObjectOps<tag::DirectState, tag::Source>
+	SourceOps;
 
 /// An @ref oalplus_object encapsulating the OpenAL source functionality
 /**

@@ -37,7 +37,7 @@ public:
 	 , camera_matrix(prog, "CameraMatrix")
 	{
 		VertexShader vert(ObjectDesc("Vertex"));
-		vert.Source(StrLit(
+		vert.Source(
 			"#version 330\n"
 			"uniform mat4 CameraMatrix;"
 
@@ -48,12 +48,12 @@ public:
 			"{"
 			"	vertPosition = CameraMatrix * Position;"
 			"}"
-		));
+		);
 		vert.Compile();
 		prog << vert;
 
 		TessControlShader teco(ObjectDesc("TessControl"));
-		teco.Source(StrLit(
+		teco.Source(
 			"#version 330\n"
 			"#extension ARB_tessellation_shader: enable\n"
 			"layout(vertices = 16) out;"
@@ -76,12 +76,12 @@ public:
 			"	tecoPosition[gl_InvocationID] = "
 			"		vertPosition[gl_InvocationID].xyz;"
 			"}"
-		));
+		);
 		teco.Compile();
 		prog << teco;
 
 		TessEvaluationShader teev(ObjectDesc("TessEvaluation"));
-		teev.Source(StrLit(
+		teev.Source(
 			"#version 330\n"
 			"#extension ARB_tessellation_shader: enable\n"
 			"layout(quads, equal_spacing, ccw) in;"
@@ -121,19 +121,19 @@ public:
 
 			"	gl_Position = ProjectionMatrix * tempPosition;"
 			"}"
-		));
+		);
 		teev.Compile();
 		prog << teev;
 
 		FragmentShader frag(ObjectDesc("Fragment"));
-		frag.Source(StrLit(
+		frag.Source(
 			"#version 330\n"
 			"out vec3 fragColor;"
 			"void main(void)"
 			"{"
 			"	fragColor = vec3(0.1, 0.1, 0.1);"
 			"}"
-		));
+		);
 		frag.Compile();
 		prog << frag;
 
