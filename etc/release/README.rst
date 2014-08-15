@@ -1,55 +1,60 @@
 ================================
-Release notes for version 0.49.0
+Release notes for version 0.50.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
-.. _ARB_shading_language_include: http://www.opengl.org/registry/specs/ARB/shading_language_include.txt
 
 Overview
 ========
 
-This release of `OGLplus`_ brings changes to the functions for specifying Buffer
-data and sub-data, new types representing buffer data and its size, new classes
-for specifying GLSL shader source strings, support for ``#include`` directives
-in GLSL, changes in the shape loader/generator framework, several bugfixes,
-minor updates to the documentation, etc. 
+This release of `OGLplus`_ several smaller changes to various parts of the library,
+some new features like the smart-enum-values or the ``FragData`` class, updated
+build system, minor changes to the examples to show the new features and major
+updates to the Quickbook-based documentation.
 
 Changes
 =======
 
- - Buffer data specification
+ - The ``Capability`` enumeration was updated.
 
-   * The ``BufferSize`` and ``BufferData`` classes used for specifying GPU buffer size and data were added.
-   * The ``Buffer::Data``, ``Buffer::SubData`` and some other functions were changed to used the new classes.
-   * In case of ``Buffer::SubData`` an interface-breaking change was made -- the offset is now specified in bytes.
-   * The ``Buffer::Resize`` function for resizing of a GPU buffer without specifying the data was added.
-   * The ``Buffer::RawData`` function for specifying untyped buffer data was added.
-   * Similar changes were also made to the ``DSABuffer`` class.
+ - The implementation of the ``Vector`` class template was refactored and cleaned up.
 
- - Shader source specification
+ - Updates to GPU program variables:
 
-   * The new ``GLSLString`` and ``GLSLStrings`` classes which serve as adapters for specifying GLSL shader source strings were added.
-   * The constructors and some member functions of the ``GLSLSource`` class were updated.
-   * The ``Shader::Source`` function and the constructors of ``ShaderProgram`` were updated to use the new classes.
+    * Minor changes were made to the ``ProgVar`` class template.
+    * The ``FragData`` program variable wrapper for fragment data outputs was added.
+    * The ``Set`` member function was removed from ``UniformBlock``.
 
- - New functions for building of GPU programs were added
+ - Updates to ``StrCRef``:
 
-   * The ``Program::Build`` function checks all shaders attached to a ``Program`` and compiles those which are not yet compiled, befor linking the program.
+    * New constructors for ``std::vector<Char>``, ``std::array<Char>``, etc. were added.
+    * Equality comparison operators were added.
+    * ``StrCRef`` now replaces the ``StrLit`` C-string literal wrappers.
 
- - Wrapper for the `ARB_shading_language_include`_ extension was added
+ - New syntax-sugar operators were added for ``Sampler`` operations.
 
-   * The ``NamedStringType`` enumeration and the ``NamedString`` class were added.
-   * The ``Shader::CompileInclude`` and ``Program::BuildInclude`` functions were added which allow to compile shaders with ``#include`` directives.
+ - The ``oglplus::Error::Code`` function returning values of ``ErrorCode`` type was added.
 
- - Some of the existing examples were updated to show the usage of the new features.
+ - Updates to the build system:
 
- - Fixed bugs
+    * Detection of GL version 4.5 was added.
 
-   * Negative indices are now supported by the ``ObjMesh`` shape loader.
-   * Several problems in the build-system were fixed.
-   * Some bugs in the OGLplus examples were fixed.
+ - Updates to the Range utilities:
+
+   * The ``Contains`` and ``Has`` functions were added.
+   * The ``CountIf`` function was added.
+
+ - The implementation of the 'smart-enumerations' was updated and the 'smart-enum-values' were added.
+
+ - Fixed problems:
+
+    * A bug in the 3D worley cell image generator was fixed.
+    * A minor bug was fixed in one of the standalone examples.
+    * The missing ``Size`` member function was added to ``StrQueryRange``.
 
 Breaking changes
 ================
 
- - As mentioned above the offset parameter of ``Buffer::SubData`` is now specified in bytes (by using the ``BufferSize`` class) instead of units of the uploaded data type.
+ - The ``StrLit`` class has been completely replaced by ``StrCRef`` and its definition was removed.
+ 
+ - The ``MultiplyBy`` and ``DivideBy`` functions of ``Vector`` were replaced by ``Multiply`` and ``Divide``.
