@@ -28,11 +28,35 @@ protected:
 };
 
 //]
+//[oglplus_object_ObjCommonOps
+
+template <typename __ObjTag>
+class ObjCommonOps
+ : public __ObjectName<__ObjTag>
+{
+public: /*<
+The public interface depends on the __ObjTag.
+>*/
+};
+
+//]
+//[oglplus_object_ObjZeroOps
+
+template <typename __OpsTag, typename __ObjTag>
+class ObjZeroOps
+ : public __ObjCommonOps<__ObjTag>
+{
+public: /*<
+The public interface depends on the __OpsTag and __ObjTag.
+>*/
+};
+
+//]
 //[oglplus_object_ObjectOps
 
 template <typename __OpsTag, typename __ObjTag>
 class ObjectOps
- : public __ObjectName<__ObjTag>
+ : public __ObjZeroOps<__OpsTag, __ObjTag>
 {
 public: /*<
 The public interface depends on the __OpsTag and __ObjTag.

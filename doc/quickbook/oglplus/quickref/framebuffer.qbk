@@ -11,4 +11,40 @@
 [import framebuffer.hpp]
 [oglplus_framebuffer]
 
+[heading:status Status]
+
+[header oglplus/framebuffer_target.hpp]
+[import enums/framebuffer_target.hpp]
+[oglplus_enums_framebuffer_target]
+
+[heading:buffer Buffer]
+
+[header oglplus/framebuffer_attachment.hpp]
+[import enums/framebuffer_buffer.hpp]
+[oglplus_enums_framebuffer_buffer]
+
+[heading:attachment Attachment]
+
+[header oglplus/framebuffer_attachment.hpp]
+[import enums/framebuffer_attachment.hpp]
+[oglplus_enums_framebuffer_attachment]
+
+[heading:color_attachment Color attachment]
+
+[header oglplus/framebuffer_attachment.hpp]
+[import enums/framebuffer_color_attachment.hpp]
+[oglplus_enums_framebuffer_color_attachment]
+
+[heading:color_attachment_number Color attachment number]
+
+[header oglplus/framebuffer_attachment.hpp]
+[import framebuffer_attachment.hpp]
+[oglplus_framebuffer_color_attachment_number]
+
+[heading:status Status]
+
+[header oglplus/framebuffer_status.hpp]
+[import enums/framebuffer_status.hpp]
+[oglplus_enums_framebuffer_status]
+
 [endsect]

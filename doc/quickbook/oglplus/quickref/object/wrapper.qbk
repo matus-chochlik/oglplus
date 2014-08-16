@@ -19,11 +19,22 @@ object types specified by the __ObjTag template parameter.
 
 [endsect]
 
-[/--------------------------------------------]
+[/-----------------------------------]
 [section:ops Type specific operations]
-[/--------------------------------------------]
+[/-----------------------------------]
 
 [header oglplus/object/wrapper.hpp]
+
+[^ObjCommonOps] implements operations applicable to any object of the type
+specified by __ObjTag independent of the [link oglplus.quickref.ops_tags operation kind].
+
+[oglplus_object_ObjCommonOps]
+
+[^ObjZeroOps] implements operations applicable to any object of the type
+specified by __ObjTag, including objects with name zero (which has special
+meaning for certain object types), using operations kind specified by __OpsTag.
+
+[oglplus_object_ObjZeroOps]
 
 The [^ObjectOps] template class is specialized for various object types
 (like textures, buffers, queries, etc.) specified by the __ObjTag and
