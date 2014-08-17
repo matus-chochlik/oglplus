@@ -11,4 +11,10 @@
 [import texture.hpp]
 [oglplus_texture]
 
+[heading:target Target]
+
+[header oglplus/texture_target.hpp]
+[import enums/texture_target.hpp]
+[oglplus_enums_texture_target]
+
 [endsect]

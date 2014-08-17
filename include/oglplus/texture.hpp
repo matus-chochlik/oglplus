@@ -56,7 +56,7 @@ protected:
 		OGLPLUS_GLFUNC(GenTextures)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenTextures);
 	}
-#if GL_VERSION_4_5
+#if GL_VERSION_4_5 || GL_ARB_direct_state_access
 	static void Gen(
 		tag::Create,
 		GLenum target,

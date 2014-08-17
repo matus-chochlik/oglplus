@@ -9,9 +9,11 @@
 [header oglplus/framebuffer.hpp]
 
 [import framebuffer.hpp]
+[oglplus_framebuffer_common]
+[oglplus_framebuffer_zero]
 [oglplus_framebuffer]
 
-[heading:status Status]
+[heading:target Target]
 
 [header oglplus/framebuffer_target.hpp]
 [import enums/framebuffer_target.hpp]
