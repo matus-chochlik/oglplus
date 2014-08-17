@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/framebuffer.ipp
+ *  @file oglplus/dsa/ext/framebuffer.ipp
  *  @brief Implementation of DSA Framebuffer functions
  *
  *  @author Matus Chochlik
@@ -14,7 +14,7 @@ namespace oglplus {
 #if GL_EXT_direct_state_access
 
 OGLPLUS_LIB_FUNC
-void ObjectOps<tag::DirectState, tag::Framebuffer>::
+void ObjectOps<tag::DirectStateEXT, tag::Framebuffer>::
 HandleIncompleteError(FramebufferStatus status) const
 {
 	OGLPLUS_HANDLE_ERROR_IF(

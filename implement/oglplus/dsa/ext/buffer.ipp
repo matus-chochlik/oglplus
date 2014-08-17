@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/buffer.ipp
+ *  @file oglplus/dsa/ext/buffer.ipp
  *  @brief Implementation of DSA Buffer functions
  *
  *  @author Matus Chochlik
@@ -13,7 +13,7 @@ namespace oglplus {
 
 #if GL_EXT_direct_state_access
 OGLPLUS_LIB_FUNC
-GLint ObjectOps<tag::DirectState, tag::Buffer>::
+GLint ObjectOps<tag::DirectStateEXT, tag::Buffer>::
 GetIntParam(GLenum query) const
 {
 	GLint value = 0;

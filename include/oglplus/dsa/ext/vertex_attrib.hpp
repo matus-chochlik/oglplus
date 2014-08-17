@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/vertex_attrib.hpp
+ *  @file oglplus/dsa/ext/vertex_attrib.hpp
  *  @brief VertexArrayAttrib wrappers with direct state access
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_DSA_VERTEX_ATTRIB_1107121519_HPP
-#define OGLPLUS_DSA_VERTEX_ATTRIB_1107121519_HPP
+#ifndef OGLPLUS_DSA_EXT_VERTEX_ATTRIB_1107121519_HPP
+#define OGLPLUS_DSA_EXT_VERTEX_ATTRIB_1107121519_HPP
 
 #include <oglplus/vertex_attrib.hpp>
 #include <oglplus/error/object.hpp>

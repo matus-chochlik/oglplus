@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{030_pool_tiles}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -20,12 +20,12 @@
 #include <oglplus/shapes/plane.hpp>
 #include <oglplus/shapes/spiral_sphere.hpp>
 
-#include <oglplus/dsa/buffer.hpp>
-#include <oglplus/dsa/texture.hpp>
-#include <oglplus/dsa/framebuffer.hpp>
-#include <oglplus/dsa/renderbuffer.hpp>
-#include <oglplus/dsa/vertex_array.hpp>
-#include <oglplus/dsa/vertex_attrib.hpp>
+#include <oglplus/dsa/ext/buffer.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
+#include <oglplus/dsa/ext/framebuffer.hpp>
+#include <oglplus/dsa/ext/renderbuffer.hpp>
+#include <oglplus/dsa/ext/vertex_array.hpp>
+#include <oglplus/dsa/ext/vertex_attrib.hpp>
 
 #include <oglplus/images/load.hpp>
 #include <oglplus/images/random.hpp>

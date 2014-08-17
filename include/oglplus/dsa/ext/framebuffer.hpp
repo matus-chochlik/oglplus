@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/framebuffer.hpp
+ *  @file oglplus/dsa/ext/framebuffer.hpp
  *  @brief Framebuffer object wrappers with direct state access
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_DSA_FRAMEBUFFER_1310090720_HPP
-#define OGLPLUS_DSA_FRAMEBUFFER_1310090720_HPP
+#ifndef OGLPLUS_DSA_EXT_FRAMEBUFFER_1310090720_HPP
+#define OGLPLUS_DSA_EXT_FRAMEBUFFER_1310090720_HPP
 
 #include <oglplus/framebuffer.hpp>
 #include <oglplus/color_buffer.hpp>
@@ -25,8 +25,8 @@ namespace oglplus {
  *
  */
 template <>
-class ObjectOps<tag::DirectState, tag::Framebuffer>
- : public ObjZeroOps<tag::DirectState, tag::Framebuffer>
+class ObjectOps<tag::DirectStateEXT, tag::Framebuffer>
+ : public ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer>
 {
 protected:
 	ObjectOps(void){ }
@@ -50,10 +50,10 @@ public:
 		typedef FramebufferStatus Status;
 	};
 
-	using ObjZeroOps<tag::DirectState, tag::Framebuffer>::Bind;
+	using ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer>::Bind;
 	void Bind(void)
 	{
-		ObjZeroOps<tag::DirectState, tag::Framebuffer>::Bind(target);
+		ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer>::Bind(target);
 	}
 
 
@@ -466,7 +466,7 @@ public:
 };
 
 /// Framebuffer operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::Framebuffer>
+typedef ObjectOps<tag::DirectStateEXT, tag::Framebuffer>
 	DSAFramebufferOps;
 
 // Helper class for syntax-sugar operators
@@ -547,7 +547,7 @@ typedef Object<DSAFramebufferOps> DSAFramebuffer;
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/dsa/framebuffer.ipp>
+#include <oglplus/dsa/ext/framebuffer.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

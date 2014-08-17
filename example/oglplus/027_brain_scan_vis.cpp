@@ -22,10 +22,10 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/dsa/buffer.hpp>
-#include <oglplus/dsa/texture.hpp>
-#include <oglplus/dsa/vertex_array.hpp>
-#include <oglplus/dsa/vertex_attrib.hpp>
+#include <oglplus/dsa/ext/buffer.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
+#include <oglplus/dsa/ext/vertex_array.hpp>
+#include <oglplus/dsa/ext/vertex_attrib.hpp>
 
 #include <oglplus/images/gradient.hpp>
 #include <oglplus/opt/resources.hpp>

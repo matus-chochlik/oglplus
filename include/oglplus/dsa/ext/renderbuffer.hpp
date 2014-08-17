@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/renderbuffer.hpp
+ *  @file oglplus/dsa/ext/renderbuffer.hpp
  *  @brief Renderbuffer object wrappers with direct state access
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_DSA_RENDERBUFFER_1107121519_HPP
-#define OGLPLUS_DSA_RENDERBUFFER_1107121519_HPP
+#ifndef OGLPLUS_DSA_EXT_RENDERBUFFER_1107121519_HPP
+#define OGLPLUS_DSA_EXT_RENDERBUFFER_1107121519_HPP
 
 #include <oglplus/renderbuffer.hpp>
 
@@ -24,8 +24,8 @@ namespace oglplus {
  *
  */
 template <>
-class ObjectOps<tag::DirectState, tag::Renderbuffer>
- : public ObjZeroOps<tag::DirectState, tag::Renderbuffer>
+class ObjectOps<tag::DirectStateEXT, tag::Renderbuffer>
+ : public ObjZeroOps<tag::DirectStateEXT, tag::Renderbuffer>
 {
 protected:
 	ObjectOps(void){ }
@@ -244,7 +244,7 @@ public:
 };
 
 /// Renderbuffer operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::Renderbuffer>
+typedef ObjectOps<tag::DirectStateEXT, tag::Renderbuffer>
 	DSARenderbufferOps;
 
 // syntax-sugar operators
@@ -282,7 +282,7 @@ typedef Object<DSARenderbufferOps> DSARenderbuffer;
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/dsa/renderbuffer.ipp>
+#include <oglplus/dsa/ext/renderbuffer.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

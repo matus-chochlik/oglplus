@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/texture.hpp
+ *  @file oglplus/dsa/ext/texture.hpp
  *  @brief Texture object wrappers with direct state access
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_DSA_TEXTURE_1107121519_HPP
-#define OGLPLUS_DSA_TEXTURE_1107121519_HPP
+#ifndef OGLPLUS_DSA_EXT_TEXTURE_1107121519_HPP
+#define OGLPLUS_DSA_EXT_TEXTURE_1107121519_HPP
 
 #include <oglplus/texture.hpp>
 
@@ -24,7 +24,7 @@ namespace oglplus {
  *
  */
 template <>
-class ObjZeroOps<tag::DirectState, tag::Texture>
+class ObjZeroOps<tag::DirectStateEXT, tag::Texture>
  : public ObjCommonOps<tag::Texture>
 {
 protected:
@@ -2379,7 +2379,7 @@ public:
 };
 
 /// Default Texture operations with direct state access
-typedef ObjZeroOps<tag::DirectState, tag::Texture>
+typedef ObjZeroOps<tag::DirectStateEXT, tag::Texture>
 	DSADefaultTextureOps;
 
 /// Class wrapping texture object functionality with direct state access
@@ -2387,15 +2387,15 @@ typedef ObjZeroOps<tag::DirectState, tag::Texture>
  *
  */
 template <>
-class ObjectOps<tag::DirectState, tag::Texture>
- : public ObjZeroOps<tag::DirectState, tag::Texture>
+class ObjectOps<tag::DirectStateEXT, tag::Texture>
+ : public ObjZeroOps<tag::DirectStateEXT, tag::Texture>
 {
 protected:
 	ObjectOps(void) { }
 };
 
 /// Texture operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::Texture>
+typedef ObjectOps<tag::DirectStateEXT, tag::Texture>
 	DSATextureOps;
 
 // Helper class for syntax-sugar operators
@@ -2631,7 +2631,7 @@ typedef Object<DSATextureOps> DSATexture;
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/dsa/texture.ipp>
+#include <oglplus/dsa/ext/texture.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

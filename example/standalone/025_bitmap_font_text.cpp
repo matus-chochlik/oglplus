@@ -11,7 +11,7 @@
 
 #include <oglplus/all.hpp>
 #include <oglplus/images/png.hpp>
-#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
 #include <oglplus/dsa/uniform.hpp>
 
 #include <fstream>

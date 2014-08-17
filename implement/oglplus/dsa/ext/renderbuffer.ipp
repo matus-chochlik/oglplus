@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/renderbuffer.ipp
+ *  @file oglplus/dsa/ext/renderbuffer.ipp
  *  @brief Implementation of DSA Renderbuffer functions
  *
  *  @author Matus Chochlik
@@ -17,7 +17,7 @@ namespace oglplus {
 
 #if GL_EXT_direct_state_access
 OGLPLUS_LIB_FUNC
-GLint ObjectOps<tag::DirectState, tag::Renderbuffer>::
+GLint ObjectOps<tag::DirectStateEXT, tag::Renderbuffer>::
 GetIntParam(GLenum query) const
 {
 	GLint result = 0;
@@ -36,7 +36,7 @@ GetIntParam(GLenum query) const
 }
 
 OGLPLUS_LIB_FUNC
-void ObjectOps<tag::DirectState, tag::Renderbuffer>::
+void ObjectOps<tag::DirectStateEXT, tag::Renderbuffer>::
 Storage(const images::ImageSpec& image_spec)
 {
 	Storage(

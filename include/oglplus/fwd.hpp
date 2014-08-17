@@ -124,6 +124,7 @@ struct NoTypecheck;
 struct ExplicitSel;
 struct ImplicitSel;
 struct DirectState;
+struct DirectStateEXT;
 struct CurrentBound;
 } // namespace tag
 

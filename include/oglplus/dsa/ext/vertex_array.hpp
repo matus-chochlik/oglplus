@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/vertex_array.hpp
+ *  @file oglplus/dsa/ext/vertex_array.hpp
  *  @brief VertexArray wrappers with direct state access
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_DSA_VERTEX_ARRAY_1107121519_HPP
-#define OGLPLUS_DSA_VERTEX_ARRAY_1107121519_HPP
+#ifndef OGLPLUS_DSA_EXT_VERTEX_ARRAY_1107121519_HPP
+#define OGLPLUS_DSA_EXT_VERTEX_ARRAY_1107121519_HPP
 
 #include <oglplus/vertex_array.hpp>
 #include <oglplus/vertex_attrib_slot.hpp>
@@ -26,8 +26,8 @@ namespace oglplus {
  *
  */
 template <>
-class ObjectOps<tag::DirectState, tag::VertexArray>
- : public ObjZeroOps<tag::DirectState, tag::VertexArray>
+class ObjectOps<tag::DirectStateEXT, tag::VertexArray>
+ : public ObjZeroOps<tag::DirectStateEXT, tag::VertexArray>
 {
 public:
 	/// Setup the properties of the specified vertex attribute array
@@ -138,7 +138,7 @@ public:
 };
 
 /// VertexArray operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::VertexArray>
+typedef ObjectOps<tag::DirectStateEXT, tag::VertexArray>
 	DSAVertexArrayOps;
 
 /// An @ref oglplus_object encapsulating the OpenGL vertex array functionality

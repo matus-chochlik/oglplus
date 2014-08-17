@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/texture.ipp
+ *  @file oglplus/dsa/ext/texture.ipp
  *  @brief Implementation of DSA Texture functions
  *
  *  @author Matus Chochlik
@@ -18,7 +18,7 @@ namespace oglplus {
 
 #if GL_EXT_direct_state_access
 OGLPLUS_LIB_FUNC
-GLint ObjZeroOps<tag::DirectState, tag::Texture>::
+GLint ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 GetIntParam(GLenum query) const
 {
 	GLint result = 0;
@@ -38,7 +38,7 @@ GetIntParam(GLenum query) const
 }
 
 OGLPLUS_LIB_FUNC
-GLfloat ObjZeroOps<tag::DirectState, tag::Texture>::
+GLfloat ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 GetFloatParam(GLenum query) const
 {
 	GLfloat result = 0;
@@ -58,7 +58,7 @@ GetFloatParam(GLenum query) const
 }
 
 OGLPLUS_LIB_FUNC
-GLint ObjZeroOps<tag::DirectState, tag::Texture>::
+GLint ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 GetIntParam(GLint level, GLenum query) const
 {
 	GLint result = 0;
@@ -80,7 +80,7 @@ GetIntParam(GLint level, GLenum query) const
 }
 
 OGLPLUS_LIB_FUNC
-GLfloat ObjZeroOps<tag::DirectState, tag::Texture>::
+GLfloat ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 GetFloatParam(GLint level, GLenum query) const
 {
 	GLfloat result = 0;
@@ -102,7 +102,7 @@ GetFloatParam(GLint level, GLenum query) const
 }
 
 OGLPLUS_LIB_FUNC
-void ObjZeroOps<tag::DirectState, tag::Texture>::
+void ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 GetImage(
 	GLint level,
 	PixelDataFormat format,
@@ -131,7 +131,7 @@ GetImage(
 }
 
 OGLPLUS_LIB_FUNC
-void ObjZeroOps<tag::DirectState, tag::Texture>::
+void ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 GetCompressedImage(
 	GLint level,
 	GLsizei size,
@@ -155,7 +155,7 @@ GetCompressedImage(
 }
 
 OGLPLUS_LIB_FUNC
-void ObjZeroOps<tag::DirectState, tag::Texture>::
+void ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 GetCompressedImage(
 	GLint level,
 	std::vector<GLubyte>& dest
@@ -170,8 +170,8 @@ GetCompressedImage(
 }
 
 OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>&
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 Image3D(
 	const images::Image& image,
 	GLint level,
@@ -202,8 +202,8 @@ Image3D(
 }
 
 OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>&
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 SubImage3D(
 	const images::Image& image,
 	GLint xoffs,
@@ -237,8 +237,8 @@ SubImage3D(
 }
 
 OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>&
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 Image2D(
 	TextureTarget tex_target,
 	const images::Image& image,
@@ -269,8 +269,8 @@ Image2D(
 }
 
 OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>&
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 SubImage2D(
 	const images::Image& image,
 	GLint xoffs,
@@ -301,8 +301,8 @@ SubImage2D(
 }
 
 OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>&
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 Image1D(
 	const images::Image& image,
 	GLint level,
@@ -331,8 +331,8 @@ Image1D(
 }
 
 OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>&
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 SubImage1D(
 	const images::Image& image,
 	GLint xoffs,
@@ -360,8 +360,8 @@ SubImage1D(
 }
 
 OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>&
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 Image(
 	Target tex_target,
 	const images::Image& image,
@@ -392,8 +392,8 @@ Image(
 }
 
 OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>&
+ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 Image(
 	Target tex_target,
 	const images::ImageSpec& image_spec,

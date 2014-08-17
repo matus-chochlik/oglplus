@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/buffer_map.hpp
+ *  @file oglplus/dsa/ext/buffer_map.hpp
  *  @brief BufferMap wrappers with direct state access
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_DSA_BUFFER_MAP_1309301821_HPP
-#define OGLPLUS_DSA_BUFFER_MAP_1309301821_HPP
+#ifndef OGLPLUS_DSA_EXT_BUFFER_MAP_1309301821_HPP
+#define OGLPLUS_DSA_EXT_BUFFER_MAP_1309301821_HPP
 
 #include <oglplus/buffer.hpp>
 

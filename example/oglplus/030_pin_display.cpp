@@ -15,8 +15,8 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/dsa/texture.hpp>
-#include <oglplus/dsa/framebuffer.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
+#include <oglplus/dsa/ext/framebuffer.hpp>
 
 #include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/shapes/cube.hpp>

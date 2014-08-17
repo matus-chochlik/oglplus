@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/buffer.hpp
+ *  @file oglplus/dsa/ext/buffer.hpp
  *  @brief Buffer wrappers with direct state access
  *
  *  @author Matus Chochlik
@@ -10,11 +10,11 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_DSA_BUFFER_1309301821_HPP
-#define OGLPLUS_DSA_BUFFER_1309301821_HPP
+#ifndef OGLPLUS_DSA_EXT_BUFFER_1309301821_HPP
+#define OGLPLUS_DSA_EXT_BUFFER_1309301821_HPP
 
 #include <oglplus/buffer.hpp>
-#include <oglplus/dsa/buffer_map.hpp>
+#include <oglplus/dsa/ext/buffer_map.hpp>
 
 namespace oglplus {
 
@@ -25,8 +25,8 @@ namespace oglplus {
  *
  */
 template <>
-class ObjectOps<tag::DirectState, tag::Buffer>
- : public ObjZeroOps<tag::DirectState, tag::Buffer>
+class ObjectOps<tag::DirectStateEXT, tag::Buffer>
+ : public ObjZeroOps<tag::DirectStateEXT, tag::Buffer>
 {
 protected:
 	ObjectOps(void){ }
@@ -411,7 +411,7 @@ public:
 };
 
 /// Buffer operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::Buffer>
+typedef ObjectOps<tag::DirectStateEXT, tag::Buffer>
 	DSABufferOps;
 
 // Helper class for syntax sugar operators
@@ -575,7 +575,7 @@ typedef Object<DSABufferOps> DSABuffer;
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/dsa/buffer.ipp>
+#include <oglplus/dsa/ext/buffer.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

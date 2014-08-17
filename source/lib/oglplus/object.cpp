@@ -48,7 +48,8 @@
 #include <oglplus/framebuffer.hpp>
 #include <oglplus/renderbuffer.hpp>
 #include <oglplus/transform_feedback.hpp>
-#include <oglplus/dsa/framebuffer.hpp>
-#include <oglplus/dsa/renderbuffer.hpp>
-#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/ext/buffer.hpp>
+#include <oglplus/dsa/ext/framebuffer.hpp>
+#include <oglplus/dsa/ext/renderbuffer.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
 #include "epilogue.ipp"
