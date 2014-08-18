@@ -1,0 +1,260 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Strings</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="concept.html" title="Concepts">
+<link rel="next" href="error.html" title="Error handling">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="concept.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="error.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.string"></a><a class="link" href="string.html" title="Strings">Strings</a>
+</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="string.html#oglplus.quickref.string.def">String container</a></span></dt>
+<dt><span class="section"><a href="string.html#oglplus.quickref.string.ref">String constant reference</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.string.def"></a><a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String container</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/string/def.hpp&gt;</code>
+          </p>
+<p>
+            This header defines basic string-related class and functions.
+          </p>
+<p>
+            The <code class="literal">String</code> class has the same interface as an <code class="literal">std::basic_string&lt;GLchar&gt;</code>
+            except that the string stored inside must be UTF-8 encoded.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">String</span>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">GLchar</span><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">using</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">GLchar</span><span class="special">&gt;::</span><span class="identifier">basic_string</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.def.c0" href="string.html#oglplus.quickref.string.def.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+
+<span class="keyword">const</span> <span class="identifier">String</span><span class="special">&amp;</span> <span class="identifier">EmptyString</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.string.def.c2" href="string.html#oglplus.quickref.string.def.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+<span class="keyword">bool</span> <span class="identifier">ValidString</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">begin</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">end</span><span class="special">);</span> <a class="co" name="oglplus.quickref.string.def.c4" href="string.html#oglplus.quickref.string.def.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.def.c1"></a><a href="#oglplus.quickref.string.def.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                <code class="literal">String</code> has the same constructors as a <code class="literal">std::basic_string</code>.
+                except that the input strings must be UTF-8 encoded, otherwise the
+                behavior is undefined.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.def.c3"></a><a href="#oglplus.quickref.string.def.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a const reference to an empty <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.def.c5"></a><a href="#oglplus.quickref.string.def.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Checks if the character range between <code class="literal">begin</code> and
+                <code class="literal">end</code> is a valid UTF-8 sequence.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.string.ref"></a><a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">String constant reference</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/string/ref.hpp&gt;</code>
+          </p>
+<p>
+            The <code class="literal">StrCRef</code> class stores a reference to an UTF-8 encoded
+            constant character string. It is used as an adaptor or a type erasure
+            for other types storing strings, (like <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a>,
+            <code class="literal">std::vector&lt;GLchar&gt;</code>, <code class="literal">const GLchar*</code>,
+            etc.) and is used as parameter type to limit the number of overloads
+            of functions performing the same task on strings stored in different
+            manner.
+          </p>
+<p>
+            The lifetime management of the memory block where the string is stored
+            is outside the scope of this class. This means that the actual type storing
+            the string must not be destroyed while an instance of <code class="literal">StrCRef</code>
+            wrapping it is being used.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">StrCRef</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">StrCRef</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c0" href="string.html#oglplus.quickref.string.ref.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">StrCRef</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">GLchar</span><span class="special">*</span> <span class="identifier">cstr</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c2" href="string.html#oglplus.quickref.string.ref.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">StrCRef</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">GLchar</span><span class="special">*</span> <span class="identifier">cstr</span><span class="special">,</span> <span class="identifier">size_t</span> <span class="identifier">size</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c4" href="string.html#oglplus.quickref.string.ref.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
+	<span class="identifier">StrCRef</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">GLchar</span> <span class="special">(&amp;</span><span class="identifier">cary</span><span class="special">)[</span><span class="identifier">N</span><span class="special">])</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c6" href="string.html#oglplus.quickref.string.ref.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="identifier">StrCRef</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a><span class="special">&amp;</span> <span class="identifier">sstr</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c8" href="string.html#oglplus.quickref.string.ref.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="identifier">StrCRef</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">GLchar</span><span class="special">&gt;&amp;</span> <span class="identifier">cvec</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c10" href="string.html#oglplus.quickref.string.ref.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
+	<span class="identifier">StrCRef</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">GLchar</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;&amp;</span> <span class="identifier">cvec</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c12" href="string.html#oglplus.quickref.string.ref.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<span class="identifier">size_t</span> <span class="identifier">size</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c14" href="string.html#oglplus.quickref.string.ref.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">empty</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c16" href="string.html#oglplus.quickref.string.ref.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+
+	<span class="keyword">typedef</span> <span class="keyword">const</span> <span class="identifier">GLchar</span><span class="special">*</span> <span class="identifier">iterator</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c18" href="string.html#oglplus.quickref.string.ref.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="keyword">typedef</span> <span class="identifier">iterator</span> <span class="identifier">const_iterator</span><span class="special">;</span>
+
+	<span class="identifier">const_iterator</span> <span class="identifier">begin</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+	<span class="identifier">const_iterator</span> <span class="identifier">end</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">bool</span> <span class="identifier">is_nts</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c20" href="string.html#oglplus.quickref.string.ref.c21"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+
+	<span class="keyword">const</span> <span class="identifier">GLchar</span><span class="special">*</span> <span class="identifier">c_str</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c22" href="string.html#oglplus.quickref.string.ref.c23"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+
+	<a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a> <span class="identifier">str</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c24" href="string.html#oglplus.quickref.string.ref.c25"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">==</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">StrCRef</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">StrCRef</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">);</span> <a class="co" name="oglplus.quickref.string.ref.c26" href="string.html#oglplus.quickref.string.ref.c27"><img src="../../images/callouts/14.png" alt="14" border="0"></a>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">==</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">StrCRef</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">Char</span><span class="special">*</span> <span class="identifier">b</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">==</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">Char</span><span class="special">*</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">StrCRef</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!=</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">StrCRef</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">StrCRef</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!=</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">StrCRef</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">Char</span><span class="special">*</span> <span class="identifier">b</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!=</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">Char</span><span class="special">*</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">StrCRef</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">);</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c1"></a><a href="#oglplus.quickref.string.ref.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs a reference to an empty string.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c3"></a><a href="#oglplus.quickref.string.ref.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs a reference to a C-string.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c5"></a><a href="#oglplus.quickref.string.ref.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs a reference to a C-string with a specific size.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c7"></a><a href="#oglplus.quickref.string.ref.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs a reference to a character array with a known size.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c9"></a><a href="#oglplus.quickref.string.ref.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs a reference to a string stored inside of a <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c11"></a><a href="#oglplus.quickref.string.ref.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs a reference to a string stored inside of a <code class="literal">std::vector</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c13"></a><a href="#oglplus.quickref.string.ref.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs a reference to a string stored inside of a <code class="literal">std::array</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c15"></a><a href="#oglplus.quickref.string.ref.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the lenght of the string, not counting any terminating characters.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c17"></a><a href="#oglplus.quickref.string.ref.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns true if the referenced string is empty.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c19"></a><a href="#oglplus.quickref.string.ref.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Iterator types.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c21"></a><a href="#oglplus.quickref.string.ref.c20"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns true if the string is null-terminated
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c23"></a><a href="#oglplus.quickref.string.ref.c22"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a const pointer to the referenced character string. This
+                function may be called only if the string stored inside is null-terminated.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c25"></a><a href="#oglplus.quickref.string.ref.c24"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the referenced character string as a <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.string.ref.c27"></a><a href="#oglplus.quickref.string.ref.c26"><img src="../../images/callouts/14.png" alt="14" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Comparison operators.
+              </p></td>
+</tr>
+</table></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/string/ref_ios.hpp&gt;</code>
+          </p>
+<p>
+            Output of <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a>
+            to <code class="literal">std::ostream</code> is implemented in a separate header
+            file.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="identifier">out</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">StrCRef</span><span class="special">&amp;</span> <span class="identifier">str</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="concept.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="error.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

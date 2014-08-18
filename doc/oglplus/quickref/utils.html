@@ -1,0 +1,370 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Misc utilities</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="enums.html" title="Enumerations">
+<link rel="next" href="../gl_index.html" title="Chapter&#160;3.&#160;OpenGL function and constant index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="enums.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../gl_index.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.utils"></a><a class="link" href="utils.html" title="Misc utilities">Misc utilities</a>
+</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="utils.html#oglplus.quickref.utils.nothing">Nothing</a></span></dt>
+<dt><span class="section"><a href="utils.html#oglplus.quickref.utils.ranges">Ranges</a></span></dt>
+</dl></div>
+<p>
+          This section lists several miscelaneous utility types and functions not
+          related directly to work with OpenGL, but used by other parts of OGLplus
+          and also utilities that are not included by <code class="literal">oglplus/all.hpp</code>,
+          but can be optionally included and used by the library end-users.
+        </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.utils.nothing"></a><a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/utils/nothing.hpp&gt;</code>
+          </p>
+<p>
+            <code class="literal">Nothing</code> is a <span class="emphasis"><em>nullary</em></span> <a class="link" href="concept.html#oglplus.quickref.concept.metafunction" title="Metafunctions"><span class="emphasis"><em>Metafunction</em></span></a>
+            returning itself, which serves as a <span class="emphasis"><em>nil</em></span> type in
+            OGLplus.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">struct</span> <span class="identifier">Nothing</span>
+<span class="special">{</span>
+	<span class="keyword">typedef</span> <span class="identifier">Nothing</span> <span class="identifier">Type</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.utils.ranges"></a><a class="link" href="utils.html#oglplus.quickref.utils.ranges" title="Ranges">Ranges</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/opt/ranges.hpp&gt;</code>
+          </p>
+<p>
+            This header implements utilities for working with types conforming to
+            the <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a>
+            concept.
+          </p>
+<p>
+            All range-related utilities are implemented in the <code class="literal">oglplus::ranges</code>
+            namespace:
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+<span class="keyword">namespace</span> <span class="identifier">ranges</span> <span class="special">{</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.utils.ranges.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.utils.ranges.isa"></a></span><a class="link" href="utils.html#oglplus.quickref.utils.ranges.isa"><code class="literal">IsRange</code></a>
+          </h5>
+<p>
+            The <code class="literal">IsRange</code> boolean <a class="link" href="concept.html#oglplus.quickref.concept.metafunction" title="Metafunctions"><span class="emphasis"><em>Metafunction</em></span></a>
+            allows to check if a type conforms to the <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a>
+            concept:
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">IsRange</span>
+<span class="special">{</span>
+	<span class="keyword">typedef</span> &lt;Unspecified&gt; <span class="identifier">Type</span><span class="special">;</span> <a class="co" name="oglplus.quickref.utils.ranges.c0" href="utils.html#oglplus.quickref.utils.ranges.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c1"></a><a href="#oglplus.quickref.utils.ranges.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                <code class="literal">std::true_type</code> if <code class="literal">Range</code> conforms
+                to the <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a>
+                concept or <code class="literal">std::false_type</code> otherwise.
+              </p></td>
+</tr></table></div>
+<h5>
+<a name="oglplus.quickref.utils.ranges.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.utils.ranges.any"></a></span><a class="link" href="utils.html#oglplus.quickref.utils.ranges.any"><code class="literal">AnyRange</code></a>
+          </h5>
+<p>
+            The <code class="literal">AnyRange</code> template is a type erasure for all types
+            conforming to <code class="literal"><a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a>&lt;Element&gt;</code>
+            - i.e. a range whose element type is implicitly convertible to the <code class="literal">Element</code>
+            type template parameter of <code class="literal">AnyRange</code>. <code class="literal">AnyRange</code>
+            is typically used as a parameter type for functions implementing complex
+            range algorithms.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Element</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">AnyRange</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">AnyRange</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">&gt;</span>
+	<span class="identifier">AnyRange</span><span class="special">(</span><a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">range</span><span class="special">);</span> <a class="co" name="oglplus.quickref.utils.ranges.c2" href="utils.html#oglplus.quickref.utils.ranges.c3"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">&gt;</span>
+	<span class="identifier">AnyRange</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><span class="keyword">const</span> <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&amp;</span> <span class="identifier">range</span><span class="special">);</span>
+
+	<span class="identifier">AnyRange</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">AnyRange</span><span class="special">&amp;</span> <span class="identifier">other</span><span class="special">);</span> <a class="co" name="oglplus.quickref.utils.ranges.c4" href="utils.html#oglplus.quickref.utils.ranges.c5"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">AnyRange</span><span class="special">(</span><span class="identifier">AnyRange</span><span class="special">&amp;&amp;</span> <span class="identifier">temp</span><span class="special">);</span>
+
+	<span class="identifier">AnyRange</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">AnyRange</span><span class="special">&amp;</span> <span class="identifier">other</span><span class="special">);</span> <a class="co" name="oglplus.quickref.utils.ranges.c6" href="utils.html#oglplus.quickref.utils.ranges.c7"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">AnyRange</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><span class="identifier">AnyRange</span><span class="special">&amp;&amp;</span> <span class="identifier">other</span><span class="special">);</span>
+
+	<span class="keyword">typedef</span> <span class="identifier">Element</span> <span class="identifier">ValueType</span><span class="special">;</span> <a class="co" name="oglplus.quickref.utils.ranges.c8" href="utils.html#oglplus.quickref.utils.ranges.c9"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">Empty</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="identifier">size_t</span> <span class="identifier">Size</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="keyword">void</span> <span class="identifier">Next</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="identifier">ValueType</span> <span class="identifier">Front</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">&gt;</span>
+<a class="link" href="utils.html#oglplus.quickref.utils.ranges.any">AnyRange</a><span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">::</span><span class="identifier">ValueType</span><span class="special">&gt;</span> <span class="identifier">EraseType</span><span class="special">(</span><a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">range</span><span class="special">);</span> <a class="co" name="oglplus.quickref.utils.ranges.c10" href="utils.html#oglplus.quickref.utils.ranges.c11"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c3"></a><a href="#oglplus.quickref.utils.ranges.c2"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Construction and assignment from a <code class="literal">Range</code> type.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c5"></a><a href="#oglplus.quickref.utils.ranges.c4"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Copy and move construction.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c7"></a><a href="#oglplus.quickref.utils.ranges.c6"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Copy and move assignment.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c9"></a><a href="#oglplus.quickref.utils.ranges.c8"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                The <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a>
+                interface.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c11"></a><a href="#oglplus.quickref.utils.ranges.c10"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Erases the real type of the range passed as argument.
+              </p></td>
+</tr>
+</table></div>
+<h5>
+<a name="oglplus.quickref.utils.ranges.h2"></a>
+            <span class="phrase"><a name="oglplus.quickref.utils.ranges.funcs"></a></span><a class="link" href="utils.html#oglplus.quickref.utils.ranges.funcs">Functions</a>
+          </h5>
+<p>
+            The following functions traverse, filter of modify ranges and can be
+            easily composed into complex algorithms.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">Find</span><span class="special">(</span><a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">range</span><span class="special">,</span> <span class="keyword">typename</span> <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">::</span><span class="identifier">ValueType</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.utils.ranges.c12" href="utils.html#oglplus.quickref.utils.ranges.c13"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Predicate</span><span class="special">&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">FindIf</span><span class="special">(</span><a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">Predicate</span> <span class="identifier">predicate</span><span class="special">)</span> <a class="co" name="oglplus.quickref.utils.ranges.c14" href="utils.html#oglplus.quickref.utils.ranges.c15"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">&gt;</span>
+<span class="keyword">bool</span> <span class="identifier">Contains</span><span class="special">(</span><a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">range</span><span class="special">,</span> <span class="keyword">typename</span> <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">::</span><span class="identifier">ValueType</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.utils.ranges.c16" href="utils.html#oglplus.quickref.utils.ranges.c17"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Predicate</span><span class="special">&gt;</span>
+<span class="keyword">bool</span> <span class="identifier">Has</span><span class="special">(</span><a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">Predicate</span> <span class="identifier">predicate</span><span class="special">);</span> <a class="co" name="oglplus.quickref.utils.ranges.c18" href="utils.html#oglplus.quickref.utils.ranges.c19"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Transf</span><span class="special">&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">Transform</span><span class="special">(</span><a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">Transf</span> <span class="identifier">transform</span><span class="special">);</span> <a class="co" name="oglplus.quickref.utils.ranges.c20" href="utils.html#oglplus.quickref.utils.ranges.c21"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">State</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Func</span><span class="special">&gt;</span>
+<span class="identifier">State</span> <span class="identifier">Fold</span><span class="special">(</span><a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">State</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">Func</span> <span class="identifier">functor</span><span class="special">);</span> <a class="co" name="oglplus.quickref.utils.ranges.c22" href="utils.html#oglplus.quickref.utils.ranges.c23"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Predicate</span><span class="special">&gt;</span>
+<span class="identifier">size_t</span> <span class="identifier">CountIf</span><span class="special">(</span><span class="identifier">Range</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">Predicate</span> <span class="identifier">predicate</span><span class="special">);</span> <a class="co" name="oglplus.quickref.utils.ranges.c24" href="utils.html#oglplus.quickref.utils.ranges.c25"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Predicate</span><span class="special">&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">OnlyIf</span><span class="special">(</span><a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">Predicate</span> <span class="identifier">pred</span><span class="special">);</span> <a class="co" name="oglplus.quickref.utils.ranges.c26" href="utils.html#oglplus.quickref.utils.ranges.c27"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Element</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">R1</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">R2</span><span class="special">&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a> <span class="identifier">Concatenate</span><span class="special">(</span><span class="identifier">R1</span> <span class="identifier">r1</span><span class="special">,</span> <span class="identifier">R2</span> <span class="identifier">r2</span><span class="special">);</span> <a class="co" name="oglplus.quickref.utils.ranges.c28" href="utils.html#oglplus.quickref.utils.ranges.c29"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c13"></a><a href="#oglplus.quickref.utils.ranges.c12"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Traverses a range and stops either if the range is empty or if the
+                specified value is found. The resulting range is returned.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c15"></a><a href="#oglplus.quickref.utils.ranges.c14"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Finds the first a value satisfying a predicate in a range. This function
+                traverses a range and stops either if the range is empty or if a
+                value satisfying the predicate is found. The resulting range is returned.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c17"></a><a href="#oglplus.quickref.utils.ranges.c16"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns true if <code class="literal">range</code> contains at least one element
+                with the specified value.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c19"></a><a href="#oglplus.quickref.utils.ranges.c18"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns true if <code class="literal">range</code> contains at least one element
+                satisfying the specified <code class="literal">predicate</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c21"></a><a href="#oglplus.quickref.utils.ranges.c20"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Transforms the elements in a range by an unary function. <code class="literal">Transform</code>
+                returns a range whose <code class="literal">Front</code> member function returns
+                the <code class="literal">Front</code> value of the original <code class="literal">range</code>
+                transformed by <code class="literal">transform</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c23"></a><a href="#oglplus.quickref.utils.ranges.c22"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Folds a <code class="literal">range</code> by using a binary <code class="literal">functor</code>
+                and a <code class="literal">state</code> value. Fold gradually updates the
+                <code class="literal">state</code> value by successively calling the specified
+                <code class="literal">functor</code> on all elements with <code class="literal">state</code>
+                as the first argument and the current <code class="literal">Front</code> element
+                of the <code class="literal">range</code> as the second argument. The result
+                of each call replaces the value stored in <code class="literal">state</code>.
+                After the whole <code class="literal">range</code> is traversed the resulting
+                <code class="literal">state</code> is returned.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c25"></a><a href="#oglplus.quickref.utils.ranges.c24"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Counts and returns the number of elements in a <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a>
+                satisfying the specified <code class="literal">predicate</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c27"></a><a href="#oglplus.quickref.utils.ranges.c26"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                The <code class="literal">OnlyIf</code> function returns a <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a>
+                that contains only those elements of the original <code class="literal">range</code>,
+                which satisfy the specified <code class="literal">predicate</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.utils.ranges.c29"></a><a href="#oglplus.quickref.utils.ranges.c28"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a range that is a concatenation of the ranges <code class="literal">r1</code>
+                and <code class="literal">r2</code>. The <code class="literal">ValueType</code> of both
+                ranges must be explicitly convertible to the specified <code class="literal">Element</code>
+                type.
+              </p></td>
+</tr>
+</table></div>
+<pre class="programlisting"><span class="special">}</span> <span class="comment">// namespace ranges</span>
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.utils.ranges.h3"></a>
+            <span class="phrase"><a name="oglplus.quickref.utils.ranges.examples"></a></span><a class="link" href="utils.html#oglplus.quickref.utils.ranges.examples">Examples</a>
+          </h5>
+<p>
+            Print the value names of all values in the <code class="literal"><a class="link" href="object.html#oglplus.quickref.object.type" title="Object type">ObjectType</a></code>
+            and the <code class="literal"><a class="link" href="shader_type.html" title="Shader type">ShaderType</a></code>
+            enumerations to the standard output.
+          </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">oglplus</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">;</span>
+
+<span class="identifier">ForEach</span><span class="special">(</span>
+	<span class="identifier">Concatenate</span><span class="special">&lt;</span><a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a><span class="special">&gt;(</span>
+		<span class="identifier">Transform</span><span class="special">(</span><a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.type" title="Object type">ObjectType</a><span class="special">&gt;(),</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">&lt;</span><span class="identifier">ObjectType</span><span class="special">&gt;),</span>
+		<span class="identifier">Transform</span><span class="special">(</span><a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a><span class="special">&gt;(),</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">&lt;</span><span class="identifier">ShaderType</span><span class="special">&gt;)</span>
+	<span class="special">),</span>
+	<span class="special">[](</span><a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">str</span><span class="special">)</span>
+	<span class="special">{</span>
+		<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">str</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+	<span class="special">}</span>
+<span class="special">);</span>
+</pre>
+<p>
+            Check if the <code class="literal">GL_EXT_direct_state_access</code> extension
+            is implemented.
+          </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">oglplus</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">;</span>
+
+<a class="link" href="context.html" title="Current GL context">Context</a> <span class="identifier">gl</span><span class="special">;</span>
+
+<span class="keyword">if</span><span class="special">(</span><span class="identifier">Contains</span><span class="special">(</span><span class="identifier">gl</span><span class="special">.</span><span class="identifier">Extensions</span><span class="special">(),</span> <span class="string">"GL_EXT_direct_state_access"</span><span class="special">))</span>
+<span class="special">{</span>
+	<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Yay! We have DSA."</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+            Print the number of <code class="literal">ARB</code> GL extensions.
+          </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">oglplus</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">;</span>
+
+<a class="link" href="context.html" title="Current GL context">Context</a> <span class="identifier">gl</span><span class="special">;</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">CountIf</span><span class="special">(</span>
+	<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Extensions</span><span class="special">(),</span>
+	<span class="special">[](</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">ext</span><span class="special">)</span> <span class="special">-&gt;</span> <span class="keyword">bool</span>
+	<span class="special">{</span>
+		<span class="keyword">return</span> <span class="identifier">ext</span><span class="special">.</span><span class="identifier">find</span><span class="special">(</span><span class="string">"_ARB_"</span><span class="special">)</span> <span class="special">!=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">npos</span><span class="special">;</span>
+	<span class="special">}</span>
+<span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+</pre>
+<p>
+            Print the GL extension with the longest name.
+          </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">oglplus</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="identifier">length_and_name</span><span class="special">;</span>
+
+<a class="link" href="context.html" title="Current GL context">Context</a> <span class="identifier">gl</span><span class="special">;</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">Fold</span><span class="special">(</span>
+	<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Extensions</span><span class="special">(),</span>
+	<span class="identifier">length_and_name</span><span class="special">(</span><span class="number">0</span><span class="special">,</span> <span class="string">"N/A"</span><span class="special">),</span>
+	<span class="special">[](</span><span class="identifier">length_and_name</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">ext</span><span class="special">)</span> <span class="special">-&gt;</span> <span class="identifier">length_and_name</span>
+	<span class="special">{</span>
+		<span class="keyword">if</span><span class="special">(</span><span class="identifier">state</span><span class="special">.</span><span class="identifier">first</span> <span class="special">&lt;</span> <span class="identifier">ext</span><span class="special">.</span><span class="identifier">length</span><span class="special">())</span>
+		<span class="special">{</span>
+			<span class="identifier">state</span><span class="special">.</span><span class="identifier">first</span> <span class="special">=</span> <span class="identifier">ext</span><span class="special">.</span><span class="identifier">length</span><span class="special">();</span>
+			<span class="identifier">state</span><span class="special">.</span><span class="identifier">second</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">ext</span><span class="special">);</span>
+		<span class="special">}</span>
+		<span class="keyword">return</span> <span class="identifier">state</span><span class="special">;</span>
+	<span class="special">}</span>
+<span class="special">).</span><span class="identifier">second</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+</pre>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="enums.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../gl_index.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

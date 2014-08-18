@@ -1,0 +1,111 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Operation kinds</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="gen_tags.html" title="Object creation methods">
+<link rel="next" href="object.html" title="OGLplus objects">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="gen_tags.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="object.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.ops_tags"></a><a class="link" href="ops_tags.html" title="Operation kinds">Operation kinds</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/fwd.hpp&gt;</code>
+        </p>
+<p>
+          The functions in <a href="http://www.opengl.org/" target="_top">OpenGL</a> can
+          be divided into several distinct categories based on how the object that
+          the functions operate on is specified:
+        </p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+              The object is bound to a specific named <span class="emphasis"><em>binding point</em></span>
+              - <span class="emphasis"><em>target</em></span> and the target identifier is passed as
+              an argument to the function. Such functions are referred to as having
+              an <span class="emphasis"><em>explicit selector</em></span>.
+            </li>
+<li class="listitem">
+              The object is bound to an implicit target (i.e. bound by using the
+              appropriate function without any explicit target identifier) and the
+              function is called without any targer identifier). Such functions are
+              referred to as having an <span class="emphasis"><em>implicit selector</em></span>.
+            </li>
+<li class="listitem">
+              The object is accessed directly by its unique GL <span class="emphasis"><em>name</em></span>.
+              Such functions are referred to as having <span class="emphasis"><em>direct state access</em></span>.
+            </li>
+</ol></div>
+<p>
+          In some cases (for example if the <a href="http://www.opengl.org/registry/specs/EXT/direct_state_access.txt" target="_top"><code class="literal">EXT_direct_state_access</code>
+          extension</a> is implemented) there are several functions implementing
+          the same operation, but differing in the way how the object that they operate
+          on in selected.
+        </p>
+<p>
+          <a href="http://oglplus.org/" target="_top">OGLplus</a> distinguishes the categories
+          or kinds of the functions as listed above at compile-time by using the
+          following tag types:
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+<span class="keyword">namespace</span> <span class="identifier">tag</span> <span class="special">{</span>
+
+<span class="keyword">struct</span> <span class="identifier">ExplicitSel</span><span class="special">;</span> <a class="co" name="oglplus.quickref.ops_tags.c0" href="ops_tags.html#oglplus.quickref.ops_tags.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="keyword">struct</span> <span class="identifier">ImplicitSel</span><span class="special">;</span> <a class="co" name="oglplus.quickref.ops_tags.c2" href="ops_tags.html#oglplus.quickref.ops_tags.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="keyword">struct</span> <span class="identifier">DirectState</span><span class="special">;</span> <a class="co" name="oglplus.quickref.ops_tags.c4" href="ops_tags.html#oglplus.quickref.ops_tags.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="keyword">struct</span> <span class="identifier">DirectStateEXT</span><span class="special">;</span> <a class="co" name="oglplus.quickref.ops_tags.c6" href="ops_tags.html#oglplus.quickref.ops_tags.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="keyword">struct</span> <span class="identifier">CurrentBound</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace tag</span>
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.ops_tags.c1"></a><a href="#oglplus.quickref.ops_tags.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Operations with <span class="emphasis"><em>explicit selector</em></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.ops_tags.c3"></a><a href="#oglplus.quickref.ops_tags.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Operations with <span class="emphasis"><em>implicit selector</em></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.ops_tags.c5"></a><a href="#oglplus.quickref.ops_tags.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Operations with <span class="emphasis"><em>direct state access</em></span> (as defined
+              in GL Core or <a href="http://www.opengl.org/registry/specs/ARB/direct_state_access.txt" target="_top">ARB_direct_state_access</a>).
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.ops_tags.c7"></a><a href="#oglplus.quickref.ops_tags.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Operations with <span class="emphasis"><em>direct state access</em></span> (as defined
+              in <a href="http://www.opengl.org/registry/specs/EXT/direct_state_access.txt" target="_top">EXT_direct_state_access</a>).
+            </p></td>
+</tr>
+</table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="gen_tags.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="object.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

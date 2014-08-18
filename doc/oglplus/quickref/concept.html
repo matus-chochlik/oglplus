@@ -1,0 +1,160 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Concepts</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="next" href="string.html" title="Strings">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../quickref.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="string.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.concept"></a><a class="link" href="concept.html" title="Concepts">Concepts</a>
+</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="concept.html#oglplus.quickref.concept.range">Ranges</a></span></dt>
+<dt><span class="section"><a href="concept.html#oglplus.quickref.concept.metafunction">Metafunctions</a></span></dt>
+</dl></div>
+<p>
+          This section describes concepts - named sets of requirements placed on
+          actual types. None of the types or classes decribed in this section are
+          actual types and none of them can be used by the library's end-user code.
+          They are here just to describe the requirements that the types conforming
+          to the individual concepts must satisfy in order to be considered models
+          of those concepts. The concepts described here are also used are function
+          parameters or return value types in this reference. In such cases the actual
+          type is an implementation detail. If values of such types are returned
+          from a function and need to be stored in variables, then the <code class="literal">auto</code>
+          type specifier (or the <code class="literal">decltype</code> operator) should be
+          used to determine the concrete type.
+        </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.concept.range"></a><a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges">Ranges</a>
+</h3></div></div></div>
+<p>
+            <code class="literal">Range</code> is a <a class="link" href="concept.html" title="Concepts">concept</a>
+            for classes, which allow simple forward traversal of elements of a specified
+            type. As with other concepts the <code class="literal">Range</code> templated class
+            does not actually exist and cannot be used in end-user code. It is used
+            here to describe the requirements that all actual types conforming to
+            this concept must satisfy. If this concept is used as a function return
+            value type, then the actual type must be obtained by using the <code class="literal">auto</code>
+            type specifier or with the <code class="literal">decltype</code> operator.
+          </p>
+<p>
+            There is also a whole <a class="link" href="utils.html#oglplus.quickref.utils.ranges" title="Ranges">set
+            of utilities</a> for working with real types conforming to the <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a>
+            concept.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Element</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">Range</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">typedef</span> <span class="keyword">const</span> <span class="identifier">Element</span> <span class="identifier">ValueType</span><span class="special">;</span> <a class="co" name="oglplus.quickref.concept.range.c0" href="concept.html#oglplus.quickref.concept.range.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">Range</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Range</span><span class="special">&amp;);</span> <a class="co" name="oglplus.quickref.concept.range.c2" href="concept.html#oglplus.quickref.concept.range.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">Empty</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.concept.range.c4" href="concept.html#oglplus.quickref.concept.range.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">size_t</span> <span class="identifier">Size</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.concept.range.c6" href="concept.html#oglplus.quickref.concept.range.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Next</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.concept.range.c8" href="concept.html#oglplus.quickref.concept.range.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">ValueType</span> <span class="identifier">Front</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.concept.range.c10" href="concept.html#oglplus.quickref.concept.range.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.concept.range.c1"></a><a href="#oglplus.quickref.concept.range.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                The type into which the value returned by <code class="literal">Front</code>
+                is implicitly convertible.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.concept.range.c3"></a><a href="#oglplus.quickref.concept.range.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Ranges are copyable.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.concept.range.c5"></a><a href="#oglplus.quickref.concept.range.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns true if the range is empty.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.concept.range.c7"></a><a href="#oglplus.quickref.concept.range.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the number of <code class="literal">Element</code>s in the range.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.concept.range.c9"></a><a href="#oglplus.quickref.concept.range.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This function moves the front of the range one element ahead. The
+                range must not be empty when calling <code class="literal">Next</code>, otherwise
+                the result is undefined and the application may be aborted.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.concept.range.c11"></a><a href="#oglplus.quickref.concept.range.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the elements at the front of the range. The range must not
+                be empty when calling Front, otherwise the result is undefined and
+                the application may be aborted.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.concept.metafunction"></a><a class="link" href="concept.html#oglplus.quickref.concept.metafunction" title="Metafunctions">Metafunctions</a>
+</h3></div></div></div>
+<p>
+            A <code class="literal">Metafunction</code> is a compile-time metaprogramming primitive
+            that <span class="emphasis"><em>evaluates</em></span> into a type. Types modelling this
+            concept must have a member <code class="literal">typedef</code> called <code class="literal">Type</code>
+            - the result of the metafunction. OGLplus end-users rarely need to work
+            with metafunctions directly, they are used mostly as internal implementation
+            details.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">struct</span> <span class="identifier">Metafunction</span>
+<span class="special">{</span>
+	<span class="keyword">typedef</span> &lt;Unspecified&gt; <span class="identifier">Type</span><span class="special">;</span> <a class="co" name="oglplus.quickref.concept.metafunction.c0" href="concept.html#oglplus.quickref.concept.metafunction.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.concept.metafunction.c1"></a><a href="#oglplus.quickref.concept.metafunction.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                The result of a metafunction.
+              </p></td>
+</tr></table></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../quickref.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="string.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

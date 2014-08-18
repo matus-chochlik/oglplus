@@ -1,0 +1,158 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Limit queries</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="hint.html" title="Hint">
+<link rel="next" href="string_query.html" title="String queries">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="hint.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="string_query.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.limit_query"></a><a class="link" href="limit_query.html" title="Limit queries">Limit queries</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/limit_query.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">LimitQuery</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Max3dTextureSize</span>                           <span class="special">=</span> <span class="identifier">GL_MAX_3D_TEXTURE_SIZE</span><span class="special">,</span>
+	<span class="identifier">MaxArrayTextureLayers</span>                      <span class="special">=</span> <span class="identifier">GL_MAX_ARRAY_TEXTURE_LAYERS</span><span class="special">,</span>
+	<span class="identifier">MaxAtomicCounterBufferBindings</span>             <span class="special">=</span> <span class="identifier">GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS</span><span class="special">,</span>
+	<span class="identifier">MaxAtomicCounterBufferSize</span>                 <span class="special">=</span> <span class="identifier">GL_MAX_ATOMIC_COUNTER_BUFFER_SIZE</span><span class="special">,</span>
+	<span class="identifier">MaxClipDistances</span>                           <span class="special">=</span> <span class="identifier">GL_MAX_CLIP_DISTANCES</span><span class="special">,</span>
+	<span class="identifier">MaxColorAttachments</span>                        <span class="special">=</span> <span class="identifier">GL_MAX_COLOR_ATTACHMENTS</span><span class="special">,</span>
+	<span class="identifier">MaxColorTextureSamples</span>                     <span class="special">=</span> <span class="identifier">GL_MAX_COLOR_TEXTURE_SAMPLES</span><span class="special">,</span>
+	<span class="identifier">MaxCombinedAtomicCounterBuffers</span>            <span class="special">=</span> <span class="identifier">GL_MAX_COMBINED_ATOMIC_COUNTER_BUFFERS</span><span class="special">,</span>
+	<span class="identifier">MaxCombinedAtomicCounters</span>                  <span class="special">=</span> <span class="identifier">GL_MAX_COMBINED_ATOMIC_COUNTERS</span><span class="special">,</span>
+	<span class="identifier">MaxCombinedFragmentUniformComponents</span>       <span class="special">=</span> <span class="identifier">GL_MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxCombinedGeometryUniformComponents</span>       <span class="special">=</span> <span class="identifier">GL_MAX_COMBINED_GEOMETRY_UNIFORM_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxCombinedImageUniforms</span>                   <span class="special">=</span> <span class="identifier">GL_MAX_COMBINED_IMAGE_UNIFORMS</span><span class="special">,</span>
+	<span class="identifier">MaxCombinedImageUnitsAndFragmentOutputs</span>    <span class="special">=</span> <span class="identifier">GL_MAX_COMBINED_IMAGE_UNITS_AND_FRAGMENT_OUTPUTS</span><span class="special">,</span>
+	<span class="identifier">MaxCombinedTessControlUniformComponents</span>    <span class="special">=</span> <span class="identifier">GL_MAX_COMBINED_TESS_CONTROL_UNIFORM_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxCombinedTessEvaluationUniformComponents</span> <span class="special">=</span> <span class="identifier">GL_MAX_COMBINED_TESS_EVALUATION_UNIFORM_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxCombinedTextureImageUnits</span>               <span class="special">=</span> <span class="identifier">GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS</span><span class="special">,</span>
+	<span class="identifier">MaxCombinedUniformBlocks</span>                   <span class="special">=</span> <span class="identifier">GL_MAX_COMBINED_UNIFORM_BLOCKS</span><span class="special">,</span>
+	<span class="identifier">MaxCombinedVertexUniformComponents</span>         <span class="special">=</span> <span class="identifier">GL_MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxCubeMapTextureSize</span>                      <span class="special">=</span> <span class="identifier">GL_MAX_CUBE_MAP_TEXTURE_SIZE</span><span class="special">,</span>
+	<span class="identifier">MaxDepthTextureSamples</span>                     <span class="special">=</span> <span class="identifier">GL_MAX_DEPTH_TEXTURE_SAMPLES</span><span class="special">,</span>
+	<span class="identifier">MaxDrawBuffers</span>                             <span class="special">=</span> <span class="identifier">GL_MAX_DRAW_BUFFERS</span><span class="special">,</span>
+	<span class="identifier">MaxDualSourceDrawBuffers</span>                   <span class="special">=</span> <span class="identifier">GL_MAX_DUAL_SOURCE_DRAW_BUFFERS</span><span class="special">,</span>
+	<span class="identifier">MaxElementsIndices</span>                         <span class="special">=</span> <span class="identifier">GL_MAX_ELEMENTS_INDICES</span><span class="special">,</span>
+	<span class="identifier">MaxElementsVertices</span>                        <span class="special">=</span> <span class="identifier">GL_MAX_ELEMENTS_VERTICES</span><span class="special">,</span>
+	<span class="identifier">MaxFragmentAtomicCounterBuffers</span>            <span class="special">=</span> <span class="identifier">GL_MAX_FRAGMENT_ATOMIC_COUNTER_BUFFERS</span><span class="special">,</span>
+	<span class="identifier">MaxFragmentAtomicCounters</span>                  <span class="special">=</span> <span class="identifier">GL_MAX_FRAGMENT_ATOMIC_COUNTERS</span><span class="special">,</span>
+	<span class="identifier">MaxFragmentImageUniforms</span>                   <span class="special">=</span> <span class="identifier">GL_MAX_FRAGMENT_IMAGE_UNIFORMS</span><span class="special">,</span>
+	<span class="identifier">MaxFragmentInputComponents</span>                 <span class="special">=</span> <span class="identifier">GL_MAX_FRAGMENT_INPUT_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxFragmentInterpolationOffset</span>             <span class="special">=</span> <span class="identifier">GL_MAX_FRAGMENT_INTERPOLATION_OFFSET</span><span class="special">,</span>
+	<span class="identifier">MaxFragmentUniformBlocks</span>                   <span class="special">=</span> <span class="identifier">GL_MAX_FRAGMENT_UNIFORM_BLOCKS</span><span class="special">,</span>
+	<span class="identifier">MaxFragmentUniformComponents</span>               <span class="special">=</span> <span class="identifier">GL_MAX_FRAGMENT_UNIFORM_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxFragmentUniformVectors</span>                  <span class="special">=</span> <span class="identifier">GL_MAX_FRAGMENT_UNIFORM_VECTORS</span><span class="special">,</span>
+	<span class="identifier">MaxGeometryAtomicCounterBuffers</span>            <span class="special">=</span> <span class="identifier">GL_MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS</span><span class="special">,</span>
+	<span class="identifier">MaxGeometryAtomicCounters</span>                  <span class="special">=</span> <span class="identifier">GL_MAX_GEOMETRY_ATOMIC_COUNTERS</span><span class="special">,</span>
+	<span class="identifier">MaxGeometryImageUniforms</span>                   <span class="special">=</span> <span class="identifier">GL_MAX_GEOMETRY_IMAGE_UNIFORMS</span><span class="special">,</span>
+	<span class="identifier">MaxGeometryInputComponents</span>                 <span class="special">=</span> <span class="identifier">GL_MAX_GEOMETRY_INPUT_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxGeometryOutputComponents</span>                <span class="special">=</span> <span class="identifier">GL_MAX_GEOMETRY_OUTPUT_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxGeometryOutputVertices</span>                  <span class="special">=</span> <span class="identifier">GL_MAX_GEOMETRY_OUTPUT_VERTICES</span><span class="special">,</span>
+	<span class="identifier">MaxGeometryShaderInvocations</span>               <span class="special">=</span> <span class="identifier">GL_MAX_GEOMETRY_SHADER_INVOCATIONS</span><span class="special">,</span>
+	<span class="identifier">MaxGeometryTextureImageUnits</span>               <span class="special">=</span> <span class="identifier">GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS</span><span class="special">,</span>
+	<span class="identifier">MaxGeometryTotalOutputComponents</span>           <span class="special">=</span> <span class="identifier">GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxGeometryUniformBlocks</span>                   <span class="special">=</span> <span class="identifier">GL_MAX_GEOMETRY_UNIFORM_BLOCKS</span><span class="special">,</span>
+	<span class="identifier">MaxGeometryUniformComponents</span>               <span class="special">=</span> <span class="identifier">GL_MAX_GEOMETRY_UNIFORM_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxImageSamples</span>                            <span class="special">=</span> <span class="identifier">GL_MAX_IMAGE_SAMPLES</span><span class="special">,</span>
+	<span class="identifier">MaxImageUnits</span>                              <span class="special">=</span> <span class="identifier">GL_MAX_IMAGE_UNITS</span><span class="special">,</span>
+	<span class="identifier">MaxIntegerSamples</span>                          <span class="special">=</span> <span class="identifier">GL_MAX_INTEGER_SAMPLES</span><span class="special">,</span>
+	<span class="identifier">MaxPatchVertices</span>                           <span class="special">=</span> <span class="identifier">GL_MAX_PATCH_VERTICES</span><span class="special">,</span>
+	<span class="identifier">MaxProgramTexelOffset</span>                      <span class="special">=</span> <span class="identifier">GL_MAX_PROGRAM_TEXEL_OFFSET</span><span class="special">,</span>
+	<span class="identifier">MaxProgramTextureGatherOffset</span>              <span class="special">=</span> <span class="identifier">GL_MAX_PROGRAM_TEXTURE_GATHER_OFFSET</span><span class="special">,</span>
+	<span class="identifier">MaxRectangleTextureSize</span>                    <span class="special">=</span> <span class="identifier">GL_MAX_RECTANGLE_TEXTURE_SIZE</span><span class="special">,</span>
+	<span class="identifier">MaxRenderbufferSize</span>                        <span class="special">=</span> <span class="identifier">GL_MAX_RENDERBUFFER_SIZE</span><span class="special">,</span>
+	<span class="identifier">MaxSampleMaskWords</span>                         <span class="special">=</span> <span class="identifier">GL_MAX_SAMPLE_MASK_WORDS</span><span class="special">,</span>
+	<span class="identifier">MaxSamples</span>                                 <span class="special">=</span> <span class="identifier">GL_MAX_SAMPLES</span><span class="special">,</span>
+	<span class="identifier">MaxServerWaitTimeout</span>                       <span class="special">=</span> <span class="identifier">GL_MAX_SERVER_WAIT_TIMEOUT</span><span class="special">,</span>
+	<span class="identifier">MaxSubroutines</span>                             <span class="special">=</span> <span class="identifier">GL_MAX_SUBROUTINES</span><span class="special">,</span>
+	<span class="identifier">MaxSubroutineUniformLocations</span>              <span class="special">=</span> <span class="identifier">GL_MAX_SUBROUTINE_UNIFORM_LOCATIONS</span><span class="special">,</span>
+	<span class="identifier">MaxTessControlAtomicCounterBuffers</span>         <span class="special">=</span> <span class="identifier">GL_MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS</span><span class="special">,</span>
+	<span class="identifier">MaxTessControlAtomicCounters</span>               <span class="special">=</span> <span class="identifier">GL_MAX_TESS_CONTROL_ATOMIC_COUNTERS</span><span class="special">,</span>
+	<span class="identifier">MaxTessControlImageUniforms</span>                <span class="special">=</span> <span class="identifier">GL_MAX_TESS_CONTROL_IMAGE_UNIFORMS</span><span class="special">,</span>
+	<span class="identifier">MaxTessControlInputComponents</span>              <span class="special">=</span> <span class="identifier">GL_MAX_TESS_CONTROL_INPUT_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxTessControlOutputComponents</span>             <span class="special">=</span> <span class="identifier">GL_MAX_TESS_CONTROL_OUTPUT_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxTessControlTextureImageUnits</span>            <span class="special">=</span> <span class="identifier">GL_MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS</span><span class="special">,</span>
+	<span class="identifier">MaxTessControlTotalOutputComponents</span>        <span class="special">=</span> <span class="identifier">GL_MAX_TESS_CONTROL_TOTAL_OUTPUT_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxTessControlUniformBlocks</span>                <span class="special">=</span> <span class="identifier">GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS</span><span class="special">,</span>
+	<span class="identifier">MaxTessControlUniformComponents</span>            <span class="special">=</span> <span class="identifier">GL_MAX_TESS_CONTROL_UNIFORM_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxTessEvaluationAtomicCounterBuffers</span>      <span class="special">=</span> <span class="identifier">GL_MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS</span><span class="special">,</span>
+	<span class="identifier">MaxTessEvaluationAtomicCounters</span>            <span class="special">=</span> <span class="identifier">GL_MAX_TESS_EVALUATION_ATOMIC_COUNTERS</span><span class="special">,</span>
+	<span class="identifier">MaxTessEvaluationImageUniforms</span>             <span class="special">=</span> <span class="identifier">GL_MAX_TESS_EVALUATION_IMAGE_UNIFORMS</span><span class="special">,</span>
+	<span class="identifier">MaxTessEvaluationInputComponents</span>           <span class="special">=</span> <span class="identifier">GL_MAX_TESS_EVALUATION_INPUT_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxTessEvaluationOutputComponents</span>          <span class="special">=</span> <span class="identifier">GL_MAX_TESS_EVALUATION_OUTPUT_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxTessEvaluationTextureImageUnits</span>         <span class="special">=</span> <span class="identifier">GL_MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS</span><span class="special">,</span>
+	<span class="identifier">MaxTessEvaluationUniformBlocks</span>             <span class="special">=</span> <span class="identifier">GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS</span><span class="special">,</span>
+	<span class="identifier">MaxTessEvaluationUniformComponents</span>         <span class="special">=</span> <span class="identifier">GL_MAX_TESS_EVALUATION_UNIFORM_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxTessGenLevel</span>                            <span class="special">=</span> <span class="identifier">GL_MAX_TESS_GEN_LEVEL</span><span class="special">,</span>
+	<span class="identifier">MaxTessPatchComponents</span>                     <span class="special">=</span> <span class="identifier">GL_MAX_TESS_PATCH_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxTextureBufferSize</span>                       <span class="special">=</span> <span class="identifier">GL_MAX_TEXTURE_BUFFER_SIZE</span><span class="special">,</span>
+	<span class="identifier">MaxTextureImageUnits</span>                       <span class="special">=</span> <span class="identifier">GL_MAX_TEXTURE_IMAGE_UNITS</span><span class="special">,</span>
+	<span class="identifier">MaxTextureLodBias</span>                          <span class="special">=</span> <span class="identifier">GL_MAX_TEXTURE_LOD_BIAS</span><span class="special">,</span>
+	<span class="identifier">MaxTextureSize</span>                             <span class="special">=</span> <span class="identifier">GL_MAX_TEXTURE_SIZE</span><span class="special">,</span>
+	<span class="identifier">MaxTransformFeedbackBuffers</span>                <span class="special">=</span> <span class="identifier">GL_MAX_TRANSFORM_FEEDBACK_BUFFERS</span><span class="special">,</span>
+	<span class="identifier">MaxTransformFeedbackInterleavedComponents</span>  <span class="special">=</span> <span class="identifier">GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxTransformFeedbackSeparateAttribs</span>        <span class="special">=</span> <span class="identifier">GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS</span><span class="special">,</span>
+	<span class="identifier">MaxTransformFeedbackSeparateComponents</span>     <span class="special">=</span> <span class="identifier">GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxUniformBlockSize</span>                        <span class="special">=</span> <span class="identifier">GL_MAX_UNIFORM_BLOCK_SIZE</span><span class="special">,</span>
+	<span class="identifier">MaxUniformBufferBindings</span>                   <span class="special">=</span> <span class="identifier">GL_MAX_UNIFORM_BUFFER_BINDINGS</span><span class="special">,</span>
+	<span class="identifier">MaxVaryingComponents</span>                       <span class="special">=</span> <span class="identifier">GL_MAX_VARYING_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxVaryingVectors</span>                          <span class="special">=</span> <span class="identifier">GL_MAX_VARYING_VECTORS</span><span class="special">,</span>
+	<span class="identifier">MaxVertexAtomicCounterBuffers</span>              <span class="special">=</span> <span class="identifier">GL_MAX_VERTEX_ATOMIC_COUNTER_BUFFERS</span><span class="special">,</span>
+	<span class="identifier">MaxVertexAtomicCounters</span>                    <span class="special">=</span> <span class="identifier">GL_MAX_VERTEX_ATOMIC_COUNTERS</span><span class="special">,</span>
+	<span class="identifier">MaxVertexAttribs</span>                           <span class="special">=</span> <span class="identifier">GL_MAX_VERTEX_ATTRIBS</span><span class="special">,</span>
+	<span class="identifier">MaxVertexImageUniforms</span>                     <span class="special">=</span> <span class="identifier">GL_MAX_VERTEX_IMAGE_UNIFORMS</span><span class="special">,</span>
+	<span class="identifier">MaxVertexOutputComponents</span>                  <span class="special">=</span> <span class="identifier">GL_MAX_VERTEX_OUTPUT_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxVertexStreams</span>                           <span class="special">=</span> <span class="identifier">GL_MAX_VERTEX_STREAMS</span><span class="special">,</span>
+	<span class="identifier">MaxVertexTextureImageUnits</span>                 <span class="special">=</span> <span class="identifier">GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS</span><span class="special">,</span>
+	<span class="identifier">MaxVertexUniformBlocks</span>                     <span class="special">=</span> <span class="identifier">GL_MAX_VERTEX_UNIFORM_BLOCKS</span><span class="special">,</span>
+	<span class="identifier">MaxVertexUniformComponents</span>                 <span class="special">=</span> <span class="identifier">GL_MAX_VERTEX_UNIFORM_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxVertexUniformVectors</span>                    <span class="special">=</span> <span class="identifier">GL_MAX_VERTEX_UNIFORM_VECTORS</span><span class="special">,</span>
+	<span class="identifier">MaxViewportDims</span>                            <span class="special">=</span> <span class="identifier">GL_MAX_VIEWPORT_DIMS</span><span class="special">,</span>
+	<span class="identifier">MaxViewports</span>                               <span class="special">=</span> <span class="identifier">GL_MAX_VIEWPORTS</span><span class="special">,</span>
+	<span class="identifier">MaxComputeWorkGroupCount</span>                   <span class="special">=</span> <span class="identifier">GL_MAX_COMPUTE_WORK_GROUP_COUNT</span><span class="special">,</span>
+	<span class="identifier">MaxComputeWorkGroupSize</span>                    <span class="special">=</span> <span class="identifier">GL_MAX_COMPUTE_WORK_GROUP_SIZE</span><span class="special">,</span>
+	<span class="identifier">MaxComputeWorkGroupInvocations</span>             <span class="special">=</span> <span class="identifier">GL_MAX_COMPUTE_WORK_GROUP_INVOCATIONS</span><span class="special">,</span>
+	<span class="identifier">MaxComputeSharedMemorySize</span>                 <span class="special">=</span> <span class="identifier">GL_MAX_COMPUTE_SHARED_MEMORY_SIZE</span><span class="special">,</span>
+	<span class="identifier">MinFragmentInterpolationOffset</span>             <span class="special">=</span> <span class="identifier">GL_MIN_FRAGMENT_INTERPOLATION_OFFSET</span><span class="special">,</span>
+	<span class="identifier">MinMapBufferAlignment</span>                      <span class="special">=</span> <span class="identifier">GL_MIN_MAP_BUFFER_ALIGNMENT</span><span class="special">,</span>
+	<span class="identifier">MinProgramTexelOffset</span>                      <span class="special">=</span> <span class="identifier">GL_MIN_PROGRAM_TEXEL_OFFSET</span><span class="special">,</span>
+	<span class="identifier">MinProgramTextureGatherOffset</span>              <span class="special">=</span> <span class="identifier">GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET</span><span class="special">,</span>
+	<span class="identifier">MinSampleShadingValue</span>                      <span class="special">=</span> <span class="identifier">GL_MIN_SAMPLE_SHADING_VALUE</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">LimitQuery</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="hint.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="string_query.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

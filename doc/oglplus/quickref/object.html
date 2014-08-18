@@ -1,0 +1,1066 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>OGLplus objects</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="ops_tags.html" title="Operation kinds">
+<link rel="next" href="buffer.html" title="Buffers">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="ops_tags.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="buffer.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.object"></a><a class="link" href="object.html" title="OGLplus objects">OGLplus objects</a>
+</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.tags">Tags</a></span></dt>
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.type">Object type</a></span></dt>
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.name">Name</a></span></dt>
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.name0">Name</a></span></dt>
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.desc">Textual descriptions</a></span></dt>
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.gendelops"><code class="literal">Gen</code>/<code class="literal">Delete</code>
+          operations</a></span></dt>
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.ops">Type specific operations</a></span></dt>
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.subtype">Object subtype</a></span></dt>
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.wrapper">Object</a></span></dt>
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.optional">Optional</a></span></dt>
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.reference">Reference</a></span></dt>
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.sequence">Sequence</a></span></dt>
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.group">Group</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.tags"></a><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">Tags</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/tags.hpp&gt;</code>
+          </p>
+<p>
+            The object tag types allow to differentiate between <a href="http://www.opengl.org/" target="_top">OpenGL</a>
+            object types at compile time.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+<span class="keyword">namespace</span> <span class="identifier">tag</span> <span class="special">{</span>
+
+<span class="keyword">struct</span> <span class="identifier">Texture</span> <span class="special">{</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">Buffer</span> <span class="special">{</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">Framebuffer</span> <span class="special">{</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">Renderbuffer</span> <span class="special">{</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">Query</span> <span class="special">{</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">ProgramPipeline</span> <span class="special">{</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">Program</span> <span class="special">{</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">TransformFeedback</span> <span class="special">{</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">Sampler</span> <span class="special">{</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">VertexArray</span> <span class="special">{</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">Shader</span> <span class="special">{</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">PerfMonitorAMD</span> <span class="special">{</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">PathNV</span> <span class="special">{</span> <span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace tag</span>
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.type"></a><a class="link" href="object.html#oglplus.quickref.object.type" title="Object type">Object type</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/type.hpp&gt;</code>
+          </p>
+<p>
+            The <code class="literal">ObjectType</code> type <a class="link" href="enums.html" title="Enumerations">enumerates</a>
+            the GL object type values.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">ObjectType</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Buffer</span>            <span class="special">=</span> <span class="identifier">GL_BUFFER</span><span class="special">,</span>
+	<span class="identifier">Framebuffer</span>       <span class="special">=</span> <span class="identifier">GL_FRAMEBUFFER</span><span class="special">,</span>
+	<span class="identifier">ProgramPipeline</span>   <span class="special">=</span> <span class="identifier">GL_PROGRAM_PIPELINE</span><span class="special">,</span>
+	<span class="identifier">Program</span>           <span class="special">=</span> <span class="identifier">GL_PROGRAM</span><span class="special">,</span>
+	<span class="identifier">Query</span>             <span class="special">=</span> <span class="identifier">GL_QUERY</span><span class="special">,</span>
+	<span class="identifier">Renderbuffer</span>      <span class="special">=</span> <span class="identifier">GL_RENDERBUFFER</span><span class="special">,</span>
+	<span class="identifier">Sampler</span>           <span class="special">=</span> <span class="identifier">GL_SAMPLER</span><span class="special">,</span>
+	<span class="identifier">Shader</span>            <span class="special">=</span> <span class="identifier">GL_SHADER</span><span class="special">,</span>
+	<span class="identifier">Texture</span>           <span class="special">=</span> <span class="identifier">GL_TEXTURE</span><span class="special">,</span>
+	<span class="identifier">TransformFeedback</span> <span class="special">=</span> <span class="identifier">GL_TRANSFORM_FEEDBACK</span><span class="special">,</span>
+	<span class="identifier">VertexArray</span>       <span class="special">=</span> <span class="identifier">GL_VERTEX_ARRAY</span><span class="special">,</span>
+	<span class="identifier">None</span>              <span class="special">=</span> <span class="identifier">GL_NONE</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">ObjectType</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">ObjectType</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">ObjectType</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.object.type.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.object.type.ops"></a></span><a class="link" href="object.html#oglplus.quickref.object.type.ops">Type-related
+            functions</a>
+          </h5>
+<p>
+            The object type can be obtained by calling the <code class="literal">ObjectType</code>
+            static member function of <code class="literal">ObjTypeOps&lt;<a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a>&gt;</code>,
+            which is a public base class of OGLplus <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">object
+            wrappers</a>. It can also be used as a standalone class when instantiated
+            with one of the <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">object tags</a>.
+            For example <code class="literal">ObjTypeOps&lt;tag::Buffer&gt;::ObjectType()</code>
+            returns <code class="literal"><a class="link" href="object.html#oglplus.quickref.object.type" title="Object type">ObjectType</a>::Buffer</code>,
+            etc.
+          </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              If the underlying GL constant value like <code class="literal">GL_FRAMEBUFFER</code>
+              or <code class="literal">GL_TEXTURE</code>, etc. is not defined, then the <code class="literal">ObjectType</code>
+              member function returns <code class="literal"><a class="link" href="object.html#oglplus.quickref.object.type" title="Object type">ObjectType</a>::None</code>.
+            </p></td></tr>
+</table></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">ObjTypeOps</span>
+<span class="special">{</span>
+	<span class="keyword">static</span> <a class="link" href="object.html#oglplus.quickref.object.type" title="Object type">ObjectType</a> <span class="identifier">ObjectType</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.name"></a><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">Name</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/name.hpp&gt;</code>
+          </p>
+<p>
+            The <code class="computeroutput"><span class="identifier">ObjectName</span></code> template
+            wraps the raw <code class="computeroutput"><span class="identifier">GLuint</span></code>
+            name of a GL object (texture, VBO, FBO, RBO, sampler, query, etc.). Since
+            all types of GL objects share the same namespace (the domain of the
+            <code class="computeroutput"><span class="identifier">GLuint</span></code> type) it is easy
+            to confuse objects of different types.
+          </p>
+<p>
+            In order to avoid such mismatches, the <code class="computeroutput"><span class="identifier">ObjTag</span></code>
+            template parameter of <code class="computeroutput"><span class="identifier">ObjectName</span></code>
+            conveys information about the actual object type and prevents for example
+            passing a texture name to a function requiring a buffer, etc.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">ObjectName</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ObjectName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.name.c0" href="object.html#oglplus.quickref.object.name.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">explicit</span> <span class="identifier">ObjectName</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">name</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.name.c2" href="object.html#oglplus.quickref.object.name.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">ObjectName</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">ObjectName</span><span class="special">&amp;)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+	<span class="identifier">ObjectName</span><span class="special">(</span><span class="identifier">ObjectName</span><span class="special">&amp;&amp;)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">ObjectName</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">ObjectName</span><span class="special">&amp;)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+	<span class="identifier">ObjectName</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><span class="identifier">ObjectName</span><span class="special">&amp;&amp;)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">==</span> <span class="special">(</span><span class="identifier">ObjectName</span><span class="special">,</span> <span class="identifier">ObjectName</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!=</span> <span class="special">(</span><span class="identifier">ObjectName</span><span class="special">,</span> <span class="identifier">ObjectName</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">&lt;</span>  <span class="special">(</span><span class="identifier">ObjectName</span><span class="special">,</span> <span class="identifier">ObjectName</span><span class="special">);</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjTag</span><span class="special">&gt;</span>
+<span class="identifier">GLuint</span> <span class="identifier">GetGLName</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">named</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.name.c4" href="object.html#oglplus.quickref.object.name.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.name.c1"></a><a href="#oglplus.quickref.object.name.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs a wrapper for object with name <code class="literal">0</code> (zero).
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.name.c3"></a><a href="#oglplus.quickref.object.name.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs a wrapper for an object with the specified <code class="literal">name</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.name.c5"></a><a href="#oglplus.quickref.object.name.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Allows to access the 'raw' GL object name.
+              </p></td>
+</tr>
+</table></div>
+<h5>
+<a name="oglplus.quickref.object.name.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.object.name.typedefs"></a></span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">Convenience
+            typedefs</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Renderbuffer</span><span class="special">&gt;</span> <span class="identifier">RenderbufferName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Framebuffer</span><span class="special">&gt;</span> <span class="identifier">FramebufferName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Texture</span><span class="special">&gt;</span> <span class="identifier">TextureName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Buffer</span><span class="special">&gt;</span> <span class="identifier">BufferName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Query</span><span class="special">&gt;</span> <span class="identifier">QueryName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">ProgramPipeline</span><span class="special">&gt;</span> <span class="identifier">ProgramPipelineName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Program</span><span class="special">&gt;</span> <span class="identifier">ProgramName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">TransformFeedback</span><span class="special">&gt;</span> <span class="identifier">TransformFeedbackName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Sampler</span><span class="special">&gt;</span> <span class="identifier">SamplerName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">VertexArray</span><span class="special">&gt;</span> <span class="identifier">VertexArrayName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Shader</span><span class="special">&gt;</span> <span class="identifier">ShaderName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">PerfMonitorAMD</span><span class="special">&gt;</span> <span class="identifier">PerfMonitorAMDName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">PathNV</span><span class="special">&gt;</span> <span class="identifier">PathNVName</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.name0"></a><a class="link" href="object.html#oglplus.quickref.object.name0" title="Name">Name</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/name.hpp&gt;</code>
+          </p>
+<p>
+            The <code class="computeroutput"><span class="identifier">ObjectName</span></code> template
+            wraps the raw <code class="computeroutput"><span class="identifier">GLuint</span></code>
+            name of a GL object (texture, VBO, FBO, RBO, sampler, query, etc.). Since
+            all types of GL objects share the same namespace (the domain of the
+            <code class="computeroutput"><span class="identifier">GLuint</span></code> type) it is easy
+            to confuse objects of different types.
+          </p>
+<p>
+            In order to avoid such mismatches, the <code class="computeroutput"><span class="identifier">ObjTag</span></code>
+            template parameter of <code class="computeroutput"><span class="identifier">ObjectName</span></code>
+            conveys information about the actual object type and prevents for example
+            passing a texture name to a function requiring a buffer, etc.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">ObjectName</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ObjectName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.name0.c0" href="object.html#oglplus.quickref.object.name0.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">explicit</span> <span class="identifier">ObjectName</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">name</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.name0.c2" href="object.html#oglplus.quickref.object.name0.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">ObjectName</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">ObjectName</span><span class="special">&amp;)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+	<span class="identifier">ObjectName</span><span class="special">(</span><span class="identifier">ObjectName</span><span class="special">&amp;&amp;)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">ObjectName</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">ObjectName</span><span class="special">&amp;)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+	<span class="identifier">ObjectName</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><span class="identifier">ObjectName</span><span class="special">&amp;&amp;)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">==</span> <span class="special">(</span><span class="identifier">ObjectName</span><span class="special">,</span> <span class="identifier">ObjectName</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!=</span> <span class="special">(</span><span class="identifier">ObjectName</span><span class="special">,</span> <span class="identifier">ObjectName</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">&lt;</span>  <span class="special">(</span><span class="identifier">ObjectName</span><span class="special">,</span> <span class="identifier">ObjectName</span><span class="special">);</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjTag</span><span class="special">&gt;</span>
+<span class="identifier">GLuint</span> <span class="identifier">GetGLName</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">named</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.name0.c4" href="object.html#oglplus.quickref.object.name0.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.name0.c1"></a><a href="#oglplus.quickref.object.name0.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs a wrapper for object with name <code class="literal">0</code> (zero).
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.name0.c3"></a><a href="#oglplus.quickref.object.name0.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs a wrapper for an object with the specified <code class="literal">name</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.name0.c5"></a><a href="#oglplus.quickref.object.name0.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Allows to access the 'raw' GL object name.
+              </p></td>
+</tr>
+</table></div>
+<h5>
+<a name="oglplus.quickref.object.name0.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.object.name0.typedefs"></a></span><a class="link" href="object.html#oglplus.quickref.object.name0.typedefs">Convenience
+            typedefs</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Renderbuffer</span><span class="special">&gt;</span> <span class="identifier">RenderbufferName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Framebuffer</span><span class="special">&gt;</span> <span class="identifier">FramebufferName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Texture</span><span class="special">&gt;</span> <span class="identifier">TextureName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Buffer</span><span class="special">&gt;</span> <span class="identifier">BufferName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Query</span><span class="special">&gt;</span> <span class="identifier">QueryName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">ProgramPipeline</span><span class="special">&gt;</span> <span class="identifier">ProgramPipelineName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Program</span><span class="special">&gt;</span> <span class="identifier">ProgramName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">TransformFeedback</span><span class="special">&gt;</span> <span class="identifier">TransformFeedbackName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Sampler</span><span class="special">&gt;</span> <span class="identifier">SamplerName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">VertexArray</span><span class="special">&gt;</span> <span class="identifier">VertexArrayName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Shader</span><span class="special">&gt;</span> <span class="identifier">ShaderName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">PerfMonitorAMD</span><span class="special">&gt;</span> <span class="identifier">PerfMonitorAMDName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">PathNV</span><span class="special">&gt;</span> <span class="identifier">PathNVName</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.desc"></a><a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">Textual descriptions</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/desc.hpp&gt;</code>
+          </p>
+<p>
+            Objects with OpenGL names (unsigned integers) can optionally have a textual
+            description. This is useful for diagnostic purposes, for example in an
+            application with lots of different shaders it is easier to track the
+            source of compilation, linking or validation errors when the individual
+            shader or program objects have a human-readable description which is
+            attached to the exception raised by the error.
+          </p>
+<p>
+            The descriptions are assigned to objects by using the <a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a>
+            class.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">ObjectDesc</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ObjectDesc</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="special">{</span> <span class="special">}</span>
+	<span class="identifier">ObjectDesc</span><span class="special">(</span><span class="identifier">ObjectDesc</span><span class="special">&amp;&amp;</span> <span class="identifier">tmp</span><span class="special">);</span>
+	<span class="identifier">ObjectDesc</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;&amp;</span> <span class="identifier">str</span><span class="special">);</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.gendelops"></a><a class="link" href="object.html#oglplus.quickref.object.gendelops" title="Gen/Delete operations"><code class="literal">Gen</code>/<code class="literal">Delete</code>
+          operations</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/wrapper.hpp&gt;</code>
+          </p>
+<p>
+            The <code class="literal">ObjGenDelOps</code> template class provides a unified
+            interface for the GL's <code class="literal">glGen*</code>, <code class="literal">glCreate*</code>,
+            <code class="literal">glDelete*</code> and <code class="literal">glIs*</code> functions for
+            various object types specified by the <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a>
+            template parameter.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">ObjGenDelOps</span>
+<span class="special">{</span>
+<span class="keyword">protected</span><span class="special">:</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Gen</span><span class="special">(</span><a class="link" href="gen_tags.html" title="Object creation methods">GenTag</a> <span class="identifier">gen_tag</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span> <span class="identifier">GLuint</span><span class="special">*</span> <span class="identifier">names</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.gendelops.c0" href="object.html#oglplus.quickref.object.gendelops.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Delete</span><span class="special">(</span><span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span> <span class="identifier">GLuint</span><span class="special">*</span> <span class="identifier">names</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.gendelops.c2" href="object.html#oglplus.quickref.object.gendelops.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">GLboolean</span> <span class="identifier">IsA</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">name</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.gendelops.c4" href="object.html#oglplus.quickref.object.gendelops.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.gendelops.c1"></a><a href="#oglplus.quickref.object.gendelops.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Generates <code class="literal">count</code> objects of the type specified
+                by <code class="literal"><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a></code>,
+                using the method specified by <code class="literal">gen_tag</code> and stores
+                them in <code class="literal">names</code>. Note that <code class="literal">names</code>
+                must provide enough space for at least <code class="literal">count</code> instances
+                of <code class="literal">GLuint</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.gendelops.c3"></a><a href="#oglplus.quickref.object.gendelops.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Deletes <code class="literal">count</code> objects of the type specified by
+                <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a> stored
+                in names.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.gendelops.c5"></a><a href="#oglplus.quickref.object.gendelops.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Determines if <code class="literal">name</code> is a valid name currently assigned
+                by GL to some object of the type specified by <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a>.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.ops"></a><a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">Type specific operations</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/wrapper.hpp&gt;</code>
+          </p>
+<p>
+            <code class="literal">ObjCommonOps</code> implements operations applicable to any
+            object of the type specified by <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a>
+            independent of the <a class="link" href="ops_tags.html" title="Operation kinds">operation
+            kind</a>.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">ObjCommonOps</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span> <a class="co" name="oglplus.quickref.object.ops.c0" href="object.html#oglplus.quickref.object.ops.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.ops.c1"></a><a href="#oglplus.quickref.object.ops.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                The public interface depends on the <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a>.
+              </p></td>
+</tr></table></div>
+<p>
+            <code class="literal">ObjZeroOps</code> implements operations applicable to any
+            object of the type specified by <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a>,
+            including objects with name zero (which has special meaning for certain
+            object types), using operations kind specified by <a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a>.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">ObjZeroOps</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span> <a class="co" name="oglplus.quickref.object.ops.c2" href="object.html#oglplus.quickref.object.ops.c3"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.ops.c3"></a><a href="#oglplus.quickref.object.ops.c2"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                The public interface depends on the <a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a>
+                and <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a>.
+              </p></td>
+</tr></table></div>
+<p>
+            The <code class="literal">ObjectOps</code> template class is specialized for various
+            object types (like textures, buffers, queries, etc.) specified by the
+            <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a> and operation
+            kinds specified by type <a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a>
+            and implements appropriate interface for the particular object type.
+            For example the specialization of <code class="literal">ObjectOps</code> for <code class="literal">tag::DirectState</code>
+            <a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a> and <code class="literal">tag::Texture</code>
+            <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a> wraps texture-related
+            GL functions with direct state access, etc.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">ObjectOps</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span> <a class="co" name="oglplus.quickref.object.ops.c4" href="object.html#oglplus.quickref.object.ops.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.ops.c5"></a><a href="#oglplus.quickref.object.ops.c4"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                The public interface depends on the <a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a>
+                and <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a>.
+              </p></td>
+</tr></table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.subtype"></a><a class="link" href="object.html#oglplus.quickref.object.subtype" title="Object subtype">Object subtype</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/wrapper.hpp&gt;</code>
+          </p>
+<p>
+            Some object types (for example <a class="link" href="shader.html" title="Shaders">Shader</a>,
+            <a class="link" href="texture.html" title="Textures">Texture</a> or <a class="link" href="query.html" title="Queries">Query</a>)
+            can be further classified into subtypes. The <code class="literal">ObjectSubtype</code>
+            <a class="link" href="concept.html#oglplus.quickref.concept.metafunction" title="Metafunctions"><span class="emphasis"><em>Metafunction</em></span></a>
+            allows to query the type (usually an <a class="link" href="enums.html" title="Enumerations">enumeration</a>)
+            that is used to distinguish the individual subtypes.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">ObjectSubtype</span> <span class="special">:</span> <a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a> <a class="co" name="oglplus.quickref.object.subtype.c0" href="object.html#oglplus.quickref.object.subtype.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">{</span> <span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.subtype.c1"></a><a href="#oglplus.quickref.object.subtype.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Most object types don't have any <span class="emphasis"><em>subtypes</em></span>, which
+                is indicated by returning <a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a>
+                by default.
+              </p></td>
+</tr></table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.wrapper"></a><a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/wrapper.hpp&gt;</code>
+          </p>
+<p>
+            The main purpose of <code class="literal">Object</code> is to do lifetime management
+            of the underlying GL objects and managing textual description assigned
+            to them. It uses the <a class="link" href="object.html#oglplus.quickref.object.gendelops" title="Gen/Delete operations">ObjGenDelOps</a>
+            template to create new instance of an OpenGL object in the constructor
+            and to delete it in the destructor. Since GL does not support object
+            copying, instances of <code class="literal">Object</code> are <span class="emphasis"><em>move-only</em></span>.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">Object</span><span class="special">&lt;</span><span class="identifier">ObjectOps</span><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.gendelops" title="Gen/Delete operations">ObjGenDelOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Object</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Object</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.wrapper.c0" href="object.html#oglplus.quickref.object.wrapper.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">Object</span><span class="special">(</span><span class="identifier">Object</span><span class="special">&amp;&amp;</span> <span class="identifier">temp</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.wrapper.c2" href="object.html#oglplus.quickref.object.wrapper.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">Object</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><span class="identifier">Object</span><span class="special">&amp;&amp;</span> <span class="identifier">temp</span><span class="special">);</span>
+
+	<span class="identifier">Object</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.wrapper.c4" href="object.html#oglplus.quickref.object.wrapper.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">Object</span><span class="special">(</span><a class="link" href="gen_tags.html" title="Object creation methods">GenTag</a> <span class="identifier">gen_tag</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.wrapper.c6" href="object.html#oglplus.quickref.object.wrapper.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="identifier">Object</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">&amp;&amp;</span> <span class="identifier">description</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.wrapper.c8" href="object.html#oglplus.quickref.object.wrapper.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">Object</span><span class="special">(</span><a class="link" href="gen_tags.html" title="Object creation methods">GenTag</a> <span class="identifier">gen_tag</span><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">&amp;&amp;</span> <span class="identifier">description</span><span class="special">);</span>
+
+	<span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.subtype" title="Object subtype">ObjectSubtype</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;::</span><span class="identifier">Type</span> <span class="identifier">Subtype</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.wrapper.c10" href="object.html#oglplus.quickref.object.wrapper.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="identifier">Object</span><span class="special">(</span><span class="identifier">Subtype</span> <span class="identifier">subtype</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.wrapper.c12" href="object.html#oglplus.quickref.object.wrapper.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="identifier">Object</span><span class="special">(</span><a class="link" href="gen_tags.html" title="Object creation methods">GenTag</a> <span class="identifier">gen_tag</span><span class="special">,</span> <span class="identifier">Subtype</span> <span class="identifier">subtype</span><span class="special">);</span>
+	<span class="identifier">Object</span><span class="special">(</span><span class="identifier">Subtype</span> <span class="identifier">subtype</span><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">&amp;&amp;</span> <span class="identifier">description</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.wrapper.c14" href="object.html#oglplus.quickref.object.wrapper.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="identifier">Object</span><span class="special">(</span><a class="link" href="gen_tags.html" title="Object creation methods">GenTag</a> <span class="identifier">gen_tag</span><span class="special">,</span> <span class="identifier">Subtype</span> <span class="identifier">subtype</span><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">&amp;&amp;</span> <span class="identifier">description</span><span class="special">);</span>
+
+	<span class="special">~</span><span class="identifier">Object</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.wrapper.c16" href="object.html#oglplus.quickref.object.wrapper.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">Object</span> <span class="identifier">FromRawName</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">name</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.wrapper.c18" href="object.html#oglplus.quickref.object.wrapper.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+	<span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">Description</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.object.wrapper.c20" href="object.html#oglplus.quickref.object.wrapper.c21"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+
+	<span class="keyword">operator</span> <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.wrapper.c22" href="object.html#oglplus.quickref.object.wrapper.c23"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c1"></a><a href="#oglplus.quickref.object.wrapper.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                <code class="literal">Object</code>s are non-copyable.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c3"></a><a href="#oglplus.quickref.object.wrapper.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                <code class="literal">Object</code>s are move-constructible and move assignable.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c5"></a><a href="#oglplus.quickref.object.wrapper.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Default-constructs an <code class="literal">Object</code>. This function creates
+                a new GL object by calling the appropriate <code class="literal">glGen*</code>
+                or <code class="literal">glCreate*</code> function. Note that object types
+                with a <code class="literal">Subtype</code> may not support default construction
+                and may require that the subtype is specified.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c7"></a><a href="#oglplus.quickref.object.wrapper.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs an <code class="literal">object</code> with <code class="literal">gen_tag</code>
+                explicitly specifying the GL <a class="link" href="gen_tags.html" title="Object creation methods">object
+                creation method</a>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c9"></a><a href="#oglplus.quickref.object.wrapper.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs an <code class="literal">Object</code> and attaches the specified
+                <code class="literal">description</code> to it.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c11"></a><a href="#oglplus.quickref.object.wrapper.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                The subtype of the object. If this object type does not have any
+                subtypes, then <code class="literal">Subtype</code> is defined as <a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c13"></a><a href="#oglplus.quickref.object.wrapper.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs an object of the specified <code class="literal">subtype</code>.
+                If <code class="literal">subtype</code> is <a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a>
+                then this constructor is equivalent to the default constructor.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c15"></a><a href="#oglplus.quickref.object.wrapper.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs an object of the specified <code class="literal">subtype</code>
+                and attaches the specified <code class="literal">description</code> to it.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c17"></a><a href="#oglplus.quickref.object.wrapper.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Cleans up the wrapped GL object by calling the appropriate <code class="literal">glDelete*</code>
+                function.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c19"></a><a href="#oglplus.quickref.object.wrapper.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Wraps an existing GL object with the specified <code class="literal">name</code>.
+                This function does not create a new GL object, instead it adopts
+                the one passed as argument.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c21"></a><a href="#oglplus.quickref.object.wrapper.c20"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the textual description of this object.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c23"></a><a href="#oglplus.quickref.object.wrapper.c22"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                <code class="literal">Object</code>s are implicitly convertible to a sequence
+                of object names. Note that the returned sequence must not be used
+                after this object has been destroyed.
+              </p></td>
+</tr>
+</table></div>
+<h5>
+<a name="oglplus.quickref.object.wrapper.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.object.wrapper.typedefs"></a></span><a class="link" href="object.html#oglplus.quickref.object.wrapper.typedefs">Typedefs</a>
+          </h5>
+<p>
+            The library end-users rarely need to use this template directly. Use
+            the <code class="literal">typedef</code>s of the individual instantiations instead:
+          </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+                <a class="link" href="texture.html" title="Textures">Texture</a>
+              </li>
+<li class="listitem">
+                <a class="link" href="buffer.html" title="Buffers">Buffer</a>
+              </li>
+<li class="listitem">
+                <a class="link" href="framebuffer.html" title="Framebuffers">Framebuffer</a>
+              </li>
+<li class="listitem">
+                <a class="link" href="renderbuffer.html" title="Renderbuffers">Renderbuffer</a>
+              </li>
+<li class="listitem">
+                <a class="link" href="query.html" title="Queries">Query</a>
+              </li>
+<li class="listitem">
+                <a class="link" href="program_pipeline.html" title="Program pipelines">ProgramPipeline</a>
+              </li>
+<li class="listitem">
+                <a class="link" href="program.html" title="Programs">Program</a>
+              </li>
+<li class="listitem">
+                <a class="link" href="transform_feedback.html" title="Transform feedback">TransformFeedback</a>
+              </li>
+<li class="listitem">
+                <a class="link" href="sampler.html" title="Samplers">Sampler</a>
+              </li>
+<li class="listitem">
+                <a class="link" href="vertex_array.html" title="Vertex arrays">VertexArray</a>
+              </li>
+<li class="listitem">
+                <a class="link" href="shader.html" title="Shaders">Shader</a>
+              </li>
+<li class="listitem">
+                __PerfMonitorAMD
+              </li>
+<li class="listitem">
+                __PathNV
+              </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.optional"></a><a class="link" href="object.html#oglplus.quickref.object.optional" title="Optional">Optional</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/optional.hpp&gt;</code>
+          </p>
+<p>
+            The <code class="literal">Optional</code> template class is a modifier for <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">objects</a> and in contrast
+            to <code class="literal"><a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a></code>
+            it <span class="bold"><strong>does</strong></span> allow to construct uninitialized
+            instances which can be initialized later.
+          </p>
+<p>
+            An <code class="literal">Optional&lt;<a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>&gt;</code>
+            can be used everywhere an <code class="literal"><a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a></code>
+            could be used, but it must be initialized (the <code class="literal">IsInitialized()</code>
+            member function must return true), otherwise usage results in undefined
+            behavior.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">Optional</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Optional</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.optional.c0" href="object.html#oglplus.quickref.object.optional.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">Optional</span><span class="special">(</span><span class="identifier">Optional</span><span class="special">&amp;&amp;</span> <span class="identifier">temp</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.optional.c2" href="object.html#oglplus.quickref.object.optional.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">Optional</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&amp;&amp;</span> <span class="identifier">temp</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.optional.c4" href="object.html#oglplus.quickref.object.optional.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">Optional</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&amp;&amp;</span> <span class="identifier">temp</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.optional.c6" href="object.html#oglplus.quickref.object.optional.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="keyword">explicit</span> <span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.optional.c8" href="object.html#oglplus.quickref.object.optional.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">IsInitialized</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.optional.c10" href="object.html#oglplus.quickref.object.optional.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a> <span class="identifier">Release</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.optional.c12" href="object.html#oglplus.quickref.object.optional.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.optional.c1"></a><a href="#oglplus.quickref.object.optional.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Construction of an uninitialized instance. The only things that can
+                safely be done with an uninitialized <code class="literal">Optional&lt;<a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>&gt;</code>
+                is assignment, moving, destruction and checking whether it is initialized.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.optional.c3"></a><a href="#oglplus.quickref.object.optional.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Optionals are move-constructible.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.optional.c5"></a><a href="#oglplus.quickref.object.optional.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Construction of an initialized instance. Initialized <code class="literal">Optional&lt;<a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>&gt;</code>
+                can be used everywhere where a plain <code class="literal"><a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a></code>
+                could be used, furthermore <code class="literal">Optional&lt;<a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>&gt;</code>
+                can also be <code class="literal">Release</code>d (this brings it in uninitialized
+                state).
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.optional.c7"></a><a href="#oglplus.quickref.object.optional.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Optionals are move-assignable.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.optional.c9"></a><a href="#oglplus.quickref.object.optional.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Equivalent to <code class="literal">IsInitialized</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.optional.c11"></a><a href="#oglplus.quickref.object.optional.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns true if the object is initialized, false otherwise. The only
+                things that can safely be done with an uninitialized <code class="literal">Optional&lt;<a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>&gt;</code>
+                is assignment, moving, destruction and checking whether it is initialized.
+                On the other hand initialized <code class="literal">Optional&lt;<a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>&gt;</code>
+                can be used everywhere where a plain <code class="literal"><a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a></code>
+                could be used.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.optional.c13"></a><a href="#oglplus.quickref.object.optional.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Releases and returns the stored object and makes this <code class="literal">Optional</code>
+                uninitialized.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.reference"></a><a class="link" href="object.html#oglplus.quickref.object.reference" title="Reference">Reference</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/reference.hpp&gt;</code>
+          </p>
+<p>
+            <code class="literal">Reference</code> allows to make managed copies of instances
+            of <code class="literal"><a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a></code>.
+            Since OpenGL does not support copying of objects the <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>
+            wrapper is move-only.
+          </p>
+<p>
+            There are however situations, when a temporary reference to the original
+            object (with the knowledge that this original will be kept alive during
+            the whole lifetime of the copy) is needed. The <code class="literal">Reference</code>
+            template class allows to do such temporary references, which have the
+            same members and friend functions as the original object, and can be
+            used in the same way, provided that the original instance is not destroyed
+            while the managed copy is in use.
+          </p>
+<p>
+            Instances of <code class="literal">Reference</code> are may be for example created
+            when accessing or iterating through the elements of a <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a>.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">Reference</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Reference</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">name</span><span class="special">);</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.sequence"></a><a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/sequence.hpp&gt;</code>
+          </p>
+<p>
+            <code class="literal">Sequence</code> stores a constant sequence of <a class="link" href="object.html#oglplus.quickref.object.name" title="Name">object
+            names</a> or <a class="link" href="object.html#oglplus.quickref.object.reference" title="Reference">references
+            to objects</a> and is mostly used as the parameter type for functions
+            working on multiple objects.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjectT</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">Sequence</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">bool</span> <span class="identifier">empty</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="identifier">size_t</span> <span class="identifier">size</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">ObjectT</span> <span class="identifier">at</span><span class="special">(</span><span class="identifier">size_t</span> <span class="identifier">index</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="identifier">ObjectT</span> <span class="keyword">operator</span><span class="special">[](</span><span class="identifier">size_t</span> <span class="identifier">index</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">Sequence</span> <span class="identifier">slice</span><span class="special">(</span><span class="identifier">size_t</span> <span class="identifier">start</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="identifier">Sequence</span> <span class="identifier">slice</span><span class="special">(</span><span class="identifier">size_t</span> <span class="identifier">start</span><span class="special">,</span> <span class="identifier">size_t</span> <span class="identifier">count</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.sequence.iter">SeqIterator</a><span class="special">&lt;</span><span class="identifier">ObjectT</span><span class="special">&gt;</span> <span class="identifier">iterator</span><span class="special">;</span>
+	<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.sequence.iter">SeqIterator</a><span class="special">&lt;</span><span class="identifier">ObjectT</span><span class="special">&gt;</span> <span class="identifier">const_iterator</span><span class="special">;</span>
+
+	<span class="identifier">const_iterator</span> <span class="identifier">begin</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="identifier">const_iterator</span> <span class="identifier">end</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjectT</span><span class="special">&gt;</span>
+<span class="keyword">const</span> <span class="identifier">GLuint</span><span class="special">*</span> <span class="identifier">GetNames</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><span class="identifier">ObjectT</span><span class="special">&gt;&amp;</span> <span class="identifier">sequence</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.object.sequence.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.object.sequence.iter"></a></span><a class="link" href="object.html#oglplus.quickref.object.sequence.iter">Iterator</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjectT</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">SeqIterator</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">typedef</span> <span class="identifier">ObjectT</span> <span class="identifier">value_type</span><span class="special">;</span>
+	<span class="keyword">typedef</span> &lt;Unspecified&gt; <span class="identifier">difference_type</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">==</span> <span class="special">(</span><span class="identifier">SeqIterator</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">SeqIterator</span> <span class="identifier">b</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!=</span> <span class="special">(</span><span class="identifier">SeqIterator</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">SeqIterator</span> <span class="identifier">b</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">&lt;</span>  <span class="special">(</span><span class="identifier">SeqIterator</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">SeqIterator</span> <span class="identifier">b</span><span class="special">);</span>
+
+	<span class="keyword">friend</span> <span class="identifier">SeqIterator</span> <span class="keyword">operator</span> <span class="special">+</span> <span class="special">(</span><span class="identifier">SeqIterator</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">difference_type</span> <span class="identifier">d</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="identifier">SeqIterator</span> <span class="keyword">operator</span> <span class="special">-</span> <span class="special">(</span><span class="identifier">SeqIterator</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">difference_type</span> <span class="identifier">d</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="identifier">difference_type</span> <span class="keyword">operator</span> <span class="special">-</span> <span class="special">(</span><span class="identifier">SeqIterator</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">SeqIterator</span> <span class="identifier">b</span><span class="special">);</span>
+
+	<span class="identifier">value_type</span> <span class="keyword">operator</span> <span class="special">*</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="identifier">value_type</span> <span class="keyword">operator</span> <span class="special">[](</span><span class="identifier">size_t</span> <span class="identifier">index</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">SeqIterator</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">++</span> <span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="identifier">SeqIterator</span> <span class="keyword">operator</span> <span class="special">++</span> <span class="special">(</span><span class="keyword">int</span><span class="special">);</span>
+	<span class="identifier">SeqIterator</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">--</span> <span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="identifier">SeqIterator</span> <span class="keyword">operator</span> <span class="special">--</span> <span class="special">(</span><span class="keyword">int</span><span class="special">);</span>
+
+	<span class="identifier">SeqIterator</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">+=</span> <span class="special">(</span><span class="identifier">difference_type</span> <span class="identifier">d</span><span class="special">);</span>
+	<span class="identifier">SeqIterator</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">-=</span> <span class="special">(</span><span class="identifier">difference_type</span> <span class="identifier">d</span><span class="special">);</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.group"></a><a class="link" href="object.html#oglplus.quickref.object.group" title="Group">Group</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/group.hpp&gt;</code>
+          </p>
+<p>
+            The <code class="literal">Group</code> class is a dynamic container storing <a class="link" href="object.html#oglplus.quickref.object.name" title="Name">object names</a>, which is
+            implicitly convertible into a <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a>.
+            New object names can be added to <code class="literal">Group</code> after it has
+            been constructed.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjectName</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">Group</span><span class="special">;</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjTag</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">Group</span><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Group</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Group</span><span class="special">&amp;);</span> <a class="co" name="oglplus.quickref.object.group.c0" href="object.html#oglplus.quickref.object.group.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">Group</span><span class="special">(</span><span class="identifier">Group</span><span class="special">&amp;&amp;);</span>
+
+	<span class="identifier">Group</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.group.c2" href="object.html#oglplus.quickref.object.group.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+<span class="preprocessor">#if</span> <span class="special">!</span><a class="link" href="config.html#oglplus.quickref.config.site.compiler" title="Compiler"><code class="literal">OGLPLUS_NO_INITIALIZER_LISTS</code></a>
+	<span class="identifier">Group</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span> <span class="identifier">names</span><span class="special">)</span> <a class="co" name="oglplus.quickref.object.group.c4" href="object.html#oglplus.quickref.object.group.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="preprocessor">#endif</span>
+
+	<span class="identifier">Group</span><span class="special">&amp;</span> <span class="identifier">Add</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">name</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.group.c6" href="object.html#oglplus.quickref.object.group.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="keyword">operator</span> <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.group.c8" href="object.html#oglplus.quickref.object.group.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjTag</span><span class="special">&gt;</span>
+<a class="link" href="object.html#oglplus.quickref.object.group" title="Group">Group</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span>
+<span class="keyword">operator</span> <span class="special">,</span> <span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">a</span><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">b</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.group.c10" href="object.html#oglplus.quickref.object.group.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjTag</span><span class="special">&gt;</span>
+<a class="link" href="object.html#oglplus.quickref.object.group" title="Group">Group</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;&amp;&amp;</span>
+<span class="keyword">operator</span> <span class="special">,</span> <span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.group" title="Group">Group</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;&amp;&amp;,</span> <a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;);</span> <a class="co" name="oglplus.quickref.object.group.c12" href="object.html#oglplus.quickref.object.group.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.group.c1"></a><a href="#oglplus.quickref.object.group.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                <code class="literal">Group</code> is copyable and movable.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.group.c3"></a><a href="#oglplus.quickref.object.group.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs an empty group
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.group.c5"></a><a href="#oglplus.quickref.object.group.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs the Group from an initializer list.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.group.c7"></a><a href="#oglplus.quickref.object.group.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Add a new name to this group.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.group.c9"></a><a href="#oglplus.quickref.object.group.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Implicit conversion to a sequence of object names, which can be passed
+                as an argument to various functions. Note that the returned sequence
+                must not be used after this group has been destroyed.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.group.c11"></a><a href="#oglplus.quickref.object.group.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This operator creates a <code class="literal">Group</code> containing two object
+                names.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.group.c13"></a><a href="#oglplus.quickref.object.group.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This operator appends an object name to a group.
+              </p></td>
+</tr>
+</table></div>
+<p>
+            The <code class="literal">StaticGroup</code> class is a static container storing
+            <a class="link" href="object.html#oglplus.quickref.object.name" title="Name">object names</a>, which
+            is implicitly convertible into a <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a>.
+            New object names cannot be added to <code class="literal">StaticGroup</code> after
+            it has been constructed.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjName</span><span class="special">,</span> <span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">StaticGroup</span><span class="special">;</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjTag</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">StaticGroup</span><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;,</span> <span class="identifier">N</span><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">StaticGroup</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="special">(&amp;</span><span class="identifier">names</span><span class="special">)[</span><span class="identifier">N</span><span class="special">]);</span> <a class="co" name="oglplus.quickref.object.group.c14" href="object.html#oglplus.quickref.object.group.c15"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">Tag</span><span class="special">&gt;</span>
+	<span class="identifier">StaticGroup</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><span class="identifier">Tag</span><span class="special">&gt;...</span> <span class="identifier">names</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.group.c16" href="object.html#oglplus.quickref.object.group.c17"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">operator</span> <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.group.c18" href="object.html#oglplus.quickref.object.group.c19"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">ObjTag</span><span class="special">&gt;</span>
+<a class="link" href="object.html#oglplus.quickref.object.group" title="Group">StaticGroup</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;,</span> <span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">ObjTag</span><span class="special">)&gt;</span>
+<span class="identifier">MakeGroup</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="special">...</span> <span class="identifier">names</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.group.c20" href="object.html#oglplus.quickref.object.group.c21"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.group.c15"></a><a href="#oglplus.quickref.object.group.c14"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Construction from an array of object names with known size.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.group.c17"></a><a href="#oglplus.quickref.object.group.c16"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Construction from a pack of object names. All names must refer to
+                objects of the same type.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.group.c19"></a><a href="#oglplus.quickref.object.group.c18"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Implicit conversion to a sequence of object names, which can be passed
+                as an argument to various functions. Note that the returned sequence
+                must not be used after this static group has been destroyed.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.group.c21"></a><a href="#oglplus.quickref.object.group.c20"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Creates a static group from a pack of object names. All names must
+                refer to objects of the same type.
+              </p></td>
+</tr>
+</table></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="ops_tags.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="buffer.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

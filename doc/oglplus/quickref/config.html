@@ -1,0 +1,842 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Compile-time configuration</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="context_flag_bit.html" title="Context flags">
+<link rel="next" href="math.html" title="Math utilities">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="context_flag_bit.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="math.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.config"></a><a class="link" href="config.html" title="Compile-time configuration">Compile-time configuration</a>
+</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="config.html#oglplus.quickref.config.site">Site-configuration</a></span></dt>
+<dt><span class="section"><a href="config.html#oglplus.quickref.config.compiler">Compiler capabilities</a></span></dt>
+<dt><span class="section"><a href="config.html#oglplus.quickref.config.basic">General configuration</a></span></dt>
+<dt><span class="section"><a href="config.html#oglplus.quickref.config.gl">GL-related</a></span></dt>
+<dt><span class="section"><a href="config.html#oglplus.quickref.config.string">Strings</a></span></dt>
+<dt><span class="section"><a href="config.html#oglplus.quickref.config.error">Error-related</a></span></dt>
+<dt><span class="section"><a href="config.html#oglplus.quickref.config.enums">Enumerations</a></span></dt>
+<dt><span class="section"><a href="config.html#oglplus.quickref.config.object">Object-related</a></span></dt>
+</dl></div>
+<p>
+          This section describes compile-time preprocessor symbols that can be used
+          to configure several aspects of OGLplus.
+        </p>
+<p>
+          Most of the options are set either to a zero or a non-zero integer value
+          to disable or enable the behavior controlled by the option.
+        </p>
+<p>
+          All options have a default value which can be overriden by setting the
+          option (by defining the PP symbol) before the appropriate header file (one
+          of <code class="literal">oglplus/config/*.hpp</code>) is processed, either by editing
+          the <a class="link" href="config.html#oglplus.quickref.config.site" title="Site-configuration"><code class="literal">oglplus/site_config.hpp</code></a>
+          file or by using the <code class="literal">-D</code> compiler option (or its equivalent
+          for defining preprocessor symbols on the command-line or in an IDE).
+        </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.config.site"></a><a class="link" href="config.html#oglplus.quickref.config.site" title="Site-configuration">Site-configuration</a>
+</h3></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="config.html#oglplus.quickref.config.site.third_party">Third-party
+            libraries</a></span></dt>
+<dt><span class="section"><a href="config.html#oglplus.quickref.config.site.gl_api_lib">GL-API
+            library</a></span></dt>
+<dt><span class="section"><a href="config.html#oglplus.quickref.config.site.boost_config">Boost.Config</a></span></dt>
+<dt><span class="section"><a href="config.html#oglplus.quickref.config.site.compiler">Compiler</a></span></dt>
+</dl></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/config/site.hpp&gt;</code>
+          </p>
+<p>
+            The <code class="literal">cmake</code>-based build system detects the compiler-capabilities,
+            installed third-party libraries and supported GL version and extensions
+            and generates two site configuration files <code class="literal">oglplus/config/site.hpp</code>
+            and <code class="literal">oglplus/config/fix_gl_version.hpp</code> (located in
+            the <code class="literal">$(BUILD_DIR)/include</code> subdirectory). User applications
+            can reuse these files if the same compiler, GL API library and external
+            libraries are used or can disable their use by defining the <a class="link" href="config.html#oglplus.quickref.config.compiler" title="Compiler capabilities"><code class="literal">OGLPLUS_NO_SITE_CONFIG</code></a>
+            preprocessor symbol.
+          </p>
+<p>
+            Alternatively the user can define their own <code class="literal">oglplus/config/site.hpp</code>
+            file (either as a system-wide or application-specific configuration)
+            and set the options described below to values (either zero or non-zero
+            integer) appropriate to their system setup and used compiler.
+          </p>
+<p>
+            This header should generally <span class="bold"><strong>not</strong></span> be
+            used by the library end-users. In order to detect the compiler capabilities
+            use the <a class="link" href="config.html#oglplus.quickref.config.compiler" title="Compiler capabilities">compiler configuration
+            header</a>.
+          </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="oglplus.quickref.config.site.third_party"></a><a class="link" href="config.html#oglplus.quickref.config.site.third_party" title="Third-party libraries">Third-party
+            libraries</a>
+</h4></div></div></div>
+<p>
+              The first set of options concerns the availability of third-party libraries
+              used by some parts of the code.
+            </p>
+<pre class="programlisting"><span class="preprocessor">#define</span> <span class="identifier">OGLPLUS_OPENAL_FOUND</span> &lt;UNSPECIFIED&gt; <a class="co" name="oglplus.quickref.config.site.third_party.c0" href="config.html#oglplus.quickref.config.site.third_party.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor">#define</span> <span class="identifier">OGLPLUS_PNG_FOUND</span> &lt;UNSPECIFIED&gt; <a class="co" name="oglplus.quickref.config.site.third_party.c2" href="config.html#oglplus.quickref.config.site.third_party.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor">#define</span> <span class="identifier">OGLPLUS_PANGO_CAIRO_FOUND</span> &lt;UNSPECIFIED&gt; <a class="co" name="oglplus.quickref.config.site.third_party.c4" href="config.html#oglplus.quickref.config.site.third_party.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+<span class="preprocessor">#ifndef</span> <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>
+<span class="preprocessor">#define</span> <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a> &lt;UNSPECIFIED&gt; <a class="co" name="oglplus.quickref.config.site.third_party.c6" href="config.html#oglplus.quickref.config.site.third_party.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.third_party.c1"></a><a href="#oglplus.quickref.config.site.third_party.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates if <span class="emphasis"><em>OpenAL</em></span> is available and should
+                  be used.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.third_party.c3"></a><a href="#oglplus.quickref.config.site.third_party.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates if <span class="emphasis"><em>LibPNG</em></span> was found and should be
+                  used.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.third_party.c5"></a><a href="#oglplus.quickref.config.site.third_party.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates if <span class="emphasis"><em>Pango/Cairo</em></span> was found and should
+                  be used.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.third_party.c7"></a><a href="#oglplus.quickref.config.site.third_party.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  The low-profile mode can be set through the configuration script.
+                </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="oglplus.quickref.config.site.gl_api_lib"></a><a class="link" href="config.html#oglplus.quickref.config.site.gl_api_lib" title="GL-API library">GL-API
+            library</a>
+</h4></div></div></div>
+<p>
+              The following options select which GL API library (<code class="literal">GL/glcorearb.h</code>,
+              <code class="literal">GL3/gl3.h</code>, <code class="literal">GL/glew.h</code>, etc.) is
+              used when the OGLplus' <code class="literal">oglplus/gl.hpp</code> header is
+              included. The first one defined as a non-zero integer value in the
+              order as listed here, is used. At least one of the options listed here
+              must be non-zero.
+            </p>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_USE_GLCOREARB_H</span> <a class="co" name="oglplus.quickref.config.site.gl_api_lib.c0" href="config.html#oglplus.quickref.config.site.gl_api_lib.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_USE_GLCOREARB_H</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_USE_GL3_H</span> <a class="co" name="oglplus.quickref.config.site.gl_api_lib.c2" href="config.html#oglplus.quickref.config.site.gl_api_lib.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_USE_GL3_H</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_USE_GLEW</span> <a class="co" name="oglplus.quickref.config.site.gl_api_lib.c4" href="config.html#oglplus.quickref.config.site.gl_api_lib.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_USE_GLEW</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_USE_GL3W</span> <a class="co" name="oglplus.quickref.config.site.gl_api_lib.c6" href="config.html#oglplus.quickref.config.site.gl_api_lib.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_USE_GL3W</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.gl_api_lib.c1"></a><a href="#oglplus.quickref.config.site.gl_api_lib.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that <code class="literal">GL/glcorearb.h</code> + the GL binary
+                  library should be used.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.gl_api_lib.c3"></a><a href="#oglplus.quickref.config.site.gl_api_lib.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that <code class="literal">GL3/gl3.h</code> + the GL binary library
+                  should be used.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.gl_api_lib.c5"></a><a href="#oglplus.quickref.config.site.gl_api_lib.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that <span class="emphasis"><em>GLEW</em></span> should be used.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.gl_api_lib.c7"></a><a href="#oglplus.quickref.config.site.gl_api_lib.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that <span class="emphasis"><em>GL3W</em></span> should be used.
+                </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="oglplus.quickref.config.site.boost_config"></a><a class="link" href="config.html#oglplus.quickref.config.site.boost_config" title="Boost.Config">Boost.Config</a>
+</h4></div></div></div>
+<p>
+              The next option enables or disables the usage of the Boost.Config library
+              for compiler configuration. If set to a non-zero integer the <code class="literal">boost/config.hpp</code>
+              header is included, otherwise it is not.
+            </p>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_USE_BOOST_CONFIG</span>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_USE_BOOST_CONFIG</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="oglplus.quickref.config.site.compiler"></a><a class="link" href="config.html#oglplus.quickref.config.site.compiler" title="Compiler">Compiler</a>
+</h4></div></div></div>
+<p>
+              The following options indicate compiler capabilities. If one of these
+              options is set to a non-zero integer value, the corresponding capability
+              is not implemented. The first set of options listed right below are
+              overridden by Boost.Config (when <a class="link" href="config.html#oglplus.quickref.config.site.boost_config" title="Boost.Config"><code class="literal">OGLPLUS_USE_BOOST_CONFIG</code></a>
+              is set to a non-zero value), if they are not defined before including
+              this header by other means.
+            </p>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="special">!</span><span class="identifier">OGLPLUS_USE_BOOST_CONFIG</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_SCOPED_ENUMS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c0" href="config.html#oglplus.quickref.config.site.compiler.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_SCOPED_ENUMS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_VARIADIC_MACROS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c2" href="config.html#oglplus.quickref.config.site.compiler.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_VARIADIC_MACROS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_VARIADIC_TEMPLATES</span> <a class="co" name="oglplus.quickref.config.site.compiler.c4" href="config.html#oglplus.quickref.config.site.compiler.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_VARIADIC_TEMPLATES</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX</span> <a class="co" name="oglplus.quickref.config.site.compiler.c6" href="config.html#oglplus.quickref.config.site.compiler.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_INITIALIZER_LISTS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c8" href="config.html#oglplus.quickref.config.site.compiler.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_INITIALIZER_LISTS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_DEFAULTED_FUNCTIONS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c10" href="config.html#oglplus.quickref.config.site.compiler.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_DEFAULTED_FUNCTIONS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_DELETED_FUNCTIONS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c12" href="config.html#oglplus.quickref.config.site.compiler.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_DELETED_FUNCTIONS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c14" href="config.html#oglplus.quickref.config.site.compiler.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c16" href="config.html#oglplus.quickref.config.site.compiler.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_UNICODE_LITERALS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c18" href="config.html#oglplus.quickref.config.site.compiler.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_UNICODE_LITERALS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_USER_DEFINED_LITERALS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c20" href="config.html#oglplus.quickref.config.site.compiler.c21"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_USER_DEFINED_LITERALS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_TEMPLATE_ALIASES</span> <a class="co" name="oglplus.quickref.config.site.compiler.c22" href="config.html#oglplus.quickref.config.site.compiler.c23"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_TEMPLATE_ALIASES</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_CONSTEXPR</span> <a class="co" name="oglplus.quickref.config.site.compiler.c24" href="config.html#oglplus.quickref.config.site.compiler.c25"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_CONSTEXPR</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_NOEXCEPT</span> <a class="co" name="oglplus.quickref.config.site.compiler.c26" href="config.html#oglplus.quickref.config.site.compiler.c27"><img src="../../images/callouts/14.png" alt="14" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_NOEXCEPT</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_LAMBDAS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c28" href="config.html#oglplus.quickref.config.site.compiler.c29"><img src="../../images/callouts/15.png" alt="15" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_LAMBDAS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#endif</span> <span class="comment">//!OGLPLUS_USE_BOOST_CONFIG</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c1"></a><a href="#oglplus.quickref.config.site.compiler.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 strongly typed enumerations are not supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c3"></a><a href="#oglplus.quickref.config.site.compiler.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that preprocessor variadic macros are not supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c5"></a><a href="#oglplus.quickref.config.site.compiler.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 variadic templates are not properly supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c7"></a><a href="#oglplus.quickref.config.site.compiler.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 unified initialization syntax is not implemented.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c9"></a><a href="#oglplus.quickref.config.site.compiler.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 initializer lists are not supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c11"></a><a href="#oglplus.quickref.config.site.compiler.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 <code class="literal">default</code>ed functions are
+                  not supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c13"></a><a href="#oglplus.quickref.config.site.compiler.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 <code class="literal">delete</code>d functions are not
+                  supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c15"></a><a href="#oglplus.quickref.config.site.compiler.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 explicit conversion operators are not supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c17"></a><a href="#oglplus.quickref.config.site.compiler.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 default template arguments cannot be used.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c19"></a><a href="#oglplus.quickref.config.site.compiler.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 unicode string literals are not supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c21"></a><a href="#oglplus.quickref.config.site.compiler.c20"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 user-defined literals are not supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c23"></a><a href="#oglplus.quickref.config.site.compiler.c22"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 template aliases are not supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c25"></a><a href="#oglplus.quickref.config.site.compiler.c24"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 generalized constant expressions are not supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c27"></a><a href="#oglplus.quickref.config.site.compiler.c26"><img src="../../images/callouts/14.png" alt="14" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 <code class="literal">noexcept</code> specifier is not
+                  supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c29"></a><a href="#oglplus.quickref.config.site.compiler.c28"><img src="../../images/callouts/15.png" alt="15" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 lambdas are not supported.
+                </p></td>
+</tr>
+</table></div>
+<p>
+              The next options are not influenced by Boost.Config.
+            </p>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_INHERITED_CONSTRUCTORS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c30" href="config.html#oglplus.quickref.config.site.compiler.c31"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_INHERITED_CONSTRUCTORS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_CHRONO</span> <a class="co" name="oglplus.quickref.config.site.compiler.c32" href="config.html#oglplus.quickref.config.site.compiler.c33"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_CHRONO</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_THREADS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c34" href="config.html#oglplus.quickref.config.site.compiler.c35"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_THREADS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c31"></a><a href="#oglplus.quickref.config.site.compiler.c30"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 inherited constructors are not supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c33"></a><a href="#oglplus.quickref.config.site.compiler.c32"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that the standard <code class="literal">chrono</code> header is
+                  not available.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c35"></a><a href="#oglplus.quickref.config.site.compiler.c34"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that the C++11 threads implementation is not available.
+                </p></td>
+</tr>
+</table></div>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.config.compiler"></a><a class="link" href="config.html#oglplus.quickref.config.compiler" title="Compiler capabilities">Compiler capabilities</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/config/compiler.hpp&gt;</code>
+          </p>
+<p>
+            This header is used by the rest of the library to determine the <a class="link" href="config.html#oglplus.quickref.config.site.compiler" title="Compiler">capabilities</a> of
+            the currently used compiler. The values are taken either externally from
+            the build system through the compiler command-line or an IDE or from
+            the <a class="link" href="config.html#oglplus.quickref.config.site" title="Site-configuration">site-configuration header</a>
+            or from the <a class="link" href="config.html#oglplus.quickref.config.site.boost_config" title="Boost.Config">Boost.Config</a>
+            library.
+          </p>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_SITE_CONFIG</span> <a class="co" name="oglplus.quickref.config.compiler.c0" href="config.html#oglplus.quickref.config.compiler.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor"># include</span> <span class="special">&lt;</span><span class="identifier">oglplus</span><span class="special">/</span><span class="identifier">config</span><span class="special">/</span><span class="identifier">site</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_USE_BOOST_CONFIG</span> <a class="co" name="oglplus.quickref.config.compiler.c2" href="config.html#oglplus.quickref.config.compiler.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_USE_BOOST_CONFIG</span> <span class="number">0</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">OGLPLUS_USE_BOOST_CONFIG</span>
+<span class="preprocessor"># include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">config</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="comment">// The default values for the preprocessor symbols indicating</span>
+<span class="comment">// compiler capabilities are also defined here.</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.compiler.c1"></a><a href="#oglplus.quickref.config.compiler.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Disables the usage of the automatically-generated <a class="link" href="config.html#oglplus.quickref.config.site" title="Site-configuration">site
+                configuration header</a>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.compiler.c3"></a><a href="#oglplus.quickref.config.compiler.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Enables the use of the <a href="http://www.boost.org/doc/libs/latest/libs/config/config.htm" target="_top">Boost.Config</a>
+                library for the detection of compiler capabilities. If not set in
+                the site-config nor defined otherwise, the use of Boost.Config is
+                disabled by default.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.config.basic"></a><a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration">General configuration</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/config/basic.hpp&gt;</code>
+          </p>
+<p>
+            This section lists general compile-time configuration options of OGLplus.
+          </p>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_LOW_PROFILE</span>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_LOW_PROFILE</span> <span class="number">0</span> <a class="co" name="oglplus.quickref.config.basic.c0" href="config.html#oglplus.quickref.config.basic.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_LINK_LIBRARY</span>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_LINK_LIBRARY</span> <span class="number">0</span> <a class="co" name="oglplus.quickref.config.basic.c2" href="config.html#oglplus.quickref.config.basic.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_SITE_CONFIG</span> <a class="co" name="oglplus.quickref.config.basic.c4" href="config.html#oglplus.quickref.config.basic.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="preprocessor"># include</span> <span class="special">&lt;</span><span class="identifier">oglplus</span><span class="special">/</span><span class="identifier">config</span><span class="special">/</span><span class="identifier">site</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.basic.c1"></a><a href="#oglplus.quickref.config.basic.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">
+<p>
+                Compile-time option enabling the <span class="emphasis"><em>low-profile</em></span>
+                mode. In the low-profile mode some features (like object descriptions,
+                enumeration value names, some file and line info atached to exceptions,
+                etc. useful during development and debugging) are disabled, resulting
+                in both smaller binary executable sizes and lower run-time overhead
+                for release builds of applications using OGLplus.
+              </p>
+<p>
+                Setting this option to a non-zero integer value enables the low-profile
+                mode, setting it to zero disables it. By default the low-profile
+                mode is disabled.
+              </p>
+<p>
+                This option influences the default value of several other configuration
+                options. Their values can of course be set independently if required.
+              </p>
+</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.basic.c3"></a><a href="#oglplus.quickref.config.basic.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">
+<p>
+                Compile-time switch enabling linking of some parts of OGLplus from
+                a binary library. Certain parts of OGLplus (mostly complicated functions
+                and functions where static variables or long string literals are
+                used) can be built into a separate library that can be then linked
+                to applications. If this option is set to zero, then everything is
+                inlined. If it is set to a nonzero integer value, then some functions
+                are just declared and must be built separatelly and linked to the
+                final executable.
+              </p>
+<p>
+                The <code class="literal">oglplus/lib.hpp</code> header file can be included
+                into one of the translation units when building the library or the
+                final executable to include the implementations of all such functions.
+              </p>
+<p>
+                By default this option is set to 0 - everything is inlined.
+              </p>
+</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.basic.c5"></a><a href="#oglplus.quickref.config.basic.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Disables the usage of the automatically-generated <a class="link" href="config.html#oglplus.quickref.config.site" title="Site-configuration">site
+                configuration header</a>.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.config.gl"></a><a class="link" href="config.html#oglplus.quickref.config.gl" title="GL-related">GL-related</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/config/gl.hpp&gt;</code>
+          </p>
+<p>
+            The preprocessor options in this category influence behaviour related
+            to interfacing between OGLplus and the GL API.
+          </p>
+<pre class="programlisting"><span class="preprocessor">#define</span> <span class="identifier">GLAPIENTRY</span> <a class="co" name="oglplus.quickref.config.gl.c0" href="config.html#oglplus.quickref.config.gl.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.gl.c1"></a><a href="#oglplus.quickref.config.gl.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Definition of the <code class="literal">GLAPIENTRY</code> calling convention
+                used by most of the GL API functions.
+              </p></td>
+</tr></table></div>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_GLFUNC_CHECKS</span> <a class="co" name="oglplus.quickref.config.gl.c2" href="config.html#oglplus.quickref.config.gl.c3"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_GLFUNC_CHECKS</span> <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_UNIFORM_TYPECHECK</span> <a class="co" name="oglplus.quickref.config.gl.c4" href="config.html#oglplus.quickref.config.gl.c5"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_UNIFORM_TYPECHECK</span> <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.gl.c3"></a><a href="#oglplus.quickref.config.gl.c2"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Compile-time switch disabling checks of validity of pointers to GL
+                functions. Setting this preprocessor symbol to a nonzero value causes
+                that if the OpenGL functions are called through a pointer, then that
+                pointer is checked before it is used to call the function. If enabled
+                and a pointer to a GL function is <code class="literal">nullptr</code> then
+                the <a class="link" href="error.html#oglplus.quickref.error.glfunc" title="Missing function errors">MissingFunction</a>
+                exception is thrown. This check can safely be disabled if functions
+                from the GL API are not called through pointers. By default this
+                option is set to the same value as <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>,
+                i.e. the function pointer checks are enabled, when not in low-profile
+                mode, and disabled otherwise. The check however requires variadic
+                templates. If variadic templates are not available, then the checks
+                are disabled.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.gl.c5"></a><a href="#oglplus.quickref.config.gl.c4"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Compile-time switch entirely disabling typechecking of uniforms.
+                Setting this preprocessor symbol to a nonzero value causes the Uniform
+                variables are not typechecked. By default this option is set to the
+                same value as <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>,
+                i.e. typechecking of uniforms is enabled when not in low-profile
+                mode, and disabled otherwise.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.config.string"></a><a class="link" href="config.html#oglplus.quickref.config.string" title="Strings">Strings</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/config/string.hpp&gt;</code>
+          </p>
+<p>
+            The following options influence the behaviour of OGLplus string wrappers.
+          </p>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_UTF8_CHECKS</span> <a class="co" name="oglplus.quickref.config.string.c0" href="config.html#oglplus.quickref.config.string.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_UTF8_CHECKS</span> <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.string.c1"></a><a href="#oglplus.quickref.config.string.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Compile-time switch disabling UTF-8 validity checks in various functions.
+                Setting this preprocessor symbol to a nonzero value causes that the
+                __StrLit and <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a>
+                constructors skip their UTF-8 validity checks. By default this option
+                is set to the same value as <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>,
+                i.e. the UTF-8 validity checks are enabled, when not in low-profile
+                mode and disabled otherwise.
+              </p></td>
+</tr></table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.config.error"></a><a class="link" href="config.html#oglplus.quickref.config.error" title="Error-related">Error-related</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/config/error.hpp&gt;</code>
+          </p>
+<p>
+            The following options <span class="emphasis"><em>disable</em></span> some of the attributes
+            of OGLplus' <a class="link" href="error.html" title="Error handling">exception classes</a>.
+            By <span class="emphasis"><em>disabling</em></span> we mean, that various member functions
+            of <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a> or its descendants,
+            (like SourceFunc, SourceLine, etc.) return a default value (<code class="literal">nullptr</code>,
+            zero, empty string, etc.) instead of the real value related to a raised
+            error.
+          </p>
+<p>
+            When fully enabled, <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>
+            provides quite a lot of information about an error that occured during
+            the execution of OGLplus code. While this information may be useful during
+            debugging, it also requires additional memory to store and program instructions
+            to initialize in an instance of <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>.
+          </p>
+<p>
+            Disabling certain attributes may be useful in release builds when most
+            bugs have been fixed and such a detailed diagnostic is not required.
+            Doing so will most probably lead to both a decrease in code size and
+            CPU overhead.
+          </p>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_ERROR_NO_FILE</span> <a class="co" name="oglplus.quickref.config.error.c0" href="config.html#oglplus.quickref.config.error.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_ERROR_NO_FILE</span> <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_ERROR_NO_LINE</span> <a class="co" name="oglplus.quickref.config.error.c2" href="config.html#oglplus.quickref.config.error.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_ERROR_NO_LINE</span> <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_ERROR_NO_FUNC</span> <a class="co" name="oglplus.quickref.config.error.c4" href="config.html#oglplus.quickref.config.error.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_ERROR_NO_FUNC</span> <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_ERROR_NO_GL_LIB</span> <a class="co" name="oglplus.quickref.config.error.c6" href="config.html#oglplus.quickref.config.error.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_ERROR_NO_GL_LIB</span> <span class="number">0</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_ERROR_NO_GL_FUNC</span> <a class="co" name="oglplus.quickref.config.error.c8" href="config.html#oglplus.quickref.config.error.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_ERROR_NO_GL_FUNC</span> <span class="number">0</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_ERROR_NO_GL_SYMBOL</span> <a class="co" name="oglplus.quickref.config.error.c10" href="config.html#oglplus.quickref.config.error.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_ERROR_NO_GL_SYMBOL</span> <span class="number">0</span>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.error.c1"></a><a href="#oglplus.quickref.config.error.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Disables the <code class="literal">SourceFile</code> attribute of <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>.
+                Disabled in low-profile mode.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.error.c3"></a><a href="#oglplus.quickref.config.error.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Disables the <code class="literal">SourceLine</code> attribute of <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>.
+                Disabled in low-profile mode.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.error.c5"></a><a href="#oglplus.quickref.config.error.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Disables the <code class="literal">SourceFunc</code> attribute of <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>.
+                Disabled in low-profile mode.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.error.c7"></a><a href="#oglplus.quickref.config.error.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Disables the <code class="literal">GLLib</code> attribute of <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>.
+                Enabled by default.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.error.c9"></a><a href="#oglplus.quickref.config.error.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Disables the <code class="literal">GLFunc</code> attribute of <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>.
+                Enabled by default.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.error.c11"></a><a href="#oglplus.quickref.config.error.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Disables the <code class="literal">EnumParam</code>, <code class="literal">EnumParamName</code>
+                and <code class="literal">Index</code> attributes of <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>.
+                Enabled by default.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.config.enums"></a><a class="link" href="config.html#oglplus.quickref.config.enums" title="Enumerations">Enumerations</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/config/enums.hpp&gt;</code>
+          </p>
+<p>
+            The preprocessor options defined here control behavior related to the
+            OGLplus <a class="link" href="enums.html" title="Enumerations">enumerations</a>. The
+            functions for iteration through all available values in an enumerated
+            type and the functions for returning the GL names of the enumeration
+            values can be either enabled or disabled by these options.
+          </p>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_ENUM_VALUE_NAMES</span> <a class="co" name="oglplus.quickref.config.enums.c0" href="config.html#oglplus.quickref.config.enums.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_ENUM_VALUE_NAMES</span> <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_ENUM_VALUE_RANGES</span> <a class="co" name="oglplus.quickref.config.enums.c2" href="config.html#oglplus.quickref.config.enums.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_ENUM_VALUE_RANGES</span> <span class="identifier">OGLPLUS_LOW_PROFILE</span>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.enums.c1"></a><a href="#oglplus.quickref.config.enums.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">
+<p>
+                Compile-time switch disabling the functions returning enumerated
+                value names. Setting this preprocessor symbol to a non-zero value
+                causes that the <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a>
+                functions always return an empty string. When set to zero these functions
+                return a textual name of an enumerated value passed as argument.
+              </p>
+<p>
+                By default this option is set to the same value as <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>,
+                i.e. enumeration value names are enabled, when not in low-profile
+                mode and disabled otherwise.
+              </p>
+</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.enums.c3"></a><a href="#oglplus.quickref.config.enums.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">
+<p>
+                Compile-time switch disabling the functions returning enumerated
+                value ranges. Setting this preprocessor symbol to a nonzero value
+                causes that the <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a>
+                functions always return an empty range. When set to zero these functions
+                return a range of all values in the enumeration passed as the template
+                argument.
+              </p>
+<p>
+                By default this option is set to the same value as <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>,
+                i.e. enumeration value ranges are enabled, when not in low-profile
+                mode and disabled otherwise.
+              </p>
+</td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.config.object"></a><a class="link" href="config.html#oglplus.quickref.config.object" title="Object-related">Object-related</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/config/object.hpp&gt;</code>
+          </p>
+<p>
+            The following preprocessor options influence behaviour related to OGLplus
+            objects.
+          </p>
+<p>
+            The following options enable or disable the texture OGLplus object descriptions.
+          </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              Object descriptions use statically initialized data which may cause
+              problems if the final executable is built together from several different
+              object files. Because of this, if object descriptions are enabled it
+              is recommended that OGLplus applications are built with <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LINK_LIBRARY</code></a>
+              set to non-zero or are built as a single translation unit.
+            </p></td></tr>
+</table></div>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_OBJECT_DESC</span> <a class="co" name="oglplus.quickref.config.object.c0" href="config.html#oglplus.quickref.config.object.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_OBJECT_DESC</span> <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.object.c1"></a><a href="#oglplus.quickref.config.object.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Compile-time switch disabling textual object descriptions. Setting
+                this preprocessor option to a non-zero integer value disables the
+                OGLplus object description attached to various instantiations of
+                the <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>
+                template (like <a class="link" href="program.html" title="Programs">Program</a>,
+                <a class="link" href="shader.html" title="Shaders">Shader</a>, <a class="link" href="texture.html" title="Textures">Texture</a>,
+                etc.) during construction, by the means of the <a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a>
+                parameter in constructor of <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>.
+                By default this option is set to the same value as <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>,
+                i.e. objects descriptions are enabled, when not in low-profile mode
+                and disabled otherwise.
+              </p></td>
+</tr></table></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="context_flag_bit.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="math.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

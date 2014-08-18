@@ -1,0 +1,264 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Enumerations</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="math.html" title="Math utilities">
+<link rel="next" href="utils.html" title="Misc utilities">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="math.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="utils.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.enums"></a><a class="link" href="enums.html" title="Enumerations">Enumerations</a>
+</h2></div></div></div>
+<h4>
+<a name="oglplus.quickref.enums.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.enums.oglplus_enumerations_hpp"></a></span><a class="link" href="enums.html#oglplus.quickref.enums.oglplus_enumerations_hpp">oglplus/enumerations.hpp</a>
+        </h4>
+<p>
+          OGLplus defines many enumeration types grouping together GL constants that
+          logically belong together. The strong typing on the enumerations also prevents
+          in many cases errors like passing invalid constant to a GL function since
+          the OGLplus function wrappers use appropriate enumeration types for parameters
+          instead of the generic <code class="literal">GLenum</code> type.
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            Many of the GL constant values used in the enumerations are only available
+            in specific GL versions or with certain GL extensions. If the underlying
+            GL constant is not defined when the enumeration definition is processed
+            then the corresponding value is not present in the enumeration.
+          </p></td></tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.enums.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.enums.functions"></a></span><a class="link" href="enums.html#oglplus.quickref.enums.functions">Functions</a>
+        </h4>
+<p>
+          For (almost) all enumeration types the following functions are overloaded.
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="preprocessor">#if</span> <span class="special">!</span><a class="link" href="config.html#oglplus.quickref.config.enums" title="Enumerations"><code class="literal">OGLPLUS_NO_ENUM_VALUE_RANGES</code></a>
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Enumeration</span><span class="special">&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">Enumeration</span><span class="special">&gt;</span> <span class="identifier">EnumValueRange</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c0" href="enums.html#oglplus.quickref.enums.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span><span class="special">!</span> <a class="link" href="config.html#oglplus.quickref.config.enums" title="Enumerations"><code class="literal">OGLPLUS_NO_ENUM_VALUE_NAMES</code></a>
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Enumeration</span><span class="special">&gt;</span>
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">EnumValueName</span><span class="special">(</span><span class="identifier">Enumeration</span> <span class="identifier">enum_value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c2" href="enums.html#oglplus.quickref.enums.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c1"></a><a href="#oglplus.quickref.enums.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns a <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a>
+              of values in a OGLplus enum value. This template function is overloaded
+              for the enumerated types defined by OGLplus and returns a <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a>
+              which allows to traverse all values of a particular <code class="literal">Enumeration</code>
+              type. The result of this function is influenced by the <a class="link" href="config.html#oglplus.quickref.config.enums" title="Enumerations"><code class="literal">OGLPLUS_NO_ENUM_VALUE_RANGES</code></a>
+              preprocessor-symbol. If it is set to a nonzero value then <code class="literal">EnumValueRange&lt;Enum&gt;()</code>
+              returns an empty range.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c3"></a><a href="#oglplus.quickref.enums.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the name of the GL enumerated value for an OGLplus enum value.
+              This function is overloaded for the enumerated types defined by OGLplus
+              and returns the GL constant name (without the "GL_" prefix)
+              as managed const string reference. The result of this function is influenced
+              by the <a class="link" href="config.html#oglplus.quickref.config.enums" title="Enumerations"><code class="literal">OGLPLUS_NO_ENUM_VALUE_NAMES</code></a>
+              preprocessor-symbol. If it is set to a nonzero value then <code class="literal">EnumValueName(enum_value)</code>
+              returns an empty string.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.enums.h2"></a>
+          <span class="phrase"><a name="oglplus.quickref.enums.bitfield"></a></span><a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Enum
+          bitfields</a>
+        </h4>
+<p>
+          The <code class="literal">Bitfield</code> template serves as a wrapper for OpenGL
+          bitfields. It allows to combine strongly-typed enumerated values into a
+          single bitfield value.
+        </p>
+<p>
+          Library end-user applications rarely need to use this class directly. Instantiations
+          of this template are used as types for parameters in functions taking bitfields
+          based on strongly-type enumerations. When constructing a bitfield the application
+          simply passes the enumerated value or a combination of enumerated values
+          using the bitwise-or operator or initializer list.
+        </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Bits</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">Bitfield</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Bitfield</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c4" href="enums.html#oglplus.quickref.enums.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">Bitfield</span><span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">_bit</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c6" href="enums.html#oglplus.quickref.enums.c7"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">Bitfield</span><span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">_bit_a</span><span class="special">,</span> <span class="identifier">Bits</span> <span class="identifier">_bit_b</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c8" href="enums.html#oglplus.quickref.enums.c9"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+<span class="preprocessor">#if</span> <span class="special">!</span><a class="link" href="config.html#oglplus.quickref.config.site.compiler" title="Compiler"><code class="literal">OGLPLUS_NO_INITIALIZER_LISTS</code></a>
+	<span class="identifier">Bitfield</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span><span class="identifier">Bits</span><span class="special">&gt;&amp;</span> <span class="identifier">bits</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c10" href="enums.html#oglplus.quickref.enums.c11"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="preprocessor">#endif</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iter</span><span class="special">&gt;</span>
+	<span class="identifier">Bitfield</span><span class="special">(</span><span class="identifier">Iter</span> <span class="identifier">pos</span><span class="special">,</span> <span class="identifier">Iter</span> <span class="identifier">end</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c12" href="enums.html#oglplus.quickref.enums.c13"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="keyword">friend</span> <span class="identifier">Bitfield</span> <span class="keyword">operator</span> <span class="special">|</span> <span class="special">(</span><span class="identifier">Bitfield</span> <span class="identifier">bf</span><span class="special">,</span> <span class="identifier">Bits</span> <span class="identifier">b</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c14" href="enums.html#oglplus.quickref.enums.c15"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="identifier">Bitfield</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">|=</span> <span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">b</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c16" href="enums.html#oglplus.quickref.enums.c17"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">Test</span><span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">b</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.enums.c18" href="enums.html#oglplus.quickref.enums.c19"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Bits</span><span class="special">&gt;</span>
+<a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><span class="identifier">Bits</span><span class="special">&gt;</span> <span class="keyword">operator</span> <span class="special">|</span> <span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">b1</span><span class="special">,</span> <span class="identifier">Bits</span> <span class="identifier">b2</span><span class="special">);</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c5"></a><a href="#oglplus.quickref.enums.c4"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Constructs an empty (zero) bitfield.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c7"></a><a href="#oglplus.quickref.enums.c6"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Construct a bitfield from a single strongly-typed enumeration value.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c9"></a><a href="#oglplus.quickref.enums.c8"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Construct a bitfield from a pair of strongly-typed enumeration values.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c11"></a><a href="#oglplus.quickref.enums.c10"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Construct a bitfield from an initializer list of enumeration values.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c13"></a><a href="#oglplus.quickref.enums.c12"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Construction from a pair of iterators through <code class="literal">Bits</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c15"></a><a href="#oglplus.quickref.enums.c14"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Bitwise-or operator for combining enumeration values into a bitfield.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c17"></a><a href="#oglplus.quickref.enums.c16"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Bitwise-or operator for combining enumeration values into a bitfield.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c19"></a><a href="#oglplus.quickref.enums.c18"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Tests if a specified bit is set.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.enums.h3"></a>
+          <span class="phrase"><a name="oglplus.quickref.enums.array"></a></span><a class="link" href="enums.html#oglplus.quickref.enums.array">Enum
+          arrays</a>
+        </h4>
+<p>
+          The <code class="literal">EnumArray</code> template class is used by several functions
+          as the parameter type and allows to pass an array of multiple enumerated
+          values to be passed as an argument.
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            The lifetime of an instance of <code class="literal">EnumArray</code> must not
+            exceed the lifetime of the original array of <code class="literal">Enum</code>s
+            from which the <code class="literal">EnumArray</code> was initialized.
+          </p></td></tr>
+</table></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Enum</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">EnumArray</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
+	<span class="identifier">EnumArray</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Enum</span> <span class="special">(&amp;</span><span class="identifier">enums</span><span class="special">)[</span><span class="identifier">N</span><span class="special">]);</span>
+	<span class="identifier">EnumArray</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">Enum</span><span class="special">&gt;&amp;</span> <span class="identifier">enums</span><span class="special">);</span>
+	<span class="identifier">EnumArray</span><span class="special">(</span><span class="identifier">size_t</span> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">Enum</span><span class="special">*</span> <span class="identifier">enums</span><span class="special">);</span>
+<span class="special">};</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.enums.h4"></a>
+          <span class="phrase"><a name="oglplus.quickref.enums.one_of"></a></span><a class="link" href="enums.html#oglplus.quickref.enums.one_of">OneOf</a>
+        </h4>
+<p>
+          The <code class="literal">OneOf</code> template class is used to merge several enumeration
+          types into a single type. Instances of <code class="literal">OneOf</code> can be
+          implicitly constructed from a value from any of the merged enumeration
+          types. <code class="literal">OneOf</code> is mostly used as the parameter type in
+          functions that can accept values from multiple different enumerations.
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            The following definition is just a pseudo-code used for documentation
+            purposes and differs from the actual implementation of <code class="literal">OneOf</code>
+            in certain aspects. <code class="literal">OneOf</code> should not be used in library
+            client code directly, the only supported operation is construction from
+            an enumeration value.
+          </p></td></tr>
+</table></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">Enum</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">OneOf</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">OneOf</span><span class="special">(</span><span class="identifier">Enum</span><span class="special">)...;</span> <a class="co" name="oglplus.quickref.enums.c20" href="enums.html#oglplus.quickref.enums.c21"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c21"></a><a href="#oglplus.quickref.enums.c20"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              (<span class="emphasis"><em>Pseudocode</em></span>) - <code class="literal">OneOf</code> has a
+              constructor for each enumeration type passed in the template argument
+              pack.
+            </p></td>
+</tr></table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="math.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="utils.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

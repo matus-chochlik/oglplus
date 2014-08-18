@@ -1,0 +1,67 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Memory barrier bits</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="blit_filter.html" title="Blit filter">
+<link rel="next" href="context_profile_bit.html" title="Context profile bits">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="blit_filter.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="context_profile_bit.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.memory_barrier"></a><a class="link" href="memory_barrier.html" title="Memory barrier bits">Memory barrier bits</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/memory_barrier.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">MemoryBarrierBit</span> <span class="special">:</span> <span class="identifier">GLbitfield</span>
+<span class="special">{</span>
+	<span class="identifier">VertexAttribArray</span>  <span class="special">=</span> <span class="identifier">GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">ElementArray</span>       <span class="special">=</span> <span class="identifier">GL_ELEMENT_ARRAY_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">Uniform</span>            <span class="special">=</span> <span class="identifier">GL_UNIFORM_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">TextureFetch</span>       <span class="special">=</span> <span class="identifier">GL_TEXTURE_FETCH_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">ShaderImageAccess</span>  <span class="special">=</span> <span class="identifier">GL_SHADER_IMAGE_ACCESS_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">Command</span>            <span class="special">=</span> <span class="identifier">GL_COMMAND_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">PixelBuffer</span>        <span class="special">=</span> <span class="identifier">GL_PIXEL_BUFFER_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">TextureUpdate</span>      <span class="special">=</span> <span class="identifier">GL_TEXTURE_UPDATE_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">BufferUpdate</span>       <span class="special">=</span> <span class="identifier">GL_BUFFER_UPDATE_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">Framebuffer</span>        <span class="special">=</span> <span class="identifier">GL_FRAMEBUFFER_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">TransformFeedback</span>  <span class="special">=</span> <span class="identifier">GL_TRANSFORM_FEEDBACK_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">AtomicCounter</span>      <span class="special">=</span> <span class="identifier">GL_ATOMIC_COUNTER_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">ShaderStorage</span>      <span class="special">=</span> <span class="identifier">GL_SHADER_STORAGE_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">ClientMappedBuffer</span> <span class="special">=</span> <span class="identifier">GL_CLIENT_MAPPED_BUFFER_BARRIER_BIT</span><span class="special">,</span>
+	<span class="identifier">All</span>                <span class="special">=</span> <span class="identifier">GL_ALL_BARRIER_BITS</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">MemoryBarrierBit</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">MemoryBarrierBit</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">MemoryBarrierBit</span><span class="special">);</span>
+
+<a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><span class="identifier">MemoryBarrierBit</span><span class="special">&gt;</span> <span class="keyword">operator</span> <span class="special">|</span> <span class="special">(</span><span class="identifier">MemoryBarrierBit</span> <span class="identifier">b1</span><span class="special">,</span> <span class="identifier">MemoryBarrierBit</span> <span class="identifier">b2</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="blit_filter.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="context_profile_bit.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

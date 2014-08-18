@@ -1,0 +1,724 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Error handling</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="string.html" title="Strings">
+<link rel="next" href="gen_tags.html" title="Object creation methods">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="string.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="gen_tags.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.error"></a><a class="link" href="error.html" title="Error handling">Error handling</a>
+</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="error.html#oglplus.quickref.error.code">Error code enumeration</a></span></dt>
+<dt><span class="section"><a href="error.html#oglplus.quickref.error.basic">Basic exception class</a></span></dt>
+<dt><span class="section"><a href="error.html#oglplus.quickref.error.glfunc">Missing function errors</a></span></dt>
+<dt><span class="section"><a href="error.html#oglplus.quickref.error.limit">Limit errors</a></span></dt>
+<dt><span class="section"><a href="error.html#oglplus.quickref.error.object">Object errors</a></span></dt>
+<dt><span class="section"><a href="error.html#oglplus.quickref.error.prog_var">Program variable
+          errors</a></span></dt>
+<dt><span class="section"><a href="error.html#oglplus.quickref.error.program">Program build errors</a></span></dt>
+<dt><span class="section"><a href="error.html#oglplus.quickref.error.framebuffer">Framebuffer errors</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.error.code"></a><a class="link" href="error.html#oglplus.quickref.error.code" title="Error code enumeration">Error code enumeration</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/error/code.hpp&gt;</code>
+          </p>
+<p>
+            <code class="literal">ErrorCode</code> <a class="link" href="enums.html" title="Enumerations">enumerates</a>
+            the GL error code values. The GL error code can be obtained for example
+            by calling the <code class="literal">Code</code> member function of <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">ErrorCode</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">NoError</span>                     <span class="special">=</span> <span class="identifier">GL_NO_ERROR</span><span class="special">,</span>
+	<span class="identifier">OutOfMemory</span>                 <span class="special">=</span> <span class="identifier">GL_OUT_OF_MEMORY</span><span class="special">,</span>
+	<span class="identifier">InvalidEnum</span>                 <span class="special">=</span> <span class="identifier">GL_INVALID_ENUM</span><span class="special">,</span>
+	<span class="identifier">InvalidValue</span>                <span class="special">=</span> <span class="identifier">GL_INVALID_VALUE</span><span class="special">,</span>
+	<span class="identifier">InvalidOperation</span>            <span class="special">=</span> <span class="identifier">GL_INVALID_OPERATION</span><span class="special">,</span>
+	<span class="identifier">InvalidFramebufferOperation</span> <span class="special">=</span> <span class="identifier">GL_INVALID_FRAMEBUFFER_OPERATION</span><span class="special">,</span>
+	<span class="identifier">StackOverflow</span>               <span class="special">=</span> <span class="identifier">GL_STACK_OVERFLOW</span><span class="special">,</span>
+	<span class="identifier">StackUnderflow</span>              <span class="special">=</span> <span class="identifier">GL_STACK_UNDERFLOW</span><span class="special">,</span>
+	<span class="identifier">TableTooLarge</span>               <span class="special">=</span> <span class="identifier">GL_TABLE_TOO_LARGE</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">ErrorCode</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">ErrorCode</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">ErrorCode</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.error.basic"></a><a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Basic exception class</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/error/basic.hpp&gt;</code>
+          </p>
+<p>
+            <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a> is an exception
+            class for general OpenGL errors. Instances of this exception class are
+            thrown whenever an error is detected during the execution of OpenGL API
+            calls in the <a href="http://oglplus.org/" target="_top">OGLplus</a> code. This
+            class is derived from the standard <code class="literal">runtime_error</code> exception
+            and thus the basic error message can be obtained by calling its <code class="literal">what()</code>
+            member function. There are several other classes derived for more specific
+            error types, like GL shading language compilation and linking errors,
+            limit errors, etc.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">Error</span>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">runtime_error</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">Message</span><span class="special">(</span><span class="identifier">GLenum</span> <span class="identifier">error_code</span><span class="special">);</span> <a class="co" name="oglplus.quickref.error.basic.c0" href="error.html#oglplus.quickref.error.basic.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">Error</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">message</span><span class="special">);</span> <a class="co" name="oglplus.quickref.error.basic.c2" href="error.html#oglplus.quickref.error.basic.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">~</span><span class="identifier">Error</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">throw</span><span class="special">()</span> <span class="special">{</span> <span class="special">}</span>
+
+	<a class="link" href="error.html#oglplus.quickref.error.code" title="Error code enumeration">ErrorCode</a> <span class="identifier">Code</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c4" href="error.html#oglplus.quickref.error.basic.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">SourceFile</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c6" href="error.html#oglplus.quickref.error.basic.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">SourceFunc</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c8" href="error.html#oglplus.quickref.error.basic.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">unsigned</span> <span class="identifier">SourceLine</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c10" href="error.html#oglplus.quickref.error.basic.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">GLLib</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c12" href="error.html#oglplus.quickref.error.basic.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">GLFunc</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c14" href="error.html#oglplus.quickref.error.basic.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="identifier">GLenum</span> <span class="identifier">EnumParam</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c16" href="error.html#oglplus.quickref.error.basic.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">EnumParamName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c18" href="error.html#oglplus.quickref.error.basic.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+	<span class="identifier">GLint</span> <span class="identifier">Index</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c20" href="error.html#oglplus.quickref.error.basic.c21"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c1"></a><a href="#oglplus.quickref.error.basic.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a message for the specified <code class="literal">error_code</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c3"></a><a href="#oglplus.quickref.error.basic.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs a new instance of <code class="literal">Error</code> with the specified
+                error <code class="literal">message</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c5"></a><a href="#oglplus.quickref.error.basic.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Return the GL error code associated with this error.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c7"></a><a href="#oglplus.quickref.error.basic.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the name of the OGLplus source file where the error occured.
+                The result of this function is also influenced by the <a class="link" href="config.html#oglplus.quickref.config.error" title="Error-related"><code class="literal">OGLPLUS_ERROR_NO_FILE</code></a>
+                preprocessor configuration option. If set to zero, this function
+                behaves as described above, otherwise it returns a <code class="literal">nullptr</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c9"></a><a href="#oglplus.quickref.error.basic.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the name of the OGLplus function where the error occured.
+                The result of this function is also influenced by the <a class="link" href="config.html#oglplus.quickref.config.error" title="Error-related"><code class="literal">OGLPLUS_ERROR_NO_FUNC</code></a>
+                preprocessor configuration option. If set to zero, this function
+                behaves as described above, otherwise it returns a <code class="literal">nullptr</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c11"></a><a href="#oglplus.quickref.error.basic.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the line of the OGLplus source file where the error occured.
+                The result of this function is also influenced by the <a class="link" href="config.html#oglplus.quickref.config.error" title="Error-related"><code class="literal">OGLPLUS_ERROR_NO_LINE</code></a>
+                preprocessor configuration option. If set to zero, this function
+                behaves as described above, otherwise it returns zero.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c13"></a><a href="#oglplus.quickref.error.basic.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This function returns the name of the GL library (<code class="literal">"gl"</code>,
+                <code class="literal">"wgl"</code>, <code class="literal">"glX"</code>)
+                where the error occured. The result of this function is also influenced
+                by the <a class="link" href="config.html#oglplus.quickref.config.error" title="Error-related"><code class="literal">OGLPLUS_ERROR_NO_GL_LIB</code></a>
+                preprocessor configuration option. If set to zero, this function
+                behaves as described above, otherwise it returns <code class="literal">nullptr</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c15"></a><a href="#oglplus.quickref.error.basic.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This function returns the name of the failed OpenGL function (without
+                the <code class="literal">gl</code> prefix) which is related to the error.
+                The result of this function is also influenced by the <a class="link" href="config.html#oglplus.quickref.config.error" title="Error-related"><code class="literal">OGLPLUS_ERROR_NO_GL_FUNC</code></a>
+                preprocessor configuration option. If set to zero, this function
+                behaves as described above, otherwise it returns <code class="literal">nullptr</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c17"></a><a href="#oglplus.quickref.error.basic.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the value of the enumeration parameter related to the error.
+                If no enum parameter is available, this function returns zero. The
+                result of this function is also influenced by the <a class="link" href="config.html#oglplus.quickref.config.error" title="Error-related"><code class="literal">OGLPLUS_ERROR_NO_GL_SYMBOL</code></a>
+                preprocessor configuration option. If set to zero, this function
+                behaves as described above, otherwise it returns zero.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c19"></a><a href="#oglplus.quickref.error.basic.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the name of the enumeration parameter related to the error.
+                If the enum parameter name is not available, this function returns
+                zero. The result of this function is also influenced by the <a class="link" href="config.html#oglplus.quickref.config.error" title="Error-related"><code class="literal">OGLPLUS_ERROR_NO_GL_SYMBOL</code></a>
+                preprocessor configuration option. If set to zero, this function
+                behaves as described above, otherwise it returns <code class="literal">nullptr</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c21"></a><a href="#oglplus.quickref.error.basic.c20"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the value of an index parameter passed to the failed OpenGL
+                function if applicable. If no index value is available then this
+                function return a negative integer. The result of this function is
+                also influenced by the <a class="link" href="config.html#oglplus.quickref.config.error" title="Error-related"><code class="literal">OGLPLUS_ERROR_NO_GL_SYMBOL</code></a>
+                preprocessor configuration option. If set to zero, this function
+                behaves as described above, otherwise it returns a negative integer.
+              </p></td>
+</tr>
+</table></div>
+<pre class="programlisting">	<span class="keyword">virtual</span> <span class="identifier">GLfloat</span> <span class="identifier">Value</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c22" href="error.html#oglplus.quickref.error.basic.c23"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">virtual</span> <span class="identifier">GLfloat</span> <span class="identifier">Limit</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c24" href="error.html#oglplus.quickref.error.basic.c25"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">virtual</span> <span class="identifier">GLenum</span> <span class="identifier">BindTarget</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c26" href="error.html#oglplus.quickref.error.basic.c27"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">TargetName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c28" href="error.html#oglplus.quickref.error.basic.c29"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="keyword">virtual</span> <span class="identifier">GLenum</span> <span class="identifier">ObjectType</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c30" href="error.html#oglplus.quickref.error.basic.c31"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">ObjectTypeName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c32" href="error.html#oglplus.quickref.error.basic.c33"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">virtual</span> <span class="identifier">GLint</span> <span class="identifier">ObjectName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c34" href="error.html#oglplus.quickref.error.basic.c35"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">virtual</span> <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">ObjectDesc</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c36" href="error.html#oglplus.quickref.error.basic.c37"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="keyword">virtual</span> <span class="identifier">GLenum</span> <span class="identifier">SubjectType</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c38" href="error.html#oglplus.quickref.error.basic.c39"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">SubjectTypeName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c40" href="error.html#oglplus.quickref.error.basic.c41"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="keyword">virtual</span> <span class="identifier">GLint</span> <span class="identifier">SubjectName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c42" href="error.html#oglplus.quickref.error.basic.c43"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<span class="keyword">virtual</span> <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">SubjectDesc</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c44" href="error.html#oglplus.quickref.error.basic.c45"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+
+	<span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">Identifier</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c46" href="error.html#oglplus.quickref.error.basic.c47"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+
+	<span class="keyword">virtual</span> <span class="keyword">const</span> <span class="identifier">String</span><span class="special">&amp;</span> <span class="identifier">Log</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c48" href="error.html#oglplus.quickref.error.basic.c49"><img src="../../images/callouts/14.png" alt="14" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c23"></a><a href="#oglplus.quickref.error.basic.c22"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a value parameter related to the error, if applicable, returns
+                zero otherwise.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c25"></a><a href="#oglplus.quickref.error.basic.c24"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a limit value related to the error, if applicable, returns
+                zero otherwise.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c27"></a><a href="#oglplus.quickref.error.basic.c26"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the object bind target, if applicable, returns zero otherwise.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c29"></a><a href="#oglplus.quickref.error.basic.c28"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the object bind target name, if applicable, return <code class="literal">nullptr</code>
+                otherwise.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c31"></a><a href="#oglplus.quickref.error.basic.c30"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If the error is related to a GL object, then an object type enumeration
+                value is returned. Otherwise the result is zero.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c33"></a><a href="#oglplus.quickref.error.basic.c32"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If the error is related to a GL object, then a C string storing object
+                type name is returned. Otherwise the result is <code class="literal">nullptr</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c35"></a><a href="#oglplus.quickref.error.basic.c34"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If the error is related to a GL object, then the numeric GL name
+                of the object is returned. Otherwise the result is a negative integer.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c37"></a><a href="#oglplus.quickref.error.basic.c36"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If the error is related to a GL object, then a std::string storing
+                object description is returned. Otherwise the result is an empty
+                std::string.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c39"></a><a href="#oglplus.quickref.error.basic.c38"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If the error is related to a pair of GL objects, then an object type
+                enumeration value is returned. Otherwise the result is zero.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c41"></a><a href="#oglplus.quickref.error.basic.c40"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If the error is related a pair of GL objects, then a C string storing
+                secondary object type name is returned. Otherwise the result is
+                <code class="literal">nullptr</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c43"></a><a href="#oglplus.quickref.error.basic.c42"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If the error is related to a pair of GL objects, then the numeric
+                GL name of the secondary object is returned. Otherwise the result
+                is a negative integer.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c45"></a><a href="#oglplus.quickref.error.basic.c44"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If the error is related to a pair of GL objects, then a std::string
+                storing the secondary object description is returned. Otherwise the
+                result is an empty std::string.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c47"></a><a href="#oglplus.quickref.error.basic.c46"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If the error is related to a GPU program variable (vertex attrib,
+                uniform, subroutine, etc.) then this function returns a C string
+                storing the identifier of the variable. Otherwise the result is
+                <code class="literal">nullptr</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.basic.c49"></a><a href="#oglplus.quickref.error.basic.c48"><img src="../../images/callouts/14.png" alt="14" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If the error was caused by a process (like shader compilation, program
+                linking or validation, etc.) which creates a textual log and it is
+                available then it is returned by this function. Otherwise the result
+                is an empty String.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.error.glfunc"></a><a class="link" href="error.html#oglplus.quickref.error.glfunc" title="Missing function errors">Missing function errors</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/error/glfunc.hpp&gt;</code>
+          </p>
+<p>
+            Exception class for situations when a pointer to a GL function is invalid.
+            OGLplus optionally (based on the value of the <a class="link" href="config.html#oglplus.quickref.config.gl" title="GL-related"><code class="literal">OGLPLUS_NO_GLFUNC_CHECKS</code></a>
+            compile-time switch) checks, if pointers to OpenGL functions are valid
+            (i.e. not <code class="literal">nullptr</code>). OpenGL functions are usually called
+            through pointers, when using a library such as <span class="emphasis"><em>GLEW</em></span>,
+            which tries to find and get the addresses of GL functions from the GL
+            library dynamically at run-time. Sometimes the pointers to several of
+            the functions remain uninitialized and usually result in a memory violation
+            and program termination if called. The <code class="literal">MissingFunction</code>
+            exception class indicates that the usage of such uninitialized function
+            pointer was detected at run-time and allows the application to avoid
+            memory access violation and terminate more gracefully.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">MissingFunction</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">MissingFunction</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">message</span><span class="special">);</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.error.limit"></a><a class="link" href="error.html#oglplus.quickref.error.limit" title="Limit errors">Limit errors</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/error/limit.hpp&gt;</code>
+          </p>
+<p>
+            Exception indicating that a GL implementation-defined limit has been
+            exceeded. Instances of this class are thrown if an instance of a numeric
+            type is assigned a value that it is outside of an implementation dependent
+            range. This includes things like limits on the number of texture units
+            of the GPU, maximum texture dimensions, maximum number of draw buffers,
+            vertex attributes, etc.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">LimitError</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">LimitError</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">message</span><span class="special">);</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Value</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.limit.c0" href="error.html#oglplus.quickref.error.limit.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">GLfloat</span> <span class="identifier">Limit</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.limit.c2" href="error.html#oglplus.quickref.error.limit.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.limit.c1"></a><a href="#oglplus.quickref.error.limit.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the value, which triggered the error.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.limit.c3"></a><a href="#oglplus.quickref.error.limit.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the limit value, which has been exceeded.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.error.object"></a><a class="link" href="error.html#oglplus.quickref.error.object" title="Object errors">Object errors</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/error/object.hpp&gt;</code>
+          </p>
+<p>
+            Exception class indicating that an <a class="link" href="object.html" title="OGLplus objects">OGLplus
+            object</a>-related error has occured.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">ObjectError</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ObjectError</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">message</span><span class="special">);</span>
+
+	<span class="identifier">GLenum</span> <span class="identifier">ObjectType</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.object.c0" href="error.html#oglplus.quickref.error.object.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">ObjectTypeName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.object.c2" href="error.html#oglplus.quickref.error.object.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">GLenum</span> <span class="identifier">BindTarget</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.object.c4" href="error.html#oglplus.quickref.error.object.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">TargetName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.object.c6" href="error.html#oglplus.quickref.error.object.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="identifier">GLint</span> <span class="identifier">ObjectName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.object.c8" href="error.html#oglplus.quickref.error.object.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">const</span> <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a><span class="special">&amp;</span> <span class="identifier">ObjectDesc</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.object.c10" href="error.html#oglplus.quickref.error.object.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.object.c1"></a><a href="#oglplus.quickref.error.object.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the OpenGL constant value determining the object type (like
+                <code class="literal">GL_PROGRAM</code>, <code class="literal">GL_TEXTURE</code>, <code class="literal">GL_SHADER</code>,
+                <code class="literal">GL_BUFFER</code>, etc.), which caused the error. If the
+                object type is not available the value zero is returned.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.object.c3"></a><a href="#oglplus.quickref.error.object.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a c-string (without the <code class="literal">GL_</code> prefix) corresponding
+                to the GL constant determining the object type (like <code class="literal">"PROGRAM"</code>,
+                <code class="literal">"TEXTURE"</code>, <code class="literal">"SHADER"</code>,
+                <code class="literal">"BUFFER"</code>, <code class="literal">"SAMPLER"</code>,
+                etc.). If the object type name is not available then <code class="literal">nullptr</code>
+                is returned.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.object.c5"></a><a href="#oglplus.quickref.error.object.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the OpenGL constant value determining the bind target, to
+                which the object related to the error was bound. If the target is
+                not available the value zero is returned.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.object.c7"></a><a href="#oglplus.quickref.error.object.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a c-string (without the <code class="literal">GL_</code> prefix) corresponding
+                to the GL constant determining the bind target. If the target name
+                is not available then <code class="literal">nullptr</code> is returned.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.object.c9"></a><a href="#oglplus.quickref.error.object.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the raw OpenGL (integer) name of the object, which caused
+                the error. If the object name is not available then a negative integer
+                value is returned.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.object.c11"></a><a href="#oglplus.quickref.error.object.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a textual description of the object, which caused the error.
+                If no description is available, then an empty <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a>
+                is returned.
+              </p></td>
+</tr>
+</table></div>
+<p>
+            <a class="link" href="error.html#oglplus.quickref.error.object" title="Object errors">ObjectPairError</a>
+            indicates that an error related to a pair of OGLplus objects has occured.
+            The two objects in the pair are referred-to as <span class="emphasis"><em>object</em></span>
+            and <span class="emphasis"><em>subject</em></span>.
+          </p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ObjectPairError</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.object" title="Object errors">ObjectError</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ObjectPairError</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">message</span><span class="special">);</span>
+
+	<span class="identifier">GLenum</span> <span class="identifier">SubjectType</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.object.c12" href="error.html#oglplus.quickref.error.object.c13"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">SubjectTypeName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.object.c14" href="error.html#oglplus.quickref.error.object.c15"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">GLint</span> <span class="identifier">SubjectName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.object.c16" href="error.html#oglplus.quickref.error.object.c17"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">const</span> <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a><span class="special">&amp;</span> <span class="identifier">SubjectDesc</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.object.c18" href="error.html#oglplus.quickref.error.object.c19"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.object.c13"></a><a href="#oglplus.quickref.error.object.c12"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the OpenGL constant value determining the type of the subject,
+                in the object pair which caused the error. If the subject type is
+                not available the value zero is returned.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.object.c15"></a><a href="#oglplus.quickref.error.object.c14"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a c-string (without the <code class="literal">GL_</code> prefix) corresponding
+                to the GL constant determining the subject type. If the subject type
+                name is not available then <code class="literal">nullptr</code> is returned.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.object.c17"></a><a href="#oglplus.quickref.error.object.c16"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the OpenGL (integer) name of the subject in the object pair,
+                which caused the error. If the object name is not available then
+                a negative integer value is returned.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.object.c19"></a><a href="#oglplus.quickref.error.object.c18"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a textual description of the subject, which caused the error.
+                If no description is available, then an empty <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a>
+                is returned.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.error.prog_var"></a><a class="link" href="error.html#oglplus.quickref.error.prog_var" title="Program variable errors">Program variable
+          errors</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/error/prog_var.hpp&gt;</code>
+          </p>
+<p>
+            Exception class indicating that an error related to a program variable
+            (like an __Uniform, __VertexAttrib, etc.) has occured.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">ProgVarError</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ProgVarError</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">message</span><span class="special">);</span>
+
+	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">ObjectTypeName</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.error.prog_var.c0" href="error.html#oglplus.quickref.error.prog_var.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">GLint</span> <span class="identifier">ObjectName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.prog_var.c2" href="error.html#oglplus.quickref.error.prog_var.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">Program</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.prog_var.c4" href="error.html#oglplus.quickref.error.prog_var.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">Identifier</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.prog_var.c6" href="error.html#oglplus.quickref.error.prog_var.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.prog_var.c1"></a><a href="#oglplus.quickref.error.prog_var.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the string <code class="literal">"PROGRAM"</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.prog_var.c3"></a><a href="#oglplus.quickref.error.prog_var.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the <span class="emphasis"><em>raw</em></span> GL name of the program related
+                to this error.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.prog_var.c5"></a><a href="#oglplus.quickref.error.prog_var.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the name of the program related to this error.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.prog_var.c7"></a><a href="#oglplus.quickref.error.prog_var.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a c-string containing the identifier of the GPU program variable
+                related to this error.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.error.program"></a><a class="link" href="error.html#oglplus.quickref.error.program" title="Program build errors">Program build errors</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/error/program.hpp&gt;</code>
+          </p>
+<p>
+            Generic base exception for program build errors.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">ProgramBuildError</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.object" title="Object errors">ObjectError</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ProgramBuildError</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">message</span><span class="special">);</span>
+
+	<span class="keyword">const</span> <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a><span class="special">&amp;</span> <span class="identifier">Log</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.program.c0" href="error.html#oglplus.quickref.error.program.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.program.c1"></a><a href="#oglplus.quickref.error.program.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the output of the GLSL shader compiler, program linker or
+                validator. If no output is available then an empty <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a>
+                is returned.
+              </p></td>
+</tr></table></div>
+<p>
+            Exception for <a class="link" href="shader.html" title="Shaders">Shader</a> compilation
+            errors.
+          </p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">CompileError</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.program" title="Program build errors">ProgramBuildError</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">CompileError</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">message</span><span class="special">);</span>
+<span class="special">};</span>
+</pre>
+<p>
+            Exception for <a class="link" href="program.html" title="Programs">Program</a>
+            linking errors.
+          </p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">LinkError</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.program" title="Program build errors">ProgramBuildError</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">LinkError</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">message</span><span class="special">);</span>
+<span class="special">};</span>
+</pre>
+<p>
+            Exception for <a class="link" href="program.html" title="Programs">Program</a>
+            validation errors.
+          </p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ValidationError</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.program" title="Program build errors">ProgramBuildError</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ValidationError</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">message</span><span class="special">);</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.error.framebuffer"></a><a class="link" href="error.html#oglplus.quickref.error.framebuffer" title="Framebuffer errors">Framebuffer errors</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/error/framebuffer.hpp&gt;</code>
+          </p>
+<p>
+            Exception indicating that an incomplete GL framebuffer error has occured.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">IncompleteFramebuffer</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.object" title="Object errors">ObjectError</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">IncompleteFramebuffer</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">message</span><span class="special">);</span>
+
+	<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.status">FramebufferStatus</a> <span class="identifier">Status</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.framebuffer.c0" href="error.html#oglplus.quickref.error.framebuffer.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.framebuffer.c1"></a><a href="#oglplus.quickref.error.framebuffer.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the status of the <a class="link" href="framebuffer.html" title="Framebuffers">Framebuffer</a>
+                that raised this error.
+              </p></td>
+</tr></table></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="string.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="gen_tags.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

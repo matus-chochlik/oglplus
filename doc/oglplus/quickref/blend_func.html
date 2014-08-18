@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Blend function and equation</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="face_mode.html" title="Face orientation and mode">
+<link rel="next" href="color_buffer.html" title="Color buffer">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="face_mode.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="color_buffer.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.blend_func"></a><a class="link" href="blend_func.html" title="Blend function and equation">Blend function and equation</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/blend_func.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">BlendFunction</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Zero</span>                  <span class="special">=</span> <span class="identifier">GL_ZERO</span><span class="special">,</span>
+	<span class="identifier">One</span>                   <span class="special">=</span> <span class="identifier">GL_ONE</span><span class="special">,</span>
+	<span class="identifier">SrcColor</span>              <span class="special">=</span> <span class="identifier">GL_SRC_COLOR</span><span class="special">,</span>
+	<span class="identifier">OneMinusSrcColor</span>      <span class="special">=</span> <span class="identifier">GL_ONE_MINUS_SRC_COLOR</span><span class="special">,</span>
+	<span class="identifier">DstColor</span>              <span class="special">=</span> <span class="identifier">GL_DST_COLOR</span><span class="special">,</span>
+	<span class="identifier">OneMinusDstColor</span>      <span class="special">=</span> <span class="identifier">GL_ONE_MINUS_DST_COLOR</span><span class="special">,</span>
+	<span class="identifier">SrcAlpha</span>              <span class="special">=</span> <span class="identifier">GL_SRC_ALPHA</span><span class="special">,</span>
+	<span class="identifier">OneMinusSrcAlpha</span>      <span class="special">=</span> <span class="identifier">GL_ONE_MINUS_SRC_ALPHA</span><span class="special">,</span>
+	<span class="identifier">DstAlpha</span>              <span class="special">=</span> <span class="identifier">GL_DST_ALPHA</span><span class="special">,</span>
+	<span class="identifier">OneMinusDstAlpha</span>      <span class="special">=</span> <span class="identifier">GL_ONE_MINUS_DST_ALPHA</span><span class="special">,</span>
+	<span class="identifier">ConstantColor</span>         <span class="special">=</span> <span class="identifier">GL_CONSTANT_COLOR</span><span class="special">,</span>
+	<span class="identifier">OneMinusConstantColor</span> <span class="special">=</span> <span class="identifier">GL_ONE_MINUS_CONSTANT_COLOR</span><span class="special">,</span>
+	<span class="identifier">ConstantAlpha</span>         <span class="special">=</span> <span class="identifier">GL_CONSTANT_ALPHA</span><span class="special">,</span>
+	<span class="identifier">OneMinusConstantAlpha</span> <span class="special">=</span> <span class="identifier">GL_ONE_MINUS_CONSTANT_ALPHA</span><span class="special">,</span>
+	<span class="identifier">SrcAlphaSaturate</span>      <span class="special">=</span> <span class="identifier">GL_SRC_ALPHA_SATURATE</span><span class="special">,</span>
+	<span class="identifier">Src1Color</span>             <span class="special">=</span> <span class="identifier">GL_SRC1_COLOR</span><span class="special">,</span>
+	<span class="identifier">OneMinusSrc1Color</span>     <span class="special">=</span> <span class="identifier">GL_ONE_MINUS_SRC1_COLOR</span><span class="special">,</span>
+	<span class="identifier">Src1Alpha</span>             <span class="special">=</span> <span class="identifier">GL_SRC1_ALPHA</span><span class="special">,</span>
+	<span class="identifier">OneMinusSrc1Alpha</span>     <span class="special">=</span> <span class="identifier">GL_ONE_MINUS_SRC1_ALPHA</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">BlendFunction</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">BlendFunction</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">BlendFunction</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">BlendEquation</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Add</span>             <span class="special">=</span> <span class="identifier">GL_FUNC_ADD</span><span class="special">,</span>
+	<span class="identifier">Subtract</span>        <span class="special">=</span> <span class="identifier">GL_FUNC_SUBTRACT</span><span class="special">,</span>
+	<span class="identifier">ReverseSubtract</span> <span class="special">=</span> <span class="identifier">GL_FUNC_REVERSE_SUBTRACT</span><span class="special">,</span>
+	<span class="identifier">Min</span>             <span class="special">=</span> <span class="identifier">GL_MIN</span><span class="special">,</span>
+	<span class="identifier">Max</span>             <span class="special">=</span> <span class="identifier">GL_MAX</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">BlendEquation</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">BlendEquation</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">BlendEquation</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="face_mode.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="color_buffer.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

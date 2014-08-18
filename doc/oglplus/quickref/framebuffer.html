@@ -1,0 +1,349 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Framebuffers</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="sampler.html" title="Samplers">
+<link rel="next" href="renderbuffer.html" title="Renderbuffers">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="sampler.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="renderbuffer.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.framebuffer"></a><a class="link" href="framebuffer.html" title="Framebuffers">Framebuffers</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Framebuffer</a><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">FramebufferName</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">typedef</span> <a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.target">FramebufferTarget</a> <span class="identifier">Target</span><span class="special">;</span>
+
+	<span class="keyword">static</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">FramebufferName</a> <span class="identifier">Binding</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">FramebufferName</a> <span class="identifier">framebuffer</span><span class="special">);</span>
+
+	<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ExplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Framebuffer</a><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Framebuffer</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+<span class="special">};</span>
+</pre>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ExplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Framebuffer</a><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ExplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Framebuffer</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">struct</span> <span class="identifier">Property</span>
+	<span class="special">{</span>
+		<span class="keyword">typedef</span> <a class="link" href="enums.html#oglplus.quickref.enums.one_of">OneOf</a><span class="special">&lt;</span>
+			<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.buffer">FramebufferBuffer</a><span class="special">,</span>
+			<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.attachment">FramebufferAttachment</a><span class="special">,</span>
+			<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment">FramebufferColorAttachment</a>
+		<span class="special">&gt;</span> <span class="identifier">Buffer</span><span class="special">;</span>
+
+		<span class="keyword">typedef</span> <a class="link" href="enums.html#oglplus.quickref.enums.one_of">OneOf</a><span class="special">&lt;</span>
+			<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.attachment">FramebufferAttachment</a><span class="special">,</span>
+			<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment">FramebufferColorAttachment</a>
+		<span class="special">&gt;</span> <span class="identifier">Attachment</span><span class="special">;</span>
+
+		<span class="keyword">typedef</span> <a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.status">FramebufferStatus</a> <span class="identifier">Status</span><span class="special">;</span>
+	<span class="special">};</span>
+
+	<span class="keyword">static</span> <a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.status">FramebufferStatus</a> <span class="identifier">Status</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">)</span>
+	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">IsComplete</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Complete</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachRenderbuffer</span><span class="special">(</span>
+		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">Attachment</span> <span class="identifier">attachment</span><span class="special">,</span>
+		<span class="identifier">__RenderbufferName</span> <span class="identifier">renderbuffer</span>
+	<span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachColorRenderbuffer</span><span class="special">(</span>
+		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment_number">FramebufferColorAttachmentNumber</a> <span class="identifier">attachment_no</span><span class="special">,</span>
+		<span class="identifier">__RenderbufferName</span> <span class="identifier">renderbuffer</span>
+	<span class="special">);</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">OGLPLUS_DOCUMENTATION_ONLY</span> <span class="special">||</span> <span class="identifier">GL_VERSION_3_2</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachTexture</span><span class="special">(</span>
+		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">Attachment</span> <span class="identifier">attachment</span><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span>
+	<span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachColorTexture</span><span class="special">(</span>
+		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment_number">FramebufferColorAttachmentNumber</a> <span class="identifier">attachment_no</span><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span>
+	<span class="special">);</span>
+<span class="preprocessor">#endif</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachTexture1D</span><span class="special">(</span>
+		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">Attachment</span> <span class="identifier">attachment</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextuteTarget</a> <span class="identifier">textarget</span><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span>
+	<span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachTexture2D</span><span class="special">(</span>
+		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">Attachment</span> <span class="identifier">attachment</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextuteTarget</a> <span class="identifier">textarget</span><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span>
+	<span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachTexture3D</span><span class="special">(</span>
+		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">Attachment</span> <span class="identifier">attachment</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextuteTarget</a> <span class="identifier">textarget</span><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">layer</span>
+	<span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachTextureLayer</span><span class="special">(</span>
+		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">Attachment</span> <span class="identifier">attachment</span><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">layer</span>
+	<span class="special">);</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_invalidate_subdata</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Invalidate</span><span class="special">(</span>
+		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="enums.html#oglplus.quickref.enums.array">EnumArray</a><span class="special">&lt;</span><span class="identifier">Property</span><span class="special">::</span><span class="identifier">Buffer</span><span class="special">&gt;&amp;</span> <span class="identifier">buffers</span>
+	<span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Invalidate</span><span class="special">(</span>
+		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="identifier">Property</span><span class="special">::</span><span class="identifier">Buffer</span><span class="special">*</span> <span class="identifier">buffers</span>
+	<span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Invalidate</span><span class="special">(</span>
+		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="enums.html#oglplus.quickref.enums.array">EnumArray</a><span class="special">&lt;</span><span class="identifier">Property</span><span class="special">::</span><span class="identifier">Buffer</span><span class="special">&gt;&amp;</span> <span class="identifier">buffers</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span>
+	<span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Invalidate</span><span class="special">(</span>
+		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="identifier">Property</span><span class="special">::</span><span class="identifier">Buffer</span><span class="special">*</span> <span class="identifier">buffers</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span>
+	<span class="special">);</span>
+<span class="preprocessor">#endif</span>
+<span class="special">};</span>
+
+<span class="comment">// TODO</span>
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.framebuffer.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.framebuffer.target"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.target">Target</a>
+        </h4>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer_target.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferTarget</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Draw</span> <span class="special">=</span> <span class="identifier">GL_DRAW_FRAMEBUFFER</span><span class="special">,</span>
+	<span class="identifier">Read</span> <span class="special">=</span> <span class="identifier">GL_READ_FRAMEBUFFER</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">FramebufferTarget</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">FramebufferTarget</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FramebufferTarget</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.framebuffer.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.framebuffer.buffer"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.buffer">Buffer</a>
+        </h4>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer_attachment.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferBuffer</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Color</span>        <span class="special">=</span> <span class="identifier">GL_COLOR</span><span class="special">,</span>
+	<span class="identifier">Depth</span>        <span class="special">=</span> <span class="identifier">GL_DEPTH</span><span class="special">,</span>
+	<span class="identifier">Stencil</span>      <span class="special">=</span> <span class="identifier">GL_STENCIL</span><span class="special">,</span>
+	<span class="identifier">DepthStencil</span> <span class="special">=</span> <span class="identifier">GL_DEPTH_STENCIL</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">FramebufferBuffer</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">FramebufferBuffer</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FramebufferBuffer</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.framebuffer.h2"></a>
+          <span class="phrase"><a name="oglplus.quickref.framebuffer.attachment"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.attachment">Attachment</a>
+        </h4>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer_attachment.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferAttachment</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Color</span>        <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT0</span><span class="special">,</span>
+	<span class="identifier">Color1</span>       <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT1</span><span class="special">,</span>
+	<span class="identifier">Color2</span>       <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT2</span><span class="special">,</span>
+	<span class="identifier">Color3</span>       <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT3</span><span class="special">,</span>
+	<span class="identifier">Color4</span>       <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT4</span><span class="special">,</span>
+	<span class="identifier">Color5</span>       <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT5</span><span class="special">,</span>
+	<span class="identifier">Color6</span>       <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT6</span><span class="special">,</span>
+	<span class="identifier">Color7</span>       <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT7</span><span class="special">,</span>
+	<span class="identifier">Color8</span>       <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT8</span><span class="special">,</span>
+	<span class="identifier">Color9</span>       <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT9</span><span class="special">,</span>
+	<span class="identifier">Color10</span>      <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT10</span><span class="special">,</span>
+	<span class="identifier">Color11</span>      <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT11</span><span class="special">,</span>
+	<span class="identifier">Color12</span>      <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT12</span><span class="special">,</span>
+	<span class="identifier">Color13</span>      <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT13</span><span class="special">,</span>
+	<span class="identifier">Color14</span>      <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT14</span><span class="special">,</span>
+	<span class="identifier">Color15</span>      <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT15</span><span class="special">,</span>
+	<span class="identifier">Depth</span>        <span class="special">=</span> <span class="identifier">GL_DEPTH_ATTACHMENT</span><span class="special">,</span>
+	<span class="identifier">Stencil</span>      <span class="special">=</span> <span class="identifier">GL_STENCIL_ATTACHMENT</span><span class="special">,</span>
+	<span class="identifier">DepthStencil</span> <span class="special">=</span> <span class="identifier">GL_DEPTH_STENCIL_ATTACHMENT</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">FramebufferAttachment</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">FramebufferAttachment</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FramebufferAttachment</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.framebuffer.h3"></a>
+          <span class="phrase"><a name="oglplus.quickref.framebuffer.color_attachment"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment">Color
+          attachment</a>
+        </h4>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer_attachment.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferColorAttachment</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">_0</span>  <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT0</span><span class="special">,</span>
+	<span class="identifier">_1</span>  <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT1</span><span class="special">,</span>
+	<span class="identifier">_2</span>  <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT2</span><span class="special">,</span>
+	<span class="identifier">_3</span>  <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT3</span><span class="special">,</span>
+	<span class="identifier">_4</span>  <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT4</span><span class="special">,</span>
+	<span class="identifier">_5</span>  <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT5</span><span class="special">,</span>
+	<span class="identifier">_6</span>  <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT6</span><span class="special">,</span>
+	<span class="identifier">_7</span>  <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT7</span><span class="special">,</span>
+	<span class="identifier">_8</span>  <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT8</span><span class="special">,</span>
+	<span class="identifier">_9</span>  <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT9</span><span class="special">,</span>
+	<span class="identifier">_10</span> <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT10</span><span class="special">,</span>
+	<span class="identifier">_11</span> <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT11</span><span class="special">,</span>
+	<span class="identifier">_12</span> <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT12</span><span class="special">,</span>
+	<span class="identifier">_13</span> <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT13</span><span class="special">,</span>
+	<span class="identifier">_14</span> <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT14</span><span class="special">,</span>
+	<span class="identifier">_15</span> <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT15</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">FramebufferColorAttachment</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">FramebufferColorAttachment</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FramebufferColorAttachment</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.framebuffer.h4"></a>
+          <span class="phrase"><a name="oglplus.quickref.framebuffer.color_attachment_number"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment_number">Color attachment
+          number</a>
+        </h4>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer_attachment.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">FramebufferColorAttachmentNumber</span>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">__LimitedCount</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">FramebufferColorAttachmentNumber</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c0" href="framebuffer.html#oglplus.quickref.framebuffer.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c1"></a><a href="#oglplus.quickref.framebuffer.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Throws <a class="link" href="error.html#oglplus.quickref.error.limit" title="Limit errors">LimitError</a>
+              if <code class="literal">number</code> is greater than the implementation-dependent
+              maximum number of framebuffer color attachments. See <span class="bold"><strong><code class="literal">GL_MAX_COLOR_ATTACHMENTS</code></strong></span>.
+            </p></td>
+</tr></table></div>
+<h4>
+<a name="oglplus.quickref.framebuffer.h5"></a>
+          <span class="phrase"><a name="oglplus.quickref.framebuffer.status"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.status">Status</a>
+        </h4>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer_status.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferStatus</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Complete</span>                    <span class="special">=</span> <span class="identifier">GL_FRAMEBUFFER_COMPLETE</span><span class="special">,</span>
+	<span class="identifier">Undefined</span>                   <span class="special">=</span> <span class="identifier">GL_FRAMEBUFFER_UNDEFINED</span><span class="special">,</span>
+	<span class="identifier">IncompleteAttachment</span>        <span class="special">=</span> <span class="identifier">GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT</span><span class="special">,</span>
+	<span class="identifier">IncompleteMissingAttachment</span> <span class="special">=</span> <span class="identifier">GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT</span><span class="special">,</span>
+	<span class="identifier">Unsupported</span>                 <span class="special">=</span> <span class="identifier">GL_FRAMEBUFFER_UNSUPPORTED</span><span class="special">,</span>
+	<span class="identifier">IncompleteMultisample</span>       <span class="special">=</span> <span class="identifier">GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE</span><span class="special">,</span>
+	<span class="identifier">IncompleteLayerTargets</span>      <span class="special">=</span> <span class="identifier">GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">FramebufferStatus</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">FramebufferStatus</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FramebufferStatus</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="sampler.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="renderbuffer.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

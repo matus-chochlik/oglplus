@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Ranges</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="utils.html" title="Misc utilities">
+<link rel="next" href="../../oalplus.html" title="Part&#160;II.&#160;OALplus">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="utils.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../oalplus.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.ranges"></a><a class="link" href="ranges.html" title="Ranges">Ranges</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/opt/ranges.hpp&gt;</code>
+        </p>
+<p>
+          This header implements utilities for working with types conforming to the
+          <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a>
+          concept.
+        </p>
+<p>
+          All range-related utilities are implemented in the <code class="literal">oglplus::ranges</code>
+          namespace:
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+<span class="keyword">namespace</span> <span class="identifier">ranges</span> <span class="special">{</span>
+</pre>
+<p>
+          The <code class="literal">IsRange</code> boolean <a class="link" href="concept.html#oglplus.quickref.concept.metafunction" title="Metafunctions"><span class="emphasis"><em>Metafunction</em></span></a>
+          allows to check if a type conforms to the <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a>
+          concept:
+        </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">IsRange</span>
+<span class="special">{</span>
+	<span class="keyword">typedef</span> <span class="identifier">__Unspecified</span> <span class="identifier">Type</span><span class="special">;</span> <a class="co" name="oglplus.quickref.ranges.c0" href="ranges.html#oglplus.quickref.ranges.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.ranges.c1"></a><a href="#oglplus.quickref.ranges.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              <code class="literal">std::true_type</code> if <code class="literal">Range</code> conforms
+              to the <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a>
+              concept or <code class="literal">std::false_type</code> otherwise.
+            </p></td>
+</tr></table></div>
+<pre class="programlisting"><span class="special">}</span> <span class="comment">// namespace ranges</span>
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="utils.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../oalplus.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
