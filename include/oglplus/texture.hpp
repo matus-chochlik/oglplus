@@ -2932,7 +2932,10 @@ public:
 	}
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_texture_barrier
+#if OGLPLUS_DOCUMENTATION_ONLY || \
+	GL_VERSION_4_5 || \
+	GL_ARB_texture_barrier || \
+	GL_NV_texture_barrier
 	/// Ensures that texture writes have been completed
 	/**
 	 *  @glextreq{NV,texture_barrier}
@@ -2941,8 +2944,13 @@ public:
 	 */
 	static void Barrier(void)
 	{
+#if GL_VERSION_4_5 || GL_ARB_texture_barrier
+		OGLPLUS_GLFUNC(TextureBarrier)();
+		OGLPLUS_VERIFY_SIMPLE(TextureBarrier);
+#elif GL_NV_texture_barrier
 		OGLPLUS_GLFUNC(TextureBarrierNV)();
 		OGLPLUS_VERIFY_SIMPLE(TextureBarrierNV);
+#endif
 	}
 #endif
 
