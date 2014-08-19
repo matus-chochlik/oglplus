@@ -174,11 +174,11 @@ private:
 	DrawProg draw_prog;
 
 	shapes::ShapeWrapper screen, cube;
-	DSABuffer cube_pos;
+	DSABufferEXT cube_pos;
 
-	DSATexture palette, tex;
-	DSAFramebuffer fbo;
-	DSARenderbuffer rbo;
+	DSATextureEXT palette, tex;
+	DSAFramebufferEXT fbo;
+	DSARenderbufferEXT rbo;
 	DefaultFramebuffer dfb;
 public:
 	CubeExample(void)

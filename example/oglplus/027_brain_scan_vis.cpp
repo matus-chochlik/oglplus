@@ -241,11 +241,11 @@ private:
 
 	RaytraceProgram prog;
 
-	DSAVertexArray grid;
+	DSAVertexArrayEXT grid;
 
-	DSABuffer coords;
+	DSABufferEXT coords;
 
-	DSATexture palette, volume_tex;
+	DSATextureEXT palette, volume_tex;
 	GLuint cube_side;
 
 public:
@@ -256,7 +256,7 @@ public:
 
 		coords.Data(grid_coords);
 
-		DSAVertexArrayAttrib(grid, prog, "Coord")
+		DSAVertexArrayAttribEXT(grid, prog, "Coord")
 			.Setup<Vec3f>(coords)
 			.Enable();
 

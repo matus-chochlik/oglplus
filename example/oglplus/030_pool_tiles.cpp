@@ -64,18 +64,18 @@ private:
 	Lazy<Uniform<Mat4f>> plane_camera_matrix, shape_camera_matrix;
 	Lazy<Uniform<Vec3f>> plane_camera_position;
 
-	DSAVertexArray plane, shape;
+	DSAVertexArrayEXT plane, shape;
 
-	DSABuffer plane_verts, plane_texcoords;
-	DSABuffer shape_verts, shape_normals;
+	DSABufferEXT plane_verts, plane_texcoords;
+	DSABufferEXT shape_verts, shape_normals;
 
 	// plane textures
-	DSATexture rand_tex, pict_tex, tile_tex, norm_tex;
+	DSATextureEXT rand_tex, pict_tex, tile_tex, norm_tex;
 	// Texture user for the simulation of reflection
-	DSATexture reflect_tex;
+	DSATextureEXT reflect_tex;
 
-	DSAFramebuffer fbo;
-	DSARenderbuffer rbo;
+	DSAFramebufferEXT fbo;
+	DSARenderbufferEXT rbo;
 
 	GLuint width, height, refl_tex_side, tile_tex_side;
 
@@ -214,13 +214,13 @@ public:
 
 		n_per_vertex = make_plane.Positions(data);
 		plane_verts.Data(data);
-		DSAVertexArrayAttrib(plane, plane_prog, "Position")
+		DSAVertexArrayAttribEXT(plane, plane_prog, "Position")
 			.Setup<GLfloat>(plane_verts, n_per_vertex)
 			.Enable();
 
 		n_per_vertex = make_plane.TexCoordinates(data);
 		plane_texcoords.Data(data);
-		DSAVertexArrayAttrib(plane, plane_prog, "TexCoord")
+		DSAVertexArrayAttribEXT(plane, plane_prog, "TexCoord")
 			.Setup<GLfloat>(plane_texcoords, n_per_vertex)
 			.Enable();
 
@@ -434,13 +434,13 @@ public:
 
 		n_per_vertex = make_shape.Positions(data);
 		shape_verts.Data(data);
-		DSAVertexArrayAttrib(shape, shape_prog, "Position")
+		DSAVertexArrayAttribEXT(shape, shape_prog, "Position")
 			.Setup<GLfloat>(shape_verts, n_per_vertex)
 			.Enable();
 
 		n_per_vertex = make_shape.Normals(data);
 		shape_normals.Data(data);
-		DSAVertexArrayAttrib(shape, shape_prog, "Normal")
+		DSAVertexArrayAttribEXT(shape, shape_prog, "Normal")
 			.Setup<GLfloat>(shape_normals, n_per_vertex)
 			.Enable();
 		//

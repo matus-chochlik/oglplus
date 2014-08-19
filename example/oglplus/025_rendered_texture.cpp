@@ -67,11 +67,11 @@ private:
 	DefaultFramebuffer dfb;
 
 	// The FBO and RBO for offscreen rendering
-	DSAFramebuffer fbo;
-	DSARenderbuffer rbo;
+	DSAFramebufferEXT fbo;
+	DSARenderbufferEXT rbo;
 
 	// The dynamically rendered texture
-	DSATexture tex;
+	DSATextureEXT tex;
 	GLuint tex_side;
 
 	GLuint width, height;

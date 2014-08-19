@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/ext/buffer_map.hpp
+ *  @file oglplus/dsa/buffer_map.hpp
  *  @brief BufferMap wrappers with direct state access
  *
  *  @author Matus Chochlik
@@ -10,16 +10,16 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_DSA_EXT_BUFFER_MAP_1309301821_HPP
-#define OGLPLUS_DSA_EXT_BUFFER_MAP_1309301821_HPP
+#ifndef OGLPLUS_DSA_BUFFER_MAP_1309301821_HPP
+#define OGLPLUS_DSA_BUFFER_MAP_1309301821_HPP
 
 #include <oglplus/buffer.hpp>
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_ARB_direct_state_access
 
-class DSABufferRawMapEXT
+class DSABufferRawMap
 {
 private:
 	const GLintptr _offset;
@@ -30,13 +30,13 @@ private:
 	static GLsizeiptr _get_size(GLuint name)
 	{
 		GLint value = 0;
-		OGLPLUS_GLFUNC(GetNamedBufferParameterivEXT)(
+		OGLPLUS_GLFUNC(GetNamedBufferParameteriv)(
 			name,
 			GL_BUFFER_SIZE,
 			&value
 		);
 		OGLPLUS_CHECK(
-			GetNamedBufferParameterivEXT,
+			GetNamedBufferParameteriv,
 			ObjectError,
 			Object(BufferName(name))
 		);
@@ -66,7 +66,7 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	DSABufferRawMapEXT(
+	DSABufferRawMap(
 		BufferName buffer,
 		GLintptr offset_bytes,
 		GLsizeiptr size_bytes,
@@ -74,7 +74,7 @@ public:
 	): _offset(offset_bytes)
 	 , _size(size_bytes)
 	 , _ptr(
-		OGLPLUS_GLFUNC(MapNamedBufferRangeEXT)(
+		OGLPLUS_GLFUNC(MapNamedBufferRange)(
 			GetGLName(buffer),
 			offset_bytes,
 			size_bytes,
@@ -83,7 +83,7 @@ public:
 	), _name(GetGLName(buffer))
 	{
 		OGLPLUS_CHECK(
-			MapNamedBufferRangeEXT,
+			MapNamedBufferRange,
 			ObjectError,
 			Object(buffer)
 		);
@@ -98,35 +98,35 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	DSABufferRawMapEXT(
+	DSABufferRawMap(
 		BufferName buffer,
 		Bitfield<BufferMapAccess> access
 	): _offset(0)
 	 , _size(_get_size(GetGLName(buffer)))
 	 , _ptr(
-		OGLPLUS_GLFUNC(MapNamedBufferEXT)(
+		OGLPLUS_GLFUNC(MapNamedBuffer)(
 			GetGLName(buffer),
 			_translate(GLbitfield(access))
 		)
 	), _name(GetGLName(buffer))
 	{
 		OGLPLUS_CHECK(
-			MapNamedBufferEXT,
+			MapNamedBuffer,
 			ObjectError,
 			Object(buffer)
 		);
 	}
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
-	DSABufferRawMapEXT(const DSABufferRawMapEXT&) = delete;
+	DSABufferRawMap(const DSABufferRawMap&) = delete;
 #else
 private:
-	DSABufferRawMapEXT(const DSABufferRawMapEXT&);
+	DSABufferRawMap(const DSABufferRawMap&);
 public:
 #endif
 
 	/// Move construction is enabled
-	DSABufferRawMapEXT(DSABufferRawMapEXT&& temp)
+	DSABufferRawMap(DSABufferRawMap&& temp)
 	 : _offset(temp._offset)
 	 , _size(temp._size)
 	 , _ptr(temp._ptr)
@@ -135,7 +135,7 @@ public:
 		temp._ptr = nullptr;
 	}
 
-	~DSABufferRawMapEXT(void)
+	~DSABufferRawMap(void)
 	{
 		try { Unmap(); }
 		catch(...) { }
@@ -144,7 +144,7 @@ public:
 	/// Unmaps the buffer from client address space
 	/**
 	 *  @glsymbols
-	 *  @glfunref{UnmapNamedBufferEXT}
+	 *  @glfunref{UnmapNamedBuffer}
 	 *
 	 *  @throws Error
 	 */
@@ -152,8 +152,8 @@ public:
 	{
 		if(_ptr != nullptr)
 		{
-			OGLPLUS_GLFUNC(UnmapNamedBufferEXT)(_name);
-			OGLPLUS_IGNORE(UnmapNamedBufferEXT);
+			OGLPLUS_GLFUNC(UnmapNamedBuffer)(_name);
+			OGLPLUS_IGNORE(UnmapNamedBuffer);
 			_ptr = nullptr;
 		}
 	}
@@ -193,8 +193,8 @@ public:
 
 /// Untyped mapping of the buffer to the client address space
 template <typename Type>
-class DSABufferTypedMapEXT
- : public DSABufferRawMapEXT
+class DSABufferTypedMap
+ : public DSABufferRawMap
 {
 public:
 	/// Maps a range of the buffer
@@ -206,12 +206,12 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	DSABufferTypedMapEXT(
+	DSABufferTypedMap(
 		BufferName buffer,
 		GLintptr offset,
 		GLsizeiptr size,
 		Bitfield<BufferMapAccess> access
-	): DSABufferRawMapEXT(
+	): DSABufferRawMap(
 		buffer,
 		offset * sizeof(Type),
 	 	size * sizeof(Type),
@@ -227,15 +227,15 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	DSABufferTypedMapEXT(
+	DSABufferTypedMap(
 		BufferName buffer,
 		Bitfield<BufferMapAccess> access
-	): DSABufferRawMapEXT(buffer, access)
+	): DSABufferRawMap(buffer, access)
 	{ }
 
 	/// Move construction is enabled
-	DSABufferTypedMapEXT(DSABufferTypedMapEXT&& temp)
-	 : DSABufferRawMapEXT(static_cast<DSABufferRawMapEXT&&>(temp))
+	DSABufferTypedMap(DSABufferTypedMap&& temp)
+	 : DSABufferRawMap(static_cast<DSABufferRawMap&&>(temp))
 	{ }
 
 	/// Returns the count of elements of Type in the mapped buffer
@@ -276,7 +276,7 @@ public:
 
 #else
 #error Direct State Access Buffer maps not available
-#endif // GL_EXT_direct_state_access
+#endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
 

@@ -22,7 +22,7 @@ namespace oglplus {
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
 
 /// Class wrapping vertex array-related functionality with direct state access
-/** @note Do not use this class directly, use DSARenderbuffer instead.
+/** @note Do not use this class directly, use DSAVertexArrayEXT instead.
  *
  */
 template <>
@@ -139,13 +139,13 @@ public:
 
 /// VertexArray operations with direct state access
 typedef ObjectOps<tag::DirectStateEXT, tag::VertexArray>
-	DSAVertexArrayOps;
+	DSAVertexArrayOpsEXT;
 
 /// An @ref oglplus_object encapsulating the OpenGL vertex array functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSAVertexArrayOps> DSAVertexArray;
+typedef Object<DSAVertexArrayOpsEXT> DSAVertexArrayEXT;
 
 #endif // GL_EXT_direct_state_access
 

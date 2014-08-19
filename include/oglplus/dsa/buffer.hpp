@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/ext/buffer.hpp
+ *  @file oglplus/dsa/buffer.hpp
  *  @brief Buffer wrappers with direct state access
  *
  *  @author Matus Chochlik
@@ -10,23 +10,29 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_DSA_EXT_BUFFER_1309301821_HPP
-#define OGLPLUS_DSA_EXT_BUFFER_1309301821_HPP
+#ifndef OGLPLUS_DSA_BUFFER_1309301821_HPP
+#define OGLPLUS_DSA_BUFFER_1309301821_HPP
 
 #include <oglplus/buffer.hpp>
-#include <oglplus/dsa/ext/buffer_map.hpp>
+#include <oglplus/dsa/buffer_map.hpp>
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_ARB_direct_state_access
+
+template <>
+struct ObjGenTag<tag::DirectState, tag::Buffer>
+{
+	typedef tag::Create Type;
+};
 
 /// Class wrapping buffer-related functionality with direct state access
-/** @note Do not use this class directly, use DSABufferEXT instead.
+/** @note Do not use this class directly, use DSABuffer instead.
  *
  */
 template <>
-class ObjectOps<tag::DirectStateEXT, tag::Buffer>
- : public ObjZeroOps<tag::DirectStateEXT, tag::Buffer>
+class ObjectOps<tag::DirectState, tag::Buffer>
+ : public ObjZeroOps<tag::DirectState, tag::Buffer>
 {
 protected:
 	ObjectOps(void){ }
@@ -44,7 +50,7 @@ public:
 	};
 
 	/// Mapping of the buffer to the client address space
-	typedef DSABufferTypedMapEXT<GLubyte> Map;
+	typedef DSABufferTypedMap<GLubyte> Map;
 
 	/// Returns true if the buffer is mapped
 	/**
@@ -64,7 +70,7 @@ public:
 	 *  to the specifies @p size, without uploading any data.
 	 *
 	 *  @glsymbols
-	 *  @glfunref{NamedBufferDataEXT}
+	 *  @glfunref{NamedBufferData}
 	 *
 	 *  @see SubData
 	 *  @throws Error
@@ -74,14 +80,14 @@ public:
 		BufferUsage usage = BufferUsage::StaticDraw
 	)
 	{
-		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
+		OGLPLUS_GLFUNC(NamedBufferData)(
 			_name,
 			size.Get(),
 			nullptr,
 			GLenum(usage)
 		);
 		OGLPLUS_CHECK(
-			NamedBufferDataEXT,
+			NamedBufferData,
 			ObjectError,
 			Object(*this).
 			EnumParam(usage)
@@ -101,14 +107,14 @@ public:
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
 	{
-		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
+		OGLPLUS_GLFUNC(NamedBufferData)(
 			_name,
 			GLsizei(data.Size()),
 			data.Data(),
 			GLenum(usage)
 		);
 		OGLPLUS_CHECK(
-			NamedBufferDataEXT,
+			NamedBufferData,
 			ObjectError,
 			Object(*this).
 			EnumParam(usage)
@@ -163,14 +169,14 @@ public:
 		const BufferData& data
 	) const
 	{
-		OGLPLUS_GLFUNC(NamedBufferSubDataEXT)(
+		OGLPLUS_GLFUNC(NamedBufferSubData)(
 			_name,
 			GLintptr(offset.Get()),
 			GLsizei(data.Size()),
 			data.Data()
 		);
 		OGLPLUS_CHECK(
-			NamedBufferSubDataEXT,
+			NamedBufferSubData,
 			ObjectError,
 			Object(*this)
 		);
@@ -209,7 +215,7 @@ public:
 		BufferSize size
 	)
 	{
-		OGLPLUS_GLFUNC(NamedCopyBufferSubDataEXT)(
+		OGLPLUS_GLFUNC(NamedCopyBufferSubData)(
 			GetGLName(readbuffer),
 			GetGLName(writebuffer),
 			GLintptr(readoffset.Get()),
@@ -217,7 +223,7 @@ public:
 			GLsizeiptr(size.Get())
 		);
 		OGLPLUS_CHECK(
-			NamedCopyBufferSubDataEXT,
+			NamedCopyBufferSubData,
 			ObjectPairError,
 			Subject(readbuffer).
 			Object(writebuffer)
@@ -244,7 +250,7 @@ public:
 		const GLtype* data
 	) const
 	{
-		OGLPLUS_GLFUNC(ClearNamedBufferDataEXT)(
+		OGLPLUS_GLFUNC(ClearNamedBufferData)(
 			_name,
 			GLenum(internal_format),
 			GLenum(format),
@@ -252,7 +258,7 @@ public:
 			data
 		);
 		OGLPLUS_CHECK(
-			ClearNamedBufferDataEXT,
+			ClearNamedBufferData,
 			ObjectError,
 			Object(*this).
 			EnumParam(internal_format)
@@ -279,7 +285,7 @@ public:
 		const GLtype* data
 	) const
 	{
-		OGLPLUS_GLFUNC(ClearNamedBufferSubDataEXT)(
+		OGLPLUS_GLFUNC(ClearNamedBufferSubData)(
 			_name,
 			GLenum(internal_format),
 			GLintptr(offset.Get()),
@@ -289,7 +295,7 @@ public:
 			data
 		);
 		OGLPLUS_CHECK(
-			ClearNamedBufferSubDataEXT,
+			ClearNamedBufferSubData,
 			ObjectError,
 			Object(*this).
 			EnumParam(internal_format)
@@ -411,74 +417,74 @@ public:
 };
 
 /// Buffer operations with direct state access
-typedef ObjectOps<tag::DirectStateEXT, tag::Buffer>
-	DSABufferOpsEXT;
+typedef ObjectOps<tag::DirectState, tag::Buffer>
+	DSABufferOps;
 
 // Helper class for syntax sugar operators
-struct DSABufferOpsAndUsageEXT
+struct DSABufferOpsAndUsage
 {
-	DSABufferOpsEXT& buf;
+	DSABufferOps& buf;
 	BufferUsage usage;
 
-	DSABufferOpsAndUsageEXT(DSABufferOpsEXT& b, BufferUsage u)
+	DSABufferOpsAndUsage(DSABufferOps& b, BufferUsage u)
 	 : buf(b)
 	 , usage(u)
 	{ }
 };
 
-inline DSABufferOpsAndUsageEXT operator << (
-	DSABufferOpsEXT& buf,
+inline DSABufferOpsAndUsage operator << (
+	DSABufferOps& buf,
 	BufferUsage usage
 )
 {
-	return DSABufferOpsAndUsageEXT(buf, usage);
+	return DSABufferOpsAndUsage(buf, usage);
 }
 
 // Helper class for syntax sugar operators
-struct DSABufferOpsAndIdxTgtEXT
+struct DSABufferOpsAndIdxTgt
 {
-	DSABufferOpsEXT& buf;
+	DSABufferOps& buf;
 	BufferIndexedTarget target;
 
-	DSABufferOpsAndIdxTgtEXT(DSABufferOpsEXT& b, BufferIndexedTarget t)
+	DSABufferOpsAndIdxTgt(DSABufferOps& b, BufferIndexedTarget t)
 	 : buf(b)
 	 , target(t)
 	{ }
 };
 
-inline DSABufferOpsAndIdxTgtEXT operator << (
-	DSABufferOpsEXT& buf,
+inline DSABufferOpsAndIdxTgt operator << (
+	DSABufferOps& buf,
 	BufferIndexedTarget target
 )
 {
-	return DSABufferOpsAndIdxTgtEXT(buf, target);
+	return DSABufferOpsAndIdxTgt(buf, target);
 }
 
 // Helper class for syntax sugar operators
-struct DSABufferOpsAndOffsetEXT
+struct DSABufferOpsAndOffset
 {
-	DSABufferOpsEXT& buf;
+	DSABufferOps& buf;
 	GLintptr offset;
 
-	DSABufferOpsAndOffsetEXT(DSABufferOpsEXT& b, GLintptr o)
+	DSABufferOpsAndOffset(DSABufferOps& b, GLintptr o)
 	 : buf(b)
 	 , offset(o)
 	{ }
 };
 
-inline DSABufferOpsAndOffsetEXT operator + (
-	DSABufferOpsEXT& buf,
+inline DSABufferOpsAndOffset operator + (
+	DSABufferOps& buf,
 	GLintptr offset
 )
 {
-	return DSABufferOpsAndOffsetEXT(buf, offset);
+	return DSABufferOpsAndOffset(buf, offset);
 }
 
 // syntax-sugar operators
 
 // Bind
-inline DSABufferOpsEXT& operator << (
-	DSABufferOpsEXT& buf,
+inline DSABufferOps& operator << (
+	DSABufferOps& buf,
 	BufferTarget target
 )
 {
@@ -487,8 +493,8 @@ inline DSABufferOpsEXT& operator << (
 }
 
 // BindBase
-inline DSABufferOpsEXT& operator << (
-	const DSABufferOpsAndIdxTgtEXT& bat,
+inline DSABufferOps& operator << (
+	const DSABufferOpsAndIdxTgt& bat,
 	GLuint index
 )
 {
@@ -498,8 +504,8 @@ inline DSABufferOpsEXT& operator << (
 
 // Data
 template <typename GLtype>
-inline DSABufferOpsEXT& operator << (
-	DSABufferOpsEXT& buf,
+inline DSABufferOps& operator << (
+	DSABufferOps& buf,
 	const std::vector<GLtype>& data
 )
 {
@@ -509,8 +515,8 @@ inline DSABufferOpsEXT& operator << (
 
 // Data
 template <typename GLtype>
-inline DSABufferOpsEXT& operator << (
-	DSABufferOpsAndUsageEXT&& bau,
+inline DSABufferOps& operator << (
+	DSABufferOpsAndUsage&& bau,
 	const std::vector<GLtype>& data
 )
 {
@@ -520,8 +526,8 @@ inline DSABufferOpsEXT& operator << (
 
 // Data
 template <typename GLtype, std::size_t Count>
-inline DSABufferOpsEXT& operator << (
-	DSABufferOpsEXT& buf,
+inline DSABufferOps& operator << (
+	DSABufferOps& buf,
 	const GLtype (&data)[Count]
 )
 {
@@ -531,8 +537,8 @@ inline DSABufferOpsEXT& operator << (
 
 // Data
 template <typename GLtype, std::size_t Count>
-inline DSABufferOpsEXT& operator << (
-	DSABufferOpsAndUsageEXT&& bau,
+inline DSABufferOps& operator << (
+	DSABufferOpsAndUsage&& bau,
 	const GLtype (&data)[Count]
 )
 {
@@ -542,8 +548,8 @@ inline DSABufferOpsEXT& operator << (
 
 // SubData
 template <typename GLtype>
-inline DSABufferOpsEXT& operator << (
-	DSABufferOpsAndOffsetEXT&& bao,
+inline DSABufferOps& operator << (
+	DSABufferOpsAndOffset&& bao,
 	const std::vector<GLtype>& data
 )
 {
@@ -553,8 +559,8 @@ inline DSABufferOpsEXT& operator << (
 
 // SubData
 template <typename GLtype, std::size_t Count>
-inline DSABufferOpsEXT& operator << (
-	DSABufferOpsAndOffsetEXT&& bao,
+inline DSABufferOps& operator << (
+	DSABufferOpsAndOffset&& bao,
 	const GLtype (&data)[Count]
 )
 {
@@ -566,16 +572,16 @@ inline DSABufferOpsEXT& operator << (
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSABufferOpsEXT> DSABufferEXT;
+typedef Object<DSABufferOps> DSABuffer;
 
 #else
 #error Direct State Access Buffers not available
-#endif // GL_EXT_direct_state_access
+#endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/dsa/ext/buffer.ipp>
+#include <oglplus/dsa/buffer.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

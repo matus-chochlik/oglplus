@@ -222,7 +222,7 @@ public:
 };
 
 class AmbiOcclMaps
- : DSATexture
+ : DSATextureEXT
 {
 public:
 	AmbiOcclMaps(const images::Image& smaps, const Program& prog)
@@ -243,9 +243,9 @@ class Field
 private:
 	Context gl;
 
-	DSABuffer positions, texcoords;
-	DSAVertexArray vao;
-	DSATexture pattern, fademap;
+	DSABufferEXT positions, texcoords;
+	DSAVertexArrayEXT vao;
+	DSATextureEXT pattern, fademap;
 
 	GLuint vert_count;
 
@@ -291,11 +291,11 @@ public:
 		positions.Data(pos_data);
 		texcoords.Data(tec_data);
 
-		DSAVertexArrayAttrib(vao, prog, "Position")
+		DSAVertexArrayAttribEXT(vao, prog, "Position")
 			.Setup<Vector<GLfloat, 3>>(positions)
 			.Enable();
 
-		DSAVertexArrayAttrib(vao, prog, "TexCoord")
+		DSAVertexArrayAttribEXT(vao, prog, "TexCoord")
 			.Setup<Vector<GLuint, 3>>(texcoords)
 			.Enable();
 

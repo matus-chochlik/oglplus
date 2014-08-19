@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/dsa/ext/renderbuffer.hpp
+ *  @file oglplus/dsa/renderbuffer.hpp
  *  @brief Renderbuffer object wrappers with direct state access
  *
  *  @author Matus Chochlik
@@ -10,22 +10,28 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_DSA_EXT_RENDERBUFFER_1107121519_HPP
-#define OGLPLUS_DSA_EXT_RENDERBUFFER_1107121519_HPP
+#ifndef OGLPLUS_DSA_RENDERBUFFER_1107121519_HPP
+#define OGLPLUS_DSA_RENDERBUFFER_1107121519_HPP
 
 #include <oglplus/renderbuffer.hpp>
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_ARB_direct_state_access
+
+template <>
+struct ObjGenTag<tag::DirectState, tag::Renderbuffer>
+{
+	typedef tag::Create Type;
+};
 
 /// Class wrapping renderbuffer-related functionality with direct state access
-/** @note Do not use this class directly, use DSARenderbufferEXT instead.
+/** @note Do not use this class directly, use DSARenderbuffer instead.
  *
  */
 template <>
-class ObjectOps<tag::DirectStateEXT, tag::Renderbuffer>
- : public ObjZeroOps<tag::DirectStateEXT, tag::Renderbuffer>
+class ObjectOps<tag::DirectState, tag::Renderbuffer>
+ : public ObjZeroOps<tag::DirectState, tag::Renderbuffer>
 {
 protected:
 	ObjectOps(void){ }
@@ -43,14 +49,14 @@ public:
 		GLsizei height
 	)
 	{
-		OGLPLUS_GLFUNC(NamedRenderbufferStorageEXT)(
+		OGLPLUS_GLFUNC(NamedRenderbufferStorage)(
 			_name,
 			GLenum(internalformat),
 			width,
 			height
 		);
 		OGLPLUS_CHECK(
-			NamedRenderbufferStorageEXT,
+			NamedRenderbufferStorage,
 			ObjectError,
 			Object(*this).
 			EnumParam(internalformat)
@@ -76,7 +82,7 @@ public:
 		GLsizei height
 	)
 	{
-		OGLPLUS_GLFUNC(NamedRenderbufferStorageMultisampleEXT)(
+		OGLPLUS_GLFUNC(NamedRenderbufferStorageMultisample)(
 			_name,
 			samples,
 			GLenum(internalformat),
@@ -84,7 +90,7 @@ public:
 			height
 		);
 		OGLPLUS_CHECK(
-			NamedRenderbufferStorageMultisampleEXT,
+			NamedRenderbufferStorageMultisample,
 			ObjectError,
 			Object(*this).
 			EnumParam(internalformat)
@@ -244,14 +250,14 @@ public:
 };
 
 /// Renderbuffer operations with direct state access
-typedef ObjectOps<tag::DirectStateEXT, tag::Renderbuffer>
-	DSARenderbufferOpsEXT;
+typedef ObjectOps<tag::DirectState, tag::Renderbuffer>
+	DSARenderbufferOps;
 
 // syntax-sugar operators
 
 // Bind
-inline DSARenderbufferOpsEXT& operator << (
-	DSARenderbufferOpsEXT& rbo,
+inline DSARenderbufferOps& operator << (
+	DSARenderbufferOps& rbo,
 	RenderbufferTarget target
 )
 {
@@ -260,8 +266,8 @@ inline DSARenderbufferOpsEXT& operator << (
 }
 
 // Storage
-inline DSARenderbufferOpsEXT& operator << (
-	DSARenderbufferOpsEXT& rbo,
+inline DSARenderbufferOps& operator << (
+	DSARenderbufferOps& rbo,
 	const images::ImageSpec& image_spec
 )
 {
@@ -273,16 +279,16 @@ inline DSARenderbufferOpsEXT& operator << (
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSARenderbufferOpsEXT> DSARenderbufferEXT;
+typedef Object<DSARenderbufferOps> DSARenderbuffer;
 
 #else
 #error Direct State Access Renderbuffers not available
-#endif // GL_EXT_direct_state_access
+#endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/dsa/ext/renderbuffer.ipp>
+#include <oglplus/dsa/renderbuffer.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

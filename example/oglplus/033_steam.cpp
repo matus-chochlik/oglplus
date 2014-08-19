@@ -42,7 +42,7 @@
 namespace oglplus {
 
 class NoiseTexture
- : public DSATexture
+ : public DSATextureEXT
 {
 public:
 	const GLuint tex_unit;
@@ -61,7 +61,7 @@ public:
 };
 
 class CloudTexture
- : public DSATexture
+ : public DSATextureEXT
 {
 public:
 	const GLuint tex_unit;
@@ -503,9 +503,9 @@ class OcclusionMap
 private:
 	Context gl;
 
-	DSATexture tex;
-	DSARenderbuffer rbo;
-	DSAFramebuffer fbo;
+	DSATextureEXT tex;
+	DSARenderbufferEXT rbo;
+	DSAFramebufferEXT fbo;
 	const GLuint size;
 public:
 	const GLuint tex_unit;
@@ -562,8 +562,8 @@ private:
 	ParticlePhysicsProg pp_prog;
 	PatricleVolumeProg pv_prog;
 
-	Array<DSAVertexArray> pp_vao, pv_vao;
-	Array<DSABuffer> pos_and_id_buf, vel_and_age_buf;
+	Array<DSAVertexArrayEXT> pp_vao, pv_vao;
+	Array<DSABufferEXT> pos_and_id_buf, vel_and_age_buf;
 
 	GLuint particle_count;
 	const GLfloat age_mult;
@@ -602,17 +602,17 @@ public:
 
 		for(GLint i=0; i!=2; ++i)
 		{
-			DSAVertexArrayAttrib(pp_vao[i], pp_prog, "PositionAndId")
+			DSAVertexArrayAttribEXT(pp_vao[i], pp_prog, "PositionAndId")
 				.Setup<Vec4f>(pos_and_id_buf[i])
 				.Enable();
-			DSAVertexArrayAttrib(pv_vao[i], pv_prog, "PositionAndId")
+			DSAVertexArrayAttribEXT(pv_vao[i], pv_prog, "PositionAndId")
 				.Setup<Vec4f>(pos_and_id_buf[i])
 				.Enable();
 
-			DSAVertexArrayAttrib(pp_vao[i], pp_prog, "VelocityAndAge")
+			DSAVertexArrayAttribEXT(pp_vao[i], pp_prog, "VelocityAndAge")
 				.Setup<Vec4f>(vel_and_age_buf[i])
 				.Enable();
-			DSAVertexArrayAttrib(pv_vao[i], pv_prog, "VelocityAndAge")
+			DSAVertexArrayAttribEXT(pv_vao[i], pv_prog, "VelocityAndAge")
 				.Setup<Vec4f>(vel_and_age_buf[i])
 				.Enable();
 		}
@@ -681,13 +681,13 @@ private:
 	OcclusionMap occl_map;
 	ParticleSystem steam;
 
-	DSATexture geom_tex;
-	DSATexture volm_tex;
+	DSATextureEXT geom_tex;
+	DSATextureEXT volm_tex;
 
-	DSARenderbuffer depth_rbo;
+	DSARenderbufferEXT depth_rbo;
 
-	DSAFramebuffer geom_fbo;
-	DSAFramebuffer volm_fbo;
+	DSAFramebufferEXT geom_fbo;
+	DSAFramebufferEXT volm_fbo;
 
 	CompositeProg screen_prog;
 	shapes::ShapeWrapper screen;

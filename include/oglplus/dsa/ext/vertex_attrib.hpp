@@ -20,7 +20,7 @@ namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
 
-class DSAVertexArrayAttrib
+class DSAVertexArrayAttribEXT
  : public ProgVarCommonOps<tag::VertexAttrib>
 {
 private:
@@ -31,7 +31,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	DSAVertexArrayAttrib(
+	DSAVertexArrayAttribEXT(
 		VertexArrayName vao,
 		VertexAttribSlot location
 	): ProgVarCommonOps<tag::VertexAttrib>(VertexAttribLoc(GLint(location)))
@@ -43,7 +43,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	DSAVertexArrayAttrib(
+	DSAVertexArrayAttribEXT(
 		VertexArrayName vao,
 		ProgramName program,
 		StrCRef identifier
@@ -56,7 +56,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexArrayVertexAttribOffsetEXT}
 	 */
-	const DSAVertexArrayAttrib& Offset(
+	const DSAVertexArrayAttribEXT& Offset(
 		BufferName buffer,
 		GLint values_per_vertex,
 		DataType data_type,
@@ -90,7 +90,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexArrayVertexAttribIOffsetEXT}
 	 */
-	const DSAVertexArrayAttrib& IOffset(
+	const DSAVertexArrayAttribEXT& IOffset(
 		BufferName buffer,
 		GLint values_per_vertex,
 		DataType data_type,
@@ -117,7 +117,7 @@ public:
 		return *this;
 	}
 
-	const DSAVertexArrayAttrib& Setup(
+	const DSAVertexArrayAttribEXT& Setup(
 		BufferName buffer,
 		GLint values_per_vertex,
 		std::integral_constant<
@@ -137,7 +137,7 @@ public:
 	}
 
 	template <typename enums::EnumValueType<DataType>::Type DataTypeValue>
-	const DSAVertexArrayAttrib& Setup(
+	const DSAVertexArrayAttribEXT& Setup(
 		BufferName buffer,
 		GLint values_per_vertex,
 		std::integral_constant<
@@ -165,7 +165,7 @@ public:
 	 *  @glfunref{VertexArrayVertexAttribIOffsetEXT}
 	 */
 	template <typename T>
-	const DSAVertexArrayAttrib& Setup(
+	const DSAVertexArrayAttribEXT& Setup(
 		BufferName buffer,
 		GLuint n = 1
 	) const
@@ -184,7 +184,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{EnableVertexArrayAttribEXT}
 	 */
-	const DSAVertexArrayAttrib& Enable(void) const
+	const DSAVertexArrayAttribEXT& Enable(void) const
 	{
 		OGLPLUS_GLFUNC(EnableVertexArrayAttribEXT)(
 			_vao,
@@ -199,7 +199,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{DisableVertexArrayAttribEXT}
 	 */
-	const DSAVertexArrayAttrib& Disable(void) const
+	const DSAVertexArrayAttribEXT& Disable(void) const
 	{
 		OGLPLUS_GLFUNC(DisableVertexArrayAttribEXT)(
 			_vao,

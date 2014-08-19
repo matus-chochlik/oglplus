@@ -19,7 +19,7 @@
 #include <vector>
 
 class FontTexture
- : public oglplus::DSATexture
+ : public oglplus::DSATextureEXT
 {
 public:
 	FontTexture(const char* png_path)
