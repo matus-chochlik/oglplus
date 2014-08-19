@@ -189,6 +189,29 @@ public:
 		assert(Mapped());
 		return _ptr;
 	}
+
+	/// Indicate modifications to a mapped range
+	/**
+	 *  @glsymbols
+	 *  @glfunref{FlushMappedNamedBufferRange}
+	 *
+	 *  @pre Mapped()
+	 *
+	 *  @throws Error
+	 */
+	void FlushRange(GLintptr offset, GLsizeiptr length)
+	{
+		OGLPLUS_GLFUNC(FlushMappedNamedBufferRange)(
+			_name,
+			offset,
+			length
+		);
+		OGLPLUS_CHECK(
+			FlushMappedNamedBufferRange,
+			ObjectError,
+			Object(BufferName(_name))
+		);
+	}
 };
 
 /// Untyped mapping of the buffer to the client address space
@@ -274,8 +297,6 @@ public:
 	}
 };
 
-#else
-#error Direct State Access Buffer maps not available
 #endif // GL_ARB_direct_state_access
 
 } // namespace oglplus

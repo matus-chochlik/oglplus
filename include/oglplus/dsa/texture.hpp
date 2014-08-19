@@ -2605,8 +2605,6 @@ typedef ObjectZero<DSADefaultTextureOps> DSADefaultTexture;
  */
 typedef Object<DSATextureOps> DSATexture;
 
-#else
-#error Direct State Access Textures not available
 #endif // GL_ARB_direct_state_access
 
 } // namespace oglplus

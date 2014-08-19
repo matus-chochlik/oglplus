@@ -215,7 +215,7 @@ public:
 		BufferSize size
 	)
 	{
-		OGLPLUS_GLFUNC(NamedCopyBufferSubData)(
+		OGLPLUS_GLFUNC(CopyNamedBufferSubData)(
 			GetGLName(readbuffer),
 			GetGLName(writebuffer),
 			GLintptr(readoffset.Get()),
@@ -223,7 +223,7 @@ public:
 			GLsizeiptr(size.Get())
 		);
 		OGLPLUS_CHECK(
-			NamedCopyBufferSubData,
+			CopyNamedBufferSubData,
 			ObjectPairError,
 			Subject(readbuffer).
 			Object(writebuffer)
@@ -574,8 +574,6 @@ inline DSABufferOps& operator << (
  */
 typedef Object<DSABufferOps> DSABuffer;
 
-#else
-#error Direct State Access Buffers not available
 #endif // GL_ARB_direct_state_access
 
 } // namespace oglplus

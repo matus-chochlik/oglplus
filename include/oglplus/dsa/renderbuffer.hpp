@@ -281,8 +281,6 @@ inline DSARenderbufferOps& operator << (
  */
 typedef Object<DSARenderbufferOps> DSARenderbuffer;
 
-#else
-#error Direct State Access Renderbuffers not available
 #endif // GL_ARB_direct_state_access
 
 } // namespace oglplus

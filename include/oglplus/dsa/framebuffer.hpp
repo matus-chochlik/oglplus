@@ -37,9 +37,6 @@ class ObjectOps<tag::DirectState, tag::Framebuffer>
 protected:
 	ObjectOps(void){ }
 public:
-	/// Used as the default value for functions taking Target arguments
-	Target target;
-
 	/// Types related to Framebuffer
 	struct Property
 	{
@@ -57,7 +54,7 @@ public:
 	};
 
 	using ObjZeroOps<tag::DirectState, tag::Framebuffer>::Bind;
-	void Bind(void)
+	void Bind(Target target)
 	{
 		ObjZeroOps<tag::DirectState, tag::Framebuffer>::Bind(target);
 	}
@@ -73,24 +70,19 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CheckFramebufferStatus}
 	 */
-	FramebufferStatus Status(Target fbo_target) const
+	FramebufferStatus Status(Target target) const
 	{
 		GLenum result = OGLPLUS_GLFUNC(CheckNamedFramebufferStatus)(
 			_name,
-			GLenum(fbo_target)
+			GLenum(target)
 		);
 		if(result == 0) OGLPLUS_CHECK(
 			CheckNamedFramebufferStatus,
 			ObjectError,
 			Object(*this).
-			BindTarget(fbo_target)
+			BindTarget(target)
 		);
 		return FramebufferStatus(result);
-	}
-
-	FramebufferStatus Status(void) const
-	{
-		return Status(target);
 	}
 
 	/// Returns true if the framebuffer is complete
@@ -101,31 +93,21 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CheckFramebufferStatus}
 	 */
-	bool IsComplete(Target fbo_target) const
+	bool IsComplete(Target target) const
 	{
-		return Status(fbo_target) == FramebufferStatus::Complete;
-	}
-
-	bool IsComplete(void) const
-	{
-		return IsComplete(target);
+		return Status(target) == FramebufferStatus::Complete;
 	}
 
 	void HandleIncompleteError(FramebufferStatus status) const;
 
 	/// Throws an exception if the framebuffer is not complete
-	void Complete(Target fbo_target) const
+	void Complete(Target target) const
 	{
-		FramebufferStatus status = Status(fbo_target);
+		FramebufferStatus status = Status(target);
 		if(status != FramebufferStatus::Complete)
 		{
 			HandleIncompleteError(status);
 		}
-	}
-
-	void Complete(void) const
-	{
-		Complete(target);
 	}
 
 	/// Attach a @p renderbuffer to the @p attachment point of this FBO
@@ -262,116 +244,6 @@ public:
 	}
 #endif
 
-	/// Attach a 1D @p texture to the @p attachment point of this FBO
-	/**
-	 *  @see AttachRenderbuffer
-	 *  @see AttachColorRenderbuffer
-	 *  @see AttachTexture2D
-	 *  @see AttachTexture3D
-	 *  @see AttachColorTexture
-	 *  @see AttachTexture
-	 *  @see AttachTextureLayer
-	 *
-	 *  @glsymbols
-	 *  @glfunref{FramebufferTexture1D}
-	 */
-	void AttachTexture1D(
-		Property::Attachment attachment,
-		TextureTarget textarget,
-		TextureName texture,
-		GLint level
-	)
-	{
-		OGLPLUS_GLFUNC(NamedFramebufferTexture1D)(
-			_name,
-			GLenum(attachment),
-			GLenum(textarget),
-			GetGLName(texture),
-			level
-		);
-		OGLPLUS_CHECK(
-			NamedFramebufferTexture1D,
-			ObjectPairError,
-			Subject(texture).
-			Object(*this).
-			Index(level)
-		);
-	}
-
-	/// Attach a 2D @p texture to the @p attachment point of this FBO
-	/**
-	 *  @see AttachRenderbuffer
-	 *  @see AttachColorRenderbuffer
-	 *  @see AttachTexture1D
-	 *  @see AttachTexture3D
-	 *  @see AttachColorTexture
-	 *  @see AttachTexture
-	 *  @see AttachTextureLayer
-	 *
-	 *  @glsymbols
-	 *  @glfunref{FramebufferTexture2D}
-	 */
-	void AttachTexture2D(
-		Property::Attachment attachment,
-		TextureTarget textarget,
-		TextureName texture,
-		GLint level
-	)
-	{
-		OGLPLUS_GLFUNC(NamedFramebufferTexture2D)(
-			_name,
-			GLenum(attachment),
-			GLenum(textarget),
-			GetGLName(texture),
-			level
-		);
-		OGLPLUS_CHECK(
-			NamedFramebufferTexture2D,
-			ObjectPairError,
-			Subject(texture).
-			Object(*this).
-			Index(level)
-		);
-	}
-
-	/// Attach a 3D @p texture to the @p attachment point of this FBO
-	/**
-	 *  @see AttachRenderbuffer
-	 *  @see AttachColorRenderbuffer
-	 *  @see AttachTexture1D
-	 *  @see AttachTexture2D
-	 *  @see AttachColorTexture
-	 *  @see AttachTexture
-	 *  @see AttachTextureLayer
-	 *
-	 *  @glsymbols
-	 *  @glfunref{FramebufferTexture3D}
-	 */
-	void AttachTexture3D(
-		Property::Attachment attachment,
-		TextureTarget textarget,
-		TextureName texture,
-		GLint level,
-		GLint layer
-	)
-	{
-		OGLPLUS_GLFUNC(NamedFramebufferTexture3D)(
-			_name,
-			GLenum(attachment),
-			GLenum(textarget),
-			GetGLName(texture),
-			level,
-			layer
-		);
-		OGLPLUS_CHECK(
-			NamedFramebufferTexture3D,
-			ObjectPairError,
-			Subject(texture).
-			Object(*this).
-			Index(level)
-		);
-	}
-
 	/// Attach a @p texture layer to the @p attachment point of this FBO
 	/**
 	 *  @see AttachRenderbuffer
@@ -424,12 +296,12 @@ public:
 	 */
 	void DrawBuffer(ColorBuffer buffer)
 	{
-		OGLPLUS_GLFUNC(FramebufferDrawBuffer)(
+		OGLPLUS_GLFUNC(NamedFramebufferDrawBuffer)(
 			_name,
 			GLenum(buffer)
 		);
 		OGLPLUS_VERIFY(
-			FramebufferDrawBuffer,
+			NamedFramebufferDrawBuffer,
 			ObjectError,
 			Object(*this)
 		);
@@ -443,13 +315,13 @@ public:
 	template <unsigned N>
 	void DrawBuffers(const EnumArray<ColorBuffer>& buffers)
 	{
-		OGLPLUS_GLFUNC(FramebufferDrawBuffers)(
+		OGLPLUS_GLFUNC(NamedFramebufferDrawBuffers)(
 			_name,
 			buffers.Count(),
 			buffers.Values()
 		);
 		OGLPLUS_VERIFY(
-			FramebufferDrawBuffers,
+			NamedFramebufferDrawBuffers,
 			ObjectError,
 			Object(*this)
 		);
@@ -462,9 +334,9 @@ public:
 	 */
 	void ReadBuffer(ColorBuffer buffer)
 	{
-		OGLPLUS_GLFUNC(FramebufferReadBuffer)(_name, GLenum(buffer));
+		OGLPLUS_GLFUNC(NamedFramebufferReadBuffer)(_name, GLenum(buffer));
 		OGLPLUS_VERIFY(
-			FramebufferReadBuffer,
+			NamedFramebufferReadBuffer,
 			ObjectError,
 			Object(*this)
 		);
@@ -503,8 +375,7 @@ inline DSAFramebufferOps& operator << (
 	FramebufferTarget target
 )
 {
-	fbo.target = target;
-	fbo.Bind();
+	fbo.Bind(target);
 	return fbo;
 }
 
@@ -530,24 +401,12 @@ inline DSAFramebufferOps& operator << (
 	return faa.fbo;
 }
 
-// Complete
-inline DSAFramebufferOps& operator << (
-	DSAFramebufferOps& fbo,
-	FramebufferComplete
-)
-{
-	fbo.Complete();
-	return fbo;
-}
-
 /// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality
 /**
  *  @ingroup oglplus_objects
  */
 typedef Object<DSAFramebufferOps> DSAFramebuffer;
 
-#else
-#error Direct State Access Framebuffers not available
 #endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
