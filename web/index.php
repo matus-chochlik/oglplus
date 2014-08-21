@@ -92,36 +92,33 @@
 
 						<li id="git-repo"><a href="https://github.com/matus-chochlik/oglplus">GIT repository</a></li>
 					</ul>
+					<h3>Documentation</h3>
+					<ul>
+						<li id="readme"><a href="http://github.com/matus-chochlik/oglplus#oglplus-readme">README</a></li>
+						<li id="quickbook-doc"><a href="http://matus-chochlik.github.io/oglplus/doc/">Quickbook</a></li>
+						<li id="doxygen-doc">Doxygen: <a href="oglplus/html/index.html">OGLplus</a>,<a href="oalplus/html/index.html">OALplus</a>, <a href="eglplus/html/index.html">EGLplus</a></li>
+					</ul>
+					<h3>Media</h3>
+					<ul>
+						<li id="screenshots"><a href="oglplus/html/oglplus_screenshot_gallery.html">Screenshots</a></li>
+						<li id="videos"><a href="https://plus.google.com/u/0/+OglplusOrg/videos">Videos</a></li>
+					</ul>
 					<h3>Components</h3>
 					<ul>
-						<li><b>OGLplus</b> - a wrapper for OpenGL (version 3.0 and higher)
+						<li><b>OGLplus</b> - a wrapper for modern OpenGL
 						<ul>
-							<li id="readme"><a href="http://github.com/matus-chochlik/oglplus#oglplus-readme">README</a></li>
-							<li id="oglplus-doc-n-ref"><a href="oglplus/html/index.html">Documentation and reference</a></li>
-							<li id="oglplus-latest-doc"><a href="http://kifri.fri.uniza.sk/~chochlik/oglplus/html/index.html">Latest documentation</a></li>
 							<li id="oglplus-examples"><a href="oglplus/html/examples.html">Examples</a></li>
 							<li id="oglplus-tutorials"><a href="oglplus/html/oglplus_tutorials.html">Tutorials</a></li>
-							<li id="other-resources">Other resources
-							<ul>
-								<li><a href="https://github.com/jjzazuet/jgl" title="Java wrapper for OpenGL 3 and higher by Jesús Zazueta">JGL</a> by Jesús Zazueta</li>
-								<li><a href="http://science.webhostinggeeks.com/c-omot-za-opengl" title="by Anja Skrba at Webhostinggeeks.com">Serbo-Croatian translation</a> by Anja Skrba</li>
-								<li><a href="http://onlygraphix.com/2014/01/18/oglplus-tutorialdeferred-renderer/" title="by Michael Ivanov at http://onlygraphix.com/">Tutorial: Deferred renderer</a> by Michael Ivanov</li>
-							</ul>
-							</li>
 						</ul>
 						</li>
-						<li><b>OALplus</b> - a wrapper for OpenAL (version 1.1)
+						<li><b>OALplus</b> - a wrapper for OpenAL
 						<ul>
-							<li id="oalplus-doc-n-ref"><a href="oalplus/html/index.html">Documentation and reference</a></li>
-							<li id="oalplus-latest-doc"><a href="http://kifri.fri.uniza.sk/~chochlik/oalplus/html/index.html">Latest documentation</a></li>
 							<li id="oalplus-examples"><a href="oalplus/html/examples.html">Examples</a></li>
 							<li id="oalplus-tutorials"><a href="oalplus/html/oalplus_tutorials.html">Tutorials</a></li>
 						</ul>
 						</li>
-						<li><b>EGLplus</b> - a wrapper for EGL (version 1.4)
+						<li><b>EGLplus</b> - a wrapper for EGL
 						<ul>
-							<li id="eglplus-doc-n-ref"><a href="eglplus/html/index.html">Documentation and reference</a></li>
-							<li id="eglplus-latest-doc"><a href="http://kifri.fri.uniza.sk/~chochlik/eglplus/html/index.html">Latest documentation</a></li>
 							<li id="eglplus-examples"><a href="eglplus/html/examples.html">Examples</a></li>
 						</ul>
 						</li>
@@ -146,23 +143,23 @@
 						</ul>
 						</li>
 					</ul>
-					<h3>Media</h3>
-					<ul>
-						<li id="screenshots"><a href="oglplus/html/oglplus_screenshot_gallery.html">Screenshots</a></li>
-						<li id="videos"><a href="https://plus.google.com/u/0/+OglplusOrg/videos">Videos</a></li>
-					</ul>
 					<h3>Follow OGLplus</h3>
 					<ul>
 						<li id="github"><a href="https://github.com/matus-chochlik/oglplus">GitHub</a></li>
 						<li id="sourceforge"><a href="http://sourceforge.net/projects/oglplus/">Sourceforge</a></li>
 						<li id="g-plus"><a href="https://plus.google.com/+OglplusOrg/?prsrc=3">Google+ news page</a></li>
 						<li id="linkedin"><a href="http://www.linkedin.com/groups/OGLplus-4592626">LinkedIn group</a></li>
-						<li id="ohloh"><a href="http://www.ohloh.net/p/oglplus">Ohloh</a></li>
+						<li id="openhub"><a href="http://www.openhub.net/p/oglplus">OpenHub</a></li>
+					</ul>
+					<h3>Related projects</h3>
+					<ul>
+						<li id="angles"><a href="https://github.com/matus-chochlik/angle">Angles</a></li>
 					</ul>
 				</div>
 			</div>
 
-			<div id="screenshot-gallery">
+			<div class="content-section">
+			<div id="screenshot-gallery" class="content-column-3">
 				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 				<script src="galleria/galleria-1.2.5.min.js"></script>
 				<div id="gallery">
@@ -198,6 +195,15 @@
 				</script>
 			</div>
 
+			<div id=other" class="content-column-4">
+				<h3>Other resources</h3>
+				<ul>
+					<li><a href="https://github.com/jjzazuet/jgl" title="Java wrapper for OpenGL 3 and higher by Jesús Zazueta">JGL</a> by Jesús Zazueta</li>
+					<li><a href="http://science.webhostinggeeks.com/c-omot-za-opengl" title="by Anja Skrba at Webhostinggeeks.com">Serbo-Croatian translation</a> by Anja Skrba</li>
+					<li><a href="http://onlygraphix.com/2014/01/18/oglplus-tutorialdeferred-renderer/" title="by Michael Ivanov at http://onlygraphix.com/">Tutorial: Deferred renderer</a> by Michael Ivanov</li>
+				</ul>
+			</div>
+			</div>
 
 		</div>
 		<div id="right">
