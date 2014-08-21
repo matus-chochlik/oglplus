@@ -37,6 +37,9 @@ oglplus/quickref/blit_filter.html
 oglplus/quickref/memory_barrier.html
 oglplus/quickref/context_profile_bit.html
 oglplus/quickref/context_flag_bit.html
+oglplus/quickref/context_release_behavior.html
+oglplus/quickref/reset_notif_strategy.html
+oglplus/quickref/graphics_reset_status.html
 oglplus/quickref/config.html
 oglplus/quickref/math.html
 oglplus/quickref/enums.html

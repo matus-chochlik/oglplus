@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Graphics reset status</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="reset_notif_strategy.html" title="Reset notification strategy">
+<link rel="next" href="config.html" title="Compile-time configuration">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="reset_notif_strategy.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="config.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.graphics_reset_status"></a><a class="link" href="graphics_reset_status.html" title="Graphics reset status">Graphics reset
+        status</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/graphics_reset_status.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">GraphicsResetStatus</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">NoError</span>              <span class="special">=</span> <span class="identifier">GL_NO_ERROR</span><span class="special">,</span>
+	<span class="identifier">GuiltyContextReset</span>   <span class="special">=</span> <span class="identifier">GL_GUILTY_CONTEXT_RESET</span><span class="special">,</span>
+	<span class="identifier">InnocentContextReset</span> <span class="special">=</span> <span class="identifier">GL_INNOCENT_CONTEXT_RESET</span><span class="special">,</span>
+	<span class="identifier">UnknownContextReset</span>  <span class="special">=</span> <span class="identifier">GL_UNKNOWN_CONTEXT_RESET</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">GraphicsResetStatus</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">GraphicsResetStatus</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">GraphicsResetStatus</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="reset_notif_strategy.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="config.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

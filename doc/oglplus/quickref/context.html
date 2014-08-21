@@ -1431,6 +1431,15 @@
 	<span class="keyword">static</span> <a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="context_profile_bit.html" title="Context profile bits">ContextProfileBit</a><span class="special">&gt;</span> <span class="identifier">ProfileMask</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.numeric_queries.c6" href="context.html#oglplus.quickref.context.numeric_queries.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 	<span class="keyword">static</span> <a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="context_flag_bit.html" title="Context flags">ContextFlagBit</a><span class="special">&gt;</span> <span class="identifier">Flags</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.numeric_queries.c8" href="context.html#oglplus.quickref.context.numeric_queries.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_5</span> <span class="special">||</span> <span class="identifier">GL_KHR_context_flush_control</span>
+	<span class="keyword">static</span> <a class="link" href="context_release_behavior.html" title="Context release behavior">ContextReleaseBehavior</a> <span class="identifier">ReleaseBehavior</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.numeric_queries.c10" href="context.html#oglplus.quickref.context.numeric_queries.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_5</span>
+	<span class="keyword">static</span> <a class="link" href="reset_notif_strategy.html" title="Reset notification strategy">ResetNotificationStrategy</a> <span class="identifier">ResetNotificationStrategy</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.numeric_queries.c12" href="context.html#oglplus.quickref.context.numeric_queries.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="graphics_reset_status.html" title="Graphics reset status">GraphicsResetStatus</a> <span class="identifier">GraphicsResetStatus</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.numeric_queries.c14" href="context.html#oglplus.quickref.context.numeric_queries.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+<span class="preprocessor">#endif</span>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
@@ -1468,6 +1477,26 @@
 <td valign="top" align="left"><p>
                 Returns the current context flags. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_CONTEXT_FLAGS</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.numeric_queries.c11"></a><a href="#oglplus.quickref.context.numeric_queries.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the current context flush control reset behavior. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+                <span class="bold"><strong><code class="literal">GL_CONTEXT_RELEASE_BEHAVIOR</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.numeric_queries.c13"></a><a href="#oglplus.quickref.context.numeric_queries.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the currently active context reset notification strategy.
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_RESET_NOTIFICATION_STRATEGY</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.numeric_queries.c15"></a><a href="#oglplus.quickref.context.numeric_queries.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the current GL context reset status. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetGraphicsResetStatus.xml" target="_top">glGetGraphicsResetStatus</a></code>.
               </p></td>
 </tr>
 </table></div>
