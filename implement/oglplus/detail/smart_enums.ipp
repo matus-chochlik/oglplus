@@ -1089,6 +1089,11 @@ template <typename Enum, Enum = Enum::Float_32UnsignedInt_24_8_Rev> operator Enu
 template <typename Enum> friend bool operator==(Enum value, Float_32UnsignedInt_24_8_Rev){ return value == Enum::Float_32UnsignedInt_24_8_Rev; }
 template <typename Enum> friend bool operator!=(Enum value, Float_32UnsignedInt_24_8_Rev){ return value != Enum::Float_32UnsignedInt_24_8_Rev; }
 };
+struct Flush {
+template <typename Enum, Enum = Enum::Flush> operator Enum (void) const{ return Enum::Flush; }
+template <typename Enum> friend bool operator==(Enum value, Flush){ return value == Enum::Flush; }
+template <typename Enum> friend bool operator!=(Enum value, Flush){ return value != Enum::Flush; }
+};
 struct FlushExplicit {
 template <typename Enum, Enum = Enum::FlushExplicit> operator Enum (void) const{ return Enum::FlushExplicit; }
 template <typename Enum> friend bool operator==(Enum value, FlushExplicit){ return value == Enum::FlushExplicit; }

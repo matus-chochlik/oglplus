@@ -24,9 +24,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glextref{ARB,robustness}
  */
-OGLPLUS_ENUM_CLASS_BEGIN(GraphicsResetStatus, GLenum)
+OGLPLUS_ENUM_CLASS_BEGIN(GraphicsResetStatusARB, GLenum)
 #include <oglplus/enums/ext/graphics_reset_status.ipp>
-OGLPLUS_ENUM_CLASS_END(GraphicsResetStatus)
+OGLPLUS_ENUM_CLASS_END(GraphicsResetStatusARB)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/graphics_reset_status_names.ipp>

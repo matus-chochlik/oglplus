@@ -68,6 +68,9 @@ the concept.
 
 [include quickref/context_profile_bit.qbk]
 [include quickref/context_flag_bit.qbk]
+[include quickref/context_release_behavior.qbk]
+[include quickref/reset_notif_strategy.qbk]
+[include quickref/graphics_reset_status.qbk]
 
 [include quickref/config.qbk]
 [include quickref/math.qbk]

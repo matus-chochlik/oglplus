@@ -225,6 +225,7 @@ OGLPLUS_CONSTEXPR oglplus::smart_enums::FloatVec2 FloatVec2;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FloatVec3 FloatVec3;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FloatVec4 FloatVec4;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Float_32UnsignedInt_24_8_Rev Float_32UnsignedInt_24_8_Rev;
+OGLPLUS_CONSTEXPR oglplus::smart_enums::Flush Flush;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FlushExplicit FlushExplicit;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Fog Fog;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FontAscender FontAscender;

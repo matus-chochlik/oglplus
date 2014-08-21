@@ -1,8 +1,8 @@
 /*
- *  .file oglplus/enums/ext/graphics_reset_status_range.ipp
+ *  .file oglplus/enums/context_release_behavior_range.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/oglplus/ext/graphics_reset_status.txt' instead.
+ *  edit 'source/enums/oglplus/context_release_behavior.txt' instead.
  *
  *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -12,30 +12,24 @@
 namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
-	GraphicsResetStatusARB
-> ValueRange_(GraphicsResetStatusARB*)
+	ContextReleaseBehavior
+> ValueRange_(ContextReleaseBehavior*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVR_GRAPHICSRESETSTATUSARB)
-#define OGLPLUS_IMPL_EVR_GRAPHICSRESETSTATUSARB
+	!defined(OGLPLUS_IMPL_EVR_CONTEXTRELEASEBEHAVIOR)
+#define OGLPLUS_IMPL_EVR_CONTEXTRELEASEBEHAVIOR
 {
 static const GLenum _values[] = {
-#if defined GL_NO_ERROR
-GL_NO_ERROR,
+#if defined GL_NONE
+GL_NONE,
 #endif
-#if defined GL_GUILTY_CONTEXT_RESET_ARB
-GL_GUILTY_CONTEXT_RESET_ARB,
-#endif
-#if defined GL_INNOCENT_CONTEXT_RESET_ARB
-GL_INNOCENT_CONTEXT_RESET_ARB,
-#endif
-#if defined GL_UNKNOWN_CONTEXT_RESET_ARB
-GL_UNKNOWN_CONTEXT_RESET_ARB,
+#if defined GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH
+GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH,
 #endif
 0
 };
 return aux::CastIterRange<
 	const GLenum*,
-	GraphicsResetStatusARB
+	ContextReleaseBehavior
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
 #else

@@ -1,8 +1,8 @@
 /*
- *  .file oglplus/enums/ext/reset_notif_strategy_names.ipp
+ *  .file oglplus/enums/context_release_behavior_names.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/oglplus/ext/reset_notif_strategy.txt' instead.
+ *  edit 'source/enums/oglplus/context_release_behavior.txt' instead.
  *
  *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -11,20 +11,20 @@
 
 namespace enums {
 OGLPLUS_LIB_FUNC StrCRef ValueName_(
-	ResetNotificationStrategyARB*,
+	ContextReleaseBehavior*,
 	GLenum value
 )
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_RESETNOTIFICATIONSTRATEGYARB)
-#define OGLPLUS_IMPL_EVN_RESETNOTIFICATIONSTRATEGYARB
+	!defined(OGLPLUS_IMPL_EVN_CONTEXTRELEASEBEHAVIOR)
+#define OGLPLUS_IMPL_EVN_CONTEXTRELEASEBEHAVIOR
 {
 switch(value)
 {
-#if defined GL_NO_RESET_NOTIFICATION_ARB
-	case GL_NO_RESET_NOTIFICATION_ARB: return StrCRef("NO_RESET_NOTIFICATION_ARB");
+#if defined GL_NONE
+	case GL_NONE: return StrCRef("NONE");
 #endif
-#if defined GL_LOSE_CONTEXT_ON_RESET_ARB
-	case GL_LOSE_CONTEXT_ON_RESET_ARB: return StrCRef("LOSE_CONTEXT_ON_RESET_ARB");
+#if defined GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH
+	case GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH: return StrCRef("CONTEXT_RELEASE_BEHAVIOR_FLUSH");
 #endif
 	default:;
 }

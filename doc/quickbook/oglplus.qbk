@@ -146,6 +146,9 @@
 
 [def __ContextProfileBit [link oglplus.quickref.context_profile_bit ContextProfileBit]]
 [def __ContextFlagBit [link oglplus.quickref.context_flag_bit ContextFlagBit]]
+[def __ContextReleaseBehavior [link oglplus.quickref.context_release_behavior ContextReleaseBehavior]]
+[def __GraphicsResetStatus [link oglplus.quickref.graphics_reset_status GraphicsResetStatus]]
+[def __ResetNotificationStrategy [link oglplus.quickref.reset_notif_strategy ResetNotificationStrategy]]
 
 [def __EnumValueRange [link oglplus.quickref.enums.functions EnumValueRange]]
 [def __EnumValueName [link oglplus.quickref.enums.functions EnumValueName]]
