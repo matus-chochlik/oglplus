@@ -83,7 +83,7 @@
 
 			<div class="content-section">
 				<div id="quick-links" class="content-column-1">
-					<h3>Get OGLplus</h3>
+					<h3>Download</h3>
 					<ul>
 						<li id="direct-download-stable"><a href="http://sourceforge.net/projects/oglplus/files/latest/download"><b>Direct download</b></a> (latest stable)</li>
 						<li id="direct-download-devel"><a href="http://github.com/matus-chochlik/oglplus/archive/develop.zip">Direct download</a> (development)</li>
@@ -96,7 +96,7 @@
 					<ul>
 						<li id="readme"><a href="http://github.com/matus-chochlik/oglplus#oglplus-readme">README</a></li>
 						<li id="quickbook-doc"><a href="http://matus-chochlik.github.io/oglplus/doc/">Quickbook</a></li>
-						<li id="doxygen-doc">Doxygen: <a href="oglplus/html/index.html">OGLplus</a>,<a href="oalplus/html/index.html">OALplus</a>, <a href="eglplus/html/index.html">EGLplus</a></li>
+						<li id="doxygen-doc">Doxygen: <a href="oglplus/html/index.html">OGLplus</a>, <a href="oalplus/html/index.html">OALplus</a>, <a href="eglplus/html/index.html">EGLplus</a></li>
 					</ul>
 					<h3>Media</h3>
 					<ul>
