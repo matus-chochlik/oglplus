@@ -474,7 +474,7 @@ public:
 };
 
 /// Base template for specialized shader types
-template <typename enums::EnumValueType<ShaderType>::Type ShType>
+template <ShaderType ShType>
 class SpecShader
  : public Shader
 {

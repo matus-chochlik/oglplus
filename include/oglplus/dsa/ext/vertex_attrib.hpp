@@ -120,10 +120,7 @@ public:
 	const DSAVertexArrayAttribEXT& Setup(
 		BufferName buffer,
 		GLint values_per_vertex,
-		std::integral_constant<
-			typename enums::EnumValueType<DataType>::Type,
-			DataType::Float
-		>
+		std::integral_constant<DataType, DataType::Float>
 	) const
 	{
 		return Offset(
@@ -136,14 +133,11 @@ public:
 		);
 	}
 
-	template <typename enums::EnumValueType<DataType>::Type DataTypeValue>
+	template <DataType DataTypeValue>
 	const DSAVertexArrayAttribEXT& Setup(
 		BufferName buffer,
 		GLint values_per_vertex,
-		std::integral_constant<
-			typename enums::EnumValueType<DataType>::Type,
-			DataTypeValue
-		>
+		std::integral_constant<DataType, DataTypeValue>
 	) const
 	{
 		return IOffset(
