@@ -18,7 +18,7 @@ namespace oglplus {
 
 #if GL_VERSION_4_5 || GL_ARB_direct_state_access
 OGLPLUS_LIB_FUNC
-GLint ObjZeroOps<tag::DirectState, tag::Texture>::
+GLint ObjectOps<tag::DirectState, tag::Texture>::
 GetIntParam(GLenum query) const
 {
 	GLint result = 0;
@@ -38,7 +38,7 @@ GetIntParam(GLenum query) const
 }
 
 OGLPLUS_LIB_FUNC
-GLfloat ObjZeroOps<tag::DirectState, tag::Texture>::
+GLfloat ObjectOps<tag::DirectState, tag::Texture>::
 GetFloatParam(GLenum query) const
 {
 	GLfloat result = 0;
@@ -58,7 +58,7 @@ GetFloatParam(GLenum query) const
 }
 
 OGLPLUS_LIB_FUNC
-GLint ObjZeroOps<tag::DirectState, tag::Texture>::
+GLint ObjectOps<tag::DirectState, tag::Texture>::
 GetIntParam(GLint level, GLenum query) const
 {
 	GLint result = 0;
@@ -80,7 +80,7 @@ GetIntParam(GLint level, GLenum query) const
 }
 
 OGLPLUS_LIB_FUNC
-GLfloat ObjZeroOps<tag::DirectState, tag::Texture>::
+GLfloat ObjectOps<tag::DirectState, tag::Texture>::
 GetFloatParam(GLint level, GLenum query) const
 {
 	GLfloat result = 0;
@@ -102,7 +102,7 @@ GetFloatParam(GLint level, GLenum query) const
 }
 
 OGLPLUS_LIB_FUNC
-void ObjZeroOps<tag::DirectState, tag::Texture>::
+void ObjectOps<tag::DirectState, tag::Texture>::
 GetImage(
 	GLint level,
 	PixelDataFormat format,
@@ -131,7 +131,7 @@ GetImage(
 }
 
 OGLPLUS_LIB_FUNC
-void ObjZeroOps<tag::DirectState, tag::Texture>::
+void ObjectOps<tag::DirectState, tag::Texture>::
 GetCompressedImage(
 	GLint level,
 	GLsizei size,
@@ -155,7 +155,7 @@ GetCompressedImage(
 }
 
 OGLPLUS_LIB_FUNC
-void ObjZeroOps<tag::DirectState, tag::Texture>::
+void ObjectOps<tag::DirectState, tag::Texture>::
 GetCompressedImage(
 	GLint level,
 	std::vector<GLubyte>& dest
@@ -170,40 +170,8 @@ GetCompressedImage(
 }
 
 OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
-Image3D(
-	const images::Image& image,
-	GLint level,
-	GLint border
-)
-{
-	OGLPLUS_GLFUNC(TextureImage3D)(
-		_name,
-		GLenum(target),
-		level,
-		GLint(image.InternalFormat()),
-		image.Width(),
-		image.Height(),
-		image.Depth(),
-		border,
-		GLenum(image.Format()),
-		GLenum(image.Type()),
-		image.RawData()
-	);
-	OGLPLUS_CHECK(
-		TextureImage3D,
-		ObjectError,
-		Object(*this).
-		BindTarget(target).
-		Index(level)
-	);
-	return *this;
-}
-
-OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
+ObjectOps<tag::DirectState, tag::Texture>&
+ObjectOps<tag::DirectState, tag::Texture>::
 SubImage3D(
 	const images::Image& image,
 	GLint xoffs,
@@ -214,7 +182,6 @@ SubImage3D(
 {
 	OGLPLUS_GLFUNC(TextureSubImage3D)(
 		_name,
-		GLenum(target),
 		level,
 		xoffs,
 		yoffs,
@@ -230,47 +197,14 @@ SubImage3D(
 		TextureSubImage3D,
 		ObjectError,
 		Object(*this).
-		BindTarget(target).
 		Index(level)
 	);
 	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
-Image2D(
-	TextureTarget tex_target,
-	const images::Image& image,
-	GLint level,
-	GLint border
-)
-{
-	OGLPLUS_GLFUNC(TextureImage2D)(
-		_name,
-		GLenum(tex_target),
-		level,
-		GLint(image.InternalFormat()),
-		image.Width(),
-		image.Height(),
-		border,
-		GLenum(image.Format()),
-		GLenum(image.Type()),
-		image.RawData()
-	);
-	OGLPLUS_CHECK(
-		TextureImage2D,
-		ObjectError,
-		Object(*this).
-		BindTarget(target).
-		Index(level)
-	);
-	return *this;
-}
-
-OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
+ObjectOps<tag::DirectState, tag::Texture>&
+ObjectOps<tag::DirectState, tag::Texture>::
 SubImage2D(
 	const images::Image& image,
 	GLint xoffs,
@@ -280,7 +214,6 @@ SubImage2D(
 {
 	OGLPLUS_GLFUNC(TextureSubImage2D)(
 		_name,
-		GLenum(target),
 		level,
 		xoffs,
 		yoffs,
@@ -294,45 +227,14 @@ SubImage2D(
 		TextureSubImage2D,
 		ObjectError,
 		Object(*this).
-		BindTarget(target).
 		Index(level)
 	);
 	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
-Image1D(
-	const images::Image& image,
-	GLint level,
-	GLint border
-)
-{
-	OGLPLUS_GLFUNC(TextureImage1D)(
-		_name,
-		GLenum(target),
-		level,
-		GLint(image.InternalFormat()),
-		image.Width(),
-		border,
-		GLenum(image.Format()),
-		GLenum(image.Type()),
-		image.RawData()
-	);
-	OGLPLUS_CHECK(
-		TextureImage1D,
-		ObjectError,
-		Object(*this).
-		BindTarget(target).
-		Index(level)
-	);
-	return *this;
-}
-
-OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
+ObjectOps<tag::DirectState, tag::Texture>&
+ObjectOps<tag::DirectState, tag::Texture>::
 SubImage1D(
 	const images::Image& image,
 	GLint xoffs,
@@ -341,7 +243,6 @@ SubImage1D(
 {
 	OGLPLUS_GLFUNC(TextureSubImage1D)(
 		_name,
-		GLenum(target),
 		level,
 		xoffs,
 		image.Width(),
@@ -353,100 +254,78 @@ SubImage1D(
 		TextureSubImage1D,
 		ObjectError,
 		Object(*this).
-		BindTarget(target).
 		Index(level)
 	);
 	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
-Image(
-	Target tex_target,
-	const images::Image& image,
-	GLint level,
-	GLint border
+ObjectOps<tag::DirectState, tag::Texture>&
+ObjectOps<tag::DirectState, tag::Texture>::
+Storage1D(
+	GLsizei levels,
+	const images::ImageSpec& image_spec
 )
 {
-	switch(TextureTargetDimensions(tex_target))
-	{
-		case 3:
-		{
-			Image3D(image, level, border);
-			break;
-		}
-		case 2:
-		{
-			Image2D(tex_target, image, level, border);
-			break;
-		}
-		case 1:
-		{
-			Image1D(image, level, border);
-			break;
-		}
-		default: assert(!"Invalid texture dimension");
-	}
-	return *this;
+	return Storage1D(
+		levels,
+		image_spec.internal_format,
+		image_spec.width
+	);
 }
 
 OGLPLUS_LIB_FUNC
-ObjZeroOps<tag::DirectState, tag::Texture>&
-ObjZeroOps<tag::DirectState, tag::Texture>::
-Image(
-	Target tex_target,
-	const images::ImageSpec& image_spec,
-	GLint level,
-	GLint border
+ObjectOps<tag::DirectState, tag::Texture>&
+ObjectOps<tag::DirectState, tag::Texture>::
+Storage2D(
+	GLsizei levels,
+	const images::ImageSpec& image_spec
 )
 {
-	switch(TextureTargetDimensions(tex_target))
+	return Storage2D(
+		levels,
+		image_spec.internal_format,
+		image_spec.width,
+		image_spec.height
+	);
+}
+
+OGLPLUS_LIB_FUNC
+ObjectOps<tag::DirectState, tag::Texture>&
+ObjectOps<tag::DirectState, tag::Texture>::
+Storage3D(
+	GLsizei levels,
+	const images::ImageSpec& image_spec
+)
+{
+	return Storage3D(
+		levels,
+		image_spec.internal_format,
+		image_spec.width,
+		image_spec.height,
+		image_spec.depth
+	);
+}
+
+OGLPLUS_LIB_FUNC
+ObjectOps<tag::DirectState, tag::Texture>&
+ObjectOps<tag::DirectState, tag::Texture>::
+Storage(
+	GLsizei levels,
+	const images::ImageSpec& image_spec
+)
+{
+	if(image_spec.depth > 1)
 	{
-		case 3:
-		{
-			Image3D(
-				level,
-				image_spec.internal_format,
-				image_spec.width,
-				image_spec.height,
-				image_spec.depth,
-				border,
-				image_spec.format,
-				image_spec.data_type,
-				image_spec.data_ptr
-			);
-			break;
-		}
-		case 2:
-		{
-			Image2D(
-				target,
-				level,
-				image_spec.internal_format,
-				image_spec.width,
-				image_spec.height,
-				border,
-				image_spec.format,
-				image_spec.data_type,
-				image_spec.data_ptr
-			);
-			break;
-		}
-		case 1:
-		{
-			Image1D(
-				level,
-				image_spec.internal_format,
-				image_spec.width,
-				border,
-				image_spec.format,
-				image_spec.data_type,
-				image_spec.data_ptr
-			);
-			break;
-		}
-		default: assert(!"Invalid texture dimension");
+		return Storage3D(levels, image_spec);
+	}
+	if(image_spec.height > 1)
+	{
+		return Storage2D(levels, image_spec);
+	}
+	if(image_spec.width > 1)
+	{
+		return Storage1D(levels, image_spec);
 	}
 	return *this;
 }
