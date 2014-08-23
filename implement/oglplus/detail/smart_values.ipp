@@ -384,6 +384,7 @@ OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxColorAttachments MaxColorAttachments;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxColorTextureSamples MaxColorTextureSamples;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedAtomicCounterBuffers MaxCombinedAtomicCounterBuffers;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedAtomicCounters MaxCombinedAtomicCounters;
+OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedClipAndCullDistances MaxCombinedClipAndCullDistances;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedFragmentUniformComponents MaxCombinedFragmentUniformComponents;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedGeometryUniformComponents MaxCombinedGeometryUniformComponents;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedImageUniforms MaxCombinedImageUniforms;
@@ -398,6 +399,7 @@ OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxComputeWorkGroupCount MaxComputeWorkG
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxComputeWorkGroupInvocations MaxComputeWorkGroupInvocations;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxComputeWorkGroupSize MaxComputeWorkGroupSize;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCubeMapTextureSize MaxCubeMapTextureSize;
+OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCullDistances MaxCullDistances;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxDepthTextureSamples MaxDepthTextureSamples;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxDrawBuffers MaxDrawBuffers;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxDualSourceDrawBuffers MaxDualSourceDrawBuffers;

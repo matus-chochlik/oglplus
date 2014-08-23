@@ -1884,6 +1884,11 @@ template <typename Enum, Enum = Enum::MaxCombinedAtomicCounters> operator Enum (
 template <typename Enum> friend bool operator==(Enum value, MaxCombinedAtomicCounters){ return value == Enum::MaxCombinedAtomicCounters; }
 template <typename Enum> friend bool operator!=(Enum value, MaxCombinedAtomicCounters){ return value != Enum::MaxCombinedAtomicCounters; }
 };
+struct MaxCombinedClipAndCullDistances {
+template <typename Enum, Enum = Enum::MaxCombinedClipAndCullDistances> operator Enum (void) const{ return Enum::MaxCombinedClipAndCullDistances; }
+template <typename Enum> friend bool operator==(Enum value, MaxCombinedClipAndCullDistances){ return value == Enum::MaxCombinedClipAndCullDistances; }
+template <typename Enum> friend bool operator!=(Enum value, MaxCombinedClipAndCullDistances){ return value != Enum::MaxCombinedClipAndCullDistances; }
+};
 struct MaxCombinedFragmentUniformComponents {
 template <typename Enum, Enum = Enum::MaxCombinedFragmentUniformComponents> operator Enum (void) const{ return Enum::MaxCombinedFragmentUniformComponents; }
 template <typename Enum> friend bool operator==(Enum value, MaxCombinedFragmentUniformComponents){ return value == Enum::MaxCombinedFragmentUniformComponents; }
@@ -1953,6 +1958,11 @@ struct MaxCubeMapTextureSize {
 template <typename Enum, Enum = Enum::MaxCubeMapTextureSize> operator Enum (void) const{ return Enum::MaxCubeMapTextureSize; }
 template <typename Enum> friend bool operator==(Enum value, MaxCubeMapTextureSize){ return value == Enum::MaxCubeMapTextureSize; }
 template <typename Enum> friend bool operator!=(Enum value, MaxCubeMapTextureSize){ return value != Enum::MaxCubeMapTextureSize; }
+};
+struct MaxCullDistances {
+template <typename Enum, Enum = Enum::MaxCullDistances> operator Enum (void) const{ return Enum::MaxCullDistances; }
+template <typename Enum> friend bool operator==(Enum value, MaxCullDistances){ return value == Enum::MaxCullDistances; }
+template <typename Enum> friend bool operator!=(Enum value, MaxCullDistances){ return value != Enum::MaxCullDistances; }
 };
 struct MaxDepthTextureSamples {
 template <typename Enum, Enum = Enum::MaxDepthTextureSamples> operator Enum (void) const{ return Enum::MaxDepthTextureSamples; }
