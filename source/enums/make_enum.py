@@ -159,8 +159,8 @@ def action_smart_values_ipp(options):
 
 	print_cpp_header(options)
 	for enum_value in sorted(enum_values):
-		evp = (enum_value, enum_value)
-		print_line(options, "OGLPLUS_CONSTEXPR oglplus::smart_enums::%s %s;" % evp);
+		evp = (options.library, enum_value, enum_value)
+		print_line(options, "OGLPLUS_CONSTEXPR %s::smart_enums::%s %s;" % evp);
 
 actions = {
 	"info":    action_info,
