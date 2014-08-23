@@ -30,7 +30,9 @@ enum class QueryTarget : GLenum
 	FragmentShaderInvocations          = GL_FRAGMENT_SHADER_INVOCATIONS_ARB,
 	ComputeShaderInvocations           = GL_COMPUTE_SHADER_INVOCATIONS_ARB,
 	ClippingInputPrimitives            = GL_CLIPPING_INPUT_PRIMITIVES_ARB,
-	ClippingOutputPrimitives           = GL_CLIPPING_OUTPUT_PRIMITIVES_ARB
+	ClippingOutputPrimitives           = GL_CLIPPING_OUTPUT_PRIMITIVES_ARB,
+	TransformFeedbackOverflow          = GL_TRANSFORM_FEEDBACK_OVERFLOW_ARB,
+	TransformFeedbackStreamOverflow    = GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW_ARB
 };
 
 template <>

@@ -285,6 +285,38 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_TRANSFORM_FEEDBACK_OVERFLOW_ARB
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined TransformFeedbackOverflow
+#  pragma push_macro("TransformFeedbackOverflow")
+#  undef TransformFeedbackOverflow
+   OGLPLUS_ENUM_CLASS_VALUE(TransformFeedbackOverflow, GL_TRANSFORM_FEEDBACK_OVERFLOW_ARB)
+#  pragma pop_macro("TransformFeedbackOverflow")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(TransformFeedbackOverflow, GL_TRANSFORM_FEEDBACK_OVERFLOW_ARB)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW_ARB
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined TransformFeedbackStreamOverflow
+#  pragma push_macro("TransformFeedbackStreamOverflow")
+#  undef TransformFeedbackStreamOverflow
+   OGLPLUS_ENUM_CLASS_VALUE(TransformFeedbackStreamOverflow, GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW_ARB)
+#  pragma pop_macro("TransformFeedbackStreamOverflow")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(TransformFeedbackStreamOverflow, GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW_ARB)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif

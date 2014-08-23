@@ -3879,10 +3879,20 @@ template <typename Enum, Enum = Enum::TransformFeedbackBufferStride> operator En
 template <typename Enum> friend bool operator==(Enum value, TransformFeedbackBufferStride){ return value == Enum::TransformFeedbackBufferStride; }
 template <typename Enum> friend bool operator!=(Enum value, TransformFeedbackBufferStride){ return value != Enum::TransformFeedbackBufferStride; }
 };
+struct TransformFeedbackOverflow {
+template <typename Enum, Enum = Enum::TransformFeedbackOverflow> operator Enum (void) const{ return Enum::TransformFeedbackOverflow; }
+template <typename Enum> friend bool operator==(Enum value, TransformFeedbackOverflow){ return value == Enum::TransformFeedbackOverflow; }
+template <typename Enum> friend bool operator!=(Enum value, TransformFeedbackOverflow){ return value != Enum::TransformFeedbackOverflow; }
+};
 struct TransformFeedbackPrimitivesWritten {
 template <typename Enum, Enum = Enum::TransformFeedbackPrimitivesWritten> operator Enum (void) const{ return Enum::TransformFeedbackPrimitivesWritten; }
 template <typename Enum> friend bool operator==(Enum value, TransformFeedbackPrimitivesWritten){ return value == Enum::TransformFeedbackPrimitivesWritten; }
 template <typename Enum> friend bool operator!=(Enum value, TransformFeedbackPrimitivesWritten){ return value != Enum::TransformFeedbackPrimitivesWritten; }
+};
+struct TransformFeedbackStreamOverflow {
+template <typename Enum, Enum = Enum::TransformFeedbackStreamOverflow> operator Enum (void) const{ return Enum::TransformFeedbackStreamOverflow; }
+template <typename Enum> friend bool operator==(Enum value, TransformFeedbackStreamOverflow){ return value == Enum::TransformFeedbackStreamOverflow; }
+template <typename Enum> friend bool operator!=(Enum value, TransformFeedbackStreamOverflow){ return value != Enum::TransformFeedbackStreamOverflow; }
 };
 struct TransformFeedebackVarying {
 template <typename Enum, Enum = Enum::TransformFeedebackVarying> operator Enum (void) const{ return Enum::TransformFeedebackVarying; }

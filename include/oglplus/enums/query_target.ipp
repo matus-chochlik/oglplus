@@ -44,7 +44,11 @@ ComputeShaderInvocations,
 /// CLIPPING_INPUT_PRIMITIVES_ARB
 ClippingInputPrimitives,
 /// CLIPPING_OUTPUT_PRIMITIVES_ARB
-ClippingOutputPrimitives
+ClippingOutputPrimitives,
+/// TRANSFORM_FEEDBACK_OVERFLOW_ARB
+TransformFeedbackOverflow,
+/// TRANSFORM_FEEDBACK_STREAM_OVERFLOW_ARB
+TransformFeedbackStreamOverflow
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
