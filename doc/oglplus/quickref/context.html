@@ -883,8 +883,8 @@
 <span class="keyword">class</span> <span class="identifier">DepthTest</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthFunc</span><span class="special">(</span><a class="link" href="compare_func.html" title="Compare function">CompareFunction</a> <span class="identifier">function</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.depth_test.c0" href="context.html#oglplus.quickref.context.depth_test.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-	<span class="keyword">static</span> <a class="link" href="compare_func.html" title="Compare function">CompareFunction</a> <span class="identifier">DepthFunc</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.depth_test.c2" href="context.html#oglplus.quickref.context.depth_test.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthFunc</span><span class="special">(</span><a class="link" href="compare_function.html" title="Compare function">CompareFunction</a> <span class="identifier">function</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.depth_test.c0" href="context.html#oglplus.quickref.context.depth_test.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="compare_function.html" title="Compare function">CompareFunction</a> <span class="identifier">DepthFunc</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.depth_test.c2" href="context.html#oglplus.quickref.context.depth_test.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
@@ -920,31 +920,31 @@
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilFunc</span><span class="special">(</span>
-		<a class="link" href="compare_func.html" title="Compare function">CompareFunction</a> <span class="identifier">function</span><span class="special">,</span>
+		<a class="link" href="compare_function.html" title="Compare function">CompareFunction</a> <span class="identifier">function</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">ref</span> <span class="special">=</span> <span class="identifier">GLint</span><span class="special">(</span><span class="number">0</span><span class="special">),</span>
 		<span class="identifier">GLuint</span> <span class="identifier">mask</span> <span class="special">=</span> <span class="special">~</span><span class="identifier">GLuint</span><span class="special">(</span><span class="number">0</span><span class="special">)</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c0" href="context.html#oglplus.quickref.context.stencil_test.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilFuncSeparate</span><span class="special">(</span>
 		<a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">,</span>
-		<a class="link" href="compare_func.html" title="Compare function">CompareFunction</a> <span class="identifier">function</span><span class="special">,</span>
+		<a class="link" href="compare_function.html" title="Compare function">CompareFunction</a> <span class="identifier">function</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">ref</span> <span class="special">=</span> <span class="identifier">GLint</span><span class="special">(</span><span class="number">0</span><span class="special">),</span>
 		<span class="identifier">GLuint</span> <span class="identifier">mask</span> <span class="special">=</span> <span class="special">~</span><span class="identifier">GLuint</span><span class="special">(</span><span class="number">0</span><span class="special">)</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c2" href="context.html#oglplus.quickref.context.stencil_test.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilOp</span><span class="special">(</span>
-		<a class="link" href="stencil_op.html" title="Stencil operation">StencilOperation</a> <span class="identifier">sfail</span><span class="special">,</span>
-		<a class="link" href="stencil_op.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dfail</span><span class="special">,</span>
-		<a class="link" href="stencil_op.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dpass</span>
+		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">sfail</span><span class="special">,</span>
+		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dfail</span><span class="special">,</span>
+		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dpass</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c4" href="context.html#oglplus.quickref.context.stencil_test.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilOpSeparate</span><span class="special">(</span>
 		<a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">,</span>
-		<a class="link" href="stencil_op.html" title="Stencil operation">StencilOperation</a> <span class="identifier">sfail</span><span class="special">,</span>
-		<a class="link" href="stencil_op.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dfail</span><span class="special">,</span>
-		<a class="link" href="stencil_op.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dpass</span>
+		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">sfail</span><span class="special">,</span>
+		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dfail</span><span class="special">,</span>
+		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dpass</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c6" href="context.html#oglplus.quickref.context.stencil_test.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
-	<span class="keyword">static</span> <a class="link" href="compare_func.html" title="Compare function">CompareFunction</a> <span class="identifier">StencilFunc</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c8" href="context.html#oglplus.quickref.context.stencil_test.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="compare_function.html" title="Compare function">CompareFunction</a> <span class="identifier">StencilFunc</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c8" href="context.html#oglplus.quickref.context.stencil_test.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">CompareFunction</span> <span class="identifier">StencilFunc</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">);</span>
 
 	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilValueMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c10" href="context.html#oglplus.quickref.context.stencil_test.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
@@ -953,13 +953,13 @@
 	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilRef</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c12" href="context.html#oglplus.quickref.context.stencil_test.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilRef</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">);</span>
 
-	<span class="keyword">static</span> <a class="link" href="stencil_op.html" title="Stencil operation">StencilOperation</a> <span class="identifier">StencilFail</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c14" href="context.html#oglplus.quickref.context.stencil_test.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">StencilFail</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c14" href="context.html#oglplus.quickref.context.stencil_test.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">StencilOperation</span> <span class="identifier">StencilFail</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">);</span>
 
-	<span class="keyword">static</span> <a class="link" href="stencil_op.html" title="Stencil operation">StencilOperation</a> <span class="identifier">StencilPassDepthFail</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c16" href="context.html#oglplus.quickref.context.stencil_test.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">StencilPassDepthFail</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c16" href="context.html#oglplus.quickref.context.stencil_test.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">StencilOperation</span> <span class="identifier">StencilPassDepthFail</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">);</span>
 
-	<span class="keyword">static</span> <a class="link" href="stencil_op.html" title="Stencil operation">StencilOperation</a> <span class="identifier">StencilPassDepthPass</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c18" href="context.html#oglplus.quickref.context.stencil_test.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">StencilPassDepthPass</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c18" href="context.html#oglplus.quickref.context.stencil_test.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">StencilOperation</span> <span class="identifier">StencilPassDepthPass</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">)</span>
 <span class="special">};</span>
 
@@ -1163,41 +1163,41 @@
 <span class="keyword">class</span> <span class="identifier">Blending</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquation</span><span class="special">(</span><a class="link" href="blend_func.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c0" href="context.html#oglplus.quickref.context.blending.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquation</span><span class="special">(</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c0" href="context.html#oglplus.quickref.context.blending.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_rgb</span><span class="special">,</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_alpha</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_rgb</span><span class="special">,</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_alpha</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c2" href="context.html#oglplus.quickref.context.blending.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquation</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span> <a class="link" href="blend_func.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c4" href="context.html#oglplus.quickref.context.blending.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquation</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c4" href="context.html#oglplus.quickref.context.blending.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_rgb</span><span class="special">,</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_alpha</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_rgb</span><span class="special">,</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_alpha</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c6" href="context.html#oglplus.quickref.context.blending.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="preprocessor">#endif</span>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFunc</span><span class="special">(</span><a class="link" href="blend_func.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src</span><span class="special">,</span> <a class="link" href="blend_func.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c8" href="context.html#oglplus.quickref.context.blending.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFunc</span><span class="special">(</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src</span><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c8" href="context.html#oglplus.quickref.context.blending.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_rgb</span><span class="special">,</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_rgb</span><span class="special">,</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_alpha</span><span class="special">,</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_alpha</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_rgb</span><span class="special">,</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_rgb</span><span class="special">,</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_alpha</span><span class="special">,</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_alpha</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c10" href="context.html#oglplus.quickref.context.blending.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFunc</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src</span><span class="special">,</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src</span><span class="special">,</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c12" href="context.html#oglplus.quickref.context.blending.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_rgb</span><span class="special">,</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_rgb</span><span class="special">,</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_alpha</span><span class="special">,</span>
-		<a class="link" href="blend_func.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_alpha</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_rgb</span><span class="special">,</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_rgb</span><span class="special">,</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_alpha</span><span class="special">,</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_alpha</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c14" href="context.html#oglplus.quickref.context.blending.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>

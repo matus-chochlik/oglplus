@@ -24,10 +24,11 @@ oglplus/quickref/capability.html
 oglplus/quickref/hint.html
 oglplus/quickref/limit_query.html
 oglplus/quickref/string_query.html
-oglplus/quickref/compare_func.html
-oglplus/quickref/stencil_op.html
+oglplus/quickref/compare_function.html
+oglplus/quickref/stencil_operation.html
+oglplus/quickref/access_specifier.html
 oglplus/quickref/face_mode.html
-oglplus/quickref/blend_func.html
+oglplus/quickref/blend_function.html
 oglplus/quickref/color_buffer.html
 oglplus/quickref/buffer_select_bit.html
 oglplus/quickref/shader_type.html
