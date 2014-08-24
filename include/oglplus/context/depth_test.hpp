@@ -14,7 +14,7 @@
 #define OGLPLUS_CONTEXT_DEPTH_TEST_1201040722_HPP
 
 #include <oglplus/glfunc.hpp>
-#include <oglplus/compare_func.hpp>
+#include <oglplus/compare_function.hpp>
 
 namespace oglplus {
 namespace context {

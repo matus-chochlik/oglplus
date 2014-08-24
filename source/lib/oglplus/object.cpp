@@ -19,7 +19,7 @@
 #include <oglplus/error/limit.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/error/framebuffer.hpp>
-#include <oglplus/compare_func.hpp>
+#include <oglplus/compare_function.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/access_specifier.hpp>

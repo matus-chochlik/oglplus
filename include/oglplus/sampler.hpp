@@ -19,7 +19,7 @@
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/data_type.hpp>
-#include <oglplus/compare_func.hpp>
+#include <oglplus/compare_function.hpp>
 #include <oglplus/texture_wrap.hpp>
 #include <oglplus/texture_compare.hpp>
 #include <oglplus/texture_filter.hpp>

@@ -19,7 +19,7 @@
 #include <oglplus/math/vector.hpp>
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/object/wrapper.hpp>
-#include <oglplus/compare_func.hpp>
+#include <oglplus/compare_function.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/access_specifier.hpp>
