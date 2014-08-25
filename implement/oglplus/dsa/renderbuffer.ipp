@@ -27,7 +27,7 @@ GetIntParam(GLenum query) const
 		&result
 	);
 	OGLPLUS_VERIFY(
-		GetRenderbufferParameteriv,
+		GetNamedRenderbufferParameteriv,
 		ObjectError,
 		Object(*this).
 		EnumParam(query)
