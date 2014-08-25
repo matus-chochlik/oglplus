@@ -98,11 +98,6 @@
 						<li id="quickbook-doc"><a href="http://matus-chochlik.github.io/oglplus/doc/">Quickbook</a></li>
 						<li id="doxygen-doc">Doxygen: <a href="oglplus/html/index.html">OGLplus</a>, <a href="oalplus/html/index.html">OALplus</a>, <a href="eglplus/html/index.html">EGLplus</a></li>
 					</ul>
-					<h3>Media</h3>
-					<ul>
-						<li id="screenshots"><a href="oglplus/html/oglplus_screenshot_gallery.html">Screenshots</a></li>
-						<li id="videos"><a href="https://plus.google.com/u/0/+OglplusOrg/videos">Videos</a></li>
-					</ul>
 					<h3>Components</h3>
 					<ul>
 						<li><b>OGLplus</b> - a wrapper for modern OpenGL
@@ -151,10 +146,6 @@
 						<li id="linkedin"><a href="http://www.linkedin.com/groups/OGLplus-4592626">LinkedIn group</a></li>
 						<li id="openhub"><a href="http://www.openhub.net/p/oglplus">OpenHub</a></li>
 					</ul>
-					<h3>Related projects</h3>
-					<ul>
-						<li id="angles"><a href="https://github.com/matus-chochlik/angle">Angles</a></li>
-					</ul>
 				</div>
 			</div>
 
@@ -196,6 +187,15 @@
 			</div>
 
 			<div id=other" class="content-column-4">
+				<h3>Media</h3>
+				<ul>
+					<li id="screenshots"><a href="oglplus/html/oglplus_screenshot_gallery.html">Screenshots</a></li>
+					<li id="videos"><a href="https://plus.google.com/u/0/+OglplusOrg/videos">Videos</a></li>
+				</ul>
+				<h3>Related projects</h3>
+				<ul>
+					<li id="angles"><a href="https://github.com/matus-chochlik/angle">Angles</a></li>
+				</ul>
 				<h3>Other resources</h3>
 				<ul>
 					<li><a href="https://github.com/jjzazuet/jgl" title="Java wrapper for OpenGL 3 and higher by Jesús Zazueta">JGL</a> by Jesús Zazueta</li>
@@ -224,8 +224,8 @@
 	</div>
 	<div id="footer">
 		<em>Copyright &copy; 2008-2014</em> <strong>Matúš Chochlík</strong>, Žilina, Slovakia.<br/>
-		&lt;<a href="mailto:matus.chochlik@fri.uniza.sk">matus.chochlik -at- fri.uniza.sk</a>&gt;
-		&lt;<a href="mailto:chochlik@gmail.com">chochlik -at -gmail.com</a>&gt;<br/>
+		&lt;<a href="mailto:chochlik@gmail.com">chochlik -at -gmail.com</a>&gt;
+		&lt;<a href="mailto:matus.chochlik@fri.uniza.sk">matus.chochlik -at- fri.uniza.sk</a>&gt;<br/>
 
 		<p>Distributed under the Boost Software License, Version 1.0. (See a copy at
 		<a href="http://www.boost.org/LICENSE_1_0.txt">http://www.boost.org/LICENSE_1_0.txt</a>)</p>
