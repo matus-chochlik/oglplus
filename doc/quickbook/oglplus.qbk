@@ -143,6 +143,14 @@
 [def __InternalFormat [link oglplus.quickref.pixel_data.typedefs Format]]
 [def __PixelStorageMode [link oglplus.quickref.pixel_storage_mode PixelStorageMode]]
 [def __BlitFilter [link oglplus.quickref.blit_filter BlitFilter]]
+[def __ColorLogicOperation [link oglplus.quickref.color_logic_operation ColorLogicOperation]]
+[def __ColorLogicOp [link oglplus.quickref.color_logic_operation.typedefs ColorLogicOp]]
+[def __PolygonMode [link oglplus.quickref.polygon_mode PolygonMode]]
+[def __PrecisionType [link oglplus.quickref.precision_type PrecisionType]]
+[def __PrimitiveType [link oglplus.quickref.primitive_type PrimitiveType]]
+[def __TessGenPrimitiveType [link oglplus.quickref.primitive_type.tess_gen TessGenPrimitiveType]]
+[def __TessGenPrimitiveSpacing [link oglplus.quickref.primitive_type.spacing TessGenPrimitiveSpacing]]
+[def __ProvokeMode [link oglplus.quickref.provoke_mode ProvokeMode]]
 
 [def __MemoryBarrierBit [link oglplus.quickref.memory_barrier MemoryBarrierBit]]
 

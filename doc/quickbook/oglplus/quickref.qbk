@@ -64,6 +64,11 @@ the concept.
 [include quickref/pixel_data.qbk]
 [include quickref/pixel_storage_mode.qbk]
 [include quickref/blit_filter.qbk]
+[include quickref/color_logic_operation.qbk]
+[include quickref/polygon_mode.qbk]
+[include quickref/precision_type.qbk]
+[include quickref/primitive_type.qbk]
+[include quickref/provoke_mode.qbk]
 
 [include quickref/memory_barrier.qbk]
 
