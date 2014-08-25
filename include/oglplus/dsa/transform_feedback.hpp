@@ -39,7 +39,7 @@ protected:
 public:
 	GLint GetIntParam(GLenum query) const;
 	GLint GetIntParam(GLenum query, GLuint index) const;
-	GLint64 GetIntParam64(GLenum query, GLuint index) const;
+	GLint64 GetInt64Param(GLenum query, GLuint index) const;
 
 	bool Active(void) const
 	{
@@ -102,7 +102,7 @@ public:
 
 	GLint64 BufferStart(GLuint index) const
 	{
-		return GetIntParam64(
+		return GetInt64Param(
 			GL_TRANSFORM_FEEDBACK_BUFFER_START,
 			index
 		);
@@ -110,7 +110,7 @@ public:
 
 	GLint64 BufferSize(GLuint index) const
 	{
-		return GetIntParam64(
+		return GetInt64Param(
 			GL_TRANSFORM_FEEDBACK_BUFFER_SIZE,
 			index
 		);

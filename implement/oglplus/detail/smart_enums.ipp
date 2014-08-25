@@ -3634,6 +3634,11 @@ template <typename Enum, Enum = Enum::SmoothQuadraticCurveTo> operator Enum (voi
 template <typename Enum> friend bool operator==(Enum value, SmoothQuadraticCurveTo){ return value == Enum::SmoothQuadraticCurveTo; }
 template <typename Enum> friend bool operator!=(Enum value, SmoothQuadraticCurveTo){ return value != Enum::SmoothQuadraticCurveTo; }
 };
+struct SparseStorage {
+template <typename Enum, Enum = Enum::SparseStorage> operator Enum (void) const{ return Enum::SparseStorage; }
+template <typename Enum> friend bool operator==(Enum value, SparseStorage){ return value == Enum::SparseStorage; }
+template <typename Enum> friend bool operator!=(Enum value, SparseStorage){ return value != Enum::SparseStorage; }
+};
 struct Square {
 template <typename Enum, Enum = Enum::Square> operator Enum (void) const{ return Enum::Square; }
 template <typename Enum> friend bool operator==(Enum value, Square){ return value == Enum::Square; }

@@ -734,6 +734,7 @@ OGLPLUS_CONSTEXPR oglplus::smart_enums::SmallCCWArcTo SmallCCWArcTo;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::SmallCWArcTo SmallCWArcTo;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::SmoothCubicCurveTo SmoothCubicCurveTo;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::SmoothQuadraticCurveTo SmoothQuadraticCurveTo;
+OGLPLUS_CONSTEXPR oglplus::smart_enums::SparseStorage SparseStorage;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Square Square;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Src1Alpha Src1Alpha;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Src1Color Src1Color;

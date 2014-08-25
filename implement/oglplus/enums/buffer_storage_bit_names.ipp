@@ -38,6 +38,9 @@ switch(value)
 #if defined GL_CLIENT_STORAGE_BIT
 	case GL_CLIENT_STORAGE_BIT: return StrCRef("CLIENT_STORAGE_BIT");
 #endif
+#if defined GL_SPARSE_STORAGE_BIT_ARB
+	case GL_SPARSE_STORAGE_BIT_ARB: return StrCRef("SPARSE_STORAGE_BIT_ARB");
+#endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);

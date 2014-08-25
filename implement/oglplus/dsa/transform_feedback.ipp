@@ -54,7 +54,7 @@ GetIntParam(GLenum query, GLuint index) const
 
 OGLPLUS_LIB_FUNC
 GLint64 ObjectOps<tag::DirectState, tag::TransformFeedback>::
-GetIntParam64(GLenum query, GLuint index) const
+GetInt64Param(GLenum query, GLuint index) const
 {
 	GLint64 result = 0;
 	OGLPLUS_GLFUNC(GetTransformFeedbacki64_v)(

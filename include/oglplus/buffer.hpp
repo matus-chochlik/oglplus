@@ -754,6 +754,39 @@ public:
 	}
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_sparse_buffer
+	static void PageCommitment(
+		Target target,
+		BufferSize offset,
+		BufferSize size,
+		bool commit
+	)
+	{
+		OGLPLUS_GLFUNC(BufferPageCommitmentARB)(
+			GLenum(target),
+			GLintptr(offset.Get()),
+			GLsizeiptr(size.Get()),
+			commit?GL_TRUE:GL_FALSE
+		);
+		OGLPLUS_VERIFY(
+			BufferPageCommitmentARB,
+			ObjectError,
+			ObjectBinding(target)
+		);
+	}
+
+	static GLsizei PageSize(void)
+	{
+		GLint value = 0;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_SPARSE_BUFFER_PAGE_SIZE_ARB,
+			&value
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return GLsizei(value);
+	}
+#endif
+
 	/// Returns the buffer size
 	/**
 	 *  @glsymbols

@@ -109,6 +109,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_SPARSE_STORAGE_BIT_ARB
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined SparseStorage
+#  pragma push_macro("SparseStorage")
+#  undef SparseStorage
+   OGLPLUS_ENUM_CLASS_VALUE(SparseStorage, GL_SPARSE_STORAGE_BIT_ARB)
+#  pragma pop_macro("SparseStorage")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(SparseStorage, GL_SPARSE_STORAGE_BIT_ARB)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif
