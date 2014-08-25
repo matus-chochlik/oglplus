@@ -1,0 +1,104 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Primitive type</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="precision_type.html" title="Precision type">
+<link rel="next" href="provoke_mode.html" title="Provoke mode">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="precision_type.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="provoke_mode.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.primitive_type"></a><a class="link" href="primitive_type.html" title="Primitive type">Primitive type</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/primitive_type.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">PrimitiveType</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Points</span>                 <span class="special">=</span> <span class="identifier">GL_POINTS</span><span class="special">,</span>
+	<span class="identifier">LineStrip</span>              <span class="special">=</span> <span class="identifier">GL_LINE_STRIP</span><span class="special">,</span>
+	<span class="identifier">LineLoop</span>               <span class="special">=</span> <span class="identifier">GL_LINE_LOOP</span><span class="special">,</span>
+	<span class="identifier">Lines</span>                  <span class="special">=</span> <span class="identifier">GL_LINES</span><span class="special">,</span>
+	<span class="identifier">TriangleStrip</span>          <span class="special">=</span> <span class="identifier">GL_TRIANGLE_STRIP</span><span class="special">,</span>
+	<span class="identifier">TriangleFan</span>            <span class="special">=</span> <span class="identifier">GL_TRIANGLE_FAN</span><span class="special">,</span>
+	<span class="identifier">Triangles</span>              <span class="special">=</span> <span class="identifier">GL_TRIANGLES</span><span class="special">,</span>
+	<span class="identifier">LinesAdjacency</span>         <span class="special">=</span> <span class="identifier">GL_LINES_ADJACENCY</span><span class="special">,</span>
+	<span class="identifier">LineStripAdjacency</span>     <span class="special">=</span> <span class="identifier">GL_LINE_STRIP_ADJACENCY</span><span class="special">,</span>
+	<span class="identifier">TrianglesAdjacency</span>     <span class="special">=</span> <span class="identifier">GL_TRIANGLES_ADJACENCY</span><span class="special">,</span>
+	<span class="identifier">TriangleStripAdjacency</span> <span class="special">=</span> <span class="identifier">GL_TRIANGLE_STRIP_ADJACENCY</span><span class="special">,</span>
+	<span class="identifier">Patches</span>                <span class="special">=</span> <span class="identifier">GL_PATCHES</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">PrimitiveType</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">PrimitiveType</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">PrimitiveType</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.primitive_type.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.primitive_type.tess_gen"></a></span><a class="link" href="primitive_type.html#oglplus.quickref.primitive_type.tess_gen">Tesselation
+          generator</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TessGenPrimitiveType</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Quads</span>     <span class="special">=</span> <span class="identifier">GL_QUADS</span><span class="special">,</span>
+	<span class="identifier">Triangles</span> <span class="special">=</span> <span class="identifier">GL_TRIANGLES</span><span class="special">,</span>
+	<span class="identifier">Isolines</span>  <span class="special">=</span> <span class="identifier">GL_ISOLINES</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">TessGenPrimitiveType</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">TessGenPrimitiveType</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">TessGenPrimitiveType</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.primitive_type.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.primitive_type.spacing"></a></span><a class="link" href="primitive_type.html#oglplus.quickref.primitive_type.spacing">Primitive
+          spacing</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TessGenPrimitiveSpacing</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">FractionalEven</span> <span class="special">=</span> <span class="identifier">GL_FRACTIONAL_EVEN</span><span class="special">,</span>
+	<span class="identifier">FractionalOdd</span>  <span class="special">=</span> <span class="identifier">GL_FRACTIONAL_ODD</span><span class="special">,</span>
+	<span class="identifier">Equal</span>          <span class="special">=</span> <span class="identifier">GL_EQUAL</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">TessGenPrimitiveSpacing</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">TessGenPrimitiveSpacing</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">TessGenPrimitiveSpacing</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="precision_type.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="provoke_mode.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

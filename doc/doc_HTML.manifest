@@ -35,6 +35,11 @@ oglplus/quickref/shader_type.html
 oglplus/quickref/pixel_data.html
 oglplus/quickref/pixel_storage_mode.html
 oglplus/quickref/blit_filter.html
+oglplus/quickref/color_logic_operation.html
+oglplus/quickref/polygon_mode.html
+oglplus/quickref/precision_type.html
+oglplus/quickref/primitive_type.html
+oglplus/quickref/provoke_mode.html
 oglplus/quickref/memory_barrier.html
 oglplus/quickref/context_profile_bit.html
 oglplus/quickref/context_flag_bit.html
