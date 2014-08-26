@@ -52,6 +52,9 @@ OGLPLUS_ENUM_CLASS_FWD(ColorLogicOperation, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(CompareFunction, GLenum)
 #include <oglplus/enums/compare_function_range.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(ConditionalRenderMode, GLenum)
+#include <oglplus/enums/conditional_render_mode_range.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(ContextFlagBit, GLenum)
 #include <oglplus/enums/context_flag_bit_range.ipp>
 

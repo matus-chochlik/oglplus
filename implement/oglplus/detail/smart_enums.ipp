@@ -2869,6 +2869,46 @@ template <typename Enum, Enum = Enum::Query> operator Enum (void) const{ return 
 template <typename Enum> friend bool operator==(Enum value, Query){ return value == Enum::Query; }
 template <typename Enum> friend bool operator!=(Enum value, Query){ return value != Enum::Query; }
 };
+struct QueryByRegionNoWait {
+template <typename Enum, Enum = Enum::QueryByRegionNoWait> operator Enum (void) const{ return Enum::QueryByRegionNoWait; }
+template <typename Enum> friend bool operator==(Enum value, QueryByRegionNoWait){ return value == Enum::QueryByRegionNoWait; }
+template <typename Enum> friend bool operator!=(Enum value, QueryByRegionNoWait){ return value != Enum::QueryByRegionNoWait; }
+};
+struct QueryByRegionNoWaitInverted {
+template <typename Enum, Enum = Enum::QueryByRegionNoWaitInverted> operator Enum (void) const{ return Enum::QueryByRegionNoWaitInverted; }
+template <typename Enum> friend bool operator==(Enum value, QueryByRegionNoWaitInverted){ return value == Enum::QueryByRegionNoWaitInverted; }
+template <typename Enum> friend bool operator!=(Enum value, QueryByRegionNoWaitInverted){ return value != Enum::QueryByRegionNoWaitInverted; }
+};
+struct QueryByRegionWait {
+template <typename Enum, Enum = Enum::QueryByRegionWait> operator Enum (void) const{ return Enum::QueryByRegionWait; }
+template <typename Enum> friend bool operator==(Enum value, QueryByRegionWait){ return value == Enum::QueryByRegionWait; }
+template <typename Enum> friend bool operator!=(Enum value, QueryByRegionWait){ return value != Enum::QueryByRegionWait; }
+};
+struct QueryByRegionWaitInverted {
+template <typename Enum, Enum = Enum::QueryByRegionWaitInverted> operator Enum (void) const{ return Enum::QueryByRegionWaitInverted; }
+template <typename Enum> friend bool operator==(Enum value, QueryByRegionWaitInverted){ return value == Enum::QueryByRegionWaitInverted; }
+template <typename Enum> friend bool operator!=(Enum value, QueryByRegionWaitInverted){ return value != Enum::QueryByRegionWaitInverted; }
+};
+struct QueryNoWait {
+template <typename Enum, Enum = Enum::QueryNoWait> operator Enum (void) const{ return Enum::QueryNoWait; }
+template <typename Enum> friend bool operator==(Enum value, QueryNoWait){ return value == Enum::QueryNoWait; }
+template <typename Enum> friend bool operator!=(Enum value, QueryNoWait){ return value != Enum::QueryNoWait; }
+};
+struct QueryNoWaitInverted {
+template <typename Enum, Enum = Enum::QueryNoWaitInverted> operator Enum (void) const{ return Enum::QueryNoWaitInverted; }
+template <typename Enum> friend bool operator==(Enum value, QueryNoWaitInverted){ return value == Enum::QueryNoWaitInverted; }
+template <typename Enum> friend bool operator!=(Enum value, QueryNoWaitInverted){ return value != Enum::QueryNoWaitInverted; }
+};
+struct QueryWait {
+template <typename Enum, Enum = Enum::QueryWait> operator Enum (void) const{ return Enum::QueryWait; }
+template <typename Enum> friend bool operator==(Enum value, QueryWait){ return value == Enum::QueryWait; }
+template <typename Enum> friend bool operator!=(Enum value, QueryWait){ return value != Enum::QueryWait; }
+};
+struct QueryWaitInverted {
+template <typename Enum, Enum = Enum::QueryWaitInverted> operator Enum (void) const{ return Enum::QueryWaitInverted; }
+template <typename Enum> friend bool operator==(Enum value, QueryWaitInverted){ return value == Enum::QueryWaitInverted; }
+template <typename Enum> friend bool operator!=(Enum value, QueryWaitInverted){ return value != Enum::QueryWaitInverted; }
+};
 struct R {
 template <typename Enum, Enum = Enum::R> operator Enum (void) const{ return Enum::R; }
 template <typename Enum> friend bool operator==(Enum value, R){ return value == Enum::R; }

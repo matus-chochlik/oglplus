@@ -579,8 +579,7 @@ public:
 
 		track_xfb.Bind();
 
-		Query::Activator qry_act(
-			track_query,
+		Query::Activator qry_act = track_query.Activate(
 			Query::Target::TransformFeedbackPrimitivesWritten
 		);
 		TransformFeedback::Activator xfb_act(TransformFeedbackPrimitiveType::Points);

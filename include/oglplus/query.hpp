@@ -38,6 +38,22 @@ OGLPLUS_ENUM_CLASS_END(QueryTarget)
 #include <oglplus/enums/query_target_range.ipp>
 #endif
 
+/// Conditional render modes
+/**
+ *  @ingroup enumerations
+ */
+OGLPLUS_ENUM_CLASS_BEGIN(ConditionalRenderMode, GLenum)
+#include <oglplus/enums/conditional_render_mode.ipp>
+OGLPLUS_ENUM_CLASS_END(ConditionalRenderMode)
+
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/enums/conditional_render_mode_names.ipp>
+#endif
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/conditional_render_mode_range.ipp>
+#endif
+
 /// Class wrapping query construction/destruction functions
 /** @note Do not use this class directly, use Query instead.
  *
@@ -149,6 +165,34 @@ public:
 			Object(*this).
 			EnumParam(target)
 		);
+	}
+
+	/// Begin conditional render on the query in the specified mode
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BeginConditionalRender}
+	 */
+	void BeginConditionalRender(ConditionalRenderMode mode)
+	{
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(BeginConditionalRender)(_name, GLenum(mode));
+		OGLPLUS_VERIFY(
+			BeginConditionalRender,
+			ObjectError,
+			Object(*this).
+			EnumParam(mode)
+		);
+	}
+
+	/// Ends currently active conditional render
+	/**
+	 *  @glsymbols
+	 *  @glfunref{EndConditionalRender}
+	 */
+	static void EndConditionalRender(void)
+	{
+		OGLPLUS_GLFUNC(EndConditionalRender)();
+		OGLPLUS_VERIFY_SIMPLE(EndConditionalRender);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_timer_query
@@ -306,6 +350,8 @@ public:
 	/// The activator class
 	typedef QueryActivator Activator;
 
+	Activator Activate(Target target);
+
 	/// Executes this query on the specified @p target and gets the @p result
 	/** This function creates an instance of the QueryExecution class which
 	 *  begins a query on the specified @p target when it is constructed
@@ -374,6 +420,53 @@ public:
 	}
 };
 
+/// RAII conditional render activator/deactivator
+/**
+ *  @see Query
+ */
+class ConditionalRender
+{
+private:
+	bool _alive;
+	ConditionalRender(const ConditionalRender&);
+public:
+	/// Begins conditional render on  @p query in the specified @p mode
+	ConditionalRender(
+		QueryName query,
+		ConditionalRenderMode mode
+	): _alive(false)
+	{
+		Reference<QueryOps>(query).BeginConditionalRender(mode);
+		_alive = true;
+	}
+
+	/// ConditionalRenders are moveable
+	ConditionalRender(ConditionalRender&& temp)
+	 : _alive(temp._alive)
+	{
+		temp._alive = false;
+	}
+
+	/// Ends the conditional render
+	~ConditionalRender(void)
+	{
+		try { Finish(); }
+		catch(...) { }
+	}
+
+	/// Explicitly ends the conditional render
+	bool Finish(void)
+	{
+		if(_alive)
+		{
+			QueryOps::EndConditionalRender();
+			_alive = false;
+			return true;
+		}
+		else return false;
+	}
+};
+
 /// A helper class automatically executing a query
 /** Instances of this class begin the query in the constructor
  *  and end the query in the destructor. It is more convenient
@@ -416,7 +509,16 @@ public:
 	}
 };
 
+inline
+QueryActivator
+ObjectOps<tag::DirectState, tag::Query>::
+Activate(Target target)
+{
+	return QueryActivator(*this, target);
+}
+
 template <typename ResultType>
+inline
 QueryExecution<ResultType>
 ObjectOps<tag::DirectState, tag::Query>::
 Execute(QueryTarget target, ResultType& result)
