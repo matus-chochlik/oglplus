@@ -20,6 +20,11 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer.hpp&gt;</code>
         </p>
+<h4>
+<a name="oglplus.quickref.framebuffer.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.framebuffer.common_framebuffer_operations"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.common_framebuffer_operations">Common
+          framebuffer operations</a>
+        </h4>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 
 <span class="keyword">template</span> <span class="special">&lt;&gt;</span>
@@ -27,21 +32,68 @@
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">FramebufferName</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="keyword">typedef</span> <a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.target">FramebufferTarget</a> <span class="identifier">Target</span><span class="special">;</span>
+	<span class="keyword">typedef</span> <a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.target">FramebufferTarget</a> <span class="identifier">Target</span><span class="special">;</span> <a class="co" name="oglplus.quickref.framebuffer.c0" href="framebuffer.html#oglplus.quickref.framebuffer.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-	<span class="keyword">static</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">FramebufferName</a> <span class="identifier">Binding</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">FramebufferName</a> <span class="identifier">framebuffer</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">FramebufferName</a> <span class="identifier">Binding</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c2" href="framebuffer.html#oglplus.quickref.framebuffer.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">FramebufferName</a> <span class="identifier">framebuffer</span><span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c4" href="framebuffer.html#oglplus.quickref.framebuffer.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
-	<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.framebuffer.c6" href="framebuffer.html#oglplus.quickref.framebuffer.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="special">};</span>
 </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c1"></a><a href="#oglplus.quickref.framebuffer.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Framebuffer bind target.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c3"></a><a href="#oglplus.quickref.framebuffer.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the framebuffer currently bound to the specified <code class="literal">target</code>.
+              See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetIntegerv.xml" target="_top">glGetIntegerv</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c5"></a><a href="#oglplus.quickref.framebuffer.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Binds the specified <code class="literal">framebuffer</code> to the specified
+              <code class="literal">target</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBindFramebuffer.xml" target="_top">glBindFramebuffer</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c7"></a><a href="#oglplus.quickref.framebuffer.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Binds <code class="literal">this</code> framebuffer to the specified <code class="literal">target</code>.
+              See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBindFramebuffer.xml" target="_top">glBindFramebuffer</a></code>.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.framebuffer.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.framebuffer.framebuffer_zero_operations"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.framebuffer_zero_operations">Framebuffer
+          zero operations</a>
+        </h4>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
 <span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ExplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Framebuffer</a><span class="special">&gt;</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Framebuffer</a><span class="special">&gt;</span>
 <span class="special">{</span>
-<span class="keyword">public</span><span class="special">:</span>
+<span class="keyword">public</span><span class="special">:</span> <a class="co" name="oglplus.quickref.framebuffer.c8" href="framebuffer.html#oglplus.quickref.framebuffer.c9"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">};</span>
 </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c9"></a><a href="#oglplus.quickref.framebuffer.c8"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              There are no operations that can work explicitly on framebuffer object
+              zero besides binding, so this class just inherits from the common framebuffer
+              operations wrapper.
+            </p></td>
+</tr></table></div>
+<h4>
+<a name="oglplus.quickref.framebuffer.h2"></a>
+          <span class="phrase"><a name="oglplus.quickref.framebuffer.operations_with_explicit_selecto"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.operations_with_explicit_selecto">Operations
+          with explicit selector</a>
+        </h4>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
 <span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ExplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Framebuffer</a><span class="special">&gt;</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ExplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Framebuffer</a><span class="special">&gt;</span>
@@ -53,86 +105,173 @@
 			<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.buffer">FramebufferBuffer</a><span class="special">,</span>
 			<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.attachment">FramebufferAttachment</a><span class="special">,</span>
 			<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment">FramebufferColorAttachment</a>
-		<span class="special">&gt;</span> <span class="identifier">Buffer</span><span class="special">;</span>
+		<span class="special">&gt;</span> <span class="identifier">Buffer</span><span class="special">;</span> <a class="co" name="oglplus.quickref.framebuffer.c10" href="framebuffer.html#oglplus.quickref.framebuffer.c11"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 		<span class="keyword">typedef</span> <a class="link" href="enums.html#oglplus.quickref.enums.one_of">OneOf</a><span class="special">&lt;</span>
 			<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.attachment">FramebufferAttachment</a><span class="special">,</span>
 			<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment">FramebufferColorAttachment</a>
-		<span class="special">&gt;</span> <span class="identifier">Attachment</span><span class="special">;</span>
+		<span class="special">&gt;</span> <span class="identifier">Attachment</span><span class="special">;</span> <a class="co" name="oglplus.quickref.framebuffer.c12" href="framebuffer.html#oglplus.quickref.framebuffer.c13"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 		<span class="keyword">typedef</span> <a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.status">FramebufferStatus</a> <span class="identifier">Status</span><span class="special">;</span>
 	<span class="special">};</span>
 
-	<span class="keyword">static</span> <a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.status">FramebufferStatus</a> <span class="identifier">Status</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">)</span>
-	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">IsComplete</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Complete</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.status">FramebufferStatus</a> <span class="identifier">Status</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c14" href="framebuffer.html#oglplus.quickref.framebuffer.c15"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">IsComplete</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c16" href="framebuffer.html#oglplus.quickref.framebuffer.c17"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Complete</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c18" href="framebuffer.html#oglplus.quickref.framebuffer.c19"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachRenderbuffer</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">Attachment</span> <span class="identifier">attachment</span><span class="special">,</span>
-		<span class="identifier">__RenderbufferName</span> <span class="identifier">renderbuffer</span>
-	<span class="special">);</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">RenderbufferName</a> <span class="identifier">renderbuffer</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c20" href="framebuffer.html#oglplus.quickref.framebuffer.c21"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachColorRenderbuffer</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment_number">FramebufferColorAttachmentNumber</a> <span class="identifier">attachment_no</span><span class="special">,</span>
-		<span class="identifier">__RenderbufferName</span> <span class="identifier">renderbuffer</span>
-	<span class="special">);</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">RenderbufferName</a> <span class="identifier">renderbuffer</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c22" href="framebuffer.html#oglplus.quickref.framebuffer.c23"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
-<span class="preprocessor">#if</span> <span class="identifier">OGLPLUS_DOCUMENTATION_ONLY</span> <span class="special">||</span> <span class="identifier">GL_VERSION_3_2</span>
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_2</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachTexture</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">Attachment</span> <span class="identifier">attachment</span><span class="special">,</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">level</span>
-	<span class="special">);</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c24" href="framebuffer.html#oglplus.quickref.framebuffer.c25"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachColorTexture</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment_number">FramebufferColorAttachmentNumber</a> <span class="identifier">attachment_no</span><span class="special">,</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">level</span>
-	<span class="special">);</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c26" href="framebuffer.html#oglplus.quickref.framebuffer.c27"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachTexture1D</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">Attachment</span> <span class="identifier">attachment</span><span class="special">,</span>
-		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextuteTarget</a> <span class="identifier">textarget</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">textarget</span><span class="special">,</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">level</span>
-	<span class="special">);</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c28" href="framebuffer.html#oglplus.quickref.framebuffer.c29"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachTexture2D</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">Attachment</span> <span class="identifier">attachment</span><span class="special">,</span>
-		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextuteTarget</a> <span class="identifier">textarget</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">textarget</span><span class="special">,</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">level</span>
 	<span class="special">);</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachTexture3D</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">Attachment</span> <span class="identifier">attachment</span><span class="special">,</span>
-		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextuteTarget</a> <span class="identifier">textarget</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">textarget</span><span class="special">,</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">layer</span>
 	<span class="special">);</span>
+
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">AttachTextureLayer</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">Attachment</span> <span class="identifier">attachment</span><span class="special">,</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">layer</span>
-	<span class="special">);</span>
-
-<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_invalidate_subdata</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c30" href="framebuffer.html#oglplus.quickref.framebuffer.c31"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c11"></a><a href="#oglplus.quickref.framebuffer.c10"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Enumerations specifying framebuffer output buffer.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c13"></a><a href="#oglplus.quickref.framebuffer.c12"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Enumerations specifying framebuffer attachments.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c15"></a><a href="#oglplus.quickref.framebuffer.c14"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the status of the framebuffer currently bound to the specified
+              <code class="literal">target</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c17"></a><a href="#oglplus.quickref.framebuffer.c16"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if the framebuffer currently bound to the specified <code class="literal">target</code>
+              is complete.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c19"></a><a href="#oglplus.quickref.framebuffer.c18"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Throws an <a class="link" href="error.html#oglplus.quickref.error.framebuffer" title="Framebuffer errors">IncompleteFramebuffer</a>
+              exception if the framebuffer currently bound to the specified <code class="literal">target</code>
+              is not complete.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c21"></a><a href="#oglplus.quickref.framebuffer.c20"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Attaches a <code class="literal">renderbuffer</code> object as an <code class="literal">attachment</code>
+              to the framebuffer currently bound to the specified <code class="literal">target</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c23"></a><a href="#oglplus.quickref.framebuffer.c22"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Attaches a <code class="literal">renderbuffer</code> object as a color attachment
+              with index specified by <code class="literal">attachment_no</code> to the framebuffer
+              currently bound to the specified <code class="literal">target</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c25"></a><a href="#oglplus.quickref.framebuffer.c24"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Attaches the specified <code class="literal">texture</code> <code class="literal">level</code>
+              as an attachment to the framebuffer currently bound to the specified
+              <code class="literal">target</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c27"></a><a href="#oglplus.quickref.framebuffer.c26"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Attaches the specified <code class="literal">texture</code> <code class="literal">level</code>
+              as a color attachment with index specified by <code class="literal">attachment_no</code>
+              to the framebuffer currently bound to the specified <code class="literal">target</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c29"></a><a href="#oglplus.quickref.framebuffer.c28"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Attaches the <code class="literal">level</code> (or <code class="literal">level</code>'s
+              <code class="literal">layer</code>) of a 1D, 2D or 3D <code class="literal">texture</code>
+              with type specified by <code class="literal">textarget</code>, as an <code class="literal">attachment</code>
+              of the framebuffer currently bound to the specified <code class="literal">target</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c31"></a><a href="#oglplus.quickref.framebuffer.c30"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Attaches the <code class="literal">level</code> (or <code class="literal">level</code>'s
+              <code class="literal">layer</code>) of a 1D, 2D or 3D <code class="literal">texture</code>
+              as an <code class="literal">attachment</code> of the framebuffer currently bound
+              to the specified <code class="literal">target</code>.
+            </p></td>
+</tr>
+</table></div>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_invalidate_subdata</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Invalidate</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<span class="keyword">const</span> <a class="link" href="enums.html#oglplus.quickref.enums.array">EnumArray</a><span class="special">&lt;</span><span class="identifier">Property</span><span class="special">::</span><span class="identifier">Buffer</span><span class="special">&gt;&amp;</span> <span class="identifier">buffers</span>
-	<span class="special">);</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c32" href="framebuffer.html#oglplus.quickref.framebuffer.c33"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Invalidate</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">Property</span><span class="special">::</span><span class="identifier">Buffer</span><span class="special">*</span> <span class="identifier">buffers</span>
 	<span class="special">);</span>
+
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Invalidate</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<span class="keyword">const</span> <a class="link" href="enums.html#oglplus.quickref.enums.array">EnumArray</a><span class="special">&lt;</span><span class="identifier">Property</span><span class="special">::</span><span class="identifier">Buffer</span><span class="special">&gt;&amp;</span> <span class="identifier">buffers</span><span class="special">,</span>
@@ -140,7 +279,7 @@
 		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">height</span>
-	<span class="special">);</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c34" href="framebuffer.html#oglplus.quickref.framebuffer.c35"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Invalidate</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
@@ -153,11 +292,28 @@
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
 
-<span class="comment">// TODO</span>
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c33"></a><a href="#oglplus.quickref.framebuffer.c32"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Invalidates the specified attachments or <code class="literal">buffers</code>
+              of the framebuffer currently bound to the specified <code class="literal">target</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c35"></a><a href="#oglplus.quickref.framebuffer.c34"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Invalidates parts (specified by <code class="literal">x</code>, <code class="literal">y</code>,
+              <code class="literal">width</code> and <code class="literal">height</code>) of attachments
+              or <code class="literal">buffers</code> of the framebuffer currently bound to
+              the specified <code class="literal">target</code>.
+            </p></td>
+</tr>
+</table></div>
 <h4>
-<a name="oglplus.quickref.framebuffer.h0"></a>
+<a name="oglplus.quickref.framebuffer.h3"></a>
           <span class="phrase"><a name="oglplus.quickref.framebuffer.target"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.target">Target</a>
         </h4>
 <p>
@@ -179,7 +335,7 @@
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.framebuffer.h1"></a>
+<a name="oglplus.quickref.framebuffer.h4"></a>
           <span class="phrase"><a name="oglplus.quickref.framebuffer.buffer"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.buffer">Buffer</a>
         </h4>
 <p>
@@ -203,7 +359,7 @@
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.framebuffer.h2"></a>
+<a name="oglplus.quickref.framebuffer.h5"></a>
           <span class="phrase"><a name="oglplus.quickref.framebuffer.attachment"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.attachment">Attachment</a>
         </h4>
 <p>
@@ -242,7 +398,7 @@
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.framebuffer.h3"></a>
+<a name="oglplus.quickref.framebuffer.h6"></a>
           <span class="phrase"><a name="oglplus.quickref.framebuffer.color_attachment"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment">Color
           attachment</a>
         </h4>
@@ -279,7 +435,7 @@
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.framebuffer.h4"></a>
+<a name="oglplus.quickref.framebuffer.h7"></a>
           <span class="phrase"><a name="oglplus.quickref.framebuffer.color_attachment_number"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment_number">Color attachment
           number</a>
         </h4>
@@ -292,13 +448,13 @@
  <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">__LimitedCount</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">FramebufferColorAttachmentNumber</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c0" href="framebuffer.html#oglplus.quickref.framebuffer.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">FramebufferColorAttachmentNumber</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c36" href="framebuffer.html#oglplus.quickref.framebuffer.c37"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c1"></a><a href="#oglplus.quickref.framebuffer.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c37"></a><a href="#oglplus.quickref.framebuffer.c36"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Throws <a class="link" href="error.html#oglplus.quickref.error.limit" title="Limit errors">LimitError</a>
               if <code class="literal">number</code> is greater than the implementation-dependent
@@ -306,7 +462,7 @@
             </p></td>
 </tr></table></div>
 <h4>
-<a name="oglplus.quickref.framebuffer.h5"></a>
+<a name="oglplus.quickref.framebuffer.h8"></a>
           <span class="phrase"><a name="oglplus.quickref.framebuffer.status"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.status">Status</a>
         </h4>
 <p>
