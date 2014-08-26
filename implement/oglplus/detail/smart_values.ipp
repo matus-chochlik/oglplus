@@ -132,6 +132,7 @@ OGLPLUS_CONSTEXPR oglplus::smart_enums::ComputeSubroutineUniform ComputeSubrouti
 OGLPLUS_CONSTEXPR oglplus::smart_enums::ConditionSatisfied ConditionSatisfied;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::ConstantAlpha ConstantAlpha;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::ConstantColor ConstantColor;
+OGLPLUS_CONSTEXPR oglplus::smart_enums::ContextLost ContextLost;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::ConvexHull ConvexHull;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Copy Copy;
 OGLPLUS_CONSTEXPR oglplus::smart_enums::CopyInverted CopyInverted;

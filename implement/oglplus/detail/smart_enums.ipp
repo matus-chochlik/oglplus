@@ -624,6 +624,11 @@ template <typename Enum, Enum = Enum::ConstantColor> operator Enum (void) const{
 template <typename Enum> friend bool operator==(Enum value, ConstantColor){ return value == Enum::ConstantColor; }
 template <typename Enum> friend bool operator!=(Enum value, ConstantColor){ return value != Enum::ConstantColor; }
 };
+struct ContextLost {
+template <typename Enum, Enum = Enum::ContextLost> operator Enum (void) const{ return Enum::ContextLost; }
+template <typename Enum> friend bool operator==(Enum value, ContextLost){ return value == Enum::ContextLost; }
+template <typename Enum> friend bool operator!=(Enum value, ContextLost){ return value != Enum::ContextLost; }
+};
 struct ConvexHull {
 template <typename Enum, Enum = Enum::ConvexHull> operator Enum (void) const{ return Enum::ConvexHull; }
 template <typename Enum> friend bool operator==(Enum value, ConvexHull){ return value == Enum::ConvexHull; }

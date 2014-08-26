@@ -22,7 +22,8 @@ enum class ErrorCode : GLenum
 	InvalidFramebufferOperation = GL_INVALID_FRAMEBUFFER_OPERATION,
 	StackOverflow               = GL_STACK_OVERFLOW,
 	StackUnderflow              = GL_STACK_UNDERFLOW,
-	TableTooLarge               = GL_TABLE_TOO_LARGE
+	TableTooLarge               = GL_TABLE_TOO_LARGE,
+	ContextLost                 = GL_CONTEXT_LOST
 };
 
 template <>

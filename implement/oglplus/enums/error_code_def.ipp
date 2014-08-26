@@ -157,6 +157,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_CONTEXT_LOST
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined ContextLost
+#  pragma push_macro("ContextLost")
+#  undef ContextLost
+   OGLPLUS_ENUM_CLASS_VALUE(ContextLost, GL_CONTEXT_LOST)
+#  pragma pop_macro("ContextLost")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(ContextLost, GL_CONTEXT_LOST)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif
