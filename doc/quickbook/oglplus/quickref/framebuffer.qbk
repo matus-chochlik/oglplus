@@ -9,9 +9,19 @@
 [header oglplus/framebuffer.hpp]
 
 [import framebuffer.hpp]
+
+[heading Common framebuffer operations]
+
 [oglplus_framebuffer_common]
+
+[heading Framebuffer zero operations]
+
 [oglplus_framebuffer_zero]
-[oglplus_framebuffer]
+
+[heading Operations with explicit selector]
+
+[oglplus_framebuffer_1]
+[oglplus_framebuffer_2]
 
 [heading:target Target]
 

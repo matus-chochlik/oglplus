@@ -249,6 +249,24 @@ public:
 			BindTarget(target)
 		);
 	}
+
+	static void BindRange(
+		BufferIndexedTarget target,
+		GLuint first,
+		const Sequence<BufferName>& buffers,
+		const GLintptr* offsets,
+		const GLsizeiptr* sizes
+	)
+	{
+		BindRange(
+			target,
+			first,
+			GLsizei(buffers.size()),
+			GetGLNames(buffers),
+			offsets,
+			sizes
+		);
+	}
 #endif
 };
 
@@ -392,11 +410,11 @@ public:
 	 *
 	 *  @glvoereq{4,3,ARB,invalidate_subdata}
 	 */
-	void InvalidateSubData(GLintptr offset, BufferSize size)
+	void InvalidateSubData(BufferSize offset, BufferSize size)
 	{
 		OGLPLUS_GLFUNC(InvalidateBufferSubData)(
 			_name,
-			offset,
+			GLintptr(offset.Get()),
 			GLsizeiptr(size.Get())
 		);
 		OGLPLUS_CHECK(
@@ -688,6 +706,25 @@ public:
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_buffer_storage
+	static void Storage(
+		Target target,
+		const BufferData& data,
+		Bitfield<BufferStorageBit> flags
+	)
+	{
+		OGLPLUS_GLFUNC(BufferStorage)(
+			GLenum(target),
+			GLsizeiptr(data.Size()),
+			data.Data(),
+			GLbitfield(flags)
+		);
+		OGLPLUS_CHECK(
+			BufferStorage,
+			ObjectError,
+			ObjectBinding(target)
+		);
+	}
+
 	/// Creates a data store for a buffer object
 	/**
 	 *  @see Data
@@ -707,17 +744,7 @@ public:
 		Bitfield<BufferStorageBit> flags
 	)
 	{
-		OGLPLUS_GLFUNC(BufferStorage)(
-			GLenum(target),
-			GLsizeiptr(size.Get()),
-			data,
-			GLbitfield(flags)
-		);
-		OGLPLUS_CHECK(
-			BufferStorage,
-			ObjectError,
-			ObjectBinding(target)
-		);
+		Storage(target, BufferData(size, data), flags);
 	}
 
 	/// Returns true if the buffer storage is immutable

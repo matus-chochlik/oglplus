@@ -68,16 +68,16 @@ public:
 	 */
 	DSABufferRawMapEXT(
 		BufferName buffer,
-		GLintptr offset_bytes,
-		GLsizeiptr size_bytes,
+		BufferSize offset,
+		BufferSize size,
 		Bitfield<BufferMapAccess> access
-	): _offset(offset_bytes)
-	 , _size(size_bytes)
+	): _offset(GLintptr(offset.Get()))
+	 , _size(GLsizeiptr(size.Get()))
 	 , _ptr(
 		OGLPLUS_GLFUNC(MapNamedBufferRangeEXT)(
 			GetGLName(buffer),
-			offset_bytes,
-			size_bytes,
+			_offset,
+			_size,
 			GLbitfield(access)
 		)
 	), _name(GetGLName(buffer))
@@ -208,15 +208,11 @@ public:
 	 */
 	DSABufferTypedMapEXT(
 		BufferName buffer,
-		GLintptr offset,
-		GLsizeiptr size,
+		BufferTypedSize<Type> offset,
+		BufferTypedSize<Type> size,
 		Bitfield<BufferMapAccess> access
-	): DSABufferRawMapEXT(
-		buffer,
-		offset * sizeof(Type),
-	 	size * sizeof(Type),
-		access
-	){ }
+	): DSABufferRawMapEXT(buffer, offset, size, access)
+	{ }
 
 	/// Maps the whole buffer
 	/**

@@ -68,16 +68,16 @@ public:
 	 */
 	DSABufferRawMap(
 		BufferName buffer,
-		GLintptr offset_bytes,
-		GLsizeiptr size_bytes,
+		BufferSize offset,
+		BufferSize size,
 		Bitfield<BufferMapAccess> access
-	): _offset(offset_bytes)
-	 , _size(size_bytes)
+	): _offset(GLintptr(offset.Get()))
+	 , _size(GLsizeiptr(size.Get()))
 	 , _ptr(
 		OGLPLUS_GLFUNC(MapNamedBufferRange)(
 			GetGLName(buffer),
-			offset_bytes,
-			size_bytes,
+			_offset,
+			_size,
 			GLbitfield(access)
 		)
 	), _name(GetGLName(buffer))
@@ -199,12 +199,12 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	void FlushRange(GLintptr offset, GLsizeiptr length)
+	void FlushRange(BufferSize offset, BufferSize length)
 	{
 		OGLPLUS_GLFUNC(FlushMappedNamedBufferRange)(
 			_name,
-			offset,
-			length
+			GLintptr(offset.Get()),
+			GLsizeiptr(length.Get())
 		);
 		OGLPLUS_CHECK(
 			FlushMappedNamedBufferRange,
@@ -231,15 +231,11 @@ public:
 	 */
 	DSABufferTypedMap(
 		BufferName buffer,
-		GLintptr offset,
-		GLsizeiptr size,
+		BufferTypedSize<Type> offset,
+		BufferTypedSize<Type> size,
 		Bitfield<BufferMapAccess> access
-	): DSABufferRawMap(
-		buffer,
-		offset * sizeof(Type),
-	 	size * sizeof(Type),
-		access
-	){ }
+	): DSABufferRawMap(buffer, offset, size, access)
+	{ }
 
 	/// Maps the whole buffer
 	/**

@@ -63,6 +63,7 @@
 [def __ObjectOps [link oglplus.quickref.object.ops ObjectOps]]
 [def __ObjectName [link oglplus.quickref.object.name ObjectName]]
 [def __FramebufferName [link oglplus.quickref.object.name.typedefs FramebufferName]]
+[def __RenderbufferName [link oglplus.quickref.object.name.typedefs RenderbufferName]]
 [def __TextureName [link oglplus.quickref.object.name.typedefs TextureName]]
 [def __BufferName [link oglplus.quickref.object.name.typedefs BufferName]]
 [def __QueryName [link oglplus.quickref.object.name.typedefs QueryName]]
@@ -79,9 +80,25 @@
 [def __Object [link oglplus.quickref.object.wrapper Object]]
 
 [def __Buffer [link oglplus.quickref.buffer Buffer]]
+[def __BufferTarget [link oglplus.quickref.buffer.target BufferTarget]]
+[def __BufferIndexedTarget [link oglplus.quickref.buffer.indexed_target BufferIndexedTarget]]
+[def __BufferUsage [link oglplus.quickref.buffer.usage BufferUsage]]
+[def __BufferStorageBit [link oglplus.quickref.buffer.storage_bit BufferStorageBit]]
+[def __BufferSize [link oglplus.quickref.buffer.size BufferSize]]
+[def __BufferTypedSize [link oglplus.quickref.buffer.size BufferTypedSize]]
+[def __BufferData [link oglplus.quickref.buffer.data BufferData]]
+[def __UniformBufferBindingPoint [link oglplus.quickref.buffer.binding UniformBufferBindingPoint]]
+[def __TransformFeedbackBufferBindingPoint [link oglplus.quickref.buffer.binding TransformFeedbackBufferBindingPoint]]
+[def __AtomicCounterBufferBindingPoint [link oglplus.quickref.buffer.binding AtomicCounterBufferBindingPoint]]
+[def __ShaderStorageBufferBindingPoint [link oglplus.quickref.buffer.binding ShaderStorageBufferBindingPoint]]
+
+[def __BufferRawMap [link oglplus.quickref.buffer_map.raw BufferRawMap]]
+[def __BufferTypedMap [link oglplus.quickref.buffer_map.typed BufferTypedMap]]
+[def __BufferMapAccess [link oglplus.quickref.buffer_map.access BufferMapAccess]]
+
 [def __VertexArray [link oglplus.quickref.vertex_array VertexArray]]
 [def __Texture [link oglplus.quickref.texture Texture]]
-[def __TextureTarget [link oglplus.quickref.texture.target TextuteTarget]]
+[def __TextureTarget [link oglplus.quickref.texture.target TextureTarget]]
 [def __Sampler [link oglplus.quickref.sampler Sampler]]
 [def __Framebuffer [link oglplus.quickref.framebuffer Framebuffer]]
 [def __FramebufferTarget [link oglplus.quickref.framebuffer.target FramebufferTarget]]
@@ -111,6 +128,7 @@
 [def __ObjectError [link oglplus.quickref.error.object ObjectError]]
 [def __ObjectPairError [link oglplus.quickref.error.object ObjectPairError]]
 [def __ProgramBuildError [link oglplus.quickref.error.program ProgramBuildError]]
+[def __IncompleteFramebuffer [link oglplus.quickref.error.framebuffer IncompleteFramebuffer]]
 
 [def __Context [link oglplus.quickref.context Context]]
 

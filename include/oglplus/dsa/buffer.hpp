@@ -231,7 +231,6 @@ public:
 	}
 #endif // copy buffer
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
 	/// Clear the buffer data
 	/**
 	 *  @see Data
@@ -301,7 +300,33 @@ public:
 			EnumParam(internal_format)
 		);
 	}
-#endif
+
+	void Storage(
+		const BufferData& data,
+		Bitfield<BufferStorageBit> flags
+	) const
+	{
+		OGLPLUS_GLFUNC(NamedBufferStorage)(
+			_name,
+			GLsizeiptr(data.Size()),
+			data.Data(),
+			GLbitfield(flags)
+		);
+		OGLPLUS_CHECK(
+			NamedBufferStorage,
+			ObjectError,
+			Object(*this)
+		);
+	}
+
+	void Storage(
+		BufferSize size,
+		const void* data,
+		Bitfield<BufferStorageBit> flags
+	) const
+	{
+		Storage(BufferData(size, data), flags);
+	}
 
 	/// Returns the buffer size
 	/**
