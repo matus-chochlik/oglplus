@@ -292,9 +292,141 @@ public:
 	See [glfunc GetBufferParameter], [glconst BUFFER_STORAGE_FLAGS].
 	>*/
 #endif
+//]
+//[oglplus_buffer_2
 
-// TODO
+	static GLsizei Size(Target target); /*<
+	Returns the size of a buffer currently bound to the specified [^target].
+	See [glfunc Get], [glconst BUFFER_SIZE].
+	>*/
+	static __BufferUsage Usage(Target target); /*<
+	Returns the usage hint of a buffer currently bound to the specified [^target].
+	See [glfunc Get], [glconst BUFFER_USAGE].
+	>*/
+	static __Bitfield<__BufferMapAccess> Access(Target target); /*<
+	Returns the access bits of a buffer currently bound to the specified [^target].
+	See [glfunc Get], [glconst BUFFER_ACCESS].
+	>*/
+
+#if GL_ARB_sparse_buffer
+	static void PageCommitment(
+		Target target,
+		__BufferSize offset,
+		__BufferSize size,
+		bool commit
+	); /*<
+	Commits and de-commits regions (specified by [^offset] and [^size])
+	of sparse buffer currently bound to the specified [^target].
+	See [glfunc BufferPageCommitmentARB].
+	>*/
+
+	static GLsizei PageSize(void); /*<
+	Returns the implementation-dependent sparse buffer storage page size.
+	See [glfunc Get], [glconst SPARSE_BUFFER_PAGE_SIZE_ARB].
+	>*/
+#endif
+
+#if GL_NV_shader_buffer_load
+	static void MakeResident(Target target, __AccessSpecifier access); /*<
+	Makes buffer currently bound to [^target] accessible to GLSL shaders.
+	See [glfunc MakeBufferResidentNV]
+	>*/
+	static void MakeNonResident(Target target); /*<
+	Makes buffer currently bound to [^target] inaccessible to GLSL shaders.
+	See [glfunc MakeBufferNonResidentNV]
+	>*/
+	static __BufferGPUAddress GPUAddress(Target target); /*<
+	Returns the GPU address of the buffer currently bound to [^target].
+	See [glfunc GetBufferParameter], [glconst BUFFER_GPU_ADDRESS_NV].
+	>*/
+#endif
 };
+//]
+//[oglplus_buffer_3
+
+typedef ObjectOps<__tag_ExplicitSel, __tag_Buffer>
+	BufferOps;
+
+typedef __Object<BufferOps> Buffer;
+
+typedef __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Buffer>>
+	NoBuffer;
+//]
+//[oglplus_buffer_sugar
+
+struct BufferTargetAndUsage { }; /*<
+Helper class for syntax sugar operators. Binds together the buffer target
+and usage hint.
+>*/
+
+BufferTargetAndUsage operator << (
+	__BufferTarget target,
+	__BufferUsage usage
+); /*<
+Ties together a buffer [^target] and [^usage] hint.
+>*/
+
+
+struct BufferOpsAndIdxTgt { }; /*<
+Helper class for syntax sugar operators. Binds together a reference
+to a buffer and an indexed target.
+>*/
+
+BufferOpsAndIdxTgt operator << (
+	const BufferOps& buffer,
+	__BufferIndexedTarget target
+); /*<
+Ties together a reference to a [^buffer] and an indexed [^target].
+>*/
+
+
+struct BufferTargetAndOffset { }; /*<
+Helper class for syntax sugar operators. Binds together a buffer target
+and offset value.
+>*/
+
+BufferTargetAndOffset operator + (
+	__BufferTarget target,
+	__BufferSize offset
+); /*<
+Ties together a buffer target and offset value.
+>*/
+
+// Bind
+__BufferTarget operator << (
+	const BufferOps& buf,
+	__BufferTarget target
+); /*<
+Equivalent to [^buf.Bind(target)].
+>*/
+
+const BufferOps& operator << (
+	const BufferOpsAndIdxTgt& bat,
+	GLuint index
+); /*<
+Equivalent to [^BufferOps::BindBase(target, index)].
+>*/
+
+__BufferTarget operator << (
+	__BufferTarget target,
+	const __BufferData& data
+); /*<
+Equivalent to [^BufferOps::Data(target, data)].
+>*/
+
+BufferTarget operator << (
+	BufferTargetAndUsage&& tau,
+	const BufferData& data
+); /*<
+Equivalent to [^BufferOps::Data(target, data, usage)].
+>*/
+
+__BufferTarget operator << (
+	BufferTargetAndOffset&& tao,
+	const __BufferData& data
+); /*<
+Equivalent to [^BufferOps::SubData(target, offset, data)].
+>*/
 
 } // namespace oglplus
 //]

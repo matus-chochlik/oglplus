@@ -132,15 +132,15 @@ public:
 };
 
 
-/// VertexArray operations with explicit selector
-typedef ObjectOps<tag::ExplicitSel, tag::VertexArray>
+/// VertexArray operations with implicit selector
+typedef ObjectOps<tag::ImplicitSel, tag::VertexArray>
 	VertexArrayOps;
 
 /// An @ref oglplus_object encapsulating vertex array zero functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::VertexArray>>
+typedef ObjectZero<ObjZeroOps<tag::ImplicitSel, tag::VertexArray>>
 	NoVertexArray;
 
 /// An @ref oglplus_object encapsulating vertex array object functionality

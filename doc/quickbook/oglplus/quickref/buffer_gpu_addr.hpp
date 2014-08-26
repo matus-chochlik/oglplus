@@ -4,16 +4,22 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_texture_common
+//[oglplus_buffer_gpu_address
 namespace oglplus {
 
-template <>
-struct __ObjectSubtype<__tag_Texture>
+#if GL_NV_shader_buffer_load
+
+class BufferGPUAddress
 {
-	typedef __TextureTarget Type;
+public:
+	BufferGPUAddress(GLuint64EXT addr);
 };
 
-// TODO
+GLuint64EXT GetGLAddress(BufferGPUAddress bga); /*<
+Returns the underlying buffer address value.
+>*/
+
+#endif
 
 } // namespace oglplus
 //]
