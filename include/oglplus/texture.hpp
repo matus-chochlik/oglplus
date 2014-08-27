@@ -19,7 +19,7 @@
 #include <oglplus/math/vector.hpp>
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/object/wrapper.hpp>
-#include <oglplus/compare_func.hpp>
+#include <oglplus/compare_function.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/access_specifier.hpp>
@@ -56,7 +56,7 @@ protected:
 		OGLPLUS_GLFUNC(GenTextures)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenTextures);
 	}
-#if GL_VERSION_4_5
+#if GL_VERSION_4_5 || GL_ARB_direct_state_access
 	static void Gen(
 		tag::Create,
 		GLenum target,
@@ -2932,7 +2932,10 @@ public:
 	}
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_texture_barrier
+#if OGLPLUS_DOCUMENTATION_ONLY || \
+	GL_VERSION_4_5 || \
+	GL_ARB_texture_barrier || \
+	GL_NV_texture_barrier
 	/// Ensures that texture writes have been completed
 	/**
 	 *  @glextreq{NV,texture_barrier}
@@ -2941,8 +2944,13 @@ public:
 	 */
 	static void Barrier(void)
 	{
+#if GL_VERSION_4_5 || GL_ARB_texture_barrier
+		OGLPLUS_GLFUNC(TextureBarrier)();
+		OGLPLUS_VERIFY_SIMPLE(TextureBarrier);
+#elif GL_NV_texture_barrier
 		OGLPLUS_GLFUNC(TextureBarrierNV)();
 		OGLPLUS_VERIFY_SIMPLE(TextureBarrierNV);
+#endif
 	}
 #endif
 

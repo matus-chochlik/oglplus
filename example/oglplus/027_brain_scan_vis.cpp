@@ -22,10 +22,10 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/dsa/buffer.hpp>
-#include <oglplus/dsa/texture.hpp>
-#include <oglplus/dsa/vertex_array.hpp>
-#include <oglplus/dsa/vertex_attrib.hpp>
+#include <oglplus/dsa/ext/buffer.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
+#include <oglplus/dsa/ext/vertex_array.hpp>
+#include <oglplus/dsa/ext/vertex_attrib.hpp>
 
 #include <oglplus/images/gradient.hpp>
 #include <oglplus/opt/resources.hpp>
@@ -241,11 +241,11 @@ private:
 
 	RaytraceProgram prog;
 
-	DSAVertexArray grid;
+	DSAVertexArrayEXT grid;
 
-	DSABuffer coords;
+	DSABufferEXT coords;
 
-	DSATexture palette, volume_tex;
+	DSATextureEXT palette, volume_tex;
 	GLuint cube_side;
 
 public:
@@ -256,7 +256,7 @@ public:
 
 		coords.Data(grid_coords);
 
-		DSAVertexArrayAttrib(grid, prog, "Coord")
+		DSAVertexArrayAttribEXT(grid, prog, "Coord")
 			.Setup<Vec3f>(coords)
 			.Enable();
 

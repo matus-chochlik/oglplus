@@ -14,7 +14,7 @@
 #define OGLPLUS_CONTEXT_BLENDING_1201040722_HPP
 
 #include <oglplus/glfunc.hpp>
-#include <oglplus/blend_func.hpp>
+#include <oglplus/blend_function.hpp>
 
 namespace oglplus {
 namespace context {

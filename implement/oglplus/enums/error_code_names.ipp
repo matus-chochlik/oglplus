@@ -47,6 +47,9 @@ switch(value)
 #if defined GL_TABLE_TOO_LARGE
 	case GL_TABLE_TOO_LARGE: return StrCRef("TABLE_TOO_LARGE");
 #endif
+#if defined GL_CONTEXT_LOST
+	case GL_CONTEXT_LOST: return StrCRef("CONTEXT_LOST");
+#endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);

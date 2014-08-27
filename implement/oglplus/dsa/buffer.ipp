@@ -11,19 +11,19 @@
 
 namespace oglplus {
 
-#if GL_EXT_direct_state_access
+#if GL_VERSION_4_5 || GL_ARB_direct_state_access
 OGLPLUS_LIB_FUNC
 GLint ObjectOps<tag::DirectState, tag::Buffer>::
 GetIntParam(GLenum query) const
 {
 	GLint value = 0;
-	OGLPLUS_GLFUNC(GetNamedBufferParameterivEXT)(
+	OGLPLUS_GLFUNC(GetNamedBufferParameteriv)(
 		_name,
 		query,
 		&value
 	);
 	OGLPLUS_VERIFY(
-		GetNamedBufferParameterivEXT,
+		GetNamedBufferParameteriv,
 		ObjectError,
 		Object(BufferName(_name)).
 		EnumParam(query)
@@ -31,7 +31,7 @@ GetIntParam(GLenum query) const
 	return value;
 }
 
-#endif // GL_EXT_direct_state_access
+#endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
 

@@ -18,7 +18,7 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_ARB_direct_state_access
 
 class DSAVertexArrayAttrib
  : public ProgVarCommonOps<tag::VertexAttrib>
@@ -51,166 +51,144 @@ public:
 	 , _vao(GetGLName(vao))
 	{ }
 
-	/// Setup the properties of this vertex attribute array
-	/**
-	 *  @glsymbols
-	 *  @glfunref{VertexArrayVertexAttribOffsetEXT}
-	 */
-	const DSAVertexArrayAttrib& Offset(
-		BufferName buffer,
-		GLint values_per_vertex,
-		DataType data_type,
-		bool normalized,
-		GLsizei stride,
-		GLintptr offset
-	) const
-	{
-		OGLPLUS_GLFUNC(VertexArrayVertexAttribOffsetEXT)(
-			_vao,
-			GetGLName(buffer),
-			GLuint(_location),
-			values_per_vertex,
-			GLenum(data_type),
-			normalized ? GL_TRUE : GL_FALSE,
-			stride,
-			offset
-		);
-		OGLPLUS_CHECK(
-			VertexArrayVertexAttribOffsetEXT,
-			ObjectPairError,
-			Subject(buffer).
-			Object(VertexArrayName(_vao)).
-			EnumParam(data_type)
-		);
-		return *this;
-	}
-
-	/// Setup the properties of this vertex attribute array
-	/**
-	 *  @glsymbols
-	 *  @glfunref{VertexArrayVertexAttribIOffsetEXT}
-	 */
-	const DSAVertexArrayAttrib& IOffset(
-		BufferName buffer,
-		GLint values_per_vertex,
-		DataType data_type,
-		GLsizei stride,
-		GLintptr offset
-	) const
-	{
-		OGLPLUS_GLFUNC(VertexArrayVertexAttribIOffsetEXT)(
-			_vao,
-			GetGLName(buffer),
-			GLuint(_location),
-			values_per_vertex,
-			GLenum(data_type),
-			stride,
-			offset
-		);
-		OGLPLUS_CHECK(
-			VertexArrayVertexAttribIOffsetEXT,
-			ObjectPairError,
-			Subject(buffer).
-			Object(VertexArrayName(_vao)).
-			EnumParam(data_type)
-		);
-		return *this;
-	}
-
-	const DSAVertexArrayAttrib& Setup(
-		BufferName buffer,
-		GLint values_per_vertex,
-		std::integral_constant<
-			typename enums::EnumValueType<DataType>::Type,
-			DataType::Float
-		>
-	) const
-	{
-		return Offset(
-			buffer,
-			values_per_vertex,
-			DataType::Float,
-			false,
-			0,
-			0
-		);
-	}
-
-	template <typename enums::EnumValueType<DataType>::Type DataTypeValue>
-	const DSAVertexArrayAttrib& Setup(
-		BufferName buffer,
-		GLint values_per_vertex,
-		std::integral_constant<
-			typename enums::EnumValueType<DataType>::Type,
-			DataTypeValue
-		>
-	) const
-	{
-		return IOffset(
-			buffer,
-			values_per_vertex,
-			DataTypeValue,
-			0,
-			0
-		);
-	}
-
-	/// Setup the properties of this vertex array attribute
-	/**
-	 *  @see Offset
-	 *  @see IOffset
-	 *
-	 *  @glsymbols
-	 *  @glfunref{VertexArrayVertexAttribOffsetEXT}
-	 *  @glfunref{VertexArrayVertexAttribIOffsetEXT}
-	 */
-	template <typename T>
-	const DSAVertexArrayAttrib& Setup(
-		BufferName buffer,
-		GLuint n = 1
-	) const
-	{
-		typedef decltype(_get_et((T*)nullptr)) elem_type;
-
-		return Setup(
-			buffer,
-			_get_vpv((T*)nullptr)*n,
-			typename DataTypeCT<elem_type>::type()
-		);
-	}
-
 	/// Enable this vertex array attribute
 	/**
 	 *  @glsymbols
-	 *  @glfunref{EnableVertexArrayAttribEXT}
+	 *  @glfunref{EnableVertexArrayAttrib}
 	 */
 	const DSAVertexArrayAttrib& Enable(void) const
 	{
-		OGLPLUS_GLFUNC(EnableVertexArrayAttribEXT)(
+		OGLPLUS_GLFUNC(EnableVertexArrayAttrib)(
 			_vao,
 			GLuint(_location)
 		);
-		OGLPLUS_CHECK_SIMPLE(EnableVertexArrayAttribEXT);
+		OGLPLUS_CHECK_SIMPLE(EnableVertexArrayAttrib);
 		return *this;
 	}
 
 	/// Enable this specified vertex array attribute
 	/**
 	 *  @glsymbols
-	 *  @glfunref{DisableVertexArrayAttribEXT}
+	 *  @glfunref{DisableVertexArrayAttrib}
 	 */
 	const DSAVertexArrayAttrib& Disable(void) const
 	{
-		OGLPLUS_GLFUNC(DisableVertexArrayAttribEXT)(
+		OGLPLUS_GLFUNC(DisableVertexArrayAttrib)(
 			_vao,
 			GLuint(_location)
 		);
-		OGLPLUS_CHECK_SIMPLE(DisableVertexArrayAttribEXT);
+		OGLPLUS_CHECK_SIMPLE(DisableVertexArrayAttrib);
+		return *this;
+	}
+
+	/// Set the vertex buffer for this vertex array attribute
+	const DSAVertexArrayAttrib& VertexBuffer(
+		BufferName buffer,
+		GLintptr offset,
+		GLsizei stride
+	)
+	{
+		OGLPLUS_GLFUNC(VertexArrayVertexBuffer)(
+			_vao,
+			GLuint(_location),
+			GetGLName(buffer),
+			offset,
+			stride
+		);
+		OGLPLUS_CHECK(
+			VertexArrayVertexBuffer,
+			ObjectPairError,
+			Subject(buffer).
+			Object(VertexArrayName(_vao))
+		);
+		return *this;
+	}
+
+	/// Setup the properties of this vertex array attribute
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexArrayAttribFormat}
+	 */
+	const DSAVertexArrayAttrib& Format(
+		GLint values_per_vertex,
+		DataType data_type,
+		bool normalized,
+		GLuint relative_offset
+	) const
+	{
+		OGLPLUS_GLFUNC(VertexArrayAttribFormat)(
+			_vao,
+			GLuint(_location),
+			values_per_vertex,
+			GLenum(data_type),
+			normalized ? GL_TRUE : GL_FALSE,
+			relative_offset
+		);
+		OGLPLUS_CHECK(
+			VertexArrayAttribFormat,
+			ObjectError,
+			Object(VertexArrayName(_vao)).
+			EnumParam(data_type)
+		);
+		return *this;
+	}
+
+	/// Setup the properties of this vertex array attribute
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexArrayAttribIFormat}
+	 */
+	const DSAVertexArrayAttrib& IFormat(
+		GLint values_per_vertex,
+		DataType data_type,
+		GLuint relative_offset
+	) const
+	{
+		OGLPLUS_GLFUNC(VertexArrayAttribIFormat)(
+			_vao,
+			GLuint(_location),
+			values_per_vertex,
+			GLenum(data_type),
+			relative_offset
+		);
+		OGLPLUS_CHECK(
+			VertexArrayAttribIFormat,
+			ObjectError,
+			Object(VertexArrayName(_vao)).
+			EnumParam(data_type)
+		);
+		return *this;
+	}
+
+	/// Setup the properties of this vertex array attribute
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexArrayAttribLFormat}
+	 */
+	const DSAVertexArrayAttrib& LFormat(
+		GLint values_per_vertex,
+		DataType data_type,
+		GLuint relative_offset
+	) const
+	{
+		OGLPLUS_GLFUNC(VertexArrayAttribLFormat)(
+			_vao,
+			GLuint(_location),
+			values_per_vertex,
+			GLenum(data_type),
+			relative_offset
+		);
+		OGLPLUS_CHECK(
+			VertexArrayAttribLFormat,
+			ObjectError,
+			Object(VertexArrayName(_vao)).
+			EnumParam(data_type)
+		);
 		return *this;
 	}
 };
 
-#endif // GL_EXT_direct_state_access
+#endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
 

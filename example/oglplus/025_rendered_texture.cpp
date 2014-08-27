@@ -16,9 +16,9 @@
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/shapes/torus.hpp>
-#include <oglplus/dsa/texture.hpp>
-#include <oglplus/dsa/framebuffer.hpp>
-#include <oglplus/dsa/renderbuffer.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
+#include <oglplus/dsa/ext/framebuffer.hpp>
+#include <oglplus/dsa/ext/renderbuffer.hpp>
 
 #include <cmath>
 
@@ -67,11 +67,11 @@ private:
 	DefaultFramebuffer dfb;
 
 	// The FBO and RBO for offscreen rendering
-	DSAFramebuffer fbo;
-	DSARenderbuffer rbo;
+	DSAFramebufferEXT fbo;
+	DSARenderbufferEXT rbo;
 
 	// The dynamically rendered texture
-	DSATexture tex;
+	DSATextureEXT tex;
 	GLuint tex_side;
 
 	GLuint width, height;

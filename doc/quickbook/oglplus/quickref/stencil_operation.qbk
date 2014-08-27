@@ -2,17 +2,17 @@
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
-[/-----------------------------------]
-[section:stencil_op Stencil operation]
-[/-----------------------------------]
+[/------------------------------------------]
+[section:stencil_operation Stencil operation]
+[/------------------------------------------]
 
-[header oglplus/stencil_op.hpp]
+[header oglplus/stencil_operation.hpp]
 
 [import enums/stencil_operation.hpp]
 [oglplus_enums_stencil_operation]
 
 [heading:typedefs Typedefs]
-[import stencil_op.hpp]
+[import stencil_operation.hpp]
 [oglplus_stencil_operation_typedefs]
 
 [endsect]

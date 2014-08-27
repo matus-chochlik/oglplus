@@ -6,12 +6,23 @@
 
 //[oglplus_ops_tags
 namespace oglplus {
+namespace tag {
 
 struct ExplicitSel; /*< Operations with ['explicit selector]. >*/
 struct ImplicitSel; /*< Operations with ['implicit selector]. >*/
-struct DirectState; /*< Operations with ['direct state access]. >*/
+struct DirectState; /*<
+Operations with ['direct state access] (as defined in GL Core or
+[@http://www.opengl.org/registry/specs/ARB/direct_state_access.txt
+ARB_direct_state_access]).
+>*/
+struct DirectStateEXT; /*<
+Operations with ['direct state access] (as defined in
+[@http://www.opengl.org/registry/specs/EXT/direct_state_access.txt
+EXT_direct_state_access]).
+>*/
 struct CurrentBound;
 
+} // namespace tag
 } // namespace oglplus
 //]
 

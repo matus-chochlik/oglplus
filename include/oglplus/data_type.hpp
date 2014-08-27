@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -49,67 +49,43 @@ struct DataTypeCT;
 
 template <>
 struct DataTypeCT<GLbyte>
- : public std::integral_constant<
-	typename enums::EnumValueType<DataType>::Type,
-	DataType::Byte
->
+ : public std::integral_constant<DataType, DataType::Byte>
 { };
 
 template <>
 struct DataTypeCT<GLshort>
- : public std::integral_constant<
-	typename enums::EnumValueType<DataType>::Type,
-	DataType::Short
->
+ : public std::integral_constant<DataType, DataType::Short>
 { };
 
 template <>
 struct DataTypeCT<GLint>
- : public std::integral_constant<
-	typename enums::EnumValueType<DataType>::Type,
-	DataType::Int
->
+ : public std::integral_constant<DataType, DataType::Int>
 { };
 
 template <>
 struct DataTypeCT<GLubyte>
- : public std::integral_constant<
-	typename enums::EnumValueType<DataType>::Type,
-	DataType::UnsignedByte
->
+ : public std::integral_constant<DataType, DataType::UnsignedByte>
 { };
 
 template <>
 struct DataTypeCT<GLushort>
- : public std::integral_constant<
-	typename enums::EnumValueType<DataType>::Type,
-	DataType::UnsignedShort
->
+ : public std::integral_constant<DataType, DataType::UnsignedShort>
 { };
 
 template <>
 struct DataTypeCT<GLuint>
- : public std::integral_constant<
-	typename enums::EnumValueType<DataType>::Type,
-	DataType::UnsignedInt
->
+ : public std::integral_constant<DataType, DataType::UnsignedInt>
 { };
 
 template <>
 struct DataTypeCT<GLfloat>
- : public std::integral_constant<
-	typename enums::EnumValueType<DataType>::Type,
-	DataType::Float
->
+ : public std::integral_constant<DataType, DataType::Float>
 { };
 
 #ifdef GL_DOUBLE
 template <>
 struct DataTypeCT<GLdouble>
- : public std::integral_constant<
-	typename enums::EnumValueType<DataType>::Type,
-	DataType::Double
->
+ : public std::integral_constant<DataType, DataType::Double>
 { };
 #endif
 

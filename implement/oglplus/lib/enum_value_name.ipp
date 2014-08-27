@@ -52,11 +52,17 @@ OGLPLUS_ENUM_CLASS_FWD(ColorLogicOperation, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(CompareFunction, GLenum)
 #include <oglplus/enums/compare_function_names.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(ConditionalRenderMode, GLenum)
+#include <oglplus/enums/conditional_render_mode_names.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(ContextFlagBit, GLenum)
 #include <oglplus/enums/context_flag_bit_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(ContextProfileBit, GLenum)
 #include <oglplus/enums/context_profile_bit_names.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(ContextReleaseBehavior, GLenum)
+#include <oglplus/enums/context_release_behavior_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(DataType, GLenum)
 #include <oglplus/enums/data_type_names.ipp>
@@ -96,6 +102,9 @@ OGLPLUS_ENUM_CLASS_FWD(FramebufferTarget, GLenum)
 
 OGLPLUS_ENUM_CLASS_FWD(Functionality, GLenum)
 #include <oglplus/enums/functionality_names.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(GraphicsResetStatus, GLenum)
+#include <oglplus/enums/graphics_reset_status_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(HintOption, GLenum)
 #include <oglplus/enums/hint_option_names.ipp>
@@ -159,6 +168,9 @@ OGLPLUS_ENUM_CLASS_FWD(QueryTarget, GLenum)
 
 OGLPLUS_ENUM_CLASS_FWD(RenderbufferTarget, GLenum)
 #include <oglplus/enums/renderbuffer_target_names.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(ResetNotificationStrategy, GLenum)
+#include <oglplus/enums/reset_notif_strategy_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(ShaderType, GLenum)
 #include <oglplus/enums/shader_type_names.ipp>
@@ -259,7 +271,7 @@ OGLPLUS_ENUM_CLASS_FWD(DebugSource, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(DebugType, GLenum)
 #include <oglplus/enums/ext/debug_type_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(GraphicsResetStatus, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(GraphicsResetStatusARB, GLenum)
 #include <oglplus/enums/ext/graphics_reset_status_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(PathNVCapStyle, GLenum)
@@ -316,7 +328,7 @@ OGLPLUS_ENUM_CLASS_FWD(PathNVTextEncoding, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(PathNVTransformType, GLenum)
 #include <oglplus/enums/ext/nv_path_transform_type_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(ResetNotificationStrategy, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(ResetNotificationStrategyARB, GLenum)
 #include <oglplus/enums/ext/reset_notif_strategy_names.ipp>
 
 #endif

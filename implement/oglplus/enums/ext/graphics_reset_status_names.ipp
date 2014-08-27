@@ -11,12 +11,12 @@
 
 namespace enums {
 OGLPLUS_LIB_FUNC StrCRef ValueName_(
-	GraphicsResetStatus*,
+	GraphicsResetStatusARB*,
 	GLenum value
 )
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_GRAPHICSRESETSTATUS)
-#define OGLPLUS_IMPL_EVN_GRAPHICSRESETSTATUS
+	!defined(OGLPLUS_IMPL_EVN_GRAPHICSRESETSTATUSARB)
+#define OGLPLUS_IMPL_EVN_GRAPHICSRESETSTATUSARB
 {
 switch(value)
 {

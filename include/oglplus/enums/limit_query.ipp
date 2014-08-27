@@ -21,6 +21,10 @@ MaxAtomicCounterBufferBindings,
 MaxAtomicCounterBufferSize,
 /// MAX_CLIP_DISTANCES
 MaxClipDistances,
+/// MAX_CULL_DISTANCES
+MaxCullDistances,
+/// MAX_COMBINED_CLIP_AND_CULL_DISTANCES
+MaxCombinedClipAndCullDistances,
 /// MAX_COLOR_ATTACHMENTS
 MaxColorAttachments,
 /// MAX_COLOR_TEXTURE_SAMPLES

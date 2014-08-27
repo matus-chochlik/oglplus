@@ -19,7 +19,8 @@ enum class BufferStorageBit : GLbitfield
 	MapPersistent  = GL_MAP_PERSISTENT_BIT,
 	MapCoherent    = GL_MAP_COHERENT_BIT,
 	DynamicStorage = GL_DYNAMIC_STORAGE_BIT,
-	ClientStorage  = GL_CLIENT_STORAGE_BIT
+	ClientStorage  = GL_CLIENT_STORAGE_BIT,
+	SparseStorage  = GL_SPARSE_STORAGE_BIT_ARB
 };
 
 template <>

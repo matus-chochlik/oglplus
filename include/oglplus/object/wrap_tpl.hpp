@@ -108,7 +108,7 @@ class Object<ObjectOps<OpsTag, ObjTag>>
 {
 private:
 	typedef typename ObjTag::NameType NameT;
-	typedef typename ObjGenTag<OpsTag, ObjTag>::Type GenTag;
+	typedef typename ObjGenTag<OpsTag, ObjTag>::Type DefGenTag;
 
 	// Object is not copy-constructible
 	Object(const Object&);
@@ -130,16 +130,17 @@ private:
 		);
 	}
 
-	void _init(Nothing)
+	template <typename GenTag>
+	void _init(GenTag gen_tag, Nothing)
 	{
-		ObjGenDelOps<ObjTag>::Gen(GenTag(), 1, &this->_name);
+		ObjGenDelOps<ObjTag>::Gen(gen_tag, 1, &this->_name);
 	}
 
-	template <typename ObjectSubtype>
-	void _init(ObjectSubtype type)
+	template <typename GenTag, typename ObjectSubtype>
+	void _init(GenTag gen_tag, ObjectSubtype type)
 	{
 		this->_type = GLenum(type);
-		_init(Nothing());
+		_init(gen_tag, Nothing());
 	}
 
 	void _move_in(Object&& temp)
@@ -181,13 +182,30 @@ public:
 	/// Most object types are default-constructible
 	Object(void)
 	{
-		_init(Nothing());
+		_init(DefGenTag(), Nothing());
+	}
+
+	Object(tag::Generate generate)
+	{
+		_init(generate, Nothing());
+	}
+
+	Object(tag::Create create)
+	{
+		_init(create, Nothing());
 	}
 
 	/// A textual description can be attached to objects
 	Object(ObjectDesc&& description)
 	{
-		_init(Nothing());
+		_init(DefGenTag(), Nothing());
+		_describe(std::move(description));
+	}
+
+	template <typename GenTag>
+	Object(GenTag gen_tag, ObjectDesc&& description)
+	{
+		_init(DefGenTag(), Nothing());
 		_describe(std::move(description));
 	}
 
@@ -196,14 +214,26 @@ public:
 	/// Construction with subtype specification
 	Object(Subtype subtype)
 	{
-		_init(subtype);
+		_init(DefGenTag(), subtype);
+	}
+
+	template <typename GenTag>
+	Object(GenTag gen_tag, Subtype subtype)
+	{
+		_init(gen_tag, subtype);
 	}
 
 	/// A textual description can be attached to objects
-	Object(Subtype subtype, ObjectDesc&& description
-	)
+	Object(Subtype subtype, ObjectDesc&& description)
 	{
-		_init(subtype);
+		_init(DefGenTag(), subtype);
+		_describe(std::move(description));
+	}
+
+	template <typename GenTag>
+	Object(GenTag gen_tag, Subtype subtype, ObjectDesc&& description)
+	{
+		_init(gen_tag, subtype);
 		_describe(std::move(description));
 	}
 

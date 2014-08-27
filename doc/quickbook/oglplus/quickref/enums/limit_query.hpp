@@ -19,6 +19,8 @@ enum class LimitQuery : GLenum
 	MaxAtomicCounterBufferBindings             = GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS,
 	MaxAtomicCounterBufferSize                 = GL_MAX_ATOMIC_COUNTER_BUFFER_SIZE,
 	MaxClipDistances                           = GL_MAX_CLIP_DISTANCES,
+	MaxCullDistances                           = GL_MAX_CULL_DISTANCES,
+	MaxCombinedClipAndCullDistances            = GL_MAX_COMBINED_CLIP_AND_CULL_DISTANCES,
 	MaxColorAttachments                        = GL_MAX_COLOR_ATTACHMENTS,
 	MaxColorTextureSamples                     = GL_MAX_COLOR_TEXTURE_SAMPLES,
 	MaxCombinedAtomicCounterBuffers            = GL_MAX_COMBINED_ATOMIC_COUNTER_BUFFERS,

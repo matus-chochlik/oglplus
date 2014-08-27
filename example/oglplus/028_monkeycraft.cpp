@@ -17,10 +17,10 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 #include <oglplus/dsa/uniform.hpp>
-#include <oglplus/dsa/buffer.hpp>
-#include <oglplus/dsa/texture.hpp>
-#include <oglplus/dsa/vertex_array.hpp>
-#include <oglplus/dsa/vertex_attrib.hpp>
+#include <oglplus/dsa/ext/buffer.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
+#include <oglplus/dsa/ext/vertex_array.hpp>
+#include <oglplus/dsa/ext/vertex_attrib.hpp>
 #include <oglplus/images/load.hpp>
 #include <oglplus/images/transformed.hpp>
 #include <oglplus/images/random.hpp>
@@ -222,7 +222,7 @@ public:
 };
 
 class AmbiOcclMaps
- : DSATexture
+ : DSATextureEXT
 {
 public:
 	AmbiOcclMaps(const images::Image& smaps, const Program& prog)
@@ -243,9 +243,9 @@ class Field
 private:
 	Context gl;
 
-	DSABuffer positions, texcoords;
-	DSAVertexArray vao;
-	DSATexture pattern, fademap;
+	DSABufferEXT positions, texcoords;
+	DSAVertexArrayEXT vao;
+	DSATextureEXT pattern, fademap;
 
 	GLuint vert_count;
 
@@ -291,11 +291,11 @@ public:
 		positions.Data(pos_data);
 		texcoords.Data(tec_data);
 
-		DSAVertexArrayAttrib(vao, prog, "Position")
+		DSAVertexArrayAttribEXT(vao, prog, "Position")
 			.Setup<Vector<GLfloat, 3>>(positions)
 			.Enable();
 
-		DSAVertexArrayAttrib(vao, prog, "TexCoord")
+		DSAVertexArrayAttribEXT(vao, prog, "TexCoord")
 			.Setup<Vector<GLuint, 3>>(texcoords)
 			.Enable();
 

@@ -42,12 +42,6 @@ using enums::NAME;
 namespace enums {
 
 template <typename Enum>
-struct EnumValueType
-{
-	typedef Enum Type;
-};
-
-template <typename Enum>
 struct EnumBaseType;
 
 } // namespace enums

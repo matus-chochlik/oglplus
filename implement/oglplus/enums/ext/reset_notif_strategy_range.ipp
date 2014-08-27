@@ -12,11 +12,11 @@
 namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
-	ResetNotificationStrategy
-> ValueRange_(ResetNotificationStrategy*)
+	ResetNotificationStrategyARB
+> ValueRange_(ResetNotificationStrategyARB*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVR_RESETNOTIFICATIONSTRATEGY)
-#define OGLPLUS_IMPL_EVR_RESETNOTIFICATIONSTRATEGY
+	!defined(OGLPLUS_IMPL_EVR_RESETNOTIFICATIONSTRATEGYARB)
+#define OGLPLUS_IMPL_EVR_RESETNOTIFICATIONSTRATEGYARB
 {
 static const GLenum _values[] = {
 #if defined GL_NO_RESET_NOTIFICATION_ARB
@@ -29,7 +29,7 @@ GL_LOSE_CONTEXT_ON_RESET_ARB,
 };
 return aux::CastIterRange<
 	const GLenum*,
-	ResetNotificationStrategy
+	ResetNotificationStrategyARB
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
 #else

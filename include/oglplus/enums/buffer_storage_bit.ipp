@@ -22,7 +22,9 @@ MapCoherent,
 /// DYNAMIC_STORAGE_BIT
 DynamicStorage,
 /// CLIENT_STORAGE_BIT
-ClientStorage
+ClientStorage,
+/// SPARSE_STORAGE_BIT_ARB
+SparseStorage
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 

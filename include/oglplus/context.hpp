@@ -37,7 +37,7 @@
 #include <oglplus/context/object_dsa.hpp>
 
 #include <oglplus/face_mode.hpp>
-#include <oglplus/compare_func.hpp>
+#include <oglplus/compare_function.hpp>
 
 
 namespace oglplus {

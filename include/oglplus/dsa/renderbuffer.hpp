@@ -17,7 +17,13 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_ARB_direct_state_access
+
+template <>
+struct ObjGenTag<tag::DirectState, tag::Renderbuffer>
+{
+	typedef tag::Create Type;
+};
 
 /// Class wrapping renderbuffer-related functionality with direct state access
 /** @note Do not use this class directly, use DSARenderbuffer instead.
@@ -43,14 +49,14 @@ public:
 		GLsizei height
 	)
 	{
-		OGLPLUS_GLFUNC(NamedRenderbufferStorageEXT)(
+		OGLPLUS_GLFUNC(NamedRenderbufferStorage)(
 			_name,
 			GLenum(internalformat),
 			width,
 			height
 		);
 		OGLPLUS_CHECK(
-			NamedRenderbufferStorageEXT,
+			NamedRenderbufferStorage,
 			ObjectError,
 			Object(*this).
 			EnumParam(internalformat)
@@ -76,7 +82,7 @@ public:
 		GLsizei height
 	)
 	{
-		OGLPLUS_GLFUNC(NamedRenderbufferStorageMultisampleEXT)(
+		OGLPLUS_GLFUNC(NamedRenderbufferStorageMultisample)(
 			_name,
 			samples,
 			GLenum(internalformat),
@@ -84,7 +90,7 @@ public:
 			height
 		);
 		OGLPLUS_CHECK(
-			NamedRenderbufferStorageMultisampleEXT,
+			NamedRenderbufferStorageMultisample,
 			ObjectError,
 			Object(*this).
 			EnumParam(internalformat)
@@ -275,9 +281,7 @@ inline DSARenderbufferOps& operator << (
  */
 typedef Object<DSARenderbufferOps> DSARenderbuffer;
 
-#else
-#error Direct State Access Renderbuffers not available
-#endif // GL_EXT_direct_state_access
+#endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
 
