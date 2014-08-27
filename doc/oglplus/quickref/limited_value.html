@@ -1,0 +1,90 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Limited values</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="enums.html" title="Enumerations">
+<link rel="next" href="utils.html" title="Misc utilities">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="enums.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="utils.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.limited_value"></a><a class="link" href="limited_value.html" title="Limited values">Limited values</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/limited_value.hpp&gt;</code>
+        </p>
+<p>
+          <code class="literal">LimitedCount</code> is a base class storing limited implementation-dependent
+          numeric values. It checks if the given numeric value is in the implementation-dependent
+          range of allowed values and throws an <a class="link" href="error.html#oglplus.quickref.error.limit" title="Limit errors">LimitError</a>
+          exception if it is not.
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            Do not use this templates directly, use the derived types or the typedefs
+            of instantiations instead.
+          </p></td></tr>
+</table></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">GLenum</span> <span class="identifier">Query</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">LimitedCount</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Type</span><span class="special">&gt;</span>
+	<span class="keyword">explicit</span> <span class="keyword">operator</span> <span class="identifier">Type</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.limited_value.c0" href="limited_value.html#oglplus.quickref.limited_value.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">==</span> <span class="special">(</span><span class="identifier">LimitedCount</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">LimitedCount</span> <span class="identifier">b</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!=</span> <span class="special">(</span><span class="identifier">LimitedCount</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">LimitedCount</span> <span class="identifier">b</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">&lt;=</span> <span class="special">(</span><span class="identifier">LimitedCount</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">LimitedCount</span> <span class="identifier">b</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">&lt;</span>  <span class="special">(</span><span class="identifier">LimitedCount</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">LimitedCount</span> <span class="identifier">b</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">&gt;=</span> <span class="special">(</span><span class="identifier">LimitedCount</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">LimitedCount</span> <span class="identifier">b</span><span class="special">);</span>
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">&gt;</span>  <span class="special">(</span><span class="identifier">LimitedCount</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">LimitedCount</span> <span class="identifier">b</span><span class="special">);</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">GLenum</span> <span class="identifier">Query</span><span class="special">&gt;</span>
+<span class="identifier">GLuint</span> <span class="identifier">LimitedCountMax</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a><span class="special">&lt;</span><span class="identifier">Query</span><span class="special">&gt;&amp;</span> <span class="identifier">lim_count</span><span class="special">);</span> <a class="co" name="oglplus.quickref.limited_value.c2" href="limited_value.html#oglplus.quickref.limited_value.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.limited_value.c1"></a><a href="#oglplus.quickref.limited_value.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Explicit conversion of the internally stored value to a value of the
+              specified numeric <code class="literal">Type</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.limited_value.c3"></a><a href="#oglplus.quickref.limited_value.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the maximum for the specified limited value type.
+            </p></td>
+</tr>
+</table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="enums.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="utils.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

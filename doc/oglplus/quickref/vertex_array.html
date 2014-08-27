@@ -20,9 +20,56 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/vertex_array.hpp&gt;</code>
         </p>
+<h4>
+<a name="oglplus.quickref.vertex_array.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.vertex_array.common_vertex_array_operations"></a></span><a class="link" href="vertex_array.html#oglplus.quickref.vertex_array.common_vertex_array_operations">Common
+          vertex array operations</a>
+        </h4>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 
-<span class="comment">// TODO</span>
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::VertexArray</a><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">VertexArrayName</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">static</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">VertexArrayName</a> <span class="identifier">Binding</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_array.c0" href="vertex_array.html#oglplus.quickref.vertex_array.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">VertexArrayName</a> <span class="identifier">vertex_array</span><span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_array.c2" href="vertex_array.html#oglplus.quickref.vertex_array.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_array.c4" href="vertex_array.html#oglplus.quickref.vertex_array.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_array.c1"></a><a href="#oglplus.quickref.vertex_array.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the currently bound vertex array. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+              <span class="bold"><strong><code class="literal">GL_VERTEX_ARRAY_BINDING</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_array.c3"></a><a href="#oglplus.quickref.vertex_array.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Binds the specified <code class="literal">vertex_array</code> object. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBindVertexArray.xml" target="_top">glBindVertexArray</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_array.c5"></a><a href="#oglplus.quickref.vertex_array.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Binds the <code class="literal">this</code> vertex array object. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBindVertexArray.xml" target="_top">glBindVertexArray</a></code>.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.vertex_array.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.vertex_array.def"></a></span><a class="link" href="vertex_array.html#oglplus.quickref.vertex_array.def">Definitions</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::VertexArray</a><span class="special">&gt;</span>
+	<span class="identifier">VertexArrayOps</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&lt;</span><span class="identifier">VertexArrayOps</span><span class="special">&gt;</span> <span class="identifier">VertexArray</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper.obj_zero">ObjectZero</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::VertexArray</a><span class="special">&gt;&gt;</span>
+	<span class="identifier">NoVertexArray</span><span class="special">;</span>
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
