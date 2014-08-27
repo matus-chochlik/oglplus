@@ -15,7 +15,7 @@ namespace eglplus {
 enum class TextureTarget : EGLenum
 {
 	NoTexture = EGL_NO_TEXTURE,
-	Texture2d = EGL_TEXTURE_2D
+	Texture2D = EGL_TEXTURE_2D
 };
 
 template <>

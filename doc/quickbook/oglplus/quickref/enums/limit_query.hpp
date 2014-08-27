@@ -14,7 +14,7 @@ namespace oglplus {
 
 enum class LimitQuery : GLenum
 {
-	Max3dTextureSize                           = GL_MAX_3D_TEXTURE_SIZE,
+	Max3DTextureSize                           = GL_MAX_3D_TEXTURE_SIZE,
 	MaxArrayTextureLayers                      = GL_MAX_ARRAY_TEXTURE_LAYERS,
 	MaxAtomicCounterBufferBindings             = GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS,
 	MaxAtomicCounterBufferSize                 = GL_MAX_ATOMIC_COUNTER_BUFFER_SIZE,
