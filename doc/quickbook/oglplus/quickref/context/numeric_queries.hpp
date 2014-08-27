@@ -37,6 +37,24 @@ public:
 	See [glfunc Get], [glconst CONTEXT_FLAGS].
 	>*/
 #endif
+
+#if GL_VERSION_4_5 || GL_KHR_context_flush_control
+	static __ContextReleaseBehavior ReleaseBehavior(void); /*<
+	Returns the current context flush control reset behavior.
+	See [glfunc Get], [glconst CONTEXT_RELEASE_BEHAVIOR].
+	>*/
+#endif
+
+#if GL_VERSION_4_5
+	static __ResetNotificationStrategy ResetNotificationStrategy(void); /*<
+	Returns the currently active context reset notification strategy.
+	See [glfunc Get], [glconst RESET_NOTIFICATION_STRATEGY].
+	>*/
+	static __GraphicsResetStatus GraphicsResetStatus(void); /*<
+	Returns the current GL context reset status.
+	See [glfunc GetGraphicsResetStatus].
+	>*/
+#endif
 };
 
 } // namespace context

@@ -24,9 +24,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glextref{ARB,robustness}
  */
-OGLPLUS_ENUM_CLASS_BEGIN(ResetNotificationStrategy, GLenum)
+OGLPLUS_ENUM_CLASS_BEGIN(ResetNotificationStrategyARB, GLenum)
 #include <oglplus/enums/ext/reset_notif_strategy.ipp>
-OGLPLUS_ENUM_CLASS_END(ResetNotificationStrategy)
+OGLPLUS_ENUM_CLASS_END(ResetNotificationStrategyARB)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/reset_notif_strategy_names.ipp>

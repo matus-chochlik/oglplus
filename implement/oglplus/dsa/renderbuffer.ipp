@@ -15,19 +15,19 @@
 
 namespace oglplus {
 
-#if GL_EXT_direct_state_access
+#if GL_VERSION_4_5 || GL_ARB_direct_state_access
 OGLPLUS_LIB_FUNC
 GLint ObjectOps<tag::DirectState, tag::Renderbuffer>::
 GetIntParam(GLenum query) const
 {
 	GLint result = 0;
-	OGLPLUS_GLFUNC(GetNamedRenderbufferParameterivEXT)(
+	OGLPLUS_GLFUNC(GetNamedRenderbufferParameteriv)(
 		_name,
 		query,
 		&result
 	);
 	OGLPLUS_VERIFY(
-		GetRenderbufferParameteriv,
+		GetNamedRenderbufferParameteriv,
 		ObjectError,
 		Object(*this).
 		EnumParam(query)
@@ -46,7 +46,7 @@ Storage(const images::ImageSpec& image_spec)
 	);
 }
 
-#endif // GL_EXT_direct_state_access
+#endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
 

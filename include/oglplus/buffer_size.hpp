@@ -80,6 +80,18 @@ public:
 	}
 };
 
+template <typename Type>
+class BufferTypedSize
+ : public BufferSize
+{
+public:
+	BufferTypedSize(void) { }
+
+	BufferTypedSize(GLsizeiptr count)
+	 : BufferSize(count, (Type*)nullptr)
+	{ }
+};
+
 } // namespace oglplus
 
 #endif // include guard

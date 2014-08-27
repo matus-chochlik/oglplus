@@ -17,6 +17,7 @@
 #include <oglplus/error/object.hpp>
 #include <oglplus/buffer_map_access.hpp>
 #include <oglplus/buffer_target.hpp>
+#include <oglplus/buffer_size.hpp>
 
 namespace oglplus {
 
@@ -74,16 +75,16 @@ public:
 	 */
 	BufferRawMap(
 		BufferTarget target,
-		GLintptr byte_offset,
-		GLsizeiptr size_bytes,
+		BufferSize byte_offset,
+		BufferSize size_bytes,
 		Bitfield<BufferMapAccess> access
-	): _offset(byte_offset)
-	 , _size(size_bytes)
+	): _offset(GLintptr(byte_offset.Get()))
+	 , _size(GLsizeiptr(size_bytes.Get()))
 	 , _ptr(
 		OGLPLUS_GLFUNC(MapBufferRange)(
 			GLenum(target),
-			byte_offset,
-			size_bytes,
+			_offset,
+			_size,
 			GLbitfield(access)
 		)
 	), _target(target)
@@ -210,12 +211,12 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	void FlushRange(GLintptr offset, GLsizeiptr length)
+	void FlushRange(BufferSize offset, BufferSize length)
 	{
 		OGLPLUS_GLFUNC(FlushMappedBufferRange)(
 			GLenum(_target),
-			offset,
-			length
+			GLintptr(offset.Get()),
+			GLsizeiptr(length.Get())
 		);
 		OGLPLUS_CHECK(
 			FlushMappedBufferRange,
@@ -242,15 +243,11 @@ public:
 	 */
 	BufferTypedMap(
 		BufferTarget target,
-		GLintptr offset,
-		GLsizeiptr size,
+		BufferTypedSize<Type> offset,
+		BufferTypedSize<Type> size,
 		Bitfield<BufferMapAccess> access
-	): BufferRawMap(
-		target,
-		offset * sizeof(Type),
-	 	size * sizeof(Type),
-		access
-	){ }
+	): BufferRawMap(target, offset, size, access)
+	{ }
 
 	/// Maps the whole buffer
 	/**
@@ -317,9 +314,12 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	void FlushElements(unsigned start, unsigned count)
+	void FlushElements(
+		BufferTypedSize<Type> start,
+		BufferTypedSize<Type> count
+	)
 	{
-		this->FlushRange(sizeof(Type)*start, sizeof(Type)*count);
+		this->FlushRange(start, count);
 	}
 };
 #endif // GL_VERSION_3_0

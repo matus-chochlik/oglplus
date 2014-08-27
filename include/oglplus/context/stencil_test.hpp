@@ -14,8 +14,8 @@
 #define OGLPLUS_CONTEXT_STENCIL_TEST_1201040722_HPP
 
 #include <oglplus/glfunc.hpp>
-#include <oglplus/compare_func.hpp>
-#include <oglplus/stencil_op.hpp>
+#include <oglplus/compare_function.hpp>
+#include <oglplus/stencil_operation.hpp>
 #include <oglplus/face_mode.hpp>
 
 namespace oglplus {

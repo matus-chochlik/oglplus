@@ -93,6 +93,38 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_MAX_CULL_DISTANCES
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined MaxCullDistances
+#  pragma push_macro("MaxCullDistances")
+#  undef MaxCullDistances
+   OGLPLUS_ENUM_CLASS_VALUE(MaxCullDistances, GL_MAX_CULL_DISTANCES)
+#  pragma pop_macro("MaxCullDistances")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(MaxCullDistances, GL_MAX_CULL_DISTANCES)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_CLIP_AND_CULL_DISTANCES
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined MaxCombinedClipAndCullDistances
+#  pragma push_macro("MaxCombinedClipAndCullDistances")
+#  undef MaxCombinedClipAndCullDistances
+   OGLPLUS_ENUM_CLASS_VALUE(MaxCombinedClipAndCullDistances, GL_MAX_COMBINED_CLIP_AND_CULL_DISTANCES)
+#  pragma pop_macro("MaxCombinedClipAndCullDistances")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(MaxCombinedClipAndCullDistances, GL_MAX_COMBINED_CLIP_AND_CULL_DISTANCES)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #if defined GL_MAX_COLOR_ATTACHMENTS
 # if OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA

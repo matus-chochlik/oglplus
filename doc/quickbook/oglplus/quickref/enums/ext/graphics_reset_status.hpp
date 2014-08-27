@@ -12,7 +12,7 @@
 //[oglplus_enums_ext_graphics_reset_status
 namespace oglplus {
 
-enum class GraphicsResetStatus : GLenum
+enum class GraphicsResetStatusARB : GLenum
 {
 	NoError              = GL_NO_ERROR,
 	GuiltyContextReset   = GL_GUILTY_CONTEXT_RESET_ARB,
@@ -21,9 +21,9 @@ enum class GraphicsResetStatus : GLenum
 };
 
 template <>
-__Range<GraphicsResetStatus> __EnumValueRange<GraphicsResetStatus>(void);
+__Range<GraphicsResetStatusARB> __EnumValueRange<GraphicsResetStatusARB>(void);
 
-__StrCRef __EnumValueName(GraphicsResetStatus);
+__StrCRef __EnumValueName(GraphicsResetStatusARB);
 
 } // namespace oglplus
 //]

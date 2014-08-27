@@ -18,9 +18,15 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_ARB_direct_state_access
 
-/// Class wrapping renderbuffer-related functionality with direct state access
+template <>
+struct ObjGenTag<tag::DirectState, tag::Buffer>
+{
+	typedef tag::Create Type;
+};
+
+/// Class wrapping buffer-related functionality with direct state access
 /** @note Do not use this class directly, use DSABuffer instead.
  *
  */
@@ -64,7 +70,7 @@ public:
 	 *  to the specifies @p size, without uploading any data.
 	 *
 	 *  @glsymbols
-	 *  @glfunref{NamedBufferDataEXT}
+	 *  @glfunref{NamedBufferData}
 	 *
 	 *  @see SubData
 	 *  @throws Error
@@ -74,14 +80,14 @@ public:
 		BufferUsage usage = BufferUsage::StaticDraw
 	)
 	{
-		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
+		OGLPLUS_GLFUNC(NamedBufferData)(
 			_name,
 			size.Get(),
 			nullptr,
 			GLenum(usage)
 		);
 		OGLPLUS_CHECK(
-			NamedBufferDataEXT,
+			NamedBufferData,
 			ObjectError,
 			Object(*this).
 			EnumParam(usage)
@@ -101,14 +107,14 @@ public:
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
 	{
-		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
+		OGLPLUS_GLFUNC(NamedBufferData)(
 			_name,
 			GLsizei(data.Size()),
 			data.Data(),
 			GLenum(usage)
 		);
 		OGLPLUS_CHECK(
-			NamedBufferDataEXT,
+			NamedBufferData,
 			ObjectError,
 			Object(*this).
 			EnumParam(usage)
@@ -163,14 +169,14 @@ public:
 		const BufferData& data
 	) const
 	{
-		OGLPLUS_GLFUNC(NamedBufferSubDataEXT)(
+		OGLPLUS_GLFUNC(NamedBufferSubData)(
 			_name,
 			GLintptr(offset.Get()),
 			GLsizei(data.Size()),
 			data.Data()
 		);
 		OGLPLUS_CHECK(
-			NamedBufferSubDataEXT,
+			NamedBufferSubData,
 			ObjectError,
 			Object(*this)
 		);
@@ -209,7 +215,7 @@ public:
 		BufferSize size
 	)
 	{
-		OGLPLUS_GLFUNC(NamedCopyBufferSubDataEXT)(
+		OGLPLUS_GLFUNC(CopyNamedBufferSubData)(
 			GetGLName(readbuffer),
 			GetGLName(writebuffer),
 			GLintptr(readoffset.Get()),
@@ -217,7 +223,7 @@ public:
 			GLsizeiptr(size.Get())
 		);
 		OGLPLUS_CHECK(
-			NamedCopyBufferSubDataEXT,
+			CopyNamedBufferSubData,
 			ObjectPairError,
 			Subject(readbuffer).
 			Object(writebuffer)
@@ -225,7 +231,6 @@ public:
 	}
 #endif // copy buffer
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
 	/// Clear the buffer data
 	/**
 	 *  @see Data
@@ -244,7 +249,7 @@ public:
 		const GLtype* data
 	) const
 	{
-		OGLPLUS_GLFUNC(ClearNamedBufferDataEXT)(
+		OGLPLUS_GLFUNC(ClearNamedBufferData)(
 			_name,
 			GLenum(internal_format),
 			GLenum(format),
@@ -252,7 +257,7 @@ public:
 			data
 		);
 		OGLPLUS_CHECK(
-			ClearNamedBufferDataEXT,
+			ClearNamedBufferData,
 			ObjectError,
 			Object(*this).
 			EnumParam(internal_format)
@@ -279,7 +284,7 @@ public:
 		const GLtype* data
 	) const
 	{
-		OGLPLUS_GLFUNC(ClearNamedBufferSubDataEXT)(
+		OGLPLUS_GLFUNC(ClearNamedBufferSubData)(
 			_name,
 			GLenum(internal_format),
 			GLintptr(offset.Get()),
@@ -289,13 +294,39 @@ public:
 			data
 		);
 		OGLPLUS_CHECK(
-			ClearNamedBufferSubDataEXT,
+			ClearNamedBufferSubData,
 			ObjectError,
 			Object(*this).
 			EnumParam(internal_format)
 		);
 	}
-#endif
+
+	void Storage(
+		const BufferData& data,
+		Bitfield<BufferStorageBit> flags
+	) const
+	{
+		OGLPLUS_GLFUNC(NamedBufferStorage)(
+			_name,
+			GLsizeiptr(data.Size()),
+			data.Data(),
+			GLbitfield(flags)
+		);
+		OGLPLUS_CHECK(
+			NamedBufferStorage,
+			ObjectError,
+			Object(*this)
+		);
+	}
+
+	void Storage(
+		BufferSize size,
+		const void* data,
+		Bitfield<BufferStorageBit> flags
+	) const
+	{
+		Storage(BufferData(size, data), flags);
+	}
 
 	/// Returns the buffer size
 	/**
@@ -568,9 +599,7 @@ inline DSABufferOps& operator << (
  */
 typedef Object<DSABufferOps> DSABuffer;
 
-#else
-#error Direct State Access Buffers not available
-#endif // GL_EXT_direct_state_access
+#endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
 

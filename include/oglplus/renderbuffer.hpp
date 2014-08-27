@@ -41,7 +41,7 @@ protected:
 		OGLPLUS_GLFUNC(GenRenderbuffers)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenRenderbuffers);
 	}
-#if GL_VERSION_4_5
+#if GL_VERSION_4_5 || GL_ARB_direct_state_access
 	static void Gen(tag::Create, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);

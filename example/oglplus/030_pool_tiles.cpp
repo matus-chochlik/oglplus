@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{030_pool_tiles}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -20,12 +20,12 @@
 #include <oglplus/shapes/plane.hpp>
 #include <oglplus/shapes/spiral_sphere.hpp>
 
-#include <oglplus/dsa/buffer.hpp>
-#include <oglplus/dsa/texture.hpp>
-#include <oglplus/dsa/framebuffer.hpp>
-#include <oglplus/dsa/renderbuffer.hpp>
-#include <oglplus/dsa/vertex_array.hpp>
-#include <oglplus/dsa/vertex_attrib.hpp>
+#include <oglplus/dsa/ext/buffer.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
+#include <oglplus/dsa/ext/framebuffer.hpp>
+#include <oglplus/dsa/ext/renderbuffer.hpp>
+#include <oglplus/dsa/ext/vertex_array.hpp>
+#include <oglplus/dsa/ext/vertex_attrib.hpp>
 
 #include <oglplus/images/load.hpp>
 #include <oglplus/images/random.hpp>
@@ -64,18 +64,18 @@ private:
 	Lazy<Uniform<Mat4f>> plane_camera_matrix, shape_camera_matrix;
 	Lazy<Uniform<Vec3f>> plane_camera_position;
 
-	DSAVertexArray plane, shape;
+	DSAVertexArrayEXT plane, shape;
 
-	DSABuffer plane_verts, plane_texcoords;
-	DSABuffer shape_verts, shape_normals;
+	DSABufferEXT plane_verts, plane_texcoords;
+	DSABufferEXT shape_verts, shape_normals;
 
 	// plane textures
-	DSATexture rand_tex, pict_tex, tile_tex, norm_tex;
+	DSATextureEXT rand_tex, pict_tex, tile_tex, norm_tex;
 	// Texture user for the simulation of reflection
-	DSATexture reflect_tex;
+	DSATextureEXT reflect_tex;
 
-	DSAFramebuffer fbo;
-	DSARenderbuffer rbo;
+	DSAFramebufferEXT fbo;
+	DSARenderbufferEXT rbo;
 
 	GLuint width, height, refl_tex_side, tile_tex_side;
 
@@ -214,13 +214,13 @@ public:
 
 		n_per_vertex = make_plane.Positions(data);
 		plane_verts.Data(data);
-		DSAVertexArrayAttrib(plane, plane_prog, "Position")
+		DSAVertexArrayAttribEXT(plane, plane_prog, "Position")
 			.Setup<GLfloat>(plane_verts, n_per_vertex)
 			.Enable();
 
 		n_per_vertex = make_plane.TexCoordinates(data);
 		plane_texcoords.Data(data);
-		DSAVertexArrayAttrib(plane, plane_prog, "TexCoord")
+		DSAVertexArrayAttribEXT(plane, plane_prog, "TexCoord")
 			.Setup<GLfloat>(plane_texcoords, n_per_vertex)
 			.Enable();
 
@@ -434,13 +434,13 @@ public:
 
 		n_per_vertex = make_shape.Positions(data);
 		shape_verts.Data(data);
-		DSAVertexArrayAttrib(shape, shape_prog, "Position")
+		DSAVertexArrayAttribEXT(shape, shape_prog, "Position")
 			.Setup<GLfloat>(shape_verts, n_per_vertex)
 			.Enable();
 
 		n_per_vertex = make_shape.Normals(data);
 		shape_normals.Data(data);
-		DSAVertexArrayAttrib(shape, shape_prog, "Normal")
+		DSAVertexArrayAttribEXT(shape, shape_prog, "Normal")
 			.Setup<GLfloat>(shape_normals, n_per_vertex)
 			.Enable();
 		//

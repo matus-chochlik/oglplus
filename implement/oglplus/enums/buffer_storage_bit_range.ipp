@@ -37,6 +37,9 @@ GL_DYNAMIC_STORAGE_BIT,
 #if defined GL_CLIENT_STORAGE_BIT
 GL_CLIENT_STORAGE_BIT,
 #endif
+#if defined GL_SPARSE_STORAGE_BIT_ARB
+GL_SPARSE_STORAGE_BIT_ARB,
+#endif
 0
 };
 return aux::CastIterRange<

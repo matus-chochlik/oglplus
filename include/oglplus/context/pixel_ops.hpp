@@ -123,6 +123,51 @@ public:
 		);
 		OGLPLUS_CHECK_SIMPLE(BlitFramebuffer);
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_ARB_direct_state_access
+	/// Transfers a rectangle of pixels from the read buffer the draw buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BlitNamedFramebuffer}
+	 */
+	static void BlitFramebuffer(
+		FramebufferName read,
+		FramebufferName draw,
+		GLint srcX0,
+		GLint srcY0,
+		GLint srcX1,
+		GLint srcY1,
+		GLint dstX0,
+		GLint dstY0,
+		GLint dstX1,
+		GLint dstY1,
+		Bitfield<oglplus::BufferSelectBit> mask,
+		BlitFilter filter
+	)
+	{
+		OGLPLUS_GLFUNC(BlitNamedFramebuffer)(
+			GetGLName(read),
+			GetGLName(draw),
+			srcX0,
+			srcY0,
+			srcX1,
+			srcY1,
+			dstX0,
+			dstY0,
+			dstX1,
+			dstY1,
+			GLbitfield(mask),
+			GLenum(filter)
+		);
+		OGLPLUS_CHECK(
+			BlitNamedFramebuffer,
+			ObjectPairError,
+			Subject(read).
+			Object(draw).
+			EnumParam(filter)
+		);
+	}
+#endif
 };
 
 } // namespace context

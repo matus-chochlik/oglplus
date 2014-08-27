@@ -12,16 +12,16 @@
 //[oglplus_enums_ext_reset_notif_strategy
 namespace oglplus {
 
-enum class ResetNotificationStrategy : GLenum
+enum class ResetNotificationStrategyARB : GLenum
 {
 	NoResetNotification = GL_NO_RESET_NOTIFICATION_ARB,
 	LoseContextOnReset  = GL_LOSE_CONTEXT_ON_RESET_ARB
 };
 
 template <>
-__Range<ResetNotificationStrategy> __EnumValueRange<ResetNotificationStrategy>(void);
+__Range<ResetNotificationStrategyARB> __EnumValueRange<ResetNotificationStrategyARB>(void);
 
-__StrCRef __EnumValueName(ResetNotificationStrategy);
+__StrCRef __EnumValueName(ResetNotificationStrategyARB);
 
 } // namespace oglplus
 //]

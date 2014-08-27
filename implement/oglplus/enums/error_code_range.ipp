@@ -46,6 +46,9 @@ GL_STACK_UNDERFLOW,
 #if defined GL_TABLE_TOO_LARGE
 GL_TABLE_TOO_LARGE,
 #endif
+#if defined GL_CONTEXT_LOST
+GL_CONTEXT_LOST,
+#endif
 0
 };
 return aux::CastIterRange<

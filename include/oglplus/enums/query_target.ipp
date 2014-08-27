@@ -22,7 +22,33 @@ AnySamplesPassed,
 /// PRIMITIVES_GENERATED: Number of primitives generated
 PrimitivesGenerated,
 /// TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN: TFB primitives written
-TransformFeedbackPrimitivesWritten
+TransformFeedbackPrimitivesWritten,
+/// VERTICES_SUBMITTED_ARB
+VerticesSubmitted,
+/// PRIMITIVES_SUBMITTED_ARB
+PrimitivesSubmitted,
+/// VERTEX_SHADER_INVOCATIONS_ARB
+VertexShaderInvocations,
+/// TESS_CONTROL_SHADER_PATCHES_ARB
+TessControlShaderPatches,
+/// TESS_EVALUATION_SHADER_INVOCATIONS_ARB
+TessEvaluationShaderInvocations,
+/// GEOMETRY_SHADER_INVOCATIONS
+GeometryShaderInvocations,
+/// GEOMETRY_SHADER_PRIMITIVES_EMITTED_ARB
+GeometryShaderPrimitivesEmitted,
+/// FRAGMENT_SHADER_INVOCATIONS_ARB
+FragmentShaderInvocations,
+/// COMPUTE_SHADER_INVOCATIONS_ARB
+ComputeShaderInvocations,
+/// CLIPPING_INPUT_PRIMITIVES_ARB
+ClippingInputPrimitives,
+/// CLIPPING_OUTPUT_PRIMITIVES_ARB
+ClippingOutputPrimitives,
+/// TRANSFORM_FEEDBACK_OVERFLOW_ARB
+TransformFeedbackOverflow,
+/// TRANSFORM_FEEDBACK_STREAM_OVERFLOW_ARB
+TransformFeedbackStreamOverflow
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 

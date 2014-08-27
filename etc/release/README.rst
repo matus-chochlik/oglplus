@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.50.0
+Release notes for version 0.51.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,54 +7,38 @@ Release notes for version 0.50.0
 Overview
 ========
 
-This release of `OGLplus`_ several smaller changes to various parts of the library,
-some new features like the smart-enum-values or the ``FragData`` class, updated
-build system, minor changes to the examples to show the new features and major
-updates to the Quickbook-based documentation.
+This release of `OGLplus`_ brings experimental support for several OpenGL 4.5
+features and new extensions, most notably wrappers for the direct state access
+functions, ``ARB_sparse_buffers``, ``ARB_robustness``, ``ARB_pipeline_statistics_query``
+and ``ARB_transform_feedback_overflow_query``. The old DSA object wrappers based
+on ``EXT_direct_state_access`` were renamed and moved to a new location. The ``Query``
+class has also been updated. Detection of GL 4.5 has been added to the build
+system and the Quickbook-based documentation has been updated.
 
 Changes
 =======
 
- - The ``Capability`` enumeration was updated.
+ - The ``ErrorCode`` enumeration was updated, the ``ContextReset`` value was added.
 
- - The implementation of the ``Vector`` class template was refactored and cleaned up.
+ - The ``QueryTarget`` enumeration was updated, new values from the ``ARB_pipeline_statistics_query`` and ``ARB_transform_feedback_overflow_query`` extensions were added.
 
- - Updates to GPU program variables:
+ - The ``LimitQuery`` enumeration was updated.
 
-    * Minor changes were made to the ``ProgVar`` class template.
-    * The ``FragData`` program variable wrapper for fragment data outputs was added.
-    * The ``Set`` member function was removed from ``UniformBlock``.
+ - The ``ContextReleaseBehavior``, ``ResetNotificationStrategy`` and ``GraphicsResetStatus`` enumerations from the ``ARB_robustness`` extensions were added.
 
- - Updates to ``StrCRef``:
+ - The old DSA wrappers based on ``EXT_direct_state_access`` were renamed.
 
-    * New constructors for ``std::vector<Char>``, ``std::array<Char>``, etc. were added.
-    * Equality comparison operators were added.
-    * ``StrCRef`` now replaces the ``StrLit`` C-string literal wrappers.
+ - New wrappers for the ``ARB_direct_state_access`` object DSA functions were added.
 
- - New syntax-sugar operators were added for ``Sampler`` operations.
+ - The ``Query`` class was updated:
+   
+   * The ``ConditionalRenderMode`` enumeration was added.
+   * The ``BeginConditionalRender`` and ``EndConditionalRender`` functions were added.
+   * The ``ConditionalRender`` class was added.
 
- - The ``oglplus::Error::Code`` function returning values of ``ErrorCode`` type was added.
-
- - Updates to the build system:
-
-    * Detection of GL version 4.5 was added.
-
- - Updates to the Range utilities:
-
-   * The ``Contains`` and ``Has`` functions were added.
-   * The ``CountIf`` function was added.
-
- - The implementation of the 'smart-enumerations' was updated and the 'smart-enum-values' were added.
-
- - Fixed problems:
-
-    * A bug in the 3D worley cell image generator was fixed.
-    * A minor bug was fixed in one of the standalone examples.
-    * The missing ``Size`` member function was added to ``StrQueryRange``.
 
 Breaking changes
 ================
 
- - The ``StrLit`` class has been completely replaced by ``StrCRef`` and its definition was removed.
+ - The old DSA object wrappers based on ``EXT_direct_state_access`` which were previously implemented in the ``./oglplus/dsa/*.hpp`` files were moved to the ``./oglplus/dsa/ext/`` subdirectory and renamed from ``DSA{Object}`` to ``DSA{Object}EXT``. The files implementing the new DSA object wrappers are now located in ``./oglplus/dsa/`` but the wrappers have a different interface.
  
- - The ``MultiplyBy`` and ``DivideBy`` functions of ``Vector`` were replaced by ``Multiply`` and ``Divide``.

@@ -12,11 +12,11 @@
 namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
-	GraphicsResetStatus
-> ValueRange_(GraphicsResetStatus*)
+	GraphicsResetStatusARB
+> ValueRange_(GraphicsResetStatusARB*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVR_GRAPHICSRESETSTATUS)
-#define OGLPLUS_IMPL_EVR_GRAPHICSRESETSTATUS
+	!defined(OGLPLUS_IMPL_EVR_GRAPHICSRESETSTATUSARB)
+#define OGLPLUS_IMPL_EVR_GRAPHICSRESETSTATUSARB
 {
 static const GLenum _values[] = {
 #if defined GL_NO_ERROR
@@ -35,7 +35,7 @@ GL_UNKNOWN_CONTEXT_RESET_ARB,
 };
 return aux::CastIterRange<
 	const GLenum*,
-	GraphicsResetStatus
+	GraphicsResetStatusARB
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
 #else

@@ -17,6 +17,9 @@
 
 #include <oglplus/context_profile_bit.hpp>
 #include <oglplus/context_flag_bit.hpp>
+#include <oglplus/context_release_behavior.hpp>
+#include <oglplus/graphics_reset_status.hpp>
+#include <oglplus/reset_notif_strategy.hpp>
 
 #include <cassert>
 
@@ -111,6 +114,55 @@ public:
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_CONTEXT_FLAGS, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return Bitfield<ContextFlagBit>(result);
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_KHR_context_flush_control
+	/// Query the flush control behavior
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{CONTEXT_RELEASE_BEHAVIOR}
+	 */
+	static ContextReleaseBehavior ReleaseBehavior(void)
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_CONTEXT_RELEASE_BEHAVIOR, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return ContextReleaseBehavior (result);
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5
+	/// Returns the context graphics reset notification strategy
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetIntegerv}
+	 *  @gldefref{RESET_NOTIFICATION_STRATEGY}
+	 */
+	static oglplus::ResetNotificationStrategy
+	ResetNotificationStrategy(void)
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_RESET_NOTIFICATION_STRATEGY,
+			&result
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return oglplus::ResetNotificationStrategy(result);
+	}
+
+	/// Returns the graphics reset status
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetGraphicsResetStatusARB}
+	 */
+	static oglplus::GraphicsResetStatus
+	GraphicsResetStatus(void)
+	{
+		GLenum result = OGLPLUS_GLFUNC(GetGraphicsResetStatus)();
+		OGLPLUS_VERIFY_SIMPLE(GetGraphicsResetStatus);
+		return oglplus::GraphicsResetStatus(result);
 	}
 #endif
 };

@@ -28,7 +28,9 @@ StackOverflow,
 /// STACK_UNDERFLOW
 StackUnderflow,
 /// TABLE_TOO_LARGE
-TableTooLarge
+TableTooLarge,
+/// CONTEXT_LOST
+ContextLost
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 

@@ -17,7 +17,7 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_ARB_direct_state_access
 
 class DSABufferRawMap
 {
@@ -30,13 +30,13 @@ private:
 	static GLsizeiptr _get_size(GLuint name)
 	{
 		GLint value = 0;
-		OGLPLUS_GLFUNC(GetNamedBufferParameterivEXT)(
+		OGLPLUS_GLFUNC(GetNamedBufferParameteriv)(
 			name,
 			GL_BUFFER_SIZE,
 			&value
 		);
 		OGLPLUS_CHECK(
-			GetNamedBufferParameterivEXT,
+			GetNamedBufferParameteriv,
 			ObjectError,
 			Object(BufferName(name))
 		);
@@ -68,22 +68,22 @@ public:
 	 */
 	DSABufferRawMap(
 		BufferName buffer,
-		GLintptr offset_bytes,
-		GLsizeiptr size_bytes,
+		BufferSize offset,
+		BufferSize size,
 		Bitfield<BufferMapAccess> access
-	): _offset(offset_bytes)
-	 , _size(size_bytes)
+	): _offset(GLintptr(offset.Get()))
+	 , _size(GLsizeiptr(size.Get()))
 	 , _ptr(
-		OGLPLUS_GLFUNC(MapNamedBufferRangeEXT)(
+		OGLPLUS_GLFUNC(MapNamedBufferRange)(
 			GetGLName(buffer),
-			offset_bytes,
-			size_bytes,
+			_offset,
+			_size,
 			GLbitfield(access)
 		)
 	), _name(GetGLName(buffer))
 	{
 		OGLPLUS_CHECK(
-			MapNamedBufferRangeEXT,
+			MapNamedBufferRange,
 			ObjectError,
 			Object(buffer)
 		);
@@ -104,14 +104,14 @@ public:
 	): _offset(0)
 	 , _size(_get_size(GetGLName(buffer)))
 	 , _ptr(
-		OGLPLUS_GLFUNC(MapNamedBufferEXT)(
+		OGLPLUS_GLFUNC(MapNamedBuffer)(
 			GetGLName(buffer),
 			_translate(GLbitfield(access))
 		)
 	), _name(GetGLName(buffer))
 	{
 		OGLPLUS_CHECK(
-			MapNamedBufferEXT,
+			MapNamedBuffer,
 			ObjectError,
 			Object(buffer)
 		);
@@ -144,7 +144,7 @@ public:
 	/// Unmaps the buffer from client address space
 	/**
 	 *  @glsymbols
-	 *  @glfunref{UnmapNamedBufferEXT}
+	 *  @glfunref{UnmapNamedBuffer}
 	 *
 	 *  @throws Error
 	 */
@@ -152,8 +152,8 @@ public:
 	{
 		if(_ptr != nullptr)
 		{
-			OGLPLUS_GLFUNC(UnmapNamedBufferEXT)(_name);
-			OGLPLUS_IGNORE(UnmapNamedBufferEXT);
+			OGLPLUS_GLFUNC(UnmapNamedBuffer)(_name);
+			OGLPLUS_IGNORE(UnmapNamedBuffer);
 			_ptr = nullptr;
 		}
 	}
@@ -189,6 +189,29 @@ public:
 		assert(Mapped());
 		return _ptr;
 	}
+
+	/// Indicate modifications to a mapped range
+	/**
+	 *  @glsymbols
+	 *  @glfunref{FlushMappedNamedBufferRange}
+	 *
+	 *  @pre Mapped()
+	 *
+	 *  @throws Error
+	 */
+	void FlushRange(BufferSize offset, BufferSize length)
+	{
+		OGLPLUS_GLFUNC(FlushMappedNamedBufferRange)(
+			_name,
+			GLintptr(offset.Get()),
+			GLsizeiptr(length.Get())
+		);
+		OGLPLUS_CHECK(
+			FlushMappedNamedBufferRange,
+			ObjectError,
+			Object(BufferName(_name))
+		);
+	}
 };
 
 /// Untyped mapping of the buffer to the client address space
@@ -208,15 +231,11 @@ public:
 	 */
 	DSABufferTypedMap(
 		BufferName buffer,
-		GLintptr offset,
-		GLsizeiptr size,
+		BufferTypedSize<Type> offset,
+		BufferTypedSize<Type> size,
 		Bitfield<BufferMapAccess> access
-	): DSABufferRawMap(
-		buffer,
-		offset * sizeof(Type),
-	 	size * sizeof(Type),
-		access
-	){ }
+	): DSABufferRawMap(buffer, offset, size, access)
+	{ }
 
 	/// Maps the whole buffer
 	/**
@@ -274,9 +293,7 @@ public:
 	}
 };
 
-#else
-#error Direct State Access Buffer maps not available
-#endif // GL_EXT_direct_state_access
+#endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
 
