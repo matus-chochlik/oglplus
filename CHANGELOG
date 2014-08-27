@@ -1,3 +1,31 @@
+Version 0.51.0
+
+- Smart enumeration values were added to OALplus and EGLplus.
+- The QueryTarget enumeration was updated.
+- The LimitQuery enumeration was updated.
+- The ErrorCode enumeration was updated.
+- Detection of GL 4.5 and ARB_direct_state_access was added to the build system.
+- Wrappers for GL 4.5 / ARB_direct_state_access functions for
+  - Texture
+  - Buffer
+  - Framebuffer
+  - Renderbuffer
+  - TransformFeedback
+  - VertexArray
+  - Vertex attributes
+  were added.
+- The EXT_direct_state_access wrappers were moved to the ./oglplus/dsa/ext
+  subdirectory.
+- The EXT_dsa wrappers were renamed from DSA{Object} to DSA{Object}EXT.
+- Wrappers for ARB_sparse_buffer and ARB_robustness were added.
+- The Query class was updated
+  - The BeginConditionalRender and EndConditionalRender functions were added.
+  - The ConditionalRenderMode enumeration was added.
+  - The ConditionalRender class was added.
+- Several header files were renamed.
+- The Quickbook documentation was updated.
+
+
 Version 0.50.0
 
 - Support for different methods of GL object construction was added.
