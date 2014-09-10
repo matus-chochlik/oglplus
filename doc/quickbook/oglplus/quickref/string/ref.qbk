@@ -14,10 +14,11 @@ It is used as an adaptor or a type erasure for other types storing strings,
 as parameter type to limit the number of overloads of functions performing
 the same task on strings stored in different manner.
 
-The lifetime management of the memory block where the string is stored
-is outside the scope of this class. This means that the actual type storing
+[note The lifetime management of the memory block where the string is stored
+is outside the scope of this class. This means that the actual object storing
 the string must not be destroyed while an instance of [^StrCRef] wrapping
 it is being used.
+]
 
 [import ref.hpp]
 [oglplus_string_ref]
