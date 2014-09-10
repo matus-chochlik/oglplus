@@ -433,9 +433,7 @@ public:
 	void GetImage(
 		GLint level,
 		PixelDataFormat format,
-		Property::PixDataType type,
-		GLsizei size,
-		GLvoid* buffer
+		const OutputData& dest
 	) const;
 
 	/// Allows to obtain the texture image in uncompressed form
@@ -453,21 +451,21 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetTexImage}
 	 */
-	template <typename T>
 	void GetImage(
 		GLint level,
 		PixelDataFormat format,
-		std::vector<T>& dest
+		Property::PixDataType type,
+		GLsizei size,
+		GLvoid* buffer
 	) const
 	{
-		GetImage(
-			level,
-			format,
-			GetDataType<T>(),
-			dest.size()*sizeof(T),
-			dest.data()
-		);
+		GetImage(level, format, OutputData(type, size, buffer));
 	}
+
+	void GetCompressedImage(
+		GLint level,
+		const OutputData& dest
+	) const;
 
 	/// Allows to obtain the texture image in compressed form
 	/** This function stores the image of the texture bound to
@@ -483,7 +481,10 @@ public:
 		GLint level,
 		GLsizei size,
 		GLubyte* buffer
-	) const;
+	) const
+	{
+		GetCompressedImage(level, OutputData(size, buffer));
+	}
 
 	/// Allows to obtain the texture image in compressed form
 	/** This function stores the image of the texture bound to

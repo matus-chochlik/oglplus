@@ -1,6 +1,6 @@
 /**
  *  @file oglplus/buffer_data.hpp
- *  @brief Object wrapping data to be stores in a Buffer
+ *  @brief Object wrapping data to be stored in a Buffer
  *
  *  @author Matus Chochlik
  *
