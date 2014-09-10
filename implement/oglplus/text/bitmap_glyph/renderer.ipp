@@ -18,10 +18,10 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 	const Sequence<ShaderName>& shaders
 ): _parent(parent)
  , _program(ObjectDesc("BitmapGlyphRenderer"))
- , _bitmap_sampler(_program, "oglpBitmap")
- , _metric_sampler(_program, "oglpMetric")
- , _pg_map_sampler(_program, "oglpPageMap")
- , _layout_width(_program, "oglpLayoutWidth")
+ , _bitmap_sampler(_program)
+ , _metric_sampler(_program)
+ , _pg_map_sampler(_program)
+ , _layout_width(_program)
  , _layout_width_active(false)
  , _prev_font_essence(nullptr)
  , _prev_layout_storage(nullptr)
@@ -189,6 +189,12 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 	_program.AttachShaders(shaders);
 
 	_program.Link();
+
+	_bitmap_sampler.BindTo("oglpBitmap");
+	_metric_sampler.BindTo("oglpMetric");
+	_pg_map_sampler.BindTo("oglpPageMap");
+	_layout_width.BindTo("oglpLayoutWidth");
+
 	ProgramUniform<GLuint>(_program, "GlyphsPerPage").Set(
 		BitmapGlyphGlyphsPerPage(_parent)
 	);
