@@ -60,7 +60,9 @@ FramebufferSRGB,
 /// DEBUG_OUTPUT_SYNCHRONOUS
 DebugOutputSynchronous,
 /// STREAM_RASTERIZATION_AMD
-StreamRasterization
+StreamRasterization,
+/// BLEND_ADVANCED_COHERENT_KHR
+BlendAdvancedCoherent
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 

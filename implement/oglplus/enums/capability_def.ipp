@@ -413,6 +413,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_BLEND_ADVANCED_COHERENT_KHR
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined BlendAdvancedCoherent
+#  pragma push_macro("BlendAdvancedCoherent")
+#  undef BlendAdvancedCoherent
+   OGLPLUS_ENUM_CLASS_VALUE(BlendAdvancedCoherent, GL_BLEND_ADVANCED_COHERENT_KHR)
+#  pragma pop_macro("BlendAdvancedCoherent")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(BlendAdvancedCoherent, GL_BLEND_ADVANCED_COHERENT_KHR)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif
