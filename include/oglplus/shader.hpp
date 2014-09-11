@@ -540,6 +540,7 @@ public:
  */
 typedef SpecShader<ShaderType::Vertex> VertexShader;
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_GEOMETRY_SHADER
 /// Geometry shader wrapper
 /**
  *  @see Shader
@@ -547,6 +548,7 @@ typedef SpecShader<ShaderType::Vertex> VertexShader;
  *  @ingroup oglplus_objects
  */
 typedef SpecShader<ShaderType::Geometry> GeometryShader;
+#endif
 
 /// Fragment shader wrapper
 /**
