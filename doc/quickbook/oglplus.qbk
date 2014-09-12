@@ -169,6 +169,7 @@
 [def __FaceOrientation [link oglplus.quickref.face_mode.orientation FaceOrientation]]
 [def __BlendFunction [link oglplus.quickref.blend_function BlendFunction]]
 [def __BlendEquation [link oglplus.quickref.blend_function BlendEquation]]
+[def __BlendEquationAdvanced [link oglplus.quickref.blend_function BlendEquationAdvanced]]
 [def __ColorBuffer [link oglplus.quickref.color_buffer ColorBuffer]]
 [def __BufferSelectBit [link oglplus.quickref.buffer_select_bit BufferSelectBit]]
 [def __ClearBit [link oglplus.quickref.context.buffer_clearing ClearBit]]
