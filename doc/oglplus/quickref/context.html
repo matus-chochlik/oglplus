@@ -1163,42 +1163,49 @@
 <span class="keyword">class</span> <span class="identifier">Blending</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquation</span><span class="special">(</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c0" href="context.html#oglplus.quickref.context.blending.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor">#if</span> <span class="identifier">GL_KHR_blend_equation_advanced</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendBarrier</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c0" href="context.html#oglplus.quickref.context.blending.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor">#endif</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquation</span><span class="special">(</span><a class="link" href="enums.html#oglplus.quickref.enums.one_of">OneOf</a><span class="special">&lt;</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquationAdvanced</a><span class="special">&gt;</span> <span class="identifier">eq</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c2" href="context.html#oglplus.quickref.context.blending.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_alpha</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c2" href="context.html#oglplus.quickref.context.blending.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c4" href="context.html#oglplus.quickref.context.blending.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquation</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c4" href="context.html#oglplus.quickref.context.blending.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquation</span><span class="special">(</span>
+		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
+		<a class="link" href="enums.html#oglplus.quickref.enums.one_of">OneOf</a><span class="special">&lt;</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquationAdvanced</a><span class="special">&gt;</span> <span class="identifier">eq</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c6" href="context.html#oglplus.quickref.context.blending.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_alpha</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c6" href="context.html#oglplus.quickref.context.blending.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c8" href="context.html#oglplus.quickref.context.blending.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="preprocessor">#endif</span>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFunc</span><span class="special">(</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src</span><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c8" href="context.html#oglplus.quickref.context.blending.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFunc</span><span class="special">(</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src</span><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c10" href="context.html#oglplus.quickref.context.blending.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_alpha</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_alpha</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c10" href="context.html#oglplus.quickref.context.blending.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c12" href="context.html#oglplus.quickref.context.blending.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFunc</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c12" href="context.html#oglplus.quickref.context.blending.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c14" href="context.html#oglplus.quickref.context.blending.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_alpha</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_alpha</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c14" href="context.html#oglplus.quickref.context.blending.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c16" href="context.html#oglplus.quickref.context.blending.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
 
@@ -1209,50 +1216,56 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c1"></a><a href="#oglplus.quickref.context.blending.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Sets the blending equation. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendEquation.xml" target="_top">glBlendEquation</a></code>.
+                Specifies boundaries between blending passes.
               </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c3"></a><a href="#oglplus.quickref.context.blending.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Sets the blend equation separately for RGB and alpha. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendEquationSeparate.xml" target="_top">glBlendEquationSeparate</a></code>.
+                Sets the blending equation. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendEquation.xml" target="_top">glBlendEquation</a></code>.
               </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c5"></a><a href="#oglplus.quickref.context.blending.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the blend equation separately for RGB and alpha. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendEquationSeparate.xml" target="_top">glBlendEquationSeparate</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c7"></a><a href="#oglplus.quickref.context.blending.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blend equation for a particular draw <code class="literal">buffer</code>
                 See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendEquationi.xml" target="_top">glBlendEquationi</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c7"></a><a href="#oglplus.quickref.context.blending.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c9"></a><a href="#oglplus.quickref.context.blending.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blend equation separate for RGB and alpha for the specified
                 draw <code class="literal">buffer</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendEquationSeparatei.xml" target="_top">glBlendEquationSeparatei</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c9"></a><a href="#oglplus.quickref.context.blending.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c11"></a><a href="#oglplus.quickref.context.blending.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blend function. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendFunc.xml" target="_top">glBlendFunc</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c11"></a><a href="#oglplus.quickref.context.blending.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c13"></a><a href="#oglplus.quickref.context.blending.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blend function separately for RGB and alpha. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendFuncSeparate.xml" target="_top">glBlendFuncSeparate</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c13"></a><a href="#oglplus.quickref.context.blending.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c15"></a><a href="#oglplus.quickref.context.blending.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blend function for a particular draw <code class="literal">buffer</code>.
                 See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendFunci.xml" target="_top">glBlendFunci</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c15"></a><a href="#oglplus.quickref.context.blending.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c17"></a><a href="#oglplus.quickref.context.blending.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blend function separately for RGB and alpha for a particular
                 draw <code class="literal">buffer</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendFuncSeparatei.xml" target="_top">glBlendFuncSeparatei</a></code>.

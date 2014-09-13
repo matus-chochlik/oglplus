@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Error handling</title>
+<title>Error reporting and handling</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="oglplus.org">
@@ -15,7 +15,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="oglplus.quickref.error"></a><a class="link" href="error.html" title="Error handling">Error handling</a>
+<a name="oglplus.quickref.error"></a><a class="link" href="error.html" title="Error reporting and handling">Error reporting and handling</a>
 </h2></div></div></div>
 <div class="toc"><dl class="toc">
 <dt><span class="section"><a href="error.html#oglplus.quickref.error.code">Error code enumeration</a></span></dt>
@@ -28,6 +28,17 @@
 <dt><span class="section"><a href="error.html#oglplus.quickref.error.program">Program build errors</a></span></dt>
 <dt><span class="section"><a href="error.html#oglplus.quickref.error.framebuffer">Framebuffer errors</a></span></dt>
 </dl></div>
+<p>
+          In order to detect and report any errors that occured during the calls
+          to OpenGL functions, OGLplus consistently checks the result of the <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetError.xml" target="_top">glGetError</a></code>
+          function and if an error is indicated it throws an instance of an appropriate
+          exception class. The exceptions (described below) contain a lot of useful
+          information about the error and are highly configurable. In debug builds
+          all available information about the errors can be included, on the other
+          hand when high performance is required most of the data members can be
+          compiled-away by setting the appropriate <a class="link" href="config.html#oglplus.quickref.config.error" title="Error-related">compile-time
+          configuration options</a> making the exceptions more lightweight.
+        </p>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oglplus.quickref.error.code"></a><a class="link" href="error.html#oglplus.quickref.error.code" title="Error code enumeration">Error code enumeration</a>

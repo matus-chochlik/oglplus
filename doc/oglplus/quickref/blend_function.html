@@ -71,6 +71,34 @@
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">BlendEquationAdvanced</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Multiply</span>      <span class="special">=</span> <span class="identifier">GL_MULTIPLY_KHR</span><span class="special">,</span>
+	<span class="identifier">Screen</span>        <span class="special">=</span> <span class="identifier">GL_SCREEN_KHR</span><span class="special">,</span>
+	<span class="identifier">Overlay</span>       <span class="special">=</span> <span class="identifier">GL_OVERLAY_KHR</span><span class="special">,</span>
+	<span class="identifier">Darken</span>        <span class="special">=</span> <span class="identifier">GL_DARKEN_KHR</span><span class="special">,</span>
+	<span class="identifier">Lighten</span>       <span class="special">=</span> <span class="identifier">GL_LIGHTEN_KHR</span><span class="special">,</span>
+	<span class="identifier">Colordodge</span>    <span class="special">=</span> <span class="identifier">GL_COLORDODGE_KHR</span><span class="special">,</span>
+	<span class="identifier">Colorburn</span>     <span class="special">=</span> <span class="identifier">GL_COLORBURN_KHR</span><span class="special">,</span>
+	<span class="identifier">Hardlight</span>     <span class="special">=</span> <span class="identifier">GL_HARDLIGHT_KHR</span><span class="special">,</span>
+	<span class="identifier">Softlight</span>     <span class="special">=</span> <span class="identifier">GL_SOFTLIGHT_KHR</span><span class="special">,</span>
+	<span class="identifier">Difference</span>    <span class="special">=</span> <span class="identifier">GL_DIFFERENCE_KHR</span><span class="special">,</span>
+	<span class="identifier">Exclusion</span>     <span class="special">=</span> <span class="identifier">GL_EXCLUSION_KHR</span><span class="special">,</span>
+	<span class="identifier">HSLHue</span>        <span class="special">=</span> <span class="identifier">GL_HSL_HUE_KHR</span><span class="special">,</span>
+	<span class="identifier">HSLSaturation</span> <span class="special">=</span> <span class="identifier">GL_HSL_SATURATION_KHR</span><span class="special">,</span>
+	<span class="identifier">HSLColor</span>      <span class="special">=</span> <span class="identifier">GL_HSL_COLOR_KHR</span><span class="special">,</span>
+	<span class="identifier">HSLLuminosity</span> <span class="special">=</span> <span class="identifier">GL_HSL_LUMINOSITY_KHR</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">BlendEquationAdvanced</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">BlendEquationAdvanced</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">BlendEquationAdvanced</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>

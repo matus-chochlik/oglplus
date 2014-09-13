@@ -7,7 +7,7 @@
 <link rel="home" href="../../index.html" title="oglplus.org">
 <link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
 <link rel="prev" href="concept.html" title="Concepts">
-<link rel="next" href="error.html" title="Error handling">
+<link rel="next" href="error.html" title="Error reporting and handling">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
@@ -90,12 +90,18 @@
             of functions performing the same task on strings stored in different
             manner.
           </p>
-<p>
-            The lifetime management of the memory block where the string is stored
-            is outside the scope of this class. This means that the actual type storing
-            the string must not be destroyed while an instance of <code class="literal">StrCRef</code>
-            wrapping it is being used.
-          </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              The lifetime management of the memory block where the string is stored
+              is outside the scope of this class. This means that the actual object
+              storing the string must not be destroyed while an instance of <code class="literal">StrCRef</code>
+              wrapping it is being used.
+            </p></td></tr>
+</table></div>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">StrCRef</span>
