@@ -7,8 +7,32 @@
 [/---------------------------------]
 
 [header oglplus/renderbuffer.hpp]
-
 [import renderbuffer.hpp]
-[oglplus_renderbuffer]
+
+[heading Common renderbuffer operations]
+
+[oglplus_renderbuffer_common]
+
+[heading Renderbuffer zero operations]
+
+[oglplus_renderbuffer_zero]
+
+[heading Operations with explicit selector]
+
+[oglplus_renderbuffer_1]
+
+[heading:def Definitions]
+
+[oglplus_renderbuffer_2]
+
+[heading:syntax_sugar Syntax sugar operators]
+
+[oglplus_renderbuffer_sugar]
+
+[heading:target Target]
+
+[header oglplus/renderbuffer_target.hpp]
+[import enums/renderbuffer_target.hpp]
+[oglplus_enums_renderbuffer_target]
 
 [endsect]

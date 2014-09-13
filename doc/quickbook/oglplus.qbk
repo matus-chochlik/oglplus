@@ -128,6 +128,9 @@
 [def __FramebufferStatus [link oglplus.quickref.framebuffer.status FramebufferStatus]]
 
 [def __Renderbuffer [link oglplus.quickref.renderbuffer Renderbuffer]]
+[def __NoRenderbuffer [link oglplus.quickref.renderbuffer.def NoRenderbuffer]]
+[def __RenderbufferTarget [link oglplus.quickref.renderbuffer.target RenderbufferTarget]]
+
 [def __Shader [link oglplus.quickref.shader Shader]]
 [def __Program [link oglplus.quickref.program Program]]
 [def __ProgramPipeline [link oglplus.quickref.program_pipeline ProgramPipeline]]
