@@ -536,7 +536,7 @@ ActiveUniformBlocks(void) const
 #if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 
 OGLPLUS_LIB_FUNC
-GLuint ShaderProgram::_make(
+ProgramName ShaderProgram::_make(
 	ShaderType shader_type,
 	GLsizei count,
 	const GLchar* const* strings
@@ -552,7 +552,7 @@ GLuint ShaderProgram::_make(
 		Error,
 		EnumParam(shader_type)
 	);
-	return program;
+	return ProgramName(program);
 }
 
 OGLPLUS_LIB_FUNC
