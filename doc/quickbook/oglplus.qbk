@@ -212,6 +212,9 @@
 
 [def __AnyRange [link oglplus.quickref.utils.ranges.any AnyRange]]
 
+
+[def __images_ImageSpec [link oglplus.quickref.images.image_spec images::ImageSpec]]
+
 [def __OGLPLUS_NO_SITE_CONFIG [link oglplus.quickref.config.compiler [^OGLPLUS_NO_SITE_CONFIG]]]
 
 [def __OGLPLUS_USE_BOOST_CONFIG [link oglplus.quickref.config.site.boost_config
