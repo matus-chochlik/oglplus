@@ -1,3 +1,16 @@
+Version 0.52.0
+
+- The tools for automatic-generation of the enumeration headers were updated
+  and the headers were re-generated.
+- The OutputData class was added and used in Texture.
+- Regressions in the text rendering utilities were fixed.
+- Regressions in GLES v3 and android support were fixed.
+- Wrappers and enumerations for KHR_blend_equation_advanced were added.
+- New constructor was added to the ProgVar template.
+- The Object template was refactored, ObjHandle was added.
+- The documentation was updated.
+
+
 Version 0.51.0
 
 - Smart enumeration values were added to OALplus and EGLplus.
