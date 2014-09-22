@@ -22,6 +22,8 @@
 
 #include <cassert>
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+
 namespace oglplus {
 
 template <>
@@ -133,5 +135,7 @@ typedef ProgVar<
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 #include <oglplus/frag_data.ipp>
 #endif
+
+#endif // GL_VERSION_3_0
 
 #endif // include guard

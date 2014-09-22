@@ -106,11 +106,11 @@ void ExampleFormatErrorMessage(
 {
 	output	<< "'" << error.what()
 		<< "' in '"
-		<< error.GLSymbol()
+		<< error.GLFunc()
 		<< "' at ["
-		<< error.File()
+		<< error.SourceFile()
 		<< ":"
-		<< error.Line()
+		<< error.SourceLine()
 		<< "]"
 		<< std::endl;
 }

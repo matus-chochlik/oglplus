@@ -18,6 +18,7 @@
 #include <oglplus/prog_var/location.hpp>
 #include <oglplus/prog_var/typecheck.hpp>
 #include <cassert>
+#include <new>
 
 namespace oglplus {
 
@@ -72,6 +73,14 @@ public:
 	/// Variable with the specified @p identifier in the specified @p program
 	ProgVar(ProgramName program, StrCRef identifier, bool active_only)
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier, active_only))
+	 , Typecheck((BaseType*)0)
+	{
+		Typecheck::CheckType(program, this->_location, identifier);
+	}
+
+	/// Variable with the specified @p identifier in the specified @p program
+	ProgVar(ProgramName program, StrCRef identifier, std::nothrow_t)
+	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier, false))
 	 , Typecheck((BaseType*)0)
 	{
 		Typecheck::CheckType(program, this->_location, identifier);
@@ -190,6 +199,11 @@ public:
 	ProgVar(ProgramName program, StrCRef identifier, bool active_only)
 	 : BaseOps(ProgVarLoc<VarTag>(program, identifier, active_only))
 	{ }
+
+	/// Variable with the specified @p identifier in the specified @p program
+	ProgVar(ProgramName program, StrCRef identifier, std::nothrow_t)
+	 : BaseOps(ProgVarLoc<VarTag>(program, identifier, false))
+	{ }
 };
 
 #if !OGLPLUS_NO_INHERITED_CONSTRUCTORS
@@ -205,7 +219,9 @@ public:
 	PROG_VAR(ProgramName program, StrCRef identifier) \
 	 : BASE(program, identifier) { } \
 	PROG_VAR(ProgramName program, StrCRef identifier, bool active_only) \
-	 : BASE(program, identifier, active_only) { }
+	 : BASE(program, identifier, active_only) { } \
+	PROG_VAR(ProgramName program, StrCRef identifier, std::nothrow_t nt) \
+	 : BASE(program, identifier, nt) { }
 #endif
 
 #if !OGLPLUS_NO_TEMPLATE_ALIASES

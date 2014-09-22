@@ -1033,7 +1033,6 @@ inline BufferTarget operator << (
 }
 
 // SubData
-template <typename GLtype>
 inline BufferTarget operator << (
 	BufferTargetAndOffset&& tao,
 	const BufferData& data

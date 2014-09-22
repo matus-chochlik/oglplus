@@ -72,10 +72,12 @@ public:
 	static __FramebufferStatus Status(Target target); /*<
 	Returns the status of the framebuffer currently bound
 	to the specified [^target].
+	See [glfunc CheckFramebufferStatus].
 	>*/
 	static bool IsComplete(Target target); /*<
 	Returns true if the framebuffer currently bound to the specified
 	[^target] is complete.
+	See [glfunc CheckFramebufferStatus].
 	>*/
 	static void Complete(Target target); /*<
 	Throws an __IncompleteFramebuffer exception if the framebuffer
@@ -89,6 +91,7 @@ public:
 	); /*<
 	Attaches a [^renderbuffer] object as an [^attachment] to the framebuffer
 	currently bound to the specified [^target].
+	See [glfunc FramebufferRenderbuffer].
 	>*/
 	static void AttachColorRenderbuffer(
 		Target target,
@@ -109,6 +112,7 @@ public:
 	); /*<
 	Attaches the specified [^texture] [^level] as an attachment
 	to the framebuffer currently bound to the specified [^target].
+	See [glfunc FramebufferTexture].
 	>*/
 	static void AttachColorTexture(
 		Target target,
@@ -132,6 +136,8 @@ public:
 	Attaches the [^level] (or [^level]'s [^layer]) of a 1D, 2D or 3D
 	[^texture] with type specified by [^textarget], as an [^attachment]
 	of the framebuffer currently bound to the specified [^target].
+	See [glfunc FramebufferTexture1D], [glfunc FramebufferTexture2D],
+	[glfunc FramebufferTexture3D].
 	>*/
 	static void AttachTexture2D(
 		Target target,
@@ -159,6 +165,7 @@ public:
 	Attaches the [^level] (or [^level]'s [^layer]) of a 1D, 2D or 3D
 	[^texture] as an [^attachment] of the framebuffer currently bound
 	to the specified [^target].
+	See [glfunc FramebufferTextureLayer].
 	>*/
 //]
 //[oglplus_framebuffer_2
@@ -170,6 +177,7 @@ public:
 	); /*<
 	Invalidates the specified attachments or [^buffers] of the framebuffer
 	currently bound to the specified [^target].
+	See [glfunc InvalidateFramebuffer].
 	>*/
 	static void Invalidate(
 		Target target,
@@ -188,6 +196,7 @@ public:
 	Invalidates parts (specified by [^x], [^y], [^width] and [^height])
 	of attachments or [^buffers] of the framebuffer currently bound to
 	the specified [^target].
+	See [glfunc InvalidateSubFramebuffer].
 	>*/
 	static void Invalidate(
 		Target target,
@@ -200,6 +209,77 @@ public:
 	);
 #endif
 };
+//]
+//[oglplus_framebuffer_3
+
+typedef ObjectOps<__tag_ExplicitSel, __tag_Framebuffer>
+	FramebufferOps;
+
+typedef __Object<FramebufferOps> Framebuffer;
+
+typedef __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Framebuffer>>
+	DefaultFramebuffer;
+//]
+//[oglplus_framebuffer_sugar
+
+
+struct FramebufferComplete { }; /*<
+Helper class used with syntax-sugar operators.
+Selects the Complete member function.
+>*/
+struct FramebufferTargetAndAttch { };  /*<
+Helper class used with syntax-sugar operators.
+Stores a framebuffer target and attachment.
+>*/
+
+FramebufferTargetAndAttch operator | (
+	__FramebufferTarget target,
+	FramebufferOps::Property::Attachment attachment
+); /*<
+These two operators both tie a framebuffer target and attachment
+into a single object for use with subsequent operators.
+>*/
+FramebufferTargetAndAttch operator << (
+	__FramebufferTarget target,
+	FramebufferOps::Property::Attachment attachment
+);
+
+__FramebufferTarget operator << (
+	FramebufferOps fbo,
+	__FramebufferTarget target
+); /*<
+Equivalent to [^fbo.Bind(target)].
+>*/
+FramebufferTarget operator << (
+	DefaultFramebuffer dfb,
+	FramebufferTarget target
+);
+
+#if GL_VERSION_3_2
+__FramebufferTarget operator << (
+	FramebufferTargetAndAttch taa,
+	__TextureName tex
+); /*<
+Attaches [^tex] to the attachment of a framebuffer bound to a target
+specified by [^taa].
+>*/
+#endif
+
+// AttachRenderbuffer
+__FramebufferTarget operator << (
+	FramebufferTargetAndAttch taa,
+	__RenderbufferName rbo
+); /*<
+Attaches [^rbo] to the attachment of a framebuffer bound to a target
+specified by [^taa].
+>*/
+
+__FramebufferTarget operator << (
+	__FramebufferTarget target,
+	FramebufferComplete
+); /*<
+Equivalent to [^FramebufferOps::Complete(target)].
+>*/
 
 } // namespace oglplus
 //]

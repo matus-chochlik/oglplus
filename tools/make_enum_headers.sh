@@ -41,212 +41,6 @@ function MakeEnumBaseType()
 
 ShortEnumTempDir=$(mktemp -d)
 
-# Creates the following files:
-#  ${LibName}/enums/${InputName}.ipp
-#  ${LibName}/enums/${InputName}_def.ipp
-#  ${LibName}/enums/${InputName}_names.ipp
-function MakeEnumHeaders()
-{
-LibPrefixUC="${1}"
-LibNameLC="${2}"
-LibNameUC=${LibNameLC^^}
-local InputFiles="${InputDir}/${LibNameLC}/*.txt"
-shift 2
-for SubDir
-do InputFiles="${InputFiles} ${InputDir}/${LibNameLC}/${SubDir}/*.txt"
-done
-
-for InputFile in ${InputFiles}
-do
-	InputName="${InputFile#${InputDir}/${LibNameLC}/}"
-	InputName=${InputName%.txt}
-
-	OutputFile="${LibNameLC}/enums/${InputName}.ipp"
-	OutputPath="${RootDir}/include/${OutputFile}"
-
-	[[ ${InputFile} -ot ${OutputPath} ]] ||
-	(
-	echo "${InputName}" 1>&2
-	mkdir -p $(dirname ${OutputPath})
-	exec > ${OutputPath}
-	PrintFileHeader ${InputFile} ${OutputFile}
-
-	IFS=':'
-	unset Comma
-	echo "#if ${LibNameUC}_DOCUMENTATION_ONLY"
-	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read XL_DEF OXLPLUS_DEF AQ DOCUMENTATION BQ X
-	do
-		if [ "${OXLPLUS_DEF}" == "" ]
-		then OXLPLUS_DEF=$(echo ${XL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
-		fi
-
-		echo "${Comma}"
-		echo "/// ${XL_DEF}${DOCUMENTATION:+: }${DOCUMENTATION}"
-		echo -n "${OXLPLUS_DEF}"
-		Comma=","
-	done
-	echo
-	echo
-	echo "#else // !${LibNameUC}_DOCUMENTATION_ONLY"
-	echo
-	echo "#include <${LibNameLC}/enums/${InputName}_def.ipp>"
-	echo
-	echo "#endif"
-	)
-	git add ${OutputPath}
-
-	#
-	OutputFile="${LibNameLC}/enums/${InputName}_def.ipp"
-	OutputPath="${RootDir}/implement/${OutputFile}"
-
-	[[ ${InputFile} -ot ${OutputPath} ]] ||
-	(
-	exec > ${OutputPath}
-	PrintFileHeader ${InputFile} ${OutputFile}
-
-	echo "#ifdef ${LibNameUC}_LIST_NEEDS_COMMA"
-	echo "# undef ${LibNameUC}_LIST_NEEDS_COMMA"
-	echo "#endif"
-	echo
-	#
-	IFS=':'
-	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read XL_DEF OXLPLUS_DEF AQ DOCUMENTATION BQ PREFIX X
-	do
-		if [ "${OXLPLUS_DEF}" == "" ]
-		then OXLPLUS_DEF=$(echo ${XL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
-		fi
-
-		LibPrefix=${PREFIX:-${LibPrefixUC}}
-		echo "#if defined ${LibPrefix}_${XL_DEF}"
-		echo "# if ${LibNameUC}_LIST_NEEDS_COMMA"
-		echo "   ${LibNameUC}_ENUM_CLASS_COMMA"
-		echo "# endif"
-
-		echo "# if defined ${OXLPLUS_DEF}"
-		echo "#  pragma push_macro(\"${OXLPLUS_DEF}\")"
-		echo "#  undef ${OXLPLUS_DEF}"
-		echo "   ${LibNameUC}_ENUM_CLASS_VALUE(${OXLPLUS_DEF}, ${LibPrefix}_${XL_DEF})"
-		echo "#  pragma pop_macro(\"${OXLPLUS_DEF}\")"
-		echo "# else"
-		echo "   ${LibNameUC}_ENUM_CLASS_VALUE(${OXLPLUS_DEF}, ${LibPrefix}_${XL_DEF})"
-		echo "# endif"
-
-		echo "# ifndef ${LibNameUC}_LIST_NEEDS_COMMA"
-		echo "#  define ${LibNameUC}_LIST_NEEDS_COMMA 1"
-		echo "# endif"
-		echo "#endif"
-	done
-	echo "#ifdef ${LibNameUC}_LIST_NEEDS_COMMA"
-	echo "# undef ${LibNameUC}_LIST_NEEDS_COMMA"
-	echo "#endif"
-	echo
-	)
-	git add ${OutputPath}
-
-
-	OutputFile="${LibNameLC}/enums/${InputName}_names.ipp"
-	OutputPath="${RootDir}/implement/${OutputFile}"
-
-	[[ ${InputFile} -ot ${OutputPath} ]] ||
-	(
-	echo "${InputName}" 1>&2
-	mkdir -p $(dirname ${OutputPath})
-	exec > ${OutputPath}
-	#
-	PrintFileHeader ${InputFile} ${OutputFile}
-	#
-	EnumClass=$(MakeEnumClass ${InputFile})
-	EnumBaseType=$(MakeEnumBaseType ${InputFile})
-	#
-	echo "namespace enums {"
-	echo "${LibNameUC}_LIB_FUNC StrCRef ValueName_("
-	echo "	${EnumClass}*,"
-	echo "	${LibPrefixUC}${EnumBaseType} value"
-	echo ")"
-	echo "#if (!${LibNameUC}_LINK_LIBRARY || defined(${LibNameUC}_IMPLEMENTING_LIBRARY)) && \\"
-	echo "	!defined(${LibNameUC}_IMPL_EVN_${EnumClass^^})"
-	echo "#define ${LibNameUC}_IMPL_EVN_${EnumClass^^}"
-	echo "{"
-	echo "switch(value)"
-	echo "{"
-	IFS=':'
-	unset Comma
-	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read XL_DEF OXLPLUS_DEF AQ DOCUMENTATION BQ PREFIX X
-	do
-		LibPrefix=${PREFIX:-${LibPrefixUC}}
-		echo "#if defined ${LibPrefix}_${XL_DEF}"
-		echo "	case ${LibPrefix}_${XL_DEF}: return StrCRef(\"${XL_DEF}\");"
-		echo "#endif"
-	done
-	echo "	default:;"
-	echo "}"
-	echo "${LibNameUC}_FAKE_USE(value);"
-	echo "return StrCRef();"
-	echo "}"
-	echo "#else"
-	echo ";"
-	echo "#endif"
-	echo "} // namespace enums"
-	echo
-	)
-
-	git add ${OutputPath}
-
-	OutputFile="${LibNameLC}/enums/${InputName}_range.ipp"
-	OutputPath="${RootDir}/implement/${OutputFile}"
-
-	[[ ${InputFile} -ot ${OutputPath} ]] ||
-	(
-	echo "${InputName}" 1>&2
-	mkdir -p $(dirname ${OutputPath})
-	exec > ${OutputPath}
-	#
-	PrintFileHeader ${InputFile} ${OutputFile}
-	#
-	EnumClass=$(MakeEnumClass ${InputFile})
-	EnumBaseType=$(MakeEnumBaseType ${InputFile})
-	#
-	echo "namespace enums {"
-	echo "${LibNameUC}_LIB_FUNC aux::CastIterRange<"
-	echo "	const ${LibPrefixUC}${EnumBaseType}*,"
-	echo "	${EnumClass}"
-	echo "> ValueRange_(${EnumClass}*)"
-	echo "#if (!${LibNameUC}_LINK_LIBRARY || defined(${LibNameUC}_IMPLEMENTING_LIBRARY)) && \\"
-	echo "	!defined(${LibNameUC}_IMPL_EVR_${EnumClass^^})"
-	echo "#define ${LibNameUC}_IMPL_EVR_${EnumClass^^}"
-	echo "{"
-	echo "static const ${LibPrefixUC}${EnumBaseType} _values[] = {"
-	IFS=':'
-	unset Comma
-	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read XL_DEF OXLPLUS_DEF AQ DOCUMENTATION BQ PREFIX X
-	do
-		LibPrefix=${PREFIX:-${LibPrefixUC}}
-		echo "#if defined ${LibPrefix}_${XL_DEF}"
-		echo "${LibPrefix}_${XL_DEF},"
-		echo "#endif"
-	done
-	echo "0"
-	echo "};"
-	echo "return aux::CastIterRange<"
-	echo "	const ${LibPrefixUC}${EnumBaseType}*,"
-	echo "	${EnumClass}"
-	echo ">(_values, _values+sizeof(_values)/sizeof(_values[0])-1);"
-	echo "}"
-	echo "#else"
-	echo ";"
-	echo "#endif"
-	echo "} // namespace enums"
-	echo
-	)
-
-	git add ${OutputPath}
-done
-} # MakeEnumHeaders()
-
 # Creates the ${LibName}/lib/enum_value_name.ipp file
 function MakeEnumValueName()
 {(
@@ -461,7 +255,6 @@ git add ${OutputPath}
 
 if [ $# -eq 0 ] || [ "${1}" == "oglplus" ]
 then
-	MakeEnumHeaders GL oglplus ext
 	MakeEnumValueName GL oglplus ext
 	MakeEnumValueRange GL oglplus ext
 	MakeEnumBQHeaders GL oglplus ext
@@ -470,14 +263,12 @@ fi
 
 if [ $# -eq 0 ] || [ "${1}" == "oalplus" ]
 then
-	MakeEnumHeaders AL oalplus
 	MakeEnumValueName AL oalplus
 	MakeEnumValueRange AL oalplus
 fi
 
 if [ $# -eq 0 ] || [ "${1}" == "eglplus" ]
 then
-	MakeEnumHeaders EGL eglplus
 	MakeEnumValueName EGL eglplus
 	MakeEnumValueRange EGL eglplus
 fi

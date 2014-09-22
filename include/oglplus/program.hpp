@@ -985,14 +985,14 @@ class ShaderProgram
  : public Program
 {
 private:
-	static GLuint _make(
+	static ProgramName _make(
 		ShaderType shader_type,
 		GLsizei count,
 		const GLchar* const* strings
 	);
 
 	template <typename Src>
-	static GLuint _make(ShaderType shader_type, const Src& source)
+	static ProgramName _make(ShaderType shader_type, const Src& source)
 	{
 		return _make(shader_type, source.Count(), source.Parts());
 	}

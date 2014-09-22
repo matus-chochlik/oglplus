@@ -30,6 +30,7 @@
 #include <oglplus/texture_wrap.hpp>
 #include <oglplus/texture_unit.hpp>
 #include <oglplus/one_of.hpp>
+#include <oglplus/output_data.hpp>
 #include <oglplus/images/fwd.hpp>
 #include <cassert>
 
@@ -913,9 +914,7 @@ public:
 		Target target,
 		GLint level,
 		PixelDataFormat format,
-		Property::PixDataType type,
-		GLsizei size,
-		GLvoid* buffer
+		const OutputData& dest
 	);
 
 	/// Allows to obtain the texture image in uncompressed form
@@ -933,24 +932,33 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetTexImage}
 	 */
-	template <typename T>
 	static void GetImage(
 		Target target,
 		GLint level,
 		PixelDataFormat format,
-		std::vector<T>& dest
+		Property::PixDataType type,
+		GLsizei size,
+		GLvoid* buffer
 	)
 	{
-		GetImage(
-			target,
-			level,
-			format,
-			GetDataType<T>(),
-			dest.size()*sizeof(T),
-			dest.data()
-		);
+		GetImage(target, level, format, OutputData(type, size, buffer));
 	}
 
+	/// Allows to obtain the texture image in compressed form
+	/** This function stores the image of the texture bound to
+	 *  the specified texture @p target with the specified @p level
+	 *  of detail in compressed form into the @p dest buffer.
+	 *  This function automatically resizes the buffer so that
+	 *  it can accomodate the texture data.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetCompressedTexImage}
+	 */
+	static void GetCompressedImage(
+		Target target,
+		GLint level,
+		const OutputData& dest
+	);
 
 	/// Allows to obtain the texture image in compressed form
 	/** This function stores the image of the texture bound to
@@ -967,7 +975,10 @@ public:
 		GLint level,
 		GLsizei size,
 		GLubyte* buffer
-	);
+	)
+	{
+		GetCompressedImage(target, level, OutputData(size, buffer));
+	}
 
 	/// Allows to obtain the texture image in compressed form
 	/** This function stores the image of the texture bound to

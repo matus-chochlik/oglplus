@@ -96,4 +96,17 @@ of the individual instantiations instead:
 * __PerfMonitorAMD
 * __PathNV
 
+[heading:obj_zero Object zero]
+
+[^ObjectZero] wraps objects with GL name zero ([^0]).
+Depending on the object type (specified by __ObjTag) the semantics
+is either "no-object" (for example __NoBuffer, __NoRenderbuffer, etc.)
+or "default-object" (for example __DefaultTexture or __DefaultFramebuffer).
+
+[oglplus_object_ObjectZero]
+
 [endsect]
+
+
+
+

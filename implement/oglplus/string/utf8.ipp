@@ -286,9 +286,6 @@ const char* UTF8Validator::_validate(const char* _s, const char* _end)
 			// the byte must be 10xxxxxx
 			if((byte(_s) & 0xC0) != 0x80)
 				return nullptr;
-			// but not 10000000
-			if(byte(_s) == 0x80)
-				return nullptr;
 			--bytes;
 		}
 		// this is _a beginning of a new sequence

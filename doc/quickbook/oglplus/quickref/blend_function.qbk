@@ -14,4 +14,7 @@
 [import enums/blend_equation.hpp]
 [oglplus_enums_blend_equation]
 
+[import enums/blend_equation_advanced.hpp]
+[oglplus_enums_blend_equation_advanced]
+
 [endsect]

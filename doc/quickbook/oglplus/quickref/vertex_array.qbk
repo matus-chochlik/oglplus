@@ -9,6 +9,13 @@
 [header oglplus/vertex_array.hpp]
 
 [import vertex_array.hpp]
-[oglplus_vertex_array]
+
+[heading Common vertex array operations]
+
+[oglplus_vertex_array_common]
+
+[heading:def Definitions]
+
+[oglplus_vertex_array_1]
 
 [endsect]

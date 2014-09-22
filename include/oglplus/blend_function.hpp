@@ -61,6 +61,28 @@ OGLPLUS_ENUM_CLASS_END(BlendEquation)
 /// Alternative name for the BlendEquation enumeration
 typedef BlendEquation BlendEq;
 
+/// Advanced blend equation enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{BlendEquationAdvanced}
+ */
+OGLPLUS_ENUM_CLASS_BEGIN(BlendEquationAdvanced, GLenum)
+#include <oglplus/enums/blend_equation_advanced.ipp>
+OGLPLUS_ENUM_CLASS_END(BlendEquationAdvanced)
+
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/enums/blend_equation_advanced_names.ipp>
+#endif
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/blend_equation_advanced_range.ipp>
+#endif
+
+/// Alternative name for the BlendEquationAdvanced enumeration
+typedef BlendEquationAdvanced BlendEqAdv;
+
 } // namespace oglplus
 
 #endif // include guard

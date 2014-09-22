@@ -38,7 +38,8 @@ enum class Capability : GLenum
 	SampleMask             = GL_SAMPLE_MASK,
 	FramebufferSRGB        = GL_FRAMEBUFFER_SRGB,
 	DebugOutputSynchronous = GL_DEBUG_OUTPUT_SYNCHRONOUS,
-	StreamRasterization    = GL_STREAM_RASTERIZATION_AMD
+	StreamRasterization    = GL_STREAM_RASTERIZATION_AMD,
+	BlendAdvancedCoherent  = GL_BLEND_ADVANCED_COHERENT_KHR
 };
 
 template <>
