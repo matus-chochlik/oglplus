@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.51.0
+Release notes for version 0.52.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,38 +7,20 @@ Release notes for version 0.51.0
 Overview
 ========
 
-This release of `OGLplus`_ brings experimental support for several OpenGL 4.5
-features and new extensions, most notably wrappers for the direct state access
-functions, ``ARB_sparse_buffers``, ``ARB_robustness``, ``ARB_pipeline_statistics_query``
-and ``ARB_transform_feedback_overflow_query``. The old DSA object wrappers based
-on ``EXT_direct_state_access`` were renamed and moved to a new location. The ``Query``
-class has also been updated. Detection of GL 4.5 has been added to the build
-system and the Quickbook-based documentation has been updated.
+This is mostly a bugfix release of `OGLplus`_, but it also brings wrappers for ``KHR_blend_equation_advanced``, new non-throwing constructor in ``ProgVar``, the ``ObjHandle`` template and documentation updates.
 
 Changes
 =======
 
- - The ``ErrorCode`` enumeration was updated, the ``ContextReset`` value was added.
+ - Runtime bugs in the bitmap-glyph-based text rendering utilities were fixed.
 
- - The ``QueryTarget`` enumeration was updated, new values from the ``ARB_pipeline_statistics_query`` and ``ARB_transform_feedback_overflow_query`` extensions were added.
+ - Regressions in the GLES v3 and Android support were fixed.
 
- - The ``LimitQuery`` enumeration was updated.
+ - The ``Object`` template was refactored and ``ObjHandle`` was added.
 
- - The ``ContextReleaseBehavior``, ``ResetNotificationStrategy`` and ``GraphicsResetStatus`` enumerations from the ``ARB_robustness`` extensions were added.
+ - The ``OutputData`` class was added and is used in ``Texture`` operations.
 
- - The old DSA wrappers based on ``EXT_direct_state_access`` were renamed.
+ - The ``BlendEquationAdvanced`` enumeration was added and blending-related ``Context`` functions were updated to use it. The ``BlendBarrier`` function was also added.
 
- - New wrappers for the ``ARB_direct_state_access`` object DSA functions were added.
+ - The Quickbook documentation was updated.
 
- - The ``Query`` class was updated:
-   
-   * The ``ConditionalRenderMode`` enumeration was added.
-   * The ``BeginConditionalRender`` and ``EndConditionalRender`` functions were added.
-   * The ``ConditionalRender`` class was added.
-
-
-Breaking changes
-================
-
- - The old DSA object wrappers based on ``EXT_direct_state_access`` which were previously implemented in the ``./oglplus/dsa/*.hpp`` files were moved to the ``./oglplus/dsa/ext/`` subdirectory and renamed from ``DSA{Object}`` to ``DSA{Object}EXT``. The files implementing the new DSA object wrappers are now located in ``./oglplus/dsa/`` but the wrappers have a different interface.
- 
