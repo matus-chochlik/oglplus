@@ -6,7 +6,66 @@ ROOT = $(PARENT)/../..
 MAKE_ENUM = $(PARENT)/make_enum.py
 
 .PHONY: all
-all: _smart_enums_ipp _smart_values_ipp _qbk_qref_hpp
+all: \
+	_incl_enum_ipp \
+	_impl_enum_def_ipp \
+	_impl_enum_names_ipp \
+	_impl_enum_range_ipp \
+	_smart_enums_ipp \
+	_smart_values_ipp \
+	_qbk_qref_hpp
+
+.PHONY: _incl_enum_ipp
+_incl_enum_ipp: $(addprefix $(ROOT)/include/$(LIBRARY)/enums/,$(patsubst %.txt,%.ipp,$(SOURCES)))
+
+$(ROOT)/include/$(LIBRARY)/enums/%.ipp: %.txt $(MAKE_ENUM)
+	$(MAKE_ENUM) \
+		--library $(LIBRARY) \
+		--base-lib-prefix $(LIB_PREFIX)\
+		--action incl_enum_ipp \
+		--input "$<" \
+		--output "$@" \
+		--output-id "$(subst /,_,$*)"
+	git add "$@"
+
+.PHONY: _impl_enum_def_ipp
+_impl_enum_def_ipp: $(addprefix $(ROOT)/implement/$(LIBRARY)/enums/,$(patsubst %.txt,%_def.ipp,$(SOURCES)))
+
+$(ROOT)/implement/$(LIBRARY)/enums/%_def.ipp: %.txt $(MAKE_ENUM)
+	$(MAKE_ENUM) \
+		--library $(LIBRARY) \
+		--base-lib-prefix $(LIB_PREFIX)\
+		--action impl_enum_def_ipp \
+		--input "$<" \
+		--output "$@" \
+		--output-id "$(subst /,_,$*)"
+	git add "$@"
+
+.PHONY: _impl_enum_names_ipp
+_impl_enum_names_ipp: $(addprefix $(ROOT)/implement/$(LIBRARY)/enums/,$(patsubst %.txt,%_names.ipp,$(SOURCES)))
+
+$(ROOT)/implement/$(LIBRARY)/enums/%_names.ipp: %.txt $(MAKE_ENUM)
+	$(MAKE_ENUM) \
+		--library $(LIBRARY) \
+		--base-lib-prefix $(LIB_PREFIX)\
+		--action impl_enum_names_ipp \
+		--input "$<" \
+		--output "$@" \
+		--output-id "$(subst /,_,$*)"
+	git add "$@"
+
+.PHONY: _impl_enum_range_ipp
+_impl_enum_range_ipp: $(addprefix $(ROOT)/implement/$(LIBRARY)/enums/,$(patsubst %.txt,%_range.ipp,$(SOURCES)))
+
+$(ROOT)/implement/$(LIBRARY)/enums/%_range.ipp: %.txt $(MAKE_ENUM)
+	$(MAKE_ENUM) \
+		--library $(LIBRARY) \
+		--base-lib-prefix $(LIB_PREFIX)\
+		--action impl_enum_range_ipp \
+		--input "$<" \
+		--output "$@" \
+		--output-id "$(subst /,_,$*)"
+	git add "$@"
 
 .PHONY: _smart_enums_ipp
 _smart_enums_ipp: $(ROOT)/implement/$(LIBRARY)/detail/smart_enums.ipp

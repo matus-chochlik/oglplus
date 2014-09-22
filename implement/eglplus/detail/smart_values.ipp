@@ -101,7 +101,7 @@ OGLPLUS_CONSTEXPR eglplus::smart_enums::StencilSize StencilSize;
 OGLPLUS_CONSTEXPR eglplus::smart_enums::SurfaceType SurfaceType;
 OGLPLUS_CONSTEXPR eglplus::smart_enums::SwapBehavior SwapBehavior;
 OGLPLUS_CONSTEXPR eglplus::smart_enums::SwapBehaviorPreserved SwapBehaviorPreserved;
-OGLPLUS_CONSTEXPR eglplus::smart_enums::Texture2d Texture2d;
+OGLPLUS_CONSTEXPR eglplus::smart_enums::Texture2D Texture2D;
 OGLPLUS_CONSTEXPR eglplus::smart_enums::TextureFormat TextureFormat;
 OGLPLUS_CONSTEXPR eglplus::smart_enums::TextureTarget TextureTarget;
 OGLPLUS_CONSTEXPR eglplus::smart_enums::TransparentBlueValue TransparentBlueValue;

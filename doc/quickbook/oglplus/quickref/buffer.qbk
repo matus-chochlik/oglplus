@@ -23,6 +23,15 @@
 [heading Operations with explicit selector]
 
 [oglplus_buffer_1]
+[oglplus_buffer_2]
+
+[heading:def Definitions]
+
+[oglplus_buffer_3]
+
+[heading:syntax_sugar Syntax sugar operators]
+
+[oglplus_buffer_sugar]
 
 [heading:target Target]
 
@@ -84,5 +93,13 @@ referencing it are in use.
 [header oglplus/buffer_data.hpp]
 [import buffer_data.hpp]
 [oglplus_buffer_data]
+
+[heading:gpu_address GPU address]
+
+The [^BufferGPUAddress] class encapsulates buffers GPU address value.
+
+[header oglplus/buffer_gpu_addr.hpp]
+[import buffer_gpu_addr.hpp]
+[oglplus_buffer_gpu_address]
 
 [endsect]

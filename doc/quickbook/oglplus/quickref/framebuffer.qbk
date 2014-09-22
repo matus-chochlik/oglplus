@@ -23,6 +23,14 @@
 [oglplus_framebuffer_1]
 [oglplus_framebuffer_2]
 
+[heading:def Definitions]
+
+[oglplus_framebuffer_3]
+
+[heading:syntax_sugar Syntax sugar operators]
+
+[oglplus_framebuffer_sugar]
+
 [heading:target Target]
 
 [header oglplus/framebuffer_target.hpp]

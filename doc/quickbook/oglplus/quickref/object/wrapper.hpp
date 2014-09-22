@@ -141,6 +141,18 @@ public:
 	this object has been destroyed.
 	>*/
 };
+//]
+//[oglplus_object_ObjectZero
+template <typename __OpsTag, typename __ObjTag>
+class ObjectZero<__ObjZeroOps<__OpsTag, __ObjTag>>
+ : public __ObjZeroOps<__OpsTag, __ObjTag>
+{
+public:
+	ObjectZero(void); /*<
+	ObjectZero is default constructible.
+	>*/
+	ObjectZero(const ObjectZero&);
+};
 
 } // namespace oglplus
 //]

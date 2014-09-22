@@ -82,4 +82,7 @@ the concept.
 [include quickref/config.qbk]
 [include quickref/math.qbk]
 [include quickref/enums.qbk]
+[include quickref/limited_value.qbk]
 [include quickref/utils.qbk]
+
+[include quickref/images.qbk]

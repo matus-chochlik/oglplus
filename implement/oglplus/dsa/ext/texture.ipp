@@ -106,19 +106,16 @@ void ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 GetImage(
 	GLint level,
 	PixelDataFormat format,
-	Property::PixDataType type,
-	GLsizei size,
-	GLvoid* buffer
+	const OutputData& dest
 ) const
 {
-	OGLPLUS_FAKE_USE(size);
 	OGLPLUS_GLFUNC(GetTextureImageEXT)(
 		_name,
 		GLenum(target),
 		level,
 		GLenum(format),
-		GLenum(type),
-		buffer
+		GLenum(dest.Type()),
+		dest.Addr()
 	);
 	OGLPLUS_CHECK(
 		GetTextureImageEXT,
@@ -134,16 +131,14 @@ OGLPLUS_LIB_FUNC
 void ObjZeroOps<tag::DirectStateEXT, tag::Texture>::
 GetCompressedImage(
 	GLint level,
-	GLsizei size,
-	GLubyte* buffer
+	const OutputData& dest
 ) const
 {
-	OGLPLUS_FAKE_USE(size);
 	OGLPLUS_GLFUNC(GetCompressedTextureImageEXT)(
 		_name,
 		GLenum(target),
 		level,
-		buffer
+		dest.Addr()
 	);
 	OGLPLUS_CHECK(
 		GetCompressedTextureImageEXT,
@@ -164,8 +159,7 @@ GetCompressedImage(
 	dest.resize(CompressedImageSize(level));
 	GetCompressedImage(
 		level,
-		dest.size()*sizeof(GLubyte),
-		dest.data()
+		OutputData(dest)
 	);
 }
 

@@ -78,8 +78,10 @@
 
 [def __ObjectDesc [link oglplus.quickref.object.desc ObjectDesc]]
 [def __Object [link oglplus.quickref.object.wrapper Object]]
+[def __ObjectZero [link oglplus.quickref.object.wrapper.obj_zero ObjectZero]]
 
-[def __Buffer [link oglplus.quickref.buffer Buffer]]
+[def __Buffer [link oglplus.quickref.buffer.def Buffer]]
+[def __NoBuffer [link oglplus.quickref.buffer.def NoBuffer]]
 [def __BufferTarget [link oglplus.quickref.buffer.target BufferTarget]]
 [def __BufferIndexedTarget [link oglplus.quickref.buffer.indexed_target BufferIndexedTarget]]
 [def __BufferUsage [link oglplus.quickref.buffer.usage BufferUsage]]
@@ -91,23 +93,44 @@
 [def __TransformFeedbackBufferBindingPoint [link oglplus.quickref.buffer.binding TransformFeedbackBufferBindingPoint]]
 [def __AtomicCounterBufferBindingPoint [link oglplus.quickref.buffer.binding AtomicCounterBufferBindingPoint]]
 [def __ShaderStorageBufferBindingPoint [link oglplus.quickref.buffer.binding ShaderStorageBufferBindingPoint]]
+[def __BufferGPUAddress [link oglplus.quickref.buffer.gpu_address BufferGPUAddress]]
 
 [def __BufferRawMap [link oglplus.quickref.buffer_map.raw BufferRawMap]]
 [def __BufferTypedMap [link oglplus.quickref.buffer_map.typed BufferTypedMap]]
 [def __BufferMapAccess [link oglplus.quickref.buffer_map.access BufferMapAccess]]
 
-[def __VertexArray [link oglplus.quickref.vertex_array VertexArray]]
+[def __VertexArray [link oglplus.quickref.vertex_array.def VertexArray]]
+[def __NoVertexArray [link oglplus.quickref.vertex_array.def NoVertexArray]]
+
 [def __Texture [link oglplus.quickref.texture Texture]]
 [def __TextureTarget [link oglplus.quickref.texture.target TextureTarget]]
+[def __TextureCompareMode [link oglplus.quickref.texture.compare_mode TextureCompareMode]]
+[def __TextureFilter [link oglplus.quickref.texture.filter TextureFilter]]
+[def __TextureMinFilter [link oglplus.quickref.texture.filter TextureMinFilter]]
+[def __TextureMagFilter [link oglplus.quickref.texture.filter TextureMagFilter]]
+[def __TextureSwizzleCoord [link oglplus.quickref.texture.swizzle_coord TextureSwizzleCoord]]
+[def __TextureSwizzle [link oglplus.quickref.texture.swizzle TextureSwizzle]]
+[def __TextureSwizzleTuple [link oglplus.quickref.texture.swizzle_tuple TextureSwizzleTuple]]
+[def __TextureWrapCoord [link oglplus.quickref.texture.wrap_coord TextureWrapCoord]]
+[def __TextureWrap [link oglplus.quickref.texture.wrap TextureWrap]]
+[def __TextureUnitSelector [link oglplus.quickref.texture.unit_selector TextureUnitSelector]]
+[def __ImageUnitSelector [link oglplus.quickref.texture.unit_selector ImageUnitSelector]]
+
 [def __Sampler [link oglplus.quickref.sampler Sampler]]
-[def __Framebuffer [link oglplus.quickref.framebuffer Framebuffer]]
+
+[def __Framebuffer [link oglplus.quickref.framebuffer.def Framebuffer]]
+[def __DefaultFramebuffer [link oglplus.quickref.framebuffer.def DefaultFramebuffer]]
 [def __FramebufferTarget [link oglplus.quickref.framebuffer.target FramebufferTarget]]
 [def __FramebufferBuffer [link oglplus.quickref.framebuffer.buffer FramebufferBuffer]]
 [def __FramebufferAttachment [link oglplus.quickref.framebuffer.attachment FramebufferAttachment]]
 [def __FramebufferColorAttachment [link oglplus.quickref.framebuffer.color_attachment FramebufferColorAttachment]]
 [def __FramebufferColorAttachmentNumber [link oglplus.quickref.framebuffer.color_attachment_number FramebufferColorAttachmentNumber]]
 [def __FramebufferStatus [link oglplus.quickref.framebuffer.status FramebufferStatus]]
+
 [def __Renderbuffer [link oglplus.quickref.renderbuffer Renderbuffer]]
+[def __NoRenderbuffer [link oglplus.quickref.renderbuffer.def NoRenderbuffer]]
+[def __RenderbufferTarget [link oglplus.quickref.renderbuffer.target RenderbufferTarget]]
+
 [def __Shader [link oglplus.quickref.shader Shader]]
 [def __Program [link oglplus.quickref.program Program]]
 [def __ProgramPipeline [link oglplus.quickref.program_pipeline ProgramPipeline]]
@@ -149,6 +172,7 @@
 [def __FaceOrientation [link oglplus.quickref.face_mode.orientation FaceOrientation]]
 [def __BlendFunction [link oglplus.quickref.blend_function BlendFunction]]
 [def __BlendEquation [link oglplus.quickref.blend_function BlendEquation]]
+[def __BlendEquationAdvanced [link oglplus.quickref.blend_function BlendEquationAdvanced]]
 [def __ColorBuffer [link oglplus.quickref.color_buffer ColorBuffer]]
 [def __BufferSelectBit [link oglplus.quickref.buffer_select_bit BufferSelectBit]]
 [def __ClearBit [link oglplus.quickref.context.buffer_clearing ClearBit]]
@@ -184,7 +208,12 @@
 [def __EnumArray [link oglplus.quickref.enums.array EnumArray]]
 [def __OneOf [link oglplus.quickref.enums.one_of OneOf]]
 
+[def __LimitedCount [link oglplus.quickref.limited_value LimitedCount]]
+
 [def __AnyRange [link oglplus.quickref.utils.ranges.any AnyRange]]
+
+
+[def __images_ImageSpec [link oglplus.quickref.images.image_spec images::ImageSpec]]
 
 [def __OGLPLUS_NO_SITE_CONFIG [link oglplus.quickref.config.compiler [^OGLPLUS_NO_SITE_CONFIG]]]
 

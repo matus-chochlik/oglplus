@@ -40,7 +40,32 @@ def print_cpp_header(options):
 def print_scr_header(options):
 	print_header(options, "#")
 
+def capitalize_name(name):
+
+	old_chars = list(name)
+	new_chars = list()
+
+	next_to_lower = True
+
+	for char in old_chars:
+		if char == '_':
+			next_to_lower = True
+		else:
+			if next_to_lower:
+				new_chars.append(char)
+			else:
+				new_chars.append(char.lower())
+
+			if char.isdigit():
+				next_to_lower = True
+			else:
+				next_to_lower = False
+
+	return str().join(new_chars)
+
 def parse_source(options, input_file = None):
+
+	import string
 
 	if not input_file:
 		input_file = options.input[0]
@@ -57,14 +82,18 @@ def parse_source(options, input_file = None):
 				av = dict(zip(attribs, values))
 
 				if not av.get("dst_name"):
-					tmp = av["src_name"].split("_")
-					tmp = [x.capitalize() for x in tmp]
-					av["dst_name"] = str().join(tmp)
+					av["dst_name"] = capitalize_name(av["src_name"])
 
 				if not av.get("prefix"):
 					av["prefix"] = options.base_lib_prefix
 
+				if av.get("doc"):
+					av["comma_doc"] = ": %s" % av.get("doc")
+				else:
+					av["comma_doc"] = str()
+
 				result.append(type("Item", (object,), av))
+
 	return result
 
 def action_info(options):
@@ -130,6 +159,178 @@ def action_qbk_hpp(options):
 	print_line(options, "} // namespace %s" % options.library)
 	print_line(options, "//]")
 
+def action_incl_enum_ipp(options):
+
+	items = parse_source(options)
+
+	print_cpp_header(options)
+
+	print_line(options, "#if %s_DOCUMENTATION_ONLY" % options.library_uc)
+	print_newline(options)
+
+	for item in items[:-1]:
+		print_line(options, "/// %s%s" % (item.src_name, item.comma_doc))
+		print_line(options, "%s," % item.dst_name)
+	for item in items[-1:]:
+		print_line(options, "/// %s%s" % (item.src_name, item.comma_doc))
+		print_line(options, "%s" % item.dst_name)
+
+	print_newline(options)
+	print_line(options, "#else // !%s_DOCUMENTATION_ONLY" % options.library_uc)
+	print_newline(options)
+	print_line(options, "#include <%s/enums/%s_def.ipp>" % (
+		options.library,
+		options.input_name
+	))
+	print_newline(options)
+	print_line(options, "#endif")
+
+
+def action_impl_enum_def_ipp(options):
+
+	items = parse_source(options)
+
+	print_cpp_header(options)
+
+	print_line(options, "#ifdef %s_LIST_NEEDS_COMMA" % options.library_uc)
+	print_line(options, "# undef %s_LIST_NEEDS_COMMA" % options.library_uc)
+	print_line(options, "#endif")
+	print_newline(options)
+
+	for item in items:
+
+		print_line(options, "#if defined %s_%s" % (item.prefix, item.src_name))
+		print_line(options, "# if %s_LIST_NEEDS_COMMA" % options.library_uc)
+		print_line(options, "   %s_ENUM_CLASS_COMMA" % options.library_uc)
+		print_line(options, "# endif")
+
+		print_line(options, "# if defined %s" % item.dst_name)
+		print_line(options, "#  pragma push_macro(\"%s\")" % item.dst_name)
+		print_line(options, "#  undef %s" % item.dst_name)
+		print_line(options, "   %s_ENUM_CLASS_VALUE(%s, %s_%s)" % (
+			options.library_uc,
+			item.dst_name,
+			item.prefix,
+			item.src_name
+		))
+		print_line(options, "#  pragma pop_macro(\"%s\")" % item.dst_name)
+		print_line(options, "# else")
+		print_line(options, "   %s_ENUM_CLASS_VALUE(%s, %s_%s)" % (
+			options.library_uc,
+			item.dst_name,
+			item.prefix,
+			item.src_name
+		))
+		print_line(options, "# endif")
+
+		print_line(options, "# ifndef %s_LIST_NEEDS_COMMA" % options.library_uc)
+		print_line(options, "#  define %s_LIST_NEEDS_COMMA 1" % options.library_uc)
+		print_line(options, "# endif")
+		print_line(options, "#endif")
+
+	print_line(options, "#ifdef %s_LIST_NEEDS_COMMA" % options.library_uc)
+	print_line(options, "# undef %s_LIST_NEEDS_COMMA" % options.library_uc)
+	print_line(options, "#endif")
+	print_newline(options)
+
+
+def action_impl_enum_names_ipp(options):
+
+	items = parse_source(options)
+
+	print_cpp_header(options)
+
+	print_line(options, "namespace enums {")
+	print_line(options, "%s_LIB_FUNC StrCRef ValueName_(" % options.library_uc)
+	print_line(options, "	%s*," % options.enum_name)
+	print_line(options, "	%s%s value" % (options.base_lib_prefix, options.enum_type))
+	print_line(options, ")")
+	print_line(options, "#if (!%s_LINK_LIBRARY || defined(%s_IMPLEMENTING_LIBRARY)) && \\" % (
+		options.library_uc,
+		options.library_uc
+	))
+	print_line(options, "	!defined(%s_IMPL_EVN_%s)" % (
+		options.library_uc,
+		options.enum_name.upper()
+	))
+	print_line(options, "#define %s_IMPL_EVN_%s" % (
+		options.library_uc,
+		options.enum_name.upper()
+	))
+	print_line(options, "{")
+	print_line(options, "switch(value)")
+	print_line(options, "{")
+
+	for item in items:
+
+		print_line(options, "#if defined %s_%s" % (item.prefix, item.src_name))
+		print_line(options, "	case %s_%s: return StrCRef(\"%s\");" % (
+			item.prefix,
+			item.src_name,
+			item.src_name
+		))
+		print_line(options, "#endif")
+
+	print_line(options, "	default:;")
+	print_line(options, "}")
+	print_line(options, "%s_FAKE_USE(value);" % options.library_uc)
+	print_line(options, "return StrCRef();")
+	print_line(options, "}")
+	print_line(options, "#else")
+	print_line(options, ";")
+	print_line(options, "#endif")
+	print_line(options, "} // namespace enums")
+	print_newline(options)
+
+
+def action_impl_enum_range_ipp(options):
+
+	items = parse_source(options)
+
+	print_cpp_header(options)
+
+	print_line(options, "namespace enums {")
+	print_line(options, "%s_LIB_FUNC aux::CastIterRange<" % options.library_uc)
+	print_line(options, "	const %s%s*," % (options.base_lib_prefix, options.enum_type))
+	print_line(options, "	%s" % options.enum_name)
+	print_line(options, "> ValueRange_(%s*)" % options.enum_name)
+	print_line(options, "#if (!%s_LINK_LIBRARY || defined(%s_IMPLEMENTING_LIBRARY)) && \\" % (
+		options.library_uc,
+		options.library_uc
+	))
+	print_line(options, "	!defined(%s_IMPL_EVR_%s)" % (
+		options.library_uc,
+		options.enum_name.upper()
+	))
+	print_line(options, "#define %s_IMPL_EVR_%s" % (
+		options.library_uc,
+		options.enum_name.upper()
+	))
+	print_line(options, "{")
+	print_line(options, "static const %s%s _values[] = {" % (
+		options.base_lib_prefix,
+		options.enum_type
+	))
+
+	for item in items:
+		print_line(options, "#if defined %s_%s" % (item.prefix, item.src_name))
+		print_line(options, "%s_%s," % (item.prefix, item.src_name))
+		print_line(options, "#endif")
+
+	print_line(options, "0")
+	print_line(options, "};")
+	print_line(options, "return aux::CastIterRange<")
+	print_line(options, "	const %s%s*," % (options.base_lib_prefix, options.enum_type))
+	print_line(options, "	%s" % options.enum_name)
+	print_line(options, ">(_values, _values+sizeof(_values)/sizeof(_values[0])-1);")
+	print_line(options, "}")
+	print_line(options, "#else")
+	print_line(options, ";")
+	print_line(options, "#endif")
+	print_line(options, "} // namespace enums")
+	print_newline(options)
+
+
 def action_smart_enums_ipp(options):
 
 	enum_values = set()
@@ -148,6 +349,7 @@ def action_smart_enums_ipp(options):
 		print_line(options, "template <typename Enum> friend bool operator!=(Enum value, %s){ return value != Enum::%s; }" % evp)
 		print_line(options, "};")
 
+
 def action_smart_values_ipp(options):
 
 	enum_values = set()
@@ -165,6 +367,10 @@ def action_smart_values_ipp(options):
 actions = {
 	"info":    action_info,
 	"qbk_hpp": action_qbk_hpp,
+	"incl_enum_ipp": action_incl_enum_ipp,
+	"impl_enum_def_ipp": action_impl_enum_def_ipp,
+	"impl_enum_names_ipp": action_impl_enum_names_ipp,
+	"impl_enum_range_ipp": action_impl_enum_range_ipp,
 	"smart_enums_ipp": action_smart_enums_ipp,
 	"smart_values_ipp": action_smart_values_ipp
 }
@@ -173,7 +379,6 @@ multi_file_actions = ["smart_enums_ipp", "smart_values_ipp"]
 
 def dispatch_action(options):
 	if not options.action in multi_file_actions:
-		print(options)
 		if len(options.input) < 1:
 			msg = "Missing input file for action '%s'!" % options.action
 			raise RuntimeError(msg)
@@ -291,8 +496,12 @@ def get_options():
 		options.out = open(options.output, "wt")
 		options.rel_output = os.path.relpath(options.output, options.root_dir)
 
+	options.source_root_dir = os.path.join(options.root_dir, "source", "enums", options.library)
+
 	if len(options.input) == 1:
 		options.rel_input = os.path.relpath(options.input[0], options.root_dir)
+		options.input_name = os.path.relpath(options.input[0], options.source_root_dir)
+		options.input_name = os.path.splitext(options.input_name)[0]
 
 		options.enum_name = None
 		options.enum_type = "enum"
@@ -312,6 +521,9 @@ def get_options():
 
 	else:
 		options.rel_input = None
+
+	if options.library:
+		options.library_uc = options.library.upper()
 
 	import datetime
 	options.year = datetime.datetime.now().year

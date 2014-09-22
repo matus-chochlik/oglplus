@@ -167,6 +167,7 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Begin conditional render on the query in the specified mode
 	/**
 	 *  @glsymbols
@@ -194,6 +195,7 @@ public:
 		OGLPLUS_GLFUNC(EndConditionalRender)();
 		OGLPLUS_VERIFY_SIMPLE(EndConditionalRender);
 	}
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_timer_query
 	/// Do a counter query on the specified @p target
@@ -420,6 +422,7 @@ public:
 	}
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 /// RAII conditional render activator/deactivator
 /**
  *  @see Query
@@ -466,6 +469,7 @@ public:
 		else return false;
 	}
 };
+#endif
 
 /// A helper class automatically executing a query
 /** Instances of this class begin the query in the constructor

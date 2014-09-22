@@ -11,7 +11,13 @@ namespace context {
 class Blending
 {
 public:
-	static void BlendEquation(__BlendEquation eq); /*<
+#if GL_KHR_blend_equation_advanced
+	static void BlendBarrier(void); /*<
+	Specifies boundaries between blending passes.
+	>*/
+#endif
+
+	static void BlendEquation(__OneOf<__BlendEquation, __BlendEquationAdvanced> eq); /*<
 	Sets the blending equation.
 	See [glfunc BlendEquation].
 	>*/
@@ -24,7 +30,10 @@ public:
 	>*/
 
 #if GL_VERSION_4_0
-	static void BlendEquation(GLuint buffer, __BlendEquation eq); /*<
+	static void BlendEquation(
+		GLuint buffer,
+		__OneOf<__BlendEquation, __BlendEquationAdvanced> eq
+	); /*<
 	Sets the blend equation for a particular draw [^buffer]
 	See [glfunc BlendEquationi].
 	>*/

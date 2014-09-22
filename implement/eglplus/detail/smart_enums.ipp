@@ -469,10 +469,10 @@ template <typename Enum, Enum = Enum::SwapBehaviorPreserved> operator Enum (void
 template <typename Enum> friend bool operator==(Enum value, SwapBehaviorPreserved){ return value == Enum::SwapBehaviorPreserved; }
 template <typename Enum> friend bool operator!=(Enum value, SwapBehaviorPreserved){ return value != Enum::SwapBehaviorPreserved; }
 };
-struct Texture2d {
-template <typename Enum, Enum = Enum::Texture2d> operator Enum (void) const{ return Enum::Texture2d; }
-template <typename Enum> friend bool operator==(Enum value, Texture2d){ return value == Enum::Texture2d; }
-template <typename Enum> friend bool operator!=(Enum value, Texture2d){ return value != Enum::Texture2d; }
+struct Texture2D {
+template <typename Enum, Enum = Enum::Texture2D> operator Enum (void) const{ return Enum::Texture2D; }
+template <typename Enum> friend bool operator==(Enum value, Texture2D){ return value == Enum::Texture2D; }
+template <typename Enum> friend bool operator!=(Enum value, Texture2D){ return value != Enum::Texture2D; }
 };
 struct TextureFormat {
 template <typename Enum, Enum = Enum::TextureFormat> operator Enum (void) const{ return Enum::TextureFormat; }

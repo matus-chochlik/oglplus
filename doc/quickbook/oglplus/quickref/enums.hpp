@@ -7,7 +7,6 @@
 //[oglplus_enums_functions
 namespace oglplus {
 
-#if !__OGLPLUS_NO_ENUM_VALUE_RANGES
 template <typename Enumeration>
 __Range<Enumeration> EnumValueRange(void); /*<
 Returns a __Range of values in a OGLplus enum value.
@@ -18,9 +17,7 @@ The result of this function is influenced by the __OGLPLUS_NO_ENUM_VALUE_RANGES
 preprocessor-symbol. If it is set to a nonzero value then [^EnumValueRange<Enum>()]
 returns an empty range.
 >*/
-#endif
 
-#if! __OGLPLUS_NO_ENUM_VALUE_NAMES
 template <typename Enumeration>
 __StrCRef EnumValueName(Enumeration enum_value); /*<
 Returns the name of the GL enumerated value for an OGLplus enum value.
@@ -31,7 +28,6 @@ The result of this function is influenced by the __OGLPLUS_NO_ENUM_VALUE_NAMES
 preprocessor-symbol. If it is set to a nonzero value then
 [^EnumValueName(enum_value)] returns an empty string.
 >*/
-#endif
 //]
 //[oglplus_enums_Bitfield
 
