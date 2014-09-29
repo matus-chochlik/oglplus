@@ -511,8 +511,14 @@
             of the underlying GL objects and managing textual description assigned
             to them. It uses the <a class="link" href="object.html#oglplus.quickref.object.gendelops" title="Gen/Delete operations">ObjGenDelOps</a>
             template to create new instance of an OpenGL object in the constructor
-            and to delete it in the destructor. Since GL does not support object
-            copying, instances of <code class="literal">Object</code> are <span class="emphasis"><em>move-only</em></span>.
+            and to delete it in the destructor <code class="literal">Object</code> unlike an
+            __ObjectHandle also inherits from a specialization of <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a>
+            which implements wrappers for GL functions related to the underlying
+            GL object.
+          </p>
+<p>
+            Since GL does not support object copying, instances of <code class="literal">Object</code>
+            are <span class="emphasis"><em>move-only</em></span>.
           </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">Object</span><span class="special">&lt;</span><span class="identifier">ObjectOps</span><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span>
@@ -714,6 +720,89 @@
                 ObjectZero is default constructible.
               </p></td>
 </tr></table></div>
+<h5>
+<a name="oglplus.quickref.object.wrapper.h2"></a>
+            <span class="phrase"><a name="oglplus.quickref.object.wrapper.handle"></a></span><a class="link" href="object.html#oglplus.quickref.object.wrapper.handle">ObjHandle</a>
+          </h5>
+<p>
+            In certain situations it is desirable to have a lifetime management wrapper
+            for GL objects without any specific set object operations attached to
+            it. The <code class="literal">ObjHandle</code> serves for this purpose. Similar
+            to <code class="literal">Object</code> it manages the lifetime of a GL object by
+            using the <a class="link" href="object.html#oglplus.quickref.object.gendelops" title="Gen/Delete operations">ObjGenDelOps</a>,
+            but does not inherit from any <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a>
+            specialization.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">ObjHandle</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.gendelops" title="Gen/Delete operations">ObjGenDelOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ObjHandle</span><span class="special">(</span><a class="link" href="gen_tags.html" title="Object creation methods">GenTag</a> <span class="identifier">method</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.wrapper.c26" href="object.html#oglplus.quickref.object.wrapper.c27"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">ObjHandle</span><span class="special">(</span><a class="link" href="gen_tags.html" title="Object creation methods">GenTag</a> <span class="identifier">method</span><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">&amp;&amp;</span> <span class="identifier">description</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.wrapper.c28" href="object.html#oglplus.quickref.object.wrapper.c29"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.subtype" title="Object subtype">ObjectSubtype</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;::</span><span class="identifier">Type</span> <span class="identifier">Subtype</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.wrapper.c30" href="object.html#oglplus.quickref.object.wrapper.c31"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="gen_tags.html" title="Object creation methods">GenTag</a><span class="special">&gt;</span>
+	<span class="identifier">ObjHandle</span><span class="special">(</span><a class="link" href="gen_tags.html" title="Object creation methods">GenTag</a> <span class="identifier">method</span><span class="special">,</span> <span class="identifier">Subtype</span> <span class="identifier">subtype</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.wrapper.c32" href="object.html#oglplus.quickref.object.wrapper.c33"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="identifier">ObjHandle</span><span class="special">(</span><span class="identifier">ObjHandle</span><span class="special">&amp;&amp;</span> <span class="identifier">temp</span><span class="special">);</span>
+	<span class="identifier">ObjHandle</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><span class="identifier">ObjHandle</span><span class="special">&amp;&amp;</span> <span class="identifier">temp</span><span class="special">);</span>
+
+	<span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">Description</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.object.wrapper.c34" href="object.html#oglplus.quickref.object.wrapper.c35"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="keyword">operator</span> <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.wrapper.c36" href="object.html#oglplus.quickref.object.wrapper.c37"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c27"></a><a href="#oglplus.quickref.object.wrapper.c26"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs an <code class="literal">ObjHandle</code> with a specific <code class="literal">method</code>
+                of object creation.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c29"></a><a href="#oglplus.quickref.object.wrapper.c28"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs an <code class="literal">ObjHandle</code> with a specific <code class="literal">method</code>
+                of object creation, and attaches the specified <code class="literal">description</code>
+                to it.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c31"></a><a href="#oglplus.quickref.object.wrapper.c30"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                The subtype of the object. If this object type does not have any
+                subtypes, then <code class="literal">Subtype</code> is defined as <a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c33"></a><a href="#oglplus.quickref.object.wrapper.c32"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs a handle for object of the specified <code class="literal">subtype</code>.
+                If <code class="literal">subtype</code> is <a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a>
+                then this constructor is equivalent to the constructor taking only
+                the <code class="literal">method</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c35"></a><a href="#oglplus.quickref.object.wrapper.c34"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the textual description of this object handle.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.wrapper.c37"></a><a href="#oglplus.quickref.object.wrapper.c36"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                <code class="literal">ObjHandle</code>s are implicitly convertible to a sequence
+                of object names. Note that the returned sequence must not be used
+                after this object handle has been destroyed.
+              </p></td>
+</tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
