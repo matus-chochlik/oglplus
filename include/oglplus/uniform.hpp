@@ -172,7 +172,7 @@ public:
 		this->template _do_set_many<N>(
 			this->_program,
 			this->_location,
-			GLsizei(n),
+			GLsizei(n / N),
 			values
 		);
 	}
