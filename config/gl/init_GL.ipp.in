@@ -44,6 +44,14 @@ bool oglplus_config_test_gl_func(Func func)
 		return false; \
 	}
 
+#define OGLPLUS_CONFIG_MISSING_GL_CONST(NAME) \
+		std::cerr \
+			<< "Required constant: " \
+			<< #NAME \
+			<< " not available." \
+			<< std::endl; \
+		return false; \
+
 bool do_query_gl(void);
 
 static const char* title = "GL feature detection";

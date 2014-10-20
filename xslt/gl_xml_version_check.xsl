@@ -61,6 +61,8 @@
 		<xsl:call-template name="Newline"/>
 
 		<xsl:apply-templates select="require/command"/>
+		<xsl:call-template name="Newline"/>
+		<xsl:apply-templates select="require/enum"/>
 
 		<xsl:text>}</xsl:text>
 		<xsl:call-template name="Newline"/>
@@ -71,9 +73,58 @@
 	</xsl:template>
 
 	<xsl:template match="/registry/feature/require[not(@profile = 'compatibility')]/command">
+
+		<xsl:variable name="name" select="@name"/>
+		<xsl:for-each select="/registry/feature[remove[@profile = 'core']/command/@name = $name]">
+			<xsl:variable name="rem_ver_major" select="substring-before(@number,'.')"/>
+			<xsl:variable name="rem_ver_minor" select="substring-after(@number,'.')"/>
+			<xsl:text>#	if not((OGLPLUS_CONFIG_QUERY_GL_VER_MAJOR >= </xsl:text>
+			<xsl:value-of select="$rem_ver_major"/>
+			<xsl:text>) &amp;&amp; (OGLPLUS_CONFIG_QUERY_GL_VER_MINOR >= </xsl:text>
+			<xsl:value-of select="$rem_ver_minor"/>
+			<xsl:text>))</xsl:text>
+			<xsl:call-template name="Newline"/>
+		</xsl:for-each>
+
 		<xsl:text>	OGLPLUS_CONFIG_ASSERT_GL_FUNC(</xsl:text>
 		<xsl:value-of select="@name"/>
 		<xsl:text>);</xsl:text>
+		<xsl:call-template name="Newline"/>
+
+		<xsl:if test="/registry/feature/remove[@profile = 'core']/command/@name = $name">
+			<xsl:text>#	endif</xsl:text>
+			<xsl:call-template name="Newline"/>
+		</xsl:if>
+	</xsl:template>
+
+	<xsl:template match="/registry/feature/require[not(@profile = 'compatibility')]/enum">
+		<xsl:text>#	ifndef </xsl:text>
+		<xsl:value-of select="@name"/>
+		<xsl:call-template name="Newline"/>
+
+		<xsl:variable name="name" select="@name"/>
+		<xsl:for-each select="/registry/feature[remove[@profile = 'core']/enum/@name = $name]">
+			<xsl:variable name="rem_ver_major" select="substring-before(@number,'.')"/>
+			<xsl:variable name="rem_ver_minor" select="substring-after(@number,'.')"/>
+			<xsl:text>#	if not((OGLPLUS_CONFIG_QUERY_GL_VER_MAJOR >= </xsl:text>
+			<xsl:value-of select="$rem_ver_major"/>
+			<xsl:text>) &amp;&amp; (OGLPLUS_CONFIG_QUERY_GL_VER_MINOR >= </xsl:text>
+			<xsl:value-of select="$rem_ver_minor"/>
+			<xsl:text>))</xsl:text>
+			<xsl:call-template name="Newline"/>
+		</xsl:for-each>
+
+		<xsl:text>	OGLPLUS_CONFIG_MISSING_GL_CONST(</xsl:text>
+		<xsl:value-of select="@name"/>
+		<xsl:text>);</xsl:text>
+		<xsl:call-template name="Newline"/>
+
+		<xsl:if test="/registry/feature/remove[@profile = 'core']/enum/@name = $name">
+			<xsl:text>#	endif</xsl:text>
+			<xsl:call-template name="Newline"/>
+		</xsl:if>
+
+		<xsl:text>#	endif</xsl:text>
 		<xsl:call-template name="Newline"/>
 	</xsl:template>
 
