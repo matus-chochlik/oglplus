@@ -41,7 +41,7 @@ bool oglplus_config_test_gl_func(Func func)
 			<< #NAME \
 			<< " not available." \
 			<< std::endl; \
-		return false; \
+		++missing_gl_symbols; \
 	}
 
 #define OGLPLUS_CONFIG_MISSING_GL_CONST(NAME) \
@@ -50,7 +50,7 @@ bool oglplus_config_test_gl_func(Func func)
 			<< #NAME \
 			<< " not available." \
 			<< std::endl; \
-		return false; \
+		++missing_gl_symbols; \
 
 bool do_query_gl(void);
 
