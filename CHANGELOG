@@ -1,3 +1,12 @@
+Version 0.53.0
+
+- GL version detection in the build system was updated and should now
+  be even more reliable.
+- Minor changes were made to the ObjHandle wrapper.
+- A bug in vector uniform setting was fixed.
+- The quickbook docs were updated.
+
+
 Version 0.52.0
 
 - The tools for automatic-generation of the enumeration headers were updated
