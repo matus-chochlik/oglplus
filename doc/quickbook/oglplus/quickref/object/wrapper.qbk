@@ -72,7 +72,10 @@ to distinguish the individual subtypes.
 The main purpose of [^Object] is to do lifetime management of the underlying
 GL objects and managing textual description assigned to them. It uses the __ObjGenDelOps
 template to create new instance of an OpenGL object in the constructor and to delete
-it in the destructor.
+it in the destructor [^Object] unlike an __ObjectHandle also inherits from a specialization
+of __ObjectOps which implements wrappers for GL functions related to the underlying
+GL object.
+
 Since GL does not support object copying, instances of [^Object] are ['move-only].
 
 [oglplus_object_Object]
@@ -104,6 +107,16 @@ is either "no-object" (for example __NoBuffer, __NoRenderbuffer, etc.)
 or "default-object" (for example __DefaultTexture or __DefaultFramebuffer).
 
 [oglplus_object_ObjectZero]
+
+[heading:handle ObjHandle]
+
+In certain situations it is desirable to have a lifetime management wrapper
+for GL objects without any specific set object operations attached to it.
+The [^ObjHandle] serves for this purpose. Similar to [^Object] it manages
+the lifetime of a GL object by using the __ObjGenDelOps, but does not inherit
+from any __ObjectOps specialization.
+
+[oglplus_object_ObjHandle]
 
 [endsect]
 

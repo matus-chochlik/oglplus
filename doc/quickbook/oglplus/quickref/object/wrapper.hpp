@@ -74,6 +74,49 @@ returning __Nothing by default.
 { };
 
 //]
+//[oglplus_object_ObjHandle
+
+template <typename __ObjTag>
+class ObjHandle
+ : public __ObjGenDelOps<__ObjTag>
+ , public __ObjectName<__ObjTag>
+{
+public:
+	ObjHandle(__GenTag method); /*<
+	Constructs an [^ObjHandle] with a specific [^method] of object creation.
+	>*/
+
+	ObjHandle(__GenTag method, __ObjectDesc&& description); /*<
+	Constructs an [^ObjHandle] with a specific [^method] of object creation,
+	and attaches the specified [^description] to it.
+	>*/
+
+	typedef typename __ObjectSubtype<__ObjTag>::Type Subtype; /*<
+	The subtype of the object. If this object type does not have
+	any subtypes, then [^Subtype] is defined as __Nothing.
+	>*/
+
+	template <typename __GenTag>
+	ObjHandle(__GenTag method, Subtype subtype); /*<
+	Constructs a handle for object of the specified [^subtype].
+	If [^subtype] is __Nothing then this constructor is equivalent
+	to the constructor taking only the [^method].
+	>*/
+
+	ObjHandle(ObjHandle&& temp);
+	ObjHandle& operator = (ObjHandle&& temp);
+
+	const std::string& Description(void) const /*<
+	Returns the textual description of this object handle.
+	>*/
+
+	operator __Sequence<__ObjectName<__ObjTag>> (void) const; /*<
+	[^ObjHandle]s are implicitly convertible to a sequence of object names.
+	Note that the returned sequence must not be used after
+	this object handle has been destroyed.
+	>*/
+};
+//]
 //[oglplus_object_Object
 
 template <typename __OpsTag, typename __ObjTag>

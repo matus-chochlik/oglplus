@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.52.0
+Release notes for version 0.53.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,20 +7,16 @@ Release notes for version 0.52.0
 Overview
 ========
 
-This is mostly a bugfix release of `OGLplus`_, but it also brings wrappers for ``KHR_blend_equation_advanced``, new non-throwing constructor in ``ProgVar``, the ``ObjHandle`` template and documentation updates.
+This is mostly a bugfix release of `OGLplus`_, but it also brings updates to the GL version detection in the build system, minor updates to ``ObjHandle`` and updated documentation.
 
 Changes
 =======
 
- - Runtime bugs in the bitmap-glyph-based text rendering utilities were fixed.
+ - The GL version detection algorithm now also checks for the presence of (nearly) all required GL constants.
 
- - Regressions in the GLES v3 and Android support were fixed.
+ - A bug in the setting array of ``Vector<T,N>`` uniform values was fixed.
 
- - The ``Object`` template was refactored and ``ObjHandle`` was added.
-
- - The ``OutputData`` class was added and is used in ``Texture`` operations.
-
- - The ``BlendEquationAdvanced`` enumeration was added and blending-related ``Context`` functions were updated to use it. The ``BlendBarrier`` function was also added.
+ - An unused constructor was removed from ``ObjHandle``.
 
  - The Quickbook documentation was updated.
 

@@ -365,6 +365,18 @@ public:
 		);
 	}
 	///@}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_path_rendering_shared_edge
+	/// Makes the last appended edge of the path a shared edge.
+	PathNVSpec& SharedEdge(void)
+	{
+		if(!_commands.empty())
+		{
+			_commands.back() |= GL_SHARED_EDGE_NV;
+		}
+		return *this;
+	}
+#endif
 };
 
 /// Facade over PathNVSpec for even more convenient path specification
