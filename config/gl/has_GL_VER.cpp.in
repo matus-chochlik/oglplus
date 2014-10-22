@@ -20,6 +20,13 @@ bool do_query_gl(void)
 	std::cerr << "@OGLPLUS_CONFIG_QUERY_GL_VER@ is zero!" << std::endl;
 	return false;
 #else
+	std::cout
+		<< "Detecting GL version: "
+		<< @OGLPLUS_CONFIG_QUERY_GL_VER_MAJOR@
+		<< "."
+		<< @OGLPLUS_CONFIG_QUERY_GL_VER_MINOR@
+		<< std::endl;
+
 	GLint req_major = @OGLPLUS_CONFIG_QUERY_GL_VER_MAJOR@;
 	GLint req_minor = @OGLPLUS_CONFIG_QUERY_GL_VER_MINOR@;
 	GLint sup_major = 0;
@@ -47,8 +54,9 @@ bool do_query_gl(void)
 			<< std::endl;
 		return false;
 	}
+	unsigned missing_gl_symbols = 0;
 #include "assert_GL_VER_symbols.ipp"
-	return true;
+	return missing_gl_symbols == 0;
 #endif
 }
 

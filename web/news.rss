@@ -6,8 +6,28 @@
 	<link>http://oglplus.org/</link>
 	<language>en-us</language>
 	<ttl>1440</ttl>
-	<lastBuildDate>Wed, 27 Aug 2014 17:04:45 GMT</lastBuildDate>
+	<lastBuildDate>Wed, 22 Oct 2014 16:34:13 GMT</lastBuildDate>
 
+	<item>
+		<title>OGLplus 0.53.0 released.</title>
+		<link>http://sourceforge.net/projects/oglplus/files/oglplus-0.53.x/</link>
+		<description>
+			New release packages are available for download from SourceForge.
+		</description>
+		<guid>http://oglplus.org/news.rss#item-2014-10-22-16:34:13</guid>
+		<pubDate>Wed, 22 Oct 2014 16:34:13 GMT</pubDate>
+		<source url="http://oglplus.org/news.rss">OGLplus news</source>
+	</item>
+	<item>
+		<title>OGLplus 0.52.0 released.</title>
+		<link>http://sourceforge.net/projects/oglplus/files/oglplus-0.52.x/</link>
+		<description>
+			New release packages are available for download from SourceForge.
+		</description>
+		<guid>http://oglplus.org/news.rss#item-2014-09-22-18:26:07</guid>
+		<pubDate>Mon, 22 Sep 2014 18:26:07 GMT</pubDate>
+		<source url="http://oglplus.org/news.rss">OGLplus news</source>
+	</item>
 	<item>
 		<title>OGLplus 0.51.0 released.</title>
 		<link>http://sourceforge.net/projects/oglplus/files/oglplus-0.51.x/</link>
@@ -79,26 +99,6 @@
 		</description>
 		<guid>http://oglplus.org/news.rss#item-2014-05-29-15:25:03</guid>
 		<pubDate>Thu, 29 May 2014 15:25:03 GMT</pubDate>
-		<source url="http://oglplus.org/news.rss">OGLplus news</source>
-	</item>
-	<item>
-		<title>OGLplus 0.45.0 released.</title>
-		<link>http://sourceforge.net/projects/oglplus/files/oglplus-0.45.x/</link>
-		<description>
-			New release packages are available for download from SourceForge.
-		</description>
-		<guid>http://oglplus.org/news.rss#item-2014-04-30-20:37:26</guid>
-		<pubDate>Wed, 30 Apr 2014 20:37:26 GMT</pubDate>
-		<source url="http://oglplus.org/news.rss">OGLplus news</source>
-	</item>
-	<item>
-		<title>OGLplus 0.44.0 released.</title>
-		<link>http://sourceforge.net/projects/oglplus/files/oglplus-0.44.x/</link>
-		<description>
-			New release packages are available for download from SourceForge.
-		</description>
-		<guid>http://oglplus.org/news.rss#item-2014-04-16-18:15:38</guid>
-		<pubDate>Wed, 16 Apr 2014 18:15:38 GMT</pubDate>
 		<source url="http://oglplus.org/news.rss">OGLplus news</source>
 	</item>
 </channel>

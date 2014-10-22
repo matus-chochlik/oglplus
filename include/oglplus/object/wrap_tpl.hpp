@@ -259,11 +259,6 @@ public:
 	 : Base_(create)
 	{ }
 
-	/// A textual description can be attached to object handles
-	ObjHandle(ObjectDesc&& description)
-	 : Base_(std::move(description))
-	{ }
-
 	ObjHandle(tag::Generate generate, ObjectDesc&& description)
 	 : Base_(generate, std::move(description))
 	{ }
