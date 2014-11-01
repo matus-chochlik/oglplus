@@ -194,9 +194,27 @@
 
 // ------- C++11 feature availability detection -------
 
-#if OGLPLUS_NO_NULLPTR
-#define nullptr 0
+#if OGLPLUS_NO_SCOPED_ENUMS
+#error Strongly-typed enums are required but not supported by the used compiler!
 #endif
+
+#if OGLPLUS_NO_VARIADIC_MACROS
+#error Variadic macros are required but not supported by the used compiler!
+#endif
+
+#if OGLPLUS_NO_VARIADIC_TEMPLATES
+#error Variadic templates are required but not supported by the used compiler!
+#endif
+
+#if OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
+#error Unified initialization syntax is required but not supported by the used compiler!
+#endif
+
+#if OGLPLUS_NO_NULLPTR
+#error nullptr is required but not supported by the used compiler!
+#endif
+
+// ------- C++11 feature availability detection -------
 
 #if !OGLPLUS_NO_CONSTEXPR
 #define OGLPLUS_CONSTEXPR constexpr

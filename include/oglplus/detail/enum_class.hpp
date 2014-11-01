@@ -15,10 +15,6 @@
 
 #include <oglplus/config/compiler.hpp>
 
-#if OGLPLUS_NO_SCOPED_ENUMS
-#error Strongly-typed enums are required but not supported by the used compiler!
-#endif
-
 namespace oglplus {
 
 #define OGLPLUS_ENUM_CLASS_FWD(NAME, TYPE) \
