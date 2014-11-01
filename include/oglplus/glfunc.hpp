@@ -22,7 +22,7 @@
 
 namespace oglplus {
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES && !OGLPLUS_NO_GLFUNC_CHECKS
+#if !OGLPLUS_NO_GLFUNC_CHECKS
 template <typename RV, typename ... Params>
 inline auto _checked_glfunc(
 	RV (GLAPIENTRY *pfn)(Params...),

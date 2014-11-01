@@ -125,7 +125,6 @@ private:
 	}
 
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <typename S, typename ... V>
 	static void _do_set_t(
 		_set_cont,
@@ -179,11 +178,9 @@ private:
 			Index(base_location)
 		);
 	}
-#endif //NO_VARIADIC_TEMPLATES
 
 protected:
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <typename ... V>
 	static void _do_set(GLuint program, GLuint location, V ... v)
 	{
@@ -204,75 +201,6 @@ protected:
 			Index(location)
 		);
 	}
-#else
-	template <typename V>
-	static void _do_set(GLuint program, GLuint location, V v0)
-	{
-		std::integral_constant<std::size_t, 1> nparam;
-		Callers::_call_set_t(
-			program,
-			location,
-			Setters::_fns_t(nparam, &v0),
-			v0
-		);
-		OGLPLUS_CHECK_CTXT(
-			ProgVarError,
-			Program(ProgramName(program)).
-			Index(location)
-		);
-	}
-
-	template <typename V>
-	static void _do_set(GLuint program, GLuint location, V v0, V v1)
-	{
-		std::integral_constant<std::size_t, 2> nparam;
-		Callers::_call_set_t(
-			program,
-			location,
-			Setters::_fns_t(nparam, &v0),
-			v0, v1
-		);
-		OGLPLUS_CHECK_CTXT(
-			ProgVarError,
-			Program(ProgramName(program)).
-			Index(base_location)
-		);
-	}
-
-	template <typename V>
-	static void _do_set(GLuint program, GLuint location, V v0, V v1, V v2)
-	{
-		std::integral_constant<std::size_t, 3> nparam;
-		Callers::_call_set_t(
-			program,
-			location,
-			Setters::_fns_t(nparam, &v0),
-			v0, v1, v2
-		);
-		OGLPLUS_CHECK_CTXT(
-			ProgVarError,
-			Program(ProgramName(program)).
-			Index(base_location)
-		);
-	}
-
-	template <typename V>
-	static void _do_set(GLuint program, GLuint location, V v0, V v1, V v2, V v3)
-	{
-		std::integral_constant<std::size_t, 4> nparam;
-		Callers::_call_set_t(
-			program,
-			location,
-			Setters::_fns_t(nparam, &v0),
-			v0, v1, v2, v3
-		);
-		OGLPLUS_CHECK_CTXT(
-			ProgVarError,
-			Program(ProgramName(program)).
-			Index(base_location)
-		);
-	}
-#endif //NO_VARIADIC_TEMPLATES
 
 	template <std::size_t Cols, typename V>
 	static void _do_set(GLuint program, GLuint location, const V* v)
@@ -353,7 +281,6 @@ protected:
 		);
 	}
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <std::size_t Cols, typename V, typename ... P>
 	static void _do_set_mat_p(
 		GLuint program,
@@ -380,7 +307,6 @@ protected:
 			values
 		);
 	}
-#endif //NO_VARIADIC_TEMPLATES
 };
 
 } // namespace oglplus

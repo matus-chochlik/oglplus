@@ -68,100 +68,6 @@ template <typename Common, typename TypeList>
 class OneOf;
 #endif
 
-// Specialization for the common case of two variants
-template <typename Common, typename V1, typename V2>
-class OneOf<Common, std::tuple<V1, V2>>
-{
-private:
-	Common _value;
-public:
-	OneOf(V1 value)
-	 : _value(Common(value))
-	{ }
-
-	OneOf(V2 value)
-	 : _value(Common(value))
-	{ }
-
-	template <typename T>
-	OneOf(
-		T value,
-		typename std::enable_if<
-			std::is_convertible<T, V1>::value
-		>::type* = nullptr
-	): _value(Common(V1(value)))
-	{ }
-
-	template <typename T>
-	OneOf(
-		T value,
-		typename std::enable_if<
-			std::is_convertible<T, V2>::value
-		>::type* = nullptr
-	): _value(Common(V2(value)))
-	{ }
-
-	OGLPLUS_EXPLICIT operator Common (void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return _value;
-	}
-};
-
-// Specialization for the common case of three variants
-template <typename Common, typename V1, typename V2, typename V3>
-class OneOf<Common, std::tuple<V1, V2, V3>>
-{
-private:
-	Common _value;
-public:
-	OneOf(V1 value)
-	 : _value(Common(value))
-	{ }
-
-	OneOf(V2 value)
-	 : _value(Common(value))
-	{ }
-
-	OneOf(V3 value)
-	 : _value(Common(value))
-	{ }
-
-	template <typename T>
-	OneOf(
-		T value,
-		typename std::enable_if<
-			std::is_convertible<T, V1>::value
-		>::type* = nullptr
-	): _value(Common(V1(value)))
-	{ }
-
-	template <typename T>
-	OneOf(
-		T value,
-		typename std::enable_if<
-			std::is_convertible<T, V2>::value
-		>::type* = nullptr
-	): _value(Common(V2(value)))
-	{ }
-
-	template <typename T>
-	OneOf(
-		T value,
-		typename std::enable_if<
-			std::is_convertible<T, V3>::value
-		>::type* = nullptr
-	): _value(Common(V3(value)))
-	{ }
-
-	OGLPLUS_EXPLICIT operator Common (void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return _value;
-	}
-};
-
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 template <typename Common, typename ... Variants>
 class OneOf<Common, std::tuple<Variants...>>
  : public aux::OneOfBase<Common, Variants>...
@@ -217,7 +123,6 @@ public:
 		return _value;
 	}
 };
-#endif // !OGLPLUS_NO_VARIADIC_TEMPLATES
 
 } // namespace oglplus
 

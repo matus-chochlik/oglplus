@@ -27,9 +27,7 @@
 
 #include "implement.ipp"
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/text/unicode.hpp>
-#endif //OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/text/bitmap_glyph.hpp>
 #include <oglplus/text/stb_truetype.hpp>
 #if OGLPLUS_PANGO_CAIRO_FOUND

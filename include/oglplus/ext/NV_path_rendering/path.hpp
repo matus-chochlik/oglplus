@@ -29,9 +29,7 @@
 #include <oglplus/ext/NV_path_rendering/cap_style.hpp>
 #include <oglplus/ext/NV_path_rendering/dash_offset_reset.hpp>
 #include <oglplus/ext/NV_path_rendering/transform_type.hpp>
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/ext/NV_path_rendering/path_spec.hpp>
-#endif
 
 #include <vector>
 
@@ -140,7 +138,6 @@ public:
 		return *this;
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Specifies the path via the PathNVSpec class
 	/**
 	 *  @see PathNVSpec
@@ -153,7 +150,6 @@ public:
 	{
 		return Commands<CoordType>(spec._commands, spec._coords);
 	}
-#endif
 
 	/// Specifies the path via a sequence of coordinates
 	/**
@@ -263,7 +259,6 @@ public:
 		return *this;
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Replaces a part of the the path with new commands and coordinates
 	/**
 	 *  @glsymbols
@@ -283,7 +278,6 @@ public:
 			spec._coords
 		);
 	}
-#endif
 
 	/// Replaces some of the paths coordinates
 	/**
@@ -800,7 +794,6 @@ public:
 		return *this;
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Sets the path dash array
 	/**
 	 *  @glsymbols
@@ -813,7 +806,6 @@ public:
 		const GLfloat dash_array[N] = { GLfloat(dashes)... };
 		return DashArray(N, dash_array);
 	}
-#endif
 
 	/// Sets the client length value
 	/**

@@ -346,9 +346,7 @@ public:
 #include <oglplus/math/vector_3.ipp>
 #include <oglplus/math/vector_4.ipp>
 
-#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/math/vector_n.ipp>
-#endif
 
 #include <oglplus/math/vector_swizzle.ipp>
 

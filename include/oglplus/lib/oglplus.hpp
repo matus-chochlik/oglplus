@@ -95,9 +95,7 @@
 #include <oglplus/images/voronoi.hpp>
 #include <oglplus/images/worley.hpp>
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/text/unicode.hpp>
-#endif //OGLPLUS_NO_VARIADIC_TEMPLATES
 
 #include <oglplus/opt/resources.hpp>
 

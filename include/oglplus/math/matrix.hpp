@@ -366,7 +366,7 @@ public:
 	 */
 	template <typename ... C>
 	explicit Matrix(const Vector<T, C> ... row);
-#elif !OGLPLUS_NO_VARIADIC_TEMPLATES && !OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
+#elif !OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
 
 #include <oglplus/math/matrix_n_ctr.ipp>
 
