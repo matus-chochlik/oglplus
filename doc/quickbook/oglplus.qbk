@@ -79,6 +79,7 @@
 [def __ObjectDesc [link oglplus.quickref.object.desc ObjectDesc]]
 [def __Object [link oglplus.quickref.object.wrapper Object]]
 [def __ObjectZero [link oglplus.quickref.object.wrapper.obj_zero ObjectZero]]
+[def __ObjHandle [link oglplus.quickref.object.wrapper.handle ObjHandle]]
 
 [def __Buffer [link oglplus.quickref.buffer.def Buffer]]
 [def __NoBuffer [link oglplus.quickref.buffer.def NoBuffer]]
