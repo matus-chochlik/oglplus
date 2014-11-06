@@ -20,7 +20,11 @@ Plane::Indices(Plane::Default) const
 	unsigned offs = 0, leap = _udiv + 1;
 
 	// primitive restart index (the count of indices)
+#ifdef GL_PRIMITIVE_RESTART
 	GLuint pri = _vdiv * (2 * leap + 1);
+#else
+    GLuint pri = _vdiv * (2 * leap + 2);
+#endif
 	IndexArray indices(pri);
 
 	for(unsigned j=0; j!=_vdiv; ++j)
@@ -30,8 +34,13 @@ Plane::Indices(Plane::Default) const
 			indices[k++] = offs + i;
 			indices[k++] = offs + i + leap;
 		}
-		indices[k++] = pri;
 		offs += leap;
+#ifdef GL_PRIMITIVE_RESTART
+		indices[k++] = pri;
+#else
+        indices[k++] = offs + leap - 1;
+        indices[k++] = offs;
+#endif
 	}
 	assert(k == indices.size());
 	//
@@ -45,13 +54,21 @@ Plane::Instructions(Plane::Default) const
 {
 	auto instructions = this->MakeInstructions();
 
+#ifdef GL_PRIMITIVE_RESTART
 	GLuint pri = _vdiv * (2 * (_udiv + 1) + 1);
+#else
+	GLuint pri = _vdiv * (2 * (_udiv + 1) + 2);
+#endif
 	DrawOperation operation;
 	operation.method = DrawOperation::Method::DrawElements;
 	operation.mode = PrimitiveType::TriangleStrip;
 	operation.first = GLuint(0);
 	operation.count = pri;
+#ifdef GL_PRIMITIVE_RESTART
 	operation.restart_index = pri;
+#else
+    operation.restart_index = DrawOperation::NoRestartIndex();
+#endif
 	operation.phase = 0;
 	this->AddInstruction(instructions, operation);
 

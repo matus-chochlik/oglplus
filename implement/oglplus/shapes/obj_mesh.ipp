@@ -138,6 +138,8 @@ void ObjMesh::_load_meshes(
 	while(std::getline(input, line))
 	{
 		std::string::const_iterator b = line.begin(), i = b, e = line.end();
+		// rtrim \r
+        while((b < e) && e[-1] == '\r') --e;
 		// ltrim
 		while((i != e) && std::isspace(*i)) ++i;
 		// skip empty lines
@@ -198,7 +200,7 @@ void ObjMesh::_load_meshes(
 			}
 			char t = *i;
 			++i;
-			std::stringstream str(line.c_str()+distance(b, i));
+			std::stringstream str(line.c_str()+std::distance(b, i));
 			// if it is a known tag
 			if(vert_tags.find(t) != std::string::npos)
 			{

@@ -42,7 +42,7 @@ EGLPLUS_ENUM_CLASS_END(RenderingAPI)
  */
 inline bool BindAPI(RenderingAPI api)
 {
-	bool result = EGLPLUS_EGLFUNC(BindAPI)(EGLenum(api));
+	bool result = EGLPLUS_EGLFUNC(BindAPI)(EGLenum(api)) != 0;
 	EGLPLUS_VERIFY_SIMPLE(BindAPI);
 	return result;
 }

@@ -17,7 +17,14 @@ VertexArray ShapeWrapperBase::VAOForProgram(const ProgramOps& prog) const
 {
 	VertexArray vao;
 	vao.Bind();
-	prog.Use();
+	SetupForProgram(prog);
+	return std::move(vao);
+}
+
+OGLPLUS_LIB_FUNC
+void ShapeWrapperBase::SetupForProgram(ProgramName progName) const
+{
+    Program::Bind(progName);
 	size_t i=0, n = _names.size();
 	while(i != n)
 	{
@@ -26,7 +33,7 @@ VertexArray ShapeWrapperBase::VAOForProgram(const ProgramOps& prog) const
 			try
 			{
 				_vbos[i].Bind(Buffer::Target::Array);
-				VertexArrayAttrib attr(prog, _names[i]);
+                VertexArrayAttrib attr(progName, _names[i]);
 				attr.Setup<GLfloat>(_npvs[i]);
 				attr.Enable();
 			}
@@ -40,7 +47,6 @@ VertexArray ShapeWrapperBase::VAOForProgram(const ProgramOps& prog) const
 		assert((i+1) == _vbos.size());
 		_vbos[i].Bind(Buffer::Target::ElementArray);
 	}
-	return std::move(vao);
 }
 
 } // shapes
