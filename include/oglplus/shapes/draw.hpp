@@ -174,7 +174,7 @@ private:
 	template <typename IT>
 	void* IndexPtr_(const std::vector<IT>& indices) const
 	{
-		const IT* base = indices.empty() ? nullptr : indices.data();
+		const IT* base = indices.empty() ? nullptr : &indices.front();
 		return (void*)(base + first);
 	}
 
