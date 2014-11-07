@@ -57,6 +57,7 @@ the concept.
 [include quickref/stencil_operation.qbk]
 [include quickref/access_specifier.qbk]
 
+[include quickref/data_type.qbk]
 [include quickref/face_mode.qbk]
 [include quickref/blend_function.qbk]
 [include quickref/color_buffer.qbk]
