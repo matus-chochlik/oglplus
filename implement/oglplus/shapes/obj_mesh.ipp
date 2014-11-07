@@ -139,7 +139,7 @@ void ObjMesh::_load_meshes(
 	{
 		std::string::const_iterator b = line.begin(), i = b, e = line.end();
 		// rtrim \r
-        while((b < e) && e[-1] == '\r') --e;
+		while((b < e) && e[-1] == '\r') --e;
 		// ltrim
 		while((i != e) && std::isspace(*i)) ++i;
 		// skip empty lines

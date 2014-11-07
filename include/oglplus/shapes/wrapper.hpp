@@ -75,7 +75,8 @@ protected:
 	{
 		NoVertexArray().Bind();
 		typename ShapeBuilder::VertexAttribs vert_attr_info;
-        EGLPLUS_FAKE_USE(vert_attr_info);
+		OGLPLUS_FAKE_USE(vert_attr_info);
+
 		unsigned i = 0;
 		std::vector<GLfloat> data;
 		while(name != end)

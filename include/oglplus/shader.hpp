@@ -195,16 +195,6 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	ObjectOps& Source(const GLchar * source)
-	{
-        return SourceTpl(GLSLString(source));
-	}
-
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
 	ObjectOps& Source(GLSLString&& source)
 	{
 		return SourceTpl(source);
@@ -511,13 +501,6 @@ public:
 		ObjectDesc&& description,
 		GLSLString&& glsl_source
 	): Shader(ShType, std::move(description), std::move(glsl_source))
-	{ }
-
-	/// Construction with description and source code
-	SpecShader(
-		ObjectDesc&& description,
-		const GLchar * glsl_source
-	): Shader(ShType, std::move(description), glsl_source)
 	{ }
 
 	/// Construction with a source code wrapper

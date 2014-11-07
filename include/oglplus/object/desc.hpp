@@ -49,14 +49,6 @@ public:
 		OGLPLUS_FAKE_USE(tmp);
 	}
 
-    explicit ObjectDesc(const GLchar * str)
-#if !OGLPLUS_NO_OBJECT_DESC
-        : _str(str)
-#endif
-    {
-        OGLPLUS_FAKE_USE(str);
-    }
-
 	const std::string& Str(void)
 	{
 #if !OGLPLUS_NO_OBJECT_DESC
