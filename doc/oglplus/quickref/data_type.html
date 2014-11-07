@@ -1,0 +1,228 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Data types</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="access_specifier.html" title="Access specifier">
+<link rel="next" href="face_mode.html" title="Face orientation and mode">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="access_specifier.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="face_mode.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.data_type"></a><a class="link" href="data_type.html" title="Data types">Data types</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/data_type.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">DataType</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Byte</span>          <span class="special">=</span> <span class="identifier">GL_BYTE</span><span class="special">,</span>
+	<span class="identifier">Short</span>         <span class="special">=</span> <span class="identifier">GL_SHORT</span><span class="special">,</span>
+	<span class="identifier">Int</span>           <span class="special">=</span> <span class="identifier">GL_INT</span><span class="special">,</span>
+	<span class="identifier">Fixed</span>         <span class="special">=</span> <span class="identifier">GL_FIXED</span><span class="special">,</span>
+	<span class="identifier">Float</span>         <span class="special">=</span> <span class="identifier">GL_FLOAT</span><span class="special">,</span>
+	<span class="identifier">HalfFloat</span>     <span class="special">=</span> <span class="identifier">GL_HALF_FLOAT</span><span class="special">,</span>
+	<span class="identifier">Double</span>        <span class="special">=</span> <span class="identifier">GL_DOUBLE</span><span class="special">,</span>
+	<span class="identifier">UnsignedByte</span>  <span class="special">=</span> <span class="identifier">GL_UNSIGNED_BYTE</span><span class="special">,</span>
+	<span class="identifier">UnsignedShort</span> <span class="special">=</span> <span class="identifier">GL_UNSIGNED_SHORT</span><span class="special">,</span>
+	<span class="identifier">UnsignedInt</span>   <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">DataType</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">DataType</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">DataType</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SLDataType</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Float</span>                                <span class="special">=</span> <span class="identifier">GL_FLOAT</span><span class="special">,</span>
+	<span class="identifier">FloatVec2</span>                            <span class="special">=</span> <span class="identifier">GL_FLOAT_VEC2</span><span class="special">,</span>
+	<span class="identifier">FloatVec3</span>                            <span class="special">=</span> <span class="identifier">GL_FLOAT_VEC3</span><span class="special">,</span>
+	<span class="identifier">FloatVec4</span>                            <span class="special">=</span> <span class="identifier">GL_FLOAT_VEC4</span><span class="special">,</span>
+	<span class="identifier">Double</span>                               <span class="special">=</span> <span class="identifier">GL_DOUBLE</span><span class="special">,</span>
+	<span class="identifier">DoubleVec2</span>                           <span class="special">=</span> <span class="identifier">GL_DOUBLE_VEC2</span><span class="special">,</span>
+	<span class="identifier">DoubleVec3</span>                           <span class="special">=</span> <span class="identifier">GL_DOUBLE_VEC3</span><span class="special">,</span>
+	<span class="identifier">DoubleVec4</span>                           <span class="special">=</span> <span class="identifier">GL_DOUBLE_VEC4</span><span class="special">,</span>
+	<span class="identifier">Int</span>                                  <span class="special">=</span> <span class="identifier">GL_INT</span><span class="special">,</span>
+	<span class="identifier">IntVec2</span>                              <span class="special">=</span> <span class="identifier">GL_INT_VEC2</span><span class="special">,</span>
+	<span class="identifier">IntVec3</span>                              <span class="special">=</span> <span class="identifier">GL_INT_VEC3</span><span class="special">,</span>
+	<span class="identifier">IntVec4</span>                              <span class="special">=</span> <span class="identifier">GL_INT_VEC4</span><span class="special">,</span>
+	<span class="identifier">UnsignedInt</span>                          <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntVec2</span>                      <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_VEC2</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntVec3</span>                      <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_VEC3</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntVec4</span>                      <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_VEC4</span><span class="special">,</span>
+	<span class="identifier">Bool</span>                                 <span class="special">=</span> <span class="identifier">GL_BOOL</span><span class="special">,</span>
+	<span class="identifier">BoolVec2</span>                             <span class="special">=</span> <span class="identifier">GL_BOOL_VEC2</span><span class="special">,</span>
+	<span class="identifier">BoolVec3</span>                             <span class="special">=</span> <span class="identifier">GL_BOOL_VEC3</span><span class="special">,</span>
+	<span class="identifier">BoolVec4</span>                             <span class="special">=</span> <span class="identifier">GL_BOOL_VEC4</span><span class="special">,</span>
+	<span class="identifier">FloatMat2</span>                            <span class="special">=</span> <span class="identifier">GL_FLOAT_MAT2</span><span class="special">,</span>
+	<span class="identifier">FloatMat3</span>                            <span class="special">=</span> <span class="identifier">GL_FLOAT_MAT3</span><span class="special">,</span>
+	<span class="identifier">FloatMat4</span>                            <span class="special">=</span> <span class="identifier">GL_FLOAT_MAT4</span><span class="special">,</span>
+	<span class="identifier">FloatMat2x3</span>                          <span class="special">=</span> <span class="identifier">GL_FLOAT_MAT2x3</span><span class="special">,</span>
+	<span class="identifier">FloatMat2x4</span>                          <span class="special">=</span> <span class="identifier">GL_FLOAT_MAT2x4</span><span class="special">,</span>
+	<span class="identifier">FloatMat3x2</span>                          <span class="special">=</span> <span class="identifier">GL_FLOAT_MAT3x2</span><span class="special">,</span>
+	<span class="identifier">FloatMat3x4</span>                          <span class="special">=</span> <span class="identifier">GL_FLOAT_MAT3x4</span><span class="special">,</span>
+	<span class="identifier">FloatMat4x2</span>                          <span class="special">=</span> <span class="identifier">GL_FLOAT_MAT4x2</span><span class="special">,</span>
+	<span class="identifier">FloatMat4x3</span>                          <span class="special">=</span> <span class="identifier">GL_FLOAT_MAT4x3</span><span class="special">,</span>
+	<span class="identifier">DoubleMat2</span>                           <span class="special">=</span> <span class="identifier">GL_DOUBLE_MAT2</span><span class="special">,</span>
+	<span class="identifier">DoubleMat3</span>                           <span class="special">=</span> <span class="identifier">GL_DOUBLE_MAT3</span><span class="special">,</span>
+	<span class="identifier">DoubleMat4</span>                           <span class="special">=</span> <span class="identifier">GL_DOUBLE_MAT4</span><span class="special">,</span>
+	<span class="identifier">DoubleMat2x3</span>                         <span class="special">=</span> <span class="identifier">GL_DOUBLE_MAT2x3</span><span class="special">,</span>
+	<span class="identifier">DoubleMat2x4</span>                         <span class="special">=</span> <span class="identifier">GL_DOUBLE_MAT2x4</span><span class="special">,</span>
+	<span class="identifier">DoubleMat3x2</span>                         <span class="special">=</span> <span class="identifier">GL_DOUBLE_MAT3x2</span><span class="special">,</span>
+	<span class="identifier">DoubleMat3x4</span>                         <span class="special">=</span> <span class="identifier">GL_DOUBLE_MAT3x4</span><span class="special">,</span>
+	<span class="identifier">DoubleMat4x2</span>                         <span class="special">=</span> <span class="identifier">GL_DOUBLE_MAT4x2</span><span class="special">,</span>
+	<span class="identifier">DoubleMat4x3</span>                         <span class="special">=</span> <span class="identifier">GL_DOUBLE_MAT4x3</span><span class="special">,</span>
+	<span class="identifier">Sampler1D</span>                            <span class="special">=</span> <span class="identifier">GL_SAMPLER_1D</span><span class="special">,</span>
+	<span class="identifier">Sampler2D</span>                            <span class="special">=</span> <span class="identifier">GL_SAMPLER_2D</span><span class="special">,</span>
+	<span class="identifier">Sampler3D</span>                            <span class="special">=</span> <span class="identifier">GL_SAMPLER_3D</span><span class="special">,</span>
+	<span class="identifier">SamplerCube</span>                          <span class="special">=</span> <span class="identifier">GL_SAMPLER_CUBE</span><span class="special">,</span>
+	<span class="identifier">Sampler1DShadow</span>                      <span class="special">=</span> <span class="identifier">GL_SAMPLER_1D_SHADOW</span><span class="special">,</span>
+	<span class="identifier">Sampler2DShadow</span>                      <span class="special">=</span> <span class="identifier">GL_SAMPLER_2D_SHADOW</span><span class="special">,</span>
+	<span class="identifier">Sampler1DArray</span>                       <span class="special">=</span> <span class="identifier">GL_SAMPLER_1D_ARRAY</span><span class="special">,</span>
+	<span class="identifier">Sampler2DArray</span>                       <span class="special">=</span> <span class="identifier">GL_SAMPLER_2D_ARRAY</span><span class="special">,</span>
+	<span class="identifier">SamplerCubeMapArray</span>                  <span class="special">=</span> <span class="identifier">GL_SAMPLER_CUBE_MAP_ARRAY</span><span class="special">,</span>
+	<span class="identifier">Sampler1DArrayShadow</span>                 <span class="special">=</span> <span class="identifier">GL_SAMPLER_1D_ARRAY_SHADOW</span><span class="special">,</span>
+	<span class="identifier">Sampler2DArrayShadow</span>                 <span class="special">=</span> <span class="identifier">GL_SAMPLER_2D_ARRAY_SHADOW</span><span class="special">,</span>
+	<span class="identifier">Sampler2DMultisample</span>                 <span class="special">=</span> <span class="identifier">GL_SAMPLER_2D_MULTISAMPLE</span><span class="special">,</span>
+	<span class="identifier">Sampler2DMultisampleArray</span>            <span class="special">=</span> <span class="identifier">GL_SAMPLER_2D_MULTISAMPLE_ARRAY</span><span class="special">,</span>
+	<span class="identifier">SamplerCubeShadow</span>                    <span class="special">=</span> <span class="identifier">GL_SAMPLER_CUBE_SHADOW</span><span class="special">,</span>
+	<span class="identifier">SamplerCubeMapArrayShadow</span>            <span class="special">=</span> <span class="identifier">GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW</span><span class="special">,</span>
+	<span class="identifier">SamplerBuffer</span>                        <span class="special">=</span> <span class="identifier">GL_SAMPLER_BUFFER</span><span class="special">,</span>
+	<span class="identifier">Sampler2DRect</span>                        <span class="special">=</span> <span class="identifier">GL_SAMPLER_2D_RECT</span><span class="special">,</span>
+	<span class="identifier">Sampler2DRectShadow</span>                  <span class="special">=</span> <span class="identifier">GL_SAMPLER_2D_RECT_SHADOW</span><span class="special">,</span>
+	<span class="identifier">IntSampler1D</span>                         <span class="special">=</span> <span class="identifier">GL_INT_SAMPLER_1D</span><span class="special">,</span>
+	<span class="identifier">IntSampler2D</span>                         <span class="special">=</span> <span class="identifier">GL_INT_SAMPLER_2D</span><span class="special">,</span>
+	<span class="identifier">IntSampler3D</span>                         <span class="special">=</span> <span class="identifier">GL_INT_SAMPLER_3D</span><span class="special">,</span>
+	<span class="identifier">IntSamplerCube</span>                       <span class="special">=</span> <span class="identifier">GL_INT_SAMPLER_CUBE</span><span class="special">,</span>
+	<span class="identifier">IntSampler1DArray</span>                    <span class="special">=</span> <span class="identifier">GL_INT_SAMPLER_1D_ARRAY</span><span class="special">,</span>
+	<span class="identifier">IntSampler2DArray</span>                    <span class="special">=</span> <span class="identifier">GL_INT_SAMPLER_2D_ARRAY</span><span class="special">,</span>
+	<span class="identifier">IntSamplerCubeMapArray</span>               <span class="special">=</span> <span class="identifier">GL_INT_SAMPLER_CUBE_MAP_ARRAY</span><span class="special">,</span>
+	<span class="identifier">IntSampler2DMultisample</span>              <span class="special">=</span> <span class="identifier">GL_INT_SAMPLER_2D_MULTISAMPLE</span><span class="special">,</span>
+	<span class="identifier">IntSampler2DMultisampleArray</span>         <span class="special">=</span> <span class="identifier">GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY</span><span class="special">,</span>
+	<span class="identifier">IntSamplerBuffer</span>                     <span class="special">=</span> <span class="identifier">GL_INT_SAMPLER_BUFFER</span><span class="special">,</span>
+	<span class="identifier">IntSampler2DRect</span>                     <span class="special">=</span> <span class="identifier">GL_INT_SAMPLER_2D_RECT</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntSampler1D</span>                 <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_SAMPLER_1D</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntSampler2D</span>                 <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_SAMPLER_2D</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntSampler3D</span>                 <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_SAMPLER_3D</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntSamplerCube</span>               <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_SAMPLER_CUBE</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntSampler1DArray</span>            <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_SAMPLER_1D_ARRAY</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntSampler2DArray</span>            <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_SAMPLER_2D_ARRAY</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntSamplerCubeMapArray</span>       <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntSampler2DMultisample</span>      <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntSampler2DMultisampleArray</span> <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntSamplerBuffer</span>             <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_SAMPLER_BUFFER</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntSampler2DRect</span>             <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_SAMPLER_2D_RECT</span><span class="special">,</span>
+	<span class="identifier">Image1D</span>                              <span class="special">=</span> <span class="identifier">GL_IMAGE_1D</span><span class="special">,</span>
+	<span class="identifier">Image2D</span>                              <span class="special">=</span> <span class="identifier">GL_IMAGE_2D</span><span class="special">,</span>
+	<span class="identifier">Image3D</span>                              <span class="special">=</span> <span class="identifier">GL_IMAGE_3D</span><span class="special">,</span>
+	<span class="identifier">Image2DRect</span>                          <span class="special">=</span> <span class="identifier">GL_IMAGE_2D_RECT</span><span class="special">,</span>
+	<span class="identifier">ImageCube</span>                            <span class="special">=</span> <span class="identifier">GL_IMAGE_CUBE</span><span class="special">,</span>
+	<span class="identifier">ImageBuffer</span>                          <span class="special">=</span> <span class="identifier">GL_IMAGE_BUFFER</span><span class="special">,</span>
+	<span class="identifier">Image1DArray</span>                         <span class="special">=</span> <span class="identifier">GL_IMAGE_1D_ARRAY</span><span class="special">,</span>
+	<span class="identifier">Image2DArray</span>                         <span class="special">=</span> <span class="identifier">GL_IMAGE_2D_ARRAY</span><span class="special">,</span>
+	<span class="identifier">Image2DMultisample</span>                   <span class="special">=</span> <span class="identifier">GL_IMAGE_2D_MULTISAMPLE</span><span class="special">,</span>
+	<span class="identifier">Image2DMultisampleArray</span>              <span class="special">=</span> <span class="identifier">GL_IMAGE_2D_MULTISAMPLE_ARRAY</span><span class="special">,</span>
+	<span class="identifier">IntImage1D</span>                           <span class="special">=</span> <span class="identifier">GL_INT_IMAGE_1D</span><span class="special">,</span>
+	<span class="identifier">IntImage2D</span>                           <span class="special">=</span> <span class="identifier">GL_INT_IMAGE_2D</span><span class="special">,</span>
+	<span class="identifier">IntImage3D</span>                           <span class="special">=</span> <span class="identifier">GL_INT_IMAGE_3D</span><span class="special">,</span>
+	<span class="identifier">IntImage2DRect</span>                       <span class="special">=</span> <span class="identifier">GL_INT_IMAGE_2D_RECT</span><span class="special">,</span>
+	<span class="identifier">IntImageCube</span>                         <span class="special">=</span> <span class="identifier">GL_INT_IMAGE_CUBE</span><span class="special">,</span>
+	<span class="identifier">IntImageBuffer</span>                       <span class="special">=</span> <span class="identifier">GL_INT_IMAGE_BUFFER</span><span class="special">,</span>
+	<span class="identifier">IntImage1DArray</span>                      <span class="special">=</span> <span class="identifier">GL_INT_IMAGE_1D_ARRAY</span><span class="special">,</span>
+	<span class="identifier">IntImage2DArray</span>                      <span class="special">=</span> <span class="identifier">GL_INT_IMAGE_2D_ARRAY</span><span class="special">,</span>
+	<span class="identifier">IntImage2DMultisample</span>                <span class="special">=</span> <span class="identifier">GL_INT_IMAGE_2D_MULTISAMPLE</span><span class="special">,</span>
+	<span class="identifier">IntImage2DMultisampleArray</span>           <span class="special">=</span> <span class="identifier">GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntImage1D</span>                   <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_IMAGE_1D</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntImage2D</span>                   <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_IMAGE_2D</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntImage3D</span>                   <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_IMAGE_3D</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntImage2DRect</span>               <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_IMAGE_2D_RECT</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntImageCube</span>                 <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_IMAGE_CUBE</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntImageBuffer</span>               <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_IMAGE_BUFFER</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntImage1DArray</span>              <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_IMAGE_1D_ARRAY</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntImage2DArray</span>              <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_IMAGE_2D_ARRAY</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntImage2DMultisample</span>        <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntImage2DMultisampleArray</span>   <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY</span><span class="special">,</span>
+	<span class="identifier">UnsignedIntAtomicCounter</span>             <span class="special">=</span> <span class="identifier">GL_UNSIGNED_INT_ATOMIC_COUNTER</span><span class="special">,</span>
+	<span class="identifier">None</span>                                 <span class="special">=</span> <span class="identifier">GL_NONE</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">SLDataType</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">SLDataType</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">SLDataType</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.data_type.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.data_type.utils"></a></span><a class="link" href="data_type.html#oglplus.quickref.data_type.utils">Utilities</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">IsGLDataType</span> <a class="co" name="oglplus.quickref.data_type.c0" href="data_type.html#oglplus.quickref.data_type.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+ <span class="special">:</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">,</span> <span class="special">...&gt;</span>
+<span class="special">{</span> <span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">DataTypeCT</span> <a class="co" name="oglplus.quickref.data_type.c2" href="data_type.html#oglplus.quickref.data_type.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+ <span class="special">:</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><a class="link" href="data_type.html" title="Data types">DataType</a><span class="special">,</span> <span class="special">...&gt;</span>
+<span class="special">{</span> <span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">GetDataType</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.data_type.c4" href="data_type.html#oglplus.quickref.data_type.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.data_type.c1"></a><a href="#oglplus.quickref.data_type.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Indicates if the the T is a GL data type.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.data_type.c3"></a><a href="#oglplus.quickref.data_type.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns a compile-time constant value from the <a class="link" href="data_type.html" title="Data types">DataType</a>
+              enumeration for the specified type <code class="literal">T</code>. This meta-function
+              is defined only for types for which <code class="literal">IsGLDataType</code>
+              returns <code class="literal">std::true_type</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.data_type.c5"></a><a href="#oglplus.quickref.data_type.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns a value from the <a class="link" href="data_type.html" title="Data types">DataType</a>
+              enueration for the specified type <code class="literal">T</code>.
+            </p></td>
+</tr>
+</table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="access_specifier.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="face_mode.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
