@@ -42,7 +42,20 @@ function(cpp_feature_detection FEATURE_NAME)
 	endif()
 endfunction()
 
-cpp_feature_detection(SCOPED_ENUMS)
+function(require_cpp_feature FEATURE_NAME)
+	cpp_feature_detection(${FEATURE_NAME})
+
+	if(${OGLPLUS_NO_${FEATURE_NAME}})
+		message(FATAL_ERROR
+			"C++ feature '${FEATURE_NAME}' is required "
+			"but not supported by the currently used compiler!"
+		)
+	endif()
+
+endfunction()
+
+require_cpp_feature(SCOPED_ENUMS)
+
 cpp_feature_detection(VARIADIC_MACROS)
 cpp_feature_detection(VARIADIC_TEMPLATES)
 cpp_feature_detection(UNIFIED_INITIALIZATION_SYNTAX)
