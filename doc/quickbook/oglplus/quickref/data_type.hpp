@@ -28,6 +28,13 @@ __DataType GetDataType(void); /*<
 Returns a value from the __DataType enueration for the specified type [^T].
 >*/
 
+
+template <typename GLtype>
+struct TypeTag /*<
+A tag template used mainly for data-type-based function overload dispatching.
+>*/
+{ };
+
 } // namespace oglplus
 //]
 

@@ -21,5 +21,11 @@
 [heading Operations with direct state access]
 
 [oglplus_sampler_1]
+[oglplus_sampler_2]
+[oglplus_sampler_3]
+
+[heading:syntax_sugar Syntax sugar operators]
+
+[oglplus_sampler_sugar]
 
 [endsect]
