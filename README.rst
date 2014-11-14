@@ -327,6 +327,7 @@ Acknowledgements
 - *Csala Tamás* for useful feedback and help with the fixing of several bugs.
 - *David McFarland* for several patches.
 - *Jesús Zazueta* for useful feedback and help with the fixing of several bugs.
+- *Konstantin Gainullin* for porting to Marmalade and fixing several warnings.
 License
 =======
 

@@ -118,6 +118,7 @@
 [def __ImageUnitSelector [link oglplus.quickref.texture.unit_selector ImageUnitSelector]]
 
 [def __Sampler [link oglplus.quickref.sampler Sampler]]
+[def __NoSampler [link oglplus.quickref.sampler NoSampler]]
 
 [def __Framebuffer [link oglplus.quickref.framebuffer.def Framebuffer]]
 [def __DefaultFramebuffer [link oglplus.quickref.framebuffer.def DefaultFramebuffer]]
@@ -168,6 +169,8 @@
 [def __StencilOp [link oglplus.quickref.stencil_operation.typedefs StencilOp]]
 [def __AccessSpecifier [link oglplus.quickref.access_specifier AccessSpecifier]]
 [def __Access [link oglplus.quickref.access_specifier.typedefs Access]]
+[def __DataType [link oglplus.quickref.data_type DataType]]
+[def __TypeTag [link oglplus.quickref.data_type.utils TypeTag]]
 
 [def __Face [link oglplus.quickref.face_mode.face Face]]
 [def __FaceOrientation [link oglplus.quickref.face_mode.orientation FaceOrientation]]

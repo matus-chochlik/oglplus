@@ -75,6 +75,8 @@ protected:
 	{
 		NoVertexArray().Bind();
 		typename ShapeBuilder::VertexAttribs vert_attr_info;
+		OGLPLUS_FAKE_USE(vert_attr_info);
+
 		unsigned i = 0;
 		std::vector<GLfloat> data;
 		while(name != end)
@@ -152,15 +154,22 @@ public:
 #endif
 
 	VertexArray VAOForProgram(const ProgramOps& prog) const;
+	void SetupForProgram(ProgramName progName) const;
 
 	void UseInProgram(const ProgramOps& prog)
 	{
 		_vao = VAOForProgram(prog);
+		assert(GetGLName(_vao) != 0u);
 	}
 
 	void Use(void)
 	{
-		_vao.Bind();
+		if (GetGLName(_vao) == 0u) {
+			// WARNING: here should be valid shader (same as in UseInProgram call)!
+			SetupForProgram(Program::Binding());
+		} else {
+			_vao.Bind();
+		}
 	}
 
 	FaceOrientation FaceWinding(void) const
