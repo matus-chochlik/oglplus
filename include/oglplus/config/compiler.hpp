@@ -27,33 +27,6 @@
 
 // ------- C++11 feature availability detection -------
 
-#ifndef OGLPLUS_NO_VARIADIC_MACROS
-#if	defined(BOOST_NO_CXX11_VARIADIC_MACROS) ||\
-	defined(BOOST_NO_VARIADIC_MACROS)
-#define OGLPLUS_NO_VARIADIC_MACROS 1
-#else
-#define OGLPLUS_NO_VARIADIC_MACROS 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_VARIADIC_TEMPLATES
-#if	defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) ||\
-	defined(BOOST_NO_VARIADIC_TEMPLATES)
-#define OGLPLUS_NO_VARIADIC_TEMPLATES 1
-#else
-#define OGLPLUS_NO_VARIADIC_TEMPLATES 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
-#if	defined(BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX) ||\
-	defined(BOOST_NO_UNIFIED_INITIALIZATION_SYNTAX)
-#define OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX 1
-#else
-#define OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX 0
-#endif
-#endif
-
 #ifndef OGLPLUS_NO_INITIALIZER_LISTS
 #if	defined(BOOST_NO_CXX11_INITIALIZER_LISTS) ||\
 	defined(BOOST_NO_INITIALIZER_LISTS)
@@ -181,28 +154,6 @@
 #else
 #define OGLPLUS_NO_CHRONO 0
 #endif
-#endif
-
-// ------- C++11 feature availability detection -------
-
-#if OGLPLUS_NO_SCOPED_ENUMS
-#error Strongly-typed enums are required but not supported by the used compiler!
-#endif
-
-#if OGLPLUS_NO_VARIADIC_MACROS
-#error Variadic macros are required but not supported by the used compiler!
-#endif
-
-#if OGLPLUS_NO_VARIADIC_TEMPLATES
-#error Variadic templates are required but not supported by the used compiler!
-#endif
-
-#if OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
-#error Unified initialization syntax is required but not supported by the used compiler!
-#endif
-
-#if OGLPLUS_NO_NULLPTR
-#error nullptr is required but not supported by the used compiler!
 #endif
 
 // ------- C++11 feature availability detection -------
