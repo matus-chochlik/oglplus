@@ -145,13 +145,7 @@ public:
 	 , _names(std::move(temp._names))
 	{ }
 
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
 	ShapeWrapperBase(const ShapeWrapperBase&) = delete;
-#else
-private:
-	ShapeWrapperBase(const ShapeWrapperBase&);
-public:
-#endif
 
 	VertexArray VAOForProgram(const ProgramOps& prog) const;
 	void SetupForProgram(ProgramName progName) const;

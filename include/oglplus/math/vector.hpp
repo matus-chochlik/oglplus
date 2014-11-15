@@ -191,7 +191,6 @@ protected:
 public:
 	struct Unit_ { };
 
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	VectorBase(const VectorBase&) = default;
 
 	VectorBase(VectorBase&&) = default;
@@ -199,7 +198,6 @@ public:
 	VectorBase& operator = (const VectorBase&) = default;
 
 	VectorBase& operator = (VectorBase&&) = default;
-#endif
 
 	/// The size (the number of components) of this vector
 	static std::size_t Size(void)

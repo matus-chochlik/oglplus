@@ -125,13 +125,8 @@ public:
 		);
 	}
 
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
 	BufferRawMap(const BufferRawMap&) = delete;
-#else
-private:
-	BufferRawMap(const BufferRawMap&);
-public:
-#endif
+
 	/// Move construction is enabled
 	BufferRawMap(BufferRawMap&& temp)
 	 : _offset(temp._offset)

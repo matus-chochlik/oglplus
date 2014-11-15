@@ -144,13 +144,7 @@ public:
 		OGLPLUS_CHECK_SIMPLE(FenceSync);
 	}
 
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
 	Sync(const Sync&) = delete;
-#else
-private:
-	Sync(const Sync&);
-public:
-#endif
 
 	/// Sync objects are moveable
 	Sync(Sync&& temp)

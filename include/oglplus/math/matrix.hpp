@@ -335,10 +335,8 @@ public:
 		std::copy(data, data+Rows*Cols, _m._data);
 	}
 
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	Matrix(const Matrix&) = default;
 	Matrix& operator = (const Matrix&) = default;
-#endif
 
 	template <typename U, std::size_t R, std::size_t C>
 	explicit Matrix(const Matrix<U, R, C>& other)
@@ -1057,16 +1055,8 @@ private:
 	typedef Matrix<T, 4, 4> Base;
 public:
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Constructs an identity matrix
-	CameraMatrix(void);
-#endif
-
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	CameraMatrix(void) = default;
-#else
-	CameraMatrix(void){ }
-#endif
 
 	CameraMatrix(const Base& base)
 	 : Base(base)

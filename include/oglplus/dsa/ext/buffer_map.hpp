@@ -117,13 +117,7 @@ public:
 		);
 	}
 
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
 	DSABufferRawMapEXT(const DSABufferRawMapEXT&) = delete;
-#else
-private:
-	DSABufferRawMapEXT(const DSABufferRawMapEXT&);
-public:
-#endif
 
 	/// Move construction is enabled
 	DSABufferRawMapEXT(DSABufferRawMapEXT&& temp)

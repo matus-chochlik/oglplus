@@ -265,14 +265,8 @@ public:
 			);
 		}
 
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
 		/// Copying is disabled
 		Activator(const Activator&) = delete;
-#else
-	private:
-		Activator(const Activator&);
-	public:
-#endif
 
 		Activator(Activator&& tmp)
 		 : _active(tmp._active)
@@ -331,13 +325,7 @@ public:
 			OGLPLUS_VERIFY_SIMPLE(PauseTransformFeedback);
 		}
 
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
 		Pauser(const Pauser&) = delete;
-#else
-	private:
-		Pauser(const Pauser&);
-	public:
-#endif
 
 		Pauser(Pauser&& tmp)
 		 : _paused(tmp._paused)

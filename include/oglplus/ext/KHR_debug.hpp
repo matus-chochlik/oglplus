@@ -189,14 +189,8 @@ public:
 			OGLPLUS_VERIFY_SIMPLE(DebugMessageCallback);
 		}
 
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
 		/// LogSinks are not copyable
 		LogSink(const LogSink&) = delete;
-#else
-	private:
-		LogSink(const LogSink&);
-	public:
-#endif
 
 		/// Restores the previous callback and its context
 		~LogSink(void)

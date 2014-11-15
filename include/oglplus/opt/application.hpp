@@ -43,19 +43,11 @@ private:
 		return str;
 	}
 public:
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	/// Default constructor
 	Application(void) = default;
 
 	/// No copy construction
 	Application(const Application&) = delete;
-#else
-	Application(void){ }
-private:
-	Application(const Application&);
-public:
-
-#endif
 
 	static void ParseCommandLineOptions(int argc, const char** argv)
 	{

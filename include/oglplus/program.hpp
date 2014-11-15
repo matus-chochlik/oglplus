@@ -935,13 +935,7 @@ struct ProgXFBModeAndNames
 	{ }
 
 
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
 	ProgXFBModeAndNames(const ProgXFBModeAndNames&) = delete;
-#else
-private:
-	ProgXFBModeAndNames(const ProgXFBModeAndNames&);
-public:
-#endif
 
 	~ProgXFBModeAndNames(void)
 	{

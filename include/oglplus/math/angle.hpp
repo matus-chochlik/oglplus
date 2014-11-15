@@ -61,7 +61,6 @@ public:
 	 : _val_rad(T(0))
 	{ }
 
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS || OGLPLUS_DOCUMENTATION_ONLY
 	/// Angle is copy constructible
 	Angle(const Angle&) = default;
 
@@ -69,7 +68,6 @@ public:
 
 	/// Angle is move constructible
 	Angle(Angle&&) = default;
-#endif
 
 	/// Copy construction from angles using different underlying type
 	template <typename U>
