@@ -102,15 +102,6 @@
 #endif
 #endif
 
-#ifndef OGLPLUS_NO_CONSTEXPR
-#if	defined(BOOST_NO_CXX11_CONSTEXPR) ||\
-	defined(BOOST_NO_CONSTEXPR)
-#define OGLPLUS_NO_CONSTEXPR 1
-#else
-#define OGLPLUS_NO_CONSTEXPR 0
-#endif
-#endif
-
 #ifndef OGLPLUS_NO_NOEXCEPT
 #if	defined(BOOST_NO_CXX11_NOEXCEPT) ||\
 	defined(BOOST_NO_NOEXCEPT)
@@ -139,12 +130,6 @@
 #endif
 
 // ------- C++11 feature availability detection -------
-
-#if !OGLPLUS_NO_CONSTEXPR
-#define OGLPLUS_CONSTEXPR constexpr
-#else
-#define OGLPLUS_CONSTEXPR const
-#endif
 
 #if !OGLPLUS_NO_NOEXCEPT
 #define OGLPLUS_NOEXCEPT(...) noexcept(__VA_ARGS__)
