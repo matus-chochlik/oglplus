@@ -155,6 +155,12 @@
 [def __ProgramBuildError [link oglplus.quickref.error.program ProgramBuildError]]
 [def __IncompleteFramebuffer [link oglplus.quickref.error.framebuffer IncompleteFramebuffer]]
 
+[def __Sync [link oglplus.quickref.sync Sync]]
+[def __SyncCondition [link oglplus.quickref.sync.condition SyncCondition]]
+[def __SyncType [link oglplus.quickref.sync.type SyncType]]
+[def __SyncStatus [link oglplus.quickref.sync.status SyncStatus]]
+[def __SyncWaitResult [link oglplus.quickref.sync.wait_result SyncWaitResult]]
+
 [def __Context [link oglplus.quickref.context Context]]
 
 [def __Capability [link oglplus.quickref.capability Capability]]

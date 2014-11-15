@@ -46,6 +46,7 @@ the concept.
 [include quickref/program_pipeline.qbk]
 [include quickref/query.qbk]
 [include quickref/transform_feedback.qbk]
+[include quickref/sync.qbk]
 
 [include quickref/context.qbk]
 
