@@ -1,0 +1,216 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Sync objects</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="transform_feedback.html" title="Transform feedback">
+<link rel="next" href="context.html" title="Current GL context">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="transform_feedback.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="context.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.sync"></a><a class="link" href="sync.html" title="Sync objects">Sync objects</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/sync.hpp&gt;</code>
+        </p>
+<h4>
+<a name="oglplus.quickref.sync.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.sync.synchronization_object_operation"></a></span><a class="link" href="sync.html#oglplus.quickref.sync.synchronization_object_operation">Synchronization
+          object operations</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">Sync</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">struct</span> <span class="identifier">Property</span>
+	<span class="special">{</span>
+		<span class="keyword">typedef</span> <a class="link" href="sync.html#oglplus.quickref.sync.condition">SyncCondition</a> <span class="identifier">Condition</span><span class="special">;</span>
+
+		<span class="keyword">typedef</span> <a class="link" href="sync.html#oglplus.quickref.sync.type">SyncType</a> <span class="identifier">Type</span><span class="special">;</span>
+
+		<span class="keyword">typedef</span> <a class="link" href="sync.html#oglplus.quickref.sync.status">SyncStatus</a> <span class="identifier">Status</span><span class="special">;</span>
+
+		<span class="keyword">typedef</span> <a class="link" href="sync.html#oglplus.quickref.sync.wait_result">SyncWaitResult</a> <span class="identifier">WaitResult</span><span class="special">;</span>
+	<span class="special">};</span>
+
+	<span class="identifier">Sync</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Sync</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span>
+	<span class="identifier">Sync</span><span class="special">(</span><span class="identifier">Sync</span><span class="special">&amp;&amp;);</span>
+
+	<span class="identifier">Sync</span><span class="special">(</span><a class="link" href="sync.html#oglplus.quickref.sync.condition">SyncCondition</a> <span class="identifier">condition</span> <span class="special">=</span> <span class="identifier">SyncCondition</span><span class="special">::</span><span class="identifier">GPUCommandsComplete</span><span class="special">);</span> <a class="co" name="oglplus.quickref.sync.c0" href="sync.html#oglplus.quickref.sync.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">Signaled</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.sync.c2" href="sync.html#oglplus.quickref.sync.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<a class="link" href="sync.html#oglplus.quickref.sync.type">SyncType</a> <span class="identifier">Type</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.sync.c4" href="sync.html#oglplus.quickref.sync.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<a class="link" href="sync.html#oglplus.quickref.sync.condition">SyncCondition</a> <span class="identifier">Condition</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.sync.c6" href="sync.html#oglplus.quickref.sync.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<a class="link" href="sync.html#oglplus.quickref.sync.status">SyncStatus</a> <span class="identifier">Status</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.sync.c8" href="sync.html#oglplus.quickref.sync.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<a class="link" href="sync.html#oglplus.quickref.sync.wait_result">SyncWaitResult</a> <span class="identifier">ClientWait</span><span class="special">(</span><span class="identifier">GLuint64</span> <span class="identifier">timeout</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.sync.c10" href="sync.html#oglplus.quickref.sync.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">Wait</span><span class="special">(</span><span class="identifier">GLuint64</span> <span class="identifier">timeout</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.sync.c12" href="sync.html#oglplus.quickref.sync.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Wait</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.sync.c14" href="sync.html#oglplus.quickref.sync.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+<span class="special">};</span>
+
+<span class="comment">// TODO</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.sync.c1"></a><a href="#oglplus.quickref.sync.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Creates a new sync object for the specified <code class="literal">condition</code>.
+              See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glFenceSync.xml" target="_top">glFenceSync</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.sync.c3"></a><a href="#oglplus.quickref.sync.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns <code class="literal">true</code> if this Sync object is in signaled
+              state. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetSync.xml" target="_top">glGetSync</a></code>, <span class="bold"><strong><code class="literal">GL_SYNC_STATUS</code></strong></span>,
+              <span class="bold"><strong><code class="literal">GL_SIGNALED</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.sync.c5"></a><a href="#oglplus.quickref.sync.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the type of this <code class="literal">Sync</code> object. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetSync.xml" target="_top">glGetSync</a></code>,
+              <span class="bold"><strong><code class="literal">GL_OBJECT_TYPE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.sync.c7"></a><a href="#oglplus.quickref.sync.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the condition of this <code class="literal">Sync</code> object. See
+              <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetSync.xml" target="_top">glGetSync</a></code>, <span class="bold"><strong><code class="literal">GL_OBJECT_CONDITION</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.sync.c9"></a><a href="#oglplus.quickref.sync.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the status of this <code class="literal">Sync</code> object. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetSync.xml" target="_top">glGetSync</a></code>,
+              <span class="bold"><strong><code class="literal">GL_SYNC_STATUS</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.sync.c11"></a><a href="#oglplus.quickref.sync.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Wait the specified number of nanoseconds or for the condition to be
+              satisfied. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClientWaitSync.xml" target="_top">glClientWaitSync</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.sync.c13"></a><a href="#oglplus.quickref.sync.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Wait the specified number of nanoseconds or for the condition to be
+              satisfied. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glWaitSync.xml" target="_top">glWaitSync</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.sync.c15"></a><a href="#oglplus.quickref.sync.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Wait indefinitely for the condition to be satisfied. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glWaitSync.xml" target="_top">glWaitSync</a></code>.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.sync.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.sync.condition"></a></span><a class="link" href="sync.html#oglplus.quickref.sync.condition">Condition</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SyncCondition</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">GPUCommandsComplete</span> <span class="special">=</span> <span class="identifier">GL_SYNC_GPU_COMMANDS_COMPLETE</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">SyncCondition</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">SyncCondition</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">SyncCondition</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.sync.h2"></a>
+          <span class="phrase"><a name="oglplus.quickref.sync.type"></a></span><a class="link" href="sync.html#oglplus.quickref.sync.type">Type</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SyncType</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Fence</span> <span class="special">=</span> <span class="identifier">GL_SYNC_FENCE</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">SyncType</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">SyncType</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">SyncType</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.sync.h3"></a>
+          <span class="phrase"><a name="oglplus.quickref.sync.status"></a></span><a class="link" href="sync.html#oglplus.quickref.sync.status">Status</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SyncStatus</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Signaled</span>   <span class="special">=</span> <span class="identifier">GL_SIGNALED</span><span class="special">,</span>
+	<span class="identifier">Unsignaled</span> <span class="special">=</span> <span class="identifier">GL_UNSIGNALED</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">SyncStatus</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">SyncStatus</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">SyncStatus</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.sync.h4"></a>
+          <span class="phrase"><a name="oglplus.quickref.sync.wait_result"></a></span><a class="link" href="sync.html#oglplus.quickref.sync.wait_result">Wait
+          result</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SyncWaitResult</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">ConditionSatisfied</span> <span class="special">=</span> <span class="identifier">GL_CONDITION_SATISFIED</span><span class="special">,</span>
+	<span class="identifier">AlreadySignaled</span>    <span class="special">=</span> <span class="identifier">GL_ALREADY_SIGNALED</span><span class="special">,</span>
+	<span class="identifier">TimeoutExpired</span>     <span class="special">=</span> <span class="identifier">GL_TIMEOUT_EXPIRED</span><span class="special">,</span>
+	<span class="identifier">WaitFailed</span>         <span class="special">=</span> <span class="identifier">GL_WAIT_FAILED</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">SyncWaitResult</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">SyncWaitResult</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">SyncWaitResult</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="transform_feedback.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="context.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
