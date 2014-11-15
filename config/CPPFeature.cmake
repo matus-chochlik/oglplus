@@ -61,6 +61,7 @@ require_cpp_feature(UNIFIED_INITIALIZATION_SYNTAX)
 require_cpp_feature(NULLPTR)
 require_cpp_feature(DEFAULTED_FUNCTIONS)
 require_cpp_feature(DELETED_FUNCTIONS)
+require_cpp_feature(OVERRIDE)
 
 cpp_feature_detection(INITIALIZER_LISTS)
 cpp_feature_detection(EXPLICIT_CONVERSION_OPERATORS)
