@@ -136,7 +136,14 @@
 [def __Shader [link oglplus.quickref.shader Shader]]
 [def __Program [link oglplus.quickref.program Program]]
 [def __ProgramPipeline [link oglplus.quickref.program_pipeline ProgramPipeline]]
+
 [def __Query [link oglplus.quickref.query Query]]
+[def __QueryActivator [link oglplus.quickref.query.activator QueryActivator]]
+[def __ConditionalRender [link oglplus.quickref.query.conditional_render ConditionalRender]]
+[def __QueryExecution [link oglplus.quickref.query.execution QueryExecution]]
+[def __QueryTarget [link oglplus.quickref.query.target QueryTarget]]
+[def __ConditionalRenderMode [link oglplus.quickref.query.conditional_render_mode ConditionalRenderMode]]
+
 [def __TransformFeedback [link oglplus.quickref.transform_feedback TransformFeedback]]
 
 [def __OptionalObject [link oglplus.quickref.object.optional Optional]]

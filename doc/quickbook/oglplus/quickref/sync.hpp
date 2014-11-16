@@ -66,8 +66,6 @@ public:
 	>*/
 };
 
-// TODO
-
 } // namespace oglplus
 //]
 
