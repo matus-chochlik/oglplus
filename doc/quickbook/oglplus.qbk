@@ -135,7 +135,9 @@
 
 [def __Shader [link oglplus.quickref.shader Shader]]
 [def __Program [link oglplus.quickref.program Program]]
+
 [def __ProgramPipeline [link oglplus.quickref.program_pipeline ProgramPipeline]]
+[def __ProgramPipelineStage [link oglplus.quickref.program_pipeline.stage ProgramPipelineStage]]
 
 [def __Query [link oglplus.quickref.query Query]]
 [def __QueryActivator [link oglplus.quickref.query.activator QueryActivator]]
@@ -160,6 +162,9 @@
 [def __ObjectError [link oglplus.quickref.error.object ObjectError]]
 [def __ObjectPairError [link oglplus.quickref.error.object ObjectPairError]]
 [def __ProgramBuildError [link oglplus.quickref.error.program ProgramBuildError]]
+[def __CompileError [link oglplus.quickref.error.program CompileError]]
+[def __LinkError [link oglplus.quickref.error.program LinkError]]
+[def __ValidationError [link oglplus.quickref.error.program ValidationError]]
 [def __IncompleteFramebuffer [link oglplus.quickref.error.framebuffer IncompleteFramebuffer]]
 
 [def __Sync [link oglplus.quickref.sync Sync]]
