@@ -196,6 +196,20 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(ClearColor);
 	}
 
+	/// Sets the clear color from RGBAValue
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ClearColor}
+	 */
+
+	static void ClearColor(const oglplus::context::RGBAValue& color)
+	{
+		OGLPLUS_GLFUNC(ClearColor)(color.Red(), color.Green(), color.Blue(), color.Alpha());
+		OGLPLUS_VERIFY_SIMPLE(ClearColor);
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Sets the clear depth
 	/**
