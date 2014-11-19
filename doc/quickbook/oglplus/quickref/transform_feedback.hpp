@@ -65,7 +65,9 @@ public:
 	Resumes currently paused transform feedback.
 	See [glfunc ResumeTransformFeedback].
 	>*/
-// TODO Activator / Pauser
+
+	typedef __TransformFeedbackActivator Activator;
+	typedef __TransformFeedbackPauser Pauser;
 };
 //]
 //[oglplus_transform_feedback_zero
@@ -93,5 +95,53 @@ typedef __ObjectZero<__ObjZeroOps<__tag_ImplicitSel, __tag_TransformFeedback>>
 	DefaultTransformFeedback;
 
 } // namespace oglplus
+//]
+//[oglplus_transform_feedback_activator
+class TransformFeedbackActivator
+{
+public:
+	TransformFeedbackActivator(const TransformFeedbackActivator&) = delete;
+	TransformFeedbackActivator(TransformFeedbackActivator&& tmp);
+
+	TransformFeedbackActivator(__TransformFeedbackPrimitiveType mode); /*<
+	Begins transform feedback in the specified [^mode].
+	See [glfunc BeginTransformFeedback].
+	>*/
+
+	~TransformFeedbackActivator(void) /*<
+	Ends currently active transform feedback.
+	See [glfunc EndTransformFeedback].
+	>*/
+	noexcept;
+
+	void Finish(void); /*<
+	Explicitly ends the currently active transform feedback.
+	See [glfunc EndTransformFeedback].
+	>*/
+};
+//]
+//[oglplus_transform_feedback_pauser
+class TransformFeedbackPauser
+{
+public:
+	TransformFeedbackPauser(const TransformFeedbackPauser&) = delete;
+	TransformFeedbackPauser(TransformFeedbackPauser&& tmp);
+
+	TransformFeedbackPauser(void); /*<
+	Pauses the currenly active transform feedback.
+	See [glfunc PauseTransformFeedback].
+	>*/
+
+	~TransformFeedbackPauser(void) /*<
+	Resumes the currently paused transform feedback.
+	See [glfunc ResumeTransformFeedback].
+	>*/
+	noexcept;
+
+	void Resume(void); /*<
+	Explicitly resumes the currently paused transform feedback.
+	See [glfunc ResumeTransformFeedback].
+	>*/
+};
 //]
 
