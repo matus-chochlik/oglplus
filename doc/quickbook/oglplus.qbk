@@ -147,6 +147,8 @@
 [def __ConditionalRenderMode [link oglplus.quickref.query.conditional_render_mode ConditionalRenderMode]]
 
 [def __TransformFeedback [link oglplus.quickref.transform_feedback TransformFeedback]]
+[def __TransformFeedbackActivator [link oglplus.quickref.transform_feedback.activator TransformFeedbackActivator]]
+[def __TransformFeedbackPauser [link oglplus.quickref.transform_feedback.pauser TransformFeedbackPauser]]
 [def __TransformFeedbackTarget [link oglplus.quickref.transform_feedback.target TransformFeedbackTarget]]
 [def __TransformFeedbackMode [link oglplus.quickref.transform_feedback.mode TransformFeedbackMode]]
 [def __TransformFeedbackPrimitiveType [link oglplus.quickref.transform_feedback.primitive_type TransformFeedbackPrimitiveType]]

@@ -14,13 +14,21 @@
 
 [oglplus_transform_feedback_common]
 
-[heading Sampler zero operations]
+[heading Transform feedback zero operations]
 
 [oglplus_transform_feedback_zero]
 
-[heading Operations with direct state access]
+[heading Operations with implicit selector]
 
 [oglplus_transform_feedback_1]
+
+[heading:activator Activator]
+
+[oglplus_transform_feedback_activator]
+
+[heading:pauser Pauser]
+
+[oglplus_transform_feedback_pauser]
 
 [heading:target Target]
 
