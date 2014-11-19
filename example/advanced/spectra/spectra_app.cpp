@@ -20,6 +20,8 @@
 #include "spectra_app.hpp"
 #include "main_frame.hpp"
 
+#include <wx/stdpaths.h>
+
 IMPLEMENT_APP(SpectraApp)
 
 wxString SpectraApp::MakeCommonErrorMessage(oglplus::Error& err)
@@ -93,9 +95,12 @@ bool SpectraApp::OnInit(void)
 	bool result = false;
 	try
 	{
-		std::string arg0str(wxString(*argv).mb_str(wxConvUTF8));
+		std::string arg0str(
+			wxStandardPaths::Get()
+				.GetExecutablePath().mb_str(wxConvUTF8)
+		);
 		const char* arg0 = arg0str.c_str();
-		oglplus::Application::ParseCommandLineOptions(argc, &arg0);
+		oglplus::Application::ParseCommandLineOptions(1, &arg0);
 		SetTopWindow(new SpectraMainFrame(*this));
 		result = true;
 	}

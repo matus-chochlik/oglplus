@@ -9,6 +9,33 @@
 [header oglplus/query.hpp]
 
 [import query.hpp]
-[oglplus_query]
+
+[heading Common query operations]
+[oglplus_query_common]
+
+[heading Sampler zero operations]
+[oglplus_query_zero]
+
+[heading Operations with direct state access]
+[oglplus_query_1]
+
+[heading:activator Activator]
+[oglplus_query_activator]
+
+[heading:conditional_render Conditional render]
+[oglplus_conditional_render]
+
+[heading:execution Execution]
+[oglplus_query_execution]
+
+[heading:target Target]
+
+[import enums/query_target.hpp]
+[oglplus_enums_query_target]
+
+[heading:conditional_render_mode Conditional render mode]
+
+[import enums/conditional_render_mode.hpp]
+[oglplus_enums_conditional_render_mode]
 
 [endsect]

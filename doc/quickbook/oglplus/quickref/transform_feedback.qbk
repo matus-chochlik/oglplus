@@ -9,6 +9,43 @@
 [header oglplus/transform_feedback.hpp]
 
 [import transform_feedback.hpp]
-[oglplus_transform_feedback]
+
+[heading Common transform feedback operations]
+
+[oglplus_transform_feedback_common]
+
+[heading Transform feedback zero operations]
+
+[oglplus_transform_feedback_zero]
+
+[heading Operations with implicit selector]
+
+[oglplus_transform_feedback_1]
+
+[heading:activator Activator]
+
+[oglplus_transform_feedback_activator]
+
+[heading:pauser Pauser]
+
+[oglplus_transform_feedback_pauser]
+
+[heading:target Target]
+
+[header oglplus/transform_feedback_target.hpp]
+[import enums/transform_feedback_target.hpp]
+[oglplus_enums_transform_feedback_target]
+
+[heading:mode Mode]
+
+[header oglplus/transform_feedback_mode.hpp]
+[import enums/transform_feedback_mode.hpp]
+[oglplus_enums_transform_feedback_mode]
+
+[heading:primitive_type Primitive type]
+
+[header oglplus/transform_feedback_primitive_type.hpp]
+[import enums/transform_feedback_primitive_type.hpp]
+[oglplus_enums_transform_feedback_primitive_type]
 
 [endsect]

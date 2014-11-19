@@ -118,6 +118,133 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 
+/// Class lifetime of which controls the (de)activation of TFB
+/** This class activates transform feedback mode when it is
+ *  constructed and deactivates it in destructor. It is a more
+ *  robust and preferred mode of transform feedback activation
+ *  and deactivation.
+ *
+ *  This class is non-copyable.
+ *
+ *  @glsymbols
+ *  @glfunref{BeginTransformFeedback}
+ *  @glfunref{EndTransformFeedback}
+ */
+class TransformFeedbackActivator
+{
+private:
+	bool _active;
+public:
+	/// Begins transform feedback
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BeginTransformFeedback}
+	 */
+	TransformFeedbackActivator(TransformFeedbackPrimitiveType mode)
+	 : _active(true)
+	{
+		OGLPLUS_GLFUNC(BeginTransformFeedback)(GLenum(mode));
+		OGLPLUS_VERIFY(
+			BeginTransformFeedback,
+			Error,
+			EnumParam(mode)
+		);
+	}
+
+	TransformFeedbackActivator(const TransformFeedbackActivator&) = delete;
+
+	TransformFeedbackActivator(TransformFeedbackActivator&& tmp)
+	 : _active(tmp._active)
+	{
+		tmp._active = false;
+	}
+
+	void Finish(void)
+	{
+		if(_active)
+		{
+			OGLPLUS_GLFUNC(EndTransformFeedback)();
+			OGLPLUS_VERIFY_SIMPLE(EndTransformFeedback);
+			_active = false;
+		}
+	}
+
+	/// Ends transform feedback
+	/**
+	 *  @glsymbols
+	 *  @glfunref{EndTransformFeedback}
+	 */
+	~TransformFeedbackActivator(void)
+	{
+		try { Finish(); }
+		catch(...){ }
+	}
+};
+
+/// Class lifetime of which controls the pausing/resuming of TFB
+/** This class pauses active transform feedback when it is
+ *  constructed and resumes it in destructor. It is a more
+ *  robust and preferred mode of transform feedback activation
+ *  and deactivation.
+ *
+ *  This class is non-copyable.
+ *
+ *  @glsymbols
+ *  @glfunref{PauseTransformFeedback}
+ *  @glfunref{ResumeTransformFeedback}
+ */
+class TransformFeedbackPauser
+{
+private:
+	bool _paused;
+public:
+	/// Pauses transform feedback
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PauseTransformFeedback}
+	 */
+	TransformFeedbackPauser(void)
+	 : _paused(true)
+	{
+		OGLPLUS_GLFUNC(PauseTransformFeedback)();
+		OGLPLUS_VERIFY_SIMPLE(PauseTransformFeedback);
+	}
+
+	TransformFeedbackPauser(const TransformFeedbackPauser&) = delete;
+
+	TransformFeedbackPauser(TransformFeedbackPauser&& tmp)
+	 : _paused(tmp._paused)
+	{
+		tmp._paused = false;
+	}
+
+	/// Explicitly resumes transform feedback
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ResumeTransformFeedback}
+	 */
+	void Resume(void)
+	{
+		if(_paused)
+		{
+			OGLPLUS_GLFUNC(ResumeTransformFeedback)();
+			OGLPLUS_VERIFY_SIMPLE(ResumeTransformFeedback);
+			_paused = false;
+		}
+	}
+
+	/// Resumes transform feedback
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ResumeTransformFeedback}
+	 */
+	~TransformFeedbackPauser(void)
+	{
+		try{ Resume(); }
+		catch(...){ }
+	}
+};
+
 /// Common transform feedback operations
 /** @note Do not use this class directly, use TransformFeedback
  *  or DefaultTransformFeedback instead.
@@ -145,7 +272,6 @@ public:
 		Bind(target, *this);
 	}
 #endif
-
 	/// Begin the transform feedback mode
 	/** Consider using an instance of Activator class for more robustness.
 	 *  @throws Error
@@ -232,133 +358,8 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(ResumeTransformFeedback);
 	}
 
-	/// Class lifetime of which controls the (de)activation of TFB
-	/** This class activates transform feedback mode when it is
-	 *  constructed and deactivates it in destructor. It is a more
-	 *  robust and preferred mode of transform feedback activation
-	 *  and deactivation.
-	 *
-	 *  This class is non-copyable.
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BeginTransformFeedback}
-	 *  @glfunref{EndTransformFeedback}
-	 */
-	class Activator
-	{
-	private:
-		bool _active;
-	public:
-		/// Begins transform feedback
-		/**
-		 *  @glsymbols
-		 *  @glfunref{BeginTransformFeedback}
-		 */
-		Activator(TransformFeedbackPrimitiveType mode)
-		 : _active(true)
-		{
-			OGLPLUS_GLFUNC(BeginTransformFeedback)(GLenum(mode));
-			OGLPLUS_VERIFY(
-				BeginTransformFeedback,
-				Error,
-				EnumParam(mode)
-			);
-		}
-
-		/// Copying is disabled
-		Activator(const Activator&) = delete;
-
-		Activator(Activator&& tmp)
-		 : _active(tmp._active)
-		{
-			tmp._active = false;
-		}
-
-		void Finish(void)
-		{
-			if(_active)
-			{
-				OGLPLUS_GLFUNC(EndTransformFeedback)();
-				OGLPLUS_VERIFY_SIMPLE(EndTransformFeedback);
-				_active = false;
-			}
-		}
-
-		/// Ends transform feedback
-		/**
-		 *  @glsymbols
-		 *  @glfunref{EndTransformFeedback}
-		 */
-		~Activator(void)
-		{
-			try { Finish(); }
-			catch(...){ }
-		}
-	};
-
-	/// Class lifetime of which controls the pausing/resuming of TFB
-	/** This class pauses active transform feedback when it is
-	 *  constructed and resumes it in destructor. It is a more
-	 *  robust and preferred mode of transform feedback activation
-	 *  and deactivation.
-	 *
-	 *  This class is non-copyable.
-	 *
-	 *  @glsymbols
-	 *  @glfunref{PauseTransformFeedback}
-	 *  @glfunref{ResumeTransformFeedback}
-	 */
-	class Pauser
-	{
-	private:
-		bool _paused;
-	public:
-		/// Pauses transform feedback
-		/**
-		 *  @glsymbols
-		 *  @glfunref{PauseTransformFeedback}
-		 */
-		Pauser(void)
-		 : _paused(true)
-		{
-			OGLPLUS_GLFUNC(PauseTransformFeedback)();
-			OGLPLUS_VERIFY_SIMPLE(PauseTransformFeedback);
-		}
-
-		Pauser(const Pauser&) = delete;
-
-		Pauser(Pauser&& tmp)
-		 : _paused(tmp._paused)
-		{
-			tmp._paused = false;
-		}
-
-		/// Explicitly resumes transform feedback
-		/**
-		 *  @glsymbols
-		 *  @glfunref{ResumeTransformFeedback}
-		 */
-		void Resume(void)
-		{
-			if(_paused)
-			{
-				OGLPLUS_GLFUNC(ResumeTransformFeedback)();
-				OGLPLUS_VERIFY_SIMPLE(ResumeTransformFeedback);
-				_paused = false;
-			}
-		}
-
-		/// Resumes transform feedback
-		/**
-		 *  @glsymbols
-		 *  @glfunref{ResumeTransformFeedback}
-		 */
-		~Pauser(void)
-		{
-			try{ Resume(); }
-			catch(...){ }
-		}
-	};
+	typedef TransformFeedbackActivator Activator;
+	typedef TransformFeedbackPauser Pauser;
 };
 
 /// Wrapper for default feedback operations

@@ -9,6 +9,23 @@
 [header oglplus/program_pipeline.hpp]
 
 [import program_pipeline.hpp]
-[oglplus_program_pipeline]
+
+[heading Common program pipeline operations]
+
+[oglplus_program_pipeline_common]
+
+[heading Program pipeline zero operations]
+
+[oglplus_program_pipeline_zero]
+
+[heading Operations with direct state access]
+
+[oglplus_program_pipeline_1]
+
+[heading:stage Stage]
+
+[header oglplus/program_pipeline_stage.hpp]
+[import enums/program_pipeline_stage.hpp]
+[oglplus_enums_program_pipeline_stage]
 
 [endsect]
