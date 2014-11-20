@@ -230,9 +230,7 @@ protected:
 		const Matrix& a;
 		const T& v;
 
-		void operator()(
-			Matrix& t
-		)
+		void operator()(Matrix& t) const
 		{
 			for(std::size_t i=0; i!=Rows; ++i)
 			for(std::size_t j=0; j!=Cols; ++j)
