@@ -4,18 +4,13 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_query_zero
+//[oglplus_query_common
 namespace oglplus {
 
 template <>
-class __ObjZeroOps<__tag_DirectState, __tag_Query>
- : public __ObjCommonOps<__tag_Query>
+struct __ObjectSubtype<__tag_Query>
 {
-public: /*<
-There are no operations that can work explicitly on query
-object zero besides binding, so this class just inherits from
-the common query operations wrapper.
->*/
+	typedef __QueryTarget Type;
 };
 //]
 //[oglplus_query_1

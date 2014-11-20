@@ -31,18 +31,6 @@ public:
 	>*/
 };
 //]
-//[oglplus_sampler_zero
-template <>
-class __ObjZeroOps<__tag_DirectState, __tag_Sampler>
- : public __ObjCommonOps<__tag_Sampler>
-{
-public: /*<
-There are no operations that can work explicitly on sampler
-object zero besides binding, so this class just inherits from
-the common sampler operations wrapper.
->*/
-};
-//]
 //[oglplus_sampler_1
 template <>
 class __ObjectOps<__tag_DirectState, __tag_Sampler>

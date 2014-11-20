@@ -178,6 +178,10 @@
 [def __SyncStatus [link oglplus.quickref.sync.status SyncStatus]]
 [def __SyncWaitResult [link oglplus.quickref.sync.wait_result SyncWaitResult]]
 
+[def __GLSLSource [link oglplus.quickref.glsl_source GLSLSource]]
+[def __GLSLString [link oglplus.quickref.glsl_string GLSLString]]
+[def __GLSLStrings [link oglplus.quickref.glsl_string GLSLStrings]]
+
 [def __Context [link oglplus.quickref.context Context]]
 
 [def __Capability [link oglplus.quickref.capability Capability]]

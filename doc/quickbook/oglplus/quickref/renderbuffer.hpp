@@ -31,18 +31,6 @@ public:
 	>*/
 };
 //]
-//[oglplus_renderbuffer_zero
-template <>
-class __ObjZeroOps<__tag_ExplicitSel, __tag_Renderbuffer>
- : public __ObjCommonOps<__tag_Renderbuffer>
-{
-public: /*<
-There are no operations that can work explicitly on renderbuffer
-object zero besides binding, so this class just inherits from
-the common renderbuffer operations wrapper.
->*/
-};
-//]
 //[oglplus_renderbuffer_1
 template <>
 class __ObjectOps<__tag_ExplicitSel, __tag_Renderbuffer>

@@ -16,10 +16,6 @@
 [oglplus_buffer_common_2]
 [oglplus_buffer_common_3]
 
-[heading Buffer zero operations]
-
-[oglplus_buffer_zero]
-
 [heading Operations with explicit selector]
 
 [oglplus_buffer_1]

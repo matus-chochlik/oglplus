@@ -48,6 +48,9 @@ class ObjZeroOps
 {
 public: /*<
 The public interface depends on the __OpsTag and __ObjTag.
+If there are no operations that can work explicitly on
+object zero besides binding, then this class just inherits from
+the common object operations wrapper.
 >*/
 };
 

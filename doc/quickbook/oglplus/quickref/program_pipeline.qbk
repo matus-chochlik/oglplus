@@ -14,10 +14,6 @@
 
 [oglplus_program_pipeline_common]
 
-[heading Program pipeline zero operations]
-
-[oglplus_program_pipeline_zero]
-
 [heading Operations with direct state access]
 
 [oglplus_program_pipeline_1]

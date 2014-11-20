@@ -14,10 +14,6 @@
 
 [oglplus_transform_feedback_common]
 
-[heading Transform feedback zero operations]
-
-[oglplus_transform_feedback_zero]
-
 [heading Operations with implicit selector]
 
 [oglplus_transform_feedback_1]

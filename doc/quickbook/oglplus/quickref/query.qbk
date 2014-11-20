@@ -13,9 +13,6 @@
 [heading Common query operations]
 [oglplus_query_common]
 
-[heading Sampler zero operations]
-[oglplus_query_zero]
-
 [heading Operations with direct state access]
 [oglplus_query_1]
 

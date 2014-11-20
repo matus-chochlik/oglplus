@@ -28,18 +28,6 @@ public:
 	>*/
 };
 //]
-//[oglplus_program_pipeline_zero
-template <>
-class __ObjZeroOps<__tag_DirectState, __tag_ProgramPipeline>
- : public __ObjCommonOps<__tag_ProgramPipeline>
-{
-public: /*<
-There are no operations that can work explicitly on program pipeline
-object zero besides binding, so this class just inherits from
-the common program pipeline operations wrapper.
->*/
-};
-//]
 //[oglplus_program_pipeline_1
 template <>
 class __ObjectOps<__tag_DirectState, __tag_ProgramPipeline>
