@@ -25,33 +25,16 @@
           <span class="phrase"><a name="oglplus.quickref.query.common_query_operations"></a></span><a class="link" href="query.html#oglplus.quickref.query.common_query_operations">Common
           query operations</a>
         </h4>
-<p>
-          [oglplus_query_common]
-        </p>
-<h4>
-<a name="oglplus.quickref.query.h1"></a>
-          <span class="phrase"><a name="oglplus.quickref.query.sampler_zero_operations"></a></span><a class="link" href="query.html#oglplus.quickref.query.sampler_zero_operations">Sampler
-          zero operations</a>
-        </h4>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 
 <span class="keyword">template</span> <span class="special">&lt;&gt;</span>
-<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Query</a><span class="special">&gt;</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Query</a><span class="special">&gt;</span>
+<span class="keyword">struct</span> <a class="link" href="object.html#oglplus.quickref.object.subtype" title="Object subtype">ObjectSubtype</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Query</a><span class="special">&gt;</span>
 <span class="special">{</span>
-<span class="keyword">public</span><span class="special">:</span> <a class="co" name="oglplus.quickref.query.c0" href="query.html#oglplus.quickref.query.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">typedef</span> <a class="link" href="query.html#oglplus.quickref.query.target">QueryTarget</a> <span class="identifier">Type</span><span class="special">;</span>
 <span class="special">};</span>
 </pre>
-<div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c1"></a><a href="#oglplus.quickref.query.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              There are no operations that can work explicitly on query object zero
-              besides binding, so this class just inherits from the common query
-              operations wrapper.
-            </p></td>
-</tr></table></div>
 <h4>
-<a name="oglplus.quickref.query.h2"></a>
+<a name="oglplus.quickref.query.h1"></a>
           <span class="phrase"><a name="oglplus.quickref.query.operations_with_direct_state_acc"></a></span><a class="link" href="query.html#oglplus.quickref.query.operations_with_direct_state_acc">Operations
           with direct state access</a>
         </h4>
@@ -62,22 +45,22 @@
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">typedef</span> <a class="link" href="query.html#oglplus.quickref.query.target">QueryTarget</a> <span class="identifier">Target</span><span class="special">;</span>
 
-	<span class="keyword">void</span> <span class="identifier">Begin</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c2" href="query.html#oglplus.quickref.query.c3"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-	<span class="keyword">void</span> <span class="identifier">End</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c4" href="query.html#oglplus.quickref.query.c5"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Begin</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c0" href="query.html#oglplus.quickref.query.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">End</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c2" href="query.html#oglplus.quickref.query.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_0</span>
-	<span class="keyword">void</span> <span class="identifier">BeginConditionalRender</span><span class="special">(</span><a class="link" href="query.html#oglplus.quickref.query.conditional_render_mode">ConditionalRenderMode</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c6" href="query.html#oglplus.quickref.query.c7"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">EndConditionalRender</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c8" href="query.html#oglplus.quickref.query.c9"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">BeginConditionalRender</span><span class="special">(</span><a class="link" href="query.html#oglplus.quickref.query.conditional_render_mode">ConditionalRenderMode</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c4" href="query.html#oglplus.quickref.query.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">EndConditionalRender</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c6" href="query.html#oglplus.quickref.query.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_timer_query</span>
-	<span class="keyword">void</span> <span class="identifier">Counter</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c10" href="query.html#oglplus.quickref.query.c11"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
-	<span class="keyword">void</span> <span class="identifier">Timestamp</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c12" href="query.html#oglplus.quickref.query.c13"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Counter</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c8" href="query.html#oglplus.quickref.query.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Timestamp</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c10" href="query.html#oglplus.quickref.query.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 <span class="preprocessor">#endif</span>
 
-	<span class="keyword">bool</span> <span class="identifier">ResultAvailable</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.query.c14" href="query.html#oglplus.quickref.query.c15"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">ResultAvailable</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.query.c12" href="query.html#oglplus.quickref.query.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
-	<span class="keyword">void</span> <span class="identifier">Result</span><span class="special">(</span><span class="identifier">GLint</span><span class="special">&amp;</span> <span class="identifier">result</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.query.c16" href="query.html#oglplus.quickref.query.c17"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Result</span><span class="special">(</span><span class="identifier">GLint</span><span class="special">&amp;</span> <span class="identifier">result</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.query.c14" href="query.html#oglplus.quickref.query.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 	<span class="keyword">void</span> <span class="identifier">Result</span><span class="special">(</span><span class="identifier">GLuint</span><span class="special">&amp;</span> <span class="identifier">result</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_timer_query</span>
@@ -85,11 +68,11 @@
 	<span class="keyword">void</span> <span class="identifier">Result</span><span class="special">(</span><span class="identifier">GLuint64</span><span class="special">&amp;</span> <span class="identifier">result</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="preprocessor">#endif</span>
 
-	<a class="link" href="query.html#oglplus.quickref.query.activator">QueryActivator</a> <span class="identifier">Activate</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c18" href="query.html#oglplus.quickref.query.c19"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<a class="link" href="query.html#oglplus.quickref.query.activator">QueryActivator</a> <span class="identifier">Activate</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c16" href="query.html#oglplus.quickref.query.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ResultType</span><span class="special">&gt;</span>
 	<a class="link" href="query.html#oglplus.quickref.query.execution">QueryExecution</a><span class="special">&lt;</span><span class="identifier">ResultType</span><span class="special">&gt;</span>
-	<span class="identifier">Execute</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">ResultType</span><span class="special">&amp;</span> <span class="identifier">result</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c20" href="query.html#oglplus.quickref.query.c21"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="identifier">Execute</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">ResultType</span><span class="special">&amp;</span> <span class="identifier">result</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c18" href="query.html#oglplus.quickref.query.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 <span class="special">};</span>
 
 <span class="keyword">typedef</span> <span class="identifier">ObjectOps</span><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Query</a><span class="special">&gt;</span>
@@ -97,61 +80,61 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c3"></a><a href="#oglplus.quickref.query.c2"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c1"></a><a href="#oglplus.quickref.query.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Begins a query on the specified <code class="literal">target</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBeginQuery.xml" target="_top">glBeginQuery</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c5"></a><a href="#oglplus.quickref.query.c4"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c3"></a><a href="#oglplus.quickref.query.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Ends the currently active query on the specified <code class="literal">target</code>.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEndQuery.xml" target="_top">glEndQuery</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c7"></a><a href="#oglplus.quickref.query.c6"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c5"></a><a href="#oglplus.quickref.query.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Begins conditional render on the query in the specified <code class="literal">mode</code>.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBeginConditionalRender.xml" target="_top">glBeginConditionalRender</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c9"></a><a href="#oglplus.quickref.query.c8"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c7"></a><a href="#oglplus.quickref.query.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Ends currently active conditional render. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEndConditionalRender.xml" target="_top">glEndConditionalRender</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c11"></a><a href="#oglplus.quickref.query.c10"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c9"></a><a href="#oglplus.quickref.query.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Does a counter query on the specified <code class="literal">target</code>. See
               <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glQueryCounter.xml" target="_top">glQueryCounter</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c13"></a><a href="#oglplus.quickref.query.c12"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c11"></a><a href="#oglplus.quickref.query.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Does a timestamp query. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glQueryCounter.xml" target="_top">glQueryCounter</a></code>,
               <span class="bold"><strong><code class="literal">GL_TIMESTAMP</code></strong></span>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c15"></a><a href="#oglplus.quickref.query.c14"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c13"></a><a href="#oglplus.quickref.query.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns true if the query result is available. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetQueryObject.xml" target="_top">glGetQueryObject</a></code>,
               <span class="bold"><strong><code class="literal">GL_QUERY_RESULT_AVAILABLE</code></strong></span>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c17"></a><a href="#oglplus.quickref.query.c16"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c15"></a><a href="#oglplus.quickref.query.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the query result. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetQueryObject.xml" target="_top">glGetQueryObject</a></code>,
               <span class="bold"><strong><code class="literal">GL_QUERY_RESULT</code></strong></span>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c19"></a><a href="#oglplus.quickref.query.c18"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c17"></a><a href="#oglplus.quickref.query.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               This function creates an instance of the <code class="literal">QueryActivator</code>
               class which begins a query on the specified <code class="literal">target</code>
@@ -159,7 +142,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c21"></a><a href="#oglplus.quickref.query.c20"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c19"></a><a href="#oglplus.quickref.query.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               This function creates an instance of the <code class="literal">QueryExecution</code>
               class which begins a query on the specified <code class="literal">target</code>
@@ -169,7 +152,7 @@
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.query.h3"></a>
+<a name="oglplus.quickref.query.h2"></a>
           <span class="phrase"><a name="oglplus.quickref.query.activator"></a></span><a class="link" href="query.html#oglplus.quickref.query.activator">Activator</a>
         </h4>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">QueryActivator</span>
@@ -177,30 +160,30 @@
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">QueryActivator</span><span class="special">(</span><span class="identifier">QueryActivator</span><span class="special">&amp;&amp;);</span>
 
-	<span class="identifier">QueryActivator</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">QueryName</a> <span class="identifier">query</span><span class="special">,</span> <a class="link" href="query.html#oglplus.quickref.query.target">QueryTarget</a> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c22" href="query.html#oglplus.quickref.query.c23"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">QueryActivator</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">QueryName</a> <span class="identifier">query</span><span class="special">,</span> <a class="link" href="query.html#oglplus.quickref.query.target">QueryTarget</a> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c20" href="query.html#oglplus.quickref.query.c21"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-	<span class="special">~</span><span class="identifier">QueryActivator</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.query.c24" href="query.html#oglplus.quickref.query.c25"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">~</span><span class="identifier">QueryActivator</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.query.c22" href="query.html#oglplus.quickref.query.c23"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	<span class="keyword">noexcept</span><span class="special">;</span>
 
-	<span class="keyword">bool</span> <span class="identifier">Finish</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c26" href="query.html#oglplus.quickref.query.c27"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">Finish</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c24" href="query.html#oglplus.quickref.query.c25"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="special">};</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c23"></a><a href="#oglplus.quickref.query.c22"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c21"></a><a href="#oglplus.quickref.query.c20"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Begins a <code class="literal">query</code> on the specified <code class="literal">target</code>.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBeginQuery.xml" target="_top">glBeginQuery</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c25"></a><a href="#oglplus.quickref.query.c24"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c23"></a><a href="#oglplus.quickref.query.c22"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Ends the currently active query. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEndQuery.xml" target="_top">glEndQuery</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c27"></a><a href="#oglplus.quickref.query.c26"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c25"></a><a href="#oglplus.quickref.query.c24"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Explicitly ends the query without waiting for the destructor. See
               <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEndQuery.xml" target="_top">glEndQuery</a></code>.
@@ -208,7 +191,7 @@
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.query.h4"></a>
+<a name="oglplus.quickref.query.h3"></a>
           <span class="phrase"><a name="oglplus.quickref.query.conditional_render"></a></span><a class="link" href="query.html#oglplus.quickref.query.conditional_render">Conditional
           render</a>
         </h4>
@@ -221,38 +204,38 @@
 	<span class="identifier">ConditionalRender</span><span class="special">(</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">QueryName</a> <span class="identifier">query</span><span class="special">,</span>
 		<a class="link" href="query.html#oglplus.quickref.query.conditional_render_mode">ConditionalRenderMode</a> <span class="identifier">mode</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.query.c28" href="query.html#oglplus.quickref.query.c29"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.query.c26" href="query.html#oglplus.quickref.query.c27"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-	<span class="special">~</span><span class="identifier">ConditionalRender</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.query.c30" href="query.html#oglplus.quickref.query.c31"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">~</span><span class="identifier">ConditionalRender</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.query.c28" href="query.html#oglplus.quickref.query.c29"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	<span class="keyword">noexcept</span><span class="special">;</span>
 
-	<span class="keyword">bool</span> <span class="identifier">Finish</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c32" href="query.html#oglplus.quickref.query.c33"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">Finish</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c30" href="query.html#oglplus.quickref.query.c31"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="special">};</span>
 <span class="preprocessor">#endif</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c29"></a><a href="#oglplus.quickref.query.c28"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c27"></a><a href="#oglplus.quickref.query.c26"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Begins conditional render on a <code class="literal">query</code> in the specified
               <code class="literal">mode</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBeginConditionalRender.xml" target="_top">glBeginConditionalRender</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c31"></a><a href="#oglplus.quickref.query.c30"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c29"></a><a href="#oglplus.quickref.query.c28"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Ends the currently active conditional render. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEndConditionalRender.xml" target="_top">glEndConditionalRender</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c33"></a><a href="#oglplus.quickref.query.c32"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c31"></a><a href="#oglplus.quickref.query.c30"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Explicitly ends the currently active conditional render. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEndConditionalRender.xml" target="_top">glEndConditionalRender</a></code>.
             </p></td>
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.query.h5"></a>
+<a name="oglplus.quickref.query.h4"></a>
           <span class="phrase"><a name="oglplus.quickref.query.execution"></a></span><a class="link" href="query.html#oglplus.quickref.query.execution">Execution</a>
         </h4>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ResultType</span><span class="special">&gt;</span>
@@ -266,19 +249,19 @@
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">QueryName</a> <span class="identifier">query</span><span class="special">,</span>
 		<a class="link" href="query.html#oglplus.quickref.query.target">QueryTarget</a> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">ResultType</span><span class="special">&amp;</span> <span class="identifier">result</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.query.c34" href="query.html#oglplus.quickref.query.c35"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.query.c32" href="query.html#oglplus.quickref.query.c33"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-	<span class="special">~</span><span class="identifier">QueryExecution</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.query.c36" href="query.html#oglplus.quickref.query.c37"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">~</span><span class="identifier">QueryExecution</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.query.c34" href="query.html#oglplus.quickref.query.c35"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	<span class="keyword">noexcept</span><span class="special">;</span>
 
-	<span class="keyword">void</span> <span class="identifier">WaitForResult</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>  <a class="co" name="oglplus.quickref.query.c38" href="query.html#oglplus.quickref.query.c39"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">WaitForResult</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>  <a class="co" name="oglplus.quickref.query.c36" href="query.html#oglplus.quickref.query.c37"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c35"></a><a href="#oglplus.quickref.query.c34"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c33"></a><a href="#oglplus.quickref.query.c32"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Begins a <code class="literal">query</code> on the specified <code class="literal">target</code>,
               taking a <code class="literal">reference</code> where the result will be stored
@@ -286,21 +269,21 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c37"></a><a href="#oglplus.quickref.query.c36"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c35"></a><a href="#oglplus.quickref.query.c34"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Ends the currently active query and waits for the result. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEndQuery.xml" target="_top">glEndQuery</a></code>,
               <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetQueryObject.xml" target="_top">glGetQueryObject</a></code>, <span class="bold"><strong><code class="literal">GL_QUERY_RESULT_AVAILABLE</code></strong></span>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c39"></a><a href="#oglplus.quickref.query.c38"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.query.c37"></a><a href="#oglplus.quickref.query.c36"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Explicitly ends the query and waits for the result. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEndQuery.xml" target="_top">glEndQuery</a></code>.
             </p></td>
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.query.h6"></a>
+<a name="oglplus.quickref.query.h5"></a>
           <span class="phrase"><a name="oglplus.quickref.query.target"></a></span><a class="link" href="query.html#oglplus.quickref.query.target">Target</a>
         </h4>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
@@ -336,7 +319,7 @@
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.query.h7"></a>
+<a name="oglplus.quickref.query.h6"></a>
           <span class="phrase"><a name="oglplus.quickref.query.conditional_render_mode"></a></span><a class="link" href="query.html#oglplus.quickref.query.conditional_render_mode">Conditional
           render mode</a>
         </h4>

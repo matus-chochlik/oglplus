@@ -61,26 +61,6 @@
 </table></div>
 <h4>
 <a name="oglplus.quickref.program_pipeline.h1"></a>
-          <span class="phrase"><a name="oglplus.quickref.program_pipeline.program_pipeline_zero_operations"></a></span><a class="link" href="program_pipeline.html#oglplus.quickref.program_pipeline.program_pipeline_zero_operations">Program
-          pipeline zero operations</a>
-        </h4>
-<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
-<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::ProgramPipeline</a><span class="special">&gt;</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::ProgramPipeline</a><span class="special">&gt;</span>
-<span class="special">{</span>
-<span class="keyword">public</span><span class="special">:</span> <a class="co" name="oglplus.quickref.program_pipeline.c6" href="program_pipeline.html#oglplus.quickref.program_pipeline.c7"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-<span class="special">};</span>
-</pre>
-<div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c7"></a><a href="#oglplus.quickref.program_pipeline.c6"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              There are no operations that can work explicitly on program pipeline
-              object zero besides binding, so this class just inherits from the common
-              program pipeline operations wrapper.
-            </p></td>
-</tr></table></div>
-<h4>
-<a name="oglplus.quickref.program_pipeline.h2"></a>
           <span class="phrase"><a name="oglplus.quickref.program_pipeline.operations_with_direct_state_acc"></a></span><a class="link" href="program_pipeline.html#oglplus.quickref.program_pipeline.operations_with_direct_state_acc">Operations
           with direct state access</a>
         </h4>
@@ -94,29 +74,29 @@
 		<span class="keyword">typedef</span> <a class="link" href="program_pipeline.html#oglplus.quickref.program_pipeline.stage">ProgramPipelineStage</a> <span class="identifier">Stage</span><span class="special">;</span>
 	<span class="special">};</span>
 
-	<span class="identifier">ProgPLUseStages</span> <span class="identifier">UseStages</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c8" href="program_pipeline.html#oglplus.quickref.program_pipeline.c9"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">ProgPLUseStages</span> <span class="identifier">UseStages</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c6" href="program_pipeline.html#oglplus.quickref.program_pipeline.c7"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 	<span class="keyword">void</span> <span class="identifier">UseStages</span><span class="special">(</span>
 		<a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="program_pipeline.html#oglplus.quickref.program_pipeline.stage">ProgramPipelineStage</a><span class="special">&gt;</span> <span class="identifier">stages</span><span class="special">,</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span>
-	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c10" href="program_pipeline.html#oglplus.quickref.program_pipeline.c11"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c8" href="program_pipeline.html#oglplus.quickref.program_pipeline.c9"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">defined</span> <span class="identifier">GL_ALL_SHADER_BITS</span>
-	<span class="keyword">void</span> <span class="identifier">UseAllStages</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c12" href="program_pipeline.html#oglplus.quickref.program_pipeline.c13"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">UseAllStages</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c10" href="program_pipeline.html#oglplus.quickref.program_pipeline.c11"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="preprocessor">#endif</span>
 
-	<a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a> <span class="identifier">GetInfoLog</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c14" href="program_pipeline.html#oglplus.quickref.program_pipeline.c15"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a> <span class="identifier">GetInfoLog</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c12" href="program_pipeline.html#oglplus.quickref.program_pipeline.c13"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
-	<span class="keyword">bool</span> <span class="identifier">IsValid</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c16" href="program_pipeline.html#oglplus.quickref.program_pipeline.c17"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">IsValid</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c14" href="program_pipeline.html#oglplus.quickref.program_pipeline.c15"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
-	<span class="keyword">void</span> <span class="identifier">Validate</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c18" href="program_pipeline.html#oglplus.quickref.program_pipeline.c19"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Validate</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c16" href="program_pipeline.html#oglplus.quickref.program_pipeline.c17"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
-	<span class="keyword">void</span> <span class="identifier">ActiveShaderProgram</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c20" href="program_pipeline.html#oglplus.quickref.program_pipeline.c21"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
-	<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">ActiveShaderProgram</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c22" href="program_pipeline.html#oglplus.quickref.program_pipeline.c23"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">ActiveShaderProgram</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c18" href="program_pipeline.html#oglplus.quickref.program_pipeline.c19"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">ActiveShaderProgram</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c20" href="program_pipeline.html#oglplus.quickref.program_pipeline.c21"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
-	<span class="keyword">bool</span> <span class="identifier">HasShader</span><span class="special">(</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">shader_type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c24" href="program_pipeline.html#oglplus.quickref.program_pipeline.c25"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">HasShader</span><span class="special">(</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">shader_type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c22" href="program_pipeline.html#oglplus.quickref.program_pipeline.c23"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
-	<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">ShaderProgram</span><span class="special">(</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">shader_type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c26" href="program_pipeline.html#oglplus.quickref.program_pipeline.c27"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">ShaderProgram</span><span class="special">(</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">shader_type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c24" href="program_pipeline.html#oglplus.quickref.program_pipeline.c25"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 <span class="special">};</span>
 
 <span class="keyword">typedef</span> <span class="identifier">ObjectOps</span><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::ProgramPipeline</a><span class="special">&gt;</span>
@@ -131,7 +111,7 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c9"></a><a href="#oglplus.quickref.program_pipeline.c8"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c7"></a><a href="#oglplus.quickref.program_pipeline.c6"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left">
 <p>
               This function returns an object that allows to specify which stages
@@ -157,62 +137,62 @@ pp.UseStages(prog).All();
 </td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c11"></a><a href="#oglplus.quickref.program_pipeline.c10"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c9"></a><a href="#oglplus.quickref.program_pipeline.c8"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Uses the specified <code class="literal">stages</code> of the specified <code class="literal">program</code>.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glUseProgramStages.xml" target="_top">glUseProgramStages</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c13"></a><a href="#oglplus.quickref.program_pipeline.c12"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c11"></a><a href="#oglplus.quickref.program_pipeline.c10"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Use all stages of the <code class="literal">program</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glUseProgramStages.xml" target="_top">glUseProgramStages</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c15"></a><a href="#oglplus.quickref.program_pipeline.c14"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c13"></a><a href="#oglplus.quickref.program_pipeline.c12"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the validation process output. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramPipeline.xml" target="_top">glGetProgramPipeline</a></code>,
               <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramPipelineInfoLog.xml" target="_top">glGetProgramPipelineInfoLog</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c17"></a><a href="#oglplus.quickref.program_pipeline.c16"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c15"></a><a href="#oglplus.quickref.program_pipeline.c14"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns true if the pipeline is validated, false otherwise. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramPipeline.xml" target="_top">glGetProgramPipeline</a></code>,
               <span class="bold"><strong><code class="literal">GL_VALIDATE_STATUS</code></strong></span>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c19"></a><a href="#oglplus.quickref.program_pipeline.c18"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c17"></a><a href="#oglplus.quickref.program_pipeline.c16"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Validates this program pipeline. Throws <a class="link" href="error.html#oglplus.quickref.error.program" title="Program build errors">ValidationError</a>
               on failure. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glValidateProgramPipeline.xml" target="_top">glValidateProgramPipeline</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c21"></a><a href="#oglplus.quickref.program_pipeline.c20"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c19"></a><a href="#oglplus.quickref.program_pipeline.c18"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Make the <code class="literal">program</code> active for this program pipeline.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glActiveShaderProgram.xml" target="_top">glActiveShaderProgram</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c23"></a><a href="#oglplus.quickref.program_pipeline.c22"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c21"></a><a href="#oglplus.quickref.program_pipeline.c20"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the current active shader program. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramPipeline.xml" target="_top">glGetProgramPipeline</a></code>,
               <span class="bold"><strong><code class="literal">GL_ACTIVE_PROGRAM</code></strong></span>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c25"></a><a href="#oglplus.quickref.program_pipeline.c24"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c23"></a><a href="#oglplus.quickref.program_pipeline.c22"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns true if this pipeline contains a shader of the specified type.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramPipeline.xml" target="_top">glGetProgramPipeline</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c27"></a><a href="#oglplus.quickref.program_pipeline.c26"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c25"></a><a href="#oglplus.quickref.program_pipeline.c24"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the program from which the shader of the specified type is
               used. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramPipeline.xml" target="_top">glGetProgramPipeline</a></code>.
@@ -220,7 +200,7 @@ pp.UseStages(prog).All();
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.program_pipeline.h3"></a>
+<a name="oglplus.quickref.program_pipeline.h2"></a>
           <span class="phrase"><a name="oglplus.quickref.program_pipeline.stage"></a></span><a class="link" href="program_pipeline.html#oglplus.quickref.program_pipeline.stage">Stage</a>
         </h4>
 <p>

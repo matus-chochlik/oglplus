@@ -228,26 +228,6 @@
 </table></div>
 <h4>
 <a name="oglplus.quickref.buffer.h1"></a>
-          <span class="phrase"><a name="oglplus.quickref.buffer.buffer_zero_operations"></a></span><a class="link" href="buffer.html#oglplus.quickref.buffer.buffer_zero_operations">Buffer
-          zero operations</a>
-        </h4>
-<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
-<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ExplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Buffer</a><span class="special">&gt;</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Buffer</a><span class="special">&gt;</span>
-<span class="special">{</span>
-<span class="keyword">public</span><span class="special">:</span> <a class="co" name="oglplus.quickref.buffer.c34" href="buffer.html#oglplus.quickref.buffer.c35"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-<span class="special">};</span>
-</pre>
-<div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c35"></a><a href="#oglplus.quickref.buffer.c34"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              There are no operations that can work explicitly on buffer object zero
-              besides binding, so this class just inherits from the common buffer
-              operations wrapper.
-            </p></td>
-</tr></table></div>
-<h4>
-<a name="oglplus.quickref.buffer.h2"></a>
           <span class="phrase"><a name="oglplus.quickref.buffer.operations_with_explicit_selecto"></a></span><a class="link" href="buffer.html#oglplus.quickref.buffer.operations_with_explicit_selecto">Operations
           with explicit selector</a>
         </h4>
@@ -262,28 +242,28 @@
 		<span class="keyword">typedef</span> <a class="link" href="buffer_map.html#oglplus.quickref.buffer_map.access">BufferMapAccess</a> <span class="identifier">MapAccess</span><span class="special">;</span>
 	<span class="special">};</span>
 
-	<span class="keyword">typedef</span> <a class="link" href="buffer_map.html#oglplus.quickref.buffer_map.typed">BufferTypedMap</a><span class="special">&lt;</span><span class="identifier">GLubyte</span><span class="special">&gt;</span> <span class="identifier">Map</span><span class="special">;</span> <a class="co" name="oglplus.quickref.buffer.c36" href="buffer.html#oglplus.quickref.buffer.c37"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">typedef</span> <a class="link" href="buffer_map.html#oglplus.quickref.buffer_map.typed">BufferTypedMap</a><span class="special">&lt;</span><span class="identifier">GLubyte</span><span class="special">&gt;</span> <span class="identifier">Map</span><span class="special">;</span> <a class="co" name="oglplus.quickref.buffer.c34" href="buffer.html#oglplus.quickref.buffer.c35"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">Mapped</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c38" href="buffer.html#oglplus.quickref.buffer.c39"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">Mapped</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c36" href="buffer.html#oglplus.quickref.buffer.c37"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Resize</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">size</span><span class="special">,</span>
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.usage">BufferUsage</a> <span class="identifier">usage</span> <span class="special">=</span> <span class="identifier">BufferUsage</span><span class="special">::</span><span class="identifier">StaticDraw</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c40" href="buffer.html#oglplus.quickref.buffer.c41"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c38" href="buffer.html#oglplus.quickref.buffer.c39"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">RawData</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">size</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLvoid</span><span class="special">*</span> <span class="identifier">data</span><span class="special">,</span>
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.usage">BufferUsage</a> <span class="identifier">usage</span> <span class="special">=</span> <span class="identifier">BufferUsage</span><span class="special">::</span><span class="identifier">StaticDraw</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c42" href="buffer.html#oglplus.quickref.buffer.c43"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c40" href="buffer.html#oglplus.quickref.buffer.c41"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Data</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<span class="keyword">const</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.data">BufferData</a><span class="special">&amp;</span> <span class="identifier">data</span><span class="special">,</span>
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.usage">BufferUsage</a> <span class="identifier">usage</span> <span class="special">=</span> <span class="identifier">BufferUsage</span><span class="special">::</span><span class="identifier">StaticDraw</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c44" href="buffer.html#oglplus.quickref.buffer.c45"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c42" href="buffer.html#oglplus.quickref.buffer.c43"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GLtype</span><span class="special">&gt;</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Data</span><span class="special">(</span>
@@ -297,7 +277,7 @@
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">offset</span><span class="special">,</span>
 		<span class="keyword">const</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.data">BufferData</a><span class="special">&amp;</span> <span class="identifier">data</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c46" href="buffer.html#oglplus.quickref.buffer.c47"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c44" href="buffer.html#oglplus.quickref.buffer.c45"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GLtype</span><span class="special">&gt;</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">SubData</span><span class="special">(</span>
@@ -314,7 +294,7 @@
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">readoffset</span><span class="special">,</span>
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">writeoffset</span><span class="special">,</span>
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">size</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c48" href="buffer.html#oglplus.quickref.buffer.c49"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c46" href="buffer.html#oglplus.quickref.buffer.c47"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span>
@@ -324,7 +304,7 @@
 		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
 		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLtype</span><span class="special">*</span> <span class="identifier">value</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c50" href="buffer.html#oglplus.quickref.buffer.c51"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c48" href="buffer.html#oglplus.quickref.buffer.c49"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GLtype</span><span class="special">&gt;</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearSubData</span><span class="special">(</span>
@@ -334,7 +314,7 @@
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">size</span><span class="special">,</span>
 		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLtype</span><span class="special">*</span> <span class="identifier">value</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c52" href="buffer.html#oglplus.quickref.buffer.c53"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c50" href="buffer.html#oglplus.quickref.buffer.c51"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_4</span> <span class="special">||</span> <span class="identifier">GL_ARB_buffer_storage</span>
@@ -342,7 +322,7 @@
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<span class="keyword">const</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.data">BufferData</a><span class="special">&amp;</span> <span class="identifier">data</span><span class="special">,</span>
 		<a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="buffer.html#oglplus.quickref.buffer.storage_bit">BufferStorageBit</a><span class="special">&gt;</span> <span class="identifier">flags</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c54" href="buffer.html#oglplus.quickref.buffer.c55"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c52" href="buffer.html#oglplus.quickref.buffer.c53"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Storage</span><span class="special">(</span>
 		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">size</span><span class="special">,</span>
@@ -350,20 +330,20 @@
 		<a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="buffer.html#oglplus.quickref.buffer.storage_bit">BufferStorageBit</a><span class="special">&gt;</span> <span class="identifier">flags</span>
 	<span class="special">);</span>
 
-	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">ImmutableStorage</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c56" href="buffer.html#oglplus.quickref.buffer.c57"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">ImmutableStorage</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c54" href="buffer.html#oglplus.quickref.buffer.c55"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
 
-	<span class="keyword">static</span> <a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="buffer.html#oglplus.quickref.buffer.storage_bit">BufferStorageBit</a><span class="special">&gt;</span> <span class="identifier">StorageFlags</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c58" href="buffer.html#oglplus.quickref.buffer.c59"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="buffer.html#oglplus.quickref.buffer.storage_bit">BufferStorageBit</a><span class="special">&gt;</span> <span class="identifier">StorageFlags</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c56" href="buffer.html#oglplus.quickref.buffer.c57"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
 <span class="preprocessor">#endif</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c37"></a><a href="#oglplus.quickref.buffer.c36"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c35"></a><a href="#oglplus.quickref.buffer.c34"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Mapping of the buffer to the client address space.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c39"></a><a href="#oglplus.quickref.buffer.c38"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c37"></a><a href="#oglplus.quickref.buffer.c36"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns true if the buffer currently bound to the specified <code class="literal">target</code>
               is mapped. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetBufferParameter.xml" target="_top">glGetBufferParameter</a></code>,
@@ -371,7 +351,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c41"></a><a href="#oglplus.quickref.buffer.c40"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c39"></a><a href="#oglplus.quickref.buffer.c38"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Allocates or reallocates storage of a buffer currently bound to <code class="literal">target</code>
               to the specified <code class="literal">size</code> without uploading any data,
@@ -379,7 +359,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c43"></a><a href="#oglplus.quickref.buffer.c42"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c41"></a><a href="#oglplus.quickref.buffer.c40"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Uploads <code class="literal">size</code> bytes from the location pointed to
               by <code class="literal">data</code> to the buffer bound to the specified <code class="literal">target</code>,
@@ -387,7 +367,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c45"></a><a href="#oglplus.quickref.buffer.c44"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c43"></a><a href="#oglplus.quickref.buffer.c42"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Uploads the specified <code class="literal">data</code> to the buffer bound to
               the specified <code class="literal">target</code> taking <code class="literal">usage</code>
@@ -395,7 +375,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c47"></a><a href="#oglplus.quickref.buffer.c46"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c45"></a><a href="#oglplus.quickref.buffer.c44"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Uploads the specified <code class="literal">data</code> to a sub-range (starting
               at <code class="literal">offset</code>) of the buffer bound to the specified
@@ -403,7 +383,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c49"></a><a href="#oglplus.quickref.buffer.c48"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c47"></a><a href="#oglplus.quickref.buffer.c46"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Copies a block of data of the specified <code class="literal">size</code> from
               a buffer bound to <code class="literal">readtarget</code> starting at <code class="literal">readoffset</code>
@@ -412,7 +392,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c51"></a><a href="#oglplus.quickref.buffer.c50"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c49"></a><a href="#oglplus.quickref.buffer.c48"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Clears the whole buffer bound to <code class="literal">target</code> with the
               specified fixed <code class="literal">value</code>, in the specified <code class="literal">format</code>.
@@ -420,7 +400,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c53"></a><a href="#oglplus.quickref.buffer.c52"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c51"></a><a href="#oglplus.quickref.buffer.c50"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Clears a sub-range (specified by <code class="literal">offset</code> and <code class="literal">size</code>)
               of a buffer bound to <code class="literal">target</code> with the specified fixed
@@ -428,14 +408,14 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c55"></a><a href="#oglplus.quickref.buffer.c54"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c53"></a><a href="#oglplus.quickref.buffer.c52"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Creates a data store for buffer currently bound to <code class="literal">target</code>,
               and uploads the specified <code class="literal">data</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBufferStorage.xml" target="_top">glBufferStorage</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c57"></a><a href="#oglplus.quickref.buffer.c56"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c55"></a><a href="#oglplus.quickref.buffer.c54"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns true if the storage of the buffer currently bound to <code class="literal">target</code>
               is immutable. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetBufferParameter.xml" target="_top">glGetBufferParameter</a></code>,
@@ -443,16 +423,16 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c59"></a><a href="#oglplus.quickref.buffer.c58"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c57"></a><a href="#oglplus.quickref.buffer.c56"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the storage flags of a buffer currently bound to <code class="literal">target</code>.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetBufferParameter.xml" target="_top">glGetBufferParameter</a></code>, <span class="bold"><strong><code class="literal">GL_BUFFER_STORAGE_FLAGS</code></strong></span>.
             </p></td>
 </tr>
 </table></div>
-<pre class="programlisting">	<span class="keyword">static</span> <span class="identifier">GLsizei</span> <span class="identifier">Size</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c60" href="buffer.html#oglplus.quickref.buffer.c61"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-	<span class="keyword">static</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.usage">BufferUsage</a> <span class="identifier">Usage</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c62" href="buffer.html#oglplus.quickref.buffer.c63"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
-	<span class="keyword">static</span> <a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="buffer_map.html#oglplus.quickref.buffer_map.access">BufferMapAccess</a><span class="special">&gt;</span> <span class="identifier">Access</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c64" href="buffer.html#oglplus.quickref.buffer.c65"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<pre class="programlisting">	<span class="keyword">static</span> <span class="identifier">GLsizei</span> <span class="identifier">Size</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c58" href="buffer.html#oglplus.quickref.buffer.c59"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.usage">BufferUsage</a> <span class="identifier">Usage</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c60" href="buffer.html#oglplus.quickref.buffer.c61"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="buffer_map.html#oglplus.quickref.buffer_map.access">BufferMapAccess</a><span class="special">&gt;</span> <span class="identifier">Access</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c62" href="buffer.html#oglplus.quickref.buffer.c63"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_ARB_sparse_buffer</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PageCommitment</span><span class="special">(</span>
@@ -460,42 +440,42 @@
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">offset</span><span class="special">,</span>
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">size</span><span class="special">,</span>
 		<span class="keyword">bool</span> <span class="identifier">commit</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c66" href="buffer.html#oglplus.quickref.buffer.c67"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c64" href="buffer.html#oglplus.quickref.buffer.c65"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
-	<span class="keyword">static</span> <span class="identifier">GLsizei</span> <span class="identifier">PageSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c68" href="buffer.html#oglplus.quickref.buffer.c69"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">GLsizei</span> <span class="identifier">PageSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c66" href="buffer.html#oglplus.quickref.buffer.c67"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_NV_shader_buffer_load</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">MakeResident</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <a class="link" href="access_specifier.html" title="Access specifier">AccessSpecifier</a> <span class="identifier">access</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c70" href="buffer.html#oglplus.quickref.buffer.c71"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">MakeNonResident</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c72" href="buffer.html#oglplus.quickref.buffer.c73"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
-	<span class="keyword">static</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.gpu_address">BufferGPUAddress</a> <span class="identifier">GPUAddress</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c74" href="buffer.html#oglplus.quickref.buffer.c75"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">MakeResident</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <a class="link" href="access_specifier.html" title="Access specifier">AccessSpecifier</a> <span class="identifier">access</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c68" href="buffer.html#oglplus.quickref.buffer.c69"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">MakeNonResident</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c70" href="buffer.html#oglplus.quickref.buffer.c71"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.gpu_address">BufferGPUAddress</a> <span class="identifier">GPUAddress</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c72" href="buffer.html#oglplus.quickref.buffer.c73"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c61"></a><a href="#oglplus.quickref.buffer.c60"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c59"></a><a href="#oglplus.quickref.buffer.c58"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the size of a buffer currently bound to the specified <code class="literal">target</code>.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_BUFFER_SIZE</code></strong></span>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c63"></a><a href="#oglplus.quickref.buffer.c62"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c61"></a><a href="#oglplus.quickref.buffer.c60"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the usage hint of a buffer currently bound to the specified
               <code class="literal">target</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_BUFFER_USAGE</code></strong></span>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c65"></a><a href="#oglplus.quickref.buffer.c64"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c63"></a><a href="#oglplus.quickref.buffer.c62"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the access bits of a buffer currently bound to the specified
               <code class="literal">target</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_BUFFER_ACCESS</code></strong></span>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c67"></a><a href="#oglplus.quickref.buffer.c66"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c65"></a><a href="#oglplus.quickref.buffer.c64"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Commits and de-commits regions (specified by <code class="literal">offset</code>
               and <code class="literal">size</code>) of sparse buffer currently bound to the
@@ -503,28 +483,28 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c69"></a><a href="#oglplus.quickref.buffer.c68"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c67"></a><a href="#oglplus.quickref.buffer.c66"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the implementation-dependent sparse buffer storage page size.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_SPARSE_BUFFER_PAGE_SIZE_ARB</code></strong></span>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c71"></a><a href="#oglplus.quickref.buffer.c70"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c69"></a><a href="#oglplus.quickref.buffer.c68"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Makes buffer currently bound to <code class="literal">target</code> accessible
               to GLSL shaders. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMakeBufferResidentNV.xml" target="_top">glMakeBufferResidentNV</a></code>
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c73"></a><a href="#oglplus.quickref.buffer.c72"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c71"></a><a href="#oglplus.quickref.buffer.c70"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Makes buffer currently bound to <code class="literal">target</code> inaccessible
               to GLSL shaders. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMakeBufferNonResidentNV.xml" target="_top">glMakeBufferNonResidentNV</a></code>
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c75"></a><a href="#oglplus.quickref.buffer.c74"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c73"></a><a href="#oglplus.quickref.buffer.c72"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the GPU address of the buffer currently bound to <code class="literal">target</code>.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetBufferParameter.xml" target="_top">glGetBufferParameter</a></code>, <span class="bold"><strong><code class="literal">GL_BUFFER_GPU_ADDRESS_NV</code></strong></span>.
@@ -532,7 +512,7 @@
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.buffer.h3"></a>
+<a name="oglplus.quickref.buffer.h2"></a>
           <span class="phrase"><a name="oglplus.quickref.buffer.def"></a></span><a class="link" href="buffer.html#oglplus.quickref.buffer.def">Definitions</a>
         </h4>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">ObjectOps</span><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ExplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Buffer</a><span class="special">&gt;</span>
@@ -544,136 +524,136 @@
 	<span class="identifier">NoBuffer</span><span class="special">;</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.buffer.h4"></a>
+<a name="oglplus.quickref.buffer.h3"></a>
           <span class="phrase"><a name="oglplus.quickref.buffer.syntax_sugar"></a></span><a class="link" href="buffer.html#oglplus.quickref.buffer.syntax_sugar">Syntax
           sugar operators</a>
         </h4>
-<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">BufferTargetAndUsage</span> <span class="special">{</span> <span class="special">};</span> <a class="co" name="oglplus.quickref.buffer.c76" href="buffer.html#oglplus.quickref.buffer.c77"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">BufferTargetAndUsage</span> <span class="special">{</span> <span class="special">};</span> <a class="co" name="oglplus.quickref.buffer.c74" href="buffer.html#oglplus.quickref.buffer.c75"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 <span class="identifier">BufferTargetAndUsage</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
 	<a class="link" href="buffer.html#oglplus.quickref.buffer.target">BufferTarget</a> <span class="identifier">target</span><span class="special">,</span>
 	<a class="link" href="buffer.html#oglplus.quickref.buffer.usage">BufferUsage</a> <span class="identifier">usage</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c78" href="buffer.html#oglplus.quickref.buffer.c79"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c76" href="buffer.html#oglplus.quickref.buffer.c77"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 
-<span class="keyword">struct</span> <span class="identifier">BufferOpsAndIdxTgt</span> <span class="special">{</span> <span class="special">};</span> <a class="co" name="oglplus.quickref.buffer.c80" href="buffer.html#oglplus.quickref.buffer.c81"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="keyword">struct</span> <span class="identifier">BufferOpsAndIdxTgt</span> <span class="special">{</span> <span class="special">};</span> <a class="co" name="oglplus.quickref.buffer.c78" href="buffer.html#oglplus.quickref.buffer.c79"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 <span class="identifier">BufferOpsAndIdxTgt</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
 	<span class="keyword">const</span> <span class="identifier">BufferOps</span><span class="special">&amp;</span> <span class="identifier">buffer</span><span class="special">,</span>
 	<a class="link" href="buffer.html#oglplus.quickref.buffer.indexed_target">BufferIndexedTarget</a> <span class="identifier">target</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c82" href="buffer.html#oglplus.quickref.buffer.c83"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c80" href="buffer.html#oglplus.quickref.buffer.c81"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
 
-<span class="keyword">struct</span> <span class="identifier">BufferTargetAndOffset</span> <span class="special">{</span> <span class="special">};</span> <a class="co" name="oglplus.quickref.buffer.c84" href="buffer.html#oglplus.quickref.buffer.c85"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+<span class="keyword">struct</span> <span class="identifier">BufferTargetAndOffset</span> <span class="special">{</span> <span class="special">};</span> <a class="co" name="oglplus.quickref.buffer.c82" href="buffer.html#oglplus.quickref.buffer.c83"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
 <span class="identifier">BufferTargetAndOffset</span> <span class="keyword">operator</span> <span class="special">+</span> <span class="special">(</span>
 	<a class="link" href="buffer.html#oglplus.quickref.buffer.target">BufferTarget</a> <span class="identifier">target</span><span class="special">,</span>
 	<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">offset</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c86" href="buffer.html#oglplus.quickref.buffer.c87"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c84" href="buffer.html#oglplus.quickref.buffer.c85"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
 <span class="comment">// Bind</span>
 <a class="link" href="buffer.html#oglplus.quickref.buffer.target">BufferTarget</a> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
 	<span class="keyword">const</span> <span class="identifier">BufferOps</span><span class="special">&amp;</span> <span class="identifier">buf</span><span class="special">,</span>
 	<a class="link" href="buffer.html#oglplus.quickref.buffer.target">BufferTarget</a> <span class="identifier">target</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c88" href="buffer.html#oglplus.quickref.buffer.c89"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c86" href="buffer.html#oglplus.quickref.buffer.c87"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
 <span class="keyword">const</span> <span class="identifier">BufferOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
 	<span class="keyword">const</span> <span class="identifier">BufferOpsAndIdxTgt</span><span class="special">&amp;</span> <span class="identifier">bat</span><span class="special">,</span>
 	<span class="identifier">GLuint</span> <span class="identifier">index</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c90" href="buffer.html#oglplus.quickref.buffer.c91"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c88" href="buffer.html#oglplus.quickref.buffer.c89"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
 <a class="link" href="buffer.html#oglplus.quickref.buffer.target">BufferTarget</a> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
 	<a class="link" href="buffer.html#oglplus.quickref.buffer.target">BufferTarget</a> <span class="identifier">target</span><span class="special">,</span>
 	<span class="keyword">const</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.data">BufferData</a><span class="special">&amp;</span> <span class="identifier">data</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c92" href="buffer.html#oglplus.quickref.buffer.c93"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c90" href="buffer.html#oglplus.quickref.buffer.c91"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
 <span class="identifier">BufferTarget</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
 	<span class="identifier">BufferTargetAndUsage</span><span class="special">&amp;&amp;</span> <span class="identifier">tau</span><span class="special">,</span>
 	<span class="keyword">const</span> <span class="identifier">BufferData</span><span class="special">&amp;</span> <span class="identifier">data</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c94" href="buffer.html#oglplus.quickref.buffer.c95"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c92" href="buffer.html#oglplus.quickref.buffer.c93"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 
 <a class="link" href="buffer.html#oglplus.quickref.buffer.target">BufferTarget</a> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
 	<span class="identifier">BufferTargetAndOffset</span><span class="special">&amp;&amp;</span> <span class="identifier">tao</span><span class="special">,</span>
 	<span class="keyword">const</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.data">BufferData</a><span class="special">&amp;</span> <span class="identifier">data</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c96" href="buffer.html#oglplus.quickref.buffer.c97"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c94" href="buffer.html#oglplus.quickref.buffer.c95"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c77"></a><a href="#oglplus.quickref.buffer.c76"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c75"></a><a href="#oglplus.quickref.buffer.c74"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Helper class for syntax sugar operators. Binds together the buffer
               target and usage hint.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c79"></a><a href="#oglplus.quickref.buffer.c78"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c77"></a><a href="#oglplus.quickref.buffer.c76"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Ties together a buffer <code class="literal">target</code> and <code class="literal">usage</code>
               hint.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c81"></a><a href="#oglplus.quickref.buffer.c80"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c79"></a><a href="#oglplus.quickref.buffer.c78"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Helper class for syntax sugar operators. Binds together a reference
               to a buffer and an indexed target.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c83"></a><a href="#oglplus.quickref.buffer.c82"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c81"></a><a href="#oglplus.quickref.buffer.c80"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Ties together a reference to a <code class="literal">buffer</code> and an indexed
               <code class="literal">target</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c85"></a><a href="#oglplus.quickref.buffer.c84"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c83"></a><a href="#oglplus.quickref.buffer.c82"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Helper class for syntax sugar operators. Binds together a buffer target
               and offset value.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c87"></a><a href="#oglplus.quickref.buffer.c86"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c85"></a><a href="#oglplus.quickref.buffer.c84"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Ties together a buffer target and offset value.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c89"></a><a href="#oglplus.quickref.buffer.c88"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c87"></a><a href="#oglplus.quickref.buffer.c86"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Equivalent to <code class="literal">buf.Bind(target)</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c91"></a><a href="#oglplus.quickref.buffer.c90"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c89"></a><a href="#oglplus.quickref.buffer.c88"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Equivalent to <code class="literal">BufferOps::BindBase(target, index)</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c93"></a><a href="#oglplus.quickref.buffer.c92"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c91"></a><a href="#oglplus.quickref.buffer.c90"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Equivalent to <code class="literal">BufferOps::Data(target, data)</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c95"></a><a href="#oglplus.quickref.buffer.c94"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c93"></a><a href="#oglplus.quickref.buffer.c92"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Equivalent to <code class="literal">BufferOps::Data(target, data, usage)</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c97"></a><a href="#oglplus.quickref.buffer.c96"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c95"></a><a href="#oglplus.quickref.buffer.c94"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Equivalent to <code class="literal">BufferOps::SubData(target, offset, data)</code>.
             </p></td>
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.buffer.h5"></a>
+<a name="oglplus.quickref.buffer.h4"></a>
           <span class="phrase"><a name="oglplus.quickref.buffer.target"></a></span><a class="link" href="buffer.html#oglplus.quickref.buffer.target">Target</a>
         </h4>
 <p>
@@ -709,7 +689,7 @@
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.buffer.h6"></a>
+<a name="oglplus.quickref.buffer.h5"></a>
           <span class="phrase"><a name="oglplus.quickref.buffer.indexed_target"></a></span><a class="link" href="buffer.html#oglplus.quickref.buffer.indexed_target">IndexedTarget</a>
         </h4>
 <p>
@@ -733,7 +713,7 @@
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.buffer.h7"></a>
+<a name="oglplus.quickref.buffer.h6"></a>
           <span class="phrase"><a name="oglplus.quickref.buffer.binding"></a></span><a class="link" href="buffer.html#oglplus.quickref.buffer.binding">Indexed
           binding point numbers</a>
         </h4>
@@ -747,7 +727,7 @@
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">UniformBufferBindingPoint</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c98" href="buffer.html#oglplus.quickref.buffer.c99"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">UniformBufferBindingPoint</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c96" href="buffer.html#oglplus.quickref.buffer.c97"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">};</span>
 <span class="preprocessor">#endif</span>
 
@@ -756,7 +736,7 @@
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">TransformFeedbackBufferBindingPoint</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c100" href="buffer.html#oglplus.quickref.buffer.c101"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">TransformFeedbackBufferBindingPoint</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c98" href="buffer.html#oglplus.quickref.buffer.c99"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="special">};</span>
 <span class="preprocessor">#endif</span>
 
@@ -765,7 +745,7 @@
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">AtomicCounterBufferBindingPoint</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c102" href="buffer.html#oglplus.quickref.buffer.c103"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">AtomicCounterBufferBindingPoint</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c100" href="buffer.html#oglplus.quickref.buffer.c101"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="special">};</span>
 <span class="preprocessor">#endif</span>
 
@@ -774,7 +754,7 @@
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">ShaderStorageBufferBindingPoint</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c104" href="buffer.html#oglplus.quickref.buffer.c105"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="identifier">ShaderStorageBufferBindingPoint</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c102" href="buffer.html#oglplus.quickref.buffer.c103"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="special">};</span>
 <span class="preprocessor">#endif</span>
 
@@ -782,7 +762,7 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c99"></a><a href="#oglplus.quickref.buffer.c98"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c97"></a><a href="#oglplus.quickref.buffer.c96"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Throws <a class="link" href="error.html#oglplus.quickref.error.limit" title="Limit errors">LimitError</a>
               if <code class="literal">number</code> is greater than the implementation-dependent
@@ -790,7 +770,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c101"></a><a href="#oglplus.quickref.buffer.c100"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c99"></a><a href="#oglplus.quickref.buffer.c98"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Throws <a class="link" href="error.html#oglplus.quickref.error.limit" title="Limit errors">LimitError</a>
               if <code class="literal">number</code> is greater than the implementation-dependent
@@ -799,7 +779,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c103"></a><a href="#oglplus.quickref.buffer.c102"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c101"></a><a href="#oglplus.quickref.buffer.c100"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Throws <a class="link" href="error.html#oglplus.quickref.error.limit" title="Limit errors">LimitError</a>
               if <code class="literal">number</code> is greater than the implementation-dependent
@@ -808,7 +788,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c105"></a><a href="#oglplus.quickref.buffer.c104"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c103"></a><a href="#oglplus.quickref.buffer.c102"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Throws <a class="link" href="error.html#oglplus.quickref.error.limit" title="Limit errors">LimitError</a>
               if <code class="literal">number</code> is greater than the implementation-dependent
@@ -818,7 +798,7 @@
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.buffer.h8"></a>
+<a name="oglplus.quickref.buffer.h7"></a>
           <span class="phrase"><a name="oglplus.quickref.buffer.usage"></a></span><a class="link" href="buffer.html#oglplus.quickref.buffer.usage">Usage</a>
         </h4>
 <p>
@@ -847,7 +827,7 @@
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.buffer.h9"></a>
+<a name="oglplus.quickref.buffer.h8"></a>
           <span class="phrase"><a name="oglplus.quickref.buffer.storage_bit"></a></span><a class="link" href="buffer.html#oglplus.quickref.buffer.storage_bit">Storage
           bits</a>
         </h4>
@@ -877,7 +857,7 @@
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.buffer.h10"></a>
+<a name="oglplus.quickref.buffer.h9"></a>
           <span class="phrase"><a name="oglplus.quickref.buffer.size"></a></span><a class="link" href="buffer.html#oglplus.quickref.buffer.size">Size</a>
         </h4>
 <p>
@@ -893,80 +873,80 @@
 <span class="keyword">class</span> <span class="identifier">BufferSize</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">BufferSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c106" href="buffer.html#oglplus.quickref.buffer.c107"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-	<span class="identifier">BufferSize</span><span class="special">(</span><span class="identifier">GLsizeiptr</span> <span class="identifier">size</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c108" href="buffer.html#oglplus.quickref.buffer.c109"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">BufferSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c104" href="buffer.html#oglplus.quickref.buffer.c105"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">BufferSize</span><span class="special">(</span><span class="identifier">GLsizeiptr</span> <span class="identifier">size</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c106" href="buffer.html#oglplus.quickref.buffer.c107"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-	<span class="identifier">BufferSize</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">*);</span> <a class="co" name="oglplus.quickref.buffer.c110" href="buffer.html#oglplus.quickref.buffer.c111"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">BufferSize</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">*);</span> <a class="co" name="oglplus.quickref.buffer.c108" href="buffer.html#oglplus.quickref.buffer.c109"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
-	<span class="identifier">BufferSize</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">T</span> <span class="special">(&amp;)[</span><span class="identifier">N</span><span class="special">]);</span> <a class="co" name="oglplus.quickref.buffer.c112" href="buffer.html#oglplus.quickref.buffer.c113"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="identifier">BufferSize</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">T</span> <span class="special">(&amp;)[</span><span class="identifier">N</span><span class="special">]);</span> <a class="co" name="oglplus.quickref.buffer.c110" href="buffer.html#oglplus.quickref.buffer.c111"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
-	<span class="identifier">BufferSize</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;&amp;</span> <span class="identifier">array</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c114" href="buffer.html#oglplus.quickref.buffer.c115"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">BufferSize</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;&amp;</span> <span class="identifier">array</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c112" href="buffer.html#oglplus.quickref.buffer.c113"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-	<span class="identifier">BufferSize</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;</span> <span class="identifier">vector</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c116" href="buffer.html#oglplus.quickref.buffer.c117"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="identifier">BufferSize</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;</span> <span class="identifier">vector</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c114" href="buffer.html#oglplus.quickref.buffer.c115"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-	<span class="keyword">static</span> <span class="identifier">BufferSize</span> <span class="identifier">Of</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">data</span> <span class="special">=</span> <code class="literal">nullptr</code><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c118" href="buffer.html#oglplus.quickref.buffer.c119"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">BufferSize</span> <span class="identifier">Of</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">data</span> <span class="special">=</span> <code class="literal">nullptr</code><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c116" href="buffer.html#oglplus.quickref.buffer.c117"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
-	<span class="identifier">GLsizeiptr</span> <span class="identifier">Get</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.buffer.c120" href="buffer.html#oglplus.quickref.buffer.c121"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="identifier">GLsizeiptr</span> <span class="identifier">Get</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.buffer.c118" href="buffer.html#oglplus.quickref.buffer.c119"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
 	<span class="comment">// TODO</span>
 <span class="special">};</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c107"></a><a href="#oglplus.quickref.buffer.c106"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c105"></a><a href="#oglplus.quickref.buffer.c104"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs a zero size.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c109"></a><a href="#oglplus.quickref.buffer.c108"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c107"></a><a href="#oglplus.quickref.buffer.c106"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs a <code class="literal">BufferSize</code> object from a <code class="literal">value</code>
               in bytes.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c111"></a><a href="#oglplus.quickref.buffer.c110"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c109"></a><a href="#oglplus.quickref.buffer.c108"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs a <code class="literal">BufferSize</code> required to store <code class="literal">count</code>
               instances of <code class="literal">T</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c113"></a><a href="#oglplus.quickref.buffer.c112"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c111"></a><a href="#oglplus.quickref.buffer.c110"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs a <code class="literal">BufferSize</code> required to store <code class="literal">N</code>
               instances of <code class="literal">T</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c115"></a><a href="#oglplus.quickref.buffer.c114"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c113"></a><a href="#oglplus.quickref.buffer.c112"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs a <code class="literal">BufferSize</code> required to store elements
               in <code class="literal">array</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c117"></a><a href="#oglplus.quickref.buffer.c116"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c115"></a><a href="#oglplus.quickref.buffer.c114"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs a <code class="literal">BufferSize</code> required to store elements
               in <code class="literal">vector</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c119"></a><a href="#oglplus.quickref.buffer.c118"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c117"></a><a href="#oglplus.quickref.buffer.c116"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Makes a new instance of <code class="literal">BufferSize</code> required to store
               <code class="literal">count</code> instances of <code class="literal">T</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c121"></a><a href="#oglplus.quickref.buffer.c120"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c119"></a><a href="#oglplus.quickref.buffer.c118"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the stored size in bytes.
             </p></td>
@@ -983,20 +963,20 @@
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">BufferTypedSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
-	<span class="identifier">BufferTypedSize</span><span class="special">(</span><span class="identifier">GLsizeiptr</span> <span class="identifier">count</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c122" href="buffer.html#oglplus.quickref.buffer.c123"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">BufferTypedSize</span><span class="special">(</span><span class="identifier">GLsizeiptr</span> <span class="identifier">count</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c120" href="buffer.html#oglplus.quickref.buffer.c121"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c123"></a><a href="#oglplus.quickref.buffer.c122"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c121"></a><a href="#oglplus.quickref.buffer.c120"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs a <code class="literal">BufferSize</code> required to store <code class="literal">count</code>
               instances of <code class="literal">T</code>.
             </p></td>
 </tr></table></div>
 <h4>
-<a name="oglplus.quickref.buffer.h11"></a>
+<a name="oglplus.quickref.buffer.h10"></a>
           <span class="phrase"><a name="oglplus.quickref.buffer.data"></a></span><a class="link" href="buffer.html#oglplus.quickref.buffer.data">Data</a>
         </h4>
 <p>
@@ -1024,61 +1004,61 @@
 <span class="keyword">class</span> <span class="identifier">BufferData</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">BufferData</span><span class="special">(</span><a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">size</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLvoid</span><span class="special">*</span> <span class="identifier">data</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c124" href="buffer.html#oglplus.quickref.buffer.c125"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">BufferData</span><span class="special">(</span><a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">size</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLvoid</span><span class="special">*</span> <span class="identifier">data</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c122" href="buffer.html#oglplus.quickref.buffer.c123"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 	<span class="comment">/// Construction from @p count of instances of type @c T at @p data</span>
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-	<span class="identifier">BufferData</span><span class="special">(</span><span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">data</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c126" href="buffer.html#oglplus.quickref.buffer.c127"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">BufferData</span><span class="special">(</span><span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">data</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c124" href="buffer.html#oglplus.quickref.buffer.c125"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
-	<span class="identifier">BufferData</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">T</span> <span class="special">(&amp;</span><span class="identifier">data</span><span class="special">)[</span><span class="identifier">N</span><span class="special">]);</span> <a class="co" name="oglplus.quickref.buffer.c128" href="buffer.html#oglplus.quickref.buffer.c129"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">BufferData</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">T</span> <span class="special">(&amp;</span><span class="identifier">data</span><span class="special">)[</span><span class="identifier">N</span><span class="special">]);</span> <a class="co" name="oglplus.quickref.buffer.c126" href="buffer.html#oglplus.quickref.buffer.c127"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
-	<span class="identifier">BufferData</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;&amp;</span> <span class="identifier">array</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c130" href="buffer.html#oglplus.quickref.buffer.c131"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="identifier">BufferData</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;&amp;</span> <span class="identifier">array</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c128" href="buffer.html#oglplus.quickref.buffer.c129"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-	<span class="identifier">BufferData</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;</span> <span class="identifier">vector</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c132" href="buffer.html#oglplus.quickref.buffer.c133"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">BufferData</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;</span> <span class="identifier">vector</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c130" href="buffer.html#oglplus.quickref.buffer.c131"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c125"></a><a href="#oglplus.quickref.buffer.c124"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c123"></a><a href="#oglplus.quickref.buffer.c122"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs <code class="literal">BufferData</code> from a raw pointer to a <code class="literal">data</code>
               block and its <code class="literal">size</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c127"></a><a href="#oglplus.quickref.buffer.c126"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c125"></a><a href="#oglplus.quickref.buffer.c124"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs <code class="literal">BufferData</code> from a pointer to <code class="literal">count</code>
               instances of type <code class="literal">T</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c129"></a><a href="#oglplus.quickref.buffer.c128"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c127"></a><a href="#oglplus.quickref.buffer.c126"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs <code class="literal">BufferData</code> from an array of <code class="literal">N</code>
               elements of type <code class="literal">T</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c131"></a><a href="#oglplus.quickref.buffer.c130"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c129"></a><a href="#oglplus.quickref.buffer.c128"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs <code class="literal">BufferData</code> from an <code class="literal">array</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c133"></a><a href="#oglplus.quickref.buffer.c132"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c131"></a><a href="#oglplus.quickref.buffer.c130"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs <code class="literal">BufferData</code> from a <code class="literal">vector</code>.
             </p></td>
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.buffer.h12"></a>
+<a name="oglplus.quickref.buffer.h11"></a>
           <span class="phrase"><a name="oglplus.quickref.buffer.gpu_address"></a></span><a class="link" href="buffer.html#oglplus.quickref.buffer.gpu_address">GPU
           address</a>
         </h4>
@@ -1099,14 +1079,14 @@
 	<span class="identifier">BufferGPUAddress</span><span class="special">(</span><span class="identifier">GLuint64EXT</span> <span class="identifier">addr</span><span class="special">);</span>
 <span class="special">};</span>
 
-<span class="identifier">GLuint64EXT</span> <span class="identifier">GetGLAddress</span><span class="special">(</span><span class="identifier">BufferGPUAddress</span> <span class="identifier">bga</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c134" href="buffer.html#oglplus.quickref.buffer.c135"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="identifier">GLuint64EXT</span> <span class="identifier">GetGLAddress</span><span class="special">(</span><span class="identifier">BufferGPUAddress</span> <span class="identifier">bga</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c132" href="buffer.html#oglplus.quickref.buffer.c133"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 <span class="preprocessor">#endif</span>
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c135"></a><a href="#oglplus.quickref.buffer.c134"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c133"></a><a href="#oglplus.quickref.buffer.c132"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the underlying buffer address value.
             </p></td>

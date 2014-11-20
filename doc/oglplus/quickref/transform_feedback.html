@@ -155,26 +155,6 @@
 </table></div>
 <h4>
 <a name="oglplus.quickref.transform_feedback.h1"></a>
-          <span class="phrase"><a name="oglplus.quickref.transform_feedback.transform_feedback_zero_operatio"></a></span><a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.transform_feedback_zero_operatio">Transform
-          feedback zero operations</a>
-        </h4>
-<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
-<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::TransformFeedback</a><span class="special">&gt;</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::TransformFeedback</a><span class="special">&gt;</span>
-<span class="special">{</span>
-<span class="keyword">public</span><span class="special">:</span> <a class="co" name="oglplus.quickref.transform_feedback.c22" href="transform_feedback.html#oglplus.quickref.transform_feedback.c23"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-<span class="special">};</span>
-</pre>
-<div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c23"></a><a href="#oglplus.quickref.transform_feedback.c22"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              There are no operations that can work explicitly on transform feedback
-              object zero besides binding, so this class just inherits from the common
-              transform feedback operations wrapper.
-            </p></td>
-</tr></table></div>
-<h4>
-<a name="oglplus.quickref.transform_feedback.h2"></a>
           <span class="phrase"><a name="oglplus.quickref.transform_feedback.operations_with_implicit_selecto"></a></span><a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.operations_with_implicit_selecto">Operations
           with implicit selector</a>
         </h4>
@@ -191,7 +171,7 @@
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.transform_feedback.h3"></a>
+<a name="oglplus.quickref.transform_feedback.h2"></a>
           <span class="phrase"><a name="oglplus.quickref.transform_feedback.activator"></a></span><a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.activator">Activator</a>
         </h4>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">TransformFeedbackActivator</span>
@@ -200,37 +180,37 @@
 	<span class="identifier">TransformFeedbackActivator</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">TransformFeedbackActivator</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span>
 	<span class="identifier">TransformFeedbackActivator</span><span class="special">(</span><span class="identifier">TransformFeedbackActivator</span><span class="special">&amp;&amp;</span> <span class="identifier">tmp</span><span class="special">);</span>
 
-	<span class="identifier">TransformFeedbackActivator</span><span class="special">(</span><a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.primitive_type">TransformFeedbackPrimitiveType</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.transform_feedback.c24" href="transform_feedback.html#oglplus.quickref.transform_feedback.c25"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">TransformFeedbackActivator</span><span class="special">(</span><a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.primitive_type">TransformFeedbackPrimitiveType</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.transform_feedback.c22" href="transform_feedback.html#oglplus.quickref.transform_feedback.c23"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-	<span class="special">~</span><span class="identifier">TransformFeedbackActivator</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.transform_feedback.c26" href="transform_feedback.html#oglplus.quickref.transform_feedback.c27"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">~</span><span class="identifier">TransformFeedbackActivator</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.transform_feedback.c24" href="transform_feedback.html#oglplus.quickref.transform_feedback.c25"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	<span class="keyword">noexcept</span><span class="special">;</span>
 
-	<span class="keyword">void</span> <span class="identifier">Finish</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.transform_feedback.c28" href="transform_feedback.html#oglplus.quickref.transform_feedback.c29"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Finish</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.transform_feedback.c26" href="transform_feedback.html#oglplus.quickref.transform_feedback.c27"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="special">};</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c25"></a><a href="#oglplus.quickref.transform_feedback.c24"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c23"></a><a href="#oglplus.quickref.transform_feedback.c22"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Begins transform feedback in the specified <code class="literal">mode</code>.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBeginTransformFeedback.xml" target="_top">glBeginTransformFeedback</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c27"></a><a href="#oglplus.quickref.transform_feedback.c26"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c25"></a><a href="#oglplus.quickref.transform_feedback.c24"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Ends currently active transform feedback. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEndTransformFeedback.xml" target="_top">glEndTransformFeedback</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c29"></a><a href="#oglplus.quickref.transform_feedback.c28"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c27"></a><a href="#oglplus.quickref.transform_feedback.c26"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Explicitly ends the currently active transform feedback. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEndTransformFeedback.xml" target="_top">glEndTransformFeedback</a></code>.
             </p></td>
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.transform_feedback.h4"></a>
+<a name="oglplus.quickref.transform_feedback.h3"></a>
           <span class="phrase"><a name="oglplus.quickref.transform_feedback.pauser"></a></span><a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.pauser">Pauser</a>
         </h4>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">TransformFeedbackPauser</span>
@@ -239,36 +219,36 @@
 	<span class="identifier">TransformFeedbackPauser</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">TransformFeedbackPauser</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span>
 	<span class="identifier">TransformFeedbackPauser</span><span class="special">(</span><span class="identifier">TransformFeedbackPauser</span><span class="special">&amp;&amp;</span> <span class="identifier">tmp</span><span class="special">);</span>
 
-	<span class="identifier">TransformFeedbackPauser</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.transform_feedback.c30" href="transform_feedback.html#oglplus.quickref.transform_feedback.c31"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">TransformFeedbackPauser</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.transform_feedback.c28" href="transform_feedback.html#oglplus.quickref.transform_feedback.c29"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-	<span class="special">~</span><span class="identifier">TransformFeedbackPauser</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.transform_feedback.c32" href="transform_feedback.html#oglplus.quickref.transform_feedback.c33"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">~</span><span class="identifier">TransformFeedbackPauser</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.transform_feedback.c30" href="transform_feedback.html#oglplus.quickref.transform_feedback.c31"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	<span class="keyword">noexcept</span><span class="special">;</span>
 
-	<span class="keyword">void</span> <span class="identifier">Resume</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.transform_feedback.c34" href="transform_feedback.html#oglplus.quickref.transform_feedback.c35"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Resume</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.transform_feedback.c32" href="transform_feedback.html#oglplus.quickref.transform_feedback.c33"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="special">};</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c31"></a><a href="#oglplus.quickref.transform_feedback.c30"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c29"></a><a href="#oglplus.quickref.transform_feedback.c28"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Pauses the currenly active transform feedback. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glPauseTransformFeedback.xml" target="_top">glPauseTransformFeedback</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c33"></a><a href="#oglplus.quickref.transform_feedback.c32"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c31"></a><a href="#oglplus.quickref.transform_feedback.c30"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Resumes the currently paused transform feedback. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glResumeTransformFeedback.xml" target="_top">glResumeTransformFeedback</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c35"></a><a href="#oglplus.quickref.transform_feedback.c34"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c33"></a><a href="#oglplus.quickref.transform_feedback.c32"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Explicitly resumes the currently paused transform feedback. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glResumeTransformFeedback.xml" target="_top">glResumeTransformFeedback</a></code>.
             </p></td>
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.transform_feedback.h5"></a>
+<a name="oglplus.quickref.transform_feedback.h4"></a>
           <span class="phrase"><a name="oglplus.quickref.transform_feedback.target"></a></span><a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.target">Target</a>
         </h4>
 <p>
@@ -289,7 +269,7 @@
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.transform_feedback.h6"></a>
+<a name="oglplus.quickref.transform_feedback.h5"></a>
           <span class="phrase"><a name="oglplus.quickref.transform_feedback.mode"></a></span><a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.mode">Mode</a>
         </h4>
 <p>
@@ -311,7 +291,7 @@
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.transform_feedback.h7"></a>
+<a name="oglplus.quickref.transform_feedback.h6"></a>
           <span class="phrase"><a name="oglplus.quickref.transform_feedback.primitive_type"></a></span><a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.primitive_type">Primitive
           type</a>
         </h4>
