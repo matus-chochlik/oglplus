@@ -80,10 +80,28 @@
 	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Source</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="glsl_source.html" title="GLSL Source code">GLSLSource</a><span class="special">&amp;</span> <span class="identifier">glsl_source</span><span class="special">);</span>
 
 	<span class="keyword">bool</span> <span class="identifier">IsCompiled</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.shader.c6" href="shader.html#oglplus.quickref.shader.c7"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-<span class="comment">// TODO</span>
+
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Compile</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.shader.c8" href="shader.html#oglplus.quickref.shader.c9"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a> <span class="identifier">GetInfoLog</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.shader.c10" href="shader.html#oglplus.quickref.shader.c11"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_ARB_shading_language_include</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompileInclude</span><span class="special">(</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="identifier">GLchar</span><span class="special">*</span> <span class="keyword">const</span><span class="special">*</span> <span class="identifier">paths</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">lengths</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.shader.c12" href="shader.html#oglplus.quickref.shader.c13"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompileInclude</span><span class="special">(</span><a class="link" href="glsl_string.html" title="GLSL Strings">GLSLString</a><span class="special">&amp;&amp;</span> <span class="identifier">incl</span><span class="special">);</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompileInclude</span><span class="special">(</span><a class="link" href="glsl_string.html" title="GLSL Strings">GLSLStrings</a><span class="special">&amp;&amp;</span> <span class="identifier">incl</span><span class="special">);</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompileInclude</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="glsl_source.html" title="GLSL Source code">GLSLSource</a><span class="special">&amp;</span> <span class="identifier">incl</span><span class="special">);</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_ES_VERSION_3_0</span> <span class="special">||</span> <span class="identifier">GL_VERSION_4_1</span> <span class="special">||</span> <span class="identifier">GL_ARB_ES2_compatibility</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ReleaseCompiler</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.shader.c14" href="shader.html#oglplus.quickref.shader.c15"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+<span class="preprocessor">#endif</span>
 <span class="special">};</span>
 
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Shader</a><span class="special">&gt;</span> <span class="identifier">ShaderOps</span><span class="special">;</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -106,7 +124,117 @@
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetShader.xml" target="_top">glGetShader</a></code>, <span class="bold"><strong><code class="literal">GL_COMPILE_STATUS</code></strong></span>.
             </p></td>
 </tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c9"></a><a href="#oglplus.quickref.shader.c8"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Compiles <code class="literal">this</code> shader. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glCompileShader.xml" target="_top">glCompileShader</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c11"></a><a href="#oglplus.quickref.shader.c10"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the compiler output if the shader is compiled. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetShader.xml" target="_top">glGetShader</a></code>,
+              <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetShaderInfoLog.xml" target="_top">glGetShaderInfoLog</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c13"></a><a href="#oglplus.quickref.shader.c12"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Compiles the shader using the specified include paths. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glCompileShaderIncludeARB.xml" target="_top">glCompileShaderIncludeARB</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c15"></a><a href="#oglplus.quickref.shader.c14"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Indicates that the resources associated with the compiler can be freed.
+              See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glReleaseShaderCompiler.xml" target="_top">glReleaseShaderCompiler</a></code>.
+            </p></td>
+</tr>
 </table></div>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Shader</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&lt;</span><span class="identifier">ShaderOps</span><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Shader</span><span class="special">(</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">type</span><span class="special">);</span>
+
+	<span class="identifier">Shader</span><span class="special">(</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">type</span><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">&amp;&amp;</span> <span class="identifier">description</span><span class="special">);</span>
+
+	<span class="identifier">Shader</span><span class="special">(</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">type</span><span class="special">,</span> <a class="link" href="glsl_string.html" title="GLSL Strings">GLSLString</a><span class="special">&amp;&amp;</span> <span class="identifier">glsl_source</span><span class="special">);</span>
+	<span class="identifier">Shader</span><span class="special">(</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">type</span><span class="special">,</span> <a class="link" href="glsl_string.html" title="GLSL Strings">GLSLStrings</a><span class="special">&amp;&amp;</span> <span class="identifier">glsl_source</span><span class="special">);</span>
+	<span class="identifier">Shader</span><span class="special">(</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">type</span><span class="special">,</span> <span class="keyword">const</span> <a class="link" href="glsl_source.html" title="GLSL Source code">GLSLSource</a><span class="special">&amp;</span> <span class="identifier">glsl_source</span><span class="special">);</span>
+
+	<span class="identifier">Shader</span><span class="special">(</span>
+		<a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">type</span><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">&amp;&amp;</span> <span class="identifier">description</span><span class="special">,</span>
+		<a class="link" href="glsl_string.html" title="GLSL Strings">GLSLString</a><span class="special">&amp;&amp;</span> <span class="identifier">glsl_source</span>
+	<span class="special">);</span>
+
+	<span class="identifier">Shader</span><span class="special">(</span>
+		<a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">type</span><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">&amp;&amp;</span> <span class="identifier">description</span><span class="special">,</span>
+		<a class="link" href="glsl_string.html" title="GLSL Strings">GLSLStrings</a><span class="special">&amp;&amp;</span> <span class="identifier">glsl_source</span>
+	<span class="special">);</span>
+
+	<span class="identifier">Shader</span><span class="special">(</span>
+		<a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">type</span><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">&amp;&amp;</span> <span class="identifier">description</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="glsl_source.html" title="GLSL Source code">GLSLSource</a><span class="special">&amp;</span> <span class="identifier">glsl_source</span>
+	<span class="special">);</span>
+
+	<span class="identifier">Shader</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Shader</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span>
+	<span class="identifier">Shader</span><span class="special">(</span><span class="identifier">Shader</span><span class="special">&amp;&amp;);</span>
+
+	<span class="identifier">Shader</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><span class="identifier">Shader</span><span class="special">&amp;&amp;);</span>
+<span class="special">};</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.shader.h2"></a>
+          <span class="phrase"><a name="oglplus.quickref.shader.specialized"></a></span><a class="link" href="shader.html#oglplus.quickref.shader.specialized">Specialized
+          shaders</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">Type</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">SpecShader</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="shader.html" title="Shaders">Shader</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">SpecShader</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+
+	<span class="identifier">SpecShader</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">&amp;&amp;</span> <span class="identifier">description</span><span class="special">);</span>
+
+	<span class="identifier">SpecShader</span><span class="special">(</span><a class="link" href="glsl_string.html" title="GLSL Strings">GLSLString</a><span class="special">&amp;&amp;</span> <span class="identifier">glsl_source</span><span class="special">);</span>
+	<span class="identifier">SpecShader</span><span class="special">(</span><a class="link" href="glsl_string.html" title="GLSL Strings">GLSLStrings</a><span class="special">&amp;&amp;</span> <span class="identifier">glsl_source</span><span class="special">);</span>
+	<span class="identifier">SpecShader</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="glsl_source.html" title="GLSL Source code">GLSLSource</a><span class="special">&amp;</span> <span class="identifier">glsl_source</span><span class="special">);</span>
+
+	<span class="identifier">SpecShader</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">&amp;&amp;</span> <span class="identifier">description</span><span class="special">,</span> <a class="link" href="glsl_string.html" title="GLSL Strings">GLSLString</a><span class="special">&amp;&amp;</span> <span class="identifier">glsl_source</span><span class="special">);</span>
+	<span class="identifier">SpecShader</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">&amp;&amp;</span> <span class="identifier">description</span><span class="special">,</span> <a class="link" href="glsl_string.html" title="GLSL Strings">GLSLStrings</a><span class="special">&amp;&amp;</span> <span class="identifier">glsl_source</span><span class="special">);</span>
+	<span class="identifier">SpecShader</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">&amp;&amp;</span> <span class="identifier">description</span><span class="special">,</span> <span class="keyword">const</span> <a class="link" href="glsl_source.html" title="GLSL Source code">GLSLSource</a><span class="special">&amp;</span> <span class="identifier">glsl_source</span><span class="special">);</span>
+
+	<span class="identifier">SpecShader</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">SpecShader</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span>
+	<span class="identifier">SpecShader</span><span class="special">(</span><span class="identifier">SpecShader</span><span class="special">&amp;&amp;);</span>
+<span class="special">};</span>
+
+<span class="keyword">typedef</span> <a class="link" href="shader.html#oglplus.quickref.shader.specialized">SpecShader</a><span class="special">&lt;</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a><span class="special">::</span><span class="identifier">Vertex</span><span class="special">&gt;</span> <span class="identifier">VertexShader</span><span class="special">;</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_TESS_CONTROL_SHADER</span>
+<span class="keyword">typedef</span> <a class="link" href="shader.html#oglplus.quickref.shader.specialized">SpecShader</a><span class="special">&lt;</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a><span class="special">::</span><span class="identifier">TessControl</span><span class="special">&gt;</span> <span class="identifier">TessControlShader</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_TESS_EVALUATION_SHADER</span>
+<span class="keyword">typedef</span> <span class="identifier">SpecShader</span><span class="special">&lt;</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a><span class="special">::</span><span class="identifier">TessEvaluation</span><span class="special">&gt;</span> <span class="identifier">TessEvaluationShader</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_GEOMETRY_SHADER</span>
+<span class="keyword">typedef</span> <a class="link" href="shader.html#oglplus.quickref.shader.specialized">SpecShader</a><span class="special">&lt;</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a><span class="special">::</span><span class="identifier">Geometry</span><span class="special">&gt;</span> <span class="identifier">GeometryShader</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="keyword">typedef</span> <a class="link" href="shader.html#oglplus.quickref.shader.specialized">SpecShader</a><span class="special">&lt;</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a><span class="special">::</span><span class="identifier">Fragment</span><span class="special">&gt;</span> <span class="identifier">FragmentShader</span><span class="special">;</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_COMPUTE_SHADER</span>
+<span class="keyword">typedef</span> <a class="link" href="shader.html#oglplus.quickref.shader.specialized">SpecShader</a><span class="special">&lt;</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a><span class="special">::</span><span class="identifier">Compute</span><span class="special">&gt;</span> <span class="identifier">ComputeShader</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
