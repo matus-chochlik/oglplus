@@ -72,7 +72,6 @@ public:
 	))
 	{ }
 
-#if !OGLPLUS_NO_INITIALIZER_LISTS
 	GLSLSource(std::initializer_list<StrCRef> lits)
 	 : _impl(make_impl<aux::StrCRefsGLSLSrcWrap>(
 		lits.begin(),
@@ -86,7 +85,6 @@ public:
 		strs.end()
 	))
 	{ }
-#endif
 
 	template <typename Head, typename Tail>
 	GLSLSource(const StrCRefChainTpl<GLchar, Head, Tail>& source)

@@ -18,10 +18,6 @@
 #include <oglplus/math/angle.hpp>
 #include <oglplus/math/quaternion.hpp>
 
-#if !OGLPLUS_NO_INITIALIZER_LISTS
-#include <initializer_list>
-#endif
-
 #include <algorithm>
 
 #include <cassert>

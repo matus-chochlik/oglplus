@@ -8,7 +8,6 @@
  *
  *  @oalplus_example_uses_cpp_feat{THREADS}
  *  @oalplus_example_uses_cpp_feat{CHRONO}
- *  @oalplus_example_uses_cpp_feat{INITIALIZER_LISTS}
  */
 
 #include <oalplus/al.hpp>

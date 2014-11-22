@@ -30,6 +30,7 @@
 #include <oglplus/shapes/vert_attr_info.hpp>
 
 #include <vector>
+#include <initializer_list>
 #include <functional>
 #include <iterator>
 #include <cassert>
@@ -230,7 +231,6 @@ public:
 		UseInProgram(prog);
 	}
 
-#if !OGLPLUS_NO_INITIALIZER_LISTS
 	template <class ShapeBuilder>
 	ShapeWrapperTpl(
 		const std::initializer_list<const GLchar*>& names,
@@ -247,7 +247,6 @@ public:
 	{
 		UseInProgram(prog);
 	}
-#endif
 
 	template <class ShapeBuilder>
 	ShapeWrapperTpl(

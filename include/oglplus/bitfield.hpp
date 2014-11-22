@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,10 +16,7 @@
 #include <oglplus/config/compiler.hpp>
 
 #include <type_traits>
-
-#if !OGLPLUS_NO_INITIALIZER_LISTS
 #include <initializer_list>
-#endif
 
 namespace oglplus {
 
@@ -98,7 +95,6 @@ public:
 		}
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_INITIALIZER_LISTS
 	/// Construct a bitfield from an initializer list of enumeration values
 	Bitfield(const std::initializer_list<Bit>& bits)
 	noexcept
@@ -107,7 +103,6 @@ public:
 		for(auto i=bits.begin(),e=bits.end(); i!=e; ++i)
 			_bits |= BF(*i);
 	}
-#endif
 
 	/// Bitwise or operator for combining enumeration values into a bitfield
 	friend
