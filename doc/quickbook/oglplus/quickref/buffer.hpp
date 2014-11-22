@@ -129,19 +129,6 @@ public:
 #endif
 };
 //]
-//[oglplus_buffer_zero
-template <>
-class __ObjZeroOps<__tag_ExplicitSel, __tag_Buffer>
- : public __ObjCommonOps<__tag_Buffer>
-{
-public: /*<
-There are no operations that can work explicitly on buffer
-object zero besides binding, so this class just inherits from
-the common buffer operations wrapper.
->*/
-};
-
-//]
 //[oglplus_buffer_1
 template <>
 class __ObjectOps<__tag_ExplicitSel, __tag_Buffer>

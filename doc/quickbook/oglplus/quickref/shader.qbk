@@ -9,6 +9,17 @@
 [header oglplus/shader.hpp]
 
 [import shader.hpp]
-[oglplus_shader]
+
+[heading Common shader operations]
+[oglplus_shader_common]
+
+[heading Operations with direct state access]
+
+[oglplus_shader_1]
+[oglplus_shader_2]
+
+[heading:specialized Specialized shaders]
+
+[oglplus_spec_shader_1]
 
 [endsect]

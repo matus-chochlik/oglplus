@@ -134,6 +134,14 @@
 [def __RenderbufferTarget [link oglplus.quickref.renderbuffer.target RenderbufferTarget]]
 
 [def __Shader [link oglplus.quickref.shader Shader]]
+[def __SpecShader [link oglplus.quickref.shader.specialized SpecShader]]
+[def __VertexShader [link oglplus.quickref.shader.specialized VertexShader]]
+[def __GeometryShader [link oglplus.quickref.shader.specialized GeometryShader]]
+[def __TessControlShader [link oglplus.quickref.shader.specialized TessControlShader]]
+[def __TessEvaluationShader [link oglplus.quickref.shader.specialized TessEvaluationShader]]
+[def __FragmentShader [link oglplus.quickref.shader.specialized FragmentShader]]
+[def __ComputeShader [link oglplus.quickref.shader.specialized ComputeShader]]
+
 [def __Program [link oglplus.quickref.program Program]]
 
 [def __ProgramPipeline [link oglplus.quickref.program_pipeline ProgramPipeline]]
@@ -177,6 +185,10 @@
 [def __SyncType [link oglplus.quickref.sync.type SyncType]]
 [def __SyncStatus [link oglplus.quickref.sync.status SyncStatus]]
 [def __SyncWaitResult [link oglplus.quickref.sync.wait_result SyncWaitResult]]
+
+[def __GLSLSource [link oglplus.quickref.glsl_source GLSLSource]]
+[def __GLSLString [link oglplus.quickref.glsl_string GLSLString]]
+[def __GLSLStrings [link oglplus.quickref.glsl_string GLSLStrings]]
 
 [def __Context [link oglplus.quickref.context Context]]
 

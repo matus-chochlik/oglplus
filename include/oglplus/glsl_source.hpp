@@ -15,6 +15,7 @@
 
 #include <oglplus/glsl_string.hpp>
 #include <oglplus/detail/glsl_source.hpp>
+#include <memory>
 
 namespace oglplus {
 
@@ -22,7 +23,7 @@ namespace oglplus {
 class GLSLSource
 {
 private:
-	aux::GLSLSourceWrapper* _impl;
+	std::unique_ptr<aux::GLSLSourceWrapper> _impl;
 
 	template <typename Impl, typename P1>
 	static aux::GLSLSourceWrapper* make_impl(P1&& p1)
@@ -41,16 +42,9 @@ private:
 
 	GLSLSource(const GLSLSource&);
 public:
-	~GLSLSource(void)
-	{
-		if(_impl) delete _impl;
-	}
-
 	GLSLSource(GLSLSource&& tmp)
-	 : _impl(tmp._impl)
-	{
-		tmp._impl = nullptr;
-	}
+	 : _impl(std::move(tmp._impl))
+	{ }
 
 	explicit GLSLSource(const StrCRef& source)
 	 : _impl(make_impl<aux::StrCRefGLSLSrcWrap>(source))
@@ -138,7 +132,7 @@ public:
 	GLsizei Count(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		assert(_impl);
+		assert(bool(_impl));
 		return _impl->Count();
 	}
 
@@ -146,7 +140,7 @@ public:
 	const GLchar* const* Parts(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		assert(_impl);
+		assert(bool(_impl));
 		return _impl->Parts();
 	}
 
@@ -154,7 +148,7 @@ public:
 	GLint const * Lengths(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		assert(_impl);
+		assert(bool(_impl));
 		return _impl->Lengths();
 	}
 };

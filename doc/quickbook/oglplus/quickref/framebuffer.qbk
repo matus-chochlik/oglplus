@@ -14,10 +14,6 @@
 
 [oglplus_framebuffer_common]
 
-[heading Framebuffer zero operations]
-
-[oglplus_framebuffer_zero]
-
 [heading Operations with explicit selector]
 
 [oglplus_framebuffer_1]

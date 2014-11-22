@@ -70,18 +70,6 @@ public:
 	typedef __TransformFeedbackPauser Pauser;
 };
 //]
-//[oglplus_transform_feedback_zero
-template <>
-class __ObjZeroOps<__tag_ImplicitSel, __tag_TransformFeedback>
- : public __ObjCommonOps<__tag_TransformFeedback>
-{
-public: /*<
-There are no operations that can work explicitly on transform feedback
-object zero besides binding, so this class just inherits from
-the common transform feedback operations wrapper.
->*/
-};
-//]
 //[oglplus_transform_feedback_1
 
 #if GL_VERSION_4_0 || GL_ARB_transform_feedback2

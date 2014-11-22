@@ -14,10 +14,6 @@
 
 [oglplus_sampler_common]
 
-[heading Sampler zero operations]
-
-[oglplus_sampler_zero]
-
 [heading Operations with direct state access]
 
 [oglplus_sampler_1]

@@ -85,6 +85,8 @@ the concept.
 [include quickref/math.qbk]
 [include quickref/enums.qbk]
 [include quickref/limited_value.qbk]
+[include quickref/glsl_source.qbk]
+[include quickref/glsl_string.qbk]
 [include quickref/utils.qbk]
 
 [include quickref/images.qbk]
