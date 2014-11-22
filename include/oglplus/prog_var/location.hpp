@@ -22,7 +22,8 @@
 namespace oglplus {
 
 template <typename VarTag>
-GLint GetGLLocation(ProgVarLoc<VarTag>);
+GLint GetGLLocation(ProgVarLoc<VarTag>)
+noexcept;
 
 /// Wrapper encapsulating program variable location/index
 template <typename VarTag>
@@ -53,29 +54,29 @@ protected:
 public:
 	/// Default construction
 	ProgVarLoc(void)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _program(0u)
 	 , _location(-1)
 	{ }
 
 	/// Creates variable without specific @p location in specified @p program
 	ProgVarLoc(ProgramName program)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _program(GetGLName(program))
 	 , _location(-1)
 	{ }
 
 	/// Creates variable with specified @p location without specific program
-	OGLPLUS_EXPLICIT
+	explicit
 	ProgVarLoc(GLint location)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _program(0)
 	 , _location(location)
 	{ }
 
 	/// Creates variable with specified @p location in specified @p program
 	ProgVarLoc(ProgramName program, GLint location)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _program(GetGLName(program))
 	 , _location(location)
 	{ }
@@ -124,6 +125,7 @@ public:
 
 	/// Copy assignment
 	ProgVarLoc& Assign(ProgVarLoc that)
+	noexcept
 	{
 		this->_program = that._program;
 		this->_location= that._location;
@@ -143,59 +145,70 @@ public:
 
 	/// The program the variable belongs to
 	ProgramName Program(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return ProgramName(_program);
 	}
 
 	/// Returns the location of the variable
 	GLint Location(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return _location;
 	}
 
 	/// Returns true if the variable is active
 	bool IsActive(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return _location >= 0;
 	}
 
 	/// Returns true if the variable is active
-	OGLPLUS_EXPLICIT operator bool (void) const
-	OGLPLUS_NOEXCEPT(true)
+	explicit
+	operator bool (void) const
+	noexcept
 	{
 		return IsActive();
 	}
 
 	/// Equality comparison
-	friend bool operator == (ProgVarLoc a, ProgVarLoc b)
-	OGLPLUS_NOEXCEPT(true)
+	friend
+	bool operator == (ProgVarLoc a, ProgVarLoc b)
+	noexcept
 	{
-		return (a._program == b._program)&&(a._location == b._location);
+		return	(a._program == b._program) &&
+			(a._location == b._location);
 	}
 
 	/// Inequality comparison
-	friend bool operator != (ProgVarLoc a, ProgVarLoc b)
-	OGLPLUS_NOEXCEPT(true)
+	friend
+	bool operator != (ProgVarLoc a, ProgVarLoc b)
+	noexcept
 	{
-		return (a._program != b._program)||(a._location != b._location);
+		return	(a._program != b._program) ||
+			(a._location != b._location);
 	}
 
 	/// Ordering
-	friend bool operator < (ProgVarLoc a, ProgVarLoc b)
-	OGLPLUS_NOEXCEPT(true)
+	friend
+	bool operator < (ProgVarLoc a, ProgVarLoc b)
+	noexcept
 	{
 		if(a._program <  b._program) return true;
-		if(a._program == b._program) return (a._location < b._location);
+		if(a._program == b._program)
+		{
+			return (a._location < b._location);
+		}
 		return false;
 	}
 };
 
 /// Returns the GL location/index of the specified @p variable
 template <typename VarTag>
-inline GLint GetGLLocation(ProgVarLoc<VarTag> variable)
+inline
+GLint GetGLLocation(ProgVarLoc<VarTag> variable)
+noexcept
 {
 	return variable._location;
 }

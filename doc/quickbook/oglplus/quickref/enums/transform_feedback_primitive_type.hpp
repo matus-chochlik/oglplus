@@ -20,9 +20,9 @@ enum class TransformFeedbackPrimitiveType : GLenum
 };
 
 template <>
-__Range<TransformFeedbackPrimitiveType> __EnumValueRange<TransformFeedbackPrimitiveType>(void);
+__Range<TransformFeedbackPrimitiveType> __EnumValueRange<TransformFeedbackPrimitiveType>(void) noexcept;
 
-__StrCRef __EnumValueName(TransformFeedbackPrimitiveType);
+__StrCRef __EnumValueName(TransformFeedbackPrimitiveType) noexcept;
 
 } // namespace oglplus
 //]

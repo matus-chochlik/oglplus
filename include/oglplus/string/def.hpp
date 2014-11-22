@@ -35,7 +35,7 @@ bool ValidString(const char* begin, const char* end);
  */
 typedef ::std::basic_string<GLchar> String;
 
-const String& EmptyString(void);
+const String& EmptyString(void) noexcept;
 
 } // namespace oglplus
 

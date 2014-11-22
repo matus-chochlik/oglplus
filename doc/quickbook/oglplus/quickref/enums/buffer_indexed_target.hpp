@@ -21,9 +21,9 @@ enum class BufferIndexedTarget : GLenum
 };
 
 template <>
-__Range<BufferIndexedTarget> __EnumValueRange<BufferIndexedTarget>(void);
+__Range<BufferIndexedTarget> __EnumValueRange<BufferIndexedTarget>(void) noexcept;
 
-__StrCRef __EnumValueName(BufferIndexedTarget);
+__StrCRef __EnumValueName(BufferIndexedTarget) noexcept;
 
 } // namespace oglplus
 //]

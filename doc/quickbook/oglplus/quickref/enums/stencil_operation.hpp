@@ -25,9 +25,9 @@ enum class StencilOperation : GLenum
 };
 
 template <>
-__Range<StencilOperation> __EnumValueRange<StencilOperation>(void);
+__Range<StencilOperation> __EnumValueRange<StencilOperation>(void) noexcept;
 
-__StrCRef __EnumValueName(StencilOperation);
+__StrCRef __EnumValueName(StencilOperation) noexcept;
 
 } // namespace oglplus
 //]

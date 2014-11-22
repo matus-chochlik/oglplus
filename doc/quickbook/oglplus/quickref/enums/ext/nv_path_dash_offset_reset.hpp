@@ -19,9 +19,9 @@ enum class PathNVDashOffsetReset : GLenum
 };
 
 template <>
-__Range<PathNVDashOffsetReset> __EnumValueRange<PathNVDashOffsetReset>(void);
+__Range<PathNVDashOffsetReset> __EnumValueRange<PathNVDashOffsetReset>(void) noexcept;
 
-__StrCRef __EnumValueName(PathNVDashOffsetReset);
+__StrCRef __EnumValueName(PathNVDashOffsetReset) noexcept;
 
 } // namespace oglplus
 //]

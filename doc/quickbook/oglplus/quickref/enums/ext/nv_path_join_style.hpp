@@ -22,9 +22,9 @@ enum class PathNVJoinStyle : GLenum
 };
 
 template <>
-__Range<PathNVJoinStyle> __EnumValueRange<PathNVJoinStyle>(void);
+__Range<PathNVJoinStyle> __EnumValueRange<PathNVJoinStyle>(void) noexcept;
 
-__StrCRef __EnumValueName(PathNVJoinStyle);
+__StrCRef __EnumValueName(PathNVJoinStyle) noexcept;
 
 } // namespace oglplus
 //]

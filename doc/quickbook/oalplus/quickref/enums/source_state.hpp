@@ -21,9 +21,9 @@ enum class SourceState : ALenum
 };
 
 template <>
-__Range<SourceState> __EnumValueRange<SourceState>(void);
+__Range<SourceState> __EnumValueRange<SourceState>(void) noexcept;
 
-__StrCRef __EnumValueName(SourceState);
+__StrCRef __EnumValueName(SourceState) noexcept;
 
 } // namespace oalplus
 //]

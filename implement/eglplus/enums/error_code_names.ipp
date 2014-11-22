@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC StrCRef ValueName_(
 	ErrorCode*,
 	EGLenum value
-)
+) noexcept
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVN_ERRORCODE)
 #define EGLPLUS_IMPL_EVN_ERRORCODE

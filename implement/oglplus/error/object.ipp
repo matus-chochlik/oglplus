@@ -34,6 +34,7 @@ ObjectError::ObjectError(const char* message)
 
 OGLPLUS_LIB_FUNC
 GLenum ObjectError::ObjectType(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_OBJECT_TYPE
 	return _obj_type;
@@ -44,6 +45,7 @@ GLenum ObjectError::ObjectType(void) const
 
 OGLPLUS_LIB_FUNC
 const char* ObjectError::ObjectTypeName(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_CLASS_NAME
 	return EnumValueName(oglplus::ObjectType(this->ObjectType())).c_str();
@@ -54,6 +56,7 @@ const char* ObjectError::ObjectTypeName(void) const
 
 OGLPLUS_LIB_FUNC
 GLenum ObjectError::BindTarget(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_TARGET_NAME
 	return _bind_tgt;
@@ -64,6 +67,7 @@ GLenum ObjectError::BindTarget(void) const
 
 OGLPLUS_LIB_FUNC
 const char* ObjectError::TargetName(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_TARGET_NAME
 	return _tgt_name;
@@ -74,12 +78,14 @@ const char* ObjectError::TargetName(void) const
 
 OGLPLUS_LIB_FUNC
 GLint ObjectError::ObjectName(void) const
+noexcept
 {
 	return GLint(_obj_name);
 }
 
 OGLPLUS_LIB_FUNC
 const String& ObjectError::ObjectDesc(void) const
+noexcept
 {
 	return aux::ObjectDescRegistry::_get_desc(
 		_obj_typeid,
@@ -100,6 +106,7 @@ ObjectPairError::ObjectPairError(const char* message)
 
 OGLPLUS_LIB_FUNC
 GLenum ObjectPairError::SubjectType(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_OBJECT_TYPE
 	return _sub_type;
@@ -110,6 +117,7 @@ GLenum ObjectPairError::SubjectType(void) const
 
 OGLPLUS_LIB_FUNC
 const char* ObjectPairError::SubjectTypeName(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_CLASS_NAME
 	return EnumValueName(oglplus::ObjectType(this->SubjectType())).c_str();
@@ -120,12 +128,14 @@ const char* ObjectPairError::SubjectTypeName(void) const
 
 OGLPLUS_LIB_FUNC
 GLint ObjectPairError::SubjectName(void) const
+noexcept
 {
 	return GLint(_sub_name);
 }
 
 OGLPLUS_LIB_FUNC
 const String& ObjectPairError::SubjectDesc(void) const
+noexcept
 {
 	return aux::ObjectDescRegistry::_get_desc(
 		_sub_typeid,

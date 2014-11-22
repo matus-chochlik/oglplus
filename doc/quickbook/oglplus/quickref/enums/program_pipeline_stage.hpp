@@ -24,11 +24,11 @@ enum class ProgramPipelineStage : GLbitfield
 };
 
 template <>
-__Range<ProgramPipelineStage> __EnumValueRange<ProgramPipelineStage>(void);
+__Range<ProgramPipelineStage> __EnumValueRange<ProgramPipelineStage>(void) noexcept;
 
-__StrCRef __EnumValueName(ProgramPipelineStage);
+__StrCRef __EnumValueName(ProgramPipelineStage) noexcept;
 
-__Bitfield<ProgramPipelineStage> operator | (ProgramPipelineStage b1, ProgramPipelineStage b2);
+__Bitfield<ProgramPipelineStage> operator | (ProgramPipelineStage b1, ProgramPipelineStage b2) noexcept;
 
 } // namespace oglplus
 //]

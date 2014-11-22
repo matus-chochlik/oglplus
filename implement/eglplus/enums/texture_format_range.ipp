@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC aux::CastIterRange<
 	const EGLenum*,
 	TextureFormat
-> ValueRange_(TextureFormat*)
+> ValueRange_(TextureFormat*) noexcept
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVR_TEXTUREFORMAT)
 #define EGLPLUS_IMPL_EVR_TEXTUREFORMAT

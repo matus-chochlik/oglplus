@@ -19,9 +19,9 @@ enum class TextureMagFilter : GLenum
 };
 
 template <>
-__Range<TextureMagFilter> __EnumValueRange<TextureMagFilter>(void);
+__Range<TextureMagFilter> __EnumValueRange<TextureMagFilter>(void) noexcept;
 
-__StrCRef __EnumValueName(TextureMagFilter);
+__StrCRef __EnumValueName(TextureMagFilter) noexcept;
 
 } // namespace oglplus
 //]

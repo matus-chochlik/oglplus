@@ -42,9 +42,11 @@ public:
 	Target target;
 
 	BoundObjOps(void)
+	noexcept
 	{ }
 
 	BoundObjOps(Target init_tgt)
+	noexcept
 	 : target(init_tgt)
 	{ }
 
@@ -352,6 +354,25 @@ public:
 	const BoundObjOps& GetImage(
 		GLint level,
 		PixelDataFormat format,
+		const OutputData & dest
+	) const
+	{
+		ExplicitOps::GetImage(
+			this->target,
+			level,
+			format,
+			dest
+		);
+		return *this;
+	}
+
+
+	/** Wrapper for Texture::GetImage()
+	 *  @see Texture::GetImage()
+	 */
+	const BoundObjOps& GetImage(
+		GLint level,
+		PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
 		GLsizei size,
 		GLvoid * buffer
@@ -369,20 +390,17 @@ public:
 	}
 
 
-	/** Wrapper for Texture::GetImage()
-	 *  @see Texture::GetImage()
+	/** Wrapper for Texture::GetCompressedImage()
+	 *  @see Texture::GetCompressedImage()
 	 */
-	template <typename T>
-	const BoundObjOps& GetImage(
+	const BoundObjOps& GetCompressedImage(
 		GLint level,
-		PixelDataFormat format,
-		std::vector< T > & dest
+		const OutputData & dest
 	) const
 	{
-		ExplicitOps::GetImage(
+		ExplicitOps::GetCompressedImage(
 			this->target,
 			level,
-			format,
 			dest
 		);
 		return *this;

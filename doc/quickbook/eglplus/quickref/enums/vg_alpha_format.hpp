@@ -19,9 +19,9 @@ enum class VGAlphaFormat : EGLenum
 };
 
 template <>
-__Range<VGAlphaFormat> __EnumValueRange<VGAlphaFormat>(void);
+__Range<VGAlphaFormat> __EnumValueRange<VGAlphaFormat>(void) noexcept;
 
-__StrCRef __EnumValueName(VGAlphaFormat);
+__StrCRef __EnumValueName(VGAlphaFormat) noexcept;
 
 } // namespace eglplus
 //]

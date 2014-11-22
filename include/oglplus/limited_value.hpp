@@ -81,50 +81,55 @@ public:
 		return *this;
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns the value
 	template <typename Type>
-	explicit operator Type(void) const;
-#endif
-
-	template <typename Type>
-#if !OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
-	explicit operator Type(void) const
-#else
+	explicit
 	operator Type(void) const
-#endif
+	noexcept
 	{
 		return Type(_value);
 	}
 
 	friend GLuint LimitedCountMax<Query>(const LimitedCount&);
 
-	friend bool operator == (LimitedCount a, LimitedCount b)
+	friend
+	bool operator == (LimitedCount a, LimitedCount b)
+	noexcept
 	{
 		return a._value == b._value;
 	}
 
-	friend bool operator != (LimitedCount a, LimitedCount b)
+	friend
+	bool operator != (LimitedCount a, LimitedCount b)
+	noexcept
 	{
 		return a._value != b._value;
 	}
 
-	friend bool operator <= (LimitedCount a, LimitedCount b)
+	friend
+	bool operator <= (LimitedCount a, LimitedCount b)
+	noexcept
 	{
 		return a._value <= b._value;
 	}
 
-	friend bool operator <  (LimitedCount a, LimitedCount b)
+	friend
+	bool operator <  (LimitedCount a, LimitedCount b)
+	noexcept
 	{
 		return a._value <  b._value;
 	}
 
-	friend bool operator >= (LimitedCount a, LimitedCount b)
+	friend
+	bool operator >= (LimitedCount a, LimitedCount b)
+	noexcept
 	{
 		return a._value >= b._value;
 	}
 
-	friend bool operator >  (LimitedCount a, LimitedCount b)
+	friend
+	bool operator >  (LimitedCount a, LimitedCount b)
+	noexcept
 	{
 		return a._value >  b._value;
 	}

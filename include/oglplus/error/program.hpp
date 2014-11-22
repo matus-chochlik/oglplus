@@ -34,10 +34,12 @@ public:
 	 : ObjectError(message)
 	{ }
 
-	~ProgramBuildError(void) throw()
+	~ProgramBuildError(void)
+	noexcept
 	{ }
 
 	ProgramBuildError& Log(String&& log)
+	noexcept
 	{
 		_log = std::move(log);
 		return *this;
@@ -45,6 +47,7 @@ public:
 
 	/// Returns the compiler error output
 	const String& Log(void) const
+	noexcept
 	{
 		return _log;
 	}
@@ -58,7 +61,9 @@ class CompileError
  : public ProgramBuildError
 {
 public:
-	static const char* Message(void);
+	static
+	const char* Message(void)
+	noexcept;
 
 	CompileError(const char* message)
 	 : ProgramBuildError(message)
@@ -73,7 +78,9 @@ class LinkError
  : public ProgramBuildError
 {
 public:
-	static const char* Message(void);
+	static
+	const char* Message(void)
+	noexcept;
 
 	LinkError(const char* message)
 	 : ProgramBuildError(message)
@@ -88,7 +95,9 @@ class ValidationError
  : public ProgramBuildError
 {
 public:
-	static const char* Message(void);
+	static
+	const char* Message(void)
+	noexcept;
 
 	ValidationError(const char* message)
 	 : ProgramBuildError(message)

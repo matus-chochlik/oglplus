@@ -31,7 +31,8 @@ class ObjectName;
 
 template <typename ObjTag>
 typename ObjTag::NameType
-GetName(ObjectName<ObjTag>);
+GetName(ObjectName<ObjTag>)
+noexcept;
 
 /// A common template for "named" objects like textures, buffers, etc.
 /** This is a common template for all GL/AL/VG/etc. object wrappers which are
@@ -53,70 +54,79 @@ protected:
 	NameT _name;
 
 	void _copy(const ObjectName& that)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		_name = that._name;
 	}
 
 	void _adopt(ObjectName&& temp)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		_name = temp._name;
 		temp._name = 0;
 	}
 public:
 	/// Constructs wrapper for name 0 (zero).
+	constexpr
 	ObjectName(void)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _name(NameT(0))
 	{ }
 
 	/// Constructs wrapper for the specified @p name.
-	explicit ObjectName(NameT name)
-	OGLPLUS_NOEXCEPT(true)
+	constexpr explicit
+	ObjectName(NameT name)
+	noexcept
 	 : _name(name)
 	{ }
 
+	constexpr
 	ObjectName(const ObjectName& that)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _name(that._name)
 	{ }
 
 	ObjectName(ObjectName&& temp)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _name(temp._name)
 	{
 		temp._name = 0;
 	}
 
 	ObjectName& operator = (const ObjectName& that)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		_copy(that);
 		return *this;
 	}
 
 	ObjectName& operator = (ObjectName&& temp)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		_adopt(std::move(temp));
 		return *this;
 	}
 
 	/// Equality comparison
-	friend bool operator == (ObjectName a, ObjectName b)
+	friend
+	bool operator == (ObjectName a, ObjectName b)
+	noexcept
 	{
 		return a._name == b._name;
 	}
 
 	/// Inequality comparison
-	friend bool operator != (ObjectName a, ObjectName b)
+	friend
+	bool operator != (ObjectName a, ObjectName b)
+	noexcept
 	{
 		return a._name != b._name;
 	}
 
 	/// Ordering
-	friend bool operator <  (ObjectName a, ObjectName b)
+	friend
+	bool operator <  (ObjectName a, ObjectName b)
+	noexcept
 	{
 		return a._name < b._name;
 	}
@@ -126,6 +136,7 @@ public:
 template <typename ObjTag>
 inline typename ObjTag::NameType
 GetName(ObjectName<ObjTag> named)
+noexcept
 {
 	return named._name;
 }

@@ -13,6 +13,7 @@ namespace oglplus {
 
 OGLPLUS_LIB_FUNC
 const char* LimitError::Message(void)
+noexcept
 {
 	return "Numeric parameter value exceeds limit";
 }

@@ -22,9 +22,11 @@ namespace aux {
 
 typedef char32_t UnicodeCP;
 
-std::size_t UTF8BytesRequired(const UnicodeCP* cp_str, std::size_t len);
+std::size_t UTF8BytesRequired(const UnicodeCP* cp_str, std::size_t len)
+noexcept;
 
-void ConvertCodePointToUTF8(UnicodeCP cp, char* str, std::size_t& len);
+void ConvertCodePointToUTF8(UnicodeCP cp, char* str, std::size_t& len)
+noexcept;
 
 void ConvertCodePointsToUTF8(
 	const UnicodeCP* cps,
@@ -32,13 +34,14 @@ void ConvertCodePointsToUTF8(
 	std::vector<char>& result
 );
 
-std::size_t CodePointsRequired(const char* str, std::size_t len);
+std::size_t CodePointsRequired(const char* str, std::size_t len)
+noexcept;
 
 UnicodeCP ConvertUTF8ToCodePoint(
 	const char* str,
 	std::size_t len,
 	std::size_t& cp_len
-);
+) noexcept;
 
 void ConvertUTF8ToCodePoints(
 	const char* str,
@@ -49,11 +52,17 @@ void ConvertUTF8ToCodePoints(
 class UTF8Validator
 {
 protected:
-	static bool _is_valid_ptr(const char* _s);
-	static unsigned char byte(const char* _i);
+	static
+	bool _is_valid_ptr(const char* _s)
+	noexcept;
+
+	static
+	unsigned char byte(const char* _i)
+	noexcept;
 
 	template <int N>
 	static void _check_seq_tail(const char* _s)
+	noexcept
 	{
 		for(int i=1; i!=N; ++i)
 		{
@@ -64,15 +73,19 @@ protected:
 	}
 
 	// Validates the utf8 string, returns _end or nullptr
-	static const char* _validate(const char* _s, const char* _end);
+	static const char* _validate(const char* _s, const char* _end)
+	noexcept;
 public:
 	bool operator()(const char* begin, const char* end) const
+	noexcept
 	{
 		return _validate(begin, end) == end;
 	}
 };
 
-inline bool ValidUTF8(const char* begin, const char* end)
+inline
+bool ValidUTF8(const char* begin, const char* end)
+noexcept
 {
 #if !OGLPLUS_NO_UTF8_CHECKS
 	UTF8Validator valid_utf8;

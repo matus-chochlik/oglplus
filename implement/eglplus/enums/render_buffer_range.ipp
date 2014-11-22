@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC aux::CastIterRange<
 	const EGLenum*,
 	RenderBuffer
-> ValueRange_(RenderBuffer*)
+> ValueRange_(RenderBuffer*) noexcept
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVR_RENDERBUFFER)
 #define EGLPLUS_IMPL_EVR_RENDERBUFFER

@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	ErrorCode
-> ValueRange_(ErrorCode*)
+> ValueRange_(ErrorCode*) noexcept
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_ERRORCODE)
 #define OGLPLUS_IMPL_EVR_ERRORCODE

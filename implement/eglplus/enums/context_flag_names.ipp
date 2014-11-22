@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC StrCRef ValueName_(
 	ContextFlag*,
 	EGLenum value
-)
+) noexcept
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVN_CONTEXTFLAG)
 #define EGLPLUS_IMPL_EVN_CONTEXTFLAG

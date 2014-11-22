@@ -22,9 +22,9 @@ enum class DebugOutputSeverity : GLenum
 };
 
 template <>
-__Range<DebugOutputSeverity> __EnumValueRange<DebugOutputSeverity>(void);
+__Range<DebugOutputSeverity> __EnumValueRange<DebugOutputSeverity>(void) noexcept;
 
-__StrCRef __EnumValueName(DebugOutputSeverity);
+__StrCRef __EnumValueName(DebugOutputSeverity) noexcept;
 
 } // namespace oglplus
 //]

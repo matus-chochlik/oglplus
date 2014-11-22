@@ -138,18 +138,18 @@ def action_qbk_hpp(options):
 	print_line(options, "};")
 	print_newline(options)
 	print_line(options, "template <>")
-	print_line(options, "__Range<%s> __EnumValueRange<%s>(void);" % (
+	print_line(options, "__Range<%s> __EnumValueRange<%s>(void) noexcept;" % (
 		options.enum_name,
 		options.enum_name
 	))
 	print_newline(options)
-	print_line(options, "__StrCRef __EnumValueName(%s);" % options.enum_name)
+	print_line(options, "__StrCRef __EnumValueName(%s) noexcept;" % options.enum_name)
 	print_newline(options)
 
 	if options.enum_type == "bitfield":
 		print_line(
 			options,
-			"__Bitfield<%s> operator | (%s b1, %s b2);" % (
+			"__Bitfield<%s> operator | (%s b1, %s b2) noexcept;" % (
 				options.enum_name,
 				options.enum_name,
 				options.enum_name
@@ -244,7 +244,7 @@ def action_impl_enum_names_ipp(options):
 	print_line(options, "%s_LIB_FUNC StrCRef ValueName_(" % options.library_uc)
 	print_line(options, "	%s*," % options.enum_name)
 	print_line(options, "	%s%s value" % (options.base_lib_prefix, options.enum_type))
-	print_line(options, ")")
+	print_line(options, ") noexcept")
 	print_line(options, "#if (!%s_LINK_LIBRARY || defined(%s_IMPLEMENTING_LIBRARY)) && \\" % (
 		options.library_uc,
 		options.library_uc
@@ -293,7 +293,7 @@ def action_impl_enum_range_ipp(options):
 	print_line(options, "%s_LIB_FUNC aux::CastIterRange<" % options.library_uc)
 	print_line(options, "	const %s%s*," % (options.base_lib_prefix, options.enum_type))
 	print_line(options, "	%s" % options.enum_name)
-	print_line(options, "> ValueRange_(%s*)" % options.enum_name)
+	print_line(options, "> ValueRange_(%s*) noexcept" % options.enum_name)
 	print_line(options, "#if (!%s_LINK_LIBRARY || defined(%s_IMPLEMENTING_LIBRARY)) && \\" % (
 		options.library_uc,
 		options.library_uc
@@ -344,9 +344,9 @@ def action_smart_enums_ipp(options):
 	for enum_value in sorted(enum_values):
 		evp = (enum_value, enum_value)
 		print_line(options, "struct %s {" % enum_value)
-		print_line(options, "template <typename Enum, Enum = Enum::%s> operator Enum (void) const{ return Enum::%s; }" % evp)
-		print_line(options, "template <typename Enum> friend bool operator==(Enum value, %s){ return value == Enum::%s; }" % evp)
-		print_line(options, "template <typename Enum> friend bool operator!=(Enum value, %s){ return value != Enum::%s; }" % evp)
+		print_line(options, "template <typename Enum, Enum = Enum::%s> constexpr operator Enum (void) const noexcept { return Enum::%s; }" % evp)
+		print_line(options, "template <typename Enum> friend constexpr bool operator==(Enum value, %s) noexcept { return value == Enum::%s; }" % evp)
+		print_line(options, "template <typename Enum> friend constexpr bool operator!=(Enum value, %s) noexcept { return value != Enum::%s; }" % evp)
 		print_line(options, "};")
 
 

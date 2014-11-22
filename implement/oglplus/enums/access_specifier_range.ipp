@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	AccessSpecifier
-> ValueRange_(AccessSpecifier*)
+> ValueRange_(AccessSpecifier*) noexcept
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_ACCESSSPECIFIER)
 #define OGLPLUS_IMPL_EVR_ACCESSSPECIFIER

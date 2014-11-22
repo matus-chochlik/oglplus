@@ -20,9 +20,9 @@ enum class ContextFlagBit : GLenum
 };
 
 template <>
-__Range<ContextFlagBit> __EnumValueRange<ContextFlagBit>(void);
+__Range<ContextFlagBit> __EnumValueRange<ContextFlagBit>(void) noexcept;
 
-__StrCRef __EnumValueName(ContextFlagBit);
+__StrCRef __EnumValueName(ContextFlagBit) noexcept;
 
 } // namespace oglplus
 //]

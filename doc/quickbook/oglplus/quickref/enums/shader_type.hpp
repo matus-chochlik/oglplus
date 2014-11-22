@@ -23,9 +23,9 @@ enum class ShaderType : GLenum
 };
 
 template <>
-__Range<ShaderType> __EnumValueRange<ShaderType>(void);
+__Range<ShaderType> __EnumValueRange<ShaderType>(void) noexcept;
 
-__StrCRef __EnumValueName(ShaderType);
+__StrCRef __EnumValueName(ShaderType) noexcept;
 
 } // namespace oglplus
 //]

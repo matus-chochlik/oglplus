@@ -37,53 +37,57 @@ private:
 	GLSLString(const GLSLString&);
 public:
 	GLSLString(const GLchar* str)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _str(str)
 	 , _len(-1)
 	{ }
 
 	template <std::size_t N>
 	GLSLString(const GLchar (&str)[N])
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _str(str)
 	 , _len(N)
 	{ }
 
 	GLSLString(const StrCRef& str)
+	noexcept
 	 : _str(str.begin())
 	 , _len(GLint(str.size()))
 	{ }
 
 	GLSLString(const String& str)
+	noexcept
 	 : _str(str.c_str())
 	 , _len(GLint(str.size()))
 	{ }
 
 	GLSLString(const std::vector<GLchar>& v)
+	noexcept
 	 : _str(v.data())
 	 , _len(GLint(v.size()))
 	{ }
 
 	template <std::size_t N>
 	GLSLString(const std::array<GLchar, N>& a)
+	noexcept
 	 : _str(a.data())
 	 , _len(GLint(a.size()))
 	{ }
 
 	GLsizei Count(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return 1;
 	}
 
 	const GLchar* const* Parts(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return &_str;
 	}
 
 	GLint const * Lengths(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return (_len<0)?(nullptr):(&_len);
 	}
@@ -101,14 +105,14 @@ private:
 	GLSLStrings(const GLSLStrings&);
 public:
 	GLSLStrings(GLsizei count, const GLchar* const * strs)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _count(count)
 	 , _strs(strs)
 	 , _lens(nullptr)
 	{ }
 
 	GLSLStrings(GLsizei count, const GLchar* const* strs, const GLint* lens)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _count(count)
 	 , _strs(strs)
 	 , _lens(lens)
@@ -116,13 +120,14 @@ public:
 
 	template <std::size_t N>
 	GLSLStrings(const GLchar* (&strs)[N])
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _count(GLsizei(N))
 	 , _strs(strs)
 	 , _lens(nullptr)
 	{ }
 
 	GLSLStrings(const std::vector<const GLchar*>& v)
+	noexcept
 	 : _count(GLsizei(v.size()))
 	 , _strs(v.data())
 	 , _lens(nullptr)
@@ -130,6 +135,7 @@ public:
 
 	template <std::size_t N>
 	GLSLStrings(const std::array<const GLchar*, N>& a)
+	noexcept
 	 : _count(GLsizei(a.size()))
 	 , _strs(a.data())
 	 , _lens(nullptr)
@@ -137,6 +143,7 @@ public:
 
 #if !OGLPLUS_NO_INITIALIZER_LISTS
 	GLSLStrings(const std::initializer_list<const GLchar*>& l)
+	noexcept
 	 : _count(GLsizei(l.size()))
 	 , _strs(l.begin())
 	 , _lens(nullptr)
@@ -144,19 +151,19 @@ public:
 #endif
 
 	GLsizei Count(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return _count;
 	}
 
 	const GLchar* const* Parts(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return _strs;
 	}
 
 	GLint const * Lengths(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return _lens;
 	}

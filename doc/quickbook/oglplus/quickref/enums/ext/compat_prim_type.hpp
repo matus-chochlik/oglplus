@@ -27,9 +27,9 @@ enum class CompatibilityPrimitiveType : GLenum
 };
 
 template <>
-__Range<CompatibilityPrimitiveType> __EnumValueRange<CompatibilityPrimitiveType>(void);
+__Range<CompatibilityPrimitiveType> __EnumValueRange<CompatibilityPrimitiveType>(void) noexcept;
 
-__StrCRef __EnumValueName(CompatibilityPrimitiveType);
+__StrCRef __EnumValueName(CompatibilityPrimitiveType) noexcept;
 
 } // namespace oglplus
 //]

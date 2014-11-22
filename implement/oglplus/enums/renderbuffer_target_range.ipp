@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	RenderbufferTarget
-> ValueRange_(RenderbufferTarget*)
+> ValueRange_(RenderbufferTarget*) noexcept
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_RENDERBUFFERTARGET)
 #define OGLPLUS_IMPL_EVR_RENDERBUFFERTARGET

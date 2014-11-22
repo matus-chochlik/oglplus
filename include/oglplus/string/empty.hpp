@@ -17,7 +17,7 @@
 
 namespace oglplus {
 
-const std::string& EmptyStdString(void);
+const std::string& EmptyStdString(void) noexcept;
 
 } // namespace oglplus
 

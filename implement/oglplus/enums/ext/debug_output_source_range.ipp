@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	DebugOutputARBSource
-> ValueRange_(DebugOutputARBSource*)
+> ValueRange_(DebugOutputARBSource*) noexcept
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_DEBUGOUTPUTARBSOURCE)
 #define OGLPLUS_IMPL_EVR_DEBUGOUTPUTARBSOURCE

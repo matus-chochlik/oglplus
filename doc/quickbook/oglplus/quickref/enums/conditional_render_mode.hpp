@@ -25,9 +25,9 @@ enum class ConditionalRenderMode : GLenum
 };
 
 template <>
-__Range<ConditionalRenderMode> __EnumValueRange<ConditionalRenderMode>(void);
+__Range<ConditionalRenderMode> __EnumValueRange<ConditionalRenderMode>(void) noexcept;
 
-__StrCRef __EnumValueName(ConditionalRenderMode);
+__StrCRef __EnumValueName(ConditionalRenderMode) noexcept;
 
 } // namespace oglplus
 //]

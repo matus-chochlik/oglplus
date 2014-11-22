@@ -16,6 +16,7 @@ namespace aux {
 
 OGLPLUS_LIB_FUNC
 ::std::map<unsigned, std::string>& ObjectDescRegistryStorage(int id)
+noexcept // yes, we know that map::operator[] can throw
 {
 	static ::std::map<int, ::std::map<unsigned, std::string> > _maps;
 	return _maps[id];
@@ -41,7 +42,7 @@ OGLPLUS_LIB_FUNC
 void ObjectDescRegistryBase::_do_unregister_desc(
 	_desc_map& storage,
 	unsigned name
-)
+) noexcept // yes, we know that map::erase can throw
 {
 	if(!std::uncaught_exception())
 	{
@@ -57,7 +58,7 @@ OGLPLUS_LIB_FUNC
 const std::string& ObjectDescRegistryBase::_do_get_desc(
 	_desc_map& storage,
 	unsigned name
-)
+) noexcept
 {
 	auto pos = storage.find(name);
 	if(pos != storage.end()) return pos->second;

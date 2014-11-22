@@ -13,6 +13,7 @@ namespace oglplus {
 
 OGLPLUS_LIB_FUNC
 const char* MissingFunction::Message(void)
+noexcept
 {
 	return "OpenGL function called through an invalid pointer";
 }

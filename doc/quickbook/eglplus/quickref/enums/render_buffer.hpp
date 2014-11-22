@@ -19,9 +19,9 @@ enum class RenderBuffer : EGLenum
 };
 
 template <>
-__Range<RenderBuffer> __EnumValueRange<RenderBuffer>(void);
+__Range<RenderBuffer> __EnumValueRange<RenderBuffer>(void) noexcept;
 
-__StrCRef __EnumValueName(RenderBuffer);
+__StrCRef __EnumValueName(RenderBuffer) noexcept;
 
 } // namespace eglplus
 //]

@@ -15,6 +15,7 @@
 
 #include <cassert>
 #include <string>
+#include <memory>
 
 namespace oglplus {
 namespace aux {
@@ -25,15 +26,20 @@ class AnyInputIter
 private:
 	struct _intf
 	{
-		virtual ~_intf(void){ }
+		virtual ~_intf(void)
+		noexcept
+		{ }
 
 		virtual _intf* _clone(void) const = 0;
 
-		virtual const T& _deref(void) const = 0;
+		virtual const T& _deref(void) const
+		noexcept = 0;
 
-		virtual void _incr(void) = 0;
+		virtual void _incr(void)
+		noexcept = 0;
 
-		virtual bool _equal(const _intf* that) const = 0;
+		virtual bool _equal(const _intf* that) const
+		noexcept = 0;
 
 		virtual std::ptrdiff_t _dist(const _intf* that) const = 0;
 	};
@@ -45,6 +51,7 @@ private:
 		Iter _iter;
 
 		static const T& _conv(const T& val)
+		noexcept
 		{
 			return val;
 		}
@@ -64,36 +71,44 @@ private:
 		{ }
 
 		_intf* _clone(void) const
+		override
 		{
 			return new _impl(_iter);
 		}
 
 		const T& _deref(void) const
+		noexcept
+		override
 		{
 			return _conv(*_iter);
 		}
 
 		void _incr(void)
+		noexcept
+		override
 		{
 			++_iter;
 		}
 
 		bool _equal(const _intf* that) const
+		noexcept
+		override
 		{
-			const _impl* i = dynamic_cast<const _impl*>(that);
-			assert(i != nullptr);
+			assert(dynamic_cast<const _impl*>(that) != nullptr);
+			const _impl* i = static_cast<const _impl*>(that);
 			return _iter == i->_iter;
 		}
 
 		std::ptrdiff_t _dist(const _intf* that) const
+		override
 		{
-			const _impl* i = dynamic_cast<const _impl*>(that);
-			assert(i != nullptr);
+			assert(dynamic_cast<const _impl*>(that) != nullptr);
+			const _impl* i = static_cast<const _impl*>(that);
 			return std::distance(_iter, i->_iter);
 		}
 	};
 
-	_intf* _pimpl;
+	std::unique_ptr<_intf> _pimpl;
 
 	_intf* _clone(void) const
 	{
@@ -102,6 +117,7 @@ private:
 	}
 
 	AnyInputIter(_intf* pimpl)
+	noexcept
 	 : _pimpl(pimpl)
 	{
 		assert(_pimpl != nullptr);
@@ -124,45 +140,40 @@ public:
 	{ }
 
 	AnyInputIter(AnyInputIter&& tmp)
-	 : _pimpl(tmp._pimpl)
+	noexcept
+	 : _pimpl(std::move(tmp._pimpl))
 	{
-		tmp._pimpl = nullptr;
-	}
-
-	~AnyInputIter(void)
-	{
-		if(_pimpl) delete _pimpl;
 	}
 
 	AnyInputIter& operator = (const AnyInputIter& that)
 	{
-		_intf* tmp = that._clone();
-		if(_pimpl) delete _pimpl;
-		_pimpl = tmp;
+		_pimpl.reset(that._clone());
 		return *this;
 	}
 
 	AnyInputIter& operator = (AnyInputIter&& tmp)
+	noexcept
 	{
-		if(_pimpl) delete _pimpl;
-		_pimpl = tmp._pimpl;
-		tmp._pimpl = nullptr;
+		_pimpl = std::move(tmp._pimpl);
 		return *this;
 	}
 
 	const T& operator * (void) const
+	noexcept
 	{
 		assert(_pimpl != nullptr);
 		return _pimpl->_deref();
 	}
 
 	const T* operator -> (void) const
+	noexcept
 	{
 		assert(_pimpl != nullptr);
 		return &_pimpl->_deref();
 	}
 
 	AnyInputIter& operator ++ (void)
+	noexcept
 	{
 		assert(_pimpl != nullptr);
 		_pimpl->_incr();
@@ -170,6 +181,7 @@ public:
 	}
 
 	AnyInputIter operator ++ (int)
+	noexcept
 	{
 		AnyInputIter copy(_clone());
 		assert(_pimpl != nullptr);
@@ -177,32 +189,38 @@ public:
 		return std::move(copy);
 	}
 
-	friend bool operator == (const AnyInputIter& a, const AnyInputIter& b)
+	friend
+	bool operator == (const AnyInputIter& a, const AnyInputIter& b)
+	noexcept
 	{
 		assert(a._pimpl != nullptr);
 		assert(b._pimpl != nullptr);
-		return a._pimpl->_equal(b._pimpl);
+		return a._pimpl->_equal(b._pimpl.get());
 	}
 
-	friend bool operator != (const AnyInputIter& a, const AnyInputIter& b)
+	friend
+	bool operator != (const AnyInputIter& a, const AnyInputIter& b)
+	noexcept
 	{
 		assert(a._pimpl != nullptr);
 		assert(b._pimpl != nullptr);
-		return !a._pimpl->_equal(b._pimpl);
+		return !a._pimpl->_equal(b._pimpl.get());
 	}
 
-	friend std::ptrdiff_t operator - (
+	friend
+	std::ptrdiff_t operator - (
 		const AnyInputIter& a,
 		const AnyInputIter& b
 	)
 	{
 		assert(a._pimpl != nullptr);
 		assert(b._pimpl != nullptr);
-		return b._pimpl->_dist(a._pimpl);
+		return b._pimpl->_dist(a._pimpl.get());
 	}
 };
 
 template <typename T>
+inline
 std::ptrdiff_t distance(const AnyInputIter<T>& from, const AnyInputIter<T>& to)
 {
 	return to - from;

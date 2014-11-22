@@ -117,8 +117,9 @@ public:
 	): _value(aux::OneOfBase<Common, typename find<T>::type>::Accept(value))
 	{ }
 
-	OGLPLUS_EXPLICIT operator Common (void) const
-	OGLPLUS_NOEXCEPT(true)
+	explicit
+	operator Common (void) const
+	noexcept
 	{
 		return _value;
 	}

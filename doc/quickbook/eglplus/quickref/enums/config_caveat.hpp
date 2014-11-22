@@ -20,9 +20,9 @@ enum class ConfigCaveat : EGLenum
 };
 
 template <>
-__Range<ConfigCaveat> __EnumValueRange<ConfigCaveat>(void);
+__Range<ConfigCaveat> __EnumValueRange<ConfigCaveat>(void) noexcept;
 
-__StrCRef __EnumValueName(ConfigCaveat);
+__StrCRef __EnumValueName(ConfigCaveat) noexcept;
 
 } // namespace eglplus
 //]

@@ -19,9 +19,9 @@ enum class TextureFilter : GLenum
 };
 
 template <>
-__Range<TextureFilter> __EnumValueRange<TextureFilter>(void);
+__Range<TextureFilter> __EnumValueRange<TextureFilter>(void) noexcept;
 
-__StrCRef __EnumValueName(TextureFilter);
+__StrCRef __EnumValueName(TextureFilter) noexcept;
 
 } // namespace oglplus
 //]

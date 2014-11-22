@@ -19,9 +19,9 @@ enum class PathNVColor : GLenum
 };
 
 template <>
-__Range<PathNVColor> __EnumValueRange<PathNVColor>(void);
+__Range<PathNVColor> __EnumValueRange<PathNVColor>(void) noexcept;
 
-__StrCRef __EnumValueName(PathNVColor);
+__StrCRef __EnumValueName(PathNVColor) noexcept;
 
 } // namespace oglplus
 //]

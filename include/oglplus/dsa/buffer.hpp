@@ -452,6 +452,7 @@ struct DSABufferOpsAndUsage
 	BufferUsage usage;
 
 	DSABufferOpsAndUsage(DSABufferOps& b, BufferUsage u)
+	noexcept
 	 : buf(b)
 	 , usage(u)
 	{ }
@@ -472,6 +473,7 @@ struct DSABufferOpsAndIdxTgt
 	BufferIndexedTarget target;
 
 	DSABufferOpsAndIdxTgt(DSABufferOps& b, BufferIndexedTarget t)
+	noexcept
 	 : buf(b)
 	 , target(t)
 	{ }
@@ -492,15 +494,17 @@ struct DSABufferOpsAndOffset
 	GLintptr offset;
 
 	DSABufferOpsAndOffset(DSABufferOps& b, GLintptr o)
+	noexcept
 	 : buf(b)
 	 , offset(o)
 	{ }
 };
 
-inline DSABufferOpsAndOffset operator + (
+inline
+DSABufferOpsAndOffset operator + (
 	DSABufferOps& buf,
 	GLintptr offset
-)
+) noexcept
 {
 	return DSABufferOpsAndOffset(buf, offset);
 }
@@ -508,7 +512,8 @@ inline DSABufferOpsAndOffset operator + (
 // syntax-sugar operators
 
 // Bind
-inline DSABufferOps& operator << (
+inline
+DSABufferOps& operator << (
 	DSABufferOps& buf,
 	BufferTarget target
 )

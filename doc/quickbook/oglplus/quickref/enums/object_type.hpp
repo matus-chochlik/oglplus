@@ -29,9 +29,9 @@ enum class ObjectType : GLenum
 };
 
 template <>
-__Range<ObjectType> __EnumValueRange<ObjectType>(void);
+__Range<ObjectType> __EnumValueRange<ObjectType>(void) noexcept;
 
-__StrCRef __EnumValueName(ObjectType);
+__StrCRef __EnumValueName(ObjectType) noexcept;
 
 } // namespace oglplus
 //]

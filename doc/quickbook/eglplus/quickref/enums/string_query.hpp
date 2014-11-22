@@ -21,9 +21,9 @@ enum class StringQuery : EGLenum
 };
 
 template <>
-__Range<StringQuery> __EnumValueRange<StringQuery>(void);
+__Range<StringQuery> __EnumValueRange<StringQuery>(void) noexcept;
 
-__StrCRef __EnumValueName(StringQuery);
+__StrCRef __EnumValueName(StringQuery) noexcept;
 
 } // namespace eglplus
 //]

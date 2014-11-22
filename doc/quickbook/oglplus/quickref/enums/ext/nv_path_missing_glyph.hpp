@@ -19,9 +19,9 @@ enum class PathNVMissingGlyph : GLenum
 };
 
 template <>
-__Range<PathNVMissingGlyph> __EnumValueRange<PathNVMissingGlyph>(void);
+__Range<PathNVMissingGlyph> __EnumValueRange<PathNVMissingGlyph>(void) noexcept;
 
-__StrCRef __EnumValueName(PathNVMissingGlyph);
+__StrCRef __EnumValueName(PathNVMissingGlyph) noexcept;
 
 } // namespace oglplus
 //]

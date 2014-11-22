@@ -24,9 +24,9 @@ enum class SurfaceTypeBit : EGLenum
 };
 
 template <>
-__Range<SurfaceTypeBit> __EnumValueRange<SurfaceTypeBit>(void);
+__Range<SurfaceTypeBit> __EnumValueRange<SurfaceTypeBit>(void) noexcept;
 
-__StrCRef __EnumValueName(SurfaceTypeBit);
+__StrCRef __EnumValueName(SurfaceTypeBit) noexcept;
 
 } // namespace eglplus
 //]

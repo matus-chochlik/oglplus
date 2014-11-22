@@ -29,9 +29,9 @@ enum class PrimitiveType : GLenum
 };
 
 template <>
-__Range<PrimitiveType> __EnumValueRange<PrimitiveType>(void);
+__Range<PrimitiveType> __EnumValueRange<PrimitiveType>(void) noexcept;
 
-__StrCRef __EnumValueName(PrimitiveType);
+__StrCRef __EnumValueName(PrimitiveType) noexcept;
 
 } // namespace oglplus
 //]

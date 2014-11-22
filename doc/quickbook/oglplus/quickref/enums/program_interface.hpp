@@ -37,9 +37,9 @@ enum class ProgramInterface : GLenum
 };
 
 template <>
-__Range<ProgramInterface> __EnumValueRange<ProgramInterface>(void);
+__Range<ProgramInterface> __EnumValueRange<ProgramInterface>(void) noexcept;
 
-__StrCRef __EnumValueName(ProgramInterface);
+__StrCRef __EnumValueName(ProgramInterface) noexcept;
 
 } // namespace oglplus
 //]

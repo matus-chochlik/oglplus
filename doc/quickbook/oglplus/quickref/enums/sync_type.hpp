@@ -18,9 +18,9 @@ enum class SyncType : GLenum
 };
 
 template <>
-__Range<SyncType> __EnumValueRange<SyncType>(void);
+__Range<SyncType> __EnumValueRange<SyncType>(void) noexcept;
 
-__StrCRef __EnumValueName(SyncType);
+__StrCRef __EnumValueName(SyncType) noexcept;
 
 } // namespace oglplus
 //]

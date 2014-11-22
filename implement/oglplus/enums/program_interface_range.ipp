@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	ProgramInterface
-> ValueRange_(ProgramInterface*)
+> ValueRange_(ProgramInterface*) noexcept
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_PROGRAMINTERFACE)
 #define OGLPLUS_IMPL_EVR_PROGRAMINTERFACE

@@ -127,9 +127,9 @@ enum class SLDataType : GLenum
 };
 
 template <>
-__Range<SLDataType> __EnumValueRange<SLDataType>(void);
+__Range<SLDataType> __EnumValueRange<SLDataType>(void) noexcept;
 
-__StrCRef __EnumValueName(SLDataType);
+__StrCRef __EnumValueName(SLDataType) noexcept;
 
 } // namespace oglplus
 //]

@@ -28,13 +28,19 @@ namespace aux {
 
 struct GLSLSourceWrapper
 {
-	virtual ~GLSLSourceWrapper(void){ }
+	virtual
+	~GLSLSourceWrapper(void)
+	noexcept
+	{ }
 
-	virtual GLsizei Count(void) const = 0;
+	virtual
+	GLsizei Count(void) const = 0;
 
-	virtual const GLchar* const* Parts(void) const = 0;
+	virtual
+	const GLchar* const* Parts(void) const = 0;
 
-	virtual const GLint* Lengths(void) const = 0;
+	virtual
+	const GLint* Lengths(void) const = 0;
 };
 
 class StrCRefGLSLSrcWrap
@@ -52,16 +58,19 @@ public:
 	}
 
 	GLsizei Count(void) const
+	override
 	{
 		return GLsizei(1);
 	}
 
 	const GLchar* const* Parts(void) const
+	override
 	{
 		return &_ptr;
 	}
 
 	const GLint* Lengths(void) const
+	override
 	{
 		return &_size;
 	}
@@ -80,16 +89,19 @@ public:
 	);
 
 	GLsizei Count(void) const
+	override
 	{
 		return GLsizei(_ptrs.size());
 	}
 
 	const GLchar* const* Parts(void) const
+	override
 	{
 		return _ptrs.data();
 	}
 
 	const GLint* Lengths(void) const
+	override
 	{
 		return _sizes.data();
 	}
@@ -120,16 +132,19 @@ public:
 	}
 
 	GLsizei Count(void) const
+	override
 	{
 		return GLsizei(1);
 	}
 
 	const GLchar* const* Parts(void) const
+	override
 	{
 		return &_ptr;
 	}
 
 	const GLint* Lengths(void) const
+	override
 	{
 		return &_size;
 	}
@@ -153,16 +168,19 @@ public:
 	StrsGLSLSrcWrap(std::vector<String>&& storage);
 
 	GLsizei Count(void) const
+	override
 	{
 		return GLsizei(_storage.size());
 	}
 
 	const GLchar* const* Parts(void) const
+	override
 	{
 		return _ptrs.data();
 	}
 
 	const GLint* Lengths(void) const
+	override
 	{
 		return _sizes.data();
 	}
@@ -182,16 +200,19 @@ public:
 	InputStreamGLSLSrcWrap(std::istream& input);
 
 	GLsizei Count(void) const
+	override
 	{
 		return GLsizei(1);
 	}
 
 	const GLchar* const* Parts(void) const
+	override
 	{
 		return const_cast<const GLchar**>(&_pdata);
 	}
 
 	const GLint* Lengths(void) const
+	override
 	{
 		return &_size;
 	}

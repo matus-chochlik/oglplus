@@ -20,9 +20,9 @@ enum class AccessSpecifier : GLenum
 };
 
 template <>
-__Range<AccessSpecifier> __EnumValueRange<AccessSpecifier>(void);
+__Range<AccessSpecifier> __EnumValueRange<AccessSpecifier>(void) noexcept;
 
-__StrCRef __EnumValueName(AccessSpecifier);
+__StrCRef __EnumValueName(AccessSpecifier) noexcept;
 
 } // namespace oglplus
 //]

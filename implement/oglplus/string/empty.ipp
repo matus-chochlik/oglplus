@@ -13,6 +13,7 @@ namespace oglplus {
 
 OGLPLUS_LIB_FUNC
 const std::string& EmptyStdString(void)
+noexcept
 {
 	static std::string empty;
 	return empty;

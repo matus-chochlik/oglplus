@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	PolygonMode
-> ValueRange_(PolygonMode*)
+> ValueRange_(PolygonMode*) noexcept
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_POLYGONMODE)
 #define OGLPLUS_IMPL_EVR_POLYGONMODE

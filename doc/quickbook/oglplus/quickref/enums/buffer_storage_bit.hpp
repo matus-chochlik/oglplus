@@ -24,11 +24,11 @@ enum class BufferStorageBit : GLbitfield
 };
 
 template <>
-__Range<BufferStorageBit> __EnumValueRange<BufferStorageBit>(void);
+__Range<BufferStorageBit> __EnumValueRange<BufferStorageBit>(void) noexcept;
 
-__StrCRef __EnumValueName(BufferStorageBit);
+__StrCRef __EnumValueName(BufferStorageBit) noexcept;
 
-__Bitfield<BufferStorageBit> operator | (BufferStorageBit b1, BufferStorageBit b2);
+__Bitfield<BufferStorageBit> operator | (BufferStorageBit b1, BufferStorageBit b2) noexcept;
 
 } // namespace oglplus
 //]

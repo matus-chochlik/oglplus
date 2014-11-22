@@ -20,9 +20,9 @@ enum class HintOption : GLenum
 };
 
 template <>
-__Range<HintOption> __EnumValueRange<HintOption>(void);
+__Range<HintOption> __EnumValueRange<HintOption>(void) noexcept;
 
-__StrCRef __EnumValueName(HintOption);
+__StrCRef __EnumValueName(HintOption) noexcept;
 
 } // namespace oglplus
 //]

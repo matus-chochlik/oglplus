@@ -27,9 +27,9 @@ enum class DebugOutputType : GLenum
 };
 
 template <>
-__Range<DebugOutputType> __EnumValueRange<DebugOutputType>(void);
+__Range<DebugOutputType> __EnumValueRange<DebugOutputType>(void) noexcept;
 
-__StrCRef __EnumValueName(DebugOutputType);
+__StrCRef __EnumValueName(DebugOutputType) noexcept;
 
 } // namespace oglplus
 //]

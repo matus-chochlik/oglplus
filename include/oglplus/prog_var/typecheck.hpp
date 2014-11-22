@@ -223,7 +223,7 @@ class ProgVarTypecheck
 {
 public:
 	ProgVarTypecheck(void*)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{ }
 
 	void CheckType(
@@ -231,6 +231,7 @@ public:
 		GLint location,
 		StrCRef identifier
 	) const
+	noexcept
 	{
 		(void)program;
 		(void)location;

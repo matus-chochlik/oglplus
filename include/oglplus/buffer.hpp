@@ -782,6 +782,14 @@ public:
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_sparse_buffer
+	/// Sets the commitment of a range of this buffer
+	/**
+	 *  @throws Error
+	 *
+	 *  @glverreq{ARB,sparse_buffer}
+	 *  @glsymbols
+	 *  @glfunref{BufferPageCommitmentARB}
+	 */
 	static void PageCommitment(
 		Target target,
 		BufferSize offset,
@@ -802,6 +810,15 @@ public:
 		);
 	}
 
+	/// Returns the page size
+	/**
+	 *  @throws Error
+	 *
+	 *  @glverreq{ARB,sparse_buffer}
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{SPARSE_BUFFER_PAGE_SIZE_ARB}
+	 */
 	static GLsizei PageSize(void)
 	{
 		GLint value = 0;

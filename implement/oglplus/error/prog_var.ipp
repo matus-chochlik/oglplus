@@ -21,6 +21,7 @@ ProgVarError::ProgVarError(const char* message)
 
 OGLPLUS_LIB_FUNC
 ProgramName ProgVarError::Program(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_PROG_NAME
 	return ProgramName(_prog_name);
@@ -30,7 +31,22 @@ ProgramName ProgVarError::Program(void) const
 }
 
 OGLPLUS_LIB_FUNC
+const char* ProgVarError::ObjectTypeName(void) const
+noexcept
+{
+	return "PROGRAM";
+}
+
+OGLPLUS_LIB_FUNC
+GLint ProgVarError::ObjectName(void) const
+noexcept
+{
+	return GLint(_prog_name);
+}
+
+OGLPLUS_LIB_FUNC
 const char* ProgVarError::Identifier(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_IDENTIFIER
 	if(!_identifier.empty())

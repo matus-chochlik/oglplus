@@ -21,9 +21,9 @@ enum class DebugOutputARBSeverity : GLenum
 };
 
 template <>
-__Range<DebugOutputARBSeverity> __EnumValueRange<DebugOutputARBSeverity>(void);
+__Range<DebugOutputARBSeverity> __EnumValueRange<DebugOutputARBSeverity>(void) noexcept;
 
-__StrCRef __EnumValueName(DebugOutputARBSeverity);
+__StrCRef __EnumValueName(DebugOutputARBSeverity) noexcept;
 
 } // namespace oglplus
 //]

@@ -19,9 +19,9 @@ enum class ContextProfileBit : GLenum
 };
 
 template <>
-__Range<ContextProfileBit> __EnumValueRange<ContextProfileBit>(void);
+__Range<ContextProfileBit> __EnumValueRange<ContextProfileBit>(void) noexcept;
 
-__StrCRef __EnumValueName(ContextProfileBit);
+__StrCRef __EnumValueName(ContextProfileBit) noexcept;
 
 } // namespace oglplus
 //]

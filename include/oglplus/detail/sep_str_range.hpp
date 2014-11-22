@@ -28,7 +28,7 @@ public:
 	typedef String ValueType;
 
 	SepStrRangeTpl(const char* str, char sep = ' ')
-     : _values(str ? str : "")
+	 : _values(str ? str : "")
 	 , _i(_values.begin())
 	 , _e(_values.end())
 	{
@@ -36,6 +36,7 @@ public:
 	}
 
 	bool Empty(void) const
+	noexcept
 	{
 		return _i == _e;
 	}
@@ -51,9 +52,14 @@ public:
 	{
 		assert(!Empty());
 		_i = std::find(_i, _e, '\0');
-		if(_i != _e) ++_i;
+		if(_i != _e)
+		{
+			++_i;
+		}
 		if((_i != _e) && (*_i == '\0'))
+		{
 			_i = _e;
+		}
 	}
 };
 

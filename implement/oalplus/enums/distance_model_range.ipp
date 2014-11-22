@@ -13,7 +13,7 @@ namespace enums {
 OALPLUS_LIB_FUNC aux::CastIterRange<
 	const ALenum*,
 	DistanceModel
-> ValueRange_(DistanceModel*)
+> ValueRange_(DistanceModel*) noexcept
 #if (!OALPLUS_LINK_LIBRARY || defined(OALPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OALPLUS_IMPL_EVR_DISTANCEMODEL)
 #define OALPLUS_IMPL_EVR_DISTANCEMODEL

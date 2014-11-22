@@ -27,24 +27,28 @@ struct RGBAMask
 
 	/// The red component mask
 	bool Red(void) const
+	noexcept
 	{
 		return _v[0] == GL_TRUE;
 	}
 
 	/// The green component mask
 	bool Green(void) const
+	noexcept
 	{
 		return _v[1] == GL_TRUE;
 	}
 
 	/// The blue component mask
 	bool Blue(void) const
+	noexcept
 	{
 		return _v[2] == GL_TRUE;
 	}
 
 	/// The alpha component mask
 	bool Alpha(void) const
+	noexcept
 	{
 		return _v[3] == GL_TRUE;
 	}

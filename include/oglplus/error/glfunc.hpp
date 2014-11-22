@@ -38,7 +38,9 @@ class MissingFunction
  : public Error
 {
 public:
-	static const char* Message(void);
+	static
+	const char* Message(void)
+	noexcept;
 
 	MissingFunction(const char* message)
 	 : Error(message)

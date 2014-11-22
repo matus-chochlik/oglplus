@@ -21,9 +21,9 @@ enum class PathNVCapStyle : GLenum
 };
 
 template <>
-__Range<PathNVCapStyle> __EnumValueRange<PathNVCapStyle>(void);
+__Range<PathNVCapStyle> __EnumValueRange<PathNVCapStyle>(void) noexcept;
 
-__StrCRef __EnumValueName(PathNVCapStyle);
+__StrCRef __EnumValueName(PathNVCapStyle) noexcept;
 
 } // namespace oglplus
 //]

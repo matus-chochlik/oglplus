@@ -21,9 +21,9 @@ enum class RenderingAPI : EGLenum
 };
 
 template <>
-__Range<RenderingAPI> __EnumValueRange<RenderingAPI>(void);
+__Range<RenderingAPI> __EnumValueRange<RenderingAPI>(void) noexcept;
 
-__StrCRef __EnumValueName(RenderingAPI);
+__StrCRef __EnumValueName(RenderingAPI) noexcept;
 
 } // namespace eglplus
 //]

@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC aux::CastIterRange<
 	const EGLenum*,
 	SwapBehavior
-> ValueRange_(SwapBehavior*)
+> ValueRange_(SwapBehavior*) noexcept
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVR_SWAPBEHAVIOR)
 #define EGLPLUS_IMPL_EVR_SWAPBEHAVIOR

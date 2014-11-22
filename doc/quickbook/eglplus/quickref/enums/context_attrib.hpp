@@ -22,9 +22,9 @@ enum class ContextAttrib : EGLenum
 };
 
 template <>
-__Range<ContextAttrib> __EnumValueRange<ContextAttrib>(void);
+__Range<ContextAttrib> __EnumValueRange<ContextAttrib>(void) noexcept;
 
-__StrCRef __EnumValueName(ContextAttrib);
+__StrCRef __EnumValueName(ContextAttrib) noexcept;
 
 } // namespace eglplus
 //]

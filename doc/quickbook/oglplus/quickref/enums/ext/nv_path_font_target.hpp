@@ -20,9 +20,9 @@ enum class PathNVFontTarget : GLenum
 };
 
 template <>
-__Range<PathNVFontTarget> __EnumValueRange<PathNVFontTarget>(void);
+__Range<PathNVFontTarget> __EnumValueRange<PathNVFontTarget>(void) noexcept;
 
-__StrCRef __EnumValueName(PathNVFontTarget);
+__StrCRef __EnumValueName(PathNVFontTarget) noexcept;
 
 } // namespace oglplus
 //]

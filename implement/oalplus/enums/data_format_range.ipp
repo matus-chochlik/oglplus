@@ -13,7 +13,7 @@ namespace enums {
 OALPLUS_LIB_FUNC aux::CastIterRange<
 	const ALenum*,
 	DataFormat
-> ValueRange_(DataFormat*)
+> ValueRange_(DataFormat*) noexcept
 #if (!OALPLUS_LINK_LIBRARY || defined(OALPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OALPLUS_IMPL_EVR_DATAFORMAT)
 #define OALPLUS_IMPL_EVR_DATAFORMAT

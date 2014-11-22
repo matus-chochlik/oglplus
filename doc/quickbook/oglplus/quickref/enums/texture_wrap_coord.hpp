@@ -20,9 +20,9 @@ enum class TextureWrapCoord : GLenum
 };
 
 template <>
-__Range<TextureWrapCoord> __EnumValueRange<TextureWrapCoord>(void);
+__Range<TextureWrapCoord> __EnumValueRange<TextureWrapCoord>(void) noexcept;
 
-__StrCRef __EnumValueName(TextureWrapCoord);
+__StrCRef __EnumValueName(TextureWrapCoord) noexcept;
 
 } // namespace oglplus
 //]

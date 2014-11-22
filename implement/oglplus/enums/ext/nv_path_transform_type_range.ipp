@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	PathNVTransformType
-> ValueRange_(PathNVTransformType*)
+> ValueRange_(PathNVTransformType*) noexcept
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_PATHNVTRANSFORMTYPE)
 #define OGLPLUS_IMPL_EVR_PATHNVTRANSFORMTYPE

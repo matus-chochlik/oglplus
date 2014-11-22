@@ -54,6 +54,7 @@ private:
 	}
 
 	void* _release_data(void)
+	noexcept
 	{
 		void* result = _data;
 		_data = nullptr;
@@ -71,6 +72,7 @@ private:
 	}
 public:
 	AlignedPODArray(void)
+	noexcept
 	 : _count(0)
 	 , _sizeof(0)
 	 , _data(nullptr)
@@ -88,6 +90,7 @@ public:
 	{ }
 
 	AlignedPODArray(AlignedPODArray&& tmp)
+	noexcept
 	 : _count(tmp._count)
 	 , _sizeof(tmp._sizeof)
 	 , _data(tmp._release_data())
@@ -104,13 +107,17 @@ public:
 	{ }
 
 	~AlignedPODArray(void)
+	noexcept
 	{
-		_cleanup();
+		try { _cleanup(); }
+		catch(...) { }
 	}
 
 	AlignedPODArray& operator = (AlignedPODArray&& tmp)
+	noexcept
 	{
-		_cleanup();
+		try {_cleanup(); }
+		catch (...) { }
 		_count = tmp._count;
 		_sizeof = tmp._sizeof;
 		_data = tmp._release_data();
@@ -132,22 +139,26 @@ public:
 	}
 
 	void fill(unsigned char b)
+	noexcept
 	{
 		std::memset(begin(), b, size());
 	}
 
 	void* begin(void) const
+	noexcept
 	{
 		return const_cast<void*>(_data);
 	}
 
 	void* end(void) const
+	noexcept
 	{
 		typedef unsigned char byte;
 		return static_cast<void*>(static_cast<byte*>(begin())+size());
 	}
 
 	void* at(std::size_t offs) const
+	noexcept
 	{
 		assert(!empty());
 		typedef unsigned char byte;
@@ -156,21 +167,25 @@ public:
 	}
 
 	std::size_t Count(void) const
+	noexcept
 	{
 		return _count;
 	}
 
 	std::size_t ElemSize(void) const
+	noexcept
 	{
 		return _sizeof;
 	}
 
 	std::size_t size(void) const
+	noexcept
 	{
 		return Count()*ElemSize();
 	}
 
 	bool empty(void) const
+	noexcept
 	{
 		return _data == nullptr;
 	}

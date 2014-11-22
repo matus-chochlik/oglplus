@@ -20,9 +20,9 @@ enum class ContextFlag : EGLenum
 };
 
 template <>
-__Range<ContextFlag> __EnumValueRange<ContextFlag>(void);
+__Range<ContextFlag> __EnumValueRange<ContextFlag>(void) noexcept;
 
-__StrCRef __EnumValueName(ContextFlag);
+__StrCRef __EnumValueName(ContextFlag) noexcept;
 
 } // namespace eglplus
 //]

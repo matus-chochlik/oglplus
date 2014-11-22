@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC StrCRef ValueName_(
 	TransparentType*,
 	EGLenum value
-)
+) noexcept
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVN_TRANSPARENTTYPE)
 #define EGLPLUS_IMPL_EVN_TRANSPARENTTYPE

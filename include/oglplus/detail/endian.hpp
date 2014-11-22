@@ -43,6 +43,7 @@ private:
 	} _hlp;
 public:
 	EndianHelper(void)
+	noexcept
 	{
 		_hlp.x = 0x12345678;
 		assert(sizeof(_hlp.x) == sizeof(_hlp.y));
@@ -53,6 +54,7 @@ public:
 	}
 
 	bool IsBig(void) const
+	noexcept
 	{
 		return	(_hlp.y[0] == 0x12) &&
 			(_hlp.y[1] == 0x34) &&
@@ -61,6 +63,7 @@ public:
 	}
 
 	bool IsLittle(void) const
+	noexcept
 	{
 		return	(_hlp.y[3] == 0x12) &&
 			(_hlp.y[2] == 0x34) &&
@@ -78,7 +81,9 @@ inline Endian NativeByteOrder(void)
 struct EndianNoReorder
 {
 	template <typename T>
-	static inline T Reorder(T value)
+	static inline
+	T Reorder(T value)
+	noexcept
 	{
 		return value;
 	}
@@ -88,6 +93,7 @@ struct EndianDoReorder
 {
 	template <typename T>
 	static T DoReorder(T value)
+	noexcept
 	{
 		union {
 			T x;
@@ -103,12 +109,14 @@ struct EndianDoReorder
 
 	template <typename T>
 	static T DoForward(T value)
+	noexcept
 	{
 		return value;
 	}
 
 	template <typename T>
 	static T Reorder(T value)
+	noexcept
 	{
 		if(sizeof(T) == 1)
 			return DoForward(value);
@@ -117,14 +125,18 @@ struct EndianDoReorder
 };
 
 template <typename T>
-inline T ReorderFromTo(Endian from, Endian to, T value)
+inline
+T ReorderFromTo(Endian from, Endian to, T value)
+noexcept
 {
 	if(from == to) return EndianNoReorder::Reorder(value);
 	else return EndianDoReorder::Reorder(value);
 }
 
 template <typename T>
-inline T ReorderToNative(Endian from, T value)
+inline
+T ReorderToNative(Endian from, T value)
+noexcept
 {
 	return ReorderFromTo(from, NativeByteOrder(), value);
 }
@@ -157,6 +169,7 @@ struct Reorder
 {
 	template <Endian To, typename T>
 	static inline T As(T value)
+	noexcept
 	{
 		return EndianReorderer<From, To>::Reorder(value);
 	}

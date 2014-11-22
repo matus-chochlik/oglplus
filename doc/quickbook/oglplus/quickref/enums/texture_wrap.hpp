@@ -22,9 +22,9 @@ enum class TextureWrap : GLenum
 };
 
 template <>
-__Range<TextureWrap> __EnumValueRange<TextureWrap>(void);
+__Range<TextureWrap> __EnumValueRange<TextureWrap>(void) noexcept;
 
-__StrCRef __EnumValueName(TextureWrap);
+__StrCRef __EnumValueName(TextureWrap) noexcept;
 
 } // namespace oglplus
 //]

@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	TextureFilter
-> ValueRange_(TextureFilter*)
+> ValueRange_(TextureFilter*) noexcept
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_TEXTUREFILTER)
 #define OGLPLUS_IMPL_EVR_TEXTUREFILTER

@@ -130,7 +130,6 @@ public:
 
 	/// Count of buffers storing the individual parts of the source
 	GLsizei Count(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(bool(_impl));
 		return _impl->Count();
@@ -138,7 +137,6 @@ public:
 
 	/// Pointers to the individual parts of the source
 	const GLchar* const* Parts(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(bool(_impl));
 		return _impl->Parts();
@@ -146,7 +144,6 @@ public:
 
 	/// Pointer to the lengths of the individual parts of the source
 	GLint const * Lengths(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(bool(_impl));
 		return _impl->Lengths();

@@ -42,9 +42,11 @@ public:
 	Target target;
 
 	BoundObjOps(void)
+	noexcept
 	{ }
 
 	BoundObjOps(Target init_tgt)
+	noexcept
 	 : target(init_tgt)
 	{ }
 
@@ -93,6 +95,42 @@ public:
 	/** Wrapper for Buffer::Data()
 	 *  @see Buffer::Data()
 	 */
+	const BoundObjOps& Data(
+		const BufferData & data,
+		BufferUsage usage = BufferUsage::StaticDraw
+	) const
+	{
+		ExplicitOps::Data(
+			this->target,
+			data,
+			usage
+		);
+		return *this;
+	}
+
+
+	/** Wrapper for Buffer::RawData()
+	 *  @see Buffer::RawData()
+	 */
+	const BoundObjOps& RawData(
+		BufferSize size,
+		const GLvoid * data,
+		BufferUsage usage = BufferUsage::StaticDraw
+	) const
+	{
+		ExplicitOps::RawData(
+			this->target,
+			size,
+			data,
+			usage
+		);
+		return *this;
+	}
+
+
+	/** Wrapper for Buffer::Data()
+	 *  @see Buffer::Data()
+	 */
 	template <typename GLtype>
 	const BoundObjOps& Data(
 		GLsizei count,
@@ -110,55 +148,18 @@ public:
 	}
 
 
-	/** Wrapper for Buffer::Data()
-	 *  @see Buffer::Data()
+	/** Wrapper for Buffer::SubData()
+	 *  @see Buffer::SubData()
 	 */
-	template <typename GLtype, std::size_t Count>
-	const BoundObjOps& Data(
-		const GLtype (&data)[Count],
-		BufferUsage usage = BufferUsage::StaticDraw
+	const BoundObjOps& SubData(
+		BufferSize offset,
+		const BufferData & data
 	) const
 	{
-		ExplicitOps::Data(
+		ExplicitOps::SubData(
 			this->target,
-			data,
-			usage
-		);
-		return *this;
-	}
-
-
-	/** Wrapper for Buffer::Data()
-	 *  @see Buffer::Data()
-	 */
-	template <typename GLtype>
-	const BoundObjOps& Data(
-		const std::vector< GLtype > & data,
-		BufferUsage usage = BufferUsage::StaticDraw
-	) const
-	{
-		ExplicitOps::Data(
-			this->target,
-			data,
-			usage
-		);
-		return *this;
-	}
-
-
-	/** Wrapper for Buffer::Data()
-	 *  @see Buffer::Data()
-	 */
-	template <typename GLtype, std::size_t N>
-	const BoundObjOps& Data(
-		const std::vector< Vector< GLtype, N > > & data,
-		BufferUsage usage = BufferUsage::StaticDraw
-	) const
-	{
-		ExplicitOps::Data(
-			this->target,
-			data,
-			usage
+			offset,
+			data
 		);
 		return *this;
 	}
@@ -178,42 +179,6 @@ public:
 			this->target,
 			offset,
 			count,
-			data
-		);
-		return *this;
-	}
-
-
-	/** Wrapper for Buffer::SubData()
-	 *  @see Buffer::SubData()
-	 */
-	template <typename GLtype, std::size_t Count>
-	const BoundObjOps& SubData(
-		BufferSize offset,
-		const GLtype (&data)[Count]
-	) const
-	{
-		ExplicitOps::SubData(
-			this->target,
-			offset,
-			data
-		);
-		return *this;
-	}
-
-
-	/** Wrapper for Buffer::SubData()
-	 *  @see Buffer::SubData()
-	 */
-	template <typename GLtype>
-	const BoundObjOps& SubData(
-		BufferSize offset,
-		const std::vector< GLtype > & data
-	) const
-	{
-		ExplicitOps::SubData(
-			this->target,
-			offset,
 			data
 		);
 		return *this;
@@ -267,6 +232,23 @@ public:
 	}
 #endif // GL_VERSION_4_3
 
+
+	/** Wrapper for Buffer::Storage()
+	 *  @see Buffer::Storage()
+	 */
+	const BoundObjOps& Storage(
+		const BufferData & data,
+		Bitfield< BufferStorageBit > flags
+	) const
+	{
+		ExplicitOps::Storage(
+			this->target,
+			data,
+			flags
+		);
+		return *this;
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_buffer_storage
 
 	/** Wrapper for Buffer::Storage()
@@ -313,6 +295,27 @@ public:
 		);
 	}
 #endif // GL_VERSION_4_4 GL_ARB_buffer_storage
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_ARB_sparse_buffer
+
+	/** Wrapper for Buffer::PageCommitment()
+	 *  @see Buffer::PageCommitment()
+	 */
+	const BoundObjOps& PageCommitment(
+		BufferSize offset,
+		BufferSize size,
+		bool commit
+	) const
+	{
+		ExplicitOps::PageCommitment(
+			this->target,
+			offset,
+			size,
+			commit
+		);
+		return *this;
+	}
+#endif // GL_VERSION_ARB_sparse_buffer
 
 
 	/** Wrapper for Buffer::Size()

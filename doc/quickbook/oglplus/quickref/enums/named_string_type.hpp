@@ -18,9 +18,9 @@ enum class NamedStringType : GLenum
 };
 
 template <>
-__Range<NamedStringType> __EnumValueRange<NamedStringType>(void);
+__Range<NamedStringType> __EnumValueRange<NamedStringType>(void) noexcept;
 
-__StrCRef __EnumValueName(NamedStringType);
+__StrCRef __EnumValueName(NamedStringType) noexcept;
 
 } // namespace oglplus
 //]

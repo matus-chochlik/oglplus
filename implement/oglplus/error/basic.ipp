@@ -13,6 +13,7 @@ namespace oglplus {
 
 OGLPLUS_LIB_FUNC
 const char* Error::Message(GLenum code)
+noexcept
 {
 	switch(code)
 	{
@@ -68,6 +69,7 @@ Error::Error(const char* message)
 
 OGLPLUS_LIB_FUNC
 const char* Error::SourceFile(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_FILE
 	return _file;
@@ -78,6 +80,7 @@ const char* Error::SourceFile(void) const
 
 OGLPLUS_LIB_FUNC
 const char* Error::SourceFunc(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_FUNC
 	return _func;
@@ -88,6 +91,7 @@ const char* Error::SourceFunc(void) const
 
 OGLPLUS_LIB_FUNC
 unsigned Error::SourceLine(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_LINE
 	return _line;
@@ -98,6 +102,7 @@ unsigned Error::SourceLine(void) const
 
 OGLPLUS_LIB_FUNC
 const char* Error::GLLib(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_GL_LIB
 	return _gllib_name;
@@ -108,6 +113,7 @@ const char* Error::GLLib(void) const
 
 OGLPLUS_LIB_FUNC
 const char* Error::GLFunc(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_GL_FUNC
 	return _glfunc_name;
@@ -118,6 +124,7 @@ const char* Error::GLFunc(void) const
 
 OGLPLUS_LIB_FUNC
 GLenum Error::EnumParam(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
 	return _enumpar;
@@ -128,6 +135,7 @@ GLenum Error::EnumParam(void) const
 
 OGLPLUS_LIB_FUNC
 const char* Error::EnumParamName(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
 	return _enumpar_name;
@@ -138,6 +146,7 @@ const char* Error::EnumParamName(void) const
 
 OGLPLUS_LIB_FUNC
 GLint Error::Index(void) const
+noexcept
 {
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
 	return _index;

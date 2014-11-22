@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	PathNVColorFormat
-> ValueRange_(PathNVColorFormat*)
+> ValueRange_(PathNVColorFormat*) noexcept
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_PATHNVCOLORFORMAT)
 #define OGLPLUS_IMPL_EVR_PATHNVCOLORFORMAT

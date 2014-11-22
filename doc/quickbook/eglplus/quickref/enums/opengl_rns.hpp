@@ -19,9 +19,9 @@ enum class OpenGLResetNotificationStrategy : EGLenum
 };
 
 template <>
-__Range<OpenGLResetNotificationStrategy> __EnumValueRange<OpenGLResetNotificationStrategy>(void);
+__Range<OpenGLResetNotificationStrategy> __EnumValueRange<OpenGLResetNotificationStrategy>(void) noexcept;
 
-__StrCRef __EnumValueName(OpenGLResetNotificationStrategy);
+__StrCRef __EnumValueName(OpenGLResetNotificationStrategy) noexcept;
 
 } // namespace eglplus
 //]

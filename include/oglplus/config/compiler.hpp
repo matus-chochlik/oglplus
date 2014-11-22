@@ -36,21 +36,6 @@
 #endif
 #endif
 
-#ifndef OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
-#if	defined(BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS) ||\
-	defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)
-#define OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS 1
-#else
-#define OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
-#define OGLPLUS_EXPLICIT explicit
-#else
-#define OGLPLUS_EXPLICIT
-#endif
-
 #ifndef OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
 #if	defined(BOOST_NO_CXX11_FUNCTION_TEMPLATE_DEFAULT_ARGS) ||\
 	defined(BOOST_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS)
@@ -102,15 +87,6 @@
 #endif
 #endif
 
-#ifndef OGLPLUS_NO_NOEXCEPT
-#if	defined(BOOST_NO_CXX11_NOEXCEPT) ||\
-	defined(BOOST_NO_NOEXCEPT)
-#define OGLPLUS_NO_NOEXCEPT 1
-#else
-#define OGLPLUS_NO_NOEXCEPT 0
-#endif
-#endif
-
 #ifndef OGLPLUS_NO_LAMBDAS
 #if	defined(BOOST_NO_CXX11_LAMBDAS) ||\
 	defined(BOOST_NO_LAMBDAS)
@@ -127,16 +103,6 @@
 #else
 #define OGLPLUS_NO_CHRONO 0
 #endif
-#endif
-
-// ------- C++11 feature availability detection -------
-
-#if !OGLPLUS_NO_NOEXCEPT
-#define OGLPLUS_NOEXCEPT(...) noexcept(__VA_ARGS__)
-#define OGLPLUS_NOEXCEPT_IF(...) noexcept(noexcept(__VA_ARGS__))
-#else
-#define OGLPLUS_NOEXCEPT(...)
-#define OGLPLUS_NOEXCEPT_IF(...)
 #endif
 
 // -------- disable certain warnings ---------

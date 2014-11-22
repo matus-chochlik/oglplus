@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC StrCRef ValueName_(
 	BlendEquation*,
 	GLenum value
-)
+) noexcept
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVN_BLENDEQUATION)
 #define OGLPLUS_IMPL_EVN_BLENDEQUATION

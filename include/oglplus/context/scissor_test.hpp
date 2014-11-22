@@ -26,24 +26,28 @@ struct ScissorRectangle
 
 	/// The x-coordinate
 	GLint X(void) const
+	noexcept
 	{
 		return _v[0];
 	}
 
 	/// The y-coordinate
 	GLint Y(void) const
+	noexcept
 	{
 		return _v[1];
 	}
 
 	/// The x-coordinate
 	GLint Left(void) const
+	noexcept
 	{
 		return _v[0];
 	}
 
 	/// The y-coordinate
 	GLint Bottom(void) const
+	noexcept
 	{
 		return _v[1];
 	}

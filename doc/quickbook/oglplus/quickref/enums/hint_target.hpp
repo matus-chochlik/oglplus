@@ -21,9 +21,9 @@ enum class HintTarget : GLenum
 };
 
 template <>
-__Range<HintTarget> __EnumValueRange<HintTarget>(void);
+__Range<HintTarget> __EnumValueRange<HintTarget>(void) noexcept;
 
-__StrCRef __EnumValueName(HintTarget);
+__StrCRef __EnumValueName(HintTarget) noexcept;
 
 } // namespace oglplus
 //]

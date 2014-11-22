@@ -19,9 +19,9 @@ enum class TransformFeedbackMode : GLenum
 };
 
 template <>
-__Range<TransformFeedbackMode> __EnumValueRange<TransformFeedbackMode>(void);
+__Range<TransformFeedbackMode> __EnumValueRange<TransformFeedbackMode>(void) noexcept;
 
-__StrCRef __EnumValueName(TransformFeedbackMode);
+__StrCRef __EnumValueName(TransformFeedbackMode) noexcept;
 
 } // namespace oglplus
 //]

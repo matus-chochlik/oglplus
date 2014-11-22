@@ -32,11 +32,11 @@ enum class MemoryBarrierBit : GLbitfield
 };
 
 template <>
-__Range<MemoryBarrierBit> __EnumValueRange<MemoryBarrierBit>(void);
+__Range<MemoryBarrierBit> __EnumValueRange<MemoryBarrierBit>(void) noexcept;
 
-__StrCRef __EnumValueName(MemoryBarrierBit);
+__StrCRef __EnumValueName(MemoryBarrierBit) noexcept;
 
-__Bitfield<MemoryBarrierBit> operator | (MemoryBarrierBit b1, MemoryBarrierBit b2);
+__Bitfield<MemoryBarrierBit> operator | (MemoryBarrierBit b1, MemoryBarrierBit b2) noexcept;
 
 } // namespace oglplus
 //]

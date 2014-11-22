@@ -27,9 +27,9 @@ enum class ErrorCode : GLenum
 };
 
 template <>
-__Range<ErrorCode> __EnumValueRange<ErrorCode>(void);
+__Range<ErrorCode> __EnumValueRange<ErrorCode>(void) noexcept;
 
-__StrCRef __EnumValueName(ErrorCode);
+__StrCRef __EnumValueName(ErrorCode) noexcept;
 
 } // namespace oglplus
 //]

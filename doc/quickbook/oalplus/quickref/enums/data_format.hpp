@@ -21,9 +21,9 @@ enum class DataFormat : ALenum
 };
 
 template <>
-__Range<DataFormat> __EnumValueRange<DataFormat>(void);
+__Range<DataFormat> __EnumValueRange<DataFormat>(void) noexcept;
 
-__StrCRef __EnumValueName(DataFormat);
+__StrCRef __EnumValueName(DataFormat) noexcept;
 
 } // namespace oalplus
 //]

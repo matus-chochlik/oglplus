@@ -20,9 +20,9 @@ enum class PathNVListMode : GLenum
 };
 
 template <>
-__Range<PathNVListMode> __EnumValueRange<PathNVListMode>(void);
+__Range<PathNVListMode> __EnumValueRange<PathNVListMode>(void) noexcept;
 
-__StrCRef __EnumValueName(PathNVListMode);
+__StrCRef __EnumValueName(PathNVListMode) noexcept;
 
 } // namespace oglplus
 //]

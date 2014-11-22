@@ -34,7 +34,9 @@ private:
 	GLfloat _value;
 	GLfloat _limit;
 public:
-	static const char* Message(void);
+	static
+	const char* Message(void)
+	noexcept;
 
 	LimitError(const char* message)
 	 : Error(message)
@@ -43,22 +45,34 @@ public:
 	{ }
 
 	LimitError& Value(GLfloat value)
+	noexcept
 	{
 		_value = value;
 		return *this;
 	}
 
 	/// The value assigned to the limited-type variable
-	GLfloat Value(void) const { return _value; }
+	GLfloat Value(void) const
+	noexcept
+	override
+	{
+		return _value;
+	}
 
 	LimitError& Limit(GLfloat limit)
+	noexcept
 	{
 		_limit = limit;
 		return *this;
 	}
 
 	/// The allowed limit of the limited-type
-	GLfloat Limit(void) const { return _limit; }
+	GLfloat Limit(void) const
+	noexcept
+	override
+	{
+		return _limit;
+	}
 };
 
 } // namespace oglplus

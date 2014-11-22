@@ -23,9 +23,9 @@ enum class PrecisionType : GLenum
 };
 
 template <>
-__Range<PrecisionType> __EnumValueRange<PrecisionType>(void);
+__Range<PrecisionType> __EnumValueRange<PrecisionType>(void) noexcept;
 
-__StrCRef __EnumValueName(PrecisionType);
+__StrCRef __EnumValueName(PrecisionType) noexcept;
 
 } // namespace oglplus
 //]

@@ -136,7 +136,7 @@ private:
 	}
 
 	void _move_in(ObjectTpl&& temp)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		this->_name = temp._name;
 		temp._name = 0;
@@ -196,13 +196,13 @@ public:
 
 	/// Objects are movable
 	ObjectTpl(ObjectTpl&& temp)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		_move_in(std::move(temp));
 	}
 
 	~ObjectTpl(void)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		try { _cleanup(); }
 		catch(...) { }
@@ -210,14 +210,17 @@ public:
 
 	/// Objects are move-assignable
 	ObjectTpl& operator = (ObjectTpl&& temp)
+	noexcept
 	{
-		_cleanup();
+		try { _cleanup(); }
+		catch(...) { }
 		_move_in(std::move(temp));
 		return *this;
 	}
 
 	/// Returns the textual description of this object
 	const std::string& Description(void) const
+	noexcept
 	{
 		return aux::ObjectDescRegistry::_get_desc(
 			ObjTag::value,
@@ -280,11 +283,13 @@ public:
 
 	/// Object handles are move constructible
 	ObjHandle(ObjHandle&& temp)
+	noexcept
 	 : Base_(static_cast<Base_&&>(temp))
 	{ }
 
 	/// Object handles are move assignable
 	ObjHandle& operator = (ObjHandle&& temp)
+	noexcept
 	{
 		Base_::operator = (static_cast<Base_&&>(temp));
 		return *this;
@@ -309,18 +314,23 @@ private:
 	Object(const Object&);
 protected:
 	Object(typename Base_::Uninitialized_ uninit)
+	noexcept
 	 : Base_(uninit)
 	{ }
 
 	Object(ObjectName<ObjTag> name)
+	noexcept
 	 : Base_(name)
 	{ }
 
 	Object(ObjectName<ObjTag> name, ObjectDesc&& description)
+	noexcept
 	 : Base_(name, std::move(description))
 	{ }
 public:
-	static Object FromRawName(ObjectName<ObjTag> name)
+	static
+	Object FromRawName(ObjectName<ObjTag> name)
+	noexcept
 	{
 		return Object(name);
 	}
@@ -384,11 +394,13 @@ public:
 
 	/// Objects are move constructible
 	Object(Object&& temp)
+	noexcept
 	 : Base_(static_cast<Base_&&>(temp))
 	{ }
 
 	/// Objects are move assignable
 	Object& operator = (Object&& temp)
+	noexcept
 	{
 		Base_::operator = (static_cast<Base_&&>(temp));
 		return *this;

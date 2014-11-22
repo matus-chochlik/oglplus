@@ -36,9 +36,9 @@ enum class FramebufferAttachment : GLenum
 };
 
 template <>
-__Range<FramebufferAttachment> __EnumValueRange<FramebufferAttachment>(void);
+__Range<FramebufferAttachment> __EnumValueRange<FramebufferAttachment>(void) noexcept;
 
-__StrCRef __EnumValueName(FramebufferAttachment);
+__StrCRef __EnumValueName(FramebufferAttachment) noexcept;
 
 } // namespace oglplus
 //]

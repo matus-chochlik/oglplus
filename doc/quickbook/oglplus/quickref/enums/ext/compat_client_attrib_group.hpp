@@ -20,9 +20,9 @@ enum class CompatibilityClientAttributeGroup : GLenum
 };
 
 template <>
-__Range<CompatibilityClientAttributeGroup> __EnumValueRange<CompatibilityClientAttributeGroup>(void);
+__Range<CompatibilityClientAttributeGroup> __EnumValueRange<CompatibilityClientAttributeGroup>(void) noexcept;
 
-__StrCRef __EnumValueName(CompatibilityClientAttributeGroup);
+__StrCRef __EnumValueName(CompatibilityClientAttributeGroup) noexcept;
 
 } // namespace oglplus
 //]

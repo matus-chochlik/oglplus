@@ -121,6 +121,7 @@ public:
 
 	/// Move construction is enabled
 	DSABufferRawMap(DSABufferRawMap&& temp)
+	noexcept
 	 : _offset(temp._offset)
 	 , _size(temp._size)
 	 , _ptr(temp._ptr)
@@ -130,6 +131,7 @@ public:
 	}
 
 	~DSABufferRawMap(void)
+	noexcept
 	{
 		try { Unmap(); }
 		catch(...) { }

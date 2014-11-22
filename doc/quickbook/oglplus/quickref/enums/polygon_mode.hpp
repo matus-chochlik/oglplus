@@ -20,9 +20,9 @@ enum class PolygonMode : GLenum
 };
 
 template <>
-__Range<PolygonMode> __EnumValueRange<PolygonMode>(void);
+__Range<PolygonMode> __EnumValueRange<PolygonMode>(void) noexcept;
 
-__StrCRef __EnumValueName(PolygonMode);
+__StrCRef __EnumValueName(PolygonMode) noexcept;
 
 } // namespace oglplus
 //]

@@ -13,7 +13,7 @@ namespace enums {
 OALPLUS_LIB_FUNC StrCRef ValueName_(
 	ContextAttrib*,
 	ALenum value
-)
+) noexcept
 #if (!OALPLUS_LINK_LIBRARY || defined(OALPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OALPLUS_IMPL_EVN_CONTEXTATTRIB)
 #define OALPLUS_IMPL_EVN_CONTEXTATTRIB

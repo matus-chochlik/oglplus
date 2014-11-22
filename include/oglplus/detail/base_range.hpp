@@ -42,6 +42,7 @@ public:
 	typedef Element ValueType;
 
 	ContextElementRange(Context&& context, unsigned current, unsigned count)
+	noexcept
 	 : _context(std::move(context))
 	 , _current(current)
 	 , _count(count)
@@ -50,28 +51,33 @@ public:
 	}
 
 	ContextElementRange(Context&& context, unsigned count)
+	noexcept
 	 : _context(std::move(context))
 	 , _current(0)
 	 , _count(count)
 	{ }
 
 	ContextElementRange(ContextElementRange&& tmp)
+	noexcept
 	 : _context(std::move(tmp._context))
 	 , _current(tmp._current)
 	 , _count(tmp._count)
 	{ }
 
 	bool Empty(void) const
+	noexcept
 	{
 		return _current == _count;
 	}
 
 	std::size_t Size(void) const
+	noexcept
 	{
 		return _count - _current;
 	}
 
 	void Next(void)
+	noexcept
 	{
 		assert(!Empty());
 		++_current;
@@ -105,22 +111,26 @@ public:
 	{ }
 
 	bool Empty(void) const
+	noexcept
 	{
 		return _pos == _end;
 	}
 
 	std::size_t Size(void) const
+	noexcept
 	{
 		return _end - _pos;
 	}
 
 	void Next(void)
+	noexcept
 	{
 		assert(!Empty());
 		++_pos;
 	}
 
 	ValueType Front(void) const
+	noexcept
 	{
 		assert(!Empty());
 		return *_pos;

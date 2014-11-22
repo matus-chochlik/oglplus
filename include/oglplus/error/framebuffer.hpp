@@ -35,16 +35,20 @@ class IncompleteFramebuffer
 private:
 	FramebufferStatus _status;
 public:
-	static const char* Message(void);
+	static
+	const char* Message(void)
+	noexcept;
 
 	IncompleteFramebuffer(const char* message)
 	 : ObjectError(message)
 	{ }
 
-	~IncompleteFramebuffer(void) throw()
+	~IncompleteFramebuffer(void)
+	noexcept
 	{ }
 
 	IncompleteFramebuffer& Status(FramebufferStatus status)
+	noexcept
 	{
 		_status = status;
 		EnumParam(status);
@@ -52,6 +56,7 @@ public:
 	}
 
 	FramebufferStatus Status(void) const
+	noexcept
 	{
 		return _status;
 	}

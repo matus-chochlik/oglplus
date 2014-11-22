@@ -19,9 +19,9 @@ enum class TextureCompareMode : GLenum
 };
 
 template <>
-__Range<TextureCompareMode> __EnumValueRange<TextureCompareMode>(void);
+__Range<TextureCompareMode> __EnumValueRange<TextureCompareMode>(void) noexcept;
 
-__StrCRef __EnumValueName(TextureCompareMode);
+__StrCRef __EnumValueName(TextureCompareMode) noexcept;
 
 } // namespace oglplus
 //]

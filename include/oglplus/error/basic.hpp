@@ -70,24 +70,36 @@ private:
 #endif
 
 public:
-	static const char* Message(GLenum);
+	static
+	const char* Message(GLenum)
+	noexcept;
 
 	Error(const char* message);
 
-	~Error(void) throw() { }
+	~Error(void)
+	noexcept
+	{ }
 
-	Error& NoInfo(void) { return *this; }
+	Error& NoInfo(void)
+	noexcept
+	{ return *this; }
 
 	Error& Code(GLenum code)
+	noexcept
 	{
 		_code = code;
 		return *this;
 	}
 
 	/// Returns the GL error code related to the error
-	ErrorCode Code(void) const { return ErrorCode(_code); }
+	ErrorCode Code(void) const
+	noexcept
+	{
+		return ErrorCode(_code);
+	}
 
 	Error& SourceFile(const char* file)
+	noexcept
 	{
 #if !OGLPLUS_ERROR_NO_FILE
 		_file = file;
@@ -103,9 +115,11 @@ public:
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
-	const char* SourceFile(void) const;
+	const char* SourceFile(void) const
+	noexcept;
 
 	Error& SourceFunc(const char* func)
+	noexcept
 	{
 #if !OGLPLUS_ERROR_NO_FUNC
 		_func = func;
@@ -121,9 +135,11 @@ public:
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
-	const char* SourceFunc(void) const;
+	const char* SourceFunc(void) const
+	noexcept;
 
 	Error& SourceLine(unsigned line)
+	noexcept
 	{
 #if !OGLPLUS_ERROR_NO_LINE
 		_line = line;
@@ -139,9 +155,11 @@ public:
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns zero.
 	 */
-	unsigned SourceLine(void) const;
+	unsigned SourceLine(void) const
+	noexcept;
 
 	Error& GLLib(const char* lib_name)
+	noexcept
 	{
 #if !OGLPLUS_ERROR_NO_GL_LIB
 		_gllib_name = lib_name;
@@ -150,9 +168,11 @@ public:
 		return *this;
 	}
 
-	const char* GLLib(void) const;
+	const char* GLLib(void) const
+	noexcept;
 
 	Error& GLFunc(const char* func_name)
+	noexcept
 	{
 #if !OGLPLUS_ERROR_NO_GL_FUNC
 		_glfunc_name = func_name;
@@ -170,10 +190,12 @@ public:
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
-	const char* GLFunc(void) const;
+	const char* GLFunc(void) const
+	noexcept;
 
 	template <typename Enum_>
 	Error& EnumParam(Enum_ param)
+	noexcept
 	{
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
 		_enumpar = GLenum(param);
@@ -184,6 +206,7 @@ public:
 	}
 
 	Error& EnumParam(GLenum param, const char* param_name)
+	noexcept
 	{
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
 		_enumpar = param;
@@ -203,7 +226,8 @@ public:
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns zero.
 	 */
-	GLenum EnumParam(void) const;
+	GLenum EnumParam(void) const
+	noexcept;
 
 	/// Returns the name of the enumeration parameter related to the error
 	/** This function returns the name of the main enumeration
@@ -214,9 +238,11 @@ public:
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
-	const char* EnumParamName(void) const;
+	const char* EnumParamName(void) const
+	noexcept;
 
 	Error& Index(GLuint index)
+	noexcept
 	{
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
 		_index = GLint(index);
@@ -236,39 +262,68 @@ public:
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns a negative integer.
 	 */
-	GLint Index(void) const;
+	GLint Index(void) const
+	noexcept;
 
 	/// Returns the value parameter related to the error
-	virtual GLfloat Value(void) const { return GLfloat(0); }
+	virtual GLfloat Value(void) const
+	noexcept
+	{
+		return GLfloat(0);
+	}
 
 	/// Returns the limit value related to the error
-	virtual GLfloat Limit(void) const { return GLfloat(0); }
+	virtual GLfloat Limit(void) const
+	noexcept
+	{
+		return GLfloat(0);
+	}
 
 	/// Returns the bind target
-	virtual GLenum BindTarget(void) const { return GLenum(0); }
+	virtual GLenum BindTarget(void) const
+	noexcept
+	{
+		return GLenum(0);
+	}
 
 	/// Returns the bind target name
-	virtual const char* TargetName(void) const { return nullptr; }
+	virtual const char* TargetName(void) const
+	noexcept
+	{
+		return nullptr;
+	}
 
 	/// Returns the object type
 	/** If the error is related to a GL object, then an object
 	 *  type enumeration value is returned. Otherwise the result is zero.
 	 */
-	virtual GLenum ObjectType(void) const { return GLenum(0); }
+	virtual GLenum ObjectType(void) const
+	noexcept
+	{
+		return GLenum(0);
+	}
 
 	/// Returns the object type name
 	/** If the error is related to a GL object, then a C string
 	 *  storing object type name is returned. Otherwise the result
 	 *  is nullptr.
 	 */
-	virtual const char* ObjectTypeName(void) const { return nullptr; }
+	virtual const char* ObjectTypeName(void) const
+	noexcept
+	{
+		return nullptr;
+	}
 
 	/// Returns the object instance GL name
 	/** If the error is related to a GL object, then the numeric
 	 *  GL name of the object is returned. Otherwise the result
 	 *  is a negative integer.
 	 */
-	virtual GLint ObjectName(void) const { return -1; }
+	virtual GLint ObjectName(void) const
+	noexcept
+	{
+		return -1;
+	}
 
 	/// Returns the object instance description
 	/** If the error is related to a GL object, then a std::string
@@ -276,6 +331,7 @@ public:
 	 *  is an empty std::string.
 	 */
 	virtual const std::string& ObjectDesc(void) const
+	noexcept
 	{
 		return EmptyStdString();
 	}
@@ -285,21 +341,33 @@ public:
 	 *  an object type enumeration value is returned. Otherwise
 	 *  the result is zero.
 	 */
-	virtual GLenum SubjectType(void) const { return GLenum(0); }
+	virtual GLenum SubjectType(void) const
+	noexcept
+	{
+		return GLenum(0);
+	}
 
 	/// Returns the subject class name
 	/** If the error is related a pair of GL objects, then a C string
 	 *  storing secondary object type name is returned. Otherwise the result
 	 *  is nullptr.
 	 */
-	virtual const char* SubjectTypeName(void) const { return nullptr; }
+	virtual const char* SubjectTypeName(void) const
+	noexcept
+	{
+		return nullptr;
+	}
 
 	/// Returns the subject GL name
 	/** If the error is related to a pair of GL objects, then
 	 *  the numeric GL name of the secondary object is returned.
 	 *  Otherwise the result is a negative integer.
 	 */
-	virtual GLint SubjectName(void) const { return -1; }
+	virtual GLint SubjectName(void) const
+	noexcept
+	{
+		return -1;
+	}
 
 	/// Returns the subject textual description
 	/** If the error is related to a pair of GL objects, then a std::string
@@ -307,6 +375,7 @@ public:
 	 *  the result is an empty std::string.
 	 */
 	virtual const std::string& SubjectDesc(void) const
+	noexcept
 	{
 		return EmptyStdString();
 	}
@@ -317,7 +386,11 @@ public:
 	 *  storing the identifier of the variable. Otherwise the result
 	 *  is nullptr.
 	 */
-	virtual const char* Identifier(void) const { return nullptr; }
+	virtual const char* Identifier(void) const
+	noexcept
+	{
+		return nullptr;
+	}
 
 	/// Returns a log string associated with the error
 	/** If the error was caused by a process (like shader compilation,
@@ -325,7 +398,11 @@ public:
 	 *  log and it is available then it is returned by this function.
 	 *  Otherwise the result is an empty String.
 	 */
-	virtual const String& Log(void) const { return EmptyString(); }
+	virtual const String& Log(void) const
+	noexcept
+	{
+		return EmptyString();
+	}
 };
 
 /// Generic error handling function
@@ -336,11 +413,15 @@ inline void HandleError(ErrorType& error)
 }
 
 #define OGLPLUS_ERROR_CONTEXT(GLFUNC, CLASS) \
-	static const char* _errinf_glfn(void) \
+	static constexpr \
+	const char* _errinf_glfn(void) \
+	noexcept \
 	{ \
 		return #GLFUNC; \
 	} \
-	static const char* _errinf_cls(void) \
+	static constexpr \
+	const char* _errinf_cls(void) \
+	noexcept \
 	{ \
 		return #CLASS; \
 	}

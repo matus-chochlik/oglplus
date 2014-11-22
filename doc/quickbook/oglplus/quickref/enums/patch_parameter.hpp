@@ -20,9 +20,9 @@ enum class PatchParameter : GLenum
 };
 
 template <>
-__Range<PatchParameter> __EnumValueRange<PatchParameter>(void);
+__Range<PatchParameter> __EnumValueRange<PatchParameter>(void) noexcept;
 
-__StrCRef __EnumValueName(PatchParameter);
+__StrCRef __EnumValueName(PatchParameter) noexcept;
 
 } // namespace oglplus
 //]

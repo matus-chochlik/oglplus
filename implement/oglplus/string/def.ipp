@@ -17,6 +17,7 @@ namespace oglplus {
 
 OGLPLUS_LIB_FUNC
 const String& EmptyString(void)
+noexcept
 {
 	static String empty;
 	return empty;

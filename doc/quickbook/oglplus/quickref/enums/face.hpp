@@ -20,9 +20,9 @@ enum class Face : GLenum
 };
 
 template <>
-__Range<Face> __EnumValueRange<Face>(void);
+__Range<Face> __EnumValueRange<Face>(void) noexcept;
 
-__StrCRef __EnumValueName(Face);
+__StrCRef __EnumValueName(Face) noexcept;
 
 } // namespace oglplus
 //]

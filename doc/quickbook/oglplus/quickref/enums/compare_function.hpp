@@ -25,9 +25,9 @@ enum class CompareFunction : GLenum
 };
 
 template <>
-__Range<CompareFunction> __EnumValueRange<CompareFunction>(void);
+__Range<CompareFunction> __EnumValueRange<CompareFunction>(void) noexcept;
 
-__StrCRef __EnumValueName(CompareFunction);
+__StrCRef __EnumValueName(CompareFunction) noexcept;
 
 } // namespace oglplus
 //]

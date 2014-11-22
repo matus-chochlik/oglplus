@@ -49,9 +49,9 @@ enum class ConfigAttrib : EGLenum
 };
 
 template <>
-__Range<ConfigAttrib> __EnumValueRange<ConfigAttrib>(void);
+__Range<ConfigAttrib> __EnumValueRange<ConfigAttrib>(void) noexcept;
 
-__StrCRef __EnumValueName(ConfigAttrib);
+__StrCRef __EnumValueName(ConfigAttrib) noexcept;
 
 } // namespace eglplus
 //]

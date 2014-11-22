@@ -13,18 +13,21 @@ namespace oglplus {
 
 OGLPLUS_LIB_FUNC
 const char* CompileError::Message(void)
+noexcept
 {
 	return "OpenGL shading language compilation error";
 }
 
 OGLPLUS_LIB_FUNC
 const char* LinkError::Message(void)
+noexcept
 {
 	return "OpenGL shading language program link error";
 }
 
 OGLPLUS_LIB_FUNC
 const char* ValidationError::Message(void)
+noexcept
 {
 	return "OpenGL shading language program validation error";
 }

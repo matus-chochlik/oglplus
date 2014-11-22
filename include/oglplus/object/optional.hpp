@@ -44,7 +44,7 @@ public:
 	 *  @see Assign
 	 */
 	OptionalImpl(void)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : Object(typename Object::Uninitialized_())
 	{ }
 
@@ -57,17 +57,18 @@ public:
 	 *  @see Clear
 	 */
 	OptionalImpl(Object&& temp)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : Object(std::move(temp))
 	{ }
 
 	/// Move constructor
 	OptionalImpl(OptionalImpl&& temp)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : Object(static_cast<Object&&>(temp))
 	{ }
 
 	OptionalImpl& operator = (Object&& temp)
+	noexcept
 	{
 		Object::operator=(std::move(temp));
 		return *this;
@@ -84,19 +85,21 @@ public:
 	 *  @see Release
 	 */
 	bool IsInitialized(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return this->_name != 0u;
 	}
 
-	OGLPLUS_EXPLICIT operator bool (void) const
+	explicit
+	operator bool (void) const
+	noexcept
 	{
 		return IsInitialized();
 	}
 
 	/// Releases the stored object and makes this Optional uninitialized
 	Object Release(void)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return Object(static_cast<Object&&>(*this));
 	}

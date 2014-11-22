@@ -24,9 +24,9 @@ enum class DistanceModel : ALenum
 };
 
 template <>
-__Range<DistanceModel> __EnumValueRange<DistanceModel>(void);
+__Range<DistanceModel> __EnumValueRange<DistanceModel>(void) noexcept;
 
-__StrCRef __EnumValueName(DistanceModel);
+__StrCRef __EnumValueName(DistanceModel) noexcept;
 
 } // namespace oalplus
 //]

@@ -13,6 +13,7 @@ namespace oglplus {
 
 OGLPLUS_LIB_FUNC
 const char* IncompleteFramebuffer::Message(void)
+noexcept
 {
 	return "Framebuffer is incomplete";
 }

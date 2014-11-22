@@ -20,9 +20,9 @@ enum class SourceType : ALenum
 };
 
 template <>
-__Range<SourceType> __EnumValueRange<SourceType>(void);
+__Range<SourceType> __EnumValueRange<SourceType>(void) noexcept;
 
-__StrCRef __EnumValueName(SourceType);
+__StrCRef __EnumValueName(SourceType) noexcept;
 
 } // namespace oalplus
 //]

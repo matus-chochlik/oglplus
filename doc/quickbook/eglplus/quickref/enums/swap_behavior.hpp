@@ -19,9 +19,9 @@ enum class SwapBehavior : EGLenum
 };
 
 template <>
-__Range<SwapBehavior> __EnumValueRange<SwapBehavior>(void);
+__Range<SwapBehavior> __EnumValueRange<SwapBehavior>(void) noexcept;
 
-__StrCRef __EnumValueName(SwapBehavior);
+__StrCRef __EnumValueName(SwapBehavior) noexcept;
 
 } // namespace eglplus
 //]

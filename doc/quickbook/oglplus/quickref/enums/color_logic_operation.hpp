@@ -33,9 +33,9 @@ enum class ColorLogicOperation : GLenum
 };
 
 template <>
-__Range<ColorLogicOperation> __EnumValueRange<ColorLogicOperation>(void);
+__Range<ColorLogicOperation> __EnumValueRange<ColorLogicOperation>(void) noexcept;
 
-__StrCRef __EnumValueName(ColorLogicOperation);
+__StrCRef __EnumValueName(ColorLogicOperation) noexcept;
 
 } // namespace oglplus
 //]

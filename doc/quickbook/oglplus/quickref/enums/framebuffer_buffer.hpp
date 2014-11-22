@@ -21,9 +21,9 @@ enum class FramebufferBuffer : GLenum
 };
 
 template <>
-__Range<FramebufferBuffer> __EnumValueRange<FramebufferBuffer>(void);
+__Range<FramebufferBuffer> __EnumValueRange<FramebufferBuffer>(void) noexcept;
 
-__StrCRef __EnumValueName(FramebufferBuffer);
+__StrCRef __EnumValueName(FramebufferBuffer) noexcept;
 
 } // namespace oglplus
 //]

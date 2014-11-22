@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	PrimitiveType
-> ValueRange_(PrimitiveType*)
+> ValueRange_(PrimitiveType*) noexcept
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_PRIMITIVETYPE)
 #define OGLPLUS_IMPL_EVR_PRIMITIVETYPE

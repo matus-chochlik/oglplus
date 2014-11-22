@@ -20,11 +20,11 @@ enum class BufferSelectBit : GLbitfield
 };
 
 template <>
-__Range<BufferSelectBit> __EnumValueRange<BufferSelectBit>(void);
+__Range<BufferSelectBit> __EnumValueRange<BufferSelectBit>(void) noexcept;
 
-__StrCRef __EnumValueName(BufferSelectBit);
+__StrCRef __EnumValueName(BufferSelectBit) noexcept;
 
-__Bitfield<BufferSelectBit> operator | (BufferSelectBit b1, BufferSelectBit b2);
+__Bitfield<BufferSelectBit> operator | (BufferSelectBit b1, BufferSelectBit b2) noexcept;
 
 } // namespace oglplus
 //]

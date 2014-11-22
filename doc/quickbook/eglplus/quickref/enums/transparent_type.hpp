@@ -19,9 +19,9 @@ enum class TransparentType : EGLenum
 };
 
 template <>
-__Range<TransparentType> __EnumValueRange<TransparentType>(void);
+__Range<TransparentType> __EnumValueRange<TransparentType>(void) noexcept;
 
-__StrCRef __EnumValueName(TransparentType);
+__StrCRef __EnumValueName(TransparentType) noexcept;
 
 } // namespace eglplus
 //]

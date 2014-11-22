@@ -334,9 +334,11 @@ public:
 	Target target;
 
 	BoundObjOps(void)
+	noexcept
 	{ }
 
 	BoundObjOps(Target init_tgt)
+	noexcept
 	 : target(init_tgt)
 	{ }
 </xsl:text>

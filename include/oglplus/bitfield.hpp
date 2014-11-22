@@ -60,29 +60,33 @@ private:
 	BF _bits;
 public:
 	/// Constructs an empty bitfield
+	constexpr
 	Bitfield(void)
+	noexcept
 	 : _bits(0)
 	{ }
 
 	/// Construct a bitfield from the underlying type
+	constexpr
 	Bitfield(BF bits)
+	noexcept
 	 : _bits(bits)
 	{ }
 
 	/// Construct a bitfield from a single strongly-typed enumeration value
+	constexpr
 	Bitfield(Bit _bit)
+	noexcept
 	 : _bits(BF(_bit))
 	{ }
 
+	constexpr
 	Bitfield(Bit _bit_a, Bit _bit_b)
+	noexcept
 	 : _bits(BF(_bit_a) | BF(_bit_b))
 	{ }
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Construction from a pair of iterators through Bit(s)
-	template <typename Iter>
-	Bitfield(Iter pos, Iter end);
-#else
 	template <typename Iter>
 	Bitfield(Iter pos, Iter end)
 	 : _bits(BF(0))
@@ -93,11 +97,11 @@ public:
 			++pos;
 		}
 	}
-#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_INITIALIZER_LISTS
 	/// Construct a bitfield from an initializer list of enumeration values
 	Bitfield(const std::initializer_list<Bit>& bits)
+	noexcept
 	 : _bits(BF(0))
 	{
 		for(auto i=bits.begin(),e=bits.end(); i!=e; ++i)
@@ -106,7 +110,9 @@ public:
 #endif
 
 	/// Bitwise or operator for combining enumeration values into a bitfield
-	friend Bitfield operator | (Bitfield bf, Bit b)
+	friend
+	Bitfield operator | (Bitfield bf, Bit b)
+	noexcept
 	{
 		bf._bits |= BF(b);
 		return bf;
@@ -114,6 +120,7 @@ public:
 
 	/// Bitwise or operator for combining enumeration values into a bitfield
 	Bitfield& operator |= (Bit b)
+	noexcept
 	{
 		this->_bits |= BF(b);
 		return *this;
@@ -121,11 +128,14 @@ public:
 
 	/// Test if a specified bit is set
 	bool Test(Bit b) const
+	noexcept
 	{
 		return (this->_bits & BF(b)) == BF(b);
 	}
 
-	OGLPLUS_EXPLICIT operator BF (void) const
+	explicit
+	operator BF (void) const
+	noexcept
 	{
 		return _bits;
 	}
@@ -137,7 +147,9 @@ namespace enums { \
 template <> struct EnumBaseType<BITS> { typedef GLbitfield Type; }; \
 template <> struct IsBitfieldBit<BITS> { typedef std::true_type Type; }; \
 } \
-inline oglplus::Bitfield<BITS> operator | (BITS b1, BITS b2) \
+inline \
+oglplus::Bitfield<BITS> operator | (BITS b1, BITS b2) \
+noexcept \
 { \
 	return Bitfield<BITS>(b1, b2); \
 }

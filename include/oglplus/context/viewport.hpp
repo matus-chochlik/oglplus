@@ -26,12 +26,14 @@ struct ViewportPosition
 
 	/// The x-coordinate
 	GLfloat X(void) const
+	noexcept
 	{
 		return _v[0];
 	}
 
 	/// The y-coordinate
 	GLfloat Y(void) const
+	noexcept
 	{
 		return _v[1];
 	}
@@ -45,12 +47,14 @@ struct ViewportSize
 
 	/// The width of the viewport
 	GLfloat Width(void) const
+	noexcept
 	{
 		return _v[0];
 	}
 
 	/// The height of the viewport
 	GLfloat Height(void) const
+	noexcept
 	{
 		return _v[1];
 	}
@@ -64,24 +68,28 @@ struct ViewportExtents
 
 	/// The x-coordinate
 	GLfloat X(void) const
+	noexcept
 	{
 		return _v[0];
 	}
 
 	/// The y-coordinate
 	GLfloat Y(void) const
+	noexcept
 	{
 		return _v[1];
 	}
 
 	/// The width of the viewport
 	GLfloat Width(void) const
+	noexcept
 	{
 		return _v[2];
 	}
 
 	/// The height of the viewport
 	GLfloat Height(void) const
+	noexcept
 	{
 		return _v[3];
 	}
@@ -95,12 +103,14 @@ struct BoundsRange
 
 	/// The min limit
 	GLfloat Min(void) const
+	noexcept
 	{
 		return _v[0];
 	}
 
 	/// The max limit
 	GLfloat Max(void) const
+	noexcept
 	{
 		return _v[1];
 	}
@@ -114,12 +124,14 @@ struct DepthRange
 
 	/// The near limit
 	GLfloat Near(void) const
+	noexcept
 	{
 		return _v[0];
 	}
 
 	/// The far limit
 	GLfloat Far(void) const
+	noexcept
 	{
 		return _v[1];
 	}

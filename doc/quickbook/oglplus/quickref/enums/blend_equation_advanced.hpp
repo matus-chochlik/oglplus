@@ -32,9 +32,9 @@ enum class BlendEquationAdvanced : GLenum
 };
 
 template <>
-__Range<BlendEquationAdvanced> __EnumValueRange<BlendEquationAdvanced>(void);
+__Range<BlendEquationAdvanced> __EnumValueRange<BlendEquationAdvanced>(void) noexcept;
 
-__StrCRef __EnumValueName(BlendEquationAdvanced);
+__StrCRef __EnumValueName(BlendEquationAdvanced) noexcept;
 
 } // namespace oglplus
 //]

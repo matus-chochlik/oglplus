@@ -13,7 +13,7 @@ namespace enums {
 OALPLUS_LIB_FUNC aux::CastIterRange<
 	const ALenum*,
 	SourceType
-> ValueRange_(SourceType*)
+> ValueRange_(SourceType*) noexcept
 #if (!OALPLUS_LINK_LIBRARY || defined(OALPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OALPLUS_IMPL_EVR_SOURCETYPE)
 #define OALPLUS_IMPL_EVR_SOURCETYPE

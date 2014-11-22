@@ -43,9 +43,9 @@ enum class Capability : GLenum
 };
 
 template <>
-__Range<Capability> __EnumValueRange<Capability>(void);
+__Range<Capability> __EnumValueRange<Capability>(void) noexcept;
 
-__StrCRef __EnumValueName(Capability);
+__StrCRef __EnumValueName(Capability) noexcept;
 
 } // namespace oglplus
 //]

@@ -19,9 +19,9 @@ enum class ColorBufferType : EGLenum
 };
 
 template <>
-__Range<ColorBufferType> __EnumValueRange<ColorBufferType>(void);
+__Range<ColorBufferType> __EnumValueRange<ColorBufferType>(void) noexcept;
 
-__StrCRef __EnumValueName(ColorBufferType);
+__StrCRef __EnumValueName(ColorBufferType) noexcept;
 
 } // namespace eglplus
 //]

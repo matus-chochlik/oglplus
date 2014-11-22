@@ -15,6 +15,7 @@ namespace aux {
 
 OGLPLUS_LIB_FUNC
 std::size_t UTF8BytesRequired(const UnicodeCP* cp_str, std::size_t len)
+noexcept
 {
 	std::size_t result = 0;
 	for(std::size_t i=0; i!=len; ++i)
@@ -39,6 +40,7 @@ std::size_t UTF8BytesRequired(const UnicodeCP* cp_str, std::size_t len)
 
 OGLPLUS_LIB_FUNC
 void ConvertCodePointToUTF8(UnicodeCP cp, char* str, std::size_t& len)
+noexcept
 {
 	// 7-bits -> one byte
 	if((cp & ~0x0000007F) == 0)
@@ -120,6 +122,7 @@ void ConvertCodePointsToUTF8(
 
 OGLPLUS_LIB_FUNC
 std::size_t CodePointsRequired(const char* str, std::size_t len)
+noexcept
 {
 	assert(sizeof(char) == sizeof(unsigned char));
 	const unsigned char* pb=reinterpret_cast<const unsigned char*>(str);
@@ -152,6 +155,7 @@ std::size_t CodePointsRequired(const char* str, std::size_t len)
 
 OGLPLUS_LIB_FUNC
 UnicodeCP ConvertUTF8ToCodePoint(const char* str, std::size_t len, std::size_t& cp_len)
+noexcept
 {
 	assert(sizeof(char) == sizeof(unsigned char));
 	const unsigned char* bytes=reinterpret_cast<const unsigned char*>(str);
@@ -262,12 +266,14 @@ void ConvertUTF8ToCodePoints(
 
 OGLPLUS_LIB_FUNC
 bool UTF8Validator::_is_valid_ptr(const char* _s)
+noexcept
 {
 	return _s != nullptr;
 }
 
 OGLPLUS_LIB_FUNC
 unsigned char UTF8Validator::byte(const char* _i)
+noexcept
 {
 	assert(_is_valid_ptr(_i));
 	return static_cast<unsigned char>(*_i);
@@ -275,6 +281,7 @@ unsigned char UTF8Validator::byte(const char* _i)
 
 OGLPLUS_LIB_FUNC
 const char* UTF8Validator::_validate(const char* _s, const char* _end)
+noexcept
 {
 	unsigned short bytes = 0;
 	assert(_is_valid_ptr(_s));

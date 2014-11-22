@@ -38,24 +38,28 @@ struct RGBAValue
 
 	/// The red component
 	GLfloat Red(void) const
+	noexcept
 	{
 		return _v[0];
 	}
 
 	/// The green component
 	GLfloat Green(void) const
+	noexcept
 	{
 		return _v[1];
 	}
 
 	/// The blue component
 	GLfloat Blue(void) const
+	noexcept
 	{
 		return _v[2];
 	}
 
 	/// The alpha component
 	GLfloat Alpha(void) const
+	noexcept
 	{
 		return _v[3];
 	}
@@ -80,6 +84,7 @@ private:
 	GLbitfield _bits;
 
 	GLbitfield _forward(void)
+	noexcept
 	{
 		GLbitfield res = _bits;
 		_bits = 0;
@@ -92,10 +97,13 @@ private:
 	ClrBits(const ClrBits&) = delete;
 
 	ClrBits(GLbitfield bit)
+	noexcept
 	 : _bits(bit)
 	{ }
 
-	inline ClrBits _make(GLbitfield bit)
+	inline
+	ClrBits _make(GLbitfield bit)
+	noexcept
 	{
 		return ClrBits(_forward() | bit);
 	}
@@ -105,7 +113,8 @@ public:
 	 *  @glsymbols
 	 *  @gldefref{COLOR_BUFFER_BIT}
 	 */
-	inline ClrBits ColorBuffer(void)
+	ClrBits ColorBuffer(void)
+	noexcept
 	{
 		return _make(GL_COLOR_BUFFER_BIT);
 	}
@@ -115,7 +124,8 @@ public:
 	 *  @glsymbols
 	 *  @gldefref{DEPTH_BUFFER_BIT}
 	 */
-	inline ClrBits DepthBuffer(void)
+	ClrBits DepthBuffer(void)
+	noexcept
 	{
 		return _make(GL_DEPTH_BUFFER_BIT);
 	}
@@ -125,12 +135,14 @@ public:
 	 *  @glsymbols
 	 *  @gldefref{STENCIL_BUFFER_BIT}
 	 */
-	inline ClrBits StencilBuffer(void)
+	ClrBits StencilBuffer(void)
+	noexcept
 	{
 		return _make(GL_STENCIL_BUFFER_BIT);
 	}
 
-	inline ClrBits(ClrBits&& temp)
+	ClrBits(ClrBits&& temp)
+	noexcept
 	 : _bits(temp._forward())
 	{ }
 
@@ -144,6 +156,7 @@ public:
 	}
 
 	void Dismiss(void)
+	noexcept
 	{
 		_bits = 0;
 	}
@@ -164,7 +177,8 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Clear}
 	 */
-	inline ~ClrBits(void)
+	~ClrBits(void)
+	noexcept
 	{
 		try{ DoIt(); }
 		catch(...){ }
@@ -263,6 +277,7 @@ public:
 	 *  @glfunref{Clear}
 	 */
 	static ClrBits Clear(void)
+	noexcept
 	{
 		return ClrBits(0);
 	}

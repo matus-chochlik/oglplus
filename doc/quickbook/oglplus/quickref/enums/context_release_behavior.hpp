@@ -19,9 +19,9 @@ enum class ContextReleaseBehavior : GLenum
 };
 
 template <>
-__Range<ContextReleaseBehavior> __EnumValueRange<ContextReleaseBehavior>(void);
+__Range<ContextReleaseBehavior> __EnumValueRange<ContextReleaseBehavior>(void) noexcept;
 
-__StrCRef __EnumValueName(ContextReleaseBehavior);
+__StrCRef __EnumValueName(ContextReleaseBehavior) noexcept;
 
 } // namespace oglplus
 //]

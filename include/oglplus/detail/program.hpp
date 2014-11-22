@@ -34,12 +34,14 @@ public:
 		GLuint name,
 		GLuint size,
 		GLenum stage_or_intf = GL_NONE
-	): _program(name)
+	) noexcept
+	 : _program(name)
 	 , _size(size)
 	 , _stage_or_intf(stage_or_intf)
 	{ }
 
 	ProgramInterfaceContext(ProgramInterfaceContext&& tmp)
+	noexcept
 	 : _program(tmp._program)
 	 , _size(tmp._size)
 	 , _stage_or_intf(tmp._stage_or_intf)
@@ -47,16 +49,19 @@ public:
 	{ }
 
 	ProgramName Program(void) const
+	noexcept
 	{
 		return ProgramName(_program);
 	}
 
 	GLenum Stage(void) const
+	noexcept
 	{
 		return _stage_or_intf;
 	}
 
 	GLenum Interface(void) const
+	noexcept
 	{
 		return _stage_or_intf;
 	}
@@ -119,21 +124,25 @@ protected:
 	}
 public:
 	GLuint Index(void) const
+	noexcept
 	{
 		return _index;
 	}
 
 	const String& Name(void) const
+	noexcept
 	{
 		return _name;
 	}
 
 	GLint Size(void) const
+	noexcept
 	{
 		return _size;
 	}
 
 	SLDataType Type(void) const
+	noexcept
 	{
 		return SLDataType(_type);
 	}
@@ -205,16 +214,19 @@ public:
 	);
 
 	GLuint Index(void) const
+	noexcept
 	{
 		return _index;
 	}
 
 	const String& Name(void) const
+	noexcept
 	{
 		return _name;
 	}
 
 	GLint Size(void) const
+	noexcept
 	{
 		return _size;
 	}
@@ -249,16 +261,19 @@ public:
 	);
 
 	GLuint Index(void) const
+	noexcept
 	{
 		return _index;
 	}
 
 	const String& Name(void) const
+	noexcept
 	{
 		return _name;
 	}
 
 	GLint Size(void) const
+	noexcept
 	{
 		return 0;
 	}

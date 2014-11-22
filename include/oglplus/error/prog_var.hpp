@@ -32,9 +32,12 @@ private:
 public:
 	ProgVarError(const char* message);
 
-	~ProgVarError(void) throw() { }
+	~ProgVarError(void)
+	noexcept
+	{ }
 
 	ProgVarError& Program(ProgramName program)
+	noexcept
 	{
 #if !OGLPLUS_ERROR_NO_PROG_NAME
 		_prog_name = GetGLName(program);
@@ -44,9 +47,11 @@ public:
 	}
 
 	/// Returns the program
-	ProgramName Program(void) const;
+	ProgramName Program(void) const
+	noexcept;
 
 	ProgVarError& Identifier(StrCRef identifier)
+	noexcept
 	{
 #if !OGLPLUS_ERROR_NO_IDENTIFIER
 		_identifier.assign(
@@ -58,13 +63,19 @@ public:
 		return *this;
 	}
 
-	const char* ObjectTypeName(void) const { return "PROGRAM"; }
+	const char* ObjectTypeName(void) const
+	noexcept
+	override;
 
 	/// Returns the GL program name
-	GLint ObjectName(void) const { return GLint(_prog_name); }
+	GLint ObjectName(void) const
+	noexcept
+	override;
 
 	/// Returns the program variable identifer
-	const char* Identifier(void) const;
+	const char* Identifier(void) const
+	noexcept
+	override;
 };
 
 } // namespace oglplus

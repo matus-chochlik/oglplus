@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC aux::CastIterRange<
 	const EGLenum*,
 	SurfaceAttrib
-> ValueRange_(SurfaceAttrib*)
+> ValueRange_(SurfaceAttrib*) noexcept
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVR_SURFACEATTRIB)
 #define EGLPLUS_IMPL_EVR_SURFACEATTRIB

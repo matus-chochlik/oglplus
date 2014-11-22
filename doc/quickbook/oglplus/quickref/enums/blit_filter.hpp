@@ -19,9 +19,9 @@ enum class BlitFilter : GLenum
 };
 
 template <>
-__Range<BlitFilter> __EnumValueRange<BlitFilter>(void);
+__Range<BlitFilter> __EnumValueRange<BlitFilter>(void) noexcept;
 
-__StrCRef __EnumValueName(BlitFilter);
+__StrCRef __EnumValueName(BlitFilter) noexcept;
 
 } // namespace oglplus
 //]

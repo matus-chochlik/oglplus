@@ -31,25 +31,30 @@ private:
 	std::string _str;
 #endif
 public:
-	ObjectDesc(void) { }
+	ObjectDesc(void)
+	noexcept
+	{ }
 
 	ObjectDesc(std::string&& str)
+	noexcept
 #if !OGLPLUS_NO_OBJECT_DESC
-	 : _str(std::forward<std::string>(str))
+	 : _str(std::move(str))
 #endif
 	{
-		OGLPLUS_FAKE_USE(str);
+		(void)str;
 	}
 
 	ObjectDesc(ObjectDesc&& tmp)
+	noexcept
 #if !OGLPLUS_NO_OBJECT_DESC
 	 : _str(std::move(tmp._str))
 #endif
 	{
-		OGLPLUS_FAKE_USE(tmp);
+		(void)tmp;
 	}
 
 	const std::string& Str(void)
+	noexcept
 	{
 #if !OGLPLUS_NO_OBJECT_DESC
 		return _str;
@@ -60,6 +65,7 @@ public:
 
 #if !OGLPLUS_NO_OBJECT_DESC
 	std::string&& Release(void)
+	noexcept
 	{
 		return std::move(_str);
 	}
@@ -69,7 +75,9 @@ public:
 namespace aux {
 
 #if !OGLPLUS_NO_OBJECT_DESC
-::std::map<unsigned, std::string>& ObjectDescRegistryStorage(int id);
+::std::map<unsigned, std::string>&
+ObjectDescRegistryStorage(int id)
+noexcept;
 #endif
 
 #if !OGLPLUS_NO_OBJECT_DESC
@@ -87,12 +95,12 @@ protected:
 	static void _do_unregister_desc(
 		_desc_map& storage,
 		unsigned name
-	);
+	) noexcept;
 
 	static const std::string& _do_get_desc(
 		_desc_map& storage,
 		unsigned name
-	);
+	) noexcept;
 };
 #endif // !OGLPLUS_NO_OBJECT_DESC
 
@@ -106,16 +114,23 @@ private:
 	typedef ObjectDescRegistryBase _base;
 	typedef ::std::map<unsigned, std::string> _desc_map;
 
-	static _desc_map& _storage(int id)
+	static
+	_desc_map& _storage(int id)
+	noexcept
 	{
 		return ObjectDescRegistryStorage(id);
 	}
 #endif
 public:
 	// internal implementation detail. do not use directly
-	static void _register_desc(int id, unsigned name, ObjectDesc&& desc)
+	static
+	void _register_desc(int id, unsigned name, ObjectDesc&& desc)
 #if OGLPLUS_NO_OBJECT_DESC
-	OGLPLUS_NOEXCEPT(true) { (void)id; (void)name; (void)desc; }
+	{
+		(void)id;
+		(void)name;
+		(void)desc;
+	}
 #else
 	{
 		_base::_do_register_desc(
@@ -127,9 +142,14 @@ public:
 #endif
 
 	// internal implementation detail. do not use directly
-	static void _unregister_desc(int id, unsigned name)
+	static
+	void _unregister_desc(int id, unsigned name)
+	noexcept
 #if OGLPLUS_NO_OBJECT_DESC
-	OGLPLUS_NOEXCEPT(true) { (void)id; (void)name; }
+	{
+		(void)id;
+		(void)name;
+	}
 #else
 	{
 		_base::_do_unregister_desc(_storage(id), name);
@@ -137,14 +157,16 @@ public:
 #endif
 
 	// internal implementation detail. do not use directly
+	static
+	const std::string& _get_desc(int id, unsigned name)
+	noexcept
 #if OGLPLUS_NO_OBJECT_DESC
-	static const std::string& _get_desc(int, unsigned)
-	OGLPLUS_NOEXCEPT(true)
 	{
+		(void)id;
+		(void)name;
 		return EmptyStdString();
 	}
 #else
-	static const std::string& _get_desc(int id, unsigned name)
 	{
 		return _base::_do_get_desc(_storage(id), name);
 	}
@@ -154,7 +176,9 @@ public:
 } // namespace aux
 
 template <typename ObjTag>
-inline const std::string& DescriptionOf(ObjectName<ObjTag> object)
+inline
+const std::string& DescriptionOf(ObjectName<ObjTag> object)
+noexcept
 {
 	return aux::ObjectDescRegistry::_get_desc(
 		ObjTag::value,
