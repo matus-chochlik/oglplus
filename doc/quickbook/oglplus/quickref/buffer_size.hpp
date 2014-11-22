@@ -41,11 +41,20 @@ public:
 	instances of [^T].
 	>*/
 
+	template <typename T>
+	BufferSize Add(unsigned count, const T* = nullptr) const; /*<
+	Returns a new [^BufferSize] that is the sum of [^this]
+	and the size of count instances of T.
+	>*/
+
+	BufferSize Add(const BufferSize& buffer_size); const /*<
+	Returns a new [^BufferSize] that is the sum of [^this]
+	and the specified [^buffer_size].
+	>*/
+
 	GLsizeiptr Get(void) const; /*<
 	Returns the stored size in bytes.
 	>*/
-
-	// TODO
 };
 //]
 //[oglplus_buffer_typed_size
