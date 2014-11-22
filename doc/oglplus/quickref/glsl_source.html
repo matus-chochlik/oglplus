@@ -29,11 +29,56 @@
 <span class="keyword">class</span> <span class="identifier">GLSLSource</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">GLSLSource</span><span class="special">(</span><span class="identifier">GLSLSource</span><span class="special">&amp;&amp;</span> <span class="identifier">tmp</span><span class="special">);</span>
+
+	<span class="keyword">explicit</span>
+	<span class="identifier">GLSLSource</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a><span class="special">&amp;</span> <span class="identifier">source</span><span class="special">);</span>
+
+	<span class="identifier">GLSLSource</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a><span class="special">&gt;&amp;</span> <span class="identifier">lits</span><span class="special">);</span>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
+	<span class="identifier">GLSLSource</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="special">(&amp;</span><span class="identifier">lits</span><span class="special">)[</span><span class="identifier">N</span><span class="special">]);</span>
+
+	<span class="identifier">GLSLSource</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a><span class="special">&gt;&amp;</span> <span class="identifier">strs</span><span class="special">);</span>
+
+	<span class="identifier">GLSLSource</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span><a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a><span class="special">&gt;</span> <span class="identifier">lits</span><span class="special">);</span>
+
+	<span class="identifier">GLSLSource</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span><a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a><span class="special">&gt;</span> <span class="identifier">strs</span><span class="special">);</span>
+
+	<span class="keyword">explicit</span>
+	<span class="identifier">GLSLSource</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a><span class="special">&amp;</span> <span class="identifier">source</span><span class="special">);</span>
+
+	<span class="keyword">explicit</span>
+	<span class="identifier">GLSLSource</span><span class="special">(</span><a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a><span class="special">&amp;&amp;</span> <span class="identifier">source</span><span class="special">);</span>
+
+	<span class="keyword">static</span>
+	<span class="identifier">GLSLSource</span> <span class="identifier">FromStream</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">istream</span><span class="special">&amp;</span> <span class="identifier">input</span><span class="special">);</span> <a class="co" name="oglplus.quickref.glsl_source.c0" href="glsl_source.html#oglplus.quickref.glsl_source.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">static</span>
+	<span class="identifier">GLSLSource</span> <span class="identifier">FromFile</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">path</span><span class="special">);</span> <a class="co" name="oglplus.quickref.glsl_source.c2" href="glsl_source.html#oglplus.quickref.glsl_source.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span>
+	<span class="identifier">GLSLSource</span> <span class="identifier">FromFile</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">String</span><span class="special">&amp;</span> <span class="identifier">path</span><span class="special">);</span>
 <span class="comment">// TODO</span>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.glsl_source.c1"></a><a href="#oglplus.quickref.glsl_source.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Constructs a new <code class="literal">GLSLSource</code> from the data read from
+              the specified standard <code class="literal">input</code> stream.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.glsl_source.c3"></a><a href="#oglplus.quickref.glsl_source.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Constructs a new <code class="literal">GLSLSource</code> from the data read from
+              a file located at the specified <code class="literal">path</code>.
+            </p></td>
+</tr>
+</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
