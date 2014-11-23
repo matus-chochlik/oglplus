@@ -801,12 +801,189 @@
 <span class="keyword">class</span> <span class="identifier">Rasterization</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="comment">// TODO</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">FrontFace</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.orientation">FaceOrientation</a> <span class="identifier">orientation</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c0" href="context.html#oglplus.quickref.context.rasterization.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">CullFace</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c2" href="context.html#oglplus.quickref.context.rasterization.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_0</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PolygonMode</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">,</span> <a class="link" href="polygon_mode.html" title="Polygon mode">PolygonMode</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c4" href="context.html#oglplus.quickref.context.rasterization.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PolygonMode</span><span class="special">(</span><a class="link" href="polygon_mode.html" title="Polygon mode">PolygonMode</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c6" href="context.html#oglplus.quickref.context.rasterization.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="keyword">static</span> <a class="link" href="polygon_mode.html" title="Polygon mode">PolygonMode</a> <span class="identifier">PolygonMode</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c8" href="context.html#oglplus.quickref.context.rasterization.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+<span class="preprocessor">#endif</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PolygonOffset</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">factor</span><span class="special">,</span> <span class="identifier">GLfloat</span> <span class="identifier">units</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c10" href="context.html#oglplus.quickref.context.rasterization.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">PolygonOffsetFactor</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c12" href="context.html#oglplus.quickref.context.rasterization.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">PolygonOffsetUnits</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c14" href="context.html#oglplus.quickref.context.rasterization.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">LineWidth</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">width</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c16" href="context.html#oglplus.quickref.context.rasterization.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">LineWidth</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c18" href="context.html#oglplus.quickref.context.rasterization.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_0</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PointSize</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">size</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c20" href="context.html#oglplus.quickref.context.rasterization.c21"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">PointSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c22" href="context.html#oglplus.quickref.context.rasterization.c23"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PointFadeThresholdSize</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">size</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c24" href="context.html#oglplus.quickref.context.rasterization.c25"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">PointFadeThresholdSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c26" href="context.html#oglplus.quickref.context.rasterization.c27"><img src="../../images/callouts/14.png" alt="14" border="0"></a>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c1"></a><a href="#oglplus.quickref.context.rasterization.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the polygon facing mode. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glFrontFace.xml" target="_top">glFrontFace</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c3"></a><a href="#oglplus.quickref.context.rasterization.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the face culling mode. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glCullFace.xml" target="_top">glCullFace</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c5"></a><a href="#oglplus.quickref.context.rasterization.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the polygon rasterization mode. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glPolygonMode.xml" target="_top">glPolygonMode</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c7"></a><a href="#oglplus.quickref.context.rasterization.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the polygon rasterization mode. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glPolygonMode.xml" target="_top">glPolygonMode</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c9"></a><a href="#oglplus.quickref.context.rasterization.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the face culling mode. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_POLYGON_MODE</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c11"></a><a href="#oglplus.quickref.context.rasterization.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the polygon depth offset. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glPolygonOffset.xml" target="_top">glPolygonOffset</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c13"></a><a href="#oglplus.quickref.context.rasterization.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the current polygon offset factor. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+                <span class="bold"><strong><code class="literal">GL_POLYGON_OFFSET_FACTOR</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c15"></a><a href="#oglplus.quickref.context.rasterization.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the current polygon offset units. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+                <span class="bold"><strong><code class="literal">GL_POLYGON_OFFSET_UNITS</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c17"></a><a href="#oglplus.quickref.context.rasterization.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the line current width. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glLineWidth.xml" target="_top">glLineWidth</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c19"></a><a href="#oglplus.quickref.context.rasterization.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the line width. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_LINE_WIDTH</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c21"></a><a href="#oglplus.quickref.context.rasterization.c20"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the point size. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glPointSize.xml" target="_top">glPointSize</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c23"></a><a href="#oglplus.quickref.context.rasterization.c22"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the current point size. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_POINT_SIZE</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c25"></a><a href="#oglplus.quickref.context.rasterization.c24"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the point fade threshold size. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glPointParameter.xml" target="_top">glPointParameter</a></code>,
+                <span class="bold"><strong><code class="literal">GL_POINT_FADE_THRESHOLD_SIZE</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c27"></a><a href="#oglplus.quickref.context.rasterization.c26"><img src="../../images/callouts/14.png" alt="14" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the current point fade threshold size. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+                <span class="bold"><strong><code class="literal">GL_POINT_FADE_THRESHOLD_SIZE</code></strong></span>.
+              </p></td>
+</tr>
+</table></div>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_provoking_vertex</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ProvokingVertex</span><span class="special">(</span><a class="link" href="provoke_mode.html" title="Provoke mode">ProvokeMode</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c28" href="context.html#oglplus.quickref.context.rasterization.c29"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">static</span> <a class="link" href="provoke_mode.html" title="Provoke mode">ProvokeMode</a> <span class="identifier">ProvokingVertex</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c30" href="context.html#oglplus.quickref.context.rasterization.c31"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor">#endif</span>
+
+	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">SampleBuffers</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c32" href="context.html#oglplus.quickref.context.rasterization.c33"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">Samples</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c34" href="context.html#oglplus.quickref.context.rasterization.c35"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">MinSampleShading</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c36" href="context.html#oglplus.quickref.context.rasterization.c37"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">MinSampleShading</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c38" href="context.html#oglplus.quickref.context.rasterization.c39"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="preprocessor">#endif</span>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c29"></a><a href="#oglplus.quickref.context.rasterization.c28"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the provoking vertex selection mode for flatshading. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glProvokingVertex.xml" target="_top">glProvokingVertex</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c31"></a><a href="#oglplus.quickref.context.rasterization.c30"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the provoking vertex selection mode for flatshading. See
+                <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_PROVOKING_VERTEX</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c33"></a><a href="#oglplus.quickref.context.rasterization.c32"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the number of sample buffers. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+                <span class="bold"><strong><code class="literal">GL_SAMPLE_BUFFERS</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c35"></a><a href="#oglplus.quickref.context.rasterization.c34"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the number of multisampling samples. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+                <span class="bold"><strong><code class="literal">GL_SAMPLES</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c37"></a><a href="#oglplus.quickref.context.rasterization.c36"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the multisampling minimal sample shading value. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMinSampleShading.xml" target="_top">glMinSampleShading</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c39"></a><a href="#oglplus.quickref.context.rasterization.c38"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the minimal sample shading value. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+                <span class="bold"><strong><code class="literal">GL_MIN_SAMPLE_SHADING_VALUE</code></strong></span>.
+              </p></td>
+</tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -1054,15 +1231,85 @@
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
+<span class="keyword">struct</span> <span class="identifier">ScissorRectangle</span>
+<span class="special">{</span>
+	<span class="identifier">GLint</span> <span class="identifier">X</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLint</span> <span class="identifier">Y</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLint</span> <span class="identifier">Left</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLint</span> <span class="identifier">Bottom</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLint</span> <span class="identifier">Width</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLint</span> <span class="identifier">Height</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+
 <span class="keyword">class</span> <span class="identifier">ScissorTest</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="comment">// TODO</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Scissor</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">left</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">bottom</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c0" href="context.html#oglplus.quickref.context.scissor_test.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_1</span> <span class="special">||</span> <span class="identifier">GL_ARB_viewport_array</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Scissor</span><span class="special">(</span>
+		<span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">left</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">bottom</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c2" href="context.html#oglplus.quickref.context.scissor_test.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Scissor</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">v</span><span class="special">);</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ScissorArray</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">v</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c4" href="context.html#oglplus.quickref.context.scissor_test.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="ScissorTest">context::ScissorRectangle</a> <span class="identifier">ScissorBox</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c6" href="context.html#oglplus.quickref.context.scissor_test.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="preprocessor">#endif</span>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.scissor_test.c1"></a><a href="#oglplus.quickref.context.scissor_test.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Defines the scissor rectangle for the first viewport. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glScissor.xml" target="_top">glScissor</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.scissor_test.c3"></a><a href="#oglplus.quickref.context.scissor_test.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Defines the scissor rectangle for the specified <code class="literal">viewport</code>.
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glScissorIndexed.xml" target="_top">glScissorIndexed</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.scissor_test.c5"></a><a href="#oglplus.quickref.context.scissor_test.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Defines scissor rectangles for viewports specified by <code class="literal">first</code>
+                and <code class="literal">count</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glScissorArray.xml" target="_top">glScissorArray</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.scissor_test.c7"></a><a href="#oglplus.quickref.context.scissor_test.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the extents of scissor box of the specified <code class="literal">viewport</code>.
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_SCISSOR_BOX</code></strong></span>.
+              </p></td>
+</tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -1077,12 +1324,31 @@
 <span class="keyword">class</span> <span class="identifier">LogicalOps</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="comment">// TODO</span>
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_0</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">LogicOp</span><span class="special">(</span><a class="link" href="color_logic_operation.html" title="Color logic operation">ColorLogicOperation</a> <span class="identifier">op</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.logical_ops.c0" href="context.html#oglplus.quickref.context.logical_ops.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">static</span> <a class="link" href="color_logic_operation.html" title="Color logic operation">ColorLogicOperation</a> <span class="identifier">LogicOpMode</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.logical_ops.c2" href="context.html#oglplus.quickref.context.logical_ops.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor">#endif</span>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.logical_ops.c1"></a><a href="#oglplus.quickref.context.logical_ops.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the color logic operation. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glLogicOp.xml" target="_top">glLogicOp</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.logical_ops.c3"></a><a href="#oglplus.quickref.context.logical_ops.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the current color logic operation. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glLogicOp.xml" target="_top">glLogicOp</a></code>,
+                <span class="bold"><strong><code class="literal">GL_LOGIC_OP_MODE</code></strong></span>.
+              </p></td>
+</tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
