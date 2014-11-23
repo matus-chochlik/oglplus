@@ -10,6 +10,7 @@
 
 [import rasterization.hpp]
 
-[oglplus_context_Rasterization]
+[oglplus_context_Rasterization1]
+[oglplus_context_Rasterization2]
 
 [endsect]
