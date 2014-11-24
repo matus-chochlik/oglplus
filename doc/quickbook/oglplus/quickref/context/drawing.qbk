@@ -10,6 +10,8 @@
 
 [import drawing.hpp]
 
-[oglplus_context_Drawing]
+[oglplus_context_Drawing1]
+[oglplus_context_Drawing2]
+[oglplus_context_Drawing3]
 
 [endsect]
