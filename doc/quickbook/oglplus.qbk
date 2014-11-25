@@ -232,6 +232,7 @@
 [def __TessGenPrimitiveType [link oglplus.quickref.primitive_type.tess_gen TessGenPrimitiveType]]
 [def __TessGenPrimitiveSpacing [link oglplus.quickref.primitive_type.spacing TessGenPrimitiveSpacing]]
 [def __ProvokeMode [link oglplus.quickref.provoke_mode ProvokeMode]]
+[def __PatchParameter [link oglplus.quickref.patch_parameter PatchParameter]]
 
 [def __MemoryBarrierBit [link oglplus.quickref.memory_barrier MemoryBarrierBit]]
 
