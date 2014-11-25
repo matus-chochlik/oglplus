@@ -20,12 +20,149 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/program.hpp&gt;</code>
         </p>
+<h4>
+<a name="oglplus.quickref.program.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.program.common_program_operations"></a></span><a class="link" href="program.html#oglplus.quickref.program.common_program_operations">Common program
+          operations</a>
+        </h4>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Program</a><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">static</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">Binding</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.program.c0" href="program.html#oglplus.quickref.program.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">);</span> <a class="co" name="oglplus.quickref.program.c2" href="program.html#oglplus.quickref.program.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c4" href="program.html#oglplus.quickref.program.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">Use</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.program.c6" href="program.html#oglplus.quickref.program.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c1"></a><a href="#oglplus.quickref.program.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the currently bound program. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+              <span class="bold"><strong><code class="literal">GL_PROGRAM_BINDING</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c3"></a><a href="#oglplus.quickref.program.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Binds the specified <code class="literal">program</code> object. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBindProgram.xml" target="_top">glBindProgram</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c5"></a><a href="#oglplus.quickref.program.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Binds <code class="literal">this</code> program object. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBindProgram.xml" target="_top">glBindProgram</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c7"></a><a href="#oglplus.quickref.program.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Makes <code class="literal">this</code> program current. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glUseProgram.xml" target="_top">glUseProgram</a></code>.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.program.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.program.operations_with_direct_state_acc"></a></span><a class="link" href="program.html#oglplus.quickref.program.operations_with_direct_state_acc">Operations
+          with direct state access</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Program</a><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Program</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">AttachShader</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ShaderName</a> <span class="identifier">shader</span><span class="special">);</span> <a class="co" name="oglplus.quickref.program.c8" href="program.html#oglplus.quickref.program.c9"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">AttachShaders</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ShaderName</a><span class="special">&gt;&amp;</span> <span class="identifier">shaders</span><span class="special">);</span> <a class="co" name="oglplus.quickref.program.c10" href="program.html#oglplus.quickref.program.c11"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">DetachShader</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ShaderName</a> <span class="identifier">shader</span><span class="special">);</span> <a class="co" name="oglplus.quickref.program.c12" href="program.html#oglplus.quickref.program.c13"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">IsLinked</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c14" href="program.html#oglplus.quickref.program.c15"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a> <span class="identifier">GetInfoLog</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c16" href="program.html#oglplus.quickref.program.c17"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Link</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.program.c18" href="program.html#oglplus.quickref.program.c19"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Build</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.program.c20" href="program.html#oglplus.quickref.program.c21"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_ARB_shading_language_include</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">BuildInclude</span><span class="special">(</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="identifier">GLchar</span><span class="special">*</span> <span class="keyword">const</span><span class="special">*</span> <span class="identifier">paths</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">lengths</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.program.c22" href="program.html#oglplus.quickref.program.c23"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">BuildInclude</span><span class="special">(</span><a class="link" href="glsl_string.html" title="GLSL Strings">GLSLString</a><span class="special">&amp;&amp;</span> <span class="identifier">incl</span><span class="special">);</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">BuildInclude</span><span class="special">(</span><a class="link" href="glsl_string.html" title="GLSL Strings">GLSLStrings</a><span class="special">&amp;&amp;</span> <span class="identifier">incl</span><span class="special">);</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">BuildInclude</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="glsl_source.html" title="GLSL Source code">GLSLSource</a><span class="special">&amp;&amp;</span> <span class="identifier">incl</span><span class="special">);</span>
+<span class="preprocessor">#endif</span>
 <span class="comment">// TODO</span>
+<span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c9"></a><a href="#oglplus.quickref.program.c8"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Attaches a shader to <code class="literal">this</code> program. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glAttachShader.xml" target="_top">glAttachShader</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c11"></a><a href="#oglplus.quickref.program.c10"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Attaches a set of shaders to <code class="literal">this</code> program. See
+              <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glAttachShader.xml" target="_top">glAttachShader</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c13"></a><a href="#oglplus.quickref.program.c12"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Detaches a shader from <code class="literal">this</code> program. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDetachShader.xml" target="_top">glDetachShader</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c15"></a><a href="#oglplus.quickref.program.c14"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if <code class="literal">this</code> program is already linked,
+              false otherwise. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgram.xml" target="_top">glGetProgram</a></code>, <span class="bold"><strong><code class="literal">GL_LINK_STATUS</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c17"></a><a href="#oglplus.quickref.program.c16"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the linker output if the program is linked. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramInfoLog.xml" target="_top">glGetProgramInfoLog</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c19"></a><a href="#oglplus.quickref.program.c18"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Links this shading language program. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glLinkProgram.xml" target="_top">glLinkProgram</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c21"></a><a href="#oglplus.quickref.program.c20"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Checks if all attached shaders are compiled and if they are not the
+              it compiles them and then links this <a class="link" href="program.html" title="Programs">Program</a>.
+              See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glCompileShader.xml" target="_top">glCompileShader</a></code>, <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glLinkProgram.xml" target="_top">glLinkProgram</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c23"></a><a href="#oglplus.quickref.program.c22"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Checks if all attached shaders are compiled and if they are not the
+              it compiles them and using the specified include paths and then links
+              <code class="literal">this</code> <a class="link" href="program.html" title="Programs">Program</a>.
+              See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glCompileShader.xml" target="_top">glCompileShader</a></code>, <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glLinkProgram.xml" target="_top">glLinkProgram</a></code>.
+            </p></td>
+</tr>
+</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
