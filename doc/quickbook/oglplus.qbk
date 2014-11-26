@@ -143,6 +143,7 @@
 [def __ComputeShader [link oglplus.quickref.shader.specialized ComputeShader]]
 
 [def __Program [link oglplus.quickref.program Program]]
+[def __NoProgram [link oglplus.quickref.program NoProgram]]
 
 [def __ProgramPipeline [link oglplus.quickref.program_pipeline ProgramPipeline]]
 [def __ProgramPipelineStage [link oglplus.quickref.program_pipeline.stage ProgramPipelineStage]]
