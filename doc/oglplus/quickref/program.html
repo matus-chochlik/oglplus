@@ -214,16 +214,15 @@
 	<span class="keyword">void</span> <span class="identifier">Binary</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">GLubyte</span><span class="special">&gt;&amp;</span> <span class="identifier">binary</span><span class="special">,</span> <span class="identifier">GLenum</span> <span class="identifier">format</span><span class="special">);</span> <a class="co" name="oglplus.quickref.program.c38" href="program.html#oglplus.quickref.program.c39"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 <span class="preprocessor">#endif</span>
 
-<span class="comment">// TODO</span>
-<span class="special">};</span>
+	<span class="keyword">typedef</span> &lt;Unspecified&gt; <span class="identifier">InterfaceContext</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c40" href="program.html#oglplus.quickref.program.c41"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
-<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Program</a><span class="special">&gt;</span> <span class="identifier">ProgramOps</span><span class="special">;</span>
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span>
+	<span class="keyword">typedef</span> <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><a class="link" href="program.html#oglplus.quickref.program.resource">ProgramResource</a><span class="special">&gt;</span> <span class="identifier">ActiveResourceRange</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c42" href="program.html#oglplus.quickref.program.c43"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
-<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper.obj_zero">ObjectZero</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Program</a><span class="special">&gt;&gt;</span> <span class="identifier">NoProgram</span><span class="special">;</span>
+	<span class="identifier">InterfaceContext</span> <span class="identifier">ActiveResourceContext</span><span class="special">(</span><a class="link" href="program_interface.html" title="Program interface">ProgramInterface</a> <span class="identifier">intf</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c44" href="program.html#oglplus.quickref.program.c45"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
-<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&lt;</span><span class="identifier">ProgramOps</span><span class="special">&gt;</span> <span class="identifier">Program</span><span class="special">;</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+	<span class="identifier">ActiveResourceRange</span> <span class="identifier">ActiveResources</span><span class="special">(</span><a class="link" href="program_interface.html" title="Program interface">ProgramInterface</a> <span class="identifier">intf</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c46" href="program.html#oglplus.quickref.program.c47"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+<span class="preprocessor">#endif</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -263,6 +262,255 @@
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c39"></a><a href="#oglplus.quickref.program.c38"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Specifies the program code in binary form. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glProgramBinary.xml" target="_top">glProgramBinary</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c41"></a><a href="#oglplus.quickref.program.c40"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Helper class for efficient iteration of <code class="literal">Program</code>
+              interface items. Instances of this class are created by a program for
+              its specific interfaces (uniform, vertex attributes, subroutines, etc.)
+              or stages (vertex, geometry, fragment, etc.). Instances of an interface
+              context can be used (mostly internally) for efficient iteration of
+              individual items of a particular interface (uniforms, subroutines,
+              etc.). Contexts for various programs and various interfaces are not
+              interchangeable. The InterfaceContext type should be treated as opaque
+              and only used with appropriate functions.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c43"></a><a href="#oglplus.quickref.program.c42"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              The type of the range for traversing program resource information.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c45"></a><a href="#oglplus.quickref.program.c44"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the context for traversal of Program's active resources.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c47"></a><a href="#oglplus.quickref.program.c46"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns a range allowing to do the traversal of interface's resources.
+              This instance of <code class="literal">Program</code> must be kept alive during
+              the whole lifetime of the returned range, i.e. the returned range must
+              not be used after the <code class="literal">Program</code> goes out of scope
+              and is destroyed.
+            </p></td>
+</tr>
+</table></div>
+<pre class="programlisting">	<span class="keyword">class</span> <span class="identifier">ActiveVariableInfo</span> <a class="co" name="oglplus.quickref.program.c48" href="program.html#oglplus.quickref.program.c49"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="special">{</span>
+	<span class="keyword">public</span><span class="special">:</span>
+		<span class="identifier">GLuint</span> <span class="identifier">Index</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c50" href="program.html#oglplus.quickref.program.c51"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+		<span class="keyword">const</span> <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a><span class="special">&amp;</span> <span class="identifier">Name</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c52" href="program.html#oglplus.quickref.program.c53"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+		<span class="keyword">const</span> <span class="identifier">GLint</span> <span class="identifier">Size</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c54" href="program.html#oglplus.quickref.program.c55"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+		<span class="keyword">const</span> <a class="link" href="data_type.html" title="Data types">SLDataType</a> <span class="identifier">Type</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c56" href="program.html#oglplus.quickref.program.c57"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="special">};</span>
+
+	<span class="keyword">typedef</span> <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">ActiveVariableInfo</span><span class="special">&gt;</span> <span class="identifier">ActiveAttribRange</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c58" href="program.html#oglplus.quickref.program.c59"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">typedef</span> <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">ActiveVariableInfo</span><span class="special">&gt;</span> <span class="identifier">ActiveUniformRange</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c60" href="program.html#oglplus.quickref.program.c61"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">typedef</span> <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">ActiveVariableInfo</span><span class="special">&gt;</span> <span class="identifier">ActiveSubroutineUniformRange</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c62" href="program.html#oglplus.quickref.program.c63"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">typedef</span> <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">ActiveVariableInfo</span><span class="special">&gt;</span> <span class="identifier">TransformFeedbackVaryingRange</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c64" href="program.html#oglplus.quickref.program.c65"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+<span class="comment">// TODO</span>
+<span class="special">};</span>
+
+<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Program</a><span class="special">&gt;</span> <span class="identifier">ProgramOps</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper.obj_zero">ObjectZero</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Program</a><span class="special">&gt;&gt;</span> <span class="identifier">NoProgram</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&lt;</span><span class="identifier">ProgramOps</span><span class="special">&gt;</span> <span class="identifier">Program</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c49"></a><a href="#oglplus.quickref.program.c48"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Class providing information about a single active vertex attribute
+              or uniform. Note that the <code class="literal">Program</code>'s functions documented
+              as returning instances of <code class="literal">ActiveVariableInfo</code> actually
+              return types convertible to <code class="literal">ActiveVariableInfo</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c51"></a><a href="#oglplus.quickref.program.c50"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the index of the attribute or uniform.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c53"></a><a href="#oglplus.quickref.program.c52"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the name (identifier) of the attribute or uniform.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c55"></a><a href="#oglplus.quickref.program.c54"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the size in units of <code class="literal">Type</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c57"></a><a href="#oglplus.quickref.program.c56"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the data type of the variable.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c59"></a><a href="#oglplus.quickref.program.c58"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              The type of the range for traversing active vertex attributes.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c61"></a><a href="#oglplus.quickref.program.c60"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              The type of the range for traversing active uniforms.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c63"></a><a href="#oglplus.quickref.program.c62"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              The type of the range for traversing active subroutine uniforms.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c65"></a><a href="#oglplus.quickref.program.c64"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              The type of the range for traversing transform feedback varyings.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.program.h2"></a>
+          <span class="phrase"><a name="oglplus.quickref.program.resource"></a></span><a class="link" href="program.html#oglplus.quickref.program.resource">Program
+          resource</a>
+        </h4>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/program_resource.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">ProgramResource</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">GLint</span> <span class="identifier">GetIntParam</span><span class="special">(</span><a class="link" href="program_interface.html#oglplus.quickref.program_interface.resource_property">ProgramResourceProperty</a> <span class="identifier">property</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c66" href="program.html#oglplus.quickref.program.c67"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">GetBoolParam</span><span class="special">(</span><a class="link" href="program_interface.html#oglplus.quickref.program_interface.resource_property">ProgramResourceProperty</a> <span class="identifier">property</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c68" href="program.html#oglplus.quickref.program.c69"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">Has</span><span class="special">(</span><a class="link" href="program_interface.html#oglplus.quickref.program_interface.resource_property">ProgramResourceProperty</a> <span class="identifier">property</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c70" href="program.html#oglplus.quickref.program.c71"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<a class="link" href="program_interface.html" title="Program interface">ProgramInterface</a> <span class="identifier">Interface</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c72" href="program.html#oglplus.quickref.program.c73"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="keyword">const</span> <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a><span class="special">&amp;</span> <span class="identifier">Name</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c74" href="program.html#oglplus.quickref.program.c75"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="identifier">GLuint</span> <span class="identifier">Index</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c76" href="program.html#oglplus.quickref.program.c77"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">HasType</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c78" href="program.html#oglplus.quickref.program.c79"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<a class="link" href="data_type.html" title="Data types">SLDataType</a> <span class="identifier">Type</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c80" href="program.html#oglplus.quickref.program.c81"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="identifier">GLint</span> <span class="identifier">Location</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c82" href="program.html#oglplus.quickref.program.c83"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+
+	<span class="identifier">GLint</span> <span class="identifier">LocationIndex</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c84" href="program.html#oglplus.quickref.program.c85"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+	<span class="identifier">GLint</span> <span class="identifier">ArraySize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c86" href="program.html#oglplus.quickref.program.c87"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">IsPerPatch</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c88" href="program.html#oglplus.quickref.program.c89"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">ReferencedBy</span><span class="special">(</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">shader_type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c90" href="program.html#oglplus.quickref.program.c91"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c67"></a><a href="#oglplus.quickref.program.c66"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Gets the value of a single property (as a GLint). See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramResource.xml" target="_top">glGetProgramResource</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c69"></a><a href="#oglplus.quickref.program.c68"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Gets the value of a single property (as a boolean value).
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c71"></a><a href="#oglplus.quickref.program.c70"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Checks if this resource has the specified property.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c73"></a><a href="#oglplus.quickref.program.c72"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the interface of the resource.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c75"></a><a href="#oglplus.quickref.program.c74"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the name of the resource. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramResourceName.xml" target="_top">glGetProgramResourceName</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c77"></a><a href="#oglplus.quickref.program.c76"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the index of the resource.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c79"></a><a href="#oglplus.quickref.program.c78"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if the resource has a type.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c81"></a><a href="#oglplus.quickref.program.c80"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the data type of the resource (if applicable). See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramResource.xml" target="_top">glGetProgramResource</a></code>,
+              <span class="bold"><strong><code class="literal">GL_TYPE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c83"></a><a href="#oglplus.quickref.program.c82"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the program resource location (if applicable). See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramResource.xml" target="_top">glGetProgramResource</a></code>,
+              <span class="bold"><strong><code class="literal">GL_LOCATION</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c85"></a><a href="#oglplus.quickref.program.c84"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the program resource location index (if applicable). See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramResource.xml" target="_top">glGetProgramResource</a></code>,
+              <span class="bold"><strong><code class="literal">GL_LOCATION_INDEX</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c87"></a><a href="#oglplus.quickref.program.c86"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the array size of the resource (if applicable). See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramResource.xml" target="_top">glGetProgramResource</a></code>,
+              <span class="bold"><strong><code class="literal">GL_ARRAY_SIZE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c89"></a><a href="#oglplus.quickref.program.c88"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if the resource is per-patch (if applicable). See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetProgramResource.xml" target="_top">glGetProgramResource</a></code>,
+              <span class="bold"><strong><code class="literal">GL_IS_PER_PATCH</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c91"></a><a href="#oglplus.quickref.program.c90"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if the resource is referenced by shader of the specified
+              type (if applicable).
             </p></td>
 </tr>
 </table></div>

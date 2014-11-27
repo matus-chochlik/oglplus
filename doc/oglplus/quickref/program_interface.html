@@ -1,0 +1,115 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Program interface</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="patch_parameter.html" title="Patch parameter">
+<link rel="next" href="memory_barrier.html" title="Memory barrier bits">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="patch_parameter.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="memory_barrier.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.program_interface"></a><a class="link" href="program_interface.html" title="Program interface">Program interface</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/program_interface.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">ProgramInterface</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">Uniform</span>                         <span class="special">=</span> <span class="identifier">GL_UNIFORM</span><span class="special">,</span>
+	<span class="identifier">UniformBlock</span>                    <span class="special">=</span> <span class="identifier">GL_UNIFORM_BLOCK</span><span class="special">,</span>
+	<span class="identifier">AtomicCounterBuffer</span>             <span class="special">=</span> <span class="identifier">GL_ATOMIC_COUNTER_BUFFER</span><span class="special">,</span>
+	<span class="identifier">ProgramInput</span>                    <span class="special">=</span> <span class="identifier">GL_PROGRAM_INPUT</span><span class="special">,</span>
+	<span class="identifier">ProgramOutput</span>                   <span class="special">=</span> <span class="identifier">GL_PROGRAM_OUTPUT</span><span class="special">,</span>
+	<span class="identifier">VertexSubroutine</span>                <span class="special">=</span> <span class="identifier">GL_VERTEX_SUBROUTINE</span><span class="special">,</span>
+	<span class="identifier">TessControlSubroutine</span>           <span class="special">=</span> <span class="identifier">GL_TESS_CONTROL_SUBROUTINE</span><span class="special">,</span>
+	<span class="identifier">TessEvaluationSubroutine</span>        <span class="special">=</span> <span class="identifier">GL_TESS_EVALUATION_SUBROUTINE</span><span class="special">,</span>
+	<span class="identifier">GeometrySubroutine</span>              <span class="special">=</span> <span class="identifier">GL_GEOMETRY_SUBROUTINE</span><span class="special">,</span>
+	<span class="identifier">FragmentSubroutine</span>              <span class="special">=</span> <span class="identifier">GL_FRAGMENT_SUBROUTINE</span><span class="special">,</span>
+	<span class="identifier">ComputeSubroutine</span>               <span class="special">=</span> <span class="identifier">GL_COMPUTE_SUBROUTINE</span><span class="special">,</span>
+	<span class="identifier">VertexSubroutineUniform</span>         <span class="special">=</span> <span class="identifier">GL_VERTEX_SUBROUTINE_UNIFORM</span><span class="special">,</span>
+	<span class="identifier">TessControlSubroutineUniform</span>    <span class="special">=</span> <span class="identifier">GL_TESS_CONTROL_SUBROUTINE_UNIFORM</span><span class="special">,</span>
+	<span class="identifier">TessEvaluationSubroutineUniform</span> <span class="special">=</span> <span class="identifier">GL_TESS_EVALUATION_SUBROUTINE_UNIFORM</span><span class="special">,</span>
+	<span class="identifier">GeometrySubroutineUniform</span>       <span class="special">=</span> <span class="identifier">GL_GEOMETRY_SUBROUTINE_UNIFORM</span><span class="special">,</span>
+	<span class="identifier">FragmentSubroutineUniform</span>       <span class="special">=</span> <span class="identifier">GL_FRAGMENT_SUBROUTINE_UNIFORM</span><span class="special">,</span>
+	<span class="identifier">ComputeSubroutineUniform</span>        <span class="special">=</span> <span class="identifier">GL_COMPUTE_SUBROUTINE_UNIFORM</span><span class="special">,</span>
+	<span class="identifier">TransformFeedebackVarying</span>       <span class="special">=</span> <span class="identifier">GL_TRANSFORM_FEEDEBACK_VARYING</span><span class="special">,</span>
+	<span class="identifier">BufferVariable</span>                  <span class="special">=</span> <span class="identifier">GL_BUFFER_VARIABLE</span><span class="special">,</span>
+	<span class="identifier">ShaderStorageBlock</span>              <span class="special">=</span> <span class="identifier">GL_SHADER_STORAGE_BLOCK</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">ProgramInterface</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">ProgramInterface</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">ProgramInterface</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.program_interface.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.program_interface.resource_property"></a></span><a class="link" href="program_interface.html#oglplus.quickref.program_interface.resource_property">Resource
+          property</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">ProgramResourceProperty</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="special">{</span>
+	<span class="identifier">ArraySize</span>                        <span class="special">=</span> <span class="identifier">GL_ARRAY_SIZE</span><span class="special">,</span>
+	<span class="identifier">Offset</span>                           <span class="special">=</span> <span class="identifier">GL_OFFSET</span><span class="special">,</span>
+	<span class="identifier">BlockIndex</span>                       <span class="special">=</span> <span class="identifier">GL_BLOCK_INDEX</span><span class="special">,</span>
+	<span class="identifier">ArrayStride</span>                      <span class="special">=</span> <span class="identifier">GL_ARRAY_STRIDE</span><span class="special">,</span>
+	<span class="identifier">MatrixStride</span>                     <span class="special">=</span> <span class="identifier">GL_MATRIX_STRIDE</span><span class="special">,</span>
+	<span class="identifier">IsRowMajor</span>                       <span class="special">=</span> <span class="identifier">GL_IS_ROW_MAJOR</span><span class="special">,</span>
+	<span class="identifier">AtomicCounterBufferIndex</span>         <span class="special">=</span> <span class="identifier">GL_ATOMIC_COUNTER_BUFFER_INDEX</span><span class="special">,</span>
+	<span class="identifier">BufferBinding</span>                    <span class="special">=</span> <span class="identifier">GL_BUFFER_BINDING</span><span class="special">,</span>
+	<span class="identifier">BufferDataSize</span>                   <span class="special">=</span> <span class="identifier">GL_BUFFER_DATA_SIZE</span><span class="special">,</span>
+	<span class="identifier">NumActiveVariables</span>               <span class="special">=</span> <span class="identifier">GL_NUM_ACTIVE_VARIABLES</span><span class="special">,</span>
+	<span class="identifier">ActiveVariables</span>                  <span class="special">=</span> <span class="identifier">GL_ACTIVE_VARIABLES</span><span class="special">,</span>
+	<span class="identifier">ReferencedByVertexShader</span>         <span class="special">=</span> <span class="identifier">GL_REFERENCED_BY_VERTEX_SHADER</span><span class="special">,</span>
+	<span class="identifier">ReferencedByTessControlShader</span>    <span class="special">=</span> <span class="identifier">GL_REFERENCED_BY_TESS_CONTROL_SHADER</span><span class="special">,</span>
+	<span class="identifier">ReferencedByTessEvaluationShader</span> <span class="special">=</span> <span class="identifier">GL_REFERENCED_BY_TESS_EVALUATION_SHADER</span><span class="special">,</span>
+	<span class="identifier">ReferencedByGeometryShader</span>       <span class="special">=</span> <span class="identifier">GL_REFERENCED_BY_GEOMETRY_SHADER</span><span class="special">,</span>
+	<span class="identifier">ReferencedByFragmentShader</span>       <span class="special">=</span> <span class="identifier">GL_REFERENCED_BY_FRAGMENT_SHADER</span><span class="special">,</span>
+	<span class="identifier">ReferencedByComputeShader</span>        <span class="special">=</span> <span class="identifier">GL_REFERENCED_BY_COMPUTE_SHADER</span><span class="special">,</span>
+	<span class="identifier">NumCompatibleSubroutines</span>         <span class="special">=</span> <span class="identifier">GL_NUM_COMPATIBLE_SUBROUTINES</span><span class="special">,</span>
+	<span class="identifier">CompatibleSubroutines</span>            <span class="special">=</span> <span class="identifier">GL_COMPATIBLE_SUBROUTINES</span><span class="special">,</span>
+	<span class="identifier">TopLevelArraySize</span>                <span class="special">=</span> <span class="identifier">GL_TOP_LEVEL_ARRAY_SIZE</span><span class="special">,</span>
+	<span class="identifier">TopLevelArrayStride</span>              <span class="special">=</span> <span class="identifier">GL_TOP_LEVEL_ARRAY_STRIDE</span><span class="special">,</span>
+	<span class="identifier">Location</span>                         <span class="special">=</span> <span class="identifier">GL_LOCATION</span><span class="special">,</span>
+	<span class="identifier">LocationIndex</span>                    <span class="special">=</span> <span class="identifier">GL_LOCATION_INDEX</span><span class="special">,</span>
+	<span class="identifier">LocationComponent</span>                <span class="special">=</span> <span class="identifier">GL_LOCATION_COMPONENT</span><span class="special">,</span>
+	<span class="identifier">IsPerPatch</span>                       <span class="special">=</span> <span class="identifier">GL_IS_PER_PATCH</span><span class="special">,</span>
+	<span class="identifier">TransformFeedbackBufferIndex</span>     <span class="special">=</span> <span class="identifier">GL_TRANSFORM_FEEDBACK_BUFFER_INDEX</span><span class="special">,</span>
+	<span class="identifier">TransformFeedbackBufferStride</span>    <span class="special">=</span> <span class="identifier">GL_TRANSFORM_FEEDBACK_BUFFER_STRIDE</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">ProgramResourceProperty</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">ProgramResourceProperty</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">ProgramResourceProperty</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="patch_parameter.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="memory_barrier.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
