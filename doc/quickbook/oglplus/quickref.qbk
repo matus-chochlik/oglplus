@@ -73,6 +73,7 @@ the concept.
 [include quickref/primitive_type.qbk]
 [include quickref/provoke_mode.qbk]
 [include quickref/patch_parameter.qbk]
+[include quickref/program_interface.qbk]
 
 [include quickref/memory_barrier.qbk]
 

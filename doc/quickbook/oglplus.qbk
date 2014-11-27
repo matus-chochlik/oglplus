@@ -144,6 +144,9 @@
 
 [def __Program [link oglplus.quickref.program Program]]
 [def __NoProgram [link oglplus.quickref.program NoProgram]]
+[def __ProgramInterface [link oglplus.quickref.program_interface ProgramInterface]]
+[def __ProgramResourceProperty [link oglplus.quickref.program_interface.resource_property ProgramResourceProperty]]
+[def __ProgramResource [link oglplus.quickref.program.resource ProgramResource]]
 
 [def __ProgramPipeline [link oglplus.quickref.program_pipeline ProgramPipeline]]
 [def __ProgramPipelineStage [link oglplus.quickref.program_pipeline.stage ProgramPipelineStage]]
@@ -206,6 +209,7 @@
 [def __AccessSpecifier [link oglplus.quickref.access_specifier AccessSpecifier]]
 [def __Access [link oglplus.quickref.access_specifier.typedefs Access]]
 [def __DataType [link oglplus.quickref.data_type DataType]]
+[def __SLDataType [link oglplus.quickref.data_type SLDataType]]
 [def __TypeTag [link oglplus.quickref.data_type.utils TypeTag]]
 
 [def __Face [link oglplus.quickref.face_mode.face Face]]

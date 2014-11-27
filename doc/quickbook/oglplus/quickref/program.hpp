@@ -158,6 +158,76 @@ public:
 	>*/
 #endif
 
+	typedef __Unspecified InterfaceContext; /*<
+	Helper class for efficient iteration of [^Program] interface items.
+	Instances of this class are created by a program for its specific
+	interfaces (uniform, vertex attributes, subroutines, etc.) or
+	stages (vertex, geometry, fragment, etc.). Instances of an interface
+	context can be used (mostly internally) for efficient iteration
+	of individual items of a particular interface (uniforms, subroutines,
+	etc.). Contexts for various programs and various interfaces are not
+	interchangeable.
+	The InterfaceContext type should be treated as opaque and only used
+	with appropriate functions.
+	>*/
+
+#if GL_VERSION_4_3
+	typedef __Range<__ProgramResource> ActiveResourceRange; /*<
+	The type of the range for traversing program resource information.
+	>*/
+
+	InterfaceContext ActiveResourceContext(__ProgramInterface intf) const; /*<
+	Returns the context for traversal of Program's active resources.
+	>*/
+
+	ActiveResourceRange ActiveResources(__ProgramInterface intf) const; /*<
+	Returns a range allowing to do the traversal of interface's resources.
+	This instance of [^Program] must be kept alive during the whole
+	lifetime of the returned range, i.e. the returned range must not
+	be used after the [^Program] goes out of scope and is destroyed.
+	>*/
+#endif
+
+//]
+//[oglplus_program_3
+	class ActiveVariableInfo /*<
+	Class providing information about a single active vertex attribute
+	or uniform.
+	Note that the [^Program]'s functions documented as returning instances
+	of [^ActiveVariableInfo] actually return types convertible to
+	[^ActiveVariableInfo].
+	>*/
+	{
+	public:
+		GLuint Index(void) const; /*<
+		Returns the index of the attribute or uniform.
+		>*/
+
+		const __String& Name(void) const; /*<
+		Returns the name (identifier) of the attribute or uniform.
+		>*/
+
+		const GLint Size(void) const; /*<
+		Returns the size in units of [^Type].
+		>*/
+
+		const __SLDataType Type(void) const; /*<
+		Returns the data type of the variable.
+		>*/
+	};
+
+	typedef __Range<ActiveVariableInfo> ActiveAttribRange; /*<
+	The type of the range for traversing active vertex attributes.
+	>*/
+	typedef __Range<ActiveVariableInfo> ActiveUniformRange; /*<
+	The type of the range for traversing active uniforms.
+	>*/
+	typedef __Range<ActiveVariableInfo> ActiveSubroutineUniformRange; /*<
+	The type of the range for traversing active subroutine uniforms.
+	>*/
+	typedef __Range<ActiveVariableInfo> TransformFeedbackVaryingRange; /*<
+	The type of the range for traversing transform feedback varyings.
+	>*/
 // TODO
 };
 
