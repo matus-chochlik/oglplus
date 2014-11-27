@@ -13,9 +13,6 @@
 
 [/Quick reference links]
 
-[def __Range [link oglplus.quickref.concept.range ['Range]]]
-[def __Metafunction [link oglplus.quickref.concept.metafunction ['Metafunction]]]
-
 [def __Nothing [link oglplus.quickref.utils.nothing Nothing]]
 
 [def __String [link oglplus.quickref.string.def String]]
@@ -246,12 +243,6 @@
 [def __ContextReleaseBehavior [link oglplus.quickref.context_release_behavior ContextReleaseBehavior]]
 [def __GraphicsResetStatus [link oglplus.quickref.graphics_reset_status GraphicsResetStatus]]
 [def __ResetNotificationStrategy [link oglplus.quickref.reset_notif_strategy ResetNotificationStrategy]]
-
-[def __EnumValueRange [link oglplus.quickref.enums.functions EnumValueRange]]
-[def __EnumValueName [link oglplus.quickref.enums.functions EnumValueName]]
-[def __Bitfield [link oglplus.quickref.enums.bitfield Bitfield]]
-[def __EnumArray [link oglplus.quickref.enums.array EnumArray]]
-[def __OneOf [link oglplus.quickref.enums.one_of OneOf]]
 
 [def __LimitedCount [link oglplus.quickref.limited_value LimitedCount]]
 

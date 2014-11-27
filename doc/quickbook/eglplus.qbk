@@ -8,3 +8,4 @@
 ]
 
 [include eglplus/intro.qbk]
+[include eglplus/quickref.qbk]
