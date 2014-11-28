@@ -1,0 +1,82 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Configuration attribute</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;7.&#160;Quick reference">
+<link rel="prev" href="context_flag.html" title="Context flag">
+<link rel="next" href="config_caveat.html" title="Configuration caveat">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="context_flag.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="config_caveat.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="eglplus.quickref.config_attrib"></a><a class="link" href="config_attrib.html" title="Configuration attribute">Configuration attribute</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;eglplus/config_attrib.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">eglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">ConfigAttrib</span> <span class="special">:</span> <span class="identifier">EGLenum</span>
+<span class="special">{</span>
+	<span class="identifier">BufferSize</span>            <span class="special">=</span> <span class="identifier">EGL_BUFFER_SIZE</span><span class="special">,</span>
+	<span class="identifier">RedSize</span>               <span class="special">=</span> <span class="identifier">EGL_RED_SIZE</span><span class="special">,</span>
+	<span class="identifier">GreenSize</span>             <span class="special">=</span> <span class="identifier">EGL_GREEN_SIZE</span><span class="special">,</span>
+	<span class="identifier">BlueSize</span>              <span class="special">=</span> <span class="identifier">EGL_BLUE_SIZE</span><span class="special">,</span>
+	<span class="identifier">LuminanceSize</span>         <span class="special">=</span> <span class="identifier">EGL_LUMINANCE_SIZE</span><span class="special">,</span>
+	<span class="identifier">AlphaSize</span>             <span class="special">=</span> <span class="identifier">EGL_ALPHA_SIZE</span><span class="special">,</span>
+	<span class="identifier">AlphaMaskSize</span>         <span class="special">=</span> <span class="identifier">EGL_ALPHA_MASK_SIZE</span><span class="special">,</span>
+	<span class="identifier">BindToTextureRGB</span>      <span class="special">=</span> <span class="identifier">EGL_BIND_TO_TEXTURE_RGB</span><span class="special">,</span>
+	<span class="identifier">BindToTextureRGBA</span>     <span class="special">=</span> <span class="identifier">EGL_BIND_TO_TEXTURE_RGBA</span><span class="special">,</span>
+	<span class="identifier">ColorBufferType</span>       <span class="special">=</span> <span class="identifier">EGL_COLOR_BUFFER_TYPE</span><span class="special">,</span>
+	<span class="identifier">ConfigCaveat</span>          <span class="special">=</span> <span class="identifier">EGL_CONFIG_CAVEAT</span><span class="special">,</span>
+	<span class="identifier">ConfigId</span>              <span class="special">=</span> <span class="identifier">EGL_CONFIG_ID</span><span class="special">,</span>
+	<span class="identifier">Conformant</span>            <span class="special">=</span> <span class="identifier">EGL_CONFORMANT</span><span class="special">,</span>
+	<span class="identifier">DepthSize</span>             <span class="special">=</span> <span class="identifier">EGL_DEPTH_SIZE</span><span class="special">,</span>
+	<span class="identifier">Level</span>                 <span class="special">=</span> <span class="identifier">EGL_LEVEL</span><span class="special">,</span>
+	<span class="identifier">MaxPbufferWidth</span>       <span class="special">=</span> <span class="identifier">EGL_MAX_PBUFFER_WIDTH</span><span class="special">,</span>
+	<span class="identifier">MaxPbufferHeight</span>      <span class="special">=</span> <span class="identifier">EGL_MAX_PBUFFER_HEIGHT</span><span class="special">,</span>
+	<span class="identifier">MaxPbufferPixels</span>      <span class="special">=</span> <span class="identifier">EGL_MAX_PBUFFER_PIXELS</span><span class="special">,</span>
+	<span class="identifier">MaxSwapInterval</span>       <span class="special">=</span> <span class="identifier">EGL_MAX_SWAP_INTERVAL</span><span class="special">,</span>
+	<span class="identifier">MinSwapInterval</span>       <span class="special">=</span> <span class="identifier">EGL_MIN_SWAP_INTERVAL</span><span class="special">,</span>
+	<span class="identifier">NativeRenderable</span>      <span class="special">=</span> <span class="identifier">EGL_NATIVE_RENDERABLE</span><span class="special">,</span>
+	<span class="identifier">NativeVisualId</span>        <span class="special">=</span> <span class="identifier">EGL_NATIVE_VISUAL_ID</span><span class="special">,</span>
+	<span class="identifier">NativeVisualType</span>      <span class="special">=</span> <span class="identifier">EGL_NATIVE_VISUAL_TYPE</span><span class="special">,</span>
+	<span class="identifier">RenderableType</span>        <span class="special">=</span> <span class="identifier">EGL_RENDERABLE_TYPE</span><span class="special">,</span>
+	<span class="identifier">SampleBuffers</span>         <span class="special">=</span> <span class="identifier">EGL_SAMPLE_BUFFERS</span><span class="special">,</span>
+	<span class="identifier">Samples</span>               <span class="special">=</span> <span class="identifier">EGL_SAMPLES</span><span class="special">,</span>
+	<span class="identifier">StencilSize</span>           <span class="special">=</span> <span class="identifier">EGL_STENCIL_SIZE</span><span class="special">,</span>
+	<span class="identifier">SurfaceType</span>           <span class="special">=</span> <span class="identifier">EGL_SURFACE_TYPE</span><span class="special">,</span>
+	<span class="identifier">TransparentType</span>       <span class="special">=</span> <span class="identifier">EGL_TRANSPARENT_TYPE</span><span class="special">,</span>
+	<span class="identifier">TransparentRedValue</span>   <span class="special">=</span> <span class="identifier">EGL_TRANSPARENT_RED_VALUE</span><span class="special">,</span>
+	<span class="identifier">TransparentGreenValue</span> <span class="special">=</span> <span class="identifier">EGL_TRANSPARENT_GREEN_VALUE</span><span class="special">,</span>
+	<span class="identifier">TransparentBlueValue</span>  <span class="special">=</span> <span class="identifier">EGL_TRANSPARENT_BLUE_VALUE</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="../../oglplus/quickref/concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">ConfigAttrib</span><span class="special">&gt;</span> <a class="link" href="../../oglplus/quickref/enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">ConfigAttrib</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<span class="identifier">__StrCRef</span> <a class="link" href="../../oglplus/quickref/enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">ConfigAttrib</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace eglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="context_flag.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="config_caveat.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>String query</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;7.&#160;Quick reference">
+<link rel="prev" href="swap_behavior.html" title="Swap behavior">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="swap_behavior.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="eglplus.quickref.string_query"></a><a class="link" href="string_query.html" title="String query">String query</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;eglplus/string_query.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">eglplus</span> <span class="special">{</span>
+
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">StringQuery</span> <span class="special">:</span> <span class="identifier">EGLenum</span>
+<span class="special">{</span>
+	<span class="identifier">ClientAPIs</span> <span class="special">=</span> <span class="identifier">EGL_CLIENT_APIS</span><span class="special">,</span>
+	<span class="identifier">Extensions</span> <span class="special">=</span> <span class="identifier">EGL_EXTENSIONS</span><span class="special">,</span>
+	<span class="identifier">Vendor</span>     <span class="special">=</span> <span class="identifier">EGL_VENDOR</span><span class="special">,</span>
+	<span class="identifier">Version</span>    <span class="special">=</span> <span class="identifier">EGL_VERSION</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<a class="link" href="../../oglplus/quickref/concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">StringQuery</span><span class="special">&gt;</span> <a class="link" href="../../oglplus/quickref/enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">StringQuery</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+
+<span class="identifier">__StrCRef</span> <a class="link" href="../../oglplus/quickref/enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">StringQuery</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace eglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2014 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="swap_behavior.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a>
+</div>
+</body>
+</html>
