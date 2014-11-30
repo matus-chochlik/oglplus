@@ -46,6 +46,7 @@ the concept.
 [include quickref/program_pipeline.qbk]
 [include quickref/query.qbk]
 [include quickref/transform_feedback.qbk]
+[include quickref/sync.qbk]
 
 [include quickref/context.qbk]
 
@@ -57,6 +58,7 @@ the concept.
 [include quickref/stencil_operation.qbk]
 [include quickref/access_specifier.qbk]
 
+[include quickref/data_type.qbk]
 [include quickref/face_mode.qbk]
 [include quickref/blend_function.qbk]
 [include quickref/color_buffer.qbk]
@@ -70,6 +72,8 @@ the concept.
 [include quickref/precision_type.qbk]
 [include quickref/primitive_type.qbk]
 [include quickref/provoke_mode.qbk]
+[include quickref/patch_parameter.qbk]
+[include quickref/program_interface.qbk]
 
 [include quickref/memory_barrier.qbk]
 
@@ -83,6 +87,8 @@ the concept.
 [include quickref/math.qbk]
 [include quickref/enums.qbk]
 [include quickref/limited_value.qbk]
+[include quickref/glsl_source.qbk]
+[include quickref/glsl_string.qbk]
 [include quickref/utils.qbk]
 
 [include quickref/images.qbk]

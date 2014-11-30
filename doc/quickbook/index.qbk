@@ -28,6 +28,8 @@
 [def __half_pi__ \u03C0/2]
 
 [def __OGLplus__ [@ http://oglplus.org/ OGLplus]]
+[def __OALplus__ OALplus]
+[def __EGLplus__ EGLplus]
 [def __OpenGL__ [@ http://www.opengl.org/ OpenGL]]
 [def __OpenAL__ ['OpenAL]]
 [def __GLEW__ ['GLEW]]
@@ -40,6 +42,15 @@
 
 [def __UNSPECIFIED <UNSPECIFIED>]
 [def __Unspecified <Unspecified>]
+
+[def __Range [link oglplus.quickref.concept.range ['Range]]]
+[def __Metafunction [link oglplus.quickref.concept.metafunction ['Metafunction]]]
+
+[def __EnumValueRange [link oglplus.quickref.enums.functions EnumValueRange]]
+[def __EnumValueName [link oglplus.quickref.enums.functions EnumValueName]]
+[def __Bitfield [link oglplus.quickref.enums.bitfield Bitfield]]
+[def __EnumArray [link oglplus.quickref.enums.array EnumArray]]
+[def __OneOf [link oglplus.quickref.enums.one_of OneOf]]
 
 [/--------]
 [/Chapters]

@@ -13,9 +13,6 @@
 
 [/Quick reference links]
 
-[def __Range [link oglplus.quickref.concept.range ['Range]]]
-[def __Metafunction [link oglplus.quickref.concept.metafunction ['Metafunction]]]
-
 [def __Nothing [link oglplus.quickref.utils.nothing Nothing]]
 
 [def __String [link oglplus.quickref.string.def String]]
@@ -118,6 +115,7 @@
 [def __ImageUnitSelector [link oglplus.quickref.texture.unit_selector ImageUnitSelector]]
 
 [def __Sampler [link oglplus.quickref.sampler Sampler]]
+[def __NoSampler [link oglplus.quickref.sampler NoSampler]]
 
 [def __Framebuffer [link oglplus.quickref.framebuffer.def Framebuffer]]
 [def __DefaultFramebuffer [link oglplus.quickref.framebuffer.def DefaultFramebuffer]]
@@ -133,10 +131,36 @@
 [def __RenderbufferTarget [link oglplus.quickref.renderbuffer.target RenderbufferTarget]]
 
 [def __Shader [link oglplus.quickref.shader Shader]]
+[def __SpecShader [link oglplus.quickref.shader.specialized SpecShader]]
+[def __VertexShader [link oglplus.quickref.shader.specialized VertexShader]]
+[def __GeometryShader [link oglplus.quickref.shader.specialized GeometryShader]]
+[def __TessControlShader [link oglplus.quickref.shader.specialized TessControlShader]]
+[def __TessEvaluationShader [link oglplus.quickref.shader.specialized TessEvaluationShader]]
+[def __FragmentShader [link oglplus.quickref.shader.specialized FragmentShader]]
+[def __ComputeShader [link oglplus.quickref.shader.specialized ComputeShader]]
+
 [def __Program [link oglplus.quickref.program Program]]
+[def __NoProgram [link oglplus.quickref.program NoProgram]]
+[def __ProgramInterface [link oglplus.quickref.program_interface ProgramInterface]]
+[def __ProgramResourceProperty [link oglplus.quickref.program_interface.resource_property ProgramResourceProperty]]
+[def __ProgramResource [link oglplus.quickref.program.resource ProgramResource]]
+
 [def __ProgramPipeline [link oglplus.quickref.program_pipeline ProgramPipeline]]
+[def __ProgramPipelineStage [link oglplus.quickref.program_pipeline.stage ProgramPipelineStage]]
+
 [def __Query [link oglplus.quickref.query Query]]
+[def __QueryActivator [link oglplus.quickref.query.activator QueryActivator]]
+[def __ConditionalRender [link oglplus.quickref.query.conditional_render ConditionalRender]]
+[def __QueryExecution [link oglplus.quickref.query.execution QueryExecution]]
+[def __QueryTarget [link oglplus.quickref.query.target QueryTarget]]
+[def __ConditionalRenderMode [link oglplus.quickref.query.conditional_render_mode ConditionalRenderMode]]
+
 [def __TransformFeedback [link oglplus.quickref.transform_feedback TransformFeedback]]
+[def __TransformFeedbackActivator [link oglplus.quickref.transform_feedback.activator TransformFeedbackActivator]]
+[def __TransformFeedbackPauser [link oglplus.quickref.transform_feedback.pauser TransformFeedbackPauser]]
+[def __TransformFeedbackTarget [link oglplus.quickref.transform_feedback.target TransformFeedbackTarget]]
+[def __TransformFeedbackMode [link oglplus.quickref.transform_feedback.mode TransformFeedbackMode]]
+[def __TransformFeedbackPrimitiveType [link oglplus.quickref.transform_feedback.primitive_type TransformFeedbackPrimitiveType]]
 
 [def __OptionalObject [link oglplus.quickref.object.optional Optional]]
 
@@ -152,7 +176,20 @@
 [def __ObjectError [link oglplus.quickref.error.object ObjectError]]
 [def __ObjectPairError [link oglplus.quickref.error.object ObjectPairError]]
 [def __ProgramBuildError [link oglplus.quickref.error.program ProgramBuildError]]
+[def __CompileError [link oglplus.quickref.error.program CompileError]]
+[def __LinkError [link oglplus.quickref.error.program LinkError]]
+[def __ValidationError [link oglplus.quickref.error.program ValidationError]]
 [def __IncompleteFramebuffer [link oglplus.quickref.error.framebuffer IncompleteFramebuffer]]
+
+[def __Sync [link oglplus.quickref.sync Sync]]
+[def __SyncCondition [link oglplus.quickref.sync.condition SyncCondition]]
+[def __SyncType [link oglplus.quickref.sync.type SyncType]]
+[def __SyncStatus [link oglplus.quickref.sync.status SyncStatus]]
+[def __SyncWaitResult [link oglplus.quickref.sync.wait_result SyncWaitResult]]
+
+[def __GLSLSource [link oglplus.quickref.glsl_source GLSLSource]]
+[def __GLSLString [link oglplus.quickref.glsl_string GLSLString]]
+[def __GLSLStrings [link oglplus.quickref.glsl_string GLSLStrings]]
 
 [def __Context [link oglplus.quickref.context Context]]
 
@@ -168,6 +205,9 @@
 [def __StencilOp [link oglplus.quickref.stencil_operation.typedefs StencilOp]]
 [def __AccessSpecifier [link oglplus.quickref.access_specifier AccessSpecifier]]
 [def __Access [link oglplus.quickref.access_specifier.typedefs Access]]
+[def __DataType [link oglplus.quickref.data_type DataType]]
+[def __SLDataType [link oglplus.quickref.data_type SLDataType]]
+[def __TypeTag [link oglplus.quickref.data_type.utils TypeTag]]
 
 [def __Face [link oglplus.quickref.face_mode.face Face]]
 [def __FaceOrientation [link oglplus.quickref.face_mode.orientation FaceOrientation]]
@@ -194,6 +234,7 @@
 [def __TessGenPrimitiveType [link oglplus.quickref.primitive_type.tess_gen TessGenPrimitiveType]]
 [def __TessGenPrimitiveSpacing [link oglplus.quickref.primitive_type.spacing TessGenPrimitiveSpacing]]
 [def __ProvokeMode [link oglplus.quickref.provoke_mode ProvokeMode]]
+[def __PatchParameter [link oglplus.quickref.patch_parameter PatchParameter]]
 
 [def __MemoryBarrierBit [link oglplus.quickref.memory_barrier MemoryBarrierBit]]
 
@@ -202,12 +243,6 @@
 [def __ContextReleaseBehavior [link oglplus.quickref.context_release_behavior ContextReleaseBehavior]]
 [def __GraphicsResetStatus [link oglplus.quickref.graphics_reset_status GraphicsResetStatus]]
 [def __ResetNotificationStrategy [link oglplus.quickref.reset_notif_strategy ResetNotificationStrategy]]
-
-[def __EnumValueRange [link oglplus.quickref.enums.functions EnumValueRange]]
-[def __EnumValueName [link oglplus.quickref.enums.functions EnumValueName]]
-[def __Bitfield [link oglplus.quickref.enums.bitfield Bitfield]]
-[def __EnumArray [link oglplus.quickref.enums.array EnumArray]]
-[def __OneOf [link oglplus.quickref.enums.one_of OneOf]]
 
 [def __LimitedCount [link oglplus.quickref.limited_value LimitedCount]]
 

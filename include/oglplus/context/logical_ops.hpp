@@ -46,7 +46,7 @@ public:
 	/**
 	 *  @glsymbols
 	 *  @glfunref{Get}
-	 *  @gldefref{COLOR_LOGIC_OP}
+	 *  @gldefref{LOGIC_OP_MODE}
 	 */
 	static ColorLogicOperation LogicOpMode(void)
 	{

@@ -9,7 +9,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //
-//[oglplus_enums_rendering_api
+//[eglplus_enums_rendering_api
 namespace eglplus {
 
 enum class RenderingAPI : EGLenum

@@ -16,7 +16,11 @@ OGLPLUS_LIB_FUNC
 Torus::IndexArray
 Torus::Indices(Torus::Default) const
 {
+#ifdef GL_PRIMITIVE_RESTART
 	const unsigned n = _rings * (2 * (_sections + 1) + 1);
+#else
+    const unsigned n = _rings * (2 * (_sections + 1) + 2);
+#endif
 	assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
 	//
 	IndexArray indices(n);
@@ -30,8 +34,13 @@ Torus::Indices(Torus::Default) const
 			indices[k++] = offs + s;
 			indices[k++] = offs + s + (_sections+1);
 		}
-		indices[k++] = n;
 		offs += _sections + 1;
+#ifdef GL_PRIMITIVE_RESTART
+		indices[k++] = n;
+#else
+        indices[k++] = offs + _sections;
+        indices[k++] = offs;
+#endif
 	}
 	assert(k == indices.size());
 	//
@@ -108,13 +117,21 @@ Torus::Instructions(Torus::Default) const
 {
 	auto instructions = this->MakeInstructions();
 
+#ifdef GL_PRIMITIVE_RESTART
 	const GLuint n = _rings * (2 * (_sections + 1) + 1);
+#else
+    const GLuint n = _rings * (2 * (_sections + 1) + 2);
+#endif
 	DrawOperation operation;
 	operation.method = DrawOperation::Method::DrawElements;
 	operation.mode = PrimitiveType::TriangleStrip;
 	operation.first = GLuint(0);
 	operation.count = n;
+#ifdef GL_PRIMITIVE_RESTART
 	operation.restart_index = n;
+#else
+    operation.restart_index = DrawOperation::NoRestartIndex();
+#endif
 	operation.phase = 0;
 
 	this->AddInstruction(instructions, operation);
@@ -126,6 +143,7 @@ OGLPLUS_LIB_FUNC
 DrawingInstructions
 Torus::Instructions(Torus::Quads) const
 {
+#if GL_VERSION_3_2
 	auto instructions = this->MakeInstructions();
 
 	const GLuint n = _rings * (4 * _sections + 1);
@@ -140,12 +158,16 @@ Torus::Instructions(Torus::Quads) const
 	this->AddInstruction(instructions, operation);
 
 	return instructions;
+#else
+    return Instructions();
+#endif
 }
 
 OGLPLUS_LIB_FUNC
 DrawingInstructions
 Torus::Instructions(Torus::WithAdjacency) const
 {
+#if GL_VERSION_3_2
 	auto instructions = this->MakeInstructions();
 
 	const unsigned n = _rings*(4 * (_sections + 1) + 1);
@@ -160,6 +182,9 @@ Torus::Instructions(Torus::WithAdjacency) const
 	this->AddInstruction(instructions, operation);
 
 	return instructions;
+#else
+    return Instructions();
+#endif
 }
 
 } // shapes

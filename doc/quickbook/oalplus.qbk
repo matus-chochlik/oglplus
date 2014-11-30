@@ -8,3 +8,4 @@
 ]
 
 [include oalplus/intro.qbk]
+[include oalplus/quickref.qbk]

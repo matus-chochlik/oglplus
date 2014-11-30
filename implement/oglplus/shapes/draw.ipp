@@ -34,10 +34,12 @@ void DrawOperation::SetupPrimitiveRestart_(void) const
 		OGLPLUS_VERIFY_SIMPLE(PrimitiveRestartIndex);
 	}
 #else
-	assert(!
-		"Primitive restarting required, "
-		"but not supported by the used version of OpenGL!"
-	);
+	if(restart_index != NoRestartIndex()) {
+		assert(!
+			"Primitive restarting required, "
+			"but not supported by the used version of OpenGL!"
+		);
+	}
 #endif
 }
 
@@ -46,8 +48,10 @@ void DrawOperation::CleanupPrimitiveRestart_(void) const
 {
 	if(restart_index != NoRestartIndex())
 	{
+#if GL_VERSION_3_1
 		OGLPLUS_GLFUNC(Disable)(GL_PRIMITIVE_RESTART);
 		OGLPLUS_VERIFY_SIMPLE(Disable);
+#endif
 	}
 }
 

@@ -9,7 +9,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //
-//[oglplus_enums_gl_colorspace
+//[eglplus_enums_gl_colorspace
 namespace eglplus {
 
 enum class GLColorspace : EGLenum

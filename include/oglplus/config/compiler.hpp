@@ -27,15 +27,6 @@
 
 // ------- C++11 feature availability detection -------
 
-#ifndef OGLPLUS_NO_SCOPED_ENUMS
-#if	defined(BOOST_NO_CXX11_SCOPED_ENUMS) ||\
-	defined(BOOST_NO_SCOPED_ENUMS)
-#define OGLPLUS_NO_SCOPED_ENUMS 1
-#else
-#define OGLPLUS_NO_SCOPED_ENUMS 0
-#endif
-#endif
-
 #ifndef OGLPLUS_NO_VARIADIC_MACROS
 #if	defined(BOOST_NO_CXX11_VARIADIC_MACROS) ||\
 	defined(BOOST_NO_VARIADIC_MACROS)

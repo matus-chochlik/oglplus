@@ -35,31 +35,12 @@ private:
 		PangoCairoLayoutData& layout_data,
 		GLsizei width,
 		GLsizei height
-	)
-	{
-		// TODO: some smarter form of allocation
-		// or use bindless textures where available
-		Texture::Active(that._main_tex_unit);
-		layout_data._storage.Bind(Texture::Target::Rectangle);
-		Texture::Image2D(
-			Texture::Target::Rectangle,
-			0,
-			PixelDataInternalFormat::Red,
-			width,
-			height,
-			0,
-			PixelDataFormat::Red,
-			PixelDataType::UnsignedByte,
-			nullptr
-		);
-	}
+	);
 
 	friend void PangoCairoDeallocateLayoutData(
 		PangoCairoRendering&,
 		PangoCairoLayoutData&
-	)
-	{
-	}
+	);
 
 	friend void PangoCairoInitializeLayoutData(
 		PangoCairoRendering& that,
@@ -67,31 +48,12 @@ private:
 		GLsizei width,
 		GLsizei height,
 		const void* raw_data
-	)
-	{
-		Texture::Active(that._main_tex_unit);
-		layout_data._storage.Bind(Texture::Target::Rectangle);
-		Texture::SubImage2D(
-			Texture::Target::Rectangle,
-			0,
-			0, 0,
-			width,
-			height,
-			PixelDataFormat::Red,
-			PixelDataType::UnsignedByte,
-			raw_data
-		);
-	}
+	);
 
 	friend TextureUnitSelector PangoCairoUseLayoutData(
 		PangoCairoRendering& that,
 		const PangoCairoLayoutData& layout_data
-	)
-	{
-		Texture::Active(that._main_tex_unit);
-		layout_data._storage.Bind(Texture::Target::Rectangle);
-		return that._main_tex_unit;
-	}
+	);
 public:
 	PangoCairoRendering(TextureUnitSelector main_tex_unit)
 	 : _main_tex_unit(main_tex_unit)
@@ -131,5 +93,9 @@ public:
 
 } // namespace text
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/text/pango_cairo.ipp>
+#endif
 
 #endif // include guard

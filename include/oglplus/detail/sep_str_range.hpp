@@ -28,7 +28,7 @@ public:
 	typedef String ValueType;
 
 	SepStrRangeTpl(const char* str, char sep = ' ')
-	 : _values(str)
+     : _values(str ? str : "")
 	 , _i(_values.begin())
 	 , _e(_values.end())
 	{
