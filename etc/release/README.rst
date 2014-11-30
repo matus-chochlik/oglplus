@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.53.0
+Release notes for version 0.54.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,16 +7,21 @@ Release notes for version 0.53.0
 Overview
 ========
 
-This is mostly a bugfix release of `OGLplus`_, but it also brings updates to the GL version detection in the build system, minor updates to ``ObjHandle`` and updated documentation.
+This is mostly a bugfix release of `OGLplus`_, but it also brings updates to the quickbook documentation, minor updates to the build system, refactoring in the transform feedback helper classes and backporting to platforms not supporting primitive restart indices.
 
 Changes
 =======
+ - The ``TransformFeedback::Activator`` and ``TranformFeedback::Pauser`` classes were reimplemented at the namespace level.
 
- - The GL version detection algorithm now also checks for the presence of (nearly) all required GL constants.
+ - A new overload of ``Context::ClearColor`` was added.
 
- - A bug in the setting array of ``Vector<T,N>`` uniform values was fixed.
+ - A bug in multiplication of Matrix by a scalar was fixed.
 
- - An unused constructor was removed from ``ObjHandle``.
+ - The shape builders were updated to work on platforms not supporting GL primitive restart.
+
+ - Some MSVC and Clang++ warnings were removed.
+
+ - The C++ strongly typed enumerations are now a required feature.
 
  - The Quickbook documentation was updated.
 

@@ -105,7 +105,7 @@ def action_qbk_hpp(options):
 	items = parse_source(options)
 
 	print_cpp_header(options)
-	print_line(options, "//[oglplus_enums_%s" % options.output_id)
+	print_line(options, "//[%s_enums_%s" % (options.library, options.output_id))
 	print_line(options, "namespace %s {" % options.library)
 	print_newline(options)
 	print_line(options, "enum class %s : %s%s" % (
@@ -362,7 +362,7 @@ def action_smart_values_ipp(options):
 	print_cpp_header(options)
 	for enum_value in sorted(enum_values):
 		evp = (options.library, enum_value, enum_value)
-		print_line(options, "OGLPLUS_CONSTEXPR %s::smart_enums::%s %s;" % evp);
+		print_line(options, "OGLPLUS_CONSTEXPR %s::smart_enums::%s %s = {};" % evp);
 
 actions = {
 	"info":    action_info,

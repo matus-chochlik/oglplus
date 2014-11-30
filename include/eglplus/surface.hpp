@@ -306,7 +306,7 @@ public:
 		bool result = EGLPLUS_EGLFUNC(SwapBuffers)(
 			GetEGLHandle(_display),
 			_handle
-		);
+		) == EGL_TRUE;
 		EGLPLUS_VERIFY_SIMPLE(SwapBuffers);
 		return result;
 	}
@@ -322,7 +322,7 @@ public:
 			GetEGLHandle(_display),
 			_handle,
 			target
-		);
+		) == EGL_TRUE;
 		EGLPLUS_VERIFY_SIMPLE(CopyBuffers);
 		return result;
 	}
@@ -339,7 +339,7 @@ public:
 			_handle,
 			EGLint(EGLenum(attrib)),
 			value
-		);
+		) == EGL_TRUE;
 		EGLPLUS_VERIFY_SIMPLE(SurfaceAttrib);
 		return result;
 	}
@@ -356,7 +356,7 @@ public:
 			_handle,
 			EGLint(EGLenum(attrib)),
 			&value
-		);
+		) == EGL_TRUE;
 		EGLPLUS_VERIFY_SIMPLE(QuerySurface);
 		return result;
 	}

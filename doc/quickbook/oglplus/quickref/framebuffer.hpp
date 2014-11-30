@@ -31,18 +31,6 @@ public:
 	>*/
 };
 //]
-//[oglplus_framebuffer_zero
-template <>
-class __ObjZeroOps<__tag_ExplicitSel, __tag_Framebuffer>
- : public __ObjCommonOps<__tag_Framebuffer>
-{
-public: /*<
-There are no operations that can work explicitly on framebuffer
-object zero besides binding, so this class just inherits from
-the common framebuffer operations wrapper.
->*/
-};
-//]
 //[oglplus_framebuffer_1
 template <>
 class __ObjectOps<__tag_ExplicitSel, __tag_Framebuffer>

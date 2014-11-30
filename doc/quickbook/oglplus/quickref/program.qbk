@@ -9,6 +9,21 @@
 [header oglplus/program.hpp]
 
 [import program.hpp]
-[oglplus_program]
+
+[heading Common program operations]
+[oglplus_program_common]
+
+[heading Operations with direct state access]
+
+[oglplus_program_1]
+[oglplus_program_2]
+[oglplus_program_3]
+
+[heading:resource Program resource]
+
+[header oglplus/program_resource.hpp]
+
+[import program_resource.hpp]
+[oglplus_program_resource]
 
 [endsect]

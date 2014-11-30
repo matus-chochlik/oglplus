@@ -13,10 +13,6 @@
 
 [oglplus_renderbuffer_common]
 
-[heading Renderbuffer zero operations]
-
-[oglplus_renderbuffer_zero]
-
 [heading Operations with explicit selector]
 
 [oglplus_renderbuffer_1]

@@ -56,6 +56,16 @@ div.copyright-footer a
 	color: #E0E0E0;
 }
 
+.calloutlist
+{
+	margin-left: 4em;
+}
+
+.calloutlist table
+{
+	font-size: 80%;
+}
+
 pre.programlisting
 {
 	border: solid #F0F0F0 1px;

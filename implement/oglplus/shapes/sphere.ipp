@@ -18,7 +18,11 @@ Sphere::Indices(Sphere::Default) const
 {
 	assert((1<<(sizeof(GLushort)*8))-1>=((_rings+2)*(_sections+1)));
 	//
+#ifdef GL_PRIMITIVE_RESTART
 	const unsigned n = (_rings + 1)*(2 * (_sections + 1) + 1);
+#else
+    const unsigned n = (_rings + 1)*(2 * (_sections + 1) + 2);
+#endif
 	//
 	IndexArray indices(n);
 	unsigned k = 0;
@@ -31,8 +35,13 @@ Sphere::Indices(Sphere::Default) const
 			indices[k++] = offs + s;
 			indices[k++] = offs + s + (_sections+1);
 		}
-		indices[k++] = n;
 		offs += _sections + 1;
+#ifdef GL_PRIMITIVE_RESTART
+		indices[k++] = n;
+#else
+        indices[k++] = offs + _sections;
+        indices[k++] = offs;
+#endif
 	}
 	assert(k == indices.size());
 	//
@@ -46,14 +55,22 @@ Sphere::Instructions(Sphere::Default) const
 {
 	auto instructions = this->MakeInstructions();
 
+#ifdef GL_PRIMITIVE_RESTART
 	const GLuint n = (_rings + 1)*(2 * (_sections + 1) + 1);
+#else
+	const GLuint n = (_rings + 1)*(2 * (_sections + 1) + 2);
+#endif
 
 	DrawOperation operation;
 	operation.method = DrawOperation::Method::DrawElements;
 	operation.mode = PrimitiveType::TriangleStrip;
 	operation.first =  GLuint(0);
 	operation.count = n;
+#ifdef GL_PRIMITIVE_RESTART
 	operation.restart_index = n;
+#else
+    operation.restart_index = DrawOperation::NoRestartIndex();
+#endif
 	operation.phase = 0;
 	this->AddInstruction(instructions, operation);
 
