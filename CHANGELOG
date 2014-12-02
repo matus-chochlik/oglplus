@@ -1,3 +1,19 @@
+Version 0.54.0
+
+- The TransformFeedback::Activator and Pauser classes were moved
+  to namespace level.
+- A bug in Matrix-by-scalar multiplcation was fixed.
+- A new overload of Context::ClearColor with ColorClearValue parameter
+  was added.
+- Minor changes were made in the GLSLSource and BufferSize classes
+- The build system was updated make C++ SCOPED_ENUMS a requirement.
+- Clang++ warnings and errors were fixed.
+- MSVC warnings related to conversion to bool were fixed.
+- Some of the shape builders were backported to platforms not supporting
+  primitive restart indices.
+- The quickbook documentation was updated.
+
+
 Version 0.53.0
 
 - GL version detection in the build system was updated and should now

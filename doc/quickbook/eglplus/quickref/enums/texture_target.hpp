@@ -9,7 +9,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //
-//[oglplus_enums_texture_target
+//[eglplus_enums_texture_target
 namespace eglplus {
 
 enum class TextureTarget : EGLenum

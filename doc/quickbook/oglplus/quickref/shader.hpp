@@ -64,6 +64,7 @@ public:
 
 	ObjectOps& Compile(void); /*<
 	Compiles [^this] shader.
+	Throws __CompileError if the shader cannot be compiled.
 	See [glfunc CompileShader].
 	>*/
 

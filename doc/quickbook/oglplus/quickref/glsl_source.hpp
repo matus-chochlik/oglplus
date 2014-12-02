@@ -44,8 +44,7 @@ public:
 	a file located at the specified [^path].
 	>*/
 	static
-	GLSLSource FromFile(const String& path);
-// TODO
+	GLSLSource FromFile(const __String& path);
 };
 
 } // namespace oglplus

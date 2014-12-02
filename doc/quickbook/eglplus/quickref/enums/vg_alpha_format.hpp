@@ -9,7 +9,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //
-//[oglplus_enums_vg_alpha_format
+//[eglplus_enums_vg_alpha_format
 namespace eglplus {
 
 enum class VGAlphaFormat : EGLenum

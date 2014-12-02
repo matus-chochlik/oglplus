@@ -9,7 +9,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //
-//[oglplus_enums_source_state
+//[oalplus_enums_source_state
 namespace oalplus {
 
 enum class SourceState : ALenum

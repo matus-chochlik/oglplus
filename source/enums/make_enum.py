@@ -105,7 +105,7 @@ def action_qbk_hpp(options):
 	items = parse_source(options)
 
 	print_cpp_header(options)
-	print_line(options, "//[oglplus_enums_%s" % options.output_id)
+	print_line(options, "//[%s_enums_%s" % (options.library, options.output_id))
 	print_line(options, "namespace %s {" % options.library)
 	print_newline(options)
 	print_line(options, "enum class %s : %s%s" % (
