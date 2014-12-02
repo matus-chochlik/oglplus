@@ -13,9 +13,7 @@
 #ifndef OALPLUS_STRING_1303291951_HPP
 #define OALPLUS_STRING_1303291951_HPP
 
-#include <oglplus/string/utf8.hpp>
-#include <oglplus/string/ref_tpl.hpp>
-#include <oglplus/string/empty.hpp>
+#include <eagine/base/string.hpp>
 
 namespace oalplus {
 
@@ -23,15 +21,13 @@ namespace oalplus {
 /**
  *  @ingroup oalplus_strings
  */
-typedef ::std::basic_string<ALchar> String;
+typedef ::eagine::base::basic_string<ALchar> String;
 
 /// String const reference wrapper
 /**
  *  @ingroup oalplus_strings
  */
-typedef ::oglplus::StrCRefTpl<ALchar> StrCRef;
-
-using oglplus::EmptyStdString;
+typedef ::eagine::base::basic_string_ref<const ALchar> StrCRef;
 
 } // namespace oalplus
 

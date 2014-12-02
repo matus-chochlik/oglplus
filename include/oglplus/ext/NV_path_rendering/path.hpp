@@ -369,7 +369,7 @@ public:
 			this->_name,
 			GLenum(format),
 			path_string.size(),
-			static_cast<const void*>(path_string.c_str())
+			static_cast<const void*>(path_string.data())
 		);
 		OGLPLUS_CHECK(
 			PathStringNV,

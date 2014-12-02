@@ -30,9 +30,9 @@ template <class ShapeBuilder> \
 struct VertexAttribInfo<ShapeBuilder, Vertex ## GETTER_NAME ## Tag> \
 { \
 public: \
-	static const GLchar* _name(void) \
+	static StrCRef _name(void) \
 	{ \
-		return #ATTR_NAME; \
+		return StrCRef(#ATTR_NAME); \
 	} \
  \
 	template <typename T> \
@@ -163,7 +163,7 @@ private:
 			ShapeBuilder,
 			typename std::tuple_element<I, VertexAttribTags>::type
 		>();
-		if(std::strcmp(name.c_str(), info._name()) == 0)
+		if(name == info._name())
 		{
 			return info._getter(selector);
 		}

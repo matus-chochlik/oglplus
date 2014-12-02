@@ -48,7 +48,7 @@ const char* ObjectError::ObjectTypeName(void) const
 noexcept
 {
 #if !OGLPLUS_ERROR_NO_CLASS_NAME
-	return EnumValueName(oglplus::ObjectType(this->ObjectType())).c_str();
+	return EnumValueName(oglplus::ObjectType(this->ObjectType())).data();
 #else
 	return nullptr;
 #endif
@@ -120,7 +120,7 @@ const char* ObjectPairError::SubjectTypeName(void) const
 noexcept
 {
 #if !OGLPLUS_ERROR_NO_CLASS_NAME
-	return EnumValueName(oglplus::ObjectType(this->SubjectType())).c_str();
+	return EnumValueName(oglplus::ObjectType(this->SubjectType())).data();
 #else
 	return nullptr;
 #endif

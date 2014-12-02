@@ -51,7 +51,9 @@ public:
 		OGLPLUS_GLFUNC(BindFragDataLocation)(
 			GetGLName(program),
 			GLuint(location),
-			identifier.c_str()
+			identifier.null_terminated()?
+				identifier.data():
+				identifier.str().c_str()
 		);
 		OGLPLUS_CHECK(
 			BindFragDataLocation,
@@ -78,7 +80,9 @@ public:
 	{
 		GLint result = OGLPLUS_GLFUNC(GetFragDataLocation)(
 			GetGLName(program),
-			identifier.c_str()
+			identifier.null_terminated()?
+				identifier.data():
+				identifier.str().c_str()
 		);
 		OGLPLUS_CHECK(
 			GetFragDataLocation,

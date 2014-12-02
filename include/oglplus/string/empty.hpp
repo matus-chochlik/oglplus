@@ -13,11 +13,12 @@
 #ifndef OGLPLUS_STRING_EMPTY_1107121519_HPP
 #define OGLPLUS_STRING_EMPTY_1107121519_HPP
 
-#include <string>
+#include <eagine/base/string.hpp>
+#include <oglplus/config/basic.hpp>
 
 namespace oglplus {
 
-const std::string& EmptyStdString(void) noexcept;
+const eagine::base::string& EmptyStdString(void) noexcept;
 
 } // namespace oglplus
 

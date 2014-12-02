@@ -43,7 +43,7 @@ bool HasExtension(const GLchar* name)
 	auto er = oglplus::context::StringQueries::Extensions();
 	while(!er.Empty())
 	{
-		if(er.Front() == name) return true;
+		if(er.Front() == StrCRef(name)) return true;
 		er.Next();
 	}
 	return false;

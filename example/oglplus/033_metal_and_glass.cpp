@@ -471,7 +471,7 @@ public:
 		};
 		for(GLuint va=0; va!=nva; ++va)
 		{
-			const GLchar* name = vert_attr_name[va];
+			StrCRef name(vert_attr_name[va]);
 			std::vector<GLfloat> data;
 			auto getter = vert_attr_info.VertexAttribGetter(data, name);
 			if(getter != nullptr)

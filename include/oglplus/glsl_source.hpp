@@ -86,11 +86,6 @@ public:
 	))
 	{ }
 
-	template <typename Head, typename Tail>
-	GLSLSource(const StrCRefChainTpl<GLchar, Head, Tail>& source)
-	 : _impl(make_impl<aux::StrGLSLSrcWrap>(source.str()))
-	{ }
-
 	explicit GLSLSource(const String& source)
 	 : _impl(make_impl<aux::StrGLSLSrcWrap>(source))
 	{ }

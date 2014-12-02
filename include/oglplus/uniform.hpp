@@ -48,7 +48,9 @@ public:
 	{
 		GLint result = OGLPLUS_GLFUNC(GetUniformLocation)(
 			GetGLName(program),
-			identifier.c_str()
+			identifier.null_terminated()?
+				identifier.data():
+				identifier.str().c_str()
 		);
 		OGLPLUS_CHECK(
 			GetUniformLocation,

@@ -229,7 +229,7 @@ public:
 			id,
 			GLenum(severity),
 			message.size(),
-			message.c_str()
+			message.data()
 		);
 		OGLPLUS_VERIFY_SIMPLE(DebugMessageInsertARB);
 	}

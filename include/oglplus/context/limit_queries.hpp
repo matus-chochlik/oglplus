@@ -91,7 +91,7 @@ public:
 			GL_INVALID_VALUE,
 			LimitError::Message(),
 			LimitError,
-			GLFunc(EnumValueName(limit).c_str())
+			GLFunc(EnumValueName(limit).data())
 		);
 	}
 

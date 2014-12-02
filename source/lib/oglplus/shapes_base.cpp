@@ -12,7 +12,6 @@
 #include "prologue.ipp"
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/empty.hpp>
-#include <oglplus/string/utf8.hpp>
 #include <oglplus/error/limit.hpp>
 #include <oglplus/error/glfunc.hpp>
 #include <oglplus/face_mode.hpp>

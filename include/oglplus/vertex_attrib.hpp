@@ -55,7 +55,9 @@ public:
 		OGLPLUS_GLFUNC(BindAttribLocation)(
 			GetGLName(program),
 			GLuint(location),
-			identifier.c_str()
+			identifier.null_terminated()?
+				identifier.data():
+				identifier.str().c_str()
 		);
 		OGLPLUS_CHECK(
 			BindAttribLocation,
@@ -87,7 +89,9 @@ public:
 	{
 		GLint result = OGLPLUS_GLFUNC(GetAttribLocation)(
 			GetGLName(program),
-			identifier.c_str()
+			identifier.null_terminated()?
+				identifier.data():
+				identifier.str().c_str()
 		);
 		OGLPLUS_CHECK(
 			GetAttribLocation,

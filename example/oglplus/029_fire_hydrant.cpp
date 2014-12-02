@@ -301,7 +301,7 @@ public:
 			std::ifstream input;
 			OpenResourceFile(input, "models", tex_filenames[t], ".png");
 
-			ProgramUniformSampler(draw_prog, tex_samplers[t]).Set(t);
+			ProgramUniformSampler(draw_prog, StrCRef(tex_samplers[t])).Set(t);
 			Texture::Active(t);
 
 			gl.Bound(Texture::Target::_2D, tex[t])

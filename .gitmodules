@@ -1,3 +1,4 @@
 [submodule "eagine"]
 	path = eagine
 	url = https://github.com/matus-chochlik/eagine.git
+	branch = develop

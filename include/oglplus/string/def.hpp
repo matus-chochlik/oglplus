@@ -13,7 +13,8 @@
 #ifndef OGLPLUS_STRING_DEF_1107121519_HPP
 #define OGLPLUS_STRING_DEF_1107121519_HPP
 
-#include <string>
+#include <eagine/base/string.hpp>
+#include <oglplus/config/basic.hpp>
 
 namespace oglplus {
 
@@ -33,7 +34,7 @@ bool ValidString(const char* begin, const char* end);
 /**
  *  @ingroup oglplus_strings
  */
-typedef ::std::basic_string<GLchar> String;
+typedef ::eagine::base::basic_string<GLchar> String;
 
 const String& EmptyString(void) noexcept;
 

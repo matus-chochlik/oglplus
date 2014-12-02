@@ -88,7 +88,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attrib
-			VertexArrayAttrib attr(prog, ident[i]);
+			VertexArrayAttrib attr(prog, StrCRef(ident[i]));
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}

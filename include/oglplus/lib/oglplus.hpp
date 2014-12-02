@@ -25,7 +25,6 @@
 
 #include <oglplus/fwd.hpp>
 
-#include <oglplus/string/utf8.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/object/desc.hpp>
 

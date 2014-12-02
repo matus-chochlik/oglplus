@@ -40,9 +40,9 @@ public:
 		OGLPLUS_GLFUNC(NamedStringARB)(
 			GLenum(type),
 			GLint(name.size()),
-			name.c_str(),
+			name.data(),
 			GLint(value.size()),
-			value.c_str()
+			value.data()
 		);
 		OGLPLUS_CHECK_SIMPLE(NamedStringARB);
 	}
@@ -53,7 +53,7 @@ public:
 		GLint len = 0;
 		OGLPLUS_GLFUNC(GetNamedStringivARB)(
 			GLint(name.size()),
-			name.c_str(),
+			name.data(),
 			GL_NAMED_STRING_LENGTH_ARB,
 			&len
 		);
@@ -62,7 +62,7 @@ public:
 		String result(len, '\0');
 		OGLPLUS_GLFUNC(GetNamedStringARB)(
 			GLint(name.size()),
-			name.c_str(),
+			name.data(),
 			len,
 			&len,
 			&result.front()
@@ -77,7 +77,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(DeleteNamedStringARB)(
 			GLint(name.size()),
-			name.c_str()
+			name.data()
 		);
 		OGLPLUS_CHECK_SIMPLE(DeleteNamedStringARB);
 	}
@@ -88,7 +88,7 @@ public:
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetNamedStringivARB)(
 			GLint(name.size()),
-			name.c_str(),
+			name.data(),
 			GL_NAMED_STRING_TYPE_ARB,
 			&result
 		);
@@ -101,7 +101,7 @@ public:
 	{
 		GLboolean result = OGLPLUS_GLFUNC(IsNamedStringARB)(
 			GLint(name.size()),
-			name.c_str()
+			name.data()
 		);
 		OGLPLUS_CHECK_SIMPLE(IsNamedStringARB);
 		return result == GL_TRUE;

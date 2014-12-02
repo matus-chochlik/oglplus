@@ -84,7 +84,7 @@ protected:
 		{
 			auto getter = vert_attr_info.VertexAttribGetter(
 				data,
-				*name
+				StrCRef(*name)
 			);
 			if(getter != nullptr)
 			{

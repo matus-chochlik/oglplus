@@ -12,7 +12,6 @@
 #include "prologue.ipp"
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/empty.hpp>
-#include <oglplus/string/utf8.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/error/prog_var.hpp>
 #include <oglplus/error/limit.hpp>

@@ -12,7 +12,6 @@
 #include "prologue.ipp"
 #include "implement.ipp"
 
-#include <oglplus/string/utf8.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/empty.hpp>
 #include <oglplus/utils/xml.hpp>

@@ -11,7 +11,7 @@
 
 #include <oglplus/lib/incl_begin.ipp>
 #include <oglplus/config/basic.hpp>
-#include <oglplus/string/utf8.hpp>
+#include <eagine/base/utf8.hpp>
 #include <oglplus/lib/incl_end.ipp>
 
 namespace oglplus {
@@ -23,7 +23,7 @@ OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
 	CodePoints& result
 )
 {
-	aux::ConvertUTF8ToCodePoints(begin, end-begin, result);
+	eagine::base::convert_utf8_to_code_points(begin, end-begin, result);
 }
 
 OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
@@ -32,7 +32,7 @@ OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
 	CodePoints& result
 )
 {
-	aux::ConvertUTF8ToCodePoints(c_str, length, result);
+	eagine::base::convert_utf8_to_code_points(c_str, length, result);
 }
 
 OGLPLUS_LIB_FUNC void CodePointsToUTF8(
@@ -41,7 +41,7 @@ OGLPLUS_LIB_FUNC void CodePointsToUTF8(
 	std::vector<char>& result
 )
 {
-	aux::ConvertCodePointsToUTF8(begin, end-begin, result);
+	eagine::base::convert_code_points_to_utf8(begin, end-begin, result);
 }
 
 OGLPLUS_LIB_FUNC void CodePointsToUTF8(
@@ -50,7 +50,7 @@ OGLPLUS_LIB_FUNC void CodePointsToUTF8(
 	std::vector<char>& result
 )
 {
-	aux::ConvertCodePointsToUTF8(c_str, length, result);
+	eagine::base::convert_code_points_to_utf8(c_str, length, result);
 }
 
 } // namespace text

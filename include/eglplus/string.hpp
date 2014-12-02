@@ -13,8 +13,7 @@
 #ifndef EGLPLUS_STRING_1303291951_HPP
 #define EGLPLUS_STRING_1303291951_HPP
 
-#include <oglplus/string/ref_tpl.hpp>
-#include <string>
+#include <eagine/base/string.hpp>
 
 namespace eglplus {
 
@@ -22,13 +21,13 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_strings
  */
-typedef ::std::basic_string<char> String;
+typedef ::eagine::base::basic_string<char> String;
 
 /// String const reference wrapper
 /**
  *  @ingroup eglplus_strings
  */
-typedef ::oglplus::StrCRefTpl<char> StrCRef;
+typedef ::eagine::base::basic_string_ref<const char> StrCRef;
 
 } // namespace eglplus
 

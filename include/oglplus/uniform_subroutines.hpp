@@ -59,7 +59,9 @@ public:
 		GLint result = OGLPLUS_GLFUNC(GetSubroutineIndex)(
 			GetGLName(program),
 			GLenum(stage),
-			identifier.c_str()
+			identifier.null_terminated()?
+				identifier.data():
+				identifier.str().c_str()
 		);
 		OGLPLUS_CHECK(
 			GetSubroutineIndex,
@@ -169,7 +171,9 @@ public:
 		GLint result = OGLPLUS_GLFUNC(GetSubroutineUniformLocation)(
 			GetGLName(program),
 			GLenum(stage),
-			identifier.c_str()
+			identifier.null_terminated()?
+				identifier.data():
+				identifier.str().c_str()
 		);
 		OGLPLUS_CHECK(
 			GetSubroutineUniformLocation,

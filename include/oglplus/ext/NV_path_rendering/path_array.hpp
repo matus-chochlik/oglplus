@@ -133,7 +133,7 @@ public:
 			GLbitfield(font_style),
 			char_codes.size(),
 			GL_UTF8_NV,
-			(const void*)char_codes.c_str(),
+			(const void*)char_codes.data(),
 			GLenum(handle_missing_glyphs),
 			parameter_template,
 			em_scale
@@ -268,7 +268,7 @@ public:
 			GLenum(list_mode),
 			GLsizei(indices.size()+1), //include null terminator
 			GL_UTF8_NV,
-			(const void*)indices.c_str(),
+			(const void*)indices.data(),
 			this->_names[0],
 			advance_scale,
 			kerning_scale,
@@ -352,7 +352,7 @@ public:
 			GLbitfield(query_mask),
 			GLsizei(indices.size()+1),
 			GL_UTF8_NV,
-			(const void*)indices.c_str(),
+			(const void*)indices.data(),
 			this->_names[0],
 			stride,
 			returned_values
@@ -469,7 +469,7 @@ public:
 		OGLPLUS_GLFUNC(StencilFillPathInstancedNV)(
 			GLsizei(paths.size()),
 			GL_UTF8_NV,
-			(const void*)paths.c_str(),
+			(const void*)paths.data(),
 			this->_names[0],
 			GLenum(mode),
 			mask,
@@ -560,7 +560,7 @@ public:
 		OGLPLUS_GLFUNC(CoverFillPathInstancedNV)(
 			GLsizei(paths.size()),
 			GL_UTF8_NV,
-			(const void*)paths.c_str(),
+			(const void*)paths.data(),
 			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),
@@ -647,7 +647,7 @@ public:
 		OGLPLUS_GLFUNC(StencilStrokePathInstancedNV)(
 			GLsizei(paths.size()),
 			GL_UTF8_NV,
-			(const void*)paths.c_str(),
+			(const void*)paths.data(),
 			this->_names[0],
 			reference,
 			mask,
@@ -734,7 +734,7 @@ public:
 		OGLPLUS_GLFUNC(CoverStrokePathInstancedNV)(
 			GLsizei(paths.size()),
 			GL_UTF8_NV,
-			(const void*)paths.c_str(),
+			(const void*)paths.data(),
 			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),

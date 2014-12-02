@@ -82,7 +82,7 @@ GetCommonLocation(
 		"Inconsistent location of a vertex "
 		"attribute in multiple programs",
 		ProgVarError,
-		Identifier(identifier.c_str())
+		Identifier(identifier)
 	);
 	return location;
 }

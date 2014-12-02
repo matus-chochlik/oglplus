@@ -175,6 +175,13 @@ include_directories(${PROJECT_SOURCE_DIR}/third_party/include)
 # include the oglplus implementation
 include_directories(${PROJECT_SOURCE_DIR}/implement)
 
+# include the eagine headers
+include_directories(${PROJECT_SOURCE_DIR}/eagine/include)
+# include the eagine third party headers
+include_directories(${PROJECT_SOURCE_DIR}/eagine/third_party/include)
+# include the eagine implementation
+include_directories(${PROJECT_SOURCE_DIR}/eagine/implement)
+
 # common functions for GL version and extension detection
 include(config/GLVerExt.cmake)
 # GL version detection

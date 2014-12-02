@@ -59,11 +59,11 @@ void run(void)
 			cfg.MaxPbufferPixels() << std::endl;
 
 		std::cout << "\tConfig caveat:     " << std::setw(w) <<
-			eglplus::EnumValueName(cfg.ConfigCaveat()).c_str() << std::endl;
+			eglplus::EnumValueName(cfg.ConfigCaveat()) << std::endl;
 		std::cout << "\tColor buffer type: " << std::setw(w) <<
-			eglplus::EnumValueName(cfg.ColorBufferType()).c_str() << std::endl;
+			eglplus::EnumValueName(cfg.ColorBufferType()) << std::endl;
 		std::cout << "\tTransparent type:  " << std::setw(w) <<
-			eglplus::EnumValueName(cfg.TransparentType()).c_str() << std::endl;
+			eglplus::EnumValueName(cfg.TransparentType()) << std::endl;
 
 		std::cout << "\tRenderable types:  " << std::setw(w);
 		auto rtr=eglplus::EnumValueRange<eglplus::RenderableTypeBit>();
@@ -71,7 +71,7 @@ void run(void)
 		{
 			if(cfg.HasRenderableType(rtr.Front()))
 			{
-				std::cout << eglplus::EnumValueName(rtr.Front()).c_str();
+				std::cout << eglplus::EnumValueName(rtr.Front());
 				std::cout << '|';
 			}
 			rtr.Next();
@@ -84,7 +84,7 @@ void run(void)
 		{
 			if(cfg.HasSurfaceType(str.Front()))
 			{
-				std::cout << eglplus::EnumValueName(str.Front()).c_str();
+				std::cout << eglplus::EnumValueName(str.Front());
 				std::cout << '|';
 			}
 			str.Next();
@@ -97,7 +97,7 @@ void run(void)
 		{
 			if(cfg.IsConformantTo(ctr.Front()))
 			{
-				std::cout << eglplus::EnumValueName(ctr.Front()).c_str();
+				std::cout << eglplus::EnumValueName(ctr.Front());
 				std::cout << '|';
 			}
 			ctr.Next();

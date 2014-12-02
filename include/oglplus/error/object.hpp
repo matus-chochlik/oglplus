@@ -67,7 +67,7 @@ public:
 		_bind_tgt = GLenum(bind_tgt);
 #endif
 #if !OGLPLUS_ERROR_NO_TARGET_NAME
-		_tgt_name = EnumValueName(bind_tgt).c_str();
+		_tgt_name = EnumValueName(bind_tgt).data();
 #endif
 		(void)bind_tgt;
 		return *this;

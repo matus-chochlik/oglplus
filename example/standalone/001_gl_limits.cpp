@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 		for(auto r=oglplus::EnumValueRange<oglplus::LimitQuery>(); !r.Empty(); r.Next())
 		{
 			auto ev = r.Front();
-			std::cout << std::setw(w) << EnumValueName(ev).c_str() << ": ";
+			std::cout << std::setw(w) << EnumValueName(ev) << ": ";
 			try { std::cout << context.FloatLimit(ev); }
 			catch(...){ std::cout << "N/A"; }
 			std::cout << std::endl;

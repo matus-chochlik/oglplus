@@ -14,7 +14,6 @@
 #define OGLPLUS_TEXT_UNICODE_HPP
 
 #include <vector>
-#include <cassert>
 
 namespace oglplus {
 namespace text {

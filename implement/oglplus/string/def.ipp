@@ -10,7 +10,7 @@
  */
 
 #include <oglplus/lib/incl_begin.ipp>
-#include <oglplus/string/utf8.hpp>
+#include <eagine/base/utf8.hpp>
 #include <oglplus/lib/incl_end.ipp>
 
 namespace oglplus {
@@ -26,7 +26,7 @@ noexcept
 OGLPLUS_LIB_FUNC
 bool ValidString(const char* begin, const char* end)
 {
-	return aux::ValidUTF8(begin, end);
+	return eagine::base::valid_utf8(begin, end);
 }
 
 } // namespace oglplus

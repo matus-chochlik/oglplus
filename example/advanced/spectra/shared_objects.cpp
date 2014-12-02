@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -54,8 +54,10 @@ oglplus::Program SpectraSharedObjects::BuildProgramWithXFB(
 			type = types.Front();
 			StrCRef name = EnumValueName(type);
 			name_len = name.size();
-			if(std::strncmp(line, name.c_str(), name.size()) == 0)
+			if(StrCRef(line) == name)
+			{
 				break;
+			}
 			types.Next();
 		}
 		if(types.Empty())

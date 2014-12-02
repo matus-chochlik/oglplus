@@ -14,7 +14,6 @@
 #include <GL/glut.h>
 
 #include <oglplus/context.hpp>
-#include <oglplus/string/ref_ios.hpp>
 
 #include <iostream>
 

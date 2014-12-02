@@ -79,7 +79,9 @@ GetType(ProgramName program, GLint /*location*/, StrCRef identifier)
 		if(GLsizei(identifier.size()) == length)
 		{
 			if(std::strncmp(
-				identifier.c_str(),
+				identifier.null_terminated()?
+					identifier.data():
+					identifier.str().c_str(),
 				buffer.data(),
 				length
 			) == 0)

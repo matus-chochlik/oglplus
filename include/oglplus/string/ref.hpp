@@ -13,12 +13,12 @@
 #ifndef OGLPLUS_STRING_REF_1107121519_HPP
 #define OGLPLUS_STRING_REF_1107121519_HPP
 
-#include <oglplus/string/ref_tpl.hpp>
+#include <eagine/base/string.hpp>
 
 namespace oglplus {
 
 /// String const reference wrapper
-typedef StrCRefTpl<GLchar> StrCRef;
+typedef eagine::base::basic_string_ref<const GLchar> StrCRef;
 
 } // namespace oglplus
 

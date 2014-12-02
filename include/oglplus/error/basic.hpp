@@ -199,7 +199,7 @@ public:
 	{
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
 		_enumpar = GLenum(param);
-		_enumpar_name = EnumValueName(param).c_str();
+		_enumpar_name = EnumValueName(param).data();
 #endif
 		(void)param;
 		return *this;

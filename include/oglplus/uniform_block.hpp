@@ -53,7 +53,9 @@ public:
 	{
 		GLint result = OGLPLUS_GLFUNC(GetUniformBlockIndex)(
 			GetGLName(program),
-			identifier.c_str()
+			identifier.null_terminated()?
+				identifier.data():
+				identifier.str().c_str()
 		);
 		OGLPLUS_CHECK(
 			GetUniformBlockIndex,

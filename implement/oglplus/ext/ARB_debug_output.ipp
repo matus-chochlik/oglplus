@@ -57,11 +57,11 @@ Call(const ARB_debug_output::CallbackData& data)
 	dbgout << " +-+-[" << data.id << "] '" <<
 		data.message << "'" << std::endl;
 	dbgout << " | +---[source]   '" <<
-		EnumValueName(data.source).c_str()  << "'" << std::endl;
+		EnumValueName(data.source)  << "'" << std::endl;
 	dbgout << " | +---[type]     '" <<
-		EnumValueName(data.type).c_str()  << "'" << std::endl;
+		EnumValueName(data.type)  << "'" << std::endl;
 	dbgout << " | `---[severity] '" <<
-		EnumValueName(data.severity).c_str()  << "'" << std::endl;
+		EnumValueName(data.severity)  << "'" << std::endl;
 }
 
 OGLPLUS_LIB_FUNC
@@ -94,17 +94,17 @@ Call(const ARB_debug_output::CallbackData& data)
 		<< std::endl;
 	dbgout
 		<< "<source>"
-		<< EnumValueName(data.source).c_str()
+		<< EnumValueName(data.source)
 		<< "</source>"
 		<< std::endl;
 	dbgout
 		<< "<type>"
-		<< EnumValueName(data.type).c_str()
+		<< EnumValueName(data.type)
 		<< "</type>"
 		<< std::endl;
 	dbgout
 		<< "<severity>"
-		<< EnumValueName(data.severity).c_str()
+		<< EnumValueName(data.severity)
 		<< "</severity>"
 		<< std::endl;
 

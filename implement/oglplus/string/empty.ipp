@@ -12,10 +12,10 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
-const std::string& EmptyStdString(void)
+const eagine::base::string& EmptyStdString(void)
 noexcept
 {
-	static std::string empty;
+	static eagine::base::string empty;
 	return empty;
 }
 

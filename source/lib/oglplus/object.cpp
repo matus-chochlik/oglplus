@@ -13,7 +13,6 @@
 
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/empty.hpp>
-#include <oglplus/string/utf8.hpp>
 #include <oglplus/error/basic.hpp>
 #include <oglplus/error/glfunc.hpp>
 #include <oglplus/error/limit.hpp>

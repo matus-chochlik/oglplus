@@ -837,7 +837,9 @@ public:
 		OGLPLUS_GLFUNC(BindAttribLocation)(
 			_name,
 			GLuint(vertex_attrib_slot),
-			identifier.c_str()
+			identifier.null_terminated()?
+				identifier.data():
+				identifier.str().c_str()
 		);
 		OGLPLUS_CHECK(
 			BindAttribLocation,

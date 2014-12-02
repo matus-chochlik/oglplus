@@ -241,9 +241,10 @@ public:
 	 *  storing object description is returned. Otherwise the result
 	 *  is an empty std::string.
 	 */
-	virtual const std::string& ObjectDesc(void) const
+	virtual const eagine::base::string& ObjectDesc(void) const
 	{
-		return EmptyStdString();
+		static eagine::base::string e;
+		return e;
 	}
 };
 

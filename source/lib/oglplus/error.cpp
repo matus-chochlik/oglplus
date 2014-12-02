@@ -12,7 +12,6 @@
 #include "prologue.ipp"
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/empty.hpp>
-#include <oglplus/string/utf8.hpp>
 #include <oglplus/object/type.hpp>
 #include <oglplus/error/code.hpp>
 #include <oglplus/framebuffer_status.hpp>
