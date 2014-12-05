@@ -71,7 +71,8 @@
  * Update this if/when it is implemented
  */
 #if	defined(BOOST_NO_CXX11_INHERITED_CONSTRUCTORS) ||\
-	defined(BOOST_NO_INHERITED_CONSTRUCTORS)
+	defined(BOOST_NO_INHERITED_CONSTRUCTORS) ||\
+	defined(_MSC_VER)
 #define OGLPLUS_NO_INHERITED_CONSTRUCTORS 1
 #else
 #define OGLPLUS_NO_INHERITED_CONSTRUCTORS 0
