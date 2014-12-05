@@ -13,6 +13,5 @@
 #include "implement.ipp"
 
 #include <oglplus/string/def.hpp>
-#include <oglplus/string/empty.hpp>
 #include <oglplus/utils/xml.hpp>
 #include "epilogue.ipp"

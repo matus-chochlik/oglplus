@@ -101,7 +101,7 @@ public:
 	override;
 
 	/// Object textual description
-	const String& ObjectDesc(void) const
+	eagine::base::cstrref ObjectDesc(void) const
 	noexcept
 	override;
 
@@ -171,7 +171,7 @@ public:
 	override;
 
 	/// Object textual description
-	const String& SubjectDesc(void) const
+	eagine::base::cstrref SubjectDesc(void) const
 	noexcept
 	override;
 

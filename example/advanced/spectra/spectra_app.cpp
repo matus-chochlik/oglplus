@@ -42,7 +42,7 @@ wxString SpectraApp::MakeCommonErrorMessage(oglplus::Error& err)
 	message.Append(newline);
 	message.Append(wxString::Format(
 		wxGetTranslation(wxT("Object: '%s'"), wxT("Error")),
-		wxString(err.ObjectDesc().c_str(), wxConvUTF8).c_str()
+		wxString(err.ObjectDesc().data(), wxConvUTF8).c_str()
 	));
 	message.Append(newline);
 	message.Append(wxString::Format(

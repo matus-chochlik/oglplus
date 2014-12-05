@@ -11,7 +11,6 @@
 
 #include "prologue.ipp"
 #include <oglplus/string/def.hpp>
-#include <oglplus/string/empty.hpp>
 #include <oglplus/error/glfunc.hpp>
 #include <oglplus/error/program.hpp>
 #include <oglplus/error/prog_var.hpp>

@@ -84,7 +84,7 @@ noexcept
 }
 
 OGLPLUS_LIB_FUNC
-const String& ObjectError::ObjectDesc(void) const
+eagine::base::cstrref ObjectError::ObjectDesc(void) const
 noexcept
 {
 	return aux::ObjectDescRegistry::_get_desc(
@@ -134,7 +134,7 @@ noexcept
 }
 
 OGLPLUS_LIB_FUNC
-const String& ObjectPairError::SubjectDesc(void) const
+eagine::base::cstrref ObjectPairError::SubjectDesc(void) const
 noexcept
 {
 	return aux::ObjectDescRegistry::_get_desc(

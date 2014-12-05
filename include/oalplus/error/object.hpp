@@ -49,7 +49,7 @@ public:
 	ALint ObjectName(void) const;
 
 	/// Object textual description
-	const String& ObjectDesc(void) const;
+	eagine::base::cstrref ObjectDesc(void) const;
 };
 
 } // namespace oalplus

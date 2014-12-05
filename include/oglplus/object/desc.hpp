@@ -14,11 +14,10 @@
 #define OGLPLUS_OBJECT_DESC_1107121519_HPP
 
 #include <oglplus/config/object.hpp>
-#include <oglplus/string/empty.hpp>
 #include <oglplus/object/name_tpl.hpp>
+#include <eagine/base/string.hpp>
 
 #if !OGLPLUS_NO_OBJECT_DESC
-#include <cassert>
 #include <map>
 #endif
 
@@ -28,46 +27,36 @@ class ObjectDesc
 {
 private:
 #if !OGLPLUS_NO_OBJECT_DESC
-	std::string _str;
+	eagine::base::cstrref _sref;
 #endif
 public:
-	ObjectDesc(void)
-	noexcept
-	{ }
+	ObjectDesc(void) = default;
 
-	ObjectDesc(std::string&& str)
+	explicit inline
+	ObjectDesc(const char* cstr)
 	noexcept
 #if !OGLPLUS_NO_OBJECT_DESC
-	 : _str(std::move(str))
+	 : _sref(cstr)
 #endif
 	{
-		(void)str;
+		(void)cstr;
 	}
 
-	ObjectDesc(ObjectDesc&& tmp)
+	inline
+	ObjectDesc(eagine::base::cstrref sref)
 	noexcept
 #if !OGLPLUS_NO_OBJECT_DESC
-	 : _str(std::move(tmp._str))
+	 : _sref(sref)
 #endif
 	{
-		(void)tmp;
-	}
-
-	const std::string& Str(void)
-	noexcept
-	{
-#if !OGLPLUS_NO_OBJECT_DESC
-		return _str;
-#else
-		return EmptyStdString();
-#endif
+		(void)sref;
 	}
 
 #if !OGLPLUS_NO_OBJECT_DESC
-	std::string&& Release(void)
+	eagine::base::string str(void) const
 	noexcept
 	{
-		return std::move(_str);
+		return _sref.str();
 	}
 #endif
 };
@@ -75,7 +64,7 @@ public:
 namespace aux {
 
 #if !OGLPLUS_NO_OBJECT_DESC
-::std::map<unsigned, std::string>&
+::std::map<unsigned, eagine::base::string>&
 ObjectDescRegistryStorage(int id)
 noexcept;
 #endif
@@ -84,7 +73,7 @@ noexcept;
 class ObjectDescRegistryBase
 {
 private:
-	typedef ::std::map<unsigned, std::string> _desc_map;
+	typedef ::std::map<unsigned, eagine::base::string> _desc_map;
 protected:
 	static void _do_register_desc(
 		_desc_map& storage,
@@ -97,7 +86,7 @@ protected:
 		unsigned name
 	) noexcept;
 
-	static const std::string& _do_get_desc(
+	static eagine::base::cstrref _do_get_desc(
 		_desc_map& storage,
 		unsigned name
 	) noexcept;
@@ -112,7 +101,7 @@ class ObjectDescRegistry
 private:
 #if !OGLPLUS_NO_OBJECT_DESC
 	typedef ObjectDescRegistryBase _base;
-	typedef ::std::map<unsigned, std::string> _desc_map;
+	typedef ::std::map<unsigned, eagine::base::string> _desc_map;
 
 	static
 	_desc_map& _storage(int id)
@@ -158,16 +147,14 @@ public:
 
 	// internal implementation detail. do not use directly
 	static
-	const std::string& _get_desc(int id, unsigned name)
+	eagine::base::cstrref _get_desc(int id, unsigned name)
 	noexcept
-#if OGLPLUS_NO_OBJECT_DESC
 	{
+#if OGLPLUS_NO_OBJECT_DESC
 		(void)id;
 		(void)name;
-		return EmptyStdString();
-	}
+		return eagine::base::cstrref();
 #else
-	{
 		return _base::_do_get_desc(_storage(id), name);
 	}
 #endif
@@ -177,7 +164,7 @@ public:
 
 template <typename ObjTag>
 inline
-const std::string& DescriptionOf(ObjectName<ObjTag> object)
+eagine::base::string DescriptionOf(ObjectName<ObjTag> object)
 noexcept
 {
 	return aux::ObjectDescRegistry::_get_desc(

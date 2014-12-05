@@ -128,20 +128,25 @@ InputStreamGLSLSrcWrap::InputStreamGLSLSrcWrap(std::istream& input)
 { }
 
 OGLPLUS_LIB_FUNC
-FileGLSLSrcWrapOpener::FileGLSLSrcWrapOpener(const char* path)
- : _file(path, std::ios::in)
+FileGLSLSrcWrapOpener::FileGLSLSrcWrapOpener(const eagine::base::cstrref& path)
+ : _file(
+	path.null_terminated()?
+	path.data():
+	path.str().c_str(),
+	std::ios::in
+)
 {
 	if(!_file.good())
 	{
 		std::string msg("Failed to open file '");
-		msg.append(path);
+		msg.append(path.data(), path.size());
 		msg.append("' for reading.");
 		throw std::runtime_error(msg);
 	}
 }
 
 OGLPLUS_LIB_FUNC
-FileGLSLSrcWrap::FileGLSLSrcWrap(const char* path)
+FileGLSLSrcWrap::FileGLSLSrcWrap(const eagine::base::cstrref& path)
  : FileGLSLSrcWrapOpener(path)
  , InputStreamGLSLSrcWrap(_file)
 {

@@ -17,7 +17,6 @@
 #include <oglplus/error/code.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/ref.hpp>
-#include <oglplus/string/empty.hpp>
 #include <stdexcept>
 #include <cassert>
 
@@ -330,10 +329,10 @@ public:
 	 *  storing object description is returned. Otherwise the result
 	 *  is an empty std::string.
 	 */
-	virtual const std::string& ObjectDesc(void) const
+	virtual eagine::base::cstrref ObjectDesc(void) const
 	noexcept
 	{
-		return EmptyStdString();
+		return eagine::base::cstrref();
 	}
 
 	/// Returns the subject type
@@ -374,10 +373,10 @@ public:
 	 *  storing the secondary object description is returned. Otherwise
 	 *  the result is an empty std::string.
 	 */
-	virtual const std::string& SubjectDesc(void) const
+	virtual eagine::base::cstrref SubjectDesc(void) const
 	noexcept
 	{
-		return EmptyStdString();
+		return eagine::base::cstrref();
 	}
 
 	/// Returns the identifier of a GPU program variable

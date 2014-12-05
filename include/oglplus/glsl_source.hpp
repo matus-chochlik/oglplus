@@ -107,18 +107,13 @@ public:
 
 	struct FromFile_ { };
 
-	GLSLSource(const char* path, FromFile_)
+	GLSLSource(const eagine::base::cstrref& path, FromFile_)
 	 : _impl(make_impl<aux::FileGLSLSrcWrap>(path))
 	{ }
 
-	static GLSLSource FromFile(const char* path)
+	static GLSLSource FromFile(const eagine::base::cstrref& path)
 	{
 		return GLSLSource(path, FromFile_());
-	}
-
-	static GLSLSource FromFile(const String& path)
-	{
-		return GLSLSource(path.c_str(), FromFile_());
 	}
 
 	/// Count of buffers storing the individual parts of the source

@@ -252,7 +252,7 @@ private:
 	}
 
 	// makes a fragment shader from the prologe, custom part and epilogue
-	static Shader make_fs(const char* color_fs, const char* desc)
+	static Shader make_fs(const char* color_fs, StrCRef desc)
 	{
 		Shader shader(ShaderType::Fragment, ObjectDesc(desc));
 		const GLchar* src[3] = {fs_prologue(), color_fs, fs_epilogue()};

@@ -87,8 +87,9 @@ int main(int argc, char* argv[])
 
 			if(++arg != argc)
 			{
-				Shader shader(shader_type, ObjectDesc(argv[arg]));
-				shader.Source(GLSLSource::FromFile(argv[arg]));
+				StrCRef shader_name(argv[arg]);
+				Shader shader(shader_type, ObjectDesc(shader_name));
+				shader.Source(GLSLSource::FromFile(shader_name));
 				shader.Compile();
 				prog.AttachShader(shader);
 			}
@@ -122,7 +123,7 @@ int main(int argc, char* argv[])
 			else std::cout << " +-";
 			if(empty) std::cout << "--";
 			else std::cout << "+-";
-			std::cout << "[" << EnumValueName(intf).c_str() << "]" << std::endl;
+			std::cout << "[" << EnumValueName(intf) << "]" << std::endl;
 
 			if(!empty) std::cout << " | |" << std::endl;
 			else if(!last_intf) std::cout << " |" << std::endl;
@@ -155,7 +156,7 @@ int main(int argc, char* argv[])
 					if(has_name) std::cout << " +-";
 					else std::cout << " `-";
 					std::cout << "--[Type: ";
-					std::cout << EnumValueName(res.Type()).c_str();
+					std::cout << EnumValueName(res.Type());
 					std::cout << "]" << std::endl;
 				}
 

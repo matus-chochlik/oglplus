@@ -223,7 +223,7 @@ class FileGLSLSrcWrapOpener
 protected:
 	std::ifstream _file;
 
-	FileGLSLSrcWrapOpener(const char* path);
+	FileGLSLSrcWrapOpener(const eagine::base::cstrref& path);
 };
 
 class FileGLSLSrcWrap
@@ -231,7 +231,7 @@ class FileGLSLSrcWrap
  , public InputStreamGLSLSrcWrap
 {
 public:
-	FileGLSLSrcWrap(const char* path);
+	FileGLSLSrcWrap(const eagine::base::cstrref& path);
 };
 
 } // namespace aux

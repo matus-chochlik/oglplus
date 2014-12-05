@@ -8,6 +8,9 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
+#if !OGLPLUS_NO_OBJECT_DESC
+#include <cassert>
+#endif
 
 namespace oglplus {
 namespace aux {
@@ -15,10 +18,13 @@ namespace aux {
 #if !OGLPLUS_NO_OBJECT_DESC
 
 OGLPLUS_LIB_FUNC
-::std::map<unsigned, std::string>& ObjectDescRegistryStorage(int id)
+::std::map<unsigned, eagine::base::string>& ObjectDescRegistryStorage(int id)
 noexcept // yes, we know that map::operator[] can throw
 {
-	static ::std::map<int, ::std::map<unsigned, std::string> > _maps;
+	static ::std::map<
+		int,
+		::std::map<unsigned, eagine::base::string>
+	> _maps;
 	return _maps[id];
 }
 
@@ -33,7 +39,7 @@ void ObjectDescRegistryBase::_do_register_desc(
 	storage.insert(
 		_desc_map::value_type(
 			name,
-			desc.Release()
+			desc.str()
 		)
 	);
 }
@@ -55,14 +61,14 @@ void ObjectDescRegistryBase::_do_unregister_desc(
 }
 
 OGLPLUS_LIB_FUNC
-const std::string& ObjectDescRegistryBase::_do_get_desc(
+eagine::base::cstrref ObjectDescRegistryBase::_do_get_desc(
 	_desc_map& storage,
 	unsigned name
 ) noexcept
 {
 	auto pos = storage.find(name);
 	if(pos != storage.end()) return pos->second;
-	return EmptyStdString();
+	return eagine::base::cstrref();
 }
 
 #endif // OGLPLUS_NO_OBJECT_DESC

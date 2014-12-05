@@ -38,7 +38,7 @@ ALint ObjectError::ObjectName(void) const
 }
 
 OALPLUS_LIB_FUNC
-const String& ObjectError::ObjectDesc(void) const
+eagine::base::cstrref ObjectError::ObjectDesc(void) const
 {
 	return aux::ObjectDescRegistry::_get_desc(
 		_obj_typeid,
