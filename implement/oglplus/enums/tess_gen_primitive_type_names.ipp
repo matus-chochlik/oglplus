@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	TessGenPrimitiveType*,
 	GLenum value
 ) noexcept
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_QUADS
-	case GL_QUADS: return StrCRef("QUADS");
+	case GL_QUADS: return CStrRef("QUADS");
 #endif
 #if defined GL_TRIANGLES
-	case GL_TRIANGLES: return StrCRef("TRIANGLES");
+	case GL_TRIANGLES: return CStrRef("TRIANGLES");
 #endif
 #if defined GL_ISOLINES
-	case GL_ISOLINES: return StrCRef("ISOLINES");
+	case GL_ISOLINES: return CStrRef("ISOLINES");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

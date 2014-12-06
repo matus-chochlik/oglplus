@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	TextureWrap*,
 	GLenum value
 ) noexcept
@@ -21,24 +21,24 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_CLAMP_TO_EDGE
-	case GL_CLAMP_TO_EDGE: return StrCRef("CLAMP_TO_EDGE");
+	case GL_CLAMP_TO_EDGE: return CStrRef("CLAMP_TO_EDGE");
 #endif
 #if defined GL_REPEAT
-	case GL_REPEAT: return StrCRef("REPEAT");
+	case GL_REPEAT: return CStrRef("REPEAT");
 #endif
 #if defined GL_CLAMP_TO_BORDER
-	case GL_CLAMP_TO_BORDER: return StrCRef("CLAMP_TO_BORDER");
+	case GL_CLAMP_TO_BORDER: return CStrRef("CLAMP_TO_BORDER");
 #endif
 #if defined GL_MIRRORED_REPEAT
-	case GL_MIRRORED_REPEAT: return StrCRef("MIRRORED_REPEAT");
+	case GL_MIRRORED_REPEAT: return CStrRef("MIRRORED_REPEAT");
 #endif
 #if defined GL_MIRROR_CLAMP_TO_EDGE
-	case GL_MIRROR_CLAMP_TO_EDGE: return StrCRef("MIRROR_CLAMP_TO_EDGE");
+	case GL_MIRROR_CLAMP_TO_EDGE: return CStrRef("MIRROR_CLAMP_TO_EDGE");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

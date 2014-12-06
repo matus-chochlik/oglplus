@@ -21,7 +21,7 @@ enum class MultisampleResolve : EGLenum
 template <>
 __Range<MultisampleResolve> __EnumValueRange<MultisampleResolve>(void) noexcept;
 
-__StrCRef __EnumValueName(MultisampleResolve) noexcept;
+__CStrRef __EnumValueName(MultisampleResolve) noexcept;
 
 } // namespace eglplus
 //]

@@ -34,7 +34,7 @@ enum class MemoryBarrierBit : GLbitfield
 template <>
 __Range<MemoryBarrierBit> __EnumValueRange<MemoryBarrierBit>(void) noexcept;
 
-__StrCRef __EnumValueName(MemoryBarrierBit) noexcept;
+__CStrRef __EnumValueName(MemoryBarrierBit) noexcept;
 
 __Bitfield<MemoryBarrierBit> operator | (MemoryBarrierBit b1, MemoryBarrierBit b2) noexcept;
 

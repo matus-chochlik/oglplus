@@ -37,7 +37,7 @@ private:
 	static Program make(void)
 	{
 		Program prog;
-		StrCRef vs_src(
+		GLCStrRef vs_src(
 			"#version 330\n"
 
 			"uniform mat4 ModelMatrix;"
@@ -63,7 +63,7 @@ private:
 		vs.Source(vs_src).Compile();
 		prog.AttachShader(vs);
 
-		StrCRef gs_src(
+		GLCStrRef gs_src(
 			"#version 330\n"
 			"#extension GL_ARB_gpu_shader5 : enable\n"
 			"layout(triangles, invocations = 28) in;"
@@ -356,7 +356,7 @@ private:
 		gs.Source(gs_src).Compile();
 		prog.AttachShader(gs);
 
-		StrCRef fs_src(
+		GLCStrRef fs_src(
 			"#version 330\n"
 			"#extension GL_EXT_gpu_shader4_1 : enable\n"
 

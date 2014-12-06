@@ -88,7 +88,7 @@ public:
 	}
 
 	template <typename T>
-	ProgramUniform<T> GetUniform(StrCRef name) const
+	ProgramUniform<T> GetUniform(const GLCStrRef& name) const
 	{
 		return ProgramUniform<T>(_program, name);
 	}

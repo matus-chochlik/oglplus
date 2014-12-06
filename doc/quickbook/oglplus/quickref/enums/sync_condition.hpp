@@ -20,7 +20,7 @@ enum class SyncCondition : GLenum
 template <>
 __Range<SyncCondition> __EnumValueRange<SyncCondition>(void) noexcept;
 
-__StrCRef __EnumValueName(SyncCondition) noexcept;
+__CStrRef __EnumValueName(SyncCondition) noexcept;
 
 } // namespace oglplus
 //]

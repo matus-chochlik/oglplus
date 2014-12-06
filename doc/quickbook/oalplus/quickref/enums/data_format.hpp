@@ -23,7 +23,7 @@ enum class DataFormat : ALenum
 template <>
 __Range<DataFormat> __EnumValueRange<DataFormat>(void) noexcept;
 
-__StrCRef __EnumValueName(DataFormat) noexcept;
+__CStrRef __EnumValueName(DataFormat) noexcept;
 
 } // namespace oalplus
 //]

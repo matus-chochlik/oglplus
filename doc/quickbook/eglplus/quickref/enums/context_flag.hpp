@@ -22,7 +22,7 @@ enum class ContextFlag : EGLenum
 template <>
 __Range<ContextFlag> __EnumValueRange<ContextFlag>(void) noexcept;
 
-__StrCRef __EnumValueName(ContextFlag) noexcept;
+__CStrRef __EnumValueName(ContextFlag) noexcept;
 
 } // namespace eglplus
 //]

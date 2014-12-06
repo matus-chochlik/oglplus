@@ -28,7 +28,7 @@ struct EnumBaseType
 };
 
 template <typename EnumType>
-inline StrCRef EnumValueName(EnumType enum_value)
+inline CStrRef EnumValueName(EnumType enum_value)
 {
 #if !OALPLUS_NO_ENUM_VALUE_NAMES
 	typedef typename EnumBaseType<EnumType>::Type BaseType;
@@ -38,7 +38,7 @@ inline StrCRef EnumValueName(EnumType enum_value)
 	);
 #else
 	OGLPLUS_FAKE_USE(enum_value);
-	return StrCRef();
+	return CStrRef();
 #endif
 }
 

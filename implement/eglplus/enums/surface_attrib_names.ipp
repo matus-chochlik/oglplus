@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	SurfaceAttrib*,
 	EGLenum value
 ) noexcept
@@ -21,60 +21,60 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_WIDTH
-	case EGL_WIDTH: return StrCRef("WIDTH");
+	case EGL_WIDTH: return CStrRef("WIDTH");
 #endif
 #if defined EGL_HEIGHT
-	case EGL_HEIGHT: return StrCRef("HEIGHT");
+	case EGL_HEIGHT: return CStrRef("HEIGHT");
 #endif
 #if defined EGL_CONFIG_ID
-	case EGL_CONFIG_ID: return StrCRef("CONFIG_ID");
+	case EGL_CONFIG_ID: return CStrRef("CONFIG_ID");
 #endif
 #if defined EGL_VG_ALPHA_FORMAT
-	case EGL_VG_ALPHA_FORMAT: return StrCRef("VG_ALPHA_FORMAT");
+	case EGL_VG_ALPHA_FORMAT: return CStrRef("VG_ALPHA_FORMAT");
 #endif
 #if defined EGL_VG_COLORSPACE
-	case EGL_VG_COLORSPACE: return StrCRef("VG_COLORSPACE");
+	case EGL_VG_COLORSPACE: return CStrRef("VG_COLORSPACE");
 #endif
 #if defined EGL_GL_COLORSPACE
-	case EGL_GL_COLORSPACE: return StrCRef("GL_COLORSPACE");
+	case EGL_GL_COLORSPACE: return CStrRef("GL_COLORSPACE");
 #endif
 #if defined EGL_HORIZONTAL_RESOLUTION
-	case EGL_HORIZONTAL_RESOLUTION: return StrCRef("HORIZONTAL_RESOLUTION");
+	case EGL_HORIZONTAL_RESOLUTION: return CStrRef("HORIZONTAL_RESOLUTION");
 #endif
 #if defined EGL_VERTICAL_RESOLUTION
-	case EGL_VERTICAL_RESOLUTION: return StrCRef("VERTICAL_RESOLUTION");
+	case EGL_VERTICAL_RESOLUTION: return CStrRef("VERTICAL_RESOLUTION");
 #endif
 #if defined EGL_LARGEST_PBUFFER
-	case EGL_LARGEST_PBUFFER: return StrCRef("LARGEST_PBUFFER");
+	case EGL_LARGEST_PBUFFER: return CStrRef("LARGEST_PBUFFER");
 #endif
 #if defined EGL_MIPMAP_TEXTURE
-	case EGL_MIPMAP_TEXTURE: return StrCRef("MIPMAP_TEXTURE");
+	case EGL_MIPMAP_TEXTURE: return CStrRef("MIPMAP_TEXTURE");
 #endif
 #if defined EGL_MIPMAP_LEVEL
-	case EGL_MIPMAP_LEVEL: return StrCRef("MIPMAP_LEVEL");
+	case EGL_MIPMAP_LEVEL: return CStrRef("MIPMAP_LEVEL");
 #endif
 #if defined EGL_MULTISAMPLE_RESOLVE
-	case EGL_MULTISAMPLE_RESOLVE: return StrCRef("MULTISAMPLE_RESOLVE");
+	case EGL_MULTISAMPLE_RESOLVE: return CStrRef("MULTISAMPLE_RESOLVE");
 #endif
 #if defined EGL_PIXEL_ASPECT_RATIO
-	case EGL_PIXEL_ASPECT_RATIO: return StrCRef("PIXEL_ASPECT_RATIO");
+	case EGL_PIXEL_ASPECT_RATIO: return CStrRef("PIXEL_ASPECT_RATIO");
 #endif
 #if defined EGL_RENDER_BUFFER
-	case EGL_RENDER_BUFFER: return StrCRef("RENDER_BUFFER");
+	case EGL_RENDER_BUFFER: return CStrRef("RENDER_BUFFER");
 #endif
 #if defined EGL_SWAP_BEHAVIOR
-	case EGL_SWAP_BEHAVIOR: return StrCRef("SWAP_BEHAVIOR");
+	case EGL_SWAP_BEHAVIOR: return CStrRef("SWAP_BEHAVIOR");
 #endif
 #if defined EGL_TEXTURE_FORMAT
-	case EGL_TEXTURE_FORMAT: return StrCRef("TEXTURE_FORMAT");
+	case EGL_TEXTURE_FORMAT: return CStrRef("TEXTURE_FORMAT");
 #endif
 #if defined EGL_TEXTURE_TARGET
-	case EGL_TEXTURE_TARGET: return StrCRef("TEXTURE_TARGET");
+	case EGL_TEXTURE_TARGET: return CStrRef("TEXTURE_TARGET");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

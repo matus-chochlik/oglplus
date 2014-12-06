@@ -261,7 +261,7 @@ public:
 		Group(
 			DebugOutputSource source,
 			GLuint id,
-			StrCRef message
+			const GLCStrRef& message
 		)
 		{
 			OGLPLUS_GLFUNC(PushDebugGroup)(
@@ -283,7 +283,7 @@ public:
 		Group(
 			DebugOutputSource source,
 			GLuint id,
-			const String& message
+			const GLString& message
 		)
 		{
 			OGLPLUS_GLFUNC(PushDebugGroup)(
@@ -323,7 +323,7 @@ public:
 	template <typename ObjTag>
 	static void ObjectLabel(
 		const ObjectName<ObjTag>& object,
-		StrCRef label
+		const GLCStrRef& label
 	)
 	{
 		OGLPLUS_GLFUNC(ObjectLabel)(
@@ -397,7 +397,7 @@ public:
 		DebugOutputType type,
 		GLuint id,
 		DebugOutputSeverity severity,
-		StrCRef message
+		const GLCStrRef& message
 	)
 	{
 		OGLPLUS_GLFUNC(DebugMessageInsert)(
@@ -423,7 +423,7 @@ public:
 		DebugOutputType type,
 		GLuint id,
 		DebugOutputSeverity severity,
-		const String& message
+		const GLString& message
 	)
 	{
 		OGLPLUS_GLFUNC(DebugMessageInsert)(

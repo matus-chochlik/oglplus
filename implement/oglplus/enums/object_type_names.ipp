@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	ObjectType*,
 	GLenum value
 ) noexcept
@@ -21,45 +21,45 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_BUFFER
-	case GL_BUFFER: return StrCRef("BUFFER");
+	case GL_BUFFER: return CStrRef("BUFFER");
 #endif
 #if defined GL_FRAMEBUFFER
-	case GL_FRAMEBUFFER: return StrCRef("FRAMEBUFFER");
+	case GL_FRAMEBUFFER: return CStrRef("FRAMEBUFFER");
 #endif
 #if defined GL_PROGRAM_PIPELINE
-	case GL_PROGRAM_PIPELINE: return StrCRef("PROGRAM_PIPELINE");
+	case GL_PROGRAM_PIPELINE: return CStrRef("PROGRAM_PIPELINE");
 #endif
 #if defined GL_PROGRAM
-	case GL_PROGRAM: return StrCRef("PROGRAM");
+	case GL_PROGRAM: return CStrRef("PROGRAM");
 #endif
 #if defined GL_QUERY
-	case GL_QUERY: return StrCRef("QUERY");
+	case GL_QUERY: return CStrRef("QUERY");
 #endif
 #if defined GL_RENDERBUFFER
-	case GL_RENDERBUFFER: return StrCRef("RENDERBUFFER");
+	case GL_RENDERBUFFER: return CStrRef("RENDERBUFFER");
 #endif
 #if defined GL_SAMPLER
-	case GL_SAMPLER: return StrCRef("SAMPLER");
+	case GL_SAMPLER: return CStrRef("SAMPLER");
 #endif
 #if defined GL_SHADER
-	case GL_SHADER: return StrCRef("SHADER");
+	case GL_SHADER: return CStrRef("SHADER");
 #endif
 #if defined GL_TEXTURE
-	case GL_TEXTURE: return StrCRef("TEXTURE");
+	case GL_TEXTURE: return CStrRef("TEXTURE");
 #endif
 #if defined GL_TRANSFORM_FEEDBACK
-	case GL_TRANSFORM_FEEDBACK: return StrCRef("TRANSFORM_FEEDBACK");
+	case GL_TRANSFORM_FEEDBACK: return CStrRef("TRANSFORM_FEEDBACK");
 #endif
 #if defined GL_VERTEX_ARRAY
-	case GL_VERTEX_ARRAY: return StrCRef("VERTEX_ARRAY");
+	case GL_VERTEX_ARRAY: return CStrRef("VERTEX_ARRAY");
 #endif
 #if defined GL_NONE
-	case GL_NONE: return StrCRef("NONE");
+	case GL_NONE: return CStrRef("NONE");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

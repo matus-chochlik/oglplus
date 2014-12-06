@@ -21,7 +21,7 @@ enum class PathNVFontStyle : GLenum
 template <>
 __Range<PathNVFontStyle> __EnumValueRange<PathNVFontStyle>(void) noexcept;
 
-__StrCRef __EnumValueName(PathNVFontStyle) noexcept;
+__CStrRef __EnumValueName(PathNVFontStyle) noexcept;
 
 } // namespace oglplus
 //]

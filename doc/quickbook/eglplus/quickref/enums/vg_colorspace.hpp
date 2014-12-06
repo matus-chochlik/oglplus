@@ -21,7 +21,7 @@ enum class VGColorspace : EGLenum
 template <>
 __Range<VGColorspace> __EnumValueRange<VGColorspace>(void) noexcept;
 
-__StrCRef __EnumValueName(VGColorspace) noexcept;
+__CStrRef __EnumValueName(VGColorspace) noexcept;
 
 } // namespace eglplus
 //]

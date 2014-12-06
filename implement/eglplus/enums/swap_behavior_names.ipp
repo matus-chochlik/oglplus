@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	SwapBehavior*,
 	EGLenum value
 ) noexcept
@@ -21,15 +21,15 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_BUFFER_PRESERVED
-	case EGL_BUFFER_PRESERVED: return StrCRef("BUFFER_PRESERVED");
+	case EGL_BUFFER_PRESERVED: return CStrRef("BUFFER_PRESERVED");
 #endif
 #if defined EGL_BUFFER_DESTROYED
-	case EGL_BUFFER_DESTROYED: return StrCRef("BUFFER_DESTROYED");
+	case EGL_BUFFER_DESTROYED: return CStrRef("BUFFER_DESTROYED");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

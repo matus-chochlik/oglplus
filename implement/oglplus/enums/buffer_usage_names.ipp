@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	BufferUsage*,
 	GLenum value
 ) noexcept
@@ -21,36 +21,36 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_STREAM_DRAW
-	case GL_STREAM_DRAW: return StrCRef("STREAM_DRAW");
+	case GL_STREAM_DRAW: return CStrRef("STREAM_DRAW");
 #endif
 #if defined GL_STREAM_READ
-	case GL_STREAM_READ: return StrCRef("STREAM_READ");
+	case GL_STREAM_READ: return CStrRef("STREAM_READ");
 #endif
 #if defined GL_STREAM_COPY
-	case GL_STREAM_COPY: return StrCRef("STREAM_COPY");
+	case GL_STREAM_COPY: return CStrRef("STREAM_COPY");
 #endif
 #if defined GL_STATIC_DRAW
-	case GL_STATIC_DRAW: return StrCRef("STATIC_DRAW");
+	case GL_STATIC_DRAW: return CStrRef("STATIC_DRAW");
 #endif
 #if defined GL_STATIC_READ
-	case GL_STATIC_READ: return StrCRef("STATIC_READ");
+	case GL_STATIC_READ: return CStrRef("STATIC_READ");
 #endif
 #if defined GL_STATIC_COPY
-	case GL_STATIC_COPY: return StrCRef("STATIC_COPY");
+	case GL_STATIC_COPY: return CStrRef("STATIC_COPY");
 #endif
 #if defined GL_DYNAMIC_DRAW
-	case GL_DYNAMIC_DRAW: return StrCRef("DYNAMIC_DRAW");
+	case GL_DYNAMIC_DRAW: return CStrRef("DYNAMIC_DRAW");
 #endif
 #if defined GL_DYNAMIC_READ
-	case GL_DYNAMIC_READ: return StrCRef("DYNAMIC_READ");
+	case GL_DYNAMIC_READ: return CStrRef("DYNAMIC_READ");
 #endif
 #if defined GL_DYNAMIC_COPY
-	case GL_DYNAMIC_COPY: return StrCRef("DYNAMIC_COPY");
+	case GL_DYNAMIC_COPY: return CStrRef("DYNAMIC_COPY");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

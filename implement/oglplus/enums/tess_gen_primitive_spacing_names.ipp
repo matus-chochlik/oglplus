@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	TessGenPrimitiveSpacing*,
 	GLenum value
 ) noexcept
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_FRACTIONAL_EVEN
-	case GL_FRACTIONAL_EVEN: return StrCRef("FRACTIONAL_EVEN");
+	case GL_FRACTIONAL_EVEN: return CStrRef("FRACTIONAL_EVEN");
 #endif
 #if defined GL_FRACTIONAL_ODD
-	case GL_FRACTIONAL_ODD: return StrCRef("FRACTIONAL_ODD");
+	case GL_FRACTIONAL_ODD: return CStrRef("FRACTIONAL_ODD");
 #endif
 #if defined GL_EQUAL
-	case GL_EQUAL: return StrCRef("EQUAL");
+	case GL_EQUAL: return CStrRef("EQUAL");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

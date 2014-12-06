@@ -76,13 +76,13 @@ private:
 	GLuint _index;
 	GLint _size;
 	GLenum _type;
-	String _name;
+	GLString _name;
 
 	ActiveVariableInfo(
 		GLuint index,
 		GLint size,
 		GLenum type,
-		const String& name
+		const GLString& name
 	): _index(index)
 	 , _size(size)
 	 , _type(type)
@@ -129,7 +129,7 @@ public:
 		return _index;
 	}
 
-	const String& Name(void) const
+	GLCStrRef Name(void) const
 	noexcept
 	{
 		return _name;
@@ -171,7 +171,7 @@ class ActiveSubroutineInfo
 {
 private:
 	GLuint _index;
-	String _name;
+	GLString _name;
 public:
 	ActiveSubroutineInfo(
 		ProgramInterfaceContext& context,
@@ -183,7 +183,7 @@ public:
 		return _index;
 	}
 
-	const String& Name(void) const
+	GLCStrRef Name(void) const
 	{
 		return _name;
 	}
@@ -206,7 +206,7 @@ class ActiveSubroutineUniformInfo
 private:
 	GLuint _index;
 	GLint _size;
-	String _name;
+	GLString _name;
 public:
 	ActiveSubroutineUniformInfo(
 		ProgramInterfaceContext& context,
@@ -219,7 +219,7 @@ public:
 		return _index;
 	}
 
-	const String& Name(void) const
+	GLCStrRef Name(void) const
 	noexcept
 	{
 		return _name;
@@ -253,7 +253,7 @@ class ActiveUniformBlockInfo
 {
 private:
 	GLuint _index;
-	String _name;
+	GLString _name;
 public:
 	ActiveUniformBlockInfo(
 		ProgramInterfaceContext& context,
@@ -266,7 +266,7 @@ public:
 		return _index;
 	}
 
-	const String& Name(void) const
+	GLCStrRef Name(void) const
 	noexcept
 	{
 		return _name;

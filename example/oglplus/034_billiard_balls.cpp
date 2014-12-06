@@ -58,7 +58,7 @@ public:
 	CommonVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Common vertex shader"),
-		StrCRef("#version 330\n"
+		GLCStrRef("#version 330\n"
 		"uniform mat4 ModelMatrix;"
 		"uniform mat3 TextureMatrix;"
 		"uniform vec3 CameraPosition, LightPosition;"
@@ -98,7 +98,7 @@ public:
 	DefaultGeomShader(void)
 	 : GeometryShader(
 		ObjectDesc("Default geometry shader"),
-		StrCRef("#version 330\n"
+		GLCStrRef("#version 330\n"
 		"layout(triangles) in;"
 		"layout(triangle_strip, max_vertices = 3) out;"
 		"uniform mat4 CameraMatrix, ProjectionMatrix;"
@@ -155,7 +155,7 @@ public:
 	CubemapGeomShader(void)
 	 : GeometryShader(
 		ObjectDesc("Cubemap geometry shader"),
-		StrCRef("#version 330\n"
+		GLCStrRef("#version 330\n"
 		"layout(triangles) in;"
 		"layout(triangle_strip, max_vertices = 18) out;"
 		"uniform mat4 ProjectionMatrix, CameraMatrix;"
@@ -286,7 +286,7 @@ public:
 	ClothFragmentShader(void)
 	 : FragmentShader(
 		ObjectDesc("Cloth fragment shader"),
-		StrCRef("#version 330\n"
+		GLCStrRef("#version 330\n"
 		"uniform vec3 Color1, Color2;"
 		"uniform sampler2D ClothTex, LightMap;"
 		"in vec3 geomNormal;"
@@ -368,7 +368,7 @@ public:
 	BallFragmentShader(void)
 	 : FragmentShader(
 		ObjectDesc("Ball fragment shader"),
-		StrCRef("#version 330\n"
+		GLCStrRef("#version 330\n"
 		"uniform vec3 Color1, Color2;"
 		"uniform sampler2DArray NumberTex;"
 		"uniform samplerCube ReflectTex;"
@@ -456,7 +456,7 @@ public:
 	LightmapVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Lightmap vertex shader"),
-		StrCRef("#version 330\n"
+		GLCStrRef("#version 330\n"
 		"uniform mat4 TransformMatrix;"
 		"in vec4 Position;"
 		"out vec3 vertPosition;"
@@ -476,7 +476,7 @@ public:
 	LightmapFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Lightmap fragment shader"),
-		StrCRef("#version 330\n"
+		GLCStrRef("#version 330\n"
 		"uniform vec3 LightPosition;"
 		"uniform vec3 BallPositions[" OGLPLUS_EXAMPLE_034BB_BALL_COUNT_TXT "];"
 		"in vec3 vertPosition;"
@@ -563,7 +563,7 @@ public:
 		};
 		for(GLuint va=0; va!=nva; ++va)
 		{
-			StrCRef name(vert_attr_name[va]);
+			GLCStrRef name(vert_attr_name[va]);
 			std::vector<GLfloat> data;
 			auto getter = vert_attr_info.VertexAttribGetter(data, name);
 			if(getter != nullptr)

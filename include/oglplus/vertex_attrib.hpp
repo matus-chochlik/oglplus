@@ -49,7 +49,7 @@ public:
 	static void BindLocation(
 		ProgramName program,
 		VertexAttribSlot location,
-		StrCRef identifier
+		const GLCStrRef& identifier
 	)
 	{
 		OGLPLUS_GLFUNC(BindAttribLocation)(
@@ -83,7 +83,7 @@ public:
 	 */
 	static GLint GetLocation(
 		ProgramName program,
-		StrCRef identifier,
+		const GLCStrRef& identifier,
 		bool active_only
 	)
 	{
@@ -112,7 +112,7 @@ public:
 
 	static VertexAttribSlot GetLocation(
 		ProgramName program,
-		StrCRef identifier
+		const GLCStrRef& identifier
 	)
 	{
 		return VertexAttribSlot(GetLocation(program, identifier, true));
@@ -125,7 +125,7 @@ public:
 	 */
 	static bool QueryActiveLocation(
 		ProgramName program,
-		StrCRef identifier,
+		const GLCStrRef& identifier,
 		VertexAttribSlot& location
 	)
 	{
@@ -183,7 +183,7 @@ public:
 	 */
 	static bool QueryCommonLocation(
 		const Sequence<ProgramName>& programs,
-		StrCRef identifier,
+		const GLCStrRef& identifier,
 		VertexAttribSlot& location
 	);
 
@@ -230,7 +230,7 @@ public:
 	 */
 	static VertexAttribSlot GetCommonLocation(
 		const Sequence<ProgramName>& programs,
-		StrCRef identifier
+		const GLCStrRef& identifier
 	);
 };
 
@@ -288,7 +288,7 @@ protected:
 	template <typename T, std::size_t Rows, std::size_t Cols>
 	static T _get_et(Matrix<T, Rows, Cols>*);
 public:
-	void Bind(StrCRef identifier)
+	void Bind(const GLCStrRef& identifier)
 	{
 		BindLocation(
 			this->Program(),
@@ -411,7 +411,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexArrayAttrib(ProgramName program, StrCRef identifier)
+	VertexArrayAttrib(ProgramName program, const GLCStrRef& identifier)
 	 : ProgVarCommonOps<tag::VertexAttrib>(
 		VertexAttribLoc(program, identifier)
 	){ }

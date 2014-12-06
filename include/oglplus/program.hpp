@@ -247,7 +247,7 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
-	String GetInfoLog(void) const;
+	GLString GetInfoLog(void) const;
 
 	/// Links this shading language program
 	/**
@@ -402,7 +402,7 @@ public:
 	 *  @glfunref{TransformFeedbackVaryings}
 	 */
 	void TransformFeedbackVaryings(
-		const std::vector<String>& varyings,
+		const std::vector<GLString>& varyings,
 		TransformFeedbackMode mode
 	) const;
 
@@ -419,7 +419,7 @@ public:
 		GLuint Index(void) const;
 
 		/// Returns the name (identifier) of the attribute or uniform
-		const String& Name(void) const;
+		GLCStrRef Name(void) const;
 
 		/// Returns the size in units of Type
 		const GLint Size(void) const;
@@ -636,7 +636,7 @@ public:
 		GLuint Index(void) const;
 
 		/// Returns the name (identifier) of the named uniform block
-		const String& Name(void) const;
+		GLCStrRef Name(void) const;
 
 		// TODO: active uniform indices, etc.
 	};
@@ -831,7 +831,7 @@ public:
 	 */
 	void BindLocation(
 		VertexAttribSlot vertex_attrib_slot,
-		StrCRef identifier
+		const GLCStrRef& identifier
 	)
 	{
 		OGLPLUS_GLFUNC(BindAttribLocation)(

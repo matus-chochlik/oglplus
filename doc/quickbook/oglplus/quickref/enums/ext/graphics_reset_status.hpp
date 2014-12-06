@@ -23,7 +23,7 @@ enum class GraphicsResetStatusARB : GLenum
 template <>
 __Range<GraphicsResetStatusARB> __EnumValueRange<GraphicsResetStatusARB>(void) noexcept;
 
-__StrCRef __EnumValueName(GraphicsResetStatusARB) noexcept;
+__CStrRef __EnumValueName(GraphicsResetStatusARB) noexcept;
 
 } // namespace oglplus
 //]

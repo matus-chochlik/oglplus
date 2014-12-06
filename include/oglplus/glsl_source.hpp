@@ -46,51 +46,51 @@ public:
 	 : _impl(std::move(tmp._impl))
 	{ }
 
-	explicit GLSLSource(const StrCRef& source)
-	 : _impl(make_impl<aux::StrCRefGLSLSrcWrap>(source))
+	explicit GLSLSource(const GLCStrRef& source)
+	 : _impl(make_impl<aux::GLCStrRefGLSLSrcWrap>(source))
 	{ }
 
-	GLSLSource(const std::vector<StrCRef>& lits)
-	 : _impl(make_impl<aux::StrCRefsGLSLSrcWrap>(
+	GLSLSource(const std::vector<GLCStrRef>& lits)
+	 : _impl(make_impl<aux::GLCStrRefsGLSLSrcWrap>(
 		lits.begin(),
 		lits.end()
 	))
 	{ }
 
 	template <size_t N>
-	GLSLSource(const StrCRef (&lits)[N])
-	 : _impl(make_impl<aux::StrCRefsGLSLSrcWrap>(
+	GLSLSource(const GLCStrRef (&lits)[N])
+	 : _impl(make_impl<aux::GLCStrRefsGLSLSrcWrap>(
 		lits,
 		lits+N
 	))
 	{ }
 
-	GLSLSource(const std::vector<String>& strs)
+	GLSLSource(const std::vector<GLString>& strs)
 	 : _impl(make_impl<aux::StrsGLSLSrcWrap>(
 		strs.begin(),
 		strs.end()
 	))
 	{ }
 
-	GLSLSource(std::initializer_list<StrCRef> lits)
-	 : _impl(make_impl<aux::StrCRefsGLSLSrcWrap>(
+	GLSLSource(std::initializer_list<GLCStrRef> lits)
+	 : _impl(make_impl<aux::GLCStrRefsGLSLSrcWrap>(
 		lits.begin(),
 		lits.end()
 	))
 	{ }
 
-	GLSLSource(std::initializer_list<String> strs)
+	GLSLSource(std::initializer_list<GLString> strs)
 	 : _impl(make_impl<aux::StrsGLSLSrcWrap>(
 		strs.begin(),
 		strs.end()
 	))
 	{ }
 
-	explicit GLSLSource(const String& source)
+	explicit GLSLSource(const GLString& source)
 	 : _impl(make_impl<aux::StrGLSLSrcWrap>(source))
 	{ }
 
-	explicit GLSLSource(String&& source)
+	explicit GLSLSource(GLString&& source)
 	 : _impl(make_impl<aux::StrGLSLSrcWrap>(std::move(source)))
 	{ }
 

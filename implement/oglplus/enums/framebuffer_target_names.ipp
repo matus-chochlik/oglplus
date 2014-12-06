@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	FramebufferTarget*,
 	GLenum value
 ) noexcept
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_DRAW_FRAMEBUFFER
-	case GL_DRAW_FRAMEBUFFER: return StrCRef("DRAW_FRAMEBUFFER");
+	case GL_DRAW_FRAMEBUFFER: return CStrRef("DRAW_FRAMEBUFFER");
 #endif
 #if defined GL_READ_FRAMEBUFFER
-	case GL_READ_FRAMEBUFFER: return StrCRef("READ_FRAMEBUFFER");
+	case GL_READ_FRAMEBUFFER: return CStrRef("READ_FRAMEBUFFER");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

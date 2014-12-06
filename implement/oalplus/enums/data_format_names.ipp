@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OALPLUS_LIB_FUNC StrCRef ValueName_(
+OALPLUS_LIB_FUNC CStrRef ValueName_(
 	DataFormat*,
 	ALenum value
 ) noexcept
@@ -21,21 +21,21 @@ OALPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined AL_FORMAT_MONO8
-	case AL_FORMAT_MONO8: return StrCRef("FORMAT_MONO8");
+	case AL_FORMAT_MONO8: return CStrRef("FORMAT_MONO8");
 #endif
 #if defined AL_FORMAT_MONO16
-	case AL_FORMAT_MONO16: return StrCRef("FORMAT_MONO16");
+	case AL_FORMAT_MONO16: return CStrRef("FORMAT_MONO16");
 #endif
 #if defined AL_FORMAT_STEREO8
-	case AL_FORMAT_STEREO8: return StrCRef("FORMAT_STEREO8");
+	case AL_FORMAT_STEREO8: return CStrRef("FORMAT_STEREO8");
 #endif
 #if defined AL_FORMAT_STEREO16
-	case AL_FORMAT_STEREO16: return StrCRef("FORMAT_STEREO16");
+	case AL_FORMAT_STEREO16: return CStrRef("FORMAT_STEREO16");
 #endif
 	default:;
 }
 OALPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

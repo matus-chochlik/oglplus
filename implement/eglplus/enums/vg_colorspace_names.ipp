@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	VGColorspace*,
 	EGLenum value
 ) noexcept
@@ -21,15 +21,15 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_VG_COLORSPACE_sRGB
-	case EGL_VG_COLORSPACE_sRGB: return StrCRef("VG_COLORSPACE_sRGB");
+	case EGL_VG_COLORSPACE_sRGB: return CStrRef("VG_COLORSPACE_sRGB");
 #endif
 #if defined EGL_VG_COLORSPACE_LINEAR
-	case EGL_VG_COLORSPACE_LINEAR: return StrCRef("VG_COLORSPACE_LINEAR");
+	case EGL_VG_COLORSPACE_LINEAR: return CStrRef("VG_COLORSPACE_LINEAR");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

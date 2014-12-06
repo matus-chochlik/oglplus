@@ -23,7 +23,7 @@ enum class SyncWaitResult : GLenum
 template <>
 __Range<SyncWaitResult> __EnumValueRange<SyncWaitResult>(void) noexcept;
 
-__StrCRef __EnumValueName(SyncWaitResult) noexcept;
+__CStrRef __EnumValueName(SyncWaitResult) noexcept;
 
 } // namespace oglplus
 //]

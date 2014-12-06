@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	VGAlphaFormat*,
 	EGLenum value
 ) noexcept
@@ -21,15 +21,15 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_VG_ALPHA_FORMAT_PRE
-	case EGL_VG_ALPHA_FORMAT_PRE: return StrCRef("VG_ALPHA_FORMAT_PRE");
+	case EGL_VG_ALPHA_FORMAT_PRE: return CStrRef("VG_ALPHA_FORMAT_PRE");
 #endif
 #if defined EGL_VG_ALPHA_FORMAT_NONPRE
-	case EGL_VG_ALPHA_FORMAT_NONPRE: return StrCRef("VG_ALPHA_FORMAT_NONPRE");
+	case EGL_VG_ALPHA_FORMAT_NONPRE: return CStrRef("VG_ALPHA_FORMAT_NONPRE");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

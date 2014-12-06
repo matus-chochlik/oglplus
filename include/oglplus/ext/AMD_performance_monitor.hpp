@@ -73,7 +73,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetPerfMonitorCounterStringAMD}
 	 */
-	String GetString(void) const
+	GLString GetString(void) const
 	{
 		GLsizei length = 0;
 		OGLPLUS_GLFUNC(GetPerfMonitorCounterStringAMD)(
@@ -102,7 +102,7 @@ public:
 			Error,
 			Index(_group)
 		);
-		return String(buffer.data(), buffer.size());
+		return GLString(buffer.data(), buffer.size());
 	}
 
 	/// Returns the type of the counter
@@ -151,7 +151,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetPerfMonitorGroupStringAMD}
 	 */
-	String GetString(void) const
+	GLString GetString(void) const
 	{
 		GLsizei length = 0;
 		OGLPLUS_GLFUNC(GetPerfMonitorGroupStringAMD)(
@@ -178,7 +178,7 @@ public:
 			Error,
 			Index(_group)
 		);
-		return String(buffer.data(), buffer.size());
+		return GLString(buffer.data(), buffer.size());
 	}
 
 	/// Queries the performance counters in this group

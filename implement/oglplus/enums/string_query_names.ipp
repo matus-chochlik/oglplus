@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	StringQuery*,
 	GLenum value
 ) noexcept
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_RENDERER
-	case GL_RENDERER: return StrCRef("RENDERER");
+	case GL_RENDERER: return CStrRef("RENDERER");
 #endif
 #if defined GL_VENDOR
-	case GL_VENDOR: return StrCRef("VENDOR");
+	case GL_VENDOR: return CStrRef("VENDOR");
 #endif
 #if defined GL_VERSION
-	case GL_VERSION: return StrCRef("VERSION");
+	case GL_VERSION: return CStrRef("VERSION");
 #endif
 #if defined GL_SHADING_LANGUAGE_VERSION
-	case GL_SHADING_LANGUAGE_VERSION: return StrCRef("SHADING_LANGUAGE_VERSION");
+	case GL_SHADING_LANGUAGE_VERSION: return CStrRef("SHADING_LANGUAGE_VERSION");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

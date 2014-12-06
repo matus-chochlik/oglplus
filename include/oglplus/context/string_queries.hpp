@@ -27,7 +27,7 @@ private:
 	GLuint _index, _count;
 	GLenum _param;
 public:
-	typedef String ValueType;
+	typedef GLString ValueType;
 
 	StrQueryRange(GLuint n, GLenum p)
 	 : _index(0)
@@ -46,7 +46,7 @@ public:
 		return _count;
 	}
 
-	StrCRef Front(void) const
+	GLCStrRef Front(void) const
 	{
 		assert(!Empty());
 		const GLubyte* result = OGLPLUS_GLFUNC(GetStringi)(
@@ -54,7 +54,7 @@ public:
 			_index
 		);
 		OGLPLUS_VERIFY_SIMPLE(GetStringi);
-		return StrCRef((const GLchar*)result);
+		return GLCStrRef((const GLchar*)result);
 	}
 
 	void Next(void)
@@ -164,7 +164,7 @@ public:
 	 *  @glfunref{GetString}
 	 *  @gldefref{SHADING_LANGUAGE_VERSION}
 	 */
-	static Range<String> ShadingLanguageVersions(void);
+	static Range<GLString> ShadingLanguageVersions(void);
 #elif GL_VERSION_4_3
 	static aux::StrQueryRange ShadingLanguageVersions(void)
 	{
@@ -243,7 +243,7 @@ public:
 	 *  @glfunref{GetString}
 	 *  @gldefref{EXTENSIONS}
 	 */
-	static Range<StrCRef> Extensions(void);
+	static Range<GLCStrRef> Extensions(void);
 #else
 	static aux::StrQueryRange Extensions(void)
 	{

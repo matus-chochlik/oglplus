@@ -28,7 +28,7 @@ enum class BufferUsage : GLenum
 template <>
 __Range<BufferUsage> __EnumValueRange<BufferUsage>(void) noexcept;
 
-__StrCRef __EnumValueName(BufferUsage) noexcept;
+__CStrRef __EnumValueName(BufferUsage) noexcept;
 
 } // namespace oglplus
 //]

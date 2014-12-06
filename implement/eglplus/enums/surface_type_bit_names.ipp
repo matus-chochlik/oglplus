@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	SurfaceTypeBit*,
 	EGLenum value
 ) noexcept
@@ -21,30 +21,30 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_WINDOW_BIT
-	case EGL_WINDOW_BIT: return StrCRef("WINDOW_BIT");
+	case EGL_WINDOW_BIT: return CStrRef("WINDOW_BIT");
 #endif
 #if defined EGL_PIXMAP_BIT
-	case EGL_PIXMAP_BIT: return StrCRef("PIXMAP_BIT");
+	case EGL_PIXMAP_BIT: return CStrRef("PIXMAP_BIT");
 #endif
 #if defined EGL_PBUFFER_BIT
-	case EGL_PBUFFER_BIT: return StrCRef("PBUFFER_BIT");
+	case EGL_PBUFFER_BIT: return CStrRef("PBUFFER_BIT");
 #endif
 #if defined EGL_MULTISAMPLE_RESOLVE_BOX_BIT
-	case EGL_MULTISAMPLE_RESOLVE_BOX_BIT: return StrCRef("MULTISAMPLE_RESOLVE_BOX_BIT");
+	case EGL_MULTISAMPLE_RESOLVE_BOX_BIT: return CStrRef("MULTISAMPLE_RESOLVE_BOX_BIT");
 #endif
 #if defined EGL_SWAP_BEHAVIOR_PRESERVED_BIT
-	case EGL_SWAP_BEHAVIOR_PRESERVED_BIT: return StrCRef("SWAP_BEHAVIOR_PRESERVED_BIT");
+	case EGL_SWAP_BEHAVIOR_PRESERVED_BIT: return CStrRef("SWAP_BEHAVIOR_PRESERVED_BIT");
 #endif
 #if defined EGL_VG_COLORSPACE_LINEAR_BIT
-	case EGL_VG_COLORSPACE_LINEAR_BIT: return StrCRef("VG_COLORSPACE_LINEAR_BIT");
+	case EGL_VG_COLORSPACE_LINEAR_BIT: return CStrRef("VG_COLORSPACE_LINEAR_BIT");
 #endif
 #if defined EGL_VG_ALPHA_FORMAT_PRE_BIT
-	case EGL_VG_ALPHA_FORMAT_PRE_BIT: return StrCRef("VG_ALPHA_FORMAT_PRE_BIT");
+	case EGL_VG_ALPHA_FORMAT_PRE_BIT: return CStrRef("VG_ALPHA_FORMAT_PRE_BIT");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

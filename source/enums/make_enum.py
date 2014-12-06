@@ -143,7 +143,7 @@ def action_qbk_hpp(options):
 		options.enum_name
 	))
 	print_newline(options)
-	print_line(options, "__StrCRef __EnumValueName(%s) noexcept;" % options.enum_name)
+	print_line(options, "__CStrRef __EnumValueName(%s) noexcept;" % options.enum_name)
 	print_newline(options)
 
 	if options.enum_type == "bitfield":
@@ -241,7 +241,7 @@ def action_impl_enum_names_ipp(options):
 	print_cpp_header(options)
 
 	print_line(options, "namespace enums {")
-	print_line(options, "%s_LIB_FUNC StrCRef ValueName_(" % options.library_uc)
+	print_line(options, "%s_LIB_FUNC CStrRef ValueName_(" % options.library_uc)
 	print_line(options, "	%s*," % options.enum_name)
 	print_line(options, "	%s%s value" % (options.base_lib_prefix, options.enum_type))
 	print_line(options, ") noexcept")
@@ -264,7 +264,7 @@ def action_impl_enum_names_ipp(options):
 	for item in items:
 
 		print_line(options, "#if defined %s_%s" % (item.prefix, item.src_name))
-		print_line(options, "	case %s_%s: return StrCRef(\"%s\");" % (
+		print_line(options, "	case %s_%s: return CStrRef(\"%s\");" % (
 			item.prefix,
 			item.src_name,
 			item.src_name
@@ -274,7 +274,7 @@ def action_impl_enum_names_ipp(options):
 	print_line(options, "	default:;")
 	print_line(options, "}")
 	print_line(options, "%s_FAKE_USE(value);" % options.library_uc)
-	print_line(options, "return StrCRef();")
+	print_line(options, "return CStrRef();")
 	print_line(options, "}")
 	print_line(options, "#else")
 	print_line(options, ";")

@@ -35,7 +35,7 @@ enum class BufferTarget : GLenum
 template <>
 __Range<BufferTarget> __EnumValueRange<BufferTarget>(void) noexcept;
 
-__StrCRef __EnumValueName(BufferTarget) noexcept;
+__CStrRef __EnumValueName(BufferTarget) noexcept;
 
 } // namespace oglplus
 //]

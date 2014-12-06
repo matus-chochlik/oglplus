@@ -138,7 +138,7 @@ protected:
 
 		Buffer::Data(Buffer::Target::Array, data);
 
-		VertexArrayAttrib attr(prog, StrCRef(name));
+		VertexArrayAttrib attr(prog, GLCStrRef(name));
 		attr.Setup<Vec3f>();
 		attr.Enable();
 	}
@@ -161,7 +161,7 @@ protected:
 
 		Buffer::Data(Buffer::Target::Array, data);
 
-		VertexArrayAttrib attr(prog, StrCRef(name));
+		VertexArrayAttrib attr(prog, GLCStrRef(name));
 		attr.Setup<Vec3f>();
 		attr.Enable();
 	}
@@ -175,7 +175,7 @@ protected:
 			*i = (std::rand() % 101) * 0.01;
 		Buffer::Data(Buffer::Target::Array, data);
 
-		VertexArrayAttrib attr(prog, StrCRef(name));
+		VertexArrayAttrib attr(prog, GLCStrRef(name));
 		attr.Setup<GLfloat>();
 		attr.Enable();
 	}

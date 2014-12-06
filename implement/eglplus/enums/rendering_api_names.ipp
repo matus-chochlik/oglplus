@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	RenderingAPI*,
 	EGLenum value
 ) noexcept
@@ -21,21 +21,21 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_OPENGL_API
-	case EGL_OPENGL_API: return StrCRef("OPENGL_API");
+	case EGL_OPENGL_API: return CStrRef("OPENGL_API");
 #endif
 #if defined EGL_OPENGL_ES_API
-	case EGL_OPENGL_ES_API: return StrCRef("OPENGL_ES_API");
+	case EGL_OPENGL_ES_API: return CStrRef("OPENGL_ES_API");
 #endif
 #if defined EGL_OPENVG_API
-	case EGL_OPENVG_API: return StrCRef("OPENVG_API");
+	case EGL_OPENVG_API: return CStrRef("OPENVG_API");
 #endif
 #if defined EGL_NONE
-	case EGL_NONE: return StrCRef("NONE");
+	case EGL_NONE: return CStrRef("NONE");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

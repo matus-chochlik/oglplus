@@ -20,7 +20,7 @@ enum class TransformFeedbackTarget : GLenum
 template <>
 __Range<TransformFeedbackTarget> __EnumValueRange<TransformFeedbackTarget>(void) noexcept;
 
-__StrCRef __EnumValueName(TransformFeedbackTarget) noexcept;
+__CStrRef __EnumValueName(TransformFeedbackTarget) noexcept;
 
 } // namespace oglplus
 //]

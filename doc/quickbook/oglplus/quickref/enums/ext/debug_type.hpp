@@ -29,7 +29,7 @@ enum class DebugType : GLenum
 template <>
 __Range<DebugType> __EnumValueRange<DebugType>(void) noexcept;
 
-__StrCRef __EnumValueName(DebugType) noexcept;
+__CStrRef __EnumValueName(DebugType) noexcept;
 
 } // namespace oglplus
 //]

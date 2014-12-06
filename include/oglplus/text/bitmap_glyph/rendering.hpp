@@ -281,10 +281,10 @@ public:
 		return Layout(*this, font, max_len);
 	}
 
-	Layout MakeLayout(const Font& font, StrCRef str)
+	Layout MakeLayout(const Font& font, const CStrRef& str)
 	{
 		CodePoints cps;
-		UTF8ToCodePoints(str.begin(), str.size(), cps);
+		UTF8ToCodePoints(str.data(), str.size(), cps);
 
 		Layout layout(MakeLayout(font, cps.size()));
 		layout.Set(cps);

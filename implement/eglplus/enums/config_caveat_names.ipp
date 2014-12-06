@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	ConfigCaveat*,
 	EGLenum value
 ) noexcept
@@ -21,18 +21,18 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_NONE
-	case EGL_NONE: return StrCRef("NONE");
+	case EGL_NONE: return CStrRef("NONE");
 #endif
 #if defined EGL_SLOW_CONFIG
-	case EGL_SLOW_CONFIG: return StrCRef("SLOW_CONFIG");
+	case EGL_SLOW_CONFIG: return CStrRef("SLOW_CONFIG");
 #endif
 #if defined EGL_NON_CONFORMANT_CONFIG
-	case EGL_NON_CONFORMANT_CONFIG: return StrCRef("NON_CONFORMANT_CONFIG");
+	case EGL_NON_CONFORMANT_CONFIG: return CStrRef("NON_CONFORMANT_CONFIG");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

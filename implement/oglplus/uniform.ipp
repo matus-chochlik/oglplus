@@ -34,7 +34,7 @@ MsgUsingInactive(void)
 
 OGLPLUS_LIB_FUNC
 GLenum ProgVarTypeOps<tag::Uniform>::
-GetType(ProgramName program, GLint /*location*/, StrCRef identifier)
+GetType(ProgramName program, GLint /*location*/, const GLCStrRef& identifier)
 {
 
 	GLenum type, result = GL_NONE;

@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	BufferSelectBit*,
 	GLbitfield value
 ) noexcept
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_COLOR_BUFFER_BIT
-	case GL_COLOR_BUFFER_BIT: return StrCRef("COLOR_BUFFER_BIT");
+	case GL_COLOR_BUFFER_BIT: return CStrRef("COLOR_BUFFER_BIT");
 #endif
 #if defined GL_DEPTH_BUFFER_BIT
-	case GL_DEPTH_BUFFER_BIT: return StrCRef("DEPTH_BUFFER_BIT");
+	case GL_DEPTH_BUFFER_BIT: return CStrRef("DEPTH_BUFFER_BIT");
 #endif
 #if defined GL_STENCIL_BUFFER_BIT
-	case GL_STENCIL_BUFFER_BIT: return StrCRef("STENCIL_BUFFER_BIT");
+	case GL_STENCIL_BUFFER_BIT: return CStrRef("STENCIL_BUFFER_BIT");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

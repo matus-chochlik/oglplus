@@ -127,7 +127,7 @@ public:
 	 *  @alfunref{GetString}
 	 *  @aldefref{EXTENSIONS}
 	 */
-	static Range<String> Extensions(void);
+	static Range<ALString> Extensions(void);
 #else
 	static aux::SepStrRange Extensions(void)
 	{

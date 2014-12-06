@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	CompatibilityPrimitiveType*,
 	GLenum value
 ) noexcept
@@ -21,39 +21,39 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_POINTS
-	case GL_POINTS: return StrCRef("POINTS");
+	case GL_POINTS: return CStrRef("POINTS");
 #endif
 #if defined GL_LINE_STRIP
-	case GL_LINE_STRIP: return StrCRef("LINE_STRIP");
+	case GL_LINE_STRIP: return CStrRef("LINE_STRIP");
 #endif
 #if defined GL_LINE_LOOP
-	case GL_LINE_LOOP: return StrCRef("LINE_LOOP");
+	case GL_LINE_LOOP: return CStrRef("LINE_LOOP");
 #endif
 #if defined GL_LINES
-	case GL_LINES: return StrCRef("LINES");
+	case GL_LINES: return CStrRef("LINES");
 #endif
 #if defined GL_TRIANGLE_STRIP
-	case GL_TRIANGLE_STRIP: return StrCRef("TRIANGLE_STRIP");
+	case GL_TRIANGLE_STRIP: return CStrRef("TRIANGLE_STRIP");
 #endif
 #if defined GL_TRIANGLE_FAN
-	case GL_TRIANGLE_FAN: return StrCRef("TRIANGLE_FAN");
+	case GL_TRIANGLE_FAN: return CStrRef("TRIANGLE_FAN");
 #endif
 #if defined GL_TRIANGLES
-	case GL_TRIANGLES: return StrCRef("TRIANGLES");
+	case GL_TRIANGLES: return CStrRef("TRIANGLES");
 #endif
 #if defined GL_QUADS
-	case GL_QUADS: return StrCRef("QUADS");
+	case GL_QUADS: return CStrRef("QUADS");
 #endif
 #if defined GL_QUAD_STRIP
-	case GL_QUAD_STRIP: return StrCRef("QUAD_STRIP");
+	case GL_QUAD_STRIP: return CStrRef("QUAD_STRIP");
 #endif
 #if defined GL_POLYGON
-	case GL_POLYGON: return StrCRef("POLYGON");
+	case GL_POLYGON: return CStrRef("POLYGON");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

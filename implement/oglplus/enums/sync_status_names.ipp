@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	SyncStatus*,
 	GLenum value
 ) noexcept
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_SIGNALED
-	case GL_SIGNALED: return StrCRef("SIGNALED");
+	case GL_SIGNALED: return CStrRef("SIGNALED");
 #endif
 #if defined GL_UNSIGNALED
-	case GL_UNSIGNALED: return StrCRef("UNSIGNALED");
+	case GL_UNSIGNALED: return CStrRef("UNSIGNALED");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

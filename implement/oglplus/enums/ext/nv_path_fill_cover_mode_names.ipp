@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PathNVFillCoverMode*,
 	GLenum value
 ) noexcept
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_CONVEX_HULL_NV
-	case GL_CONVEX_HULL_NV: return StrCRef("CONVEX_HULL_NV");
+	case GL_CONVEX_HULL_NV: return CStrRef("CONVEX_HULL_NV");
 #endif
 #if defined GL_BOUNDING_BOX_NV
-	case GL_BOUNDING_BOX_NV: return StrCRef("BOUNDING_BOX_NV");
+	case GL_BOUNDING_BOX_NV: return CStrRef("BOUNDING_BOX_NV");
 #endif
 #if defined GL_BOUNDING_BOX_OF_BOUNDING_BOXES_NV
-	case GL_BOUNDING_BOX_OF_BOUNDING_BOXES_NV: return StrCRef("BOUNDING_BOX_OF_BOUNDING_BOXES_NV");
+	case GL_BOUNDING_BOX_OF_BOUNDING_BOXES_NV: return CStrRef("BOUNDING_BOX_OF_BOUNDING_BOXES_NV");
 #endif
 #if defined GL_PATH_FILL_COVER_MODE_NV
-	case GL_PATH_FILL_COVER_MODE_NV: return StrCRef("PATH_FILL_COVER_MODE_NV");
+	case GL_PATH_FILL_COVER_MODE_NV: return CStrRef("PATH_FILL_COVER_MODE_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

@@ -120,7 +120,7 @@ public:
 		PathNVFontTarget font_target,
 		const GLchar* font_name,
 		Bitfield<PathNVFontStyle> font_style,
-		StrCRef char_codes,
+		const GLCStrRef& char_codes,
 		PathNVMissingGlyph handle_missing_glyphs,
 		GLuint parameter_template,
 		GLfloat em_scale
@@ -257,7 +257,7 @@ public:
 	 */
 	PathArrayNV& GetSpacing(
 		PathNVListMode list_mode,
-		StrCRef indices,
+		const GLCStrRef& indices,
 		GLfloat advance_scale,
 		GLfloat kerning_scale,
 		PathNVTransformType transform_type,
@@ -343,7 +343,7 @@ public:
 	 */
 	PathArrayNV& GetMetrics(
 		Bitfield<PathNVMetricQuery> query_mask,
-		StrCRef indices,
+		const GLCStrRef& indices,
 		GLsizei stride,
 		GLfloat* returned_values
 	)
@@ -457,7 +457,7 @@ public:
 	 *  @glfunref{StencilFillPathInstancedNV}
 	 */
 	PathArrayNV& StencilFillInstanced(
-		StrCRef paths,
+		const GLCStrRef& paths,
 		PathNVFillMode mode,
 		GLuint mask,
 		PathNVTransformType transform_type,
@@ -551,7 +551,7 @@ public:
 	 *  @glfunref{CoverFillPathInstancedNV}
 	 */
 	PathArrayNV& CoverFillInstanced(
-		StrCRef paths,
+		const GLCStrRef& paths,
 		PathNVFillCoverMode mode,
 		PathNVTransformType transform_type,
 		const std::vector<GLfloat>& transform_values
@@ -637,7 +637,7 @@ public:
 	 *  @glfunref{StencilStrokePathInstancedNV}
 	 */
 	PathArrayNV& StencilStrokeInstanced(
-		StrCRef paths,
+		const GLCStrRef& paths,
 		GLint reference,
 		GLuint mask,
 		PathNVTransformType transform_type,
@@ -725,7 +725,7 @@ public:
 	 *  @glfunref{CoverFillPathInstancedNV}
 	 */
 	PathArrayNV& CoverStrokeInstanced(
-		StrCRef paths,
+		const GLCStrRef& paths,
 		PathNVStrokeCoverMode mode,
 		PathNVTransformType transform_type,
 		const std::vector<GLfloat>& transform_values

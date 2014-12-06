@@ -74,7 +74,7 @@ public:
 		gl.Enable(Capability::StencilTest);
 	}
 
-	void RenderText(GLfloat x, GLfloat y, const oglplus::StrCRef& text)
+	void RenderText(GLfloat x, GLfloat y, const oglplus::CStrRef& text)
 	{
 		using namespace oglplus;
 

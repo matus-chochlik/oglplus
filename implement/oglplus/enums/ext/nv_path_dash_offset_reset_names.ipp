@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PathNVDashOffsetReset*,
 	GLenum value
 ) noexcept
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_MOVE_TO_RESET_NV
-	case GL_MOVE_TO_RESET_NV: return StrCRef("MOVE_TO_RESET_NV");
+	case GL_MOVE_TO_RESET_NV: return CStrRef("MOVE_TO_RESET_NV");
 #endif
 #if defined GL_MOVE_TO_CONTINUES_NV
-	case GL_MOVE_TO_CONTINUES_NV: return StrCRef("MOVE_TO_CONTINUES_NV");
+	case GL_MOVE_TO_CONTINUES_NV: return CStrRef("MOVE_TO_CONTINUES_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

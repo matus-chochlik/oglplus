@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	TransparentType*,
 	EGLenum value
 ) noexcept
@@ -21,15 +21,15 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_NONE
-	case EGL_NONE: return StrCRef("NONE");
+	case EGL_NONE: return CStrRef("NONE");
 #endif
 #if defined EGL_TRANSPARENT_RGB
-	case EGL_TRANSPARENT_RGB: return StrCRef("TRANSPARENT_RGB");
+	case EGL_TRANSPARENT_RGB: return CStrRef("TRANSPARENT_RGB");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

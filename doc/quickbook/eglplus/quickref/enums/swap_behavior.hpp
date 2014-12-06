@@ -21,7 +21,7 @@ enum class SwapBehavior : EGLenum
 template <>
 __Range<SwapBehavior> __EnumValueRange<SwapBehavior>(void) noexcept;
 
-__StrCRef __EnumValueName(SwapBehavior) noexcept;
+__CStrRef __EnumValueName(SwapBehavior) noexcept;
 
 } // namespace eglplus
 //]

@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	HintTarget*,
 	GLenum value
 ) noexcept
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_LINE_SMOOTH_HINT
-	case GL_LINE_SMOOTH_HINT: return StrCRef("LINE_SMOOTH_HINT");
+	case GL_LINE_SMOOTH_HINT: return CStrRef("LINE_SMOOTH_HINT");
 #endif
 #if defined GL_POLYGON_SMOOTH_HINT
-	case GL_POLYGON_SMOOTH_HINT: return StrCRef("POLYGON_SMOOTH_HINT");
+	case GL_POLYGON_SMOOTH_HINT: return CStrRef("POLYGON_SMOOTH_HINT");
 #endif
 #if defined GL_TEXTURE_COMPRESSION_HINT
-	case GL_TEXTURE_COMPRESSION_HINT: return StrCRef("TEXTURE_COMPRESSION_HINT");
+	case GL_TEXTURE_COMPRESSION_HINT: return CStrRef("TEXTURE_COMPRESSION_HINT");
 #endif
 #if defined GL_FRAGMENT_SHADER_DERIVATIVE_HINT
-	case GL_FRAGMENT_SHADER_DERIVATIVE_HINT: return StrCRef("FRAGMENT_SHADER_DERIVATIVE_HINT");
+	case GL_FRAGMENT_SHADER_DERIVATIVE_HINT: return CStrRef("FRAGMENT_SHADER_DERIVATIVE_HINT");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

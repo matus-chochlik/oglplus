@@ -21,7 +21,7 @@ enum class TextureCompareMode : GLenum
 template <>
 __Range<TextureCompareMode> __EnumValueRange<TextureCompareMode>(void) noexcept;
 
-__StrCRef __EnumValueName(TextureCompareMode) noexcept;
+__CStrRef __EnumValueName(TextureCompareMode) noexcept;
 
 } // namespace oglplus
 //]

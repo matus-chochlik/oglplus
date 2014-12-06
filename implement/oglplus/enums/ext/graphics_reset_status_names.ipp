@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	GraphicsResetStatusARB*,
 	GLenum value
 ) noexcept
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_NO_ERROR
-	case GL_NO_ERROR: return StrCRef("NO_ERROR");
+	case GL_NO_ERROR: return CStrRef("NO_ERROR");
 #endif
 #if defined GL_GUILTY_CONTEXT_RESET_ARB
-	case GL_GUILTY_CONTEXT_RESET_ARB: return StrCRef("GUILTY_CONTEXT_RESET_ARB");
+	case GL_GUILTY_CONTEXT_RESET_ARB: return CStrRef("GUILTY_CONTEXT_RESET_ARB");
 #endif
 #if defined GL_INNOCENT_CONTEXT_RESET_ARB
-	case GL_INNOCENT_CONTEXT_RESET_ARB: return StrCRef("INNOCENT_CONTEXT_RESET_ARB");
+	case GL_INNOCENT_CONTEXT_RESET_ARB: return CStrRef("INNOCENT_CONTEXT_RESET_ARB");
 #endif
 #if defined GL_UNKNOWN_CONTEXT_RESET_ARB
-	case GL_UNKNOWN_CONTEXT_RESET_ARB: return StrCRef("UNKNOWN_CONTEXT_RESET_ARB");
+	case GL_UNKNOWN_CONTEXT_RESET_ARB: return CStrRef("UNKNOWN_CONTEXT_RESET_ARB");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

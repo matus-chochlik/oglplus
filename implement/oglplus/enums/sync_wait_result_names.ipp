@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	SyncWaitResult*,
 	GLenum value
 ) noexcept
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_CONDITION_SATISFIED
-	case GL_CONDITION_SATISFIED: return StrCRef("CONDITION_SATISFIED");
+	case GL_CONDITION_SATISFIED: return CStrRef("CONDITION_SATISFIED");
 #endif
 #if defined GL_ALREADY_SIGNALED
-	case GL_ALREADY_SIGNALED: return StrCRef("ALREADY_SIGNALED");
+	case GL_ALREADY_SIGNALED: return CStrRef("ALREADY_SIGNALED");
 #endif
 #if defined GL_TIMEOUT_EXPIRED
-	case GL_TIMEOUT_EXPIRED: return StrCRef("TIMEOUT_EXPIRED");
+	case GL_TIMEOUT_EXPIRED: return CStrRef("TIMEOUT_EXPIRED");
 #endif
 #if defined GL_WAIT_FAILED
-	case GL_WAIT_FAILED: return StrCRef("WAIT_FAILED");
+	case GL_WAIT_FAILED: return CStrRef("WAIT_FAILED");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

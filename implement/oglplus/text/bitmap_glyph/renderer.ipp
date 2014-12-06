@@ -27,7 +27,7 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
  , _prev_layout_storage(nullptr)
 {
 	VertexShader vs(ObjectDesc("BitmapGlyphRenderer - Vertex"));
-	vs.Source(StrCRef(
+	vs.Source(GLCStrRef(
 		"#version 330\n"
 
 		"uniform uint GlyphsPerPage;"
@@ -70,7 +70,7 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 	_program.AttachShader(vs);
 
 	GeometryShader gs(ObjectDesc("BitmapGlyphRenderer - Geometry"));
-	gs.Source(StrCRef(
+	gs.Source(GLCStrRef(
 		"#version 330\n"
 		"layout (points) in;"
 		"layout (triangle_strip, max_vertices = 6) out;"
@@ -150,7 +150,7 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 	_program.AttachShader(gs);
 
 	FragmentShader fs(ObjectDesc("BitmapGlyphRenderer - Fragment"));
-	fs.Source(StrCRef(
+	fs.Source(GLCStrRef(
 		"#version 330\n"
 		"uniform sampler2DArray oglpBitmap;"
 
@@ -210,7 +210,7 @@ BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
 	StaticGroup<ShaderName, 3>(
 		GeometryShader(
 			ObjectDesc("BitmapGlyphRenderer - Layout transform"),
-			StrCRef(
+			GLCStrRef(
 			"#version 330\n"
 			"uniform mat4 "
 			"	oglpProjectionMatrix,"
@@ -228,7 +228,7 @@ BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
 		),
 		GeometryShader(
 			ObjectDesc("BitmapGlyphRenderer - Glyph transform"),
-			StrCRef(
+			GLCStrRef(
 			"#version 330\n"
 			"uniform float oglpAlignCoef;"
 			"uniform float oglpDirCoef;"

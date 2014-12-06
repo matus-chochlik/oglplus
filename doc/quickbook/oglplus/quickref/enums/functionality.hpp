@@ -20,7 +20,7 @@ enum class Functionality : GLenum
 template <>
 __Range<Functionality> __EnumValueRange<Functionality>(void) noexcept;
 
-__StrCRef __EnumValueName(Functionality) noexcept;
+__CStrRef __EnumValueName(Functionality) noexcept;
 
 } // namespace oglplus
 //]

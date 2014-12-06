@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PerfMonitorAMDType*,
 	GLenum value
 ) noexcept
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_UNSIGNED_INT
-	case GL_UNSIGNED_INT: return StrCRef("UNSIGNED_INT");
+	case GL_UNSIGNED_INT: return CStrRef("UNSIGNED_INT");
 #endif
 #if defined GL_FLOAT
-	case GL_FLOAT: return StrCRef("FLOAT");
+	case GL_FLOAT: return CStrRef("FLOAT");
 #endif
 #if defined GL_UNSIGNED_INT64_AMD
-	case GL_UNSIGNED_INT64_AMD: return StrCRef("UNSIGNED_INT64_AMD");
+	case GL_UNSIGNED_INT64_AMD: return CStrRef("UNSIGNED_INT64_AMD");
 #endif
 #if defined GL_PERCENTAGE_AMD
-	case GL_PERCENTAGE_AMD: return StrCRef("PERCENTAGE_AMD");
+	case GL_PERCENTAGE_AMD: return CStrRef("PERCENTAGE_AMD");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

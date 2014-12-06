@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	OpenGLResetNotificationStrategy*,
 	EGLenum value
 ) noexcept
@@ -21,15 +21,15 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_NO_RESET_NOTIFICATION
-	case EGL_NO_RESET_NOTIFICATION: return StrCRef("NO_RESET_NOTIFICATION");
+	case EGL_NO_RESET_NOTIFICATION: return CStrRef("NO_RESET_NOTIFICATION");
 #endif
 #if defined EGL_LOSE_CONTEXT_ON_RESET
-	case EGL_LOSE_CONTEXT_ON_RESET: return StrCRef("LOSE_CONTEXT_ON_RESET");
+	case EGL_LOSE_CONTEXT_ON_RESET: return CStrRef("LOSE_CONTEXT_ON_RESET");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

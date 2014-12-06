@@ -26,7 +26,7 @@ enum class DebugSource : GLenum
 template <>
 __Range<DebugSource> __EnumValueRange<DebugSource>(void) noexcept;
 
-__StrCRef __EnumValueName(DebugSource) noexcept;
+__CStrRef __EnumValueName(DebugSource) noexcept;
 
 } // namespace oglplus
 //]

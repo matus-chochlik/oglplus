@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OALPLUS_LIB_FUNC StrCRef ValueName_(
+OALPLUS_LIB_FUNC CStrRef ValueName_(
 	SourceType*,
 	ALenum value
 ) noexcept
@@ -21,18 +21,18 @@ OALPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined AL_UNDETERMINED
-	case AL_UNDETERMINED: return StrCRef("UNDETERMINED");
+	case AL_UNDETERMINED: return CStrRef("UNDETERMINED");
 #endif
 #if defined AL_STATIC
-	case AL_STATIC: return StrCRef("STATIC");
+	case AL_STATIC: return CStrRef("STATIC");
 #endif
 #if defined AL_STREAMING
-	case AL_STREAMING: return StrCRef("STREAMING");
+	case AL_STREAMING: return CStrRef("STREAMING");
 #endif
 	default:;
 }
 OALPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

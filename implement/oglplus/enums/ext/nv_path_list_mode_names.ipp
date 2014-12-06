@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PathNVListMode*,
 	GLenum value
 ) noexcept
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_ACCUM_ADJACENT_PAIRS_NV
-	case GL_ACCUM_ADJACENT_PAIRS_NV: return StrCRef("ACCUM_ADJACENT_PAIRS_NV");
+	case GL_ACCUM_ADJACENT_PAIRS_NV: return CStrRef("ACCUM_ADJACENT_PAIRS_NV");
 #endif
 #if defined GL_ADJACENT_PAIRS_NV
-	case GL_ADJACENT_PAIRS_NV: return StrCRef("ADJACENT_PAIRS_NV");
+	case GL_ADJACENT_PAIRS_NV: return CStrRef("ADJACENT_PAIRS_NV");
 #endif
 #if defined GL_FIRST_TO_REST_NV
-	case GL_FIRST_TO_REST_NV: return StrCRef("FIRST_TO_REST_NV");
+	case GL_FIRST_TO_REST_NV: return CStrRef("FIRST_TO_REST_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

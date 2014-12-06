@@ -36,7 +36,7 @@ enum class TextureTarget : GLenum
 template <>
 __Range<TextureTarget> __EnumValueRange<TextureTarget>(void) noexcept;
 
-__StrCRef __EnumValueName(TextureTarget) noexcept;
+__CStrRef __EnumValueName(TextureTarget) noexcept;
 
 } // namespace oglplus
 //]

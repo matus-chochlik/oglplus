@@ -21,7 +21,7 @@ enum class ResetNotificationStrategyARB : GLenum
 template <>
 __Range<ResetNotificationStrategyARB> __EnumValueRange<ResetNotificationStrategyARB>(void) noexcept;
 
-__StrCRef __EnumValueName(ResetNotificationStrategyARB) noexcept;
+__CStrRef __EnumValueName(ResetNotificationStrategyARB) noexcept;
 
 } // namespace oglplus
 //]

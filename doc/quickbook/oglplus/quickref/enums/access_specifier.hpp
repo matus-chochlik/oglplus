@@ -22,7 +22,7 @@ enum class AccessSpecifier : GLenum
 template <>
 __Range<AccessSpecifier> __EnumValueRange<AccessSpecifier>(void) noexcept;
 
-__StrCRef __EnumValueName(AccessSpecifier) noexcept;
+__CStrRef __EnumValueName(AccessSpecifier) noexcept;
 
 } // namespace oglplus
 //]

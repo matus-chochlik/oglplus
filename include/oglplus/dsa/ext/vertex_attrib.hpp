@@ -46,7 +46,7 @@ public:
 	DSAVertexArrayAttribEXT(
 		VertexArrayName vao,
 		ProgramName program,
-		StrCRef identifier
+		const GLCStrRef& identifier
 	): ProgVarCommonOps<tag::VertexAttrib>(VertexAttribLoc(program, identifier))
 	 , _vao(GetGLName(vao))
 	{ }

@@ -23,7 +23,7 @@ class OptionalImpl<tag::ProgVar, ProgVar>
  : public ProgVar
 {
 public:
-	OptionalImpl(ProgramName program, StrCRef identifier)
+	OptionalImpl(ProgramName program, const GLCStrRef& identifier)
 	 : ProgVar(program, identifier, false)
 	{ }
 };

@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	StencilOperation*,
 	GLenum value
 ) noexcept
@@ -21,33 +21,33 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_KEEP
-	case GL_KEEP: return StrCRef("KEEP");
+	case GL_KEEP: return CStrRef("KEEP");
 #endif
 #if defined GL_ZERO
-	case GL_ZERO: return StrCRef("ZERO");
+	case GL_ZERO: return CStrRef("ZERO");
 #endif
 #if defined GL_REPLACE
-	case GL_REPLACE: return StrCRef("REPLACE");
+	case GL_REPLACE: return CStrRef("REPLACE");
 #endif
 #if defined GL_INCR
-	case GL_INCR: return StrCRef("INCR");
+	case GL_INCR: return CStrRef("INCR");
 #endif
 #if defined GL_DECR
-	case GL_DECR: return StrCRef("DECR");
+	case GL_DECR: return CStrRef("DECR");
 #endif
 #if defined GL_INVERT
-	case GL_INVERT: return StrCRef("INVERT");
+	case GL_INVERT: return CStrRef("INVERT");
 #endif
 #if defined GL_INCR_WRAP
-	case GL_INCR_WRAP: return StrCRef("INCR_WRAP");
+	case GL_INCR_WRAP: return CStrRef("INCR_WRAP");
 #endif
 #if defined GL_DECR_WRAP
-	case GL_DECR_WRAP: return StrCRef("DECR_WRAP");
+	case GL_DECR_WRAP: return CStrRef("DECR_WRAP");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

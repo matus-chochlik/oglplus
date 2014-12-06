@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PathNVColorFormat*,
 	GLenum value
 ) noexcept
@@ -21,27 +21,27 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_LUMINANCE
-	case GL_LUMINANCE: return StrCRef("LUMINANCE");
+	case GL_LUMINANCE: return CStrRef("LUMINANCE");
 #endif
 #if defined GL_ALPHA
-	case GL_ALPHA: return StrCRef("ALPHA");
+	case GL_ALPHA: return CStrRef("ALPHA");
 #endif
 #if defined GL_INTENSITY
-	case GL_INTENSITY: return StrCRef("INTENSITY");
+	case GL_INTENSITY: return CStrRef("INTENSITY");
 #endif
 #if defined GL_LUMINANCE_ALPHA
-	case GL_LUMINANCE_ALPHA: return StrCRef("LUMINANCE_ALPHA");
+	case GL_LUMINANCE_ALPHA: return CStrRef("LUMINANCE_ALPHA");
 #endif
 #if defined GL_RGB
-	case GL_RGB: return StrCRef("RGB");
+	case GL_RGB: return CStrRef("RGB");
 #endif
 #if defined GL_RGBA
-	case GL_RGBA: return StrCRef("RGBA");
+	case GL_RGBA: return CStrRef("RGBA");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

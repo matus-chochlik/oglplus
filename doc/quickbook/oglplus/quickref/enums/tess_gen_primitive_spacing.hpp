@@ -22,7 +22,7 @@ enum class TessGenPrimitiveSpacing : GLenum
 template <>
 __Range<TessGenPrimitiveSpacing> __EnumValueRange<TessGenPrimitiveSpacing>(void) noexcept;
 
-__StrCRef __EnumValueName(TessGenPrimitiveSpacing) noexcept;
+__CStrRef __EnumValueName(TessGenPrimitiveSpacing) noexcept;
 
 } // namespace oglplus
 //]

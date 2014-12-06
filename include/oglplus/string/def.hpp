@@ -30,13 +30,17 @@ namespace oglplus {
  */
 bool ValidString(const char* begin, const char* end);
 
-/// String class
+/// char string class
 /**
  *  @ingroup oglplus_strings
  */
-typedef ::eagine::base::basic_string<GLchar> String;
+typedef ::eagine::base::basic_string<char> String;
 
-const String& EmptyString(void) noexcept;
+/// GL-char string class
+/**
+ *  @ingroup oglplus_strings
+ */
+typedef ::eagine::base::basic_string<GLchar> GLString;
 
 } // namespace oglplus
 

@@ -61,7 +61,7 @@ protected:
 	std::vector<GLuint> _npvs;
 
 	// names of the individual vertex attributes
-	std::vector<String> _names;
+	std::vector<GLString> _names;
 
 	// the origin and radius of the bounding sphere
 	Spheref _bounding_sphere;
@@ -84,7 +84,7 @@ protected:
 		{
 			auto getter = vert_attr_info.VertexAttribGetter(
 				data,
-				StrCRef(*name)
+				GLCStrRef(*name)
 			);
 			if(getter != nullptr)
 			{

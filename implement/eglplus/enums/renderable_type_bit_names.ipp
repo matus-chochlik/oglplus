@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	RenderableTypeBit*,
 	EGLenum value
 ) noexcept
@@ -21,24 +21,24 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_OPENGL_BIT
-	case EGL_OPENGL_BIT: return StrCRef("OPENGL_BIT");
+	case EGL_OPENGL_BIT: return CStrRef("OPENGL_BIT");
 #endif
 #if defined EGL_OPENGL_ES_BIT
-	case EGL_OPENGL_ES_BIT: return StrCRef("OPENGL_ES_BIT");
+	case EGL_OPENGL_ES_BIT: return CStrRef("OPENGL_ES_BIT");
 #endif
 #if defined EGL_OPENGL_ES2_BIT
-	case EGL_OPENGL_ES2_BIT: return StrCRef("OPENGL_ES2_BIT");
+	case EGL_OPENGL_ES2_BIT: return CStrRef("OPENGL_ES2_BIT");
 #endif
 #if defined EGL_OPENGL_ES3_BIT
-	case EGL_OPENGL_ES3_BIT: return StrCRef("OPENGL_ES3_BIT");
+	case EGL_OPENGL_ES3_BIT: return CStrRef("OPENGL_ES3_BIT");
 #endif
 #if defined EGL_OPENVG_BIT
-	case EGL_OPENVG_BIT: return StrCRef("OPENVG_BIT");
+	case EGL_OPENVG_BIT: return CStrRef("OPENVG_BIT");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

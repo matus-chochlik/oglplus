@@ -52,7 +52,7 @@ public:
 	static GLint GetLocation(
 		ProgramName program,
 		ShaderType stage,
-		StrCRef identifier,
+		const GLCStrRef& identifier,
 		bool active_only
 	)
 	{
@@ -92,7 +92,7 @@ public:
 	 */
 	GLint GetLocation(
 		ProgramName program,
-		StrCRef identifier,
+		const GLCStrRef& identifier,
 		bool active_only
 	)
 	{
@@ -123,15 +123,18 @@ public:
 	{ }
 
 	/// Subroutine with the specified @p identifier in @p stage of @p program
-	ProgVar(ProgramName program, ShaderType stage, StrCRef identifier)
-	 : ProgVarLoc<tag::Subroutine>(stage, program, identifier)
+	ProgVar(
+		ProgramName program,
+		ShaderType stage,
+		const GLCStrRef& identifier
+	): ProgVarLoc<tag::Subroutine>(stage, program, identifier)
 	{ }
 
 	/// Subroutine with the specified @p identifier in @p stage of @p program
 	ProgVar(
 		ProgramName program,
 		ShaderType stage,
-		StrCRef identifier,
+		const GLCStrRef& identifier,
 		bool active_only
 	): ProgVarLoc<tag::Subroutine>(stage, program, identifier, active_only)
 	{ }
@@ -164,7 +167,7 @@ public:
 	static GLint GetLocation(
 		ProgramName program,
 		ShaderType stage,
-		StrCRef identifier,
+		const GLCStrRef& identifier,
 		bool active_only
 	)
 	{
@@ -204,7 +207,7 @@ public:
 	 */
 	GLint GetLocation(
 		ProgramName program,
-		StrCRef identifier,
+		const GLCStrRef& identifier,
 		bool active_only
 	)
 	{
@@ -235,15 +238,18 @@ public:
 	{ }
 
 	/// Sub.uniform with the specified @p identifier in @p stage of @p program
-	ProgVar(ProgramName program, ShaderType stage, StrCRef identifier)
-	 : ProgVarLoc<tag::SubroutineUniform>(stage, program, identifier)
+	ProgVar(
+		ProgramName program,
+		ShaderType stage,
+		const GLCStrRef& identifier
+	): ProgVarLoc<tag::SubroutineUniform>(stage, program, identifier)
 	{ }
 
 	/// Sub.uniform with the specified @p identifier in @p stage of @p program
 	ProgVar(
 		ProgramName program,
 		ShaderType stage,
-		StrCRef identifier,
+		const GLCStrRef& identifier,
 		bool active_only
 	): ProgVarLoc<tag::SubroutineUniform>(
 		stage,

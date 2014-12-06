@@ -30,9 +30,9 @@ template <class ShapeBuilder> \
 struct VertexAttribInfo<ShapeBuilder, Vertex ## GETTER_NAME ## Tag> \
 { \
 public: \
-	static StrCRef _name(void) \
+	static GLCStrRef _name(void) \
 	{ \
-		return StrCRef(#ATTR_NAME); \
+		return GLCStrRef(#ATTR_NAME); \
 	} \
  \
 	template <typename T> \
@@ -74,7 +74,7 @@ class VertexAttribsInfo<ShapeBuiler>
 {
 public:
 	/// Returns true if @c ShapeBuilder makes vertex attributes with @a name
-	bool MakesVertexAttrib(StrCRef name) const;
+	bool MakesVertexAttrib(const GLCStrRef& name) const;
 
 	/// Returns the vertex attribute getter function by its @a name
 	/** This functions tries to find a vertex attribute getter function
@@ -88,7 +88,7 @@ public:
 	 *  @endcode
 	 */
 	template <typename T>
-	static GetterFunction VertexAttribGetter(StrCRef name);
+	static GetterFunction VertexAttribGetter(const GLCStrRef& name);
 };
 #else
 template <class ShapeBuilder, class VertexAttribTags, std::size_t N>
@@ -96,7 +96,7 @@ class VertexAttribsInfoBase
 {
 private:
 	static bool _has_vertex_attrib(
-		StrCRef,
+		const GLCStrRef&,
 		std::integral_constant<std::size_t, N>,
 		std::integral_constant<std::size_t, N>
 	)
@@ -106,7 +106,7 @@ private:
 
 	template <std::size_t I>
 	static bool _has_vertex_attrib(
-		StrCRef name,
+		const GLCStrRef& name,
 		std::integral_constant<std::size_t, I>,
 		std::integral_constant<std::size_t, N>
 	)
@@ -123,7 +123,7 @@ private:
 		);
 	}
 protected:
-	static bool _has_vertex_attrib(StrCRef name)
+	static bool _has_vertex_attrib(const GLCStrRef& name)
 	{
 		return _has_vertex_attrib(
 			name,
@@ -142,7 +142,7 @@ private:
 	static typename _getter_proc<T>::type
 	_find_getter(
 		T*,
-		StrCRef,
+		const GLCStrRef&,
 		std::integral_constant<std::size_t, N>,
 		std::integral_constant<std::size_t, N>
 	)
@@ -154,7 +154,7 @@ private:
 	static typename _getter_proc<T>::type
 	_find_getter(
 		T* selector,
-		StrCRef name,
+		const GLCStrRef& name,
 		std::integral_constant<std::size_t, I>,
 		std::integral_constant<std::size_t, N>
 	)
@@ -178,7 +178,7 @@ private:
 protected:
 	template <typename T>
 	static typename _getter_proc<T>::type
-	_find_getter(T* selector, StrCRef name)
+	_find_getter(T* selector, const GLCStrRef& name)
 	{
 		return _find_getter(
 			selector,
@@ -204,7 +204,7 @@ private:
 		std::tuple_size<VertexAttribTags>::value
 	> _base;
 public:
-	bool MakesVertexAttrib(StrCRef name) const
+	bool MakesVertexAttrib(const GLCStrRef& name) const
 	{
 		return _base::_has_vertex_attrib(name);
 	}
@@ -213,7 +213,7 @@ public:
 	static typename _base::template _getter_proc<T>::type
 	VertexAttribGetter(
 		const std::vector<T>& /*selector*/,
-		StrCRef name
+		const GLCStrRef& name
 	)
 	{
 		return _base::_find_getter((T*)nullptr, name);

@@ -47,7 +47,7 @@ public:
 	 */
 	static GLint GetLocation(
 		ProgramName program,
-		StrCRef identifier,
+		const GLCStrRef& identifier,
 		bool active_only
 	)
 	{

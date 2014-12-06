@@ -50,7 +50,7 @@ ActiveVariableInfo::ActiveVariableInfo(
 		&_type,
 		context.Buffer().data()
 	);
-	_name = String(context.Buffer().data(), strlen);
+	_name = GLString(context.Buffer().data(), strlen);
 }
 
 OGLPLUS_LIB_FUNC
@@ -113,7 +113,7 @@ ActiveSubroutineInfo::ActiveSubroutineInfo(
 		EnumParam(context.Stage()).
 		Index(index)
 	);
-	_name = String(context.Buffer().data(), strlen);
+	_name = GLString(context.Buffer().data(), strlen);
 }
 
 OGLPLUS_LIB_FUNC
@@ -167,7 +167,7 @@ ActiveSubroutineUniformInfo::ActiveSubroutineUniformInfo(
 		EnumParam(context.Stage()).
 		Index(index)
 	);
-	_name = String(context.Buffer().data(), strlen);
+	_name = GLString(context.Buffer().data(), strlen);
 }
 
 OGLPLUS_LIB_FUNC
@@ -239,7 +239,7 @@ ActiveUniformBlockInfo::ActiveUniformBlockInfo(
 		Object(context.Program()).
 		Index(index)
 	);
-	_name = String(context.Buffer().data(), strlen);
+	_name = GLString(context.Buffer().data(), strlen);
 }
 
 OGLPLUS_LIB_FUNC

@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	ProvokeMode*,
 	GLenum value
 ) noexcept
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_FIRST_VERTEX_CONVENTION
-	case GL_FIRST_VERTEX_CONVENTION: return StrCRef("FIRST_VERTEX_CONVENTION");
+	case GL_FIRST_VERTEX_CONVENTION: return CStrRef("FIRST_VERTEX_CONVENTION");
 #endif
 #if defined GL_LAST_VERTEX_CONVENTION
-	case GL_LAST_VERTEX_CONVENTION: return StrCRef("LAST_VERTEX_CONVENTION");
+	case GL_LAST_VERTEX_CONVENTION: return CStrRef("LAST_VERTEX_CONVENTION");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

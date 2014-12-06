@@ -14,9 +14,9 @@ namespace oglplus {
 namespace aux {
 
 OGLPLUS_LIB_FUNC
-StrCRefsGLSLSrcWrap::StrCRefsGLSLSrcWrap(
-	AnyInputIter<StrCRef>&& i,
-	AnyInputIter<StrCRef>&& e
+GLCStrRefsGLSLSrcWrap::GLCStrRefsGLSLSrcWrap(
+	AnyInputIter<GLCStrRef>&& i,
+	AnyInputIter<GLCStrRef>&& e
 ): _ptrs(distance(i, e))
  , _sizes(distance(i, e))
 {
@@ -47,8 +47,8 @@ void StrsGLSLSrcWrap::_init(void)
 
 OGLPLUS_LIB_FUNC
 StrsGLSLSrcWrap::StrsGLSLSrcWrap(
-	AnyInputIter<String>&& i,
-	AnyInputIter<String>&& e
+	AnyInputIter<GLString>&& i,
+	AnyInputIter<GLString>&& e
 ): _storage(i, e)
  , _ptrs(_storage.size(), nullptr)
  , _sizes(_storage.size(), 0)
@@ -57,7 +57,7 @@ StrsGLSLSrcWrap::StrsGLSLSrcWrap(
 }
 
 OGLPLUS_LIB_FUNC
-StrsGLSLSrcWrap::StrsGLSLSrcWrap(std::vector<String>&& storage)
+StrsGLSLSrcWrap::StrsGLSLSrcWrap(std::vector<GLString>&& storage)
  : _storage(std::move(storage))
  , _ptrs(_storage.size(), nullptr)
  , _sizes(_storage.size(), 0)

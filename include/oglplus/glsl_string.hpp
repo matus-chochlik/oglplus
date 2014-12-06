@@ -49,13 +49,13 @@ public:
 	 , _len(N)
 	{ }
 
-	GLSLString(const StrCRef& str)
+	GLSLString(const GLCStrRef& str)
 	noexcept
 	 : _str(str.begin())
 	 , _len(GLint(str.size()))
 	{ }
 
-	GLSLString(const String& str)
+	GLSLString(const GLString& str)
 	noexcept
 	 : _str(str.c_str())
 	 , _len(GLint(str.size()))

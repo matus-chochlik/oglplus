@@ -53,7 +53,7 @@ enum class PathNVCommand : GLenum
 template <>
 __Range<PathNVCommand> __EnumValueRange<PathNVCommand>(void) noexcept;
 
-__StrCRef __EnumValueName(PathNVCommand) noexcept;
+__CStrRef __EnumValueName(PathNVCommand) noexcept;
 
 } // namespace oglplus
 //]

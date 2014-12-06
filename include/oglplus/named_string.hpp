@@ -26,15 +26,15 @@ namespace oglplus {
 class NamedString
 {
 private:
-	String _name;
+	GLString _name;
 
 	NamedString(const NamedString&);
 public:
 	/// Store the @p value, of the specified @p type under @p name
 	static void Set(
 		NamedStringType type,
-		const StrCRef& name,
-		const StrCRef& value
+		const GLCStrRef& name,
+		const GLCStrRef& value
 	)
 	{
 		OGLPLUS_GLFUNC(NamedStringARB)(
@@ -48,7 +48,7 @@ public:
 	}
 
 	/// Gets the value stored under @p name
-	static String Get(const StrCRef& name)
+	static GLString Get(const GLCStrRef& name)
 	{
 		GLint len = 0;
 		OGLPLUS_GLFUNC(GetNamedStringivARB)(
@@ -59,7 +59,7 @@ public:
 		);
 		OGLPLUS_CHECK_SIMPLE(GetNamedStringivARB);
 
-		String result(len, '\0');
+		GLString result(len, '\0');
 		OGLPLUS_GLFUNC(GetNamedStringARB)(
 			GLint(name.size()),
 			name.data(),
@@ -73,7 +73,7 @@ public:
 	}
 
 	/// Deletes the value stored under @p name
-	static void Delete(const StrCRef& name)
+	static void Delete(const GLCStrRef& name)
 	{
 		OGLPLUS_GLFUNC(DeleteNamedStringARB)(
 			GLint(name.size()),
@@ -83,7 +83,7 @@ public:
 	}
 
 	/// Gets the type of the named string stored under @p name
-	static NamedStringType Type(const StrCRef& name)
+	static NamedStringType Type(const GLCStrRef& name)
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetNamedStringivARB)(
@@ -97,7 +97,7 @@ public:
 	}
 
 	/// Checks if @p name is a stored string
-	static bool IsA(const StrCRef& name)
+	static bool IsA(const GLCStrRef& name)
 	{
 		GLboolean result = OGLPLUS_GLFUNC(IsNamedStringARB)(
 			GLint(name.size()),
@@ -108,13 +108,13 @@ public:
 	}
 
 	/// Sets the @p value of the specified @p type in this NamedString
-	void Set(NamedStringType type, const StrCRef& value)
+	void Set(NamedStringType type, const GLCStrRef& value)
 	{
 		Set(type, _name, value);
 	}
 
 	/// Sets the @p value of this NamedString
-	String Get(void) const
+	GLString Get(void) const
 	{
 		return Get(_name);
 	}
@@ -127,8 +127,8 @@ public:
 	/// Store a string @p value of the specified type under @p name
 	NamedString(
 		NamedStringType type,
-		String&& name,
-		const StrCRef& value
+		GLString&& name,
+		const GLCStrRef& value
 	): _name(std::move(name))
 	{
 		Set(type, value);
@@ -150,7 +150,7 @@ class ShaderInclude
 {
 public:
 	/// Create a shader include with the specified name and value
-	ShaderInclude(String&& name, const StrCRef& value)
+	ShaderInclude(GLString&& name, const GLCStrRef& value)
 	 : NamedString(
 		NamedStringType::ShaderInclude,
 		std::move(name),
@@ -162,7 +162,7 @@ public:
 	{ }
 
 	/// Set a new value for this shader include
-	void Set(const StrCRef& value)
+	void Set(const GLCStrRef& value)
 	{
 		return NamedString::Set(NamedStringType::ShaderInclude, value);
 	}

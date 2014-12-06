@@ -24,7 +24,7 @@ enum class RenderableTypeBit : EGLenum
 template <>
 __Range<RenderableTypeBit> __EnumValueRange<RenderableTypeBit>(void) noexcept;
 
-__StrCRef __EnumValueName(RenderableTypeBit) noexcept;
+__CStrRef __EnumValueName(RenderableTypeBit) noexcept;
 
 } // namespace eglplus
 //]

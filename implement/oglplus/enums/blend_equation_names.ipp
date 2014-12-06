@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	BlendEquation*,
 	GLenum value
 ) noexcept
@@ -21,24 +21,24 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_FUNC_ADD
-	case GL_FUNC_ADD: return StrCRef("FUNC_ADD");
+	case GL_FUNC_ADD: return CStrRef("FUNC_ADD");
 #endif
 #if defined GL_FUNC_SUBTRACT
-	case GL_FUNC_SUBTRACT: return StrCRef("FUNC_SUBTRACT");
+	case GL_FUNC_SUBTRACT: return CStrRef("FUNC_SUBTRACT");
 #endif
 #if defined GL_FUNC_REVERSE_SUBTRACT
-	case GL_FUNC_REVERSE_SUBTRACT: return StrCRef("FUNC_REVERSE_SUBTRACT");
+	case GL_FUNC_REVERSE_SUBTRACT: return CStrRef("FUNC_REVERSE_SUBTRACT");
 #endif
 #if defined GL_MIN
-	case GL_MIN: return StrCRef("MIN");
+	case GL_MIN: return CStrRef("MIN");
 #endif
 #if defined GL_MAX
-	case GL_MAX: return StrCRef("MAX");
+	case GL_MAX: return CStrRef("MAX");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

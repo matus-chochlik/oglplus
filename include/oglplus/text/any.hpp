@@ -171,7 +171,7 @@ private:
 			const CodePoint* code_points,
 			const GLsizei length
 		) = 0;
-		virtual void Set(StrCRef string) = 0;
+		virtual void Set(const GLCStrRef& string) = 0;
 	};
 
 	template <class Layout>
@@ -207,7 +207,7 @@ private:
 			_layout.Set(code_points, length);
 		}
 
-		void Set(StrCRef str)
+		void Set(const GLCStrRef& str)
 		{
 			_layout.Set(str);
 		}
@@ -272,7 +272,7 @@ public:
 		_pimpl->Set(code_points, length);
 	}
 
-	void Set(StrCRef str)
+	void Set(const GLCStrRef& str)
 	{
 		assert(_pimpl);
 		_pimpl->Set(str);
@@ -431,7 +431,7 @@ private:
 
 		virtual AnyLayout MakeLayout(
 			const AnyFont& font,
-			StrCRef str
+			const GLCStrRef& str
 		) = 0;
 
 		virtual AnyRenderer GetRenderer(
@@ -472,7 +472,7 @@ private:
 
 		AnyLayout MakeLayout(
 			const AnyFont& font,
-			StrCRef str
+			const GLCStrRef& str
 		)
 		{
 			return AnyLayout(
@@ -534,7 +534,7 @@ public:
 		return _pimpl->MakeLayout(font, capacity);
 	}
 
-	Layout MakeLayout(const Font& font, StrCRef str)
+	Layout MakeLayout(const Font& font, const GLCStrRef& str)
 	{
 		assert(_pimpl);
 		return _pimpl->MakeLayout(font, str);

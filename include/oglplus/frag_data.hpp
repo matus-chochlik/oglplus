@@ -45,7 +45,7 @@ public:
 	static void BindLocation(
 		ProgramName program,
 		FragDataSlot location,
-		StrCRef identifier
+		const GLCStrRef& identifier
 	)
 	{
 		OGLPLUS_GLFUNC(BindFragDataLocation)(
@@ -74,7 +74,7 @@ public:
 	 */
 	static GLint GetLocation(
 		ProgramName program,
-		StrCRef identifier,
+		const GLCStrRef& identifier,
 		bool active_only
 	)
 	{
@@ -111,7 +111,7 @@ protected:
 	 : ProgVarLoc<tag::FragData>(fdloc)
 	{ }
 public:
-	void Bind(StrCRef identifier)
+	void Bind(const GLCStrRef& identifier)
 	{
 		BindLocation(
 			this->Program(),

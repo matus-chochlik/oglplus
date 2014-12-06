@@ -24,7 +24,7 @@ enum class TextureWrap : GLenum
 template <>
 __Range<TextureWrap> __EnumValueRange<TextureWrap>(void) noexcept;
 
-__StrCRef __EnumValueName(TextureWrap) noexcept;
+__CStrRef __EnumValueName(TextureWrap) noexcept;
 
 } // namespace oglplus
 //]

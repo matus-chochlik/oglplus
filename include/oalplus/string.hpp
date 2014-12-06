@@ -21,13 +21,19 @@ namespace oalplus {
 /**
  *  @ingroup oalplus_strings
  */
-typedef ::eagine::base::basic_string<ALchar> String;
+typedef ::eagine::base::basic_string<ALchar> ALString;
 
-/// String const reference wrapper
+/// char string const reference wrapper
 /**
  *  @ingroup oalplus_strings
  */
-typedef ::eagine::base::basic_string_ref<const ALchar> StrCRef;
+typedef ::eagine::base::basic_string_ref<const char> CStrRef;
+
+/// ALchar string const reference wrapper
+/**
+ *  @ingroup oalplus_strings
+ */
+typedef ::eagine::base::basic_string_ref<const ALchar> ALCStrRef;
 
 } // namespace oalplus
 

@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PathNVFillMode*,
 	GLenum value
 ) noexcept
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_INVERT
-	case GL_INVERT: return StrCRef("INVERT");
+	case GL_INVERT: return CStrRef("INVERT");
 #endif
 #if defined GL_COUNT_UP_NV
-	case GL_COUNT_UP_NV: return StrCRef("COUNT_UP_NV");
+	case GL_COUNT_UP_NV: return CStrRef("COUNT_UP_NV");
 #endif
 #if defined GL_COUNT_DOWN_NV
-	case GL_COUNT_DOWN_NV: return StrCRef("COUNT_DOWN_NV");
+	case GL_COUNT_DOWN_NV: return CStrRef("COUNT_DOWN_NV");
 #endif
 #if defined GL_PATH_FILL_MODE_NV
-	case GL_PATH_FILL_MODE_NV: return StrCRef("PATH_FILL_MODE_NV");
+	case GL_PATH_FILL_MODE_NV: return CStrRef("PATH_FILL_MODE_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

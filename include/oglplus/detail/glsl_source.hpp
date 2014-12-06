@@ -43,14 +43,14 @@ struct GLSLSourceWrapper
 	const GLint* Lengths(void) const = 0;
 };
 
-class StrCRefGLSLSrcWrap
+class GLCStrRefGLSLSrcWrap
  : public GLSLSourceWrapper
 {
 private:
 	const GLchar* _ptr;
 	const GLint _size;
 public:
-	StrCRefGLSLSrcWrap(const StrCRef& source)
+	GLCStrRefGLSLSrcWrap(const GLCStrRef& source)
 	 : _ptr(source.begin())
 	 , _size(GLint(source.size()))
 	{
@@ -76,16 +76,16 @@ public:
 	}
 };
 
-class StrCRefsGLSLSrcWrap
+class GLCStrRefsGLSLSrcWrap
  : public GLSLSourceWrapper
 {
 private:
 	std::vector<const GLchar*> _ptrs;
 	std::vector<GLint> _sizes;
 public:
-	StrCRefsGLSLSrcWrap(
-		AnyInputIter<StrCRef>&& i,
-		AnyInputIter<StrCRef>&& e
+	GLCStrRefsGLSLSrcWrap(
+		AnyInputIter<GLCStrRef>&& i,
+		AnyInputIter<GLCStrRef>&& e
 	);
 
 	GLsizei Count(void) const
@@ -111,11 +111,11 @@ class StrGLSLSrcWrap
  : public GLSLSourceWrapper
 {
 private:
-	const String _storage;
+	const GLString _storage;
 	const GLchar* _ptr;
 	const GLint _size;
 public:
-	StrGLSLSrcWrap(const String& source)
+	StrGLSLSrcWrap(const GLString& source)
 	 : _storage(source)
 	 , _ptr(_storage.c_str())
 	 , _size(GLint(_storage.size()))
@@ -123,7 +123,7 @@ public:
 		assert(_ptr != nullptr);
 	}
 
-	StrGLSLSrcWrap(String&& source)
+	StrGLSLSrcWrap(GLString&& source)
 	 : _storage(std::move(source))
 	 , _ptr(_storage.c_str())
 	 , _size(GLint(_storage.size()))
@@ -154,18 +154,18 @@ class StrsGLSLSrcWrap
  : public GLSLSourceWrapper
 {
 private:
-	std::vector<String> _storage;
+	std::vector<GLString> _storage;
 	std::vector<const GLchar*> _ptrs;
 	std::vector<GLint> _sizes;
 
 	void _init(void);
 public:
 	StrsGLSLSrcWrap(
-		AnyInputIter<String>&& i,
-		AnyInputIter<String>&& e
+		AnyInputIter<GLString>&& i,
+		AnyInputIter<GLString>&& e
 	);
 
-	StrsGLSLSrcWrap(std::vector<String>&& storage);
+	StrsGLSLSrcWrap(std::vector<GLString>&& storage);
 
 	GLsizei Count(void) const
 	override

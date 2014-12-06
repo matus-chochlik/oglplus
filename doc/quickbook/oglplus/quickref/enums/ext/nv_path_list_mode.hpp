@@ -22,7 +22,7 @@ enum class PathNVListMode : GLenum
 template <>
 __Range<PathNVListMode> __EnumValueRange<PathNVListMode>(void) noexcept;
 
-__StrCRef __EnumValueName(PathNVListMode) noexcept;
+__CStrRef __EnumValueName(PathNVListMode) noexcept;
 
 } // namespace oglplus
 //]

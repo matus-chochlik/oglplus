@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PathNVGenMode*,
 	GLenum value
 ) noexcept
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_NONE
-	case GL_NONE: return StrCRef("NONE");
+	case GL_NONE: return CStrRef("NONE");
 #endif
 #if defined GL_EYE_LINEAR
-	case GL_EYE_LINEAR: return StrCRef("EYE_LINEAR");
+	case GL_EYE_LINEAR: return CStrRef("EYE_LINEAR");
 #endif
 #if defined GL_OBJECT_LINEAR
-	case GL_OBJECT_LINEAR: return StrCRef("OBJECT_LINEAR");
+	case GL_OBJECT_LINEAR: return CStrRef("OBJECT_LINEAR");
 #endif
 #if defined GL_PATH_OBJECT_BOUNDING_BOX_NV
-	case GL_PATH_OBJECT_BOUNDING_BOX_NV: return StrCRef("PATH_OBJECT_BOUNDING_BOX_NV");
+	case GL_PATH_OBJECT_BOUNDING_BOX_NV: return CStrRef("PATH_OBJECT_BOUNDING_BOX_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	ResetNotificationStrategy*,
 	GLenum value
 ) noexcept
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_NO_RESET_NOTIFICATION
-	case GL_NO_RESET_NOTIFICATION: return StrCRef("NO_RESET_NOTIFICATION");
+	case GL_NO_RESET_NOTIFICATION: return CStrRef("NO_RESET_NOTIFICATION");
 #endif
 #if defined GL_LOSE_CONTEXT_ON_RESET
-	case GL_LOSE_CONTEXT_ON_RESET: return StrCRef("LOSE_CONTEXT_ON_RESET");
+	case GL_LOSE_CONTEXT_ON_RESET: return CStrRef("LOSE_CONTEXT_ON_RESET");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

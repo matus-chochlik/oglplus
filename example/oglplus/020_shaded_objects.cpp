@@ -90,7 +90,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attrib
-			VertexArrayAttrib attr(prog, StrCRef(ident[i]));
+			VertexArrayAttrib attr(prog, GLCStrRef(ident[i]));
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -252,7 +252,7 @@ private:
 	}
 
 	// makes a fragment shader from the prologe, custom part and epilogue
-	static Shader make_fs(const char* color_fs, StrCRef desc)
+	static Shader make_fs(const char* color_fs, GLCStrRef desc)
 	{
 		Shader shader(ShaderType::Fragment, ObjectDesc(desc));
 		const GLchar* src[3] = {fs_prologue(), color_fs, fs_epilogue()};

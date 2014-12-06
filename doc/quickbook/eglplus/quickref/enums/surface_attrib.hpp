@@ -36,7 +36,7 @@ enum class SurfaceAttrib : EGLenum
 template <>
 __Range<SurfaceAttrib> __EnumValueRange<SurfaceAttrib>(void) noexcept;
 
-__StrCRef __EnumValueName(SurfaceAttrib) noexcept;
+__CStrRef __EnumValueName(SurfaceAttrib) noexcept;
 
 } // namespace eglplus
 //]

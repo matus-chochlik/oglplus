@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	CompareFunction*,
 	GLenum value
 ) noexcept
@@ -21,33 +21,33 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_LEQUAL
-	case GL_LEQUAL: return StrCRef("LEQUAL");
+	case GL_LEQUAL: return CStrRef("LEQUAL");
 #endif
 #if defined GL_GEQUAL
-	case GL_GEQUAL: return StrCRef("GEQUAL");
+	case GL_GEQUAL: return CStrRef("GEQUAL");
 #endif
 #if defined GL_LESS
-	case GL_LESS: return StrCRef("LESS");
+	case GL_LESS: return CStrRef("LESS");
 #endif
 #if defined GL_GREATER
-	case GL_GREATER: return StrCRef("GREATER");
+	case GL_GREATER: return CStrRef("GREATER");
 #endif
 #if defined GL_EQUAL
-	case GL_EQUAL: return StrCRef("EQUAL");
+	case GL_EQUAL: return CStrRef("EQUAL");
 #endif
 #if defined GL_NOTEQUAL
-	case GL_NOTEQUAL: return StrCRef("NOTEQUAL");
+	case GL_NOTEQUAL: return CStrRef("NOTEQUAL");
 #endif
 #if defined GL_ALWAYS
-	case GL_ALWAYS: return StrCRef("ALWAYS");
+	case GL_ALWAYS: return CStrRef("ALWAYS");
 #endif
 #if defined GL_NEVER
-	case GL_NEVER: return StrCRef("NEVER");
+	case GL_NEVER: return CStrRef("NEVER");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

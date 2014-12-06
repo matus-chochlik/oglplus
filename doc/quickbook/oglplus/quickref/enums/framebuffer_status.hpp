@@ -26,7 +26,7 @@ enum class FramebufferStatus : GLenum
 template <>
 __Range<FramebufferStatus> __EnumValueRange<FramebufferStatus>(void) noexcept;
 
-__StrCRef __EnumValueName(FramebufferStatus) noexcept;
+__CStrRef __EnumValueName(FramebufferStatus) noexcept;
 
 } // namespace oglplus
 //]

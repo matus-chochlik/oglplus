@@ -116,7 +116,7 @@ public:
 		};
 		const std::size_t line_count = sizeof(lines)/sizeof(lines[0]);
 
-		layout.Set(oglplus::StrCRef(lines[current_line].text));
+		layout.Set(oglplus::CStrRef(lines[current_line].text));
 
 		rndr.SetDirection(lines[current_line].direction);
 		rndr_color.Set(

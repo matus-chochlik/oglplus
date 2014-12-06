@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	CompatibilityMatrixMode*,
 	GLenum value
 ) noexcept
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_PROJECTION
-	case GL_PROJECTION: return StrCRef("PROJECTION");
+	case GL_PROJECTION: return CStrRef("PROJECTION");
 #endif
 #if defined GL_MODELVIEW
-	case GL_MODELVIEW: return StrCRef("MODELVIEW");
+	case GL_MODELVIEW: return CStrRef("MODELVIEW");
 #endif
 #if defined GL_TEXTURE
-	case GL_TEXTURE: return StrCRef("TEXTURE");
+	case GL_TEXTURE: return CStrRef("TEXTURE");
 #endif
 #if defined GL_COLOR
-	case GL_COLOR: return StrCRef("COLOR");
+	case GL_COLOR: return CStrRef("COLOR");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

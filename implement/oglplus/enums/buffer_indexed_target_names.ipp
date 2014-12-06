@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	BufferIndexedTarget*,
 	GLenum value
 ) noexcept
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_ATOMIC_COUNTER_BUFFER
-	case GL_ATOMIC_COUNTER_BUFFER: return StrCRef("ATOMIC_COUNTER_BUFFER");
+	case GL_ATOMIC_COUNTER_BUFFER: return CStrRef("ATOMIC_COUNTER_BUFFER");
 #endif
 #if defined GL_SHADER_STORAGE_BUFFER
-	case GL_SHADER_STORAGE_BUFFER: return StrCRef("SHADER_STORAGE_BUFFER");
+	case GL_SHADER_STORAGE_BUFFER: return CStrRef("SHADER_STORAGE_BUFFER");
 #endif
 #if defined GL_TRANSFORM_FEEDBACK_BUFFER
-	case GL_TRANSFORM_FEEDBACK_BUFFER: return StrCRef("TRANSFORM_FEEDBACK_BUFFER");
+	case GL_TRANSFORM_FEEDBACK_BUFFER: return CStrRef("TRANSFORM_FEEDBACK_BUFFER");
 #endif
 #if defined GL_UNIFORM_BUFFER
-	case GL_UNIFORM_BUFFER: return StrCRef("UNIFORM_BUFFER");
+	case GL_UNIFORM_BUFFER: return CStrRef("UNIFORM_BUFFER");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

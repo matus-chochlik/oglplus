@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	TransformFeedbackMode*,
 	GLenum value
 ) noexcept
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_INTERLEAVED_ATTRIBS
-	case GL_INTERLEAVED_ATTRIBS: return StrCRef("INTERLEAVED_ATTRIBS");
+	case GL_INTERLEAVED_ATTRIBS: return CStrRef("INTERLEAVED_ATTRIBS");
 #endif
 #if defined GL_SEPARATE_ATTRIBS
-	case GL_SEPARATE_ATTRIBS: return StrCRef("SEPARATE_ATTRIBS");
+	case GL_SEPARATE_ATTRIBS: return CStrRef("SEPARATE_ATTRIBS");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

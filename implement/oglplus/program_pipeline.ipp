@@ -18,7 +18,7 @@ namespace oglplus {
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 
 OGLPLUS_LIB_FUNC
-String ObjectOps<tag::DirectState, tag::ProgramPipeline>::
+GLString ObjectOps<tag::DirectState, tag::ProgramPipeline>::
 GetInfoLog(void) const
 {
 	assert(_name != 0);

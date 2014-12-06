@@ -51,7 +51,7 @@ public:
 	 , rndr(tr.GetRenderer(
 			oglplus::FragmentShader(
 				oglplus::ObjectDesc("Pixel color"),
-				oglplus::StrCRef(
+				oglplus::GLCStrRef(
 				"#version 330\n"
 				"vec4 PixelColor("
 				"	vec4 TexelColor,"

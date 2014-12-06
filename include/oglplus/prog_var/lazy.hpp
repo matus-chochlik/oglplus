@@ -25,9 +25,9 @@ class LazyImpl<tag::ProgVar, ProgVar_>
  : public ProgVar_
 {
 private:
-	String _identifier;
+	GLString _identifier;
 public:
-	LazyImpl(ProgramName program, String&& identifier)
+	LazyImpl(ProgramName program, GLString&& identifier)
 	 : ProgVar_(program)
 	 , _identifier(std::move(identifier))
 	{ }

@@ -188,7 +188,7 @@ private:
 		GLenum var_type,
 		ProgramName program,
 		GLint location,
-		StrCRef identifier
+		const GLCStrRef& identifier
 	);
 public:
 	template <typename TypeSel>
@@ -199,7 +199,7 @@ public:
 	void CheckType(
 		ProgramName program,
 		GLint location,
-		StrCRef identifier
+		const GLCStrRef& identifier
 	) const
 	{
 		_do_check(
@@ -229,7 +229,7 @@ public:
 	void CheckType(
 		ProgramName program,
 		GLint location,
-		StrCRef identifier
+		const GLCStrRef& identifier
 	) const
 	noexcept
 	{

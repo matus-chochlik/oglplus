@@ -23,7 +23,7 @@ enum class StringQuery : GLenum
 template <>
 __Range<StringQuery> __EnumValueRange<StringQuery>(void) noexcept;
 
-__StrCRef __EnumValueName(StringQuery) noexcept;
+__CStrRef __EnumValueName(StringQuery) noexcept;
 
 } // namespace oglplus
 //]

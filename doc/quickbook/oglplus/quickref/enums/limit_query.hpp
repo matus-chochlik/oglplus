@@ -129,7 +129,7 @@ enum class LimitQuery : GLenum
 template <>
 __Range<LimitQuery> __EnumValueRange<LimitQuery>(void) noexcept;
 
-__StrCRef __EnumValueName(LimitQuery) noexcept;
+__CStrRef __EnumValueName(LimitQuery) noexcept;
 
 } // namespace oglplus
 //]

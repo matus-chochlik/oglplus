@@ -41,7 +41,7 @@ enum class CompatibilityAttributeGroup : GLenum
 template <>
 __Range<CompatibilityAttributeGroup> __EnumValueRange<CompatibilityAttributeGroup>(void) noexcept;
 
-__StrCRef __EnumValueName(CompatibilityAttributeGroup) noexcept;
+__CStrRef __EnumValueName(CompatibilityAttributeGroup) noexcept;
 
 } // namespace oglplus
 //]

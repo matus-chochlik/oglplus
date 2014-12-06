@@ -43,7 +43,7 @@ enum class PixelStorageMode : GLenum
 template <>
 __Range<PixelStorageMode> __EnumValueRange<PixelStorageMode>(void) noexcept;
 
-__StrCRef __EnumValueName(PixelStorageMode) noexcept;
+__CStrRef __EnumValueName(PixelStorageMode) noexcept;
 
 } // namespace oglplus
 //]

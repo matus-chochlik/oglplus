@@ -17,9 +17,9 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
-String MissingExtensionMessage(const GLchar* name)
+GLString MissingExtensionMessage(const GLchar* name)
 {
-	String message("Missing extension '");
+	GLString message("Missing extension '");
 	message.append(name);
 	message.append("'");
 	return std::move(message);
@@ -43,7 +43,7 @@ bool HasExtension(const GLchar* name)
 	auto er = oglplus::context::StringQueries::Extensions();
 	while(!er.Empty())
 	{
-		if(er.Front() == StrCRef(name)) return true;
+		if(er.Front() == GLCStrRef(name)) return true;
 		er.Next();
 	}
 	return false;

@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	ErrorCode*,
 	GLenum value
 ) noexcept
@@ -21,39 +21,39 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_NO_ERROR
-	case GL_NO_ERROR: return StrCRef("NO_ERROR");
+	case GL_NO_ERROR: return CStrRef("NO_ERROR");
 #endif
 #if defined GL_OUT_OF_MEMORY
-	case GL_OUT_OF_MEMORY: return StrCRef("OUT_OF_MEMORY");
+	case GL_OUT_OF_MEMORY: return CStrRef("OUT_OF_MEMORY");
 #endif
 #if defined GL_INVALID_ENUM
-	case GL_INVALID_ENUM: return StrCRef("INVALID_ENUM");
+	case GL_INVALID_ENUM: return CStrRef("INVALID_ENUM");
 #endif
 #if defined GL_INVALID_VALUE
-	case GL_INVALID_VALUE: return StrCRef("INVALID_VALUE");
+	case GL_INVALID_VALUE: return CStrRef("INVALID_VALUE");
 #endif
 #if defined GL_INVALID_OPERATION
-	case GL_INVALID_OPERATION: return StrCRef("INVALID_OPERATION");
+	case GL_INVALID_OPERATION: return CStrRef("INVALID_OPERATION");
 #endif
 #if defined GL_INVALID_FRAMEBUFFER_OPERATION
-	case GL_INVALID_FRAMEBUFFER_OPERATION: return StrCRef("INVALID_FRAMEBUFFER_OPERATION");
+	case GL_INVALID_FRAMEBUFFER_OPERATION: return CStrRef("INVALID_FRAMEBUFFER_OPERATION");
 #endif
 #if defined GL_STACK_OVERFLOW
-	case GL_STACK_OVERFLOW: return StrCRef("STACK_OVERFLOW");
+	case GL_STACK_OVERFLOW: return CStrRef("STACK_OVERFLOW");
 #endif
 #if defined GL_STACK_UNDERFLOW
-	case GL_STACK_UNDERFLOW: return StrCRef("STACK_UNDERFLOW");
+	case GL_STACK_UNDERFLOW: return CStrRef("STACK_UNDERFLOW");
 #endif
 #if defined GL_TABLE_TOO_LARGE
-	case GL_TABLE_TOO_LARGE: return StrCRef("TABLE_TOO_LARGE");
+	case GL_TABLE_TOO_LARGE: return CStrRef("TABLE_TOO_LARGE");
 #endif
 #if defined GL_CONTEXT_LOST
-	case GL_CONTEXT_LOST: return StrCRef("CONTEXT_LOST");
+	case GL_CONTEXT_LOST: return CStrRef("CONTEXT_LOST");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

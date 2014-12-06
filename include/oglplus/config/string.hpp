@@ -24,7 +24,7 @@
  *  i.e. the UTF-8 validity checks are enabled, when not in low-profile mode
  *  and disabled otherwise.
  *
- *  @see String
+ *  @see GLString
  *  @see StrCRef
  *
  *  @ingroup compile_time_config

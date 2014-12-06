@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PathNVFontStyle*,
 	GLenum value
 ) noexcept
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_BOLD_BIT_NV
-	case GL_BOLD_BIT_NV: return StrCRef("BOLD_BIT_NV");
+	case GL_BOLD_BIT_NV: return CStrRef("BOLD_BIT_NV");
 #endif
 #if defined GL_ITALIC_BIT_NV
-	case GL_ITALIC_BIT_NV: return StrCRef("ITALIC_BIT_NV");
+	case GL_ITALIC_BIT_NV: return CStrRef("ITALIC_BIT_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	TextureMagFilter*,
 	GLenum value
 ) noexcept
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_NEAREST
-	case GL_NEAREST: return StrCRef("NEAREST");
+	case GL_NEAREST: return CStrRef("NEAREST");
 #endif
 #if defined GL_LINEAR
-	case GL_LINEAR: return StrCRef("LINEAR");
+	case GL_LINEAR: return CStrRef("LINEAR");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

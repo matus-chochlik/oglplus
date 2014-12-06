@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PathNVMissingGlyph*,
 	GLenum value
 ) noexcept
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_SKIP_MISSING_GLYPH_NV
-	case GL_SKIP_MISSING_GLYPH_NV: return StrCRef("SKIP_MISSING_GLYPH_NV");
+	case GL_SKIP_MISSING_GLYPH_NV: return CStrRef("SKIP_MISSING_GLYPH_NV");
 #endif
 #if defined GL_USE_MISSING_GLYPH_NV
-	case GL_USE_MISSING_GLYPH_NV: return StrCRef("USE_MISSING_GLYPH_NV");
+	case GL_USE_MISSING_GLYPH_NV: return CStrRef("USE_MISSING_GLYPH_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

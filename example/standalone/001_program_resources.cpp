@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
 
 			if(++arg != argc)
 			{
-				StrCRef shader_name(argv[arg]);
+				GLCStrRef shader_name(argv[arg]);
 				Shader shader(shader_type, ObjectDesc(shader_name));
 				shader.Source(GLSLSource::FromFile(shader_name));
 				shader.Compile();

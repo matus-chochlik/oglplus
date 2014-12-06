@@ -214,7 +214,7 @@ public:
 	 *
 	 *  @see Capacity
 	 */
-	void Set(StrCRef string);
+	void Set(const GLCStrRef& string);
 };
 
 

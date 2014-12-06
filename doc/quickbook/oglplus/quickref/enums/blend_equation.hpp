@@ -24,7 +24,7 @@ enum class BlendEquation : GLenum
 template <>
 __Range<BlendEquation> __EnumValueRange<BlendEquation>(void) noexcept;
 
-__StrCRef __EnumValueName(BlendEquation) noexcept;
+__CStrRef __EnumValueName(BlendEquation) noexcept;
 
 } // namespace oglplus
 //]

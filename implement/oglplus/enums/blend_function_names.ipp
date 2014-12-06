@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	BlendFunction*,
 	GLenum value
 ) noexcept
@@ -21,66 +21,66 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_ZERO
-	case GL_ZERO: return StrCRef("ZERO");
+	case GL_ZERO: return CStrRef("ZERO");
 #endif
 #if defined GL_ONE
-	case GL_ONE: return StrCRef("ONE");
+	case GL_ONE: return CStrRef("ONE");
 #endif
 #if defined GL_SRC_COLOR
-	case GL_SRC_COLOR: return StrCRef("SRC_COLOR");
+	case GL_SRC_COLOR: return CStrRef("SRC_COLOR");
 #endif
 #if defined GL_ONE_MINUS_SRC_COLOR
-	case GL_ONE_MINUS_SRC_COLOR: return StrCRef("ONE_MINUS_SRC_COLOR");
+	case GL_ONE_MINUS_SRC_COLOR: return CStrRef("ONE_MINUS_SRC_COLOR");
 #endif
 #if defined GL_DST_COLOR
-	case GL_DST_COLOR: return StrCRef("DST_COLOR");
+	case GL_DST_COLOR: return CStrRef("DST_COLOR");
 #endif
 #if defined GL_ONE_MINUS_DST_COLOR
-	case GL_ONE_MINUS_DST_COLOR: return StrCRef("ONE_MINUS_DST_COLOR");
+	case GL_ONE_MINUS_DST_COLOR: return CStrRef("ONE_MINUS_DST_COLOR");
 #endif
 #if defined GL_SRC_ALPHA
-	case GL_SRC_ALPHA: return StrCRef("SRC_ALPHA");
+	case GL_SRC_ALPHA: return CStrRef("SRC_ALPHA");
 #endif
 #if defined GL_ONE_MINUS_SRC_ALPHA
-	case GL_ONE_MINUS_SRC_ALPHA: return StrCRef("ONE_MINUS_SRC_ALPHA");
+	case GL_ONE_MINUS_SRC_ALPHA: return CStrRef("ONE_MINUS_SRC_ALPHA");
 #endif
 #if defined GL_DST_ALPHA
-	case GL_DST_ALPHA: return StrCRef("DST_ALPHA");
+	case GL_DST_ALPHA: return CStrRef("DST_ALPHA");
 #endif
 #if defined GL_ONE_MINUS_DST_ALPHA
-	case GL_ONE_MINUS_DST_ALPHA: return StrCRef("ONE_MINUS_DST_ALPHA");
+	case GL_ONE_MINUS_DST_ALPHA: return CStrRef("ONE_MINUS_DST_ALPHA");
 #endif
 #if defined GL_CONSTANT_COLOR
-	case GL_CONSTANT_COLOR: return StrCRef("CONSTANT_COLOR");
+	case GL_CONSTANT_COLOR: return CStrRef("CONSTANT_COLOR");
 #endif
 #if defined GL_ONE_MINUS_CONSTANT_COLOR
-	case GL_ONE_MINUS_CONSTANT_COLOR: return StrCRef("ONE_MINUS_CONSTANT_COLOR");
+	case GL_ONE_MINUS_CONSTANT_COLOR: return CStrRef("ONE_MINUS_CONSTANT_COLOR");
 #endif
 #if defined GL_CONSTANT_ALPHA
-	case GL_CONSTANT_ALPHA: return StrCRef("CONSTANT_ALPHA");
+	case GL_CONSTANT_ALPHA: return CStrRef("CONSTANT_ALPHA");
 #endif
 #if defined GL_ONE_MINUS_CONSTANT_ALPHA
-	case GL_ONE_MINUS_CONSTANT_ALPHA: return StrCRef("ONE_MINUS_CONSTANT_ALPHA");
+	case GL_ONE_MINUS_CONSTANT_ALPHA: return CStrRef("ONE_MINUS_CONSTANT_ALPHA");
 #endif
 #if defined GL_SRC_ALPHA_SATURATE
-	case GL_SRC_ALPHA_SATURATE: return StrCRef("SRC_ALPHA_SATURATE");
+	case GL_SRC_ALPHA_SATURATE: return CStrRef("SRC_ALPHA_SATURATE");
 #endif
 #if defined GL_SRC1_COLOR
-	case GL_SRC1_COLOR: return StrCRef("SRC1_COLOR");
+	case GL_SRC1_COLOR: return CStrRef("SRC1_COLOR");
 #endif
 #if defined GL_ONE_MINUS_SRC1_COLOR
-	case GL_ONE_MINUS_SRC1_COLOR: return StrCRef("ONE_MINUS_SRC1_COLOR");
+	case GL_ONE_MINUS_SRC1_COLOR: return CStrRef("ONE_MINUS_SRC1_COLOR");
 #endif
 #if defined GL_SRC1_ALPHA
-	case GL_SRC1_ALPHA: return StrCRef("SRC1_ALPHA");
+	case GL_SRC1_ALPHA: return CStrRef("SRC1_ALPHA");
 #endif
 #if defined GL_ONE_MINUS_SRC1_ALPHA
-	case GL_ONE_MINUS_SRC1_ALPHA: return StrCRef("ONE_MINUS_SRC1_ALPHA");
+	case GL_ONE_MINUS_SRC1_ALPHA: return CStrRef("ONE_MINUS_SRC1_ALPHA");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

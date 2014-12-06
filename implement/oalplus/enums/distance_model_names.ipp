@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OALPLUS_LIB_FUNC StrCRef ValueName_(
+OALPLUS_LIB_FUNC CStrRef ValueName_(
 	DistanceModel*,
 	ALenum value
 ) noexcept
@@ -21,30 +21,30 @@ OALPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined AL_NONE
-	case AL_NONE: return StrCRef("NONE");
+	case AL_NONE: return CStrRef("NONE");
 #endif
 #if defined AL_INVERSE_DISTANCE
-	case AL_INVERSE_DISTANCE: return StrCRef("INVERSE_DISTANCE");
+	case AL_INVERSE_DISTANCE: return CStrRef("INVERSE_DISTANCE");
 #endif
 #if defined AL_INVERSE_DISTANCE_CLAMPED
-	case AL_INVERSE_DISTANCE_CLAMPED: return StrCRef("INVERSE_DISTANCE_CLAMPED");
+	case AL_INVERSE_DISTANCE_CLAMPED: return CStrRef("INVERSE_DISTANCE_CLAMPED");
 #endif
 #if defined AL_LINEAR_DISTANCE
-	case AL_LINEAR_DISTANCE: return StrCRef("LINEAR_DISTANCE");
+	case AL_LINEAR_DISTANCE: return CStrRef("LINEAR_DISTANCE");
 #endif
 #if defined AL_LINEAR_DISTANCE_CLAMPED
-	case AL_LINEAR_DISTANCE_CLAMPED: return StrCRef("LINEAR_DISTANCE_CLAMPED");
+	case AL_LINEAR_DISTANCE_CLAMPED: return CStrRef("LINEAR_DISTANCE_CLAMPED");
 #endif
 #if defined AL_EXPONENT_DISTANCE
-	case AL_EXPONENT_DISTANCE: return StrCRef("EXPONENT_DISTANCE");
+	case AL_EXPONENT_DISTANCE: return CStrRef("EXPONENT_DISTANCE");
 #endif
 #if defined AL_EXPONENT_DISTANCE_CLAMPED
-	case AL_EXPONENT_DISTANCE_CLAMPED: return StrCRef("EXPONENT_DISTANCE_CLAMPED");
+	case AL_EXPONENT_DISTANCE_CLAMPED: return CStrRef("EXPONENT_DISTANCE_CLAMPED");
 #endif
 	default:;
 }
 OALPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

@@ -26,7 +26,7 @@ enum class DebugOutputARBSource : GLenum
 template <>
 __Range<DebugOutputARBSource> __EnumValueRange<DebugOutputARBSource>(void) noexcept;
 
-__StrCRef __EnumValueName(DebugOutputARBSource) noexcept;
+__CStrRef __EnumValueName(DebugOutputARBSource) noexcept;
 
 } // namespace oglplus
 //]

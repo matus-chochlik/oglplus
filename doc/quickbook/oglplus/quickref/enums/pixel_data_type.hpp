@@ -43,7 +43,7 @@ enum class PixelDataType : GLenum
 template <>
 __Range<PixelDataType> __EnumValueRange<PixelDataType>(void) noexcept;
 
-__StrCRef __EnumValueName(PixelDataType) noexcept;
+__CStrRef __EnumValueName(PixelDataType) noexcept;
 
 } // namespace oglplus
 //]

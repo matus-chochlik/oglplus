@@ -35,7 +35,7 @@ protected:
 	GLuint _program;
 	GLint _location;
 
-	void RequireActive(StrCRef identifier) const
+	void RequireActive(const GLCStrRef& identifier) const
 	{
 		OGLPLUS_HANDLE_ERROR_IF(
 			!IsActive(),
@@ -49,7 +49,7 @@ protected:
 
 	void RequireActive(void) const
 	{
-		RequireActive(StrCRef());
+		RequireActive(GLCStrRef());
 	}
 public:
 	/// Default construction
@@ -82,7 +82,7 @@ public:
 	{ }
 
 	/// Creates variable with specified @p identifier in specified @p program
-	ProgVarLoc(ProgramName program, StrCRef identifier)
+	ProgVarLoc(ProgramName program, const GLCStrRef& identifier)
 	 : _program(GetGLName(program))
 	 , _location(ProgVarLocOps<VarTag>::GetLocation(
 		program,
@@ -91,8 +91,11 @@ public:
 	)){ }
 
 	template <typename LocOpsParam>
-	ProgVarLoc(LocOpsParam param, ProgramName program, StrCRef identifier)
-	 : ProgVarLocOps<VarTag>(param)
+	ProgVarLoc(
+		LocOpsParam param,
+		ProgramName program,
+		const GLCStrRef& identifier
+	): ProgVarLocOps<VarTag>(param)
 	 , _program(GetGLName(program))
 	 , _location(ProgVarLocOps<VarTag>::GetLocation(
 		program,
@@ -101,8 +104,11 @@ public:
 	)){ }
 
 	/// Creates variable with specified @p identifier in specified @p program
-	ProgVarLoc(ProgramName program, StrCRef identifier, bool active_only)
-	 : _program(GetGLName(program))
+	ProgVarLoc(
+		ProgramName program,
+		const GLCStrRef& identifier,
+		bool active_only
+	): _program(GetGLName(program))
 	 , _location(ProgVarLocOps<VarTag>::GetLocation(
 		program,
 		identifier,
@@ -113,7 +119,7 @@ public:
 	ProgVarLoc(
 		LocOpsParam param,
 		ProgramName program,
-		StrCRef identifier,
+		const GLCStrRef& identifier,
 		bool active_only
 	): ProgVarLocOps<VarTag>(param)
 	 , _program(GetGLName(program))
@@ -133,7 +139,7 @@ public:
 	}
 
 	/// Late initialization of the variable location from its identifier
-	ProgVarLoc& BindTo(StrCRef identifier, bool is_active = true)
+	ProgVarLoc& BindTo(const GLCStrRef& identifier, bool is_active = true)
 	{
 		_location = ProgVarLocOps<VarTag>::GetLocation(
 			ProgramName(_program),

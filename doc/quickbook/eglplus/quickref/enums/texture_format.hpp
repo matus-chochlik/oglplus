@@ -22,7 +22,7 @@ enum class TextureFormat : EGLenum
 template <>
 __Range<TextureFormat> __EnumValueRange<TextureFormat>(void) noexcept;
 
-__StrCRef __EnumValueName(TextureFormat) noexcept;
+__CStrRef __EnumValueName(TextureFormat) noexcept;
 
 } // namespace eglplus
 //]

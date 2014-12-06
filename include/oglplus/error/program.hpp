@@ -28,7 +28,7 @@ class ProgramBuildError
  : public ObjectError
 {
 private:
-	String _log;
+	GLString _log;
 public:
 	ProgramBuildError(const char* message)
 	 : ObjectError(message)
@@ -38,7 +38,7 @@ public:
 	noexcept
 	{ }
 
-	ProgramBuildError& Log(String&& log)
+	ProgramBuildError& Log(GLString&& log)
 	noexcept
 	{
 		_log = std::move(log);
@@ -46,10 +46,10 @@ public:
 	}
 
 	/// Returns the compiler error output
-	const String& Log(void) const
+	GLCStrRef Log(void) const
 	noexcept
 	{
-		return _log;
+		return GLCStrRef(_log);
 	}
 };
 

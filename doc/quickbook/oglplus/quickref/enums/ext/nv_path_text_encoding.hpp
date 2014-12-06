@@ -21,7 +21,7 @@ enum class PathNVTextEncoding : GLenum
 template <>
 __Range<PathNVTextEncoding> __EnumValueRange<PathNVTextEncoding>(void) noexcept;
 
-__StrCRef __EnumValueName(PathNVTextEncoding) noexcept;
+__CStrRef __EnumValueName(PathNVTextEncoding) noexcept;
 
 } // namespace oglplus
 //]

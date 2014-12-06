@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	TransformFeedbackPrimitiveType*,
 	GLenum value
 ) noexcept
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_TRIANGLES
-	case GL_TRIANGLES: return StrCRef("TRIANGLES");
+	case GL_TRIANGLES: return CStrRef("TRIANGLES");
 #endif
 #if defined GL_LINES
-	case GL_LINES: return StrCRef("LINES");
+	case GL_LINES: return CStrRef("LINES");
 #endif
 #if defined GL_POINTS
-	case GL_POINTS: return StrCRef("POINTS");
+	case GL_POINTS: return CStrRef("POINTS");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

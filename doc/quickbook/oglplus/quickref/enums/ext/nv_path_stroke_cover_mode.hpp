@@ -23,7 +23,7 @@ enum class PathNVStrokeCoverMode : GLenum
 template <>
 __Range<PathNVStrokeCoverMode> __EnumValueRange<PathNVStrokeCoverMode>(void) noexcept;
 
-__StrCRef __EnumValueName(PathNVStrokeCoverMode) noexcept;
+__CStrRef __EnumValueName(PathNVStrokeCoverMode) noexcept;
 
 } // namespace oglplus
 //]

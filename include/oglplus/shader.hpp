@@ -251,7 +251,7 @@ public:
 	 *  @glfunref{GetShader}
 	 *  @glfunref{GetShaderInfoLog}
 	 */
-	String GetInfoLog(void) const;
+	GLString GetInfoLog(void) const;
 
 	/// Compiles the shader
 	/**

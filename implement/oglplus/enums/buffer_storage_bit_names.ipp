@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	BufferStorageBit*,
 	GLbitfield value
 ) noexcept
@@ -21,30 +21,30 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_MAP_READ_BIT
-	case GL_MAP_READ_BIT: return StrCRef("MAP_READ_BIT");
+	case GL_MAP_READ_BIT: return CStrRef("MAP_READ_BIT");
 #endif
 #if defined GL_MAP_WRITE_BIT
-	case GL_MAP_WRITE_BIT: return StrCRef("MAP_WRITE_BIT");
+	case GL_MAP_WRITE_BIT: return CStrRef("MAP_WRITE_BIT");
 #endif
 #if defined GL_MAP_PERSISTENT_BIT
-	case GL_MAP_PERSISTENT_BIT: return StrCRef("MAP_PERSISTENT_BIT");
+	case GL_MAP_PERSISTENT_BIT: return CStrRef("MAP_PERSISTENT_BIT");
 #endif
 #if defined GL_MAP_COHERENT_BIT
-	case GL_MAP_COHERENT_BIT: return StrCRef("MAP_COHERENT_BIT");
+	case GL_MAP_COHERENT_BIT: return CStrRef("MAP_COHERENT_BIT");
 #endif
 #if defined GL_DYNAMIC_STORAGE_BIT
-	case GL_DYNAMIC_STORAGE_BIT: return StrCRef("DYNAMIC_STORAGE_BIT");
+	case GL_DYNAMIC_STORAGE_BIT: return CStrRef("DYNAMIC_STORAGE_BIT");
 #endif
 #if defined GL_CLIENT_STORAGE_BIT
-	case GL_CLIENT_STORAGE_BIT: return StrCRef("CLIENT_STORAGE_BIT");
+	case GL_CLIENT_STORAGE_BIT: return CStrRef("CLIENT_STORAGE_BIT");
 #endif
 #if defined GL_SPARSE_STORAGE_BIT_ARB
-	case GL_SPARSE_STORAGE_BIT_ARB: return StrCRef("SPARSE_STORAGE_BIT_ARB");
+	case GL_SPARSE_STORAGE_BIT_ARB: return CStrRef("SPARSE_STORAGE_BIT_ARB");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

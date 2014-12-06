@@ -28,7 +28,7 @@ inline Shader ShaderFromLiteral(
 )
 {
 	Shader shader(shader_type);
-	shader.Source(StrCRef(lit, size));
+	shader.Source(GLCStrRef(lit, size));
 	shader.Compile();
 	return shader;
 }

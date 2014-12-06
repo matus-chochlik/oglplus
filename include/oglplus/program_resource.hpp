@@ -49,7 +49,7 @@ private:
 	GLint _program;
 	GLenum _interface;
 	GLuint _index;
-	String _name;
+	GLString _name;
 
 	void QueryParams(
 		GLenum property,
@@ -134,7 +134,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetProgramResourceName}
 	 */
-	const String& Name(void) const
+	GLCStrRef Name(void) const
 	{
 		return _name;
 	}

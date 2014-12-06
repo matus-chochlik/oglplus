@@ -24,7 +24,7 @@ PangoCairoRenderer::PangoCairoRenderer(
  , _tex_coords(_program)
 {
 	VertexShader vs(ObjectDesc("PangoCairoRenderer - Vertex"));
-	vs.Source(StrCRef(
+	vs.Source(GLCStrRef(
 		"#version 330\n"
 		"uniform vec4 oglpLogCoords;"
 		"uniform float oglpAlignCoef;"
@@ -41,7 +41,7 @@ PangoCairoRenderer::PangoCairoRenderer(
 	_program.AttachShader(vs);
 
 	GeometryShader gs(ObjectDesc("PangoCairoRenderer - Geometry"));
-	gs.Source(StrCRef(
+	gs.Source(GLCStrRef(
 		"#version 330\n"
 		"layout (points) in;"
 		"layout (triangle_strip, max_vertices = 4) out;"
@@ -96,7 +96,7 @@ PangoCairoRenderer::PangoCairoRenderer(
 
 
 	FragmentShader fs(ObjectDesc("PangoCairoRenderer - Fragment"));
-	fs.Source(StrCRef(
+	fs.Source(GLCStrRef(
 		"#version 330\n"
 		"uniform sampler2DRect oglpBitmap;"
 
@@ -154,7 +154,7 @@ PangoCairoDefaultRenderer::PangoCairoDefaultRenderer(
 		pixel_color_fs,
 		GeometryShader(
 		ObjectDesc("PangoCairoRenderer - Layout transform"),
-		StrCRef("#version 330\n"
+		GLCStrRef("#version 330\n"
 		"uniform mat4 "
 		"	oglpProjectionMatrix,"
 		"	oglpCameraMatrix,"

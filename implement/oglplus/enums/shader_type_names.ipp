@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	ShaderType*,
 	GLenum value
 ) noexcept
@@ -21,27 +21,27 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_VERTEX_SHADER
-	case GL_VERTEX_SHADER: return StrCRef("VERTEX_SHADER");
+	case GL_VERTEX_SHADER: return CStrRef("VERTEX_SHADER");
 #endif
 #if defined GL_TESS_CONTROL_SHADER
-	case GL_TESS_CONTROL_SHADER: return StrCRef("TESS_CONTROL_SHADER");
+	case GL_TESS_CONTROL_SHADER: return CStrRef("TESS_CONTROL_SHADER");
 #endif
 #if defined GL_TESS_EVALUATION_SHADER
-	case GL_TESS_EVALUATION_SHADER: return StrCRef("TESS_EVALUATION_SHADER");
+	case GL_TESS_EVALUATION_SHADER: return CStrRef("TESS_EVALUATION_SHADER");
 #endif
 #if defined GL_GEOMETRY_SHADER
-	case GL_GEOMETRY_SHADER: return StrCRef("GEOMETRY_SHADER");
+	case GL_GEOMETRY_SHADER: return CStrRef("GEOMETRY_SHADER");
 #endif
 #if defined GL_FRAGMENT_SHADER
-	case GL_FRAGMENT_SHADER: return StrCRef("FRAGMENT_SHADER");
+	case GL_FRAGMENT_SHADER: return CStrRef("FRAGMENT_SHADER");
 #endif
 #if defined GL_COMPUTE_SHADER
-	case GL_COMPUTE_SHADER: return StrCRef("COMPUTE_SHADER");
+	case GL_COMPUTE_SHADER: return CStrRef("COMPUTE_SHADER");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

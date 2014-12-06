@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	CompatibilityClientAttributeGroup*,
 	GLenum value
 ) noexcept
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_CLIENT_VERTEX_ARRAY_BIT
-	case GL_CLIENT_VERTEX_ARRAY_BIT: return StrCRef("CLIENT_VERTEX_ARRAY_BIT");
+	case GL_CLIENT_VERTEX_ARRAY_BIT: return CStrRef("CLIENT_VERTEX_ARRAY_BIT");
 #endif
 #if defined GL_CLIENT_PIXEL_STORE_BIT
-	case GL_CLIENT_PIXEL_STORE_BIT: return StrCRef("CLIENT_PIXEL_STORE_BIT");
+	case GL_CLIENT_PIXEL_STORE_BIT: return CStrRef("CLIENT_PIXEL_STORE_BIT");
 #endif
 #if defined GL_CLIENT_ALL_ATTRIB_BITS
-	case GL_CLIENT_ALL_ATTRIB_BITS: return StrCRef("CLIENT_ALL_ATTRIB_BITS");
+	case GL_CLIENT_ALL_ATTRIB_BITS: return CStrRef("CLIENT_ALL_ATTRIB_BITS");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

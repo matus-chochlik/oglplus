@@ -160,7 +160,7 @@ Validate(void)
 }
 
 OGLPLUS_LIB_FUNC
-String ObjectOps<tag::DirectState, tag::Program>::
+GLString ObjectOps<tag::DirectState, tag::Program>::
 GetInfoLog(void) const
 {
 	assert(_name != 0);
@@ -197,7 +197,7 @@ TransformFeedbackVaryings(
 OGLPLUS_LIB_FUNC
 void ObjectOps<tag::DirectState, tag::Program>::
 TransformFeedbackVaryings(
-	const std::vector<String>& varyings,
+	const std::vector<GLString>& varyings,
 	TransformFeedbackMode mode
 ) const
 {

@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PathNVTransformType*,
 	GLenum value
 ) noexcept
@@ -21,36 +21,36 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_NONE
-	case GL_NONE: return StrCRef("NONE");
+	case GL_NONE: return CStrRef("NONE");
 #endif
 #if defined GL_TRANSLATE_X_NV
-	case GL_TRANSLATE_X_NV: return StrCRef("TRANSLATE_X_NV");
+	case GL_TRANSLATE_X_NV: return CStrRef("TRANSLATE_X_NV");
 #endif
 #if defined GL_TRANSLATE_Y_NV
-	case GL_TRANSLATE_Y_NV: return StrCRef("TRANSLATE_Y_NV");
+	case GL_TRANSLATE_Y_NV: return CStrRef("TRANSLATE_Y_NV");
 #endif
 #if defined GL_TRANSLATE_2D_NV
-	case GL_TRANSLATE_2D_NV: return StrCRef("TRANSLATE_2D_NV");
+	case GL_TRANSLATE_2D_NV: return CStrRef("TRANSLATE_2D_NV");
 #endif
 #if defined GL_TRANSLATE_3D_NV
-	case GL_TRANSLATE_3D_NV: return StrCRef("TRANSLATE_3D_NV");
+	case GL_TRANSLATE_3D_NV: return CStrRef("TRANSLATE_3D_NV");
 #endif
 #if defined GL_AFFINE_2D_NV
-	case GL_AFFINE_2D_NV: return StrCRef("AFFINE_2D_NV");
+	case GL_AFFINE_2D_NV: return CStrRef("AFFINE_2D_NV");
 #endif
 #if defined GL_AFFINE_3D_NV
-	case GL_AFFINE_3D_NV: return StrCRef("AFFINE_3D_NV");
+	case GL_AFFINE_3D_NV: return CStrRef("AFFINE_3D_NV");
 #endif
 #if defined GL_TRANSPOSE_AFFINE_2D_NV
-	case GL_TRANSPOSE_AFFINE_2D_NV: return StrCRef("TRANSPOSE_AFFINE_2D_NV");
+	case GL_TRANSPOSE_AFFINE_2D_NV: return CStrRef("TRANSPOSE_AFFINE_2D_NV");
 #endif
 #if defined GL_TRANSPOSE_AFFINE_3D_NV
-	case GL_TRANSPOSE_AFFINE_3D_NV: return StrCRef("TRANSPOSE_AFFINE_3D_NV");
+	case GL_TRANSPOSE_AFFINE_3D_NV: return CStrRef("TRANSPOSE_AFFINE_3D_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

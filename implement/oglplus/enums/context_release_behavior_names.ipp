@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	ContextReleaseBehavior*,
 	GLenum value
 ) noexcept
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_NONE
-	case GL_NONE: return StrCRef("NONE");
+	case GL_NONE: return CStrRef("NONE");
 #endif
 #if defined GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH
-	case GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH: return StrCRef("CONTEXT_RELEASE_BEHAVIOR_FLUSH");
+	case GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH: return CStrRef("CONTEXT_RELEASE_BEHAVIOR_FLUSH");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

@@ -232,7 +232,7 @@ public:
 		DebugType type,
 		GLuint id,
 		DebugSeverity severity,
-		StrCRef message
+		const GLCStrRef& message
 	)
 	{
 		InsertMessage(
@@ -241,7 +241,7 @@ public:
 			id,
 			severity,
 			message.size(),
-			message.c_str()
+			message.data()
 		);
 	}
 
@@ -286,10 +286,10 @@ public:
 	static void PushGroup(
 		DebugSource source,
 		GLuint id,
-		StrCRef message
+		const GLCStrRef& message
 	)
 	{
-		PushGroup(source, id, message.size(), message.c_str());
+		PushGroup(source, id, message.size(), message.data());
 	}
 
 	/// Pushes a debug group
@@ -363,8 +363,8 @@ private:
 	typedef KHR_debug::Callback Callback;
 	Callback _callback;
 
-	String buffer;
-	std::unordered_set<String> already_done;
+	GLString buffer;
+	std::unordered_set<GLString> already_done;
 
 	KHR_debug_UniqueEssence(const KHR_debug_UniqueEssence&);
 public:

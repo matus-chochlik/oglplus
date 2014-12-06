@@ -43,7 +43,7 @@ public:
 	}
 
 	inline
-	ObjectDesc(eagine::base::cstrref sref)
+	ObjectDesc(const eagine::base::cstrref& sref)
 	noexcept
 #if !OGLPLUS_NO_OBJECT_DESC
 	 : _sref(sref)

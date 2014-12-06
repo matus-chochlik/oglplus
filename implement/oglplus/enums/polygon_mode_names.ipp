@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PolygonMode*,
 	GLenum value
 ) noexcept
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_POINT
-	case GL_POINT: return StrCRef("POINT");
+	case GL_POINT: return CStrRef("POINT");
 #endif
 #if defined GL_LINE
-	case GL_LINE: return StrCRef("LINE");
+	case GL_LINE: return CStrRef("LINE");
 #endif
 #if defined GL_FILL
-	case GL_FILL: return StrCRef("FILL");
+	case GL_FILL: return CStrRef("FILL");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

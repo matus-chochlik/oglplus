@@ -220,7 +220,7 @@ public:
 		DebugOutputARBType type,
 		GLuint id,
 		DebugOutputARBSeverity severity,
-		StrCRef message
+		const GLCStrRef& message
 	)
 	{
 		OGLPLUS_GLFUNC(DebugMessageInsertARB)(
@@ -265,8 +265,8 @@ private:
 	typedef ARB_debug_output::Callback Callback;
 	Callback _callback;
 
-	String buffer;
-	std::unordered_set<String> already_done;
+	GLString buffer;
+	std::unordered_set<GLString> already_done;
 
 	ARB_debug_output_UniqueEssence(const ARB_debug_output_UniqueEssence&);
 public:

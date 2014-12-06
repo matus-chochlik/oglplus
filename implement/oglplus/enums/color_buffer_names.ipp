@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	ColorBuffer*,
 	GLenum value
 ) noexcept
@@ -21,39 +21,39 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_NONE
-	case GL_NONE: return StrCRef("NONE");
+	case GL_NONE: return CStrRef("NONE");
 #endif
 #if defined GL_FRONT_LEFT
-	case GL_FRONT_LEFT: return StrCRef("FRONT_LEFT");
+	case GL_FRONT_LEFT: return CStrRef("FRONT_LEFT");
 #endif
 #if defined GL_FRONT_RIGHT
-	case GL_FRONT_RIGHT: return StrCRef("FRONT_RIGHT");
+	case GL_FRONT_RIGHT: return CStrRef("FRONT_RIGHT");
 #endif
 #if defined GL_BACK_LEFT
-	case GL_BACK_LEFT: return StrCRef("BACK_LEFT");
+	case GL_BACK_LEFT: return CStrRef("BACK_LEFT");
 #endif
 #if defined GL_BACK_RIGHT
-	case GL_BACK_RIGHT: return StrCRef("BACK_RIGHT");
+	case GL_BACK_RIGHT: return CStrRef("BACK_RIGHT");
 #endif
 #if defined GL_FRONT
-	case GL_FRONT: return StrCRef("FRONT");
+	case GL_FRONT: return CStrRef("FRONT");
 #endif
 #if defined GL_BACK
-	case GL_BACK: return StrCRef("BACK");
+	case GL_BACK: return CStrRef("BACK");
 #endif
 #if defined GL_LEFT
-	case GL_LEFT: return StrCRef("LEFT");
+	case GL_LEFT: return CStrRef("LEFT");
 #endif
 #if defined GL_RIGHT
-	case GL_RIGHT: return StrCRef("RIGHT");
+	case GL_RIGHT: return CStrRef("RIGHT");
 #endif
 #if defined GL_FRONT_AND_BACK
-	case GL_FRONT_AND_BACK: return StrCRef("FRONT_AND_BACK");
+	case GL_FRONT_AND_BACK: return CStrRef("FRONT_AND_BACK");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

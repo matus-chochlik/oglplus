@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	AccessSpecifier*,
 	GLenum value
 ) noexcept
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_READ_ONLY
-	case GL_READ_ONLY: return StrCRef("READ_ONLY");
+	case GL_READ_ONLY: return CStrRef("READ_ONLY");
 #endif
 #if defined GL_WRITE_ONLY
-	case GL_WRITE_ONLY: return StrCRef("WRITE_ONLY");
+	case GL_WRITE_ONLY: return CStrRef("WRITE_ONLY");
 #endif
 #if defined GL_READ_WRITE
-	case GL_READ_WRITE: return StrCRef("READ_WRITE");
+	case GL_READ_WRITE: return CStrRef("READ_WRITE");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

@@ -82,7 +82,11 @@ template <>
 class ProgVarTypeOps<tag::Uniform>
 {
 protected:
-	static GLenum GetType(ProgramName, GLint location, StrCRef identifier);
+	static GLenum GetType(
+		ProgramName,
+		GLint location,
+		const GLCStrRef& identifier
+	);
 };
 
 } // namespace oglplus

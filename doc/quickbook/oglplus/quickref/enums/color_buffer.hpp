@@ -29,7 +29,7 @@ enum class ColorBuffer : GLenum
 template <>
 __Range<ColorBuffer> __EnumValueRange<ColorBuffer>(void) noexcept;
 
-__StrCRef __EnumValueName(ColorBuffer) noexcept;
+__CStrRef __EnumValueName(ColorBuffer) noexcept;
 
 } // namespace oglplus
 //]

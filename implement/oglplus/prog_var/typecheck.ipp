@@ -369,7 +369,7 @@ _do_check(
 	GLenum var_type,
 	ProgramName program,
 	GLint location,
-	StrCRef identifier
+	const GLCStrRef& identifier
 )
 {
 	OGLPLUS_HANDLE_ERROR_IF(

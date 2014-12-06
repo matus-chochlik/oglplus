@@ -18,7 +18,7 @@ namespace oglplus {
 namespace aux {
 
 OGLPLUS_LIB_FUNC
-String GetInfoLog(
+GLString GetInfoLog(
 	GLuint object_name,
 	void (GLAPIENTRY *GetObjectiv)(GLuint, GLenum, GLint*),
 	void (GLAPIENTRY *GetObjectInfoLog)(GLuint, GLsizei, GLsizei*, GLchar*),
@@ -48,9 +48,9 @@ String GetInfoLog(
 			Error,
 			NoInfo()
 		);
-		return String(buffer.data(), buffer.size());
+		return GLString(buffer.data(), buffer.size());
 	}
-	else return String();
+	else return GLString();
 }
 
 } // namespace aux

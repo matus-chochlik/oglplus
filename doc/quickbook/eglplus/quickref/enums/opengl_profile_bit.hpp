@@ -21,7 +21,7 @@ enum class OpenGLProfileBit : EGLenum
 template <>
 __Range<OpenGLProfileBit> __EnumValueRange<OpenGLProfileBit>(void) noexcept;
 
-__StrCRef __EnumValueName(OpenGLProfileBit) noexcept;
+__CStrRef __EnumValueName(OpenGLProfileBit) noexcept;
 
 } // namespace eglplus
 //]

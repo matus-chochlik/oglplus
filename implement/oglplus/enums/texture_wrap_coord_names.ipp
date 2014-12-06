@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	TextureWrapCoord*,
 	GLenum value
 ) noexcept
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_TEXTURE_WRAP_S
-	case GL_TEXTURE_WRAP_S: return StrCRef("TEXTURE_WRAP_S");
+	case GL_TEXTURE_WRAP_S: return CStrRef("TEXTURE_WRAP_S");
 #endif
 #if defined GL_TEXTURE_WRAP_T
-	case GL_TEXTURE_WRAP_T: return StrCRef("TEXTURE_WRAP_T");
+	case GL_TEXTURE_WRAP_T: return CStrRef("TEXTURE_WRAP_T");
 #endif
 #if defined GL_TEXTURE_WRAP_R
-	case GL_TEXTURE_WRAP_R: return StrCRef("TEXTURE_WRAP_R");
+	case GL_TEXTURE_WRAP_R: return CStrRef("TEXTURE_WRAP_R");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PathNVCapStyle*,
 	GLenum value
 ) noexcept
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_FLAT
-	case GL_FLAT: return StrCRef("FLAT");
+	case GL_FLAT: return CStrRef("FLAT");
 #endif
 #if defined GL_SQUARE_NV
-	case GL_SQUARE_NV: return StrCRef("SQUARE_NV");
+	case GL_SQUARE_NV: return CStrRef("SQUARE_NV");
 #endif
 #if defined GL_ROUND_NV
-	case GL_ROUND_NV: return StrCRef("ROUND_NV");
+	case GL_ROUND_NV: return CStrRef("ROUND_NV");
 #endif
 #if defined GL_TRIANGULAR_NV
-	case GL_TRIANGULAR_NV: return StrCRef("TRIANGULAR_NV");
+	case GL_TRIANGULAR_NV: return CStrRef("TRIANGULAR_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

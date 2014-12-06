@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PathNVJoinStyle*,
 	GLenum value
 ) noexcept
@@ -21,24 +21,24 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_NONE
-	case GL_NONE: return StrCRef("NONE");
+	case GL_NONE: return CStrRef("NONE");
 #endif
 #if defined GL_ROUND_NV
-	case GL_ROUND_NV: return StrCRef("ROUND_NV");
+	case GL_ROUND_NV: return CStrRef("ROUND_NV");
 #endif
 #if defined GL_BEVEL_NV
-	case GL_BEVEL_NV: return StrCRef("BEVEL_NV");
+	case GL_BEVEL_NV: return CStrRef("BEVEL_NV");
 #endif
 #if defined GL_MITER_REVERT_NV
-	case GL_MITER_REVERT_NV: return StrCRef("MITER_REVERT_NV");
+	case GL_MITER_REVERT_NV: return CStrRef("MITER_REVERT_NV");
 #endif
 #if defined GL_MITER_TRUNCATE_NV
-	case GL_MITER_TRUNCATE_NV: return StrCRef("MITER_TRUNCATE_NV");
+	case GL_MITER_TRUNCATE_NV: return CStrRef("MITER_TRUNCATE_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

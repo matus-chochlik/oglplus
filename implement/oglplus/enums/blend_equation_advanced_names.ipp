@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	BlendEquationAdvanced*,
 	GLenum value
 ) noexcept
@@ -21,54 +21,54 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_MULTIPLY_KHR
-	case GL_MULTIPLY_KHR: return StrCRef("MULTIPLY_KHR");
+	case GL_MULTIPLY_KHR: return CStrRef("MULTIPLY_KHR");
 #endif
 #if defined GL_SCREEN_KHR
-	case GL_SCREEN_KHR: return StrCRef("SCREEN_KHR");
+	case GL_SCREEN_KHR: return CStrRef("SCREEN_KHR");
 #endif
 #if defined GL_OVERLAY_KHR
-	case GL_OVERLAY_KHR: return StrCRef("OVERLAY_KHR");
+	case GL_OVERLAY_KHR: return CStrRef("OVERLAY_KHR");
 #endif
 #if defined GL_DARKEN_KHR
-	case GL_DARKEN_KHR: return StrCRef("DARKEN_KHR");
+	case GL_DARKEN_KHR: return CStrRef("DARKEN_KHR");
 #endif
 #if defined GL_LIGHTEN_KHR
-	case GL_LIGHTEN_KHR: return StrCRef("LIGHTEN_KHR");
+	case GL_LIGHTEN_KHR: return CStrRef("LIGHTEN_KHR");
 #endif
 #if defined GL_COLORDODGE_KHR
-	case GL_COLORDODGE_KHR: return StrCRef("COLORDODGE_KHR");
+	case GL_COLORDODGE_KHR: return CStrRef("COLORDODGE_KHR");
 #endif
 #if defined GL_COLORBURN_KHR
-	case GL_COLORBURN_KHR: return StrCRef("COLORBURN_KHR");
+	case GL_COLORBURN_KHR: return CStrRef("COLORBURN_KHR");
 #endif
 #if defined GL_HARDLIGHT_KHR
-	case GL_HARDLIGHT_KHR: return StrCRef("HARDLIGHT_KHR");
+	case GL_HARDLIGHT_KHR: return CStrRef("HARDLIGHT_KHR");
 #endif
 #if defined GL_SOFTLIGHT_KHR
-	case GL_SOFTLIGHT_KHR: return StrCRef("SOFTLIGHT_KHR");
+	case GL_SOFTLIGHT_KHR: return CStrRef("SOFTLIGHT_KHR");
 #endif
 #if defined GL_DIFFERENCE_KHR
-	case GL_DIFFERENCE_KHR: return StrCRef("DIFFERENCE_KHR");
+	case GL_DIFFERENCE_KHR: return CStrRef("DIFFERENCE_KHR");
 #endif
 #if defined GL_EXCLUSION_KHR
-	case GL_EXCLUSION_KHR: return StrCRef("EXCLUSION_KHR");
+	case GL_EXCLUSION_KHR: return CStrRef("EXCLUSION_KHR");
 #endif
 #if defined GL_HSL_HUE_KHR
-	case GL_HSL_HUE_KHR: return StrCRef("HSL_HUE_KHR");
+	case GL_HSL_HUE_KHR: return CStrRef("HSL_HUE_KHR");
 #endif
 #if defined GL_HSL_SATURATION_KHR
-	case GL_HSL_SATURATION_KHR: return StrCRef("HSL_SATURATION_KHR");
+	case GL_HSL_SATURATION_KHR: return CStrRef("HSL_SATURATION_KHR");
 #endif
 #if defined GL_HSL_COLOR_KHR
-	case GL_HSL_COLOR_KHR: return StrCRef("HSL_COLOR_KHR");
+	case GL_HSL_COLOR_KHR: return CStrRef("HSL_COLOR_KHR");
 #endif
 #if defined GL_HSL_LUMINOSITY_KHR
-	case GL_HSL_LUMINOSITY_KHR: return StrCRef("HSL_LUMINOSITY_KHR");
+	case GL_HSL_LUMINOSITY_KHR: return CStrRef("HSL_LUMINOSITY_KHR");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

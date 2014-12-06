@@ -21,7 +21,7 @@ enum class ProvokeMode : GLenum
 template <>
 __Range<ProvokeMode> __EnumValueRange<ProvokeMode>(void) noexcept;
 
-__StrCRef __EnumValueName(ProvokeMode) noexcept;
+__CStrRef __EnumValueName(ProvokeMode) noexcept;
 
 } // namespace oglplus
 //]

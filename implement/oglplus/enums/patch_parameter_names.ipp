@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PatchParameter*,
 	GLenum value
 ) noexcept
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_PATCH_VERTICES
-	case GL_PATCH_VERTICES: return StrCRef("PATCH_VERTICES");
+	case GL_PATCH_VERTICES: return CStrRef("PATCH_VERTICES");
 #endif
 #if defined GL_PATCH_DEFAULT_OUTER_LEVEL
-	case GL_PATCH_DEFAULT_OUTER_LEVEL: return StrCRef("PATCH_DEFAULT_OUTER_LEVEL");
+	case GL_PATCH_DEFAULT_OUTER_LEVEL: return CStrRef("PATCH_DEFAULT_OUTER_LEVEL");
 #endif
 #if defined GL_PATCH_DEFAULT_INNER_LEVEL
-	case GL_PATCH_DEFAULT_INNER_LEVEL: return StrCRef("PATCH_DEFAULT_INNER_LEVEL");
+	case GL_PATCH_DEFAULT_INNER_LEVEL: return CStrRef("PATCH_DEFAULT_INNER_LEVEL");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

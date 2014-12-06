@@ -41,7 +41,7 @@ enum class PathNVMetricQuery : GLenum
 template <>
 __Range<PathNVMetricQuery> __EnumValueRange<PathNVMetricQuery>(void) noexcept;
 
-__StrCRef __EnumValueName(PathNVMetricQuery) noexcept;
+__CStrRef __EnumValueName(PathNVMetricQuery) noexcept;
 
 } // namespace oglplus
 //]

@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	RenderBuffer*,
 	EGLenum value
 ) noexcept
@@ -21,15 +21,15 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_SINGLE_BUFFER
-	case EGL_SINGLE_BUFFER: return StrCRef("SINGLE_BUFFER");
+	case EGL_SINGLE_BUFFER: return CStrRef("SINGLE_BUFFER");
 #endif
 #if defined EGL_BACK_BUFFER
-	case EGL_BACK_BUFFER: return StrCRef("BACK_BUFFER");
+	case EGL_BACK_BUFFER: return CStrRef("BACK_BUFFER");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

@@ -23,7 +23,7 @@ enum class SourceState : ALenum
 template <>
 __Range<SourceState> __EnumValueRange<SourceState>(void) noexcept;
 
-__StrCRef __EnumValueName(SourceState) noexcept;
+__CStrRef __EnumValueName(SourceState) noexcept;
 
 } // namespace oalplus
 //]

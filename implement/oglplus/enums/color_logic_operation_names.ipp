@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	ColorLogicOperation*,
 	GLenum value
 ) noexcept
@@ -21,57 +21,57 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_CLEAR
-	case GL_CLEAR: return StrCRef("CLEAR");
+	case GL_CLEAR: return CStrRef("CLEAR");
 #endif
 #if defined GL_AND
-	case GL_AND: return StrCRef("AND");
+	case GL_AND: return CStrRef("AND");
 #endif
 #if defined GL_AND_REVERSE
-	case GL_AND_REVERSE: return StrCRef("AND_REVERSE");
+	case GL_AND_REVERSE: return CStrRef("AND_REVERSE");
 #endif
 #if defined GL_COPY
-	case GL_COPY: return StrCRef("COPY");
+	case GL_COPY: return CStrRef("COPY");
 #endif
 #if defined GL_AND_INVERTED
-	case GL_AND_INVERTED: return StrCRef("AND_INVERTED");
+	case GL_AND_INVERTED: return CStrRef("AND_INVERTED");
 #endif
 #if defined GL_NOOP
-	case GL_NOOP: return StrCRef("NOOP");
+	case GL_NOOP: return CStrRef("NOOP");
 #endif
 #if defined GL_XOR
-	case GL_XOR: return StrCRef("XOR");
+	case GL_XOR: return CStrRef("XOR");
 #endif
 #if defined GL_OR
-	case GL_OR: return StrCRef("OR");
+	case GL_OR: return CStrRef("OR");
 #endif
 #if defined GL_NOR
-	case GL_NOR: return StrCRef("NOR");
+	case GL_NOR: return CStrRef("NOR");
 #endif
 #if defined GL_EQUIV
-	case GL_EQUIV: return StrCRef("EQUIV");
+	case GL_EQUIV: return CStrRef("EQUIV");
 #endif
 #if defined GL_INVERT
-	case GL_INVERT: return StrCRef("INVERT");
+	case GL_INVERT: return CStrRef("INVERT");
 #endif
 #if defined GL_OR_REVERSE
-	case GL_OR_REVERSE: return StrCRef("OR_REVERSE");
+	case GL_OR_REVERSE: return CStrRef("OR_REVERSE");
 #endif
 #if defined GL_COPY_INVERTED
-	case GL_COPY_INVERTED: return StrCRef("COPY_INVERTED");
+	case GL_COPY_INVERTED: return CStrRef("COPY_INVERTED");
 #endif
 #if defined GL_OR_INVERTED
-	case GL_OR_INVERTED: return StrCRef("OR_INVERTED");
+	case GL_OR_INVERTED: return CStrRef("OR_INVERTED");
 #endif
 #if defined GL_NAND
-	case GL_NAND: return StrCRef("NAND");
+	case GL_NAND: return CStrRef("NAND");
 #endif
 #if defined GL_SET
-	case GL_SET: return StrCRef("SET");
+	case GL_SET: return CStrRef("SET");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

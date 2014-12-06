@@ -17,8 +17,11 @@
 
 namespace oglplus {
 
-/// String const reference wrapper
-typedef eagine::base::basic_string_ref<const GLchar> StrCRef;
+/// const String reference wrapper
+typedef eagine::base::basic_string_ref<const char> CStrRef;
+
+/// const GLString reference wrapper
+typedef eagine::base::basic_string_ref<const GLchar> GLCStrRef;
 
 } // namespace oglplus
 

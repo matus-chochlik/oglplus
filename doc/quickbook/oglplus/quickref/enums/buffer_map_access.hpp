@@ -27,7 +27,7 @@ enum class BufferMapAccess : GLbitfield
 template <>
 __Range<BufferMapAccess> __EnumValueRange<BufferMapAccess>(void) noexcept;
 
-__StrCRef __EnumValueName(BufferMapAccess) noexcept;
+__CStrRef __EnumValueName(BufferMapAccess) noexcept;
 
 __Bitfield<BufferMapAccess> operator | (BufferMapAccess b1, BufferMapAccess b2) noexcept;
 

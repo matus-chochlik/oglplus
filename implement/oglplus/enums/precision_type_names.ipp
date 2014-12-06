@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PrecisionType*,
 	GLenum value
 ) noexcept
@@ -21,27 +21,27 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_LOW_FLOAT
-	case GL_LOW_FLOAT: return StrCRef("LOW_FLOAT");
+	case GL_LOW_FLOAT: return CStrRef("LOW_FLOAT");
 #endif
 #if defined GL_MEDIUM_FLOAT
-	case GL_MEDIUM_FLOAT: return StrCRef("MEDIUM_FLOAT");
+	case GL_MEDIUM_FLOAT: return CStrRef("MEDIUM_FLOAT");
 #endif
 #if defined GL_HIGH_FLOAT
-	case GL_HIGH_FLOAT: return StrCRef("HIGH_FLOAT");
+	case GL_HIGH_FLOAT: return CStrRef("HIGH_FLOAT");
 #endif
 #if defined GL_LOW_INT
-	case GL_LOW_INT: return StrCRef("LOW_INT");
+	case GL_LOW_INT: return CStrRef("LOW_INT");
 #endif
 #if defined GL_MEDIUM_INT
-	case GL_MEDIUM_INT: return StrCRef("MEDIUM_INT");
+	case GL_MEDIUM_INT: return CStrRef("MEDIUM_INT");
 #endif
 #if defined GL_HIGH_INT
-	case GL_HIGH_INT: return StrCRef("HIGH_INT");
+	case GL_HIGH_INT: return CStrRef("HIGH_INT");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	TextureSwizzle*,
 	GLenum value
 ) noexcept
@@ -21,27 +21,27 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_RED
-	case GL_RED: return StrCRef("RED");
+	case GL_RED: return CStrRef("RED");
 #endif
 #if defined GL_GREEN
-	case GL_GREEN: return StrCRef("GREEN");
+	case GL_GREEN: return CStrRef("GREEN");
 #endif
 #if defined GL_BLUE
-	case GL_BLUE: return StrCRef("BLUE");
+	case GL_BLUE: return CStrRef("BLUE");
 #endif
 #if defined GL_ALPHA
-	case GL_ALPHA: return StrCRef("ALPHA");
+	case GL_ALPHA: return CStrRef("ALPHA");
 #endif
 #if defined GL_ZERO
-	case GL_ZERO: return StrCRef("ZERO");
+	case GL_ZERO: return CStrRef("ZERO");
 #endif
 #if defined GL_ONE
-	case GL_ONE: return StrCRef("ONE");
+	case GL_ONE: return CStrRef("ONE");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

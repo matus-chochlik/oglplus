@@ -20,7 +20,7 @@ enum class RenderbufferTarget : GLenum
 template <>
 __Range<RenderbufferTarget> __EnumValueRange<RenderbufferTarget>(void) noexcept;
 
-__StrCRef __EnumValueName(RenderbufferTarget) noexcept;
+__CStrRef __EnumValueName(RenderbufferTarget) noexcept;
 
 } // namespace oglplus
 //]

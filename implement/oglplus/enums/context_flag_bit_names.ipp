@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	ContextFlagBit*,
 	GLenum value
 ) noexcept
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT
-	case GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT: return StrCRef("CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT");
+	case GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT: return CStrRef("CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT");
 #endif
 #if defined GL_CONTEXT_FLAG_DEBUG_BIT
-	case GL_CONTEXT_FLAG_DEBUG_BIT: return StrCRef("CONTEXT_FLAG_DEBUG_BIT");
+	case GL_CONTEXT_FLAG_DEBUG_BIT: return CStrRef("CONTEXT_FLAG_DEBUG_BIT");
 #endif
 #if defined GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB
-	case GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB: return StrCRef("CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB");
+	case GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB: return CStrRef("CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

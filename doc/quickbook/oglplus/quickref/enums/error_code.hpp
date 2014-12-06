@@ -29,7 +29,7 @@ enum class ErrorCode : GLenum
 template <>
 __Range<ErrorCode> __EnumValueRange<ErrorCode>(void) noexcept;
 
-__StrCRef __EnumValueName(ErrorCode) noexcept;
+__CStrRef __EnumValueName(ErrorCode) noexcept;
 
 } // namespace oglplus
 //]

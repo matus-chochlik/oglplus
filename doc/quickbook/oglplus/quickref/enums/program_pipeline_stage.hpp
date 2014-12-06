@@ -26,7 +26,7 @@ enum class ProgramPipelineStage : GLbitfield
 template <>
 __Range<ProgramPipelineStage> __EnumValueRange<ProgramPipelineStage>(void) noexcept;
 
-__StrCRef __EnumValueName(ProgramPipelineStage) noexcept;
+__CStrRef __EnumValueName(ProgramPipelineStage) noexcept;
 
 __Bitfield<ProgramPipelineStage> operator | (ProgramPipelineStage b1, ProgramPipelineStage b2) noexcept;
 

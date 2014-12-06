@@ -73,7 +73,7 @@ public:
 		return Layout(*this, font, capacity);
 	}
 
-	Layout MakeLayout(const Font& font, StrCRef str)
+	Layout MakeLayout(const Font& font, const GLCStrRef& str)
 	{
 		CodePoints cps;
 		UTF8ToCodePoints(str.begin(), str.size(), cps);

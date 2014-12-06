@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OALPLUS_LIB_FUNC StrCRef ValueName_(
+OALPLUS_LIB_FUNC CStrRef ValueName_(
 	StringQuery*,
 	ALenum value
 ) noexcept
@@ -21,21 +21,21 @@ OALPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined AL_VERSION
-	case AL_VERSION: return StrCRef("VERSION");
+	case AL_VERSION: return CStrRef("VERSION");
 #endif
 #if defined AL_RENDERER
-	case AL_RENDERER: return StrCRef("RENDERER");
+	case AL_RENDERER: return CStrRef("RENDERER");
 #endif
 #if defined AL_VENDOR
-	case AL_VENDOR: return StrCRef("VENDOR");
+	case AL_VENDOR: return CStrRef("VENDOR");
 #endif
 #if defined AL_EXTENSIONS
-	case AL_EXTENSIONS: return StrCRef("EXTENSIONS");
+	case AL_EXTENSIONS: return CStrRef("EXTENSIONS");
 #endif
 	default:;
 }
 OALPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

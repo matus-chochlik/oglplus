@@ -33,7 +33,7 @@ OGLPLUS_LIB_FUNC
 bool ProgVarLocOps<tag::VertexAttrib>::
 QueryCommonLocation(
 	const Sequence<ProgramName>& programs,
-	StrCRef identifier,
+	const GLCStrRef& identifier,
 	VertexAttribSlot& location
 )
 {
@@ -67,7 +67,7 @@ OGLPLUS_LIB_FUNC
 VertexAttribSlot ProgVarLocOps<tag::VertexAttrib>::
 GetCommonLocation(
 	const Sequence<ProgramName>& programs,
-	StrCRef identifier
+	const GLCStrRef& identifier
 )
 {
 	VertexAttribSlot location;

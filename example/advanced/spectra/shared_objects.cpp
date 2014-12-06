@@ -52,9 +52,9 @@ oglplus::Program SpectraSharedObjects::BuildProgramWithXFB(
 		while(!types.Empty())
 		{
 			type = types.Front();
-			StrCRef name = EnumValueName(type);
+			GLCStrRef name = EnumValueName(type);
 			name_len = name.size();
-			if(StrCRef(line) == name)
+			if(GLCStrRef(line) == name)
 			{
 				break;
 			}

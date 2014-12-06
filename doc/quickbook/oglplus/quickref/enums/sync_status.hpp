@@ -21,7 +21,7 @@ enum class SyncStatus : GLenum
 template <>
 __Range<SyncStatus> __EnumValueRange<SyncStatus>(void) noexcept;
 
-__StrCRef __EnumValueName(SyncStatus) noexcept;
+__CStrRef __EnumValueName(SyncStatus) noexcept;
 
 } // namespace oglplus
 //]

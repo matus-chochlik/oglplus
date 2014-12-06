@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OALPLUS_LIB_FUNC StrCRef ValueName_(
+OALPLUS_LIB_FUNC CStrRef ValueName_(
 	SourceState*,
 	ALenum value
 ) noexcept
@@ -21,21 +21,21 @@ OALPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined AL_INITIAL
-	case AL_INITIAL: return StrCRef("INITIAL");
+	case AL_INITIAL: return CStrRef("INITIAL");
 #endif
 #if defined AL_PLAYING
-	case AL_PLAYING: return StrCRef("PLAYING");
+	case AL_PLAYING: return CStrRef("PLAYING");
 #endif
 #if defined AL_PAUSED
-	case AL_PAUSED: return StrCRef("PAUSED");
+	case AL_PAUSED: return CStrRef("PAUSED");
 #endif
 #if defined AL_STOPPED
-	case AL_STOPPED: return StrCRef("STOPPED");
+	case AL_STOPPED: return CStrRef("STOPPED");
 #endif
 	default:;
 }
 OALPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

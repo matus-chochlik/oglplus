@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	TextureFormat*,
 	EGLenum value
 ) noexcept
@@ -21,18 +21,18 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_TEXTURE_RGB
-	case EGL_TEXTURE_RGB: return StrCRef("TEXTURE_RGB");
+	case EGL_TEXTURE_RGB: return CStrRef("TEXTURE_RGB");
 #endif
 #if defined EGL_TEXTURE_RGBA
-	case EGL_TEXTURE_RGBA: return StrCRef("TEXTURE_RGBA");
+	case EGL_TEXTURE_RGBA: return CStrRef("TEXTURE_RGBA");
 #endif
 #if defined EGL_NO_TEXTURE
-	case EGL_NO_TEXTURE: return StrCRef("NO_TEXTURE");
+	case EGL_NO_TEXTURE: return CStrRef("NO_TEXTURE");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

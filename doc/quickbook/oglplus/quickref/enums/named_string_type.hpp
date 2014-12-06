@@ -20,7 +20,7 @@ enum class NamedStringType : GLenum
 template <>
 __Range<NamedStringType> __EnumValueRange<NamedStringType>(void) noexcept;
 
-__StrCRef __EnumValueName(NamedStringType) noexcept;
+__CStrRef __EnumValueName(NamedStringType) noexcept;
 
 } // namespace oglplus
 //]

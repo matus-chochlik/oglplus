@@ -21,7 +21,7 @@ enum class FaceOrientation : GLenum
 template <>
 __Range<FaceOrientation> __EnumValueRange<FaceOrientation>(void) noexcept;
 
-__StrCRef __EnumValueName(FaceOrientation) noexcept;
+__CStrRef __EnumValueName(FaceOrientation) noexcept;
 
 } // namespace oglplus
 //]

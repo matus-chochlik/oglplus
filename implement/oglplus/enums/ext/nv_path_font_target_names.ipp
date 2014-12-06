@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PathNVFontTarget*,
 	GLenum value
 ) noexcept
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_STANDARD_FONT_NAME_NV
-	case GL_STANDARD_FONT_NAME_NV: return StrCRef("STANDARD_FONT_NAME_NV");
+	case GL_STANDARD_FONT_NAME_NV: return CStrRef("STANDARD_FONT_NAME_NV");
 #endif
 #if defined GL_SYSTEM_FONT_NAME_NV
-	case GL_SYSTEM_FONT_NAME_NV: return StrCRef("SYSTEM_FONT_NAME_NV");
+	case GL_SYSTEM_FONT_NAME_NV: return CStrRef("SYSTEM_FONT_NAME_NV");
 #endif
 #if defined GL_FILE_NAME_NV
-	case GL_FILE_NAME_NV: return StrCRef("FILE_NAME_NV");
+	case GL_FILE_NAME_NV: return CStrRef("FILE_NAME_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

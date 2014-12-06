@@ -22,7 +22,7 @@ enum class PatchParameter : GLenum
 template <>
 __Range<PatchParameter> __EnumValueRange<PatchParameter>(void) noexcept;
 
-__StrCRef __EnumValueName(PatchParameter) noexcept;
+__CStrRef __EnumValueName(PatchParameter) noexcept;
 
 } // namespace oglplus
 //]

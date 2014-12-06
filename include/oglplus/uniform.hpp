@@ -42,7 +42,7 @@ public:
 	 */
 	static GLint GetLocation(
 		ProgramName program,
-		StrCRef identifier,
+		const GLCStrRef& identifier,
 		bool active_only
 	)
 	{
@@ -300,7 +300,7 @@ public:
 	 : Base(UniformLoc(program, location))
 	{ }
 
-	ProgVar(ProgramName program, StrCRef identifier)
+	ProgVar(ProgramName program, const GLCStrRef& identifier)
 	 : Base(UniformLoc(program, identifier))
 	{ }
 
@@ -321,7 +321,7 @@ public:
 typedef ProgVar<tag::ImplicitSel, tag::Uniform, tag::NoTypecheck, void> UntypedUniform;
 
 inline UntypedUniform
-operator / (ProgramName program, StrCRef identifier)
+operator / (ProgramName program, const GLCStrRef& identifier)
 {
 	return UntypedUniform(program, identifier);
 }

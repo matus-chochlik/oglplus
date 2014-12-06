@@ -16,7 +16,7 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
-String ObjectOps<tag::DirectState, tag::Shader>::
+GLString ObjectOps<tag::DirectState, tag::Shader>::
 GetInfoLog(void) const
 {
 	assert(_name != 0);

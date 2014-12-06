@@ -49,7 +49,7 @@ public:
 	 , camera_matrix(prog, "CameraMatrix")
 	{
 		VertexShader vs;
-		vs.Source(StrCRef(
+		vs.Source(GLCStrRef(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"mat4 Matrix = ProjectionMatrix*CameraMatrix;"
@@ -66,7 +66,7 @@ public:
 		prog.AttachShader(vs);
 
 		FragmentShader fs;
-		fs.Source(StrCRef(
+		fs.Source(GLCStrRef(
 			"#version 330\n"
 			"uniform samplerCube EnvMap;"
 			"in vec3 vertTexCoord;"

@@ -46,7 +46,7 @@ enum class ProgramResourceProperty : GLenum
 template <>
 __Range<ProgramResourceProperty> __EnumValueRange<ProgramResourceProperty>(void) noexcept;
 
-__StrCRef __EnumValueName(ProgramResourceProperty) noexcept;
+__CStrRef __EnumValueName(ProgramResourceProperty) noexcept;
 
 } // namespace oglplus
 //]

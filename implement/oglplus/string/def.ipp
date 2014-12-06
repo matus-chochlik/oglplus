@@ -16,14 +16,6 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
-const String& EmptyString(void)
-noexcept
-{
-	static String empty;
-	return empty;
-}
-
-OGLPLUS_LIB_FUNC
 bool ValidString(const char* begin, const char* end)
 {
 	return eagine::base::valid_utf8(begin, end);

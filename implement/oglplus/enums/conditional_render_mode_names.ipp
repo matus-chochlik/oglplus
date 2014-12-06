@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	ConditionalRenderMode*,
 	GLenum value
 ) noexcept
@@ -21,33 +21,33 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_QUERY_WAIT
-	case GL_QUERY_WAIT: return StrCRef("QUERY_WAIT");
+	case GL_QUERY_WAIT: return CStrRef("QUERY_WAIT");
 #endif
 #if defined GL_QUERY_NO_WAIT
-	case GL_QUERY_NO_WAIT: return StrCRef("QUERY_NO_WAIT");
+	case GL_QUERY_NO_WAIT: return CStrRef("QUERY_NO_WAIT");
 #endif
 #if defined GL_QUERY_BY_REGION_WAIT
-	case GL_QUERY_BY_REGION_WAIT: return StrCRef("QUERY_BY_REGION_WAIT");
+	case GL_QUERY_BY_REGION_WAIT: return CStrRef("QUERY_BY_REGION_WAIT");
 #endif
 #if defined GL_QUERY_BY_REGION_NO_WAIT
-	case GL_QUERY_BY_REGION_NO_WAIT: return StrCRef("QUERY_BY_REGION_NO_WAIT");
+	case GL_QUERY_BY_REGION_NO_WAIT: return CStrRef("QUERY_BY_REGION_NO_WAIT");
 #endif
 #if defined GL_QUERY_WAIT_INVERTED
-	case GL_QUERY_WAIT_INVERTED: return StrCRef("QUERY_WAIT_INVERTED");
+	case GL_QUERY_WAIT_INVERTED: return CStrRef("QUERY_WAIT_INVERTED");
 #endif
 #if defined GL_QUERY_NO_WAIT_INVERTED
-	case GL_QUERY_NO_WAIT_INVERTED: return StrCRef("QUERY_NO_WAIT_INVERTED");
+	case GL_QUERY_NO_WAIT_INVERTED: return CStrRef("QUERY_NO_WAIT_INVERTED");
 #endif
 #if defined GL_QUERY_BY_REGION_WAIT_INVERTED
-	case GL_QUERY_BY_REGION_WAIT_INVERTED: return StrCRef("QUERY_BY_REGION_WAIT_INVERTED");
+	case GL_QUERY_BY_REGION_WAIT_INVERTED: return CStrRef("QUERY_BY_REGION_WAIT_INVERTED");
 #endif
 #if defined GL_QUERY_BY_REGION_NO_WAIT_INVERTED
-	case GL_QUERY_BY_REGION_NO_WAIT_INVERTED: return StrCRef("QUERY_BY_REGION_NO_WAIT_INVERTED");
+	case GL_QUERY_BY_REGION_NO_WAIT_INVERTED: return CStrRef("QUERY_BY_REGION_NO_WAIT_INVERTED");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

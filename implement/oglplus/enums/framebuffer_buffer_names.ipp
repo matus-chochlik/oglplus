@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	FramebufferBuffer*,
 	GLenum value
 ) noexcept
@@ -21,21 +21,21 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_COLOR
-	case GL_COLOR: return StrCRef("COLOR");
+	case GL_COLOR: return CStrRef("COLOR");
 #endif
 #if defined GL_DEPTH
-	case GL_DEPTH: return StrCRef("DEPTH");
+	case GL_DEPTH: return CStrRef("DEPTH");
 #endif
 #if defined GL_STENCIL
-	case GL_STENCIL: return StrCRef("STENCIL");
+	case GL_STENCIL: return CStrRef("STENCIL");
 #endif
 #if defined GL_DEPTH_STENCIL
-	case GL_DEPTH_STENCIL: return StrCRef("DEPTH_STENCIL");
+	case GL_DEPTH_STENCIL: return CStrRef("DEPTH_STENCIL");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

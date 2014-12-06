@@ -22,7 +22,7 @@ enum class CompatibilityClientAttributeGroup : GLenum
 template <>
 __Range<CompatibilityClientAttributeGroup> __EnumValueRange<CompatibilityClientAttributeGroup>(void) noexcept;
 
-__StrCRef __EnumValueName(CompatibilityClientAttributeGroup) noexcept;
+__CStrRef __EnumValueName(CompatibilityClientAttributeGroup) noexcept;
 
 } // namespace oglplus
 //]

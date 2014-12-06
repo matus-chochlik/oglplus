@@ -63,7 +63,7 @@ public:
 	{ }
 
 	/// Variable with the specified @p identifier in the specified @p program
-	ProgVar(ProgramName program, StrCRef identifier)
+	ProgVar(ProgramName program, const GLCStrRef& identifier)
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier))
 	 , Typecheck((BaseType*)0)
 	{
@@ -71,22 +71,28 @@ public:
 	}
 
 	/// Variable with the specified @p identifier in the specified @p program
-	ProgVar(ProgramName program, StrCRef identifier, bool active_only)
-	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier, active_only))
+	ProgVar(
+		ProgramName program,
+		const GLCStrRef& identifier,
+		bool active_only
+	): BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier, active_only))
 	 , Typecheck((BaseType*)0)
 	{
 		Typecheck::CheckType(program, this->_location, identifier);
 	}
 
 	/// Variable with the specified @p identifier in the specified @p program
-	ProgVar(ProgramName program, StrCRef identifier, std::nothrow_t)
-	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier, false))
+	ProgVar(
+		ProgramName program,
+		const GLCStrRef& identifier,
+		std::nothrow_t
+	): BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier, false))
 	 , Typecheck((BaseType*)0)
 	{
 		Typecheck::CheckType(program, this->_location, identifier);
 	}
 
-	ProgVar& BindTo(StrCRef identifier)
+	ProgVar& BindTo(const GLCStrRef& identifier)
 	{
 		BaseGetSetOps::BindTo(identifier);
 		Typecheck::CheckType(
@@ -191,18 +197,24 @@ public:
 	{ }
 
 	/// Variable with the specified @p identifier in the specified @p program
-	ProgVar(ProgramName program, StrCRef identifier)
+	ProgVar(ProgramName program, const GLCStrRef& identifier)
 	 : BaseOps(ProgVarLoc<VarTag>(program, identifier))
 	{ }
 
 	/// Variable with the specified @p identifier in the specified @p program
-	ProgVar(ProgramName program, StrCRef identifier, bool active_only)
-	 : BaseOps(ProgVarLoc<VarTag>(program, identifier, active_only))
+	ProgVar(
+		ProgramName program,
+		const GLCStrRef& identifier,
+		bool active_only
+	): BaseOps(ProgVarLoc<VarTag>(program, identifier, active_only))
 	{ }
 
 	/// Variable with the specified @p identifier in the specified @p program
-	ProgVar(ProgramName program, StrCRef identifier, std::nothrow_t)
-	 : BaseOps(ProgVarLoc<VarTag>(program, identifier, false))
+	ProgVar(
+		ProgramName program,
+		const GLCStrRef& identifier,
+		std::nothrow_t
+	): BaseOps(ProgVarLoc<VarTag>(program, identifier, false))
 	{ }
 };
 
@@ -216,11 +228,15 @@ public:
 	PROG_VAR(ProgVarLoc<VAR_TAG> pvloc) : BASE(pvloc) { } \
 	PROG_VAR(ProgramName program, GLuint location) \
 	 : BASE(program, location) { } \
-	PROG_VAR(ProgramName program, StrCRef identifier) \
+	PROG_VAR(ProgramName program, const GLCStrRef& identifier) \
 	 : BASE(program, identifier) { } \
-	PROG_VAR(ProgramName program, StrCRef identifier, bool active_only) \
+	PROG_VAR(ProgramName program, const GLCStrRef& identifier, bool active_only) \
 	 : BASE(program, identifier, active_only) { } \
-	PROG_VAR(ProgramName program, StrCRef identifier, std::nothrow_t nt) \
+	PROG_VAR( \
+		ProgramName program, \
+		const GLCStrRef& identifier, \
+		std::nothrow_t nt \
+	) \
 	 : BASE(program, identifier, nt) { }
 #endif
 

@@ -27,7 +27,7 @@ typedef ::eagine::base::basic_string<char> String;
 /**
  *  @ingroup eglplus_strings
  */
-typedef ::eagine::base::basic_string_ref<const char> StrCRef;
+typedef ::eagine::base::basic_string_ref<const char> CStrRef;
 
 } // namespace eglplus
 

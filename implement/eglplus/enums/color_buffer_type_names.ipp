@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	ColorBufferType*,
 	EGLenum value
 ) noexcept
@@ -21,15 +21,15 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_RGB_BUFFER
-	case EGL_RGB_BUFFER: return StrCRef("RGB_BUFFER");
+	case EGL_RGB_BUFFER: return CStrRef("RGB_BUFFER");
 #endif
 #if defined EGL_LUMINANCE_BUFFER
-	case EGL_LUMINANCE_BUFFER: return StrCRef("LUMINANCE_BUFFER");
+	case EGL_LUMINANCE_BUFFER: return CStrRef("LUMINANCE_BUFFER");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

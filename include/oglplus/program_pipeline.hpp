@@ -255,7 +255,7 @@ public:
 	 *  @glfunref{GetProgramPipeline}
 	 *  @glfunref{GetProgramPipelineInfoLog}
 	 */
-	String GetInfoLog(void) const;
+	GLString GetInfoLog(void) const;
 
 	/// Returns true if the pipeline is validated, false otherwise
 	/**

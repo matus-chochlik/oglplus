@@ -25,7 +25,7 @@ enum class TextureMinFilter : GLenum
 template <>
 __Range<TextureMinFilter> __EnumValueRange<TextureMinFilter>(void) noexcept;
 
-__StrCRef __EnumValueName(TextureMinFilter) noexcept;
+__CStrRef __EnumValueName(TextureMinFilter) noexcept;
 
 } // namespace oglplus
 //]

@@ -28,7 +28,7 @@ private:
 	oglplus::DSAModelviewMatrixEXT modelview;
 	oglplus::DSAProjectionMatrixEXT projection;
 
-	const oglplus::String text;
+	const oglplus::GLString text;
 	oglplus::PathArrayNV text_path;
 	std::vector<GLubyte> glyph_indices;
 

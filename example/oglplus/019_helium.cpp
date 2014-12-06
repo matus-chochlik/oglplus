@@ -88,7 +88,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attrib
-			VertexArrayAttrib attr(prog, StrCRef(ident[i]));
+			VertexArrayAttrib attr(prog, GLCStrRef(ident[i]));
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -159,9 +159,9 @@ private:
 	}
 
 	// The common first part of all fragment shader sources
-	static StrCRef fs_prologue(void)
+	static GLCStrRef fs_prologue(void)
 	{
-		return StrCRef(
+		return GLCStrRef(
 		"#version 330\n"
 		"in vec3 vertNormal;"
 		"in vec3 vertLight;"
@@ -181,9 +181,9 @@ private:
 	}
 
 	// The common last part of all fragment shader sources
-	static StrCRef fs_epilogue(void)
+	static GLCStrRef fs_epilogue(void)
 	{
-		return StrCRef(
+		return GLCStrRef(
 		"	fragColor = sig?"
 		"		vec4(1.0, 1.0, 1.0, 1.0):"
 		"		vec4(color * intensity, 1.0);"
@@ -191,9 +191,9 @@ private:
 	}
 
 	// The part calculating the color for the protons
-	static StrCRef fs_proton(void)
+	static GLCStrRef fs_proton(void)
 	{
-		return StrCRef(
+		return GLCStrRef(
 		"	bool sig = ("
 		"		abs(vertViewNormal.x) < 0.5 &&"
 		"		abs(vertViewNormal.y) < 0.2 "
@@ -205,17 +205,17 @@ private:
 	}
 
 	// The part calculating the color for the neutrons
-	static StrCRef fs_neutron(void)
+	static GLCStrRef fs_neutron(void)
 	{
-		return StrCRef(
+		return GLCStrRef(
 		"	bool sig = false;"
 		"	vec3 color = vec3(0.5, 0.5, 0.5);");
 	}
 
 	// The part calculating the color for the electrons
-	static StrCRef fs_electron(void)
+	static GLCStrRef fs_electron(void)
 	{
-		return StrCRef(
+		return GLCStrRef(
 		"	bool sig = ("
 		"		abs(vertViewNormal.x) < 0.5 &&"
 		"		abs(vertViewNormal.y) < 0.2"
@@ -224,10 +224,10 @@ private:
 	}
 
 	// makes a fragment shader from the prologe, custom part and epilogue
-	static FragmentShader make_fs(StrCRef color_fs)
+	static FragmentShader make_fs(GLCStrRef color_fs)
 	{
 		FragmentShader shader;
-		StrCRef source[3] = {fs_prologue(), color_fs, fs_epilogue()};
+		GLCStrRef source[3] = {fs_prologue(), color_fs, fs_epilogue()};
 		shader.Source(source);
 		shader.Compile();
 		return shader;

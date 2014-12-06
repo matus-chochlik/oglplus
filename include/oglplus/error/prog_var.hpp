@@ -27,7 +27,7 @@ private:
 	GLuint _prog_name;
 #endif
 #if !OGLPLUS_ERROR_NO_IDENTIFIER
-	String _identifier;
+	GLString _identifier;
 #endif
 public:
 	ProgVarError(const char* message);
@@ -50,7 +50,7 @@ public:
 	ProgramName Program(void) const
 	noexcept;
 
-	ProgVarError& Identifier(StrCRef identifier)
+	ProgVarError& Identifier(const GLCStrRef& identifier)
 	noexcept
 	{
 #if !OGLPLUS_ERROR_NO_IDENTIFIER

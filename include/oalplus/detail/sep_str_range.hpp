@@ -19,7 +19,7 @@
 namespace oalplus {
 namespace aux {
 
-typedef oglplus::aux::SepStrRangeTpl<String> SepStrRange;
+typedef oglplus::aux::SepStrRangeTpl<ALString> SepStrRange;
 
 } // namespace aux
 } // namespace oalplus

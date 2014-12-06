@@ -38,7 +38,7 @@ enum class QueryTarget : GLenum
 template <>
 __Range<QueryTarget> __EnumValueRange<QueryTarget>(void) noexcept;
 
-__StrCRef __EnumValueName(QueryTarget) noexcept;
+__CStrRef __EnumValueName(QueryTarget) noexcept;
 
 } // namespace oglplus
 //]

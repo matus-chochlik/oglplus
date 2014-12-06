@@ -38,7 +38,7 @@ enum class BlendFunction : GLenum
 template <>
 __Range<BlendFunction> __EnumValueRange<BlendFunction>(void) noexcept;
 
-__StrCRef __EnumValueName(BlendFunction) noexcept;
+__CStrRef __EnumValueName(BlendFunction) noexcept;
 
 } // namespace oglplus
 //]

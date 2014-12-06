@@ -124,9 +124,9 @@ public:
 		Set(cps.data(), GLsizei(cps.size()));
 	}
 
-	void Set(StrCRef str)
+	void Set(const CStrRef& str)
 	{
-		Set(UTF8ToCodePoints(str.begin(), str.size()));
+		Set(UTF8ToCodePoints(str.data(), str.size()));
 	}
 };
 

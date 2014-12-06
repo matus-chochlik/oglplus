@@ -19,7 +19,7 @@
 namespace oglplus {
 namespace aux {
 
-String GetInfoLog(
+GLString GetInfoLog(
 	GLuint object_name,
 	void (GLAPIENTRY *GetObjectiv)(GLuint, GLenum, GLint*),
 	void (GLAPIENTRY *GetObjectInfoLog)(GLuint, GLsizei, GLsizei*, GLchar*),

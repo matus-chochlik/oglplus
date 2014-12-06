@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	HintOption*,
 	GLenum value
 ) noexcept
@@ -21,18 +21,18 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_FASTEST
-	case GL_FASTEST: return StrCRef("FASTEST");
+	case GL_FASTEST: return CStrRef("FASTEST");
 #endif
 #if defined GL_NICEST
-	case GL_NICEST: return StrCRef("NICEST");
+	case GL_NICEST: return CStrRef("NICEST");
 #endif
 #if defined GL_DONT_CARE
-	case GL_DONT_CARE: return StrCRef("DONT_CARE");
+	case GL_DONT_CARE: return CStrRef("DONT_CARE");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

@@ -26,7 +26,7 @@ enum class BufferStorageBit : GLbitfield
 template <>
 __Range<BufferStorageBit> __EnumValueRange<BufferStorageBit>(void) noexcept;
 
-__StrCRef __EnumValueName(BufferStorageBit) noexcept;
+__CStrRef __EnumValueName(BufferStorageBit) noexcept;
 
 __Bitfield<BufferStorageBit> operator | (BufferStorageBit b1, BufferStorageBit b2) noexcept;
 

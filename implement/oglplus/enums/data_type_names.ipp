@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	DataType*,
 	GLenum value
 ) noexcept
@@ -21,39 +21,39 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_BYTE
-	case GL_BYTE: return StrCRef("BYTE");
+	case GL_BYTE: return CStrRef("BYTE");
 #endif
 #if defined GL_SHORT
-	case GL_SHORT: return StrCRef("SHORT");
+	case GL_SHORT: return CStrRef("SHORT");
 #endif
 #if defined GL_INT
-	case GL_INT: return StrCRef("INT");
+	case GL_INT: return CStrRef("INT");
 #endif
 #if defined GL_FIXED
-	case GL_FIXED: return StrCRef("FIXED");
+	case GL_FIXED: return CStrRef("FIXED");
 #endif
 #if defined GL_FLOAT
-	case GL_FLOAT: return StrCRef("FLOAT");
+	case GL_FLOAT: return CStrRef("FLOAT");
 #endif
 #if defined GL_HALF_FLOAT
-	case GL_HALF_FLOAT: return StrCRef("HALF_FLOAT");
+	case GL_HALF_FLOAT: return CStrRef("HALF_FLOAT");
 #endif
 #if defined GL_DOUBLE
-	case GL_DOUBLE: return StrCRef("DOUBLE");
+	case GL_DOUBLE: return CStrRef("DOUBLE");
 #endif
 #if defined GL_UNSIGNED_BYTE
-	case GL_UNSIGNED_BYTE: return StrCRef("UNSIGNED_BYTE");
+	case GL_UNSIGNED_BYTE: return CStrRef("UNSIGNED_BYTE");
 #endif
 #if defined GL_UNSIGNED_SHORT
-	case GL_UNSIGNED_SHORT: return StrCRef("UNSIGNED_SHORT");
+	case GL_UNSIGNED_SHORT: return CStrRef("UNSIGNED_SHORT");
 #endif
 #if defined GL_UNSIGNED_INT
-	case GL_UNSIGNED_INT: return StrCRef("UNSIGNED_INT");
+	case GL_UNSIGNED_INT: return CStrRef("UNSIGNED_INT");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

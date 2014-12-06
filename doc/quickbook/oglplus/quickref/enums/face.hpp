@@ -22,7 +22,7 @@ enum class Face : GLenum
 template <>
 __Range<Face> __EnumValueRange<Face>(void) noexcept;
 
-__StrCRef __EnumValueName(Face) noexcept;
+__CStrRef __EnumValueName(Face) noexcept;
 
 } // namespace oglplus
 //]

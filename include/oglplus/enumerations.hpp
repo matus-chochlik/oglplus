@@ -38,7 +38,7 @@ namespace oglplus {
  *  @ingroup enumerations
  *  @see OGLPLUS_NO_ENUM_VALUE_NAMES
  */
-StrCRef EnumValueName(Enum enum_value);
+GLCStrRef EnumValueName(Enum enum_value);
 
 /// Returns a @c Range of values in an @p Enumeration
 /** This template function is available for the enumerated types defined by
@@ -65,13 +65,13 @@ struct EnumBaseType
 	typedef GLenum Type;
 };
 
-inline StrCRef ValueName_(GLenum*, GLenum)
+inline GLCStrRef ValueName_(GLenum*, GLenum)
 {
-	return StrCRef();
+	return GLCStrRef();
 }
 
 template <typename EnumType>
-inline StrCRef EnumValueName(EnumType enum_value)
+inline GLCStrRef EnumValueName(EnumType enum_value)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 	typedef typename EnumBaseType<EnumType>::Type BaseType;
@@ -81,7 +81,7 @@ inline StrCRef EnumValueName(EnumType enum_value)
 	);
 #else
 	OGLPLUS_FAKE_USE(enum_value);
-	return StrCRef();
+	return GLCStrRef();
 #endif
 }
 

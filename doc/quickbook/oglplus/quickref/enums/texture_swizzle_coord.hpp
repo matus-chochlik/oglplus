@@ -24,7 +24,7 @@ enum class TextureSwizzleCoord : GLenum
 template <>
 __Range<TextureSwizzleCoord> __EnumValueRange<TextureSwizzleCoord>(void) noexcept;
 
-__StrCRef __EnumValueName(TextureSwizzleCoord) noexcept;
+__CStrRef __EnumValueName(TextureSwizzleCoord) noexcept;
 
 } // namespace oglplus
 //]

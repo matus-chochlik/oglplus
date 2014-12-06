@@ -21,7 +21,7 @@ enum class ResetNotificationStrategy : GLenum
 template <>
 __Range<ResetNotificationStrategy> __EnumValueRange<ResetNotificationStrategy>(void) noexcept;
 
-__StrCRef __EnumValueName(ResetNotificationStrategy) noexcept;
+__CStrRef __EnumValueName(ResetNotificationStrategy) noexcept;
 
 } // namespace oglplus
 //]

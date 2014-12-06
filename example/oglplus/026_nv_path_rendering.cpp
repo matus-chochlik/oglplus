@@ -434,7 +434,7 @@ public:
 		font_height = font_y_max - font_y_min;
 	}
 
-	void RenderText(const StrCRef& text)
+	void RenderText(const GLCStrRef& text)
 	{
 		glyph_spacings.resize(text.size()+1);
 		text_glyphs.GetSpacing(

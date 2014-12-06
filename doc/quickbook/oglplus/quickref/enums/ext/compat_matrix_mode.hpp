@@ -23,7 +23,7 @@ enum class CompatibilityMatrixMode : GLenum
 template <>
 __Range<CompatibilityMatrixMode> __EnumValueRange<CompatibilityMatrixMode>(void) noexcept;
 
-__StrCRef __EnumValueName(CompatibilityMatrixMode) noexcept;
+__CStrRef __EnumValueName(CompatibilityMatrixMode) noexcept;
 
 } // namespace oglplus
 //]

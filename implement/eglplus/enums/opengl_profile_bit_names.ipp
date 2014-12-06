@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-EGLPLUS_LIB_FUNC StrCRef ValueName_(
+EGLPLUS_LIB_FUNC CStrRef ValueName_(
 	OpenGLProfileBit*,
 	EGLenum value
 ) noexcept
@@ -21,15 +21,15 @@ EGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT
-	case EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT: return StrCRef("CONTEXT_OPENGL_CORE_PROFILE_BIT");
+	case EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT: return CStrRef("CONTEXT_OPENGL_CORE_PROFILE_BIT");
 #endif
 #if defined EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT
-	case EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT: return StrCRef("CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT");
+	case EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT: return CStrRef("CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT");
 #endif
 	default:;
 }
 EGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;

@@ -22,7 +22,7 @@ enum class TextureWrapCoord : GLenum
 template <>
 __Range<TextureWrapCoord> __EnumValueRange<TextureWrapCoord>(void) noexcept;
 
-__StrCRef __EnumValueName(TextureWrapCoord) noexcept;
+__CStrRef __EnumValueName(TextureWrapCoord) noexcept;
 
 } // namespace oglplus
 //]

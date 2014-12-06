@@ -397,10 +397,10 @@ public:
 	 *  log and it is available then it is returned by this function.
 	 *  Otherwise the result is an empty String.
 	 */
-	virtual const String& Log(void) const
+	virtual GLCStrRef Log(void) const
 	noexcept
 	{
-		return EmptyString();
+		return GLCStrRef();
 	}
 };
 

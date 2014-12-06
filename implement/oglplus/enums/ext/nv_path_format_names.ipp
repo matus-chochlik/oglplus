@@ -10,7 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-OGLPLUS_LIB_FUNC StrCRef ValueName_(
+OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	PathNVFormat*,
 	GLenum value
 ) noexcept
@@ -21,15 +21,15 @@ OGLPLUS_LIB_FUNC StrCRef ValueName_(
 switch(value)
 {
 #if defined GL_PATH_FORMAT_SVG_NV
-	case GL_PATH_FORMAT_SVG_NV: return StrCRef("PATH_FORMAT_SVG_NV");
+	case GL_PATH_FORMAT_SVG_NV: return CStrRef("PATH_FORMAT_SVG_NV");
 #endif
 #if defined GL_PATH_FORMAT_PS_NV
-	case GL_PATH_FORMAT_PS_NV: return StrCRef("PATH_FORMAT_PS_NV");
+	case GL_PATH_FORMAT_PS_NV: return CStrRef("PATH_FORMAT_PS_NV");
 #endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
-return StrCRef();
+return CStrRef();
 }
 #else
 ;
