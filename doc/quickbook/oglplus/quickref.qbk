@@ -48,6 +48,8 @@ the concept.
 [include quickref/transform_feedback.qbk]
 [include quickref/sync.qbk]
 
+[include quickref/vertex_attrib_slot.qbk]
+
 [include quickref/context.qbk]
 
 [include quickref/capability.qbk]
