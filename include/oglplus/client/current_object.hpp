@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_CLIENT_CURRENT_OBJECT_1412071213_HPP
 #define OGLPLUS_CLIENT_CURRENT_OBJECT_1412071213_HPP
 
-#include <oglplus/client/common.hpp>
+#include <oglplus/client/setting.hpp>
 
 namespace oglplus {
 namespace client {
@@ -23,42 +23,25 @@ template <
 	typename ObjBindingOps<ObjTag>::Target ObjTgt
 >
 class CurrentObject
+ : public SettingStack<GLuint>
 {
 private:
-	std::vector<GLuint> _stk;
-
 	static
-	void _push(std::vector<GLuint>& stk, ObjectName<ObjTag> obj)
+	void _do_bind(GLuint obj)
 	{
-		stk.push_back(GetName(obj));
+		ObjBindingOps<ObjTag>::Bind(ObjTgt, ObjectName<ObjTag>(obj));
 	}
-
-	static
-	void _pop(std::vector<GLuint>& stk)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(!stk.empty());
-		stk.pop_back();
-	}
-
-	aux::SettingPopper<GLuint> _ppr;
 public:
 	CurrentObject(void)
-	 : _ppr(_stk, _pop)
+	 : SettingStack<GLuint>(&_do_bind)
 	{
-		_push(_stk, ObjBindingOps<ObjTag>::Binding(ObjTgt));
-	}
-
-	void Reserve(std::size_t n)
-	{
-		_stk.reserve(n);
+		this->_init(GetName(ObjBindingOps<ObjTag>::Binding(ObjTgt)));
 	}
 
 	ObjectName<ObjTag> Get(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		assert(!_stk.empty());
-		return ObjectName<ObjTag>(_stk.back());
+		return ObjectName<ObjTag>(this->_top());
 	}
 
 	operator ObjectName<ObjTag> (void) const
@@ -69,27 +52,25 @@ public:
 
 	typedef SettingHolder<GLuint> Holder;
 
-	Holder Use(ObjectName<ObjTag> obj)
+	Holder Push(ObjectName<ObjTag> obj)
 	{
-		if(Get() != obj)
-		{
-			_push(_stk, obj);
-			try { ObjBindingOps<ObjTag>::Bind(ObjTgt, obj); }
-			catch(...)
-			{
-				_pop(_stk);
-				throw;
-			}
+		return this->_push(GetName(obj));
+	}
 
-			return Holder(_ppr);
-		}
-		return Holder();
+	void Bind(ObjectName<ObjTag> obj)
+	{
+		return this->_set(GetName(obj));
 	}
 };
 
 class CurrentObjects
 {
 public:
+	CurrentObject<tag::Buffer, BufferTarget::Array>
+		ArrayBuffer;
+	CurrentObject<tag::Buffer, BufferTarget::ElementArray>
+		ElementArrayBuffer;
+
 	CurrentObject<tag::Framebuffer, FramebufferTarget::Read>
 		ReadFramebuffer;
 	CurrentObject<tag::Framebuffer, FramebufferTarget::Draw>
