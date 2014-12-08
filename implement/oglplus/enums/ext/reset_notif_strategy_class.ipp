@@ -39,6 +39,7 @@ public:
 # endif
 #endif
 
+	EnumToClass(void) { }
 	EnumToClass(Base&& base)
 	 : Base(std::move(base))
 #if defined GL_NO_RESET_NOTIFICATION_ARB

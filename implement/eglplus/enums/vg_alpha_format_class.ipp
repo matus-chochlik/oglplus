@@ -39,6 +39,7 @@ public:
 # endif
 #endif
 
+	EnumToClass(void) { }
 	EnumToClass(Base&& base)
 	 : Base(std::move(base))
 #if defined EGL_VG_ALPHA_FORMAT_PRE

@@ -69,6 +69,7 @@ public:
 # endif
 #endif
 
+	EnumToClass(void) { }
 	EnumToClass(Base&& base)
 	 : Base(std::move(base))
 #if defined EGL_CONTEXT_MAJOR_VERSION

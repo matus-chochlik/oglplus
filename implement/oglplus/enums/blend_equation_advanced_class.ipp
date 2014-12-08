@@ -169,6 +169,7 @@ public:
 # endif
 #endif
 
+	EnumToClass(void) { }
 	EnumToClass(Base&& base)
 	 : Base(std::move(base))
 #if defined GL_MULTIPLY_KHR

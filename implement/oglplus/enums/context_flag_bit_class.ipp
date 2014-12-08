@@ -49,6 +49,7 @@ public:
 # endif
 #endif
 
+	EnumToClass(void) { }
 	EnumToClass(Base&& base)
 	 : Base(std::move(base))
 #if defined GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT

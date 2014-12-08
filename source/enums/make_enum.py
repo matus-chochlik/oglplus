@@ -371,6 +371,7 @@ def action_impl_enum_class_ipp(options):
 		print_line(options, "#endif")
 
 	print_newline(options)
+	print_line(options, "	EnumToClass(void) { }")
 	print_line(options, "	EnumToClass(Base&& base)")
 	print_line(options, "	 : Base(std::move(base))")
 

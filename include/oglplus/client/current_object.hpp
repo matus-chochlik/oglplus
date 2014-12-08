@@ -17,67 +17,96 @@
 
 namespace oglplus {
 namespace client {
+namespace aux {
 
-template <
-	typename ObjTag,
-	typename ObjBindingOps<ObjTag>::Target ObjTgt
->
-class CurrentObject
- : public SettingStack<GLuint>
+template <typename ObjTag>
+struct CurrentObject
 {
-private:
-	static
-	void _do_bind(GLuint obj)
+	template <typename ObjBindingOps<ObjTag>::Target ObjTgt>
+	class WithTarget
+	 : public SettingStack<GLuint>
 	{
-		ObjBindingOps<ObjTag>::Bind(ObjTgt, ObjectName<ObjTag>(obj));
-	}
-public:
-	CurrentObject(void)
-	 : SettingStack<GLuint>(&_do_bind)
-	{
-		this->_init(GetName(ObjBindingOps<ObjTag>::Binding(ObjTgt)));
-	}
+	private:
+		static
+		void _do_bind(GLuint obj)
+		{
+			ObjBindingOps<ObjTag>::Bind(
+				ObjTgt,
+				ObjectName<ObjTag>(obj)
+			);
+		}
+	public:
+		WithTarget(void)
+		 : SettingStack<GLuint>(&_do_bind)
+		{
+			GLuint name = 0;
+			try
+			{
+				name = GetGLName(
+					ObjBindingOps<ObjTag>::Binding(ObjTgt)
+				);
+			}
+			catch(Error&){ }
+			this->_init(name);
+		}
 
-	ObjectName<ObjTag> Get(void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return ObjectName<ObjTag>(this->_top());
-	}
+		ObjectName<ObjTag> Get(void) const
+		OGLPLUS_NOEXCEPT(true)
+		{
+			return ObjectName<ObjTag>(this->_top());
+		}
 
-	operator ObjectName<ObjTag> (void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return Get();
-	}
+		operator ObjectName<ObjTag> (void) const
+		OGLPLUS_NOEXCEPT(true)
+		{
+			return Get();
+		}
 
-	typedef SettingHolder<GLuint> Holder;
+		typedef SettingHolder<GLuint> Holder;
 
-	Holder Push(ObjectName<ObjTag> obj)
-	{
-		return this->_push(GetName(obj));
-	}
+		Holder Push(ObjectName<ObjTag> obj)
+		{
+			return this->_push(GetName(obj));
+		}
 
-	void Bind(ObjectName<ObjTag> obj)
-	{
-		return this->_set(GetName(obj));
-	}
+		void Bind(ObjectName<ObjTag> obj)
+		{
+			return this->_set(GetName(obj));
+		}
+	};
 };
+
+template <typename ObjTag>
+class CurrentObjectsWithTarget
+ : public oglplus::enums::EnumToClass<
+	Nothing,
+	typename ObjBindingOps<ObjTag>::Target,
+	CurrentObject<ObjTag>::template WithTarget
+>
+{
+public:
+	CurrentObjectsWithTarget(void) { }
+};
+
+} // namespace aux
+} // namespace client
+
+#include <oglplus/enums/buffer_target_class.ipp>
+#include <oglplus/enums/framebuffer_target_class.ipp>
+#include <oglplus/enums/renderbuffer_target_class.ipp>
+#include <oglplus/enums/texture_target_class.ipp>
+#include <oglplus/enums/transform_feedback_target_class.ipp>
+
+namespace client {
 
 class CurrentObjects
 {
 public:
-	CurrentObject<tag::Buffer, BufferTarget::Array>
-		ArrayBuffer;
-	CurrentObject<tag::Buffer, BufferTarget::ElementArray>
-		ElementArrayBuffer;
-
-	CurrentObject<tag::Framebuffer, FramebufferTarget::Read>
-		ReadFramebuffer;
-	CurrentObject<tag::Framebuffer, FramebufferTarget::Draw>
-		DrawFramebuffer;
-
-	CurrentObject<tag::Renderbuffer, RenderbufferTarget::Renderbuffer>
-		Renderbuffer;
+	aux::CurrentObjectsWithTarget<tag::Buffer> Buffer;
+	aux::CurrentObjectsWithTarget<tag::Framebuffer> Framebuffer;
+	aux::CurrentObjectsWithTarget<tag::Renderbuffer> Renderbuffer;
+	aux::CurrentObjectsWithTarget<tag::Texture> Texture;
+	aux::CurrentObjectsWithTarget<tag::TransformFeedback> TransformFeedback;
 };
 
 } // namespace client
