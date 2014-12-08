@@ -14,14 +14,14 @@
 #define OGLPLUS_CLIENT_CONTEXT_1412071213_HPP
 
 #include <oglplus/client/current_object.hpp>
+#include <oglplus/client/current_capability.hpp>
 
 namespace oglplus {
 
 class ClientContext
  : public client::CurrentObjects
-{
-public:
-};
+ , public client::CurrentCapabilities
+{ };
 
 } // namespace oglplus
 

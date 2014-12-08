@@ -21,23 +21,23 @@
 namespace oglplus {
 namespace client {
 
-template <typename T>
+template <typename T, typename P>
 class SettingStack;
 
-template <typename T>
+template <typename T, typename P>
 class SettingHolder
 {
 private:
-	SettingStack<T>* _pstk;
+	SettingStack<T, P>* _pstk;
 
-	friend class SettingStack<T>;
+	friend class SettingStack<T, P>;
 
 	SettingHolder(void)
 	OGLPLUS_NOEXCEPT(true)
 	 : _pstk(nullptr)
 	{ }
 
-	SettingHolder(SettingStack<T>& stk)
+	SettingHolder(SettingStack<T, P>& stk)
 	OGLPLUS_NOEXCEPT(true)
 	 : _pstk(&stk)
 	{ }
@@ -71,14 +71,15 @@ public:
 	}
 };
 
-template <typename T>
+template <typename T, typename P>
 class SettingStack
 {
 private:
-	void (*_apply)(T);
+	void (*_apply)(T, P);
+	P _param;
 	std::vector<T> _stk;
 
-	friend class SettingHolder<T>;
+	friend class SettingHolder<T, P>;
 protected:
 	void _init(T value)
 	{
@@ -99,11 +100,11 @@ protected:
 		assert(_apply);
 
 		_stk.pop_back();
-		_apply(_stk.back());
+		_apply(_stk.back(), _param);
 		// aborts if restoring throws
 	}
 
-	SettingHolder<T> _push(T value)
+	SettingHolder<T, P> _push(T value)
 	{
 		assert(!_stk.empty());
 		assert(_apply);
@@ -111,16 +112,16 @@ protected:
 		if(_stk.back() != value)
 		{
 			_stk.push_back(value);
-			try { _apply(value); }
+			try { _apply(value, _param); }
 			catch(...)
 			{
 				_pop();
 				throw;
 			}
 
-			return SettingHolder<T>(*this);
+			return SettingHolder<T, P>(*this);
 		}
-		return SettingHolder<T>();
+		return SettingHolder<T, P>();
 	}
 
 	void _set(T value)
@@ -133,7 +134,7 @@ protected:
 		if(prev != value)
 		{
 			_stk.back() = value;
-			try { _apply(value); }
+			try { _apply(value, _param); }
 			catch(...)
 			{
 				_stk.back() = prev;
@@ -142,8 +143,9 @@ protected:
 		}
 	}
 protected:
-	SettingStack(void(*apply)(T))
+	SettingStack(void(*apply)(T, P), P param = P())
 	 : _apply(apply)
+	 , _param(param)
 	{ }
 public:
 	void Reserve(std::size_t n)
