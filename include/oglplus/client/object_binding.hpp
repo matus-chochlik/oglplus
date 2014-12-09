@@ -151,7 +151,7 @@ private:
 	typedef tag::Texture ObjTag;
 
 	static
-	void _do_bind(GLuint obj, GLuint tex_unit)
+	void _active_tex(GLuint tex_unit)
 	{
 		OGLPLUS_GLFUNC(ActiveTexture)(
 			GLenum(GL_TEXTURE0 + tex_unit)
@@ -161,6 +161,12 @@ private:
 			Error,
 			Index(tex_unit)
 		);
+	}
+
+	static
+	void _do_bind(GLuint obj, GLuint tex_unit)
+	{
+		_active_tex(tex_unit);
 		ObjBindingOps<ObjTag>::Bind(
 			ObjTgt,
 			ObjectName<ObjTag>(obj)
@@ -172,14 +178,7 @@ public:
 	{
 		try
 		{
-			OGLPLUS_GLFUNC(ActiveTexture)(
-				GLenum(GL_TEXTURE0 + GLuint(tex_unit))
-			);
-			OGLPLUS_VERIFY(
-				ActiveTexture,
-				Error,
-				Index(GLuint(tex_unit))
-			);
+			_active_tex(GLuint(tex_unit));
 			this->_init(GetGLName(
 				ObjBindingOps<ObjTag>::Binding(ObjTgt)
 			));
