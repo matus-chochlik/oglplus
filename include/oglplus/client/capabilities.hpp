@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/client/current_capability.hpp
+ *  @file oglplus/client/capabilities.hpp
  *  @brief Client current capability status stack
  *
  *  @author Matus Chochlik
@@ -10,12 +10,11 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_CLIENT_CURRENT_CAPABILITY_1412071213_HPP
-#define OGLPLUS_CLIENT_CURRENT_CAPABILITY_1412071213_HPP
+#ifndef OGLPLUS_CLIENT_CAPABILITIES_1412071213_HPP
+#define OGLPLUS_CLIENT_CAPABILITIES_1412071213_HPP
 
-#include <oglplus/glfunc.hpp>
 #include <oglplus/client/setting.hpp>
-#include <oglplus/capability.hpp>
+#include <oglplus/context/capabilities.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -35,44 +34,22 @@ private:
 		{
 			if(status)
 			{
-				OGLPLUS_GLFUNC(Enable)(GLenum(Cap));
-				OGLPLUS_VERIFY(
-					Enable,
-					Error,
-					EnumParam(Cap)
-				);
+				context::Capabilities::Enable(Cap);
 			}
 			else
 			{
-				OGLPLUS_GLFUNC(Disable)(GLenum(Cap));
-				OGLPLUS_VERIFY(
-					Disable,
-					Error,
-					EnumParam(Cap)
-				);
+				context::Capabilities::Disable(Cap);
 			}
 		}
 		else
 		{
 			if(status)
 			{
-				OGLPLUS_GLFUNC(Enablei)(GLenum(Cap), index);
-				OGLPLUS_VERIFY(
-					Enablei,
-					Error,
-					EnumParam(Cap).
-					Index(index)
-				);
+				context::Capabilities::Enable(Cap, index);
 			}
 			else
 			{
-				OGLPLUS_GLFUNC(Disablei)(GLenum(Cap), index);
-				OGLPLUS_VERIFY(
-					Disablei,
-					Error,
-					EnumParam(Cap).
-					Index(index)
-				);
+				context::Capabilities::Disable(Cap, index);
 			}
 		}
 	}
@@ -80,34 +57,25 @@ public:
 	CurrentCapabilityIndexed(GLuint index = 0)
 	 : SettingStack<bool, GLuint>(&_do_set, index)
 	{
-		GLboolean status = GL_FALSE;
 		try
 		{
 			if(index == 0)
 			{
-				status = OGLPLUS_GLFUNC(IsEnabled)(GLenum(Cap));
-				OGLPLUS_VERIFY(
-					IsEnabled,
-					Error,
-					EnumParam(Cap)
+				this->_init(
+					context::Capabilities::IsEnabled(Cap)
 				);
 			}
 			else
 			{
-				status = OGLPLUS_GLFUNC(IsEnabledi)(
-					GLenum(Cap),
-					index
-				);
-				OGLPLUS_VERIFY(
-					IsEnabledi,
-					Error,
-					EnumParam(Cap).
-					Index(index)
+				this->_init(
+					context::Capabilities::IsEnabled(
+						Cap,
+						index
+					)
 				);
 			}
 		}
 		catch(Error&){ }
-		this->_init(status == GL_TRUE);
 	}
 
 	bool IsEnabled(void) const
@@ -121,13 +89,6 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return IsEnabled();
-	}
-
-	typedef SettingHolder<bool, GLuint> Holder;
-
-	Holder Push(bool status)
-	{
-		return this->_push(status);
 	}
 
 	void Enable(bool status = true)
@@ -223,39 +184,19 @@ private:
 	{
 		if(status)
 		{
-			OGLPLUS_GLFUNC(Enable)(GLenum(Cap));
-			OGLPLUS_VERIFY(
-				Enable,
-				Error,
-				EnumParam(Cap)
-			);
+			context::Capabilities::Enable(Cap);
 		}
 		else
 		{
-			OGLPLUS_GLFUNC(Disable)(GLenum(Cap));
-			OGLPLUS_VERIFY(
-				Disable,
-				Error,
-				EnumParam(Cap)
-			);
+			context::Capabilities::Disable(Cap);
 		}
 	}
 public:
 	CurrentCapability(void)
 	 : SettingStack<bool, Nothing>(&_do_set)
 	{
-		GLboolean status = GL_FALSE;
-		try
-		{
-			status = OGLPLUS_GLFUNC(IsEnabled)(GLenum(Cap));
-			OGLPLUS_VERIFY(
-				IsEnabled,
-				Error,
-				EnumParam(Cap)
-			);
-		}
+		try { this->_init(context::Capabilities::IsEnabled(Cap)); }
 		catch(Error&){ }
-		this->_init(status == GL_TRUE);
 	}
 
 	bool IsEnabled(void) const
@@ -269,13 +210,6 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return IsEnabled();
-	}
-
-	typedef SettingHolder<bool, Nothing> Holder;
-
-	Holder Push(bool status)
-	{
-		return this->_push(status);
 	}
 
 	void Enable(bool status = true)
@@ -298,12 +232,24 @@ public:
 namespace client {
 
 class CurrentCapabilities
- : public oglplus::enums::EnumToClass<
+{
+public:
+	oglplus::enums::EnumToClass<
 		Nothing,
 		Capability,
 		aux::CurrentCapability
->
-{ };
+	> Capabilities;
+
+	oglplus::enums::EnumToClass<
+		Nothing,
+		Capability,
+		aux::CurrentCapability
+	>& Caps;
+
+	CurrentCapabilities(void)
+	 : Caps(Capabilities)
+	{ }
+};
 
 } // namespace client
 } // namespace oglplus

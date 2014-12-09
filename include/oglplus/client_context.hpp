@@ -13,14 +13,21 @@
 #ifndef OGLPLUS_CLIENT_CONTEXT_1412071213_HPP
 #define OGLPLUS_CLIENT_CONTEXT_1412071213_HPP
 
-#include <oglplus/client/current_object.hpp>
-#include <oglplus/client/current_capability.hpp>
+#include <oglplus/client/object_binding.hpp>
+#include <oglplus/client/capabilities.hpp>
+#include <oglplus/client/hints.hpp>
+
+#include <oglplus/client/depth_test.hpp>
+#include <oglplus/client/logical_ops.hpp>
 
 namespace oglplus {
 
 class ClientContext
  : public client::CurrentObjects
  , public client::CurrentCapabilities
+ , public client::CurrentHints
+ , public client::DepthTest
+ , public client::LogicalOps
 { };
 
 } // namespace oglplus

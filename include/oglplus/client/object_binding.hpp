@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/client/current_object.hpp
+ *  @file oglplus/client/object_binding.hpp
  *  @brief Client current object stack
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_CLIENT_CURRENT_OBJECT_1412071213_HPP
-#define OGLPLUS_CLIENT_CURRENT_OBJECT_1412071213_HPP
+#ifndef OGLPLUS_CLIENT_OBJECT_BINDING_1412071213_HPP
+#define OGLPLUS_CLIENT_OBJECT_BINDING_1412071213_HPP
 
 #include <oglplus/glfunc.hpp>
 #include <oglplus/client/setting.hpp>
@@ -43,15 +43,13 @@ struct CurrentObject
 		WithTarget(void)
 		 : SettingStack<GLuint, Nothing>(&_do_bind)
 		{
-			GLuint name = 0;
 			try
 			{
-				name = GetGLName(
+				this->_init(GetGLName(
 					ObjBindingOps<ObjTag>::Binding(ObjTgt)
-				);
+				));
 			}
 			catch(Error&){ }
-			this->_init(name);
 		}
 
 		ObjectName<ObjTag> Get(void) const
@@ -110,10 +108,13 @@ public:
 	CurrentObjectWithoutTarget(void)
 	 : SettingStack<GLuint, Nothing>(&_do_bind)
 	{
-		GLuint name = 0;
-		try { name = GetGLName(ObjBindingOps<ObjTag>::Binding()); }
+		try
+		{
+			this->_init(GetGLName(
+				ObjBindingOps<ObjTag>::Binding()
+			));
+		}
 		catch(Error&){ }
-		this->_init(name);
 	}
 
 	ObjectName<ObjTag> Get(void) const
@@ -169,7 +170,6 @@ public:
 	CurrentUnitTexture(TextureUnitSelector tex_unit)
 	 : SettingStack<GLuint, GLuint>(&_do_bind, GLuint(tex_unit))
 	{
-		GLuint name = 0;
 		try
 		{
 			OGLPLUS_GLFUNC(ActiveTexture)(
@@ -180,12 +180,11 @@ public:
 				Error,
 				Index(GLuint(tex_unit))
 			);
-			name = GetGLName(
+			this->_init(GetGLName(
 				ObjBindingOps<ObjTag>::Binding(ObjTgt)
-			);
+			));
 		}
 		catch(Error&){ }
-		this->_init(name);
 	}
 
 	ObjectName<ObjTag> Get(void) const
@@ -261,15 +260,13 @@ public:
 	CurrentUnitSampler(TextureUnitSelector tex_unit)
 	 : SettingStack<GLuint, GLuint>(&_do_bind, GLuint(tex_unit))
 	{
-		GLuint name = 0;
 		try
 		{
-			name = GetGLName(
+			this->_init(GetGLName(
 				ObjBindingOps<ObjTag>::Binding(tex_unit)
-			);
+			));
 		}
 		catch(Error&){ }
-		this->_init(name);
 	}
 
 	ObjectName<ObjTag> Get(void) const

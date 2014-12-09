@@ -152,6 +152,25 @@ public:
 	{
 		_stk.reserve(n);
 	}
+
+	typedef SettingHolder<T, P> Holder;
+
+	Holder Push(T value)
+	{
+		return _push(value);
+	}
+
+	T Get(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _top();
+	}
+
+	void Set(T value)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _set(value);
+	}
 };
 
 } // namespace client
