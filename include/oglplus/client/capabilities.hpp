@@ -104,43 +104,11 @@ public:
 
 template <Capability Cap>
 class CurrentCapability
+ : public SettingStackIndexed<CurrentCapabilityIndexed<Cap>, bool>
 {
 private:
-	std::vector<CurrentCapabilityIndexed<Cap>> _indexed;
-
-	CurrentCapabilityIndexed<Cap>& _zero(void)
-	{
-		assert(!_indexed.empty());
-		return _indexed[0];
-	}
-
-	const CurrentCapabilityIndexed<Cap>& _zero(void) const
-	{
-		assert(!_indexed.empty());
-		return _indexed[0];
-	}
+	using SettingStackIndexed<CurrentCapabilityIndexed<Cap>, bool>::_zero;
 public:
-	CurrentCapability(void)
-	{
-		_indexed.emplace_back(0);
-	}
-
-	CurrentCapabilityIndexed<Cap>&
-	Indexed(std::size_t index)
-	{
-		for(std::size_t i=_indexed.size(); i<=index; ++i)
-		{
-			_indexed.emplace_back(GLuint(i));
-		}
-		return _indexed[index];
-	}
-
-	CurrentCapabilityIndexed<Cap>&
-	operator [] (std::size_t index)
-	{
-		return Indexed(index);
-	}
-
 	bool IsEnabled(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -152,13 +120,6 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return IsEnabled();
-	}
-
-	typedef SettingHolder<bool, GLuint> Holder;
-
-	Holder Push(bool status)
-	{
-		return _zero().Push(status);
 	}
 
 	void Enable(bool status = true)

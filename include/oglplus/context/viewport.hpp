@@ -62,6 +62,16 @@ struct ViewportExtents
 	// private implementation detail, do not use
 	GLfloat _v[4];
 
+	ViewportExtents(void) { }
+
+	ViewportExtents(GLfloat x, GLfloat y, GLfloat w, GLfloat h)
+	{
+		_v[0] = x;
+		_v[1] = y;
+		_v[2] = w;
+		_v[3] = h;
+	}
+
 	/// The x-coordinate
 	GLfloat X(void) const
 	{
@@ -155,6 +165,24 @@ public:
 	static void Viewport(GLsizei w, GLsizei h)
 	{
 		OGLPLUS_GLFUNC(Viewport)(0, 0, w, h);
+		OGLPLUS_CHECK_SIMPLE(Viewport);
+	}
+
+	/// Sets the extents of the current viewport
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Viewport}
+	 */
+	static void Viewport(const ViewportExtents& vp)
+	{
+		OGLPLUS_GLFUNC(Viewport)(
+			vp.X(),
+			vp.Y(),
+			vp.Width(),
+			vp.Height()
+		);
 		OGLPLUS_CHECK_SIMPLE(Viewport);
 	}
 
@@ -320,6 +348,32 @@ public:
 	{
 		OGLPLUS_GLFUNC(ViewportArrayv)(first, count, extents);
 		OGLPLUS_CHECK_SIMPLE(ViewportArrayv);
+	}
+
+	/// Sets the extents of the specified @p viewport
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ViewportIndexedf}
+	 */
+	static void Viewport(
+		GLuint viewport,
+		const ViewportExtents& vp
+	)
+	{
+		OGLPLUS_GLFUNC(ViewportIndexedf)(
+			viewport,
+			vp.X(),
+			vp.Y(),
+			vp.Width(),
+			vp.Height()
+		);
+		OGLPLUS_CHECK(
+			ViewportIndexedf,
+			Error,
+			Index(viewport)
+		);
 	}
 
 	/// Returns the extents of the specified @p viewport

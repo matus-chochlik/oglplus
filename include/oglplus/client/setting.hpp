@@ -148,6 +148,7 @@ protected:
 	 , _param(param)
 	{ }
 public:
+	inline
 	void Reserve(std::size_t n)
 	{
 		_stk.reserve(n);
@@ -155,21 +156,87 @@ public:
 
 	typedef SettingHolder<T, P> Holder;
 
+	inline
 	Holder Push(T value)
 	{
 		return _push(value);
 	}
 
+	inline
 	T Get(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _top();
 	}
 
+	inline
 	void Set(T value)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _set(value);
+	}
+};
+
+
+template <typename Derived, typename T>
+class SettingStackIndexed
+{
+private:
+	std::vector<Derived> _indexed;
+protected:
+	Derived& _zero(void)
+	{
+		assert(!_indexed.empty());
+		return _indexed[0];
+	}
+
+	const Derived& _zero(void) const
+	{
+		assert(!_indexed.empty());
+		return _indexed[0];
+	}
+public:
+	SettingStackIndexed(void)
+	{
+		_indexed.emplace_back(0);
+	}
+
+	Derived& Indexed(std::size_t index)
+	{
+		for(std::size_t i=_indexed.size(); i<=index; ++i)
+		{
+			_indexed.emplace_back(GLuint(i));
+		}
+		return _indexed[index];
+	}
+
+	inline
+	Derived&
+	operator [] (std::size_t index)
+	{
+		return Indexed(index);
+	}
+
+	typedef SettingHolder<T, GLuint> Holder;
+
+	inline
+	Holder Push(T value)
+	{
+		return _zero().Push(value);
+	}
+
+	inline
+	T Get(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _zero().Get();
+	}
+
+	inline
+	void Set(T value)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _zero().Set(value);
 	}
 };
 

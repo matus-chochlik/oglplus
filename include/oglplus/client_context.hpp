@@ -19,6 +19,7 @@
 
 #include <oglplus/client/depth_test.hpp>
 #include <oglplus/client/logical_ops.hpp>
+#include <oglplus/client/viewport.hpp>
 
 namespace oglplus {
 
@@ -28,6 +29,7 @@ class ClientContext
  , public client::CurrentHints
  , public client::DepthTest
  , public client::LogicalOps
+ , public client::ViewportOps
 { };
 
 } // namespace oglplus
