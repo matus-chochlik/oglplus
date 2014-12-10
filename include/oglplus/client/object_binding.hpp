@@ -32,6 +32,12 @@ struct CurrentObject
 	{
 	private:
 		static
+		GLuint _do_get(Nothing)
+		{
+			return GetGLName(ObjBindingOps<ObjTag>::Binding(ObjTgt));
+		}
+
+		static
 		void _do_bind(GLuint obj, Nothing)
 		{
 			ObjBindingOps<ObjTag>::Bind(
@@ -41,16 +47,8 @@ struct CurrentObject
 		}
 	public:
 		WithTarget(void)
-		 : SettingStack<GLuint, Nothing>(&_do_bind)
-		{
-			try
-			{
-				this->_init(GetGLName(
-					ObjBindingOps<ObjTag>::Binding(ObjTgt)
-				));
-			}
-			catch(Error&){ }
-		}
+		 : SettingStack<GLuint, Nothing>(&_do_get, &_do_bind)
+		{ }
 
 		ObjectName<ObjTag> Get(void) const
 		OGLPLUS_NOEXCEPT(true)
@@ -98,6 +96,12 @@ class CurrentObjectWithoutTarget
 {
 private:
 	static
+	GLuint _do_get(Nothing)
+	{
+		return GetGLName(ObjBindingOps<ObjTag>::Binding());
+	}
+
+	static
 	void _do_bind(GLuint obj, Nothing)
 	{
 		ObjBindingOps<ObjTag>::Bind(
@@ -106,16 +110,8 @@ private:
 	}
 public:
 	CurrentObjectWithoutTarget(void)
-	 : SettingStack<GLuint, Nothing>(&_do_bind)
-	{
-		try
-		{
-			this->_init(GetGLName(
-				ObjBindingOps<ObjTag>::Binding()
-			));
-		}
-		catch(Error&){ }
-	}
+	 : SettingStack<GLuint, Nothing>(&_do_get, &_do_bind)
+	{ }
 
 	ObjectName<ObjTag> Get(void) const
 	OGLPLUS_NOEXCEPT(true)
@@ -164,6 +160,14 @@ private:
 	}
 
 	static
+	GLuint _do_get(GLuint tex_unit)
+	{
+		_active_tex(tex_unit);
+		return GetGLName(ObjBindingOps<ObjTag>::Binding(ObjTgt));
+	}
+
+
+	static
 	void _do_bind(GLuint obj, GLuint tex_unit)
 	{
 		_active_tex(tex_unit);
@@ -174,17 +178,8 @@ private:
 	}
 public:
 	CurrentUnitTexture(TextureUnitSelector tex_unit)
-	 : SettingStack<GLuint, GLuint>(&_do_bind, GLuint(tex_unit))
-	{
-		try
-		{
-			_active_tex(GLuint(tex_unit));
-			this->_init(GetGLName(
-				ObjBindingOps<ObjTag>::Binding(ObjTgt)
-			));
-		}
-		catch(Error&){ }
-	}
+	 : SettingStack<GLuint, GLuint>(&_do_get, &_do_bind, GLuint(tex_unit))
+	{ }
 
 	ObjectName<ObjTag> Get(void) const
 	OGLPLUS_NOEXCEPT(true)
@@ -248,6 +243,12 @@ private:
 	typedef tag::Sampler ObjTag;
 
 	static
+	GLuint _do_get(GLuint tex_unit)
+	{
+		return GetGLName(ObjBindingOps<ObjTag>::Binding(tex_unit));
+	}
+
+	static
 	void _do_bind(GLuint obj, GLuint tex_unit)
 	{
 		ObjBindingOps<ObjTag>::Bind(
@@ -257,16 +258,8 @@ private:
 	}
 public:
 	CurrentUnitSampler(TextureUnitSelector tex_unit)
-	 : SettingStack<GLuint, GLuint>(&_do_bind, GLuint(tex_unit))
-	{
-		try
-		{
-			this->_init(GetGLName(
-				ObjBindingOps<ObjTag>::Binding(tex_unit)
-			));
-		}
-		catch(Error&){ }
-	}
+	 : SettingStack<GLuint, GLuint>(&_do_get, &_do_bind, GLuint(tex_unit))
+	{ }
 
 	ObjectName<ObjTag> Get(void) const
 	OGLPLUS_NOEXCEPT(true)

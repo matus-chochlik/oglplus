@@ -26,17 +26,20 @@ class DepthFunc
 {
 private:
 	static
+	CompareFunction _do_get(Nothing)
+	{
+		return context::DepthTest::DepthFunc();
+	}
+
+	static
 	void _do_set(CompareFunction func, Nothing)
 	{
 		context::DepthTest::DepthFunc(func);
 	}
 public:
 	DepthFunc(void)
-	 : SettingStack<CompareFunction, Nothing>(&_do_set)
-	{
-		try { this->_init(context::DepthTest::DepthFunc()); }
-		catch(Error&){ }
-	}
+	 : SettingStack<CompareFunction, Nothing>(&_do_get, &_do_set)
+	{ }
 };
 
 } // namespace aux

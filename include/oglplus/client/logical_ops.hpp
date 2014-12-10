@@ -27,17 +27,20 @@ class LogicOp
 {
 private:
 	static
+	ColorLogicOperation _do_get(Nothing)
+	{
+		return context::LogicalOps::LogicOpMode();
+	}
+
+	static
 	void _do_set(ColorLogicOperation op, Nothing)
 	{
 		context::LogicalOps::LogicOp(op);
 	}
 public:
 	LogicOp(void)
-	 : SettingStack<ColorLogicOperation, Nothing>(&_do_set)
-	{
-		try { this->_init(context::LogicalOps::LogicOpMode()); }
-		catch(Error&){ }
-	}
+	 : SettingStack<ColorLogicOperation, Nothing>(&_do_get, &_do_set)
+	{ }
 };
 #endif
 

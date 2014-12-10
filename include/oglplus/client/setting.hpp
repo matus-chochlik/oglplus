@@ -69,6 +69,13 @@ public:
 			_pstk = nullptr;
 		}
 	}
+
+	OGLPLUS_EXPLICIT
+	operator bool (void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _pstk != nullptr;
+	}
 };
 
 template <typename T, typename P>
@@ -143,10 +150,13 @@ protected:
 		}
 	}
 protected:
-	SettingStack(void(*apply)(T, P), P param = P())
+	SettingStack(T (*query)(P), void(*apply)(T, P), P param = P())
 	 : _apply(apply)
 	 , _param(param)
-	{ }
+	{
+		try { _init(query(_param)); }
+		catch(Error&){ }
+	}
 public:
 	inline
 	void Reserve(std::size_t n)

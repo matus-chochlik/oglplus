@@ -28,6 +28,19 @@ class CurrentCapabilityIndexed
 {
 private:
 	static
+	bool _do_get(GLuint index)
+	{
+		if(index == 0)
+		{
+			return context::Capabilities::IsEnabled(Cap);
+		}
+		else
+		{
+			return context::Capabilities::IsEnabled(Cap, index);
+		}
+	}
+
+	static
 	void _do_set(bool status, GLuint index)
 	{
 		if(index == 0)
@@ -55,28 +68,8 @@ private:
 	}
 public:
 	CurrentCapabilityIndexed(GLuint index = 0)
-	 : SettingStack<bool, GLuint>(&_do_set, index)
-	{
-		try
-		{
-			if(index == 0)
-			{
-				this->_init(
-					context::Capabilities::IsEnabled(Cap)
-				);
-			}
-			else
-			{
-				this->_init(
-					context::Capabilities::IsEnabled(
-						Cap,
-						index
-					)
-				);
-			}
-		}
-		catch(Error&){ }
-	}
+	 : SettingStack<bool, GLuint>(&_do_get, &_do_set, index)
+	{ }
 
 	bool IsEnabled(void) const
 	OGLPLUS_NOEXCEPT(true)
@@ -141,6 +134,12 @@ class CurrentCapability
 {
 private:
 	static
+	bool _do_get(Nothing)
+	{
+		return context::Capabilities::IsEnabled(Cap);
+	}
+
+	static
 	void _do_set(bool status, Nothing)
 	{
 		if(status)
@@ -154,11 +153,8 @@ private:
 	}
 public:
 	CurrentCapability(void)
-	 : SettingStack<bool, Nothing>(&_do_set)
-	{
-		try { this->_init(context::Capabilities::IsEnabled(Cap)); }
-		catch(Error&){ }
-	}
+	 : SettingStack<bool, Nothing>(&_do_get, &_do_set)
+	{ }
 
 	bool IsEnabled(void) const
 	OGLPLUS_NOEXCEPT(true)

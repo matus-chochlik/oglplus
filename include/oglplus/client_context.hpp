@@ -21,6 +21,9 @@
 #include <oglplus/client/logical_ops.hpp>
 #include <oglplus/client/viewport.hpp>
 
+#include <oglplus/client/drawing.hpp>
+#include <oglplus/client/computing.hpp>
+
 namespace oglplus {
 
 class ClientContext
@@ -30,6 +33,8 @@ class ClientContext
  , public client::DepthTest
  , public client::LogicalOps
  , public client::ViewportOps
+ , public client::DrawingOps
+ , public client::ComputingOps
 { };
 
 } // namespace oglplus

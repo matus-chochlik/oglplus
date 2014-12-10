@@ -27,17 +27,20 @@ class CurrentHint
 {
 private:
 	static
+	HintOption _do_get(Nothing)
+	{
+		return context::Hints::Hint(Hint);
+	}
+
+	static
 	void _do_set(HintOption option, Nothing)
 	{
 		context::Hints::Hint(Hint, option);
 	}
 public:
 	CurrentHint(void)
-	 : SettingStack<HintOption, Nothing>(&_do_set)
-	{
-		try { this->_init(context::Hints::Hint(Hint)); }
-		catch(Error&){ }
-	}
+	 : SettingStack<HintOption, Nothing>(&_do_get, &_do_set)
+	{ }
 };
 
 } // namespace aux

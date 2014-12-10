@@ -21,39 +21,84 @@ namespace oglplus {
 namespace client {
 namespace aux {
 
-#if false && (GL_VERSION_4_1 || GL_ARB_viewport_array)
-
-class ViewportIndexed
- : public SettingStack<context::ViewportExtents, GLuint>
+template <typename Base>
+class ViewportOps
+ : public Base
 {
 private:
+	inline
+	Base* _that(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return this;
+	}
+protected:
+	ViewportOps(void)
+	{ }
+
+	template <typename T, typename P>
+	ViewportOps(T (*query)(P), void(*apply)(T, P), P param = P())
+	 : Base(query, apply, param)
+	{ }
+public:
+	using Base::Set;
+
+	void Set(GLsizei width, GLsizei height)
+	{
+		_that()->Set(context::ViewportExtents(0, 0, width, height));
+	}
+
+	void Set(GLint x, GLint y, GLsizei width, GLsizei height)
+	{
+		_that()->Set(context::ViewportExtents(x, y, width, height));
+	}
+};
+
+#if GL_VERSION_4_1 || GL_ARB_viewport_array
+
+class ViewportIndexed
+ : public ViewportOps<SettingStack<context::ViewportExtents, GLuint>>
+{
+private:
+	static
+	context::ViewportExtents _do_get(GLuint index)
+	{
+		return context::ViewportOps::Viewport(index);
+	}
+
 	static
 	void _do_set(context::ViewportExtents vp, GLuint index)
 	{
 		context::ViewportOps::Viewport(index, vp);
 	}
 public:
-	Viewport(GLuint index)
-	 : SettingStack<context::ViewportExtents, GLuint>(&_do_set, index)
-	{
-		try { this->_init(context::ViewportOps::Viewport(index)); }
-		catch(Error&){ }
-	}
+	ViewportIndexed(GLuint index)
+	 : ViewportOps<SettingStack<context::ViewportExtents, GLuint>>(
+		&_do_get,
+		&_do_set,
+		index
+	)
+	{ }
 };
 
 class Viewport
- : public SettingsStackIndexed<ViewportIndexed, context::ViewportExtents>
-{
-private:
-public:
-};
+ : public ViewportOps<
+	SettingStackIndexed<ViewportIndexed, context::ViewportExtents>
+>
+{ };
 
 #else
 
 class Viewport
- : public SettingStack<context::ViewportExtents, Nothing>
+ : public ViewportOps<SettingStack<context::ViewportExtents, Nothing>>
 {
 private:
+	static
+	context::ViewportExtents _do_get(Nothing)
+	{
+		return context::ViewportOps::Viewport();
+	}
+
 	static
 	void _do_set(context::ViewportExtents vp, Nothing)
 	{
@@ -61,11 +106,11 @@ private:
 	}
 public:
 	Viewport(void)
-	 : SettingStack<context::ViewportExtents, Nothing>(&_do_set)
-	{
-		try { this->_init(context::ViewportOps::Viewport()); }
-		catch(Error&){ }
-	}
+	 : ViewportOps<SettingStack<context::ViewportExtents, Nothing>>(
+		&_do_get,
+		&_do_set
+	)
+	{ }
 };
 
 #endif

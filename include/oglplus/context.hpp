@@ -66,8 +66,9 @@ class Context
  , public context::BufferMasking
  , public context::BufferClearing
  , public context::Rasterization
- , public context::Drawing
- , public context::Computing
+ , public context::DrawingOps
+ , public context::DrawingState
+ , public context::ComputingOps
  , public context::DepthTest
  , public context::StencilTest
  , public context::ScissorTest

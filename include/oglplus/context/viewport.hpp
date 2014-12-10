@@ -95,6 +95,22 @@ struct ViewportExtents
 	{
 		return _v[3];
 	}
+
+	friend
+	bool operator == (const ViewportExtents& a, const ViewportExtents& b)
+	{
+		for(unsigned i=0; i<4; ++i)
+		{
+			if(a._v[i] != b._v[i]) return false;
+		}
+		return true;
+	}
+
+	friend
+	bool operator != (const ViewportExtents& a, const ViewportExtents& b)
+	{
+		return !(a == b);
+	}
 };
 
 /// Helper structure storing the min/max bounds range
