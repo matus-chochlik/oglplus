@@ -297,7 +297,7 @@ public:
 			Error,
 			EnumParam(GLenum(GL_ACTIVE_TEXTURE))
 		);
-		return GL_TEXTURE0 - result;
+		return result - GL_TEXTURE0;
 	}
 
 	/// Returns the target for the i-th cube map @p face (0-5)

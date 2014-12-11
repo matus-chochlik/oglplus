@@ -331,6 +331,75 @@ def action_impl_enum_range_ipp(options):
 	print_newline(options)
 
 
+def action_impl_enum_class_ipp(options):
+
+	items = parse_source(options)
+
+	print_cpp_header(options)
+	print_line(options, "namespace enums {")
+
+	print_line(options, "template <typename Base, template<%s> class Transform>" % options.enum_name)
+	print_line(options, "class EnumToClass<Base, %s, Transform>" %options.enum_name)
+	print_line(options, " : public Base")
+	print_line(options, "{")
+	print_line(options, "private:")
+	print_line(options, "	Base& _base(void) { return *this; }")
+	print_line(options, "public:")
+
+	print_newline(options)
+
+	for item in items:
+
+		print_line(options, "#if defined %s_%s" % (item.prefix, item.src_name))
+
+		print_line(options, "# if defined %s" % item.dst_name)
+		print_line(options, "#  pragma push_macro(\"%s\")" % item.dst_name)
+		print_line(options, "#  undef %s" % item.dst_name)
+		print_line(options, "	Transform<%s::%s> %s;" % (
+			options.enum_name,
+			item.dst_name,
+			item.dst_name
+		))
+		print_line(options, "#  pragma pop_macro(\"%s\")" % item.dst_name)
+		print_line(options, "# else")
+		print_line(options, "	Transform<%s::%s> %s;" % (
+			options.enum_name,
+			item.dst_name,
+			item.dst_name
+		))
+		print_line(options, "# endif")
+		print_line(options, "#endif")
+
+	print_newline(options)
+	print_line(options, "	EnumToClass(void) { }")
+	print_line(options, "	EnumToClass(Base&& base)")
+	print_line(options, "	 : Base(std::move(base))")
+
+	for item in items:
+
+		print_line(options, "#if defined %s_%s" % (item.prefix, item.src_name))
+
+		print_line(options, "# if defined %s" % item.dst_name)
+		print_line(options, "#  pragma push_macro(\"%s\")" % item.dst_name)
+		print_line(options, "#  undef %s" % item.dst_name)
+		print_line(options, "	 , %s(_base())" % item.dst_name)
+		print_line(options, "#  pragma pop_macro(\"%s\")" % item.dst_name)
+		print_line(options, "# else")
+		print_line(options, "	 , %s(_base())" % item.dst_name)
+		print_line(options, "# endif")
+		print_line(options, "#endif")
+
+	print_line(options, "	{ }")
+
+
+	print_line(options, "};")
+	print_newline(options)
+
+	print_line(options, "} // namespace enums")
+	print_newline(options)
+
+
+
 def action_smart_enums_ipp(options):
 
 	enum_values = set()
@@ -371,6 +440,7 @@ actions = {
 	"impl_enum_def_ipp": action_impl_enum_def_ipp,
 	"impl_enum_names_ipp": action_impl_enum_names_ipp,
 	"impl_enum_range_ipp": action_impl_enum_range_ipp,
+	"impl_enum_class_ipp": action_impl_enum_class_ipp,
 	"smart_enums_ipp": action_smart_enums_ipp,
 	"smart_values_ipp": action_smart_values_ipp
 }

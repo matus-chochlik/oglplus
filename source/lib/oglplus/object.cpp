@@ -42,6 +42,7 @@
 
 #include <oglplus/object/desc.hpp>
 #include <oglplus/texture.hpp>
+#include <oglplus/sampler.hpp>
 #include <oglplus/buffer.hpp>
 #include <oglplus/framebuffer.hpp>
 #include <oglplus/renderbuffer.hpp>

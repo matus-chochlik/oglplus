@@ -370,7 +370,162 @@ typedef __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_Program>> NoProgram;
 
 typedef __Object<ProgramOps> Program;
 
-// TODO
+} // namespace oglplus
+
+//]
+//[oglplus_program_sugar
+
+namespace oglplus {
+
+ProgramOps& operator << (
+	ProgramOps& program,
+	__ShaderName shader
+); /*<
+Equivalent to `program.AttachShader(shader)`.
+>*/
+
+struct ProgAndXFBMode
+{
+	ProgAndXFBMode(ProgramOps& p, __TransformFeedbackMode m);
+};
+
+ProgAndXFBMode operator << (
+	ProgramOps& prog,
+	__TransformFeedbackMode mode
+);
+
+template <std::size_t N>
+ProgramOps& operator << (
+	ProgAndXFBMode pam,
+	const GLchar* (&varyings)[N]
+);
+
+struct ProgXFBModeAndNames
+{
+	ProgXFBModeAndNames(ProgAndXFBMode pam, const GLchar* name);
+
+	ProgXFBModeAndNames(ProgXFBModeAndNames&& pman, const GLchar* name);
+
+	ProgXFBModeAndNames(ProgXFBModeAndNames&& tmp);
+};
+
+ProgXFBModeAndNames operator << (
+	ProgAndXFBMode pam,
+	const GLchar* name
+);
+
+ProgXFBModeAndNames operator << (
+	ProgXFBModeAndNames&& pman,
+	const GLchar* name
+);
+
+} // namespace oglplus
+
+//]
+//[oglplus_shader_program
+
+namespace oglplus {
+
+#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
+class ShaderProgram /*<
+See [glfunc CreateShaderProgram].
+>*/
+ : public __Program
+{
+public:
+	ShaderProgram(
+		__ShaderType shader_type,
+		__GLSLString&& source
+	); /*<
+	Creates a program with a single shader with specified type and source.
+	Throws __ValidationError.
+	>*/
+
+	ShaderProgram(
+		__ShaderType shader_type,
+		__GLSLString&& source,
+		__ObjectDesc&& object_desc
+	); /*<
+	Creates a program with a single shader with specified type, source
+	and description.
+	Throws __ValidationError.
+	>*/
+
+	ShaderProgram(
+		__ShaderType shader_type,
+		__GLSLStrings&& source
+	); /*<
+	Creates a program with a single shader with specified type and source.
+	Throws __ValidationError.
+	>*/
+
+	ShaderProgram(
+		__ShaderType shader_type,
+		__GLSLStrings&& source,
+		__ObjectDesc&& object_desc
+	); /*<
+	Creates a program with a single shader with specified type, source
+	and description.
+	Throws __ValidationError.
+	>*/
+
+	ShaderProgram(
+		__ShaderType shader_type,
+		const __GLSLSource& glsl_source
+	); /*<
+	Creates a program with a single shader with specified type and source.
+	Throws __ValidationError.
+	>*/
+
+	ShaderProgram(
+		__ShaderType shader_type,
+		const __GLSLSource& glsl_source,
+		__ObjectDesc&& object_desc
+	); /*<
+	Creates a program with a single shader with specified type, source
+	and description.
+	Throws __ValidationError.
+	>*/
+};
+#endif
+
+} // namespace oglplus
+
+//]
+//[oglplus_quick_program
+
+namespace oglplus {
+
+class QuickProgram
+ : public __Program
+{
+public:
+	QuickProgram(const __Sequence<__ShaderName>& shaders); /*<
+	Attaches [^shaders], links and uses the program.
+	>*/
+
+	QuickProgram(
+		__ObjectDesc&& object_desc,
+		const __Sequence<__ShaderName>& shaders
+	); /*<
+	Attaches [^shaders], links, uses and describes the program.
+	>*/
+
+#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
+	QuickProgram(bool separable, const __Sequence<__ShaderName>& shaders); /*<
+	Attaches [^shaders], makes the program separable, links and uses it.
+	>*/
+
+	QuickProgram(
+		__ObjectDesc&& object_desc,
+		bool separable,
+		const __Sequence<__ShaderName>& shaders
+	); /*<
+	Attaches [^shaders], makes the program separable, links, uses
+	and describes it.
+	>*/
+#endif
+};
 
 } // namespace oglplus
 //]

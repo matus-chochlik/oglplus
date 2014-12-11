@@ -141,6 +141,7 @@
 
 [def __Program [link oglplus.quickref.program Program]]
 [def __NoProgram [link oglplus.quickref.program NoProgram]]
+[def __ShaderProgram [link oglplus.quickref.shader_program ShaderProgram]]
 [def __ProgramInterface [link oglplus.quickref.program_interface ProgramInterface]]
 [def __ProgramResourceProperty [link oglplus.quickref.program_interface.resource_property ProgramResourceProperty]]
 [def __ProgramResource [link oglplus.quickref.program.resource ProgramResource]]
@@ -186,6 +187,8 @@
 [def __SyncType [link oglplus.quickref.sync.type SyncType]]
 [def __SyncStatus [link oglplus.quickref.sync.status SyncStatus]]
 [def __SyncWaitResult [link oglplus.quickref.sync.wait_result SyncWaitResult]]
+
+[def __VertexAttribSlot [link oglplus.quickref.vertex_attrib_slot VertexAttribSlot]]
 
 [def __GLSLSource [link oglplus.quickref.glsl_source GLSLSource]]
 [def __GLSLString [link oglplus.quickref.glsl_string GLSLString]]
