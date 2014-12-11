@@ -57,13 +57,13 @@ struct CurrentObject
 		{ }
 
 		ObjectName<ObjTag> Get(void) const
-		OGLPLUS_NOEXCEPT(true)
+		noexcept
 		{
 			return ObjectName<ObjTag>(this->_top());
 		}
 
 		operator ObjectName<ObjTag> (void) const
-		OGLPLUS_NOEXCEPT(true)
+		noexcept
 		{
 			return Get();
 		}
@@ -120,13 +120,13 @@ public:
 	{ }
 
 	ObjectName<ObjTag> Get(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return ObjectName<ObjTag>(this->_top());
 	}
 
 	operator ObjectName<ObjTag> (void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return Get();
 	}
@@ -188,13 +188,13 @@ public:
 	{ }
 
 	ObjectName<ObjTag> Get(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return ObjectName<ObjTag>(this->_top());
 	}
 
 	operator ObjectName<ObjTag> (void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return Get();
 	}
@@ -268,13 +268,13 @@ public:
 	{ }
 
 	ObjectName<ObjTag> Get(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return ObjectName<ObjTag>(this->_top());
 	}
 
 	operator ObjectName<ObjTag> (void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return Get();
 	}

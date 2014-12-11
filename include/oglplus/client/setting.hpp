@@ -33,26 +33,26 @@ private:
 	friend class SettingStack<T, P>;
 
 	SettingHolder(void)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _pstk(nullptr)
 	{ }
 
 	SettingHolder(SettingStack<T, P>& stk)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _pstk(&stk)
 	{ }
 
 	SettingHolder(const SettingHolder&)/* = delete*/;
 public:
 	SettingHolder(SettingHolder&& tmp)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _pstk(tmp._pstk)
 	{
 		tmp._pstk = nullptr;
 	}
 
 	~SettingHolder(void)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		if(_pstk)
 		{
@@ -61,7 +61,7 @@ public:
 	}
 
 	void Pop(void)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		if(_pstk)
 		{
@@ -70,9 +70,9 @@ public:
 		}
 	}
 
-	OGLPLUS_EXPLICIT
+	explicit
 	operator bool (void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return _pstk != nullptr;
 	}
@@ -101,7 +101,7 @@ protected:
 	}
 
 	void _pop(void)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		assert(!_stk.empty());
 		assert(_apply);
@@ -174,14 +174,14 @@ public:
 
 	inline
 	T Get(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return _top();
 	}
 
 	inline
 	void Set(T value)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return _set(value);
 	}
@@ -237,14 +237,14 @@ public:
 
 	inline
 	T Get(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return _zero().Get();
 	}
 
 	inline
 	void Set(T value)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return _zero().Set(value);
 	}

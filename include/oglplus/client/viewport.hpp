@@ -28,7 +28,7 @@ class ViewportOps
 private:
 	inline
 	Base* _that(void)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return this;
 	}

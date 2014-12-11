@@ -22,12 +22,12 @@ class BoundObjOps
 {
 public:
 	BoundObjOps(void)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{ }
 
 	template <typename X>
 	BoundObjOps(X)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{ }
 };
 

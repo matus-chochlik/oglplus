@@ -72,14 +72,14 @@ public:
 	{ }
 
 	bool IsEnabled(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return this->_top();
 	}
 
-	OGLPLUS_EXPLICIT
+	explicit
 	operator bool (void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return IsEnabled();
 	}
@@ -103,14 +103,14 @@ private:
 	using SettingStackIndexed<CurrentCapabilityIndexed<Cap>, bool>::_zero;
 public:
 	bool IsEnabled(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return _zero().IsEnabled();
 	}
 
-	OGLPLUS_EXPLICIT
+	explicit
 	operator bool (void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return IsEnabled();
 	}
@@ -157,14 +157,14 @@ public:
 	{ }
 
 	bool IsEnabled(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return this->_top();
 	}
 
-	OGLPLUS_EXPLICIT
+	explicit
 	operator bool (void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return IsEnabled();
 	}
