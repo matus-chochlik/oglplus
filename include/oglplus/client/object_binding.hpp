@@ -16,6 +16,10 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/client/setting.hpp>
 #include <oglplus/utils/nothing.hpp>
+#include <oglplus/bound/buffer.hpp>
+#include <oglplus/bound/framebuffer.hpp>
+#include <oglplus/bound/renderbuffer.hpp>
+#include <oglplus/bound/texture.hpp>
 #include <oglplus/texture_unit.hpp>
 
 namespace oglplus {
@@ -29,6 +33,7 @@ struct CurrentObject
 	template <typename ObjBindingOps<ObjTag>::Target ObjTgt>
 	class WithTarget
 	 : public SettingStack<GLuint, Nothing>
+	 , public BoundObjOps<ObjTag>
 	{
 	private:
 		static
@@ -48,6 +53,7 @@ struct CurrentObject
 	public:
 		WithTarget(void)
 		 : SettingStack<GLuint, Nothing>(&_do_get, &_do_bind)
+		 , BoundObjOps<ObjTag>(ObjTgt)
 		{ }
 
 		ObjectName<ObjTag> Get(void) const

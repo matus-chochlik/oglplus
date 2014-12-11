@@ -95,7 +95,7 @@ public:
 				 1.0f,  1.0f
 			};
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, 8, rectangle_verts);
+			gl.Buffer.Array.Data(8, rectangle_verts);
 			// setup the vertex attribs array for the vertices
 			VertexArrayAttrib vert_attr(prog, "Position");
 			vert_attr.Setup<Vec2f>().Enable();
@@ -110,7 +110,7 @@ public:
 				0.0f, 0.0f, 1.0f,
 			};
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, 12, rectangle_colors);
+			gl.Buffer.Array.Data(12, rectangle_colors);
 			// setup the vertex attribs array for the vertices
 			VertexArrayAttrib color_attr(prog, "Color");
 			color_attr.Setup<Vec3f>().Enable();
