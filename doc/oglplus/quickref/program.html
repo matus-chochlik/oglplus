@@ -150,7 +150,7 @@
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c21"></a><a href="#oglplus.quickref.program.c20"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Checks if all attached shaders are compiled and if they are not the
-              it compiles them and then links this <a class="link" href="program.html" title="Programs">Program</a>.
+              it compiles them and then links this <a class="link" href="program.html#oglplus.quickref.program.def">Program</a>.
               Throws <a class="link" href="error.html#oglplus.quickref.error.program" title="Program build errors">CompileError</a>
               if any of the shaders cannot be compiled, throws <a class="link" href="error.html#oglplus.quickref.error.program" title="Program build errors">LinkError</a>
               if the program cannot be linked. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glCompileShader.xml" target="_top">glCompileShader</a></code>,
@@ -162,7 +162,7 @@
 <td valign="top" align="left"><p>
               Checks if all attached shaders are compiled and if they are not the
               it compiles them and using the specified include paths and then links
-              <code class="literal">this</code> <a class="link" href="program.html" title="Programs">Program</a>.
+              <code class="literal">this</code> <a class="link" href="program.html#oglplus.quickref.program.def">Program</a>.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glCompileShader.xml" target="_top">glCompileShader</a></code>, <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glLinkProgram.xml" target="_top">glLinkProgram</a></code>.
             </p></td>
 </tr>
@@ -532,14 +532,6 @@
 		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.program.c108" href="program.html#oglplus.quickref.program.c109"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 <span class="special">};</span>
-
-<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Program</a><span class="special">&gt;</span> <span class="identifier">ProgramOps</span><span class="special">;</span>
-
-<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper.obj_zero">ObjectZero</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Program</a><span class="special">&gt;&gt;</span> <span class="identifier">NoProgram</span><span class="special">;</span>
-
-<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&lt;</span><span class="identifier">ProgramOps</span><span class="special">&gt;</span> <span class="identifier">Program</span><span class="special">;</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -614,6 +606,21 @@
 </table></div>
 <h4>
 <a name="oglplus.quickref.program.h2"></a>
+          <span class="phrase"><a name="oglplus.quickref.program.def"></a></span><a class="link" href="program.html#oglplus.quickref.program.def">Definition</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Program</a><span class="special">&gt;</span>
+	<span class="identifier">ProgramOps</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper.obj_zero">ObjectZero</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Program</a><span class="special">&gt;&gt;</span>
+	<span class="identifier">NoProgram</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&lt;</span><span class="identifier">ProgramOps</span><span class="special">&gt;</span>
+	<span class="identifier">Program</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.program.h3"></a>
           <span class="phrase"><a name="oglplus.quickref.program.sugar"></a></span><a class="link" href="program.html#oglplus.quickref.program.sugar">Syntax
           sugar</a>
         </h4>
@@ -668,7 +675,7 @@
             </p></td>
 </tr></table></div>
 <h4>
-<a name="oglplus.quickref.program.h3"></a>
+<a name="oglplus.quickref.program.h4"></a>
           <span class="phrase"><a name="oglplus.quickref.program.shader_program"></a></span><a class="link" href="program.html#oglplus.quickref.program.shader_program">Shader
           program</a>
         </h4>
@@ -676,7 +683,7 @@
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_1</span> <span class="special">||</span> <span class="identifier">GL_ARB_separate_shader_objects</span>
 <span class="keyword">class</span> <span class="identifier">ShaderProgram</span> <a class="co" name="oglplus.quickref.program.c112" href="program.html#oglplus.quickref.program.c113"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="program.html" title="Programs">Program</a>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="program.html#oglplus.quickref.program.def">Program</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">ShaderProgram</span><span class="special">(</span>
@@ -767,20 +774,20 @@
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.program.h4"></a>
+<a name="oglplus.quickref.program.h5"></a>
           <span class="phrase"><a name="oglplus.quickref.program.quick_program"></a></span><a class="link" href="program.html#oglplus.quickref.program.quick_program">Quick
           program</a>
         </h4>
 <p>
           This class allows to supply a list of shaders and other parameters to the
-          constructor. The shaders are attached to the <a class="link" href="program.html" title="Programs">Program</a>
+          constructor. The shaders are attached to the <a class="link" href="program.html#oglplus.quickref.program.def">Program</a>
           and it is linked and made active. Optionally the program can also be made
           separable.
         </p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">QuickProgram</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="program.html" title="Programs">Program</a>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="program.html#oglplus.quickref.program.def">Program</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">QuickProgram</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ShaderName</a><span class="special">&gt;&amp;</span> <span class="identifier">shaders</span><span class="special">);</span> <a class="co" name="oglplus.quickref.program.c126" href="program.html#oglplus.quickref.program.c127"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
@@ -833,7 +840,7 @@
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.program.h5"></a>
+<a name="oglplus.quickref.program.h6"></a>
           <span class="phrase"><a name="oglplus.quickref.program.resource"></a></span><a class="link" href="program.html#oglplus.quickref.program.resource">Program
           resource</a>
         </h4>

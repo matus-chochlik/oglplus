@@ -98,16 +98,6 @@
 
 	<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">ShaderProgram</span><span class="special">(</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">shader_type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program_pipeline.c24" href="program_pipeline.html#oglplus.quickref.program_pipeline.c25"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 <span class="special">};</span>
-
-<span class="keyword">typedef</span> <span class="identifier">ObjectOps</span><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::ProgramPipeline</a><span class="special">&gt;</span>
-	<span class="identifier">ProgramPipelineOps</span><span class="special">;</span>
-
-<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&lt;</span><span class="identifier">ProgramPipelineOps</span><span class="special">&gt;</span> <span class="identifier">ProgramPipeline</span><span class="special">;</span>
-
-<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper.obj_zero">ObjectZero</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::ProgramPipeline</a><span class="special">&gt;&gt;</span>
-	<span class="identifier">NoProgramPipeline</span><span class="special">;</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -123,8 +113,8 @@
               <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glUseProgramStages.xml" target="_top">glUseProgramStages</a></code>.
             </p>
 <pre class="programlisting">
-<a class="link" href="program.html" title="Programs">Program</a> prog;
-<a class="link" href="program_pipeline.html" title="Program pipelines">ProgramPipeline</a> pp;
+<a class="link" href="program.html#oglplus.quickref.program.def">Program</a> prog;
+<a class="link" href="program_pipeline.html#oglplus.quickref.program_pipeline.def">ProgramPipeline</a> pp;
 ...
 pp.UseStages(prog).Vertex();
 pp.UseStages(prog).Vertex().Geometry();
@@ -201,6 +191,20 @@ pp.UseStages(prog).All();
 </table></div>
 <h4>
 <a name="oglplus.quickref.program_pipeline.h2"></a>
+          <span class="phrase"><a name="oglplus.quickref.program_pipeline.def"></a></span><a class="link" href="program_pipeline.html#oglplus.quickref.program_pipeline.def">Definition</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">ObjectOps</span><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::ProgramPipeline</a><span class="special">&gt;</span>
+	<span class="identifier">ProgramPipelineOps</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&lt;</span><span class="identifier">ProgramPipelineOps</span><span class="special">&gt;</span> <span class="identifier">ProgramPipeline</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper.obj_zero">ObjectZero</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::ProgramPipeline</a><span class="special">&gt;&gt;</span>
+	<span class="identifier">NoProgramPipeline</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.program_pipeline.h3"></a>
           <span class="phrase"><a name="oglplus.quickref.program_pipeline.stage"></a></span><a class="link" href="program_pipeline.html#oglplus.quickref.program_pipeline.stage">Stage</a>
         </h4>
 <p>

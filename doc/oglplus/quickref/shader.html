@@ -100,8 +100,6 @@
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ReleaseCompiler</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.shader.c14" href="shader.html#oglplus.quickref.shader.c15"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
-
-<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Shader</a><span class="special">&gt;</span> <span class="identifier">ShaderOps</span><span class="special">;</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -152,7 +150,9 @@
             </p></td>
 </tr>
 </table></div>
-<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Shader</span>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Shader</a><span class="special">&gt;</span> <span class="identifier">ShaderOps</span><span class="special">;</span>
+
+<span class="keyword">class</span> <span class="identifier">Shader</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&lt;</span><span class="identifier">ShaderOps</span><span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
