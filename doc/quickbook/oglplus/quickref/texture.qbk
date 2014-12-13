@@ -10,6 +10,10 @@
 
 [import texture.hpp]
 
+[heading Subtype]
+
+[oglplus_texture_subtype]
+
 [heading Common texture operations]
 
 [oglplus_texture_common]
@@ -17,6 +21,10 @@
 [heading Operations with explicit selector]
 
 [oglplus_texture_1]
+
+[heading:def Definition]
+
+[oglplus_texture_def]
 
 [heading:target Target]
 

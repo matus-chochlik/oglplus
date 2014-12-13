@@ -4,7 +4,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_texture_common
+//[oglplus_texture_subtype
 namespace oglplus {
 
 template <>
@@ -13,6 +13,8 @@ struct __ObjectSubtype<__tag_Texture>
 	typedef __TextureTarget Type;
 };
 
+//]
+//[oglplus_texture_common
 
 template <>
 class __ObjCommonOps<__tag_Texture>
@@ -69,14 +71,7 @@ public:
 	See [glfunc BindImageTextures].
 	>*/
 #endif
-};
-//]
-//[oglplus_texture_1
-template <>
-class __ObjectOps<__tag_ExplicitSel, __tag_Texture>
- : public __ObjZeroOps<__tag_ExplicitSel, __tag_Texture>
-{
-public:
+
 	static void Active(__TextureUnitSelector index); /*<
 	Specifies active texture unit for subsequent commands.
 	See [glfunc ActiveTexture].
@@ -100,9 +95,90 @@ public:
 	[5 = [^__TextureTarget::CubeMapNegativeZ]]
 	]
 	>*/
+
+#if GL_VERSION_4_3
+	void InvalidateImage(GLsizei level); /*<
+	Invalidates the specified [^level] of texture image.
+	See [glfunc InvalidateTexImage].
+	>*/
+
+	void InvalidateSubImage(
+		GLsizei level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth
+	); /*<
+	Invalidates the specified part of texture image.
+	See [glfunc InvalidateTexSubImage].
+	>*/
+#endif
+
+#if GL_VERSION_4_4
+	template <typename GLtype>
+	void ClearImage(
+		GLsizei level,
+		__PixelDataFormat format,
+		const GLtype* data
+	); /*<
+	Clears the specified [^level] of texture image.
+	See [glfunc ClearTexImage].
+	>*/
+
+	template <typename GLtype>
+	void ClearSubImage(
+		GLsizei level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		__PixelDataFormat format,
+		const GLtype* data
+	); /*<
+	Clears the specified part of texture image.
+	See [glfunc ClearTexSubImage].
+	>*/
+#endif
+
+#if GL_VERSION_4_3 || GL_ARB_texture_view
+	void View(
+		Target target,
+		__TextureName orig_texture,
+		__PixelDataInternalFormat internal_format,
+		GLuint min_level,
+		GLuint num_levels,
+		GLuint min_layer,
+		GLuint num_layers
+	); /*<
+	References and reinteprets a subset of the data of another texture.
+	See [glfunc TextureView].
+	>*/
+#endif
+};
+//]
+//[oglplus_texture_1
+template <>
+class __ObjectOps<__tag_ExplicitSel, __tag_Texture>
+ : public __ObjZeroOps<__tag_ExplicitSel, __tag_Texture>
+{
+public:
 };
 
 // TODO
+
+//]
+//[oglplus_texture_def
+typedef ObjectOps<__tag_ExplicitSel, __tag_Texture>
+	TextureOps;
+
+typedef __Object<TextureOps> Texture;
+
+typedef __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Texture>>
+	DefaultTexture;
 
 } // namespace oglplus
 //]

@@ -118,7 +118,7 @@ public:
 	>*/
 };
 //]
-//[oglplus_renderbuffer_2
+//[oglplus_renderbuffer_def
 
 typedef ObjectOps<__tag_ExplicitSel, __tag_Renderbuffer>
 	RenderbufferOps;
