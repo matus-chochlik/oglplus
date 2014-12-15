@@ -16,14 +16,70 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/blend_function.hpp>
 
+#ifdef RGB
+#undef RGB
+#endif
+
 namespace oglplus {
 namespace context {
+
+struct BlendEquationSeparate
+{
+	GLint _v[2];
+
+	BlendEquationSeparate(void)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
+	BlendEquationSeparate(BlendEquation rgb, BlendEquation alpha)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_v[0] = GLint(GLenum(rgb));
+		_v[1] = GLint(GLenum(alpha));
+	}
+
+	BlendEquation RGB(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return BlendEquation(GLenum(_v[0]));
+	}
+
+	BlendEquation Alpha(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return BlendEquation(GLenum(_v[1]));
+	}
+
+	bool Separate(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _v[0] != _v[1];
+	}
+
+	friend
+	bool operator == (
+		const BlendEquationSeparate& a,
+		const BlendEquationSeparate& b
+	) OGLPLUS_NOEXCEPT(true)
+	{
+		return (a._v[0] == b._v[0]) && (a._v[1] == b._v[1]);
+	}
+
+	friend
+	bool operator != (
+		const BlendEquationSeparate& a,
+		const BlendEquationSeparate& b
+	) OGLPLUS_NOEXCEPT(true)
+	{
+		return (a._v[0] != b._v[0]) || (a._v[1] != b._v[1]);
+	}
+};
 
 /// Wrapper for blending operations
 /**
  *  @ingroup ogl_context
  */
-class Blending
+class BlendingOps
 {
 public:
 
@@ -39,7 +95,15 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(BlendBarrierKHR);
 	}
 #endif
+};
 
+/// Wrapper for blending operations
+/**
+ *  @ingroup ogl_context
+ */
+class BlendingState
+{
+public:
 	/// Sets the blend equation
 	/**
 	 *  @glsymbols
@@ -74,6 +138,49 @@ public:
 			GLenum(eq_alpha)
 		);
 		OGLPLUS_VERIFY_SIMPLE(BlendEquationSeparate);
+	}
+
+	static void BlendEquationSeparate(
+		const oglplus::context::BlendEquationSeparate& eq
+	)
+	{
+		OGLPLUS_GLFUNC(BlendEquationSeparate)(
+			GLenum(eq._v[0]),
+			GLenum(eq._v[1])
+		);
+		OGLPLUS_VERIFY_SIMPLE(BlendEquationSeparate);
+	}
+
+	static oglplus::context::BlendEquationSeparate BlendEquationSeparate(void)
+	{
+		oglplus::context::BlendEquationSeparate result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_BLEND_EQUATION_RGB,
+			&result._v[0]
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_BLEND_EQUATION_ALPHA,
+			&result._v[1]
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return result;
+	}
+
+	static oglplus::BlendEquation BlendEquationRGB(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_BLEND_EQUATION_RGB, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return oglplus::BlendEquation(GLenum(result));
+	}
+
+	static oglplus::BlendEquation BlendEquationAlpha(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_BLEND_EQUATION_ALPHA, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return oglplus::BlendEquation(GLenum(result));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
@@ -124,6 +231,82 @@ public:
 			Error,
 			Index(buffer)
 		);
+	}
+
+	static void BlendEquationSeparate(
+		GLuint buffer,
+		const oglplus::context::BlendEquationSeparate& eq
+	)
+	{
+		OGLPLUS_GLFUNC(BlendEquationSeparatei)(
+			buffer,
+			GLenum(eq._v[0]),
+			GLenum(eq._v[1])
+		);
+		OGLPLUS_VERIFY(
+			BlendEquationSeparatei,
+			Error,
+			Index(buffer)
+		);
+	}
+
+	static oglplus::context::BlendEquationSeparate
+	BlendEquationSeparate(GLuint buffer)
+	{
+		oglplus::context::BlendEquationSeparate result;
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_BLEND_EQUATION_RGB,
+			buffer,
+			&result._v[0]
+		);
+		OGLPLUS_CHECK(
+			GetIntegeri_v,
+			Error,
+			Index(buffer)
+		);
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_BLEND_EQUATION_ALPHA,
+			buffer,
+			&result._v[1]
+		);
+		OGLPLUS_CHECK(
+			GetIntegeri_v,
+			Error,
+			Index(buffer)
+		);
+		return result;
+	}
+
+	static oglplus::BlendEquation BlendEquationRGB(GLuint buffer)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_BLEND_EQUATION_RGB,
+			buffer,
+			&result
+		);
+		OGLPLUS_CHECK(
+			GetIntegeri_v,
+			Error,
+			Index(buffer)
+		);
+		return oglplus::BlendEquation(GLenum(result));
+	}
+
+	static oglplus::BlendEquation BlendEquationAlpha(GLuint buffer)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_BLEND_EQUATION_ALPHA,
+			buffer,
+			&result
+		);
+		OGLPLUS_CHECK(
+			GetIntegeri_v,
+			Error,
+			Index(buffer)
+		);
+		return oglplus::BlendEquation(GLenum(result));
 	}
 #endif
 

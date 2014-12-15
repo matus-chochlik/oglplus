@@ -74,7 +74,8 @@ class Context
  , public context::ScissorTest
  , public context::LogicalOps
  , public context::PixelOps
- , public context::Blending
+ , public context::BlendingOps
+ , public context::BlendingState
  , public context::Synchronization
  , public context::Hints
  , public context::LimitQueries
