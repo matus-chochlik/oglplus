@@ -166,6 +166,11 @@ install(
 	DESTINATION include/oglplus/config
 )
 
+configure_file(
+	${PROJECT_SOURCE_DIR}/eagine/config/eagine/site_config.hpp.in
+	${PROJECT_BINARY_DIR}/eagine/include/eagine/site_config.hpp
+)
+
 # include the oglplus headers
 include_directories(${PROJECT_SOURCE_DIR}/include)
 # include the generated headers
@@ -177,6 +182,8 @@ include_directories(${PROJECT_SOURCE_DIR}/implement)
 
 # include the eagine headers
 include_directories(${PROJECT_SOURCE_DIR}/eagine/include)
+# include the eagine generated headers
+include_directories(${PROJECT_BINARY_DIR}/eagine/include)
 # include the eagine third party headers
 include_directories(${PROJECT_SOURCE_DIR}/eagine/third_party/include)
 # include the eagine implementation

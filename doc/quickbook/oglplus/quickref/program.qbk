@@ -21,6 +21,10 @@
 [oglplus_program_4]
 [oglplus_program_5]
 
+[heading:def Definition]
+
+[oglplus_program_def]
+
 [heading:sugar Syntax sugar]
 
 [oglplus_program_sugar]

@@ -110,6 +110,8 @@ public:
 	See [glfunc GetProgramPipeline].
 	>*/
 };
+//]
+//[oglplus_program_pipeline_def
 
 typedef ObjectOps<__tag_DirectState, __tag_ProgramPipeline>
 	ProgramPipelineOps;

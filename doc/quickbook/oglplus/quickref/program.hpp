@@ -363,12 +363,17 @@ public:
 	attribute.
 	>*/
 };
+//]
+//[oglplus_program_def
 
-typedef __ObjectOps<__tag_DirectState, __tag_Program> ProgramOps;
+typedef __ObjectOps<__tag_DirectState, __tag_Program>
+	ProgramOps;
 
-typedef __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_Program>> NoProgram;
+typedef __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_Program>>
+	NoProgram;
 
-typedef __Object<ProgramOps> Program;
+typedef __Object<ProgramOps>
+	Program;
 
 } // namespace oglplus
 

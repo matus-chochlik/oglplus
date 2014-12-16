@@ -20,6 +20,7 @@
 #include <oglplus/client/depth_test.hpp>
 #include <oglplus/client/logical_ops.hpp>
 #include <oglplus/client/viewport.hpp>
+#include <oglplus/client/blending.hpp>
 
 #include <oglplus/client/drawing.hpp>
 #include <oglplus/client/computing.hpp>
@@ -33,6 +34,8 @@ class ClientContext
  , public client::DepthTest
  , public client::LogicalOps
  , public client::ViewportOps
+ , public client::BlendingOps
+ , public client::BlendingState
  , public client::DrawingOps
  , public client::ComputingOps
 { };

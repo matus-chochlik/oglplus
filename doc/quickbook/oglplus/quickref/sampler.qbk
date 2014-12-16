@@ -18,7 +18,10 @@
 
 [oglplus_sampler_1]
 [oglplus_sampler_2]
-[oglplus_sampler_3]
+
+[heading:def Definition]
+
+[oglplus_sampler_def]
 
 [heading:syntax_sugar Syntax sugar operators]
 

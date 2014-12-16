@@ -198,7 +198,7 @@ public:
 #endif
 };
 //]
-//[oglplus_framebuffer_3
+//[oglplus_framebuffer_def
 
 typedef ObjectOps<__tag_ExplicitSel, __tag_Framebuffer>
 	FramebufferOps;
