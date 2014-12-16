@@ -75,6 +75,84 @@ struct BlendEquationSeparate
 	}
 };
 
+struct BlendFunctionSeparate
+{
+	GLint _v[4];
+
+	BlendFunctionSeparate(void)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
+	BlendFunctionSeparate(
+		BlendFunction src_rgb,
+		BlendFunction src_alpha,
+		BlendFunction dst_rgb,
+		BlendFunction dst_alpha
+	)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_v[0] = GLint(GLenum(src_rgb));
+		_v[1] = GLint(GLenum(src_alpha));
+		_v[2] = GLint(GLenum(dst_rgb));
+		_v[3] = GLint(GLenum(dst_alpha));
+	}
+
+	BlendFunction SrcRGB(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return BlendFunction(GLenum(_v[0]));
+	}
+
+	BlendFunction SrcAlpha(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return BlendFunction(GLenum(_v[1]));
+	}
+
+	BlendFunction DstRGB(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return BlendFunction(GLenum(_v[2]));
+	}
+
+	BlendFunction DstAlpha(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return BlendFunction(GLenum(_v[3]));
+	}
+
+	bool Separate(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return (_v[0] != _v[1]) || (_v[2] == _v[3]);
+	}
+
+	friend
+	bool operator == (
+		const BlendFunctionSeparate& a,
+		const BlendFunctionSeparate& b
+	) OGLPLUS_NOEXCEPT(true)
+	{
+		for(unsigned i=0; i<4; ++i)
+		{
+			if(a._v[i] != b._v[i])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	friend
+	bool operator != (
+		const BlendFunctionSeparate& a,
+		const BlendFunctionSeparate& b
+	) OGLPLUS_NOEXCEPT(true)
+	{
+		return !(a == b);
+	}
+};
+
 /// Wrapper for blending operations
 /**
  *  @ingroup ogl_context
@@ -342,6 +420,77 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(BlendFuncSeparate);
 	}
 
+	static void BlendFuncSeparate(
+		const oglplus::context::BlendFunctionSeparate& fn
+	)
+	{
+		OGLPLUS_GLFUNC(BlendFuncSeparate)(
+			GLenum(fn._v[0]),
+			GLenum(fn._v[1]),
+			GLenum(fn._v[2]),
+			GLenum(fn._v[3])
+		);
+		OGLPLUS_VERIFY_SIMPLE(BlendFuncSeparate);
+	}
+
+	static oglplus::context::BlendFunctionSeparate BlendFuncSeparate(void)
+	{
+		oglplus::context::BlendFunctionSeparate result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_BLEND_SRC_RGB,
+			&result._v[0]
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_BLEND_SRC_ALPHA,
+			&result._v[1]
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_BLEND_DST_RGB,
+			&result._v[2]
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_BLEND_DST_ALPHA,
+			&result._v[3]
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return result;
+	}
+
+	static oglplus::BlendFunction BlendFuncSrcRGB(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_BLEND_SRC_RGB, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return oglplus::BlendFunction(GLenum(result));
+	}
+
+	static oglplus::BlendFunction BlendFuncSrcAlpha(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_BLEND_SRC_ALPHA, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return oglplus::BlendFunction(GLenum(result));
+	}
+
+	static oglplus::BlendFunction BlendFuncDstRGB(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_BLEND_DST_RGB, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return oglplus::BlendFunction(GLenum(result));
+	}
+
+	static oglplus::BlendFunction BlendFuncDstAlpha(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_BLEND_DST_ALPHA, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return oglplus::BlendFunction(GLenum(result));
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
 	/// Sets the blend function for a particular @p buffer
 	/**
@@ -389,6 +538,136 @@ public:
 			Error,
 			Index(buffer)
 		);
+	}
+
+	static void BlendFuncSeparate(
+		GLuint buffer,
+		const oglplus::context::BlendFunctionSeparate& eq
+	)
+	{
+		OGLPLUS_GLFUNC(BlendFuncSeparatei)(
+			buffer,
+			GLenum(eq._v[0]),
+			GLenum(eq._v[1]),
+			GLenum(eq._v[2]),
+			GLenum(eq._v[3])
+		);
+		OGLPLUS_VERIFY(
+			BlendFuncSeparatei,
+			Error,
+			Index(buffer)
+		);
+	}
+
+	static oglplus::context::BlendFunctionSeparate
+	BlendFuncSeparate(GLuint buffer)
+	{
+		oglplus::context::BlendFunctionSeparate result;
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_BLEND_SRC_RGB,
+			buffer,
+			&result._v[0]
+		);
+		OGLPLUS_CHECK(
+			GetIntegeri_v,
+			Error,
+			Index(buffer)
+		);
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_BLEND_SRC_ALPHA,
+			buffer,
+			&result._v[1]
+		);
+		OGLPLUS_CHECK(
+			GetIntegeri_v,
+			Error,
+			Index(buffer)
+		);
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_BLEND_DST_RGB,
+			buffer,
+			&result._v[2]
+		);
+		OGLPLUS_CHECK(
+			GetIntegeri_v,
+			Error,
+			Index(buffer)
+		);
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_BLEND_DST_ALPHA,
+			buffer,
+			&result._v[3]
+		);
+		OGLPLUS_CHECK(
+			GetIntegeri_v,
+			Error,
+			Index(buffer)
+		);
+		return result;
+	}
+
+	static oglplus::BlendFunction BlendFuncSrcRGB(GLuint buffer)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_BLEND_SRC_RGB,
+			buffer,
+			&result
+		);
+		OGLPLUS_CHECK(
+			GetIntegeri_v,
+			Error,
+			Index(buffer)
+		);
+		return oglplus::BlendFunction(GLenum(result));
+	}
+
+	static oglplus::BlendFunction BlendFuncSrcAlpha(GLuint buffer)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_BLEND_SRC_ALPHA,
+			buffer,
+			&result
+		);
+		OGLPLUS_CHECK(
+			GetIntegeri_v,
+			Error,
+			Index(buffer)
+		);
+		return oglplus::BlendFunction(GLenum(result));
+	}
+
+	static oglplus::BlendFunction BlendFuncDstRGB(GLuint buffer)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_BLEND_DST_RGB,
+			buffer,
+			&result
+		);
+		OGLPLUS_CHECK(
+			GetIntegeri_v,
+			Error,
+			Index(buffer)
+		);
+		return oglplus::BlendFunction(GLenum(result));
+	}
+
+	static oglplus::BlendFunction BlendFuncDstAlpha(GLuint buffer)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_BLEND_DST_ALPHA,
+			buffer,
+			&result
+		);
+		OGLPLUS_CHECK(
+			GetIntegeri_v,
+			Error,
+			Index(buffer)
+		);
+		return oglplus::BlendFunction(GLenum(result));
 	}
 #endif
 
