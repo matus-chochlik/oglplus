@@ -174,7 +174,10 @@ inline wxString MakeCommonErrorMessage(oglplus::Error& error)
 		{
 			message.Append(wxString::Format(
 				wxT("'%s'\r\n"),
-				wxString(error.ObjectDesc().c_str(), wxConvLocal).c_str()
+				wxString(
+					error.ObjectDesc().std_str().c_str(),
+					wxConvLocal
+				).c_str()
 			));
 		}
 		else
@@ -212,7 +215,10 @@ inline wxString MakeCommonErrorMessage(oglplus::Error& error)
 		{
 			message.Append(wxString::Format(
 				wxT("'%s'\r\n"),
-				wxString(error.SubjectDesc().c_str(), wxConvLocal).c_str()
+				wxString(
+					error.SubjectDesc().std_str().c_str(),
+					wxConvLocal
+				).c_str()
 			));
 		}
 		else
