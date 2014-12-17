@@ -175,7 +175,6 @@ public:
 	template <typename ... A>
 	inline
 	void Push(A&& ... a)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _push(T(std::forward<A>(a)...));
 	}
@@ -189,7 +188,6 @@ public:
 
 	inline
 	void Set(T value)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _set(value);
 	}
@@ -197,7 +195,6 @@ public:
 	template <typename ... A>
 	inline
 	void Set(A&& ... a)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _set(T(std::forward<A>(a)...));
 	}
@@ -254,7 +251,6 @@ public:
 	template <typename ... A>
 	inline
 	Holder Push(A&& ... a)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		_zero().Push(std::forward<A>(a)...);
 	}
@@ -268,7 +264,6 @@ public:
 
 	inline
 	void Set(T value)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		_zero().Set(value);
 	}
@@ -276,7 +271,6 @@ public:
 	template <typename ... A>
 	inline
 	void Set(A&& ... a)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		_zero().Set(std::forward<A>(a)...);
 	}
