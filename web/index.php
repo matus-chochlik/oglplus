@@ -194,6 +194,7 @@
 				</ul>
 				<h3>Related projects</h3>
 				<ul>
+					<li id="eagine"><a href="https://github.com/matus-chochlik/eagine">EAGine</a></li>
 					<li id="angles"><a href="https://github.com/matus-chochlik/angle">Angles</a></li>
 				</ul>
 				<h3>Other resources</h3>

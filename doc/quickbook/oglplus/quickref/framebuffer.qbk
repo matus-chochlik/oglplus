@@ -19,9 +19,9 @@
 [oglplus_framebuffer_1]
 [oglplus_framebuffer_2]
 
-[heading:def Definitions]
+[heading:def Definition]
 
-[oglplus_framebuffer_3]
+[oglplus_framebuffer_def]
 
 [heading:syntax_sugar Syntax sugar operators]
 

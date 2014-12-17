@@ -59,6 +59,9 @@ Range<Enum> EnumValueRange(void);
 
 namespace enums {
 
+template <typename Base, typename Enum, template <Enum> class Transform>
+class EnumToClass;
+
 template <typename Enum>
 struct EnumBaseType
 {

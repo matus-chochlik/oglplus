@@ -66,14 +66,16 @@ class Context
  , public context::BufferMasking
  , public context::BufferClearing
  , public context::Rasterization
- , public context::Drawing
- , public context::Computing
+ , public context::DrawingOps
+ , public context::DrawingState
+ , public context::ComputingOps
  , public context::DepthTest
  , public context::StencilTest
  , public context::ScissorTest
  , public context::LogicalOps
  , public context::PixelOps
- , public context::Blending
+ , public context::BlendingOps
+ , public context::BlendingState
  , public context::Synchronization
  , public context::Hints
  , public context::LimitQueries
