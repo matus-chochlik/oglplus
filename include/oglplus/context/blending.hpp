@@ -15,6 +15,7 @@
 
 #include <oglplus/glfunc.hpp>
 #include <oglplus/blend_function.hpp>
+#include <oglplus/context/color.hpp>
 
 #ifdef RGB
 #undef RGB
@@ -680,6 +681,28 @@ public:
 	{
 		OGLPLUS_GLFUNC(BlendColor)(r, g, b, a);
 		OGLPLUS_VERIFY_SIMPLE(BlendColor);
+	}
+
+	static void BlendColor(const oglplus::context::RGBAValue& rgba)
+	{
+		OGLPLUS_GLFUNC(BlendColor)(
+			rgba._v[0],
+			rgba._v[1],
+			rgba._v[2],
+			rgba._v[3]
+		);
+		OGLPLUS_VERIFY_SIMPLE(BlendColor);
+	}
+
+	static oglplus::context::RGBAValue BlendColor(void)
+	{
+		oglplus::context::RGBAValue result;
+		OGLPLUS_GLFUNC(GetFloatv)(
+			GL_BLEND_COLOR,
+			result._v
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
+		return result;
 	}
 };
 

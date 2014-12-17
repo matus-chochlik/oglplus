@@ -63,8 +63,9 @@ class Context
  , public context::Capabilities
  , public context::ViewportOps
  , public context::BufferSelection
- , public context::BufferMasking
- , public context::BufferClearing
+ , public context::BufferMaskingState
+ , public context::BufferClearingState
+ , public context::BufferClearingOps
  , public context::Rasterization
  , public context::DrawingOps
  , public context::DrawingState

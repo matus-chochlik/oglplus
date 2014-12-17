@@ -172,6 +172,13 @@ public:
 		return _push(value);
 	}
 
+	template <typename ... A>
+	inline
+	void Push(A&& ... a)
+	{
+		return _push(T(std::forward<A>(a)...));
+	}
+
 	inline
 	T Get(void) const
 	noexcept
@@ -184,6 +191,13 @@ public:
 	noexcept
 	{
 		return _set(value);
+	}
+
+	template <typename ... A>
+	inline
+	void Set(A&& ... a)
+	{
+		return _set(T(std::forward<A>(a)...));
 	}
 };
 
@@ -235,6 +249,13 @@ public:
 		return _zero().Push(value);
 	}
 
+	template <typename ... A>
+	inline
+	Holder Push(A&& ... a)
+	{
+		_zero().Push(std::forward<A>(a)...);
+	}
+
 	inline
 	T Get(void) const
 	noexcept
@@ -246,7 +267,14 @@ public:
 	void Set(T value)
 	noexcept
 	{
-		return _zero().Set(value);
+		_zero().Set(value);
+	}
+
+	template <typename ... A>
+	inline
+	void Set(A&& ... a)
+	{
+		_zero().Set(std::forward<A>(a)...);
 	}
 };
 

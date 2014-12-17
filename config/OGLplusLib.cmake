@@ -13,7 +13,11 @@ set(OGLPLUS_CONFIG_REQUIRED_INCLUDE_DIRS
 	"${PROJECT_SOURCE_DIR}/include;"
 	"${PROJECT_SOURCE_DIR}/implement;"
 	"${PROJECT_SOURCE_DIR}/third_party/include;"
-	"${PROJECT_BINARY_DIR}/include"
+	"${PROJECT_BINARY_DIR}/include;"
+	"${PROJECT_SOURCE_DIR}/eagine/include;"
+	"${PROJECT_SOURCE_DIR}/eagine/implement;"
+	"${PROJECT_SOURCE_DIR}/eagine/third_party/include;"
+	"${PROJECT_BINARY_DIR}/eagine/include"
 )
 
 set(OGLPLUS_CONFIG_REQUIRED_LIBRARIES

@@ -120,7 +120,7 @@ public:
 
 	void Reshape(GLuint width, GLuint height)
 	{
-		gl.Viewport.Set(width, height);
+		gl.Viewport.Set(0, 0, width, height);
 	}
 
 	void Render(double)

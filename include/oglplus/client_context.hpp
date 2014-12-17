@@ -21,6 +21,8 @@
 #include <oglplus/client/logical_ops.hpp>
 #include <oglplus/client/viewport.hpp>
 #include <oglplus/client/blending.hpp>
+#include <oglplus/client/buffer_clearing.hpp>
+#include <oglplus/client/buffer_masking.hpp>
 
 #include <oglplus/client/drawing.hpp>
 #include <oglplus/client/computing.hpp>
@@ -33,7 +35,10 @@ class ClientContext
  , public client::CurrentHints
  , public client::DepthTest
  , public client::LogicalOps
- , public client::ViewportOps
+ , public client::ViewportState
+ , public client::BufferMaskingState
+ , public client::BufferClearingOps
+ , public client::BufferClearingState
  , public client::BlendingOps
  , public client::BlendingState
  , public client::DrawingOps
