@@ -18,6 +18,20 @@
 namespace oglplus {
 
 template <typename ObjTag>
+class BoundObjOps
+{
+public:
+	BoundObjOps(void)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
+	template <typename X>
+	BoundObjOps(X)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+};
+
+template <typename ObjTag>
 class ObjectOps<tag::CurrentBound, ObjTag>
  : public ObjCommonOps<ObjTag>
  , public BoundObjOps<ObjTag>

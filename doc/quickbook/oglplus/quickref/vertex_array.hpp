@@ -27,7 +27,7 @@ public:
 	>*/
 };
 //]
-//[oglplus_vertex_array_1
+//[oglplus_vertex_array_def
 
 typedef __ObjectOps<__tag_ImplicitSel, __tag_VertexArray>
 	VertexArrayOps;

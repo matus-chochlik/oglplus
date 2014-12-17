@@ -173,7 +173,7 @@ public:
 #endif
 };
 //]
-//[oglplus_sampler_3
+//[oglplus_sampler_def
 typedef ObjectOps<__tag_DirectState, __tag_Sampler>
 	SamplerOps;
 

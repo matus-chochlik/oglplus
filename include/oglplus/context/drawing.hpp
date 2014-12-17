@@ -27,7 +27,7 @@ namespace context {
 /**
  *  @ingroup ogl_context
  */
-class Drawing
+class DrawingOps
 {
 public:
 	/// Draws @a count of primitives from the bound array buffers
@@ -959,7 +959,15 @@ public:
 		);
 	}
 #endif
+};
 
+/// Wrapper for primitive drawing settings
+/**
+ *  @ingroup ogl_context
+ */
+class DrawingState
+{
+public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 	/// Sets the primitive restart index
 	/**

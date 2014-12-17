@@ -70,7 +70,7 @@ public:
 	typedef __TransformFeedbackPauser Pauser;
 };
 //]
-//[oglplus_transform_feedback_1
+//[oglplus_transform_feedback_def
 
 #if GL_VERSION_4_0 || GL_ARB_transform_feedback2
 typedef ObjectOps<__tag_ImplicitSel, __tag_TransformFeedback>

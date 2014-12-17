@@ -18,6 +18,10 @@
 
 [oglplus_program_pipeline_1]
 
+[heading:def Definition]
+
+[oglplus_program_pipeline_def]
+
 [heading:stage Stage]
 
 [header oglplus/program_pipeline_stage.hpp]

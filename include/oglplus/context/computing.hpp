@@ -22,7 +22,7 @@ namespace context {
 /**
  *  @ingroup ogl_context
  */
-class Computing
+class ComputingOps
 {
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3

@@ -79,8 +79,6 @@ protected:
 template <>
 class ObjBindingOps<tag::Sampler>
 {
-private:
-	static GLenum _binding_query(TextureUnitSelector target);
 protected:
 	static GLuint _binding(TextureUnitSelector target);
 public:
@@ -879,5 +877,9 @@ typedef Object<SamplerOps> Sampler;
 #endif // sampler object
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/sampler.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

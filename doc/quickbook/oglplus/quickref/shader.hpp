@@ -95,10 +95,10 @@ public:
 #endif
 };
 
-typedef __ObjectOps<__tag_DirectState, __tag_Shader> ShaderOps;
-
 //]
 //[oglplus_shader_2
+
+typedef __ObjectOps<__tag_DirectState, __tag_Shader> ShaderOps;
 
 class Shader
  : public __Object<ShaderOps>

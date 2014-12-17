@@ -329,7 +329,7 @@ public:
 #endif
 };
 //]
-//[oglplus_buffer_3
+//[oglplus_buffer_def
 
 typedef ObjectOps<__tag_ExplicitSel, __tag_Buffer>
 	BufferOps;

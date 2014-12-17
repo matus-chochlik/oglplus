@@ -11,6 +11,7 @@ all: \
 	_impl_enum_def_ipp \
 	_impl_enum_names_ipp \
 	_impl_enum_range_ipp \
+	_impl_enum_class_ipp \
 	_smart_enums_ipp \
 	_smart_values_ipp \
 	_qbk_qref_hpp
@@ -62,6 +63,19 @@ $(ROOT)/implement/$(LIBRARY)/enums/%_range.ipp: %.txt $(MAKE_ENUM)
 		--library $(LIBRARY) \
 		--base-lib-prefix $(LIB_PREFIX)\
 		--action impl_enum_range_ipp \
+		--input "$<" \
+		--output "$@" \
+		--output-id "$(subst /,_,$*)"
+	git add "$@"
+
+.PHONY: _impl_enum_class_ipp
+_impl_enum_class_ipp: $(addprefix $(ROOT)/implement/$(LIBRARY)/enums/,$(patsubst %.txt,%_class.ipp,$(SOURCES)))
+
+$(ROOT)/implement/$(LIBRARY)/enums/%_class.ipp: %.txt $(MAKE_ENUM)
+	$(MAKE_ENUM) \
+		--library $(LIBRARY) \
+		--base-lib-prefix $(LIB_PREFIX)\
+		--action impl_enum_class_ipp \
 		--input "$<" \
 		--output "$@" \
 		--output-id "$(subst /,_,$*)"
