@@ -21,43 +21,10 @@ namespace oglplus {
 namespace client {
 namespace aux {
 
-template <typename Base>
-class ViewportOps
- : public Base
-{
-private:
-	inline
-	Base* _that(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return this;
-	}
-protected:
-	ViewportOps(void)
-	{ }
-
-	template <typename T, typename P>
-	ViewportOps(T (*query)(P), void(*apply)(T, P), P param = P())
-	 : Base(query, apply, param)
-	{ }
-public:
-	using Base::Set;
-
-	void Set(GLsizei width, GLsizei height)
-	{
-		_that()->Set(context::ViewportExtents(0, 0, width, height));
-	}
-
-	void Set(GLint x, GLint y, GLsizei width, GLsizei height)
-	{
-		_that()->Set(context::ViewportExtents(x, y, width, height));
-	}
-};
-
 #if GL_VERSION_4_1 || GL_ARB_viewport_array
 
 class ViewportIndexed
- : public ViewportOps<SettingStack<context::ViewportExtents, GLuint>>
+ : public SettingStack<context::ViewportExtents, GLuint>
 {
 private:
 	static
@@ -73,7 +40,7 @@ private:
 	}
 public:
 	ViewportIndexed(GLuint index)
-	 : ViewportOps<SettingStack<context::ViewportExtents, GLuint>>(
+	 : SettingStack<context::ViewportExtents, GLuint>(
 		&_do_get,
 		&_do_set,
 		index
@@ -82,15 +49,13 @@ public:
 };
 
 class Viewport
- : public ViewportOps<
-	SettingStackIndexed<ViewportIndexed, context::ViewportExtents>
->
+ : public SettingStackIndexed<ViewportIndexed, context::ViewportExtents>
 { };
 
 #else
 
 class Viewport
- : public ViewportOps<SettingStack<context::ViewportExtents, Nothing>>
+ : public SettingStack<context::ViewportExtents, Nothing>
 {
 private:
 	static
@@ -106,7 +71,7 @@ private:
 	}
 public:
 	Viewport(void)
-	 : ViewportOps<SettingStack<context::ViewportExtents, Nothing>>(
+	 : SettingStack<context::ViewportExtents, Nothing>(
 		&_do_get,
 		&_do_set
 	)
@@ -117,7 +82,7 @@ public:
 
 } // namespace aux
 
-class ViewportOps
+class ViewportState
 {
 public:
 	aux::Viewport Viewport;
