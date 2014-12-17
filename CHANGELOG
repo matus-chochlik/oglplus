@@ -1,3 +1,13 @@
+Version 0.55.0
+
+- The EnumToClass helper template and its specializations were added.
+- Some of the base classes of oglplus::Context were refactored and updated.
+- The oglplus::ClientContext class, maintaining and managing GL state was added.
+- Some of the shape builders were backported to platforms not supporting
+  primitive restart indices.
+- A bug in the Texture::Active getter was fixed.
+- The quickbook documentation was updated.
+
 Version 0.54.0
 
 - The TransformFeedback::Activator and Pauser classes were moved
