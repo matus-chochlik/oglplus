@@ -94,7 +94,8 @@ protected:
 		_stk.push_back(value);
 	}
 
-	T _top(void) const
+	typename std::vector<T>::const_reference
+	_top(void) const
 	{
 		assert(!_stk.empty());
 		return _stk.back();
@@ -180,7 +181,8 @@ public:
 	}
 
 	inline
-	T Get(void) const
+	typename std::vector<T>::const_reference
+	Get(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _top();
@@ -256,7 +258,8 @@ public:
 	}
 
 	inline
-	T Get(void) const
+	typename std::vector<T>::const_reference
+	Get(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _zero().Get();

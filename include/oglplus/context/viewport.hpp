@@ -22,16 +22,16 @@ namespace context {
 struct ViewportPosition
 {
 	// private implementation detail, do not use
-	GLfloat _v[2];
+	GLint _v[2];
 
 	/// The x-coordinate
-	GLfloat X(void) const
+	GLint X(void) const
 	{
 		return _v[0];
 	}
 
 	/// The y-coordinate
-	GLfloat Y(void) const
+	GLint Y(void) const
 	{
 		return _v[1];
 	}
@@ -41,16 +41,16 @@ struct ViewportPosition
 struct ViewportSize
 {
 	// private implementation detail, do not use
-	GLfloat _v[2];
+	GLint _v[2];
 
 	/// The width of the viewport
-	GLfloat Width(void) const
+	GLint Width(void) const
 	{
 		return _v[0];
 	}
 
 	/// The height of the viewport
-	GLfloat Height(void) const
+	GLint Height(void) const
 	{
 		return _v[1];
 	}
@@ -60,11 +60,11 @@ struct ViewportSize
 struct ViewportExtents
 {
 	// private implementation detail, do not use
-	GLfloat _v[4];
+	GLint _v[4];
 
 	ViewportExtents(void) { }
 
-	ViewportExtents(GLfloat x, GLfloat y, GLfloat w, GLfloat h)
+	ViewportExtents(GLint x, GLint y, GLint w, GLint h)
 	{
 		_v[0] = x;
 		_v[1] = y;
@@ -73,25 +73,37 @@ struct ViewportExtents
 	}
 
 	/// The x-coordinate
-	GLfloat X(void) const
+	GLint X(void) const
 	{
 		return _v[0];
 	}
 
 	/// The y-coordinate
-	GLfloat Y(void) const
+	GLint Y(void) const
+	{
+		return _v[1];
+	}
+
+	/// The x-coordinate
+	GLint Left(void) const
+	{
+		return _v[0];
+	}
+
+	/// The y-coordinate
+	GLint Bottom(void) const
 	{
 		return _v[1];
 	}
 
 	/// The width of the viewport
-	GLfloat Width(void) const
+	GLint Width(void) const
 	{
 		return _v[2];
 	}
 
 	/// The height of the viewport
-	GLfloat Height(void) const
+	GLint Height(void) const
 	{
 		return _v[3];
 	}
@@ -117,16 +129,16 @@ struct ViewportExtents
 struct BoundsRange
 {
 	// private implementation detail, do not use
-	GLfloat _v[2];
+	GLint _v[2];
 
 	/// The min limit
-	GLfloat Min(void) const
+	GLint Min(void) const
 	{
 		return _v[0];
 	}
 
 	/// The max limit
-	GLfloat Max(void) const
+	GLint Max(void) const
 	{
 		return _v[1];
 	}
@@ -155,7 +167,7 @@ struct DepthRange
 /**
  *  @ingroup ogl_context
  */
-class ViewportOps
+class ViewportState
 {
 public:
 	/// Sets the extents of the current viewport
@@ -213,8 +225,8 @@ public:
 	static ViewportExtents Viewport(void)
 	{
 		ViewportExtents result;
-		OGLPLUS_GLFUNC(GetFloatv)(GL_VIEWPORT, result._v);
-		OGLPLUS_CHECK_SIMPLE(GetFloatv);
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_VIEWPORT, result._v);
+		OGLPLUS_CHECK_SIMPLE(GetIntegerv);
 		return result;
 	}
 
@@ -230,11 +242,11 @@ public:
 	static BoundsRange ViewportBoundsRange(void)
 	{
 		BoundsRange result;
-		OGLPLUS_GLFUNC(GetFloatv)(
+		OGLPLUS_GLFUNC(GetIntegerv)(
 			GL_VIEWPORT_BOUNDS_RANGE,
 			result._v
 		);
-		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return result;
 	}
 #endif
@@ -250,11 +262,11 @@ public:
 	static ViewportSize MaxViewportDims(void)
 	{
 		ViewportSize result;
-		OGLPLUS_GLFUNC(GetFloatv)(
+		OGLPLUS_GLFUNC(GetIntegerv)(
 			GL_MAX_VIEWPORT_DIMS,
 			result._v
 		);
-		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return result;
 	}
 
@@ -403,8 +415,8 @@ public:
 	static ViewportExtents Viewport(GLuint viewport)
 	{
 		ViewportExtents result;
-		OGLPLUS_GLFUNC(GetFloati_v)(GL_VIEWPORT, viewport, result._v);
-		OGLPLUS_CHECK_SIMPLE(GetFloati_v);
+		OGLPLUS_GLFUNC(GetIntegeri_v)(GL_VIEWPORT, viewport, result._v);
+		OGLPLUS_CHECK_SIMPLE(GetIntegeri_v);
 		return result;
 	}
 

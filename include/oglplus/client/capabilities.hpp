@@ -195,17 +195,7 @@ public:
 		Nothing,
 		Capability,
 		aux::CurrentCapability
-	> Capabilities;
-
-	oglplus::enums::EnumToClass<
-		Nothing,
-		Capability,
-		aux::CurrentCapability
-	>& Caps;
-
-	CurrentCapabilities(void)
-	 : Caps(Capabilities)
-	{ }
+	> Caps;
 };
 
 } // namespace client

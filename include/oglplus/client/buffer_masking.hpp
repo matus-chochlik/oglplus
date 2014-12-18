@@ -123,15 +123,54 @@ public:
 	{ }
 };
 
+template <Face F>
+class StencilMask
+ : public SettingStack<bool, Nothing>
+{
+private:
+	static
+	bool _do_get(Nothing)
+	{
+		return context::BufferMaskingState::StencilWriteMask(F);
+	}
+
+	static
+	void _do_set(bool value, Nothing)
+	{
+		context::BufferMaskingState::StencilMaskSeparate(F, value);
+	}
+public:
+	StencilMask(void)
+	 : SettingStack<bool, Nothing>(
+		&_do_get,
+		&_do_set
+	)
+	{ }
+};
+
 // TODO stencil mask
 
 } // namespace aux
+} // namespace client
+
+#ifndef OGLPLUS_ENUM_FACE_CLASS_IPP
+#define OGLPLUS_ENUM_FACE_CLASS_IPP
+#include <oglplus/enums/face_class.ipp>
+#endif
+
+namespace client {
 
 class BufferMaskingState
 {
 public:
 	aux::ColorMask ColorMask;
 	aux::DepthMask DepthMask;
+
+	oglplus::enums::EnumToClass<
+		Nothing,
+		Face,
+		aux::StencilMask
+	> StencilMask;
 };
 
 } // namespace client
