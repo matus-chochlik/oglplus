@@ -20,29 +20,43 @@
 #include <oglplus/client/depth_test.hpp>
 #include <oglplus/client/logical_ops.hpp>
 #include <oglplus/client/viewport.hpp>
+#include <oglplus/client/stencil_test.hpp>
+#include <oglplus/client/scissor_test.hpp>
 #include <oglplus/client/blending.hpp>
 #include <oglplus/client/buffer_clearing.hpp>
 #include <oglplus/client/buffer_masking.hpp>
 
 #include <oglplus/client/drawing.hpp>
 #include <oglplus/client/computing.hpp>
+#include <oglplus/client/synchronization.hpp>
+
+#include <oglplus/client/string_queries.hpp>
 
 namespace oglplus {
 
 class ClientContext
- : public client::CurrentObjects
- , public client::CurrentCapabilities
- , public client::CurrentHints
- , public client::DepthTest
- , public client::LogicalOps
+ : public client::CurrentCapabilities
  , public client::ViewportState
  , public client::BufferMaskingState
  , public client::BufferClearingOps
  , public client::BufferClearingState
+// , public client::Rasterization
+ , public client::DrawingOps
+// , public client::DrawingState
+ , public client::ComputingOps
+ , public client::DepthTest
+ , public client::StencilTest
+ , public client::ScissorTest
+ , public client::LogicalOps
+// , public client::PixelOps
  , public client::BlendingOps
  , public client::BlendingState
- , public client::DrawingOps
- , public client::ComputingOps
+ , public client::Synchronization
+ , public client::CurrentHints
+// , public context::LimitQueries
+// , public context::NumericQueries
+ , public client::StringQueries
+ , public client::CurrentObjects
 { };
 
 } // namespace oglplus

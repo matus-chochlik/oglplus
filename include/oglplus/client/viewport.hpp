@@ -30,13 +30,13 @@ private:
 	static
 	context::ViewportExtents _do_get(GLuint index)
 	{
-		return context::ViewportOps::Viewport(index);
+		return context::ViewportState::Viewport(index);
 	}
 
 	static
 	void _do_set(context::ViewportExtents vp, GLuint index)
 	{
-		context::ViewportOps::Viewport(index, vp);
+		context::ViewportState::Viewport(index, vp);
 	}
 public:
 	ViewportIndexed(GLuint index)
@@ -61,13 +61,13 @@ private:
 	static
 	context::ViewportExtents _do_get(Nothing)
 	{
-		return context::ViewportOps::Viewport();
+		return context::ViewportState::Viewport();
 	}
 
 	static
 	void _do_set(context::ViewportExtents vp, Nothing)
 	{
-		context::ViewportOps::Viewport(vp);
+		context::ViewportState::Viewport(vp);
 	}
 public:
 	Viewport(void)

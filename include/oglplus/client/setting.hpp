@@ -94,7 +94,8 @@ protected:
 		_stk.push_back(value);
 	}
 
-	T _top(void) const
+	typename std::vector<T>::const_reference
+	_top(void) const
 	{
 		assert(!_stk.empty());
 		return _stk.back();
@@ -180,7 +181,8 @@ public:
 	}
 
 	inline
-	T Get(void) const
+	typename std::vector<T>::const_reference
+	Get(void) const
 	noexcept
 	{
 		return _top();
@@ -188,7 +190,6 @@ public:
 
 	inline
 	void Set(T value)
-	noexcept
 	{
 		return _set(value);
 	}
@@ -257,7 +258,8 @@ public:
 	}
 
 	inline
-	T Get(void) const
+	typename std::vector<T>::const_reference
+	Get(void) const
 	noexcept
 	{
 		return _zero().Get();
@@ -265,7 +267,6 @@ public:
 
 	inline
 	void Set(T value)
-	noexcept
 	{
 		_zero().Set(value);
 	}

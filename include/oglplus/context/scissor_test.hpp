@@ -14,56 +14,13 @@
 #define OGLPLUS_CONTEXT_SCISSOR_TEST_1201040722_HPP
 
 #include <oglplus/glfunc.hpp>
+#include <oglplus/context/viewport.hpp>
 
 namespace oglplus {
 namespace context {
 
 /// Helper structure storing the extents of a 2D scissor rectangle
-struct ScissorRectangle
-{
-	// private implementation detail, do not use
-	GLint _v[4];
-
-	/// The x-coordinate
-	GLint X(void) const
-	noexcept
-	{
-		return _v[0];
-	}
-
-	/// The y-coordinate
-	GLint Y(void) const
-	noexcept
-	{
-		return _v[1];
-	}
-
-	/// The x-coordinate
-	GLint Left(void) const
-	noexcept
-	{
-		return _v[0];
-	}
-
-	/// The y-coordinate
-	GLint Bottom(void) const
-	noexcept
-	{
-		return _v[1];
-	}
-
-	/// The width of the viewport
-	GLint Width(void) const
-	{
-		return _v[2];
-	}
-
-	/// The height of the viewport
-	GLint Height(void) const
-	{
-		return _v[3];
-	}
-};
+typedef ViewportExtents ScissorRectangle;
 
 /// Wrapper for the scissor-buffer-related operations
 /**
@@ -90,6 +47,36 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(Scissor);
 	}
 
+	static void Scissor(const ScissorRectangle& rect)
+	{
+		OGLPLUS_GLFUNC(Scissor)(
+			rect.Left(),
+			rect.Bottom(),
+			rect.Width(),
+			rect.Height()
+		);
+		OGLPLUS_VERIFY_SIMPLE(Scissor);
+	}
+
+	/// Returns the extents of the scissor box
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{SCISSOR_BOX}
+	 */
+	static ScissorRectangle ScissorBox(void)
+	{
+		ScissorRectangle result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_SCISSOR_BOX,
+			result._v
+		);
+		OGLPLUS_CHECK_SIMPLE(GetIntegerv);
+		return result;
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
 	/// Defines the scissor rectangle for the specified @p viewport
 	/**
@@ -113,6 +100,25 @@ public:
 			bottom,
 			width,
 			height
+		);
+		OGLPLUS_CHECK(
+			ScissorIndexed,
+			Error,
+			Index(viewport)
+		);
+	}
+
+	static void Scissor(
+		GLuint viewport,
+		const ScissorRectangle& rect
+	)
+	{
+		OGLPLUS_GLFUNC(ScissorIndexed)(
+			viewport,
+			rect.Left(),
+			rect.Bottom(),
+			rect.Width(),
+			rect.Height()
 		);
 		OGLPLUS_CHECK(
 			ScissorIndexed,

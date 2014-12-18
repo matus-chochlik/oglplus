@@ -61,7 +61,7 @@ namespace context { }
 class Context
  : public context::Errors
  , public context::Capabilities
- , public context::ViewportOps
+ , public context::ViewportState
  , public context::BufferSelection
  , public context::BufferMaskingState
  , public context::BufferClearingState
