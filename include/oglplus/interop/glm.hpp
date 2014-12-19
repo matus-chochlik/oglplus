@@ -23,11 +23,11 @@ namespace aux {
 
 #define OGLPLUS_HLPR_IMPL_GLM_VECTOR_ADAPTER(DIM) \
 template <class T> \
-struct ThirdPartyVectorBase<glm::detail::tvec##DIM<T> > \
+struct ThirdPartyVectorBase<glm::tvec##DIM<T> > \
 { \
 	typedef T Type; \
 	typedef std::integral_constant<std::size_t, DIM> N; \
-	static const T* Data(glm::detail::tvec##DIM<T> const & v)\
+	static const T* Data(glm::tvec##DIM<T> const & v)\
 	{ \
 		return glm::value_ptr(v); \
 	} \
@@ -41,13 +41,13 @@ OGLPLUS_HLPR_IMPL_GLM_VECTOR_ADAPTER(4)
 
 #define OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(ROWS, COLS) \
 template <class T> \
-struct ThirdPartyMatrixBase<glm::detail::tmat##COLS##x##ROWS<T> > \
+struct ThirdPartyMatrixBase<glm::tmat##COLS##x##ROWS<T> > \
 { \
 	typedef T Type; \
 	typedef std::integral_constant<std::size_t, ROWS> Rows; \
 	typedef std::integral_constant<std::size_t, COLS> Cols; \
 	typedef std::integral_constant<bool, false> IsRowMajor; \
-	static const T* Data(glm::detail::tmat##COLS##x##ROWS<T> const & m)\
+	static const T* Data(glm::tmat##COLS##x##ROWS<T> const & m)\
 	{ \
 		return glm::value_ptr(m); \
 	} \
