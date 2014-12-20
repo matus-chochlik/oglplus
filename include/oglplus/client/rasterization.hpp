@@ -129,6 +129,73 @@ public:
 	{ }
 };
 
+class LineWidth
+ : public SettingStack<GLfloat, Nothing>
+{
+private:
+	static
+	GLfloat _do_get(Nothing)
+	{
+		return context::RasterizationState::LineWidth();
+	}
+
+	static
+	void _do_set(GLfloat val, Nothing)
+	{
+		context::RasterizationState::LineWidth(val);
+	}
+public:
+	LineWidth(void)
+	 : SettingStack<GLfloat, Nothing>(&_do_get, &_do_set)
+	{ }
+};
+
+#if GL_VERSION_3_0
+class PointSize
+ : public SettingStack<GLfloat, Nothing>
+{
+private:
+	static
+	GLfloat _do_get(Nothing)
+	{
+		return context::RasterizationState::PointSize();
+	}
+
+	static
+	void _do_set(GLfloat val, Nothing)
+	{
+		context::RasterizationState::PointSize(val);
+	}
+public:
+	PointSize(void)
+	 : SettingStack<GLfloat, Nothing>(&_do_get, &_do_set)
+	{ }
+};
+#endif
+
+#if GL_VERSION_4_0
+class MinSampleShading
+ : public SettingStack<GLfloat, Nothing>
+{
+private:
+	static
+	GLfloat _do_get(Nothing)
+	{
+		return context::RasterizationState::MinSampleShading();
+	}
+
+	static
+	void _do_set(GLfloat val, Nothing)
+	{
+		context::RasterizationState::MinSampleShading(val);
+	}
+public:
+	MinSampleShading(void)
+	 : SettingStack<GLfloat, Nothing>(&_do_get, &_do_set)
+	{ }
+};
+#endif
+
 } // namespace aux
 
 class RasterizationState
@@ -142,8 +209,17 @@ public:
 #endif
 	aux::PolygonOffset PolygonOffset;
 
+	aux::LineWidth LineWidth;
+#if GL_VERSION_3_0
+	aux::PointSize PointSize;
+#endif
+
 #if GL_VERSION_3_2 || GL_ARB_provoking_vertex
 	aux::ProvokingVertex ProvokingVertex;
+#endif
+
+#if GL_VERSION_4_0
+	aux::MinSampleShading MinSampleShading;
 #endif
 
 // TODO
