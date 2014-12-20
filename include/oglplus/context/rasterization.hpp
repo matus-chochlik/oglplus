@@ -418,6 +418,40 @@ public:
 		return ProvokeMode(result);
 	}
 #endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
+	/// Returns the minimal sample shading value
+	/**
+	 *  @glverreq{4,0}
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{MIN_SAMPLE_SHADING_VALUE}
+	 */
+	static GLfloat MinSampleShading(void)
+	{
+		GLfloat result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_MIN_SAMPLE_SHADING_VALUE, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
+		return result;
+	}
+
+	/// Sets the multisampling minimal sample shading value
+	/**
+	 *  @glverreq{4,0}
+	 *  @glsymbols
+	 *  @glfunref{MinSampleShading}
+	 */
+	static void MinSampleShading(GLfloat value)
+	{
+		OGLPLUS_GLFUNC(MinSampleShading)(value);
+		OGLPLUS_VERIFY_SIMPLE(MinSampleShading);
+	}
+#endif
+};
+
+class RasterizationOps
+{
+public:
 	/// Returns the value of sample buffers
 	/**
 	 *  @glsymbols
@@ -464,35 +498,6 @@ public:
 		);
 		OGLPLUS_VERIFY_SIMPLE(GetMultisamplefv);
 		return result;
-	}
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
-	/// Returns the minimal sample shading value
-	/**
-	 *  @glverreq{4,0}
-	 *  @glsymbols
-	 *  @glfunref{Get}
-	 *  @gldefref{MIN_SAMPLE_SHADING_VALUE}
-	 */
-	static GLfloat MinSampleShading(void)
-	{
-		GLfloat result;
-		OGLPLUS_GLFUNC(GetFloatv)(GL_MIN_SAMPLE_SHADING_VALUE, &result);
-		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
-		return result;
-	}
-
-	/// Sets the multisampling minimal sample shading value
-	/**
-	 *  @glverreq{4,0}
-	 *  @glsymbols
-	 *  @glfunref{MinSampleShading}
-	 */
-	static void MinSampleShading(GLfloat value)
-	{
-		OGLPLUS_GLFUNC(MinSampleShading)(value);
-		OGLPLUS_VERIFY_SIMPLE(MinSampleShading);
 	}
 #endif
 };

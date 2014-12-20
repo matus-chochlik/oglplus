@@ -42,8 +42,9 @@ class ClientContext
  , public client::BufferClearingOps
  , public client::BufferClearingState
  , public client::RasterizationState
+ , public client::RasterizationOps
+ , public client::DrawingState
  , public client::DrawingOps
-// , public client::DrawingState
  , public client::ComputingOps
  , public client::DepthTest
  , public client::StencilTest

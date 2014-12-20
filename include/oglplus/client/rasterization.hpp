@@ -171,6 +171,27 @@ public:
 	 : SettingStack<GLfloat, Nothing>(&_do_get, &_do_set)
 	{ }
 };
+
+class PointFadeThresholdSize
+ : public SettingStack<GLfloat, Nothing>
+{
+private:
+	static
+	GLfloat _do_get(Nothing)
+	{
+		return context::RasterizationState::PointFadeThresholdSize();
+	}
+
+	static
+	void _do_set(GLfloat val, Nothing)
+	{
+		context::RasterizationState::PointFadeThresholdSize(val);
+	}
+public:
+	PointFadeThresholdSize(void)
+	 : SettingStack<GLfloat, Nothing>(&_do_get, &_do_set)
+	{ }
+};
 #endif
 
 #if GL_VERSION_4_0
@@ -212,6 +233,7 @@ public:
 	aux::LineWidth LineWidth;
 #if GL_VERSION_3_0
 	aux::PointSize PointSize;
+	aux::PointFadeThresholdSize PointFadeThresholdSize;
 #endif
 
 #if GL_VERSION_3_2 || GL_ARB_provoking_vertex
@@ -222,8 +244,9 @@ public:
 	aux::MinSampleShading MinSampleShading;
 #endif
 
-// TODO
 };
+
+using context::RasterizationOps;
 
 } // namespace client
 } // namespace oglplus

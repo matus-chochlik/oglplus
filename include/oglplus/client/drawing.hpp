@@ -18,6 +18,38 @@
 
 namespace oglplus {
 namespace client {
+namespace aux {
+
+#if GL_VERSION_3_1
+class PrimitiveRestartIndex
+ : public SettingStack<GLint, Nothing>
+{
+private:
+	static
+	GLint _do_get(Nothing)
+	{
+		return context::DrawingState::PrimitiveRestartIndex();
+	}
+
+	static
+	void _do_set(GLint val, Nothing)
+	{
+		context::DrawingState::PrimitiveRestartIndex(val);
+	}
+public:
+	PrimitiveRestartIndex(void)
+	 : SettingStack<GLint, Nothing>(&_do_get, &_do_set)
+	{ }
+};
+#endif
+
+} // namespace aux
+
+class DrawingState
+{
+public:
+	aux::PrimitiveRestartIndex PrimitiveRestartIndex;
+};
 
 using oglplus::context::DrawingOps;
 

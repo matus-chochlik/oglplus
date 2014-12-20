@@ -986,6 +986,17 @@ public:
 			Index(index)
 		);
 	}
+
+	static GLuint PrimitiveRestartIndex(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_PRIMITIVE_RESTART_INDEX,
+			&result
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return GLuint(result);
+	}
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_tessellation_shader || GL_VERSION_4_0
