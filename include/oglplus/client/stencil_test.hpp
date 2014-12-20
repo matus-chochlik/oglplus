@@ -15,7 +15,6 @@
 
 #include <oglplus/client/setting.hpp>
 #include <oglplus/context/stencil_test.hpp>
-#include <cassert>
 
 namespace oglplus {
 namespace client {

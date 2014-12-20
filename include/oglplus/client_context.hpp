@@ -22,6 +22,7 @@
 #include <oglplus/client/viewport.hpp>
 #include <oglplus/client/stencil_test.hpp>
 #include <oglplus/client/scissor_test.hpp>
+#include <oglplus/client/rasterization.hpp>
 #include <oglplus/client/blending.hpp>
 #include <oglplus/client/buffer_clearing.hpp>
 #include <oglplus/client/buffer_masking.hpp>
@@ -40,9 +41,10 @@ class ClientContext
  , public client::BufferMaskingState
  , public client::BufferClearingOps
  , public client::BufferClearingState
-// , public client::Rasterization
+ , public client::RasterizationState
+ , public client::RasterizationOps
+ , public client::DrawingState
  , public client::DrawingOps
-// , public client::DrawingState
  , public client::ComputingOps
  , public client::DepthTest
  , public client::StencilTest
