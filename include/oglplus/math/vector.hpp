@@ -346,8 +346,6 @@ public:
 
 #include <oglplus/math/vector_n.ipp>
 
-#include <oglplus/math/vector_swizzle.ipp>
-
 template <typename T, std::size_t N>
 inline const T* Data(const Vector<T, N>& a)
 {
