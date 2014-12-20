@@ -43,6 +43,11 @@ public:
 	 : vs(ShaderType::Vertex)
 	 , fs(ShaderType::Fragment)
 	{
+std::cout << EnumValueName(gl.FrontFace.Get()) << std::endl;
+std::cout << EnumValueName(gl.CullFace.Get()) << std::endl;
+std::cout << EnumValueName(gl.ProvokingVertex.Get()) << std::endl;
+std::cout << EnumValueName(gl.PolygonMode.Get().Front()) << std::endl;
+std::cout << gl.PolygonOffset.Get().Units() << std::endl;
 		// this could be any istream
 		std::stringstream vs_source(
 			"#version 330\n"

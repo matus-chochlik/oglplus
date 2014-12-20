@@ -66,7 +66,7 @@ class Context
  , public context::BufferMaskingState
  , public context::BufferClearingState
  , public context::BufferClearingOps
- , public context::Rasterization
+ , public context::RasterizationState
  , public context::DrawingOps
  , public context::DrawingState
  , public context::ComputingOps

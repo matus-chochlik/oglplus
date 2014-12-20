@@ -15,7 +15,6 @@
 
 #include <oglplus/client/setting.hpp>
 #include <oglplus/context/buffer_masking.hpp>
-#include <cassert>
 
 namespace oglplus {
 namespace client {

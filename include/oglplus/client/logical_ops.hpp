@@ -15,7 +15,6 @@
 
 #include <oglplus/client/setting.hpp>
 #include <oglplus/context/logical_ops.hpp>
-#include <cassert>
 
 namespace oglplus {
 namespace client {
