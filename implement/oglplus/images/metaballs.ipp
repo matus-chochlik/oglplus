@@ -39,7 +39,7 @@ BaseMetaballs::BaseMetaballs(
 {
 	assert(size % n == 0);
 
-	const auto fc = FullCircle();
+	const Anglef fc = FullCircles(1);
 	auto a = this->_begin<GLfloat>();
 
 	for(GLsizei y=0; y!=height; ++y)
@@ -66,7 +66,7 @@ BaseMetaballs::BaseMetaballs(
 
 					if(n > 3)
 					{
-						GLfloat w = ArcTan(d.y(), d.x())/fc;
+						GLfloat w = value(ArcTan(d.y(), d.x())/fc);
 						w += balls[b+2];
 						w = Sin(fc*w*balls[b+3]);
 

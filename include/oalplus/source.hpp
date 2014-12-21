@@ -854,7 +854,7 @@ public:
 		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_CONE_INNER_ANGLE,
-			angle.ValueInDegrees()
+			value(Degree<>(angle))
 		);
 		OALPLUS_CHECK(
 			Sourcef,
@@ -882,7 +882,7 @@ public:
 			ObjectError,
 			Object(*this)
 		);
-		return Anglef::Degrees(result);
+		return Degree<ALfloat>(result);
 	}
 
 	/// Sets the sound cone's outer angle
@@ -896,7 +896,7 @@ public:
 		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_CONE_OUTER_ANGLE,
-			angle.ValueInDegrees()
+			value(Degree<ALfloat>(angle))
 		);
 		OALPLUS_CHECK(
 			Sourcef,
@@ -924,7 +924,7 @@ public:
 			ObjectError,
 			Object(*this)
 		);
-		return Anglef::Degrees(result);
+		return Degree<ALfloat>(result);
 	}
 
 	/// Sets the sound cone's outer gain value

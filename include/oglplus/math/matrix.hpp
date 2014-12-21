@@ -1134,7 +1134,7 @@ public:
 	)
 	{
 		assert(aspect > T(0));
-		assert(xfov > Angle<T>::Radians(T(0)));
+		assert(xfov > Radian<T>(T(0)));
 
 		T x_right = z_near * Tan(xfov * T(0.5));
 		T x_left = -x_right;

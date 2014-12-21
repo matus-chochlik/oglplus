@@ -356,7 +356,7 @@ public:
 
 		auto lgt_proj =
 			CamMatrixf::PerspectiveX(
-				ArcSin(bs_rad/lgt_tgt_dist)*2,
+				ArcSin(bs_rad/lgt_tgt_dist)*2.f,
 				1.0f,
 				lgt_tgt_dist-bs_rad,
 				lgt_tgt_dist+bs_rad
@@ -377,7 +377,7 @@ public:
 
 		auto cam_proj =
 			CamMatrixf::PerspectiveX(
-				ArcSin(bs_rad/cam_tgt_dist)*2,
+				ArcSin(bs_rad/cam_tgt_dist)*2.f,
 				double(width)/height,
 				cam_tgt_dist-bs_rad,
 				cam_tgt_dist+bs_rad

@@ -50,7 +50,10 @@ class ObjectName
 protected:
 	typedef typename ObjTag::NameType NameT;
 
-	friend NameT GetName<ObjTag>(ObjectName);
+	friend
+	NameT GetName<ObjTag>(ObjectName)
+	noexcept;
+
 	NameT _name;
 
 	void _copy(const ObjectName& that)

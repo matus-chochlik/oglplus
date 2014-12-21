@@ -114,7 +114,7 @@ public:
 			std::vector<GLfloat> matrix_data(36*16);
 			auto p = matrix_data.begin(), e = matrix_data.end();
 
-			Angle<GLfloat> angle, astep = Angle<GLfloat>::Degrees(10);
+			Angle<GLfloat> angle, astep = Degree<GLfloat>(10);
 			while(p != e)
 			{
 				GLfloat cx = Cos(angle);
@@ -135,7 +135,7 @@ public:
 					Data(matrix)+Size(matrix),
 					p
 				);
-				angle += astep;
+				angle = angle + astep;
 			}
 
 			UniformBlock model_block(prog, "ModelBlock");

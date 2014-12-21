@@ -31,7 +31,10 @@ class ProgVarLoc
  : public ProgVarLocOps<VarTag>
 {
 protected:
-	friend GLint GetGLLocation<VarTag>(ProgVarLoc);
+	friend
+	GLint GetGLLocation<VarTag>(ProgVarLoc)
+	noexcept;
+
 	GLuint _program;
 	GLint _location;
 

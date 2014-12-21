@@ -19,25 +19,6 @@
 
 namespace oglplus {
 
-// Angle
-template <typename T>
-class Angle;
-
-template <typename T>
-T Radians(const Angle<T>&);
-
-template <typename T>
-T Degrees(const Angle<T>&);
-
-template <typename T>
-T Sin(const Angle<T>&);
-
-template <typename T>
-T Cos(const Angle<T>&);
-
-template <typename T>
-T Tan(const Angle<T>&);
-
 // Vector
 template <typename T, std::size_t N>
 class Vector;

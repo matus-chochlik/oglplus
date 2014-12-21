@@ -69,7 +69,7 @@ Mat4f RayMatrix(const AppData& app_data, unsigned face)
 
 	return
 		CamMatrixf::PerspectiveX(
-			RightAngle(), 1,
+			RightAngles(1), 1,
 			app_data.cam_near,
 			app_data.cam_far
 		)* Mat4f(

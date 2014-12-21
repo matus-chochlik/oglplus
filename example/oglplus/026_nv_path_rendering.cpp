@@ -526,7 +526,7 @@ public:
 		dsa.ModelviewMatrix()
 			.LoadIdentity()
 			.Translate(tex_side-border, border, 0)
-			.Rotate(RightAngle(), Vec3f::Unit(2));
+			.Rotate(RightAngles(1), Vec3f::Unit(2));
 		text	<< "Frame: "
 			<< std::setw(7)
 			<< std::fixed

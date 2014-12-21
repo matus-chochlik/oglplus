@@ -3,11 +3,11 @@
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 
-# we need C++11
+# we need C++11/14
 if(${CMAKE_COMPILER_IS_GNUCXX})
-	set(OGLPLUS_CPP_STD_COMPILER_SWITCH -std=c++11)
+	set(OGLPLUS_CPP_STD_COMPILER_SWITCH -std=c++1y)
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	set(OGLPLUS_CPP_STD_COMPILER_SWITCH -std=c++11)
+	set(OGLPLUS_CPP_STD_COMPILER_SWITCH -std=c++1y)
 endif()
 # TODO add support for other compilers
 

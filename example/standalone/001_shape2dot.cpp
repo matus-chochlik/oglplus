@@ -42,7 +42,7 @@ int main(void)
 
 		auto tm =
 			ModelMatrixd::Scale(5, 5, 5)*
-			CamMatrixd::PerspectiveX(Angle<double>::Degrees(80), 1, 1, 20)*
+			CamMatrixd::PerspectiveX(Degree<double>(80), 1, 1, 20)*
 			CamMatrixd::LookingAt(Vec3d(5, 5, 5), Vec3d());
 
 		for(GLuint f=0; f!=a.FaceCount(); ++f)

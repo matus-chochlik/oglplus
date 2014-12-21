@@ -147,7 +147,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(MatrixRotatefEXT)(
 			GLenum(_mode),
-			Degrees(angle),
+			value(Degree<GLfloat>(angle)),
 			x, y, z
 		);
 		OGLPLUS_VERIFY_SIMPLE(MatrixRotatefEXT);
@@ -166,7 +166,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(MatrixRotatefEXT)(
 			GLenum(_mode),
-			Degrees(angle),
+			value(Degree<GLfloat>(angle)),
 			At(axis, 0),
 			At(axis, 1),
 			At(axis, 2)
@@ -187,7 +187,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(MatrixRotatedEXT)(
 			GLenum(_mode),
-			Degrees(angle),
+			value(Degree<GLfloat>(angle)),
 			At(axis, 0),
 			At(axis, 1),
 			At(axis, 2)

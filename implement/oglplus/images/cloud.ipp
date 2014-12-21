@@ -112,8 +112,8 @@ void Cloud::_make_spheres(Vec3f center, GLfloat radius)
 	while(i != n)
 	{
 		auto rad = radius*(1.0f + _rand_s()*_sub_variance*0.5f);
-		auto rho = FullCircles(_rand_u());
-		auto phi = RightAngles(_rand_s());
+		Anglef rho = FullCircles(_rand_u());
+		Anglef phi = RightAngles(_rand_s());
 		_make_spheres(
 			center + Vec3f(
 				rad*Cos(phi)*Cos(rho),

@@ -125,7 +125,7 @@ oglplus::Vec3f SpectraDocumentView::PickOnSphere(GLint x, GLint y)
 	oglplus::Vec3f cam = camera_matrix.Position();
 	oglplus::Vec3f ray = Normalized(ScreenToWorld(x, y) - cam);
 	oglplus::Vec3f ofs = (cam-ori);
-	GLfloat rad = camera_distance*Tan(camera_xfov*0.5f);
+	GLfloat rad = camera_distance*oglplus::Tan(camera_xfov*0.5f);
 
 	GLfloat a = 1.0f; //Dot(ray, ray);
 	GLfloat b = 2*Dot(ofs, ray);
@@ -167,24 +167,24 @@ void SpectraDocumentView::Elevate(GLint new_x, GLint new_y, GLint old_x, GLint o
 
 void SpectraDocumentView::Orbit(GLint new_x, GLint new_y, GLint old_x, GLint old_y)
 {
-	oglplus::Anglef fc = oglplus::FullCircle();
-	oglplus::Anglef ra = oglplus::RightAngle()-oglplus::Degrees(1);
+	oglplus::Anglef fc = oglplus::FullCircles(1);
+	oglplus::Anglef ra = oglplus::RightAngles(1)-oglplus::Degrees(1);
 
 	oglplus::Vec3f ns = Normalized(ScreenToWorld(new_x, new_y));
 	oglplus::Vec3f os = Normalized(ScreenToWorld(old_x, old_y));
 
 	if(Length(ns) > 0.0f && Length(os) > 0.0f)
 	{
-		camera_azimuth += oglplus::Radians(
+		camera_azimuth = camera_azimuth + oglplus::Radians(
 			std::atan2(-ns.z(), ns.x())-
 			std::atan2(-os.z(), os.x())
 		);
 		while(camera_azimuth > fc)
-			camera_azimuth -= fc;
+			camera_azimuth = camera_azimuth - fc;
 		while(camera_azimuth < -fc)
-			camera_azimuth += fc;
+			camera_azimuth = camera_azimuth + fc;
 
-		camera_elevation -= (ns.y()-os.y())*ra;
+		camera_elevation = camera_elevation - (ns.y()-os.y())*ra;
 
 		if(camera_elevation > ra)
 			camera_elevation = ra;

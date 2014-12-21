@@ -237,8 +237,8 @@ void CloudData::Generate(const AppData& app_data)
 
 	while(c < count)
 	{
-		auto lat = angle*r11(re)*0.5;
-		auto lon= angle*r11(re)*0.5;
+		auto lat = angle*r11(re)*0.5f;
+		auto lon= angle*r11(re)*0.5f;
 
 		Vec3f cpos = center +
 			Vec3f(Cos(lat)*Sin(lon), Cos(lat)*Cos(lon), Sin(lat))*
