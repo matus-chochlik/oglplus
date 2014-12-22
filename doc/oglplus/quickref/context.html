@@ -42,6 +42,7 @@
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.string_queries">StringQueries</a></span></dt>
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.object_binding">ObjectBinding</a></span></dt>
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.object_dsa">ObjectDSA</a></span></dt>
+<dt><span class="section"><a href="context.html#oglplus.quickref.context.helpers">Helper classes</a></span></dt>
 </dl></div>
 <p>
           This section describes classes and functions wrapping operations on the
@@ -79,7 +80,8 @@
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="ScissorTest">context::ScissorTest</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.logical_ops" title="LogicalOps">context::LogicalOps</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.pixel_ops" title="PixelOps">context::PixelOps</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.blending" title="Blending operations">context::Blending</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.blending.ops">context::BlendingOps</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.blending.state">context::BlendingState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.synchronization" title="Synchronization">context::Synchronization</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.hints" title="Hints">context::Hints</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.limit_queries" title="LimitQueries">context::LimitQueries</a>
@@ -490,35 +492,20 @@
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
-
-<span class="keyword">struct</span> <span class="identifier">RGBAMask</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c0" href="context.html#oglplus.quickref.context.buffer_masking.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-<span class="special">{</span>
-	<span class="keyword">bool</span> <span class="identifier">Red</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-	<span class="keyword">bool</span> <span class="identifier">Green</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-	<span class="keyword">bool</span> <span class="identifier">Blue</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-	<span class="keyword">bool</span> <span class="identifier">Alpha</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-<span class="special">};</span>
-</pre>
-<div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c1"></a><a href="#oglplus.quickref.context.buffer_masking.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Helper structure storing the color component mask.
-              </p></td>
-</tr></table></div>
-<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">BufferMasking</span>
+<span class="keyword">class</span> <span class="identifier">BufferMasking</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ColorMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">r</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">g</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">b</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c2" href="context.html#oglplus.quickref.context.buffer_masking.c3"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ColorMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">r</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">g</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">b</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c4" href="context.html#oglplus.quickref.context.buffer_masking.c5"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ColorMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">r</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">g</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">b</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c0" href="context.html#oglplus.quickref.context.buffer_masking.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ColorMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">r</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">g</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">b</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c2" href="context.html#oglplus.quickref.context.buffer_masking.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c6" href="context.html#oglplus.quickref.context.buffer_masking.c7"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c4" href="context.html#oglplus.quickref.context.buffer_masking.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c8" href="context.html#oglplus.quickref.context.buffer_masking.c9"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilMaskSeparate</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">,</span> <span class="identifier">GLuint</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c10" href="context.html#oglplus.quickref.context.buffer_masking.c11"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c6" href="context.html#oglplus.quickref.context.buffer_masking.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilMaskSeparate</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">,</span> <span class="identifier">GLuint</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c8" href="context.html#oglplus.quickref.context.buffer_masking.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
-	<span class="keyword">static</span> <span class="identifier">RGBAMask</span> <span class="identifier">ColorWriteMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c12" href="context.html#oglplus.quickref.context.buffer_masking.c13"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">DepthWriteMask</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c14" href="context.html#oglplus.quickref.context.buffer_masking.c15"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
-	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilWriteMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c16" href="context.html#oglplus.quickref.context.buffer_masking.c17"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_mask">context::RGBAMask</a> <span class="identifier">ColorWriteMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c10" href="context.html#oglplus.quickref.context.buffer_masking.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">DepthWriteMask</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c12" href="context.html#oglplus.quickref.context.buffer_masking.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilWriteMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c14" href="context.html#oglplus.quickref.context.buffer_masking.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilWriteMask</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">);</span>
 <span class="special">};</span>
 
@@ -527,52 +514,52 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c3"></a><a href="#oglplus.quickref.context.buffer_masking.c2"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c1"></a><a href="#oglplus.quickref.context.buffer_masking.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the color mask for the default color buffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glColorMask.xml" target="_top">glColorMask</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c5"></a><a href="#oglplus.quickref.context.buffer_masking.c4"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c3"></a><a href="#oglplus.quickref.context.buffer_masking.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the color mask for the specified color <code class="literal">buffer</code>.
                 See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glColorMaski.xml" target="_top">glColorMaski</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c7"></a><a href="#oglplus.quickref.context.buffer_masking.c6"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c5"></a><a href="#oglplus.quickref.context.buffer_masking.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the depth buffer <code class="literal">mask</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDepthMask.xml" target="_top">glDepthMask</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c9"></a><a href="#oglplus.quickref.context.buffer_masking.c8"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c7"></a><a href="#oglplus.quickref.context.buffer_masking.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the stencil buffer <code class="literal">mask</code>; See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glStencilMask.xml" target="_top">glStencilMask</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c11"></a><a href="#oglplus.quickref.context.buffer_masking.c10"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c9"></a><a href="#oglplus.quickref.context.buffer_masking.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the stencil mask separately for front and back faces. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glStencilMaskSeparate.xml" target="_top">glStencilMaskSeparate</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c13"></a><a href="#oglplus.quickref.context.buffer_masking.c12"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c11"></a><a href="#oglplus.quickref.context.buffer_masking.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the value of color buffer write mask. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_COLOR_WRITEMASK</code></strong></span>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c15"></a><a href="#oglplus.quickref.context.buffer_masking.c14"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c13"></a><a href="#oglplus.quickref.context.buffer_masking.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the value of depth buffer write mask. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_DEPTH_WRITEMASK</code></strong></span>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c17"></a><a href="#oglplus.quickref.context.buffer_masking.c16"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c15"></a><a href="#oglplus.quickref.context.buffer_masking.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the value of stencil buffer write mask. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_STENCIL_WRITEMASK</code></strong></span>
@@ -595,33 +582,19 @@
 
 <span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
-<span class="keyword">struct</span> <span class="identifier">RGBAValue</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c0" href="context.html#oglplus.quickref.context.buffer_clearing.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-<span class="special">{</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Red</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Green</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Blue</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Alpha</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-<span class="special">};</span>
-
-<span class="keyword">class</span> <span class="identifier">ClrBits</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c2" href="context.html#oglplus.quickref.context.buffer_clearing.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="keyword">class</span> <span class="identifier">ClrBits</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c0" href="context.html#oglplus.quickref.context.buffer_clearing.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">ClrBits</span> <span class="identifier">ColorBuffer</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c4" href="context.html#oglplus.quickref.context.buffer_clearing.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-	<span class="identifier">ClrBits</span> <span class="identifier">DepthBuffer</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c6" href="context.html#oglplus.quickref.context.buffer_clearing.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
-	<span class="identifier">ClrBits</span> <span class="identifier">StencilBuffer</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c8" href="context.html#oglplus.quickref.context.buffer_clearing.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">ClrBits</span> <span class="identifier">ColorBuffer</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c2" href="context.html#oglplus.quickref.context.buffer_clearing.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">ClrBits</span> <span class="identifier">DepthBuffer</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c4" href="context.html#oglplus.quickref.context.buffer_clearing.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">ClrBits</span> <span class="identifier">StencilBuffer</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c6" href="context.html#oglplus.quickref.context.buffer_clearing.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
-	<span class="special">~</span><span class="identifier">ClrBits</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c10" href="context.html#oglplus.quickref.context.buffer_clearing.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="special">~</span><span class="identifier">ClrBits</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c8" href="context.html#oglplus.quickref.context.buffer_clearing.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="special">};</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c1"></a><a href="#oglplus.quickref.context.buffer_clearing.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Helper structure storing the clear color components.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c3"></a><a href="#oglplus.quickref.context.buffer_clearing.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Helper class used by <code class="literal"><a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">context::BufferClearing</a>::Clear()</code>.
                 Instances of this class cause the write buffers to be cleared depending
@@ -631,28 +604,28 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c5"></a><a href="#oglplus.quickref.context.buffer_clearing.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c3"></a><a href="#oglplus.quickref.context.buffer_clearing.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Calling this member function causes the color buffer to be marked
                 for clearing. See <span class="bold"><strong><code class="literal">GL_COLOR_BUFFER_BIT</code></strong></span>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c7"></a><a href="#oglplus.quickref.context.buffer_clearing.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c5"></a><a href="#oglplus.quickref.context.buffer_clearing.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Calling this member function causes the depth buffer to be marked
                 for clearing. See <span class="bold"><strong><code class="literal">GL_DEPTH_BUFFER_BIT</code></strong></span>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c9"></a><a href="#oglplus.quickref.context.buffer_clearing.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c7"></a><a href="#oglplus.quickref.context.buffer_clearing.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Calling this member function causes the stencil buffer to be marked
                 for clearing. See <span class="bold"><strong><code class="literal">GL_STENCIL_BUFFER_BIT</code></strong></span>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c11"></a><a href="#oglplus.quickref.context.buffer_clearing.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c9"></a><a href="#oglplus.quickref.context.buffer_clearing.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 The destructor does the actual clearing of the buffers. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClear.xml" target="_top">glClear</a></code>.
               </p></td>
@@ -665,28 +638,28 @@
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">BufferClearing</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColor</span><span class="special">(</span><span class="identifier">GLclampf</span> <span class="identifier">r</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">g</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">b</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c12" href="context.html#oglplus.quickref.context.buffer_clearing.c13"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearDepth</span><span class="special">(</span><span class="identifier">GLclampd</span> <span class="identifier">d</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c14" href="context.html#oglplus.quickref.context.buffer_clearing.c15"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearStencil</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">s</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c16" href="context.html#oglplus.quickref.context.buffer_clearing.c17"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColor</span><span class="special">(</span><span class="identifier">GLclampf</span> <span class="identifier">r</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">g</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">b</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c10" href="context.html#oglplus.quickref.context.buffer_clearing.c11"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearDepth</span><span class="special">(</span><span class="identifier">GLclampd</span> <span class="identifier">d</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c12" href="context.html#oglplus.quickref.context.buffer_clearing.c13"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearStencil</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">s</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c14" href="context.html#oglplus.quickref.context.buffer_clearing.c15"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
-	<span class="keyword">static</span> <span class="identifier">RGBAValue</span> <span class="identifier">ColorClearValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c18" href="context.html#oglplus.quickref.context.buffer_clearing.c19"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
-	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">DepthClearValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c20" href="context.html#oglplus.quickref.context.buffer_clearing.c21"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
-	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">ClearStencilValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>  <a class="co" name="oglplus.quickref.context.buffer_clearing.c22" href="context.html#oglplus.quickref.context.buffer_clearing.c23"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">RGBAValue</span> <span class="identifier">ColorClearValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c16" href="context.html#oglplus.quickref.context.buffer_clearing.c17"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">DepthClearValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c18" href="context.html#oglplus.quickref.context.buffer_clearing.c19"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">ClearStencilValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>  <a class="co" name="oglplus.quickref.context.buffer_clearing.c20" href="context.html#oglplus.quickref.context.buffer_clearing.c21"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Clear</span><span class="special">(</span><a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">ClearBit</a><span class="special">&gt;</span> <span class="identifier">bits</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c24" href="context.html#oglplus.quickref.context.buffer_clearing.c25"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
-	<span class="keyword">static</span> <span class="identifier">ClrBits</span> <span class="identifier">Clear</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c26" href="context.html#oglplus.quickref.context.buffer_clearing.c27"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Clear</span><span class="special">(</span><a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">ClearBit</a><span class="special">&gt;</span> <span class="identifier">bits</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c22" href="context.html#oglplus.quickref.context.buffer_clearing.c23"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">ClrBits</span> <span class="identifier">Clear</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c24" href="context.html#oglplus.quickref.context.buffer_clearing.c25"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c28" href="context.html#oglplus.quickref.context.buffer_clearing.c29"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c26" href="context.html#oglplus.quickref.context.buffer_clearing.c27"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLuint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLfloat</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><a class="link" href="color_buffer.html" title="Color buffer">ColorBuffer</a> <span class="identifier">buffer</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c30" href="context.html#oglplus.quickref.context.buffer_clearing.c31"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><a class="link" href="color_buffer.html" title="Color buffer">ColorBuffer</a> <span class="identifier">buffer</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c28" href="context.html#oglplus.quickref.context.buffer_clearing.c29"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><a class="link" href="color_buffer.html" title="Color buffer">ColorBuffer</a> <span class="identifier">buffer</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLuint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><a class="link" href="color_buffer.html" title="Color buffer">ColorBuffer</a> <span class="identifier">buffer</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLfloat</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearDepthBuffer</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c32" href="context.html#oglplus.quickref.context.buffer_clearing.c33"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearStencilBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c34" href="context.html#oglplus.quickref.context.buffer_clearing.c35"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearStencilBuffer</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">depth_value</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">stencil_value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c36" href="context.html#oglplus.quickref.context.buffer_clearing.c37"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearDepthBuffer</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c30" href="context.html#oglplus.quickref.context.buffer_clearing.c31"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearStencilBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c32" href="context.html#oglplus.quickref.context.buffer_clearing.c33"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearStencilBuffer</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">depth_value</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">stencil_value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c34" href="context.html#oglplus.quickref.context.buffer_clearing.c35"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
@@ -694,52 +667,52 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c13"></a><a href="#oglplus.quickref.context.buffer_clearing.c12"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c11"></a><a href="#oglplus.quickref.context.buffer_clearing.c10"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the clear color components. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearColor.xml" target="_top">glClearColor</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c15"></a><a href="#oglplus.quickref.context.buffer_clearing.c14"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c13"></a><a href="#oglplus.quickref.context.buffer_clearing.c12"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the clear depth value. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearDepth.xml" target="_top">glClearDepth</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c17"></a><a href="#oglplus.quickref.context.buffer_clearing.c16"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c15"></a><a href="#oglplus.quickref.context.buffer_clearing.c14"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the clear stencil buffer value. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearStencil.xml" target="_top">glClearStencil</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c19"></a><a href="#oglplus.quickref.context.buffer_clearing.c18"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c17"></a><a href="#oglplus.quickref.context.buffer_clearing.c16"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the value used for clearing of the color buffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGen.xml" target="_top">glGen</a></code>,
                 <span class="bold"><strong><code class="literal">GL_COLOR_CLEAR_VALUE</code></strong></span>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c21"></a><a href="#oglplus.quickref.context.buffer_clearing.c20"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c19"></a><a href="#oglplus.quickref.context.buffer_clearing.c18"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the value used for clearing of the depth buffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGen.xml" target="_top">glGen</a></code>,
                 <span class="bold"><strong><code class="literal">GL_DEPTH_CLEAR_VALUE</code></strong></span>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c23"></a><a href="#oglplus.quickref.context.buffer_clearing.c22"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c21"></a><a href="#oglplus.quickref.context.buffer_clearing.c20"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the value used for clearing of the depth buffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGen.xml" target="_top">glGen</a></code>,
                 <span class="bold"><strong><code class="literal">GL_STENCIL_CLEAR_VALUE</code></strong></span>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c25"></a><a href="#oglplus.quickref.context.buffer_clearing.c24"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c23"></a><a href="#oglplus.quickref.context.buffer_clearing.c22"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears buffers specified by the bits parameter.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c27"></a><a href="#oglplus.quickref.context.buffer_clearing.c26"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c25"></a><a href="#oglplus.quickref.context.buffer_clearing.c24"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears buffers specified by calling functions of the returned object
                 This function returns an object that allows to specify which buffers
@@ -748,7 +721,7 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c29"></a><a href="#oglplus.quickref.context.buffer_clearing.c28"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c27"></a><a href="#oglplus.quickref.context.buffer_clearing.c26"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears the color draw buffer of the currently bound framebuffer with
                 the specified <code class="literal">value</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearBuffer.xml" target="_top">glClearBuffer</a></code>,
@@ -756,14 +729,14 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c31"></a><a href="#oglplus.quickref.context.buffer_clearing.c30"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c29"></a><a href="#oglplus.quickref.context.buffer_clearing.c28"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears the specified color draw buffer of the currently bound framebuffer
                 with the specified <code class="literal">value</code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c33"></a><a href="#oglplus.quickref.context.buffer_clearing.c32"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c31"></a><a href="#oglplus.quickref.context.buffer_clearing.c30"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears the depth buffer of the currently bound framebuffer with the
                 specified <code class="literal">value</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearBuffer.xml" target="_top">glClearBuffer</a></code>,
@@ -771,7 +744,7 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c35"></a><a href="#oglplus.quickref.context.buffer_clearing.c34"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c33"></a><a href="#oglplus.quickref.context.buffer_clearing.c32"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears the stencil buffer of the currently bound framebuffer with
                 the specified <code class="literal">value</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearBuffer.xml" target="_top">glClearBuffer</a></code>,
@@ -779,7 +752,7 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c37"></a><a href="#oglplus.quickref.context.buffer_clearing.c36"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c35"></a><a href="#oglplus.quickref.context.buffer_clearing.c34"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears the depth and the stencil buffer of the currently bound framebuffer
                 with the specified values. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearBuffer.xml" target="_top">glClearBuffer</a></code>,
@@ -1844,56 +1817,158 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/blending.hpp&gt;</code>
           </p>
+<h5>
+<a name="oglplus.quickref.context.blending.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.blending.helpers"></a></span><a class="link" href="context.html#oglplus.quickref.context.blending.helpers">Helper
+            classes</a>
+          </h5>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
-<span class="keyword">class</span> <span class="identifier">Blending</span>
+<span class="keyword">struct</span> <span class="identifier">BlendEquationSeparate</span>
+<span class="special">{</span>
+	<span class="identifier">BlendEquationSeparate</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">BlendEquationSeparate</span><span class="special">(</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">rgb</span><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">alpha</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">RGB</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">Alpha</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="keyword">struct</span> <span class="identifier">BlendFunctionSeparate</span>
+<span class="special">{</span>
+	<span class="identifier">BlendFunctionSeparate</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">BlendFunctionSeparate</span><span class="special">(</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_rgb</span><span class="special">,</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_alpha</span><span class="special">,</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_rgb</span><span class="special">,</span>
+		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_alpha</span>
+	<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">SrcRGB</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">SrcAlpha</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">DstRGB</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">DstAlpha</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.context.blending.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.blending.ops"></a></span><a class="link" href="context.html#oglplus.quickref.context.blending.ops">Operations</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">BlendingOps</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 <span class="preprocessor">#if</span> <span class="identifier">GL_KHR_blend_equation_advanced</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendBarrier</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c0" href="context.html#oglplus.quickref.context.blending.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="preprocessor">#endif</span>
-
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquation</span><span class="special">(</span><a class="link" href="enums.html#oglplus.quickref.enums.one_of">OneOf</a><span class="special">&lt;</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquationAdvanced</a><span class="special">&gt;</span> <span class="identifier">eq</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c2" href="context.html#oglplus.quickref.context.blending.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c1"></a><a href="#oglplus.quickref.context.blending.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Specifies boundaries between blending passes.
+              </p></td>
+</tr></table></div>
+<h5>
+<a name="oglplus.quickref.context.blending.h2"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.blending.state"></a></span><a class="link" href="context.html#oglplus.quickref.context.blending.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">BlendingState</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquation</span><span class="special">(</span><a class="link" href="enums.html#oglplus.quickref.enums.one_of">OneOf</a><span class="special">&lt;</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquationAdvanced</a><span class="special">&gt;</span> <span class="identifier">eq</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c2" href="context.html#oglplus.quickref.context.blending.c3"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_alpha</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c4" href="context.html#oglplus.quickref.context.blending.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c4" href="context.html#oglplus.quickref.context.blending.c5"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendEquationSeparate</a><span class="special">&amp;);</span>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendEquationSeparate</a> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">BlendEquationRGB</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">BlendEquationAlpha</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquation</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
 		<a class="link" href="enums.html#oglplus.quickref.enums.one_of">OneOf</a><span class="special">&lt;</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquationAdvanced</a><span class="special">&gt;</span> <span class="identifier">eq</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c6" href="context.html#oglplus.quickref.context.blending.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c6" href="context.html#oglplus.quickref.context.blending.c7"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_alpha</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c8" href="context.html#oglplus.quickref.context.blending.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c8" href="context.html#oglplus.quickref.context.blending.c9"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span>
+		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendEquationSeparate</a><span class="special">&amp;</span>
+	<span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendEquationSeparate</a> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
+
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">BlendEquationRGB</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">BlendEquationAlpha</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
 <span class="preprocessor">#endif</span>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFunc</span><span class="special">(</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src</span><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c10" href="context.html#oglplus.quickref.context.blending.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFunc</span><span class="special">(</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src</span><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c10" href="context.html#oglplus.quickref.context.blending.c11"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_alpha</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_alpha</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c12" href="context.html#oglplus.quickref.context.blending.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c12" href="context.html#oglplus.quickref.context.blending.c13"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendFunctionSeparate</a><span class="special">&amp;);</span>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendFunctionSeparate</a> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncSrcRGB</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncSrcAlpha</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncDstRGB</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncDstAlpha</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFunc</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c14" href="context.html#oglplus.quickref.context.blending.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c14" href="context.html#oglplus.quickref.context.blending.c15"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_alpha</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_alpha</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c16" href="context.html#oglplus.quickref.context.blending.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c16" href="context.html#oglplus.quickref.context.blending.c17"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span>
+		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendFunctionSeparate</a><span class="special">&amp;</span>
+	<span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendFunctionSeparate</a> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
+
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncSrcRGB</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncSrcAlpha</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncDstRGB</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncDstAlpha</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
 <span class="preprocessor">#endif</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendColor</span><span class="special">(</span><span class="identifier">GLclampf</span> <span class="identifier">r</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">g</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">b</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">a</span><span class="special">);</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendColor</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_value">context::RGBAValue</a><span class="special">&amp;);</span>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_value">context::RGBAValue</a> <span class="identifier">BlendColor</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
@@ -1901,58 +1976,52 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c1"></a><a href="#oglplus.quickref.context.blending.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Specifies boundaries between blending passes.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c3"></a><a href="#oglplus.quickref.context.blending.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c3"></a><a href="#oglplus.quickref.context.blending.c2"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blending equation. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendEquation.xml" target="_top">glBlendEquation</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c5"></a><a href="#oglplus.quickref.context.blending.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c5"></a><a href="#oglplus.quickref.context.blending.c4"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blend equation separately for RGB and alpha. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendEquationSeparate.xml" target="_top">glBlendEquationSeparate</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c7"></a><a href="#oglplus.quickref.context.blending.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c7"></a><a href="#oglplus.quickref.context.blending.c6"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blend equation for a particular draw <code class="literal">buffer</code>
                 See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendEquationi.xml" target="_top">glBlendEquationi</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c9"></a><a href="#oglplus.quickref.context.blending.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c9"></a><a href="#oglplus.quickref.context.blending.c8"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blend equation separate for RGB and alpha for the specified
                 draw <code class="literal">buffer</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendEquationSeparatei.xml" target="_top">glBlendEquationSeparatei</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c11"></a><a href="#oglplus.quickref.context.blending.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c11"></a><a href="#oglplus.quickref.context.blending.c10"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blend function. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendFunc.xml" target="_top">glBlendFunc</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c13"></a><a href="#oglplus.quickref.context.blending.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c13"></a><a href="#oglplus.quickref.context.blending.c12"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blend function separately for RGB and alpha. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendFuncSeparate.xml" target="_top">glBlendFuncSeparate</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c15"></a><a href="#oglplus.quickref.context.blending.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c15"></a><a href="#oglplus.quickref.context.blending.c14"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blend function for a particular draw <code class="literal">buffer</code>.
                 See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendFunci.xml" target="_top">glBlendFunci</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c17"></a><a href="#oglplus.quickref.context.blending.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.blending.c17"></a><a href="#oglplus.quickref.context.blending.c16"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the blend function separately for RGB and alpha for a particular
                 draw <code class="literal">buffer</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBlendFuncSeparatei.xml" target="_top">glBlendFuncSeparatei</a></code>.
@@ -2353,6 +2422,81 @@
 <span class="special">}</span> <span class="comment">// namespace context</span>
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.context.helpers"></a><a class="link" href="context.html#oglplus.quickref.context.helpers" title="Helper classes">Helper classes</a>
+</h3></div></div></div>
+<h5>
+<a name="oglplus.quickref.context.helpers.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.helpers.rgba_value"></a></span><a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_value">RGBA
+            value</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+
+<span class="keyword">struct</span> <span class="identifier">RGBAValue</span> <a class="co" name="oglplus.quickref.context.helpers.c0" href="context.html#oglplus.quickref.context.helpers.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">{</span>
+	<span class="identifier">RGBAValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">RGBAValue</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">r</span><span class="special">,</span> <span class="identifier">GLfloat</span> <span class="identifier">g</span><span class="special">,</span> <span class="identifier">GLfloat</span> <span class="identifier">b</span><span class="special">,</span> <span class="identifier">GLfloat</span> <span class="identifier">a</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Red</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Green</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Blue</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Alpha</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.helpers.c1"></a><a href="#oglplus.quickref.context.helpers.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Helper structure storing the RGBA color components.
+              </p></td>
+</tr></table></div>
+<h5>
+<a name="oglplus.quickref.context.helpers.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.helpers.rgba_mask"></a></span><a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_mask">RGBA
+            mask</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">RGBAMask</span> <a class="co" name="oglplus.quickref.context.helpers.c2" href="context.html#oglplus.quickref.context.helpers.c3"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">{</span>
+	<span class="identifier">RGBAMask</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">RGBAMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">r</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">g</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">b</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">a</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">bool</span> <span class="identifier">Red</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">bool</span> <span class="identifier">Green</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">bool</span> <span class="identifier">Blue</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">bool</span> <span class="identifier">Alpha</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace context</span>
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.helpers.c3"></a><a href="#oglplus.quickref.context.helpers.c2"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Helper structure storing the color component mask.
+              </p></td>
+</tr></table></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
