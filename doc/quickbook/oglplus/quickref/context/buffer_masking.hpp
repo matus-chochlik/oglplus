@@ -4,23 +4,10 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_context_BufferMasking_helpers
+//[oglplus_context_BufferMasking
 namespace oglplus {
 namespace context {
 
-
-struct RGBAMask /*<
-Helper structure storing the color component mask.
->*/
-{
-	bool Red(void) const;
-	bool Green(void) const;
-	bool Blue(void) const;
-	bool Alpha(void) const;
-};
-//]
-
-//[oglplus_context_BufferMasking
 class BufferMasking
 {
 public:
@@ -47,7 +34,7 @@ public:
 	See [glfunc StencilMaskSeparate].
 	>*/
 
-	static RGBAMask ColorWriteMask(GLuint buffer = 0); /*<
+	static __context_RGBAMask ColorWriteMask(GLuint buffer = 0); /*<
 	Returns the value of color buffer write mask.
 	See [glfunc Get], [glconst COLOR_WRITEMASK].
 	>*/

@@ -11,16 +11,6 @@ typedef __BufferSelectBit ClearBit;
 
 namespace context {
 
-struct RGBAValue /*<
-Helper structure storing the clear color components.
->*/
-{
-	GLfloat Red(void) const;
-	GLfloat Green(void) const;
-	GLfloat Blue(void) const;
-	GLfloat Alpha(void) const;
-};
-
 class ClrBits /*<
 Helper class used by [^__context_BufferClearing::Clear()].
 Instances of this class cause the write buffers to be cleared

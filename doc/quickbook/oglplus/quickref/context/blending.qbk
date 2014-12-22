@@ -10,6 +10,16 @@
 
 [import blending.hpp]
 
-[oglplus_context_Blending]
+[heading:helpers Helper classes]
+
+[oglplus_context_Blending_helpers]
+
+[heading:ops Operations]
+
+[oglplus_context_BlendingOps]
+
+[heading:state State]
+
+[oglplus_context_BlendingState]
 
 [endsect]

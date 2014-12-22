@@ -22,7 +22,8 @@ class Context
  , public __context_ScissorTest
  , public __context_LogicalOps
  , public __context_PixelOps
- , public __context_Blending
+ , public __context_BlendingOps
+ , public __context_BlendingState
  , public __context_Synchronization
  , public __context_Hints
  , public __context_LimitQueries

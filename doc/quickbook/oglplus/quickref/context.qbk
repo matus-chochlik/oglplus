@@ -27,7 +27,10 @@ values of the current context.
 [def __context_ScissorRectangle [link oglplus.quickref.context.scissor_test context::ScissorRectangle]]
 [def __context_LogicalOps [link oglplus.quickref.context.logical_ops context::LogicalOps]]
 [def __context_PixelOps [link oglplus.quickref.context.pixel_ops context::PixelOps]]
-[def __context_Blending [link oglplus.quickref.context.blending context::Blending]]
+[def __context_BlendEquationSeparate [link oglplus.quickref.context.blending.helpers context::BlendEquationSeparate]]
+[def __context_BlendFunctionSeparate [link oglplus.quickref.context.blending.helpers context::BlendFunctionSeparate]]
+[def __context_BlendingOps [link oglplus.quickref.context.blending.ops context::BlendingOps]]
+[def __context_BlendingState [link oglplus.quickref.context.blending.state context::BlendingState]]
 [def __context_Synchronization [link oglplus.quickref.context.synchronization context::Synchronization]]
 [def __context_Hints [link oglplus.quickref.context.hints context::Hints]]
 [def __context_LimitQueries [link oglplus.quickref.context.limit_queries context::LimitQueries]]
@@ -35,6 +38,8 @@ values of the current context.
 [def __context_StringQueries [link oglplus.quickref.context.string_queries context::StringQueries]]
 [def __context_ObjectBinding [link oglplus.quickref.context.object_binding context::ObjectBinding]]
 [def __context_ObjectDSA [link oglplus.quickref.context.object_dsa context::ObjectDSA]]
+[def __context_RGBAValue [link oglplus.quickref.context.helpers.rgba_value context::RGBAValue]]
+[def __context_RGBAMask [link oglplus.quickref.context.helpers.rgba_mask context::RGBAMask]]
 
 [heading [^Context]]
 
@@ -69,5 +74,6 @@ but the library end-users should rarely need to use them directly.
 [include context/string_queries.qbk]
 [include context/object_binding.qbk]
 [include context/object_dsa.qbk]
+[include context/helpers.qbk]
 
 [endsect]
