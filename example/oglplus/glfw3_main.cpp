@@ -20,6 +20,7 @@
 #include <iostream>
 #include <cstring>
 #include <cassert>
+#include <cmath>
 
 #include "example.hpp"
 #include "example_main.hpp"
