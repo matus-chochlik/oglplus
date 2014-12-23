@@ -70,11 +70,14 @@
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.capabilities" title="Capabilities">context::Capabilities</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.viewport" title="Viewport operations">context::ViewportOps</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.buffer_selection" title="Buffer selection">context::BufferSelection</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.buffer_masking" title="Buffer masking">context::BufferMasking</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">context::BufferClearing</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.rasterization" title="Rasterization">context::Rasterization</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.drawing" title="Drawing">context::Drawing</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.computing" title="Computing">context::Computing</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.buffer_masking.state">context::BufferMaskingState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.buffer_clearing.state">context::BufferClearingState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.buffer_clearing.ops">context::BufferClearingOps</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.rasterization.state">context::RasterizationState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.rasterization.ops">context::RasterizationOps</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.drawing.state">context::DrawingState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.drawing.ops">context::DrawingOps</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.computing" title="Computing">context::ComputingOps</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.depth_test" title="DepthTest">context::DepthTest</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.stencil_test" title="StencilTest">context::StencilTest</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="ScissorTest">context::ScissorTest</a>
@@ -489,23 +492,33 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/buffer_masking.hpp&gt;</code>
           </p>
+<h5>
+<a name="oglplus.quickref.context.buffer_masking.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.buffer_masking.state"></a></span><a class="link" href="context.html#oglplus.quickref.context.buffer_masking.state">State</a>
+          </h5>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
-<span class="keyword">class</span> <span class="identifier">BufferMasking</span>
+<span class="keyword">class</span> <span class="identifier">BufferMaskingState</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ColorMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">r</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">g</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">b</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c0" href="context.html#oglplus.quickref.context.buffer_masking.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ColorMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">r</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">g</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">b</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c2" href="context.html#oglplus.quickref.context.buffer_masking.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ColorMask</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_mask">context::RGBAMask</a><span class="special">&amp;);</span>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_mask">context::RGBAMask</a> <span class="identifier">ColorWriteMask</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c2" href="context.html#oglplus.quickref.context.buffer_masking.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c4" href="context.html#oglplus.quickref.context.buffer_masking.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_0</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ColorMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">r</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">g</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">b</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c4" href="context.html#oglplus.quickref.context.buffer_masking.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ColorMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span> <span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_mask">context::RGBAMask</a><span class="special">&amp;);</span>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_mask">context::RGBAMask</a> <span class="identifier">ColorWriteMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c6" href="context.html#oglplus.quickref.context.buffer_masking.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="preprocessor">#endif</span>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c6" href="context.html#oglplus.quickref.context.buffer_masking.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilMaskSeparate</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">,</span> <span class="identifier">GLuint</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c8" href="context.html#oglplus.quickref.context.buffer_masking.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c8" href="context.html#oglplus.quickref.context.buffer_masking.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">DepthWriteMask</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c10" href="context.html#oglplus.quickref.context.buffer_masking.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
-	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_mask">context::RGBAMask</a> <span class="identifier">ColorWriteMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c10" href="context.html#oglplus.quickref.context.buffer_masking.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">DepthWriteMask</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c12" href="context.html#oglplus.quickref.context.buffer_masking.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
-	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilWriteMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c14" href="context.html#oglplus.quickref.context.buffer_masking.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c12" href="context.html#oglplus.quickref.context.buffer_masking.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilMaskSeparate</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">,</span> <span class="identifier">GLuint</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c14" href="context.html#oglplus.quickref.context.buffer_masking.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilWriteMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c16" href="context.html#oglplus.quickref.context.buffer_masking.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilWriteMask</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">);</span>
 <span class="special">};</span>
 
@@ -522,44 +535,51 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c3"></a><a href="#oglplus.quickref.context.buffer_masking.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Sets the color mask for the specified color <code class="literal">buffer</code>.
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glColorMaski.xml" target="_top">glColorMaski</a></code>.
+                Returns the value of color buffer write mask. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+                <span class="bold"><strong><code class="literal">GL_COLOR_WRITEMASK</code></strong></span>.
               </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c5"></a><a href="#oglplus.quickref.context.buffer_masking.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Sets the depth buffer <code class="literal">mask</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDepthMask.xml" target="_top">glDepthMask</a></code>.
+                Sets the color mask for the specified color <code class="literal">buffer</code>.
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glColorMaski.xml" target="_top">glColorMaski</a></code>.
               </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c7"></a><a href="#oglplus.quickref.context.buffer_masking.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Sets the stencil buffer <code class="literal">mask</code>; See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glStencilMask.xml" target="_top">glStencilMask</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c9"></a><a href="#oglplus.quickref.context.buffer_masking.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Sets the stencil mask separately for front and back faces. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glStencilMaskSeparate.xml" target="_top">glStencilMaskSeparate</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c11"></a><a href="#oglplus.quickref.context.buffer_masking.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the value of color buffer write mask. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_COLOR_WRITEMASK</code></strong></span>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c13"></a><a href="#oglplus.quickref.context.buffer_masking.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c9"></a><a href="#oglplus.quickref.context.buffer_masking.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the depth buffer <code class="literal">mask</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDepthMask.xml" target="_top">glDepthMask</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c11"></a><a href="#oglplus.quickref.context.buffer_masking.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the value of depth buffer write mask. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_DEPTH_WRITEMASK</code></strong></span>.
               </p></td>
 </tr>
 <tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c13"></a><a href="#oglplus.quickref.context.buffer_masking.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the stencil buffer <code class="literal">mask</code>; See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glStencilMask.xml" target="_top">glStencilMask</a></code>.
+              </p></td>
+</tr>
+<tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c15"></a><a href="#oglplus.quickref.context.buffer_masking.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the stencil mask separately for front and back faces. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glStencilMaskSeparate.xml" target="_top">glStencilMaskSeparate</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_masking.c17"></a><a href="#oglplus.quickref.context.buffer_masking.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the value of stencil buffer write mask. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_STENCIL_WRITEMASK</code></strong></span>
@@ -576,6 +596,10 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/buffer_clearing.hpp&gt;</code>
           </p>
+<h5>
+<a name="oglplus.quickref.context.buffer_clearing.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.buffer_clearing.helpers"></a></span><a class="link" href="context.html#oglplus.quickref.context.buffer_clearing.helpers">Helper classes</a>
+          </h5>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 
 <span class="keyword">typedef</span> <a class="link" href="buffer_select_bit.html" title="Buffer selection bits">BufferSelectBit</a> <span class="identifier">ClearBit</span><span class="special">;</span>
@@ -596,7 +620,7 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c1"></a><a href="#oglplus.quickref.context.buffer_clearing.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Helper class used by <code class="literal"><a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">context::BufferClearing</a>::Clear()</code>.
+                Helper class used by <code class="literal">__context_BufferClearing::Clear()</code>.
                 Instances of this class cause the write buffers to be cleared depending
                 on which member functions were called during the life-time of the
                 instance. The actual call to <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClear.xml" target="_top">glClear</a></code> is done
@@ -635,35 +659,23 @@
             The <code class="literal">BufferClearing</code> class is a wrapper for the operations,
             which are used to clear the draw buffers.
           </p>
-<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">BufferClearing</span>
+<h5>
+<a name="oglplus.quickref.context.buffer_clearing.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.buffer_clearing.state"></a></span><a class="link" href="context.html#oglplus.quickref.context.buffer_clearing.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">BufferClearingState</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColor</span><span class="special">(</span><span class="identifier">GLclampf</span> <span class="identifier">r</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">g</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">b</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c10" href="context.html#oglplus.quickref.context.buffer_clearing.c11"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearDepth</span><span class="special">(</span><span class="identifier">GLclampd</span> <span class="identifier">d</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c12" href="context.html#oglplus.quickref.context.buffer_clearing.c13"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearStencil</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">s</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c14" href="context.html#oglplus.quickref.context.buffer_clearing.c15"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColor</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_value">context::RGBAValue</a><span class="special">&amp;);</span>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_value">context::RGBAValue</a> <span class="identifier">ColorClearValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c12" href="context.html#oglplus.quickref.context.buffer_clearing.c13"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
-	<span class="keyword">static</span> <span class="identifier">RGBAValue</span> <span class="identifier">ColorClearValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c16" href="context.html#oglplus.quickref.context.buffer_clearing.c17"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
-	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">DepthClearValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c18" href="context.html#oglplus.quickref.context.buffer_clearing.c19"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearDepth</span><span class="special">(</span><span class="identifier">GLclampd</span> <span class="identifier">d</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c14" href="context.html#oglplus.quickref.context.buffer_clearing.c15"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">DepthClearValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c16" href="context.html#oglplus.quickref.context.buffer_clearing.c17"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearStencil</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">s</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c18" href="context.html#oglplus.quickref.context.buffer_clearing.c19"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">ClearStencilValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>  <a class="co" name="oglplus.quickref.context.buffer_clearing.c20" href="context.html#oglplus.quickref.context.buffer_clearing.c21"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
-
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Clear</span><span class="special">(</span><a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">ClearBit</a><span class="special">&gt;</span> <span class="identifier">bits</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c22" href="context.html#oglplus.quickref.context.buffer_clearing.c23"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
-	<span class="keyword">static</span> <span class="identifier">ClrBits</span> <span class="identifier">Clear</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c24" href="context.html#oglplus.quickref.context.buffer_clearing.c25"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
-
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c26" href="context.html#oglplus.quickref.context.buffer_clearing.c27"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLuint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLfloat</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span>
-
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><a class="link" href="color_buffer.html" title="Color buffer">ColorBuffer</a> <span class="identifier">buffer</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c28" href="context.html#oglplus.quickref.context.buffer_clearing.c29"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><a class="link" href="color_buffer.html" title="Color buffer">ColorBuffer</a> <span class="identifier">buffer</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLuint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><a class="link" href="color_buffer.html" title="Color buffer">ColorBuffer</a> <span class="identifier">buffer</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLfloat</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span>
-
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearDepthBuffer</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c30" href="context.html#oglplus.quickref.context.buffer_clearing.c31"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearStencilBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c32" href="context.html#oglplus.quickref.context.buffer_clearing.c33"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearStencilBuffer</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">depth_value</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">stencil_value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c34" href="context.html#oglplus.quickref.context.buffer_clearing.c35"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -675,27 +687,27 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c13"></a><a href="#oglplus.quickref.context.buffer_clearing.c12"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Sets the clear depth value. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearDepth.xml" target="_top">glClearDepth</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c15"></a><a href="#oglplus.quickref.context.buffer_clearing.c14"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Sets the clear stencil buffer value. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearStencil.xml" target="_top">glClearStencil</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c17"></a><a href="#oglplus.quickref.context.buffer_clearing.c16"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
                 Returns the value used for clearing of the color buffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGen.xml" target="_top">glGen</a></code>,
                 <span class="bold"><strong><code class="literal">GL_COLOR_CLEAR_VALUE</code></strong></span>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c19"></a><a href="#oglplus.quickref.context.buffer_clearing.c18"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c15"></a><a href="#oglplus.quickref.context.buffer_clearing.c14"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the clear depth value. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearDepth.xml" target="_top">glClearDepth</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c17"></a><a href="#oglplus.quickref.context.buffer_clearing.c16"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the value used for clearing of the depth buffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGen.xml" target="_top">glGen</a></code>,
                 <span class="bold"><strong><code class="literal">GL_DEPTH_CLEAR_VALUE</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c19"></a><a href="#oglplus.quickref.context.buffer_clearing.c18"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the clear stencil buffer value. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearStencil.xml" target="_top">glClearStencil</a></code>.
               </p></td>
 </tr>
 <tr>
@@ -705,14 +717,42 @@
                 <span class="bold"><strong><code class="literal">GL_STENCIL_CLEAR_VALUE</code></strong></span>.
               </p></td>
 </tr>
+</table></div>
+<h5>
+<a name="oglplus.quickref.context.buffer_clearing.h2"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.buffer_clearing.ops"></a></span><a class="link" href="context.html#oglplus.quickref.context.buffer_clearing.ops">Operations</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">BufferClearingOps</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Clear</span><span class="special">(</span><a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">ClearBit</a><span class="special">&gt;</span> <span class="identifier">bits</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c22" href="context.html#oglplus.quickref.context.buffer_clearing.c23"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">ClrBits</span> <span class="identifier">Clear</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c24" href="context.html#oglplus.quickref.context.buffer_clearing.c25"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c26" href="context.html#oglplus.quickref.context.buffer_clearing.c27"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLuint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLfloat</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><a class="link" href="color_buffer.html" title="Color buffer">ColorBuffer</a> <span class="identifier">buffer</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c28" href="context.html#oglplus.quickref.context.buffer_clearing.c29"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><a class="link" href="color_buffer.html" title="Color buffer">ColorBuffer</a> <span class="identifier">buffer</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLuint</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearColorBuffer</span><span class="special">(</span><a class="link" href="color_buffer.html" title="Color buffer">ColorBuffer</a> <span class="identifier">buffer</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">draw_buffer</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLfloat</span><span class="special">*</span> <span class="identifier">value</span><span class="special">);</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearDepthBuffer</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c30" href="context.html#oglplus.quickref.context.buffer_clearing.c31"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearStencilBuffer</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c32" href="context.html#oglplus.quickref.context.buffer_clearing.c33"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClearStencilBuffer</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">depth_value</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">stencil_value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_clearing.c34" href="context.html#oglplus.quickref.context.buffer_clearing.c35"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace context</span>
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c23"></a><a href="#oglplus.quickref.context.buffer_clearing.c22"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c23"></a><a href="#oglplus.quickref.context.buffer_clearing.c22"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears buffers specified by the bits parameter.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c25"></a><a href="#oglplus.quickref.context.buffer_clearing.c24"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c25"></a><a href="#oglplus.quickref.context.buffer_clearing.c24"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears buffers specified by calling functions of the returned object
                 This function returns an object that allows to specify which buffers
@@ -721,7 +761,7 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c27"></a><a href="#oglplus.quickref.context.buffer_clearing.c26"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c27"></a><a href="#oglplus.quickref.context.buffer_clearing.c26"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears the color draw buffer of the currently bound framebuffer with
                 the specified <code class="literal">value</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearBuffer.xml" target="_top">glClearBuffer</a></code>,
@@ -729,14 +769,14 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c29"></a><a href="#oglplus.quickref.context.buffer_clearing.c28"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c29"></a><a href="#oglplus.quickref.context.buffer_clearing.c28"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears the specified color draw buffer of the currently bound framebuffer
                 with the specified <code class="literal">value</code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c31"></a><a href="#oglplus.quickref.context.buffer_clearing.c30"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c31"></a><a href="#oglplus.quickref.context.buffer_clearing.c30"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears the depth buffer of the currently bound framebuffer with the
                 specified <code class="literal">value</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearBuffer.xml" target="_top">glClearBuffer</a></code>,
@@ -744,7 +784,7 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c33"></a><a href="#oglplus.quickref.context.buffer_clearing.c32"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c33"></a><a href="#oglplus.quickref.context.buffer_clearing.c32"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears the stencil buffer of the currently bound framebuffer with
                 the specified <code class="literal">value</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearBuffer.xml" target="_top">glClearBuffer</a></code>,
@@ -752,7 +792,7 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c35"></a><a href="#oglplus.quickref.context.buffer_clearing.c34"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.buffer_clearing.c35"></a><a href="#oglplus.quickref.context.buffer_clearing.c34"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Clears the depth and the stencil buffer of the currently bound framebuffer
                 with the specified values. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClearBuffer.xml" target="_top">glClearBuffer</a></code>,
@@ -768,28 +808,77 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/rasterization.hpp&gt;</code>
           </p>
+<h5>
+<a name="oglplus.quickref.context.rasterization.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.rasterization.helpers"></a></span><a class="link" href="context.html#oglplus.quickref.context.rasterization.helpers">Helper
+            classes</a>
+          </h5>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
-<span class="keyword">class</span> <span class="identifier">Rasterization</span>
+<span class="keyword">class</span> <span class="identifier">PolygonModes</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">PolygonModes</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">PolygonModes</span><span class="special">(</span><a class="link" href="polygon_mode.html" title="Polygon mode">PolygonMode</a> <span class="identifier">mode</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">PolygonModes</span><span class="special">(</span><a class="link" href="polygon_mode.html" title="Polygon mode">PolygonMode</a> <span class="identifier">front</span><span class="special">,</span> <a class="link" href="polygon_mode.html" title="Polygon mode">PolygonMode</a> <span class="identifier">back</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">PolygonMode</span> <span class="identifier">Front</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">PolygonMode</span> <span class="identifier">Back</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="keyword">struct</span> <span class="identifier">PolygonOffsPara</span>
+<span class="special">{</span>
+	<span class="identifier">PolygonOffsPara</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">PolygonOffsPara</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">factor</span><span class="special">,</span> <span class="identifier">GLfloat</span> <span class="identifier">units</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Factor</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Units</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.context.rasterization.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.rasterization.state"></a></span><a class="link" href="context.html#oglplus.quickref.context.rasterization.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">RasterizationState</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">FrontFace</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.orientation">FaceOrientation</a> <span class="identifier">orientation</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c0" href="context.html#oglplus.quickref.context.rasterization.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="face_mode.html#oglplus.quickref.face_mode.orientation">FaceOrientation</a> <span class="identifier">FrontFace</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">CullFace</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c2" href="context.html#oglplus.quickref.context.rasterization.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">CullFaceMode</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_0</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PolygonMode</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">,</span> <a class="link" href="polygon_mode.html" title="Polygon mode">PolygonMode</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c4" href="context.html#oglplus.quickref.context.rasterization.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PolygonMode</span><span class="special">(</span><a class="link" href="polygon_mode.html" title="Polygon mode">PolygonMode</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c6" href="context.html#oglplus.quickref.context.rasterization.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PolygonMode</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.rasterization.helpers">context::PolygonModes</a><span class="special">&amp;);</span>
 
-	<span class="keyword">static</span> <a class="link" href="polygon_mode.html" title="Polygon mode">PolygonMode</a> <span class="identifier">PolygonMode</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c8" href="context.html#oglplus.quickref.context.rasterization.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="polygon_mode.html" title="Polygon mode">PolygonMode</a> <span class="identifier">PolygonModeFront</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c8" href="context.html#oglplus.quickref.context.rasterization.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="polygon_mode.html" title="Polygon mode">PolygonMode</a> <span class="identifier">PolygonModeBack</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.rasterization.helpers">context::PolygonModes</a> <span class="identifier">PolygonMode</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
 <span class="preprocessor">#endif</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PolygonOffset</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">factor</span><span class="special">,</span> <span class="identifier">GLfloat</span> <span class="identifier">units</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c10" href="context.html#oglplus.quickref.context.rasterization.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PolygonOffset</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.rasterization.helpers">context::PolygonOffsPara</a><span class="special">&amp;);</span>
 
 	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">PolygonOffsetFactor</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c12" href="context.html#oglplus.quickref.context.rasterization.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">PolygonOffsetUnits</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c14" href="context.html#oglplus.quickref.context.rasterization.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.rasterization.helpers">context::PolygonOffsPara</a> <span class="identifier">PolygonOffset</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">LineWidth</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">width</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c16" href="context.html#oglplus.quickref.context.rasterization.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
@@ -895,20 +984,19 @@
               </p></td>
 </tr>
 </table></div>
-<pre class="programlisting"><span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_provoking_vertex</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ProvokingVertex</span><span class="special">(</span><a class="link" href="provoke_mode.html" title="Provoke mode">ProvokeMode</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c28" href="context.html#oglplus.quickref.context.rasterization.c29"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<h5>
+<a name="oglplus.quickref.context.rasterization.h2"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.rasterization.ops"></a></span><a class="link" href="context.html#oglplus.quickref.context.rasterization.ops">Ops</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">RasterizationOps</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">SampleBuffers</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c28" href="context.html#oglplus.quickref.context.rasterization.c29"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-	<span class="keyword">static</span> <a class="link" href="provoke_mode.html" title="Provoke mode">ProvokeMode</a> <span class="identifier">ProvokingVertex</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c30" href="context.html#oglplus.quickref.context.rasterization.c31"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
-<span class="preprocessor">#endif</span>
+	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">Samples</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c30" href="context.html#oglplus.quickref.context.rasterization.c31"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
-	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">SampleBuffers</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c32" href="context.html#oglplus.quickref.context.rasterization.c33"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-
-	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">Samples</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c34" href="context.html#oglplus.quickref.context.rasterization.c35"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
-
-<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">MinSampleShading</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c36" href="context.html#oglplus.quickref.context.rasterization.c37"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
-
-	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">MinSampleShading</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c38" href="context.html#oglplus.quickref.context.rasterization.c39"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_2</span>
+	<span class="keyword">static</span> <span class="identifier">Vec2f</span> <span class="identifier">SamplePosition</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.rasterization.c32" href="context.html#oglplus.quickref.context.rasterization.c33"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
 
@@ -919,41 +1007,22 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c29"></a><a href="#oglplus.quickref.context.rasterization.c28"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Sets the provoking vertex selection mode for flatshading. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glProvokingVertex.xml" target="_top">glProvokingVertex</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c31"></a><a href="#oglplus.quickref.context.rasterization.c30"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Returns the provoking vertex selection mode for flatshading. See
-                <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_PROVOKING_VERTEX</code></strong></span>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c33"></a><a href="#oglplus.quickref.context.rasterization.c32"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
                 Returns the number of sample buffers. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_SAMPLE_BUFFERS</code></strong></span>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c35"></a><a href="#oglplus.quickref.context.rasterization.c34"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c31"></a><a href="#oglplus.quickref.context.rasterization.c30"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the number of multisampling samples. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_SAMPLES</code></strong></span>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c37"></a><a href="#oglplus.quickref.context.rasterization.c36"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c33"></a><a href="#oglplus.quickref.context.rasterization.c32"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Sets the multisampling minimal sample shading value. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMinSampleShading.xml" target="_top">glMinSampleShading</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.rasterization.c39"></a><a href="#oglplus.quickref.context.rasterization.c38"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Returns the minimal sample shading value. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
-                <span class="bold"><strong><code class="literal">GL_MIN_SAMPLE_SHADING_VALUE</code></strong></span>.
+                Returns the position of the specified multisampling sample. See
+                <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_SAMPLE_POSITION</code></strong></span>.
               </p></td>
 </tr>
 </table></div>
@@ -965,17 +1034,55 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/drawing.hpp&gt;</code>
           </p>
+<h5>
+<a name="oglplus.quickref.context.drawing.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.drawing.state"></a></span><a class="link" href="context.html#oglplus.quickref.context.drawing.state">State</a>
+          </h5>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
-<span class="keyword">class</span> <span class="identifier">Drawing</span>
+<span class="keyword">class</span> <span class="identifier">DrawingState</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_1</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PrimitiveRestartIndex</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c0" href="context.html#oglplus.quickref.context.drawing.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">PrimitiveRestartIndex</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_ARB_tessellation_shader</span> <span class="special">||</span> <span class="identifier">GL_VERSION_4_0</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PatchParameter</span><span class="special">(</span>
+		<a class="link" href="patch_parameter.html" title="Patch parameter">PatchParameter</a> <span class="identifier">parameter</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">value</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c2" href="context.html#oglplus.quickref.context.drawing.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor">#endif</span>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c1"></a><a href="#oglplus.quickref.context.drawing.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the primitive restart index. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glPrimitiveRestartIndex.xml" target="_top">glPrimitiveRestartIndex</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c3"></a><a href="#oglplus.quickref.context.drawing.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets a patch parameter value. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glPatchParameter.xml" target="_top">glPatchParameter</a></code>.
+              </p></td>
+</tr>
+</table></div>
+<h5>
+<a name="oglplus.quickref.context.drawing.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.drawing.ops"></a></span><a class="link" href="context.html#oglplus.quickref.context.drawing.ops">Operations</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">DrawingOps</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawArrays</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">first</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">count</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c0" href="context.html#oglplus.quickref.context.drawing.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c4" href="context.html#oglplus.quickref.context.drawing.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_1</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawArraysInstanced</span><span class="special">(</span>
@@ -983,7 +1090,7 @@
 		<span class="identifier">GLint</span> <span class="identifier">first</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">inst_count</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c2" href="context.html#oglplus.quickref.context.drawing.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c6" href="context.html#oglplus.quickref.context.drawing.c7"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_2</span>
@@ -993,14 +1100,14 @@
 		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">inst_count</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">base_instance</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c4" href="context.html#oglplus.quickref.context.drawing.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c8" href="context.html#oglplus.quickref.context.drawing.c9"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span> <span class="special">||</span> <span class="identifier">GL_ARB_draw_indirect</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawArraysIndirect</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">indirect</span> <span class="special">=</span> <code class="literal">nullptr</code>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c6" href="context.html#oglplus.quickref.context.drawing.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c10" href="context.html#oglplus.quickref.context.drawing.c11"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_0</span>
@@ -1009,7 +1116,7 @@
 		<span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">first</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLsizei</span><span class="special">*</span> <span class="identifier">count</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">primcount</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c8" href="context.html#oglplus.quickref.context.drawing.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c12" href="context.html#oglplus.quickref.context.drawing.c13"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_multi_draw_indirect</span>
@@ -1018,55 +1125,14 @@
 		<span class="identifier">GLsizei</span> <span class="identifier">draw_count</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">stride</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">indirect</span> <span class="special">=</span> <code class="literal">nullptr</code>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c10" href="context.html#oglplus.quickref.context.drawing.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c14" href="context.html#oglplus.quickref.context.drawing.c15"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 <span class="preprocessor">#endif</span>
-</pre>
-<div class="calloutlist"><table border="0" summary="Callout list">
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c1"></a><a href="#oglplus.quickref.context.drawing.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Draws a range of primitives of the specified type from the bound
-                array buffers. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawArrays.xml" target="_top">glDrawArrays</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c3"></a><a href="#oglplus.quickref.context.drawing.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Draws multiple instances of a range of elements. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawArraysInstanced.xml" target="_top">glDrawArraysInstanced</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c5"></a><a href="#oglplus.quickref.context.drawing.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Draws multiple instances of a range of elements with offset applied
-                to instanced attributes. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawArraysInstancedBaseInstance.xml" target="_top">glDrawArraysInstancedBaseInstance</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c7"></a><a href="#oglplus.quickref.context.drawing.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Draws primitives from an indirect buffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawArraysIndirect.xml" target="_top">glDrawArraysIndirect</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c9"></a><a href="#oglplus.quickref.context.drawing.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Draws multiple primcount ranges of primitives from the bound array
-                buffers. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMultiDrawArrays.xml" target="_top">glMultiDrawArrays</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c11"></a><a href="#oglplus.quickref.context.drawing.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMultiDrawArraysIndirect.xml" target="_top">glMultiDrawArraysIndirect</a></code>.
-              </p></td>
-</tr>
-</table></div>
-<pre class="programlisting">	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawElements</span><span class="special">(</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawElements</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c12" href="context.html#oglplus.quickref.context.drawing.c13"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c16" href="context.html#oglplus.quickref.context.drawing.c17"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 	<span class="keyword">static</span>
@@ -1081,9 +1147,62 @@
 		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">instance_count</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c14" href="context.html#oglplus.quickref.context.drawing.c15"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
-
-	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c18" href="context.html#oglplus.quickref.context.drawing.c19"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c5"></a><a href="#oglplus.quickref.context.drawing.c4"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Draws a range of primitives of the specified type from the bound
+                array buffers. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawArrays.xml" target="_top">glDrawArrays</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c7"></a><a href="#oglplus.quickref.context.drawing.c6"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Draws multiple instances of a range of elements. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawArraysInstanced.xml" target="_top">glDrawArraysInstanced</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c9"></a><a href="#oglplus.quickref.context.drawing.c8"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Draws multiple instances of a range of elements with offset applied
+                to instanced attributes. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawArraysInstancedBaseInstance.xml" target="_top">glDrawArraysInstancedBaseInstance</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c11"></a><a href="#oglplus.quickref.context.drawing.c10"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Draws primitives from an indirect buffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawArraysIndirect.xml" target="_top">glDrawArraysIndirect</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c13"></a><a href="#oglplus.quickref.context.drawing.c12"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Draws multiple primcount ranges of primitives from the bound array
+                buffers. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMultiDrawArrays.xml" target="_top">glMultiDrawArrays</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c15"></a><a href="#oglplus.quickref.context.drawing.c14"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMultiDrawArraysIndirect.xml" target="_top">glMultiDrawArraysIndirect</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c17"></a><a href="#oglplus.quickref.context.drawing.c16"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElements.xml" target="_top">glDrawElements</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c19"></a><a href="#oglplus.quickref.context.drawing.c18"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElementsInstanced.xml" target="_top">glDrawElementsInstanced</a></code>.
+              </p></td>
+</tr>
+</table></div>
+<pre class="programlisting">	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 	<span class="keyword">static</span>
 	<span class="keyword">void</span> <span class="identifier">DrawElementsInstanced</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
@@ -1099,7 +1218,7 @@
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">inst_count</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">base_instance</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c16" href="context.html#oglplus.quickref.context.drawing.c17"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c20" href="context.html#oglplus.quickref.context.drawing.c21"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 	<span class="keyword">static</span>
@@ -1117,7 +1236,7 @@
 		<span class="keyword">const</span> <span class="identifier">GLsizei</span><span class="special">*</span> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">draw_count</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c18" href="context.html#oglplus.quickref.context.drawing.c19"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c22" href="context.html#oglplus.quickref.context.drawing.c23"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 	<span class="keyword">static</span>
@@ -1134,7 +1253,7 @@
 		<span class="identifier">GLuint</span> <span class="identifier">end</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span>
-	<span class="special">);</span>  <a class="co" name="oglplus.quickref.context.drawing.c20" href="context.html#oglplus.quickref.context.drawing.c21"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="special">);</span>  <a class="co" name="oglplus.quickref.context.drawing.c24" href="context.html#oglplus.quickref.context.drawing.c25"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 	<span class="keyword">static</span>
@@ -1151,7 +1270,7 @@
 		<span class="identifier">PrimitiveType</span> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="identifier">DataType</span> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">indirect</span> <span class="special">=</span> <code class="literal">nullptr</code>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c22" href="context.html#oglplus.quickref.context.drawing.c23"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c26" href="context.html#oglplus.quickref.context.drawing.c27"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span>
@@ -1161,7 +1280,7 @@
 		<span class="identifier">GLsizei</span> <span class="identifier">draw_count</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">stride</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">indirect</span> <span class="special">=</span> <code class="literal">nullptr</code>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c24" href="context.html#oglplus.quickref.context.drawing.c25"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c28" href="context.html#oglplus.quickref.context.drawing.c29"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_draw_elements_base_vertex</span>
@@ -1170,7 +1289,7 @@
 		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">base_vertex</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c26" href="context.html#oglplus.quickref.context.drawing.c27"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c30" href="context.html#oglplus.quickref.context.drawing.c31"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 	<span class="keyword">static</span>
@@ -1188,7 +1307,7 @@
 		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">base_vertex</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c28" href="context.html#oglplus.quickref.context.drawing.c29"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c32" href="context.html#oglplus.quickref.context.drawing.c33"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 	<span class="keyword">static</span>
@@ -1207,7 +1326,7 @@
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">inst_count</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">base_vertex</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c30" href="context.html#oglplus.quickref.context.drawing.c31"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c34" href="context.html#oglplus.quickref.context.drawing.c35"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 	<span class="keyword">static</span>
@@ -1225,7 +1344,7 @@
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">draw_count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">base_vertex</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c32" href="context.html#oglplus.quickref.context.drawing.c33"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c36" href="context.html#oglplus.quickref.context.drawing.c37"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 	<span class="keyword">static</span>
@@ -1246,7 +1365,7 @@
 		<span class="identifier">GLsizei</span> <span class="identifier">inst_count</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">base_vertex</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">base_instance</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c34" href="context.html#oglplus.quickref.context.drawing.c35"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c38" href="context.html#oglplus.quickref.context.drawing.c39"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 	<span class="keyword">static</span>
@@ -1259,86 +1378,12 @@
 		<span class="identifier">GLuint</span> <span class="identifier">base_instance</span>
 	<span class="special">);</span>
 <span class="preprocessor">#endif</span>
-</pre>
-<div class="calloutlist"><table border="0" summary="Callout list">
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c13"></a><a href="#oglplus.quickref.context.drawing.c12"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElements.xml" target="_top">glDrawElements</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c15"></a><a href="#oglplus.quickref.context.drawing.c14"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElementsInstanced.xml" target="_top">glDrawElementsInstanced</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c17"></a><a href="#oglplus.quickref.context.drawing.c16"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElementsInstancedBaseInstance.xml" target="_top">glDrawElementsInstancedBaseInstance</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c19"></a><a href="#oglplus.quickref.context.drawing.c18"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMultiDrawElements.xml" target="_top">glMultiDrawElements</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c21"></a><a href="#oglplus.quickref.context.drawing.c20"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawRangeElements.xml" target="_top">glDrawRangeElements</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c23"></a><a href="#oglplus.quickref.context.drawing.c22"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElementsIndirect.xml" target="_top">glDrawElementsIndirect</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c25"></a><a href="#oglplus.quickref.context.drawing.c24"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMultiDrawElementsIndirect.xml" target="_top">glMultiDrawElementsIndirect</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c27"></a><a href="#oglplus.quickref.context.drawing.c26"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElementsBaseVertex.xml" target="_top">glDrawElementsBaseVertex</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c29"></a><a href="#oglplus.quickref.context.drawing.c28"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawRangeElementsBaseVertex.xml" target="_top">glDrawRangeElementsBaseVertex</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c31"></a><a href="#oglplus.quickref.context.drawing.c30"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElementsInstancedBaseVertex.xml" target="_top">glDrawElementsInstancedBaseVertex</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c33"></a><a href="#oglplus.quickref.context.drawing.c32"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMultiDrawElementsBaseVertex.xml" target="_top">glMultiDrawElementsBaseVertex</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c35"></a><a href="#oglplus.quickref.context.drawing.c34"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElementsInstancedBaseVertexBaseInstance.xml" target="_top">glDrawElementsInstancedBaseVertexBaseInstance</a></code>.
-              </p></td>
-</tr>
-</table></div>
-<pre class="programlisting"><span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span> <span class="special">||</span> <span class="identifier">GL_ARB_transform_feedback2</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span> <span class="special">||</span> <span class="identifier">GL_ARB_transform_feedback2</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawTransformFeedback</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TransformFeedbackName</a> <span class="identifier">xfb</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c36" href="context.html#oglplus.quickref.context.drawing.c37"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c40" href="context.html#oglplus.quickref.context.drawing.c41"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_NV_draw_texture</span>
@@ -1354,18 +1399,7 @@
 		<span class="identifier">GLfloat</span> <span class="identifier">t0</span><span class="special">,</span>
 		<span class="identifier">GLfloat</span> <span class="identifier">s1</span><span class="special">,</span>
 		<span class="identifier">GLfloat</span> <span class="identifier">t1</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c38" href="context.html#oglplus.quickref.context.drawing.c39"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
-<span class="preprocessor">#endif</span>
-
-<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_1</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PrimitiveRestartIndex</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c40" href="context.html#oglplus.quickref.context.drawing.c41"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-<span class="preprocessor">#endif</span>
-
-<span class="preprocessor">#if</span> <span class="identifier">GL_ARB_tessellation_shader</span> <span class="special">||</span> <span class="identifier">GL_VERSION_4_0</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PatchParameter</span><span class="special">(</span>
-		<a class="link" href="patch_parameter.html" title="Patch parameter">PatchParameter</a> <span class="identifier">parameter</span><span class="special">,</span>
-		<span class="identifier">GLint</span> <span class="identifier">value</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c42" href="context.html#oglplus.quickref.context.drawing.c43"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c42" href="context.html#oglplus.quickref.context.drawing.c43"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
 
@@ -1374,27 +1408,75 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c37"></a><a href="#oglplus.quickref.context.drawing.c36"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c21"></a><a href="#oglplus.quickref.context.drawing.c20"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElementsInstancedBaseInstance.xml" target="_top">glDrawElementsInstancedBaseInstance</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c23"></a><a href="#oglplus.quickref.context.drawing.c22"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMultiDrawElements.xml" target="_top">glMultiDrawElements</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c25"></a><a href="#oglplus.quickref.context.drawing.c24"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawRangeElements.xml" target="_top">glDrawRangeElements</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c27"></a><a href="#oglplus.quickref.context.drawing.c26"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElementsIndirect.xml" target="_top">glDrawElementsIndirect</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c29"></a><a href="#oglplus.quickref.context.drawing.c28"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMultiDrawElementsIndirect.xml" target="_top">glMultiDrawElementsIndirect</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c31"></a><a href="#oglplus.quickref.context.drawing.c30"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElementsBaseVertex.xml" target="_top">glDrawElementsBaseVertex</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c33"></a><a href="#oglplus.quickref.context.drawing.c32"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawRangeElementsBaseVertex.xml" target="_top">glDrawRangeElementsBaseVertex</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c35"></a><a href="#oglplus.quickref.context.drawing.c34"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElementsInstancedBaseVertex.xml" target="_top">glDrawElementsInstancedBaseVertex</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c37"></a><a href="#oglplus.quickref.context.drawing.c36"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMultiDrawElementsBaseVertex.xml" target="_top">glMultiDrawElementsBaseVertex</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c39"></a><a href="#oglplus.quickref.context.drawing.c38"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawElementsInstancedBaseVertexBaseInstance.xml" target="_top">glDrawElementsInstancedBaseVertexBaseInstance</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c41"></a><a href="#oglplus.quickref.context.drawing.c40"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawTransformFeedback.xml" target="_top">glDrawTransformFeedback</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c39"></a><a href="#oglplus.quickref.context.drawing.c38"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c43"></a><a href="#oglplus.quickref.context.drawing.c42"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDrawTextureNV.xml" target="_top">glDrawTextureNV</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c41"></a><a href="#oglplus.quickref.context.drawing.c40"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Sets the primitive restart index. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glPrimitiveRestartIndex.xml" target="_top">glPrimitiveRestartIndex</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.drawing.c43"></a><a href="#oglplus.quickref.context.drawing.c42"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Sets a patch parameter value. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glPatchParameter.xml" target="_top">glPatchParameter</a></code>.
               </p></td>
 </tr>
 </table></div>
@@ -1409,7 +1491,7 @@
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
-<span class="keyword">class</span> <span class="identifier">Computing</span>
+<span class="keyword">class</span> <span class="identifier">ComputingOps</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span>
