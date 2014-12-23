@@ -10,7 +10,13 @@
 
 [import rasterization.hpp]
 
-[oglplus_context_Rasterization1]
-[oglplus_context_Rasterization2]
+[heading:helpers Helper classes]
+[oglplus_context_Rasterization_helpers]
+
+[heading:state State]
+[oglplus_context_RasterizationState]
+
+[heading:ops Ops]
+[oglplus_context_RasterizationOps]
 
 [endsect]

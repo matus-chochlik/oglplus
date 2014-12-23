@@ -10,7 +10,7 @@
 
 [import buffer_masking.hpp]
 
-[oglplus_context_BufferMasking_helpers]
-[oglplus_context_BufferMasking]
+[heading:state State]
+[oglplus_context_BufferMaskingState]
 
 [endsect]

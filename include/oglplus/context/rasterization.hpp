@@ -29,15 +29,18 @@ struct PolygonModes
 	GLint _v[2];
 
 	PolygonModes(void)
+	noexcept
 	{ }
 
 	PolygonModes(PolygonMode mode)
+	noexcept
 	{
 		_v[0] = GLenum(mode);
 		_v[1] = GLenum(mode);
 	}
 
 	PolygonModes(PolygonMode front, PolygonMode back)
+	noexcept
 	{
 		_v[0] = GLenum(front);
 		_v[1] = GLenum(back);
@@ -45,24 +48,28 @@ struct PolygonModes
 
 	/// The front polygon mode
 	PolygonMode Front(void) const
+	noexcept
 	{
 		return PolygonMode(GLenum(_v[0]));
 	}
 
 	/// The back polygon mode
 	PolygonMode Back(void) const
+	noexcept
 	{
 		return PolygonMode(GLenum(_v[1]));
 	}
 
 	friend
 	bool operator == (const PolygonModes& a, const PolygonModes& b)
+	noexcept
 	{
 		return (a._v[0] == b._v[0]) && (a._v[1] == b._v[1]);
 	}
 
 	friend
 	bool operator != (const PolygonModes& a, const PolygonModes& b)
+	noexcept
 	{
 		return (a._v[0] != b._v[0]) || (a._v[1] != b._v[1]);
 	}
@@ -74,31 +81,37 @@ struct PolygonOffsPara
 	GLfloat _units;
 
 	PolygonOffsPara(void)
+	noexcept
 	{ }
 
 	PolygonOffsPara(GLfloat factor, GLfloat units)
+	noexcept
 	 : _factor(factor)
 	 , _units(units)
 	{ }
 
 	GLfloat Factor(void) const
+	noexcept
 	{
 		return _factor;
 	}
 
 	GLfloat Units(void) const
+	noexcept
 	{
 		return _units;
 	}
 
 	friend
 	bool operator == (const PolygonOffsPara& a, const PolygonOffsPara& b)
+	noexcept
 	{
 		return (a._factor == b._factor) && (a._units == b._units);
 	}
 
 	friend
 	bool operator != (const PolygonOffsPara& a, const PolygonOffsPara& b)
+	noexcept
 	{
 		return (a._factor != b._factor) || (a._units != b._units);
 	}

@@ -91,28 +91,66 @@ struct RGBAMask
 	// private implementation detail, do not use
 	GLint _v[4];
 
+	RGBAMask(void)
+	noexcept
+	{ }
+
+	RGBAMask(bool r, bool g, bool b, bool a)
+	noexcept
+	{
+		_v[0] = r?GL_TRUE:GL_FALSE;
+		_v[1] = g?GL_TRUE:GL_FALSE;
+		_v[2] = b?GL_TRUE:GL_FALSE;
+		_v[3] = a?GL_TRUE:GL_FALSE;
+	}
+
 	/// The red component mask
 	bool Red(void) const
+	noexcept
 	{
 		return _v[0] == GL_TRUE;
 	}
 
 	/// The green component mask
 	bool Green(void) const
+	noexcept
 	{
 		return _v[1] == GL_TRUE;
 	}
 
 	/// The blue component mask
 	bool Blue(void) const
+	noexcept
 	{
 		return _v[2] == GL_TRUE;
 	}
 
 	/// The alpha component mask
 	bool Alpha(void) const
+	noexcept
 	{
 		return _v[3] == GL_TRUE;
+	}
+
+	friend
+	bool operator == (const RGBAMask& a, const RGBAMask& b)
+	noexcept
+	{
+		for(unsigned i=0; i<4; ++i)
+		{
+			if(a._v[i] != b._v[i])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	friend
+	bool operator != (const RGBAMask& a, const RGBAMask& b)
+	noexcept
+	{
+		return !(a == b);
 	}
 };
 
