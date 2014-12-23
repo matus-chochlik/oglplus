@@ -8,7 +8,7 @@
 namespace oglplus {
 namespace context {
 
-class Computing
+class ComputingOps
 {
 public:
 #if GL_VERSION_4_3
