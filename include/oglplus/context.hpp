@@ -62,6 +62,7 @@ class Context
  : public context::Errors
  , public context::Capabilities
  , public context::ViewportState
+ , public context::ViewportOps
  , public context::BufferSelection
  , public context::BufferMaskingState
  , public context::BufferClearingState

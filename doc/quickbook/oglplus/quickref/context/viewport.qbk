@@ -10,7 +10,13 @@
 
 [import viewport.hpp]
 
+[heading:helpers Helper classes]
 [oglplus_context_Viewport_helpers]
-[oglplus_context_Viewport]
+
+[heading:state State]
+[oglplus_context_ViewportState]
+
+[heading:ops Operations]
+[oglplus_context_ViewportOps]
 
 [endsect]

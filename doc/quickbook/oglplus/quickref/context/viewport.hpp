@@ -12,54 +12,67 @@ struct ViewportPosition /*<
 Helper structure storing position in a 2D viewport.
 >*/
 {
-	GLfloat X(void) const;
-	GLfloat Y(void) const;
+	GLfloat X(void) const
+	noexcept;
+
+	GLfloat Y(void) const
+	noexcept;
 };
 
 struct ViewportSize /*<
 Helper structure storing the dimensions of a 2D viewport.
 >*/
 {
-	GLfloat Width(void) const;
-	GLfloat Height(void) const;
+	GLfloat Width(void) const
+	noexcept;
+
+	GLfloat Height(void) const
+	noexcept;
 };
 
 struct ViewportExtents /*<
 Helper structure storing the extents of a 2D viewport.
 >*/
 {
-	GLfloat X(void) const;
-	GLfloat Y(void) const;
-	GLfloat Width(void) const;
-	GLfloat Height(void) const;
+	GLfloat X(void) const
+	noexcept;
+
+	GLfloat Y(void) const
+	noexcept;
+
+	GLfloat Width(void) const
+	noexcept;
+
+	GLfloat Height(void) const
+	noexcept;
 };
 
 struct BoundsRange /*<
 Helper structure storing the min/max bounds range.
 >*/
 {
-	GLfloat Min(void) const;
-	GLfloat Max(void) const;
+	GLfloat Min(void) const
+	noexcept;
+
+	GLfloat Max(void) const
+	noexcept;
 };
 
-struct DepthRange /*<
+struct ViewportDepthRange /*<
 Helper structure storing the near/far depth range.
 >*/
 {
-	GLfloat Near(void) const;
-	GLfloat Far(void) const;
+	GLfloat Near(void) const
+	noexcept;
+
+	GLfloat Far(void) const
+	noexcept;
 };
 //]
-
-//[oglplus_context_Viewport
-class ViewportOps
+//[oglplus_context_ViewportState
+class ViewportState
 {
 public:
-	static ViewportSize MaxViewportDims(void); /*<
-	Returns the implementation-dependent maximum viewport dimensions.
-	See [glfunc Get], [glconst MAX_VIEWPORT_DIMS].
-	>*/
-
 	static void Viewport(GLint x, GLint y, GLsizei w, GLsizei h); /*<
 	Sets the extents of the current viewport.
 	See [glfunc Viewport].
@@ -68,18 +81,25 @@ public:
 	Sets the size of the current viewport starting at (0,0).
 	See [glfunc Viewport].
 	>*/
-	static ViewportExtents Viewport(void); /*<
+	static void Viewport(const __context_ViewportExtents& vp);
+
+	static __context_ViewportExtents Viewport(void); /*<
 	Returns the extents of the current viewport.
 	See [glfunc Get], [glconst VIEWPORT].
 	>*/
 
+	static void DepthRange(GLclampf near, GLclampf far); /*<
+	Sets the [^near] / [^far] depth range values of the default viewport.
+	See [glfunc DepthRangeIndexed].
+	>*/
+	static void DepthRange(const __context_ViewportDepthRange&);
 
-#if GL_VERSION_4_1 || GL_ARB_viewport_array
-	static GLuint MaxViewports(void); /*<
-	Returns the number of available viewports.
-	See [glfunc Get], [glconst MAX_VIEWPORTS].
+	static __context_ViewportDepthRange DepthRange(GLuint viewport); /*<
+	Returns the depth range values of the current viewport.
+	See [glfunc Get], [glconst DEPTH_RANGE].
 	>*/
 
+#if GL_VERSION_4_1 || GL_ARB_viewport_array
 	static void Viewport(GLuint viewport, const GLfloat* extents); /*<
 	Sets the [^extents] of the specified [^viewport].
 	See [glfunc ViewportIndexedfv].
@@ -109,11 +129,7 @@ public:
 	See [glfunc Get], [glconst VIEWPORT].
 	>*/
 
-	static BoundsRange ViewportBoundsRange(void); /*<
-	Returns the implementation-dependent viewport bounds range.
-	See [glfunc Get], [glconst VIEWPORT_BOUNDS_RANGE].
-	>*/
-	static DepthRange ViewportDepthRange(GLuint viewport); /*<
+	static __context_ViewportDepthRange DepthRange(GLuint viewport); /*<
 	Returns the depth range of the specified [^viewport].
 	See [glfunc Get], [glconst DEPTH_RANGE].
 	>*/
@@ -127,11 +143,30 @@ public:
 	See [glfunc DepthRangeArray].
 	>*/
 #endif
+};
+//]
+//[oglplus_context_ViewportOps
+class ViewportOps
+{
+public:
+	static ViewportSize MaxViewportDims(void); /*<
+	Returns the implementation-dependent maximum viewport dimensions.
+	See [glfunc Get], [glconst MAX_VIEWPORT_DIMS].
+	>*/
 
-#if GL_ES_VERSION_3_0 || GL_VERSION_4_1 || GL_ARB_ES2_compatibility
-	static void DepthRange(GLclampf near, GLclampf far);
+
+#if GL_VERSION_4_1 || GL_ARB_viewport_array
+	static GLuint MaxViewports(void); /*<
+	Returns the number of available viewports.
+	See [glfunc Get], [glconst MAX_VIEWPORTS].
+	>*/
+
+	static BoundsRange ViewportBoundsRange(void); /*<
+	Returns the implementation-dependent viewport bounds range.
+	See [glfunc Get], [glconst VIEWPORT_BOUNDS_RANGE].
+	>*/
 #endif
-	static void DepthRange(GLclampd near, GLclampd far);
+
 };
 
 } // namespace context
