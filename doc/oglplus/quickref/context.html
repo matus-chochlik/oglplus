@@ -68,7 +68,8 @@
 <span class="keyword">class</span> <span class="identifier">Context</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.errors" title="Errors">context::Errors</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.capabilities" title="Capabilities">context::Capabilities</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.viewport" title="Viewport operations">context::ViewportOps</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.state">context::ViewportState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.ops">context::ViewportOps</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.buffer_selection" title="Buffer selection">context::BufferSelection</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.buffer_masking.state">context::BufferMaskingState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.buffer_clearing.state">context::BufferClearingState</a>
@@ -224,39 +225,63 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/viewport.hpp&gt;</code>
           </p>
+<h5>
+<a name="oglplus.quickref.context.viewport.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.viewport.helpers"></a></span><a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">Helper
+            classes</a>
+          </h5>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">struct</span> <span class="identifier">ViewportPosition</span> <a class="co" name="oglplus.quickref.context.viewport.c0" href="context.html#oglplus.quickref.context.viewport.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">{</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">X</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Y</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="identifier">GLfloat</span> <span class="identifier">X</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Y</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">};</span>
 
 <span class="keyword">struct</span> <span class="identifier">ViewportSize</span> <a class="co" name="oglplus.quickref.context.viewport.c2" href="context.html#oglplus.quickref.context.viewport.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="special">{</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Width</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Height</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="identifier">GLfloat</span> <span class="identifier">Width</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Height</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">};</span>
 
 <span class="keyword">struct</span> <span class="identifier">ViewportExtents</span> <a class="co" name="oglplus.quickref.context.viewport.c4" href="context.html#oglplus.quickref.context.viewport.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="special">{</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">X</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Y</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Width</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Height</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="identifier">GLfloat</span> <span class="identifier">X</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Y</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Width</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Height</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">};</span>
 
 <span class="keyword">struct</span> <span class="identifier">BoundsRange</span> <a class="co" name="oglplus.quickref.context.viewport.c6" href="context.html#oglplus.quickref.context.viewport.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="special">{</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Min</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Max</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="identifier">GLfloat</span> <span class="identifier">Min</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Max</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">};</span>
 
-<span class="keyword">struct</span> <span class="identifier">DepthRange</span> <a class="co" name="oglplus.quickref.context.viewport.c8" href="context.html#oglplus.quickref.context.viewport.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+<span class="keyword">struct</span> <span class="identifier">ViewportDepthRange</span> <a class="co" name="oglplus.quickref.context.viewport.c8" href="context.html#oglplus.quickref.context.viewport.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="special">{</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Near</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-	<span class="identifier">GLfloat</span> <span class="identifier">Far</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="identifier">GLfloat</span> <span class="identifier">Near</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Far</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">};</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
@@ -291,19 +316,25 @@
               </p></td>
 </tr>
 </table></div>
-<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ViewportOps</span>
+<h5>
+<a name="oglplus.quickref.context.viewport.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.viewport.state"></a></span><a class="link" href="context.html#oglplus.quickref.context.viewport.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ViewportState</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="keyword">static</span> <span class="identifier">ViewportSize</span> <span class="identifier">MaxViewportDims</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c10" href="context.html#oglplus.quickref.context.viewport.c11"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">w</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">h</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c10" href="context.html#oglplus.quickref.context.viewport.c11"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLsizei</span> <span class="identifier">w</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">h</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c12" href="context.html#oglplus.quickref.context.viewport.c13"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportExtents</a><span class="special">&amp;</span> <span class="identifier">vp</span><span class="special">);</span>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">w</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">h</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c12" href="context.html#oglplus.quickref.context.viewport.c13"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLsizei</span> <span class="identifier">w</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">h</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c14" href="context.html#oglplus.quickref.context.viewport.c15"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-	<span class="keyword">static</span> <span class="identifier">ViewportExtents</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c16" href="context.html#oglplus.quickref.context.viewport.c17"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportExtents</a> <span class="identifier">Viewport</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c14" href="context.html#oglplus.quickref.context.viewport.c15"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRange</span><span class="special">(</span><span class="identifier">GLclampf</span> <span class="identifier">near</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">far</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c16" href="context.html#oglplus.quickref.context.viewport.c17"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRange</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportDepthRange</a><span class="special">&amp;);</span>
+
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportDepthRange</a> <span class="identifier">DepthRange</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c18" href="context.html#oglplus.quickref.context.viewport.c19"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_1</span> <span class="special">||</span> <span class="identifier">GL_ARB_viewport_array</span>
-	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">MaxViewports</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c18" href="context.html#oglplus.quickref.context.viewport.c19"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
-
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLfloat</span><span class="special">*</span> <span class="identifier">extents</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c20" href="context.html#oglplus.quickref.context.viewport.c21"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span>
@@ -312,6 +343,7 @@
 		<span class="identifier">GLfloat</span> <span class="identifier">width</span><span class="special">,</span>
 		<span class="identifier">GLfloat</span> <span class="identifier">height</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c22" href="context.html#oglplus.quickref.context.viewport.c23"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportExtents</a><span class="special">&amp;);</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ViewportArray</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">first</span><span class="special">,</span>
@@ -319,56 +351,49 @@
 		<span class="keyword">const</span> <span class="identifier">GLfloat</span><span class="special">*</span> <span class="identifier">extents</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c24" href="context.html#oglplus.quickref.context.viewport.c25"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
-	<span class="keyword">static</span> <span class="identifier">ViewportExtents</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c26" href="context.html#oglplus.quickref.context.viewport.c27"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportExtents</a> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c26" href="context.html#oglplus.quickref.context.viewport.c27"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
-	<span class="keyword">static</span> <span class="identifier">BoundsRange</span> <span class="identifier">ViewportBoundsRange</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c28" href="context.html#oglplus.quickref.context.viewport.c29"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
-	<span class="keyword">static</span> <span class="identifier">DepthRange</span> <span class="identifier">ViewportDepthRange</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c30" href="context.html#oglplus.quickref.context.viewport.c31"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRange</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="identifier">GLclampd</span> <span class="identifier">near</span><span class="special">,</span> <span class="identifier">GLclampd</span> <span class="identifier">far</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c28" href="context.html#oglplus.quickref.context.viewport.c29"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRange</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportDepthRange</a><span class="special">&amp;);</span>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRange</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="identifier">GLclampd</span> <span class="identifier">near</span><span class="special">,</span> <span class="identifier">GLclampd</span> <span class="identifier">far</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c32" href="context.html#oglplus.quickref.context.viewport.c33"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRangeArray</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLclampd</span> <span class="special">*</span><span class="identifier">v</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c34" href="context.html#oglplus.quickref.context.viewport.c35"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRangeArray</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLclampd</span> <span class="special">*</span><span class="identifier">v</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c30" href="context.html#oglplus.quickref.context.viewport.c31"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportDepthRange</a> <span class="identifier">DepthRange</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c32" href="context.html#oglplus.quickref.context.viewport.c33"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
 <span class="preprocessor">#endif</span>
-
-<span class="preprocessor">#if</span> <span class="identifier">GL_ES_VERSION_3_0</span> <span class="special">||</span> <span class="identifier">GL_VERSION_4_1</span> <span class="special">||</span> <span class="identifier">GL_ARB_ES2_compatibility</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRange</span><span class="special">(</span><span class="identifier">GLclampf</span> <span class="identifier">near</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">far</span><span class="special">);</span>
-<span class="preprocessor">#endif</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRange</span><span class="special">(</span><span class="identifier">GLclampd</span> <span class="identifier">near</span><span class="special">,</span> <span class="identifier">GLclampd</span> <span class="identifier">far</span><span class="special">);</span>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c11"></a><a href="#oglplus.quickref.context.viewport.c10"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Returns the implementation-dependent maximum viewport dimensions.
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_MAX_VIEWPORT_DIMS</code></strong></span>.
+                Sets the extents of the current viewport. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glViewport.xml" target="_top">glViewport</a></code>.
               </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c13"></a><a href="#oglplus.quickref.context.viewport.c12"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Sets the extents of the current viewport. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glViewport.xml" target="_top">glViewport</a></code>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c15"></a><a href="#oglplus.quickref.context.viewport.c14"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
                 Sets the size of the current viewport starting at (0,0). See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glViewport.xml" target="_top">glViewport</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c17"></a><a href="#oglplus.quickref.context.viewport.c16"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c15"></a><a href="#oglplus.quickref.context.viewport.c14"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the extents of the current viewport. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_VIEWPORT</code></strong></span>.
               </p></td>
 </tr>
 <tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c17"></a><a href="#oglplus.quickref.context.viewport.c16"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the <code class="literal">near</code> / <code class="literal">far</code> depth range
+                values of the default viewport. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDepthRangeIndexed.xml" target="_top">glDepthRangeIndexed</a></code>.
+              </p></td>
+</tr>
+<tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c19"></a><a href="#oglplus.quickref.context.viewport.c18"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Returns the number of available viewports. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
-                <span class="bold"><strong><code class="literal">GL_MAX_VIEWPORTS</code></strong></span>.
+                Returns the depth range values of the current viewport. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+                <span class="bold"><strong><code class="literal">GL_DEPTH_RANGE</code></strong></span>.
               </p></td>
 </tr>
 <tr>
@@ -402,29 +427,66 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c29"></a><a href="#oglplus.quickref.context.viewport.c28"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Returns the implementation-dependent viewport bounds range. See
-                <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_VIEWPORT_BOUNDS_RANGE</code></strong></span>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c31"></a><a href="#oglplus.quickref.context.viewport.c30"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Returns the depth range of the specified <code class="literal">viewport</code>.
-                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_DEPTH_RANGE</code></strong></span>.
-              </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c33"></a><a href="#oglplus.quickref.context.viewport.c32"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
                 Sets the <code class="literal">near</code> / <code class="literal">far</code> depth range
                 values of the default viewport. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDepthRangeIndexed.xml" target="_top">glDepthRangeIndexed</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c35"></a><a href="#oglplus.quickref.context.viewport.c34"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c31"></a><a href="#oglplus.quickref.context.viewport.c30"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets depth ranges of viewports specified by <code class="literal">first</code>
                 and <code class="literal">count</code>. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDepthRangeArray.xml" target="_top">glDepthRangeArray</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c33"></a><a href="#oglplus.quickref.context.viewport.c32"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the depth range of the specified <code class="literal">viewport</code>.
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_DEPTH_RANGE</code></strong></span>.
+              </p></td>
+</tr>
+</table></div>
+<h5>
+<a name="oglplus.quickref.context.viewport.h2"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.viewport.ops"></a></span><a class="link" href="context.html#oglplus.quickref.context.viewport.ops">Operations</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ViewportOps</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">static</span> <span class="identifier">ViewportSize</span> <span class="identifier">MaxViewportDims</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c34" href="context.html#oglplus.quickref.context.viewport.c35"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_1</span> <span class="special">||</span> <span class="identifier">GL_ARB_viewport_array</span>
+	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">MaxViewports</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c36" href="context.html#oglplus.quickref.context.viewport.c37"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">BoundsRange</span> <span class="identifier">ViewportBoundsRange</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c38" href="context.html#oglplus.quickref.context.viewport.c39"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="preprocessor">#endif</span>
+
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace context</span>
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c35"></a><a href="#oglplus.quickref.context.viewport.c34"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the implementation-dependent maximum viewport dimensions.
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_MAX_VIEWPORT_DIMS</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c37"></a><a href="#oglplus.quickref.context.viewport.c36"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the number of available viewports. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+                <span class="bold"><strong><code class="literal">GL_MAX_VIEWPORTS</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.viewport.c39"></a><a href="#oglplus.quickref.context.viewport.c38"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the implementation-dependent viewport bounds range. See
+                <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>, <span class="bold"><strong><code class="literal">GL_VIEWPORT_BOUNDS_RANGE</code></strong></span>.
               </p></td>
 </tr>
 </table></div>
