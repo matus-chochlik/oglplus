@@ -430,6 +430,11 @@ public:
 		);
 	}
 
+	static void DepthRange(GLuint viewport, const ViewportDepthRange& vdr)
+	{
+		DepthRange(viewport, vdr._v[0], vdr._v[1]);
+	}
+
 	/// Sets depth ranges of viewports specified by @p first and @p count
 	/**
 	 *  @throws Error

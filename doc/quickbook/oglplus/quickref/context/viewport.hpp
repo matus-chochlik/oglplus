@@ -94,7 +94,7 @@ public:
 	>*/
 	static void DepthRange(const __context_ViewportDepthRange&);
 
-	static __context_ViewportDepthRange DepthRange(GLuint viewport); /*<
+	static __context_ViewportDepthRange DepthRange(void); /*<
 	Returns the depth range values of the current viewport.
 	See [glfunc Get], [glconst DEPTH_RANGE].
 	>*/
@@ -114,6 +114,7 @@ public:
 	Sets the extents of the specified [^viewport].
 	See [glfunc ViewportIndexedf].
 	>*/
+	static void Viewport(GLuint viewport, const __context_ViewportExtents&);
 
 	static void ViewportArray(
 		GLuint first,
@@ -124,23 +125,25 @@ public:
 	See [glfunc ViewportIndexedfv].
 	>*/
 
-	static ViewportExtents Viewport(GLuint viewport); /*<
+	static __context_ViewportExtents Viewport(GLuint viewport); /*<
 	Returns the extents of the specified [^viewport].
 	See [glfunc Get], [glconst VIEWPORT].
-	>*/
-
-	static __context_ViewportDepthRange DepthRange(GLuint viewport); /*<
-	Returns the depth range of the specified [^viewport].
-	See [glfunc Get], [glconst DEPTH_RANGE].
 	>*/
 
 	static void DepthRange(GLuint viewport, GLclampd near, GLclampd far); /*<
 	Sets the [^near] / [^far] depth range values of the default viewport.
 	See [glfunc DepthRangeIndexed].
 	>*/
+	static void DepthRange(GLuint viewport, const __context_ViewportDepthRange&);
+
 	static void DepthRangeArray(GLuint first, GLsizei count, const GLclampd *v); /*<
 	Sets depth ranges of viewports specified by [^first] and [^count].
 	See [glfunc DepthRangeArray].
+	>*/
+
+	static __context_ViewportDepthRange DepthRange(GLuint viewport); /*<
+	Returns the depth range of the specified [^viewport].
+	See [glfunc Get], [glconst DEPTH_RANGE].
 	>*/
 #endif
 };
