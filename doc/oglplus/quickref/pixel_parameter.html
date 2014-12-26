@@ -15,15 +15,14 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="oglplus.quickref.pixel_storage_mode"></a><a class="link" href="pixel_storage_mode.html" title="Pixel storage mode">Pixel storage
-        mode</a>
+<a name="oglplus.quickref.pixel_parameter"></a><a class="link" href="pixel_parameter.html" title="Pixel storage mode">Pixel storage mode</a>
 </h2></div></div></div>
 <p>
-          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/pixel_storage_mode.hpp&gt;</code>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/pixel_parameter.hpp&gt;</code>
         </p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">PixelStorageMode</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">PixelParameter</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">PackSwapBytes</span>               <span class="special">=</span> <span class="identifier">GL_PACK_SWAP_BYTES</span><span class="special">,</span>
 	<span class="identifier">PackLsbFirst</span>                <span class="special">=</span> <span class="identifier">GL_PACK_LSB_FIRST</span><span class="special">,</span>
@@ -52,9 +51,9 @@
 <span class="special">};</span>
 
 <span class="keyword">template</span> <span class="special">&lt;&gt;</span>
-<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">PixelStorageMode</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">PixelStorageMode</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
+<a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
-<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">PixelStorageMode</span><span class="special">);</span>
+<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">PixelParameter</span><span class="special">);</span>
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
