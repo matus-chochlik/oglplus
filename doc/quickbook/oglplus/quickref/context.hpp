@@ -10,6 +10,7 @@ namespace oglplus {
 class Context
  : public __context_Errors
  , public __context_Capabilities
+ , public __context_ViewportState
  , public __context_ViewportOps
  , public __context_BufferSelection
  , public __context_BufferMaskingState

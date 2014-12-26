@@ -14,7 +14,10 @@ values of the current context.
 
 [def __context_Errors [link oglplus.quickref.context.errors context::Errors]]
 [def __context_Capabilities [link oglplus.quickref.context.capabilities context::Capabilities]]
-[def __context_ViewportOps [link oglplus.quickref.context.viewport context::ViewportOps]]
+[def __context_ViewportExtents [link oglplus.quickref.context.viewport.helpers context::ViewportExtents]]
+[def __context_ViewportDepthRange [link oglplus.quickref.context.viewport.helpers context::ViewportDepthRange]]
+[def __context_ViewportState [link oglplus.quickref.context.viewport.state context::ViewportState]]
+[def __context_ViewportOps [link oglplus.quickref.context.viewport.ops context::ViewportOps]]
 [def __context_BufferSelection [link oglplus.quickref.context.buffer_selection context::BufferSelection]]
 [def __context_BufferMaskingState [link oglplus.quickref.context.buffer_masking.state context::BufferMaskingState]]
 [def __context_BufferClearingState [link oglplus.quickref.context.buffer_clearing.state context::BufferClearingState]]

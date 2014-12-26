@@ -47,9 +47,39 @@ public:
 	{ }
 };
 
-class Viewport
- : public SettingStackIndexed<ViewportIndexed, context::ViewportExtents>
-{ };
+
+typedef SettingStackIndexed<ViewportIndexed, context::ViewportExtents>
+	Viewport;
+
+class DepthRangeIndexed
+ : public SettingStack<context::ViewportDepthRange, GLuint>
+{
+private:
+	static
+	context::ViewportDepthRange _do_get(GLuint index)
+	{
+		return context::ViewportState::DepthRange(index);
+	}
+
+	static
+	void _do_set(context::ViewportDepthRange vdr, GLuint index)
+	{
+		context::ViewportState::DepthRange(index, vdr);
+	}
+public:
+	DepthRangeIndexed(GLuint index)
+	 : SettingStack<context::ViewportDepthRange, GLuint>(
+		&_do_get,
+		&_do_set,
+		index
+	)
+	{ }
+};
+
+typedef SettingStackIndexed<
+	DepthRangeIndexed,
+	context::ViewportDepthRange
+> DepthRange;
 
 #else
 
@@ -77,6 +107,30 @@ public:
 	{ }
 };
 
+class DepthRange
+ : public SettingStack<context::ViewportDepthRange, Nothing>
+{
+private:
+	static
+	context::ViewportDepthRange _do_get(Nothing)
+	{
+		return context::ViewportState::DepthRange();
+	}
+
+	static
+	void _do_set(context::ViewportDepthRange vdr, Nothing)
+	{
+		context::ViewportState::DepthRange(vdr);
+	}
+public:
+	DepthRange(void)
+	 : SettingStack<context::ViewportDepthRange, Nothing>(
+		&_do_get,
+		&_do_set
+	)
+	{ }
+};
+
 #endif
 
 } // namespace aux
@@ -85,6 +139,7 @@ class ViewportState
 {
 public:
 	aux::Viewport Viewport;
+	aux::DepthRange DepthRange;
 };
 
 } // namespace client
