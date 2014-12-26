@@ -1,7 +1,7 @@
-//  File implement/oglplus/enums/pixel_storage_mode_def.ipp
+//  File implement/oglplus/enums/pixel_parameter_def.ipp
 //
 //  Automatically generated file, DO NOT modify manually.
-//  Edit the source 'source/enums/oglplus/pixel_storage_mode.txt'
+//  Edit the source 'source/enums/oglplus/pixel_parameter.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
 //  Copyright 2010-2014 Matus Chochlik.

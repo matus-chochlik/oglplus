@@ -3,13 +3,13 @@
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
 [/--------------------------------------------]
-[section:pixel_storage_mode Pixel storage mode]
+[section:pixel_parameter Pixel storage mode]
 [/--------------------------------------------]
 
-[header oglplus/pixel_storage_mode.hpp]
+[header oglplus/pixel_parameter.hpp]
 
-[import enums/pixel_storage_mode.hpp]
+[import enums/pixel_parameter.hpp]
 
-[oglplus_enums_pixel_storage_mode]
+[oglplus_enums_pixel_parameter]
 
 [endsect]

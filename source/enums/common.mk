@@ -14,6 +14,8 @@ all: \
 	_impl_enum_class_ipp \
 	_smart_enums_ipp \
 	_smart_values_ipp \
+	_lib_enum_value_name_ipp \
+	_lib_enum_value_range_ipp \
 	_qbk_qref_hpp
 
 .PHONY: _incl_enum_ipp
@@ -102,6 +104,32 @@ $(ROOT)/implement/$(LIBRARY)/detail/smart_values.ipp: $(SOURCES) $(MAKE_ENUM)
 		--library $(LIBRARY) \
 		--base-lib-prefix $(LIB_PREFIX)\
 		--action smart_values_ipp \
+		--output "$@" \
+		--output-id "none" \
+		$(filter %.txt,$^)
+	git add "$@"
+
+.PHONY: _lib_enum_value_name_ipp
+_lib_enum_value_name_ipp: $(ROOT)/implement/$(LIBRARY)/lib/enum_value_name.ipp
+
+$(ROOT)/implement/$(LIBRARY)/lib/enum_value_name.ipp: $(SOURCES) $(MAKE_ENUM)
+	$(MAKE_ENUM) \
+		--library $(LIBRARY) \
+		--base-lib-prefix $(LIB_PREFIX)\
+		--action impl_lib_enum_value_name_ipp \
+		--output "$@" \
+		--output-id "none" \
+		$(filter %.txt,$^)
+	git add "$@"
+
+.PHONY: _lib_enum_value_range_ipp
+_lib_enum_value_range_ipp: $(ROOT)/implement/$(LIBRARY)/lib/enum_value_range.ipp
+
+$(ROOT)/implement/$(LIBRARY)/lib/enum_value_range.ipp: $(SOURCES) $(MAKE_ENUM)
+	$(MAKE_ENUM) \
+		--library $(LIBRARY) \
+		--base-lib-prefix $(LIB_PREFIX)\
+		--action impl_lib_enum_value_range_ipp \
 		--output "$@" \
 		--output-id "none" \
 		$(filter %.txt,$^)

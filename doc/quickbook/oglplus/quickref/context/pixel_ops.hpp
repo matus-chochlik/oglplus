@@ -11,11 +11,11 @@ namespace context {
 class PixelOps
 {
 public:
-	static void PixelStore(__PixelStorageMode parameter, GLfloat value); /*<
+	static void PixelStore(__PixelParameter parameter, GLfloat value); /*<
 	Sets the [^value] of a pixel storage [^parameter].
 	See [glfunc PixelStore].
 	>*/
-	static void PixelStore(__PixelStorageMode parameter, GLint value);
+	static void PixelStore(__PixelParameter parameter, GLint value);
 
 	static void ReadPixels(
 		GLint x,

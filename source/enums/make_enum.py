@@ -63,6 +63,30 @@ def capitalize_name(name):
 
 	return str().join(new_chars)
 
+def update_input_options(options, input_file):
+
+	options.rel_input = os.path.relpath(input_file, options.root_dir)
+	options.input_name = os.path.relpath(input_file, options.source_root_dir)
+	options.input_name = os.path.splitext(options.input_name)[0]
+
+
+	options.enum_name = None
+	options.enum_type = "enum"
+
+	with open(input_file, "r") as f:
+		for line in f:
+			line = line.strip()
+			if line.startswith("#@"):
+				options.enum_type = line[2:-1]
+				break
+			elif line.startswith("#") and line.endswith("#"):
+				options.enum_name = line[1:-1]
+				break
+	if not options.enum_name:
+		tmp = os.path.splitext(os.path.basename(input_file))[0]
+		tmp = [x.capitalize() for x in tmp.split("_")]
+		options.enum_name = str().join(tmp)
+
 def parse_source(options, input_file = None):
 
 	import string
@@ -433,6 +457,57 @@ def action_smart_values_ipp(options):
 		evp = (options.library, enum_value, enum_value)
 		print_line(options, "OGLPLUS_CONSTEXPR %s::smart_enums::%s %s = {};" % evp);
 
+def action_impl_lib_enum_value_name_ipp(options):
+
+
+	print_cpp_header(options)
+
+	print_line(options, "#if !%s_NO_ENUM_VALUE_NAMES" % options.library_uc)
+	print_newline(options)
+
+	for input_file in options.input:
+		update_input_options(options, input_file)
+
+		print_line(options, "OGLPLUS_ENUM_CLASS_FWD(%s, %s%s)" % (
+			options.enum_name,
+			options.base_lib_prefix,
+			options.enum_type
+		))
+		print_line(options, "#include <%s/enums/%s_names.ipp>" % (
+			options.library,
+			options.input_name
+		))
+		print_newline(options)
+
+	print_line(options, "#endif")
+	print_newline(options)
+
+def action_impl_lib_enum_value_range_ipp(options):
+
+
+	print_cpp_header(options)
+
+	print_line(options, "#if !%s_NO_ENUM_VALUE_RANGES" % options.library_uc)
+	print_newline(options)
+
+	for input_file in options.input:
+		update_input_options(options, input_file)
+
+		print_line(options, "OGLPLUS_ENUM_CLASS_FWD(%s, %s%s)" % (
+			options.enum_name,
+			options.base_lib_prefix,
+			options.enum_type
+		))
+		print_line(options, "#include <%s/enums/%s_range.ipp>" % (
+			options.library,
+			options.input_name
+		))
+		print_newline(options)
+
+	print_line(options, "#endif")
+	print_newline(options)
+
+
 actions = {
 	"info":    action_info,
 	"qbk_hpp": action_qbk_hpp,
@@ -442,10 +517,17 @@ actions = {
 	"impl_enum_range_ipp": action_impl_enum_range_ipp,
 	"impl_enum_class_ipp": action_impl_enum_class_ipp,
 	"smart_enums_ipp": action_smart_enums_ipp,
-	"smart_values_ipp": action_smart_values_ipp
+	"smart_values_ipp": action_smart_values_ipp,
+	"impl_lib_enum_value_name_ipp": action_impl_lib_enum_value_name_ipp,
+	"impl_lib_enum_value_range_ipp": action_impl_lib_enum_value_range_ipp
 }
 
-multi_file_actions = ["smart_enums_ipp", "smart_values_ipp"]
+multi_file_actions = [
+	"smart_enums_ipp",
+	"smart_values_ipp",
+	"impl_lib_enum_value_name_ipp",
+	"impl_lib_enum_value_range_ipp"
+]
 
 def dispatch_action(options):
 	if not options.action in multi_file_actions:
@@ -569,26 +651,7 @@ def get_options():
 	options.source_root_dir = os.path.join(options.root_dir, "source", "enums", options.library)
 
 	if len(options.input) == 1:
-		options.rel_input = os.path.relpath(options.input[0], options.root_dir)
-		options.input_name = os.path.relpath(options.input[0], options.source_root_dir)
-		options.input_name = os.path.splitext(options.input_name)[0]
-
-		options.enum_name = None
-		options.enum_type = "enum"
-		with open(options.input[0], "r") as f:
-			for line in f:
-				line = line.strip()
-				if line.startswith("#@"):
-					options.enum_type = line[2:-1]
-					break
-				elif line.startswith("#") and line.endswith("#"):
-					options.enum_name = line[1:-1]
-					break
-		if not options.enum_name:
-			tmp = os.path.splitext(os.path.basename(options.input[0]))[0]
-			tmp = [x.capitalize() for x in tmp.split("_")]
-			options.enum_name = str().join(tmp)
-
+		update_input_options(options, options.input[0])
 	else:
 		options.rel_input = None
 

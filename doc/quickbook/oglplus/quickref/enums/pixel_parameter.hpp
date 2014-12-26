@@ -1,7 +1,7 @@
-//  File doc/quickbook/oglplus/quickref/enums/pixel_storage_mode.hpp
+//  File doc/quickbook/oglplus/quickref/enums/pixel_parameter.hpp
 //
 //  Automatically generated file, DO NOT modify manually.
-//  Edit the source 'source/enums/oglplus/pixel_storage_mode.txt'
+//  Edit the source 'source/enums/oglplus/pixel_parameter.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
 //  Copyright 2010-2014 Matus Chochlik.
@@ -9,10 +9,10 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //
-//[oglplus_enums_pixel_storage_mode
+//[oglplus_enums_pixel_parameter
 namespace oglplus {
 
-enum class PixelStorageMode : GLenum
+enum class PixelParameter : GLenum
 {
 	PackSwapBytes               = GL_PACK_SWAP_BYTES,
 	PackLsbFirst                = GL_PACK_LSB_FIRST,
@@ -41,9 +41,9 @@ enum class PixelStorageMode : GLenum
 };
 
 template <>
-__Range<PixelStorageMode> __EnumValueRange<PixelStorageMode>(void);
+__Range<PixelParameter> __EnumValueRange<PixelParameter>(void);
 
-__StrCRef __EnumValueName(PixelStorageMode);
+__StrCRef __EnumValueName(PixelParameter);
 
 } // namespace oglplus
 //]

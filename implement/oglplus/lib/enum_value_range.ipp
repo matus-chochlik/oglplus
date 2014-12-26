@@ -1,17 +1,21 @@
-/*
- *  .file oglplus/lib/enum_value_range.ipp
- *
- *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/oglplus/.*.txt' instead.
- *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
- *  Software License, Version 1.0. (See accompanying file
- *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
- */
-
+//  File implement/oglplus/lib/enum_value_range.ipp
+//
+//  Automatically generated file, DO NOT modify manually.
+//  Edit the enumeration source files in 'source/enums/oglplus'
+//  or the 'source/enums/make_enum.py' script instead.
+//
+//  Copyright 2010-2014 Matus Chochlik.
+//  Distributed under the Boost Software License, Version 1.0.
+//  See accompanying file LICENSE_1_0.txt or copy at
+//  http://www.boost.org/LICENSE_1_0.txt
+//
 #if !OGLPLUS_NO_ENUM_VALUE_RANGES
+
 OGLPLUS_ENUM_CLASS_FWD(AccessSpecifier, GLenum)
 #include <oglplus/enums/access_specifier_range.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(BlendEquationAdvanced, GLenum)
+#include <oglplus/enums/blend_equation_advanced_range.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(BlendEquation, GLenum)
 #include <oglplus/enums/blend_equation_range.ipp>
@@ -139,8 +143,8 @@ OGLPLUS_ENUM_CLASS_FWD(PixelDataInternalFormat, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(PixelDataType, GLenum)
 #include <oglplus/enums/pixel_data_type_range.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(PixelStorageMode, GLenum)
-#include <oglplus/enums/pixel_storage_mode_range.ipp>
+OGLPLUS_ENUM_CLASS_FWD(PixelParameter, GLenum)
+#include <oglplus/enums/pixel_parameter_range.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(PolygonMode, GLenum)
 #include <oglplus/enums/polygon_mode_range.ipp>
@@ -241,10 +245,10 @@ OGLPLUS_ENUM_CLASS_FWD(TransformFeedbackTarget, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(PerfMonitorAMDType, GLenum)
 #include <oglplus/enums/ext/amd_perf_monitor_type_range.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(CompatibilityAttributeGroup, GLbitfield)
+OGLPLUS_ENUM_CLASS_FWD(CompatibilityAttributeGroup, GLenum)
 #include <oglplus/enums/ext/compat_attrib_group_range.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(CompatibilityClientAttributeGroup, GLbitfield)
+OGLPLUS_ENUM_CLASS_FWD(CompatibilityClientAttributeGroup, GLenum)
 #include <oglplus/enums/ext/compat_client_attrib_group_range.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(CompatibilityMatrixMode, GLenum)
@@ -295,7 +299,7 @@ OGLPLUS_ENUM_CLASS_FWD(PathNVFillCoverMode, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(PathNVFillMode, GLenum)
 #include <oglplus/enums/ext/nv_path_fill_mode_range.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(PathNVFontStyle, GLbitfield)
+OGLPLUS_ENUM_CLASS_FWD(PathNVFontStyle, GLenum)
 #include <oglplus/enums/ext/nv_path_font_style_range.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(PathNVFontTarget, GLenum)
@@ -313,7 +317,7 @@ OGLPLUS_ENUM_CLASS_FWD(PathNVJoinStyle, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(PathNVListMode, GLenum)
 #include <oglplus/enums/ext/nv_path_list_mode_range.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(PathNVMetricQuery, GLbitfield)
+OGLPLUS_ENUM_CLASS_FWD(PathNVMetricQuery, GLenum)
 #include <oglplus/enums/ext/nv_path_metric_query_range.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(PathNVMissingGlyph, GLenum)
@@ -332,3 +336,4 @@ OGLPLUS_ENUM_CLASS_FWD(ResetNotificationStrategyARB, GLenum)
 #include <oglplus/enums/ext/reset_notif_strategy_range.ipp>
 
 #endif
+

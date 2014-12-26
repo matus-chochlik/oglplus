@@ -1,7 +1,7 @@
-//  File implement/oglplus/enums/pixel_storage_mode_class.ipp
+//  File implement/oglplus/enums/pixel_parameter_class.ipp
 //
 //  Automatically generated file, DO NOT modify manually.
-//  Edit the source 'source/enums/oglplus/pixel_storage_mode.txt'
+//  Edit the source 'source/enums/oglplus/pixel_parameter.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
 //  Copyright 2010-2014 Matus Chochlik.
@@ -10,8 +10,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 namespace enums {
-template <typename Base, template<PixelStorageMode> class Transform>
-class EnumToClass<Base, PixelStorageMode, Transform>
+template <typename Base, template<PixelParameter> class Transform>
+class EnumToClass<Base, PixelParameter, Transform>
  : public Base
 {
 private:
@@ -22,240 +22,240 @@ public:
 # if defined PackSwapBytes
 #  pragma push_macro("PackSwapBytes")
 #  undef PackSwapBytes
-	Transform<PixelStorageMode::PackSwapBytes> PackSwapBytes;
+	Transform<PixelParameter::PackSwapBytes> PackSwapBytes;
 #  pragma pop_macro("PackSwapBytes")
 # else
-	Transform<PixelStorageMode::PackSwapBytes> PackSwapBytes;
+	Transform<PixelParameter::PackSwapBytes> PackSwapBytes;
 # endif
 #endif
 #if defined GL_PACK_LSB_FIRST
 # if defined PackLsbFirst
 #  pragma push_macro("PackLsbFirst")
 #  undef PackLsbFirst
-	Transform<PixelStorageMode::PackLsbFirst> PackLsbFirst;
+	Transform<PixelParameter::PackLsbFirst> PackLsbFirst;
 #  pragma pop_macro("PackLsbFirst")
 # else
-	Transform<PixelStorageMode::PackLsbFirst> PackLsbFirst;
+	Transform<PixelParameter::PackLsbFirst> PackLsbFirst;
 # endif
 #endif
 #if defined GL_PACK_ROW_LENGTH
 # if defined PackRowLength
 #  pragma push_macro("PackRowLength")
 #  undef PackRowLength
-	Transform<PixelStorageMode::PackRowLength> PackRowLength;
+	Transform<PixelParameter::PackRowLength> PackRowLength;
 #  pragma pop_macro("PackRowLength")
 # else
-	Transform<PixelStorageMode::PackRowLength> PackRowLength;
+	Transform<PixelParameter::PackRowLength> PackRowLength;
 # endif
 #endif
 #if defined GL_PACK_SKIP_ROWS
 # if defined PackSkipRows
 #  pragma push_macro("PackSkipRows")
 #  undef PackSkipRows
-	Transform<PixelStorageMode::PackSkipRows> PackSkipRows;
+	Transform<PixelParameter::PackSkipRows> PackSkipRows;
 #  pragma pop_macro("PackSkipRows")
 # else
-	Transform<PixelStorageMode::PackSkipRows> PackSkipRows;
+	Transform<PixelParameter::PackSkipRows> PackSkipRows;
 # endif
 #endif
 #if defined GL_PACK_SKIP_PIXELS
 # if defined PackSkipPixels
 #  pragma push_macro("PackSkipPixels")
 #  undef PackSkipPixels
-	Transform<PixelStorageMode::PackSkipPixels> PackSkipPixels;
+	Transform<PixelParameter::PackSkipPixels> PackSkipPixels;
 #  pragma pop_macro("PackSkipPixels")
 # else
-	Transform<PixelStorageMode::PackSkipPixels> PackSkipPixels;
+	Transform<PixelParameter::PackSkipPixels> PackSkipPixels;
 # endif
 #endif
 #if defined GL_PACK_ALIGNMENT
 # if defined PackAlignment
 #  pragma push_macro("PackAlignment")
 #  undef PackAlignment
-	Transform<PixelStorageMode::PackAlignment> PackAlignment;
+	Transform<PixelParameter::PackAlignment> PackAlignment;
 #  pragma pop_macro("PackAlignment")
 # else
-	Transform<PixelStorageMode::PackAlignment> PackAlignment;
+	Transform<PixelParameter::PackAlignment> PackAlignment;
 # endif
 #endif
 #if defined GL_PACK_IMAGE_HEIGHT
 # if defined PackImageHeight
 #  pragma push_macro("PackImageHeight")
 #  undef PackImageHeight
-	Transform<PixelStorageMode::PackImageHeight> PackImageHeight;
+	Transform<PixelParameter::PackImageHeight> PackImageHeight;
 #  pragma pop_macro("PackImageHeight")
 # else
-	Transform<PixelStorageMode::PackImageHeight> PackImageHeight;
+	Transform<PixelParameter::PackImageHeight> PackImageHeight;
 # endif
 #endif
 #if defined GL_PACK_SKIP_IMAGES
 # if defined PackSkipImages
 #  pragma push_macro("PackSkipImages")
 #  undef PackSkipImages
-	Transform<PixelStorageMode::PackSkipImages> PackSkipImages;
+	Transform<PixelParameter::PackSkipImages> PackSkipImages;
 #  pragma pop_macro("PackSkipImages")
 # else
-	Transform<PixelStorageMode::PackSkipImages> PackSkipImages;
+	Transform<PixelParameter::PackSkipImages> PackSkipImages;
 # endif
 #endif
 #if defined GL_PACK_COMPRESSED_BLOCK_WIDTH
 # if defined PackCompressedBlockWidth
 #  pragma push_macro("PackCompressedBlockWidth")
 #  undef PackCompressedBlockWidth
-	Transform<PixelStorageMode::PackCompressedBlockWidth> PackCompressedBlockWidth;
+	Transform<PixelParameter::PackCompressedBlockWidth> PackCompressedBlockWidth;
 #  pragma pop_macro("PackCompressedBlockWidth")
 # else
-	Transform<PixelStorageMode::PackCompressedBlockWidth> PackCompressedBlockWidth;
+	Transform<PixelParameter::PackCompressedBlockWidth> PackCompressedBlockWidth;
 # endif
 #endif
 #if defined GL_PACK_COMPRESSED_BLOCK_HEIGHT
 # if defined PackCompressedBlockHeight
 #  pragma push_macro("PackCompressedBlockHeight")
 #  undef PackCompressedBlockHeight
-	Transform<PixelStorageMode::PackCompressedBlockHeight> PackCompressedBlockHeight;
+	Transform<PixelParameter::PackCompressedBlockHeight> PackCompressedBlockHeight;
 #  pragma pop_macro("PackCompressedBlockHeight")
 # else
-	Transform<PixelStorageMode::PackCompressedBlockHeight> PackCompressedBlockHeight;
+	Transform<PixelParameter::PackCompressedBlockHeight> PackCompressedBlockHeight;
 # endif
 #endif
 #if defined GL_PACK_COMPRESSED_BLOCK_DEPTH
 # if defined PackCompressedBlockDepth
 #  pragma push_macro("PackCompressedBlockDepth")
 #  undef PackCompressedBlockDepth
-	Transform<PixelStorageMode::PackCompressedBlockDepth> PackCompressedBlockDepth;
+	Transform<PixelParameter::PackCompressedBlockDepth> PackCompressedBlockDepth;
 #  pragma pop_macro("PackCompressedBlockDepth")
 # else
-	Transform<PixelStorageMode::PackCompressedBlockDepth> PackCompressedBlockDepth;
+	Transform<PixelParameter::PackCompressedBlockDepth> PackCompressedBlockDepth;
 # endif
 #endif
 #if defined GL_PACK_COMPRESSED_BLOCK_SIZE
 # if defined PackCompressedBlockSize
 #  pragma push_macro("PackCompressedBlockSize")
 #  undef PackCompressedBlockSize
-	Transform<PixelStorageMode::PackCompressedBlockSize> PackCompressedBlockSize;
+	Transform<PixelParameter::PackCompressedBlockSize> PackCompressedBlockSize;
 #  pragma pop_macro("PackCompressedBlockSize")
 # else
-	Transform<PixelStorageMode::PackCompressedBlockSize> PackCompressedBlockSize;
+	Transform<PixelParameter::PackCompressedBlockSize> PackCompressedBlockSize;
 # endif
 #endif
 #if defined GL_UNPACK_SWAP_BYTES
 # if defined UnpackSwapBytes
 #  pragma push_macro("UnpackSwapBytes")
 #  undef UnpackSwapBytes
-	Transform<PixelStorageMode::UnpackSwapBytes> UnpackSwapBytes;
+	Transform<PixelParameter::UnpackSwapBytes> UnpackSwapBytes;
 #  pragma pop_macro("UnpackSwapBytes")
 # else
-	Transform<PixelStorageMode::UnpackSwapBytes> UnpackSwapBytes;
+	Transform<PixelParameter::UnpackSwapBytes> UnpackSwapBytes;
 # endif
 #endif
 #if defined GL_UNPACK_LSB_FIRST
 # if defined UnpackLsbFirst
 #  pragma push_macro("UnpackLsbFirst")
 #  undef UnpackLsbFirst
-	Transform<PixelStorageMode::UnpackLsbFirst> UnpackLsbFirst;
+	Transform<PixelParameter::UnpackLsbFirst> UnpackLsbFirst;
 #  pragma pop_macro("UnpackLsbFirst")
 # else
-	Transform<PixelStorageMode::UnpackLsbFirst> UnpackLsbFirst;
+	Transform<PixelParameter::UnpackLsbFirst> UnpackLsbFirst;
 # endif
 #endif
 #if defined GL_UNPACK_ROW_LENGTH
 # if defined UnpackRowLength
 #  pragma push_macro("UnpackRowLength")
 #  undef UnpackRowLength
-	Transform<PixelStorageMode::UnpackRowLength> UnpackRowLength;
+	Transform<PixelParameter::UnpackRowLength> UnpackRowLength;
 #  pragma pop_macro("UnpackRowLength")
 # else
-	Transform<PixelStorageMode::UnpackRowLength> UnpackRowLength;
+	Transform<PixelParameter::UnpackRowLength> UnpackRowLength;
 # endif
 #endif
 #if defined GL_UNPACK_SKIP_ROWS
 # if defined UnpackSkipRows
 #  pragma push_macro("UnpackSkipRows")
 #  undef UnpackSkipRows
-	Transform<PixelStorageMode::UnpackSkipRows> UnpackSkipRows;
+	Transform<PixelParameter::UnpackSkipRows> UnpackSkipRows;
 #  pragma pop_macro("UnpackSkipRows")
 # else
-	Transform<PixelStorageMode::UnpackSkipRows> UnpackSkipRows;
+	Transform<PixelParameter::UnpackSkipRows> UnpackSkipRows;
 # endif
 #endif
 #if defined GL_UNPACK_SKIP_PIXELS
 # if defined UnpackSkipPixels
 #  pragma push_macro("UnpackSkipPixels")
 #  undef UnpackSkipPixels
-	Transform<PixelStorageMode::UnpackSkipPixels> UnpackSkipPixels;
+	Transform<PixelParameter::UnpackSkipPixels> UnpackSkipPixels;
 #  pragma pop_macro("UnpackSkipPixels")
 # else
-	Transform<PixelStorageMode::UnpackSkipPixels> UnpackSkipPixels;
+	Transform<PixelParameter::UnpackSkipPixels> UnpackSkipPixels;
 # endif
 #endif
 #if defined GL_UNPACK_ALIGNMENT
 # if defined UnpackAlignment
 #  pragma push_macro("UnpackAlignment")
 #  undef UnpackAlignment
-	Transform<PixelStorageMode::UnpackAlignment> UnpackAlignment;
+	Transform<PixelParameter::UnpackAlignment> UnpackAlignment;
 #  pragma pop_macro("UnpackAlignment")
 # else
-	Transform<PixelStorageMode::UnpackAlignment> UnpackAlignment;
+	Transform<PixelParameter::UnpackAlignment> UnpackAlignment;
 # endif
 #endif
 #if defined GL_UNPACK_IMAGE_HEIGHT
 # if defined UnpackImageHeight
 #  pragma push_macro("UnpackImageHeight")
 #  undef UnpackImageHeight
-	Transform<PixelStorageMode::UnpackImageHeight> UnpackImageHeight;
+	Transform<PixelParameter::UnpackImageHeight> UnpackImageHeight;
 #  pragma pop_macro("UnpackImageHeight")
 # else
-	Transform<PixelStorageMode::UnpackImageHeight> UnpackImageHeight;
+	Transform<PixelParameter::UnpackImageHeight> UnpackImageHeight;
 # endif
 #endif
 #if defined GL_UNPACK_SKIP_IMAGES
 # if defined UnpackSkipImages
 #  pragma push_macro("UnpackSkipImages")
 #  undef UnpackSkipImages
-	Transform<PixelStorageMode::UnpackSkipImages> UnpackSkipImages;
+	Transform<PixelParameter::UnpackSkipImages> UnpackSkipImages;
 #  pragma pop_macro("UnpackSkipImages")
 # else
-	Transform<PixelStorageMode::UnpackSkipImages> UnpackSkipImages;
+	Transform<PixelParameter::UnpackSkipImages> UnpackSkipImages;
 # endif
 #endif
 #if defined GL_UNPACK_COMPRESSED_BLOCK_WIDTH
 # if defined UnpackCompressedBlockWidth
 #  pragma push_macro("UnpackCompressedBlockWidth")
 #  undef UnpackCompressedBlockWidth
-	Transform<PixelStorageMode::UnpackCompressedBlockWidth> UnpackCompressedBlockWidth;
+	Transform<PixelParameter::UnpackCompressedBlockWidth> UnpackCompressedBlockWidth;
 #  pragma pop_macro("UnpackCompressedBlockWidth")
 # else
-	Transform<PixelStorageMode::UnpackCompressedBlockWidth> UnpackCompressedBlockWidth;
+	Transform<PixelParameter::UnpackCompressedBlockWidth> UnpackCompressedBlockWidth;
 # endif
 #endif
 #if defined GL_UNPACK_COMPRESSED_BLOCK_HEIGHT
 # if defined UnpackCompressedBlockHeight
 #  pragma push_macro("UnpackCompressedBlockHeight")
 #  undef UnpackCompressedBlockHeight
-	Transform<PixelStorageMode::UnpackCompressedBlockHeight> UnpackCompressedBlockHeight;
+	Transform<PixelParameter::UnpackCompressedBlockHeight> UnpackCompressedBlockHeight;
 #  pragma pop_macro("UnpackCompressedBlockHeight")
 # else
-	Transform<PixelStorageMode::UnpackCompressedBlockHeight> UnpackCompressedBlockHeight;
+	Transform<PixelParameter::UnpackCompressedBlockHeight> UnpackCompressedBlockHeight;
 # endif
 #endif
 #if defined GL_UNPACK_COMPRESSED_BLOCK_DEPTH
 # if defined UnpackCompressedBlockDepth
 #  pragma push_macro("UnpackCompressedBlockDepth")
 #  undef UnpackCompressedBlockDepth
-	Transform<PixelStorageMode::UnpackCompressedBlockDepth> UnpackCompressedBlockDepth;
+	Transform<PixelParameter::UnpackCompressedBlockDepth> UnpackCompressedBlockDepth;
 #  pragma pop_macro("UnpackCompressedBlockDepth")
 # else
-	Transform<PixelStorageMode::UnpackCompressedBlockDepth> UnpackCompressedBlockDepth;
+	Transform<PixelParameter::UnpackCompressedBlockDepth> UnpackCompressedBlockDepth;
 # endif
 #endif
 #if defined GL_UNPACK_COMPRESSED_BLOCK_SIZE
 # if defined UnpackCompressedBlockSize
 #  pragma push_macro("UnpackCompressedBlockSize")
 #  undef UnpackCompressedBlockSize
-	Transform<PixelStorageMode::UnpackCompressedBlockSize> UnpackCompressedBlockSize;
+	Transform<PixelParameter::UnpackCompressedBlockSize> UnpackCompressedBlockSize;
 #  pragma pop_macro("UnpackCompressedBlockSize")
 # else
-	Transform<PixelStorageMode::UnpackCompressedBlockSize> UnpackCompressedBlockSize;
+	Transform<PixelParameter::UnpackCompressedBlockSize> UnpackCompressedBlockSize;
 # endif
 #endif
 

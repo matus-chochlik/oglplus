@@ -76,6 +76,7 @@ class Context
  , public context::StencilTest
  , public context::ScissorTest
  , public context::LogicalOps
+ , public context::PixelState
  , public context::PixelOps
  , public context::BlendingOps
  , public context::BlendingState
