@@ -29,13 +29,13 @@ public:
 # endif
 #endif
 #if defined GL_PACK_LSB_FIRST
-# if defined PackLsbFirst
-#  pragma push_macro("PackLsbFirst")
-#  undef PackLsbFirst
-	Transform<PixelParameter::PackLsbFirst> PackLsbFirst;
-#  pragma pop_macro("PackLsbFirst")
+# if defined PackLSBFirst
+#  pragma push_macro("PackLSBFirst")
+#  undef PackLSBFirst
+	Transform<PixelParameter::PackLSBFirst> PackLSBFirst;
+#  pragma pop_macro("PackLSBFirst")
 # else
-	Transform<PixelParameter::PackLsbFirst> PackLsbFirst;
+	Transform<PixelParameter::PackLSBFirst> PackLSBFirst;
 # endif
 #endif
 #if defined GL_PACK_ROW_LENGTH
@@ -149,13 +149,13 @@ public:
 # endif
 #endif
 #if defined GL_UNPACK_LSB_FIRST
-# if defined UnpackLsbFirst
-#  pragma push_macro("UnpackLsbFirst")
-#  undef UnpackLsbFirst
-	Transform<PixelParameter::UnpackLsbFirst> UnpackLsbFirst;
-#  pragma pop_macro("UnpackLsbFirst")
+# if defined UnpackLSBFirst
+#  pragma push_macro("UnpackLSBFirst")
+#  undef UnpackLSBFirst
+	Transform<PixelParameter::UnpackLSBFirst> UnpackLSBFirst;
+#  pragma pop_macro("UnpackLSBFirst")
 # else
-	Transform<PixelParameter::UnpackLsbFirst> UnpackLsbFirst;
+	Transform<PixelParameter::UnpackLSBFirst> UnpackLSBFirst;
 # endif
 #endif
 #if defined GL_UNPACK_ROW_LENGTH
@@ -273,13 +273,13 @@ public:
 # endif
 #endif
 #if defined GL_PACK_LSB_FIRST
-# if defined PackLsbFirst
-#  pragma push_macro("PackLsbFirst")
-#  undef PackLsbFirst
-	 , PackLsbFirst(_base())
-#  pragma pop_macro("PackLsbFirst")
+# if defined PackLSBFirst
+#  pragma push_macro("PackLSBFirst")
+#  undef PackLSBFirst
+	 , PackLSBFirst(_base())
+#  pragma pop_macro("PackLSBFirst")
 # else
-	 , PackLsbFirst(_base())
+	 , PackLSBFirst(_base())
 # endif
 #endif
 #if defined GL_PACK_ROW_LENGTH
@@ -393,13 +393,13 @@ public:
 # endif
 #endif
 #if defined GL_UNPACK_LSB_FIRST
-# if defined UnpackLsbFirst
-#  pragma push_macro("UnpackLsbFirst")
-#  undef UnpackLsbFirst
-	 , UnpackLsbFirst(_base())
-#  pragma pop_macro("UnpackLsbFirst")
+# if defined UnpackLSBFirst
+#  pragma push_macro("UnpackLSBFirst")
+#  undef UnpackLSBFirst
+	 , UnpackLSBFirst(_base())
+#  pragma pop_macro("UnpackLSBFirst")
 # else
-	 , UnpackLsbFirst(_base())
+	 , UnpackLSBFirst(_base())
 # endif
 #endif
 #if defined GL_UNPACK_ROW_LENGTH

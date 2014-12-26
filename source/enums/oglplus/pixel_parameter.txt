@@ -1,8 +1,8 @@
-# Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+# Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 PACK_SWAP_BYTES
-PACK_LSB_FIRST
+PACK_LSB_FIRST:PackLSBFirst
 PACK_ROW_LENGTH
 PACK_SKIP_ROWS
 PACK_SKIP_PIXELS
@@ -15,7 +15,7 @@ PACK_COMPRESSED_BLOCK_DEPTH
 PACK_COMPRESSED_BLOCK_SIZE
 
 UNPACK_SWAP_BYTES
-UNPACK_LSB_FIRST
+UNPACK_LSB_FIRST:UnpackLSBFirst
 UNPACK_ROW_LENGTH
 UNPACK_SKIP_ROWS
 UNPACK_SKIP_PIXELS

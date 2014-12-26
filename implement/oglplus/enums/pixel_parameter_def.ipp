@@ -33,13 +33,13 @@
 # if OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined PackLsbFirst
-#  pragma push_macro("PackLsbFirst")
-#  undef PackLsbFirst
-   OGLPLUS_ENUM_CLASS_VALUE(PackLsbFirst, GL_PACK_LSB_FIRST)
-#  pragma pop_macro("PackLsbFirst")
+# if defined PackLSBFirst
+#  pragma push_macro("PackLSBFirst")
+#  undef PackLSBFirst
+   OGLPLUS_ENUM_CLASS_VALUE(PackLSBFirst, GL_PACK_LSB_FIRST)
+#  pragma pop_macro("PackLSBFirst")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(PackLsbFirst, GL_PACK_LSB_FIRST)
+   OGLPLUS_ENUM_CLASS_VALUE(PackLSBFirst, GL_PACK_LSB_FIRST)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
@@ -225,13 +225,13 @@
 # if OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined UnpackLsbFirst
-#  pragma push_macro("UnpackLsbFirst")
-#  undef UnpackLsbFirst
-   OGLPLUS_ENUM_CLASS_VALUE(UnpackLsbFirst, GL_UNPACK_LSB_FIRST)
-#  pragma pop_macro("UnpackLsbFirst")
+# if defined UnpackLSBFirst
+#  pragma push_macro("UnpackLSBFirst")
+#  undef UnpackLSBFirst
+   OGLPLUS_ENUM_CLASS_VALUE(UnpackLSBFirst, GL_UNPACK_LSB_FIRST)
+#  pragma pop_macro("UnpackLSBFirst")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(UnpackLsbFirst, GL_UNPACK_LSB_FIRST)
+   OGLPLUS_ENUM_CLASS_VALUE(UnpackLSBFirst, GL_UNPACK_LSB_FIRST)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1

@@ -14,7 +14,7 @@
 /// PACK_SWAP_BYTES
 PackSwapBytes,
 /// PACK_LSB_FIRST
-PackLsbFirst,
+PackLSBFirst,
 /// PACK_ROW_LENGTH
 PackRowLength,
 /// PACK_SKIP_ROWS
@@ -38,7 +38,7 @@ PackCompressedBlockSize,
 /// UNPACK_SWAP_BYTES
 UnpackSwapBytes,
 /// UNPACK_LSB_FIRST
-UnpackLsbFirst,
+UnpackLSBFirst,
 /// UNPACK_ROW_LENGTH
 UnpackRowLength,
 /// UNPACK_SKIP_ROWS

@@ -15,7 +15,7 @@ namespace oglplus {
 enum class PixelParameter : GLenum
 {
 	PackSwapBytes               = GL_PACK_SWAP_BYTES,
-	PackLsbFirst                = GL_PACK_LSB_FIRST,
+	PackLSBFirst                = GL_PACK_LSB_FIRST,
 	PackRowLength               = GL_PACK_ROW_LENGTH,
 	PackSkipRows                = GL_PACK_SKIP_ROWS,
 	PackSkipPixels              = GL_PACK_SKIP_PIXELS,
@@ -27,7 +27,7 @@ enum class PixelParameter : GLenum
 	PackCompressedBlockDepth    = GL_PACK_COMPRESSED_BLOCK_DEPTH,
 	PackCompressedBlockSize     = GL_PACK_COMPRESSED_BLOCK_SIZE,
 	UnpackSwapBytes             = GL_UNPACK_SWAP_BYTES,
-	UnpackLsbFirst              = GL_UNPACK_LSB_FIRST,
+	UnpackLSBFirst              = GL_UNPACK_LSB_FIRST,
 	UnpackRowLength             = GL_UNPACK_ROW_LENGTH,
 	UnpackSkipRows              = GL_UNPACK_SKIP_ROWS,
 	UnpackSkipPixels            = GL_UNPACK_SKIP_PIXELS,
