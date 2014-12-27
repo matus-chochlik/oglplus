@@ -31,12 +31,11 @@ class PixelState
 {
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
-	/// Sets the @p value of a pixel storage @p parameter
-	/**
-	 *  @glsymbols
-	 *  @glfunref{PixelStore}
-	 */
-	static void PixelStore(PixelParameter parameter, GLfloat value)
+	static void PixelStore(
+		PixelParameter parameter,
+		GLfloat value,
+		TypeTag<float>
+	)
 	{
 		OGLPLUS_GLFUNC(PixelStoref)(GLenum(parameter), value);
 		OGLPLUS_CHECK(
@@ -46,6 +45,69 @@ public:
 		);
 	}
 
+	static void PixelStore(
+		PixelParameter parameter,
+		GLint value,
+		TypeTag<int>
+	)
+	{
+		OGLPLUS_GLFUNC(PixelStorei)(GLenum(parameter), value);
+		OGLPLUS_CHECK(
+			PixelStorei,
+			Error,
+			EnumParam(parameter)
+		);
+	}
+
+	static void PixelStore(
+		PixelParameter parameter,
+		bool value,
+		TypeTag<bool>
+	)
+	{
+		PixelStore(parameter, value?GL_TRUE:GL_FALSE, TypeTag<int>());
+	}
+
+	static GLfloat PixelStoreValue(
+		PixelParameter parameter,
+		TypeTag<float>
+	)
+	{
+		GLfloat result;
+		OGLPLUS_GLFUNC(GetFloatv)(GLenum(parameter), &result);
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
+		return result;
+	}
+
+	static GLint PixelStoreValue(
+		PixelParameter parameter,
+		TypeTag<int>
+	)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GLenum(parameter), &result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return result;
+	}
+
+	static bool PixelStoreValue(
+		PixelParameter parameter,
+		TypeTag<bool>
+	)
+	{
+		return PixelStoreValue(parameter, TypeTag<int>()) == GL_TRUE;
+	}
+
+	/// Sets the @p value of a pixel storage @p parameter
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PixelStore}
+	 */
+	static void PixelStore(PixelParameter parameter, GLfloat value)
+	{
+		PixelStore(parameter, value, TypeTag<float>());
+	}
+
 	/// Sets the @p value of a pixel storage @p parameter
 	/**
 	 *  @glsymbols
@@ -53,11 +115,43 @@ public:
 	 */
 	static void PixelStore(PixelParameter parameter, GLint value)
 	{
-		OGLPLUS_GLFUNC(PixelStorei)(GLenum(parameter), value);
-		OGLPLUS_CHECK(
-			PixelStorei,
-			Error,
-			EnumParam(parameter)
+		PixelStore(parameter, value, TypeTag<int>());
+	}
+
+	template <PixelParameter Parameter>
+	static void PixelStore(
+		typename enums::EnumAssocType<
+			PixelParameter,
+			Parameter
+		>::Type value
+	)
+	{
+		PixelStore(
+			Parameter,
+			value,
+			TypeTag<
+				typename enums::EnumAssocType<
+					PixelParameter,
+					Parameter
+				>::Type
+			>()
+		);
+	}
+
+	template <PixelParameter Parameter>
+	static typename enums::EnumAssocType<
+		PixelParameter,
+		Parameter
+	>::Type PixelStoreValue(void)
+	{
+		return PixelStoreValue(
+			Parameter,
+			TypeTag<
+				typename enums::EnumAssocType<
+					PixelParameter,
+					Parameter
+				>::Type
+			>()
 		);
 	}
 #endif // GL_VERSION_3_0
