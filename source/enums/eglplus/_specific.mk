@@ -15,3 +15,6 @@ ROOT = ../../..
 .PHONY: _impl_enum_bq_ipp
 _impl_enum_bq_ipp:
 
+.PHONY: _impl_enum_type_ipp
+_impl_enum_type_ipp:
+

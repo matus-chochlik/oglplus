@@ -85,3 +85,16 @@ $(ROOT)/implement/oglplus/enums/transform_feedback_target_bq.ipp: transform_feed
 		--output-id "transform_feedback_target_bq"
 	git add "$@"
 
+.PHONY: _impl_enum_type_ipp
+_impl_enum_type_ipp:$(ROOT)/implement/oglplus/enums/pixel_parameter_type.ipp
+
+$(ROOT)/implement/oglplus/enums/pixel_parameter_type.ipp: pixel_parameter.txt $(MAKE_ENUM)
+	$(MAKE_ENUM) \
+		--library $(LIBRARY) \
+		--base-lib-prefix $(LIB_PREFIX)\
+		--action impl_enum_type_ipp \
+		--input "$<" \
+		--output "$@" \
+		--output-id "pixel_parameter_type"
+	git add "$@"
+

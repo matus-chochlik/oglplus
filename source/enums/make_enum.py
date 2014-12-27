@@ -96,7 +96,7 @@ def parse_source(options, input_file = None):
 
 	result = list()
 
-	attribs = ["src_name", "dst_name", "doc", "bind_query", "prefix"]
+	attribs = ["src_name", "dst_name", "doc", "bind_query", "assoc_type", "prefix"]
 
 	with open(input_file, "r") as f:
 		for line in f:
@@ -127,6 +127,7 @@ def action_info(options):
 def action_specific_mk(options):
 
 	bind_query_inputs = set()
+	assoc_type_inputs = set()
 
 	for input_file in options.input:
 		items = parse_source(options, input_file)
@@ -134,6 +135,12 @@ def action_specific_mk(options):
 			try:
 				if item.bind_query:
 					bind_query_inputs.add(input_file)
+					break
+			except AttributeError:
+				pass
+			try:
+				if item.assoc_type:
+					assoc_type_inputs.add(input_file)
 					break
 			except AttributeError:
 				pass
@@ -171,6 +178,39 @@ def action_specific_mk(options):
 		print_line(options, '		--input "$<" \\')
 		print_line(options, '		--output "$@" \\')
 		print_line(options, '		--output-id "%s_bq"' % (
+			os.path.splitext(os.path.basename(input_file))[0]
+		))
+		print_line(options, '	git add "$@"')
+		print_newline(options)
+
+	def make_at_output_path(x):
+		return "$(ROOT)/implement/%s/enums/%s_type.ipp" % (
+			options.library,
+			os.path.splitext(os.path.relpath(x, options.source_root_dir))[0]
+		)
+
+	print_line(options, ".PHONY: _impl_enum_type_ipp")
+	print_line(options, "_impl_enum_type_ipp:%s" % (
+		str(" ").join([
+			make_at_output_path(x)
+			for x in list(sorted(assoc_type_inputs))
+		])
+	))
+	print_newline(options)
+
+	for input_file in sorted(assoc_type_inputs):
+		print_line(options, "%s: %s $(MAKE_ENUM)" % (
+			make_at_output_path(input_file),
+			os.path.relpath(input_file, options.source_root_dir)
+		))
+
+		print_line(options, "	$(MAKE_ENUM) \\")
+		print_line(options, "		--library $(LIBRARY) \\")
+		print_line(options, "		--base-lib-prefix $(LIB_PREFIX)\\")
+		print_line(options, "		--action impl_enum_type_ipp \\")
+		print_line(options, '		--input "$<" \\')
+		print_line(options, '		--output "$@" \\')
+		print_line(options, '		--output-id "%s_type"' % (
 			os.path.splitext(os.path.basename(input_file))[0]
 		))
 		print_line(options, '	git add "$@"')
@@ -499,6 +539,29 @@ def action_impl_enum_bq_ipp(options):
 		except AttributeError:
 			pass
 
+def action_impl_enum_type_ipp(options):
+
+	items = parse_source(options)
+
+	print_cpp_header(options)
+	print_newline(options)
+
+	print_line(options, "namespace enums {")
+
+	for item in items:
+		try:
+			if item.assoc_type:
+				print_line(options, "template <>")
+				print_line(options, "struct EnumAssocType<%s, %s::%s>" % (
+					options.enum_name,
+					options.enum_name,
+					item.dst_name
+				))
+				print_line(options, "{ typedef %s Type; };" % (item.assoc_type))
+		except AttributeError:
+			pass
+
+	print_line(options, "} // namespace enums")
 
 def action_smart_enums_ipp(options):
 
@@ -593,6 +656,7 @@ actions = {
 	"impl_enum_names_ipp": action_impl_enum_names_ipp,
 	"impl_enum_range_ipp": action_impl_enum_range_ipp,
 	"impl_enum_class_ipp": action_impl_enum_class_ipp,
+	"impl_enum_type_ipp": action_impl_enum_type_ipp,
 	"impl_enum_bq_ipp": action_impl_enum_bq_ipp,
 	"smart_enums_ipp": action_smart_enums_ipp,
 	"smart_values_ipp": action_smart_values_ipp,

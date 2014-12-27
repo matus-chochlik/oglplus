@@ -68,6 +68,12 @@ struct EnumBaseType
 	typedef GLenum Type;
 };
 
+template <typename Enum, Enum Value>
+struct EnumAssocType
+{
+	typedef void Type;
+};
+
 inline StrCRef ValueName_(GLenum*, GLenum)
 {
 	return StrCRef();

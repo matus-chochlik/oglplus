@@ -12,6 +12,7 @@ all: \
 	_impl_enum_names_ipp \
 	_impl_enum_range_ipp \
 	_impl_enum_class_ipp \
+	_impl_enum_type_ipp \
 	_impl_enum_bq_ipp \
 	_smart_enums_ipp \
 	_smart_values_ipp \
