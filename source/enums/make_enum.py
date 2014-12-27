@@ -96,7 +96,7 @@ def parse_source(options, input_file = None):
 
 	result = list()
 
-	attribs = ["src_name", "dst_name", "aq", "doc", "bind_query", "prefix"]
+	attribs = ["src_name", "dst_name", "doc", "bind_query", "prefix"]
 
 	with open(input_file, "r") as f:
 		for line in f:
