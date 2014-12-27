@@ -12,6 +12,7 @@ all: \
 	_impl_enum_names_ipp \
 	_impl_enum_range_ipp \
 	_impl_enum_class_ipp \
+	_impl_enum_bq_ipp \
 	_smart_enums_ipp \
 	_smart_values_ipp \
 	_lib_enum_value_name_ipp \
@@ -82,6 +83,19 @@ $(ROOT)/implement/$(LIBRARY)/enums/%_class.ipp: %.txt $(MAKE_ENUM)
 		--output "$@" \
 		--output-id "$(subst /,_,$*)"
 	git add "$@"
+
+
+_specific.mk: $(SOURCES) $(MAKE_ENUM)
+	$(MAKE_ENUM) \
+		--library $(LIBRARY) \
+		--base-lib-prefix $(LIB_PREFIX)\
+		--action specific_mk \
+		--output "$@" \
+		--output-id "none" \
+		$(filter %.txt,$^)
+	git add "$@"
+
+sinclude _specific.mk
 
 .PHONY: _smart_enums_ipp
 _smart_enums_ipp: $(ROOT)/implement/$(LIBRARY)/detail/smart_enums.ipp

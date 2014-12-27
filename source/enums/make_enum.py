@@ -124,6 +124,59 @@ def action_info(options):
 	print("Input: %s" % options.input)
 	print("Output: %s" % options.output)
 
+def action_specific_mk(options):
+
+	bind_query_inputs = set()
+
+	for input_file in options.input:
+		items = parse_source(options, input_file)
+		for item in items:
+			try:
+				if item.bind_query:
+					bind_query_inputs.add(input_file)
+					break
+			except AttributeError:
+				pass
+
+	def make_bq_output_path(x):
+		return "$(ROOT)/implement/%s/enums/%s_bq.ipp" % (
+			options.library,
+			os.path.splitext(os.path.relpath(x, options.source_root_dir))[0]
+		)
+
+	print_scr_header(options)
+	print_newline(options)
+	print_line(options, "ROOT = ../../..")
+	print_newline(options)
+
+	print_line(options, ".PHONY: _impl_enum_bq_ipp")
+	print_line(options, "_impl_enum_bq_ipp:%s" % (
+		str(" ").join([
+			make_bq_output_path(x)
+			for x in list(sorted(bind_query_inputs))
+		])
+	))
+	print_newline(options)
+
+	for input_file in sorted(bind_query_inputs):
+		print_line(options, "%s: %s $(MAKE_ENUM)" % (
+			make_bq_output_path(input_file),
+			os.path.relpath(input_file, options.source_root_dir)
+		))
+
+		print_line(options, "	$(MAKE_ENUM) \\")
+		print_line(options, "		--library $(LIBRARY) \\")
+		print_line(options, "		--base-lib-prefix $(LIB_PREFIX)\\")
+		print_line(options, "		--action impl_enum_bq_ipp \\")
+		print_line(options, '		--input "$<" \\')
+		print_line(options, '		--output "$@" \\')
+		print_line(options, '		--output-id "%s_bq"' % (
+			os.path.splitext(os.path.basename(input_file))[0]
+		))
+		print_line(options, '	git add "$@"')
+		print_newline(options)
+
+
 def action_qbk_hpp(options):
 
 	items = parse_source(options)
@@ -423,6 +476,29 @@ def action_impl_enum_class_ipp(options):
 	print_newline(options)
 
 
+def action_impl_enum_bq_ipp(options):
+
+	items = parse_source(options)
+
+	print_cpp_header(options)
+	print_newline(options)
+
+	for item in items:
+		try:
+			print_line(options, "#if defined %s_%s && defined %s_%s" % (
+				item.prefix, item.src_name,
+				item.prefix, item.bind_query
+			))
+			print_line(options, "case %s_%s:" % (
+				item.prefix, item.src_name
+			))
+			print_line(options, "	return %s_%s;" % (
+				item.prefix, item.bind_query
+			))
+			print_line(options, "#endif")
+		except AttributeError:
+			pass
+
 
 def action_smart_enums_ipp(options):
 
@@ -510,12 +586,14 @@ def action_impl_lib_enum_value_range_ipp(options):
 
 actions = {
 	"info":    action_info,
+	"specific_mk":  action_specific_mk,
 	"qbk_hpp": action_qbk_hpp,
 	"incl_enum_ipp": action_incl_enum_ipp,
 	"impl_enum_def_ipp": action_impl_enum_def_ipp,
 	"impl_enum_names_ipp": action_impl_enum_names_ipp,
 	"impl_enum_range_ipp": action_impl_enum_range_ipp,
 	"impl_enum_class_ipp": action_impl_enum_class_ipp,
+	"impl_enum_bq_ipp": action_impl_enum_bq_ipp,
 	"smart_enums_ipp": action_smart_enums_ipp,
 	"smart_values_ipp": action_smart_values_ipp,
 	"impl_lib_enum_value_name_ipp": action_impl_lib_enum_value_name_ipp,
@@ -523,6 +601,7 @@ actions = {
 }
 
 multi_file_actions = [
+	"specific_mk",
 	"smart_enums_ipp",
 	"smart_values_ipp",
 	"impl_lib_enum_value_name_ipp",

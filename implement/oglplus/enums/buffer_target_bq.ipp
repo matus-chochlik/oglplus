@@ -1,13 +1,14 @@
-/*
- *  .file oglplus/enums/buffer_target_bq.ipp
- *
- *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/oglplus/buffer_target.txt' instead.
- *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
- *  Software License, Version 1.0. (See accompanying file
- *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
- */
+//  File implement/oglplus/enums/buffer_target_bq.ipp
+//
+//  Automatically generated file, DO NOT modify manually.
+//  Edit the source 'source/enums/oglplus/buffer_target.txt'
+//  or the 'source/enums/make_enum.py' script instead.
+//
+//  Copyright 2010-2014 Matus Chochlik.
+//  Distributed under the Boost Software License, Version 1.0.
+//  See accompanying file LICENSE_1_0.txt or copy at
+//  http://www.boost.org/LICENSE_1_0.txt
+//
 
 #if defined GL_ARRAY_BUFFER && defined GL_ARRAY_BUFFER_BINDING
 case GL_ARRAY_BUFFER:
@@ -69,4 +70,3 @@ case GL_QUERY_BUFFER:
 case GL_PARAMETER_BUFFER_ARB:
 	return GL_PARAMETER_BUFFER_BINDING_ARB;
 #endif
-
