@@ -2724,10 +2724,10 @@ template <typename Enum, Enum = Enum::PackImageHeight> constexpr operator Enum (
 template <typename Enum> friend constexpr bool operator==(Enum value, PackImageHeight) noexcept { return value == Enum::PackImageHeight; }
 template <typename Enum> friend constexpr bool operator!=(Enum value, PackImageHeight) noexcept { return value != Enum::PackImageHeight; }
 };
-struct PackLsbFirst {
-template <typename Enum, Enum = Enum::PackLsbFirst> constexpr operator Enum (void) const noexcept { return Enum::PackLsbFirst; }
-template <typename Enum> friend constexpr bool operator==(Enum value, PackLsbFirst) noexcept { return value == Enum::PackLsbFirst; }
-template <typename Enum> friend constexpr bool operator!=(Enum value, PackLsbFirst) noexcept { return value != Enum::PackLsbFirst; }
+struct PackLSBFirst {
+template <typename Enum, Enum = Enum::PackLSBFirst> constexpr operator Enum (void) const noexcept { return Enum::PackLSBFirst; }
+template <typename Enum> friend constexpr bool operator==(Enum value, PackLSBFirst) noexcept { return value == Enum::PackLSBFirst; }
+template <typename Enum> friend constexpr bool operator!=(Enum value, PackLSBFirst) noexcept { return value != Enum::PackLSBFirst; }
 };
 struct PackRowLength {
 template <typename Enum, Enum = Enum::PackRowLength> constexpr operator Enum (void) const noexcept { return Enum::PackRowLength; }
@@ -4164,10 +4164,10 @@ template <typename Enum, Enum = Enum::UnpackImageHeight> constexpr operator Enum
 template <typename Enum> friend constexpr bool operator==(Enum value, UnpackImageHeight) noexcept { return value == Enum::UnpackImageHeight; }
 template <typename Enum> friend constexpr bool operator!=(Enum value, UnpackImageHeight) noexcept { return value != Enum::UnpackImageHeight; }
 };
-struct UnpackLsbFirst {
-template <typename Enum, Enum = Enum::UnpackLsbFirst> constexpr operator Enum (void) const noexcept { return Enum::UnpackLsbFirst; }
-template <typename Enum> friend constexpr bool operator==(Enum value, UnpackLsbFirst) noexcept { return value == Enum::UnpackLsbFirst; }
-template <typename Enum> friend constexpr bool operator!=(Enum value, UnpackLsbFirst) noexcept { return value != Enum::UnpackLsbFirst; }
+struct UnpackLSBFirst {
+template <typename Enum, Enum = Enum::UnpackLSBFirst> constexpr operator Enum (void) const noexcept { return Enum::UnpackLSBFirst; }
+template <typename Enum> friend constexpr bool operator==(Enum value, UnpackLSBFirst) noexcept { return value == Enum::UnpackLSBFirst; }
+template <typename Enum> friend constexpr bool operator!=(Enum value, UnpackLSBFirst) noexcept { return value != Enum::UnpackLSBFirst; }
 };
 struct UnpackRowLength {
 template <typename Enum, Enum = Enum::UnpackRowLength> constexpr operator Enum (void) const noexcept { return Enum::UnpackRowLength; }

@@ -14,7 +14,7 @@
 #define OGLPLUS_CONTEXT_PIXEL_OPS_1201040722_HPP
 
 #include <oglplus/glfunc.hpp>
-#include <oglplus/pixel_storage_mode.hpp>
+#include <oglplus/pixel_parameter.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/blit_filter.hpp>
 #include <oglplus/buffer_select_bit.hpp>
@@ -27,7 +27,7 @@ namespace context {
 /**
  *  @ingroup ogl_context
  */
-class PixelOps
+class PixelState
 {
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
@@ -36,7 +36,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PixelStore}
 	 */
-	static void PixelStore(PixelStorageMode parameter, GLfloat value)
+	static void PixelStore(PixelParameter parameter, GLfloat value)
 	{
 		OGLPLUS_GLFUNC(PixelStoref)(GLenum(parameter), value);
 		OGLPLUS_CHECK(
@@ -51,7 +51,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PixelStore}
 	 */
-	static void PixelStore(PixelStorageMode parameter, GLint value)
+	static void PixelStore(PixelParameter parameter, GLint value)
 	{
 		OGLPLUS_GLFUNC(PixelStorei)(GLenum(parameter), value);
 		OGLPLUS_CHECK(
@@ -61,7 +61,15 @@ public:
 		);
 	}
 #endif // GL_VERSION_3_0
+};
 
+/// Wrapper for the pixel storage and transfer operations
+/**
+ *  @ingroup ogl_context
+ */
+class PixelOps
+{
+public:
 	/// Sets the @p value of a pixel storage @p parameter
 	/**
 	 *  @glsymbols

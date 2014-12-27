@@ -552,7 +552,7 @@ constexpr const oglplus::smart_enums::PackCompressedBlockHeight PackCompressedBl
 constexpr const oglplus::smart_enums::PackCompressedBlockSize PackCompressedBlockSize = {};
 constexpr const oglplus::smart_enums::PackCompressedBlockWidth PackCompressedBlockWidth = {};
 constexpr const oglplus::smart_enums::PackImageHeight PackImageHeight = {};
-constexpr const oglplus::smart_enums::PackLsbFirst PackLsbFirst = {};
+constexpr const oglplus::smart_enums::PackLSBFirst PackLSBFirst = {};
 constexpr const oglplus::smart_enums::PackRowLength PackRowLength = {};
 constexpr const oglplus::smart_enums::PackSkipImages PackSkipImages = {};
 constexpr const oglplus::smart_enums::PackSkipPixels PackSkipPixels = {};
@@ -840,7 +840,7 @@ constexpr const oglplus::smart_enums::UnpackCompressedBlockHeight UnpackCompress
 constexpr const oglplus::smart_enums::UnpackCompressedBlockSize UnpackCompressedBlockSize = {};
 constexpr const oglplus::smart_enums::UnpackCompressedBlockWidth UnpackCompressedBlockWidth = {};
 constexpr const oglplus::smart_enums::UnpackImageHeight UnpackImageHeight = {};
-constexpr const oglplus::smart_enums::UnpackLsbFirst UnpackLsbFirst = {};
+constexpr const oglplus::smart_enums::UnpackLSBFirst UnpackLSBFirst = {};
 constexpr const oglplus::smart_enums::UnpackRowLength UnpackRowLength = {};
 constexpr const oglplus::smart_enums::UnpackSkipImages UnpackSkipImages = {};
 constexpr const oglplus::smart_enums::UnpackSkipPixels UnpackSkipPixels = {};
