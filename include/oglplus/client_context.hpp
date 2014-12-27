@@ -23,6 +23,7 @@
 #include <oglplus/client/stencil_test.hpp>
 #include <oglplus/client/scissor_test.hpp>
 #include <oglplus/client/rasterization.hpp>
+#include <oglplus/client/pixel_ops.hpp>
 #include <oglplus/client/blending.hpp>
 #include <oglplus/client/buffer_clearing.hpp>
 #include <oglplus/client/buffer_masking.hpp>
@@ -50,7 +51,8 @@ class ClientContext
  , public client::StencilTest
  , public client::ScissorTest
  , public client::LogicalOps
-// , public client::PixelOps
+ , public client::PixelState
+ , public client::PixelOps
  , public client::BlendingOps
  , public client::BlendingState
  , public client::Synchronization
