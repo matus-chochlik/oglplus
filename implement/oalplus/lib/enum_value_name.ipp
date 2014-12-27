@@ -11,22 +11,22 @@
 //
 #if !OALPLUS_NO_ENUM_VALUE_NAMES
 
-OGLPLUS_ENUM_CLASS_FWD(ContextAttrib, ALenum)
+OALPLUS_ENUM_CLASS_FWD(ContextAttrib, ALenum)
 #include <oalplus/enums/context_attrib_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(DataFormat, ALenum)
+OALPLUS_ENUM_CLASS_FWD(DataFormat, ALenum)
 #include <oalplus/enums/data_format_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(DistanceModel, ALenum)
+OALPLUS_ENUM_CLASS_FWD(DistanceModel, ALenum)
 #include <oalplus/enums/distance_model_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(SourceState, ALenum)
+OALPLUS_ENUM_CLASS_FWD(SourceState, ALenum)
 #include <oalplus/enums/source_state_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(SourceType, ALenum)
+OALPLUS_ENUM_CLASS_FWD(SourceType, ALenum)
 #include <oalplus/enums/source_type_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(StringQuery, ALenum)
+OALPLUS_ENUM_CLASS_FWD(StringQuery, ALenum)
 #include <oalplus/enums/string_query_names.ipp>
 
 #endif

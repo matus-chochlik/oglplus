@@ -593,8 +593,11 @@ def action_smart_values_ipp(options):
 
 	print_cpp_header(options)
 	for enum_value in sorted(enum_values):
-		evp = (options.library, enum_value, enum_value)
-		print_line(options, "constexpr const %s::smart_enums::%s %s = {};" % evp);
+		print_line(options, "constexpr const %s::smart_enums::%s %s = {};" % (
+			options.library,
+			enum_value,
+			enum_value
+		))
 
 def action_impl_lib_enum_value_name_ipp(options):
 
@@ -607,7 +610,8 @@ def action_impl_lib_enum_value_name_ipp(options):
 	for input_file in options.input:
 		update_input_options(options, input_file)
 
-		print_line(options, "OGLPLUS_ENUM_CLASS_FWD(%s, %s%s)" % (
+		print_line(options, "%s_ENUM_CLASS_FWD(%s, %s%s)" % (
+			options.library_uc,
 			options.enum_name,
 			options.base_lib_prefix,
 			options.enum_type
@@ -632,7 +636,8 @@ def action_impl_lib_enum_value_range_ipp(options):
 	for input_file in options.input:
 		update_input_options(options, input_file)
 
-		print_line(options, "OGLPLUS_ENUM_CLASS_FWD(%s, %s%s)" % (
+		print_line(options, "%s_ENUM_CLASS_FWD(%s, %s%s)" % (
+			options.library_uc,
 			options.enum_name,
 			options.base_lib_prefix,
 			options.enum_type
