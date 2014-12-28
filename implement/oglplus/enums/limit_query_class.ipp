@@ -1108,16 +1108,6 @@ public:
 	Transform<LimitQuery::MinProgramTextureGatherOffset> MinProgramTextureGatherOffset;
 # endif
 #endif
-#if defined GL_MIN_SAMPLE_SHADING_VALUE
-# if defined MinSampleShadingValue
-#  pragma push_macro("MinSampleShadingValue")
-#  undef MinSampleShadingValue
-	Transform<LimitQuery::MinSampleShadingValue> MinSampleShadingValue;
-#  pragma pop_macro("MinSampleShadingValue")
-# else
-	Transform<LimitQuery::MinSampleShadingValue> MinSampleShadingValue;
-# endif
-#endif
 
 	EnumToClass(void) { }
 	EnumToClass(Base&& base)
@@ -2210,16 +2200,6 @@ public:
 #  pragma pop_macro("MinProgramTextureGatherOffset")
 # else
 	 , MinProgramTextureGatherOffset(_base())
-# endif
-#endif
-#if defined GL_MIN_SAMPLE_SHADING_VALUE
-# if defined MinSampleShadingValue
-#  pragma push_macro("MinSampleShadingValue")
-#  undef MinSampleShadingValue
-	 , MinSampleShadingValue(_base())
-#  pragma pop_macro("MinSampleShadingValue")
-# else
-	 , MinSampleShadingValue(_base())
 # endif
 #endif
 	{ }

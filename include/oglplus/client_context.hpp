@@ -32,6 +32,8 @@
 #include <oglplus/client/computing.hpp>
 #include <oglplus/client/synchronization.hpp>
 
+#include <oglplus/client/limit_queries.hpp>
+#include <oglplus/client/numeric_queries.hpp>
 #include <oglplus/client/string_queries.hpp>
 
 namespace oglplus {
@@ -57,8 +59,8 @@ class ClientContext
  , public client::BlendingState
  , public client::Synchronization
  , public client::CurrentHints
-// , public context::LimitQueries
-// , public context::NumericQueries
+ , public client::LimitQueries
+ , public client::NumericQueries
  , public client::StringQueries
  , public client::CurrentObjects
 { };

@@ -2469,11 +2469,6 @@ template <typename Enum, Enum = Enum::MinProgramTextureGatherOffset> constexpr o
 template <typename Enum> friend constexpr bool operator==(Enum value, MinProgramTextureGatherOffset) noexcept { return value == Enum::MinProgramTextureGatherOffset; }
 template <typename Enum> friend constexpr bool operator!=(Enum value, MinProgramTextureGatherOffset) noexcept { return value != Enum::MinProgramTextureGatherOffset; }
 };
-struct MinSampleShadingValue {
-template <typename Enum, Enum = Enum::MinSampleShadingValue> constexpr operator Enum (void) const noexcept { return Enum::MinSampleShadingValue; }
-template <typename Enum> friend constexpr bool operator==(Enum value, MinSampleShadingValue) noexcept { return value == Enum::MinSampleShadingValue; }
-template <typename Enum> friend constexpr bool operator!=(Enum value, MinSampleShadingValue) noexcept { return value != Enum::MinSampleShadingValue; }
-};
 struct MirrorClampToEdge {
 template <typename Enum, Enum = Enum::MirrorClampToEdge> constexpr operator Enum (void) const noexcept { return Enum::MirrorClampToEdge; }
 template <typename Enum> friend constexpr bool operator==(Enum value, MirrorClampToEdge) noexcept { return value == Enum::MirrorClampToEdge; }

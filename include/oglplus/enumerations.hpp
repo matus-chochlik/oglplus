@@ -23,6 +23,11 @@
 
 namespace oglplus {
 
+/// A tag template used mainly for data-type-based function overload dispatching
+template <typename GLtype>
+struct TypeTag
+{ };
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 
 /// Returns the name of the GL enumerated value for an OGLplus enum value
@@ -72,6 +77,26 @@ template <typename Enum, Enum Value>
 struct EnumAssocType
 {
 	typedef void Type;
+};
+
+template <typename Enum, Enum Value>
+struct EnumAssocGLType
+{
+	static GLfloat _get(TypeTag<float>);
+	static GLint _get(TypeTag<int>);
+	static GLboolean _get(TypeTag<bool>);
+
+	template <typename T>
+	static T _get(TypeTag<T>);
+
+	typedef decltype(_get(
+		TypeTag<
+			typename EnumAssocType<
+				Enum,
+				Value
+			>::Type
+		>()
+	)) Type;
 };
 
 inline GLCStrRef ValueName_(GLenum*, GLenum)

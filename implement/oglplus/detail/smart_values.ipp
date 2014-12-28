@@ -501,7 +501,6 @@ constexpr const oglplus::smart_enums::MinFragmentInterpolationOffset MinFragment
 constexpr const oglplus::smart_enums::MinMapBufferAlignment MinMapBufferAlignment = {};
 constexpr const oglplus::smart_enums::MinProgramTexelOffset MinProgramTexelOffset = {};
 constexpr const oglplus::smart_enums::MinProgramTextureGatherOffset MinProgramTextureGatherOffset = {};
-constexpr const oglplus::smart_enums::MinSampleShadingValue MinSampleShadingValue = {};
 constexpr const oglplus::smart_enums::MirrorClampToEdge MirrorClampToEdge = {};
 constexpr const oglplus::smart_enums::MirroredRepeat MirroredRepeat = {};
 constexpr const oglplus::smart_enums::MiterRevert MiterRevert = {};

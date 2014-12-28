@@ -26,6 +26,75 @@ namespace context {
 class LimitQueries
 {
 public:
+	static GLint Limit(LimitQuery query, TypeTag<int>)
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetIntegerv)(GLenum(query), &result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return result;
+	}
+
+	static GLint Limit(LimitQuery query, GLuint index, TypeTag<int>)
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetIntegeri_v)(GLenum(query), index, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegeri_v);
+		return result;
+	}
+
+	static GLfloat Limit(LimitQuery query, TypeTag<float>)
+	{
+		GLfloat result = 0;
+		OGLPLUS_GLFUNC(GetFloatv)(GLenum(query), &result);
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
+		return result;
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
+	static GLfloat Limit(LimitQuery query, GLuint index, TypeTag<float>)
+	{
+		GLfloat result = 0;
+		OGLPLUS_GLFUNC(GetFloati_v)(GLenum(query), index, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetFloati_v);
+		return result;
+	}
+#endif
+
+	template <LimitQuery Query>
+	static typename enums::EnumAssocGLType<
+		LimitQuery,
+		Query
+	>::Type Limit(void)
+	{
+		return Limit(
+			Query,
+			TypeTag<
+				typename enums::EnumAssocType<
+					LimitQuery,
+					Query
+				>::Type
+			>()
+		);
+	}
+
+	template <LimitQuery Query>
+	static typename enums::EnumAssocGLType<
+		LimitQuery,
+		Query
+	>::Type Limit(GLuint index)
+	{
+		return Limit(
+			Query,
+			index,
+			TypeTag<
+				typename enums::EnumAssocType<
+					LimitQuery,
+					Query
+				>::Type
+			>()
+		);
+	}
+
 	/// Gets the implementation-dependent limit value
 	/**
 	 *  @glsymbols
@@ -33,10 +102,7 @@ public:
 	 */
 	static GLint IntLimit(LimitQuery query)
 	{
-		GLint result = 0;
-		OGLPLUS_GLFUNC(GetIntegerv)(GLenum(query), &result);
-		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
-		return result;
+		return Limit(query, TypeTag<int>());
 	}
 
 	/// Gets the implementation-dependent indexed limit value
@@ -46,10 +112,7 @@ public:
 	 */
 	static GLint IntLimit(LimitQuery query, GLuint index)
 	{
-		GLint result = 0;
-		OGLPLUS_GLFUNC(GetIntegeri_v)(GLenum(query), index, &result);
-		OGLPLUS_VERIFY_SIMPLE(GetIntegeri_v);
-		return result;
+		return Limit(query, index, TypeTag<int>());
 	}
 
 	/// Gets the implementation-dependent limit value
@@ -59,10 +122,7 @@ public:
 	 */
 	static GLfloat FloatLimit(LimitQuery query)
 	{
-		GLfloat result = 0;
-		OGLPLUS_GLFUNC(GetFloatv)(GLenum(query), &result);
-		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
-		return result;
+		return Limit(query, TypeTag<float>());
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
@@ -73,10 +133,7 @@ public:
 	 */
 	static GLfloat FloatLimit(LimitQuery query, GLuint index)
 	{
-		GLfloat result = 0;
-		OGLPLUS_GLFUNC(GetFloati_v)(GLenum(query), index, &result);
-		OGLPLUS_VERIFY_SIMPLE(GetFloati_v);
-		return result;
+		return Limit(query, index, TypeTag<float>());
 	}
 #endif
 
