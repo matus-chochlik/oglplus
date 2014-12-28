@@ -1757,22 +1757,6 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_MIN_SAMPLE_SHADING_VALUE
-# if OGLPLUS_LIST_NEEDS_COMMA
-   OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if defined MinSampleShadingValue
-#  pragma push_macro("MinSampleShadingValue")
-#  undef MinSampleShadingValue
-   OGLPLUS_ENUM_CLASS_VALUE(MinSampleShadingValue, GL_MIN_SAMPLE_SHADING_VALUE)
-#  pragma pop_macro("MinSampleShadingValue")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(MinSampleShadingValue, GL_MIN_SAMPLE_SHADING_VALUE)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif
