@@ -22,42 +22,20 @@ namespace aux {
 
 #if GL_VERSION_3_0
 
-template <typename T>
-struct PixelParamGLType
-{
-	typedef T Type;
-};
-
-template <>
-struct PixelParamGLType<float>
-{
-	typedef GLfloat Type;
-};
-
-template <>
-struct PixelParamGLType<int>
-{
-	typedef GLint Type;
-};
-
 template <PixelParameter Parameter>
 class PixelStore
  : public SettingStack<
-	typename PixelParamGLType<
-		typename oglplus::enums::EnumAssocType<
-			PixelParameter,
-			Parameter
-		>::Type
+	typename oglplus::enums::EnumAssocGLType<
+		PixelParameter,
+		Parameter
 	>::Type,
 	Nothing
 >
 {
 private:
-	typedef	typename PixelParamGLType<
-		typename oglplus::enums::EnumAssocType<
-			PixelParameter,
-			Parameter
-		>::Type
+	typedef	typename oglplus::enums::EnumAssocGLType<
+		PixelParameter,
+		Parameter
 	>::Type _value_t;
 
 	static
