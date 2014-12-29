@@ -1904,6 +1904,26 @@
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PixelStore</span><span class="special">(</span><a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a> <span class="identifier">parameter</span><span class="special">,</span> <span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c0" href="context.html#oglplus.quickref.context.pixel_ops.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PixelStore</span><span class="special">(</span><a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a> <span class="identifier">parameter</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">value</span><span class="special">);</span>
 
+	<span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a> <span class="identifier">Parameter</span><span class="special">&gt;</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PixelStore</span><span class="special">(</span>&lt;Unspecified&gt; <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c2" href="context.html#oglplus.quickref.context.pixel_ops.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">PixelStoreValue</span><span class="special">(</span>
+		<a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a> <span class="identifier">parameter</span><span class="special">,</span>
+		<a class="link" href="data_type.html#oglplus.quickref.data_type.utils">TypeTag</a><span class="special">&lt;</span><span class="keyword">float</span><span class="special">&gt;</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c4" href="context.html#oglplus.quickref.context.pixel_ops.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">PixelStoreValue</span><span class="special">(</span>
+		<a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a> <span class="identifier">parameter</span><span class="special">,</span>
+		<a class="link" href="data_type.html#oglplus.quickref.data_type.utils">TypeTag</a><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span>
+	<span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">PixelStoreValue</span><span class="special">(</span>
+		<a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a> <span class="identifier">parameter</span><span class="special">,</span>
+		<a class="link" href="data_type.html#oglplus.quickref.data_type.utils">TypeTag</a><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">&gt;</span>
+	<span class="special">);</span>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a> <span class="identifier">Parameter</span><span class="special">&gt;</span>
+	<span class="keyword">static</span> &lt;Unspecified&gt; <span class="identifier">PixelStoreValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c6" href="context.html#oglplus.quickref.context.pixel_ops.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ReadPixels</span><span class="special">(</span>
 		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
@@ -1912,7 +1932,7 @@
 		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
 		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">type</span><span class="special">,</span>
 		<span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c2" href="context.html#oglplus.quickref.context.pixel_ops.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c8" href="context.html#oglplus.quickref.context.pixel_ops.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlitFramebuffer</span><span class="special">(</span>
 		<span class="identifier">GLint</span> <span class="identifier">srcX0</span><span class="special">,</span>
@@ -1925,7 +1945,7 @@
 		<span class="identifier">GLint</span> <span class="identifier">dstY1</span><span class="special">,</span>
 		<a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="buffer_select_bit.html" title="Buffer selection bits">BufferSelectBit</a><span class="special">&gt;</span> <span class="identifier">mask</span><span class="special">,</span>
 		<a class="link" href="blit_filter.html" title="Blit filter">BlitFilter</a> <span class="identifier">filter</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c4" href="context.html#oglplus.quickref.context.pixel_ops.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c10" href="context.html#oglplus.quickref.context.pixel_ops.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
@@ -1942,11 +1962,34 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.pixel_ops.c3"></a><a href="#oglplus.quickref.context.pixel_ops.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Reads a block of pixels from the current framebuffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glReadPixels.xml" target="_top">glReadPixels</a></code>.
+                Sets the <code class="literal">value</code> of a pixel storage <code class="literal">Parameter</code>.
+                <code class="literal">value</code> has an appropriate type to hold the value
+                of the <code class="literal">Parameter</code> being set. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glPixelStore.xml" target="_top">glPixelStore</a></code>.
               </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.pixel_ops.c5"></a><a href="#oglplus.quickref.context.pixel_ops.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Gets the <code class="literal">value</code> of a pixel storage <code class="literal">Parameter</code>.
+                See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.pixel_ops.c7"></a><a href="#oglplus.quickref.context.pixel_ops.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Gets the <code class="literal">value</code> of a pixel storage <code class="literal">Parameter</code>.
+                The return value has an appropriate type to hold the value of the
+                <code class="literal">Parameter</code> being retrieved. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.pixel_ops.c9"></a><a href="#oglplus.quickref.context.pixel_ops.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Reads a block of pixels from the current framebuffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glReadPixels.xml" target="_top">glReadPixels</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.pixel_ops.c11"></a><a href="#oglplus.quickref.context.pixel_ops.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Transfers a rectangle of pixels from the read buffer the draw buffer.
                 See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glblitFramebuffer.xml" target="_top">glblitFramebuffer</a></code>.
@@ -2275,8 +2318,13 @@
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_1</span> <span class="special">||</span> <span class="identifier">GL_ARB_viewport_array</span>
 	<span class="keyword">static</span> <span class="identifier">GLfloat</span> <span class="identifier">FloatLimit</span><span class="special">(</span><a class="link" href="limit_query.html" title="Limit queries">LimitQuery</a> <span class="identifier">query</span><span class="special">,</span> <span class="identifier">GLuint</span> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.limit_queries.c6" href="context.html#oglplus.quickref.context.limit_queries.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="preprocessor">#endif</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="limit_query.html" title="Limit queries">LimitQuery</a> <span class="identifier">Query</span><span class="special">&gt;</span>
+	<span class="keyword">static</span> &lt;Unspecified&gt; <span class="identifier">Limit</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.limit_queries.c8" href="context.html#oglplus.quickref.context.limit_queries.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">RequireAtLeast</span><span class="special">(</span><a class="link" href="limit_query.html" title="Limit queries">LimitQuery</a> <span class="identifier">limit</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.limit_queries.c8" href="context.html#oglplus.quickref.context.limit_queries.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="limit_query.html" title="Limit queries">LimitQuery</a> <span class="identifier">Query</span><span class="special">&gt;</span>
+	<span class="keyword">static</span> &lt;Unspecified&gt; <span class="identifier">Limit</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.limit_queries.c10" href="context.html#oglplus.quickref.context.limit_queries.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">RequireAtLeast</span><span class="special">(</span><a class="link" href="limit_query.html" title="Limit queries">LimitQuery</a> <span class="identifier">limit</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.limit_queries.c12" href="context.html#oglplus.quickref.context.limit_queries.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">RequireAtLeast</span><span class="special">(</span><a class="link" href="limit_query.html" title="Limit queries">LimitQuery</a> <span class="identifier">limit</span><span class="special">,</span> <span class="identifier">GLuint</span> <span class="identifier">index</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">value</span><span class="special">);</span>
 <span class="special">};</span>
 
@@ -2313,6 +2361,22 @@
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.limit_queries.c9"></a><a href="#oglplus.quickref.context.limit_queries.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Gets the implementation-dependent numeric/boolean limit value. The
+                return value has an appropriate type to hold the value of the parameter
+                being retrieved. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.limit_queries.c11"></a><a href="#oglplus.quickref.context.limit_queries.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Gets the implementation-dependent numeric/boolean indexed limit value.
+                The return value has an appropriate type to hold the value of the
+                parameter being retrieved. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.limit_queries.c13"></a><a href="#oglplus.quickref.context.limit_queries.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Raises a <a class="link" href="error.html#oglplus.quickref.error.limit" title="Limit errors">LimitError</a>
                 if <code class="literal">value</code> is greater than the specified <code class="literal">limit</code>.
