@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_0}
+ *  @oglplus_example_uses_cpp_feat{SCOPED_ENUM_TEMPLATE_PARAMS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>

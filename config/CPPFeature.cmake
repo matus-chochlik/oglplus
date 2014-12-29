@@ -56,6 +56,7 @@ endfunction()
 
 require_cpp_feature(SCOPED_ENUMS)
 
+cpp_feature_detection(SCOPED_ENUM_TEMPLATE_PARAMS)
 cpp_feature_detection(VARIADIC_MACROS)
 cpp_feature_detection(VARIADIC_TEMPLATES)
 cpp_feature_detection(UNIFIED_INITIALIZATION_SYNTAX)
