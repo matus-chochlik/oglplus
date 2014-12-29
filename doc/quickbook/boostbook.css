@@ -56,7 +56,7 @@ div.copyright-footer a
 	color: #E0E0E0;
 }
 
-.calloutlist
+div.calloutlist
 {
 	margin-left: 4em;
 }
@@ -68,8 +68,8 @@ div.copyright-footer a
 
 pre.programlisting
 {
-	border: solid #F0F0F0 1px;
-	background-color: #F8F8F0;
+	border: solid #E0E0E0 1px;
+	background-color: #E8E8E4;
 }
 
 .programlisting .preprocessor
