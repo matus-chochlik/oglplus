@@ -21,6 +21,103 @@
 namespace oglplus {
 namespace context {
 
+struct StencilFuncArgs
+{
+	GLenum _func;
+	GLint  _refv;
+	GLuint _mask;
+
+	StencilFuncArgs(void)
+	{ }
+
+	StencilFuncArgs(
+		CompareFunction func,
+		GLint refv = GLint(0),
+		GLuint mask = ~GLuint(0)
+	): _func(GLenum(func))
+	 , _refv(refv)
+	 , _mask(mask)
+	{ }
+
+	CompareFunction Func(void) const
+	{
+		return CompareFunction(_func);
+	}
+
+	GLint Ref(void) const
+	{
+		return _refv;
+	}
+
+	GLuint ValueMask(void) const
+	{
+		return _mask;
+	}
+
+	friend
+	bool operator == (const StencilFuncArgs& a, const StencilFuncArgs& b)
+	{
+		return	(a._func == b._func) &&
+			(a._refv == b._refv) &&
+			(a._mask == b._mask);
+	}
+
+	friend
+	bool operator != (const StencilFuncArgs& a, const StencilFuncArgs& b)
+	{
+		return	(a._func != b._func) ||
+			(a._refv != b._refv) ||
+			(a._mask != b._mask);
+	}
+};
+
+struct StencilOperations
+{
+	StencilOperation _sfail;
+	StencilOperation _dfail;
+	StencilOperation _dpass;
+
+	StencilOperations(
+		StencilOperation sfail,
+		StencilOperation dfail,
+		StencilOperation dpass
+	): _sfail(sfail)
+	 , _dfail(dfail)
+	 , _dpass(dpass)
+	{ }
+
+	StencilOperation StencilFail(void) const
+	{
+		return _sfail;
+	}
+
+	StencilOperation DepthFail(void) const
+	{
+		return _dfail;
+	}
+
+	StencilOperation DepthPass(void) const
+	{
+		return _dpass;
+	}
+
+	friend
+	bool operator == (const StencilOperations& a, const StencilOperations& b)
+	{
+		return	(a._sfail == b._sfail) &&
+			(a._dfail == b._dfail) &&
+			(a._dpass == b._dpass);
+	}
+
+	friend
+	bool operator != (const StencilOperations& a, const StencilOperations& b)
+	{
+		return	(a._sfail != b._sfail) ||
+			(a._dfail != b._dfail) ||
+			(a._dpass != b._dpass);
+	}
+};
+
 /// Wrapper for the stencil-buffer-related operations
 /**
  *  @ingroup ogl_context
@@ -45,6 +142,11 @@ public:
 			Error,
 			EnumParam(func)
 		);
+	}
+
+	static void StencilFunc(const StencilFuncArgs& fa)
+	{
+		return StencilFunc(fa.Func(), fa.Ref(), fa.ValueMask());
 	}
 
 	/// Sets the stencil function separately for front and back faces
@@ -72,44 +174,17 @@ public:
 		);
 	}
 
-	/// Sets the stencil operation
-	/**
-	 *  @glsymbols
-	 *  @glfunref{StencilOp}
-	 */
-	static void StencilOp(
-		StencilOperation sfail,
-		StencilOperation dfail,
-		StencilOperation dpass
-	)
-	{
-		OGLPLUS_GLFUNC(StencilOp)(
-			GLenum(sfail),
-			GLenum(dfail),
-			GLenum(dpass)
-		);
-		OGLPLUS_VERIFY_SIMPLE(StencilOp);
-	}
-
-	/// Sets the stencil operation separately for front and back faces
-	/**
-	 *  @glsymbols
-	 *  @glfunref{StencilOpSeparate}
-	 */
-	static void StencilOpSeparate(
+	static void StencilFuncSeparate(
 		Face face,
-		StencilOperation sfail,
-		StencilOperation dfail,
-		StencilOperation dpass
+		const StencilFuncArgs& fa
 	)
 	{
-		OGLPLUS_GLFUNC(StencilOpSeparate)(
-			GLenum(face),
-			GLenum(sfail),
-			GLenum(dfail),
-			GLenum(dpass)
+		return StencilFuncSeparate(
+			face,
+			fa.Func(),
+			fa.Ref(),
+			fa.ValueMask()
 		);
-		OGLPLUS_VERIFY_SIMPLE(StencilOpSeparate);
 	}
 
 	/// Returns the stencil function
@@ -137,6 +212,31 @@ public:
 		return StencilFunc(face == Face::Back);
 	}
 
+	/// Returns the stencil reference value
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{STENCIL_REF}
+	 *  @gldefref{STENCIL_BACK_REF}
+	 */
+	static GLuint StencilRef(bool backface = false)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			backface?
+			GL_STENCIL_BACK_REF:
+			GL_STENCIL_REF,
+			&result
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return GLuint(result);
+	}
+
+	static GLuint StencilRef(Face face)
+	{
+		return StencilRef(face == Face::Back);
+	}
+
 	/// Returns the value of stencil mask
 	/**
 	 *  @glsymbols
@@ -162,29 +262,73 @@ public:
 		return StencilValueMask(face == Face::Back);
 	}
 
-	/// Returns the stencil reference value
-	/**
-	 *  @glsymbols
-	 *  @glfunref{Get}
-	 *  @gldefref{STENCIL_REF}
-	 *  @gldefref{STENCIL_BACK_REF}
-	 */
-	static GLuint StencilRef(bool backface = false)
+	static
+	oglplus::context::StencilFuncArgs StencilFuncArgs(bool backface = false)
 	{
-		GLint result;
-		OGLPLUS_GLFUNC(GetIntegerv)(
-			backface?
-			GL_STENCIL_BACK_REF:
-			GL_STENCIL_REF,
-			&result
+		return oglplus::context::StencilFuncArgs(
+			StencilFunc(backface),
+			StencilRef(backface),
+			StencilValueMask(backface)
 		);
-		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
-		return GLuint(result);
 	}
 
-	static GLuint StencilRef(Face face)
+	static
+	oglplus::context::StencilFuncArgs StencilFuncArgs(Face face)
 	{
-		return StencilRef(face == Face::Back);
+		return StencilFuncArgs(face == Face::Back);
+	}
+
+	/// Sets the stencil operation
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilOp}
+	 */
+	static void StencilOp(
+		StencilOperation sfail,
+		StencilOperation dfail,
+		StencilOperation dpass
+	)
+	{
+		OGLPLUS_GLFUNC(StencilOp)(
+			GLenum(sfail),
+			GLenum(dfail),
+			GLenum(dpass)
+		);
+		OGLPLUS_VERIFY_SIMPLE(StencilOp);
+	}
+
+	static void StencilOp(const StencilOperations& ops)
+	{
+		StencilOp(ops._sfail, ops._dfail, ops._dpass);
+	}
+
+	/// Sets the stencil operation separately for front and back faces
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilOpSeparate}
+	 */
+	static void StencilOpSeparate(
+		Face face,
+		StencilOperation sfail,
+		StencilOperation dfail,
+		StencilOperation dpass
+	)
+	{
+		OGLPLUS_GLFUNC(StencilOpSeparate)(
+			GLenum(face),
+			GLenum(sfail),
+			GLenum(dfail),
+			GLenum(dpass)
+		);
+		OGLPLUS_VERIFY_SIMPLE(StencilOpSeparate);
+	}
+
+	static void StencilOpSeparate(
+		Face face,
+		const StencilOperations& ops
+	)
+	{
+		StencilOpSeparate(face, ops._sfail, ops._dfail, ops._dpass);
 	}
 
 	/// Returns the stencil-fail action
@@ -260,6 +404,20 @@ public:
 	static StencilOperation StencilPassDepthPass(Face face)
 	{
 		return StencilPassDepthPass(face == Face::Back);
+	}
+
+	static StencilOperations StencilOps(bool backface = false)
+	{
+		return StencilOperations(
+			StencilFail(backface),
+			StencilPassDepthFail(backface),
+			StencilPassDepthPass(backface)
+		);
+	}
+
+	static StencilOperations StencilOps(Face face)
+	{
+		return StencilOps(face == Face::Back);
 	}
 
 };

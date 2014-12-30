@@ -1,7 +1,7 @@
-//  File implement/oglplus/enums/pixel_storage_mode_range.ipp
+//  File implement/oglplus/enums/pixel_parameter_range.ipp
 //
 //  Automatically generated file, DO NOT modify manually.
-//  Edit the source 'source/enums/oglplus/pixel_storage_mode.txt'
+//  Edit the source 'source/enums/oglplus/pixel_parameter.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
 //  Copyright 2010-2014 Matus Chochlik.
@@ -12,11 +12,11 @@
 namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
-	PixelStorageMode
-> ValueRange_(PixelStorageMode*)
+	PixelParameter
+> ValueRange_(PixelParameter*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVR_PIXELSTORAGEMODE)
-#define OGLPLUS_IMPL_EVR_PIXELSTORAGEMODE
+	!defined(OGLPLUS_IMPL_EVR_PIXELPARAMETER)
+#define OGLPLUS_IMPL_EVR_PIXELPARAMETER
 {
 static const GLenum _values[] = {
 #if defined GL_PACK_SWAP_BYTES
@@ -95,7 +95,7 @@ GL_UNPACK_COMPRESSED_BLOCK_SIZE,
 };
 return aux::CastIterRange<
 	const GLenum*,
-	PixelStorageMode
+	PixelParameter
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
 #else

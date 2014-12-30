@@ -63,6 +63,30 @@ def capitalize_name(name):
 
 	return str().join(new_chars)
 
+def update_input_options(options, input_file):
+
+	options.rel_input = os.path.relpath(input_file, options.root_dir)
+	options.input_name = os.path.relpath(input_file, options.source_root_dir)
+	options.input_name = os.path.splitext(options.input_name)[0]
+
+
+	options.enum_name = None
+	options.enum_type = "enum"
+
+	with open(input_file, "r") as f:
+		for line in f:
+			line = line.strip()
+			if line.startswith("#@"):
+				options.enum_type = line[2:-1]
+				break
+			elif line.startswith("#") and line.endswith("#"):
+				options.enum_name = line[1:-1]
+				break
+	if not options.enum_name:
+		tmp = os.path.splitext(os.path.basename(input_file))[0]
+		tmp = [x.capitalize() for x in tmp.split("_")]
+		options.enum_name = str().join(tmp)
+
 def parse_source(options, input_file = None):
 
 	import string
@@ -72,7 +96,7 @@ def parse_source(options, input_file = None):
 
 	result = list()
 
-	attribs = ["src_name", "dst_name", "aq", "doc", "bind_query", "prefix"]
+	attribs = ["src_name", "dst_name", "doc", "bind_query", "assoc_type", "prefix"]
 
 	with open(input_file, "r") as f:
 		for line in f:
@@ -99,6 +123,99 @@ def parse_source(options, input_file = None):
 def action_info(options):
 	print("Input: %s" % options.input)
 	print("Output: %s" % options.output)
+
+def action_specific_mk(options):
+
+	bind_query_inputs = set()
+	assoc_type_inputs = set()
+
+	for input_file in options.input:
+		items = parse_source(options, input_file)
+		for item in items:
+			try:
+				if item.bind_query:
+					bind_query_inputs.add(input_file)
+					break
+			except AttributeError:
+				pass
+			try:
+				if item.assoc_type:
+					assoc_type_inputs.add(input_file)
+					break
+			except AttributeError:
+				pass
+
+	def make_bq_output_path(x):
+		return "$(ROOT)/implement/%s/enums/%s_bq.ipp" % (
+			options.library,
+			os.path.splitext(os.path.relpath(x, options.source_root_dir))[0]
+		)
+
+	print_scr_header(options)
+	print_newline(options)
+	print_line(options, "ROOT = ../../..")
+	print_newline(options)
+
+	print_line(options, ".PHONY: _impl_enum_bq_ipp")
+	print_line(options, "_impl_enum_bq_ipp:%s" % (
+		str(" ").join([
+			make_bq_output_path(x)
+			for x in list(sorted(bind_query_inputs))
+		])
+	))
+	print_newline(options)
+
+	for input_file in sorted(bind_query_inputs):
+		print_line(options, "%s: %s $(MAKE_ENUM)" % (
+			make_bq_output_path(input_file),
+			os.path.relpath(input_file, options.source_root_dir)
+		))
+
+		print_line(options, "	$(MAKE_ENUM) \\")
+		print_line(options, "		--library $(LIBRARY) \\")
+		print_line(options, "		--base-lib-prefix $(LIB_PREFIX)\\")
+		print_line(options, "		--action impl_enum_bq_ipp \\")
+		print_line(options, '		--input "$<" \\')
+		print_line(options, '		--output "$@" \\')
+		print_line(options, '		--output-id "%s_bq"' % (
+			os.path.splitext(os.path.basename(input_file))[0]
+		))
+		print_line(options, '	git add "$@"')
+		print_newline(options)
+
+	def make_at_output_path(x):
+		return "$(ROOT)/implement/%s/enums/%s_type.ipp" % (
+			options.library,
+			os.path.splitext(os.path.relpath(x, options.source_root_dir))[0]
+		)
+
+	print_line(options, ".PHONY: _impl_enum_type_ipp")
+	print_line(options, "_impl_enum_type_ipp:%s" % (
+		str(" ").join([
+			make_at_output_path(x)
+			for x in list(sorted(assoc_type_inputs))
+		])
+	))
+	print_newline(options)
+
+	for input_file in sorted(assoc_type_inputs):
+		print_line(options, "%s: %s $(MAKE_ENUM)" % (
+			make_at_output_path(input_file),
+			os.path.relpath(input_file, options.source_root_dir)
+		))
+
+		print_line(options, "	$(MAKE_ENUM) \\")
+		print_line(options, "		--library $(LIBRARY) \\")
+		print_line(options, "		--base-lib-prefix $(LIB_PREFIX)\\")
+		print_line(options, "		--action impl_enum_type_ipp \\")
+		print_line(options, '		--input "$<" \\')
+		print_line(options, '		--output "$@" \\')
+		print_line(options, '		--output-id "%s_type"' % (
+			os.path.splitext(os.path.basename(input_file))[0]
+		))
+		print_line(options, '	git add "$@"')
+		print_newline(options)
+
 
 def action_qbk_hpp(options):
 
@@ -399,6 +516,52 @@ def action_impl_enum_class_ipp(options):
 	print_newline(options)
 
 
+def action_impl_enum_bq_ipp(options):
+
+	items = parse_source(options)
+
+	print_cpp_header(options)
+	print_newline(options)
+
+	for item in items:
+		try:
+			print_line(options, "#if defined %s_%s && defined %s_%s" % (
+				item.prefix, item.src_name,
+				item.prefix, item.bind_query
+			))
+			print_line(options, "case %s_%s:" % (
+				item.prefix, item.src_name
+			))
+			print_line(options, "	return %s_%s;" % (
+				item.prefix, item.bind_query
+			))
+			print_line(options, "#endif")
+		except AttributeError:
+			pass
+
+def action_impl_enum_type_ipp(options):
+
+	items = parse_source(options)
+
+	print_cpp_header(options)
+	print_newline(options)
+
+	print_line(options, "namespace enums {")
+
+	for item in items:
+		try:
+			if item.assoc_type:
+				print_line(options, "template <>")
+				print_line(options, "struct EnumAssocType<%s, %s::%s>" % (
+					options.enum_name,
+					options.enum_name,
+					item.dst_name
+				))
+				print_line(options, "{ typedef %s Type; };" % (item.assoc_type))
+		except AttributeError:
+			pass
+
+	print_line(options, "} // namespace enums")
 
 def action_smart_enums_ipp(options):
 
@@ -430,22 +593,89 @@ def action_smart_values_ipp(options):
 
 	print_cpp_header(options)
 	for enum_value in sorted(enum_values):
-		evp = (options.library, enum_value, enum_value)
-		print_line(options, "OGLPLUS_CONSTEXPR %s::smart_enums::%s %s = {};" % evp);
+		print_line(options, "OGLPLUS_CONSTEXPR %s::smart_enums::%s %s = {};" % (
+			options.library,
+			enum_value,
+			enum_value
+		))
+
+def action_impl_lib_enum_value_name_ipp(options):
+
+
+	print_cpp_header(options)
+
+	print_line(options, "#if !%s_NO_ENUM_VALUE_NAMES" % options.library_uc)
+	print_newline(options)
+
+	for input_file in options.input:
+		update_input_options(options, input_file)
+
+		print_line(options, "%s_ENUM_CLASS_FWD(%s, %s%s)" % (
+			options.library_uc,
+			options.enum_name,
+			options.base_lib_prefix,
+			options.enum_type
+		))
+		print_line(options, "#include <%s/enums/%s_names.ipp>" % (
+			options.library,
+			options.input_name
+		))
+		print_newline(options)
+
+	print_line(options, "#endif")
+	print_newline(options)
+
+def action_impl_lib_enum_value_range_ipp(options):
+
+
+	print_cpp_header(options)
+
+	print_line(options, "#if !%s_NO_ENUM_VALUE_RANGES" % options.library_uc)
+	print_newline(options)
+
+	for input_file in options.input:
+		update_input_options(options, input_file)
+
+		print_line(options, "%s_ENUM_CLASS_FWD(%s, %s%s)" % (
+			options.library_uc,
+			options.enum_name,
+			options.base_lib_prefix,
+			options.enum_type
+		))
+		print_line(options, "#include <%s/enums/%s_range.ipp>" % (
+			options.library,
+			options.input_name
+		))
+		print_newline(options)
+
+	print_line(options, "#endif")
+	print_newline(options)
+
 
 actions = {
 	"info":    action_info,
+	"specific_mk":  action_specific_mk,
 	"qbk_hpp": action_qbk_hpp,
 	"incl_enum_ipp": action_incl_enum_ipp,
 	"impl_enum_def_ipp": action_impl_enum_def_ipp,
 	"impl_enum_names_ipp": action_impl_enum_names_ipp,
 	"impl_enum_range_ipp": action_impl_enum_range_ipp,
 	"impl_enum_class_ipp": action_impl_enum_class_ipp,
+	"impl_enum_type_ipp": action_impl_enum_type_ipp,
+	"impl_enum_bq_ipp": action_impl_enum_bq_ipp,
 	"smart_enums_ipp": action_smart_enums_ipp,
-	"smart_values_ipp": action_smart_values_ipp
+	"smart_values_ipp": action_smart_values_ipp,
+	"impl_lib_enum_value_name_ipp": action_impl_lib_enum_value_name_ipp,
+	"impl_lib_enum_value_range_ipp": action_impl_lib_enum_value_range_ipp
 }
 
-multi_file_actions = ["smart_enums_ipp", "smart_values_ipp"]
+multi_file_actions = [
+	"specific_mk",
+	"smart_enums_ipp",
+	"smart_values_ipp",
+	"impl_lib_enum_value_name_ipp",
+	"impl_lib_enum_value_range_ipp"
+]
 
 def dispatch_action(options):
 	if not options.action in multi_file_actions:
@@ -569,26 +799,7 @@ def get_options():
 	options.source_root_dir = os.path.join(options.root_dir, "source", "enums", options.library)
 
 	if len(options.input) == 1:
-		options.rel_input = os.path.relpath(options.input[0], options.root_dir)
-		options.input_name = os.path.relpath(options.input[0], options.source_root_dir)
-		options.input_name = os.path.splitext(options.input_name)[0]
-
-		options.enum_name = None
-		options.enum_type = "enum"
-		with open(options.input[0], "r") as f:
-			for line in f:
-				line = line.strip()
-				if line.startswith("#@"):
-					options.enum_type = line[2:-1]
-					break
-				elif line.startswith("#") and line.endswith("#"):
-					options.enum_name = line[1:-1]
-					break
-		if not options.enum_name:
-			tmp = os.path.splitext(os.path.basename(options.input[0]))[0]
-			tmp = [x.capitalize() for x in tmp.split("_")]
-			options.enum_name = str().join(tmp)
-
+		update_input_options(options, options.input[0])
 	else:
 		options.rel_input = None
 

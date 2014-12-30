@@ -228,9 +228,7 @@ MinMapBufferAlignment,
 /// MIN_PROGRAM_TEXEL_OFFSET
 MinProgramTexelOffset,
 /// MIN_PROGRAM_TEXTURE_GATHER_OFFSET
-MinProgramTextureGatherOffset,
-/// MIN_SAMPLE_SHADING_VALUE
-MinSampleShadingValue
+MinProgramTextureGatherOffset
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 

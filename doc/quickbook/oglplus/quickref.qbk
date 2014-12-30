@@ -67,7 +67,7 @@ the concept.
 [include quickref/buffer_select_bit.qbk]
 [include quickref/shader_type.qbk]
 [include quickref/pixel_data.qbk]
-[include quickref/pixel_storage_mode.qbk]
+[include quickref/pixel_parameter.qbk]
 [include quickref/blit_filter.qbk]
 [include quickref/color_logic_operation.qbk]
 [include quickref/polygon_mode.qbk]

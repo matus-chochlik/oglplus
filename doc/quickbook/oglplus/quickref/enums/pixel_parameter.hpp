@@ -1,7 +1,7 @@
-//  File doc/quickbook/oglplus/quickref/enums/pixel_storage_mode.hpp
+//  File doc/quickbook/oglplus/quickref/enums/pixel_parameter.hpp
 //
 //  Automatically generated file, DO NOT modify manually.
-//  Edit the source 'source/enums/oglplus/pixel_storage_mode.txt'
+//  Edit the source 'source/enums/oglplus/pixel_parameter.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
 //  Copyright 2010-2014 Matus Chochlik.
@@ -9,13 +9,13 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //
-//[oglplus_enums_pixel_storage_mode
+//[oglplus_enums_pixel_parameter
 namespace oglplus {
 
-enum class PixelStorageMode : GLenum
+enum class PixelParameter : GLenum
 {
 	PackSwapBytes               = GL_PACK_SWAP_BYTES,
-	PackLsbFirst                = GL_PACK_LSB_FIRST,
+	PackLSBFirst                = GL_PACK_LSB_FIRST,
 	PackRowLength               = GL_PACK_ROW_LENGTH,
 	PackSkipRows                = GL_PACK_SKIP_ROWS,
 	PackSkipPixels              = GL_PACK_SKIP_PIXELS,
@@ -27,7 +27,7 @@ enum class PixelStorageMode : GLenum
 	PackCompressedBlockDepth    = GL_PACK_COMPRESSED_BLOCK_DEPTH,
 	PackCompressedBlockSize     = GL_PACK_COMPRESSED_BLOCK_SIZE,
 	UnpackSwapBytes             = GL_UNPACK_SWAP_BYTES,
-	UnpackLsbFirst              = GL_UNPACK_LSB_FIRST,
+	UnpackLSBFirst              = GL_UNPACK_LSB_FIRST,
 	UnpackRowLength             = GL_UNPACK_ROW_LENGTH,
 	UnpackSkipRows              = GL_UNPACK_SKIP_ROWS,
 	UnpackSkipPixels            = GL_UNPACK_SKIP_PIXELS,
@@ -41,9 +41,9 @@ enum class PixelStorageMode : GLenum
 };
 
 template <>
-__Range<PixelStorageMode> __EnumValueRange<PixelStorageMode>(void);
+__Range<PixelParameter> __EnumValueRange<PixelParameter>(void);
 
-__StrCRef __EnumValueName(PixelStorageMode);
+__StrCRef __EnumValueName(PixelParameter);
 
 } // namespace oglplus
 //]

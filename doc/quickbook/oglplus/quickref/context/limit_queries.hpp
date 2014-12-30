@@ -29,6 +29,21 @@ public:
 	See [glfunc Get].
 	>*/
 #endif
+	template <__LimitQuery Query>
+	static __Unspecified Limit(void); /*<
+	Gets the implementation-dependent numeric/boolean limit value.
+	The return value has an appropriate type to hold the value
+	of the parameter being retrieved.
+	See [glfunc Get].
+	>*/
+
+	template <__LimitQuery Query>
+	static __Unspecified Limit(GLuint index); /*<
+	Gets the implementation-dependent numeric/boolean indexed limit value.
+	The return value has an appropriate type to hold the value
+	of the parameter being retrieved.
+	See [glfunc Get].
+	>*/
 
 	static void RequireAtLeast(__LimitQuery limit, GLint value); /*<
 	Raises a __LimitError if [^value] is greater than the specified [^limit].

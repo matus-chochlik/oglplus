@@ -2469,11 +2469,6 @@ template <typename Enum, Enum = Enum::MinProgramTextureGatherOffset> operator En
 template <typename Enum> friend bool operator==(Enum value, MinProgramTextureGatherOffset){ return value == Enum::MinProgramTextureGatherOffset; }
 template <typename Enum> friend bool operator!=(Enum value, MinProgramTextureGatherOffset){ return value != Enum::MinProgramTextureGatherOffset; }
 };
-struct MinSampleShadingValue {
-template <typename Enum, Enum = Enum::MinSampleShadingValue> operator Enum (void) const{ return Enum::MinSampleShadingValue; }
-template <typename Enum> friend bool operator==(Enum value, MinSampleShadingValue){ return value == Enum::MinSampleShadingValue; }
-template <typename Enum> friend bool operator!=(Enum value, MinSampleShadingValue){ return value != Enum::MinSampleShadingValue; }
-};
 struct MirrorClampToEdge {
 template <typename Enum, Enum = Enum::MirrorClampToEdge> operator Enum (void) const{ return Enum::MirrorClampToEdge; }
 template <typename Enum> friend bool operator==(Enum value, MirrorClampToEdge){ return value == Enum::MirrorClampToEdge; }
@@ -2724,10 +2719,10 @@ template <typename Enum, Enum = Enum::PackImageHeight> operator Enum (void) cons
 template <typename Enum> friend bool operator==(Enum value, PackImageHeight){ return value == Enum::PackImageHeight; }
 template <typename Enum> friend bool operator!=(Enum value, PackImageHeight){ return value != Enum::PackImageHeight; }
 };
-struct PackLsbFirst {
-template <typename Enum, Enum = Enum::PackLsbFirst> operator Enum (void) const{ return Enum::PackLsbFirst; }
-template <typename Enum> friend bool operator==(Enum value, PackLsbFirst){ return value == Enum::PackLsbFirst; }
-template <typename Enum> friend bool operator!=(Enum value, PackLsbFirst){ return value != Enum::PackLsbFirst; }
+struct PackLSBFirst {
+template <typename Enum, Enum = Enum::PackLSBFirst> operator Enum (void) const{ return Enum::PackLSBFirst; }
+template <typename Enum> friend bool operator==(Enum value, PackLSBFirst){ return value == Enum::PackLSBFirst; }
+template <typename Enum> friend bool operator!=(Enum value, PackLSBFirst){ return value != Enum::PackLSBFirst; }
 };
 struct PackRowLength {
 template <typename Enum, Enum = Enum::PackRowLength> operator Enum (void) const{ return Enum::PackRowLength; }
@@ -4164,10 +4159,10 @@ template <typename Enum, Enum = Enum::UnpackImageHeight> operator Enum (void) co
 template <typename Enum> friend bool operator==(Enum value, UnpackImageHeight){ return value == Enum::UnpackImageHeight; }
 template <typename Enum> friend bool operator!=(Enum value, UnpackImageHeight){ return value != Enum::UnpackImageHeight; }
 };
-struct UnpackLsbFirst {
-template <typename Enum, Enum = Enum::UnpackLsbFirst> operator Enum (void) const{ return Enum::UnpackLsbFirst; }
-template <typename Enum> friend bool operator==(Enum value, UnpackLsbFirst){ return value == Enum::UnpackLsbFirst; }
-template <typename Enum> friend bool operator!=(Enum value, UnpackLsbFirst){ return value != Enum::UnpackLsbFirst; }
+struct UnpackLSBFirst {
+template <typename Enum, Enum = Enum::UnpackLSBFirst> operator Enum (void) const{ return Enum::UnpackLSBFirst; }
+template <typename Enum> friend bool operator==(Enum value, UnpackLSBFirst){ return value == Enum::UnpackLSBFirst; }
+template <typename Enum> friend bool operator!=(Enum value, UnpackLSBFirst){ return value != Enum::UnpackLSBFirst; }
 };
 struct UnpackRowLength {
 template <typename Enum, Enum = Enum::UnpackRowLength> operator Enum (void) const{ return Enum::UnpackRowLength; }

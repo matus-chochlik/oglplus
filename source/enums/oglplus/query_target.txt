@@ -1,12 +1,12 @@
 # Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-TIME_ELAPSED:::Time elapsed query
-TIMESTAMP:::Current timestamp query
-SAMPLES_PASSED:::Number of samples passed query
+TIME_ELAPSED::Time elapsed query
+TIMESTAMP::Current timestamp query
+SAMPLES_PASSED::Number of samples passed query
 ANY_SAMPLES_PASSED
-PRIMITIVES_GENERATED:::Number of primitives generated
-TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN:::TFB primitives written
+PRIMITIVES_GENERATED::Number of primitives generated
+TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN::TFB primitives written
 VERTICES_SUBMITTED_ARB:VerticesSubmitted
 PRIMITIVES_SUBMITTED_ARB:PrimitivesSubmitted
 VERTEX_SHADER_INVOCATIONS_ARB:VertexShaderInvocations

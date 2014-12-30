@@ -15,46 +15,16 @@
 
 #include <oglplus/glfunc.hpp>
 #include <oglplus/face_mode.hpp>
+#include <oglplus/context/color.hpp>
 
 namespace oglplus {
 namespace context {
-
-/// Helper structure storing the clear color component mask
-struct RGBAMask
-{
-	// private implementation detail, do not use
-	GLint _v[4];
-
-	/// The red component mask
-	bool Red(void) const
-	{
-		return _v[0] == GL_TRUE;
-	}
-
-	/// The green component mask
-	bool Green(void) const
-	{
-		return _v[1] == GL_TRUE;
-	}
-
-	/// The blue component mask
-	bool Blue(void) const
-	{
-		return _v[2] == GL_TRUE;
-	}
-
-	/// The alpha component mask
-	bool Alpha(void) const
-	{
-		return _v[3] == GL_TRUE;
-	}
-};
 
 /// Wrappers for operations for fine control of buffer updates
 /**
  *  @ingroup ogl_context
  */
-class BufferMasking
+class BufferMaskingState
 {
 public:
 	/// Sets the color mask
@@ -73,6 +43,17 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(ColorMask);
 	}
 
+	static void ColorMask(const RGBAMask& m)
+	{
+		OGLPLUS_GLFUNC(ColorMask)(
+			m._v[0] ? GL_TRUE : GL_FALSE,
+			m._v[1] ? GL_TRUE : GL_FALSE,
+			m._v[2] ? GL_TRUE : GL_FALSE,
+			m._v[3] ? GL_TRUE : GL_FALSE
+		);
+		OGLPLUS_VERIFY_SIMPLE(ColorMask);
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Sets the color mask for a particular @p buffer
 	/**
@@ -87,6 +68,22 @@ public:
 			g ? GL_TRUE : GL_FALSE,
 			b ? GL_TRUE : GL_FALSE,
 			a ? GL_TRUE : GL_FALSE
+		);
+		OGLPLUS_VERIFY(
+			ColorMaski,
+			Error,
+			Index(buffer)
+		);
+	}
+
+	static void ColorMask(GLuint buffer, const RGBAMask& m)
+	{
+		OGLPLUS_GLFUNC(ColorMaski)(
+			buffer,
+			m._v[0] ? GL_TRUE : GL_FALSE,
+			m._v[1] ? GL_TRUE : GL_FALSE,
+			m._v[2] ? GL_TRUE : GL_FALSE,
+			m._v[3] ? GL_TRUE : GL_FALSE
 		);
 		OGLPLUS_VERIFY(
 			ColorMaski,
@@ -129,13 +126,25 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(StencilMaskSeparate);
 	}
 
+	static oglplus::context::RGBAMask ColorWriteMask(void)
+	{
+		oglplus::context::RGBAMask result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_COLOR_WRITEMASK,
+			result._v
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return result;
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Returns the value of color buffer write mask
 	/**
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{COLOR_WRITEMASK}
 	 */
-	static oglplus::context::RGBAMask ColorWriteMask(GLuint buffer = 0)
+	static oglplus::context::RGBAMask ColorWriteMask(GLuint buffer)
 	{
 		oglplus::context::RGBAMask result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
@@ -150,6 +159,7 @@ public:
 		);
 		return result;
 	}
+#endif
 
 	/// Returns the value of depth buffer write mask
 	/**

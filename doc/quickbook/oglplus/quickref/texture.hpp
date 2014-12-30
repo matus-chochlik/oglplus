@@ -283,6 +283,69 @@ public:
 	Returns the actual resolution of all texture components.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_SHARED_SIZE].
 	>*/
+//]
+//[oglplus_texture_2
+	static
+	GLsizei CompressedImageSize(Target target, GLint level = 0); /*<
+	Returns the size (in bytes) of the image array if it is compressed.
+	See [glfunc GetTexLevelParameter], [glconst TEXTURE_COMPRESSED_IMAGE_SIZE].
+	>*/
+
+	static
+	__PixelDataInternalFormat InternalFormat(Target target, GLint level = 0); /*<
+	Returns the internal data format of the image array.
+	See [glfunc GetTexLevelParameter], [glconst TEXTURE_INTERNAL_FORMAT].
+	>*/
+
+	static void GetImage(
+		Target target,
+		GLint level,
+		__PixelDataFormat format,
+		const __OutputData& dest
+	); /*<
+	Stores the image of the texture bound to
+	the specified texture [^target] with the specified [^level]
+	of detail in uncompressed form into the [^dest] buffer.
+	See [glfunc GetTexImage].
+	[note This function, unlike [^GetCompressedImage], does NOT
+	automatically resize the destination buffer so that
+	it can accomodate the texture data. The caller is responsible
+	for keeping track or querying the type of the texture, its
+	dimensions and current pixel transfer settings and resize
+	the [^dest] buffer accordingly.]
+	>*/
+	static void GetImage(
+		Target target,
+		GLint level,
+		PixelDataFormat format,
+		Property::PixDataType type,
+		GLsizei size,
+		GLvoid* buffer
+	);
+
+	static void GetCompressedImage(
+		Target target,
+		GLint level,
+		const __OutputData& dest
+	); /*<
+	Stores the image of the texture bound to
+	the specified texture [^target] with the specified [^level]
+	of detail in compressed form into the [^dest] buffer.
+	See [glfunc GetCompressedTexImage].
+	This function automatically resizes the buffer so that
+	it can accomodate the texture data.
+	>*/
+	static void GetCompressedImage(
+		Target target,
+		GLint level,
+		std::vector<GLubyte>& dest
+	);
+	static void GetCompressedImage(
+		Target target,
+		GLint level,
+		GLsizei size,
+		GLubyte* buffer
+	);
 #endif
 };
 

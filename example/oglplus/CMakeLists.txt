@@ -118,6 +118,14 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 				TARGET ${TARGET_NAME}
 				PROPERTY FOLDER "Example/OGLplus"
 			)
+			if(${WIN32})
+				if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "wxgl")
+					set_property(
+						TARGET ${TARGET_NAME}
+						PROPERTY WIN32_EXECUTABLE true
+					)
+				endif()
+			endif()
 			file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/examples.txt" "${EXAMPLE_NAME}\n")
 		endif()
 		if(NOT OGLPLUS_NO_SCREENSHOTS AND EXISTS ${SCREENSHOT_MAKER})
