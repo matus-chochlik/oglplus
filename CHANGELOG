@@ -1,3 +1,20 @@
+Version 0.56.0
+
+- The new state getter/setter functions were added to oglplus::Context.
+- The oglplus::ClientContext class was updated, wrappers for other GL state
+  variables and functions were added.
+- A problem with the wxGL example harness on Windows was fixed.
+- A missing include was added to the GLFW3 example harness.
+- The GLM interoperability classes were updated to work with both older
+  and newer versions of GLM.
+- Minor fixes were made in the enumeration types.
+- The automatically-generated enumeration headers were and the related
+  tools were updated.
+- The EnumAssocType and EnumAssocGLType metafunctions were added.
+- The build system was updated, check of support for strongly-typed
+  enum template parameters was added.
+- The quickbook documentation was updated.
+
 Version 0.55.0
 
 - The EnumToClass helper template and its specializations were added.
