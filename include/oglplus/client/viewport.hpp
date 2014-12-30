@@ -15,65 +15,31 @@
 
 #include <oglplus/client/setting.hpp>
 #include <oglplus/context/viewport.hpp>
-#include <cassert>
 
 namespace oglplus {
 namespace client {
 namespace aux {
 
-template <typename Base>
-class ViewportOps
- : public Base
-{
-private:
-	inline
-	Base* _that(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return this;
-	}
-protected:
-	ViewportOps(void)
-	{ }
-
-	template <typename T, typename P>
-	ViewportOps(T (*query)(P), void(*apply)(T, P), P param = P())
-	 : Base(query, apply, param)
-	{ }
-public:
-	using Base::Set;
-
-	void Set(GLsizei width, GLsizei height)
-	{
-		_that()->Set(context::ViewportExtents(0, 0, width, height));
-	}
-
-	void Set(GLint x, GLint y, GLsizei width, GLsizei height)
-	{
-		_that()->Set(context::ViewportExtents(x, y, width, height));
-	}
-};
-
 #if GL_VERSION_4_1 || GL_ARB_viewport_array
 
 class ViewportIndexed
- : public ViewportOps<SettingStack<context::ViewportExtents, GLuint>>
+ : public SettingStack<context::ViewportExtents, GLuint>
 {
 private:
 	static
 	context::ViewportExtents _do_get(GLuint index)
 	{
-		return context::ViewportOps::Viewport(index);
+		return context::ViewportState::Viewport(index);
 	}
 
 	static
 	void _do_set(context::ViewportExtents vp, GLuint index)
 	{
-		context::ViewportOps::Viewport(index, vp);
+		context::ViewportState::Viewport(index, vp);
 	}
 public:
 	ViewportIndexed(GLuint index)
-	 : ViewportOps<SettingStack<context::ViewportExtents, GLuint>>(
+	 : SettingStack<context::ViewportExtents, GLuint>(
 		&_do_get,
 		&_do_set,
 		index
@@ -81,32 +47,84 @@ public:
 	{ }
 };
 
-class Viewport
- : public ViewportOps<
-	SettingStackIndexed<ViewportIndexed, context::ViewportExtents>
->
-{ };
+
+typedef SettingStackIndexed<ViewportIndexed, context::ViewportExtents>
+	Viewport;
+
+class DepthRangeIndexed
+ : public SettingStack<context::ViewportDepthRange, GLuint>
+{
+private:
+	static
+	context::ViewportDepthRange _do_get(GLuint index)
+	{
+		return context::ViewportState::DepthRange(index);
+	}
+
+	static
+	void _do_set(context::ViewportDepthRange vdr, GLuint index)
+	{
+		context::ViewportState::DepthRange(index, vdr);
+	}
+public:
+	DepthRangeIndexed(GLuint index)
+	 : SettingStack<context::ViewportDepthRange, GLuint>(
+		&_do_get,
+		&_do_set,
+		index
+	)
+	{ }
+};
+
+typedef SettingStackIndexed<
+	DepthRangeIndexed,
+	context::ViewportDepthRange
+> DepthRange;
 
 #else
 
 class Viewport
- : public ViewportOps<SettingStack<context::ViewportExtents, Nothing>>
+ : public SettingStack<context::ViewportExtents, Nothing>
 {
 private:
 	static
 	context::ViewportExtents _do_get(Nothing)
 	{
-		return context::ViewportOps::Viewport();
+		return context::ViewportState::Viewport();
 	}
 
 	static
 	void _do_set(context::ViewportExtents vp, Nothing)
 	{
-		context::ViewportOps::Viewport(vp);
+		context::ViewportState::Viewport(vp);
 	}
 public:
 	Viewport(void)
-	 : ViewportOps<SettingStack<context::ViewportExtents, Nothing>>(
+	 : SettingStack<context::ViewportExtents, Nothing>(
+		&_do_get,
+		&_do_set
+	)
+	{ }
+};
+
+class DepthRange
+ : public SettingStack<context::ViewportDepthRange, Nothing>
+{
+private:
+	static
+	context::ViewportDepthRange _do_get(Nothing)
+	{
+		return context::ViewportState::DepthRange();
+	}
+
+	static
+	void _do_set(context::ViewportDepthRange vdr, Nothing)
+	{
+		context::ViewportState::DepthRange(vdr);
+	}
+public:
+	DepthRange(void)
+	 : SettingStack<context::ViewportDepthRange, Nothing>(
 		&_do_get,
 		&_do_set
 	)
@@ -117,10 +135,11 @@ public:
 
 } // namespace aux
 
-class ViewportOps
+class ViewportState
 {
 public:
 	aux::Viewport Viewport;
+	aux::DepthRange DepthRange;
 };
 
 } // namespace client

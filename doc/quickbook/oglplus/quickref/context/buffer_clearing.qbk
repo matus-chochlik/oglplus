@@ -10,11 +10,17 @@
 
 [import buffer_clearing.hpp]
 
+[heading:helpers Helper classes]
+
 [oglplus_context_BufferClearing_helpers]
 
 The [^BufferClearing] class is a wrapper for the operations,
 which are used to clear the draw buffers.
 
-[oglplus_context_BufferClearing]
+[heading:state State]
+[oglplus_context_BufferClearingState]
+
+[heading:ops Operations]
+[oglplus_context_BufferClearingOps]
 
 [endsect]

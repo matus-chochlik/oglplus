@@ -1,7 +1,7 @@
-//  File implement/oglplus/enums/pixel_storage_mode_names.ipp
+//  File implement/oglplus/enums/pixel_parameter_names.ipp
 //
 //  Automatically generated file, DO NOT modify manually.
-//  Edit the source 'source/enums/oglplus/pixel_storage_mode.txt'
+//  Edit the source 'source/enums/oglplus/pixel_parameter.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
 //  Copyright 2010-2014 Matus Chochlik.
@@ -11,12 +11,12 @@
 //
 namespace enums {
 OGLPLUS_LIB_FUNC StrCRef ValueName_(
-	PixelStorageMode*,
+	PixelParameter*,
 	GLenum value
 )
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_PIXELSTORAGEMODE)
-#define OGLPLUS_IMPL_EVN_PIXELSTORAGEMODE
+	!defined(OGLPLUS_IMPL_EVN_PIXELPARAMETER)
+#define OGLPLUS_IMPL_EVN_PIXELPARAMETER
 {
 switch(value)
 {

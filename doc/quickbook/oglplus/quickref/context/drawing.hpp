@@ -4,11 +4,35 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_context_Drawing1
+//[oglplus_context_DrawingState
 namespace oglplus {
 namespace context {
 
-class Drawing
+class DrawingState
+{
+public:
+#if GL_VERSION_3_1
+	static void PrimitiveRestartIndex(GLuint index); /*<
+	Sets the primitive restart index.
+	See [glfunc PrimitiveRestartIndex].
+	>*/
+	static GLuint PrimitiveRestartIndex(void);
+#endif
+
+#if GL_ARB_tessellation_shader || GL_VERSION_4_0
+	static void PatchParameter(
+		__PatchParameter parameter,
+		GLint value
+	); /*<
+	Sets a patch parameter value.
+	See [glfunc PatchParameter].
+	>*/
+#endif
+};
+//]
+//[oglplus_context_DrawingOps1
+
+class DrawingOps
 {
 public:
 	static void DrawArrays(
@@ -80,8 +104,6 @@ public:
 	See [glfunc MultiDrawArraysIndirect].
 	>*/
 #endif
-//]
-//[oglplus_context_Drawing2
 
 	static void DrawElements(
 		__PrimitiveType primitive,
@@ -108,6 +130,8 @@ public:
 	See [glfunc DrawElementsInstanced].
 	>*/
 
+//]
+//[oglplus_context_DrawingOps2
 	template <typename T>
 	static
 	void DrawElementsInstanced(
@@ -304,8 +328,6 @@ public:
 		GLuint base_instance
 	);
 #endif
-//]
-//[oglplus_context_Drawing3
 
 #if GL_VERSION_4_0 || GL_ARB_transform_feedback2
 	static void DrawTransformFeedback(
@@ -331,23 +353,6 @@ public:
 		GLfloat t1
 	); /*<
 	See [glfunc DrawTextureNV].
-	>*/
-#endif
-
-#if GL_VERSION_3_1
-	static void PrimitiveRestartIndex(GLuint index); /*<
-	Sets the primitive restart index.
-	See [glfunc PrimitiveRestartIndex].
-	>*/
-#endif
-
-#if GL_ARB_tessellation_shader || GL_VERSION_4_0
-	static void PatchParameter(
-		__PatchParameter parameter,
-		GLint value
-	); /*<
-	Sets a patch parameter value.
-	See [glfunc PatchParameter].
 	>*/
 #endif
 };

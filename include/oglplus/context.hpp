@@ -61,11 +61,14 @@ namespace context { }
 class Context
  : public context::Errors
  , public context::Capabilities
+ , public context::ViewportState
  , public context::ViewportOps
  , public context::BufferSelection
- , public context::BufferMasking
- , public context::BufferClearing
- , public context::Rasterization
+ , public context::BufferMaskingState
+ , public context::BufferClearingState
+ , public context::BufferClearingOps
+ , public context::RasterizationState
+ , public context::RasterizationOps
  , public context::DrawingOps
  , public context::DrawingState
  , public context::ComputingOps
@@ -73,6 +76,7 @@ class Context
  , public context::StencilTest
  , public context::ScissorTest
  , public context::LogicalOps
+ , public context::PixelState
  , public context::PixelOps
  , public context::BlendingOps
  , public context::BlendingState

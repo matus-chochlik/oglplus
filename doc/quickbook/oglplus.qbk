@@ -229,7 +229,7 @@
 [def __ImageUnitFormat [link oglplus.quickref.pixel_data.image_unit_fmt ImageUnitFormat]]
 [def __Format [link oglplus.quickref.pixel_data.typedefs Format]]
 [def __InternalFormat [link oglplus.quickref.pixel_data.typedefs Format]]
-[def __PixelStorageMode [link oglplus.quickref.pixel_storage_mode PixelStorageMode]]
+[def __PixelParameter [link oglplus.quickref.pixel_parameter PixelParameter]]
 [def __BlitFilter [link oglplus.quickref.blit_filter BlitFilter]]
 [def __ColorLogicOperation [link oglplus.quickref.color_logic_operation ColorLogicOperation]]
 [def __ColorLogicOp [link oglplus.quickref.color_logic_operation.typedefs ColorLogicOp]]

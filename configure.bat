@@ -95,6 +95,30 @@ IF DEFINED OGLPLUS_DEP_LIBRARY_DIRS (
 	)
 
 	::
+	:: Parse --use-gl-api-lib <NAME>
+	::
+	IF "%~1" == "--use-gl-api-lib" (
+		IF [%2] == [] ECHO Missing name after '--use-gl-api-lib' ! && EXIT /B 2
+
+		SET "OGLPLUS_GL_API_LIB=%~2"
+
+		SHIFT
+		GOTO :shift_cmd_line_args
+	)
+
+	::
+	:: Parse --use-gl-init-lib <NAME>
+	::
+	IF "%~1" == "--use-gl-init-lib" (
+		IF [%2] == [] ECHO Missing name after '--use-gl-init-lib' ! && EXIT /B 2
+
+		SET "OGLPLUS_GL_INIT_LIB=%~2"
+
+		SHIFT
+		GOTO :shift_cmd_line_args
+	)
+
+	::
 	:: If the --from-scratch option was passed remove the build directory
 	::
 	IF "%~1" == "--from-scratch" (
@@ -183,6 +207,20 @@ IF DEFINED OGLPLUS_HEADER_SEARCH_PATHS (
 ::
 IF DEFINED OGLPLUS_LIBRARY_SEARCH_PATHS (
 	SET OGLPLUS_CMAKE_COMMAND=%OGLPLUS_CMAKE_COMMAND% "-DLIBRARY_SEARCH_PATHS=%OGLPLUS_LIBRARY_SEARCH_PATHS%"
+)
+
+::
+:: .. append the forced api lib ..
+::
+IF DEFINED OGLPLUS_GL_API_LIB (
+	SET OGLPLUS_CMAKE_COMMAND=%OGLPLUS_CMAKE_COMMAND% "-DOGLPLUS_FORCE_GL_API_LIB=%OGLPLUS_GL_API_LIB%"
+)
+
+::
+:: .. append the forced init lib ..
+::
+IF DEFINED OGLPLUS_GL_INIT_LIB (
+	SET OGLPLUS_CMAKE_COMMAND=%OGLPLUS_CMAKE_COMMAND% "-DOGLPLUS_FORCE_GL_INIT_LIB=%OGLPLUS_GL_INIT_LIB%"
 )
 
 ::

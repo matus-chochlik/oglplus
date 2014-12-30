@@ -4,11 +4,12 @@
  *
  *  @oglplus_screenshot{002_rect}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_0}
+ *  @oglplus_example_uses_cpp_feat{SCOPED_ENUM_TEMPLATE_PARAMS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -120,7 +121,7 @@ public:
 
 	void Reshape(GLuint width, GLuint height)
 	{
-		gl.Viewport.Set(width, height);
+		gl.Viewport.Set(0, 0, width, height);
 	}
 
 	void Render(double)

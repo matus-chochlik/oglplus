@@ -94,7 +94,8 @@ protected:
 		_stk.push_back(value);
 	}
 
-	T _top(void) const
+	typename std::vector<T>::const_reference
+	_top(void) const
 	{
 		assert(!_stk.empty());
 		return _stk.back();
@@ -172,8 +173,16 @@ public:
 		return _push(value);
 	}
 
+	template <typename ... A>
 	inline
-	T Get(void) const
+	void Push(A&& ... a)
+	{
+		return _push(T(std::forward<A>(a)...));
+	}
+
+	inline
+	typename std::vector<T>::const_reference
+	Get(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _top();
@@ -181,9 +190,15 @@ public:
 
 	inline
 	void Set(T value)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _set(value);
+	}
+
+	template <typename ... A>
+	inline
+	void Set(A&& ... a)
+	{
+		return _set(T(std::forward<A>(a)...));
 	}
 };
 
@@ -235,8 +250,16 @@ public:
 		return _zero().Push(value);
 	}
 
+	template <typename ... A>
 	inline
-	T Get(void) const
+	Holder Push(A&& ... a)
+	{
+		_zero().Push(std::forward<A>(a)...);
+	}
+
+	inline
+	typename std::vector<T>::const_reference
+	Get(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _zero().Get();
@@ -244,9 +267,15 @@ public:
 
 	inline
 	void Set(T value)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return _zero().Set(value);
+		_zero().Set(value);
+	}
+
+	template <typename ... A>
+	inline
+	void Set(A&& ... a)
+	{
+		_zero().Set(std::forward<A>(a)...);
 	}
 };
 

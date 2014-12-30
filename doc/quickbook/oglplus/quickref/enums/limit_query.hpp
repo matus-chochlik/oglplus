@@ -122,8 +122,7 @@ enum class LimitQuery : GLenum
 	MinFragmentInterpolationOffset             = GL_MIN_FRAGMENT_INTERPOLATION_OFFSET,
 	MinMapBufferAlignment                      = GL_MIN_MAP_BUFFER_ALIGNMENT,
 	MinProgramTexelOffset                      = GL_MIN_PROGRAM_TEXEL_OFFSET,
-	MinProgramTextureGatherOffset              = GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET,
-	MinSampleShadingValue                      = GL_MIN_SAMPLE_SHADING_VALUE
+	MinProgramTextureGatherOffset              = GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET
 };
 
 template <>

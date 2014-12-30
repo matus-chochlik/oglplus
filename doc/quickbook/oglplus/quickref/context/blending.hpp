@@ -4,11 +4,52 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_context_Blending
+//[oglplus_context_Blending_helpers
 namespace oglplus {
 namespace context {
 
-class Blending
+struct BlendEquationSeparate
+{
+	BlendEquationSeparate(void)
+	noexcept;
+
+	BlendEquationSeparate(__BlendEquation rgb, __BlendEquation alpha)
+	noexcept;
+
+	__BlendEquation RGB(void) const
+	noexcept;
+
+	__BlendEquation Alpha(void) const
+	noexcept;
+};
+
+struct BlendFunctionSeparate
+{
+	BlendFunctionSeparate(void)
+	noexcept;
+
+	BlendFunctionSeparate(
+		__BlendFunction src_rgb,
+		__BlendFunction src_alpha,
+		__BlendFunction dst_rgb,
+		__BlendFunction dst_alpha
+	) noexcept;
+
+	__BlendFunction SrcRGB(void) const
+	noexcept;
+
+	__BlendFunction SrcAlpha(void) const
+	noexcept;
+
+	__BlendFunction DstRGB(void) const
+	noexcept;
+
+	__BlendFunction DstAlpha(void) const
+	noexcept;
+};
+//]
+//[oglplus_context_BlendingOps
+class BlendingOps
 {
 public:
 #if GL_KHR_blend_equation_advanced
@@ -16,7 +57,12 @@ public:
 	Specifies boundaries between blending passes.
 	>*/
 #endif
-
+};
+//]
+//[oglplus_context_BlendingState
+class BlendingState
+{
+public:
 	static void BlendEquation(__OneOf<__BlendEquation, __BlendEquationAdvanced> eq); /*<
 	Sets the blending equation.
 	See [glfunc BlendEquation].
@@ -28,6 +74,12 @@ public:
 	Sets the blend equation separately for RGB and alpha.
 	See [glfunc BlendEquationSeparate].
 	>*/
+
+	static void BlendEquationSeparate(const __context_BlendEquationSeparate&);
+	static __context_BlendEquationSeparate BlendEquationSeparate(void);
+
+	static __BlendEquation BlendEquationRGB(void);
+	static __BlendEquation BlendEquationAlpha(void);
 
 #if GL_VERSION_4_0
 	static void BlendEquation(
@@ -46,6 +98,15 @@ public:
 	draw [^buffer].
 	See [glfunc BlendEquationSeparatei].
 	>*/
+
+	static void BlendEquationSeparate(
+		GLuint buffer,
+		const __context_BlendEquationSeparate&
+	);
+	static __context_BlendEquationSeparate BlendEquationSeparate(GLuint buffer);
+
+	static __BlendEquation BlendEquationRGB(GLuint buffer);
+	static __BlendEquation BlendEquationAlpha(GLuint buffer);
 #endif
 
 	static void BlendFunc(__BlendFunction src, __BlendFunction dst); /*<
@@ -60,6 +121,14 @@ public:
 	Sets the blend function separately for RGB and alpha.
 	See [glfunc BlendFuncSeparate].
 	>*/
+
+	static void BlendFuncSeparate(const __context_BlendFunctionSeparate&);
+	static __context_BlendFunctionSeparate BlendFuncSeparate(void);
+
+	static __BlendFunction BlendFuncSrcRGB(void);
+	static __BlendFunction BlendFuncSrcAlpha(void);
+	static __BlendFunction BlendFuncDstRGB(void);
+	static __BlendFunction BlendFuncDstAlpha(void);
 
 #if GL_VERSION_4_0
 	static void BlendFunc(
@@ -81,7 +150,23 @@ public:
 	a particular draw [^buffer].
 	See [glfunc BlendFuncSeparatei].
 	>*/
+
+	static void BlendFuncSeparate(
+		GLuint buffer,
+		const __context_BlendFunctionSeparate&
+	);
+	static __context_BlendFunctionSeparate BlendFuncSeparate(GLuint buffer);
+
+	static __BlendFunction BlendFuncSrcRGB(GLuint buffer);
+	static __BlendFunction BlendFuncSrcAlpha(GLuint buffer);
+	static __BlendFunction BlendFuncDstRGB(GLuint buffer);
+	static __BlendFunction BlendFuncDstAlpha(GLuint buffer);
 #endif
+
+	static void BlendColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a);
+
+	static void BlendColor(const __context_RGBAValue&);
+	static __context_RGBAValue BlendColor(void);
 };
 
 } // namespace context

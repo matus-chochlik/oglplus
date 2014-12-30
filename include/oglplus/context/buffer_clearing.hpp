@@ -17,6 +17,7 @@
 #include <oglplus/buffer_select_bit.hpp>
 #include <oglplus/color_buffer.hpp>
 #include <oglplus/bitfield.hpp>
+#include <oglplus/context/color.hpp>
 
 namespace oglplus {
 
@@ -28,38 +29,7 @@ typedef BufferSelectBit ClearBit;
 
 namespace context {
 
-class BufferClearing;
-
-/// Helper structure storing the clear color components
-struct RGBAValue
-{
-	// private implementation detail, do not use
-	GLfloat _v[4];
-
-	/// The red component
-	GLfloat Red(void) const
-	{
-		return _v[0];
-	}
-
-	/// The green component
-	GLfloat Green(void) const
-	{
-		return _v[1];
-	}
-
-	/// The blue component
-	GLfloat Blue(void) const
-	{
-		return _v[2];
-	}
-
-	/// The alpha component
-	GLfloat Alpha(void) const
-	{
-		return _v[3];
-	}
-};
+class BufferClearingOps;
 
 /// Helper class used by BufferClearing::Clear()
 /** Instances of this class cause the write buffers to be cleared
@@ -86,7 +56,7 @@ private:
 		return res;
 	}
 
-	friend class BufferClearing;
+	friend class BufferClearingOps;
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
 	ClrBits(void) = delete;
@@ -180,7 +150,7 @@ public:
 /**
  *  @ingroup ogl_context
  */
-class BufferClearing
+class BufferClearingState
 {
 public:
 	/// Sets the clear color
@@ -206,7 +176,12 @@ public:
 
 	static void ClearColor(const oglplus::context::RGBAValue& color)
 	{
-		OGLPLUS_GLFUNC(ClearColor)(color.Red(), color.Green(), color.Blue(), color.Alpha());
+		OGLPLUS_GLFUNC(ClearColor)(
+			color.Red(),
+			color.Green(),
+			color.Blue(),
+			color.Alpha()
+		);
 		OGLPLUS_VERIFY_SIMPLE(ClearColor);
 	}
 
@@ -244,6 +219,62 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(ClearStencil);
 	}
 
+	/// Returns the color value used for clearing of the color buffer
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{COLOR_CLEAR_VALUE}
+	 */
+	static oglplus::context::RGBAValue ColorClearValue(void)
+	{
+		oglplus::context::RGBAValue result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_COLOR_CLEAR_VALUE, result._v);
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
+		return result;
+	}
+
+	/// Returns the depth value used for clearing of the depth buffer
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{DEPTH_CLEAR_VALUE}
+	 */
+	static GLfloat DepthClearValue(void)
+	{
+		GLfloat result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_DEPTH_CLEAR_VALUE, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
+		return result;
+	}
+
+	/// Returns the value used for clearing of the stencil buffer
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{STENCIL_CLEAR_VALUE}
+	 */
+	static GLint StencilClearValue(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_STENCIL_CLEAR_VALUE, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return result;
+	}
+};
+
+/// Wrapper for the operations that are used to clear the draw buffers
+/**
+ *  @ingroup ogl_context
+ */
+class BufferClearingOps
+{
+public:
 	/// Clears buffers specified by calling functions of the returned object
 	/** This function returns an object that allows to specify which buffers
 	 *  to clear by calling its ColorBuffer, DepthBuffer and StencilBuffer
@@ -517,54 +548,6 @@ public:
 			stencil_value
 		);
 		OGLPLUS_CHECK_SIMPLE(ClearBufferfi);
-	}
-
-	/// Returns the color value used for clearing of the color buffer
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{Get}
-	 *  @gldefref{COLOR_CLEAR_VALUE}
-	 */
-	static oglplus::context::RGBAValue ColorClearValue(void)
-	{
-		oglplus::context::RGBAValue result;
-		OGLPLUS_GLFUNC(GetFloatv)(GL_COLOR_CLEAR_VALUE, result._v);
-		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
-		return result;
-	}
-
-	/// Returns the depth value used for clearing of the depth buffer
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{Get}
-	 *  @gldefref{DEPTH_CLEAR_VALUE}
-	 */
-	static GLfloat DepthClearValue(void)
-	{
-		GLfloat result;
-		OGLPLUS_GLFUNC(GetFloatv)(GL_DEPTH_CLEAR_VALUE, &result);
-		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
-		return result;
-	}
-
-	/// Returns the value used for clearing of the stencil buffer
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{Get}
-	 *  @gldefref{STENCIL_CLEAR_VALUE}
-	 */
-	static GLint ClearStencilValue(void)
-	{
-		GLint result;
-		OGLPLUS_GLFUNC(GetIntegerv)(GL_STENCIL_CLEAR_VALUE, &result);
-		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
-		return result;
 	}
 };
 

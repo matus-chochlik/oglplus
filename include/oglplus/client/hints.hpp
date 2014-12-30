@@ -15,30 +15,29 @@
 
 #include <oglplus/client/setting.hpp>
 #include <oglplus/context/hints.hpp>
-#include <cassert>
 
 namespace oglplus {
 namespace client {
 namespace aux {
 
-template <HintTarget Hint>
-class CurrentHint
+template <HintTarget Target>
+class Hint
  : public SettingStack<HintOption, Nothing>
 {
 private:
 	static
 	HintOption _do_get(Nothing)
 	{
-		return context::Hints::Hint(Hint);
+		return context::Hints::Hint(Target);
 	}
 
 	static
 	void _do_set(HintOption option, Nothing)
 	{
-		context::Hints::Hint(Hint, option);
+		context::Hints::Hint(Target, option);
 	}
 public:
-	CurrentHint(void)
+	Hint(void)
 	 : SettingStack<HintOption, Nothing>(&_do_get, &_do_set)
 	{ }
 };
@@ -56,7 +55,7 @@ public:
 	oglplus::enums::EnumToClass<
 		Nothing,
 		HintTarget,
-		aux::CurrentHint
+		aux::Hint
 	> Hints;
 };
 

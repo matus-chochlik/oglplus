@@ -14,6 +14,7 @@
 #define OGLPLUS_LIMIT_QUERY_1202091518_HPP
 
 #include <oglplus/enumerations.hpp>
+#include <cstdint>
 
 namespace oglplus {
 
@@ -27,6 +28,15 @@ namespace oglplus {
 OGLPLUS_ENUM_CLASS_BEGIN(LimitQuery, GLenum)
 #include <oglplus/enums/limit_query.ipp>
 OGLPLUS_ENUM_CLASS_END(LimitQuery)
+
+namespace enums {
+template <LimitQuery Query>
+struct EnumAssocType<LimitQuery, Query>
+{
+	typedef int Type;
+};
+} // namespace enums
+#include <oglplus/enums/limit_query_type.ipp>
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/limit_query_names.ipp>

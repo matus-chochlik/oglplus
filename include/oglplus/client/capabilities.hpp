@@ -15,7 +15,6 @@
 
 #include <oglplus/client/setting.hpp>
 #include <oglplus/context/capabilities.hpp>
-#include <cassert>
 
 namespace oglplus {
 namespace client {
@@ -195,17 +194,7 @@ public:
 		Nothing,
 		Capability,
 		aux::CurrentCapability
-	> Capabilities;
-
-	oglplus::enums::EnumToClass<
-		Nothing,
-		Capability,
-		aux::CurrentCapability
-	>& Caps;
-
-	CurrentCapabilities(void)
-	 : Caps(Capabilities)
-	{ }
+	> Caps;
 };
 
 } // namespace client

@@ -15,7 +15,6 @@
 
 #include <oglplus/client/setting.hpp>
 #include <oglplus/context/blending.hpp>
-#include <cassert>
 
 namespace oglplus {
 namespace client {
@@ -86,13 +85,6 @@ public:
 		index
 	)
 	{ }
-
-	using SettingStack<context::BlendEquationSeparate, GLuint>::Set;
-
-	void Set(oglplus::BlendEquation rgb, oglplus::BlendEquation alpha)
-	{
-		Set(context::BlendEquationSeparate(rgb, alpha));
-	}
 };
 
 class BlendEquation
@@ -100,23 +92,7 @@ class BlendEquation
 	BlendEquationIndexed,
 	context::BlendEquationSeparate
 >
-{
-private:
-	using SettingStackIndexed<
-		BlendEquationIndexed,
-		context::BlendEquationSeparate
-	>::_zero;
-public:
-	void Set(const context::BlendEquationSeparate& value)
-	{
-		_zero().Set(value);
-	}
-
-	void Set(oglplus::BlendEquation rgb, oglplus::BlendEquation alpha)
-	{
-		_zero().Set(rgb, alpha);
-	}
-};
+{ };
 
 class BlendFunctionIndexed
  : public SettingStack<context::BlendFunctionSeparate, GLuint>
@@ -183,23 +159,6 @@ public:
 		index
 	)
 	{ }
-
-	using SettingStack<context::BlendFunctionSeparate, GLuint>::Set;
-
-	void Set(
-		oglplus::BlendFunction src_rgb,
-		oglplus::BlendFunction src_alpha,
-		oglplus::BlendFunction dst_rgb,
-		oglplus::BlendFunction dst_alpha
-	)
-	{
-		Set(context::BlendFunctionSeparate(
-			src_rgb,
-			src_alpha,
-			dst_rgb,
-			dst_alpha
-		));
-	}
 };
 
 class BlendFunction
@@ -207,28 +166,7 @@ class BlendFunction
 	BlendFunctionIndexed,
 	context::BlendFunctionSeparate
 >
-{
-private:
-	using SettingStackIndexed<
-		BlendFunctionIndexed,
-		context::BlendFunctionSeparate
-	>::_zero;
-public:
-	void Set(const context::BlendFunctionSeparate& value)
-	{
-		_zero().Set(value);
-	}
-
-	void Set(
-		oglplus::BlendFunction src_rgb,
-		oglplus::BlendFunction src_alpha,
-		oglplus::BlendFunction dst_rgb,
-		oglplus::BlendFunction dst_alpha
-	)
-	{
-		_zero().Set(src_rgb, src_alpha, dst_rgb, dst_alpha);
-	}
-};
+{ };
 
 #else
 
@@ -261,13 +199,6 @@ public:
 		&_do_set
 	)
 	{ }
-
-	using SettingStack<context::BlendEquationSeparate, Nothing>::Set;
-
-	void Set(oglplus::BlendEquation rgb, oglplus::BlendEquation alpha)
-	{
-		Set(context::BlendEquationSeparate(rgb, alpha));
-	}
 };
 
 class BlendFunction
@@ -302,25 +233,32 @@ public:
 		&_do_set
 	)
 	{ }
-
-	using SettingStack<context::BlendFunctionSeparate, Nothing>::Set;
-
-	void Set(
-		oglplus::BlendFunction src_rgb,
-		oglplus::BlendFunction src_alpha,
-		oglplus::BlendFunction dst_rgb,
-		oglplus::BlendFunction dst_alpha
-	)
-	{
-		Set(context::BlendFunctionSeparate(
-			src_rgb,
-			src_alpha,
-			dst_rgb,
-			dst_alpha
-		));
-	}
 };
 #endif
+
+class BlendColor
+ : public SettingStack<context::RGBAValue, Nothing>
+{
+private:
+	static
+	context::RGBAValue _do_get(Nothing)
+	{
+		return context::BlendingState::BlendColor();
+	}
+
+	static
+	void _do_set(context::RGBAValue value, Nothing)
+	{
+		context::BlendingState::BlendColor(value);
+	}
+public:
+	BlendColor(void)
+	 : SettingStack<context::RGBAValue, Nothing>(
+		&_do_get,
+		&_do_set
+	)
+	{ }
+};
 
 } // namespace aux
 
@@ -329,6 +267,7 @@ class BlendingState
 public:
 	aux::BlendEquation BlendEquation;
 	aux::BlendFunction BlendFunction;
+	aux::BlendColor BlendColor;
 };
 
 using context::BlendingOps;

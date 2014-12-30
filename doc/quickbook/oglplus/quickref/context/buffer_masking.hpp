@@ -4,38 +4,42 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_context_BufferMasking_helpers
+//[oglplus_context_BufferMaskingState
 namespace oglplus {
 namespace context {
 
-
-struct RGBAMask /*<
-Helper structure storing the color component mask.
->*/
-{
-	bool Red(void) const;
-	bool Green(void) const;
-	bool Blue(void) const;
-	bool Alpha(void) const;
-};
-//]
-
-//[oglplus_context_BufferMasking
-class BufferMasking
+class BufferMaskingState
 {
 public:
 	static void ColorMask(bool r, bool g, bool b, bool a); /*<
 	Sets the color mask for the default color buffer.
 	See [glfunc ColorMask].
 	>*/
+	static void ColorMask(const __context_RGBAMask&);
+	static __context_RGBAMask ColorWriteMask(void); /*<
+	Returns the value of color buffer write mask.
+	See [glfunc Get], [glconst COLOR_WRITEMASK].
+	>*/
+
+#if GL_VERSION_3_0
 	static void ColorMask(GLuint buffer, bool r, bool g, bool b, bool a); /*<
 	Sets the color mask for the specified color [^buffer].
 	See [glfunc ColorMaski].
 	>*/
+	static void ColorMask(GLuint buffer, const __context_RGBAMask&);
+	static __context_RGBAMask ColorWriteMask(GLuint buffer); /*<
+	Returns the value of color buffer write mask.
+	See [glfunc Get], [glconst COLOR_WRITEMASK].
+	>*/
+#endif
 
 	static void DepthMask(bool mask); /*<
 	Sets the depth buffer [^mask].
 	See [glfunc DepthMask].
+	>*/
+	static bool DepthWriteMask(void); /*<
+	Returns the value of depth buffer write mask.
+	See [glfunc Get], [glconst DEPTH_WRITEMASK].
 	>*/
 
 	static void StencilMask(GLuint mask); /*<
@@ -47,14 +51,6 @@ public:
 	See [glfunc StencilMaskSeparate].
 	>*/
 
-	static RGBAMask ColorWriteMask(GLuint buffer = 0); /*<
-	Returns the value of color buffer write mask.
-	See [glfunc Get], [glconst COLOR_WRITEMASK].
-	>*/
-	static bool DepthWriteMask(void); /*<
-	Returns the value of depth buffer write mask.
-	See [glfunc Get], [glconst DEPTH_WRITEMASK].
-	>*/
 	static GLuint StencilWriteMask(bool backface = false); /*<
 	Returns the value of stencil buffer write mask.
 	See [glfunc Get], [glconst STENCIL_WRITEMASK] and

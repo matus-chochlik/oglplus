@@ -1,7 +1,7 @@
-//  File include/oglplus/enums/pixel_storage_mode.ipp
+//  File include/oglplus/enums/pixel_parameter.ipp
 //
 //  Automatically generated file, DO NOT modify manually.
-//  Edit the source 'source/enums/oglplus/pixel_storage_mode.txt'
+//  Edit the source 'source/enums/oglplus/pixel_parameter.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
 //  Copyright 2010-2014 Matus Chochlik.
@@ -14,7 +14,7 @@
 /// PACK_SWAP_BYTES
 PackSwapBytes,
 /// PACK_LSB_FIRST
-PackLsbFirst,
+PackLSBFirst,
 /// PACK_ROW_LENGTH
 PackRowLength,
 /// PACK_SKIP_ROWS
@@ -38,7 +38,7 @@ PackCompressedBlockSize,
 /// UNPACK_SWAP_BYTES
 UnpackSwapBytes,
 /// UNPACK_LSB_FIRST
-UnpackLsbFirst,
+UnpackLSBFirst,
 /// UNPACK_ROW_LENGTH
 UnpackRowLength,
 /// UNPACK_SKIP_ROWS
@@ -62,6 +62,6 @@ UnpackCompressedBlockSize
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-#include <oglplus/enums/pixel_storage_mode_def.ipp>
+#include <oglplus/enums/pixel_parameter_def.ipp>
 
 #endif
