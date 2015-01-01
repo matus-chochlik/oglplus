@@ -85,12 +85,12 @@ public:
 
 	void Enable(bool status = true)
 	{
-		return this->_set(status);
+		this->_set(status);
 	}
 
 	void Disable(void)
 	{
-		return this->_set(false);
+		this->_set(false);
 	}
 };
 

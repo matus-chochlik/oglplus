@@ -29,6 +29,7 @@ class SettingHolder
 {
 private:
 	SettingStack<T, P>* _pstk;
+	T _prev;
 
 	friend class SettingStack<T, P>;
 
@@ -37,9 +38,10 @@ private:
 	 : _pstk(nullptr)
 	{ }
 
-	SettingHolder(SettingStack<T, P>& stk)
+	SettingHolder(SettingStack<T, P>& stk, T prev)
 	OGLPLUS_NOEXCEPT(true)
 	 : _pstk(&stk)
+	 , _prev(prev)
 	{ }
 
 	SettingHolder(const SettingHolder&)/* = delete*/;
@@ -47,6 +49,7 @@ public:
 	SettingHolder(SettingHolder&& tmp)
 	OGLPLUS_NOEXCEPT(true)
 	 : _pstk(tmp._pstk)
+	 , _prev(tmp._prev)
 	{
 		tmp._pstk = nullptr;
 	}
@@ -56,18 +59,16 @@ public:
 	{
 		if(_pstk)
 		{
-			_pstk->_pop();
+			_pstk->_set(_prev);
 		}
 	}
 
 	void Pop(void)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		if(_pstk)
-		{
-			_pstk->_pop();
-			_pstk = nullptr;
-		}
+		assert(_pstk);
+		_pstk->_set(_prev);
+		_pstk = nullptr;
 	}
 
 	OGLPLUS_EXPLICIT
@@ -84,87 +85,53 @@ class SettingStack
 private:
 	void (*_apply)(T, P);
 	P _param;
-	std::vector<T> _stk;
+	T _curr;
 
 	friend class SettingHolder<T, P>;
 protected:
-	void _init(T value)
+	T _get(void) const
 	{
-		assert(_stk.empty());
-		_stk.push_back(value);
+		return _curr;
 	}
 
-	typename std::vector<T>::const_reference
-	_top(void) const
+	bool _set(T value)
 	{
-		assert(!_stk.empty());
-		return _stk.back();
-	}
-
-	void _pop(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(!_stk.empty());
 		assert(_apply);
 
-		_stk.pop_back();
-		_apply(_stk.back(), _param);
-		// aborts if restoring throws
+		if(_curr != value)
+		{
+			T prev = _curr;
+			_curr = value;
+
+			try { _apply(_curr, _param); }
+			catch(...)
+			{
+				_curr = prev;
+				throw;
+			}
+			return true;
+		}
+		return false;
 	}
 
 	SettingHolder<T, P> _push(T value)
 	{
-		assert(!_stk.empty());
-		assert(_apply);
-
-		if(_stk.back() != value)
+		T prev = _curr;
+		if(_set(value))
 		{
-			_stk.push_back(value);
-			try { _apply(value, _param); }
-			catch(...)
-			{
-				_pop();
-				throw;
-			}
-
-			return SettingHolder<T, P>(*this);
+			return SettingHolder<T, P>(*this, prev);
 		}
 		return SettingHolder<T, P>();
-	}
-
-	void _set(T value)
-	{
-		assert(!_stk.empty());
-		assert(_apply);
-
-		T prev = _stk.back();
-
-		if(prev != value)
-		{
-			_stk.back() = value;
-			try { _apply(value, _param); }
-			catch(...)
-			{
-				_stk.back() = prev;
-				throw;
-			}
-		}
 	}
 protected:
 	SettingStack(T (*query)(P), void(*apply)(T, P), P param = P())
 	 : _apply(apply)
 	 , _param(param)
 	{
-		try { _init(query(_param)); }
+		try { _curr = query(_param); }
 		catch(Error&){ }
 	}
 public:
-	inline
-	void Reserve(std::size_t n)
-	{
-		_stk.reserve(n);
-	}
-
 	typedef SettingHolder<T, P> Holder;
 
 	inline
@@ -175,7 +142,7 @@ public:
 
 	template <typename ... A>
 	inline
-	void Push(A&& ... a)
+	Holder Push(A&& ... a)
 	{
 		return _push(T(std::forward<A>(a)...));
 	}
@@ -185,20 +152,20 @@ public:
 	Get(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return _top();
+		return _curr;
 	}
 
 	inline
 	void Set(T value)
 	{
-		return _set(value);
+		_set(value);
 	}
 
 	template <typename ... A>
 	inline
 	void Set(A&& ... a)
 	{
-		return _set(T(std::forward<A>(a)...));
+		_set(T(std::forward<A>(a)...));
 	}
 };
 
