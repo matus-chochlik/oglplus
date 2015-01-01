@@ -140,7 +140,7 @@ public:
 
 	void Bind(ObjectName<ObjTag> obj)
 	{
-		return this->_set(GetName(obj));
+		this->_set(GetName(obj));
 	}
 };
 
@@ -270,7 +270,7 @@ public:
 	ObjectName<ObjTag> Get(void) const
 	noexcept
 	{
-		return ObjectName<ObjTag>(this->_top());
+		return ObjectName<ObjTag>(this->_get());
 	}
 
 	operator ObjectName<ObjTag> (void) const
@@ -288,7 +288,7 @@ public:
 
 	void Bind(ObjectName<ObjTag> obj)
 	{
-		return this->_set(GetName(obj));
+		this->_set(GetName(obj));
 	}
 };
 
