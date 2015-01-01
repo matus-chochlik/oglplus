@@ -17,6 +17,39 @@ public:
 	>*/
 	static void PixelStore(__PixelParameter parameter, GLint value);
 
+	template <__PixelParameter Parameter>
+	static void PixelStore(__Unspecified value); /*<
+	Sets the [^value] of a pixel storage [^Parameter].
+	[^value] has an appropriate type to hold the value
+	of the [^Parameter] being set.
+	See [glfunc PixelStore].
+	>*/
+
+	static GLfloat PixelStoreValue(
+		__PixelParameter parameter,
+		__TypeTag<float>
+	); /*<
+	Gets the [^value] of a pixel storage [^Parameter].
+	See [glfunc Get].
+	>*/
+	static GLint PixelStoreValue(
+		__PixelParameter parameter,
+		__TypeTag<int>
+	);
+	static bool PixelStoreValue(
+		__PixelParameter parameter,
+		__TypeTag<bool>
+	);
+
+	template <__PixelParameter Parameter>
+	static __Unspecified PixelStoreValue(void); /*<
+	Gets the [^value] of a pixel storage [^Parameter].
+	The return value has an appropriate type to hold the value
+	of the [^Parameter] being retrieved.
+	See [glfunc Get].
+	>*/
+
+
 	static void ReadPixels(
 		GLint x,
 		GLint y,

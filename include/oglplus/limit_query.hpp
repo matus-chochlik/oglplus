@@ -14,6 +14,7 @@
 #define OGLPLUS_LIMIT_QUERY_1202091518_HPP
 
 #include <oglplus/enumerations.hpp>
+#include <cstdint>
 
 namespace oglplus {
 
