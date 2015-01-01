@@ -89,7 +89,9 @@ private:
 
 	friend class SettingHolder<T, P>;
 protected:
+	inline
 	T _get(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _curr;
 	}
