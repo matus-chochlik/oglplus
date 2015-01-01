@@ -89,6 +89,7 @@ private:
 
 	friend class SettingHolder<T, P>;
 protected:
+	inline
 	T _get(void) const
 	noexcept
 	{
