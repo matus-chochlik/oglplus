@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -25,16 +25,16 @@ public:
 	Texture bind target.
 	>*/
 
-	static __TextureName Binding(Target target); /*<
+	static __TextureName Binding(__TextureTarget target); /*<
 	Returns the texture currently bound to the specified [^target].
 	See [glfunc GetIntegerv].
 	>*/
-	static void Bind(Target target, __TextureName texture); /*<
+	static void Bind(__TextureTarget target, __TextureName texture); /*<
 	Binds the specified [^texture] to the specified [^target].
 	See [glfunc BindTexture].
 	>*/
 
-	void Bind(Target target) const; /*<
+	void Bind(__TextureTarget target) const; /*<
 	Binds [^this] texture to the specified [^target].
 	See [glfunc BindTexture].
 	>*/
@@ -146,7 +146,7 @@ public:
 
 #if GL_VERSION_4_3 || GL_ARB_texture_view
 	void View(
-		Target target,
+		__TextureTarget target,
 		__TextureName orig_texture,
 		__PixelDataInternalFormat internal_format,
 		GLuint min_level,
@@ -195,110 +195,110 @@ public:
 
 #if GL_VERSION_3_0
 	static
-	GLsizei Width(Target target, GLint level = 0); /*<
+	GLsizei Width(__TextureTarget target, GLint level = 0); /*<
 	Returns the width of the texture image on the specified [^level].
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_WIDTH].
 	>*/
 
 	static
-	GLsizei Height(Target target, GLint level = 0); /*<
+	GLsizei Height(__TextureTarget target, GLint level = 0); /*<
 	Returns the height of the texture image on the specified [^level].
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_HEIGHT].
 	>*/
 
 	static
-	GLsizei Depth(Target target, GLint level = 0); /*<
+	GLsizei Depth(__TextureTarget target, GLint level = 0); /*<
 	Returns the depth of the texture image on the specified [^level].
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_DEPTH].
 	>*/
 
 	static
-	__PixelDataType RedType(Target target, GLint level = 0); /*<
+	__PixelDataType RedType(__TextureTarget target, GLint level = 0); /*<
 	Returns the data type used to store the RED component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_RED_TYPE].
 	>*/
 
 	static
-	__PixelDataType GreenType(Target target, GLint level = 0); /*<
+	__PixelDataType GreenType(__TextureTarget target, GLint level = 0); /*<
 	Returns the data type used to store the GREEN component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_GREEN_TYPE].
 	>*/
 
 	static
-	__PixelDataType BlueType(Target target, GLint level = 0); /*<
+	__PixelDataType BlueType(__TextureTarget target, GLint level = 0); /*<
 	Returns the data type used to store the BLUE component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_BLUE_TYPE].
 	>*/
 
 	static
-	__PixelDataType AlphaType(Target target, GLint level = 0); /*<
+	__PixelDataType AlphaType(__TextureTarget target, GLint level = 0); /*<
 	Returns the data type used to store the ALPHA component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_ALPHA_TYPE].
 	>*/
 
 	static
-	__PixelDataType DepthType(Target target, GLint level = 0); /*<
+	__PixelDataType DepthType(__TextureTarget target, GLint level = 0); /*<
 	Returns the data type used to store the DEPTH component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_DEPTH_TYPE].
 	>*/
 
 	static
-	GLsizei RedSize(Target target, GLint level = 0); /*<
+	GLsizei RedSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the RED component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_RED_SIZE].
 	>*/
 
 	static
-	GLsizei GreenSize(Target target, GLint level = 0); /*<
+	GLsizei GreenSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the GREEN component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_GREEN_SIZE].
 	>*/
 
 	static
-	GLsizei BlueSize(Target target, GLint level = 0); /*<
+	GLsizei BlueSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the BLUE component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_BLUE_SIZE].
 	>*/
 
 	static
-	GLsizei AlphaSize(Target target, GLint level = 0); /*<
+	GLsizei AlphaSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the ALPHA component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_ALPHA_SIZE].
 	>*/
 
 	static
-	GLsizei DepthSize(Target target, GLint level = 0); /*<
+	GLsizei DepthSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the DEPTH component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_DEPTH_SIZE].
 	>*/
 
 	static
-	GLsizei StencilSize(Target target, GLint level = 0); /*<
+	GLsizei StencilSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the STENCIL component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_STENCIL_SIZE].
 	>*/
 
 	static
-	GLsizei SharedSize(Target target, GLint level = 0); /*<
+	GLsizei SharedSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of all texture components.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_SHARED_SIZE].
 	>*/
 //]
 //[oglplus_texture_2
 	static
-	GLsizei CompressedImageSize(Target target, GLint level = 0); /*<
+	GLsizei CompressedImageSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the size (in bytes) of the image array if it is compressed.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_COMPRESSED_IMAGE_SIZE].
 	>*/
 
 	static
-	__PixelDataInternalFormat InternalFormat(Target target, GLint level = 0); /*<
+	__PixelDataInternalFormat InternalFormat(__TextureTarget target, GLint level = 0); /*<
 	Returns the internal data format of the image array.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_INTERNAL_FORMAT].
 	>*/
 
 	static void GetImage(
-		Target target,
+		__TextureTarget target,
 		GLint level,
 		__PixelDataFormat format,
 		const __OutputData& dest
@@ -315,16 +315,16 @@ public:
 	the [^dest] buffer accordingly.]
 	>*/
 	static void GetImage(
-		Target target,
+		__TextureTarget target,
 		GLint level,
-		PixelDataFormat format,
+		__PixelDataFormat format,
 		Property::PixDataType type,
 		GLsizei size,
 		GLvoid* buffer
 	);
 
 	static void GetCompressedImage(
-		Target target,
+		__TextureTarget target,
 		GLint level,
 		const __OutputData& dest
 	); /*<
@@ -336,17 +336,132 @@ public:
 	it can accomodate the texture data.
 	>*/
 	static void GetCompressedImage(
-		Target target,
+		__TextureTarget target,
 		GLint level,
 		std::vector<GLubyte>& dest
 	);
 	static void GetCompressedImage(
-		Target target,
+		__TextureTarget target,
 		GLint level,
 		GLsizei size,
 		GLubyte* buffer
 	);
 #endif
+	static void Image3D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		GLint border,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	); /*<
+	Specifies a three dimensional texture image.
+	See [glfunc TexImage3D].
+	>*/
+
+	static void Image3D(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint level = 0,
+		GLint border = 0
+	);
+
+	static void SubImage3D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	); /*<
+	Specifies a three dimensional texture subimage.
+	See [glfunc TexSubImage3D].
+	>*/
+
+	static void SubImage3D(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLint level = 0
+	);
+
+	static void Image2D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLint border,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	); /*<
+	Specifies a two dimensional texture image.
+	See [glfunc TexImage2D].
+	>*/
+
+	static void Image2D(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint level = 0,
+		GLint border = 0
+	);
+
+	static void ImageCM(
+		GLuint face,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLint border,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	); /*<
+	Specifies the image of the selected cube-map face.
+	See [glfunc TexImage2D].
+	>*/
+
+	static void ImageCM(
+		GLuint face,
+		const __images_Image& image,
+		GLint level = 0,
+		GLint border = 0
+	);
+
+	static void SubImage2D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLsizei width,
+		GLsizei height,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	); /*<
+	Specifies a teo dimensional texture subimage.
+	See [glfunc TexSubImage2D].
+	>*/
+
+	static void SubImage2D(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint xoffs,
+		GLint yoffs,
+		GLint level = 0
+	);
 };
 
 // TODO

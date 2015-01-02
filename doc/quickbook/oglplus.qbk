@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -253,8 +253,10 @@
 
 [def __AnyRange [link oglplus.quickref.utils.ranges.any AnyRange]]
 
+[def __OutputData [link oglplus.quickref.output_data OutputData]]
 
 [def __images_ImageSpec [link oglplus.quickref.images.image_spec images::ImageSpec]]
+[def __images_Image [link oglplus.quickref.images.image images::Image]]
 
 [def __OGLPLUS_NO_SITE_CONFIG [link oglplus.quickref.config.compiler [^OGLPLUS_NO_SITE_CONFIG]]]
 

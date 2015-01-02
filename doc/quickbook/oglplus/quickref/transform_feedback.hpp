@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,20 +17,20 @@ public:
 	Transform feedback bind target.
 	>*/
 
-	static __TransformFeedbackName Binding(Target target); /*<
+	static __TransformFeedbackName Binding(__TransformFeedbackTarget target); /*<
 	Returns the transform feedback object currently bound
 	to the specified [^target].
 	See [glfunc GetIntegerv].
 	>*/
 	static void Bind(
-		Target target,
+		__TransformFeedbackTarget target,
 		__TransformFeedbackName transform_feedback
 	); /*<
 	Binds the specified [^transform_feedback] to the specified [^target].
 	See [glfunc BindTransformFeedback].
 	>*/
 
-	void Bind(Target target) const; /*<
+	void Bind(__TransformFeedbackTarget target) const; /*<
 	Binds [^this] transform feedback to the specified [^target].
 	See [glfunc BindTransformFeedback].
 	>*/
