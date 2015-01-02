@@ -44,10 +44,10 @@
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">typedef</span> <a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">Target</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c0" href="texture.html#oglplus.quickref.texture.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-	<span class="keyword">static</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">Binding</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c2" href="texture.html#oglplus.quickref.texture.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c4" href="texture.html#oglplus.quickref.texture.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">Binding</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c2" href="texture.html#oglplus.quickref.texture.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c4" href="texture.html#oglplus.quickref.texture.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
-	<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c6" href="texture.html#oglplus.quickref.texture.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c6" href="texture.html#oglplus.quickref.texture.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_2</span> <span class="special">||</span><span class="identifier">GL_ARB_shader_image_load_store</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BindImage</span><span class="special">(</span>
@@ -117,7 +117,7 @@
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_view</span>
 	<span class="keyword">void</span> <span class="identifier">View</span><span class="special">(</span>
-		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">orig_texture</span><span class="special">,</span>
 		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">min_level</span><span class="special">,</span>
@@ -293,49 +293,49 @@
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_0</span>
 	<span class="keyword">static</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">Width</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c30" href="texture.html#oglplus.quickref.texture.c31"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">Width</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c30" href="texture.html#oglplus.quickref.texture.c31"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 	<span class="keyword">static</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">Height</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c32" href="texture.html#oglplus.quickref.texture.c33"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">Height</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c32" href="texture.html#oglplus.quickref.texture.c33"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 	<span class="keyword">static</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">Depth</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c34" href="texture.html#oglplus.quickref.texture.c35"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">Depth</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c34" href="texture.html#oglplus.quickref.texture.c35"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 	<span class="keyword">static</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">RedType</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c36" href="texture.html#oglplus.quickref.texture.c37"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">RedType</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c36" href="texture.html#oglplus.quickref.texture.c37"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
 	<span class="keyword">static</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">GreenType</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c38" href="texture.html#oglplus.quickref.texture.c39"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">GreenType</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c38" href="texture.html#oglplus.quickref.texture.c39"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
 	<span class="keyword">static</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">BlueType</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c40" href="texture.html#oglplus.quickref.texture.c41"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">BlueType</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c40" href="texture.html#oglplus.quickref.texture.c41"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
 	<span class="keyword">static</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">AlphaType</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c42" href="texture.html#oglplus.quickref.texture.c43"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">AlphaType</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c42" href="texture.html#oglplus.quickref.texture.c43"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
 	<span class="keyword">static</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">DepthType</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c44" href="texture.html#oglplus.quickref.texture.c45"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">DepthType</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c44" href="texture.html#oglplus.quickref.texture.c45"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
 	<span class="keyword">static</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">RedSize</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c46" href="texture.html#oglplus.quickref.texture.c47"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">RedSize</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c46" href="texture.html#oglplus.quickref.texture.c47"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
 	<span class="keyword">static</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">GreenSize</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c48" href="texture.html#oglplus.quickref.texture.c49"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">GreenSize</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c48" href="texture.html#oglplus.quickref.texture.c49"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 
 	<span class="keyword">static</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">BlueSize</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c50" href="texture.html#oglplus.quickref.texture.c51"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">BlueSize</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c50" href="texture.html#oglplus.quickref.texture.c51"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
 
 	<span class="keyword">static</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">AlphaSize</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c52" href="texture.html#oglplus.quickref.texture.c53"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">AlphaSize</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c52" href="texture.html#oglplus.quickref.texture.c53"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
 
 	<span class="keyword">static</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">DepthSize</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c54" href="texture.html#oglplus.quickref.texture.c55"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">DepthSize</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c54" href="texture.html#oglplus.quickref.texture.c55"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
 
 	<span class="keyword">static</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">StencilSize</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c56" href="texture.html#oglplus.quickref.texture.c57"><img src="../../images/callouts/14.png" alt="14" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">StencilSize</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c56" href="texture.html#oglplus.quickref.texture.c57"><img src="../../images/callouts/14.png" alt="14" border="0"></a>
 
 	<span class="keyword">static</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">SharedSize</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c58" href="texture.html#oglplus.quickref.texture.c59"><img src="../../images/callouts/15.png" alt="15" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">SharedSize</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c58" href="texture.html#oglplus.quickref.texture.c59"><img src="../../images/callouts/15.png" alt="15" border="0"></a>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -445,43 +445,143 @@
 </tr>
 </table></div>
 <pre class="programlisting">	<span class="keyword">static</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">CompressedImageSize</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c60" href="texture.html#oglplus.quickref.texture.c61"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">CompressedImageSize</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c60" href="texture.html#oglplus.quickref.texture.c61"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 	<span class="keyword">static</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">InternalFormat</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c62" href="texture.html#oglplus.quickref.texture.c63"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">InternalFormat</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c62" href="texture.html#oglplus.quickref.texture.c63"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">GetImage</span><span class="special">(</span>
-		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
 		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
-		<span class="keyword">const</span> <span class="identifier">__OutputData</span><span class="special">&amp;</span> <span class="identifier">dest</span>
+		<span class="keyword">const</span> <a class="link" href="output_data.html" title="Output data wrapper">OutputData</a><span class="special">&amp;</span> <span class="identifier">dest</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c64" href="texture.html#oglplus.quickref.texture.c65"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">GetImage</span><span class="special">(</span>
-		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-		<span class="identifier">PixelDataFormat</span> <span class="identifier">format</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
 		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">size</span><span class="special">,</span>
 		<span class="identifier">GLvoid</span><span class="special">*</span> <span class="identifier">buffer</span>
 	<span class="special">);</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">GetCompressedImage</span><span class="special">(</span>
-		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-		<span class="keyword">const</span> <span class="identifier">__OutputData</span><span class="special">&amp;</span> <span class="identifier">dest</span>
+		<span class="keyword">const</span> <a class="link" href="output_data.html" title="Output data wrapper">OutputData</a><span class="special">&amp;</span> <span class="identifier">dest</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c66" href="texture.html#oglplus.quickref.texture.c67"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">GetCompressedImage</span><span class="special">(</span>
-		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
 		<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">GLubyte</span><span class="special">&gt;&amp;</span> <span class="identifier">dest</span>
 	<span class="special">);</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">GetCompressedImage</span><span class="special">(</span>
-		<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">size</span><span class="special">,</span>
 		<span class="identifier">GLubyte</span><span class="special">*</span> <span class="identifier">buffer</span>
 	<span class="special">);</span>
 <span class="preprocessor">#endif</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Image3D</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">depth</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c68" href="texture.html#oglplus.quickref.texture.c69"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Image3D</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">);</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">SubImage3D</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">depth</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c70" href="texture.html#oglplus.quickref.texture.c71"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">SubImage3D</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">);</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Image2D</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c72" href="texture.html#oglplus.quickref.texture.c73"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Image2D</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">);</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ImageCM</span><span class="special">(</span>
+		<span class="identifier">GLuint</span> <span class="identifier">face</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c74" href="texture.html#oglplus.quickref.texture.c75"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ImageCM</span><span class="special">(</span>
+		<span class="identifier">GLuint</span> <span class="identifier">face</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">);</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">SubImage2D</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c76" href="texture.html#oglplus.quickref.texture.c77"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">SubImage2D</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">);</span>
 <span class="special">};</span>
 
 <span class="comment">// TODO</span>
@@ -532,6 +632,36 @@
               form into the <code class="literal">dest</code> buffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetCompressedTexImage.xml" target="_top">glGetCompressedTexImage</a></code>.
               This function automatically resizes the buffer so that it can accomodate
               the texture data.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c69"></a><a href="#oglplus.quickref.texture.c68"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Specifies a three dimensional texture image. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glTexImage3D.xml" target="_top">glTexImage3D</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c71"></a><a href="#oglplus.quickref.texture.c70"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Specifies a three dimensional texture subimage. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glTexSubImage3D.xml" target="_top">glTexSubImage3D</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c73"></a><a href="#oglplus.quickref.texture.c72"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Specifies a two dimensional texture image. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glTexImage2D.xml" target="_top">glTexImage2D</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c75"></a><a href="#oglplus.quickref.texture.c74"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Specifies the image of the selected cube-map face. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glTexImage2D.xml" target="_top">glTexImage2D</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c77"></a><a href="#oglplus.quickref.texture.c76"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Specifies a teo dimensional texture subimage. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glTexSubImage2D.xml" target="_top">glTexSubImage2D</a></code>.
             </p></td>
 </tr>
 </table></div>
@@ -733,40 +863,40 @@
 <span class="keyword">class</span> <span class="identifier">TextureSwizzleTuple</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">TextureSwizzleTuple</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c68" href="texture.html#oglplus.quickref.texture.c69"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">TextureSwizzleTuple</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c78" href="texture.html#oglplus.quickref.texture.c79"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 	<span class="identifier">TextureSwizzleTuple</span><span class="special">(</span>
 		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode_r</span><span class="special">,</span>
 		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode_g</span><span class="special">,</span>
 		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode_b</span><span class="special">,</span>
 		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode_a</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c70" href="texture.html#oglplus.quickref.texture.c71"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c80" href="texture.html#oglplus.quickref.texture.c81"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
-	<span class="identifier">TextureSwizzleTuple</span><span class="special">&amp;</span> <span class="identifier">SwizzleR</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c72" href="texture.html#oglplus.quickref.texture.c73"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">TextureSwizzleTuple</span><span class="special">&amp;</span> <span class="identifier">SwizzleR</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c82" href="texture.html#oglplus.quickref.texture.c83"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 	<span class="identifier">TextureSwizzleTuple</span><span class="special">&amp;</span> <span class="identifier">Red</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span><span class="special">);</span>
-	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">SwizzleR</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c74" href="texture.html#oglplus.quickref.texture.c75"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">SwizzleR</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c84" href="texture.html#oglplus.quickref.texture.c85"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">Red</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 
-	<span class="identifier">TextureSwizzleTuple</span><span class="special">&amp;</span> <span class="identifier">SwizzleG</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c76" href="texture.html#oglplus.quickref.texture.c77"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">TextureSwizzleTuple</span><span class="special">&amp;</span> <span class="identifier">SwizzleG</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c86" href="texture.html#oglplus.quickref.texture.c87"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 	<span class="identifier">TextureSwizzleTuple</span><span class="special">&amp;</span> <span class="identifier">Green</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span><span class="special">);</span>
-	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">SwizzleG</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c78" href="texture.html#oglplus.quickref.texture.c79"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">SwizzleG</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c88" href="texture.html#oglplus.quickref.texture.c89"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">Green</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 
-	<span class="identifier">TextureSwizzleTuple</span><span class="special">&amp;</span> <span class="identifier">SwizzleB</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c80" href="texture.html#oglplus.quickref.texture.c81"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="identifier">TextureSwizzleTuple</span><span class="special">&amp;</span> <span class="identifier">SwizzleB</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c90" href="texture.html#oglplus.quickref.texture.c91"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 	<span class="identifier">TextureSwizzleTuple</span><span class="special">&amp;</span> <span class="identifier">Blue</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span><span class="special">);</span>
-	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">SwizzleB</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c82" href="texture.html#oglplus.quickref.texture.c83"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">SwizzleB</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c92" href="texture.html#oglplus.quickref.texture.c93"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">Blue</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 
-	<span class="identifier">TextureSwizzleTuple</span><span class="special">&amp;</span> <span class="identifier">SwizzleA</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c84" href="texture.html#oglplus.quickref.texture.c85"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="identifier">TextureSwizzleTuple</span><span class="special">&amp;</span> <span class="identifier">SwizzleA</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c94" href="texture.html#oglplus.quickref.texture.c95"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 	<span class="identifier">TextureSwizzleTuple</span><span class="special">&amp;</span> <span class="identifier">Alpha</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span><span class="special">);</span>
-	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">SwizzleA</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c86" href="texture.html#oglplus.quickref.texture.c87"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">SwizzleA</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c96" href="texture.html#oglplus.quickref.texture.c97"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">Alpha</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 
 	<span class="identifier">TextureSwizzleTuple</span><span class="special">&amp;</span> <span class="identifier">Swizzle</span><span class="special">(</span>
 		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle_coord">TextureSwizzleCoord</a> <span class="identifier">coordinate</span><span class="special">,</span>
 		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c88" href="texture.html#oglplus.quickref.texture.c89"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
-	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">Swizzle</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle_coord">TextureSwizzleCoord</a> <span class="identifier">coordinate</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c90" href="texture.html#oglplus.quickref.texture.c91"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c98" href="texture.html#oglplus.quickref.texture.c99"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">Swizzle</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle_coord">TextureSwizzleCoord</a> <span class="identifier">coordinate</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c100" href="texture.html#oglplus.quickref.texture.c101"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
 <span class="special">};</span>
 <span class="preprocessor">#endif</span>
 
@@ -774,73 +904,73 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c69"></a><a href="#oglplus.quickref.texture.c68"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c79"></a><a href="#oglplus.quickref.texture.c78"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               No swizzling.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c71"></a><a href="#oglplus.quickref.texture.c70"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c81"></a><a href="#oglplus.quickref.texture.c80"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Specifies modes for all texture components/coordinates.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c73"></a><a href="#oglplus.quickref.texture.c72"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c83"></a><a href="#oglplus.quickref.texture.c82"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Sets the swizzle value for the red component.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c75"></a><a href="#oglplus.quickref.texture.c74"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c85"></a><a href="#oglplus.quickref.texture.c84"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the swizzle value for the red component.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c77"></a><a href="#oglplus.quickref.texture.c76"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c87"></a><a href="#oglplus.quickref.texture.c86"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Sets the swizzle value for the green component.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c79"></a><a href="#oglplus.quickref.texture.c78"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c89"></a><a href="#oglplus.quickref.texture.c88"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the swizzle value for the green component.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c81"></a><a href="#oglplus.quickref.texture.c80"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c91"></a><a href="#oglplus.quickref.texture.c90"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Sets the swizzle value for the blue component.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c83"></a><a href="#oglplus.quickref.texture.c82"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c93"></a><a href="#oglplus.quickref.texture.c92"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the swizzle value for the blue component.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c85"></a><a href="#oglplus.quickref.texture.c84"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c95"></a><a href="#oglplus.quickref.texture.c94"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Sets the swizzle value for the alpha component.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c87"></a><a href="#oglplus.quickref.texture.c86"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c97"></a><a href="#oglplus.quickref.texture.c96"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the swizzle value for the alpha component.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c89"></a><a href="#oglplus.quickref.texture.c88"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c99"></a><a href="#oglplus.quickref.texture.c98"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Sets the swizzle <code class="literal">mode</code> for the specified <code class="literal">coordinate</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c91"></a><a href="#oglplus.quickref.texture.c90"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c101"></a><a href="#oglplus.quickref.texture.c100"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the swizzle mode for the specified <code class="literal">coordinate</code>.
             </p></td>
@@ -910,7 +1040,7 @@
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">TextureUnitSelector</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c92" href="texture.html#oglplus.quickref.texture.c93"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">TextureUnitSelector</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c102" href="texture.html#oglplus.quickref.texture.c103"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">};</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_shader_image_load_store</span>
@@ -918,7 +1048,7 @@
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">ImageUnitSelector</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c94" href="texture.html#oglplus.quickref.texture.c95"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">ImageUnitSelector</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c104" href="texture.html#oglplus.quickref.texture.c105"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="special">};</span>
 <span class="preprocessor">#endif</span>
 
@@ -926,7 +1056,7 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c93"></a><a href="#oglplus.quickref.texture.c92"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c103"></a><a href="#oglplus.quickref.texture.c102"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Throws <a class="link" href="error.html#oglplus.quickref.error.limit" title="Limit errors">LimitError</a>
               if <code class="literal">number</code> is greater than the implementation-dependent
@@ -934,7 +1064,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c95"></a><a href="#oglplus.quickref.texture.c94"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c105"></a><a href="#oglplus.quickref.texture.c104"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Throws <a class="link" href="error.html#oglplus.quickref.error.limit" title="Limit errors">LimitError</a>
               if <code class="literal">number</code> is greater than the implementation-dependent

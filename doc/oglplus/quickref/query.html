@@ -45,8 +45,8 @@
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">typedef</span> <a class="link" href="query.html#oglplus.quickref.query.target">QueryTarget</a> <span class="identifier">Target</span><span class="special">;</span>
 
-	<span class="keyword">void</span> <span class="identifier">Begin</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c0" href="query.html#oglplus.quickref.query.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-	<span class="keyword">void</span> <span class="identifier">End</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c2" href="query.html#oglplus.quickref.query.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Begin</span><span class="special">(</span><a class="link" href="query.html#oglplus.quickref.query.target">QueryTarget</a> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c0" href="query.html#oglplus.quickref.query.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">End</span><span class="special">(</span><a class="link" href="query.html#oglplus.quickref.query.target">QueryTarget</a> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c2" href="query.html#oglplus.quickref.query.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_0</span>
 	<span class="keyword">void</span> <span class="identifier">BeginConditionalRender</span><span class="special">(</span><a class="link" href="query.html#oglplus.quickref.query.conditional_render_mode">ConditionalRenderMode</a> <span class="identifier">mode</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c4" href="query.html#oglplus.quickref.query.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
@@ -54,7 +54,7 @@
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_timer_query</span>
-	<span class="keyword">void</span> <span class="identifier">Counter</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c8" href="query.html#oglplus.quickref.query.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Counter</span><span class="special">(</span><a class="link" href="query.html#oglplus.quickref.query.target">QueryTarget</a> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c8" href="query.html#oglplus.quickref.query.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 	<span class="keyword">void</span> <span class="identifier">Timestamp</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c10" href="query.html#oglplus.quickref.query.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 <span class="preprocessor">#endif</span>
 
@@ -68,11 +68,11 @@
 	<span class="keyword">void</span> <span class="identifier">Result</span><span class="special">(</span><span class="identifier">GLuint64</span><span class="special">&amp;</span> <span class="identifier">result</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="preprocessor">#endif</span>
 
-	<a class="link" href="query.html#oglplus.quickref.query.activator">QueryActivator</a> <span class="identifier">Activate</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c16" href="query.html#oglplus.quickref.query.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<a class="link" href="query.html#oglplus.quickref.query.activator">QueryActivator</a> <span class="identifier">Activate</span><span class="special">(</span><a class="link" href="query.html#oglplus.quickref.query.target">QueryTarget</a> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c16" href="query.html#oglplus.quickref.query.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ResultType</span><span class="special">&gt;</span>
 	<a class="link" href="query.html#oglplus.quickref.query.execution">QueryExecution</a><span class="special">&lt;</span><span class="identifier">ResultType</span><span class="special">&gt;</span>
-	<span class="identifier">Execute</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">ResultType</span><span class="special">&amp;</span> <span class="identifier">result</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c18" href="query.html#oglplus.quickref.query.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="identifier">Execute</span><span class="special">(</span><a class="link" href="query.html#oglplus.quickref.query.target">QueryTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="identifier">ResultType</span><span class="special">&amp;</span> <span class="identifier">result</span><span class="special">);</span> <a class="co" name="oglplus.quickref.query.c18" href="query.html#oglplus.quickref.query.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 <span class="special">};</span>
 
 <span class="keyword">typedef</span> <span class="identifier">ObjectOps</span><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Query</a><span class="special">&gt;</span>

@@ -17,7 +17,10 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="oglplus.quickref.images"></a><a class="link" href="images.html" title="Image generators and loaders">Image generators and loaders</a>
 </h2></div></div></div>
-<div class="toc"><dl class="toc"><dt><span class="section"><a href="images.html#oglplus.quickref.images.image_spec">Image specification</a></span></dt></dl></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="images.html#oglplus.quickref.images.image_spec">Image specification</a></span></dt>
+<dt><span class="section"><a href="images.html#oglplus.quickref.images.image">Image</a></span></dt>
+</dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oglplus.quickref.images.image_spec"></a><a class="link" href="images.html#oglplus.quickref.images.image_spec" title="Image specification">Image specification</a>
@@ -183,6 +186,135 @@
                 Specifies a two dimensional image with a particular <code class="literal">format</code>,
                 <code class="literal">internal_format</code> and a pointer to pixel <code class="literal">data</code>.
                 The data type is derived from the type <code class="literal">T</code>.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.images.image"></a><a class="link" href="images.html#oglplus.quickref.images.image" title="Image">Image</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/images/image.hpp&gt;</code>
+          </p>
+<p>
+            The <code class="literal">Image</code> class is used to store bitmap image data
+            and various parameters, like its <span class="emphasis"><em>width</em></span>, <span class="emphasis"><em>height</em></span>,
+            <span class="emphasis"><em>depth</em></span>, pixel data <span class="emphasis"><em>type</em></span>, <span class="emphasis"><em>format</em></span>
+            and <span class="emphasis"><em>internal format</em></span>. It is used mostly as a parameter
+            type for <a class="link" href="texture.html#oglplus.quickref.texture.def">Texture</a>,
+            <a class="link" href="renderbuffer.html#oglplus.quickref.renderbuffer.def">Renderbuffer</a>
+            and other similar functions.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+<span class="keyword">namespace</span> <span class="identifier">images</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">Image</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Image</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Image</span><span class="special">&amp;</span> <span class="identifier">that</span><span class="special">);</span>
+
+	<span class="identifier">Image</span><span class="special">(</span><span class="identifier">Image</span><span class="special">&amp;&amp;</span> <span class="identifier">tmp</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">Image</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><span class="identifier">Image</span><span class="special">&amp;&amp;</span> <span class="identifier">tmp</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+	<span class="identifier">Image</span><span class="special">(</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">depth</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">channels</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+	<span class="identifier">Image</span><span class="special">(</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">depth</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">channels</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">data</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal</span>
+	<span class="special">);</span>
+
+	<span class="identifier">GLsizei</span> <span class="identifier">Dimension</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">i</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.images.image.c0" href="images.html#oglplus.quickref.images.image.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">GLsizei</span> <span class="identifier">Width</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.images.image.c2" href="images.html#oglplus.quickref.images.image.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">GLsizei</span> <span class="identifier">Height</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.images.image.c4" href="images.html#oglplus.quickref.images.image.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="identifier">GLsizei</span> <span class="identifier">Depth</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.images.image.c6" href="images.html#oglplus.quickref.images.image.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="identifier">GLsizei</span> <span class="identifier">Channels</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.images.image.c8" href="images.html#oglplus.quickref.images.image.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">Type</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">Format</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">InternalFormat</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+	<span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">Data</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">RawData</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">DataSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.images.image.c10" href="images.html#oglplus.quickref.images.image.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+<span class="comment">//TODO</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace images</span>
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.images.image.c1"></a><a href="#oglplus.quickref.images.image.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the size of the i-th dimension of the image.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.images.image.c3"></a><a href="#oglplus.quickref.images.image.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the width of the image.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.images.image.c5"></a><a href="#oglplus.quickref.images.image.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the height of the image.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.images.image.c7"></a><a href="#oglplus.quickref.images.image.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the depth of the image.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.images.image.c9"></a><a href="#oglplus.quickref.images.image.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the number of channels.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.images.image.c11"></a><a href="#oglplus.quickref.images.image.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the size of data in bytes.
               </p></td>
 </tr>
 </table></div>
