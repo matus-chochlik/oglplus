@@ -13,8 +13,8 @@
 #ifndef OGLPLUS_LIMIT_QUERY_1202091518_HPP
 #define OGLPLUS_LIMIT_QUERY_1202091518_HPP
 
-#include <oglplus/enums/limit_query.hpp>
 #include <cstdint>
+#include <oglplus/enums/limit_query.hpp>
 
 namespace oglplus {
 namespace enums {
