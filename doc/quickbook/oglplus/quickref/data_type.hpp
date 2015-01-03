@@ -24,7 +24,8 @@ is defined only for types for which [^IsGLDataType] returns [^std::true_type].
 { };
 
 template <typename T>
-__DataType GetDataType(void); /*<
+__DataType GetDataType(void)
+noexcept; /*<
 Returns a value from the __DataType enueration for the specified type [^T].
 >*/
 

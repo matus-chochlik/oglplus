@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -48,10 +48,12 @@ private:
 	GLsizei _width, _height, _depth, _channels;
 	PixelDataType _type;
 	oglplus::aux::AlignedPODArray _storage;
-	double (*_convert)(void*);
+	double (*_convert)(void*) noexcept;
 
 	template <typename T>
-	static double _do_convert(void* ptr)
+	static
+	double _do_convert(void* ptr)
+	noexcept
 	{
 		assert(ptr != nullptr);
 		const double v = double(*static_cast<T*>(ptr));
@@ -59,10 +61,16 @@ private:
 		return v / n;
 	}
 
-	bool _is_initialized(void) const;
+	bool _is_initialized(void) const
+	noexcept;
 
-	static PixelDataFormat _get_def_pdf(unsigned N);
-	static PixelDataInternalFormat _get_def_pdif(unsigned N);
+	static
+	PixelDataFormat _get_def_pdf(unsigned N)
+	noexcept;
+
+	static
+	PixelDataInternalFormat _get_def_pdif(unsigned N)
+	noexcept;
 
 protected:
 	PixelDataFormat _format;
@@ -70,28 +78,33 @@ protected:
 
 	template <typename T>
 	static T _one(T*)
+	noexcept
 	{
 		return std::numeric_limits<T>::max();
 	}
 
 	static float _one(float*)
+	noexcept
 	{
 		return 1.0f;
 	}
 
 	static double _one(double*)
+	noexcept
 	{
 		return 1.0;
 	}
 
 	template <typename T>
 	bool _type_ok(void) const
+	noexcept
 	{
 		return _type == PixelDataType(GetDataType<T>());
 	}
 
 	template <typename T>
 	T* _begin(void)
+	noexcept
 	{
 		assert(_is_initialized());
 		assert(_type_ok<T>());
@@ -99,12 +112,14 @@ protected:
 	}
 
 	unsigned char* _begin_ub(void)
+	noexcept
 	{
 		return _begin<unsigned char>();
 	}
 
 	template <typename T>
 	T* _end(void)
+	noexcept
 	{
 		assert(_is_initialized());
 		assert(_type_ok<T>());
@@ -112,6 +127,7 @@ protected:
 	}
 
 	unsigned char* _end_ub(void)
+	noexcept
 	{
 		return _end<unsigned char>();
 	}
@@ -123,11 +139,13 @@ protected:
 	}
 
 	void _bzero(void)
+	noexcept
 	{
 		_storage.fill(0x00);
 	}
 
 	Image(void)
+	noexcept
 	 : _width(0)
 	 , _height(0)
 	 , _depth(0)
@@ -149,6 +167,7 @@ public:
 	{ }
 
 	Image(Image&& tmp)
+	noexcept
 	 : _width(tmp._width)
 	 , _height(tmp._height)
 	 , _depth(tmp._depth)
@@ -199,6 +218,7 @@ public:
 	{ }
 
 	Image& operator = (Image&& tmp)
+	noexcept
 	{
 		_width = tmp._width;
 		_height = tmp._height;
@@ -220,6 +240,7 @@ public:
 	 *  3: Channels
 	 */
 	GLsizei Dimension(std::size_t i) const
+	noexcept
 	{
 		if(i == 0) return Width();
 		if(i == 1) return Height();
@@ -232,30 +253,35 @@ public:
 
 	/// Returns the width of the image
 	GLsizei Width(void) const
+	noexcept
 	{
 		return _width;
 	}
 
 	/// Returns the height of the image
 	GLsizei Height(void) const
+	noexcept
 	{
 		return _height;
 	}
 
 	/// Returns the depth of the image
 	GLsizei Depth(void) const
+	noexcept
 	{
 		return _depth;
 	}
 
 	/// Returns the number of channels
 	GLsizei Channels(void) const
+	noexcept
 	{
 		return _channels;
 	}
 
 	/// Returns the pixel data type
 	PixelDataType Type(void) const
+	noexcept
 	{
 		assert(_is_initialized());
 		return _type;
@@ -263,6 +289,7 @@ public:
 
 	/// Return the pixel data format
 	PixelDataFormat Format(void) const
+	noexcept
 	{
 		assert(_is_initialized());
 		return _format;
@@ -270,6 +297,7 @@ public:
 
 	/// Return a suitable pixel data internal format
 	PixelDataInternalFormat InternalFormat(void) const
+	noexcept
 	{
 		assert(_is_initialized());
 		return _internal;
@@ -278,6 +306,7 @@ public:
 	/// Returns a pointer to the data
 	template <typename T>
 	const T* Data(void) const
+	noexcept
 	{
 		assert(_is_initialized());
 		assert(_type_ok<T>());
@@ -286,6 +315,7 @@ public:
 
 	/// Returns an untyped pointer to the data
 	const void* RawData(void) const
+	noexcept
 	{
 		assert(_is_initialized());
 		return _storage.begin();
@@ -293,6 +323,7 @@ public:
 
 	/// Returns the size of data in bytes
 	std::size_t DataSize(void) const
+	noexcept
 	{
 		assert(_is_initialized());
 		return _storage.size();

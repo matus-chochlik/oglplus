@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,12 +14,14 @@ namespace images {
 
 OGLPLUS_LIB_FUNC
 bool Image::_is_initialized(void) const
+noexcept
 {
 	return (!_storage.empty()) && (_convert != nullptr);
 }
 
 OGLPLUS_LIB_FUNC
 PixelDataFormat Image::_get_def_pdf(unsigned n)
+noexcept
 {
 	if(n == 1) return PixelDataFormat::Red;
 	if(n == 2) return PixelDataFormat::RG;
@@ -31,6 +33,7 @@ PixelDataFormat Image::_get_def_pdf(unsigned n)
 
 OGLPLUS_LIB_FUNC
 PixelDataInternalFormat Image::_get_def_pdif(unsigned n)
+noexcept
 {
 	if(n == 1) return PixelDataInternalFormat::Red;
 	if(n == 2) return PixelDataInternalFormat::RG;

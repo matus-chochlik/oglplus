@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,16 +16,16 @@ public:
 	Sampler bind target.
 	>*/
 
-	static __SamplerName Binding(Target target); /*<
+	static __SamplerName Binding(__TextureUnitSelector target); /*<
 	Returns the sampler currently bound to the specified [^target].
 	See [glfunc GetIntegerv].
 	>*/
-	static void Bind(Target target, __SamplerName sampler); /*<
+	static void Bind(__TextureUnitSelector target, __SamplerName sampler); /*<
 	Binds the specified [^sampler] to the specified [^target].
 	See [glfunc BindSampler].
 	>*/
 
-	void Bind(Target target) const; /*<
+	void Bind(__TextureUnitSelector target) const; /*<
 	Binds [^this] sampler to the specified [^target].
 	See [glfunc BindSampler].
 	>*/

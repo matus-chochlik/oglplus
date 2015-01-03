@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,25 +17,25 @@ public:
 	>*/
 	typedef __BufferIndexedTarget IndexedTarget;
 
-	static __BufferName Binding(Target target); /*<
+	static __BufferName Binding(__BufferTarget target); /*<
 	Returns the buffer currently bound to the specified [^target].
 	>*/
-	static void Bind(Target target, __BufferName buffer); /*<
+	static void Bind(__BufferTarget target, __BufferName buffer); /*<
 	Binds the specified [^buffer] to the specified [^target].
 	>*/
 
-	static __BufferName Binding(IndexedTarget target, GLuint index); /*<
+	static __BufferName Binding(__BufferIndexedTarget target, GLuint index); /*<
 	Returns the current buffer bound to the specified [^index]ed [^target].
 	>*/
 	static void BindBase(
-		IndexedTarget target,
+		__BufferIndexedTarget target,
 		GLuint index,
 		__BufferName buffer
 	); /*<
 	Binds the specified [^buffer] to the specified [^index]ed [^target].
 	>*/
 	static void BindRange(
-		IndexedTarget target,
+		__BufferIndexedTarget target,
 		GLuint index,
 		__BufferName buffer,
 		__BufferSize offset,
@@ -47,7 +47,7 @@ public:
 
 #if GL_VERSION_4_4 || GL_ARB_multi_bind
 	static void BindBase(
-		IndexedTarget target,
+		__BufferIndexedTarget target,
 		GLuint first,
 		const __Sequence<__BufferName>& buffers
 	); /*<
@@ -56,7 +56,7 @@ public:
 	>*/
 
 	static void BindRange(
-		IndexedTarget target,
+		__BufferIndexedTarget target,
 		GLuint first,
 		const __Sequence<__BufferName>& buffers,
 		const GLintptr* offsets,
@@ -69,13 +69,13 @@ public:
 #endif
 //]
 //[oglplus_buffer_common_2
-	void Bind(Target target) const; /*<
+	void Bind(__BufferTarget target) const; /*<
 	Binds [^this] buffer to the specified [^target].
 	>*/
-	void Bind(IndexedTarget target, GLuint index) const; /*<
+	void Bind(__BufferIndexedTarget target, GLuint index) const; /*<
 	Binds [^this] buffer to the specified indexed [^target].
 	>*/
-	void BindBase(IndexedTarget target, GLuint index) const;
+	void BindBase(__BufferIndexedTarget target, GLuint index) const;
 
 #if GL_VERSION_4_0 || GL_ARB_transform_feedback3
 	void BindBaseUniform(__UniformBufferBindingPoint index) const; /*<
@@ -106,7 +106,7 @@ public:
 #endif
 
 	void BindRange(
-		IndexedTarget target,
+		__BufferIndexedTarget target,
 		GLuint index,
 		__BufferSize offset,
 		__BufferSize size
@@ -145,14 +145,14 @@ public:
 	Mapping of the buffer to the client address space.
 	>*/
 
-	static bool Mapped(Target target); /*<
+	static bool Mapped(__BufferTarget target); /*<
 	Returns true if the buffer currently bound to the specified
 	[^target] is mapped.
 	See [glfunc GetBufferParameter], [glconst BUFFER_MAPPED].
 	>*/
 
 	static void Resize(
-		Target target,
+		__BufferTarget target,
 		__BufferSize size,
 		__BufferUsage usage = BufferUsage::StaticDraw
 	); /*<
@@ -163,7 +163,7 @@ public:
 	>*/
 
 	static void RawData(
-		Target target,
+		__BufferTarget target,
 		__BufferSize size,
 		const GLvoid* data,
 		__BufferUsage usage = BufferUsage::StaticDraw
@@ -175,7 +175,7 @@ public:
 	>*/
 
 	static void Data(
-		Target target,
+		__BufferTarget target,
 		const __BufferData& data,
 		__BufferUsage usage = BufferUsage::StaticDraw
 	); /*<
@@ -186,14 +186,14 @@ public:
 
 	template <typename GLtype>
 	static void Data(
-		Target target,
+		__BufferTarget target,
 		GLsizei count,
 		const GLtype* data,
 		__BufferUsage usage = BufferUsage::StaticDraw
 	);
 
 	static void SubData(
-		Target target,
+		__BufferTarget target,
 		__BufferSize offset,
 		const __BufferData& data
 	); /*< Uploads the specified [^data] to a sub-range (starting at
@@ -203,7 +203,7 @@ public:
 
 	template <typename GLtype>
 	static void SubData(
-		Target target,
+		__BufferTarget target,
 		__BufferSize offset,
 		GLsizei count,
 		const GLtype* data
@@ -227,7 +227,7 @@ public:
 #if GL_VERSION_4_3
 	template <typename GLtype>
 	static void ClearData(
-		Target target,
+		__BufferTarget target,
 		__PixelDataInternalFormat internal_format,
 		__PixelDataFormat format,
 		const GLtype* value
@@ -239,7 +239,7 @@ public:
 
 	template <typename GLtype>
 	static void ClearSubData(
-		Target target,
+		__BufferTarget target,
 		__PixelDataInternalFormat internal_format,
 		__BufferSize offset,
 		__BufferSize size,
@@ -253,7 +253,7 @@ public:
 
 #if GL_VERSION_4_4 || GL_ARB_buffer_storage
 	static void Storage(
-		Target target,
+		__BufferTarget target,
 		const __BufferData& data,
 		__Bitfield<__BufferStorageBit> flags
 	); /*<
@@ -262,19 +262,19 @@ public:
 	See [glfunc BufferStorage].
 	>*/
 	static void Storage(
-		Target target,
+		__BufferTarget target,
 		__BufferSize size,
 		const void* data,
 		__Bitfield<__BufferStorageBit> flags
 	);
 
-	static bool ImmutableStorage(Target target); /*<
+	static bool ImmutableStorage(__BufferTarget target); /*<
 	Returns true if the storage of the buffer currently bound
 	to [^target] is immutable.
 	See [glfunc GetBufferParameter], [glconst BUFFER_IMMUTABLE_STORAGE].
 	>*/
 
-	static __Bitfield<__BufferStorageBit> StorageFlags(Target target); /*<
+	static __Bitfield<__BufferStorageBit> StorageFlags(__BufferTarget target); /*<
 	Returns the storage flags of a buffer currently bound to [^target].
 	See [glfunc GetBufferParameter], [glconst BUFFER_STORAGE_FLAGS].
 	>*/
@@ -282,22 +282,22 @@ public:
 //]
 //[oglplus_buffer_2
 
-	static GLsizei Size(Target target); /*<
+	static GLsizei Size(__BufferTarget target); /*<
 	Returns the size of a buffer currently bound to the specified [^target].
 	See [glfunc Get], [glconst BUFFER_SIZE].
 	>*/
-	static __BufferUsage Usage(Target target); /*<
+	static __BufferUsage Usage(__BufferTarget target); /*<
 	Returns the usage hint of a buffer currently bound to the specified [^target].
 	See [glfunc Get], [glconst BUFFER_USAGE].
 	>*/
-	static __Bitfield<__BufferMapAccess> Access(Target target); /*<
+	static __Bitfield<__BufferMapAccess> Access(__BufferTarget target); /*<
 	Returns the access bits of a buffer currently bound to the specified [^target].
 	See [glfunc Get], [glconst BUFFER_ACCESS].
 	>*/
 
 #if GL_ARB_sparse_buffer
 	static void PageCommitment(
-		Target target,
+		__BufferTarget target,
 		__BufferSize offset,
 		__BufferSize size,
 		bool commit
@@ -314,15 +314,15 @@ public:
 #endif
 
 #if GL_NV_shader_buffer_load
-	static void MakeResident(Target target, __AccessSpecifier access); /*<
+	static void MakeResident(__BufferTarget target, __AccessSpecifier access); /*<
 	Makes buffer currently bound to [^target] accessible to GLSL shaders.
 	See [glfunc MakeBufferResidentNV]
 	>*/
-	static void MakeNonResident(Target target); /*<
+	static void MakeNonResident(__BufferTarget target); /*<
 	Makes buffer currently bound to [^target] inaccessible to GLSL shaders.
 	See [glfunc MakeBufferNonResidentNV]
 	>*/
-	static __BufferGPUAddress GPUAddress(Target target); /*<
+	static __BufferGPUAddress GPUAddress(__BufferTarget target); /*<
 	Returns the GPU address of the buffer currently bound to [^target].
 	See [glfunc GetBufferParameter], [glconst BUFFER_GPU_ADDRESS_NV].
 	>*/

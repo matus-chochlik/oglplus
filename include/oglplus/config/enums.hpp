@@ -55,6 +55,12 @@
 # endif
 #endif
 
+#ifndef OGLPLUS_NO_ENUM_VALUE_CLASSES
+#if OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS
+#define OGLPLUS_NO_ENUM_VALUE_CLASSES 1
+#endif
+#endif
+
 #include <oglplus/detail/enum_class.hpp>
 
 #endif // include guard
