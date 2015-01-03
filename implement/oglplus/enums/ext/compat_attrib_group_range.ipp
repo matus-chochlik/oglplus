@@ -11,14 +11,14 @@
 //
 namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
-	const GLenum*,
+	const GLbitfield*,
 	CompatibilityAttributeGroup
 > ValueRange_(CompatibilityAttributeGroup*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_COMPATIBILITYATTRIBUTEGROUP)
 #define OGLPLUS_IMPL_EVR_COMPATIBILITYATTRIBUTEGROUP
 {
-static const GLenum _values[] = {
+static const GLbitfield _values[] = {
 #if defined GL_ACCUM_BUFFER_BIT
 GL_ACCUM_BUFFER_BIT,
 #endif
@@ -88,7 +88,7 @@ GL_ALL_ATTRIB_BITS,
 0
 };
 return aux::CastIterRange<
-	const GLenum*,
+	const GLbitfield*,
 	CompatibilityAttributeGroup
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }

@@ -11,14 +11,14 @@
 //
 namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
-	const GLenum*,
+	const GLbitfield*,
 	PathNVMetricQuery
 > ValueRange_(PathNVMetricQuery*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_PATHNVMETRICQUERY)
 #define OGLPLUS_IMPL_EVR_PATHNVMETRICQUERY
 {
-static const GLenum _values[] = {
+static const GLbitfield _values[] = {
 #if defined GL_GLYPH_WIDTH_BIT_NV
 GL_GLYPH_WIDTH_BIT_NV,
 #endif
@@ -88,7 +88,7 @@ GL_FONT_HAS_KERNING_BIT_NV,
 0
 };
 return aux::CastIterRange<
-	const GLenum*,
+	const GLbitfield*,
 	PathNVMetricQuery
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }

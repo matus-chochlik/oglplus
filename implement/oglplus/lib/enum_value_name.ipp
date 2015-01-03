@@ -245,10 +245,10 @@ OGLPLUS_ENUM_CLASS_FWD(TransformFeedbackTarget, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(PerfMonitorAMDType, GLenum)
 #include <oglplus/enums/ext/amd_perf_monitor_type_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(CompatibilityAttributeGroup, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(CompatibilityAttributeGroup, GLbitfield)
 #include <oglplus/enums/ext/compat_attrib_group_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(CompatibilityClientAttributeGroup, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(CompatibilityClientAttributeGroup, GLbitfield)
 #include <oglplus/enums/ext/compat_client_attrib_group_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(CompatibilityMatrixMode, GLenum)
@@ -299,7 +299,7 @@ OGLPLUS_ENUM_CLASS_FWD(PathNVFillCoverMode, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(PathNVFillMode, GLenum)
 #include <oglplus/enums/ext/nv_path_fill_mode_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(PathNVFontStyle, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(PathNVFontStyle, GLbitfield)
 #include <oglplus/enums/ext/nv_path_font_style_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(PathNVFontTarget, GLenum)
@@ -317,7 +317,7 @@ OGLPLUS_ENUM_CLASS_FWD(PathNVJoinStyle, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(PathNVListMode, GLenum)
 #include <oglplus/enums/ext/nv_path_list_mode_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(PathNVMetricQuery, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(PathNVMetricQuery, GLbitfield)
 #include <oglplus/enums/ext/nv_path_metric_query_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(PathNVMissingGlyph, GLenum)

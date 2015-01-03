@@ -10,6 +10,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 #include <oglplus/enumerations.hpp>
+#include <oglplus/bitfield.hpp>
 
 namespace oglplus {
 
@@ -17,9 +18,11 @@ namespace oglplus {
 /**
  *  @ingroup oglplus_enumerations
  */
-OGLPLUS_ENUM_CLASS_BEGIN(PathNVMetricQuery, GLenum)
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVMetricQuery, GLbitfield)
 #include <oglplus/enums/ext/nv_path_metric_query.ipp>
 OGLPLUS_ENUM_CLASS_END(PathNVMetricQuery)
+
+OGLPLUS_MAKE_BITFIELD(PathNVMetricQuery)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_metric_query_names.ipp>

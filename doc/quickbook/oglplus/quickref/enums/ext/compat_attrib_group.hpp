@@ -12,7 +12,7 @@
 //[oglplus_enums_ext_compat_attrib_group
 namespace oglplus {
 
-enum class CompatibilityAttributeGroup : GLenum
+enum class CompatibilityAttributeGroup : GLbitfield
 {
 	AccumBuffer    = GL_ACCUM_BUFFER_BIT,
 	ColorBuffer    = GL_COLOR_BUFFER_BIT,
@@ -42,6 +42,8 @@ template <>
 __Range<CompatibilityAttributeGroup> __EnumValueRange<CompatibilityAttributeGroup>(void);
 
 __StrCRef __EnumValueName(CompatibilityAttributeGroup);
+
+__Bitfield<CompatibilityAttributeGroup> operator | (CompatibilityAttributeGroup b1, CompatibilityAttributeGroup b2);
 
 } // namespace oglplus
 //]

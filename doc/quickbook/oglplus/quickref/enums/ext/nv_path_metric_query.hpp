@@ -12,7 +12,7 @@
 //[oglplus_enums_ext_nv_path_metric_query
 namespace oglplus {
 
-enum class PathNVMetricQuery : GLenum
+enum class PathNVMetricQuery : GLbitfield
 {
 	GlyphWidth                    = GL_GLYPH_WIDTH_BIT_NV,
 	GlyphHeight                   = GL_GLYPH_HEIGHT_BIT_NV,
@@ -42,6 +42,8 @@ template <>
 __Range<PathNVMetricQuery> __EnumValueRange<PathNVMetricQuery>(void);
 
 __StrCRef __EnumValueName(PathNVMetricQuery);
+
+__Bitfield<PathNVMetricQuery> operator | (PathNVMetricQuery b1, PathNVMetricQuery b2);
 
 } // namespace oglplus
 //]

@@ -78,10 +78,9 @@ def update_input_options(options, input_file):
 			line = line.strip()
 			if line.startswith("#@"):
 				options.enum_type = line[2:-1]
-				break
 			elif line.startswith("#") and line.endswith("#"):
 				options.enum_name = line[1:-1]
-				break
+
 	if not options.enum_name:
 		tmp = os.path.splitext(os.path.basename(input_file))[0]
 		tmp = [x.capitalize() for x in tmp.split("_")]

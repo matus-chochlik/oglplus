@@ -12,7 +12,7 @@
 //[oglplus_enums_ext_compat_client_attrib_group
 namespace oglplus {
 
-enum class CompatibilityClientAttributeGroup : GLenum
+enum class CompatibilityClientAttributeGroup : GLbitfield
 {
 	VertexArray = GL_CLIENT_VERTEX_ARRAY_BIT,
 	PixelStore  = GL_CLIENT_PIXEL_STORE_BIT,
@@ -23,6 +23,8 @@ template <>
 __Range<CompatibilityClientAttributeGroup> __EnumValueRange<CompatibilityClientAttributeGroup>(void);
 
 __StrCRef __EnumValueName(CompatibilityClientAttributeGroup);
+
+__Bitfield<CompatibilityClientAttributeGroup> operator | (CompatibilityClientAttributeGroup b1, CompatibilityClientAttributeGroup b2);
 
 } // namespace oglplus
 //]

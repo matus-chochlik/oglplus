@@ -11,14 +11,14 @@
 //
 namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
-	const GLenum*,
+	const GLbitfield*,
 	CompatibilityClientAttributeGroup
 > ValueRange_(CompatibilityClientAttributeGroup*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_COMPATIBILITYCLIENTATTRIBUTEGROUP)
 #define OGLPLUS_IMPL_EVR_COMPATIBILITYCLIENTATTRIBUTEGROUP
 {
-static const GLenum _values[] = {
+static const GLbitfield _values[] = {
 #if defined GL_CLIENT_VERTEX_ARRAY_BIT
 GL_CLIENT_VERTEX_ARRAY_BIT,
 #endif
@@ -31,7 +31,7 @@ GL_CLIENT_ALL_ATTRIB_BITS,
 0
 };
 return aux::CastIterRange<
-	const GLenum*,
+	const GLbitfield*,
 	CompatibilityClientAttributeGroup
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }

@@ -6,7 +6,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,8 +16,8 @@
 #define OGLPLUS_EXT_AMD_PERFORMANCE_MONITOR_1203031902_HPP
 
 #include <oglplus/extension.hpp>
-#include <oglplus/enumerations.hpp>
 #include <oglplus/object/wrapper.hpp>
+#include <oglplus/enums/ext/amd_perf_monitor_type.hpp>
 
 #include <cassert>
 #include <vector>
@@ -25,25 +25,6 @@
 namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_AMD_performance_monitor
-
-/// Performance counter type
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glextref{AMD,performance_monitor}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(PerfMonitorAMDType, GLenum)
-#include <oglplus/enums/ext/amd_perf_monitor_type.ipp>
-OGLPLUS_ENUM_CLASS_END(PerfMonitorAMDType)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/amd_perf_monitor_type_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/amd_perf_monitor_type_range.ipp>
-#endif
 
 class PerfMonitorAMDGroup;
 class AMD_performance_monitor;

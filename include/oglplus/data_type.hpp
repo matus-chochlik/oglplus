@@ -13,30 +13,11 @@
 #ifndef OGLPLUS_DATA_TYPE_1107121519_HPP
 #define OGLPLUS_DATA_TYPE_1107121519_HPP
 
-#include <oglplus/enumerations.hpp>
+#include <oglplus/enums/data_type.hpp>
+#include <oglplus/enums/sl_data_type.hpp>
 #include <type_traits>
 
 namespace oglplus {
-
-/// OpenGL data type enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{DrawElements}
- *  @glfunref{VertexAttribPointer}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(DataType, GLenum)
-#include <oglplus/enums/data_type.ipp>
-OGLPLUS_ENUM_CLASS_END(DataType)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/data_type_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/data_type_range.ipp>
-#endif
 
 // Compile-time data type getter
 template <typename T>
@@ -111,22 +92,6 @@ template <typename T>
 struct IsGLDataType
  : public aux::_is_gl_data_type<T>::type
 { };
-
-/// OpenGL Shading Language data type enumeration
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(SLDataType, GLenum)
-#include <oglplus/enums/sl_data_type.ipp>
-OGLPLUS_ENUM_CLASS_END(SLDataType)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/sl_data_type_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/sl_data_type_range.ipp>
-#endif
 
 } // namespace oglplus
 
