@@ -276,6 +276,82 @@ def action_qbk_hpp(options):
 	print_line(options, "} // namespace %s" % options.library)
 	print_line(options, "//]")
 
+def action_incl_enum_hpp(options):
+
+	items = parse_source(options)
+
+	has_assoc_type = False
+
+	for item in items:
+		try:
+			if item.assoc_type:
+				has_assoc_type = True
+				break
+		except AttributeError:
+			pass
+
+	print_cpp_header(options)
+	print_line(options, "#include <%s/enumerations.hpp>" % options.library)
+	if options.enum_type == "bitfield":
+		print_line(options, "#include <%s/bitfield.hpp>" % options.library)
+	print_newline(options)
+
+	print_line(options, "namespace %s {" % options.library)
+	print_newline(options)
+	print_line(options, "/// Enumeration %s" % (options.enum_name))
+	print_line(options, "/**")
+	print_line(options, " *  @ingroup %s_enumerations" % (options.library))
+	print_line(options, " */")
+	print_line(options, "%s_ENUM_CLASS_BEGIN(%s, %s%s)" % (
+		options.library_uc,
+		options.enum_name,
+		options.base_lib_prefix,
+		options.enum_type
+	))
+	print_line(options, "#include <%s/enums/%s.ipp>" % (
+		options.library,
+		options.input_name
+	))
+
+	print_line(options, "%s_ENUM_CLASS_END(%s)" % (
+		options.library_uc,
+		options.enum_name
+	))
+	print_newline(options)
+
+	if options.enum_type == "bitfield":
+		print_line(options, "%s_MAKE_BITFIELD(%s)" % (
+			options.library_uc,
+			options.enum_name
+		))
+		print_newline(options)
+
+	if has_assoc_type:
+		print_line(options, "#include <%s/enums/%s_type.ipp>" % (
+			options.library,
+			options.input_name
+		))
+		print_newline(options)
+
+	print_line(options, "#if !%s_NO_ENUM_VALUE_NAMES" % (options.library_uc))
+	print_line(options, "#include <%s/enums/%s_names.ipp>" % (
+		options.library,
+		options.input_name
+	))
+	print_line(options, "#endif")
+	print_newline(options)
+
+	print_line(options, "#if !%s_NO_ENUM_VALUE_RANGES" % (options.library_uc))
+	print_line(options, "#include <%s/enums/%s_range.ipp>" % (
+		options.library,
+		options.input_name
+	))
+	print_line(options, "#endif")
+	print_newline(options)
+
+	print_line(options, "} // namespace %s" % options.library)
+
+
 def action_incl_enum_ipp(options):
 
 	items = parse_source(options)
@@ -301,7 +377,6 @@ def action_incl_enum_ipp(options):
 	))
 	print_newline(options)
 	print_line(options, "#endif")
-
 
 def action_impl_enum_def_ipp(options):
 
@@ -656,6 +731,7 @@ actions = {
 	"info":    action_info,
 	"specific_mk":  action_specific_mk,
 	"qbk_hpp": action_qbk_hpp,
+	"incl_enum_hpp": action_incl_enum_hpp,
 	"incl_enum_ipp": action_incl_enum_ipp,
 	"impl_enum_def_ipp": action_impl_enum_def_ipp,
 	"impl_enum_names_ipp": action_impl_enum_names_ipp,

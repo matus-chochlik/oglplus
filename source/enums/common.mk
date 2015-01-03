@@ -7,6 +7,7 @@ MAKE_ENUM = $(PARENT)/make_enum.py
 
 .PHONY: all
 all: \
+	_incl_enum_hpp \
 	_incl_enum_ipp \
 	_impl_enum_def_ipp \
 	_impl_enum_names_ipp \
@@ -19,6 +20,19 @@ all: \
 	_lib_enum_value_name_ipp \
 	_lib_enum_value_range_ipp \
 	_qbk_qref_hpp
+
+.PHONY: _incl_enum_hpp
+_incl_enum_hpp: $(addprefix $(ROOT)/include/$(LIBRARY)/enums/,$(patsubst %.txt,%.hpp,$(SOURCES)))
+
+$(ROOT)/include/$(LIBRARY)/enums/%.hpp: %.txt $(MAKE_ENUM)
+	$(MAKE_ENUM) \
+		--library $(LIBRARY) \
+		--base-lib-prefix $(LIB_PREFIX)\
+		--action incl_enum_hpp \
+		--input "$<" \
+		--output "$@" \
+		--output-id "$(subst /,_,$*)"
+	git add "$@"
 
 .PHONY: _incl_enum_ipp
 _incl_enum_ipp: $(addprefix $(ROOT)/include/$(LIBRARY)/enums/,$(patsubst %.txt,%.ipp,$(SOURCES)))
