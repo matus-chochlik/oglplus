@@ -16,4 +16,12 @@
 #include <oglplus/enums/hint_target.hpp>
 #include <oglplus/enums/hint_option.hpp>
 
+namespace oglplus {
+
+#if !OGLPLUS_NO_ENUM_VALUE_CLASSES
+#include <oglplus/enums/hint_target_class.ipp>
+#endif
+
+} // namespace oglplus
+
 #endif // include guard

@@ -19,6 +19,10 @@
 
 namespace oglplus {
 
+#if !OGLPLUS_NO_ENUM_VALUE_CLASSES
+#include <oglplus/enums/buffer_target_class.ipp>
+#endif
+
 template <>
 struct ObjectTargetTag<BufferTarget>
 {

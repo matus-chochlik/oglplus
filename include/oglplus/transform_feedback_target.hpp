@@ -15,6 +15,15 @@
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
 #include <oglplus/enums/transform_feedback_target.hpp>
+
+namespace oglplus {
+
+#if !OGLPLUS_NO_ENUM_VALUE_CLASSES
+#include <oglplus/enums/transform_feedback_target_class.ipp>
+#endif
+
+} // namespace oglplus
+
 #endif
 
 #endif // include guard

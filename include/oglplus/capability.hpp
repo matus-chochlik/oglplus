@@ -18,6 +18,10 @@
 
 namespace oglplus {
 
+#if !OGLPLUS_NO_ENUM_VALUE_CLASSES
+#include <oglplus/enums/capability_class.ipp>
+#endif
+
 inline void operator << (Capability capability, bool enable)
 {
 	if(enable)

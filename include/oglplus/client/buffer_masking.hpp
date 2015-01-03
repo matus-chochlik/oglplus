@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -150,14 +150,6 @@ public:
 // TODO stencil mask
 
 } // namespace aux
-} // namespace client
-
-#ifndef OGLPLUS_ENUM_FACE_CLASS_IPP
-#define OGLPLUS_ENUM_FACE_CLASS_IPP
-#include <oglplus/enums/face_class.ipp>
-#endif
-
-namespace client {
 
 class BufferMaskingState
 {

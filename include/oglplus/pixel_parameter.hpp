@@ -15,4 +15,12 @@
 
 #include <oglplus/enums/pixel_parameter.hpp>
 
+namespace oglplus {
+
+#if !OGLPLUS_NO_ENUM_VALUE_CLASSES
+#include <oglplus/enums/pixel_parameter_class.ipp>
+#endif
+
+} // namespace oglplus
+
 #endif // include guard

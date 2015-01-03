@@ -22,6 +22,10 @@
 
 namespace oglplus {
 
+#if !OGLPLUS_NO_ENUM_VALUE_CLASSES
+#include <oglplus/enums/face_class.ipp>
+#endif
+
 inline Face Opposite(Face facing)
 {
 	if(facing == Face::Front)
