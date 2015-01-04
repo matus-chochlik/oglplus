@@ -44,6 +44,7 @@ body > div.section
 	box-shadow: inset 1px 1px 2px 1px #404040;
 
 	padding: 1em;
+	overflow: hidden;
 }
 
 div.copyright-footer
@@ -58,18 +59,45 @@ div.copyright-footer a
 
 div.calloutlist
 {
-	margin-left: 4em;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	border: solid #F0F0F0 1px;
+	float: right;
+	width: 37%;
+	overflow: hidden;
+	box-shadow: 1px 0px 2px 2px #D0D0C0;
 }
 
 .calloutlist table
 {
-	font-size: 80%;
+	font-size: 75%;
+}
+
+div.section > h2,
+div.section > h3,
+div.section > h4,
+div.section > p
+{
+	clear: both;
+}
+
+div.section > h2,
+div.section > h3,
+div.section > h4
+{
+	padding-top: 1em;
 }
 
 pre.programlisting
 {
+	margin-top: 0;
+	margin-bottom: 0;
 	border: solid #E0E0E0 1px;
 	background-color: #E8E8E4;
+	padding-right: 1em;
+	float: left;
+	width: 60%;
+	overflow: hidden;
 }
 
 .programlisting .preprocessor
