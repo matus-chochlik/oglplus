@@ -785,7 +785,159 @@ public:
 	See [glfunc TexParameter], [glconst TEXTURE_BASE_LEVEL].
 	>*/
 
+#if GL_VERSION_3_0
+	static Vector<GLfloat, 4> BorderColor(
+		__TextureTarget target,
+		__TypeTag<GLfloat>
+	); /*<
+	Gets the texture border color.
+	See [glfunc GetTexParameter], [glconst TEXTURE_BORDER_COLOR].
+	>*/
+	static Vector<GLint, 4> BorderColor(
+		__TextureTarget target,
+		__TypeTag<GLint>
+	);
+	static Vector<GLuint, 4> BorderColor(
+		__TextureTarget target,
+		__TypeTag<GLuint>
+	);
 
+	static void BorderColor(
+		__TextureTarget target,
+		Vector<GLfloat, 4> color
+	); /*<
+	Sets the texture border color.
+	See [glfunc TexParameter], [glconst TEXTURE_BORDER_COLOR].
+	>*/
+	static void BorderColor(
+		__TextureTarget target,
+		Vector<GLint, 4> color
+	);
+	static void BorderColor(
+		__TextureTarget target,
+		Vector<GLuint, 4> color
+	);
+#endif
+	static __TextureCompareMode CompareMode(__TextureTarget target); /*<
+	Gets the texture compare mode.
+	See [glfunc GetTexParameter], [glconst TEXTURE_COMPARE_MODE].
+	>*/
+
+	static void CompareMode(
+		__TextureTarget target,
+		__TextureCompareMode mode
+	); /*<
+	Sets the texture compare mode.
+	See [glfunc TexParameter], [glconst TEXTURE_COMPARE_MODE].
+	>*/
+
+	static __CompareFunction CompareFunc(__TextureTarget target); /*<
+	Gets the texture compare function.
+	See [glfunc GetTexParameter], [glconst TEXTURE_COMPARE_FUNC].
+	>*/
+
+	static void CompareFunc(
+		__TextureTarget target,
+		__CompareFunction func
+	); /*<
+	Sets the texture compare function.
+	See [glfunc TexParameter], [glconst TEXTURE_COMPARE_FUNC].
+	>*/
+//]
+//[oglplus_texture_5
+
+#if GL_VERSION_3_0
+	static GLfloat LODBias(__TextureTarget target); /*<
+	Gets the level-of-detail bias value.
+	See [glfunc GetTexParameter], [glconst TEXTURE_LOD_BIAS].
+	>*/
+
+	static void LODBias(__TextureTarget target, GLfloat value); /*<
+	Sets the level-of-detail bias value.
+	See [glfunc TexParameter], [glconst TEXTURE_LOD_BIAS].
+	>*/
+#endif // GL_VERSION_3_0
+
+	static void Filter(
+		__TextureTarget target,
+		__TextureFilter filter
+	); /*<
+	Sets both the minification and magnification filter.
+	See [glfunc TexParameter], [glconst TEXTURE_MIN_FILTER], [glconst TEXTURE_MAG_FILTER].
+	>*/
+
+	static __TextureMagFilter MagFilter(__TextureTarget target); /*<
+	Gets the magnification filter.
+	See [glfunc GetTexParameter], [glconst TEXTURE_MAG_FILTER].
+	>*/
+
+	static void MagFilter(
+		__TextureTarget target,
+		__TextureMagFilter filter
+	); /*<
+	Sets the magnification filter.
+	See [glfunc TexParameter], [glconst TEXTURE_MAG_FILTER].
+	>*/
+
+	static __TextureMinFilter MinFilter(__TextureTarget target); /*<
+	Gets the minification filter.
+	See [glfunc GetTexParameter], [glconst TEXTURE_MIN_FILTER].
+	>*/
+
+	static void MinFilter(
+		__TextureTarget target,
+		__TextureMinFilter filter
+	); /*<
+	Sets the minification filter.
+	See [glfunc TexParameter], [glconst TEXTURE_MIN_FILTER].
+	>*/
+
+	static GLfloat MinLOD(__TextureTarget target); /*<
+	Gets minimal level-of-detail value.
+	See [glfunc GetTexParameter], [glconst TEXTURE_MIN_LOD].
+	>*/
+
+	static void MinLOD(__TextureTarget target, GLfloat value); /*<
+	Sets minimal level-of-detail value.
+	See [glfunc TexParameter], [glconst TEXTURE_MIN_LOD].
+	>*/
+
+	static GLfloat MaxLOD(__TextureTarget target); /*<
+	Gets maximal level-of-detail value.
+	See [glfunc GetTexParameter], [glconst TEXTURE_MAX_LOD].
+	>*/
+
+	static void MaxLOD(__TextureTarget target, GLfloat value); /*<
+	Sets maximal level-of-detail value.
+	See [glfunc TexParameter], [glconst TEXTURE_MAX_LOD].
+	>*/
+
+	static GLint MaxLevel(__TextureTarget target); /*<
+	Gets the maximum level value.
+	See [glfunc GetTexParameter], [glconst TEXTURE_MAX_LEVEL].
+	>*/
+
+	static void MaxLevel(__TextureTarget target, GLint value); /*<
+	Sets the maximum level value.
+	See [glfunc TexParameter], [glconst TEXTURE_MAX_LEVEL].
+	>*/
+//]
+//[oglplus_texture_6
+
+	static GLfloat MaxAnisotropy(__TextureTarget target); /*<
+	Gets the maximum anisotropy value.
+	See [glfunc TexParameter], [glconst MAX_TEXTURE_MAX_ANISOTROPY_EXT].
+	>*/
+
+	static GLfloat Anisotropy(__TextureTarget target); /*<
+	Gets the current anisotropy level.
+	See [glfunc GetTexParameter], [glconst TEXTURE_MAX_ANISOTROPY_EXT].
+	>*/
+
+	static void Anisotropy(__TextureTarget target, GLfloat value); /*<
+	Sets the anisotropy level.
+	See [glfunc TexParameter], [glconst TEXTURE_MAX_ANISOTROPY_EXT].
+	>*/
 };
 
 // TODO

@@ -61,11 +61,12 @@ div.calloutlist
 {
 	padding-top: 0.5em;
 	padding-bottom: 0.5em;
-	border: solid #F0F0F0 1px;
+	border: solid #E0E0E0 1px;
+	background-color: #F8F8F4;
 	float: right;
 	width: 37%;
 	overflow: hidden;
-	box-shadow: 1px 0px 2px 2px #D0D0C0;
+	box-shadow: 1px 0px 2px 2px #808080;
 }
 
 .calloutlist table
