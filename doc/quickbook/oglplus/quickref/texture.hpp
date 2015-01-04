@@ -938,9 +938,119 @@ public:
 	Sets the anisotropy level.
 	See [glfunc TexParameter], [glconst TEXTURE_MAX_ANISOTROPY_EXT].
 	>*/
-};
 
-// TODO
+#if GL_VERSION_3_3 || GL_ARB_texture_swizzle
+	static __TextureSwizzle Swizzle(
+		__TextureTarget target,
+		__TextureSwizzleCoord coord
+	); /*<
+	Gets the swizzle parameter.
+	See [glfunc GetTexParameter], [glconst TEXTURE_SWIZZLE_R],
+	[glconst TEXTURE_SWIZZLE_G], [glconst TEXTURE_SWIZZLE_B],
+	[glconst TEXTURE_SWIZZLE_A], [glconst TEXTURE_SWIZZLE_RGBA].
+	>*/
+	static __TextureSwizzle SwizzleR(__TextureTarget target);
+	static __TextureSwizzle SwizzleG(__TextureTarget target);
+	static __TextureSwizzle SwizzleB(__TextureTarget target);
+	static __TextureSwizzle SwizzleA(__TextureTarget target);
+	static __TextureSwizzleTuple SwizzleRGBA(__TextureTarget target);
+
+	static void Swizzle(
+		__TextureTarget target,
+		__TextureSwizzleCoord coord,
+		__TextureSwizzle mode
+	); /*<
+	Sets the swizzle parameter.
+	See [glfunc TexParameter], [glconst TEXTURE_SWIZZLE_R],
+	[glconst TEXTURE_SWIZZLE_G], [glconst TEXTURE_SWIZZLE_B],
+	[glconst TEXTURE_SWIZZLE_A], [glconst TEXTURE_SWIZZLE_RGBA].
+	>*/
+	static void SwizzleR(__TextureTarget target, __TextureSwizzle mode);
+	static void SwizzleG(__TextureTarget target, __TextureSwizzle mode);
+	static void SwizzleB(__TextureTarget target, __TextureSwizzle mode);
+	static void SwizzleA(__TextureTarget target, __TextureSwizzle mode);
+	static void SwizzleRGBA(
+		__TextureTarget target,
+		__TextureSwizzle mode
+	);
+	static void SwizzleRGBA(
+		__TextureTarget target,
+		__TextureSwizzle mode_r,
+		__TextureSwizzle mode_g,
+		__TextureSwizzle mode_b,
+		__TextureSwizzle mode_a
+	);
+	static void SwizzleRGBA(
+		__TextureTarget target,
+		const __TextureSwizzleTuple& modes
+	);
+#endif
+
+	static __TextureWrap Wrap(
+		__TextureTarget target,
+		__TextureWrapCoord coord
+	); /*<
+	Gets the swizzle parameter.
+	See [glfunc GetTexParameter], [glconst TEXTURE_WRAP_S],
+	[glconst TEXTURE_WRAP_T], [glconst TEXTURE_WRAP_R].
+	>*/
+	static __TextureWrap WrapS(__TextureTarget target);
+	static __TextureWrap WrapT(__TextureTarget target);
+	static __TextureWrap WrapR(__TextureTarget target);
+
+
+	static void Wrap(
+		__TextureTarget target,
+		__TextureWrapCoord coord,
+		__TextureWrap mode
+	); /*<
+	Sets the swizzle parameter.
+	See [glfunc TexParameter], [glconst TEXTURE_WRAP_S],
+	[glconst TEXTURE_WRAP_T], [glconst TEXTURE_WRAP_R].
+	>*/
+	static void WrapS(__TextureTarget target, __TextureWrap mode);
+	static void WrapT(__TextureTarget target, __TextureWrap mode);
+	static void WrapR(__TextureTarget target, __TextureWrap mode);
+
+#if GL_VERSION_4_3
+	static __PixelDataFormat DepthStencilMode(__TextureTarget target); /*<
+	Gets the depth stencil mode parameter.
+	See [glfunc GetTexParameter], [glconst DEPTH_STENCIL_TEXTURE_MODE].
+	>*/
+
+	static void DepthStencilMode(
+		__TextureTarget target,
+		__PixelDataFormat mode
+	); /*<
+	Sets the depth stencil mode parameter.
+	See [glfunc TexParameter], [glconst DEPTH_STENCIL_TEXTURE_MODE].
+	>*/
+#endif
+
+#if GL_ARB_seamless_cubemap_per_texture
+	static bool Seamless(__TextureTarget target); /*<
+	Gets the seamless cubemap setting value.
+	See [glfunc GetTexParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].
+	>*/
+
+	static void Seamless(__TextureTarget target, bool enable); /*<
+	Changes the seamless cubemap setting value.
+	See [glfunc TexParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].
+	>*/
+#endif
+
+#if GL_VERSION_4_5 || GL_ARB_texture_barrier || GL_NV_texture_barrier
+	static void Barrier(void); /*<
+	Ensures that texture writes have been completed.
+	See [glfunc TextureBarrier].
+	>*/
+#endif
+
+	static void GenerateMipmap(__TextureTarget target) /*<
+	Generates mipmap for the texture bound to the specified target.
+	See [glfunc GenerateMipmap].
+	>*/
+};
 
 //]
 //[oglplus_texture_def
