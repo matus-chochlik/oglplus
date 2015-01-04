@@ -451,7 +451,7 @@ public:
 		Property::PixDataType type,
 		const void* data
 	); /*<
-	Specifies a teo dimensional texture subimage.
+	Specifies a two dimensional texture subimage.
 	See [glfunc TexSubImage2D].
 	>*/
 
@@ -462,6 +462,330 @@ public:
 		GLint yoffs,
 		GLint level = 0
 	);
+
+#if GL_VERSION_3_0
+	static void Image1D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLint border,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	); /*<
+	Specifies a one dimensional texture image.
+	See [glfunc TexImage1D].
+	>*/
+
+	static void Image1D(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint level = 0,
+		GLint border = 0
+	);
+
+	static void SubImage1D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLsizei width,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	);  /*<
+	Specifies a one dimensional texture subimage.
+	See [glfunc TexSubImage1D].
+	>*/
+
+	static void SubImage1D(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint xoffs,
+		GLint level = 0
+	);
+#endif
+
+	static void Image(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint level = 0,
+		GLint border = 0
+	); /*<
+	Specifies one, two or three dimensional texture image.
+	>*/
+
+	static void Image(
+		__TextureTarget target,
+		const __images_ImageSpec& image_spec,
+		GLint level = 0,
+		GLint border = 0
+	);
+//]
+//[oglplus_texture_3
+
+	static void CopyImage2D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height,
+		GLint border
+	); /*<
+	Copies a two dimensional texture image from the current framebuffer.
+	See [glfunc CopyTexImage2D].
+	>*/
+
+#if GL_VERSION_3_0
+	static void CopyImage1D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLint border
+	); /*<
+	Copies a one dimensional texture image from the current framebuffer.
+	See [glfunc CopyTexImage1D].
+	>*/
+#endif
+
+	static void CopySubImage3D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height
+	); /*<
+	Copies a three dimensional texture subimage from the current framebuffer.
+	See [glfunc CopyTexSubImage3D].
+	>*/
+
+	static void CopySubImage2D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height
+	); /*<
+	Copies a two dimensional texture subimage from the current framebuffer.
+	See [glfunc CopyTexSubImage2D].
+	>*/
+
+#if GL_VERSION_3_0
+	static void CopySubImage1D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint x,
+		GLint y,
+		GLsizei width
+	); /*<
+	Copies a one dimensional texture subimage from the current framebuffer.
+	See [glfunc CopyTexSubImage2D].
+	>*/
+#endif
+
+	static void CompressedImage3D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		GLint border,
+		GLsizei image_size,
+		const void* data
+	); /*<
+	Specifies a three dimensional compressed texture image.
+	See [glfunc CompressedTexImage3D].
+	>*/
+
+	static void CompressedImage2D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLint border,
+		GLsizei image_size,
+		const void* data
+	); /*<
+	Specifies a two dimensional compressed texture image.
+	See [glfunc CompressedTexImage2D].
+	>*/
+
+#if GL_VERSION_3_0
+	static void CompressedImage1D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLint border,
+		GLsizei image_size,
+		const void* data
+	); /*<
+	Specifies a one dimensional compressed texture image.
+	See [glfunc CompressedTexImage1D].
+	>*/
+#endif
+
+	static void CompressedSubImage3D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		__PixelDataFormat format,
+		GLsizei image_size,
+		const void* data
+	); /*<
+	Specifies a three dimensional compressed texture subimage.
+	See [glfunc CompressedTexSubImage3D].
+	>*/
+
+	static void CompressedSubImage2D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLsizei width,
+		GLsizei height,
+		__PixelDataFormat format,
+		GLsizei image_size,
+		const void* data
+	); /*<
+	Specifies a two dimensional compressed texture subimage.
+	See [glfunc CompressedTexSubImage2D].
+	>*/
+
+#if GL_VERSION_3_0
+	static void CompressedSubImage1D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLsizei width,
+		__PixelDataFormat format,
+		GLsizei image_size,
+		const void* data
+	); /*<
+	Specifies a one dimensional compressed texture subimage.
+	See [glfunc CompressedTexSubImage1D].
+	>*/
+#endif
+//]
+//[oglplus_texture_4
+
+#if GL_VERSION_3_2 || GL_ARB_texture_multisample
+	static void Image3DMultisample(
+		__TextureTarget target,
+		GLsizei samples,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		bool fixed_sample_locations
+	); /*<
+	Sets-up a three dimensional multisample texture.
+	See [glfunc TexImage3DMultisample].
+	>*/
+
+	static void Image2DMultisample(
+		__TextureTarget target,
+		GLsizei samples,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		bool fixed_sample_locations
+	); /*<
+	Sets-up a two dimensional multisample texture.
+	See [glfunc TexImage3DMultisample].
+	>*/
+
+#endif
+
+#if GL_VERSION_3_1
+	static void Buffer(
+		__TextureTarget target,
+		__PixelDataInternalFormat internal_format,
+		__BufferName buffer
+	); /*<
+	Assigns a buffer storing the texel data to the texture.
+	See [glfunc TexBuffer].
+	>*/
+#endif
+
+#if GL_VERSION_4_3
+	static void BufferRange(
+		__TextureTarget target,
+		__PixelDataInternalFormat internal_format,
+		__BufferName buffer,
+		GLintptr offset,
+		GLsizeiptr size
+	); /*<
+	Assigns a buffer range storing the texel data to the texture.
+	See [glfunc TexBufferRange].
+	>*/
+#endif
+
+#if GL_VERSION_4_2 || GL_ARB_texture_storage
+	static void Storage3D(
+		__TextureTarget target,
+		GLsizei levels,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth
+	); /*<
+	Specifies all levels of 3D texture at the same time.
+	See [glfunc TexStorage3D].
+	>*/
+
+	static void Storage2D(
+		__TextureTarget target,
+		GLsizei levels,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height
+	); /*<
+	Specifies all levels of 2D texture at the same time.
+	See [glfunc TexStorage2D].
+	>*/
+
+	static void Storage1D(
+		__TextureTarget target,
+		GLsizei levels,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width
+	); /*<
+	Specifies all levels of 1D texture at the same time.
+	See [glfunc TexStorage1D].
+	>*/
+#endif
+	static GLuint BaseLevel(__TextureTarget target); /*<
+	Returns the texture base level.
+	See [glfunc GetTexParameter], [glconst TEXTURE_BASE_LEVEL].
+	>*/
+
+	static void BaseLevel(__TextureTarget target, GLuint level); /*<
+	Sets the texture base level.
+	See [glfunc TexParameter], [glconst TEXTURE_BASE_LEVEL].
+	>*/
+
+
 };
 
 // TODO
