@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -25,16 +25,16 @@ public:
 	Texture bind target.
 	>*/
 
-	static __TextureName Binding(Target target); /*<
+	static __TextureName Binding(__TextureTarget target); /*<
 	Returns the texture currently bound to the specified [^target].
 	See [glfunc GetIntegerv].
 	>*/
-	static void Bind(Target target, __TextureName texture); /*<
+	static void Bind(__TextureTarget target, __TextureName texture); /*<
 	Binds the specified [^texture] to the specified [^target].
 	See [glfunc BindTexture].
 	>*/
 
-	void Bind(Target target) const; /*<
+	void Bind(__TextureTarget target) const; /*<
 	Binds [^this] texture to the specified [^target].
 	See [glfunc BindTexture].
 	>*/
@@ -146,7 +146,7 @@ public:
 
 #if GL_VERSION_4_3 || GL_ARB_texture_view
 	void View(
-		Target target,
+		__TextureTarget target,
 		__TextureName orig_texture,
 		__PixelDataInternalFormat internal_format,
 		GLuint min_level,
@@ -195,110 +195,110 @@ public:
 
 #if GL_VERSION_3_0
 	static
-	GLsizei Width(Target target, GLint level = 0); /*<
+	GLsizei Width(__TextureTarget target, GLint level = 0); /*<
 	Returns the width of the texture image on the specified [^level].
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_WIDTH].
 	>*/
 
 	static
-	GLsizei Height(Target target, GLint level = 0); /*<
+	GLsizei Height(__TextureTarget target, GLint level = 0); /*<
 	Returns the height of the texture image on the specified [^level].
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_HEIGHT].
 	>*/
 
 	static
-	GLsizei Depth(Target target, GLint level = 0); /*<
+	GLsizei Depth(__TextureTarget target, GLint level = 0); /*<
 	Returns the depth of the texture image on the specified [^level].
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_DEPTH].
 	>*/
 
 	static
-	__PixelDataType RedType(Target target, GLint level = 0); /*<
+	__PixelDataType RedType(__TextureTarget target, GLint level = 0); /*<
 	Returns the data type used to store the RED component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_RED_TYPE].
 	>*/
 
 	static
-	__PixelDataType GreenType(Target target, GLint level = 0); /*<
+	__PixelDataType GreenType(__TextureTarget target, GLint level = 0); /*<
 	Returns the data type used to store the GREEN component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_GREEN_TYPE].
 	>*/
 
 	static
-	__PixelDataType BlueType(Target target, GLint level = 0); /*<
+	__PixelDataType BlueType(__TextureTarget target, GLint level = 0); /*<
 	Returns the data type used to store the BLUE component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_BLUE_TYPE].
 	>*/
 
 	static
-	__PixelDataType AlphaType(Target target, GLint level = 0); /*<
+	__PixelDataType AlphaType(__TextureTarget target, GLint level = 0); /*<
 	Returns the data type used to store the ALPHA component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_ALPHA_TYPE].
 	>*/
 
 	static
-	__PixelDataType DepthType(Target target, GLint level = 0); /*<
+	__PixelDataType DepthType(__TextureTarget target, GLint level = 0); /*<
 	Returns the data type used to store the DEPTH component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_DEPTH_TYPE].
 	>*/
 
 	static
-	GLsizei RedSize(Target target, GLint level = 0); /*<
+	GLsizei RedSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the RED component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_RED_SIZE].
 	>*/
 
 	static
-	GLsizei GreenSize(Target target, GLint level = 0); /*<
+	GLsizei GreenSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the GREEN component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_GREEN_SIZE].
 	>*/
 
 	static
-	GLsizei BlueSize(Target target, GLint level = 0); /*<
+	GLsizei BlueSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the BLUE component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_BLUE_SIZE].
 	>*/
 
 	static
-	GLsizei AlphaSize(Target target, GLint level = 0); /*<
+	GLsizei AlphaSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the ALPHA component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_ALPHA_SIZE].
 	>*/
 
 	static
-	GLsizei DepthSize(Target target, GLint level = 0); /*<
+	GLsizei DepthSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the DEPTH component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_DEPTH_SIZE].
 	>*/
 
 	static
-	GLsizei StencilSize(Target target, GLint level = 0); /*<
+	GLsizei StencilSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the STENCIL component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_STENCIL_SIZE].
 	>*/
 
 	static
-	GLsizei SharedSize(Target target, GLint level = 0); /*<
+	GLsizei SharedSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of all texture components.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_SHARED_SIZE].
 	>*/
 //]
 //[oglplus_texture_2
 	static
-	GLsizei CompressedImageSize(Target target, GLint level = 0); /*<
+	GLsizei CompressedImageSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the size (in bytes) of the image array if it is compressed.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_COMPRESSED_IMAGE_SIZE].
 	>*/
 
 	static
-	__PixelDataInternalFormat InternalFormat(Target target, GLint level = 0); /*<
+	__PixelDataInternalFormat InternalFormat(__TextureTarget target, GLint level = 0); /*<
 	Returns the internal data format of the image array.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_INTERNAL_FORMAT].
 	>*/
 
 	static void GetImage(
-		Target target,
+		__TextureTarget target,
 		GLint level,
 		__PixelDataFormat format,
 		const __OutputData& dest
@@ -315,16 +315,16 @@ public:
 	the [^dest] buffer accordingly.]
 	>*/
 	static void GetImage(
-		Target target,
+		__TextureTarget target,
 		GLint level,
-		PixelDataFormat format,
+		__PixelDataFormat format,
 		Property::PixDataType type,
 		GLsizei size,
 		GLvoid* buffer
 	);
 
 	static void GetCompressedImage(
-		Target target,
+		__TextureTarget target,
 		GLint level,
 		const __OutputData& dest
 	); /*<
@@ -336,20 +336,721 @@ public:
 	it can accomodate the texture data.
 	>*/
 	static void GetCompressedImage(
-		Target target,
+		__TextureTarget target,
 		GLint level,
 		std::vector<GLubyte>& dest
 	);
 	static void GetCompressedImage(
-		Target target,
+		__TextureTarget target,
 		GLint level,
 		GLsizei size,
 		GLubyte* buffer
 	);
 #endif
-};
+	static void Image3D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		GLint border,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	); /*<
+	Specifies a three dimensional texture image.
+	See [glfunc TexImage3D].
+	>*/
 
-// TODO
+	static void Image3D(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint level = 0,
+		GLint border = 0
+	);
+
+	static void SubImage3D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	); /*<
+	Specifies a three dimensional texture subimage.
+	See [glfunc TexSubImage3D].
+	>*/
+
+	static void SubImage3D(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLint level = 0
+	);
+
+	static void Image2D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLint border,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	); /*<
+	Specifies a two dimensional texture image.
+	See [glfunc TexImage2D].
+	>*/
+
+	static void Image2D(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint level = 0,
+		GLint border = 0
+	);
+
+	static void ImageCM(
+		GLuint face,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLint border,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	); /*<
+	Specifies the image of the selected cube-map face.
+	See [glfunc TexImage2D].
+	>*/
+
+	static void ImageCM(
+		GLuint face,
+		const __images_Image& image,
+		GLint level = 0,
+		GLint border = 0
+	);
+
+	static void SubImage2D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLsizei width,
+		GLsizei height,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	); /*<
+	Specifies a two dimensional texture subimage.
+	See [glfunc TexSubImage2D].
+	>*/
+
+	static void SubImage2D(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint xoffs,
+		GLint yoffs,
+		GLint level = 0
+	);
+
+#if GL_VERSION_3_0
+	static void Image1D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLint border,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	); /*<
+	Specifies a one dimensional texture image.
+	See [glfunc TexImage1D].
+	>*/
+
+	static void Image1D(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint level = 0,
+		GLint border = 0
+	);
+
+	static void SubImage1D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLsizei width,
+		__PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	);  /*<
+	Specifies a one dimensional texture subimage.
+	See [glfunc TexSubImage1D].
+	>*/
+
+	static void SubImage1D(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint xoffs,
+		GLint level = 0
+	);
+#endif
+
+	static void Image(
+		__TextureTarget target,
+		const __images_Image& image,
+		GLint level = 0,
+		GLint border = 0
+	); /*<
+	Specifies one, two or three dimensional texture image.
+	>*/
+
+	static void Image(
+		__TextureTarget target,
+		const __images_ImageSpec& image_spec,
+		GLint level = 0,
+		GLint border = 0
+	);
+//]
+//[oglplus_texture_3
+
+	static void CopyImage2D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height,
+		GLint border
+	); /*<
+	Copies a two dimensional texture image from the current framebuffer.
+	See [glfunc CopyTexImage2D].
+	>*/
+
+#if GL_VERSION_3_0
+	static void CopyImage1D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLint border
+	); /*<
+	Copies a one dimensional texture image from the current framebuffer.
+	See [glfunc CopyTexImage1D].
+	>*/
+#endif
+
+	static void CopySubImage3D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height
+	); /*<
+	Copies a three dimensional texture subimage from the current framebuffer.
+	See [glfunc CopyTexSubImage3D].
+	>*/
+
+	static void CopySubImage2D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height
+	); /*<
+	Copies a two dimensional texture subimage from the current framebuffer.
+	See [glfunc CopyTexSubImage2D].
+	>*/
+
+#if GL_VERSION_3_0
+	static void CopySubImage1D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint x,
+		GLint y,
+		GLsizei width
+	); /*<
+	Copies a one dimensional texture subimage from the current framebuffer.
+	See [glfunc CopyTexSubImage2D].
+	>*/
+#endif
+
+	static void CompressedImage3D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		GLint border,
+		GLsizei image_size,
+		const void* data
+	); /*<
+	Specifies a three dimensional compressed texture image.
+	See [glfunc CompressedTexImage3D].
+	>*/
+
+	static void CompressedImage2D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLint border,
+		GLsizei image_size,
+		const void* data
+	); /*<
+	Specifies a two dimensional compressed texture image.
+	See [glfunc CompressedTexImage2D].
+	>*/
+
+#if GL_VERSION_3_0
+	static void CompressedImage1D(
+		__TextureTarget target,
+		GLint level,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLint border,
+		GLsizei image_size,
+		const void* data
+	); /*<
+	Specifies a one dimensional compressed texture image.
+	See [glfunc CompressedTexImage1D].
+	>*/
+#endif
+
+	static void CompressedSubImage3D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		__PixelDataFormat format,
+		GLsizei image_size,
+		const void* data
+	); /*<
+	Specifies a three dimensional compressed texture subimage.
+	See [glfunc CompressedTexSubImage3D].
+	>*/
+
+	static void CompressedSubImage2D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLsizei width,
+		GLsizei height,
+		__PixelDataFormat format,
+		GLsizei image_size,
+		const void* data
+	); /*<
+	Specifies a two dimensional compressed texture subimage.
+	See [glfunc CompressedTexSubImage2D].
+	>*/
+
+#if GL_VERSION_3_0
+	static void CompressedSubImage1D(
+		__TextureTarget target,
+		GLint level,
+		GLint xoffs,
+		GLsizei width,
+		__PixelDataFormat format,
+		GLsizei image_size,
+		const void* data
+	); /*<
+	Specifies a one dimensional compressed texture subimage.
+	See [glfunc CompressedTexSubImage1D].
+	>*/
+#endif
+//]
+//[oglplus_texture_4
+
+#if GL_VERSION_3_2 || GL_ARB_texture_multisample
+	static void Image3DMultisample(
+		__TextureTarget target,
+		GLsizei samples,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		bool fixed_sample_locations
+	); /*<
+	Sets-up a three dimensional multisample texture.
+	See [glfunc TexImage3DMultisample].
+	>*/
+
+	static void Image2DMultisample(
+		__TextureTarget target,
+		GLsizei samples,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		bool fixed_sample_locations
+	); /*<
+	Sets-up a two dimensional multisample texture.
+	See [glfunc TexImage3DMultisample].
+	>*/
+
+#endif
+
+#if GL_VERSION_3_1
+	static void Buffer(
+		__TextureTarget target,
+		__PixelDataInternalFormat internal_format,
+		__BufferName buffer
+	); /*<
+	Assigns a buffer storing the texel data to the texture.
+	See [glfunc TexBuffer].
+	>*/
+#endif
+
+#if GL_VERSION_4_3
+	static void BufferRange(
+		__TextureTarget target,
+		__PixelDataInternalFormat internal_format,
+		__BufferName buffer,
+		GLintptr offset,
+		GLsizeiptr size
+	); /*<
+	Assigns a buffer range storing the texel data to the texture.
+	See [glfunc TexBufferRange].
+	>*/
+#endif
+
+#if GL_VERSION_4_2 || GL_ARB_texture_storage
+	static void Storage3D(
+		__TextureTarget target,
+		GLsizei levels,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth
+	); /*<
+	Specifies all levels of 3D texture at the same time.
+	See [glfunc TexStorage3D].
+	>*/
+
+	static void Storage2D(
+		__TextureTarget target,
+		GLsizei levels,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height
+	); /*<
+	Specifies all levels of 2D texture at the same time.
+	See [glfunc TexStorage2D].
+	>*/
+
+	static void Storage1D(
+		__TextureTarget target,
+		GLsizei levels,
+		__PixelDataInternalFormat internal_format,
+		GLsizei width
+	); /*<
+	Specifies all levels of 1D texture at the same time.
+	See [glfunc TexStorage1D].
+	>*/
+#endif
+	static GLuint BaseLevel(__TextureTarget target); /*<
+	Returns the texture base level.
+	See [glfunc GetTexParameter], [glconst TEXTURE_BASE_LEVEL].
+	>*/
+
+	static void BaseLevel(__TextureTarget target, GLuint level); /*<
+	Sets the texture base level.
+	See [glfunc TexParameter], [glconst TEXTURE_BASE_LEVEL].
+	>*/
+
+#if GL_VERSION_3_0
+	static Vector<GLfloat, 4> BorderColor(
+		__TextureTarget target,
+		__TypeTag<GLfloat>
+	); /*<
+	Gets the texture border color.
+	See [glfunc GetTexParameter], [glconst TEXTURE_BORDER_COLOR].
+	>*/
+	static Vector<GLint, 4> BorderColor(
+		__TextureTarget target,
+		__TypeTag<GLint>
+	);
+	static Vector<GLuint, 4> BorderColor(
+		__TextureTarget target,
+		__TypeTag<GLuint>
+	);
+
+	static void BorderColor(
+		__TextureTarget target,
+		Vector<GLfloat, 4> color
+	); /*<
+	Sets the texture border color.
+	See [glfunc TexParameter], [glconst TEXTURE_BORDER_COLOR].
+	>*/
+	static void BorderColor(
+		__TextureTarget target,
+		Vector<GLint, 4> color
+	);
+	static void BorderColor(
+		__TextureTarget target,
+		Vector<GLuint, 4> color
+	);
+#endif
+	static __TextureCompareMode CompareMode(__TextureTarget target); /*<
+	Gets the texture compare mode.
+	See [glfunc GetTexParameter], [glconst TEXTURE_COMPARE_MODE].
+	>*/
+
+	static void CompareMode(
+		__TextureTarget target,
+		__TextureCompareMode mode
+	); /*<
+	Sets the texture compare mode.
+	See [glfunc TexParameter], [glconst TEXTURE_COMPARE_MODE].
+	>*/
+
+	static __CompareFunction CompareFunc(__TextureTarget target); /*<
+	Gets the texture compare function.
+	See [glfunc GetTexParameter], [glconst TEXTURE_COMPARE_FUNC].
+	>*/
+
+	static void CompareFunc(
+		__TextureTarget target,
+		__CompareFunction func
+	); /*<
+	Sets the texture compare function.
+	See [glfunc TexParameter], [glconst TEXTURE_COMPARE_FUNC].
+	>*/
+//]
+//[oglplus_texture_5
+
+#if GL_VERSION_3_0
+	static GLfloat LODBias(__TextureTarget target); /*<
+	Gets the level-of-detail bias value.
+	See [glfunc GetTexParameter], [glconst TEXTURE_LOD_BIAS].
+	>*/
+
+	static void LODBias(__TextureTarget target, GLfloat value); /*<
+	Sets the level-of-detail bias value.
+	See [glfunc TexParameter], [glconst TEXTURE_LOD_BIAS].
+	>*/
+#endif // GL_VERSION_3_0
+
+	static void Filter(
+		__TextureTarget target,
+		__TextureFilter filter
+	); /*<
+	Sets both the minification and magnification filter.
+	See [glfunc TexParameter], [glconst TEXTURE_MIN_FILTER], [glconst TEXTURE_MAG_FILTER].
+	>*/
+
+	static __TextureMagFilter MagFilter(__TextureTarget target); /*<
+	Gets the magnification filter.
+	See [glfunc GetTexParameter], [glconst TEXTURE_MAG_FILTER].
+	>*/
+
+	static void MagFilter(
+		__TextureTarget target,
+		__TextureMagFilter filter
+	); /*<
+	Sets the magnification filter.
+	See [glfunc TexParameter], [glconst TEXTURE_MAG_FILTER].
+	>*/
+
+	static __TextureMinFilter MinFilter(__TextureTarget target); /*<
+	Gets the minification filter.
+	See [glfunc GetTexParameter], [glconst TEXTURE_MIN_FILTER].
+	>*/
+
+	static void MinFilter(
+		__TextureTarget target,
+		__TextureMinFilter filter
+	); /*<
+	Sets the minification filter.
+	See [glfunc TexParameter], [glconst TEXTURE_MIN_FILTER].
+	>*/
+
+	static GLfloat MinLOD(__TextureTarget target); /*<
+	Gets minimal level-of-detail value.
+	See [glfunc GetTexParameter], [glconst TEXTURE_MIN_LOD].
+	>*/
+
+	static void MinLOD(__TextureTarget target, GLfloat value); /*<
+	Sets minimal level-of-detail value.
+	See [glfunc TexParameter], [glconst TEXTURE_MIN_LOD].
+	>*/
+
+	static GLfloat MaxLOD(__TextureTarget target); /*<
+	Gets maximal level-of-detail value.
+	See [glfunc GetTexParameter], [glconst TEXTURE_MAX_LOD].
+	>*/
+
+	static void MaxLOD(__TextureTarget target, GLfloat value); /*<
+	Sets maximal level-of-detail value.
+	See [glfunc TexParameter], [glconst TEXTURE_MAX_LOD].
+	>*/
+
+	static GLint MaxLevel(__TextureTarget target); /*<
+	Gets the maximum level value.
+	See [glfunc GetTexParameter], [glconst TEXTURE_MAX_LEVEL].
+	>*/
+
+	static void MaxLevel(__TextureTarget target, GLint value); /*<
+	Sets the maximum level value.
+	See [glfunc TexParameter], [glconst TEXTURE_MAX_LEVEL].
+	>*/
+//]
+//[oglplus_texture_6
+
+	static GLfloat MaxAnisotropy(__TextureTarget target); /*<
+	Gets the maximum anisotropy value.
+	See [glfunc TexParameter], [glconst MAX_TEXTURE_MAX_ANISOTROPY_EXT].
+	>*/
+
+	static GLfloat Anisotropy(__TextureTarget target); /*<
+	Gets the current anisotropy level.
+	See [glfunc GetTexParameter], [glconst TEXTURE_MAX_ANISOTROPY_EXT].
+	>*/
+
+	static void Anisotropy(__TextureTarget target, GLfloat value); /*<
+	Sets the anisotropy level.
+	See [glfunc TexParameter], [glconst TEXTURE_MAX_ANISOTROPY_EXT].
+	>*/
+
+#if GL_VERSION_3_3 || GL_ARB_texture_swizzle
+	static __TextureSwizzle Swizzle(
+		__TextureTarget target,
+		__TextureSwizzleCoord coord
+	); /*<
+	Gets the swizzle parameter.
+	See [glfunc GetTexParameter], [glconst TEXTURE_SWIZZLE_R],
+	[glconst TEXTURE_SWIZZLE_G], [glconst TEXTURE_SWIZZLE_B],
+	[glconst TEXTURE_SWIZZLE_A], [glconst TEXTURE_SWIZZLE_RGBA].
+	>*/
+	static __TextureSwizzle SwizzleR(__TextureTarget target);
+	static __TextureSwizzle SwizzleG(__TextureTarget target);
+	static __TextureSwizzle SwizzleB(__TextureTarget target);
+	static __TextureSwizzle SwizzleA(__TextureTarget target);
+	static __TextureSwizzleTuple SwizzleRGBA(__TextureTarget target);
+
+	static void Swizzle(
+		__TextureTarget target,
+		__TextureSwizzleCoord coord,
+		__TextureSwizzle mode
+	); /*<
+	Sets the swizzle parameter.
+	See [glfunc TexParameter], [glconst TEXTURE_SWIZZLE_R],
+	[glconst TEXTURE_SWIZZLE_G], [glconst TEXTURE_SWIZZLE_B],
+	[glconst TEXTURE_SWIZZLE_A], [glconst TEXTURE_SWIZZLE_RGBA].
+	>*/
+	static void SwizzleR(__TextureTarget target, __TextureSwizzle mode);
+	static void SwizzleG(__TextureTarget target, __TextureSwizzle mode);
+	static void SwizzleB(__TextureTarget target, __TextureSwizzle mode);
+	static void SwizzleA(__TextureTarget target, __TextureSwizzle mode);
+	static void SwizzleRGBA(
+		__TextureTarget target,
+		__TextureSwizzle mode
+	);
+	static void SwizzleRGBA(
+		__TextureTarget target,
+		__TextureSwizzle mode_r,
+		__TextureSwizzle mode_g,
+		__TextureSwizzle mode_b,
+		__TextureSwizzle mode_a
+	);
+	static void SwizzleRGBA(
+		__TextureTarget target,
+		const __TextureSwizzleTuple& modes
+	);
+#endif
+
+	static __TextureWrap Wrap(
+		__TextureTarget target,
+		__TextureWrapCoord coord
+	); /*<
+	Gets the swizzle parameter.
+	See [glfunc GetTexParameter], [glconst TEXTURE_WRAP_S],
+	[glconst TEXTURE_WRAP_T], [glconst TEXTURE_WRAP_R].
+	>*/
+	static __TextureWrap WrapS(__TextureTarget target);
+	static __TextureWrap WrapT(__TextureTarget target);
+	static __TextureWrap WrapR(__TextureTarget target);
+
+
+	static void Wrap(
+		__TextureTarget target,
+		__TextureWrapCoord coord,
+		__TextureWrap mode
+	); /*<
+	Sets the swizzle parameter.
+	See [glfunc TexParameter], [glconst TEXTURE_WRAP_S],
+	[glconst TEXTURE_WRAP_T], [glconst TEXTURE_WRAP_R].
+	>*/
+	static void WrapS(__TextureTarget target, __TextureWrap mode);
+	static void WrapT(__TextureTarget target, __TextureWrap mode);
+	static void WrapR(__TextureTarget target, __TextureWrap mode);
+
+#if GL_VERSION_4_3
+	static __PixelDataFormat DepthStencilMode(__TextureTarget target); /*<
+	Gets the depth stencil mode parameter.
+	See [glfunc GetTexParameter], [glconst DEPTH_STENCIL_TEXTURE_MODE].
+	>*/
+
+	static void DepthStencilMode(
+		__TextureTarget target,
+		__PixelDataFormat mode
+	); /*<
+	Sets the depth stencil mode parameter.
+	See [glfunc TexParameter], [glconst DEPTH_STENCIL_TEXTURE_MODE].
+	>*/
+#endif
+
+#if GL_ARB_seamless_cubemap_per_texture
+	static bool Seamless(__TextureTarget target); /*<
+	Gets the seamless cubemap setting value.
+	See [glfunc GetTexParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].
+	>*/
+
+	static void Seamless(__TextureTarget target, bool enable); /*<
+	Changes the seamless cubemap setting value.
+	See [glfunc TexParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].
+	>*/
+#endif
+
+#if GL_VERSION_4_5 || GL_ARB_texture_barrier || GL_NV_texture_barrier
+	static void Barrier(void); /*<
+	Ensures that texture writes have been completed.
+	See [glfunc TextureBarrier].
+	>*/
+#endif
+
+	static void GenerateMipmap(__TextureTarget target) /*<
+	Generates mipmap for the texture bound to the specified target.
+	See [glfunc GenerateMipmap].
+	>*/
+};
 
 //]
 //[oglplus_texture_def

@@ -28,34 +28,40 @@ struct StencilFuncArgs
 	GLuint _mask;
 
 	StencilFuncArgs(void)
+	OGLPLUS_NOEXCEPT(true)
 	{ }
 
 	StencilFuncArgs(
 		CompareFunction func,
 		GLint refv = GLint(0),
 		GLuint mask = ~GLuint(0)
-	): _func(GLenum(func))
+	) OGLPLUS_NOEXCEPT(true)
+	 : _func(GLenum(func))
 	 , _refv(refv)
 	 , _mask(mask)
 	{ }
 
 	CompareFunction Func(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return CompareFunction(_func);
 	}
 
 	GLint Ref(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _refv;
 	}
 
 	GLuint ValueMask(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _mask;
 	}
 
 	friend
 	bool operator == (const StencilFuncArgs& a, const StencilFuncArgs& b)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return	(a._func == b._func) &&
 			(a._refv == b._refv) &&
@@ -64,6 +70,7 @@ struct StencilFuncArgs
 
 	friend
 	bool operator != (const StencilFuncArgs& a, const StencilFuncArgs& b)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return	(a._func != b._func) ||
 			(a._refv != b._refv) ||
@@ -77,32 +84,41 @@ struct StencilOperations
 	StencilOperation _dfail;
 	StencilOperation _dpass;
 
+	StencilOperations(void)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
 	StencilOperations(
 		StencilOperation sfail,
 		StencilOperation dfail,
 		StencilOperation dpass
-	): _sfail(sfail)
+	) OGLPLUS_NOEXCEPT(true)
+	 : _sfail(sfail)
 	 , _dfail(dfail)
 	 , _dpass(dpass)
 	{ }
 
 	StencilOperation StencilFail(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _sfail;
 	}
 
 	StencilOperation DepthFail(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _dfail;
 	}
 
 	StencilOperation DepthPass(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _dpass;
 	}
 
 	friend
 	bool operator == (const StencilOperations& a, const StencilOperations& b)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return	(a._sfail == b._sfail) &&
 			(a._dfail == b._dfail) &&
@@ -111,6 +127,7 @@ struct StencilOperations
 
 	friend
 	bool operator != (const StencilOperations& a, const StencilOperations& b)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return	(a._sfail != b._sfail) ||
 			(a._dfail != b._dfail) ||

@@ -4,7 +4,7 @@
 //  Edit the source 'source/enums/oglplus/ext/compat_attrib_group.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
-//  Copyright 2010-2014 Matus Chochlik.
+//  Copyright 2010-2015 Matus Chochlik.
 //  Distributed under the Boost Software License, Version 1.0.
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -12,7 +12,7 @@
 //[oglplus_enums_ext_compat_attrib_group
 namespace oglplus {
 
-enum class CompatibilityAttributeGroup : GLenum
+enum class CompatibilityAttributeGroup : GLbitfield
 {
 	AccumBuffer    = GL_ACCUM_BUFFER_BIT,
 	ColorBuffer    = GL_COLOR_BUFFER_BIT,
@@ -42,6 +42,8 @@ template <>
 __Range<CompatibilityAttributeGroup> __EnumValueRange<CompatibilityAttributeGroup>(void);
 
 __StrCRef __EnumValueName(CompatibilityAttributeGroup);
+
+__Bitfield<CompatibilityAttributeGroup> operator | (CompatibilityAttributeGroup b1, CompatibilityAttributeGroup b2);
 
 } // namespace oglplus
 //]

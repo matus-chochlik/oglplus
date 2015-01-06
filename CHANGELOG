@@ -1,3 +1,13 @@
+Version 0.57.0
+
+- The setting stack functionality in oglplus::ClientContext was reimplemented.
+- Noexcept specifiers were added to some functions.
+- The script for auto-generating of the enumeration headers was updated,
+  now almost everything related to the enumerations is auto-generated.
+- A bug in the definition of EnumValueRange was fixed.
+- Minor problems in the GLSL shaders in the examples were fixed.
+- The Quickbook documentation was updated.
+
 Version 0.56.0
 
 - The new state getter/setter functions were added to oglplus::Context.
