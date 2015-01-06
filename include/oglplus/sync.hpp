@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,7 +15,10 @@
 
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error/basic.hpp>
-#include <oglplus/enumerations.hpp>
+#include <oglplus/enums/sync_condition.hpp>
+#include <oglplus/enums/sync_type.hpp>
+#include <oglplus/enums/sync_status.hpp>
+#include <oglplus/enums/sync_wait_result.hpp>
 
 namespace oglplus {
 
@@ -26,80 +29,6 @@ namespace oglplus {
 // (in different translation units)
 #ifdef Status
 #undef Status
-#endif
-
-/// The synchronization condition enumeration
-/**
- *  @ingroup enumerations
- *
- *  @see Sync::Condition()
- */
-OGLPLUS_ENUM_CLASS_BEGIN(SyncCondition, GLenum)
-#include <oglplus/enums/sync_condition.ipp>
-OGLPLUS_ENUM_CLASS_END(SyncCondition)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/sync_condition_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/sync_condition_range.ipp>
-#endif
-
-
-/// The synchronization object type enumeration
-/**
- *  @ingroup enumerations
- *
- *  @see Sync::Type()
- */
-OGLPLUS_ENUM_CLASS_BEGIN(SyncType, GLenum)
-#include <oglplus/enums/sync_type.ipp>
-OGLPLUS_ENUM_CLASS_END(SyncType)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/sync_type_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/sync_type_range.ipp>
-#endif
-
-
-/// The synchronization object status enumeration
-/**
- *  @ingroup enumerations
- *
- *  @see Sync::Status()
- */
-OGLPLUS_ENUM_CLASS_BEGIN(SyncStatus, GLenum)
-#include <oglplus/enums/sync_status.ipp>
-OGLPLUS_ENUM_CLASS_END(SyncStatus)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/sync_status_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/sync_status_range.ipp>
-#endif
-
-/// The wait result enumeration
-/**
- *  @ingroup enumerations
- *
- *  @see Sync::ClientWait
- */
-OGLPLUS_ENUM_CLASS_BEGIN(SyncWaitResult, GLenum)
-#include <oglplus/enums/sync_wait_result.ipp>
-OGLPLUS_ENUM_CLASS_END(SyncWaitResult)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/sync_wait_result_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/sync_wait_result_range.ipp>
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_sync

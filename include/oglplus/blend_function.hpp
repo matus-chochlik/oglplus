@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,72 +13,17 @@
 #ifndef OGLPLUS_BLEND_FUNC_1107121519_HPP
 #define OGLPLUS_BLEND_FUNC_1107121519_HPP
 
-#include <oglplus/enumerations.hpp>
+#include <oglplus/enums/blend_function.hpp>
+#include <oglplus/enums/blend_equation.hpp>
+#include <oglplus/enums/blend_equation_advanced.hpp>
 
 namespace oglplus {
-
-/// Blend function type enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{BlendFunc}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(BlendFunction, GLenum)
-#include <oglplus/enums/blend_function.ipp>
-OGLPLUS_ENUM_CLASS_END(BlendFunction)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/blend_function_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/blend_function_range.ipp>
-#endif
 
 /// Alternative name for the BlendFunction enumeration
 typedef BlendFunction BlendFn;
 
-/// Blend equation enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{BlendEquation}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(BlendEquation, GLenum)
-#include <oglplus/enums/blend_equation.ipp>
-OGLPLUS_ENUM_CLASS_END(BlendEquation)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/blend_equation_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/blend_equation_range.ipp>
-#endif
-
 /// Alternative name for the BlendEquation enumeration
 typedef BlendEquation BlendEq;
-
-/// Advanced blend equation enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{BlendEquationAdvanced}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(BlendEquationAdvanced, GLenum)
-#include <oglplus/enums/blend_equation_advanced.ipp>
-OGLPLUS_ENUM_CLASS_END(BlendEquationAdvanced)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/blend_equation_advanced_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/blend_equation_advanced_range.ipp>
-#endif
 
 /// Alternative name for the BlendEquationAdvanced enumeration
 typedef BlendEquationAdvanced BlendEqAdv;

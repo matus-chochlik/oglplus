@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,30 +17,13 @@
 #undef Opposite
 #endif
 
-#include <oglplus/enumerations.hpp>
+#include <oglplus/enums/face.hpp>
+#include <oglplus/enums/face_orientation.hpp>
 
 namespace oglplus {
 
-/// Polygon facing enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{CullFace}
- *  @glfunref{PolygonMode}
- *  @glfunref{StencilFuncSeparate}
- *  @glfunref{StencilMaskSeparate}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(Face, GLenum)
-#include <oglplus/enums/face.ipp>
-OGLPLUS_ENUM_CLASS_END(Face)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/face_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/face_range.ipp>
+#if !OGLPLUS_NO_ENUM_VALUE_CLASSES
+#include <oglplus/enums/face_class.ipp>
 #endif
 
 inline Face Opposite(Face facing)
@@ -51,25 +34,6 @@ inline Face Opposite(Face facing)
 		return Face::Front;
 	else return facing;
 }
-
-/// Face orientation enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{FrontFace}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(FaceOrientation, GLenum)
-#include <oglplus/enums/face_orientation.ipp>
-OGLPLUS_ENUM_CLASS_END(FaceOrientation)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/face_orientation_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/face_orientation_range.ipp>
-#endif
 
 /// Inverts the face orientation (CW to CCW and CCW to CW)
 /**

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,42 +17,11 @@
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/reference.hpp>
 #include <oglplus/error/object.hpp>
-#include <oglplus/enumerations.hpp>
+#include <oglplus/enums/query_target.hpp>
+#include <oglplus/enums/conditional_render_mode.hpp>
 #include <cassert>
 
 namespace oglplus {
-
-/// Query bind target
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(QueryTarget, GLenum)
-#include <oglplus/enums/query_target.ipp>
-OGLPLUS_ENUM_CLASS_END(QueryTarget)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/query_target_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/query_target_range.ipp>
-#endif
-
-/// Conditional render modes
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(ConditionalRenderMode, GLenum)
-#include <oglplus/enums/conditional_render_mode.ipp>
-OGLPLUS_ENUM_CLASS_END(ConditionalRenderMode)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/conditional_render_mode_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/conditional_render_mode_range.ipp>
-#endif
 
 /// Class wrapping query construction/destruction functions
 /** @note Do not use this class directly, use Query instead.

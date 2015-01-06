@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -21,11 +21,11 @@ class __ObjectOps<__tag_DirectState, __tag_Query>
 public:
 	typedef __QueryTarget Target;
 
-	void Begin(Target target); /*<
+	void Begin(__QueryTarget target); /*<
 	Begins a query on the specified [^target].
 	See [glfunc BeginQuery].
 	>*/
-	void End(Target target); /*<
+	void End(__QueryTarget target); /*<
 	Ends the currently active query on the specified [^target].
 	See [glfunc EndQuery].
 	>*/
@@ -42,7 +42,7 @@ public:
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_timer_query
-	void Counter(Target target); /*<
+	void Counter(__QueryTarget target); /*<
 	Does a counter query on the specified [^target].
 	See [glfunc QueryCounter].
 	>*/
@@ -68,7 +68,7 @@ public:
 	void Result(GLuint64& result) const;
 #endif
 
-	__QueryActivator Activate(Target target); /*<
+	__QueryActivator Activate(__QueryTarget target); /*<
 	This function creates an instance of the [^QueryActivator] class which
 	begins a query on the specified [^target] when it is constructed
 	and ends this query when it is destroyed.
@@ -76,7 +76,7 @@ public:
 
 	template <typename ResultType>
 	__QueryExecution<ResultType>
-	Execute(Target target, ResultType& result); /*<
+	Execute(__QueryTarget target, ResultType& result); /*<
 	This function creates an instance of the [^QueryExecution] class which
 	begins a query on the specified [^target] when it is constructed
 	and ends this query and gets its [^result] when it is destroyed.

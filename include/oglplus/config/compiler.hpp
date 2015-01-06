@@ -186,6 +186,14 @@
 #endif
 #endif
 
+#ifndef OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS
+#ifdef _MSC_VER // TODO < specific version
+#define OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS 1
+#else
+#define OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS 0
+#endif
+#endif
+
 // ------- C++11 feature availability detection -------
 
 #if OGLPLUS_NO_NULLPTR

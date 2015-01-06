@@ -328,10 +328,11 @@ Acknowledgements
 - *David McFarland* for several patches.
 - *Jesús Zazueta* for useful feedback and help with the fixing of several bugs.
 - *Konstantin Gainullin* for porting to Marmalade and fixing several warnings.
+- *Peter Laufenberg* for several patches.
 License
 =======
 
-Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
 Software License, Version 1.0. (See accompanying file
 LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
