@@ -50,4 +50,4 @@ if(PANGO_CAIRO_FOUND)
 	target_link_libraries(oglplus ${PANGO_CAIRO_LIBRARIES})
 endif()
 
-
+install(TARGETS oglplus DESTINATION lib)
