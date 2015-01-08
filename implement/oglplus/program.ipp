@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -301,7 +301,7 @@ Binary(const std::vector<GLubyte>& binary, GLenum format)
 		_name,
 		format,
 		binary.data(),
-		static_cast<GLsizei>(binary.size())
+		GLsizei(binary.size())
 	);
 	OGLPLUS_CHECK(
 		ProgramBinary,
@@ -320,7 +320,7 @@ ShaderIterationContext::ShaderIterationContext(
 {
 	OGLPLUS_GLFUNC(GetAttachedShaders)(
 		name,
-		static_cast<GLsizei>(_shader_names.size()),
+		GLsizei(_shader_names.size()),
 		nullptr,
 		_shader_names.data()
 	);

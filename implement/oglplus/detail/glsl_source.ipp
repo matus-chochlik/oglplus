@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -27,7 +27,7 @@ StrCRefsGLSLSrcWrap::StrCRefsGLSLSrcWrap(
 		assert(pptr != _ptrs.end());
 		assert(psize != _sizes.end());
 		*pptr = i->begin();
-		*psize = static_cast<int>(i->size());
+		*psize = int(i->size());
 		++i;
 		++pptr;
 		++psize;
@@ -124,7 +124,7 @@ OGLPLUS_LIB_FUNC
 InputStreamGLSLSrcWrap::InputStreamGLSLSrcWrap(std::istream& input)
  : _storage(_read_data(input, _check_and_get_size(input)))
  , _pdata(_storage.data())
- , _size(static_cast<GLint>(_storage.size()))
+ , _size(GLint(_storage.size()))
 { }
 
 OGLPLUS_LIB_FUNC

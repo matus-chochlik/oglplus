@@ -44,7 +44,7 @@ ActiveVariableInfo::ActiveVariableInfo(
 	GetActiveVariable(
 		GetGLName(context.Program()),
 		index,
-		static_cast<GLsizei>(context.Buffer().size()),
+		GLsizei(context.Buffer().size()),
 		&strlen,
 		&_size,
 		&_type,
@@ -102,7 +102,7 @@ ActiveSubroutineInfo::ActiveSubroutineInfo(
 		GetGLName(context.Program()),
 		context.Stage(),
 		index,
-		static_cast<GLsizei>(context.Buffer().size()),
+		GLsizei(context.Buffer().size()),
 		&strlen,
 		context.Buffer().data()
 	);
@@ -156,7 +156,7 @@ ActiveSubroutineUniformInfo::ActiveSubroutineUniformInfo(
 		GetGLName(context.Program()),
 		context.Stage(),
 		index,
-		static_cast<GLsizei>(context.Buffer().size()),
+		GLsizei(context.Buffer().size()),
 		&strlen,
 		context.Buffer().data()
 	);
@@ -229,7 +229,7 @@ ActiveUniformBlockInfo::ActiveUniformBlockInfo(
 	OGLPLUS_GLFUNC(GetActiveUniformBlockName)(
 		GetGLName(context.Program()),
 		index,
-		static_cast<GLsizei>(context.Buffer().size()),
+		GLsizei(context.Buffer().size()),
 		&strlen,
 		context.Buffer().data()
 	);
