@@ -384,10 +384,10 @@ public:
 	{
 		OGLPLUS_GLFUNC(ViewportIndexedf)(
 			viewport,
-			vp.X(),
-			vp.Y(),
-			vp.Width(),
-			vp.Height()
+			static_cast<GLfloat>(vp.X()),
+			static_cast<GLfloat>(vp.Y()),
+			static_cast<GLfloat>(vp.Width()),
+			static_cast<GLfloat>(vp.Height())
 		);
 		OGLPLUS_CHECK(
 			ViewportIndexedf,

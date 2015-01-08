@@ -204,7 +204,7 @@ GetImage(
 		level,
 		GLenum(format),
 		GLenum(dest.Type()),
-		dest.Size(),
+		static_cast<GLsizei>(dest.Size()),
 		dest.Addr()
 	);
 	OGLPLUS_CHECK(
@@ -245,7 +245,7 @@ GetCompressedImage(
 	OGLPLUS_GLFUNC(GetnCompressedTexImageARB)(
 		GLenum(target),
 		level,
-		dest.Size(),
+		static_cast<GLsizei>(dest.Size()),
 		dest.Addr()
 	);
 	OGLPLUS_CHECK(

@@ -948,7 +948,7 @@ public:
 		if(!names.empty())
 		{
 			prog.TransformFeedbackVaryings(
-				names.size(),
+				static_cast<GLsizei>(names.size()),
 				names.data(),
 				mode
 			);
