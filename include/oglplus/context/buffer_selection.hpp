@@ -56,7 +56,7 @@ public:
 	static void DrawBuffers(const EnumArray<ColorBuffer>& buffers)
 	{
 		OGLPLUS_GLFUNC(DrawBuffers)(
-			buffers.Count(),
+			static_cast<GLsizei>(buffers.Count()),
 			buffers.Values()
 		);
 		OGLPLUS_VERIFY_SIMPLE(DrawBuffers);

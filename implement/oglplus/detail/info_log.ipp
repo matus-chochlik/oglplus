@@ -39,7 +39,7 @@ String GetInfoLog(
 		std::vector<GLchar> buffer(length);
 		GetObjectInfoLog(
 			object_name,
-			buffer.size(),
+			static_cast<GLsizei>(buffer.size()),
 			&real_length,
 			buffer.data()
 		);

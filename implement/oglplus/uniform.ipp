@@ -64,7 +64,7 @@ GetType(ProgramName program, GLint /*location*/, StrCRef identifier)
 		OGLPLUS_GLFUNC(GetActiveUniform)(
 			GetGLName(program),
 			index,
-			buffer.size(),
+			static_cast<GLsizei>(buffer.size()),
 			&length,
 			&size,
 			&type,

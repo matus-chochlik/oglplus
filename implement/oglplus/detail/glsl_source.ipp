@@ -27,7 +27,7 @@ StrCRefsGLSLSrcWrap::StrCRefsGLSLSrcWrap(
 		assert(pptr != _ptrs.end());
 		assert(psize != _sizes.end());
 		*pptr = i->begin();
-		*psize = i->size();
+		*psize = static_cast<int>(i->size());
 		++i;
 		++pptr;
 		++psize;
@@ -124,7 +124,7 @@ OGLPLUS_LIB_FUNC
 InputStreamGLSLSrcWrap::InputStreamGLSLSrcWrap(std::istream& input)
  : _storage(_read_data(input, _check_and_get_size(input)))
  , _pdata(_storage.data())
- , _size(_storage.size())
+ , _size(static_cast<GLint>(_storage.size()))
 { }
 
 OGLPLUS_LIB_FUNC

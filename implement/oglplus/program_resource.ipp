@@ -51,7 +51,7 @@ ProgramResource::ProgramResource(
  , _interface(context.Interface())
  , _index(index)
 {
-	GLsizei bufsize = context.Buffer().size();
+	GLsizei bufsize = static_cast<GLsizei>(context.Buffer().size());
 	if(bufsize != 0)
 	{
 		GLsizei length = 0;

@@ -301,7 +301,7 @@ Binary(const std::vector<GLubyte>& binary, GLenum format)
 		_name,
 		format,
 		binary.data(),
-		binary.size()
+		static_cast<GLsizei>(binary.size())
 	);
 	OGLPLUS_CHECK(
 		ProgramBinary,
@@ -320,7 +320,7 @@ ShaderIterationContext::ShaderIterationContext(
 {
 	OGLPLUS_GLFUNC(GetAttachedShaders)(
 		name,
-		_shader_names.size(),
+		static_cast<GLsizei>(_shader_names.size()),
 		nullptr,
 		_shader_names.data()
 	);
