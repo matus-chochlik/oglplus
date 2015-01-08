@@ -534,7 +534,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(InvalidateFramebuffer)(
 			GLenum(target),
-			static_cast<GLsizei>( buffers.Count()),
+			GLsizei(buffers.Count()),
 			buffers.Values()
 		);
 		OGLPLUS_CHECK(
@@ -579,7 +579,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(InvalidateSubFramebuffer)(
 			GLenum(target),
-			static_cast<GLsizei>(buffers.Count()),
+			GLsizei(buffers.Count()),
 			buffers.Values(),
 			x,
 			y,
