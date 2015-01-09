@@ -22,9 +22,8 @@ ObjectOps<tag::DirectState, tag::Program>&
 ObjectOps<tag::DirectState, tag::Program>::
 AttachShader(ShaderName shader)
 {
-	assert(_name != 0);
 	OGLPLUS_GLFUNC(AttachShader)(
-		_name,
+		_obj_name(),
 		GetGLName(shader)
 	);
 	OGLPLUS_CHECK(
@@ -53,9 +52,8 @@ ObjectOps<tag::DirectState, tag::Program>&
 ObjectOps<tag::DirectState, tag::Program>::
 DetachShader(ShaderName shader)
 {
-	assert(_name != 0);
 	OGLPLUS_GLFUNC(DetachShader)(
-		_name,
+		_obj_name(),
 		GetGLName(shader)
 	);
 	OGLPLUS_CHECK(
@@ -72,8 +70,7 @@ ObjectOps<tag::DirectState, tag::Program>&
 ObjectOps<tag::DirectState, tag::Program>::
 Link(void)
 {
-	assert(_name != 0);
-	OGLPLUS_GLFUNC(LinkProgram)(_name);
+	OGLPLUS_GLFUNC(LinkProgram)(_obj_name());
 	OGLPLUS_CHECK(
 		LinkProgram,
 		ObjectError,
@@ -141,8 +138,7 @@ ObjectOps<tag::DirectState, tag::Program>&
 ObjectOps<tag::DirectState, tag::Program>::
 Validate(void)
 {
-	assert(_name != 0);
-	OGLPLUS_GLFUNC(ValidateProgram)(_name);
+	OGLPLUS_GLFUNC(ValidateProgram)(_obj_name());
 	OGLPLUS_VERIFY(
 		ValidateProgram,
 		ObjectError,
@@ -163,9 +159,8 @@ OGLPLUS_LIB_FUNC
 String ObjectOps<tag::DirectState, tag::Program>::
 GetInfoLog(void) const
 {
-	assert(_name != 0);
 	return aux::GetInfoLog(
-		_name,
+		_obj_name(),
 		OGLPLUS_GLFUNC(GetProgramiv),
 		OGLPLUS_GLFUNC(GetProgramInfoLog),
 		"GetProgramiv",
@@ -182,7 +177,7 @@ TransformFeedbackVaryings(
 )
 {
 	OGLPLUS_GLFUNC(TransformFeedbackVaryings)(
-		_name,
+		_obj_name(),
 		count,
 		varyings,
 		GLenum(mode)
@@ -212,7 +207,7 @@ TransformFeedbackVaryings(
 		++t;
 	}
 	OGLPLUS_GLFUNC(TransformFeedbackVaryings)(
-		_name,
+		_obj_name(),
 		GLsizei(tmp.size()),
 		tmp.data(),
 		GLenum(mode)
@@ -231,9 +226,8 @@ ObjectOps<tag::DirectState, tag::Program>&
 ObjectOps<tag::DirectState, tag::Program>::
 MakeSeparable(bool para)
 {
-	assert(_name != 0);
 	OGLPLUS_GLFUNC(ProgramParameteri)(
-		_name,
+		_obj_name(),
 		GL_PROGRAM_SEPARABLE,
 		para ? GL_TRUE : GL_FALSE
 	);
@@ -253,9 +247,8 @@ ObjectOps<tag::DirectState, tag::Program>&
 ObjectOps<tag::DirectState, tag::Program>::
 MakeRetrievable(bool para)
 {
-	assert(_name != 0);
 	OGLPLUS_GLFUNC(ProgramParameteri)(
-		_name,
+		_obj_name(),
 		GL_PROGRAM_BINARY_RETRIEVABLE_HINT,
 		para ? GL_TRUE : GL_FALSE
 	);
@@ -271,14 +264,13 @@ OGLPLUS_LIB_FUNC
 void ObjectOps<tag::DirectState, tag::Program>::
 GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
 {
-	assert(_name != 0);
 	GLint size = GetIntParam(GL_PROGRAM_BINARY_LENGTH);
 	if(size > 0)
 	{
 		GLsizei len = 0;
 		binary.resize(size);
 		OGLPLUS_GLFUNC(GetProgramBinary)(
-			_name,
+			_obj_name(),
 			size,
 			&len,
 			&format,
@@ -296,9 +288,8 @@ OGLPLUS_LIB_FUNC
 void ObjectOps<tag::DirectState, tag::Program>::
 Binary(const std::vector<GLubyte>& binary, GLenum format)
 {
-	assert(_name != 0);
 	OGLPLUS_GLFUNC(ProgramBinary)(
-		_name,
+		_obj_name(),
 		format,
 		binary.data(),
 		GLsizei(binary.size())
@@ -340,7 +331,7 @@ ActiveResourceContext(ProgramInterface intf) const
 	// get the maximum string length of the longest identifier
 	GLint length = 0;
 	OGLPLUS_GLFUNC(GetProgramInterfaceiv)(
-		_name,
+		_obj_name(),
 		GLenum(intf),
 		GL_MAX_NAME_LENGTH,
 		&length
@@ -350,7 +341,7 @@ ActiveResourceContext(ProgramInterface intf) const
 	// silently ignore it here
 	OGLPLUS_GLFUNC(GetError)();
 
-	return InterfaceContext(_name, length, GLenum(intf));
+	return InterfaceContext(_obj_name(), length, GLenum(intf));
 }
 
 OGLPLUS_LIB_FUNC
@@ -361,7 +352,7 @@ ActiveResources(ProgramInterface intf) const
 	// get the count of active attributes
 	GLint count = 0;
 	OGLPLUS_GLFUNC(GetProgramInterfaceiv)(
-		_name,
+		_obj_name(),
 		GLenum(intf),
 		GL_ACTIVE_RESOURCES,
 		&count
@@ -382,7 +373,7 @@ ObjectOps<tag::DirectState, tag::Program>::
 ActiveAttribContext(void) const
 {
 	return InterfaceContext(
-		_name,
+		_obj_name(),
 		GetIntParam(GL_ACTIVE_ATTRIBUTE_MAX_LENGTH)
 	);
 }
@@ -404,7 +395,7 @@ ObjectOps<tag::DirectState, tag::Program>::
 ActiveUniformContext(void) const
 {
 	return InterfaceContext(
-		_name,
+		_obj_name(),
 		GetIntParam(GL_ACTIVE_UNIFORM_MAX_LENGTH)
 	);
 }
@@ -427,7 +418,7 @@ ObjectOps<tag::DirectState, tag::Program>::
 ActiveSubroutineContext(ShaderType stage) const
 {
 	return InterfaceContext(
-		_name,
+		_obj_name(),
 		GetStageIntParam(
 			GLenum(stage),
 			GL_ACTIVE_SUBROUTINE_MAX_LENGTH
@@ -456,7 +447,7 @@ ObjectOps<tag::DirectState, tag::Program>::
 ActiveSubroutineUniformContext(ShaderType stage) const
 {
 	return InterfaceContext(
-		_name,
+		_obj_name(),
 		GetStageIntParam(
 			GLenum(stage),
 			GL_ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH
@@ -486,7 +477,7 @@ ObjectOps<tag::DirectState, tag::Program>::
 TransformFeedbackVaryingContext(void) const
 {
 	return InterfaceContext(
-		_name,
+		_obj_name(),
 		GetIntParam(GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH)
 	);
 }
@@ -509,7 +500,7 @@ AttachedShaders(void) const
 {
 	GLint count = GetIntParam(GL_ATTACHED_SHADERS);
 	return ShaderRange(
-		ShaderIterationContext(_name, count),
+		ShaderIterationContext(_obj_name(), count),
 		0, count
 	);
 }
@@ -528,7 +519,7 @@ ActiveUniformBlocks(void) const
 		length = GetIntParam(GL_UNIFORM_BLOCK_NAME_LENGTH);
 	}
 	return ActiveUniformBlockRange(
-		aux::ProgramInterfaceContext(_name, length),
+		aux::ProgramInterfaceContext(_obj_name(), length),
 		0, count
 	);
 }

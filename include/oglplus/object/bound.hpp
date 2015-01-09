@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -33,11 +33,14 @@ public:
 
 template <typename ObjTag>
 class ObjectOps<tag::CurrentBound, ObjTag>
- : public ObjCommonOps<ObjTag>
+ : public ObjZeroOps<tag::CurrentBound, ObjTag>
  , public BoundObjOps<ObjTag>
 {
 protected:
-	ObjectOps(void) { }
+	ObjectOps(ObjectName<ObjTag> name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::CurrentBound, ObjTag>(name)
+	{ }
 public:
 	typedef typename BoundObjOps<ObjTag>::Target Target;
 };
@@ -50,13 +53,16 @@ private:
 	typedef ObjectOps<tag::CurrentBound, ObjTag> Base;
 public:
 	Reference(void)
-	{
-		this->_copy(ObjBindingOps<ObjTag>::Binding());
-	}
+	 : ObjectOps<tag::CurrentBound, ObjTag>(
+		ObjBindingOps<ObjTag>::Binding()
+	)
+	{ }
 
 	Reference(typename Base::Target init_tgt)
+	 : ObjectOps<tag::CurrentBound, ObjTag>(
+		ObjBindingOps<ObjTag>::Binding(init_tgt)
+	)
 	{
-		this->_copy(ObjBindingOps<ObjTag>::Binding(init_tgt));
 		this->target = init_tgt;
 	}
 };

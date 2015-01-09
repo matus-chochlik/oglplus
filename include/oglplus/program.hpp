@@ -135,7 +135,10 @@ class ObjCommonOps<tag::Program>
  , public ObjBindingOps<tag::Program>
 {
 protected:
-	ObjCommonOps(void){ }
+	ObjCommonOps(ProgramName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ProgramName(name)
+	{ }
 public:
 	using ObjBindingOps<tag::Program>::Bind;
 
@@ -177,12 +180,15 @@ class ObjectOps<tag::DirectState, tag::Program>
  : public ObjZeroOps<tag::DirectState, tag::Program>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(ProgramName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectState, tag::Program>(name)
+	{ }
 public:
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result;
-		OGLPLUS_GLFUNC(GetProgramiv)(_name, query, &result);
+		OGLPLUS_GLFUNC(GetProgramiv)(_obj_name(), query, &result);
 		OGLPLUS_VERIFY(
 			GetProgramiv,
 			ObjectError,
@@ -196,7 +202,7 @@ public:
 	GLint GetStageIntParam(GLenum stage, GLenum query) const
 	{
 		GLint result;
-		OGLPLUS_GLFUNC(GetProgramStageiv)(_name, stage, query, &result);
+		OGLPLUS_GLFUNC(GetProgramStageiv)(_obj_name(), stage, query, &result);
 		OGLPLUS_VERIFY(
 			GetProgramStageiv,
 			ObjectError,
@@ -835,7 +841,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(BindAttribLocation)(
-			_name,
+			_obj_name(),
 			GLuint(vertex_attrib_slot),
 			identifier.c_str()
 		);

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -25,6 +25,12 @@ namespace tag {
 struct ObjectName;
 
 } // namespace tag
+
+template <typename ObjTag, typename NameHolder>
+class ObjectTpl;
+
+template <typename ObjTag>
+class ObjHandle;
 
 template <typename ObjTag>
 class ObjectName;
@@ -49,8 +55,31 @@ class ObjectName
 protected:
 	typedef typename ObjTag::NameType NameT;
 
+private:
 	friend NameT GetName<ObjTag>(ObjectName);
 	NameT _name;
+protected:
+
+	inline	
+	NameT _obj_name(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _name;
+	}
+
+	inline
+	NameT* _name_ptr(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return &_name;
+	}
+
+	inline
+	const NameT* _name_ptr(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return &_name;
+	}
 
 	void _copy(const ObjectName& that)
 	OGLPLUS_NOEXCEPT(true)
@@ -62,13 +91,27 @@ protected:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		_name = temp._name;
-		temp._name = 0;
+		temp._name = _invalid_name();
+	}
+
+	static inline 
+	NameT _invalid_name(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ~NameT(0);
 	}
 public:
-	/// Constructs wrapper for name 0 (zero).
+	static
+	ObjectName InvalidName(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ObjectName(_invalid_name());
+	}
+
+	/// Constructs uninitialized (invalid) name TODO 
 	ObjectName(void)
 	OGLPLUS_NOEXCEPT(true)
-	 : _name(NameT(0))
+	 : _name(_invalid_name())
 	{ }
 
 	/// Constructs wrapper for the specified @p name.
@@ -86,7 +129,7 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	 : _name(temp._name)
 	{
-		temp._name = 0;
+		temp._name = _invalid_name();
 	}
 
 	ObjectName& operator = (const ObjectName& that)
@@ -101,6 +144,13 @@ public:
 	{
 		_adopt(std::move(temp));
 		return *this;
+	}
+
+	/// Returns true if the object name is initialized, false otherwise
+	bool IsInitialized(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return this->_name != _invalid_name();
 	}
 
 	/// Equality comparison

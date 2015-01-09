@@ -40,7 +40,7 @@ namespace tag {
 
 using oglplus::tag::Generate;
 
-} // namespace tags
+} // namespace tag
 } // namespace oalplus
 
 #endif // include guard

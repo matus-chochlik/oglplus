@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -29,7 +29,10 @@ class ObjectOps<tag::DirectStateEXT, tag::Framebuffer>
  : public ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(FramebufferName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer>(name)
+	{ }
 public:
 	/// Used as the default value for functions taking Target arguments
 	Target target;
@@ -70,7 +73,7 @@ public:
 	FramebufferStatus Status(Target fbo_target) const
 	{
 		GLenum result = OGLPLUS_GLFUNC(CheckNamedFramebufferStatusEXT)(
-			_name,
+			_obj_name(),
 			GLenum(fbo_target)
 		);
 		if(result == 0) OGLPLUS_CHECK(
@@ -141,7 +144,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferRenderbufferEXT)(
-			_name,
+			_obj_name(),
 			GLenum(attachment),
 			GL_RENDERBUFFER,
 			GetGLName(renderbuffer)
@@ -173,7 +176,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferRenderbufferEXT)(
-			_name,
+			_obj_name(),
 			GL_COLOR_ATTACHMENT0 + GLuint(attachment_no),
 			GL_RENDERBUFFER,
 			GetGLName(renderbuffer)
@@ -207,7 +210,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTextureEXT)(
-			_name,
+			_obj_name(),
 			GLenum(attachment),
 			GetGLName(texture),
 			level
@@ -241,7 +244,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTextureEXT)(
-			_name,
+			_obj_name(),
 			GL_COLOR_ATTACHMENT0 + GLenum(attachment_no),
 			GetGLName(texture),
 			level
@@ -277,7 +280,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTexture1DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(attachment),
 			GLenum(textarget),
 			GetGLName(texture),
@@ -313,7 +316,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTexture2DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(attachment),
 			GLenum(textarget),
 			GetGLName(texture),
@@ -350,7 +353,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTexture3DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(attachment),
 			GLenum(textarget),
 			GetGLName(texture),
@@ -387,7 +390,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTextureLayerEXT)(
-			_name,
+			_obj_name(),
 			GLenum(attachment),
 			GetGLName(texture),
 			level,
@@ -419,7 +422,7 @@ public:
 	void DrawBuffer(ColorBuffer buffer)
 	{
 		OGLPLUS_GLFUNC(FramebufferDrawBufferEXT)(
-			_name,
+			_obj_name(),
 			GLenum(buffer)
 		);
 		OGLPLUS_VERIFY(
@@ -438,7 +441,7 @@ public:
 	void DrawBuffers(const EnumArray<ColorBuffer>& buffers)
 	{
 		OGLPLUS_GLFUNC(FramebufferDrawBuffersEXT)(
-			_name,
+			_obj_name(),
 			buffers.Count(),
 			buffers.Values()
 		);
@@ -456,7 +459,10 @@ public:
 	 */
 	void ReadBuffer(ColorBuffer buffer)
 	{
-		OGLPLUS_GLFUNC(FramebufferReadBufferEXT)(_name, GLenum(buffer));
+		OGLPLUS_GLFUNC(FramebufferReadBufferEXT)(
+			_obj_name(),
+			GLenum(buffer)
+		);
 		OGLPLUS_VERIFY(
 			FramebufferReadBufferEXT,
 			ObjectError,

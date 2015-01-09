@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -28,7 +28,10 @@ class ObjZeroOps<tag::DirectStateEXT, tag::Texture>
  : public ObjCommonOps<tag::Texture>
 {
 protected:
-	ObjZeroOps(void) { }
+	ObjZeroOps(TextureName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjCommonOps<tag::Texture>(name)
+	{ }
 public:
 	Target target;
 
@@ -83,11 +86,10 @@ public:
 	/// Bind this texture to target on the specified texture unit
 	void BindMulti(TextureUnitSelector index, Target tex_target)
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindMultiTextureEXT)(
 			GLenum(GL_TEXTURE0 + GLuint(index)),
 			GLenum(tex_target),
-			_name
+			_obj_name()
 		);
 		OGLPLUS_VERIFY(
 			BindMultiTextureEXT,
@@ -519,7 +521,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(TextureImage3DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -571,7 +573,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(TextureSubImage3DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			xoffs,
@@ -625,7 +627,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(TextureImage2DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(tex_target),
 			level,
 			GLint(internal_format),
@@ -724,7 +726,7 @@ public:
 	{
 		assert(face <= 5);
 		OGLPLUS_GLFUNC(TextureImage2DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face),
 			level,
 			GLint(internal_format),
@@ -792,7 +794,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(TextureSubImage2DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			xoffs,
@@ -841,7 +843,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(TextureImage1DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -887,7 +889,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(TextureSubImage1DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			xoffs,
@@ -993,7 +995,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(CopyTextureImage2DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -1028,7 +1030,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(CopyTextureImage1DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -1064,7 +1066,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(CopyTextureSubImage3DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			xoffs,
@@ -1100,7 +1102,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(CopyTextureSubImage2DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			xoffs,
@@ -1133,7 +1135,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(CopyTextureSubImage1DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			xoffs,
@@ -1167,7 +1169,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(CompressedTextureImage3DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -1204,7 +1206,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(CompressedTextureImage2DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -1239,7 +1241,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(CompressedTextureImage1DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -1277,7 +1279,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(CompressedTextureSubImage3DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			xoffs,
@@ -1317,7 +1319,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(CompressedTextureSubImage2DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			xoffs,
@@ -1353,7 +1355,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(CompressedTextureSubImage1DEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			level,
 			xoffs,
@@ -1385,7 +1387,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(TextureBufferEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GLenum(internal_format),
 			GetGLName(buffer)
@@ -1421,7 +1423,7 @@ public:
 	ObjZeroOps& BaseLevel(GLuint level)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_BASE_LEVEL,
 			level
@@ -1445,7 +1447,7 @@ public:
 	{
 		GLfloat result[4];
 		OGLPLUS_GLFUNC(GetTextureParameterfvEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
 			result
@@ -1467,7 +1469,7 @@ public:
 	ObjZeroOps& BorderColor(Vector<GLfloat, 4> color)
 	{
 		OGLPLUS_GLFUNC(TextureParameterfvEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
@@ -1490,7 +1492,7 @@ public:
 	{
 		GLint result[4];
 		OGLPLUS_GLFUNC(GetTextureParameterIivEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
 			result
@@ -1512,7 +1514,7 @@ public:
 	ObjZeroOps& BorderColor(Vector<GLint, 4> color)
 	{
 		OGLPLUS_GLFUNC(TextureParameterIivEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
@@ -1535,7 +1537,7 @@ public:
 	{
 		GLuint result[4];
 		OGLPLUS_GLFUNC(GetTextureParameterIuivEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
 			result
@@ -1557,7 +1559,7 @@ public:
 	ObjZeroOps& BorderColor(Vector<GLuint, 4> color)
 	{
 		OGLPLUS_GLFUNC(TextureParameterIuivEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
@@ -1592,7 +1594,7 @@ public:
 	ObjZeroOps& CompareMode(TextureCompareMode mode)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_COMPARE_MODE,
 			GLenum(mode)
@@ -1628,7 +1630,7 @@ public:
 	ObjZeroOps& CompareFunc(CompareFunction func)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_COMPARE_FUNC,
 			GLenum(func)
@@ -1662,7 +1664,7 @@ public:
 	ObjZeroOps& LODBias(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(TextureParameterfEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_LOD_BIAS,
 			value
@@ -1685,7 +1687,7 @@ public:
 	ObjZeroOps& Filter(TextureFilter filter)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_MIN_FILTER,
 			GLenum(filter)
@@ -1697,7 +1699,7 @@ public:
 			EnumParam(filter)
 		);
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_MAG_FILTER,
 			GLenum(filter)
@@ -1733,7 +1735,7 @@ public:
 	ObjZeroOps& MagFilter(TextureMagFilter filter)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_MAG_FILTER,
 			GLenum(filter)
@@ -1769,7 +1771,7 @@ public:
 	ObjZeroOps& MinFilter(TextureMinFilter filter)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_MIN_FILTER,
 			GLenum(filter)
@@ -1803,7 +1805,7 @@ public:
 	ObjZeroOps& MinLOD(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(TextureParameterfEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_MIN_LOD,
 			value
@@ -1836,7 +1838,7 @@ public:
 	ObjZeroOps& MaxLOD(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(TextureParameterfEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_MAX_LOD,
 			value
@@ -1869,7 +1871,7 @@ public:
 	ObjZeroOps& MaxLevel(GLint value)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_MAX_LEVEL,
 			value
@@ -1922,7 +1924,7 @@ public:
 	{
 #ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
 		OGLPLUS_GLFUNC(TextureParameterfEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_MAX_ANISOTROPY_EXT,
 			value
@@ -1964,7 +1966,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GLenum(coord),
 			GLenum(mode)
@@ -2085,7 +2087,7 @@ public:
 	{
 		TextureSwizzleTuple result;
 		OGLPLUS_GLFUNC(GetTextureParameterivEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_SWIZZLE_RGBA,
 			result.Values()
@@ -2110,7 +2112,7 @@ public:
 		GLint m = GLint(GLenum(mode));
 		GLint params[4] = {m, m, m, m};
 		OGLPLUS_GLFUNC(TextureParameterivEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_SWIZZLE_RGBA,
 			params
@@ -2145,7 +2147,7 @@ public:
 			GLint(GLenum(mode_a))
 		};
 		OGLPLUS_GLFUNC(TextureParameterivEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_SWIZZLE_RGBA,
 			params
@@ -2168,7 +2170,7 @@ public:
 	ObjZeroOps& SwizzleRGBA(const TextureSwizzleTuple& modes)
 	{
 		OGLPLUS_GLFUNC(TextureParameterivEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_SWIZZLE_RGBA,
 			modes.Values()
@@ -2203,7 +2205,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GLenum(coord),
 			GLenum(mode)
@@ -2308,7 +2310,7 @@ public:
 	ObjZeroOps& DepthStencilMode(PixelDataFormat mode)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GL_DEPTH_STENCIL_TEXTURE_MODE,
 			GLenum(mode)
@@ -2345,7 +2347,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			GLenum(target),
-			_name,
+			_obj_name(),
 			GL_TEXTURE_CUBE_MAP_SEAMLESS,
 			enable?GL_TRUE:GL_FALSE
 		);
@@ -2366,7 +2368,7 @@ public:
 	ObjZeroOps& GenerateMipmap(void)
 	{
 		OGLPLUS_GLFUNC(GenerateTextureMipmapEXT)(
-			_name,
+			_obj_name(),
 			GLenum(target)
 		);
 		OGLPLUS_CHECK(
@@ -2392,7 +2394,10 @@ class ObjectOps<tag::DirectStateEXT, tag::Texture>
  : public ObjZeroOps<tag::DirectStateEXT, tag::Texture>
 {
 protected:
-	ObjectOps(void) { }
+	ObjectOps(TextureName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectStateEXT, tag::Texture>(name)
+	{ }
 };
 
 /// Texture operations with direct state access

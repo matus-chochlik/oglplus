@@ -89,8 +89,12 @@ class ObjCommonOps<tag::Shader>
  : public ShaderName
 {
 protected:
-	ObjCommonOps(void) { }
+	ObjCommonOps(ShaderName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ShaderName(name)
+	{ }
 
+public:
 #if OGLPLUS_DOCUMENTATION_ONLY || \
 	GL_ES_VERSION_3_0 || \
 	GL_VERSION_4_1 || \
@@ -124,10 +128,13 @@ protected:
  */
 template <>
 class ObjectOps<tag::DirectState, tag::Shader>
- : public ObjCommonOps<tag::Shader>
+ : public ObjZeroOps<tag::DirectState, tag::Shader>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(ShaderName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectState, tag::Shader>(name)
+	{ }
 public:
 	/// Types related to Shader
 	struct Property
@@ -146,7 +153,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetShaderiv)(
-			_name,
+			_obj_name(),
 			GL_SHADER_TYPE,
 			&result
 		);
@@ -169,9 +176,8 @@ public:
 		const GLint* lens
 	)
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(ShaderSource)(
-			_name,
+			_obj_name(),
 			count,
 			const_cast<const GLchar**>(srcs),
 			lens
@@ -230,9 +236,12 @@ public:
 	 */
 	bool IsCompiled(void) const
 	{
-		assert(_name != 0);
 		int status;
-		OGLPLUS_GLFUNC(GetShaderiv)(_name, GL_COMPILE_STATUS, &status);
+		OGLPLUS_GLFUNC(GetShaderiv)(
+			_obj_name(),
+			GL_COMPILE_STATUS,
+			&status
+		);
 		OGLPLUS_VERIFY(
 			GetShaderiv,
 			ObjectError,
