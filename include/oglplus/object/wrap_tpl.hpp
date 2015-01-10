@@ -223,8 +223,13 @@ public:
 	/// Objects are move-assignable
 	ObjectTpl& operator = (ObjectTpl&& temp)
 	{
-		_cleanup();
-		NameHolder::operator = (static_cast<NameHolder&&>(temp));
+		if(this != &temp)
+		{
+			_cleanup();
+			NameHolder::operator = (
+				static_cast<NameHolder&&>(temp)
+			);
+		}
 		return *this;
 	}
 
