@@ -35,6 +35,7 @@ class ObjectOps<tag::DirectState, tag::TransformFeedback>
  : public ObjZeroOps<tag::DirectState, tag::TransformFeedback>
 {
 protected:
+	constexpr inline
 	ObjectOps(TransformFeedbackName name)
 	noexcept
 	 : ObjZeroOps<tag::DirectState, tag::TransformFeedback>(name)

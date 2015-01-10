@@ -89,6 +89,7 @@ class ObjCommonOps<tag::Shader>
  : public ShaderName
 {
 protected:
+	constexpr inline
 	ObjCommonOps(ShaderName name)
 	noexcept
 	 : ShaderName(name)
@@ -131,6 +132,7 @@ class ObjectOps<tag::DirectState, tag::Shader>
  : public ObjZeroOps<tag::DirectState, tag::Shader>
 {
 protected:
+	constexpr inline
 	ObjectOps(ShaderName name)
 	noexcept
 	 : ObjZeroOps<tag::DirectState, tag::Shader>(name)

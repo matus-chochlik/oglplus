@@ -280,6 +280,7 @@ class ObjCommonOps<tag::Buffer>
  , public ObjBindingOps<tag::Buffer>
 {
 protected:
+	constexpr inline
 	ObjCommonOps(BufferName name)
 	noexcept
 	 : BufferName(name)
@@ -437,6 +438,7 @@ class ObjectOps<tag::ExplicitSel, tag::Buffer>
  : public ObjZeroOps<tag::ExplicitSel, tag::Buffer>
 {
 protected:
+	constexpr inline
 	ObjectOps(BufferName name)
 	noexcept
 	 : ObjZeroOps<tag::ExplicitSel, tag::Buffer>(name)

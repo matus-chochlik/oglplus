@@ -34,6 +34,7 @@ class ObjectOps<tag::DirectState, tag::Texture>
  : public ObjZeroOps<tag::DirectState, tag::Texture>
 {
 protected:
+	constexpr inline
 	ObjectOps(TextureName name)
 	noexcept
 	 : ObjZeroOps<tag::DirectState, tag::Texture>(name)

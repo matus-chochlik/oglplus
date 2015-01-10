@@ -116,6 +116,7 @@ class ObjCommonOps<tag::VertexArray>
  , public ObjBindingOps<tag::VertexArray>
 {
 protected:
+	constexpr inline
 	ObjCommonOps(VertexArrayName name)
 	noexcept
 	 : VertexArrayName(name)

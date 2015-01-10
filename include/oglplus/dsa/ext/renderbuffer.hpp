@@ -28,6 +28,7 @@ class ObjectOps<tag::DirectStateEXT, tag::Renderbuffer>
  : public ObjZeroOps<tag::DirectStateEXT, tag::Renderbuffer>
 {
 protected:
+	constexpr inline
 	ObjectOps(RenderbufferName name)
 	noexcept
 	 : ObjZeroOps<tag::DirectStateEXT, tag::Renderbuffer>(name)

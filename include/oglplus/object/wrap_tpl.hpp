@@ -59,6 +59,7 @@ class ObjCommonOps
  : public ObjectName<ObjTag>
 {
 protected:
+	constexpr inline
 	ObjCommonOps(ObjectName<ObjTag> name)
 	noexcept
 	 : ObjectName<ObjTag>(name)
@@ -71,6 +72,7 @@ class ObjZeroOps
  : public ObjCommonOps<ObjTag>
 {
 protected:
+	constexpr inline
 	ObjZeroOps(ObjectName<ObjTag> name)
 	noexcept
 	 : ObjCommonOps<ObjTag>(name)
@@ -88,6 +90,7 @@ class ObjectZero<ObjZeroOps<OpsTag, ObjTag>>
 {
 public:
 	/// ObjectZero is default constructible
+	constexpr inline
 	ObjectZero(void)
 	noexcept
 	 : ObjZeroOps<OpsTag, ObjTag>(ObjectName<ObjTag>(0))
@@ -100,6 +103,7 @@ class ObjectOps
  : public ObjZeroOps<OpsTag, ObjTag>
 {
 protected:
+	constexpr inline
 	ObjectOps(ObjectName<ObjTag> name)
 	noexcept
 	 : ObjZeroOps<OpsTag, ObjTag>(name)

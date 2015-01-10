@@ -29,9 +29,11 @@ class ObjectOps<tag::DirectStateEXT, tag::Framebuffer>
  : public ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer>
 {
 protected:
+	constexpr inline
 	ObjectOps(FramebufferName name)
 	noexcept
 	 : ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer>(name)
+	 , target(FramebufferTarget())
 	{ }
 public:
 	/// Used as the default value for functions taking Target arguments

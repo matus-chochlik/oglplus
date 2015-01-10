@@ -121,6 +121,7 @@ class ObjCommonOps<tag::Renderbuffer>
  , public ObjBindingOps<tag::Renderbuffer>
 {
 protected:
+	constexpr inline
 	ObjCommonOps(RenderbufferName name)
 	noexcept
 	 : RenderbufferName(name)
@@ -147,6 +148,7 @@ class ObjectOps<tag::ExplicitSel, tag::Renderbuffer>
  : public ObjZeroOps<tag::ExplicitSel, tag::Renderbuffer>
 {
 protected:
+	constexpr inline
 	ObjectOps(RenderbufferName name)
 	noexcept
 	 : ObjZeroOps<tag::ExplicitSel, tag::Renderbuffer>(name)

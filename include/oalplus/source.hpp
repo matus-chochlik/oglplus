@@ -75,6 +75,7 @@ class ObjectOps<tag::DirectState, tag::Source>
  : public SourceName
 {
 protected:
+	constexpr inline
 	ObjectOps(SourceName name)
 	noexcept
 	 : SourceName(name)

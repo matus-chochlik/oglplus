@@ -34,6 +34,7 @@ class ObjectOps<tag::DirectState, tag::Renderbuffer>
  : public ObjZeroOps<tag::DirectState, tag::Renderbuffer>
 {
 protected:
+	constexpr inline
 	ObjectOps(RenderbufferName name)
 	noexcept
 	 : ObjZeroOps<tag::DirectState, tag::Renderbuffer>(name)

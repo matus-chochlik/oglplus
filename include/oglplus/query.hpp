@@ -97,6 +97,7 @@ class ObjectOps<tag::DirectState, tag::Query>
  : public ObjZeroOps<tag::DirectState, tag::Query>
 {
 protected:
+	constexpr inline
 	ObjectOps(QueryName name)
 	noexcept
 	 : ObjZeroOps<tag::DirectState, tag::Query>(name)

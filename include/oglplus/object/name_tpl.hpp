@@ -111,8 +111,8 @@ public:
 		return ObjectName(_invalid_name());
 	}
 
-	/// Constructs wrapper for name 0 (zero).
-	constexpr
+	/// Constructs uninitialized (invalid) name wrapper
+	constexpr inline
 	ObjectName(void)
 	noexcept
 	 : _name(_invalid_name())

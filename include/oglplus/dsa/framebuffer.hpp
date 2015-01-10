@@ -35,6 +35,7 @@ class ObjectOps<tag::DirectState, tag::Framebuffer>
  : public ObjZeroOps<tag::DirectState, tag::Framebuffer>
 {
 protected:
+	constexpr inline
 	ObjectOps(FramebufferName name)
 	noexcept
 	 : ObjZeroOps<tag::DirectState, tag::Framebuffer>(name)

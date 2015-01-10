@@ -30,6 +30,7 @@ class ObjectOps<tag::DirectStateEXT, tag::VertexArray>
  : public ObjZeroOps<tag::DirectStateEXT, tag::VertexArray>
 {
 protected:
+	constexpr inline
 	ObjectOps(VertexArrayName name)
 	noexcept
 	 : ObjZeroOps<tag::DirectStateEXT, tag::VertexArray>(name)

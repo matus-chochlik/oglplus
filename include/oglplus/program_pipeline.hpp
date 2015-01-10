@@ -125,6 +125,7 @@ class ObjCommonOps<tag::ProgramPipeline>
  , public ObjBindingOps<tag::ProgramPipeline>
 {
 protected:
+	constexpr inline
 	ObjCommonOps(ProgramPipelineName name)
 	noexcept
 	 : ProgramPipelineName(name)
@@ -151,6 +152,7 @@ class ObjectOps<tag::DirectState, tag::ProgramPipeline>
  : public ObjZeroOps<tag::DirectState, tag::ProgramPipeline>
 {
 protected:
+	constexpr inline
 	ObjectOps(ProgramPipelineName name)
 	noexcept
 	 : ObjZeroOps<tag::DirectState, tag::ProgramPipeline>(name)

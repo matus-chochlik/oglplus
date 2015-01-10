@@ -71,6 +71,7 @@ class ObjectOps<tag::DirectState, tag::Buffer>
  : public BufferName
 {
 protected:
+	constexpr inline
 	ObjectOps(BufferName name)
 	noexcept
 	 : BufferName(name)

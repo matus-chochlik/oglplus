@@ -128,6 +128,7 @@ class ObjCommonOps<tag::Framebuffer>
  , public ObjBindingOps<tag::Framebuffer>
 {
 protected:
+	constexpr inline
 	ObjCommonOps(FramebufferName name)
 	noexcept
 	 : FramebufferName(name)
@@ -154,6 +155,7 @@ class ObjectOps<tag::ExplicitSel, tag::Framebuffer>
  : public ObjZeroOps<tag::ExplicitSel, tag::Framebuffer>
 {
 protected:
+	constexpr inline
 	ObjectOps(FramebufferName name)
 	noexcept
 	 : ObjZeroOps<tag::ExplicitSel, tag::Framebuffer>(name)

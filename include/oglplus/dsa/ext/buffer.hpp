@@ -29,6 +29,7 @@ class ObjectOps<tag::DirectStateEXT, tag::Buffer>
  : public ObjZeroOps<tag::DirectStateEXT, tag::Buffer>
 {
 protected:
+	constexpr inline
 	ObjectOps(BufferName name)
 	noexcept
 	 : ObjZeroOps<tag::DirectStateEXT, tag::Buffer>(name)

@@ -28,9 +28,11 @@ class ObjZeroOps<tag::DirectStateEXT, tag::Texture>
  : public ObjCommonOps<tag::Texture>
 {
 protected:
+	constexpr inline
 	ObjZeroOps(TextureName name)
 	noexcept
 	 : ObjCommonOps<tag::Texture>(name)
+	 , target(TextureTarget())
 	{ }
 public:
 	Target target;
@@ -2394,6 +2396,7 @@ class ObjectOps<tag::DirectStateEXT, tag::Texture>
  : public ObjZeroOps<tag::DirectStateEXT, tag::Texture>
 {
 protected:
+	constexpr inline
 	ObjectOps(TextureName name)
 	noexcept
 	 : ObjZeroOps<tag::DirectStateEXT, tag::Texture>(name)

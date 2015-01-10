@@ -257,6 +257,7 @@ class ObjCommonOps<tag::TransformFeedback>
 #endif
 {
 protected:
+	constexpr inline
 	ObjCommonOps(TransformFeedbackName name)
 	noexcept
 	 : TransformFeedbackName(name)
@@ -386,6 +387,7 @@ class ObjectOps<OpsTag, tag::TransformFeedback>
  : public ObjZeroOps<OpsTag, tag::TransformFeedback>
 {
 protected:
+	constexpr inline
 	ObjectOps(TransformFeedbackName name)
 	noexcept
 	 : ObjZeroOps<OpsTag, tag::TransformFeedback>(name)

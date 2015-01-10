@@ -257,6 +257,7 @@ class ObjCommonOps<tag::Texture>
  , public ObjBindingOps<tag::Texture>
 {
 protected:
+	constexpr inline
 	ObjCommonOps(TextureName name)
 	noexcept
 	 : TextureName(name)
@@ -524,6 +525,7 @@ class ObjZeroOps<tag::ExplicitSel, tag::Texture>
  : public ObjCommonOps<tag::Texture>
 {
 protected:
+	constexpr inline
 	ObjZeroOps(TextureName name)
 	noexcept
 	 : ObjCommonOps<tag::Texture>(name)
@@ -2996,6 +2998,7 @@ class ObjectOps<tag::ExplicitSel, tag::Texture>
  : public ObjZeroOps<tag::ExplicitSel, tag::Texture>
 {
 protected:
+	constexpr inline
 	ObjectOps(TextureName name)
 	noexcept
 	 : ObjZeroOps<tag::ExplicitSel, tag::Texture>(name)

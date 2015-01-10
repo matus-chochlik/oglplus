@@ -160,6 +160,7 @@ class ObjCommonOps<tag::Sampler>
  , public ObjBindingOps<tag::Sampler>
 {
 protected:
+	constexpr inline
 	ObjCommonOps(SamplerName name)
 	noexcept
 	 : SamplerName(name)
@@ -186,6 +187,7 @@ class ObjectOps<tag::DirectState, tag::Sampler>
  : public ObjZeroOps<tag::DirectState, tag::Sampler>
 {
 protected:
+	constexpr inline
 	ObjectOps(SamplerName name)
 	noexcept
 	 : ObjZeroOps<tag::DirectState, tag::Sampler>(name)
