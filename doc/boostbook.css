@@ -74,6 +74,7 @@ div.calloutlist
 	font-size: 75%;
 }
 
+div.section,
 div.section > h2,
 div.section > h3,
 div.section > h4,
@@ -82,6 +83,7 @@ div.section > p
 	clear: both;
 }
 
+div.section + div.section,
 div.section > h2,
 div.section > h3,
 div.section > h4
