@@ -60,7 +60,7 @@ private:
 	NameT _name;
 protected:
 
-	inline	
+	inline
 	NameT _obj_name(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -81,20 +81,7 @@ protected:
 		return &_name;
 	}
 
-	void _copy(const ObjectName& that)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_name = that._name;
-	}
-
-	void _adopt(ObjectName&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_name = temp._name;
-		temp._name = _invalid_name();
-	}
-
-	static inline 
+	static inline
 	NameT _invalid_name(void)
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -108,7 +95,7 @@ public:
 		return ObjectName(_invalid_name());
 	}
 
-	/// Constructs uninitialized (invalid) name TODO 
+	/// Constructs uninitialized (invalid) name wrapper
 	ObjectName(void)
 	OGLPLUS_NOEXCEPT(true)
 	 : _name(_invalid_name())
@@ -135,14 +122,18 @@ public:
 	ObjectName& operator = (const ObjectName& that)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		_copy(that);
+		_name = that._name;
 		return *this;
 	}
 
 	ObjectName& operator = (ObjectName&& temp)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		_adopt(std::move(temp));
+		if(this != &temp)
+		{
+			_name = temp._name;
+			temp._name = _invalid_name();
+		}
 		return *this;
 	}
 
