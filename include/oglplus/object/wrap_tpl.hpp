@@ -235,6 +235,7 @@ public:
 			NameHolder::operator = (
 				static_cast<NameHolder&&>(temp)
 			);
+		}
 		return *this;
 	}
 
