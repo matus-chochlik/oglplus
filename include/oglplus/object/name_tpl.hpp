@@ -84,19 +84,6 @@ protected:
 		return &_name;
 	}
 
-	void _copy(const ObjectName& that)
-	noexcept
-	{
-		_name = that._name;
-	}
-
-	void _adopt(ObjectName&& temp)
-	noexcept
-	{
-		_name = temp._name;
-		temp._name = _invalid_name();
-	}
-
 	static inline
 	NameT _invalid_name(void)
 	noexcept
@@ -141,14 +128,18 @@ public:
 	ObjectName& operator = (const ObjectName& that)
 	noexcept
 	{
-		_copy(that);
+		_name = that._name;
 		return *this;
 	}
 
 	ObjectName& operator = (ObjectName&& temp)
 	noexcept
 	{
-		_adopt(std::move(temp));
+		if(this != &temp)
+		{
+			_name = temp._name;
+			temp._name = _invalid_name();
+		}
 		return *this;
 	}
 

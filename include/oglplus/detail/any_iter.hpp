@@ -147,14 +147,20 @@ public:
 
 	AnyInputIter& operator = (const AnyInputIter& that)
 	{
-		_pimpl.reset(that._clone());
+		if(this != &that)
+		{
+			_pimpl.reset(that._clone());
+		}
 		return *this;
 	}
 
 	AnyInputIter& operator = (AnyInputIter&& tmp)
 	noexcept
 	{
-		_pimpl = std::move(tmp._pimpl);
+		if(this != &tmp)
+		{
+			_pimpl = std::move(tmp._pimpl);
+		}
 		return *this;
 	}
 

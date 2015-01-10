@@ -116,25 +116,31 @@ public:
 	AlignedPODArray& operator = (AlignedPODArray&& tmp)
 	noexcept
 	{
-		try {_cleanup(); }
-		catch (...) { }
-		_count = tmp._count;
-		_sizeof = tmp._sizeof;
-		_data = tmp._release_data();
-		_delete = tmp._delete;
-		_dup = tmp._dup;
+		if(this != &tmp)
+		{
+			try {_cleanup(); }
+			catch (...) { }
+			_count = tmp._count;
+			_sizeof = tmp._sizeof;
+			_data = tmp._release_data();
+			_delete = tmp._delete;
+			_dup = tmp._dup;
+		}
 		return *this;
 	}
 
 	AlignedPODArray& operator = (const AlignedPODArray& that)
 	{
-		void* tmp_data = that._data_copy();
-		_cleanup();
-		_count = that._count;
-		_sizeof = that._sizeof;
-		_data = tmp_data;
-		_delete = that._delete;
-		_dup = that._dup;
+		if(this != &that)
+		{
+			void* tmp_data = that._data_copy();
+			_cleanup();
+			_count = that._count;
+			_sizeof = that._sizeof;
+			_data = tmp_data;
+			_delete = that._delete;
+			_dup = that._dup;
+		}
 		return *this;
 	}
 

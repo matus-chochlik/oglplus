@@ -228,9 +228,13 @@ public:
 	ObjectTpl& operator = (ObjectTpl&& temp)
 	noexcept
 	{
-		try { _cleanup(); }
-		catch(...) { }
-		NameHolder::operator = (static_cast<NameHolder&&>(temp));
+		if(this != &temp)
+		{
+			try { _cleanup(); }
+			catch(...) { }
+			NameHolder::operator = (
+				static_cast<NameHolder&&>(temp)
+			);
 		return *this;
 	}
 
