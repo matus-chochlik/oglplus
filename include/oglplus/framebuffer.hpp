@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -128,7 +128,10 @@ class ObjCommonOps<tag::Framebuffer>
  , public ObjBindingOps<tag::Framebuffer>
 {
 protected:
-	ObjCommonOps(void){ }
+	ObjCommonOps(FramebufferName name)
+	noexcept
+	 : FramebufferName(name)
+	{ }
 public:
 	using ObjBindingOps<tag::Framebuffer>::Bind;
 
@@ -151,7 +154,10 @@ class ObjectOps<tag::ExplicitSel, tag::Framebuffer>
  : public ObjZeroOps<tag::ExplicitSel, tag::Framebuffer>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(FramebufferName name)
+	noexcept
+	 : ObjZeroOps<tag::ExplicitSel, tag::Framebuffer>(name)
+	{ }
 public:
 	/// Types related to Framebuffer
 	struct Property
@@ -534,7 +540,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(InvalidateFramebuffer)(
 			GLenum(target),
-			buffers.Count(),
+			GLsizei(buffers.Count()),
 			buffers.Values()
 		);
 		OGLPLUS_CHECK(
@@ -579,7 +585,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(InvalidateSubFramebuffer)(
 			GLenum(target),
-			buffers.Count(),
+			GLsizei(buffers.Count()),
 			buffers.Values(),
 			x,
 			y,

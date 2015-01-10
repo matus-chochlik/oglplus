@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -171,11 +171,11 @@ struct ViewportDepthRange
 	noexcept
 	{ }
 
-	ViewportDepthRange(GLfloat near, GLfloat far)
+	ViewportDepthRange(GLfloat near_val, GLfloat far_val)
 	noexcept
 	{
-		_v[0] = near;
-		_v[1] = far;
+		_v[0] = near_val;
+		_v[1] = far_val;
 	}
 
 	/// The near limit
@@ -385,10 +385,10 @@ public:
 	{
 		OGLPLUS_GLFUNC(ViewportIndexedf)(
 			viewport,
-			vp.X(),
-			vp.Y(),
-			vp.Width(),
-			vp.Height()
+			GLfloat(vp.X()),
+			GLfloat(vp.Y()),
+			GLfloat(vp.Width()),
+			GLfloat(vp.Height())
 		);
 		OGLPLUS_CHECK(
 			ViewportIndexedf,

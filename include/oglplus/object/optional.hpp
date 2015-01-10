@@ -74,27 +74,11 @@ public:
 		return *this;
 	}
 
-	/// Returns true if the object is initialized, false otherwise
-	/** The only things that can safely be done with
-	 *  an uninitialized Optional<Object> is assignment,
-	 *  moving, destruction and checking whether it is
-	 *  initialized. On the other hand initialized
-	 *  Optional<Object> can be used everywhere where
-	 *  a plain Object could be used.
-	 *
-	 *  @see Release
-	 */
-	bool IsInitialized(void) const
-	noexcept
-	{
-		return this->_name != 0u;
-	}
-
 	explicit
 	operator bool (void) const
 	noexcept
 	{
-		return IsInitialized();
+		return this->IsInitialized();
 	}
 
 	/// Releases the stored object and makes this Optional uninitialized

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -280,7 +280,10 @@ class ObjCommonOps<tag::Buffer>
  , public ObjBindingOps<tag::Buffer>
 {
 protected:
-	ObjCommonOps(void){ }
+	ObjCommonOps(BufferName name)
+	noexcept
+	 : BufferName(name)
+	{ }
 public:
 	using ObjBindingOps<tag::Buffer>::Bind;
 	using ObjBindingOps<tag::Buffer>::BindBase;
@@ -392,7 +395,7 @@ public:
 	 */
 	void InvalidateData(void)
 	{
-		OGLPLUS_GLFUNC(InvalidateBufferData)(_name);
+		OGLPLUS_GLFUNC(InvalidateBufferData)(_obj_name());
 		OGLPLUS_CHECK(
 			InvalidateBufferData,
 			ObjectError,
@@ -413,7 +416,7 @@ public:
 	void InvalidateSubData(BufferSize offset, BufferSize size)
 	{
 		OGLPLUS_GLFUNC(InvalidateBufferSubData)(
-			_name,
+			_obj_name(),
 			GLintptr(offset.Get()),
 			GLsizeiptr(size.Get())
 		);
@@ -434,7 +437,10 @@ class ObjectOps<tag::ExplicitSel, tag::Buffer>
  : public ObjZeroOps<tag::ExplicitSel, tag::Buffer>
 {
 protected:
-	ObjectOps(void) { }
+	ObjectOps(BufferName name)
+	noexcept
+	 : ObjZeroOps<tag::ExplicitSel, tag::Buffer>(name)
+	{ }
 public:
 	static GLint GetIntParam(Target target, GLenum query);
 

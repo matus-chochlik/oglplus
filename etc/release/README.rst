@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.56.0
+Release notes for version 0.57.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,27 +7,20 @@ Release notes for version 0.56.0
 Overview
 ========
 
-This release of `OGLplus`_ brings updates to the ``ClientContext`` class, which maintains the GL state and allows to push/pop individual state variables or efficiently query or change their values, adds many new getter/setter functions to ``Context``, updates to GLM interoperability, updates to the Quickbook documentation and in the build system.
+This is mostly a bugfix release of `OGLPLUS`_, but it also brings changes in the setting stack functionality of ``ClientContext``, updates in the enumeration definitions and updated Quickbook docs.
 
 Changes
 =======
- - The ``oglplus::ClientContext`` class was updated, wrappers for new state variables and functions were added..
+ - The ``oglplus::ClientContext`` class was updated, the setting stack was reimplemented not to use dynamically allocated containers to store the pushed values.
 
- - The ``EnumAssocType`` and ``EnumAssocGLType`` templates and their specializations were added.
+ - The script for auto-generating of the enumeration headers was updated, now almost everything related to the enumerations is automatically generated.
 
- - Many new getter/setter functions were added to ``oglplus::Context``.
+ - A bug in the definition of the overloads of ``EnumValueRange`` was fixed.
+ 
+ - Minor problems in the GLSL shaders in the examples were fixed.
 
  - The Quickbook documentation was updated.
 
- - Minor changes in the error reporting in the low-profile mode were made.
+ - Noexcept specifiers were added to some functions.
 
- - A problem with the wxGL harness on Windows was fixed.
-
- - The tools for auto-generating of the enumeration headers were updated and the headers were re-generated.
-
- - Several minor changes were made to the enumerations types.
-
- - New options were added to the configure.bat script.
-
- - Detection of support for strongly-typed enum template parameters was added.
 

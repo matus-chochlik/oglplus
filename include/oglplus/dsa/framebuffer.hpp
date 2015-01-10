@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -35,7 +35,10 @@ class ObjectOps<tag::DirectState, tag::Framebuffer>
  : public ObjZeroOps<tag::DirectState, tag::Framebuffer>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(FramebufferName name)
+	noexcept
+	 : ObjZeroOps<tag::DirectState, tag::Framebuffer>(name)
+	{ }
 public:
 	/// Types related to Framebuffer
 	struct Property
@@ -73,7 +76,7 @@ public:
 	FramebufferStatus Status(Target target) const
 	{
 		GLenum result = OGLPLUS_GLFUNC(CheckNamedFramebufferStatus)(
-			_name,
+			_obj_name(),
 			GLenum(target)
 		);
 		if(result == 0) OGLPLUS_CHECK(
@@ -129,7 +132,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferRenderbuffer)(
-			_name,
+			_obj_name(),
 			GLenum(attachment),
 			GL_RENDERBUFFER,
 			GetGLName(renderbuffer)
@@ -161,7 +164,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferRenderbuffer)(
-			_name,
+			_obj_name(),
 			GL_COLOR_ATTACHMENT0 + GLuint(attachment_no),
 			GL_RENDERBUFFER,
 			GetGLName(renderbuffer)
@@ -195,7 +198,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTexture)(
-			_name,
+			_obj_name(),
 			GLenum(attachment),
 			GetGLName(texture),
 			level
@@ -229,7 +232,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTexture)(
-			_name,
+			_obj_name(),
 			GL_COLOR_ATTACHMENT0 + GLenum(attachment_no),
 			GetGLName(texture),
 			level
@@ -265,7 +268,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTextureLayer)(
-			_name,
+			_obj_name(),
 			GLenum(attachment),
 			GetGLName(texture),
 			level,
@@ -297,7 +300,7 @@ public:
 	void DrawBuffer(ColorBuffer buffer)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferDrawBuffer)(
-			_name,
+			_obj_name(),
 			GLenum(buffer)
 		);
 		OGLPLUS_VERIFY(
@@ -316,7 +319,7 @@ public:
 	void DrawBuffers(const EnumArray<ColorBuffer>& buffers)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferDrawBuffers)(
-			_name,
+			_obj_name(),
 			buffers.Count(),
 			buffers.Values()
 		);
@@ -334,7 +337,10 @@ public:
 	 */
 	void ReadBuffer(ColorBuffer buffer)
 	{
-		OGLPLUS_GLFUNC(NamedFramebufferReadBuffer)(_name, GLenum(buffer));
+		OGLPLUS_GLFUNC(NamedFramebufferReadBuffer)(
+			_obj_name(),
+			GLenum(buffer)
+		);
 		OGLPLUS_VERIFY(
 			NamedFramebufferReadBuffer,
 			ObjectError,

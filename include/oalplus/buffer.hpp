@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -68,10 +68,13 @@ protected:
  */
 template <>
 class ObjectOps<tag::DirectState, tag::Buffer>
- : public ObjectName<tag::Buffer>
+ : public BufferName
 {
 protected:
-	ObjectOps(void) { }
+	ObjectOps(BufferName name)
+	noexcept
+	 : BufferName(name)
+	{ }
 public:
 	/// Specifies the buffer data
 	/**
@@ -86,7 +89,7 @@ public:
 	)
 	{
 		OALPLUS_ALFUNC(BufferData)(
-			ALuint(this->_name),
+			ALuint(_obj_name()),
 			ALenum(format),
 			data,
 			size,
@@ -109,7 +112,7 @@ public:
 	{
 		ALint result = 0;
 		OALPLUS_ALFUNC(GetBufferiv)(
-			_name,
+			_obj_name(),
 			AL_FREQUENCY,
 			&result
 		);
@@ -131,7 +134,7 @@ public:
 	{
 		ALint result = 0;
 		OALPLUS_ALFUNC(GetBufferiv)(
-			_name,
+			_obj_name(),
 			AL_SIZE,
 			&result
 		);
@@ -153,7 +156,7 @@ public:
 	{
 		ALint result = 0;
 		OALPLUS_ALFUNC(GetBufferiv)(
-			_name,
+			_obj_name(),
 			AL_BITS,
 			&result
 		);
@@ -175,7 +178,7 @@ public:
 	{
 		ALint result = 0;
 		OALPLUS_ALFUNC(GetBufferiv)(
-			_name,
+			_obj_name(),
 			AL_CHANNELS,
 			&result
 		);
@@ -218,7 +221,13 @@ class ObjGenDelOps<oalplus::tag::Buffer>
 template <typename OpsTag>
 class ObjectOps<OpsTag, oalplus::tag::Buffer>
  : public oalplus::ObjectOps<OpsTag, oalplus::tag::Buffer>
-{ };
+{
+protected:
+	ObjectOps(ObjectName<oalplus::tag::Buffer> name)
+	noexcept
+	 : oalplus::ObjectOps<OpsTag, oalplus::tag::Buffer>(name)
+	{ }
+};
 
 } // namespace oglplus
 namespace oalplus {

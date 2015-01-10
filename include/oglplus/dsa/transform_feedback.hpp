@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -35,7 +35,10 @@ class ObjectOps<tag::DirectState, tag::TransformFeedback>
  : public ObjZeroOps<tag::DirectState, tag::TransformFeedback>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(TransformFeedbackName name)
+	noexcept
+	 : ObjZeroOps<tag::DirectState, tag::TransformFeedback>(name)
+	{ }
 public:
 	GLint GetIntParam(GLenum query) const;
 	GLint GetIntParam(GLenum query, GLuint index) const;
@@ -54,7 +57,7 @@ public:
 	ObjectOps& BufferBase(GLuint index, BufferName buffer)
 	{
 		OGLPLUS_GLFUNC(TransformFeedbackBufferBase)(
-			_name,
+			_obj_name(),
 			index,
 			GetGLName(buffer)
 		);
@@ -76,7 +79,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(TransformFeedbackBufferRange)(
-			_name,
+			_obj_name(),
 			index,
 			GetGLName(buffer),
 			GLintptr(offset.Get()),

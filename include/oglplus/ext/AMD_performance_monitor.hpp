@@ -318,7 +318,10 @@ class ObjectOps<tag::DirectState, tag::PerfMonitorAMD>
  : public ObjZeroOps<tag::DirectState, tag::PerfMonitorAMD>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(ObjectName<tag::PerfMonitorAMD> name)
+	noexcept
+	 : ObjZeroOps<tag::DirectState, tag::PerfMonitorAMD>(name)
+	{ }
 public:
 	/// Enables or disables the specified counters for this monitor
 	/**
@@ -344,7 +347,7 @@ public:
 		}
 
 		OGLPLUS_GLFUNC(SelectPerfMonitorCountersAMD)(
-			this->_name,
+			this->_obj_name(),
 			enable? GL_TRUE: GL_FALSE,
 			group,
 			GLint(list.size()),
@@ -364,7 +367,7 @@ public:
 	 */
 	void Begin(void) const
 	{
-		OGLPLUS_GLFUNC(BeginPerfMonitorAMD)(this->_name);
+		OGLPLUS_GLFUNC(BeginPerfMonitorAMD)(this->_obj_name());
 		OGLPLUS_CHECK(
 			BeginPerfMonitorAMD,
 			ObjectError,
@@ -379,7 +382,7 @@ public:
 	 */
 	void End(void) const
 	{
-		OGLPLUS_GLFUNC(EndPerfMonitorAMD)(this->_name);
+		OGLPLUS_GLFUNC(EndPerfMonitorAMD)(this->_obj_name());
 		OGLPLUS_CHECK(
 			EndPerfMonitorAMD,
 			ObjectError,
@@ -397,7 +400,7 @@ public:
 	{
 		GLuint result = 0;
 		OGLPLUS_GLFUNC(GetPerfMonitorCounterDataAMD)(
-			this->_name,
+			this->_obj_name(),
 			GL_PERFMON_RESULT_AVAILABLE_AMD,
 			sizeof(result),
 			&result,
@@ -422,7 +425,7 @@ public:
 	{
 		GLuint size = 0;
 		OGLPLUS_GLFUNC(GetPerfMonitorCounterDataAMD)(
-			this->_name,
+			this->_obj_name(),
 			GL_PERFMON_RESULT_SIZE_AMD,
 			sizeof(size),
 			&size,
@@ -436,7 +439,7 @@ public:
 
 		std::vector<GLuint> data(size / sizeof(GLuint));
 		OGLPLUS_GLFUNC(GetPerfMonitorCounterDataAMD)(
-			this->_name,
+			this->_obj_name(),
 			GL_PERFMON_RESULT_AMD,
 			data.size() * sizeof(GLuint),
 			data.data(),

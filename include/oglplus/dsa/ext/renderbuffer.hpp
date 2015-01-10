@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -28,7 +28,10 @@ class ObjectOps<tag::DirectStateEXT, tag::Renderbuffer>
  : public ObjZeroOps<tag::DirectStateEXT, tag::Renderbuffer>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(RenderbufferName name)
+	noexcept
+	 : ObjZeroOps<tag::DirectStateEXT, tag::Renderbuffer>(name)
+	{ }
 public:
 	GLint GetIntParam(GLenum query) const;
 
@@ -44,7 +47,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedRenderbufferStorageEXT)(
-			_name,
+			_obj_name(),
 			GLenum(internalformat),
 			width,
 			height
@@ -77,7 +80,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedRenderbufferStorageMultisampleEXT)(
-			_name,
+			_obj_name(),
 			samples,
 			GLenum(internalformat),
 			width,

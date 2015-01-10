@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -29,6 +29,11 @@ template <>
 class ObjectOps<tag::DirectStateEXT, tag::VertexArray>
  : public ObjZeroOps<tag::DirectStateEXT, tag::VertexArray>
 {
+protected:
+	ObjectOps(VertexArrayName name)
+	noexcept
+	 : ObjZeroOps<tag::DirectStateEXT, tag::VertexArray>(name)
+	{ }
 public:
 	/// Setup the properties of the specified vertex attribute array
 	/**
@@ -46,7 +51,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexArrayVertexAttribOffsetEXT)(
-			_name,
+			_obj_name(),
 			GetGLName(buffer),
 			GLuint(location),
 			values_per_vertex,
@@ -79,7 +84,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexArrayVertexAttribIOffsetEXT)(
-			_name,
+			_obj_name(),
 			GetGLName(buffer),
 			GLuint(location),
 			values_per_vertex,
@@ -104,7 +109,7 @@ public:
 	const ObjectOps& EnableVertexAttrib(VertexAttribSlot location)
 	{
 		OGLPLUS_GLFUNC(EnableVertexArrayAttribEXT)(
-			_name,
+			_obj_name(),
 			GLuint(location)
 		);
 		OGLPLUS_CHECK(
@@ -124,7 +129,7 @@ public:
 	const ObjectOps& DisableVertexAttrib(VertexAttribSlot location)
 	{
 		OGLPLUS_GLFUNC(DisableVertexArrayAttribEXT)(
-			_name,
+			_obj_name(),
 			GLuint(location)
 		);
 		OGLPLUS_CHECK(

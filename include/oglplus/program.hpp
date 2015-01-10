@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -135,7 +135,10 @@ class ObjCommonOps<tag::Program>
  , public ObjBindingOps<tag::Program>
 {
 protected:
-	ObjCommonOps(void){ }
+	ObjCommonOps(ProgramName name)
+	noexcept
+	 : ProgramName(name)
+	{ }
 public:
 	using ObjBindingOps<tag::Program>::Bind;
 
@@ -177,12 +180,15 @@ class ObjectOps<tag::DirectState, tag::Program>
  : public ObjZeroOps<tag::DirectState, tag::Program>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(ProgramName name)
+	noexcept
+	 : ObjZeroOps<tag::DirectState, tag::Program>(name)
+	{ }
 public:
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result;
-		OGLPLUS_GLFUNC(GetProgramiv)(_name, query, &result);
+		OGLPLUS_GLFUNC(GetProgramiv)(_obj_name(), query, &result);
 		OGLPLUS_VERIFY(
 			GetProgramiv,
 			ObjectError,
@@ -196,7 +202,7 @@ public:
 	GLint GetStageIntParam(GLenum stage, GLenum query) const
 	{
 		GLint result;
-		OGLPLUS_GLFUNC(GetProgramStageiv)(_name, stage, query, &result);
+		OGLPLUS_GLFUNC(GetProgramStageiv)(_obj_name(), stage, query, &result);
 		OGLPLUS_VERIFY(
 			GetProgramStageiv,
 			ObjectError,
@@ -835,7 +841,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(BindAttribLocation)(
-			_name,
+			_obj_name(),
 			GLuint(vertex_attrib_slot),
 			identifier.null_terminated()?
 				identifier.data():
@@ -944,7 +950,7 @@ struct ProgXFBModeAndNames
 		if(!names.empty())
 		{
 			prog.TransformFeedbackVaryings(
-				names.size(),
+				GLsizei(names.size()),
 				names.data(),
 				mode
 			);

@@ -84,7 +84,7 @@ public:
 
 		"out vec3 geomNormal, geomLightDir, geomViewDir;"
 
-		"void do_nothing(void){ };"
+		"void do_nothing(void){ }"
 
 		"float find_t(int i1, int i2)"
 		"{"

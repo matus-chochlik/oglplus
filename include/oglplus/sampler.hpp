@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -160,7 +160,10 @@ class ObjCommonOps<tag::Sampler>
  , public ObjBindingOps<tag::Sampler>
 {
 protected:
-	ObjCommonOps(void){ }
+	ObjCommonOps(SamplerName name)
+	noexcept
+	 : SamplerName(name)
+	{ }
 public:
 	using ObjBindingOps<tag::Sampler>::Bind;
 
@@ -183,13 +186,16 @@ class ObjectOps<tag::DirectState, tag::Sampler>
  : public ObjZeroOps<tag::DirectState, tag::Sampler>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(SamplerName name)
+	noexcept
+	 : ObjZeroOps<tag::DirectState, tag::Sampler>(name)
+	{ }
 public:
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetSamplerParameteriv)(
-			_name,
+			_obj_name(),
 			query,
 			&result
 		);
@@ -206,7 +212,7 @@ public:
 	{
 		GLfloat result = 0;
 		OGLPLUS_GLFUNC(GetSamplerParameterfv)(
-			_name,
+			_obj_name(),
 			query,
 			&result
 		);
@@ -229,7 +235,7 @@ public:
 	{
 		GLfloat result[4];
 		OGLPLUS_GLFUNC(GetSamplerParameterfv)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
@@ -250,7 +256,7 @@ public:
 	void BorderColor(Vector<GLfloat, 4> color)
 	{
 		OGLPLUS_GLFUNC(SamplerParameterfv)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
@@ -271,7 +277,7 @@ public:
 	{
 		GLint result[4];
 		OGLPLUS_GLFUNC(GetSamplerParameterIiv)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
@@ -292,7 +298,7 @@ public:
 	void BorderColor(Vector<GLint, 4> color)
 	{
 		OGLPLUS_GLFUNC(SamplerParameterIiv)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
@@ -313,7 +319,7 @@ public:
 	{
 		GLuint result[4];
 		OGLPLUS_GLFUNC(GetSamplerParameterIuiv)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
@@ -334,7 +340,7 @@ public:
 	void BorderColor(Vector<GLuint, 4> color)
 	{
 		OGLPLUS_GLFUNC(SamplerParameterIuiv)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
@@ -367,7 +373,7 @@ public:
 	void CompareMode(TextureCompareMode mode)
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_COMPARE_MODE,
 			GLenum(mode)
 		);
@@ -401,7 +407,7 @@ public:
 	void CompareFunc(CompareFunction func)
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_COMPARE_FUNC,
 			GLenum(func)
 		);
@@ -433,7 +439,7 @@ public:
 	void LODBias(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(SamplerParameterf)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_LOD_BIAS,
 			value
 		);
@@ -454,7 +460,7 @@ public:
 	void Filter(TextureFilter filter) const
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_MIN_FILTER,
 			GLenum(filter)
 		);
@@ -465,7 +471,7 @@ public:
 			EnumParam(filter)
 		);
 		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_MAG_FILTER,
 			GLenum(filter)
 		);
@@ -499,7 +505,7 @@ public:
 	void MagFilter(TextureMagFilter filter)
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_MAG_FILTER,
 			GLenum(filter)
 		);
@@ -533,7 +539,7 @@ public:
 	void MinFilter(TextureMinFilter filter)
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_MIN_FILTER,
 			GLenum(filter)
 		);
@@ -565,7 +571,7 @@ public:
 	void MinLOD(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(SamplerParameterf)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_MIN_LOD,
 			value
 		);
@@ -596,7 +602,7 @@ public:
 	void MaxLOD(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(SamplerParameterf)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_MAX_LOD,
 			value
 		);
@@ -625,7 +631,7 @@ public:
 	void Wrap(TextureWrapCoord coord, TextureWrap mode)
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_name,
+			_obj_name(),
 			GLenum(coord),
 			GLenum(mode)
 		);
@@ -724,7 +730,7 @@ public:
 	void Seamless(bool enable)
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_name,
+			_obj_name(),
 			GL_TEXTURE_CUBE_MAP_SEAMLESS,
 			enable?GL_TRUE:GL_FALSE
 		);
