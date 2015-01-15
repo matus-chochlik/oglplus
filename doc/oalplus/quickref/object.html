@@ -1,0 +1,188 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>OALplus objects</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;5.&#160;Quick reference">
+<link rel="prev" href="../quickref.html" title="Chapter&#160;5.&#160;Quick reference">
+<link rel="next" href="context_attrib.html" title="Context attribute">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../quickref.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="context_attrib.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oalplus.quickref.object"></a><a class="link" href="object.html" title="OALplus objects">OALplus objects</a>
+</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="object.html#oalplus.quickref.object.tags">Tags</a></span></dt>
+<dt><span class="section"><a href="object.html#oalplus.quickref.object.name">Name</a></span></dt>
+<dt><span class="section"><a href="object.html#oalplus.quickref.object.gendelops"><code class="literal">Gen</code>/<code class="literal">Delete</code>
+          operations</a></span></dt>
+<dt><span class="section"><a href="object.html#oalplus.quickref.object.ops">Type specific operations</a></span></dt>
+<dt><span class="section"><a href="object.html#oalplus.quickref.object.wrapper">Object</a></span></dt>
+<dt><span class="section"><a href="object.html#oalplus.quickref.object.group">Group</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oalplus.quickref.object.tags"></a><a class="link" href="object.html#oalplus.quickref.object.tags" title="Tags">Tags</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oalplus/object/tags.hpp&gt;</code>
+          </p>
+<p>
+            The object tag types allow to differentiate between <span class="emphasis"><em>OpenAL</em></span>
+            object types at compile time.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
+<span class="keyword">namespace</span> <span class="identifier">tag</span> <span class="special">{</span>
+
+<span class="keyword">struct</span> <span class="identifier">Buffer</span> <span class="special">{</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">Source</span> <span class="special">{</span> <span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace tag</span>
+<span class="special">}</span> <span class="comment">// namespace oalplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oalplus.quickref.object.name"></a><a class="link" href="object.html#oalplus.quickref.object.name" title="Name">Name</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oalplus/object/name.hpp&gt;</code>
+          </p>
+<p>
+            The <code class="computeroutput"><span class="identifier">ObjectName</span></code> template
+            wraps the raw <code class="computeroutput"><span class="identifier">ALuint</span></code>
+            name of an AL object (buffer, source, etc.). Since all types of AL objects
+            share the same namespace (the domain of the <code class="computeroutput"><span class="identifier">ALuint</span></code>
+            type) it is easy to confuse objects of different types.
+          </p>
+<p>
+            In order to avoid such mismatches, the <code class="computeroutput"><span class="identifier">ObjTag</span></code>
+            template parameter of <code class="computeroutput"><span class="identifier">ObjectName</span></code>
+            conveys information about the actual object type and prevents for example
+            passing a buffer name to a function requiring a source, etc.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
+
+<span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.name" title="Name">oglplus::ObjectName</a><span class="special">;</span>
+</pre>
+<h5>
+<a name="oalplus.quickref.object.name.h0"></a>
+            <span class="phrase"><a name="oalplus.quickref.object.name.typedefs"></a></span><a class="link" href="object.html#oalplus.quickref.object.name.typedefs">Convenience
+            typedefs</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="object.html#oalplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oalplus.quickref.object.tags" title="Tags">tag::Buffer</a><span class="special">&gt;</span> <span class="identifier">BufferName</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><a class="link" href="object.html#oalplus.quickref.object.tags" title="Tags">tag::Source</a><span class="special">&gt;</span> <span class="identifier">SourceName</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace oalplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oalplus.quickref.object.gendelops"></a><a class="link" href="object.html#oalplus.quickref.object.gendelops" title="Gen/Delete operations"><code class="literal">Gen</code>/<code class="literal">Delete</code>
+          operations</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oalplus/object/wrapper.hpp&gt;</code>
+          </p>
+<p>
+            The <code class="literal">ObjGenDelOps</code> template class provides a unified
+            interface for the AL's <code class="literal">alGen*</code>, <code class="literal">alDelete*</code>
+            and <code class="literal">alIs*</code> functions for various object types specified
+            by the <a class="link" href="object.html#oalplus.quickref.object.tags" title="Tags">ObjTag</a> template
+            parameter.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
+
+<span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.ops" title="Type specific operations">oglplus::ObjGenDelOps</a><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oalplus.quickref.object.ops"></a><a class="link" href="object.html#oalplus.quickref.object.ops" title="Type specific operations">Type specific operations</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oalplus/object/wrapper.hpp&gt;</code>
+          </p>
+<p>
+            The <code class="literal">ObjectOps</code> template class is specialized for various
+            object types (like buffers, sources, etc.) specified by the <a class="link" href="object.html#oalplus.quickref.object.tags" title="Tags">ObjTag</a>
+            and operation kinds specified by type __OpsTag and implements appropriate
+            interface for the particular object type.
+          </p>
+<pre class="programlisting"><span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.ops" title="Type specific operations">oglplus::ObjectOps</a><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oalplus.quickref.object.wrapper"></a><a class="link" href="object.html#oalplus.quickref.object.wrapper" title="Object">Object</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oalplus/object/wrapper.hpp&gt;</code>
+          </p>
+<p>
+            The main purpose of <code class="literal">Object</code> is to do lifetime management
+            of the underlying AL objects and managing textual description assigned
+            to them. It uses the __ObjGenDelOps template to create new instance of
+            an OpenAL object in the constructor and to delete t in the destructor.
+          </p>
+<p>
+            Since AL does not support object copying, instances of <code class="literal">Object</code>
+            are <span class="emphasis"><em>move-only</em></span>.
+          </p>
+<pre class="programlisting"><span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.wrapper" title="Object">oglplus::Object</a><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace oalplus</span>
+</pre>
+<h5>
+<a name="oalplus.quickref.object.wrapper.h0"></a>
+            <span class="phrase"><a name="oalplus.quickref.object.wrapper.typedefs"></a></span><a class="link" href="object.html#oalplus.quickref.object.wrapper.typedefs">Typedefs</a>
+          </h5>
+<p>
+            The library end-users rarely need to use this template directly. Use
+            the <code class="literal">typedef</code>s of the individual instantiations instead:
+          </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+                __Buffer
+              </li>
+<li class="listitem">
+                __Source
+              </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oalplus.quickref.object.group"></a><a class="link" href="object.html#oalplus.quickref.object.group" title="Group">Group</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oalplus/object/group.hpp&gt;</code>
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
+
+<span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.group" title="Group">oglplus::Group</a><span class="special">;</span>
+<span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.group" title="Group">oglplus::StaticGroup</a><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace oalplus</span>
+</pre>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../quickref.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="context_attrib.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
