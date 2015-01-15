@@ -136,17 +136,23 @@ public:
 
 	AnyInputIter& operator = (const AnyInputIter& that)
 	{
-		_intf* tmp = that._clone();
-		if(_pimpl) delete _pimpl;
-		_pimpl = tmp;
+		if(this != &that)
+		{
+			_intf* tmp = that._clone();
+			if(_pimpl) delete _pimpl;
+			_pimpl = tmp;
+		}
 		return *this;
 	}
 
 	AnyInputIter& operator = (AnyInputIter&& tmp)
 	{
-		if(_pimpl) delete _pimpl;
-		_pimpl = tmp._pimpl;
-		tmp._pimpl = nullptr;
+		if(this != &tmp)
+		{
+			if(_pimpl) delete _pimpl;
+			_pimpl = tmp._pimpl;
+			tmp._pimpl = nullptr;
+		}
 		return *this;
 	}
 

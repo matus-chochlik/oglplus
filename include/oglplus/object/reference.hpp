@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -42,10 +42,9 @@ class Reference
 private:
 	typedef typename Classify<Object>::ObjTag ObjTag;
 public:
-	Reference(ObjectName<ObjTag> object)
-	{
-		this->_copy(object);
-	}
+	Reference(ObjectName<ObjTag> obj_name)
+	 : Object(obj_name)
+	{ }
 };
 
 template <typename ObjectOps>
@@ -55,8 +54,8 @@ struct Reference<Object<ObjectOps>>
 private:
 	typedef typename Classify<Object<ObjectOps>>::ObjTag ObjTag;
 public:
-	Reference(ObjectName<ObjTag> object)
-	 : Reference<ObjectOps>(object)
+	Reference(ObjectName<ObjTag> obj_name)
+	 : Reference<ObjectOps>(obj_name)
 	{ }
 };
 

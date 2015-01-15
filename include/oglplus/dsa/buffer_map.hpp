@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -25,20 +25,20 @@ private:
 	const GLintptr _offset;
 	GLsizeiptr _size;
 	GLvoid* _ptr;
-	const GLuint _name;
+	const GLuint _buf_name;
 
-	static GLsizeiptr _get_size(GLuint name)
+	static GLsizeiptr _get_size(GLuint buf_name)
 	{
 		GLint value = 0;
 		OGLPLUS_GLFUNC(GetNamedBufferParameteriv)(
-			name,
+			buf_name,
 			GL_BUFFER_SIZE,
 			&value
 		);
 		OGLPLUS_CHECK(
 			GetNamedBufferParameteriv,
 			ObjectError,
-			Object(BufferName(name))
+			Object(BufferName(buf_name))
 		);
 		return GLsizeiptr(value);
 	}
@@ -80,7 +80,7 @@ public:
 			_size,
 			GLbitfield(access)
 		)
-	), _name(GetGLName(buffer))
+	), _buf_name(GetGLName(buffer))
 	{
 		OGLPLUS_CHECK(
 			MapNamedBufferRange,
@@ -108,7 +108,7 @@ public:
 			GetGLName(buffer),
 			_translate(GLbitfield(access))
 		)
-	), _name(GetGLName(buffer))
+	), _buf_name(GetGLName(buffer))
 	{
 		OGLPLUS_CHECK(
 			MapNamedBuffer,
@@ -130,7 +130,7 @@ public:
 	 : _offset(temp._offset)
 	 , _size(temp._size)
 	 , _ptr(temp._ptr)
-	 , _name(temp._name)
+	 , _buf_name(temp._buf_name)
 	{
 		temp._ptr = nullptr;
 	}
@@ -152,7 +152,7 @@ public:
 	{
 		if(_ptr != nullptr)
 		{
-			OGLPLUS_GLFUNC(UnmapNamedBuffer)(_name);
+			OGLPLUS_GLFUNC(UnmapNamedBuffer)(_buf_name);
 			OGLPLUS_IGNORE(UnmapNamedBuffer);
 			_ptr = nullptr;
 		}
@@ -202,14 +202,14 @@ public:
 	void FlushRange(BufferSize offset, BufferSize length)
 	{
 		OGLPLUS_GLFUNC(FlushMappedNamedBufferRange)(
-			_name,
+			_buf_name,
 			GLintptr(offset.Get()),
 			GLsizeiptr(length.Get())
 		);
 		OGLPLUS_CHECK(
 			FlushMappedNamedBufferRange,
 			ObjectError,
-			Object(BufferName(_name))
+			Object(BufferName(_buf_name))
 		);
 	}
 };

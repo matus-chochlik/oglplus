@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -121,7 +121,10 @@ class ObjCommonOps<tag::Renderbuffer>
  , public ObjBindingOps<tag::Renderbuffer>
 {
 protected:
-	ObjCommonOps(void){ }
+	ObjCommonOps(RenderbufferName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : RenderbufferName(name)
+	{ }
 public:
 	using ObjBindingOps<tag::Renderbuffer>::Bind;
 
@@ -144,7 +147,10 @@ class ObjectOps<tag::ExplicitSel, tag::Renderbuffer>
  : public ObjZeroOps<tag::ExplicitSel, tag::Renderbuffer>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(RenderbufferName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::ExplicitSel, tag::Renderbuffer>(name)
+	{ }
 public:
 	static GLint GetIntParam(Target target, GLenum query);
 

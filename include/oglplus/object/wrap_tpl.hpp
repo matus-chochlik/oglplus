@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -59,7 +59,10 @@ class ObjCommonOps
  : public ObjectName<ObjTag>
 {
 protected:
-	ObjCommonOps(void) { }
+	ObjCommonOps(ObjectName<ObjTag> name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjectName<ObjTag>(name)
+	{ }
 };
 
 /// Implements operations applicable to any object including object 0 (zero)
@@ -68,7 +71,10 @@ class ObjZeroOps
  : public ObjCommonOps<ObjTag>
 {
 protected:
-	ObjZeroOps(void) { }
+	ObjZeroOps(ObjectName<ObjTag> name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjCommonOps<ObjTag>(name)
+	{ }
 };
 
 /// Wrapper for GL objects with name 0 (zero)
@@ -82,7 +88,10 @@ class ObjectZero<ObjZeroOps<OpsTag, ObjTag>>
 {
 public:
 	/// ObjectZero is default constructible
-	ObjectZero(void) { }
+	ObjectZero(void)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<OpsTag, ObjTag>(ObjectName<ObjTag>(0))
+	{ }
 };
 
 /// Implements operations applicable to named (non-zero) objects
@@ -91,7 +100,10 @@ class ObjectOps
  : public ObjZeroOps<OpsTag, ObjTag>
 {
 protected:
-	ObjectOps(void) { }
+	ObjectOps(ObjectName<ObjTag> name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<OpsTag, ObjTag>(name)
+	{ }
 };
 
 template <typename ObjTag, typename NameHolder>
@@ -109,7 +121,7 @@ private:
 	{
 		aux::ObjectDescRegistry::_register_desc(
 			ObjTag::value,
-			this->_name,
+			this->_obj_name(),
 			std::move(description)
 		);
 	}
@@ -118,14 +130,14 @@ private:
 	{
 		aux::ObjectDescRegistry::_unregister_desc(
 			ObjTag::value,
-			this->_name
+			this->_obj_name()
 		);
 	}
 
 	template <typename GenTag>
 	void _init(GenTag gen_tag, Nothing)
 	{
-		ObjGenDelOps<ObjTag>::Gen(gen_tag, 1, &this->_name);
+		ObjGenDelOps<ObjTag>::Gen(gen_tag, 1, this->_name_ptr());
 	}
 
 	template <typename GenTag, typename ObjectSubtype>
@@ -135,45 +147,44 @@ private:
 		_init(gen_tag, Nothing());
 	}
 
-	void _move_in(ObjectTpl&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		this->_name = temp._name;
-		temp._name = 0;
-	}
-
 	void _cleanup(void)
 	{
-		if(this->_name != 0u)
+		if(this->_obj_name() > 0u)
 		{
 			_undescribe();
-			ObjGenDelOps<ObjTag>::Delete(1, &this->_name);
+			ObjGenDelOps<ObjTag>::Delete(1, this->_name_ptr());
 		}
 	}
 protected:
 	struct Uninitialized_ { };
 
-	ObjectTpl(Uninitialized_) { }
+	ObjectTpl(Uninitialized_)
+	OGLPLUS_NOEXCEPT(true)
+	 : NameHolder(ObjectName<ObjTag>())
+	{ }
 
 	ObjectTpl(ObjectName<ObjTag> name)
-	{
-		this->_name = GetName(name);
-	}
+	OGLPLUS_NOEXCEPT(true)
+	 : NameHolder(name)
+	{ }
 
 	ObjectTpl(ObjectName<ObjTag> name, ObjectDesc&& description)
+	OGLPLUS_NOEXCEPT(true)
+	 : NameHolder(name)
 	{
-		this->_name = GetName(name);
 		_describe(std::move(description));
 	}
 public:
 	template <typename GenTag>
 	ObjectTpl(GenTag gen_tag)
+	 : NameHolder(ObjectName<ObjTag>())
 	{
 		_init(gen_tag, Nothing());
 	}
 
 	template <typename GenTag>
 	ObjectTpl(GenTag gen_tag, ObjectDesc&& description)
+	 : NameHolder(ObjectName<ObjTag>())
 	{
 		_init(gen_tag, Nothing());
 		_describe(std::move(description));
@@ -183,12 +194,14 @@ public:
 
 	template <typename GenTag>
 	ObjectTpl(GenTag gen_tag, Subtype subtype)
+	 : NameHolder(ObjectName<ObjTag>())
 	{
 		_init(gen_tag, subtype);
 	}
 
 	template <typename GenTag>
 	ObjectTpl(GenTag gen_tag, Subtype subtype, ObjectDesc&& description)
+	 : NameHolder(ObjectName<ObjTag>())
 	{
 		_init(gen_tag, subtype);
 		_describe(std::move(description));
@@ -197,9 +210,8 @@ public:
 	/// Objects are movable
 	ObjectTpl(ObjectTpl&& temp)
 	OGLPLUS_NOEXCEPT(true)
-	{
-		_move_in(std::move(temp));
-	}
+	 : NameHolder(static_cast<NameHolder&&>(temp))
+	{ }
 
 	~ObjectTpl(void)
 	OGLPLUS_NOEXCEPT(true)
@@ -211,8 +223,13 @@ public:
 	/// Objects are move-assignable
 	ObjectTpl& operator = (ObjectTpl&& temp)
 	{
-		_cleanup();
-		_move_in(std::move(temp));
+		if(this != &temp)
+		{
+			_cleanup();
+			NameHolder::operator = (
+				static_cast<NameHolder&&>(temp)
+			);
+		}
 		return *this;
 	}
 
@@ -221,13 +238,13 @@ public:
 	{
 		return aux::ObjectDescRegistry::_get_desc(
 			ObjTag::value,
-			this->_name
+			this->_obj_name()
 		);
 	}
 
 	Sequence<ObjectName<ObjTag>> seq(void) const
 	{
-		return Sequence<ObjectName<ObjTag>>(&this->_name, 1);
+		return Sequence<ObjectName<ObjTag>>(this->_name_ptr(), 1);
 	}
 
 	/// Returns a sequence referencing the name of this object
@@ -291,12 +308,12 @@ public:
 	}
 };
 
-/// Template for GL/AL/etc. objects wrappers.
+/// Template for GL objects wrappers.
 /** The main purpose of Object is to do lifetime management of the underlying
- *  GL/AL/etc. object. It uses the @c ObjGenDelOps template to create
+ *  GL object. It uses the @c ObjGenDelOps template to create
  *  new instance in the constructor and delete it in the destructor.
  *
- *  Since GL/AL don't support object copying @c Object is also non-copyable.
+ *  Since GL don't support object copying @c Object is also non-copyable.
  */
 template <typename OpsTag, typename ObjTag>
 class Object<ObjectOps<OpsTag, ObjTag>>

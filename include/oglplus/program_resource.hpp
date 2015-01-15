@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -46,10 +46,10 @@ namespace oglplus {
 class ProgramResource
 {
 private:
-	GLint _program;
+	GLint _prog_name;
 	GLenum _interface;
 	GLuint _index;
-	String _name;
+	String _res_name;
 
 	void QueryParams(
 		GLenum property,
@@ -59,7 +59,7 @@ private:
 	) const
 	{
 		OGLPLUS_GLFUNC(GetProgramResourceiv)(
-			_program,
+			_prog_name,
 			_interface,
 			_index,
 			1, &property,
@@ -136,7 +136,7 @@ public:
 	 */
 	const String& Name(void) const
 	{
-		return _name;
+		return _res_name;
 	}
 
 	/// Returns the index of the resource

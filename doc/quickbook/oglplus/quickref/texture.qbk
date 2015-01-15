@@ -31,6 +31,11 @@
 
 [oglplus_texture_def]
 
+[heading:sugar Syntax sugar]
+
+[oglplus_texture_sugar1]
+[oglplus_texture_sugar2]
+
 [heading:target Target]
 
 [header oglplus/texture_target.hpp]
