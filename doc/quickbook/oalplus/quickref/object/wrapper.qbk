@@ -11,7 +11,7 @@
 
 [header oalplus/object/wrapper.hpp]
 
-The [^ObjGenDelOps] template class provides a unified interface for the GL's
+The [^ObjGenDelOps] template class provides a unified interface for the AL's
 [^alGen*], [^alDelete*] and [^alIs*] functions for various
 object types specified by the __ObjTag template parameter.
 

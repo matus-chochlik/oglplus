@@ -56,6 +56,10 @@
 [def __oglplus_ObjGenDelOps [link oglplus.quickref.object.ops oglplus::ObjGenDelOps]]
 [def __oglplus_ObjectOps [link oglplus.quickref.object.ops oglplus::ObjectOps]]
 [def __oglplus_Object [link oglplus.quickref.object.wrapper oglplus::Object]]
+[def __oglplus_Optional [link oglplus.quickref.object.optional oglplus::Optional]]
+[def __oglplus_Reference [link oglplus.quickref.object.reference oglplus::Reference]]
+[def __oglplus_Sequence [link oglplus.quickref.object.sequence oglplus::Sequence]]
+[def __oglplus_SeqIterator [link oglplus.quickref.object.sequence.iter oglplus::SeqIterator]]
 
 [def __oglplus_Group [link oglplus.quickref.object.group oglplus::Group]]
 [def __oglplus_StaticGroup [link oglplus.quickref.object.group oglplus::StaticGroup]]

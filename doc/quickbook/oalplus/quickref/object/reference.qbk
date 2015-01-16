@@ -6,10 +6,10 @@
 [section:reference Reference]
 [/--------------------------]
 
-[header oglplus/object/reference.hpp]
+[header oalplus/object/reference.hpp]
 
 [^Reference] allows to make managed copies of instances of [^__Object].
-Since OpenGL does not support copying of objects, the __Object wrapper
+Since OpenAL does not support copying of objects, the __Object wrapper
 is move-only.
 
 There are however situations, when a temporary reference
@@ -24,6 +24,6 @@ Instances of [^Reference] are for example created when accessing
 or iterating through the elements of a __Sequence.
 
 [import reference.hpp]
-[oglplus_object_Reference]
+[oalplus_object_Reference]
 
 [endsect]
