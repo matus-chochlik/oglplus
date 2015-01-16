@@ -65,6 +65,8 @@ oglplus/gl_index.html
 oalplus.html
 oalplus/intro.html
 oalplus/quickref.html
+oalplus/quickref/gen_tags.html
+oalplus/quickref/ops_tags.html
 oalplus/quickref/object.html
 oalplus/quickref/context_attrib.html
 oalplus/quickref/data_format.html
