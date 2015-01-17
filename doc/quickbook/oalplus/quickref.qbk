@@ -16,6 +16,8 @@ change without any prior notice.
 
 [endsect]
 
+[include quickref/error.qbk]
+
 [include quickref/gen_tags.qbk]
 [include quickref/ops_tags.qbk]
 [include quickref/object.qbk]

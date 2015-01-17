@@ -9,6 +9,8 @@
 
 [/Quick reference links]
 
+[def __Error [link oalplus.quickref.error.basic Error]]
+
 [def __GenTag [link oalplus.quickref.gen_tags GenTag]]
 [def __tag_Generate [link oalplus.quickref.gen_tags tag::Generate]]
 
@@ -25,6 +27,19 @@
 [def __ObjTag [link oalplus.quickref.object.tags ObjTag]]
 [def __tag_Buffer [link oalplus.quickref.object.tags tag::Buffer]]
 [def __tag_Source [link oalplus.quickref.object.tags tag::Source]]
+
+[/---------]
+[/Templates]
+[/---------]
+
+[template alfunc[Name] [^al[Name]]]
+[template alcfunc[Name] [^alc[Name]]]
+[template alutfunc[Name] [^alut[Name]]]
+[template alconst[Name] [*[^GL_[Name]]]]
+
+[/--------]
+[/Chapters]
+[/--------]
 
 [include oalplus/intro.qbk]
 [include oalplus/quickref.qbk]
