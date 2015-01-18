@@ -88,7 +88,7 @@ public:
 	BufferTypedSize(void) { }
 
 	BufferTypedSize(GLsizeiptr count)
-	 : BufferSize(count, (Type*)nullptr)
+	 : BufferSize(int(count), (Type*)nullptr)
 	{ }
 };
 

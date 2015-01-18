@@ -106,7 +106,7 @@ public:
 		// load the font pages referenced by the layout
 		layout._font._essence->LoadPages(
 			layout._pages.data(),
-			layout._pages.size()
+			GLsizei(layout._pages.size())
 		);
 
 		// set the Layout Width uniform value if necessary
