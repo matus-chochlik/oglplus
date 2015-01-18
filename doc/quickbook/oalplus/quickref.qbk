@@ -22,6 +22,9 @@ change without any prior notice.
 [include quickref/ops_tags.qbk]
 [include quickref/object.qbk]
 
+[include quickref/buffer.qbk]
+[include quickref/source.qbk]
+
 [include quickref/context_attrib.qbk]
 [include quickref/data_format.qbk]
 [include quickref/distance_model.qbk]

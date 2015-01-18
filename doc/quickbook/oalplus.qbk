@@ -13,11 +13,13 @@
 
 [def __GenTag [link oalplus.quickref.gen_tags GenTag]]
 [def __tag_Generate [link oalplus.quickref.gen_tags tag::Generate]]
+[def __tag_DirectState [link oalplus.quickref.ops_tags tag::DirectState]]
 
 [def __ObjectName [link oalplus.quickref.object.name ObjectName]]
 [def __BufferName [link oalplus.quickref.object.name.typedefs BufferName]]
 [def __SourceName [link oalplus.quickref.object.name.typedefs SourceName]]
 
+[def __ObjectOps [link oalplus.quickref.object.ops ObjectOps]]
 [def __Object [link oalplus.quickref.object.wrapper Object]]
 [def __Optional [link oalplus.quickref.object.optional Optional]]
 [def __Reference [link oalplus.quickref.object.reference Reference]]
@@ -27,6 +29,9 @@
 [def __ObjTag [link oalplus.quickref.object.tags ObjTag]]
 [def __tag_Buffer [link oalplus.quickref.object.tags tag::Buffer]]
 [def __tag_Source [link oalplus.quickref.object.tags tag::Source]]
+
+[def __DataFormat [link oalplus.quickref.data_format DataFormat]]
+[def __SourceState [link oalplus.quickref.source_state SourceState]]
 
 [/---------]
 [/Templates]
