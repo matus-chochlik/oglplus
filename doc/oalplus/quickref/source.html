@@ -1,0 +1,95 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Sources</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;5.&#160;Quick reference">
+<link rel="prev" href="buffer.html" title="Buffers">
+<link rel="next" href="context_attrib.html" title="Context attribute">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="buffer.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="context_attrib.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oalplus.quickref.source"></a><a class="link" href="source.html" title="Sources">Sources</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oalplus/source.hpp&gt;</code>
+        </p>
+<h4>
+<a name="oalplus.quickref.source.h0"></a>
+          <span class="phrase"><a name="oalplus.quickref.source.common_source_operations"></a></span><a class="link" href="source.html#oalplus.quickref.source.common_source_operations">Common
+          source operations</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="object.html#oalplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oalplus.quickref.object.tags" title="Tags">tag::Source</a><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oalplus.quickref.object.name.typedefs">SourceName</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">void</span> <span class="identifier">Play</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c0" href="source.html#oalplus.quickref.source.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Pause</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c2" href="source.html#oalplus.quickref.source.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Stop</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c4" href="source.html#oalplus.quickref.source.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Rewind</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c6" href="source.html#oalplus.quickref.source.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+
+<span class="comment">// TODO</span>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c1"></a><a href="#oalplus.quickref.source.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Starts the audio playback. See <code class="literal">alSourcePlay</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c3"></a><a href="#oalplus.quickref.source.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Pauses the audio playback. See <code class="literal">alSourcePause</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c5"></a><a href="#oalplus.quickref.source.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Stops the audio playback. See <code class="literal">alSourceStop</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c7"></a><a href="#oalplus.quickref.source.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Rewinds the audio track. See <code class="literal">alSourceRewind</code>.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oalplus.quickref.source.h1"></a>
+          <span class="phrase"><a name="oalplus.quickref.source.def"></a></span><a class="link" href="source.html#oalplus.quickref.source.def">Definition</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">ObjectOps</span><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oalplus.quickref.object.tags" title="Tags">tag::Source</a><span class="special">&gt;</span>
+	<span class="identifier">SourceOps</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <a class="link" href="object.html#oalplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&lt;</span><span class="identifier">SourceOps</span><span class="special">&gt;</span> <span class="identifier">Source</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace oalplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="buffer.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="context_attrib.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
