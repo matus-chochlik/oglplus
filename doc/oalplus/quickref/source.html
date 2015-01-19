@@ -37,9 +37,21 @@
 	<span class="keyword">void</span> <span class="identifier">Stop</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c4" href="source.html#oalplus.quickref.source.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 	<span class="keyword">void</span> <span class="identifier">Rewind</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c6" href="source.html#oalplus.quickref.source.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
+	<a class="link" href="source_state.html" title="Source state">SourceState</a> <span class="identifier">State</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c8" href="source.html#oalplus.quickref.source.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
-<span class="comment">// TODO</span>
-<span class="special">};</span>
+	<span class="keyword">void</span> <span class="identifier">Relative</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c10" href="source.html#oalplus.quickref.source.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">Relative</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c12" href="source.html#oalplus.quickref.source.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">Type</span><span class="special">(</span><a class="link" href="source_type.html" title="Source type">SourceType</a> <span class="identifier">type</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c14" href="source.html#oalplus.quickref.source.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<a class="link" href="source_type.html" title="Source type">SourceType</a> <span class="identifier">Type</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c16" href="source.html#oalplus.quickref.source.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">Looping</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c18" href="source.html#oalplus.quickref.source.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">Looping</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c20" href="source.html#oalplus.quickref.source.c21"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">Buffer</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="object.html#oalplus.quickref.object.name.typedefs">BufferName</a><span class="special">&amp;</span> <span class="identifier">buffer</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c22" href="source.html#oalplus.quickref.source.c23"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">DetachBuffers</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c24" href="source.html#oalplus.quickref.source.c25"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">QueueBuffers</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="object.html#oalplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oalplus.quickref.object.name.typedefs">BufferName</a><span class="special">&gt;&amp;</span> <span class="identifier">buffers</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c26" href="source.html#oalplus.quickref.source.c27"><img src="../../images/callouts/14.png" alt="14" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">UnqueueBuffers</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="object.html#oalplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oalplus.quickref.object.name.typedefs">BufferName</a><span class="special">&gt;&amp;</span> <span class="identifier">buffers</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c28" href="source.html#oalplus.quickref.source.c29"><img src="../../images/callouts/15.png" alt="15" border="0"></a>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -64,6 +76,324 @@
 <td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c7"></a><a href="#oalplus.quickref.source.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Rewinds the audio track. See <code class="literal">alSourceRewind</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c9"></a><a href="#oalplus.quickref.source.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the source state. See <code class="literal">alGetSourceiv</code>, <span class="bold"><strong><code class="literal">GL_SOURCE_STATE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c11"></a><a href="#oalplus.quickref.source.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the source to relative or absoulte state. See <code class="literal">alSourcei</code>,
+              <span class="bold"><strong><code class="literal">GL_SOURCE_RELATIVE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c13"></a><a href="#oalplus.quickref.source.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if the source is relative. See <code class="literal">alGetSourceiv</code>,
+              <span class="bold"><strong><code class="literal">GL_SOURCE_RELATIVE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c15"></a><a href="#oalplus.quickref.source.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the source type. See <code class="literal">alSourcei</code>, <span class="bold"><strong><code class="literal">GL_SOURCE_TYPE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c17"></a><a href="#oalplus.quickref.source.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the source type. See <code class="literal">alGetSourceiv</code>, <span class="bold"><strong><code class="literal">GL_SOURCE_TYPE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c19"></a><a href="#oalplus.quickref.source.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the looping mode. See <code class="literal">alSourcei</code>, <span class="bold"><strong><code class="literal">GL_LOOPING</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c21"></a><a href="#oalplus.quickref.source.c20"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if the source is in looping mode. See <code class="literal">alGetSourceiv</code>,
+              <span class="bold"><strong><code class="literal">GL_SOURCE_LOOPING</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c23"></a><a href="#oalplus.quickref.source.c22"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Assigns an audio buffer to the source. See <code class="literal">alSourcei</code>,
+              <span class="bold"><strong><code class="literal">GL_BUFFER</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c25"></a><a href="#oalplus.quickref.source.c24"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Detaches all queued buffers from the source. See <code class="literal">alSourcei</code>,
+              <span class="bold"><strong><code class="literal">GL_BUFFER</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c27"></a><a href="#oalplus.quickref.source.c26"><img src="../../images/callouts/14.png" alt="14" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Enqueues multiple buffers to the source. See <code class="literal">alSourceQueueBuffers</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c29"></a><a href="#oalplus.quickref.source.c28"><img src="../../images/callouts/15.png" alt="15" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Enqueues multiple buffers to the source. See <code class="literal">alSourceUnqueueBuffers</code>.
+            </p></td>
+</tr>
+</table></div>
+<pre class="programlisting">	<span class="keyword">void</span> <span class="identifier">Gain</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c30" href="source.html#oalplus.quickref.source.c31"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">ALfloat</span> <span class="identifier">Gain</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c32" href="source.html#oalplus.quickref.source.c33"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">MinGain</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c34" href="source.html#oalplus.quickref.source.c35"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">ALfloat</span> <span class="identifier">MinGain</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c36" href="source.html#oalplus.quickref.source.c37"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">MaxGain</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c38" href="source.html#oalplus.quickref.source.c39"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">ALfloat</span> <span class="identifier">MaxGain</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c40" href="source.html#oalplus.quickref.source.c41"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">ReferenceDistance</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c42" href="source.html#oalplus.quickref.source.c43"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="identifier">ALfloat</span> <span class="identifier">ReferenceDistance</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c44" href="source.html#oalplus.quickref.source.c45"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">RolloffFactor</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c46" href="source.html#oalplus.quickref.source.c47"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="identifier">ALfloat</span> <span class="identifier">RolloffFactor</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c48" href="source.html#oalplus.quickref.source.c49"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">MaxDistance</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c50" href="source.html#oalplus.quickref.source.c51"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<span class="identifier">ALfloat</span> <span class="identifier">MaxDistance</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c52" href="source.html#oalplus.quickref.source.c53"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">Pitch</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c54" href="source.html#oalplus.quickref.source.c55"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+	<span class="identifier">ALfloat</span> <span class="identifier">Pitch</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c56" href="source.html#oalplus.quickref.source.c57"><img src="../../images/callouts/14.png" alt="14" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c31"></a><a href="#oalplus.quickref.source.c30"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the value of gain. See <code class="literal">alSourcef</code>, <span class="bold"><strong><code class="literal">GL_GAIN</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c33"></a><a href="#oalplus.quickref.source.c32"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the value of gain. See <code class="literal">alGetSourcefv</code>, <span class="bold"><strong><code class="literal">GL_GAIN</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c35"></a><a href="#oalplus.quickref.source.c34"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the minimal value of gain. See <code class="literal">alSourcef</code>,
+              <span class="bold"><strong><code class="literal">GL_MIN_GAIN</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c37"></a><a href="#oalplus.quickref.source.c36"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the minimal value of gain. See <code class="literal">alGetSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_MIN_GAIN</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c39"></a><a href="#oalplus.quickref.source.c38"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the maximal value of gain. See <code class="literal">alSourcef</code>,
+              <span class="bold"><strong><code class="literal">GL_MAX_GAIN</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c41"></a><a href="#oalplus.quickref.source.c40"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the maximal value of gain. See <code class="literal">alGetSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_MAX_GAIN</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c43"></a><a href="#oalplus.quickref.source.c42"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the reference distance. See <code class="literal">alSourcef</code>, <span class="bold"><strong><code class="literal">GL_REFERENCE_DISTANCE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c45"></a><a href="#oalplus.quickref.source.c44"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the reference distance. See <code class="literal">alGetSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_REFERENCE_DISTANCE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c47"></a><a href="#oalplus.quickref.source.c46"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the value of the rolloff factor. See <code class="literal">alSourcef</code>,
+              <span class="bold"><strong><code class="literal">GL_ROLLOFF_FACTOR</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c49"></a><a href="#oalplus.quickref.source.c48"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the value of the rolloff factor. See <code class="literal">alGetSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_ROLLOFF_FACTOR</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c51"></a><a href="#oalplus.quickref.source.c50"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the value of max distance used with some distance models. See
+              <code class="literal">alSourcef</code>, <span class="bold"><strong><code class="literal">GL_MAX_DISTANCE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c53"></a><a href="#oalplus.quickref.source.c52"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the value of max distance used with some distance models. See
+              <code class="literal">alGetSourcefv</code>, <span class="bold"><strong><code class="literal">GL_MAX_DISTANCE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c55"></a><a href="#oalplus.quickref.source.c54"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the value of pitch. See <code class="literal">alSourcef</code>, <span class="bold"><strong><code class="literal">GL_PITCH</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c57"></a><a href="#oalplus.quickref.source.c56"><img src="../../images/callouts/14.png" alt="14" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the value of pitch. See <code class="literal">alGetSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_PITCH</code></strong></span>.
+            </p></td>
+</tr>
+</table></div>
+<pre class="programlisting">	<span class="keyword">void</span> <span class="identifier">Position</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">__Vec3f</span><span class="special">&amp;</span> <span class="identifier">dir</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c58" href="source.html#oalplus.quickref.source.c59"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Position</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">x</span><span class="special">,</span> <span class="identifier">ALfloat</span> <span class="identifier">y</span><span class="special">,</span> <span class="identifier">ALfloat</span> <span class="identifier">z</span><span class="special">);</span>
+	<span class="identifier">__Vec3f</span> <span class="identifier">Position</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c60" href="source.html#oalplus.quickref.source.c61"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">Velocity</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">__Vec3f</span><span class="special">&amp;</span> <span class="identifier">dir</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c62" href="source.html#oalplus.quickref.source.c63"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Velocity</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">x</span><span class="special">,</span> <span class="identifier">ALfloat</span> <span class="identifier">y</span><span class="special">,</span> <span class="identifier">ALfloat</span> <span class="identifier">z</span><span class="special">);</span>
+	<span class="identifier">__Vec3f</span> <span class="identifier">Velocity</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c64" href="source.html#oalplus.quickref.source.c65"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">Direction</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">__Vec3f</span><span class="special">&amp;</span> <span class="identifier">dir</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c66" href="source.html#oalplus.quickref.source.c67"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Direction</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">x</span><span class="special">,</span> <span class="identifier">ALfloat</span> <span class="identifier">y</span><span class="special">,</span> <span class="identifier">ALfloat</span> <span class="identifier">z</span><span class="special">);</span>
+	<span class="identifier">__Vec3f</span> <span class="identifier">Direction</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c68" href="source.html#oalplus.quickref.source.c69"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">ConeInnerAngle</span><span class="special">(</span><span class="identifier">__Anglef</span> <span class="identifier">angle</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c70" href="source.html#oalplus.quickref.source.c71"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="identifier">__Anglef</span> <span class="identifier">ConeInnerAngle</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c72" href="source.html#oalplus.quickref.source.c73"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">ConeOuterAngle</span><span class="special">(</span><span class="identifier">__Anglef</span> <span class="identifier">angle</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c74" href="source.html#oalplus.quickref.source.c75"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="identifier">__Anglef</span> <span class="identifier">ConeOuterAngle</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c76" href="source.html#oalplus.quickref.source.c77"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">ConeOuterGain</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c78" href="source.html#oalplus.quickref.source.c79"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<span class="identifier">ALfloat</span> <span class="identifier">ConeOuterGain</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.source.c80" href="source.html#oalplus.quickref.source.c81"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">SecOffset</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c82" href="source.html#oalplus.quickref.source.c83"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">SampleOffset</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c84" href="source.html#oalplus.quickref.source.c85"><img src="../../images/callouts/14.png" alt="14" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">ByteOffset</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oalplus.quickref.source.c86" href="source.html#oalplus.quickref.source.c87"><img src="../../images/callouts/15.png" alt="15" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c59"></a><a href="#oalplus.quickref.source.c58"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the position of the source. See <code class="literal">alSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_POSITION</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c61"></a><a href="#oalplus.quickref.source.c60"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the position of the source. See <code class="literal">alGetSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_POSITION</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c63"></a><a href="#oalplus.quickref.source.c62"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the velocity vector of the source. See <code class="literal">alSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_VELOCITY</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c65"></a><a href="#oalplus.quickref.source.c64"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the velocity vector of the source. See <code class="literal">alGetSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_VELOCITY</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c67"></a><a href="#oalplus.quickref.source.c66"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the direction vector of the source. See <code class="literal">alSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_DIRECTION</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c69"></a><a href="#oalplus.quickref.source.c68"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the direction vector of the source. See <code class="literal">alGetSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_DIRECTION</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c71"></a><a href="#oalplus.quickref.source.c70"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the sound cone's inner angle. See <code class="literal">alSourcef</code>,
+              <span class="bold"><strong><code class="literal">GL_CONE_INNER_ANGLE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c73"></a><a href="#oalplus.quickref.source.c72"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the sound cone's inner angle. See <code class="literal">alGetSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_CONE_INNER_ANGLE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c75"></a><a href="#oalplus.quickref.source.c74"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the sound cone's outer angle. See <code class="literal">alSourcef</code>,
+              <span class="bold"><strong><code class="literal">GL_CONE_OUTER_ANGLE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c77"></a><a href="#oalplus.quickref.source.c76"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the sound cone's outer angle. See <code class="literal">alGetSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_CONE_OUTER_ANGLE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c79"></a><a href="#oalplus.quickref.source.c78"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the sound cone's outer gain value. See <code class="literal">alSourcef</code>,
+              <span class="bold"><strong><code class="literal">GL_CONE_OUTER_GAIN</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c81"></a><a href="#oalplus.quickref.source.c80"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the sound cone's outer gain value. See <code class="literal">alGetSourcefv</code>,
+              <span class="bold"><strong><code class="literal">GL_CONE_OUTER_GAIN</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c83"></a><a href="#oalplus.quickref.source.c82"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the Second-offset value. See <code class="literal">alSourcef</code>, <span class="bold"><strong><code class="literal">GL_SEC_OFFSET</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c85"></a><a href="#oalplus.quickref.source.c84"><img src="../../images/callouts/14.png" alt="14" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the sample-offset value. See <code class="literal">alSourcef</code>, <span class="bold"><strong><code class="literal">GL_SAMPLE_OFFSET</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.source.c87"></a><a href="#oalplus.quickref.source.c86"><img src="../../images/callouts/15.png" alt="15" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the byte-offset value. See <code class="literal">alSourcef</code>, <span class="bold"><strong><code class="literal">GL_BYTE_OFFSET</code></strong></span>.
             </p></td>
 </tr>
 </table></div>
