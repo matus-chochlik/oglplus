@@ -32,6 +32,7 @@
 
 [def __DataFormat [link oalplus.quickref.data_format DataFormat]]
 [def __SourceState [link oalplus.quickref.source_state SourceState]]
+[def __SourceType [link oalplus.quickref.source_type SourceType]]
 
 [/---------]
 [/Templates]
