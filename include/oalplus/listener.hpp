@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -55,7 +55,6 @@ public:
 	 *  @aldefref{POSITION}
 	 */
 	static void Position(ALfloat x, ALfloat y, ALfloat z)
-
 	{
 		OALPLUS_ALFUNC(Listener3f)(
 			AL_POSITION,
@@ -64,7 +63,7 @@ public:
 		OALPLUS_VERIFY_SIMPLE(Listener3f);
 	}
 
-	/// Returns the positin of the listener
+	/// Returns the position of the listener
 	/**
 	 *  @see Velocity
 	 *  @see Orientation

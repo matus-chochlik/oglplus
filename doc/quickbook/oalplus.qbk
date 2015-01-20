@@ -30,6 +30,10 @@
 [def __tag_Buffer [link oalplus.quickref.object.tags tag::Buffer]]
 [def __tag_Source [link oalplus.quickref.object.tags tag::Source]]
 
+[def __Buffer [link oalplus.quickref.buffer Buffer]]
+[def __Source [link oalplus.quickref.source Source]]
+[def __Listener [link oalplus.quickref.listener Listener]]
+
 [def __DataFormat [link oalplus.quickref.data_format DataFormat]]
 [def __SourceState [link oalplus.quickref.source_state SourceState]]
 [def __SourceType [link oalplus.quickref.source_type SourceType]]
