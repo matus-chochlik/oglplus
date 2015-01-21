@@ -4,8 +4,23 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oalplus_listener_common_1
+//[oalplus_listener_helpers
 namespace oalplus {
+
+struct ListenerOrientation
+{
+	ListenerOrientation(const __Vec3f& at, const __Vec3f& up)
+	noexcept;
+
+	__Vec3f At(void) const
+	noexcept;
+
+	__Vec3f Up(void) const
+	noexcept;
+};
+
+//]
+//[oalplus_listener_common_1
 
 class Listener
 {
@@ -30,10 +45,11 @@ public:
 	See [alfunc GetListenerfv], [alconst VELOCITY].
 	>*/
 
-	static void Orientation(const __Vec3f& at, const __Vec3f& up); /*<
+	static void Orientation(const __ListenerOrientation& orientation); /*<
 	Specifies the orientation vectors of the listener.
 	See [alfunc Listenerfv], [alconst ORIENTATION].
 	>*/
+	static void Orientation(const __Vec3f& at, const __Vec3f& up);
 	static void Orientation(
 		ALfloat at_x,
 		ALfloat at_y,
@@ -43,10 +59,11 @@ public:
 		ALfloat up_z
 	);
 
-	static Vec3f OrientationAt(void); /*<
+	static __ListenerOrientation Orientation(void); /*<
 	Return the orientation vectors of the listener.
 	See [alfunc GetListenerfv], [alconst ORIENTATION].
 	>*/
+	static Vec3f OrientationAt(void);
 	static Vec3f OrientationUp(void);
 
 	static void Gain(ALfloat value); /*<

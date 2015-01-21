@@ -12,7 +12,12 @@
 
 [import listener.hpp]
 
-[heading Listener operations]
+[heading:helpers Helper classes]
+
+[def __ListenerOrientation [link oalplus.quickref.listener.helpers ListenerOrientation]]
+[oalplus_listener_helpers]
+
+[heading:ops Listener operations]
 
 [oalplus_listener_common_1]
 

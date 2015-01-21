@@ -21,6 +21,38 @@
 
 namespace oalplus {
 
+struct ListenerOrientation
+{
+	// implementation detail
+	ALfloat _v[6];
+
+	ListenerOrientation(void)
+	OALPLUS_NOEXCEPT(true)
+	{ }
+
+	ListenerOrientation(const Vec3f& at, const Vec3f& up)
+	OALPLUS_NOEXCEPT(true)
+	{
+		for(unsigned i=0; i<3; ++i)
+		{
+			_v[i+0] = at[i];
+			_v[i+3] = up[i];
+		}
+	}
+
+	Vec3f At(void) const
+	OALPLUS_NOEXCEPT(true)
+	{
+		return Vec3f(_v, 3);
+	}
+
+	Vec3f Up(void) const
+	OALPLUS_NOEXCEPT(true)
+	{
+		return Vec3f(_v+3, 3);
+	}
+};
+
 /// An AL context-specific monostate object representing the listener
 class Listener
 {
@@ -151,6 +183,22 @@ public:
 	 *  @alfunref{Listenerfv}
 	 *  @aldefref{ORIENTATION}
 	 */
+	static void Orientation(const ListenerOrientation& lo)
+	{
+		OALPLUS_ALFUNC(Listenerfv)(AL_ORIENTATION, lo._v);
+		OALPLUS_VERIFY_SIMPLE(Listenerfv);
+	}
+
+	/// Specifies the orientation vector of the listener
+	/**
+	 *  @see Position
+	 *  @see Velocity
+	 *  @throws Error
+	 *
+	 *  @alsymbols
+	 *  @alfunref{Listenerfv}
+	 *  @aldefref{ORIENTATION}
+	 */
 	static void Orientation(const Vec3f& at, const Vec3f& up)
 	{
 		ALfloat v[6] = {
@@ -185,6 +233,25 @@ public:
 		ALfloat v[6] = {at_x, at_y, at_z, up_x, up_y, up_z};
 		OALPLUS_ALFUNC(Listenerfv)(AL_ORIENTATION, v);
 		OALPLUS_VERIFY_SIMPLE(Listenerfv);
+	}
+
+	/// Returns the orientation vector of the listener
+	/**
+	 *  @see Position
+	 *  @see Velocity
+	 *  @see Orientation
+	 *  @see OrientationUp
+	 *
+	 *  @alsymbols
+	 *  @alfunref{Listenerfv}
+	 *  @aldefref{ORIENTATION}
+	 */
+	static ListenerOrientation Orientation(void)
+	{
+		ListenerOrientation result;
+		OALPLUS_ALFUNC(GetListenerfv)(AL_ORIENTATION, result._v);
+		OALPLUS_VERIFY_SIMPLE(GetListenerfv);
+		return result;
 	}
 
 	/// Returns the orientation vector of the listener
