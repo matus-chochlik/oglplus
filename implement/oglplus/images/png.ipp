@@ -69,7 +69,7 @@ private:
 
 	PNGHeaderValidator _validate_header;
 
-	friend class PNGReadInfoEndStruct;
+	friend struct PNGReadInfoEndStruct;
 
 	// data read functions
 	void _read_data(::png_bytep data, ::png_size_t size);

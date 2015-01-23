@@ -3,13 +3,11 @@
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
 [/=============================]
-[section:object OGLplus objects]
+[section:object OALplus objects]
 [/=============================]
 
 [include object/tags.qbk]
-[include object/type.qbk]
 [include object/name.qbk]
-[include object/desc.qbk]
 
 
 [include object/wrapper.qbk]

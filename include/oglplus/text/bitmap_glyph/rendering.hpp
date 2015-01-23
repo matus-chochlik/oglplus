@@ -286,7 +286,7 @@ public:
 		CodePoints cps;
 		UTF8ToCodePoints(str.data(), str.size(), cps);
 
-		Layout layout(MakeLayout(font, cps.size()));
+		Layout layout(MakeLayout(font, GLsizei(cps.size())));
 		layout.Set(cps);
 		return std::move(layout);
 	}

@@ -297,7 +297,7 @@ void BitmapGlyphLayoutStorage::Initialize(
 	Buffer::SubData(
 		Buffer::Target::Array,
 		BufferTypedSize<GLuint>(layout_data._offset),
-		code_points.size(),
+		GLsizei(code_points.size()),
 		code_points.data()
 	);
 	// upload the x-offsets
@@ -306,7 +306,7 @@ void BitmapGlyphLayoutStorage::Initialize(
 	Buffer::SubData(
 		Buffer::Target::Array,
 		BufferTypedSize<GLuint>(layout_data._offset),
-		x_offsets.size(),
+		GLsizei(x_offsets.size()),
 		x_offsets.data()
 	);
 }

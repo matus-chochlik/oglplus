@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -7,7 +7,7 @@
 	[lang en]
 	[id index]
 	[authors [Chochlík, Matúš]]
-	[copyright 2008-2014 Matúš Chochlík]
+	[copyright 2008-2015 Matúš Chochlík]
 	[source-mode c++]
 	[license
 		Distributed under the Boost Software License, Version 1.0.
@@ -43,6 +43,11 @@
 [def __UNSPECIFIED <UNSPECIFIED>]
 [def __Unspecified <Unspecified>]
 
+[def __Nothing [link oglplus.quickref.utils.nothing Nothing]]
+
+[def __String [link oglplus.quickref.string.def String]]
+[def __StrCRef [link oglplus.quickref.string.ref StrCRef]]
+
 [def __Range [link oglplus.quickref.concept.range ['Range]]]
 [def __Metafunction [link oglplus.quickref.concept.metafunction ['Metafunction]]]
 
@@ -51,6 +56,21 @@
 [def __Bitfield [link oglplus.quickref.enums.bitfield Bitfield]]
 [def __EnumArray [link oglplus.quickref.enums.array EnumArray]]
 [def __OneOf [link oglplus.quickref.enums.one_of OneOf]]
+
+[def __oglplus_ObjectName [link oglplus.quickref.object.name oglplus::ObjectName]]
+[def __oglplus_ObjGenDelOps [link oglplus.quickref.object.ops oglplus::ObjGenDelOps]]
+[def __oglplus_ObjectOps [link oglplus.quickref.object.ops oglplus::ObjectOps]]
+[def __oglplus_Object [link oglplus.quickref.object.wrapper oglplus::Object]]
+[def __oglplus_Optional [link oglplus.quickref.object.optional oglplus::Optional]]
+[def __oglplus_Reference [link oglplus.quickref.object.reference oglplus::Reference]]
+[def __oglplus_Sequence [link oglplus.quickref.object.sequence oglplus::Sequence]]
+[def __oglplus_SeqIterator [link oglplus.quickref.object.sequence.iter oglplus::SeqIterator]]
+
+[def __oglplus_Group [link oglplus.quickref.object.group oglplus::Group]]
+[def __oglplus_StaticGroup [link oglplus.quickref.object.group oglplus::StaticGroup]]
+
+[def __oglplus_FinishedAttributeList [link oglplus.quickref.attrib_list oglplus::FinishedAttributeList]]
+[def __oglplus_AttributeList [link oglplus.quickref.attrib_list oglplus::AttributeList]]
 
 [/--------]
 [/Chapters]

@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -16,9 +16,22 @@ change without any prior notice.
 
 [endsect]
 
+[include quickref/error.qbk]
+
+[include quickref/gen_tags.qbk]
+[include quickref/ops_tags.qbk]
+[include quickref/object.qbk]
+
+[include quickref/attrib_list.qbk]
+
+[include quickref/buffer.qbk]
+[include quickref/source.qbk]
+[include quickref/listener.qbk]
+
 [include quickref/context_attrib.qbk]
 [include quickref/data_format.qbk]
 [include quickref/distance_model.qbk]
 [include quickref/source_state.qbk]
 [include quickref/source_type.qbk]
 [include quickref/string_query.qbk]
+
