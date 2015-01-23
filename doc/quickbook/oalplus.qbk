@@ -37,6 +37,12 @@
 [def __DataFormat [link oalplus.quickref.data_format DataFormat]]
 [def __SourceState [link oalplus.quickref.source_state SourceState]]
 [def __SourceType [link oalplus.quickref.source_type SourceType]]
+[def __DistanceModel [link oalplus.quickref.distance_model DistanceModel]]
+[def __ContextAttrib [link oalplus.quickref.context_attrib ContextAttrib]]
+[def __StringQuery [link oalplus.quickref.string_query StringQuery]]
+
+[def __FinishedAttributeList [link oalplus.quickref.attrib_list FinishedAttributeList]]
+[def __AttributeList [link oalplus.quickref.attrib_list AttributeList]]
 
 [/---------]
 [/Templates]

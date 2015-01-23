@@ -6,7 +6,7 @@
 [section:gen_tags Object creation methods]
 [/=======================================]
 
-[header oalplus/wrapper.hpp]
+[header oalplus/object/wrapper.hpp]
 
 __OALplus__ distinguishes the object construction methods
 as listed above at compile-time by using the following tag types:

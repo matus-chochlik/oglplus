@@ -22,6 +22,8 @@ change without any prior notice.
 [include quickref/ops_tags.qbk]
 [include quickref/object.qbk]
 
+[include quickref/attrib_list.qbk]
+
 [include quickref/buffer.qbk]
 [include quickref/source.qbk]
 [include quickref/listener.qbk]
@@ -32,3 +34,4 @@ change without any prior notice.
 [include quickref/source_state.qbk]
 [include quickref/source_type.qbk]
 [include quickref/string_query.qbk]
+
