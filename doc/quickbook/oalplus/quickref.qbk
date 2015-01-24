@@ -16,6 +16,7 @@ change without any prior notice.
 
 [endsect]
 
+[include quickref/string.qbk]
 [include quickref/error.qbk]
 
 [include quickref/gen_tags.qbk]
@@ -23,6 +24,8 @@ change without any prior notice.
 [include quickref/object.qbk]
 
 [include quickref/attrib_list.qbk]
+
+[include quickref/device.qbk]
 
 [include quickref/buffer.qbk]
 [include quickref/source.qbk]
