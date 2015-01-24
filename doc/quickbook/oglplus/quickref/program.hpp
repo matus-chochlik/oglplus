@@ -357,7 +357,7 @@ public:
 
 	void BindLocation(
 		__VertexAttribSlot vertex_attrib_slot,
-		__StrCRef identifier
+		__CStrRef identifier
 	); /*<
 	Binds the location of a shading language variable to a vertex
 	attribute.

@@ -8,11 +8,11 @@
 using namespace oglplus::ranges;
 
 ForEach(
-	Concatenate<__StrCRef>(
+	Concatenate<__CStrRef>(
 		Transform(__EnumValueRange<__ObjectType>(), __EnumValueName<ObjectType>),
 		Transform(__EnumValueRange<__ShaderType>(), __EnumValueName<ShaderType>)
 	),
-	[](__StrCRef str)
+	[](__CStrRef str)
 	{
 		std::cout << str << std::endl;
 	}

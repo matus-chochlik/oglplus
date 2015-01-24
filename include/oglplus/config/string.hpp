@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -18,14 +18,14 @@
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Compile-time switch disabling UTF-8 validity checks in various functions
 /** Setting this preprocessor symbol to a nonzero value causes that
- *  the @c StrCRef and @c String constructors skip the UTF-8 validity checks.
+ *  the @c CStrRef and @c String constructors skip the UTF-8 validity checks.
  *
  *  By default this option is set to the same value as #OGLPLUS_LOW_PROFILE,
  *  i.e. the UTF-8 validity checks are enabled, when not in low-profile mode
  *  and disabled otherwise.
  *
  *  @see GLString
- *  @see StrCRef
+ *  @see CStrRef
  *
  *  @ingroup compile_time_config
  */

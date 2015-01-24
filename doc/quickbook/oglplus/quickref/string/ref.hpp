@@ -7,35 +7,35 @@
 //[oglplus_string_ref
 namespace oglplus {
 
-class StrCRef
+class CStrRef
 {
 public:
-	StrCRef(void) noexcept; /*<
+	CStrRef(void) noexcept; /*<
 	Constructs a reference to an empty string.
 	>*/
 
-	StrCRef(const GLchar* cstr) noexcept; /*<
+	CStrRef(const GLchar* cstr) noexcept; /*<
 	Constructs a reference to a C-string.
 	>*/
-	StrCRef(const GLchar* cstr, size_t size) noexcept; /*<
+	CStrRef(const GLchar* cstr, size_t size) noexcept; /*<
 	Constructs a reference to a C-string with a specific size.
 	>*/
 
 	template <size_t N>
-	StrCRef(const GLchar (&cary)[N]) noexcept; /*<
+	CStrRef(const GLchar (&cary)[N]) noexcept; /*<
 	Constructs a reference to a character array with a known size.
 	>*/
 
-	StrCRef(const __String& sstr) noexcept; /*<
+	CStrRef(const __String& sstr) noexcept; /*<
 	Constructs a reference to a string stored inside of a __String.
 	>*/
 
-	StrCRef(const std::vector<GLchar>& cvec) noexcept; /*<
+	CStrRef(const std::vector<GLchar>& cvec) noexcept; /*<
 	Constructs a reference to a string stored inside of a [^std::vector].
 	>*/
 
 	template <size_t N>
-	StrCRef(const std::array<GLchar, N>& cvec) noexcept; /*<
+	CStrRef(const std::array<GLchar, N>& cvec) noexcept; /*<
 	Constructs a reference to a string stored inside of a [^std::array].
 	>*/
 
@@ -69,14 +69,14 @@ public:
 	Returns the referenced character string as a __String.
 	>*/
 
-	friend bool operator == (const StrCRef& a, const StrCRef& b); /*<
+	friend bool operator == (const CStrRef& a, const CStrRef& b); /*<
 	Comparison operators.
 	>*/
-	friend bool operator == (const StrCRef& a, const Char* b);
-	friend bool operator == (const Char* a, const StrCRef& b);
-	friend bool operator != (const StrCRef& a, const StrCRef& b);
-	friend bool operator != (const StrCRef& a, const Char* b);
-	friend bool operator != (const Char* a, const StrCRef& b);
+	friend bool operator == (const CStrRef& a, const Char* b);
+	friend bool operator == (const Char* a, const CStrRef& b);
+	friend bool operator != (const CStrRef& a, const CStrRef& b);
+	friend bool operator != (const CStrRef& a, const Char* b);
+	friend bool operator != (const Char* a, const CStrRef& b);
 };
 
 } // namespace oglplus

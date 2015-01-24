@@ -9,6 +9,9 @@
 
 [/Quick reference links]
 
+[def __String [link oalplus.quickref.string String]]
+[def __CStrRef [link oalplus.quickref.string CStrRef]]
+
 [def __Error [link oalplus.quickref.error.basic Error]]
 
 [def __GenTag [link oalplus.quickref.gen_tags GenTag]]
@@ -29,6 +32,12 @@
 [def __ObjTag [link oalplus.quickref.object.tags ObjTag]]
 [def __tag_Buffer [link oalplus.quickref.object.tags tag::Buffer]]
 [def __tag_Source [link oalplus.quickref.object.tags tag::Source]]
+
+[def __tag_Playback [link oalplus.quickref.object.tags tag::Playback]]
+[def __tag_Capture [link oalplus.quickref.object.tags tag::Capture]]
+
+[def __Device [link oalplus.quickref.device.playback Device]]
+[def __CaptureDevice [link oalplus.quickref.device.capture CaptureDevice]]
 
 [def __Buffer [link oalplus.quickref.buffer Buffer]]
 [def __Source [link oalplus.quickref.source Source]]
@@ -51,7 +60,8 @@
 [template alfunc[Name] [^al[Name]]]
 [template alcfunc[Name] [^alc[Name]]]
 [template alutfunc[Name] [^alut[Name]]]
-[template alconst[Name] [*[^GL_[Name]]]]
+[template alconst[Name] [*[^AL_[Name]]]]
+[template alcconst[Name] [*[^ALC_[Name]]]]
 
 [/--------]
 [/Chapters]

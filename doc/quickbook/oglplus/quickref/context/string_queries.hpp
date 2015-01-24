@@ -42,7 +42,7 @@ public:
 	Returns the name of [^index]th supported shading language version.
 	See [glfunc GetString], [glconst SHADING_LANGUAGE_VERSION].
 	>*/
-	static __Range<__StrCRef> ShadingLanguageVersions(void); /*<
+	static __Range<__CStrRef> ShadingLanguageVersions(void); /*<
 	Returns a range of supported GLSL version strings.
 	See [glfunc GetString], [glconst SHADING_LANGUAGE_VERSION].
 	>*/
@@ -56,7 +56,7 @@ public:
 	Returns the name of the [^index]th extension.
 	See [glfunc GetString], [glconst EXTENSIONS].
 	>*/
-	static __Range<__StrCRef> Extensions(void); /*<
+	static __Range<__CStrRef> Extensions(void); /*<
 	Returns a range of extension name strings.
 	See [glfunc GetString], [glconst EXTENSIONS].
 	>*/

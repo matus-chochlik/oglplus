@@ -13,16 +13,16 @@ public:
 	GLSLSource(GLSLSource&& tmp);
 
 	explicit
-	GLSLSource(const __StrCRef& source);
+	GLSLSource(const __CStrRef& source);
 
-	GLSLSource(const std::vector<__StrCRef>& lits);
+	GLSLSource(const std::vector<__CStrRef>& lits);
 
 	template <size_t N>
-	GLSLSource(const __StrCRef (&lits)[N]);
+	GLSLSource(const __CStrRef (&lits)[N]);
 
 	GLSLSource(const std::vector<__String>& strs);
 
-	GLSLSource(std::initializer_list<__StrCRef> lits);
+	GLSLSource(std::initializer_list<__CStrRef> lits);
 
 	GLSLSource(std::initializer_list<__String> strs);
 

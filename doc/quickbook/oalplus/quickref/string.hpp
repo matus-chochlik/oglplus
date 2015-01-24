@@ -4,11 +4,12 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_string_ref_ios
-namespace oglplus {
+//[oalplus_string
+namespace oalplus {
 
-std::ostream& operator << (std::ostream& out, const CStrRef& str);
+using __oglplus_String;
+using __oglplus_CStrRef;
 
-} // namespace oglplus
+} // namespace oalplus
 //]
 

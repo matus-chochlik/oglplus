@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,7 +19,7 @@ returns an empty range.
 >*/
 
 template <typename Enumeration>
-__StrCRef EnumValueName(Enumeration enum_value); /*<
+__CStrRef EnumValueName(Enumeration enum_value); /*<
 Returns the name of the GL enumerated value for an OGLplus enum value.
 This function is overloaded for the enumerated types defined by OGLplus
 and returns the GL constant name (without the "GL_" prefix) as managed

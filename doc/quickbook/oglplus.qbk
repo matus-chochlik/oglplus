@@ -16,7 +16,7 @@
 [def __Nothing [link oglplus.quickref.utils.nothing Nothing]]
 
 [def __String [link oglplus.quickref.string.def String]]
-[def __StrCRef [link oglplus.quickref.string.ref StrCRef]]
+[def __CStrRef [link oglplus.quickref.string.ref CStrRef]]
 
 [def __Angle [link oglplus.quickref.math.angle Angle]]
 [def __Plane [link oglplus.quickref.math.plane Plane]]

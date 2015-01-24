@@ -17,7 +17,7 @@ public:
 	GLSLString(const GLchar (&str)[N])
 	noexcept;
 
-	GLSLString(const __StrCRef& str)
+	GLSLString(const __CStrRef& str)
 	noexcept;
 
 	GLSLString(const __String& str)
