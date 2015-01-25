@@ -26,6 +26,7 @@ change without any prior notice.
 [include quickref/attrib_list.qbk]
 
 [include quickref/device.qbk]
+[include quickref/context.qbk]
 
 [include quickref/buffer.qbk]
 [include quickref/source.qbk]

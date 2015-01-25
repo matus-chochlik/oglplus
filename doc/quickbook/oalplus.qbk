@@ -53,6 +53,10 @@
 [def __FinishedAttributeList [link oalplus.quickref.attrib_list FinishedAttributeList]]
 [def __AttributeList [link oalplus.quickref.attrib_list AttributeList]]
 
+[def __ContextAttribs [link oalplus.quickref.context.attribs ContextAttribs]]
+[def __FinishedContextAttribs [link oalplus.quickref.context.attribs FinishedContextAttribs]]
+[def __Context [link oalplus.quickref.context.wrapper Context]]
+
 [/---------]
 [/Templates]
 [/---------]
