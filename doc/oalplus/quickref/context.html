@@ -1,0 +1,259 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Context</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;5.&#160;Quick reference">
+<link rel="prev" href="device.html" title="Devices">
+<link rel="next" href="buffer.html" title="Buffers">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="device.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="buffer.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oalplus.quickref.context"></a><a class="link" href="context.html" title="Context">Context</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oalplus/context.hpp&gt;</code>
+        </p>
+<h4>
+<a name="oalplus.quickref.context.h0"></a>
+          <span class="phrase"><a name="oalplus.quickref.context.attribs"></a></span><a class="link" href="context.html#oalplus.quickref.context.attribs">Attributes</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
+
+
+<span class="keyword">typedef</span> <a class="link" href="attrib_list.html" title="Attribute list">AttributeList</a><span class="special">&lt;</span><a class="link" href="context_attrib.html" title="Context attribute">ContextAttrib</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">ContextAttribs</span><span class="special">;</span> <a class="co" name="oalplus.quickref.context.c0" href="context.html#oalplus.quickref.context.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<span class="keyword">typedef</span> <a class="link" href="attrib_list.html" title="Attribute list">FinishedAttributeList</a><span class="special">&lt;</span><a class="link" href="context_attrib.html" title="Context attribute">ContextAttrib</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">FinishedContextAttribs</span><span class="special">;</span> <a class="co" name="oalplus.quickref.context.c2" href="context.html#oalplus.quickref.context.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c1"></a><a href="#oalplus.quickref.context.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Attribute list type for context attributes.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c3"></a><a href="#oalplus.quickref.context.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Finished list of context attribute values.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oalplus.quickref.context.h1"></a>
+          <span class="phrase"><a name="oalplus.quickref.context.ops"></a></span><a class="link" href="context.html#oalplus.quickref.context.ops">Operations</a>
+        </h4>
+<p>
+          <code class="literal">ContextOps</code> is a base wrapper for OpenAL context operations.
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            Do not use this class directly, use Context instead.
+          </p></td></tr>
+</table></div>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ContextOps</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">static</span> <span class="identifier">ContextOps</span> <span class="identifier">Current</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c4" href="context.html#oalplus.quickref.context.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">StrCRef</span> <span class="identifier">GetString</span><span class="special">(</span><a class="link" href="string_query.html" title="String query">StringQuery</a> <span class="identifier">query</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c6" href="context.html#oalplus.quickref.context.c7"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">Vendor</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c8" href="context.html#oalplus.quickref.context.c9"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">Version</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c10" href="context.html#oalplus.quickref.context.c11"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">Renderer</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c12" href="context.html#oalplus.quickref.context.c13"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="keyword">static</span> <a class="link" href="../../oglplus/quickref/concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><a class="link" href="string.html" title="Strings">StrCRef</a><span class="special">&gt;</span> <span class="identifier">Extensions</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c14" href="context.html#oalplus.quickref.context.c15"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+
+	<span class="identifier">DeviceOps</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">Playback</span><span class="special">&gt;</span> <span class="identifier">ContextsDevice</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oalplus.quickref.context.c16" href="context.html#oalplus.quickref.context.c17"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">MakeCurrent</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c18" href="context.html#oalplus.quickref.context.c19"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">Process</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c20" href="context.html#oalplus.quickref.context.c21"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Suspend</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c22" href="context.html#oalplus.quickref.context.c23"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c5"></a><a href="#oalplus.quickref.context.c4"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the current OpenAL context. See <code class="literal">alcGetCurrentContext</code>,
+              <code class="literal">alcGetContextsDevice</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c7"></a><a href="#oalplus.quickref.context.c6"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Queries a string from the current OpenAL context. See <code class="literal">alcGetString</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c9"></a><a href="#oalplus.quickref.context.c8"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the vendor name. See <code class="literal">alcGetString</code>, <span class="bold"><strong><code class="literal">ALC_VENDOR</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c11"></a><a href="#oalplus.quickref.context.c10"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the version string. See <code class="literal">alcGetString</code>, <span class="bold"><strong><code class="literal">ALC_VENDOR</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c13"></a><a href="#oalplus.quickref.context.c12"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the renderer name. See <code class="literal">alcGetString</code>, <span class="bold"><strong><code class="literal">ALC_VENDOR</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c15"></a><a href="#oalplus.quickref.context.c14"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns a range of extension strings. See <code class="literal">alcGetString</code>,
+              <span class="bold"><strong><code class="literal">ALC_EXTENSIONS</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c17"></a><a href="#oalplus.quickref.context.c16"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the audio device of <code class="literal">this</code> context.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c19"></a><a href="#oalplus.quickref.context.c18"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Makes this context current. See <code class="literal">alcMakeContextCurrent</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c21"></a><a href="#oalplus.quickref.context.c20"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Processes this context. See <code class="literal">alcProcessContext</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c23"></a><a href="#oalplus.quickref.context.c22"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Suspends this context. See <code class="literal">alcSuspendContext</code>.
+            </p></td>
+</tr>
+</table></div>
+<pre class="programlisting">	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DistanceModel</span><span class="special">(</span><a class="link" href="distance_model.html" title="Distance model">DistanceModel</a> <span class="identifier">dist_model</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c24" href="context.html#oalplus.quickref.context.c25"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="distance_model.html" title="Distance model">DistanceModel</a> <span class="identifier">DistanceModel</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c26" href="context.html#oalplus.quickref.context.c27"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DopplerFactor</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">doppler_factor</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c28" href="context.html#oalplus.quickref.context.c29"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">ALfloat</span> <span class="identifier">DopplerFactor</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c30" href="context.html#oalplus.quickref.context.c31"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">SpeedOfSound</span><span class="special">(</span><span class="identifier">ALfloat</span> <span class="identifier">speed_of_sound</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c32" href="context.html#oalplus.quickref.context.c33"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">static</span> <span class="identifier">ALfloat</span> <span class="identifier">SpeedOfSound</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c34" href="context.html#oalplus.quickref.context.c35"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c25"></a><a href="#oalplus.quickref.context.c24"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the distance model to be used by the current context. See <code class="literal">alcDistanceModel</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c27"></a><a href="#oalplus.quickref.context.c26"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the distance model used by the current context. See <code class="literal">alcGetIntegerv</code>,
+              <span class="bold"><strong><code class="literal">ALC_DISTANCE_MODEL</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c29"></a><a href="#oalplus.quickref.context.c28"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the doppler factor for the current context. See <code class="literal">alcDopplerFactor</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c31"></a><a href="#oalplus.quickref.context.c30"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the doppler factor used by the current context. See <code class="literal">alcGetFloatv</code>,
+              <span class="bold"><strong><code class="literal">ALC_DOPPLER_FACTOR</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c33"></a><a href="#oalplus.quickref.context.c32"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the value of speed of sound for the current context. See <code class="literal">alcSpeedOfSound</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c35"></a><a href="#oalplus.quickref.context.c34"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the value of speed of sound used by the current context. See
+              <code class="literal">alcGetFloatv</code>, <span class="bold"><strong><code class="literal">ALC_SPEED_OF_SOUND</code></strong></span>.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oalplus.quickref.context.h2"></a>
+          <span class="phrase"><a name="oalplus.quickref.context.wrapper"></a></span><a class="link" href="context.html#oalplus.quickref.context.wrapper">Context</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Context</span>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">ContextOps</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Context</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Context</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span>
+	<span class="identifier">Context</span><span class="special">(</span><span class="identifier">Context</span><span class="special">&amp;&amp;);</span>
+
+	<span class="identifier">Context</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="device.html#oalplus.quickref.device.playback">Device</a><span class="special">&amp;</span> <span class="identifier">device</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c36" href="context.html#oalplus.quickref.context.c37"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">Context</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="device.html#oalplus.quickref.device.playback">Device</a><span class="special">&amp;</span> <span class="identifier">device</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="context.html#oalplus.quickref.context.attribs">FinishedContextAttribs</a><span class="special">&amp;</span> <span class="identifier">attribs</span>
+	<span class="special">);</span> <a class="co" name="oalplus.quickref.context.c38" href="context.html#oalplus.quickref.context.c39"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="special">~</span><span class="identifier">Context</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c40" href="context.html#oalplus.quickref.context.c41"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oalplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c37"></a><a href="#oalplus.quickref.context.c36"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Constructs a context using the specified device. See <code class="literal">alcCreateContext</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c39"></a><a href="#oalplus.quickref.context.c38"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Construct a context with the specified attributes using the device.
+              See <code class="literal">alcCreateContext</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c41"></a><a href="#oalplus.quickref.context.c40"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Destroys this context. See <code class="literal">alcMakeContextCurrent</code>,
+              <code class="literal">alcDestroyContext</code>.
+            </p></td>
+</tr>
+</table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="device.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="buffer.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
