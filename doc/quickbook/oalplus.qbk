@@ -57,6 +57,10 @@
 [def __FinishedContextAttribs [link oalplus.quickref.context.attribs FinishedContextAttribs]]
 [def __Context [link oalplus.quickref.context.wrapper Context]]
 
+[def __Angle [link oalplus.quickref.math.angle Angle]]
+[def __Vector [link oalplus.quickref.math.vector Vector]]
+[def __Vec3f [link oalplus.quickref.math.vector Vec3f]]
+
 [/---------]
 [/Templates]
 [/---------]

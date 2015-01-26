@@ -39,3 +39,4 @@ change without any prior notice.
 [include quickref/source_type.qbk]
 [include quickref/string_query.qbk]
 
+[include quickref/math.qbk]

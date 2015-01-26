@@ -59,6 +59,9 @@
 [def __oglplus_String [link oglplus.quickref.string.def oglplus::String]]
 [def __oglplus_StrCRef [link oglplus.quickref.string.ref oglplus::StrCRef]]
 
+[def __oglplus_Angle [link oglplus.quickref.math.angle oglplus::Angle]]
+[def __oglplus_Vector [link oglplus.quickref.math.vector oglplus::Vector]]
+
 [def __oglplus_ObjectName [link oglplus.quickref.object.name oglplus::ObjectName]]
 [def __oglplus_ObjGenDelOps [link oglplus.quickref.object.ops oglplus::ObjGenDelOps]]
 [def __oglplus_ObjectOps [link oglplus.quickref.object.ops oglplus::ObjectOps]]
