@@ -87,6 +87,7 @@ public:
 			Dir direction;
 			const char* text;
 		} lines[] = {
+#if !OGLPLUS_NO_UNICODE_LITERALS
 			{Dir::LeftToRight, u8"Hello world"},
 			{Dir::LeftToRight, u8"Nazdar svet"},
 			{Dir::LeftToRight, u8"Γεια σας κόσμο"},
@@ -113,6 +114,17 @@ public:
 			{Dir::LeftToRight, u8"Здраво светот"},
 			{Dir::RightToLeft, u8"שלום עולם"},
 			{Dir::LeftToRight, u8"Hei verden"}
+#else
+			{Dir::LeftToRight, "Hello world"},
+			{Dir::LeftToRight, "Nazdar svet"},
+			{Dir::LeftToRight, "Moi maailma"},
+			{Dir::LeftToRight, "Hallo welt"},
+			{Dir::LeftToRight, "Zdravo svet"},
+			{Dir::LeftToRight, "Pozdrav svijetu"},
+			{Dir::LeftToRight, "Hola mundo"},
+			{Dir::LeftToRight, "Ciao mondo"},
+			{Dir::LeftToRight, "Hei verden"}
+#endif
 		};
 		const std::size_t line_count = sizeof(lines)/sizeof(lines[0]);
 

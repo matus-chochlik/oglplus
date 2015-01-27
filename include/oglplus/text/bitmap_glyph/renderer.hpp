@@ -82,6 +82,12 @@ public:
 		const Sequence<ShaderName>& shaders
 	);
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	BitmapGlyphRenderer(BitmapGlyphRenderer&&) = default;
+#else
+	BitmapGlyphRenderer(BitmapGlyphRenderer&& tmp);
+#endif
+
 	void Use(void)
 	{
 		_program.Use();
@@ -131,6 +137,12 @@ public:
 		BitmapGlyphRenderingBase& parent,
 		const FragmentShader& pixel_color_shader
 	);
+
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	BitmapGlyphDefaultRenderer(BitmapGlyphDefaultRenderer&&) = default;
+#else
+	BitmapGlyphDefaultRenderer(BitmapGlyphDefaultRenderer&& tmp);
+#endif
 };
 
 } // namespace text

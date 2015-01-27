@@ -405,6 +405,19 @@ public:
 		if(_dir_coef) _dir_coef.Set(1.0f);
 	}
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	DefaultRendererTpl(DefaultRendererTpl&&) = default;
+#else
+	DefaultRendererTpl(DefaultRendererTpl&& tmp)
+	 : Base(static_cast<Base&&>(tmp))
+	 , _projection_matrix(std::move(tmp._projection_matrix))
+	 , _camera_matrix(std::move(tmp._camera_matrix))
+	 , _layout_matrix(std::move(tmp._layout_matrix))
+	 , _align_coef(std::move(tmp._align_coef))
+	 , _dir_coef(std::move(tmp._dir_coef))
+	{ }
+#endif
+
 	void SetProjection(const Mat4f& projection_matrix)
 	{
 		_projection_matrix.Set(projection_matrix);
