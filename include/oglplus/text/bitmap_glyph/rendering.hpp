@@ -260,7 +260,7 @@ public:
 	{ }
 
 #if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	BitmapGlyphRenderingTpl(BitmapGlyphRenderingTpl&&);
+	BitmapGlyphRenderingTpl(BitmapGlyphRenderingTpl&&) = default;
  #else
 	BitmapGlyphRenderingTpl(BitmapGlyphRenderingTpl&& tmp)
 	 : BitmapGlyphRenderingBase(static_cast<BitmapGlyphRenderingBase&&>(tmp))

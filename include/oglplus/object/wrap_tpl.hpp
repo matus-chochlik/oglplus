@@ -210,11 +210,8 @@ public:
 	/// Objects are movable
 	ObjectTpl(ObjectTpl&& temp)
 	OGLPLUS_NOEXCEPT(true)
-	 : NameHolder(ObjectName<ObjTag>())
-	{
-		using std::swap;
-		swap(static_cast<NameHolder&&>(*this),static_cast<NameHolder&&>(temp));
-	}
+	 : NameHolder(static_cast<NameHolder&&>(temp.ReleaseName()))
+	{ }
 
 	~ObjectTpl(void)
 	OGLPLUS_NOEXCEPT(true)
