@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -7,5 +7,35 @@
 	[id eglplus]
 ]
 
+[/Quick reference links]
+
+[def __String [link eglplus.quickref.string String]]
+[def __StrCRef [link eglplus.quickref.string StrCRef]]
+
+[def __Bitfield [link eglplus.quickref.bitfield Bitfield]]
+
+[def __Display [link eglplus.quickref.display Display]]
+
+[def __FinishedAttributeList [link eglplus.quickref.attrib_list FinishedAttributeList]]
+[def __AttributeList [link eglplus.quickref.attrib_list AttributeList]]
+
+[def __ContextAttribs [link eglplus.quickref.context.attribs ContextAttribs]]
+[def __FinishedContextAttribs [link eglplus.quickref.context.attribs FinishedContextAttribs]]
+[def __Context [link eglplus.quickref.context.wrapper Context]]
+
+[def __ContextAttrib [link oalplus.quickref.context_attrib ContextAttrib]]
+
+[/---------]
+[/Templates]
+[/---------]
+
+[template eglfunc[Name] [^egl[Name]]]
+[template eglconst[Name] [*[^EGL_[Name]]]]
+
+[/--------]
+[/Chapters]
+[/--------]
+
 [include eglplus/intro.qbk]
 [include eglplus/quickref.qbk]
+
