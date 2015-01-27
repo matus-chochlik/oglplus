@@ -87,6 +87,11 @@ oalplus/quickref/math.html
 eglplus.html
 eglplus/intro.html
 eglplus/quickref.html
+eglplus/quickref/string.html
+eglplus/quickref/display.html
+eglplus/quickref/context.html
+eglplus/quickref/attrib_list.html
+eglplus/quickref/bitfield.html
 eglplus/quickref/context_attrib.html
 eglplus/quickref/context_flag.html
 eglplus/quickref/config_attrib.html
