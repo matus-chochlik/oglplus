@@ -19,7 +19,9 @@ change without any prior notice.
 [include quickref/string.qbk]
 
 [include quickref/display.qbk]
+[include quickref/configs.qbk]
 [include quickref/context.qbk]
+[include quickref/surface.qbk]
 
 [include quickref/attrib_list.qbk]
 [include quickref/bitfield.qbk]

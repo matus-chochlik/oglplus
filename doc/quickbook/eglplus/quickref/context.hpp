@@ -16,7 +16,7 @@ Finished attribute list type for context attributes.
 >*/
 
 //]
-//[eglplus_context
+//[eglplus_context_1
 
 class Context
 {
@@ -64,7 +64,59 @@ public:
 	Destroys the wrapped context.
 	See [eglfunc DestroyContext].
 	>*/
-//TODO
+
+	bool MakeCurrent(
+		const __Surface& draw_surface,
+		const __Surface& read_surface
+	); /*<
+	Makes the context current.
+	See [eglfunc MakeCurrent].
+	>*/
+	bool MakeCurrent(const __Surface& surface);
+
+	bool MakeCurrent(void); /*<
+	Makes the context current without using any surfaces.
+	See [eglfunc MakeCurrent], [eglconst NO_SURFACE].
+	>*/
+
+	bool Release(void); /*<
+	Releases the current context without assigning a new one.
+	See [eglfunc MakeCurrent], [eglconst NO_SURFACE], [eglconst NO_CONTEXT].
+	>*/
+//]
+//[eglplus_context_2
+
+	bool Query(__ContextAttrib attrib, EGLint& value) const; /*<
+	Queries a context attribute.
+	See [eglfunc QueryContext].
+	>*/
+
+	EGLint ConfigId(void) const; /*<
+	Queries a context attribute.
+	See [eglfunc QueryContext], [eglconst CONFIG_ID].
+	>*/
+
+	bool WaitClient(void) const; /*<
+	Waits for client API commands to complete.
+	See [eglfunc WaitClient].
+	>*/
+
+	bool WaitGL(void) const; /*<
+	Waits for GL API commands to complete.
+	See [eglfunc WaitGL].
+	>*/
+
+	bool WaitNative(EGLint engine) const; /*<
+	Waits for native API commands to complete.
+	See [eglfunc WaitNative].
+	>*/
+};
+
+::EGLContext GetEGLHandle(const __Context& context)
+noexcept; /*<
+Returns the EGL context handle wrapped by a __Context.
+>*/
+
 };
 
 } // namespace eglplus

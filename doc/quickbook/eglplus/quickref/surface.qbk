@@ -3,22 +3,22 @@
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
 [/=======================]
-[section:context Contexts]
+[section:surface Surfaces]
 [/=======================]
 
-[header eglplus/context.hpp]
+[header eglplus/surface.hpp]
 
-[^Context] is a wrapper around [^EGLContext].
+[import surface.hpp]
 
-[import context.hpp]
+[heading:attribs Surface attributes]
 
-[heading:attribs Context attributes]
+[eglplus_surface_attribs]
 
-[eglplus_context_attribs]
+[heading:wrapper Surface]
 
-[heading:wrapper Context]
+[^Surface] is a wrapper around [^EGLSurface].
 
-[eglplus_context_1]
-[eglplus_context_2]
+[eglplus_surface_1]
+[eglplus_surface_2]
 
 [endsect]

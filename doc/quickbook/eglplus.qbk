@@ -15,6 +15,7 @@
 [def __Bitfield [link eglplus.quickref.bitfield Bitfield]]
 
 [def __Display [link eglplus.quickref.display Display]]
+[def __Config [link eglplus.quickref.configs.config Config]]
 
 [def __FinishedAttributeList [link eglplus.quickref.attrib_list FinishedAttributeList]]
 [def __AttributeList [link eglplus.quickref.attrib_list AttributeList]]
@@ -23,7 +24,13 @@
 [def __FinishedContextAttribs [link eglplus.quickref.context.attribs FinishedContextAttribs]]
 [def __Context [link eglplus.quickref.context.wrapper Context]]
 
-[def __ContextAttrib [link oalplus.quickref.context_attrib ContextAttrib]]
+[def __SurfaceAttribs [link eglplus.quickref.surface.attribs SurfaceAttribs]]
+[def __FinishedSurfaceAttribs [link eglplus.quickref.surface.attribs FinishedSurfaceAttribs]]
+[def __Surface [link eglplus.quickref.surface.wrapper Surface]]
+
+[def __ConfigAttrib [link eglplus.quickref.config_attrib ConfigAttrib]]
+[def __ContextAttrib [link eglplus.quickref.context_attrib ContextAttrib]]
+[def __SurfaceAttrib [link eglplus.quickref.surface_attrib SurfaceAttrib]]
 
 [/---------]
 [/Templates]

@@ -31,7 +31,8 @@ public:
 	>*/
 };
 
-::EGLDisplay GetEGLHandle(const __Display& display); /*<
+::EGLDisplay GetEGLHandle(const __Display& display)
+noexcept; /*<
 Returns the EGL display handle wrapped by a __Display.
 >*/
 
