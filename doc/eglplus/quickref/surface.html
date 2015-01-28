@@ -1,0 +1,138 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Surfaces</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;7.&#160;Quick reference">
+<link rel="prev" href="context.html" title="Contexts">
+<link rel="next" href="attrib_list.html" title="Attribute list">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="context.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="attrib_list.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="eglplus.quickref.surface"></a><a class="link" href="surface.html" title="Surfaces">Surfaces</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;eglplus/surface.hpp&gt;</code>
+        </p>
+<h4>
+<a name="eglplus.quickref.surface.h0"></a>
+          <span class="phrase"><a name="eglplus.quickref.surface.attribs"></a></span><a class="link" href="surface.html#eglplus.quickref.surface.attribs">Surface
+          attributes</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">eglplus</span> <span class="special">{</span>
+
+<span class="keyword">typedef</span> <a class="link" href="attrib_list.html" title="Attribute list">AttributeList</a><span class="special">&lt;</span><a class="link" href="surface_attrib.html" title="Surface attribute">SurfaceAttrib</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">SurfaceAttribs</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c0" href="surface.html#eglplus.quickref.surface.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<span class="keyword">typedef</span> <a class="link" href="attrib_list.html" title="Attribute list">FinishedAttributeList</a><span class="special">&lt;</span><a class="link" href="surface_attrib.html" title="Surface attribute">SurfaceAttrib</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">FinishedSurfaceAttribs</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c2" href="surface.html#eglplus.quickref.surface.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c1"></a><a href="#eglplus.quickref.surface.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Attribute list type for surface attributes.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c3"></a><a href="#eglplus.quickref.surface.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Finished attribute list type for surface attributes.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="eglplus.quickref.surface.h1"></a>
+          <span class="phrase"><a name="eglplus.quickref.surface.wrapper"></a></span><a class="link" href="surface.html#eglplus.quickref.surface.wrapper">Surface</a>
+        </h4>
+<p>
+          <code class="literal">Surface</code> is a wrapper around <code class="literal">EGLSurface</code>.
+        </p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Surface</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Surface</span><span class="special">(</span><span class="identifier">Surface</span><span class="special">&amp;&amp;</span> <span class="identifier">tmp</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="special">~</span><span class="identifier">Surface</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="eglplus.quickref.surface.c4" href="surface.html#eglplus.quickref.surface.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">Surface</span> <span class="identifier">Pbuffer</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="display.html" title="Displays">Display</a><span class="special">&amp;</span> <span class="identifier">display</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="configs.html#eglplus.quickref.configs.config">Config</a><span class="special">&amp;</span> <span class="identifier">config</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="surface.html#eglplus.quickref.surface.attribs">FinishedSurfaceAttribs</a><span class="special">&amp;</span> <span class="identifier">attribs</span>
+	<span class="special">);</span> <a class="co" name="eglplus.quickref.surface.c6" href="surface.html#eglplus.quickref.surface.c7"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">Surface</span> <span class="identifier">Pixmap</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="display.html" title="Displays">Display</a><span class="special">&amp;</span> <span class="identifier">display</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="configs.html#eglplus.quickref.configs.config">Config</a><span class="special">&amp;</span> <span class="identifier">config</span><span class="special">,</span>
+		<span class="identifier">EGLNativePixmapType</span> <span class="identifier">pixmap</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="surface.html#eglplus.quickref.surface.attribs">FinishedSurfaceAttribs</a><span class="special">&amp;</span> <span class="identifier">attribs</span>
+	<span class="special">);</span> <a class="co" name="eglplus.quickref.surface.c8" href="surface.html#eglplus.quickref.surface.c9"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">Surface</span> <span class="identifier">Window</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="display.html" title="Displays">Display</a><span class="special">&amp;</span> <span class="identifier">display</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="configs.html#eglplus.quickref.configs.config">Config</a><span class="special">&amp;</span> <span class="identifier">config</span><span class="special">,</span>
+		<span class="identifier">EGLNativeWindowType</span> <span class="identifier">window</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="surface.html#eglplus.quickref.surface.attribs">FinishedSurfaceAttribs</a><span class="special">&amp;</span> <span class="identifier">attribs</span>
+	<span class="special">);</span> <a class="co" name="eglplus.quickref.surface.c10" href="surface.html#eglplus.quickref.surface.c11"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+<span class="comment">// TODO</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c5"></a><a href="#eglplus.quickref.surface.c4"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Destroys the wrapped surface. See [eglfunref DestroySurface].
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c7"></a><a href="#eglplus.quickref.surface.c6"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Creates a Pbuffer surface. See <code class="literal">eglCreatePbufferSurface</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c9"></a><a href="#eglplus.quickref.surface.c8"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Creates a Pixmap surface. See <code class="literal">eglCreatePixmapSurface</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c11"></a><a href="#eglplus.quickref.surface.c10"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Creates a Window surface. See <code class="literal">eglCreateWindowSurface</code>.
+            </p></td>
+</tr>
+</table></div>
+<pre class="programlisting"><span class="special">};</span>
+
+<span class="special">::</span><span class="identifier">EGLSurface</span> <span class="identifier">GetEGLHandle</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="surface.html#eglplus.quickref.surface.wrapper">Surface</a><span class="special">&amp;</span> <span class="identifier">surface</span><span class="special">)</span>
+<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c12" href="surface.html#eglplus.quickref.surface.c13"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<span class="special">}</span> <span class="comment">// namespace eglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c13"></a><a href="#eglplus.quickref.surface.c12"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the EGL surface handle wrapped by a <a class="link" href="surface.html#eglplus.quickref.surface.wrapper">Surface</a>.
+            </p></td>
+</tr></table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="context.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="attrib_list.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
