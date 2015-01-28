@@ -2,7 +2,7 @@
  *  @example standalone/004_bitmap_text_rendering.cpp
  *  @brief Shows the usage of OGLplus' text rendering utilities
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
