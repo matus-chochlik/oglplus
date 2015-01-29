@@ -16,9 +16,15 @@
 
 [heading:config Config]
 
-[^Config] is a wrapper for a single EGL configuration.
+[^config] is a wrapper for a single egl configuration.
 
 [eglplus_config_1]
 [eglplus_config_2]
+
+[heading:wrapper Configs]
+
+[^Configs] is a class that provides access to all configurations of a __Display.
+
+[eglplus_configs_1]
 
 [endsect]

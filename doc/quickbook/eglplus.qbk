@@ -14,11 +14,15 @@
 
 [def __Bitfield [link eglplus.quickref.bitfield Bitfield]]
 
-[def __Display [link eglplus.quickref.display Display]]
-[def __Config [link eglplus.quickref.configs.config Config]]
-
 [def __FinishedAttributeList [link eglplus.quickref.attrib_list FinishedAttributeList]]
 [def __AttributeList [link eglplus.quickref.attrib_list AttributeList]]
+
+[def __Display [link eglplus.quickref.display Display]]
+
+[def __ConfigAttribs [link eglplus.quickref.configs.attribs ConfigAttribs]]
+[def __FinishedConfigAttribs [link eglplus.quickref.configs.attribs FinishedConfigAttribs]]
+[def __Config [link eglplus.quickref.configs.config Config]]
+[def __Configs [link eglplus.quickref.configs.wrapper Configs]]
 
 [def __ContextAttribs [link eglplus.quickref.context.attribs ContextAttribs]]
 [def __FinishedContextAttribs [link eglplus.quickref.context.attribs FinishedContextAttribs]]
@@ -29,8 +33,15 @@
 [def __Surface [link eglplus.quickref.surface.wrapper Surface]]
 
 [def __ConfigAttrib [link eglplus.quickref.config_attrib ConfigAttrib]]
+[def __ConfigCaveat [link eglplus.quickref.config_caveat ConfigCaveat]]
 [def __ContextAttrib [link eglplus.quickref.context_attrib ContextAttrib]]
 [def __SurfaceAttrib [link eglplus.quickref.surface_attrib SurfaceAttrib]]
+
+[def __ColorBufferType [link eglplus.quickref.color_buffer_type ColorBufferType]]
+[def __TransparentType [link eglplus.quickref.transparent_type TransparentType]]
+[def __RenderableTypeBit [link eglplus.quickref.renderable_type_bit RenderableTypeBit]]
+[def __SurfaceTypeBit [link eglplus.quickref.surface_type_bit SurfaceTypeBit]]
+
 
 [/---------]
 [/Templates]
