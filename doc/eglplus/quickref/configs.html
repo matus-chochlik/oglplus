@@ -50,17 +50,292 @@
           <span class="phrase"><a name="eglplus.quickref.configs.config"></a></span><a class="link" href="configs.html#eglplus.quickref.configs.config">Config</a>
         </h4>
 <p>
-          <code class="literal">Config</code> is a wrapper for a single EGL configuration.
+          <code class="literal">config</code> is a wrapper for a single egl configuration.
         </p>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Config</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-<span class="comment">// TODO</span>
+	<span class="identifier">EGLint</span> <span class="identifier">GetAttrib</span><span class="special">(</span><a class="link" href="config_attrib.html" title="Configuration attribute">ConfigAttrib</a> <span class="identifier">attrib</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c4" href="configs.html#eglplus.quickref.configs.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">EGLint</span> <span class="identifier">ConfigId</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c6" href="configs.html#eglplus.quickref.configs.c7"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">EGLint</span> <span class="identifier">Id</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">EGLint</span> <span class="identifier">BufferSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c8" href="configs.html#eglplus.quickref.configs.c9"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="identifier">EGLint</span> <span class="identifier">RedSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c10" href="configs.html#eglplus.quickref.configs.c11"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="identifier">EGLint</span> <span class="identifier">GreenSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c12" href="configs.html#eglplus.quickref.configs.c13"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">EGLint</span> <span class="identifier">BlueSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c14" href="configs.html#eglplus.quickref.configs.c15"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="identifier">EGLint</span> <span class="identifier">LuminanceSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c16" href="configs.html#eglplus.quickref.configs.c17"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="identifier">EGLint</span> <span class="identifier">AlphaSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c18" href="configs.html#eglplus.quickref.configs.c19"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="identifier">EGLint</span> <span class="identifier">DepthSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c20" href="configs.html#eglplus.quickref.configs.c21"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="identifier">EGLint</span> <span class="identifier">StencilSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c22" href="configs.html#eglplus.quickref.configs.c23"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+	<span class="identifier">EGLint</span> <span class="identifier">MaxPbufferWidth</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c24" href="configs.html#eglplus.quickref.configs.c25"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<span class="identifier">EGLint</span> <span class="identifier">MaxPbufferHeight</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c26" href="configs.html#eglplus.quickref.configs.c27"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+	<span class="identifier">EGLint</span> <span class="identifier">MaxPbufferPixels</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c28" href="configs.html#eglplus.quickref.configs.c29"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
 </pre>
-<pre class="programlisting"><span class="special">};</span>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c5"></a><a href="#eglplus.quickref.configs.c4"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the value of a specified attribute. See <code class="literal">eglGetConfigAttrib</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c7"></a><a href="#eglplus.quickref.configs.c6"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the unique configuration identifier. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_CONFIG_ID</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c9"></a><a href="#eglplus.quickref.configs.c8"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the total component bits of the color buffer. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_BUFFER_SIZE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c11"></a><a href="#eglplus.quickref.configs.c10"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the number of bits of the red color component. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_RED_SIZE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c13"></a><a href="#eglplus.quickref.configs.c12"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the number of bits of the green color component. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_GREEN_SIZE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c15"></a><a href="#eglplus.quickref.configs.c14"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the number of bits of the blue color component. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_BLUE_SIZE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c17"></a><a href="#eglplus.quickref.configs.c16"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the number of bits of the luminance component. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_LUMINANCE_SIZE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c19"></a><a href="#eglplus.quickref.configs.c18"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the number of bits of the alpha component. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_ALPHA_SIZE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c21"></a><a href="#eglplus.quickref.configs.c20"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the number of bits of the depth buffer. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_DEPTH_SIZE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c23"></a><a href="#eglplus.quickref.configs.c22"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the number of bits of the stencil buffer. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_STENCIL_SIZE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c25"></a><a href="#eglplus.quickref.configs.c24"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the maximum width of Pbuffers in pixels. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_MAX_PBUFFER_WIDTH</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c27"></a><a href="#eglplus.quickref.configs.c26"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the maximum height of Pbuffers in pixels. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_MAX_PBUFFER_HEIGHT</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c29"></a><a href="#eglplus.quickref.configs.c28"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the maximum size (number of pixels) of Pbuffers. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_MAX_PBUFFER_PIXELS</code></strong></span>.
+            </p></td>
+</tr>
+</table></div>
+<pre class="programlisting">	<span class="identifier">EGLint</span> <span class="identifier">MinSwapInterval</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c30" href="configs.html#eglplus.quickref.configs.c31"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">EGLint</span> <span class="identifier">MaxSwapInterval</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c32" href="configs.html#eglplus.quickref.configs.c33"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">NativeRenderable</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c34" href="configs.html#eglplus.quickref.configs.c35"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<a class="link" href="config_caveat.html" title="Configuration caveat">ConfigCaveat</a> <span class="identifier">ConfigCaveat</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c36" href="configs.html#eglplus.quickref.configs.c37"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<a class="link" href="config_caveat.html" title="Configuration caveat">ConfigCaveat</a> <span class="identifier">Caveat</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="color_buffer_type.html" title="Color buffer type">ColorBufferType</a> <span class="identifier">ColorBufferType</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c38" href="configs.html#eglplus.quickref.configs.c39"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<a class="link" href="transparent_type.html" title="Transparent type">TransparentType</a> <span class="identifier">TransparentType</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c40" href="configs.html#eglplus.quickref.configs.c41"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="renderable_type_bit.html" title="Renderable type">RenderableTypeBit</a><span class="special">&gt;</span> <span class="identifier">RenderableTypes</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c42" href="configs.html#eglplus.quickref.configs.c43"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">HasRenderableType</span><span class="special">(</span><a class="link" href="renderable_type_bit.html" title="Renderable type">RenderableTypeBit</a> <span class="identifier">type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c44" href="configs.html#eglplus.quickref.configs.c45"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="surface_type_bit.html" title="Surface type">SurfaceTypeBit</a><span class="special">&gt;</span> <span class="identifier">SurfaceTypes</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c46" href="configs.html#eglplus.quickref.configs.c47"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">HasSurfaceType</span><span class="special">(</span><a class="link" href="surface_type_bit.html" title="Surface type">SurfaceTypeBit</a> <span class="identifier">type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c48" href="configs.html#eglplus.quickref.configs.c49"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+	<a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="renderable_type_bit.html" title="Renderable type">RenderableTypeBit</a><span class="special">&gt;</span> <span class="identifier">Conformant</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c50" href="configs.html#eglplus.quickref.configs.c51"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">IsConformantTo</span><span class="special">(</span><a class="link" href="renderable_type_bit.html" title="Renderable type">RenderableTypeBit</a> <span class="identifier">type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c52" href="configs.html#eglplus.quickref.configs.c53"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">::</span><span class="identifier">EGLConfig</span> <span class="identifier">GetEGLHandle</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="configs.html#eglplus.quickref.configs.config">Config</a><span class="special">&amp;</span> <span class="identifier">config</span><span class="special">)</span>
+<span class="keyword">noexcept</span><span class="special">;</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c31"></a><a href="#eglplus.quickref.configs.c30"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the minimum swap interval. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_MIN_SWAP_INTERVAL</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c33"></a><a href="#eglplus.quickref.configs.c32"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the maximum swap interval. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_MAX_SWAP_INTERVAL</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c35"></a><a href="#eglplus.quickref.configs.c34"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if native rendering API can render to surface. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_NATIVE_RENDERABLE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c37"></a><a href="#eglplus.quickref.configs.c36"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the caveat for this config. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_CONFIG_CAVEAT</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c39"></a><a href="#eglplus.quickref.configs.c38"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the color buffer type. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_COLOR_BUFFER_TYPE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c41"></a><a href="#eglplus.quickref.configs.c40"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the transparency type. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_TRANSPARENT_TYPE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c43"></a><a href="#eglplus.quickref.configs.c42"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the renderable type bits. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_RENDERABLE_TYPE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c45"></a><a href="#eglplus.quickref.configs.c44"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if a specified renderable type is supported.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c47"></a><a href="#eglplus.quickref.configs.c46"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the surface type bits. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_SURFACE_TYPE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c49"></a><a href="#eglplus.quickref.configs.c48"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if a specified surface type is supported.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c51"></a><a href="#eglplus.quickref.configs.c50"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the conformant bits for this config. See <code class="literal">eglGetConfigAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_CONFORMANT</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c53"></a><a href="#eglplus.quickref.configs.c52"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if the config is conformant to a renderable type.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="eglplus.quickref.configs.h2"></a>
+          <span class="phrase"><a name="eglplus.quickref.configs.wrapper"></a></span><a class="link" href="configs.html#eglplus.quickref.configs.wrapper">Configs</a>
+        </h4>
+<p>
+          <code class="literal">Configs</code> is a class that provides access to all configurations
+          of a <a class="link" href="display.html" title="Displays">Display</a>.
+        </p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Configs</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Configs</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="display.html" title="Displays">Display</a><span class="special">&amp;</span> <span class="identifier">display</span><span class="special">);</span> <a class="co" name="eglplus.quickref.configs.c54" href="configs.html#eglplus.quickref.configs.c55"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">Configs</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="display.html" title="Displays">Display</a><span class="special">&amp;</span> <span class="identifier">display</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="configs.html#eglplus.quickref.configs.attribs">FinishedConfigAttribs</a><span class="special">&amp;</span> <span class="identifier">attribs</span>
+	<span class="special">);</span> <a class="co" name="eglplus.quickref.configs.c56" href="configs.html#eglplus.quickref.configs.c57"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<a class="link" href="../../oglplus/quickref/concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><a class="link" href="configs.html#eglplus.quickref.configs.config">Config</a><span class="special">&gt;</span> <span class="identifier">All</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c58" href="configs.html#eglplus.quickref.configs.c59"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">Empty</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c60" href="configs.html#eglplus.quickref.configs.c61"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<a class="link" href="configs.html#eglplus.quickref.configs.config">Config</a> <span class="identifier">First</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.configs.c62" href="configs.html#eglplus.quickref.configs.c63"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+<span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace eglplus</span>
 </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c55"></a><a href="#eglplus.quickref.configs.c54"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Gets the configurations for the specified display.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c57"></a><a href="#eglplus.quickref.configs.c56"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Gets configurations for the specified display matching the specified
+              attribute values.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c59"></a><a href="#eglplus.quickref.configs.c58"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns a range of all supported configurations.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c61"></a><a href="#eglplus.quickref.configs.c60"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if there are no matching configs.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.configs.c63"></a><a href="#eglplus.quickref.configs.c62"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the first config in this set of configurations if it is not
+              empty.
+            </p></td>
+</tr>
+</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
