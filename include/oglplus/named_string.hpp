@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -26,34 +26,34 @@ namespace oglplus {
 class NamedString
 {
 private:
-	String _name;
+	String _str_name;
 
 	NamedString(const NamedString&);
 public:
-	/// Store the @p value, of the specified @p type under @p name
+	/// Store the @p value, of the specified @p type under @p str_name
 	static void Set(
 		NamedStringType type,
-		const StrCRef& name,
+		const StrCRef& str_name,
 		const StrCRef& value
 	)
 	{
 		OGLPLUS_GLFUNC(NamedStringARB)(
 			GLenum(type),
-			GLint(name.size()),
-			name.c_str(),
+			GLint(str_name.size()),
+			str_name.c_str(),
 			GLint(value.size()),
 			value.c_str()
 		);
 		OGLPLUS_CHECK_SIMPLE(NamedStringARB);
 	}
 
-	/// Gets the value stored under @p name
-	static String Get(const StrCRef& name)
+	/// Gets the value stored under @p str_name
+	static String Get(const StrCRef& str_name)
 	{
 		GLint len = 0;
 		OGLPLUS_GLFUNC(GetNamedStringivARB)(
-			GLint(name.size()),
-			name.c_str(),
+			GLint(str_name.size()),
+			str_name.c_str(),
 			GL_NAMED_STRING_LENGTH_ARB,
 			&len
 		);
@@ -61,8 +61,8 @@ public:
 
 		String result(len, '\0');
 		OGLPLUS_GLFUNC(GetNamedStringARB)(
-			GLint(name.size()),
-			name.c_str(),
+			GLint(str_name.size()),
+			str_name.c_str(),
 			len,
 			&len,
 			&result.front()
@@ -72,23 +72,23 @@ public:
 
 	}
 
-	/// Deletes the value stored under @p name
-	static void Delete(const StrCRef& name)
+	/// Deletes the value stored under @p str_name
+	static void Delete(const StrCRef& str_name)
 	{
 		OGLPLUS_GLFUNC(DeleteNamedStringARB)(
-			GLint(name.size()),
-			name.c_str()
+			GLint(str_name.size()),
+			str_name.c_str()
 		);
 		OGLPLUS_CHECK_SIMPLE(DeleteNamedStringARB);
 	}
 
-	/// Gets the type of the named string stored under @p name
-	static NamedStringType Type(const StrCRef& name)
+	/// Gets the type of the named string stored under @p str_name
+	static NamedStringType Type(const StrCRef& str_name)
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetNamedStringivARB)(
-			GLint(name.size()),
-			name.c_str(),
+			GLint(str_name.size()),
+			str_name.c_str(),
 			GL_NAMED_STRING_TYPE_ARB,
 			&result
 		);
@@ -96,12 +96,12 @@ public:
 		return NamedStringType(GLenum(result));
 	}
 
-	/// Checks if @p name is a stored string
-	static bool IsA(const StrCRef& name)
+	/// Checks if @p str_name is a stored string
+	static bool IsA(const StrCRef& str_name)
 	{
 		GLboolean result = OGLPLUS_GLFUNC(IsNamedStringARB)(
-			GLint(name.size()),
-			name.c_str()
+			GLint(str_name.size()),
+			str_name.c_str()
 		);
 		OGLPLUS_CHECK_SIMPLE(IsNamedStringARB);
 		return result == GL_TRUE;
@@ -110,26 +110,26 @@ public:
 	/// Sets the @p value of the specified @p type in this NamedString
 	void Set(NamedStringType type, const StrCRef& value)
 	{
-		Set(type, _name, value);
+		Set(type, _str_name, value);
 	}
 
 	/// Sets the @p value of this NamedString
 	String Get(void) const
 	{
-		return Get(_name);
+		return Get(_str_name);
 	}
 
 	/// Move-construction
 	NamedString(NamedString&& tmp)
-	 : _name(std::move(tmp._name))
+	 : _str_name(std::move(tmp._str_name))
 	{ }
 
-	/// Store a string @p value of the specified type under @p name
+	/// Store a string @p value of the specified type under @p str_name
 	NamedString(
 		NamedStringType type,
-		String&& name,
+		String&& str_name,
 		const StrCRef& value
-	): _name(std::move(name))
+	): _str_name(std::move(str_name))
 	{
 		Set(type, value);
 	}
@@ -137,9 +137,9 @@ public:
 	/// Delete this named string
 	~NamedString(void)
 	{
-		if(!_name.empty())
+		if(!_str_name.empty())
 		{
-			Delete(_name);
+			Delete(_str_name);
 		}
 	}
 };
@@ -149,11 +149,11 @@ class ShaderInclude
  : public NamedString
 {
 public:
-	/// Create a shader include with the specified name and value
-	ShaderInclude(String&& name, const StrCRef& value)
+	/// Create a shader include with the specified str_name and value
+	ShaderInclude(String&& str_name, const StrCRef& value)
 	 : NamedString(
 		NamedStringType::ShaderInclude,
-		std::move(name),
+		std::move(str_name),
 		value
 	){ }
 

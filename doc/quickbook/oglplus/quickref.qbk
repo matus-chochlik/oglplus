@@ -92,6 +92,7 @@ the concept.
 [include quickref/glsl_source.qbk]
 [include quickref/glsl_string.qbk]
 [include quickref/output_data.qbk]
+[include quickref/detail/attrib_list.qbk]
 [include quickref/utils.qbk]
 
 [include quickref/images.qbk]

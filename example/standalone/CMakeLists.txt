@@ -1,13 +1,13 @@
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 cmake_minimum_required(VERSION 2.8)
 
 #TODO
-if(NOT(${CMAKE_COMPILER_IS_GNUCXX}))
-	return()
-endif()
+#if(NOT(${CMAKE_COMPILER_IS_GNUCXX}))
+#	return()
+#endif()
 
 add_custom_target(standalone-examples ALL)
 set_property(TARGET standalone-examples PROPERTY FOLDER "Example/Standalone")
@@ -54,7 +54,9 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	endif()
 
 	if(HAS_GLEW_AMD_performance_monitor)
-		standalone_example_common(002_amd_perf_monitor GLUT GLEW)
+		if(NOT OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS)
+			standalone_example_common(002_amd_perf_monitor GLUT GLEW)
+		endif()
 	endif()
 
 	if(HAS_GLEW_ARB_compatibility AND HAS_GLEW_ARB_debug_output)
@@ -62,7 +64,10 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	endif()
 
 	if(HAS_GLEW_ARB_compatibility AND HAS_GLEW_NV_path_rendering)
-		standalone_example_common(002_simple_path GLUT GLEW) 
+
+		if(NOT OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS)
+			standalone_example_common(002_simple_path GLUT GLEW)
+		endif()
 
 		if(HAS_GLEW_EXT_direct_state_access)
 			standalone_example_common(003_simple_text GLUT GLEW)

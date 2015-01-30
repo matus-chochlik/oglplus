@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -125,7 +125,10 @@ class ObjCommonOps<tag::ProgramPipeline>
  , public ObjBindingOps<tag::ProgramPipeline>
 {
 protected:
-	ObjCommonOps(void){ }
+	ObjCommonOps(ProgramPipelineName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ProgramPipelineName(name)
+	{ }
 public:
 	using ObjBindingOps<tag::ProgramPipeline>::Bind;
 
@@ -148,7 +151,10 @@ class ObjectOps<tag::DirectState, tag::ProgramPipeline>
  : public ObjZeroOps<tag::DirectState, tag::ProgramPipeline>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(ProgramPipelineName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectState, tag::ProgramPipeline>(name)
+	{ }
 public:
 	/// Types related to ProgramPipeline
 	struct Properties
@@ -160,7 +166,11 @@ public:
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result;
-		OGLPLUS_GLFUNC(GetProgramPipelineiv)(_name, query, &result);
+		OGLPLUS_GLFUNC(GetProgramPipelineiv)(
+			_obj_name(),
+			query,
+			&result
+		);
 		OGLPLUS_VERIFY(
 			GetProgramPipelineiv,
 			ObjectError,
@@ -196,9 +206,8 @@ public:
 	 */
 	ProgPLUseStages UseStages(ProgramName program) const
 	{
-		assert(_name != 0);
 		return ProgPLUseStages(
-			_name,
+			_obj_name(),
 			GetGLName(program),
 			0
 		);
@@ -214,9 +223,8 @@ public:
 		ProgramName program
 	) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(UseProgramStages)(
-			_name,
+			_obj_name(),
 			GLbitfield(stages),
 			GetGLName(program)
 		);
@@ -235,9 +243,8 @@ public:
 	 */
 	void UseAllStages(ProgramName program) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(UseProgramStages)(
-			_name,
+			_obj_name(),
 			GL_ALL_SHADER_BITS,
 			GetGLName(program)
 		);
@@ -286,9 +293,8 @@ public:
 	 */
 	void ActiveShaderProgram(ProgramName program) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(ActiveShaderProgram)(
-			_name,
+			_obj_name(),
 			GetGLName(program)
 		);
 		OGLPLUS_CHECK(

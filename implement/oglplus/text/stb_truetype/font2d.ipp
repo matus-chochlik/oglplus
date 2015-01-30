@@ -11,8 +11,11 @@
 
 #include <algorithm>
 #include <stdexcept>
+
+#ifndef OGLPLUS_NO_STB_TRUETYPE
 #define STB_TRUETYPE_IMPLEMENTATION
 #include <stb_truetype.h>
+#endif // OGLPLUS_NO_STB_TRUETYPE
 
 namespace oglplus {
 namespace text {
@@ -150,7 +153,7 @@ void STBTTFont2D::Render(
 		int gw = int(gb+1+(x1-x0));
 		if(gw > tmp_width) gw = tmp_width;
 		if(gw > int(buffer_width-xo)) gw = int(buffer_width-xo);
-		int gy = (std::floor(yshift));
+		int gy = int(std::floor(yshift));
 		if(gy < -yo) gy = -yo;
 		int gh = tmp_height;
 		if(gh > int(buffer_height-yo)) gh = int(buffer_height-yo);
@@ -164,7 +167,7 @@ void STBTTFont2D::Render(
 				unsigned src = tmp_buffer[si];
 				if(src != 0)
 				{
-					int di = (gy+yo)*buffer_width+gx+xo+x0;
+					int di = int((gy+yo)*buffer_width+gx+xo+x0);
 					unsigned dst = buffer_start[di]+src;
 
 					if(dst > 0xFF) dst = 0xFF;

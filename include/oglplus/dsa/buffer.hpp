@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -35,7 +35,10 @@ class ObjectOps<tag::DirectState, tag::Buffer>
  : public ObjZeroOps<tag::DirectState, tag::Buffer>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(BufferName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectState, tag::Buffer>(name)
+	{ }
 public:
 	GLint GetIntParam(GLenum query) const;
 
@@ -81,7 +84,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(NamedBufferData)(
-			_name,
+			_obj_name(),
 			size.Get(),
 			nullptr,
 			GLenum(usage)
@@ -108,7 +111,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(NamedBufferData)(
-			_name,
+			_obj_name(),
 			GLsizei(data.Size()),
 			data.Data(),
 			GLenum(usage)
@@ -170,7 +173,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(NamedBufferSubData)(
-			_name,
+			_obj_name(),
 			GLintptr(offset.Get()),
 			GLsizei(data.Size()),
 			data.Data()
@@ -250,7 +253,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(ClearNamedBufferData)(
-			_name,
+			_obj_name(),
 			GLenum(internal_format),
 			GLenum(format),
 			GLenum(GetDataType<GLtype>()),
@@ -285,7 +288,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(ClearNamedBufferSubData)(
-			_name,
+			_obj_name(),
 			GLenum(internal_format),
 			GLintptr(offset.Get()),
 			GLsizeiptr(size.Get()),
@@ -307,7 +310,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(NamedBufferStorage)(
-			_name,
+			_obj_name(),
 			GLsizeiptr(data.Size()),
 			data.Data(),
 			GLbitfield(flags)
@@ -385,7 +388,7 @@ public:
 	void MakeResident(AccessSpecifier access) const
 	{
 		OGLPLUS_GLFUNC(MakeNamedBufferResidentNV)(
-			_name,
+			_obj_name(),
 			GLenum(access)
 		);
 		OGLPLUS_CHECK(
@@ -406,7 +409,7 @@ public:
 	 */
 	void MakeNonResident(void) const
 	{
-		OGLPLUS_GLFUNC(MakeNamedBufferNonResidentNV)(_name);
+		OGLPLUS_GLFUNC(MakeNamedBufferNonResidentNV)(_obj_name());
 		OGLPLUS_CHECK(
 			MakeNamedBufferNonResidentNV,
 			ObjectError,
@@ -427,7 +430,7 @@ public:
 	{
 		GLuint64EXT value = 0;
 		OGLPLUS_GLFUNC(GetNamedBufferParameterui64vNV)(
-			_name,
+			_obj_name(),
 			GL_BUFFER_GPU_ADDRESS_NV,
 			&value
 		);

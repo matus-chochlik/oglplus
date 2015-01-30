@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -18,7 +18,7 @@ GetIntParam(GLenum query) const
 {
 	GLint result = 0;
 	OGLPLUS_GLFUNC(GetTransformFeedbackiv)(
-		_name,
+		_obj_name(),
 		query,
 		&result
 	);
@@ -37,7 +37,7 @@ GetIntParam(GLenum query, GLuint index) const
 {
 	GLint result = 0;
 	OGLPLUS_GLFUNC(GetTransformFeedbacki_v)(
-		_name,
+		_obj_name(),
 		query,
 		index,
 		&result
@@ -58,7 +58,7 @@ GetInt64Param(GLenum query, GLuint index) const
 {
 	GLint64 result = 0;
 	OGLPLUS_GLFUNC(GetTransformFeedbacki64_v)(
-		_name,
+		_obj_name(),
 		query,
 		index,
 		&result

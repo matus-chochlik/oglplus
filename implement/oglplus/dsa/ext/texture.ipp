@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -23,7 +23,7 @@ GetIntParam(GLenum query) const
 {
 	GLint result = 0;
 	OGLPLUS_GLFUNC(GetTextureParameterivEXT)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		query,
 		&result
@@ -43,7 +43,7 @@ GetFloatParam(GLenum query) const
 {
 	GLfloat result = 0;
 	OGLPLUS_GLFUNC(GetTextureParameterfvEXT)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		query,
 		&result
@@ -63,7 +63,7 @@ GetIntParam(GLint level, GLenum query) const
 {
 	GLint result = 0;
 	OGLPLUS_GLFUNC(GetTextureLevelParameterivEXT)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		level,
 		query,
@@ -85,7 +85,7 @@ GetFloatParam(GLint level, GLenum query) const
 {
 	GLfloat result = 0;
 	OGLPLUS_GLFUNC(GetTextureLevelParameterfvEXT)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		level,
 		query,
@@ -110,7 +110,7 @@ GetImage(
 ) const
 {
 	OGLPLUS_GLFUNC(GetTextureImageEXT)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		level,
 		GLenum(format),
@@ -135,7 +135,7 @@ GetCompressedImage(
 ) const
 {
 	OGLPLUS_GLFUNC(GetCompressedTextureImageEXT)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		level,
 		dest.Addr()
@@ -173,7 +173,7 @@ Image3D(
 )
 {
 	OGLPLUS_GLFUNC(TextureImage3DEXT)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		level,
 		GLint(image.InternalFormat()),
@@ -207,7 +207,7 @@ SubImage3D(
 )
 {
 	OGLPLUS_GLFUNC(TextureSubImage3DEXT)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		level,
 		xoffs,
@@ -241,7 +241,7 @@ Image2D(
 )
 {
 	OGLPLUS_GLFUNC(TextureImage2DEXT)(
-		_name,
+		_obj_name(),
 		GLenum(tex_target),
 		level,
 		GLint(image.InternalFormat()),
@@ -273,7 +273,7 @@ SubImage2D(
 )
 {
 	OGLPLUS_GLFUNC(TextureSubImage2DEXT)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		level,
 		xoffs,
@@ -304,7 +304,7 @@ Image1D(
 )
 {
 	OGLPLUS_GLFUNC(TextureImage1DEXT)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		level,
 		GLint(image.InternalFormat()),
@@ -334,7 +334,7 @@ SubImage1D(
 )
 {
 	OGLPLUS_GLFUNC(TextureSubImage1DEXT)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		level,
 		xoffs,

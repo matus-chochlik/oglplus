@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -47,16 +47,16 @@ OGLPLUS_LIB_FUNC
 ProgramResource::ProgramResource(
 	aux::ProgramInterfaceContext& context,
 	GLuint index
-): _program(GetGLName(context.Program()))
+): _prog_name(GetGLName(context.Program()))
  , _interface(context.Interface())
  , _index(index)
 {
-	GLsizei bufsize = context.Buffer().size();
+	GLsizei bufsize = GLsizei(context.Buffer().size());
 	if(bufsize != 0)
 	{
 		GLsizei length = 0;
 		OGLPLUS_GLFUNC(GetProgramResourceName)(
-			_program,
+			_prog_name,
 			_interface,
 			_index,
 			bufsize,
@@ -66,11 +66,11 @@ ProgramResource::ProgramResource(
 		OGLPLUS_CHECK(
 			GetProgramResourceName,
 			ObjectError,
-			Object(ProgramName(_program)).
+			Object(ProgramName(_prog_name)).
 			EnumParam(_interface).
 			Index(_index)
 		);
-		_name.assign(context.Buffer().data(), length);
+		_res_name.assign(context.Buffer().data(), length);
 	}
 }
 

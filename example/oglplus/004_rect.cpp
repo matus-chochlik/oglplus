@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{004_rect}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -32,8 +32,8 @@ private:
 	// A vertex array object for the rendered rectangle
 	VertexArray rectangle;
 
-	// VBO for the rectangle's vertices
-	Buffer verts;
+	// VBO for the rectangle's vertex positions
+	Buffer positions, indices;
 public:
 	RectangleExample(void)
 	 : vs(ShaderType::Vertex)
@@ -88,20 +88,27 @@ public:
 		// bind the VAO for the rectangle
 		rectangle.Bind();
 
-		GLfloat rectangle_verts[8] = {
+		GLfloat rectangle_positions[8] = {
 			-1.0f, -1.0f,
 			-1.0f,  1.0f,
 			 1.0f, -1.0f,
 			 1.0f,  1.0f
 		};
 		// bind the VBO for the rectangle vertices
-		verts.Bind(Buffer::Target::Array);
+		positions.Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, 8, rectangle_verts);
+		Buffer::Data(Buffer::Target::Array, 8, rectangle_positions);
 		// setup the vertex attribs array for the vertices
 		VertexArrayAttrib vert_attr(prog, "Position");
 		vert_attr.Setup<GLfloat>(2);
 		vert_attr.Enable();
+
+		GLuint rectangle_indices[4] = {
+			0, 1, 2, 3
+		};
+		indices.Bind(Buffer::Target::ElementArray);
+		Buffer::Data(Buffer::Target::ElementArray, 4, rectangle_indices);
+
 		//
 		// Variables referencing the program's uniforms
 		Uniform<Vec2f>(prog,   "RedCenter").Set(Vec2f(-0.141f, 0.141f));
@@ -120,7 +127,7 @@ public:
 	{
 		gl.Clear().ColorBuffer();
 
-		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
+		gl.DrawElements(PrimitiveType::TriangleStrip, 4, (GLuint*)0);
 	}
 };
 

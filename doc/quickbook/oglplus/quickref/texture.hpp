@@ -1061,6 +1061,169 @@ typedef __Object<TextureOps> Texture;
 
 typedef __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Texture>>
 	DefaultTexture;
+//]
+//[oglplus_texture_sugar1
+
+struct TextureTargetAndSlot { }; /*<
+Helper class used with syntax-sugar operators.
+Stores a texture target and an integer ['slot] number.
+Depending on the context the slot may be interpreted as
+the swizzle or wrap coordinate or image level number.
+>*/
+
+TextureTargetAndSlot operator | (
+	__TextureTarget target,
+	GLuint slot
+);
+
+struct TextureUnitAndTarget { }; /*<
+Helper class used with syntax-sugar operators.
+Stores a texture unit number and a texture target.
+>*/
+
+TextureUnitAndTarget operator | (
+	__TextureUnitSelector unit,
+	__TextureTarget tex
+);
+
+__TextureTarget operator << (
+	const TextureOps& tex,
+	__TextureTarget target
+); /*<
+Binds a texture object to the specified [^target].
+>*/
+
+__TextureTarget operator << (
+	__TextureTarget target,
+	__TextureFilter filter
+); /*<
+Sets texture minification and magnification filter
+on the texture currently bound to [^target].
+>*/
+
+__TextureTarget operator << (
+	__TextureTarget target,
+	__TextureMinFilter filter
+); /*<
+Sets a texture minification filter
+on the texture currently bound to [^target].
+>*/
+
+__TextureTarget operator << (
+	__TextureTarget target,
+	__TextureMagFilter filter
+); /*<
+Sets a texture magification filter
+on the texture currently bound to [^target].
+>*/
+
+__TextureTarget operator << (
+	__TextureTarget target,
+	__TextureCompareMode mode
+); /*<
+Sets a texture compare mode
+on the texture currently bound to [^target].
+>*/
+
+__TextureTarget operator << (
+	__TextureTarget target,
+	__CompareFunction func
+); /*<
+Sets a texture compare function
+on the texture currently bound to [^target].
+>*/
+
+//]
+//[oglplus_texture_sugar2
+
+__TextureTarget operator << (
+	__TextureTarget target,
+	__TextureWrap wrap
+); /*<
+Sets a texture wrap mode
+on the texture currently bound to [^target]
+on all texture dimensions.
+>*/
+
+TextureTargetAndSlot operator << (
+	TextureTargetAndSlot tas,
+	__TextureWrap wrap
+); /*<
+Sets a texture wrap mode
+on the texture currently bound to target
+on the dimension specified by the slot number in [^tas].
+>*/
+
+#if GL_VERSION_3_3 || GL_ARB_texture_swizzle
+__TextureTarget operator << (
+	__TextureTarget target,
+	__TextureSwizzle swizzle
+); /*<
+Sets a texture swizzle mode
+on the texture currently bound to [^target]
+on all texture dimensions.
+>*/
+
+TextureTargetAndSlot operator << (
+	TextureTargetAndSlot tas,
+	__TextureSwizzle swizzle
+); /*<
+Sets a texture swizzle mode
+on the texture currently bound to target
+on the dimension specified by the slot number in [^tas].
+>*/
+
+#endif
+
+#if GL_VERSION_3_0
+template <typename T>
+__TextureTarget operator << (
+	TextureTarget target,
+	const Vector<T, 4>& col
+); /*<
+Sets a texture border color
+on the texture currently bound to [^target].
+>*/
+#endif
+
+__TextureTarget operator << (
+	__TextureTarget target,
+	const __images_Image& image
+); /*<
+Specifies the level 0 texture image
+on the texture currently bound to [^target].
+>*/
+
+__TextureTarget operator << (
+	__TextureTarget target,
+	const __images_ImageSpec& image_spec
+);
+
+__TextureTarget operator << (
+	TextureTargetAndSlot tas,
+	const __images_Image& image
+); /*<
+Specifies the texture image on the level
+specified by the slot number in [^tas]
+of the texture currently bound to target.
+>*/
+
+__TextureTarget operator << (
+	TextureTargetAndSlot tas,
+	const __images_ImageSpec& image_spec
+);
+
+struct TextureMipmap { }; /*<
+Helper class used with syntax-sugar operators.
+Selects the GenerateMipmap member function.
+>*/
+
+__TextureTarget operator << (
+	__TextureTarget target,
+	TextureMipmap
+); /*<
+Generates mipmap on the texture currently bound to [^target].
+>*/
 
 } // namespace oglplus
 //]

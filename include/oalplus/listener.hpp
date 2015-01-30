@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,6 +20,38 @@
 #include <oalplus/error/basic.hpp>
 
 namespace oalplus {
+
+struct ListenerOrientation
+{
+	// implementation detail
+	ALfloat _v[6];
+
+	ListenerOrientation(void)
+	OALPLUS_NOEXCEPT(true)
+	{ }
+
+	ListenerOrientation(const Vec3f& at, const Vec3f& up)
+	OALPLUS_NOEXCEPT(true)
+	{
+		for(unsigned i=0; i<3; ++i)
+		{
+			_v[i+0] = at[i];
+			_v[i+3] = up[i];
+		}
+	}
+
+	Vec3f At(void) const
+	OALPLUS_NOEXCEPT(true)
+	{
+		return Vec3f(_v, 3);
+	}
+
+	Vec3f Up(void) const
+	OALPLUS_NOEXCEPT(true)
+	{
+		return Vec3f(_v+3, 3);
+	}
+};
 
 /// An AL context-specific monostate object representing the listener
 class Listener
@@ -55,7 +87,6 @@ public:
 	 *  @aldefref{POSITION}
 	 */
 	static void Position(ALfloat x, ALfloat y, ALfloat z)
-
 	{
 		OALPLUS_ALFUNC(Listener3f)(
 			AL_POSITION,
@@ -64,7 +95,7 @@ public:
 		OALPLUS_VERIFY_SIMPLE(Listener3f);
 	}
 
-	/// Returns the positin of the listener
+	/// Returns the position of the listener
 	/**
 	 *  @see Velocity
 	 *  @see Orientation
@@ -152,6 +183,22 @@ public:
 	 *  @alfunref{Listenerfv}
 	 *  @aldefref{ORIENTATION}
 	 */
+	static void Orientation(const ListenerOrientation& lo)
+	{
+		OALPLUS_ALFUNC(Listenerfv)(AL_ORIENTATION, lo._v);
+		OALPLUS_VERIFY_SIMPLE(Listenerfv);
+	}
+
+	/// Specifies the orientation vector of the listener
+	/**
+	 *  @see Position
+	 *  @see Velocity
+	 *  @throws Error
+	 *
+	 *  @alsymbols
+	 *  @alfunref{Listenerfv}
+	 *  @aldefref{ORIENTATION}
+	 */
 	static void Orientation(const Vec3f& at, const Vec3f& up)
 	{
 		ALfloat v[6] = {
@@ -186,6 +233,25 @@ public:
 		ALfloat v[6] = {at_x, at_y, at_z, up_x, up_y, up_z};
 		OALPLUS_ALFUNC(Listenerfv)(AL_ORIENTATION, v);
 		OALPLUS_VERIFY_SIMPLE(Listenerfv);
+	}
+
+	/// Returns the orientation vector of the listener
+	/**
+	 *  @see Position
+	 *  @see Velocity
+	 *  @see Orientation
+	 *  @see OrientationUp
+	 *
+	 *  @alsymbols
+	 *  @alfunref{Listenerfv}
+	 *  @aldefref{ORIENTATION}
+	 */
+	static ListenerOrientation Orientation(void)
+	{
+		ListenerOrientation result;
+		OALPLUS_ALFUNC(GetListenerfv)(AL_ORIENTATION, result._v);
+		OALPLUS_VERIFY_SIMPLE(GetListenerfv);
+		return result;
 	}
 
 	/// Returns the orientation vector of the listener

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -257,7 +257,10 @@ class ObjCommonOps<tag::Texture>
  , public ObjBindingOps<tag::Texture>
 {
 protected:
-	ObjCommonOps(void){ }
+	ObjCommonOps(TextureName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : TextureName(name)
+	{ }
 public:
 	/// Specify active texture unit for subsequent commands
 	/**
@@ -361,7 +364,7 @@ public:
 	 */
 	void InvalidateImage(GLsizei level)
 	{
-		OGLPLUS_GLFUNC(InvalidateTexImage)(_name, level);
+		OGLPLUS_GLFUNC(InvalidateTexImage)(_obj_name(), level);
 		OGLPLUS_CHECK(
 			InvalidateTexImage,
 			ObjectError,
@@ -387,7 +390,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(InvalidateTexSubImage)(
-			_name,
+			_obj_name(),
 			level,
 			xoffs,
 			yoffs,
@@ -420,7 +423,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ClearTexImage)(
-			_name,
+			_obj_name(),
 			level,
 			GLenum(format),
 			GLenum(GetDataType<GLtype>()),
@@ -454,7 +457,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ClearTexImage)(
-			_name,
+			_obj_name(),
 			level,
 			xoffs,
 			yoffs,
@@ -493,7 +496,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(TextureView)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GetGLName(orig_texture),
 			GLenum(internal_format),
@@ -521,7 +524,10 @@ class ObjZeroOps<tag::ExplicitSel, tag::Texture>
  : public ObjCommonOps<tag::Texture>
 {
 protected:
-	ObjZeroOps(void) { }
+	ObjZeroOps(TextureName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjCommonOps<tag::Texture>(name)
+	{ }
 public:
 	/// Types related to Texture
 	struct Property
@@ -2990,7 +2996,10 @@ class ObjectOps<tag::ExplicitSel, tag::Texture>
  : public ObjZeroOps<tag::ExplicitSel, tag::Texture>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(TextureName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::ExplicitSel, tag::Texture>(name)
+	{ }
 };
 
 /// Texture operations with explicit selector

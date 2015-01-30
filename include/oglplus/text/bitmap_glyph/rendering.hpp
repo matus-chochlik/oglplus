@@ -115,6 +115,28 @@ protected:
 	{ }
 
 public:
+
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
+	BitmapGlyphRenderingBase(const BitmapGlyphRenderingBase&) = delete;
+#else
+private:
+	BitmapGlyphRenderingBase(const BitmapGlyphRenderingBase&);
+public:
+#endif
+
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	BitmapGlyphRenderingBase(BitmapGlyphRenderingBase&&) = default;
+#else
+	BitmapGlyphRenderingBase(BitmapGlyphRenderingBase&& tmp)
+	 : _bitmap_tex_unit(std::move(tmp._bitmap_tex_unit))
+	 , _metric_tex_unit(std::move(tmp._metric_tex_unit))
+	 , _pg_map_tex_unit(std::move(tmp._pg_map_tex_unit))
+	 , _config(std::move(tmp._config))
+	 , _layout_storage(std::move(tmp._layout_storage))
+	{ }
+#endif
+
+
 	typedef BitmapGlyphRenderingConfig Config;
 	typedef BitmapGlyphRenderer CustomRenderer;
 
@@ -237,6 +259,14 @@ public:
 	)
 	{ }
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	BitmapGlyphRenderingTpl(BitmapGlyphRenderingTpl&&) = default;
+ #else
+	BitmapGlyphRenderingTpl(BitmapGlyphRenderingTpl&& tmp)
+	 : BitmapGlyphRenderingBase(static_cast<BitmapGlyphRenderingBase&&>(tmp))
+	{ }
+ #endif
+
 	typedef BitmapFont Font;
 
 	Font LoadFont(
@@ -286,7 +316,7 @@ public:
 		CodePoints cps;
 		UTF8ToCodePoints(str.begin(), str.size(), cps);
 
-		Layout layout(MakeLayout(font, cps.size()));
+		Layout layout(MakeLayout(font, GLsizei(cps.size())));
 		layout.Set(cps);
 		return std::move(layout);
 	}

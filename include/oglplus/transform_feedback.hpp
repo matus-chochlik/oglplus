@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -270,7 +270,10 @@ class ObjCommonOps<tag::TransformFeedback>
 #endif
 {
 protected:
-	ObjCommonOps(void){ }
+	ObjCommonOps(TransformFeedbackName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : TransformFeedbackName(name)
+	{ }
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
 	using ObjBindingOps<tag::TransformFeedback>::Bind;
@@ -396,7 +399,10 @@ class ObjectOps<OpsTag, tag::TransformFeedback>
  : public ObjZeroOps<OpsTag, tag::TransformFeedback>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(TransformFeedbackName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<OpsTag, tag::TransformFeedback>(name)
+	{ }
 };
 
 /// TransformFeedback operations with explicit selector
