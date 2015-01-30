@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -23,7 +23,7 @@ GetIntParam(GLenum query) const
 {
 	GLint result = 0;
 	OGLPLUS_GLFUNC(GetTextureParameteriv)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		query,
 		&result
@@ -43,7 +43,7 @@ GetFloatParam(GLenum query) const
 {
 	GLfloat result = 0;
 	OGLPLUS_GLFUNC(GetTextureParameterfv)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		query,
 		&result
@@ -63,7 +63,7 @@ GetIntParam(GLint level, GLenum query) const
 {
 	GLint result = 0;
 	OGLPLUS_GLFUNC(GetTextureLevelParameteriv)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		level,
 		query,
@@ -85,7 +85,7 @@ GetFloatParam(GLint level, GLenum query) const
 {
 	GLfloat result = 0;
 	OGLPLUS_GLFUNC(GetTextureLevelParameterfv)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		level,
 		query,
@@ -111,7 +111,7 @@ GetImage(
 {
 	OGLPLUS_FAKE_USE(size);
 	OGLPLUS_GLFUNC(GetTextureImage)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		level,
 		GLenum(format),
@@ -137,7 +137,7 @@ GetCompressedImage(
 {
 	OGLPLUS_FAKE_USE(size);
 	OGLPLUS_GLFUNC(GetCompressedTextureImage)(
-		_name,
+		_obj_name(),
 		GLenum(target),
 		level,
 		dest.Addr()
@@ -177,7 +177,7 @@ SubImage3D(
 )
 {
 	OGLPLUS_GLFUNC(TextureSubImage3D)(
-		_name,
+		_obj_name(),
 		level,
 		xoffs,
 		yoffs,
@@ -209,7 +209,7 @@ SubImage2D(
 )
 {
 	OGLPLUS_GLFUNC(TextureSubImage2D)(
-		_name,
+		_obj_name(),
 		level,
 		xoffs,
 		yoffs,
@@ -238,7 +238,7 @@ SubImage1D(
 )
 {
 	OGLPLUS_GLFUNC(TextureSubImage1D)(
-		_name,
+		_obj_name(),
 		level,
 		xoffs,
 		image.Width(),

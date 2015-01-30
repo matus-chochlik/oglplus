@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -44,13 +44,13 @@ ActiveVariableInfo::ActiveVariableInfo(
 	GetActiveVariable(
 		GetGLName(context.Program()),
 		index,
-		context.Buffer().size(),
+		GLsizei(context.Buffer().size()),
 		&strlen,
 		&_size,
 		&_type,
 		context.Buffer().data()
 	);
-	_name = String(context.Buffer().data(), strlen);
+	_var_name = String(context.Buffer().data(), strlen);
 }
 
 OGLPLUS_LIB_FUNC
@@ -102,7 +102,7 @@ ActiveSubroutineInfo::ActiveSubroutineInfo(
 		GetGLName(context.Program()),
 		context.Stage(),
 		index,
-		context.Buffer().size(),
+		GLsizei(context.Buffer().size()),
 		&strlen,
 		context.Buffer().data()
 	);
@@ -113,7 +113,7 @@ ActiveSubroutineInfo::ActiveSubroutineInfo(
 		EnumParam(context.Stage()).
 		Index(index)
 	);
-	_name = String(context.Buffer().data(), strlen);
+	_var_name = String(context.Buffer().data(), strlen);
 }
 
 OGLPLUS_LIB_FUNC
@@ -156,7 +156,7 @@ ActiveSubroutineUniformInfo::ActiveSubroutineUniformInfo(
 		GetGLName(context.Program()),
 		context.Stage(),
 		index,
-		context.Buffer().size(),
+		GLsizei(context.Buffer().size()),
 		&strlen,
 		context.Buffer().data()
 	);
@@ -167,7 +167,7 @@ ActiveSubroutineUniformInfo::ActiveSubroutineUniformInfo(
 		EnumParam(context.Stage()).
 		Index(index)
 	);
-	_name = String(context.Buffer().data(), strlen);
+	_var_name = String(context.Buffer().data(), strlen);
 }
 
 OGLPLUS_LIB_FUNC
@@ -229,7 +229,7 @@ ActiveUniformBlockInfo::ActiveUniformBlockInfo(
 	OGLPLUS_GLFUNC(GetActiveUniformBlockName)(
 		GetGLName(context.Program()),
 		index,
-		context.Buffer().size(),
+		GLsizei(context.Buffer().size()),
 		&strlen,
 		context.Buffer().data()
 	);
@@ -239,7 +239,7 @@ ActiveUniformBlockInfo::ActiveUniformBlockInfo(
 		Object(context.Program()).
 		Index(index)
 	);
-	_name = String(context.Buffer().data(), strlen);
+	_var_name = String(context.Buffer().data(), strlen);
 }
 
 OGLPLUS_LIB_FUNC

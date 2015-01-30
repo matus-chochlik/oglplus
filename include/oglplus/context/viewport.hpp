@@ -170,11 +170,11 @@ struct ViewportDepthRange
 	OGLPLUS_NOEXCEPT(true)
 	{ }
 
-	ViewportDepthRange(GLfloat near, GLfloat far)
+	ViewportDepthRange(GLfloat near_val, GLfloat far_val)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		_v[0] = near;
-		_v[1] = far;
+		_v[0] = near_val;
+		_v[1] = far_val;
 	}
 
 	/// The near limit
@@ -384,10 +384,10 @@ public:
 	{
 		OGLPLUS_GLFUNC(ViewportIndexedf)(
 			viewport,
-			vp.X(),
-			vp.Y(),
-			vp.Width(),
-			vp.Height()
+			GLfloat(vp.X()),
+			GLfloat(vp.Y()),
+			GLfloat(vp.Width()),
+			GLfloat(vp.Height())
 		);
 		OGLPLUS_CHECK(
 			ViewportIndexedf,

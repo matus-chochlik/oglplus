@@ -75,7 +75,7 @@ BitmapGlyphPageStorage::BitmapGlyphPageStorage(
 		Texture::Target::Rectangle,
 		0,
 		PixelDataInternalFormat::RGBA32F,
-		_glyphs_per_page*_vects_per_glyph,
+		GLsizei(_glyphs_per_page*_vects_per_glyph),
 		_frames,
 		0,
 		PixelDataFormat::RGBA,
@@ -127,7 +127,7 @@ void BitmapGlyphPageStorage::LoadPage(
 		Texture::Target::Rectangle,
 		0,
 		0, frame,
-		_glyphs_per_page*_vects_per_glyph, 1,
+		GLsizei(_glyphs_per_page*_vects_per_glyph), 1,
 		PixelDataFormat::RGBA,
 		PixelDataType::Float,
 		metrics.data()
@@ -145,7 +145,7 @@ void BitmapGlyphPageStorage::QueryGlyphMetrics(
 ) const
 {
 	const std::vector<GLfloat>& frame_data = _metrics[frame];
-	const GLint offs = 4*_vects_per_glyph*cell+metric;
+	const GLint offs = GLint(4*_vects_per_glyph*cell+metric);
 
 	assert(count >= 0);
 	for(GLint i=0; i!=count; ++i)

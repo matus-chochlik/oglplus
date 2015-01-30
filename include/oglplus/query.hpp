@@ -97,7 +97,10 @@ class ObjectOps<tag::DirectState, tag::Query>
  : public ObjZeroOps<tag::DirectState, tag::Query>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(QueryName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectState, tag::Query>(name)
+	{ }
 public:
 	/// Query execution target
 	typedef QueryTarget Target;
@@ -109,8 +112,7 @@ public:
 	 */
 	void Begin(Target target)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BeginQuery)(GLenum(target), _name);
+		OGLPLUS_GLFUNC(BeginQuery)(GLenum(target), _obj_name());
 		OGLPLUS_VERIFY(
 			BeginQuery,
 			ObjectError,
@@ -126,7 +128,6 @@ public:
 	 */
 	void End(Target target)
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(EndQuery)(GLenum(target));
 		OGLPLUS_VERIFY(
 			EndQuery,
@@ -144,8 +145,7 @@ public:
 	 */
 	void BeginConditionalRender(ConditionalRenderMode mode)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BeginConditionalRender)(_name, GLenum(mode));
+		OGLPLUS_GLFUNC(BeginConditionalRender)(_obj_name(), GLenum(mode));
 		OGLPLUS_VERIFY(
 			BeginConditionalRender,
 			ObjectError,
@@ -174,8 +174,7 @@ public:
 	 */
 	void Counter(Target target)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(QueryCounter)(_name, GLenum(target));
+		OGLPLUS_GLFUNC(QueryCounter)(_obj_name(), GLenum(target));
 		OGLPLUS_VERIFY(
 			QueryCounter,
 			ObjectError,
@@ -204,10 +203,9 @@ public:
 	 */
 	bool ResultAvailable(void) const
 	{
-		assert(_name != 0);
 		GLuint result = GL_FALSE;
 		OGLPLUS_GLFUNC(GetQueryObjectuiv)(
-			_name,
+			_obj_name(),
 			GL_QUERY_RESULT_AVAILABLE,
 			&result
 		);
@@ -228,9 +226,8 @@ public:
 	 */
 	void Result(GLint& result) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(GetQueryObjectiv)(
-			_name,
+			_obj_name(),
 			GL_QUERY_RESULT,
 			&result
 		);
@@ -250,9 +247,8 @@ public:
 	 */
 	void Result(GLuint& result) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(GetQueryObjectuiv)(
-			_name,
+			_obj_name(),
 			GL_QUERY_RESULT,
 			&result
 		);
@@ -273,9 +269,8 @@ public:
 	 */
 	void Result(GLint64& result) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(GetQueryObjecti64v)(
-			_name,
+			_obj_name(),
 			GL_QUERY_RESULT,
 			&result
 		);
@@ -295,9 +290,8 @@ public:
 	 */
 	void Result(GLuint64& result) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(GetQueryObjectui64v)(
-			_name,
+			_obj_name(),
 			GL_QUERY_RESULT,
 			&result
 		);

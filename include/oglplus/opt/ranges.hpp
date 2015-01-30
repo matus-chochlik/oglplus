@@ -186,16 +186,22 @@ public:
 
 	AnyRange& operator = (const AnyRange& other)
 	{
-		if(_pimpl) delete _pimpl;
-		_pimpl = _clone(other._pimpl);
+		if(this != &other)
+		{
+			if(_pimpl) delete _pimpl;
+			_pimpl = _clone(other._pimpl);
+		}
 		return *this;
 	}
 
 	AnyRange& operator = (AnyRange&& other)
 	{
-		if(_pimpl) delete _pimpl;
-		_pimpl = other._pimpl;
-		other._pimpl = nullptr;
+		if(this != &other)
+		{
+			if(_pimpl) delete _pimpl;
+			_pimpl = other._pimpl;
+			other._pimpl = nullptr;
+		}
 		return *this;
 	}
 

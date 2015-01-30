@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -25,22 +25,22 @@ namespace aux {
 class ProgramInterfaceContext
 {
 private:
-	GLuint _program;
+	GLuint _prog_name;
 	GLuint _size;
 	GLenum _stage_or_intf;
 	std::vector<GLchar> _buffer;
 public:
 	ProgramInterfaceContext(
-		GLuint name,
+		GLuint prog_name,
 		GLuint size,
 		GLenum stage_or_intf = GL_NONE
-	): _program(name)
+	): _prog_name(prog_name)
 	 , _size(size)
 	 , _stage_or_intf(stage_or_intf)
 	{ }
 
 	ProgramInterfaceContext(ProgramInterfaceContext&& tmp)
-	 : _program(tmp._program)
+	 : _prog_name(tmp._prog_name)
 	 , _size(tmp._size)
 	 , _stage_or_intf(tmp._stage_or_intf)
 	 , _buffer(std::move(tmp._buffer))
@@ -48,7 +48,7 @@ public:
 
 	ProgramName Program(void) const
 	{
-		return ProgramName(_program);
+		return ProgramName(_prog_name);
 	}
 
 	GLenum Stage(void) const
@@ -71,17 +71,17 @@ private:
 	GLuint _index;
 	GLint _size;
 	GLenum _type;
-	String _name;
+	String _var_name;
 
 	ActiveVariableInfo(
 		GLuint index,
 		GLint size,
 		GLenum type,
-		const String& name
+		const String& var_name
 	): _index(index)
 	 , _size(size)
 	 , _type(type)
-	 , _name(name)
+	 , _var_name(var_name)
 	{ }
 
 	friend class ActiveSubroutineInfo;
@@ -102,21 +102,6 @@ protected:
 			GLchar* /*name*/
 		)
 	);
-
-	// TODO: this is here only because GLEW defines
-	// glGetTransformFeedbackVaryings this way
-	ActiveVariableInfo(
-		ProgramInterfaceContext& context,
-		GLuint index,
-		void (GLAPIENTRY *GetActiveVariable)(GLuint, GLuint, GLint*)
-	): _index(index)
-	 , _size(0)
-	 , _type(0)
-	 , _name(0)
-	{
-		OGLPLUS_FAKE_USE(context);
-		OGLPLUS_FAKE_USE(GetActiveVariable);
-	}
 public:
 	GLuint Index(void) const
 	{
@@ -125,7 +110,7 @@ public:
 
 	const String& Name(void) const
 	{
-		return _name;
+		return _var_name;
 	}
 
 	GLint Size(void) const
@@ -162,7 +147,7 @@ class ActiveSubroutineInfo
 {
 private:
 	GLuint _index;
-	String _name;
+	String _var_name;
 public:
 	ActiveSubroutineInfo(
 		ProgramInterfaceContext& context,
@@ -176,7 +161,7 @@ public:
 
 	const String& Name(void) const
 	{
-		return _name;
+		return _var_name;
 	}
 
 	GLint Size(void) const
@@ -188,7 +173,7 @@ public:
 
 	operator ActiveVariableInfo(void) const
 	{
-		return ActiveVariableInfo(_index, 0, GL_NONE, _name);
+		return ActiveVariableInfo(_index, 0, GL_NONE, _var_name);
 	}
 };
 
@@ -197,7 +182,7 @@ class ActiveSubroutineUniformInfo
 private:
 	GLuint _index;
 	GLint _size;
-	String _name;
+	String _var_name;
 public:
 	ActiveSubroutineUniformInfo(
 		ProgramInterfaceContext& context,
@@ -211,7 +196,7 @@ public:
 
 	const String& Name(void) const
 	{
-		return _name;
+		return _var_name;
 	}
 
 	GLint Size(void) const
@@ -223,7 +208,7 @@ public:
 
 	operator ActiveVariableInfo(void) const
 	{
-		return ActiveVariableInfo(_index, _size, GL_NONE, _name);
+		return ActiveVariableInfo(_index, _size, GL_NONE, _var_name);
 	}
 };
 #endif
@@ -241,7 +226,7 @@ class ActiveUniformBlockInfo
 {
 private:
 	GLuint _index;
-	String _name;
+	String _var_name;
 public:
 	ActiveUniformBlockInfo(
 		ProgramInterfaceContext& context,
@@ -255,7 +240,7 @@ public:
 
 	const String& Name(void) const
 	{
-		return _name;
+		return _var_name;
 	}
 
 	GLint Size(void) const
@@ -267,7 +252,7 @@ public:
 
 	operator ActiveVariableInfo(void) const
 	{
-		return ActiveVariableInfo(_index, 0, GL_NONE, _name);
+		return ActiveVariableInfo(_index, 0, GL_NONE, _var_name);
 	}
 
 	// TODO: active uniform indices, etc.

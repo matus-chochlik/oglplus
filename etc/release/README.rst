@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.57.0
+Release notes for version 0.58.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,20 +7,5 @@ Release notes for version 0.57.0
 Overview
 ========
 
-This is mostly a bugfix release of `OGLPLUS`_, but it also brings changes in the setting stack functionality of ``ClientContext``, updates in the enumeration definitions and updated Quickbook docs.
-
-Changes
-=======
- - The ``oglplus::ClientContext`` class was updated, the setting stack was reimplemented not to use dynamically allocated containers to store the pushed values.
-
- - The script for auto-generating of the enumeration headers was updated, now almost everything related to the enumerations is automatically generated.
-
- - A bug in the definition of the overloads of ``EnumValueRange`` was fixed.
- 
- - Minor problems in the GLSL shaders in the examples were fixed.
-
- - The Quickbook documentation was updated.
-
- - Noexcept specifiers were added to some functions.
-
+This release of `OGLPLUS`_ fixes several bugs and (mostly MSVC) warnings, minor changes in the OALplus Listener and Device wrappers, refactoring of the GL/AL name and object wrapper classes. Furthermore most of the standalone examples were backported to MSCV 2012 and the Quickbook documentation has been updated.
 

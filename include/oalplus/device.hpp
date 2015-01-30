@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -45,10 +45,10 @@ public:
 	}
 
 	/// Returns the specifier string at the front of the range
-	const ALchar* Front(void) const
+	StrCRef Front(void) const
 	{
 		assert(!Empty());
-		return _ptr;
+		return StrCRef(_ptr);
 	}
 
 	/// Goes to the next specifier in the range
@@ -129,14 +129,14 @@ public:
 	 *  @alcfunref{GetString}
 	 *  @alcdefref{DEVICE_SPECIFIER}
 	 */
-	const ALchar* Specifier(void) const
+	StrCRef Specifier(void) const
 	{
 		const ALchar* str = OALPLUS_ALCFUNC(GetString)(
 			_device,
 			ALC_DEVICE_SPECIFIER
 		);
 		OALPLUS_CHECK_SIMPLE_ALC(_device, GetString);
-		return str;
+		return StrCRef(str);
 	}
 
 	/// Returns a range of specifier strings for available audio devices
@@ -175,14 +175,14 @@ public:
 	 *  @alcfunref{GetString}
 	 *  @alcdefref{CAPTURE_DEVICE_SPECIFIER}
 	 */
-	const ALchar* Specifier(void) const
+	StrCRef Specifier(void) const
 	{
 		const ALchar* str = OALPLUS_ALCFUNC(GetString)(
 			_device,
 			ALC_CAPTURE_DEVICE_SPECIFIER
 		);
 		OALPLUS_CHECK_SIMPLE_ALC(_device, GetString);
-		return str;
+		return StrCRef(str);
 	}
 
 	/// Returns a range of specifier strings for available capture devices
@@ -276,8 +276,8 @@ public:
 	 *  @alsymbols
 	 *  @alcfunref{OpenDevice}
 	 */
-	Device(const ALchar* dev_spec)
-	 : Base(OALPLUS_ALCFUNC(OpenDevice)(dev_spec))
+	Device(const StrCRef& dev_spec)
+	 : Base(OALPLUS_ALCFUNC(OpenDevice)(dev_spec.c_str()))
 	{
 		OALPLUS_CHECK_SIMPLE_ALC(_device,OpenDevice);
 	}
@@ -308,8 +308,11 @@ public:
 	 *  @alsymbols
 	 *  @alcfunref{OpenDevice}
 	 */
-	CaptureDevice(ALCuint frequency, DataFormat format, ALCsizei bufsize)
-	 : Base(OALPLUS_ALCFUNC(CaptureOpenDevice)(
+	CaptureDevice(
+		ALCuint frequency,
+		DataFormat format,
+		ALCsizei bufsize
+	): Base(OALPLUS_ALCFUNC(CaptureOpenDevice)(
 		nullptr,
 		frequency,
 		ALCenum(format),
@@ -325,12 +328,12 @@ public:
 	 *  @alcfunref{OpenDevice}
 	 */
 	CaptureDevice(
-		const ALchar* dev_spec,
+		const StrCRef& dev_spec,
 		ALCuint frequency,
 		DataFormat format,
 		ALCsizei bufsize
 	): Base(OALPLUS_ALCFUNC(CaptureOpenDevice)(
-		dev_spec,
+		dev_spec.c_str(),
 		frequency,
 		ALCenum(format),
 		bufsize

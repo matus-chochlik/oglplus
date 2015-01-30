@@ -2,7 +2,7 @@
  *  @example standalone/001_text2d.cpp
  *  @brief Shows the basic usage of low-level 2D text rendering
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -34,7 +34,7 @@ void print_buffer(
 
 void render_text_1(const oglplus::text::Font2D& font)
 {
-	oglplus::text::CodePoints code_points = oglplus::text::UTF8ToCodePoints(u8"OGLplus");
+	oglplus::text::CodePoints code_points = oglplus::text::UTF8ToCodePoints("OGLplus");
 	oglplus::text::Font2D::Layout layout = font.MakeLayout(code_points);
 
 	std::size_t width = 90;
@@ -49,7 +49,7 @@ void render_text_1(const oglplus::text::Font2D& font)
 
 void render_text_2(const oglplus::text::Font2D& font)
 {
-	oglplus::text::CodePoints cps = oglplus::text::UTF8ToCodePoints(u8"OGLPLUS");
+	oglplus::text::CodePoints cps = oglplus::text::UTF8ToCodePoints("OGLPLUS");
 
 	std::size_t width = 72;
 	std::size_t height = 72;

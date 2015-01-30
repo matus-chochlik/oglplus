@@ -113,7 +113,7 @@ public:
 			if(std::find(i, e, page) == e)
 				_pages.push_back(page);
 		}
-		_font._essence->LoadPages(_pages.data(), _pages.size());
+		_font._essence->LoadPages(_pages.data(), GLsizei(_pages.size()));
 
 		// initialize the layout data
 		BitmapGlyphInitializeLayoutData(_parent,_data,_font, cps, size);

@@ -19,7 +19,7 @@ void STBTTFontEssence::_do_make_page_bitmap_and_metric(
 	float* metric
 ) const
 {
-	float scale = _tt_font.ScaleForPixelHeight(_font_resolution);
+	float scale = _tt_font.ScaleForPixelHeight(float(_font_resolution));
 
 	const GLuint px = _font_resolution;
 	const GLuint ts = _tex_side;
@@ -197,7 +197,7 @@ GLfloat STBTTFontEssence::QueryXOffsets(
 	if(size <= 0) return 0.0f;
 	x_offsets.resize(size);
 
-	float scale = _tt_font.ScaleForPixelHeight(_font_resolution);
+	float scale = _tt_font.ScaleForPixelHeight(float(_font_resolution));
 	scale /= _font_resolution;
 	STBTTFont2DGlyph g = _tt_font.GetGlyph(cps[0]);
 
@@ -227,7 +227,7 @@ Rectangle STBTTFontEssence::GetGlyphMetrics(CodePoint code_point, GLint offs) co
 	auto glyph = _tt_font.GetGlyph(code_point);
 	glyph.GetVMetrics(asc, dsc, lg);
 	glyph.GetHMetrics(lb, wi);
-	float scale = _tt_font.ScaleForPixelHeight(_font_resolution);
+	float scale = _tt_font.ScaleForPixelHeight(float(_font_resolution));
 
 	assert(offs % 4 == 0);
 	// TODO other metrics
