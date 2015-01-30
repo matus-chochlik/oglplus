@@ -1,3 +1,17 @@
+Version 0.58.0
+
+- Noexcept specifiers were added to some functions.
+- The oalplus::GetALName function was added.
+- Small changes were made to oalplus::Listener and Device wrappers.
+- Several assignments constructors were fixed to prevent problems with
+  self assignment.
+- The GL/AL object wrappers were refactored.
+- Most of the standalone examples were backported to MSVC.
+- Some MSVC warnings were fixed.
+- Collisions between preprocessor macros and variable names were fixed.
+- A problem that caused access violations in GL feature tests was fixed.
+- The Quickbook documentation was updated.
+
 Version 0.57.0
 
 - The setting stack functionality in oglplus::ClientContext was reimplemented.
