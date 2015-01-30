@@ -11,7 +11,8 @@ using __oglplus_SeqIterator;
 using __oglplus_Sequence;
 
 template <typename ObjectT>
-const GLuint* GetNames(const __Sequence<ObjectT>& sequence);
+const ALuint* GetNames(const __Sequence<ObjectT>& sequence)
+noexcept;
 
 } // namespace oalplus
 //]
