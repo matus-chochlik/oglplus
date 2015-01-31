@@ -149,7 +149,7 @@ private:
 
 	void _cleanup(void)
 	{
-		if(this->_obj_name() > 0u)
+		if(this->_has_deletable_name())
 		{
 			_undescribe();
 			ObjGenDelOps<ObjTag>::Delete(1, this->_name_ptr());
