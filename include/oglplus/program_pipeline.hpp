@@ -14,6 +14,7 @@
 #define OGLPLUS_PROGRAM_PIPELINE_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/program_pipeline_stage.hpp>
 #include <oglplus/object/wrapper.hpp>
@@ -271,9 +272,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetProgramPipeline}
 	 */
-	bool IsValid(void) const
+	Boolean IsValid(void) const
 	{
-		return GetIntParam(GL_VALIDATE_STATUS) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_VALIDATE_STATUS),
+			std::nothrow
+		);
 	}
 
 	/// Validates this program pipeline

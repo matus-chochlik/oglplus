@@ -45,7 +45,7 @@ public:
 		VertexAttribSlot location,
 		GLint values_per_vertex,
 		DataType data_type,
-		bool normalized,
+		Boolean normalized,
 		GLsizei stride,
 		GLintptr offset
 	) const
@@ -56,7 +56,7 @@ public:
 			GLuint(location),
 			values_per_vertex,
 			GLenum(data_type),
-			normalized ? GL_TRUE : GL_FALSE,
+			normalized._get(),
 			stride,
 			offset
 		);

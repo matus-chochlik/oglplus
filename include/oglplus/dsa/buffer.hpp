@@ -63,9 +63,12 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	bool Mapped(void) const
+	Boolean Mapped(void) const
 	{
-		return GetIntParam(GL_BUFFER_MAPPED) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_BUFFER_MAPPED),
+			std::nothrow
+		);
 	}
 
 	/// Allocates buffer storage to the specified size without any data

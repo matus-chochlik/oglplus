@@ -18,6 +18,7 @@
 #include <oglplus/error/object.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/sequence.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/compare_function.hpp>
 #include <oglplus/texture_wrap.hpp>
@@ -716,9 +717,12 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	bool Seamless(void) const
+	Boolean Seamless(void) const
 	{
-		return GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS),
+			std::nothrow
+		);
 	}
 
 	/// Sets the seamless cubemap setting
@@ -727,12 +731,12 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	void Seamless(bool enable)
+	void Seamless(Boolean enable)
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_obj_name(),
 			GL_TEXTURE_CUBE_MAP_SEAMLESS,
-			enable?GL_TRUE:GL_FALSE
+			enable._get()
 		);
 		OGLPLUS_CHECK(
 			SamplerParameteri,
