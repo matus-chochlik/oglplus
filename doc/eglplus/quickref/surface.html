@@ -80,7 +80,19 @@
 		<span class="keyword">const</span> <a class="link" href="surface.html#eglplus.quickref.surface.attribs">FinishedSurfaceAttribs</a><span class="special">&amp;</span> <span class="identifier">attribs</span>
 	<span class="special">);</span> <a class="co" name="eglplus.quickref.surface.c10" href="surface.html#eglplus.quickref.surface.c11"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
-<span class="comment">// TODO</span>
+	<span class="keyword">bool</span> <span class="identifier">SwapBuffers</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="eglplus.quickref.surface.c12" href="surface.html#eglplus.quickref.surface.c13"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">CopyBuffers</span><span class="special">(</span><span class="identifier">EGLNativePixmapType</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="eglplus.quickref.surface.c14" href="surface.html#eglplus.quickref.surface.c15"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">Attrib</span><span class="special">(</span><a class="link" href="surface_attrib.html" title="Surface attribute">SurfaceAttrib</a> <span class="identifier">attrib</span><span class="special">,</span> <span class="identifier">EGLint</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="eglplus.quickref.surface.c16" href="surface.html#eglplus.quickref.surface.c17"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">QueryAttrib</span><span class="special">(</span><a class="link" href="surface_attrib.html" title="Surface attribute">SurfaceAttrib</a> <span class="identifier">attrib</span><span class="special">,</span> <span class="identifier">EGLint</span><span class="special">&amp;</span> <span class="identifier">value</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c18" href="surface.html#eglplus.quickref.surface.c19"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="identifier">EGLint</span> <span class="identifier">GetAttrib</span><span class="special">(</span><a class="link" href="surface_attrib.html" title="Surface attribute">SurfaceAttrib</a> <span class="identifier">attrib</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c20" href="surface.html#eglplus.quickref.surface.c21"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+
+	<span class="identifier">EGLint</span> <span class="identifier">Width</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c22" href="surface.html#eglplus.quickref.surface.c23"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+	<span class="identifier">EGLint</span> <span class="identifier">Height</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c24" href="surface.html#eglplus.quickref.surface.c25"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -107,20 +119,164 @@
               Creates a Window surface. See <code class="literal">eglCreateWindowSurface</code>.
             </p></td>
 </tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c13"></a><a href="#eglplus.quickref.surface.c12"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Swap the front and back buffers. See <code class="literal">eglSwapBuffers</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c15"></a><a href="#eglplus.quickref.surface.c14"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Copy buffer to native pixmap. See <code class="literal">eglCopyBuffers</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c17"></a><a href="#eglplus.quickref.surface.c16"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the value of the specified attribute. See <code class="literal">eglSurfaceAttrib</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c19"></a><a href="#eglplus.quickref.surface.c18"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Queries the specified surface attribute value. See <code class="literal">eglQuerySurface</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c21"></a><a href="#eglplus.quickref.surface.c20"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Gets the specified surface attribute value. See <code class="literal">eglQuerySurface</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c23"></a><a href="#eglplus.quickref.surface.c22"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the width of the surface. See <code class="literal">eglQuerySurface</code>,
+              <span class="bold"><strong><code class="literal">EGL_WIDTH</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c25"></a><a href="#eglplus.quickref.surface.c24"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the height of the surface. See <code class="literal">eglQuerySurface</code>,
+              <span class="bold"><strong><code class="literal">EGL_HEIGHT</code></strong></span>.
+            </p></td>
+</tr>
 </table></div>
-<pre class="programlisting"><span class="special">};</span>
+<pre class="programlisting">	<a class="link" href="render_buffer.html" title="Render buffer">RenderBuffer</a> <span class="identifier">RenderBuffer</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c26" href="surface.html#eglplus.quickref.surface.c27"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">RenderBuffer</span><span class="special">(</span><a class="link" href="render_buffer.html" title="Render buffer">RenderBuffer</a> <span class="identifier">render_buffer</span><span class="special">);</span> <a class="co" name="eglplus.quickref.surface.c28" href="surface.html#eglplus.quickref.surface.c29"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<a class="link" href="multisample_resolve.html" title="Multisample resolve">MultisampleResolve</a> <span class="identifier">MultisampleResolve</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c30" href="surface.html#eglplus.quickref.surface.c31"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">MultisampleResolve</span><span class="special">(</span><a class="link" href="multisample_resolve.html" title="Multisample resolve">MultisampleResolve</a> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="eglplus.quickref.surface.c32" href="surface.html#eglplus.quickref.surface.c33"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<a class="link" href="swap_behavior.html" title="Swap behavior">SwapBehavior</a> <span class="identifier">SwapBehavior</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c34" href="surface.html#eglplus.quickref.surface.c35"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">SwapBehavior</span><span class="special">(</span><a class="link" href="swap_behavior.html" title="Swap behavior">SwapBehavior</a> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="eglplus.quickref.surface.c36" href="surface.html#eglplus.quickref.surface.c37"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<a class="link" href="texture_target.html" title="Texture target">TextureTarget</a> <span class="identifier">TextureTarget</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c38" href="surface.html#eglplus.quickref.surface.c39"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<a class="link" href="texture_format.html" title="Texture format">TextureFormat</a> <span class="identifier">TextureFormat</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c40" href="surface.html#eglplus.quickref.surface.c41"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<a class="link" href="gl_colorspace.html" title="GL colorspace">GLColorSpace</a> <span class="identifier">GLColorspace</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c42" href="surface.html#eglplus.quickref.surface.c43"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+
+	<a class="link" href="vg_colorspace.html" title="VG colorspace">VGColorSpace</a> <span class="identifier">VGColorspace</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c44" href="surface.html#eglplus.quickref.surface.c45"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+	<a class="link" href="vg_alpha_format.html" title="VG alpha format">VGAlphaFormat</a> <span class="identifier">VGAlphaFormat</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c46" href="surface.html#eglplus.quickref.surface.c47"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+<span class="special">};</span>
 
 <span class="special">::</span><span class="identifier">EGLSurface</span> <span class="identifier">GetEGLHandle</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="surface.html#eglplus.quickref.surface.wrapper">Surface</a><span class="special">&amp;</span> <span class="identifier">surface</span><span class="special">)</span>
-<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c12" href="surface.html#eglplus.quickref.surface.c13"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="eglplus.quickref.surface.c48" href="surface.html#eglplus.quickref.surface.c49"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
 
 <span class="special">}</span> <span class="comment">// namespace eglplus</span>
 </pre>
-<div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c13"></a><a href="#eglplus.quickref.surface.c12"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c27"></a><a href="#eglplus.quickref.surface.c26"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the render buffer setting of the surface. See <code class="literal">eglQuerySurface</code>,
+              <span class="bold"><strong><code class="literal">EGL_RENDER_BUFFER</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c29"></a><a href="#eglplus.quickref.surface.c28"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Changes the render buffer setting of the surface. See <code class="literal">eglSurfaceAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_RENDER_BUFFER</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c31"></a><a href="#eglplus.quickref.surface.c30"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the multisample resolve setting of the surface. See <code class="literal">eglQuerySurface</code>,
+              <span class="bold"><strong><code class="literal">EGL_MULTISAMPLE_RESOLVE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c33"></a><a href="#eglplus.quickref.surface.c32"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Changes the multisample resolve setting of the surface. See <code class="literal">eglSurfaceAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_MULTISAMPLE_RESOLVE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c35"></a><a href="#eglplus.quickref.surface.c34"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the buffer swap behavior setting of the surface. See <code class="literal">eglQuerySurface</code>,
+              <span class="bold"><strong><code class="literal">EGL_SWAP_BEHAVIOR</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c37"></a><a href="#eglplus.quickref.surface.c36"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Changes the buffer swap behavior setting of the surface. See <code class="literal">eglSurfaceAttrib</code>,
+              <span class="bold"><strong><code class="literal">EGL_SWAP_BEHAVIOR</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c39"></a><a href="#eglplus.quickref.surface.c38"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the texture target setting of the surface. See <code class="literal">eglQuerySurface</code>,
+              <span class="bold"><strong><code class="literal">EGL_TEXTURE_TARGET</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c41"></a><a href="#eglplus.quickref.surface.c40"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the texture format setting of the surface. See <code class="literal">eglQuerySurface</code>,
+              <span class="bold"><strong><code class="literal">EGL_TEXTURE_FORMAT</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c43"></a><a href="#eglplus.quickref.surface.c42"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the OpenGL colorspace setting of the surface. See <code class="literal">eglQuerySurface</code>,
+              <span class="bold"><strong><code class="literal">EGL_GL_COLORSPACE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c45"></a><a href="#eglplus.quickref.surface.c44"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the OpenVG colorspace setting of the surface. See <code class="literal">eglQuerySurface</code>,
+              <span class="bold"><strong><code class="literal">EGL_VG_COLORSPACE</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c47"></a><a href="#eglplus.quickref.surface.c46"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the OpenVG alpha format of the surface. See <code class="literal">eglQuerySurface</code>,
+              <span class="bold"><strong><code class="literal">EGL_VG_ALPHA_FORMAT</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.surface.c49"></a><a href="#eglplus.quickref.surface.c48"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the EGL surface handle wrapped by a <a class="link" href="surface.html#eglplus.quickref.surface.wrapper">Surface</a>.
             </p></td>
-</tr></table></div>
+</tr>
+</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>

@@ -73,6 +73,10 @@
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
 
 <span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.name" title="Name">oglplus::ObjectName</a><span class="special">;</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjTag</span><span class="special">&gt;</span>
+<span class="keyword">const</span> <span class="identifier">ALuint</span> <span class="identifier">GetName</span><span class="special">(</span><span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">ObjTag</span><span class="special">&gt;</span> <span class="identifier">named</span><span class="special">)</span>
+<span class="keyword">noexcept</span><span class="special">;</span>
 </pre>
 <h5>
 <a name="oalplus.quickref.object.name.h0"></a>
@@ -238,7 +242,8 @@
 <span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.sequence" title="Sequence">oglplus::Sequence</a><span class="special">;</span>
 
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjectT</span><span class="special">&gt;</span>
-<span class="keyword">const</span> <span class="identifier">GLuint</span><span class="special">*</span> <span class="identifier">GetNames</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="object.html#oalplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><span class="identifier">ObjectT</span><span class="special">&gt;&amp;</span> <span class="identifier">sequence</span><span class="special">);</span>
+<span class="keyword">const</span> <span class="identifier">ALuint</span><span class="special">*</span> <span class="identifier">GetNames</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="object.html#oalplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><span class="identifier">ObjectT</span><span class="special">&gt;&amp;</span> <span class="identifier">sequence</span><span class="special">)</span>
+<span class="keyword">noexcept</span><span class="special">;</span>
 
 <span class="special">}</span> <span class="comment">// namespace oalplus</span>
 </pre>
