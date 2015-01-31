@@ -201,6 +201,22 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 	_layout_width_active = _layout_width.IsActive();
 }
 
+#if OGLPLUS_NO_DEFAULTED_FUNCTIONS
+OGLPLUS_LIB_FUNC
+BitmapGlyphRenderer::BitmapGlyphRenderer(BitmapGlyphRenderer&& tmp)
+ : _parent(tmp._parent)
+ , _program(std::move(tmp._program))
+ , _bitmap_sampler(std::move(tmp._bitmap_sampler))
+ , _metric_sampler(std::move(tmp._metric_sampler))
+ , _pg_map_sampler(std::move(tmp._pg_map_sampler))
+ , _layout_width(std::move(tmp._layout_width))
+ , _layout_width_active(std::move(tmp._layout_width_active))
+ , _prev_font_essence(std::move(tmp._prev_font_essence))
+ , _prev_layout_storage(std::move(tmp._prev_layout_storage))
+{ }
+#endif
+
+
 OGLPLUS_LIB_FUNC
 BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
 	BitmapGlyphRenderingBase& parent,
@@ -260,6 +276,15 @@ BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
 	)
 )
 { }
+
+#if OGLPLUS_NO_DEFAULTED_FUNCTIONS
+OGLPLUS_LIB_FUNC
+BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
+	BitmapGlyphDefaultRenderer&& tmp
+): DefaultRendererTpl<BitmapGlyphRenderer>(
+	static_cast<DefaultRendererTpl<BitmapGlyphRenderer>&&>(tmp)
+){ }
+#endif
 
 } // namespace text
 } // namespace oglplus

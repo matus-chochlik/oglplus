@@ -110,7 +110,8 @@ typedef FinishedAttributeList<
 > FinishedSurfaceAttribs;
 
 class Surface;
-::EGLSurface GetEGLHandle(const Surface&);
+::EGLSurface GetEGLHandle(const Surface&)
+noexcept;
 
 /// Wrapper for EGLSurfaces
 class Surface
@@ -119,7 +120,8 @@ private:
 	Display _display;
 	::EGLSurface _handle;
 
-	friend ::EGLSurface GetEGLHandle(const Surface&);
+	friend ::EGLSurface GetEGLHandle(const Surface&)
+	noexcept;
 
 	Surface(const Surface&);
 
@@ -544,7 +546,9 @@ public:
 	}
 };
 
-inline ::EGLSurface GetEGLHandle(const Surface& surface)
+inline
+::EGLSurface GetEGLHandle(const Surface& surface)
+noexcept
 {
 	return surface._handle;
 }

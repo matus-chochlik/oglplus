@@ -143,6 +143,13 @@ public:
 		return *this;
 	}
 
+	ObjectName ReleaseName(void)
+	{
+		ObjectName result = *this;
+		_name = _invalid_name();
+		return result;
+	}
+
 	/// Returns true if the object name is initialized, false otherwise
 	bool IsInitialized(void) const
 	noexcept

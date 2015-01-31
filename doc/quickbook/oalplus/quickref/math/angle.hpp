@@ -4,15 +4,12 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oalplus_object_Sequence
+//[oalplus_angle
 namespace oalplus {
 
-using __oglplus_SeqIterator;
-using __oglplus_Sequence;
+using __oglplus_Angle;
 
-template <typename ObjectT>
-const ALuint* GetNames(const __Sequence<ObjectT>& sequence)
-noexcept;
+typedef Angle<ALfloat> Anglef;
 
 } // namespace oalplus
 //]

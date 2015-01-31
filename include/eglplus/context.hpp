@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -74,7 +74,8 @@ typedef FinishedAttributeList<
 > FinishedContextAttribs;
 
 class Context;
-::EGLContext GetEGLHandle(const Context&);
+::EGLContext GetEGLHandle(const Context&)
+noexcept;
 
 /// Wrapper around EGLContext
 class Context
@@ -83,7 +84,8 @@ private:
 	Display _display;
 	::EGLContext _handle;
 
-	friend ::EGLContext GetEGLHandle(const Context&);
+	friend ::EGLContext GetEGLHandle(const Context&)
+	noexcept;
 
 	Context(const Context&);
 
@@ -334,7 +336,9 @@ public:
 	}
 };
 
-inline ::EGLContext GetEGLHandle(const Context& context)
+inline
+::EGLContext GetEGLHandle(const Context& context)
+noexcept
 {
 	return context._handle;
 }

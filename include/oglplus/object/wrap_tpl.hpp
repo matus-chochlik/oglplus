@@ -214,7 +214,7 @@ public:
 	/// Objects are movable
 	ObjectTpl(ObjectTpl&& temp)
 	noexcept
-	 : NameHolder(static_cast<NameHolder&&>(temp))
+	 : NameHolder(static_cast<NameHolder&&>(temp.ReleaseName()))
 	{ }
 
 	~ObjectTpl(void)

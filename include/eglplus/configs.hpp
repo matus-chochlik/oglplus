@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -28,7 +28,8 @@
 namespace eglplus {
 
 class Config;
-::EGLConfig GetEGLHandle(const Config&);
+::EGLConfig GetEGLHandle(const Config&)
+noexcept;
 
 /// A wrapper for EGL configuration
 class Config
@@ -37,7 +38,8 @@ private:
 	Display _display;
 	::EGLConfig _handle;
 
-	friend ::EGLConfig GetEGLHandle(const Config&);
+	friend ::EGLConfig GetEGLHandle(const Config&)
+	noexcept;
 public:
 	Config(const Display& display, ::EGLConfig handle)
 	 : _display(display)
@@ -234,9 +236,9 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{NATIVE_RENDERABLE}
 	 */
-	EGLint NativeRenderable(void) const
+	bool NativeRenderable(void) const
 	{
-		return GetAttrib(ConfigAttrib::NativeRenderable);
+		return GetAttrib(ConfigAttrib::NativeRenderable) == EGL_TRUE;
 	}
 
 	/// Returns the caveat for this config
@@ -369,7 +371,9 @@ public:
 	}
 };
 
-inline ::EGLConfig GetEGLHandle(const Config& config)
+inline
+::EGLConfig GetEGLHandle(const Config& config)
+noexcept
 {
 	return config._handle;
 }

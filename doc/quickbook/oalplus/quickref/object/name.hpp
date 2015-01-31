@@ -9,6 +9,10 @@ namespace oalplus {
 
 using __oglplus_ObjectName;
 
+template <typename ObjTag>
+const ALuint GetName(ObjectName<ObjTag> named)
+noexcept;
+
 //]
 //[oalplus_object_name_typedefs
 
