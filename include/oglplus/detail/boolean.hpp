@@ -52,6 +52,7 @@ public:
 	{ }
 
 	BoolImpl(T v, std::nothrow_t)
+	OGLPLUS_NOEXCEPT(true)
 	 : _v(v)
 	{ }
 

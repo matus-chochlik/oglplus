@@ -44,7 +44,7 @@ public:
 		__ImageUnitSelector unit,
 		__TextureName texture,
 		GLint level,
-		bool layered,
+		__Boolean layered,
 		GLint layer,
 		__AccessSpecifier access,
 		__ImageUnitFormat format
@@ -697,7 +697,7 @@ public:
 		GLsizei width,
 		GLsizei height,
 		GLsizei depth,
-		bool fixed_sample_locations
+		__Boolean fixed_sample_locations
 	); /*<
 	Sets-up a three dimensional multisample texture.
 	See [glfunc TexImage3DMultisample].
@@ -1028,12 +1028,12 @@ public:
 #endif
 
 #if GL_ARB_seamless_cubemap_per_texture
-	static bool Seamless(__TextureTarget target); /*<
+	static __Boolean Seamless(__TextureTarget target); /*<
 	Gets the seamless cubemap setting value.
 	See [glfunc GetTexParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].
 	>*/
 
-	static void Seamless(__TextureTarget target, bool enable); /*<
+	static void Seamless(__TextureTarget target, __Boolean enable); /*<
 	Changes the seamless cubemap setting value.
 	See [glfunc TexParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].
 	>*/
