@@ -54,7 +54,7 @@
 		<a class="link" href="texture.html#oglplus.quickref.texture.unit_selector">ImageUnitSelector</a> <span class="identifier">unit</span><span class="special">,</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">texture</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-		<span class="keyword">bool</span> <span class="identifier">layered</span><span class="special">,</span>
+		<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">layered</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">layer</span><span class="special">,</span>
 		<a class="link" href="access_specifier.html" title="Access specifier">AccessSpecifier</a> <span class="identifier">access</span><span class="special">,</span>
 		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.image_unit_fmt">ImageUnitFormat</a> <span class="identifier">format</span>
@@ -942,7 +942,7 @@
 		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">depth</span><span class="special">,</span>
-		<span class="keyword">bool</span> <span class="identifier">fixed_sample_locations</span>
+		<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">fixed_sample_locations</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c106" href="texture.html#oglplus.quickref.texture.c107"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Image2DMultisample</span><span class="special">(</span>
@@ -1347,9 +1347,9 @@
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_ARB_seamless_cubemap_per_texture</span>
-	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">Seamless</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c180" href="texture.html#oglplus.quickref.texture.c181"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">Seamless</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c180" href="texture.html#oglplus.quickref.texture.c181"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Seamless</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">enable</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c182" href="texture.html#oglplus.quickref.texture.c183"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Seamless</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span> <a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">enable</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c182" href="texture.html#oglplus.quickref.texture.c183"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_5</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_barrier</span> <span class="special">||</span> <span class="identifier">GL_NV_texture_barrier</span>

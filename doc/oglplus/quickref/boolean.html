@@ -1,0 +1,114 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Boolean</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="object.html" title="OGLplus objects">
+<link rel="next" href="buffer.html" title="Buffers">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="object.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="buffer.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.boolean"></a><a class="link" href="boolean.html" title="Boolean">Boolean</a>
+</h2></div></div></div>
+<h4>
+<a name="oglplus.quickref.boolean.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.boolean.oglplus_boolean_hpp"></a></span><a class="link" href="boolean.html#oglplus.quickref.boolean.oglplus_boolean_hpp">oglplus/boolean.hpp</a>
+        </h4>
+<p>
+          OGLplus defines a wrapper for <span class="emphasis"><em>boolean</em></span> values represented
+          in OpenGL, OpenAL, etc. by integer types with wider than one-bit range.
+        </p>
+<p>
+          Instances of this type are implicitly constructible from and convertible
+          to <code class="literal">bool</code> values and also explicitly constructible from
+          values of the underlying type (like <code class="literal">GLint</code>, <code class="literal">ALint</code>,
+          <code class="literal">EGLBoolean</code>, etc.) Instances of <code class="literal">Boolean</code>
+          can be in three states: <code class="literal">true</code>, <code class="literal">false</code>
+          and <span class="emphasis"><em>indeterminate</em></span>, (i.e. <span class="bold"><strong>both</strong></span>
+          the <code class="literal">operator bool</code> and <code class="literal">operator !</code>
+          can return <code class="literal">false</code> for some instances).
+        </p>
+<h4>
+<a name="oglplus.quickref.boolean.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.boolean.impl"></a></span><a class="link" href="boolean.html#oglplus.quickref.boolean.impl">Implementation</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">TrueValue</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">FalseValue</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">BoolImpl</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">BoolImpl</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.boolean.c0" href="boolean.html#oglplus.quickref.boolean.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">BoolImpl</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">bool_value</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">BoolImpl</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">nothrow_t</span><span class="special">);</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.boolean.c2" href="boolean.html#oglplus.quickref.boolean.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">explicit</span>
+	<span class="identifier">BoolImpl</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.boolean.c4" href="boolean.html#oglplus.quickref.boolean.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c1"></a><a href="#oglplus.quickref.boolean.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Creates a false boolean value.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c3"></a><a href="#oglplus.quickref.boolean.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Constructs a boolean from a value in the underlying type. This version
+              does not throw if the <code class="literal">value</code> is neither <code class="literal">TrueValue</code>
+              nor <code class="literal">FalseValue</code>, in such case the constructed instance
+              is <span class="emphasis"><em>indeterminate</em></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c5"></a><a href="#oglplus.quickref.boolean.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Constructs a boolean from a value in the underlying type. This constructor
+              throws a <code class="literal">std::domain_error</code> if <code class="literal">value</code>
+              is neither <code class="literal">TrueValue</code> not <code class="literal">FalseValue</code>.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.boolean.h2"></a>
+          <span class="phrase"><a name="oglplus.quickref.boolean.def"></a></span><a class="link" href="boolean.html#oglplus.quickref.boolean.def">Definition</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="boolean.html#oglplus.quickref.boolean.impl">BoolImpl</a><span class="special">&lt;</span><span class="identifier">GLint</span><span class="special">,</span> <span class="identifier">GL_TRUE</span><span class="special">,</span> <span class="identifier">GL_FALSE</span><span class="special">&gt;</span> <span class="identifier">Boolean</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="object.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="buffer.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
