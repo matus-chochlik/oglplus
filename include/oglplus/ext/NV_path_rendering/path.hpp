@@ -441,19 +441,21 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{IsPointInFillPathNV}
 	 */
-	bool IsPointInFill(GLuint mask, GLfloat x, GLfloat y) const
+	Boolean IsPointInFill(GLuint mask, GLfloat x, GLfloat y) const
 	{
-		GLboolean result = OGLPLUS_GLFUNC(IsPointInFillPathNV)(
-			_obj_name(),
-			mask,
-			x, y
+		Boolean result(
+			OGLPLUS_GLFUNC(IsPointInFillPathNV)(
+				_obj_name(),
+				mask,
+				x, y
+			), std::nothrow
 		);
 		OGLPLUS_VERIFY(
 			IsPointInFillPathNV,
 			ObjectError,
 			Object(*this)
 		);
-		return result == GL_TRUE;
+		return result;
 	}
 
 	/// Checks if the specified point is on the path outline
@@ -461,18 +463,20 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{IsPointInStrokePathNV}
 	 */
-	bool IsPointInStroke(GLfloat x, GLfloat y) const
+	Boolean IsPointInStroke(GLfloat x, GLfloat y) const
 	{
-		GLboolean result = OGLPLUS_GLFUNC(IsPointInStrokePathNV)(
-			_obj_name(),
-			x, y
+		Boolean result(
+			OGLPLUS_GLFUNC(IsPointInStrokePathNV)(
+				_obj_name(),
+				x, y
+			), std::nothrow
 		);
 		OGLPLUS_VERIFY(
 			IsPointInStrokePathNV,
 			ObjectError,
 			Object(*this)
 		);
-		return result == GL_TRUE;
+		return result;
 	}
 
 	/// Returns the approximation of the length of the path
@@ -500,7 +504,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PointAlongPathNV}
 	 */
-	bool PointAlong(
+	Boolean PointAlong(
 		GLsizei start_segment,
 		GLsizei num_segments,
 		GLfloat distance,
@@ -510,22 +514,24 @@ public:
 		GLfloat& ref_tg_y
 	) const
 	{
-		GLboolean result = OGLPLUS_GLFUNC(PointAlongPathNV)(
-			_obj_name(),
-			start_segment,
-			num_segments,
-			distance,
-			&ref_x,
-			&ref_y,
-			&ref_tg_x,
-			&ref_tg_y
+		Boolean result(
+			OGLPLUS_GLFUNC(PointAlongPathNV)(
+				_obj_name(),
+				start_segment,
+				num_segments,
+				distance,
+				&ref_x,
+				&ref_y,
+				&ref_tg_x,
+				&ref_tg_y
+			), std::nothrow
 		);
 		OGLPLUS_CHECK(
 			PointAlongPathNV,
 			ObjectError,
 			Object(*this)
 		);
-		return result == GL_TRUE;
+		return result;
 	}
 
 	/// Sets the stroke width value

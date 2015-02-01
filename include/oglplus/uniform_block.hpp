@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,6 +20,7 @@
 #include <oglplus/prog_var/varpara_fns.hpp>
 #include <oglplus/prog_var/set_ops.hpp>
 #include <oglplus/prog_var/wrapper.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/buffer_binding.hpp>
 
@@ -107,21 +108,21 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetActiveUniformBlock}
 	 */
-	bool ReferencedBy(ShaderType shader_type) const
+	Boolean ReferencedBy(ShaderType shader_type) const
 	{
-		GLint result;
+		Boolean result;
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
 			this->_program,
 			this->_location,
 			_translate_ref(shader_type),
-			&result
+			result._ptr()
 		);
 		OGLPLUS_VERIFY(
 			GetActiveUniformBlockiv,
 			Error,
 			EnumParam(_translate_ref(shader_type))
 		);
-		return result == GL_TRUE;
+		return result;
 	}
 
 	/// Returns the size of the uniform block

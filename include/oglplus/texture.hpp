@@ -15,6 +15,7 @@
 
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/math/vector.hpp>
 #include <oglplus/object/sequence.hpp>
@@ -155,7 +156,7 @@ public:
 		ImageUnitSelector unit,
 		TextureName texture,
 		GLint level,
-		bool layered,
+		Boolean layered,
 		GLint layer,
 		AccessSpecifier access,
 		ImageUnitFormat format
@@ -165,7 +166,7 @@ public:
 			GLuint(unit),
 			GetGLName(texture),
 			level,
-			layered? GL_TRUE : GL_FALSE,
+			layered._get(),
 			layer,
 			GLenum(access),
 			GLenum(format)
@@ -1803,7 +1804,7 @@ public:
 		GLsizei width,
 		GLsizei height,
 		GLsizei depth,
-		bool fixed_sample_locations
+		Boolean fixed_sample_locations
 	)
 	{
 		OGLPLUS_GLFUNC(TexImage3DMultisample)(
@@ -1813,7 +1814,7 @@ public:
 			width,
 			height,
 			depth,
-			fixed_sample_locations ? GL_TRUE : GL_FALSE
+			fixed_sample_locations._get()
 		);
 		OGLPLUS_CHECK(
 			TexImage3DMultisample,
@@ -1835,7 +1836,7 @@ public:
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
 		GLsizei height,
-		bool fixed_sample_locations
+		Boolean fixed_sample_locations
 	)
 	{
 		OGLPLUS_GLFUNC(TexImage2DMultisample)(
@@ -1844,7 +1845,7 @@ public:
 			GLint(internal_format),
 			width,
 			height,
-			fixed_sample_locations ? GL_TRUE : GL_FALSE
+			fixed_sample_locations._get()
 		);
 		OGLPLUS_CHECK(
 			TexImage2DMultisample,
@@ -2919,12 +2920,14 @@ public:
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	static bool Seamless(Target target)
+	static Boolean Seamless(Target target)
 	{
-		return GetIntParam(
-			target,
-			GL_TEXTURE_CUBE_MAP_SEAMLESS
-		) == GL_TRUE;
+		return Boolean(
+			GetIntParam(
+				target,
+				GL_TEXTURE_CUBE_MAP_SEAMLESS
+			), std::nothrow
+		);
 	}
 
 	/// Sets the seamless cubemap setting
@@ -2934,12 +2937,12 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	static void Seamless(Target target, bool enable)
+	static void Seamless(Target target, Boolean enable)
 	{
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_CUBE_MAP_SEAMLESS,
-			enable?GL_TRUE:GL_FALSE
+			enable._get()
 		);
 		OGLPLUS_CHECK(
 			TexParameteri,

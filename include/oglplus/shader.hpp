@@ -17,6 +17,7 @@
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/array.hpp>
 #include <oglplus/error/program.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/precision_type.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/glsl_source.hpp>
@@ -234,13 +235,13 @@ public:
 	 *  @glfunref{GetShader}
 	 *  @gldefref{COMPILE_STATUS}
 	 */
-	bool IsCompiled(void) const
+	Boolean IsCompiled(void) const
 	{
-		int status;
+		Boolean status;
 		OGLPLUS_GLFUNC(GetShaderiv)(
 			_obj_name(),
 			GL_COMPILE_STATUS,
-			&status
+			status._ptr()
 		);
 		OGLPLUS_VERIFY(
 			GetShaderiv,
@@ -248,7 +249,7 @@ public:
 			Object(*this).
 			EnumParam(Type())
 		);
-		return status == GL_TRUE;
+		return status;
 	}
 
 	/// Returns the compiler output if the program is compiled

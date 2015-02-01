@@ -16,6 +16,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/object/wrapper.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/enums/debug_output_severity.hpp>
 #include <oglplus/enums/debug_output_source.hpp>
@@ -55,7 +56,7 @@ public:
 		DebugOutputSource source,
 		DebugOutputType type,
 		DebugOutputSeverity severity,
-		bool enable
+		Boolean enable
 	)
 	{
 		OGLPLUS_GLFUNC(DebugMessageControl)(
@@ -63,7 +64,7 @@ public:
 			GLenum(type),
 			GLenum(severity),
 			0, nullptr,
-			enable ? GL_TRUE : GL_FALSE
+			enable._get()
 		);
 		OGLPLUS_VERIFY_SIMPLE(DebugMessageControl);
 	}

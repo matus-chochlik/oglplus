@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -18,6 +18,7 @@
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/blit_filter.hpp>
 #include <oglplus/buffer_select_bit.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/bitfield.hpp>
 
 namespace oglplus {
@@ -61,11 +62,11 @@ public:
 
 	static void PixelStore(
 		PixelParameter parameter,
-		bool value,
+		Boolean value,
 		TypeTag<bool>
 	)
 	{
-		PixelStore(parameter, value?GL_TRUE:GL_FALSE, TypeTag<int>());
+		PixelStore(parameter, value._get(), TypeTag<int>());
 	}
 
 	static GLfloat PixelStoreValue(
@@ -90,12 +91,15 @@ public:
 		return result;
 	}
 
-	static bool PixelStoreValue(
+	static Boolean PixelStoreValue(
 		PixelParameter parameter,
 		TypeTag<bool>
 	)
 	{
-		return PixelStoreValue(parameter, TypeTag<int>()) == GL_TRUE;
+		return Boolean(
+			PixelStoreValue(parameter, TypeTag<int>()),
+			std::nothrow
+		);
 	}
 
 	/// Sets the @p value of a pixel storage @p parameter

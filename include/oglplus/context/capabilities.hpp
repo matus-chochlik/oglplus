@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,6 +14,7 @@
 #define OGLPLUS_CONTEXT_CAPABILITIES_1201040722_HPP
 
 #include <oglplus/glfunc.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/capability.hpp>
 
 namespace oglplus {
@@ -93,15 +94,18 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{IsEnabled}
 	 */
-	static bool IsEnabled(Capability capability)
+	static Boolean IsEnabled(Capability capability)
 	{
-		GLboolean result = OGLPLUS_GLFUNC(IsEnabled)(GLenum(capability));
+		Boolean result(
+			OGLPLUS_GLFUNC(IsEnabled)(GLenum(capability)),
+			std::nothrow
+		);
 		OGLPLUS_VERIFY(
 			IsEnabled,
 			Error,
 			EnumParam(capability)
 		);
-		return result == GL_TRUE;
+		return result;
 	}
 
 	/// Checks if a @p functionality is enabled
@@ -109,11 +113,13 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{IsEnabled}
 	 */
-	static bool IsEnabled(Functionality functionality, GLuint number)
+	static Boolean IsEnabled(Functionality functionality, GLuint number)
 	{
-		GLboolean result = OGLPLUS_GLFUNC(IsEnabled)(
-			GLenum(functionality)+
-			number
+		Boolean result(
+			OGLPLUS_GLFUNC(IsEnabled)(
+				GLenum(functionality)+
+				number
+			), std::nothrow
 		);
 		OGLPLUS_VERIFY(
 			IsEnabled,
@@ -121,7 +127,7 @@ public:
 			EnumParam(functionality).
 			Index(number)
 		);
-		return result == GL_TRUE;
+		return result;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
@@ -162,11 +168,13 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{IsEnabledi}
 	 */
-	static bool IsEnabled(Capability capability, GLuint index)
+	static Boolean IsEnabled(Capability capability, GLuint index)
 	{
-		GLboolean result = OGLPLUS_GLFUNC(IsEnabledi)(
-			GLenum(capability),
-			index
+		Boolean result(
+			OGLPLUS_GLFUNC(IsEnabledi)(
+				GLenum(capability),
+				index
+			), std::nothrow
 		);
 		OGLPLUS_VERIFY(
 			IsEnabledi,
@@ -174,7 +182,7 @@ public:
 			EnumParam(capability).
 			Index(index)
 		);
-		return result == GL_TRUE;
+		return result;
 	}
 #endif // GL_VERSION_3_0
 };
