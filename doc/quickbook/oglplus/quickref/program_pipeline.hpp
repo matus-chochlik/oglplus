@@ -80,7 +80,7 @@ public:
 	See [glfunc GetProgramPipeline], [glfunc GetProgramPipelineInfoLog].
 	>*/
 
-	bool IsValid(void) const; /*<
+	__Boolean IsValid(void) const; /*<
 	Returns true if the pipeline is validated, false otherwise.
 	See [glfunc GetProgramPipeline], [glconst VALIDATE_STATUS].
 	>*/
@@ -100,7 +100,7 @@ public:
 	See [glfunc GetProgramPipeline], [glconst ACTIVE_PROGRAM].
 	>*/
 
-	bool HasShader(__ShaderType shader_type) const; /*<
+	__Boolean HasShader(__ShaderType shader_type) const; /*<
 	Returns true if this pipeline contains a shader of the specified type.
 	See [glfunc GetProgramPipeline].
 	>*/

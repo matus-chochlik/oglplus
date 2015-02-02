@@ -709,7 +709,7 @@ public:
 		__PixelDataInternalFormat internal_format,
 		GLsizei width,
 		GLsizei height,
-		bool fixed_sample_locations
+		__Boolean fixed_sample_locations
 	); /*<
 	Sets-up a two dimensional multisample texture.
 	See [glfunc TexImage3DMultisample].
