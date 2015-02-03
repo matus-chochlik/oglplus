@@ -154,6 +154,13 @@ public:
 		return result;
 	}
 
+	ObjectName& AdoptName(ObjectName that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		*this = that;
+		return *this;
+	}
+
 	/// Returns true if the object name is initialized, false otherwise
 	bool IsInitialized(void) const
 	OGLPLUS_NOEXCEPT(true)

@@ -210,7 +210,7 @@ public:
 	/// Objects are movable
 	ObjectTpl(ObjectTpl&& temp)
 	OGLPLUS_NOEXCEPT(true)
-	 : NameHolder(static_cast<NameHolder&&>(temp.ReleaseName()))
+	 : NameHolder(temp.ReleaseName())
 	{ }
 
 	~ObjectTpl(void)
@@ -226,9 +226,7 @@ public:
 		if(this != &temp)
 		{
 			_cleanup();
-			NameHolder::operator = (
-				static_cast<NameHolder&&>(temp)
-			);
+			this->AdoptName(temp.ReleaseName());
 		}
 		return *this;
 	}
