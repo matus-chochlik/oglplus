@@ -36,24 +36,29 @@ protected:
 public:
 #if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
 	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
 #else
 	typedef ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer> _base;
 
 	ObjectOps(ObjectOps&& temp)
 	OGLPLUS_NOEXCEPT(true)
 	 : _base(static_cast<_base&&>(temp))
+	 , target(temp.target)
 	{ }
 
 	ObjectOps(const ObjectOps& that)
 	OGLPLUS_NOEXCEPT(true)
 	 : _base(static_cast<const _base&>(that))
+	 , target(that.target)
 	{ }
 
 	ObjectOps& operator = (ObjectOps&& temp)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		_base::operator = (static_cast<_base&&>(temp));
+		target = temp.target;
 		return *this;
 	}
 
@@ -61,6 +66,7 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		_base::operator = (static_cast<const _base&>(that));
+		target = that.target;
 		return *this;
 	}
 #endif
