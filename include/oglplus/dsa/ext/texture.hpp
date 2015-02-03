@@ -33,6 +33,42 @@ protected:
 	 : ObjCommonOps<tag::Texture>(name)
 	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjZeroOps(ObjZeroOps&&) = default;
+	ObjZeroOps(const ObjZeroOps&) = default;
+	ObjZeroOps& operator = (ObjZeroOps&&) = default;
+	ObjZeroOps& operator = (const ObjZeroOps&) = default;
+#else
+	typedef ObjCommonOps<tag::Texture> _base;
+
+	ObjZeroOps(ObjZeroOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	 , target(temp.target)
+	{ }
+
+	ObjZeroOps(const ObjZeroOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	 , target(that.target)
+	{ }
+
+	ObjZeroOps& operator = (ObjZeroOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		target = temp.target;
+		return *this;
+	}
+
+	ObjZeroOps& operator = (const ObjZeroOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		target = that.target;
+		return *this;
+	}
+#endif
 	Target target;
 
 	/// Types related to Texture
@@ -2387,21 +2423,6 @@ public:
 /// Default Texture operations with direct state access
 typedef ObjZeroOps<tag::DirectStateEXT, tag::Texture>
 	DSADefaultTextureOpsEXT;
-
-/// Class wrapping texture object functionality with direct state access
-/** @note Do not use this class directly, use DSATextureEXT instead.
- *
- */
-template <>
-class ObjectOps<tag::DirectStateEXT, tag::Texture>
- : public ObjZeroOps<tag::DirectStateEXT, tag::Texture>
-{
-protected:
-	ObjectOps(TextureName name)
-	OGLPLUS_NOEXCEPT(true)
-	 : ObjZeroOps<tag::DirectStateEXT, tag::Texture>(name)
-	{ }
-};
 
 /// Texture operations with direct state access
 typedef ObjectOps<tag::DirectStateEXT, tag::Texture>
