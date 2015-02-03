@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,6 +15,7 @@
 
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/error/basic.hpp>
 #include <oglplus/prog_var/callers.hpp>
 
@@ -252,7 +253,7 @@ protected:
 		GLuint program,
 		GLuint location,
 		GLsizei count,
-		bool transpose,
+		Boolean transpose,
 		V* v
 	)
 	{
@@ -270,7 +271,7 @@ protected:
 			program,
 			location,
 			count,
-			transpose ? GL_TRUE : GL_FALSE,
+			transpose._get(),
 			Setters::_fns_v(cols, rows, v),
 			v
 		);

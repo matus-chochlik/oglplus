@@ -40,6 +40,11 @@ protected:
 	 : ObjZeroOps<tag::DirectState, tag::Texture>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	/// Types related to Texture
 	struct Property
 	{
@@ -1874,9 +1879,12 @@ public:
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	bool Seamless(void) const
+	Boolean Seamless(void) const
 	{
-		return GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS),
+			std::nothrow
+		);
 	}
 
 	/// Sets the seamless cubemap setting
@@ -1885,12 +1893,12 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	ObjectOps& Seamless(bool enable)
+	ObjectOps& Seamless(Boolean enable)
 	{
 		OGLPLUS_GLFUNC(TextureParameteri)(
 			_obj_name(),
 			GL_TEXTURE_CUBE_MAP_SEAMLESS,
-			enable?GL_TRUE:GL_FALSE
+			enable._get()
 		);
 		OGLPLUS_CHECK(
 			TextureParameteri,

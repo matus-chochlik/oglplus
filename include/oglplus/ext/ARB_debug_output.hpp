@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,6 +14,7 @@
 #define OGLPLUS_EXT_ARB_DEBUG_OUTPUT_1203031902_HPP
 
 #include <oglplus/extension.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/config/compiler.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/string/def.hpp>
@@ -50,7 +51,7 @@ public:
 		DebugOutputARBSource source,
 		DebugOutputARBType type,
 		DebugOutputARBSeverity severity,
-		bool enable
+		Boolean enable
 	)
 	{
 		OGLPLUS_GLFUNC(DebugMessageControlARB)(
@@ -58,7 +59,7 @@ public:
 			GLenum(type),
 			GLenum(severity),
 			0, nullptr,
-			enable ? GL_TRUE : GL_FALSE
+			enable._get()
 		);
 		OGLPLUS_VERIFY_SIMPLE(DebugMessageControlARB);
 	}

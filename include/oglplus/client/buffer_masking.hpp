@@ -99,23 +99,23 @@ public:
 #endif
 
 class DepthMask
- : public SettingStack<bool, Nothing>
+ : public SettingStack<Boolean, Nothing>
 {
 private:
 	static
-	bool _do_get(Nothing)
+	Boolean _do_get(Nothing)
 	{
 		return context::BufferMaskingState::DepthWriteMask();
 	}
 
 	static
-	void _do_set(bool value, Nothing)
+	void _do_set(Boolean value, Nothing)
 	{
 		context::BufferMaskingState::DepthMask(value);
 	}
 public:
 	DepthMask(void)
-	 : SettingStack<bool, Nothing>(
+	 : SettingStack<Boolean, Nothing>(
 		&_do_get,
 		&_do_set
 	)
@@ -124,30 +124,28 @@ public:
 
 template <Face F>
 class StencilMask
- : public SettingStack<bool, Nothing>
+ : public SettingStack<Boolean, Nothing>
 {
 private:
 	static
-	bool _do_get(Nothing)
+	Boolean _do_get(Nothing)
 	{
 		return context::BufferMaskingState::StencilWriteMask(F);
 	}
 
 	static
-	void _do_set(bool value, Nothing)
+	void _do_set(Boolean value, Nothing)
 	{
 		context::BufferMaskingState::StencilMaskSeparate(F, value);
 	}
 public:
 	StencilMask(void)
-	 : SettingStack<bool, Nothing>(
+	 : SettingStack<Boolean, Nothing>(
 		&_do_get,
 		&_do_set
 	)
 	{ }
 };
-
-// TODO stencil mask
 
 } // namespace aux
 

@@ -23,11 +23,11 @@ namespace aux {
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 template <Capability Cap>
 class CurrentCapabilityIndexed
- : public SettingStack<bool, GLuint>
+ : public SettingStack<Boolean, GLuint>
 {
 private:
 	static
-	bool _do_get(GLuint index)
+	Boolean _do_get(GLuint index)
 	{
 		if(index == 0)
 		{
@@ -40,7 +40,7 @@ private:
 	}
 
 	static
-	void _do_set(bool status, GLuint index)
+	void _do_set(Boolean status, GLuint index)
 	{
 		if(index == 0)
 		{
@@ -67,23 +67,23 @@ private:
 	}
 public:
 	CurrentCapabilityIndexed(GLuint index = 0)
-	 : SettingStack<bool, GLuint>(&_do_get, &_do_set, index)
+	 : SettingStack<Boolean, GLuint>(&_do_get, &_do_set, index)
 	{ }
 
-	bool IsEnabled(void) const
+	Boolean IsEnabled(void) const
 	noexcept
 	{
 		return this->_top();
 	}
 
 	explicit
-	operator bool (void) const
+	operator Boolean (void) const
 	noexcept
 	{
 		return IsEnabled();
 	}
 
-	void Enable(bool status = true)
+	void Enable(Boolean status = true)
 	{
 		this->_set(status);
 	}
@@ -96,25 +96,25 @@ public:
 
 template <Capability Cap>
 class CurrentCapability
- : public SettingStackIndexed<CurrentCapabilityIndexed<Cap>, bool>
+ : public SettingStackIndexed<CurrentCapabilityIndexed<Cap>, Boolean>
 {
 private:
-	using SettingStackIndexed<CurrentCapabilityIndexed<Cap>, bool>::_zero;
+	using SettingStackIndexed<CurrentCapabilityIndexed<Cap>,Boolean>::_zero;
 public:
-	bool IsEnabled(void) const
+	Boolean IsEnabled(void) const
 	noexcept
 	{
 		return _zero().IsEnabled();
 	}
 
 	explicit
-	operator bool (void) const
+	operator Boolean (void) const
 	noexcept
 	{
 		return IsEnabled();
 	}
 
-	void Enable(bool status = true)
+	void Enable(Boolean status = true)
 	{
 		return _zero().Enable(status);
 	}
@@ -129,17 +129,17 @@ public:
 
 template <Capability Cap>
 class CurrentCapability
- : public SettingStack<bool, Nothing>
+ : public SettingStack<Boolean, Nothing>
 {
 private:
 	static
-	bool _do_get(Nothing)
+	Boolean _do_get(Nothing)
 	{
 		return context::Capabilities::IsEnabled(Cap);
 	}
 
 	static
-	void _do_set(bool status, Nothing)
+	void _do_set(Boolean status, Nothing)
 	{
 		if(status)
 		{
@@ -152,23 +152,23 @@ private:
 	}
 public:
 	CurrentCapability(void)
-	 : SettingStack<bool, Nothing>(&_do_get, &_do_set)
+	 : SettingStack<Boolean, Nothing>(&_do_get, &_do_set)
 	{ }
 
-	bool IsEnabled(void) const
+	Boolean IsEnabled(void) const
 	noexcept
 	{
 		return this->_top();
 	}
 
 	explicit
-	operator bool (void) const
+	operator Boolean (void) const
 	noexcept
 	{
 		return IsEnabled();
 	}
 
-	void Enable(bool status = true)
+	void Enable(Boolean status = true)
 	{
 		return this->_set(status);
 	}

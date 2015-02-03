@@ -16,6 +16,7 @@
 #define OGLPLUS_EXT_AMD_PERFORMANCE_MONITOR_1203031902_HPP
 
 #include <oglplus/extension.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/enums/ext/amd_perf_monitor_type.hpp>
 
@@ -323,6 +324,11 @@ protected:
 	 : ObjZeroOps<tag::DirectState, tag::PerfMonitorAMD>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	/// Enables or disables the specified counters for this monitor
 	/**
 	 *  The @p counters must be from the same group.
@@ -331,7 +337,7 @@ public:
 	 *  @glfunref{SelectPerfMonitorCountersAMD}
 	 */
 	void SelectCounters(
-		bool enable,
+		Boolean enable,
 		const std::vector<PerfMonitorAMDCounter>& counters
 	) const
 	{
@@ -348,7 +354,7 @@ public:
 
 		OGLPLUS_GLFUNC(SelectPerfMonitorCountersAMD)(
 			this->_obj_name(),
-			enable? GL_TRUE: GL_FALSE,
+			enable._get(),
 			group,
 			GLint(list.size()),
 			list.data()

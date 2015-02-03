@@ -40,6 +40,11 @@ protected:
 	 : ObjZeroOps<tag::DirectState, tag::Renderbuffer>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	GLint GetIntParam(GLenum query) const;
 
 	/// Set the renderbuffer storage parameters

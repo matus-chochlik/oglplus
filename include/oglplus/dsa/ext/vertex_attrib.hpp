@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -60,7 +60,7 @@ public:
 		BufferName buffer,
 		GLint values_per_vertex,
 		DataType data_type,
-		bool normalized,
+		Boolean normalized,
 		GLsizei stride,
 		GLintptr offset
 	) const
@@ -71,7 +71,7 @@ public:
 			GLuint(_location),
 			values_per_vertex,
 			GLenum(data_type),
-			normalized ? GL_TRUE : GL_FALSE,
+			normalized._get(),
 			stride,
 			offset
 		);

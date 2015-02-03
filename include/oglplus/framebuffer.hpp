@@ -134,6 +134,11 @@ protected:
 	 : FramebufferName(name)
 	{ }
 public:
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+
 	using ObjBindingOps<tag::Framebuffer>::Bind;
 
 	/// Binds this framebuffer to the specified @p target
@@ -161,6 +166,11 @@ protected:
 	 : ObjZeroOps<tag::ExplicitSel, tag::Framebuffer>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	/// Types related to Framebuffer
 	struct Property
 	{

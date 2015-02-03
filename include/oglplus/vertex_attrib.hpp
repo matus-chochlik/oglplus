@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,6 +15,7 @@
 
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/vertex_attrib_slot.hpp>
 #include <oglplus/string/ref.hpp>
@@ -561,7 +562,7 @@ public:
 	const VertexArrayAttrib& Pointer(
 		GLint values_per_vertex,
 		DataType data_type,
-		bool normalized,
+		Boolean normalized,
 		GLsizei stride,
 		const void* pointer
 	) const
@@ -570,7 +571,7 @@ public:
 			_location,
 			values_per_vertex,
 			GLenum(data_type),
-			normalized ? GL_TRUE : GL_FALSE,
+			normalized._get(),
 			stride,
 			pointer
 		);
@@ -665,7 +666,7 @@ public:
 	const VertexArrayAttrib& Format(
 		GLint values_per_vertex,
 		DataType data_type,
-		bool normalized,
+		Boolean normalized,
 		GLuint relative_offset
 	) const
 	{
@@ -673,7 +674,7 @@ public:
 			_location,
 			values_per_vertex,
 			GLenum(data_type),
-			normalized ? GL_TRUE : GL_FALSE,
+			normalized._get(),
 			relative_offset
 		);
 		OGLPLUS_CHECK(

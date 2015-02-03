@@ -43,6 +43,11 @@ protected:
 	{ }
 public:
 	typedef typename BoundObjOps<ObjTag>::Target Target;
+
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
 };
 
 template <typename ObjTag>

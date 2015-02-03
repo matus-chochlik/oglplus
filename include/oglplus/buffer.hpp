@@ -17,6 +17,7 @@
 #include <oglplus/error/object.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/sequence.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/buffer_binding.hpp>
 #include <oglplus/buffer_usage.hpp>
 #include <oglplus/buffer_storage_bit.hpp>
@@ -286,6 +287,11 @@ protected:
 	 : BufferName(name)
 	{ }
 public:
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+
 	using ObjBindingOps<tag::Buffer>::Bind;
 	using ObjBindingOps<tag::Buffer>::BindBase;
 	using ObjBindingOps<tag::Buffer>::BindRange;
@@ -444,6 +450,11 @@ protected:
 	 : ObjZeroOps<tag::ExplicitSel, tag::Buffer>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	static GLint GetIntParam(Target target, GLenum query);
 
 	/// Types related to Buffer
@@ -468,9 +479,12 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	static bool Mapped(Target target)
+	static Boolean Mapped(Target target)
 	{
-		return GetIntParam(target, GL_BUFFER_MAPPED) == GL_TRUE;
+		return Boolean(
+			GetIntParam(target, GL_BUFFER_MAPPED),
+			std::nothrow
+		);
 	}
 #endif // GL_VERSION_3_0
 
@@ -764,12 +778,14 @@ public:
 	 *  @glfunref{GetBufferParameter}
 	 *  @gldefref{BUFFER_IMMUTABLE_STORAGE}
 	 */
-	static bool ImmutableStorage(Target target)
+	static Boolean ImmutableStorage(Target target)
 	{
-		return GetIntParam(
-			target,
-			GL_BUFFER_IMMUTABLE_STORAGE
-		) == GL_TRUE;
+		return Boolean(
+			GetIntParam(
+				target,
+				GL_BUFFER_IMMUTABLE_STORAGE
+			), std::nothrow
+		);
 	}
 
 	/// Returns the buffer storage flags
@@ -802,14 +818,14 @@ public:
 		Target target,
 		BufferSize offset,
 		BufferSize size,
-		bool commit
+		Boolean commit
 	)
 	{
 		OGLPLUS_GLFUNC(BufferPageCommitmentARB)(
 			GLenum(target),
 			GLintptr(offset.Get()),
 			GLsizeiptr(size.Get()),
-			commit?GL_TRUE:GL_FALSE
+			commit._get()
 		);
 		OGLPLUS_VERIFY(
 			BufferPageCommitmentARB,

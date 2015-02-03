@@ -122,6 +122,11 @@ protected:
 	 : VertexArrayName(name)
 	{ }
 public:
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+
 	using ObjBindingOps<tag::VertexArray>::Bind;
 
 	/// Binds this vertex array object

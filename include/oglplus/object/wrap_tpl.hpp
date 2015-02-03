@@ -64,6 +64,11 @@ protected:
 	noexcept
 	 : ObjectName<ObjTag>(name)
 	{ }
+public:
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
 };
 
 /// Implements operations applicable to any object including object 0 (zero)
@@ -77,6 +82,11 @@ protected:
 	noexcept
 	 : ObjCommonOps<ObjTag>(name)
 	{ }
+public:
+	ObjZeroOps(ObjZeroOps&&) = default;
+	ObjZeroOps(const ObjZeroOps&) = default;
+	ObjZeroOps& operator = (ObjZeroOps&&) = default;
+	ObjZeroOps& operator = (const ObjZeroOps&) = default;
 };
 
 /// Wrapper for GL objects with name 0 (zero)
@@ -108,6 +118,11 @@ protected:
 	noexcept
 	 : ObjZeroOps<OpsTag, ObjTag>(name)
 	{ }
+public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
 };
 
 template <typename ObjTag, typename NameHolder>
@@ -153,7 +168,7 @@ private:
 
 	void _cleanup(void)
 	{
-		if(this->_obj_name() > 0u)
+		if(this->_has_deletable_name())
 		{
 			_undescribe();
 			ObjGenDelOps<ObjTag>::Delete(1, this->_name_ptr());
@@ -214,7 +229,7 @@ public:
 	/// Objects are movable
 	ObjectTpl(ObjectTpl&& temp)
 	noexcept
-	 : NameHolder(static_cast<NameHolder&&>(temp.ReleaseName()))
+	 : NameHolder(static_cast<NameHolder&&>(temp))
 	{ }
 
 	~ObjectTpl(void)

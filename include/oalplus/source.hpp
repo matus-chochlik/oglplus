@@ -16,6 +16,7 @@
 #include <oalplus/config.hpp>
 #include <oalplus/fwd.hpp>
 #include <oalplus/alfunc.hpp>
+#include <oalplus/boolean.hpp>
 #include <oalplus/math/angle.hpp>
 #include <oalplus/math/vector.hpp>
 #include <oalplus/error/basic.hpp>
@@ -81,6 +82,11 @@ protected:
 	 : SourceName(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	/// Starts the audio playback
 	/**
 	 *  @alsymbols
@@ -169,12 +175,12 @@ public:
 	 *  @alfunref{Sourcei}
 	 *  @aldefref{SOURCE_RELATIVE}
 	 */
-	void Relative(bool value)
+	void Relative(Boolean value)
 	{
 		OALPLUS_ALFUNC(Sourcei)(
 			_obj_name(),
 			AL_SOURCE_RELATIVE,
-			value?AL_TRUE:AL_FALSE
+			value._get()
 		);
 		OALPLUS_VERIFY(
 			Sourcei,
@@ -189,20 +195,20 @@ public:
 	 *  @alfunref{GetSourceiv}
 	 *  @aldefref{SOURCE_RELATIVE}
 	 */
-	bool Relative(void) const
+	Boolean Relative(void) const
 	{
-		ALint result;
+		Boolean result;
 		OALPLUS_ALFUNC(GetSourceiv)(
 			_obj_name(),
 			AL_SOURCE_RELATIVE,
-			&result
+			result._ptr()
 		);
 		OALPLUS_VERIFY(
 			GetSourceiv,
 			ObjectError,
 			Object(*this)
 		);
-		return result == AL_TRUE;
+		return result;
 	}
 
 	/// Sets the source type
@@ -253,12 +259,12 @@ public:
 	 *  @alfunref{Sourcei}
 	 *  @aldefref{LOOPING}
 	 */
-	void Looping(bool value)
+	void Looping(Boolean value)
 	{
 		OALPLUS_ALFUNC(Sourcei)(
 			_obj_name(),
 			AL_LOOPING,
-			value?AL_TRUE:AL_FALSE
+			value._get()
 		);
 		OALPLUS_VERIFY(
 			Sourcei,
@@ -273,20 +279,20 @@ public:
 	 *  @alfunref{GetSourceiv}
 	 *  @aldefref{LOOPING}
 	 */
-	bool Looping(void) const
+	Boolean Looping(void) const
 	{
-		ALint result;
+		Boolean result;
 		OALPLUS_ALFUNC(GetSourceiv)(
 			_obj_name(),
 			AL_LOOPING,
-			&result
+			result._ptr()
 		);
 		OALPLUS_VERIFY(
 			GetSourceiv,
 			ObjectError,
 			Object(*this)
 		);
-		return result == AL_TRUE;
+		return result;
 	}
 
 	/// Assigns an audio buffer to the source

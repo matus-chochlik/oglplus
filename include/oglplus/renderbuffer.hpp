@@ -127,6 +127,11 @@ protected:
 	 : RenderbufferName(name)
 	{ }
 public:
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+
 	using ObjBindingOps<tag::Renderbuffer>::Bind;
 
 	/// Binds this renderbuffer to the specified @p target
@@ -154,6 +159,11 @@ protected:
 	 : ObjZeroOps<tag::ExplicitSel, tag::Renderbuffer>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	static GLint GetIntParam(Target target, GLenum query);
 
 	/// Set the renderbuffer storage parameters for the rbo bound to target

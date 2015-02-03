@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -54,7 +54,7 @@ public:
 	See [glfunc DetachShader].
 	>*/
 
-	bool IsLinked(void) const; /*<
+	__Boolean IsLinked(void) const; /*<
 	Returns true if [^this] program is already linked, false otherwise.
 	See [glfunc GetProgram], [glconst LINK_STATUS].
 	>*/
@@ -95,7 +95,7 @@ public:
 	ObjectOps& BuildInclude(const __GLSLSource&& incl);
 #endif
 
-	bool IsValid(void) const; /*<
+	__Boolean IsValid(void) const; /*<
 	Returns true if [^this] program is validated, false otherwise.
 	See [glfunc GetProgram], [glconst VALIDATE_STATUS].
 	>*/
@@ -135,14 +135,14 @@ public:
 
 
 #if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
-	ObjectOps& MakeSeparable(bool para = true); /*<
+	ObjectOps& MakeSeparable(__Boolean para = true); /*<
 	Makes this program separable (or non-separable).
 	See [glfunc ProgramParameter].
 	>*/
 #endif
 
 #if GL_VERSION_4_1 || GL_ARB_get_program_binary
-	ObjectOps& MakeRetrievable(bool para = true); /*<
+	ObjectOps& MakeRetrievable(__Boolean para = true); /*<
 	Makes this program retrievable (or non-retrievable) in binary form.
 	See [glfunc ProgramParameter].
 	>*/
@@ -349,7 +349,7 @@ public:
 	See [glfunc GetProgram], [glconst TESS_GEN_SPACING].
 	>*/
 
-	bool TessGenPointMode(void) const; /*<
+	__Boolean TessGenPointMode(void) const; /*<
 	Returns true if point mode is enabled in tesslation eval. shader.
 	See [glfunc GetProgram], [glconst TESS_GEN_POINT_MODE].
 	>*/

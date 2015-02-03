@@ -36,6 +36,11 @@ protected:
 	 : ObjZeroOps<tag::DirectStateEXT, tag::VertexArray>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	/// Setup the properties of the specified vertex attribute array
 	/**
 	 *  @glsymbols
@@ -46,7 +51,7 @@ public:
 		VertexAttribSlot location,
 		GLint values_per_vertex,
 		DataType data_type,
-		bool normalized,
+		Boolean normalized,
 		GLsizei stride,
 		GLintptr offset
 	) const
@@ -57,7 +62,7 @@ public:
 			GLuint(location),
 			values_per_vertex,
 			GLenum(data_type),
-			normalized ? GL_TRUE : GL_FALSE,
+			normalized._get(),
 			stride,
 			offset
 		);

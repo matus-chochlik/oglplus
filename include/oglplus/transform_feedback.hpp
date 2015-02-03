@@ -263,6 +263,11 @@ protected:
 	 : TransformFeedbackName(name)
 	{ }
 public:
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
 	using ObjBindingOps<tag::TransformFeedback>::Bind;
 
@@ -378,21 +383,6 @@ typedef ObjectZero<ObjZeroOps<tag::ImplicitSel, tag::TransformFeedback>>
 #endif // GL_VERSION_3_0
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
-
-/// Class wrapping transform feedback functions
-/** @note Do not use this class directly, use TransformFeedback instead.
- */
-template <typename OpsTag>
-class ObjectOps<OpsTag, tag::TransformFeedback>
- : public ObjZeroOps<OpsTag, tag::TransformFeedback>
-{
-protected:
-	constexpr inline
-	ObjectOps(TransformFeedbackName name)
-	noexcept
-	 : ObjZeroOps<OpsTag, tag::TransformFeedback>(name)
-	{ }
-};
 
 /// TransformFeedback operations with explicit selector
 typedef ObjectOps<tag::ImplicitSel, tag::TransformFeedback>

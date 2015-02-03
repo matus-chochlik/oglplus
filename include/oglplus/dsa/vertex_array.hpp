@@ -42,6 +42,11 @@ protected:
 	 : ObjZeroOps<tag::DirectState, tag::VertexArray>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	/// Bind buffer to VAO's element buffer binding point
 	/**
 	 *  @glsymbols

@@ -17,6 +17,7 @@
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/array.hpp>
 #include <oglplus/error/program.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/precision_type.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/glsl_source.hpp>
@@ -96,6 +97,11 @@ protected:
 	{ }
 
 public:
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+
 #if OGLPLUS_DOCUMENTATION_ONLY || \
 	GL_ES_VERSION_3_0 || \
 	GL_VERSION_4_1 || \
@@ -138,6 +144,11 @@ protected:
 	 : ObjZeroOps<tag::DirectState, tag::Shader>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	/// Types related to Shader
 	struct Property
 	{
@@ -236,13 +247,13 @@ public:
 	 *  @glfunref{GetShader}
 	 *  @gldefref{COMPILE_STATUS}
 	 */
-	bool IsCompiled(void) const
+	Boolean IsCompiled(void) const
 	{
-		int status;
+		Boolean status;
 		OGLPLUS_GLFUNC(GetShaderiv)(
 			_obj_name(),
 			GL_COMPILE_STATUS,
-			&status
+			status._ptr()
 		);
 		OGLPLUS_VERIFY(
 			GetShaderiv,
@@ -250,7 +261,7 @@ public:
 			Object(*this).
 			EnumParam(Type())
 		);
-		return status == GL_TRUE;
+		return status;
 	}
 
 	/// Returns the compiler output if the program is compiled

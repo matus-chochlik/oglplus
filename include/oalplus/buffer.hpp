@@ -77,6 +77,11 @@ protected:
 	 : BufferName(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	/// Specifies the buffer data
 	/**
 	 *  @alsymbols

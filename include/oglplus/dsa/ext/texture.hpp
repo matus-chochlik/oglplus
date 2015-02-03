@@ -35,6 +35,11 @@ protected:
 	 , target(TextureTarget())
 	{ }
 public:
+	ObjZeroOps(ObjZeroOps&&) = default;
+	ObjZeroOps(const ObjZeroOps&) = default;
+	ObjZeroOps& operator = (ObjZeroOps&&) = default;
+	ObjZeroOps& operator = (const ObjZeroOps&) = default;
+
 	Target target;
 
 	/// Types related to Texture
@@ -2334,9 +2339,12 @@ public:
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	bool Seamless(void) const
+	Boolean Seamless(void) const
 	{
-		return GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS),
+			std::nothrow
+		);
 	}
 
 	/// Sets the seamless cubemap setting
@@ -2345,13 +2353,13 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	ObjZeroOps& Seamless(bool enable)
+	ObjZeroOps& Seamless(Boolean enable)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			GLenum(target),
 			_obj_name(),
 			GL_TEXTURE_CUBE_MAP_SEAMLESS,
-			enable?GL_TRUE:GL_FALSE
+			enable._get()
 		);
 		OGLPLUS_CHECK(
 			TextureParameteriEXT,
@@ -2386,22 +2394,6 @@ public:
 /// Default Texture operations with direct state access
 typedef ObjZeroOps<tag::DirectStateEXT, tag::Texture>
 	DSADefaultTextureOpsEXT;
-
-/// Class wrapping texture object functionality with direct state access
-/** @note Do not use this class directly, use DSATextureEXT instead.
- *
- */
-template <>
-class ObjectOps<tag::DirectStateEXT, tag::Texture>
- : public ObjZeroOps<tag::DirectStateEXT, tag::Texture>
-{
-protected:
-	constexpr inline
-	ObjectOps(TextureName name)
-	noexcept
-	 : ObjZeroOps<tag::DirectStateEXT, tag::Texture>(name)
-	{ }
-};
 
 /// Texture operations with direct state access
 typedef ObjectOps<tag::DirectStateEXT, tag::Texture>

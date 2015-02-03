@@ -18,6 +18,7 @@
 #include <oglplus/error/object.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/sequence.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/compare_function.hpp>
 #include <oglplus/texture_wrap.hpp>
@@ -166,6 +167,11 @@ protected:
 	 : SamplerName(name)
 	{ }
 public:
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+
 	using ObjBindingOps<tag::Sampler>::Bind;
 
 	/// Binds this sampler to the specified @p target (texture unit)
@@ -193,6 +199,11 @@ protected:
 	 : ObjZeroOps<tag::DirectState, tag::Sampler>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result = 0;
@@ -718,9 +729,12 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	bool Seamless(void) const
+	Boolean Seamless(void) const
 	{
-		return GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS),
+			std::nothrow
+		);
 	}
 
 	/// Sets the seamless cubemap setting
@@ -729,12 +743,12 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	void Seamless(bool enable)
+	void Seamless(Boolean enable)
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_obj_name(),
 			GL_TEXTURE_CUBE_MAP_SEAMLESS,
-			enable?GL_TRUE:GL_FALSE
+			enable._get()
 		);
 		OGLPLUS_CHECK(
 			SamplerParameteri,

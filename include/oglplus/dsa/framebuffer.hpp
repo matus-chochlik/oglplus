@@ -41,6 +41,11 @@ protected:
 	 : ObjZeroOps<tag::DirectState, tag::Framebuffer>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	/// Types related to Framebuffer
 	struct Property
 	{

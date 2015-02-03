@@ -36,6 +36,11 @@ protected:
 	 , target(FramebufferTarget())
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	/// Used as the default value for functions taking Target arguments
 	Target target;
 

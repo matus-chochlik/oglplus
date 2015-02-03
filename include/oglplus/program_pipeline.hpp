@@ -14,6 +14,7 @@
 #define OGLPLUS_PROGRAM_PIPELINE_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/program_pipeline_stage.hpp>
 #include <oglplus/object/wrapper.hpp>
@@ -131,6 +132,11 @@ protected:
 	 : ProgramPipelineName(name)
 	{ }
 public:
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+
 	using ObjBindingOps<tag::ProgramPipeline>::Bind;
 
 	/// Binds this program pipeline object
@@ -158,6 +164,11 @@ protected:
 	 : ObjZeroOps<tag::DirectState, tag::ProgramPipeline>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	/// Types related to ProgramPipeline
 	struct Properties
 	{
@@ -273,9 +284,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetProgramPipeline}
 	 */
-	bool IsValid(void) const
+	Boolean IsValid(void) const
 	{
-		return GetIntParam(GL_VALIDATE_STATUS) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_VALIDATE_STATUS),
+			std::nothrow
+		);
 	}
 
 	/// Validates this program pipeline

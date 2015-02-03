@@ -33,6 +33,7 @@ the concept.
 [include quickref/gen_tags.qbk]
 [include quickref/ops_tags.qbk]
 [include quickref/object.qbk]
+[include quickref/boolean.qbk]
 
 [include quickref/buffer.qbk]
 [include quickref/buffer_map.qbk]

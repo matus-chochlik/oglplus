@@ -35,6 +35,11 @@ protected:
 	 : ObjZeroOps<tag::DirectStateEXT, tag::Buffer>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	GLint GetIntParam(GLenum query) const;
 
 	/// Types related to Buffer
@@ -58,9 +63,12 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	bool Mapped(void) const
+	Boolean Mapped(void) const
 	{
-		return GetIntParam(GL_BUFFER_MAPPED) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_BUFFER_MAPPED),
+			std::nothrow
+		);
 	}
 
 	/// Allocates buffer storage to the specified size without any data

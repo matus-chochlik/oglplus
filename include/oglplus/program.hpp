@@ -18,6 +18,7 @@
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/error/program.hpp>
 #include <oglplus/error/prog_var.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/transform_feedback_mode.hpp>
 #include <oglplus/program_resource.hpp>
@@ -140,6 +141,11 @@ protected:
 	 : ProgramName(name)
 	{ }
 public:
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+
 	using ObjBindingOps<tag::Program>::Bind;
 
 	/// Binds (uses) this program object
@@ -185,6 +191,11 @@ protected:
 	 : ObjZeroOps<tag::DirectState, tag::Program>(name)
 	{ }
 public:
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result;
@@ -239,9 +250,12 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{LINK_STATUS}
 	 */
-	bool IsLinked(void) const
+	Boolean IsLinked(void) const
 	{
-		return GetIntParam(GL_LINK_STATUS) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_LINK_STATUS),
+			std::nothrow
+		);
 	}
 
 	/// Returns the linker output if the program is linked
@@ -345,9 +359,12 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{VALIDATE_STATUS}
 	 */
-	bool IsValid(void) const
+	Boolean IsValid(void) const
 	{
-		return GetIntParam(GL_VALIDATE_STATUS) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_VALIDATE_STATUS),
+			std::nothrow
+		);
 	}
 
 	/// Validates this shading language program
@@ -672,7 +689,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
-	ObjectOps& MakeSeparable(bool para = true);
+	ObjectOps& MakeSeparable(Boolean para = true);
 #endif // separate shader objects
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_get_program_binary
@@ -684,7 +701,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
-	ObjectOps& MakeRetrievable(bool para = true);
+	ObjectOps& MakeRetrievable(Boolean para = true);
 
 	/// Returns this programs binary representation
 	/**
@@ -824,9 +841,12 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{TESS_GEN_POINT_MODE}
 	 */
-	bool TessGenPointMode(void) const
+	Boolean TessGenPointMode(void) const
 	{
-		return GetIntParam(GL_TESS_GEN_POINT_MODE) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_TESS_GEN_POINT_MODE),
+			std::nothrow
+		);
 	}
 #endif // tessellation shader
 

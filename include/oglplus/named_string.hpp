@@ -16,6 +16,7 @@
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_shading_language_include
 
 #include <oglplus/glfunc.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/named_string_type.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/string/def.hpp>
@@ -97,14 +98,16 @@ public:
 	}
 
 	/// Checks if @p name is a stored string
-	static bool IsA(const GLCStrRef& str_name)
+	static Boolean IsA(const GLCStrRef& str_name)
 	{
-		GLboolean result = OGLPLUS_GLFUNC(IsNamedStringARB)(
-			GLint(str_name.size()),
-			str_name.data()
+		Boolean result(
+			OGLPLUS_GLFUNC(IsNamedStringARB)(
+				GLint(str_name.size()),
+				c_str(str_name)
+			), std::nothrow
 		);
 		OGLPLUS_CHECK_SIMPLE(IsNamedStringARB);
-		return result == GL_TRUE;
+		return result;
 	}
 
 	/// Sets the @p value of the specified @p type in this NamedString
