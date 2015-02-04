@@ -18,6 +18,7 @@
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/error/program.hpp>
 #include <oglplus/error/prog_var.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/transform_feedback_mode.hpp>
 #include <oglplus/program_resource.hpp>
@@ -140,6 +141,43 @@ protected:
 	 : ProgramName(name)
 	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+#else
+	typedef ProgramName _base1;
+	typedef ObjBindingOps<tag::Program> _base2;
+
+	ObjCommonOps(ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base1(static_cast<_base1&&>(temp))
+	 , _base2(static_cast<_base2&&>(temp))
+	{ }
+
+	ObjCommonOps(const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base1(static_cast<const _base1&>(that))
+	 , _base2(static_cast<const _base2&>(that))
+	{ }
+
+	ObjCommonOps& operator = (ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base1::operator = (static_cast<_base1&&>(temp));
+		_base2::operator = (static_cast<_base2&&>(temp));
+		return *this;
+	}
+
+	ObjCommonOps& operator = (const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base1::operator = (static_cast<const _base1&>(that));
+		_base2::operator = (static_cast<const _base2&>(that));
+		return *this;
+	}
+#endif
 	using ObjBindingOps<tag::Program>::Bind;
 
 	/// Binds (uses) this program object
@@ -185,6 +223,38 @@ protected:
 	 : ObjZeroOps<tag::DirectState, tag::Program>(name)
 	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef ObjZeroOps<tag::DirectState, tag::Program> _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result;
@@ -239,9 +309,12 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{LINK_STATUS}
 	 */
-	bool IsLinked(void) const
+	Boolean IsLinked(void) const
 	{
-		return GetIntParam(GL_LINK_STATUS) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_LINK_STATUS),
+			std::nothrow
+		);
 	}
 
 	/// Returns the linker output if the program is linked
@@ -345,9 +418,12 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{VALIDATE_STATUS}
 	 */
-	bool IsValid(void) const
+	Boolean IsValid(void) const
 	{
-		return GetIntParam(GL_VALIDATE_STATUS) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_VALIDATE_STATUS),
+			std::nothrow
+		);
 	}
 
 	/// Validates this shading language program
@@ -672,7 +748,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
-	ObjectOps& MakeSeparable(bool para = true);
+	ObjectOps& MakeSeparable(Boolean para = true);
 #endif // separate shader objects
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_get_program_binary
@@ -684,7 +760,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
-	ObjectOps& MakeRetrievable(bool para = true);
+	ObjectOps& MakeRetrievable(Boolean para = true);
 
 	/// Returns this programs binary representation
 	/**
@@ -824,9 +900,12 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{TESS_GEN_POINT_MODE}
 	 */
-	bool TessGenPointMode(void) const
+	Boolean TessGenPointMode(void) const
 	{
-		return GetIntParam(GL_TESS_GEN_POINT_MODE) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_TESS_GEN_POINT_MODE),
+			std::nothrow
+		);
 	}
 #endif // tessellation shader
 

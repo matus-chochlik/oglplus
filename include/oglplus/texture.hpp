@@ -15,6 +15,7 @@
 
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/math/vector.hpp>
 #include <oglplus/object/sequence.hpp>
@@ -155,7 +156,7 @@ public:
 		ImageUnitSelector unit,
 		TextureName texture,
 		GLint level,
-		bool layered,
+		Boolean layered,
 		GLint layer,
 		AccessSpecifier access,
 		ImageUnitFormat format
@@ -165,7 +166,7 @@ public:
 			GLuint(unit),
 			GetGLName(texture),
 			level,
-			layered? GL_TRUE : GL_FALSE,
+			layered._get(),
 			layer,
 			GLenum(access),
 			GLenum(format)
@@ -262,6 +263,43 @@ protected:
 	 : TextureName(name)
 	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+#else
+	typedef TextureName _base1;
+	typedef ObjBindingOps<tag::Texture> _base2;
+
+	ObjCommonOps(ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base1(static_cast<_base1&&>(temp))
+	 , _base2(static_cast<_base2&&>(temp))
+	{ }
+
+	ObjCommonOps(const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base1(static_cast<const _base1&>(that))
+	 , _base2(static_cast<const _base2&>(that))
+	{ }
+
+	ObjCommonOps& operator = (ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base1::operator = (static_cast<_base1&&>(temp));
+		_base2::operator = (static_cast<_base2&&>(temp));
+		return *this;
+	}
+
+	ObjCommonOps& operator = (const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base1::operator = (static_cast<const _base1&>(that));
+		_base2::operator = (static_cast<const _base2&>(that));
+		return *this;
+	}
+#endif
 	/// Specify active texture unit for subsequent commands
 	/**
 	 *  @throws Error
@@ -529,6 +567,39 @@ protected:
 	 : ObjCommonOps<tag::Texture>(name)
 	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjZeroOps(ObjZeroOps&&) = default;
+	ObjZeroOps(const ObjZeroOps&) = default;
+	ObjZeroOps& operator = (ObjZeroOps&&) = default;
+	ObjZeroOps& operator = (const ObjZeroOps&) = default;
+#else
+	typedef ObjCommonOps<tag::Texture> _base;
+
+	ObjZeroOps(ObjZeroOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjZeroOps(const ObjZeroOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjZeroOps& operator = (ObjZeroOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjZeroOps& operator = (const ObjZeroOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
+
 	/// Types related to Texture
 	struct Property
 	{
@@ -1803,7 +1874,7 @@ public:
 		GLsizei width,
 		GLsizei height,
 		GLsizei depth,
-		bool fixed_sample_locations
+		Boolean fixed_sample_locations
 	)
 	{
 		OGLPLUS_GLFUNC(TexImage3DMultisample)(
@@ -1813,7 +1884,7 @@ public:
 			width,
 			height,
 			depth,
-			fixed_sample_locations ? GL_TRUE : GL_FALSE
+			fixed_sample_locations._get()
 		);
 		OGLPLUS_CHECK(
 			TexImage3DMultisample,
@@ -1835,7 +1906,7 @@ public:
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
 		GLsizei height,
-		bool fixed_sample_locations
+		Boolean fixed_sample_locations
 	)
 	{
 		OGLPLUS_GLFUNC(TexImage2DMultisample)(
@@ -1844,7 +1915,7 @@ public:
 			GLint(internal_format),
 			width,
 			height,
-			fixed_sample_locations ? GL_TRUE : GL_FALSE
+			fixed_sample_locations._get()
 		);
 		OGLPLUS_CHECK(
 			TexImage2DMultisample,
@@ -2919,12 +2990,14 @@ public:
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	static bool Seamless(Target target)
+	static Boolean Seamless(Target target)
 	{
-		return GetIntParam(
-			target,
-			GL_TEXTURE_CUBE_MAP_SEAMLESS
-		) == GL_TRUE;
+		return Boolean(
+			GetIntParam(
+				target,
+				GL_TEXTURE_CUBE_MAP_SEAMLESS
+			), std::nothrow
+		);
 	}
 
 	/// Sets the seamless cubemap setting
@@ -2934,12 +3007,12 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	static void Seamless(Target target, bool enable)
+	static void Seamless(Target target, Boolean enable)
 	{
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_CUBE_MAP_SEAMLESS,
-			enable?GL_TRUE:GL_FALSE
+			enable._get()
 		);
 		OGLPLUS_CHECK(
 			TexParameteri,
@@ -2990,17 +3063,6 @@ public:
 /// DefaultTexture operations with explicit selector
 typedef ObjZeroOps<tag::ExplicitSel, tag::Texture>
 	DefaultTextureOps;
-
-template <>
-class ObjectOps<tag::ExplicitSel, tag::Texture>
- : public ObjZeroOps<tag::ExplicitSel, tag::Texture>
-{
-protected:
-	ObjectOps(TextureName name)
-	OGLPLUS_NOEXCEPT(true)
-	 : ObjZeroOps<tag::ExplicitSel, tag::Texture>(name)
-	{ }
-};
 
 /// Texture operations with explicit selector
 typedef ObjectOps<tag::ExplicitSel, tag::Texture>

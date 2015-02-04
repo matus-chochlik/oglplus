@@ -34,6 +34,38 @@ protected:
 	 : ObjZeroOps<tag::DirectStateEXT, tag::Buffer>(name)
 	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef ObjZeroOps<tag::DirectStateEXT, tag::Buffer> _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 	GLint GetIntParam(GLenum query) const;
 
 	/// Types related to Buffer
@@ -57,9 +89,12 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	bool Mapped(void) const
+	Boolean Mapped(void) const
 	{
-		return GetIntParam(GL_BUFFER_MAPPED) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_BUFFER_MAPPED),
+			std::nothrow
+		);
 	}
 
 	/// Allocates buffer storage to the specified size without any data

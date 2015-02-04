@@ -145,7 +145,7 @@ public:
 	Mapping of the buffer to the client address space.
 	>*/
 
-	static bool Mapped(__BufferTarget target); /*<
+	static __Boolean Mapped(__BufferTarget target); /*<
 	Returns true if the buffer currently bound to the specified
 	[^target] is mapped.
 	See [glfunc GetBufferParameter], [glconst BUFFER_MAPPED].
@@ -268,7 +268,7 @@ public:
 		__Bitfield<__BufferStorageBit> flags
 	);
 
-	static bool ImmutableStorage(__BufferTarget target); /*<
+	static __Boolean ImmutableStorage(__BufferTarget target); /*<
 	Returns true if the storage of the buffer currently bound
 	to [^target] is immutable.
 	See [glfunc GetBufferParameter], [glconst BUFFER_IMMUTABLE_STORAGE].
@@ -300,7 +300,7 @@ public:
 		__BufferTarget target,
 		__BufferSize offset,
 		__BufferSize size,
-		bool commit
+		__Boolean commit
 	); /*<
 	Commits and de-commits regions (specified by [^offset] and [^size])
 	of sparse buffer currently bound to the specified [^target].

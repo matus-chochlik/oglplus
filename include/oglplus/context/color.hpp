@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,6 +12,8 @@
 #pragma once
 #ifndef OGLPLUS_CONTEXT_COLOR_1412170813_HPP
 #define OGLPLUS_CONTEXT_COLOR_1412170813_HPP
+
+#include <oglplus/boolean.hpp>
 
 namespace oglplus {
 namespace context {
@@ -95,37 +97,37 @@ struct RGBAMask
 	OGLPLUS_NOEXCEPT(true)
 	{ }
 
-	RGBAMask(bool r, bool g, bool b, bool a)
+	RGBAMask(Boolean r, Boolean g, Boolean b, Boolean a)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		_v[0] = r?GL_TRUE:GL_FALSE;
-		_v[1] = g?GL_TRUE:GL_FALSE;
-		_v[2] = b?GL_TRUE:GL_FALSE;
-		_v[3] = a?GL_TRUE:GL_FALSE;
+		_v[0] = r._get();
+		_v[1] = g._get();
+		_v[2] = b._get();
+		_v[3] = a._get();
 	}
 
 	/// The red component mask
-	bool Red(void) const
+	Boolean Red(void) const
 	{
-		return _v[0] == GL_TRUE;
+		return Boolean(_v[0], std::nothrow);
 	}
 
 	/// The green component mask
-	bool Green(void) const
+	Boolean Green(void) const
 	{
-		return _v[1] == GL_TRUE;
+		return Boolean(_v[1], std::nothrow);
 	}
 
 	/// The blue component mask
-	bool Blue(void) const
+	Boolean Blue(void) const
 	{
-		return _v[2] == GL_TRUE;
+		return Boolean(_v[2], std::nothrow);
 	}
 
 	/// The alpha component mask
-	bool Alpha(void) const
+	Boolean Alpha(void) const
 	{
-		return _v[3] == GL_TRUE;
+		return Boolean(_v[3], std::nothrow);
 	}
 
 	friend

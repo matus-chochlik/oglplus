@@ -15,6 +15,7 @@
 
 #include <eglplus/eglfunc.hpp>
 #include <eglplus/error/basic.hpp>
+#include <eglplus/boolean.hpp>
 #include <eglplus/display.hpp>
 #include <eglplus/configs.hpp>
 #include <eglplus/surface.hpp>
@@ -195,19 +196,21 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{MakeCurrent}
 	 */
-	bool MakeCurrent(
+	Boolean MakeCurrent(
 		const Surface& draw_surface,
 		const Surface& read_surface
 	)
 	{
-		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
-			GetEGLHandle(_display),
-			GetEGLHandle(draw_surface),
-			GetEGLHandle(read_surface),
-			_handle
+		Boolean result(
+			EGLPLUS_EGLFUNC(MakeCurrent)(
+				GetEGLHandle(_display),
+				GetEGLHandle(draw_surface),
+				GetEGLHandle(read_surface),
+				_handle
+			), std::nothrow
 		);
 		EGLPLUS_CHECK_SIMPLE(MakeCurrent);
-		return result == EGL_TRUE;
+		return result;
 	}
 
 	/// Makes the context current
@@ -215,16 +218,18 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{MakeCurrent}
 	 */
-	bool MakeCurrent(const Surface& surface)
+	Boolean MakeCurrent(const Surface& surface)
 	{
-		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
-			GetEGLHandle(_display),
-			GetEGLHandle(surface),
-			GetEGLHandle(surface),
-			_handle
+		Boolean result(
+			EGLPLUS_EGLFUNC(MakeCurrent)(
+				GetEGLHandle(_display),
+				GetEGLHandle(surface),
+				GetEGLHandle(surface),
+				_handle
+			), std::nothrow
 		);
 		EGLPLUS_CHECK_SIMPLE(MakeCurrent);
-		return result == EGL_TRUE;
+		return result;
 	}
 
 	/// Makes the context current without surfaces
@@ -235,16 +240,18 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{MakeCurrent}
 	 */
-	bool MakeCurrent(void)
+	Boolean MakeCurrent(void)
 	{
-		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
-			GetEGLHandle(_display),
-			EGL_NO_SURFACE,
-			EGL_NO_SURFACE,
-			_handle
+		Boolean result(
+			EGLPLUS_EGLFUNC(MakeCurrent)(
+				GetEGLHandle(_display),
+				EGL_NO_SURFACE,
+				EGL_NO_SURFACE,
+				_handle
+			), std::nothrow
 		);
 		EGLPLUS_CHECK_SIMPLE(MakeCurrent);
-		return result == EGL_TRUE;
+		return result;
 	}
 
 	/// Releases the current context without assigning a new one
@@ -252,16 +259,18 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{MakeCurrent}
 	 */
-	bool Release(void)
+	Boolean Release(void)
 	{
-		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
-			GetEGLHandle(_display),
-			EGL_NO_SURFACE,
-			EGL_NO_SURFACE,
-			EGL_NO_CONTEXT
+		Boolean result(
+			EGLPLUS_EGLFUNC(MakeCurrent)(
+				GetEGLHandle(_display),
+				EGL_NO_SURFACE,
+				EGL_NO_SURFACE,
+				EGL_NO_CONTEXT
+			), std::nothrow
 		);
 		EGLPLUS_CHECK_SIMPLE(MakeCurrent);
-		return result == EGL_TRUE;
+		return result;
 	}
 
 	/// Queries a context attribute
@@ -269,16 +278,18 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{QueryContext}
 	 */
-	bool Query(ContextAttrib attrib, EGLint& value) const
+	Boolean Query(ContextAttrib attrib, EGLint& value) const
 	{
-		EGLBoolean result = EGLPLUS_EGLFUNC(QueryContext)(
-			GetEGLHandle(_display),
-			_handle,
-			EGLint(EGLenum(attrib)),
-			&value
+		Boolean result(
+			EGLPLUS_EGLFUNC(QueryContext)(
+				GetEGLHandle(_display),
+				_handle,
+				EGLint(EGLenum(attrib)),
+				&value
+			), std::nothrow
 		);
 		EGLPLUS_CHECK_SIMPLE(QueryContext);
-		return result == EGL_TRUE;
+		return result;
 	}
 
 	/// Returns the context framebuffer config id
@@ -304,11 +315,14 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{WaitClient}
 	 */
-	bool WaitClient(void) const
+	Boolean WaitClient(void) const
 	{
-		EGLBoolean result = EGLPLUS_EGLFUNC(WaitClient)();
+		Boolean result(
+			EGLPLUS_EGLFUNC(WaitClient)(),
+			std::nothrow
+		);
 		EGLPLUS_VERIFY_SIMPLE(WaitClient);
-		return result == EGL_TRUE;
+		return result;
 	}
 
 	/// Wait for GL API commands to complete
@@ -316,11 +330,14 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{WaitGL}
 	 */
-	bool WaitGL(void) const
+	Boolean WaitGL(void) const
 	{
-		EGLBoolean result = EGLPLUS_EGLFUNC(WaitGL)();
+		Boolean result(
+			EGLPLUS_EGLFUNC(WaitGL)(),
+			std::nothrow
+		);
 		EGLPLUS_VERIFY_SIMPLE(WaitGL);
-		return result == EGL_TRUE;
+		return result;
 	}
 
 	/// Wait for native API commands to complete
@@ -328,11 +345,14 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{WaitNative}
 	 */
-	bool WaitNative(EGLint engine) const
+	Boolean WaitNative(EGLint engine) const
 	{
-		EGLBoolean result = EGLPLUS_EGLFUNC(WaitNative)(engine);
+		Boolean result(
+			EGLPLUS_EGLFUNC(WaitNative)(engine),
+			std::nothrow
+		);
 		EGLPLUS_VERIFY_SIMPLE(WaitNative);
-		return result == EGL_TRUE;
+		return result;
 	}
 };
 

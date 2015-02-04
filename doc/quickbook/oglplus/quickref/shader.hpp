@@ -57,7 +57,7 @@ public:
 	ObjectOps& Source(__GLSLStrings&& source);
 	ObjectOps& Source(const __GLSLSource& glsl_source);
 
-	bool IsCompiled(void) const; /*<
+	__Boolean IsCompiled(void) const; /*<
 	Returns true if the shader is already compiled, returns false otherwise.
 	See [glfunc GetShader], [glconst COMPILE_STATUS].
 	>*/

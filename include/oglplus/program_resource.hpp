@@ -14,6 +14,7 @@
 #define OGLPLUS_PROGRAM_RESOURCE_1208301144_HPP
 
 #include <oglplus/error/object.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/program_interface.hpp>
@@ -108,9 +109,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetProgramResource}
 	 */
-	bool GetBoolParam(ProgramResourceProperty property) const
+	Boolean GetBoolParam(ProgramResourceProperty property) const
 	{
-		return GetParam(GLenum(property)) == GL_TRUE;
+		return Boolean(
+			GetParam(GLenum(property)),
+			std::nothrow
+		);
 	}
 
 	/// Checks if this resource has the specified property
@@ -208,9 +212,12 @@ public:
 	 *  @gldefref{REFERENCED_BY_FRAGMENT_SHADER}
 	 *  @gldefref{REFERENCED_BY_CONTROL_SHADER}
 	 */
-	bool ReferencedBy(ShaderType shader_type) const
+	Boolean ReferencedBy(ShaderType shader_type) const
 	{
-		return GetParam(ReferencedByProperty(shader_type)) == GL_TRUE;
+		return Boolean(
+			GetParam(ReferencedByProperty(shader_type)),
+			std::nothrow
+		);
 	}
 
 	/// Returns true if the resource is per-patch (if applicable)
@@ -219,9 +226,12 @@ public:
 	 *  @glfunref{GetProgramResource}
 	 *  @gldefref{IS_PER_PATCH}
 	 */
-	bool IsPerPatch(void) const
+	Boolean IsPerPatch(void) const
 	{
-		return GetParam(GL_IS_PER_PATCH) == GL_TRUE;
+		return Boolean(
+			GetParam(GL_IS_PER_PATCH),
+			std::nothrow
+		);
 	}
 
 	// TODO: finish this

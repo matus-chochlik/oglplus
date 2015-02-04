@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,7 +14,7 @@ public:
 	Gets the value of a single property (as a GLint).
 	See [glfunc GetProgramResource].
 	>*/
-	bool GetBoolParam(__ProgramResourceProperty property) const; /*<
+	__Boolean GetBoolParam(__ProgramResourceProperty property) const; /*<
 	Gets the value of a single property (as a boolean value).
 	>*/
 
@@ -59,12 +59,12 @@ public:
 	See [glfunc GetProgramResource], [glconst ARRAY_SIZE].
 	>*/
 
-	bool IsPerPatch(void) const; /*<
+	Boolean IsPerPatch(void) const; /*<
 	Returns true if the resource is per-patch (if applicable).
 	See [glfunc GetProgramResource], [glconst IS_PER_PATCH].
 	>*/
 
-	bool ReferencedBy(__ShaderType shader_type) const; /*<
+	Boolean ReferencedBy(__ShaderType shader_type) const; /*<
 	Returns true if the resource is referenced by shader
 	of the specified type (if applicable).
 	>*/

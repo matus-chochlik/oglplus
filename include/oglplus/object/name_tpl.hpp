@@ -146,14 +146,6 @@ public:
 		return *this;
 	}
 
-	ObjectName ReleaseName(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		ObjectName result = *this;
-		_name = _invalid_name();
-		return result;
-	}
-
 	/// Returns true if the object name is initialized, false otherwise
 	bool IsInitialized(void) const
 	OGLPLUS_NOEXCEPT(true)

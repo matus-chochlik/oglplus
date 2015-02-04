@@ -63,6 +63,39 @@ protected:
 	OGLPLUS_NOEXCEPT(true)
 	 : ObjectName<ObjTag>(name)
 	{ }
+public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+#else
+	typedef ObjectName<ObjTag> _base;
+
+	ObjCommonOps(ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjCommonOps(const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjCommonOps& operator = (ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjCommonOps& operator = (const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 };
 
 /// Implements operations applicable to any object including object 0 (zero)
@@ -75,6 +108,39 @@ protected:
 	OGLPLUS_NOEXCEPT(true)
 	 : ObjCommonOps<ObjTag>(name)
 	{ }
+public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjZeroOps(ObjZeroOps&&) = default;
+	ObjZeroOps(const ObjZeroOps&) = default;
+	ObjZeroOps& operator = (ObjZeroOps&&) = default;
+	ObjZeroOps& operator = (const ObjZeroOps&) = default;
+#else
+	typedef ObjCommonOps<ObjTag> _base;
+
+	ObjZeroOps(ObjZeroOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjZeroOps(const ObjZeroOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjZeroOps& operator = (ObjZeroOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjZeroOps& operator = (const ObjZeroOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 };
 
 /// Wrapper for GL objects with name 0 (zero)
@@ -104,6 +170,39 @@ protected:
 	OGLPLUS_NOEXCEPT(true)
 	 : ObjZeroOps<OpsTag, ObjTag>(name)
 	{ }
+public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef ObjZeroOps<OpsTag, ObjTag> _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 };
 
 template <typename ObjTag, typename NameHolder>
@@ -210,7 +309,7 @@ public:
 	/// Objects are movable
 	ObjectTpl(ObjectTpl&& temp)
 	OGLPLUS_NOEXCEPT(true)
-	 : NameHolder(static_cast<NameHolder&&>(temp.ReleaseName()))
+	 : NameHolder(static_cast<NameHolder&&>(temp))
 	{ }
 
 	~ObjectTpl(void)

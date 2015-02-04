@@ -224,12 +224,12 @@ TransformFeedbackVaryings(
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>&
 ObjectOps<tag::DirectState, tag::Program>::
-MakeSeparable(bool para)
+MakeSeparable(Boolean para)
 {
 	OGLPLUS_GLFUNC(ProgramParameteri)(
 		_obj_name(),
 		GL_PROGRAM_SEPARABLE,
-		para ? GL_TRUE : GL_FALSE
+		para._get()
 	);
 	OGLPLUS_CHECK(
 		ProgramParameteri,
@@ -245,12 +245,12 @@ MakeSeparable(bool para)
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>&
 ObjectOps<tag::DirectState, tag::Program>::
-MakeRetrievable(bool para)
+MakeRetrievable(Boolean para)
 {
 	OGLPLUS_GLFUNC(ProgramParameteri)(
 		_obj_name(),
 		GL_PROGRAM_BINARY_RETRIEVABLE_HINT,
-		para ? GL_TRUE : GL_FALSE
+		para._get()
 	);
 	OGLPLUS_CHECK(
 		ProgramParameteri,
