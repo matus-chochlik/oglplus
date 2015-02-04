@@ -528,7 +528,9 @@ public:
 
 	Shader& operator = (Shader&& temp)
 	{
-		Object<ShaderOps>::operator = (std::move(temp));
+		Object<ShaderOps>::operator = (
+			static_cast<Object<ShaderOps>&&>(temp)
+		);
 		return *this;
 	}
 };
@@ -605,6 +607,12 @@ public:
 	SpecShader(SpecShader&& temp)
 	 : Shader(static_cast<Shader&&>(temp))
 	{ }
+
+	SpecShader& operator = (SpecShader&& temp)
+	{
+		Shader::operator = (static_cast<Shader&&>(temp));
+		return *this;
+	}
 };
 
 /// Vertex shader wrapper
