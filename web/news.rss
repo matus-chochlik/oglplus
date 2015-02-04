@@ -6,8 +6,18 @@
 	<link>http://oglplus.org/</link>
 	<language>en-us</language>
 	<ttl>1440</ttl>
-	<lastBuildDate>Fri, 30 Jan 2015 16:08:28 GMT</lastBuildDate>
+	<lastBuildDate>Wed, 04 Feb 2015 19:34:31 GMT</lastBuildDate>
 
+	<item>
+		<title>OGLplus 0.59.0 released.</title>
+		<link>http://sourceforge.net/projects/oglplus/files/oglplus-0.59.x/</link>
+		<description>
+			New release packages are available for download from SourceForge.
+		</description>
+		<guid>http://oglplus.org/news.rss#item-2015-02-04-19:34:31</guid>
+		<pubDate>Wed, 04 Feb 2015 19:34:31 GMT</pubDate>
+		<source url="http://oglplus.org/news.rss">OGLplus news</source>
+	</item>
 	<item>
 		<title>OGLplus 0.58.0 released.</title>
 		<link>http://sourceforge.net/projects/oglplus/files/oglplus-0.58.x/</link>
@@ -86,19 +96,6 @@
 		</description>
 		<guid>http://oglplus.org/news.rss#item-2014-08-27-17:04:45</guid>
 		<pubDate>Wed, 27 Aug 2014 17:04:45 GMT</pubDate>
-		<source url="http://oglplus.org/news.rss">OGLplus news</source>
-	</item>
-	<item>
-		<title>OGLplus quickbook docs available.</title>
-		<link>http://matus-chochlik.github.io/oglplus/doc/</link>
-		<description>
-			Documentation for OGLplus written in Boost.Quickbook
-			is now available online. Note that the documentation
-			is currently work-in-progress and does not cover
-			many already implemented features.
-		</description>
-		<guid>http://oglplus.org/news.rss#item-2014-08-22-07:31:37</guid>
-		<pubDate>Fri, 22 Aug 2014 07:31:37 GMT</pubDate>
 		<source url="http://oglplus.org/news.rss">OGLplus news</source>
 	</item>
 </channel>
