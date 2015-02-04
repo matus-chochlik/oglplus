@@ -52,7 +52,7 @@ public:
 	>*/
 #endif
 
-	bool ResultAvailable(void) const; /*<
+	__Boolean ResultAvailable(void) const; /*<
 	Returns true if the query result is available.
 	See [glfunc GetQueryObject], [glconst QUERY_RESULT_AVAILABLE].
 	>*/

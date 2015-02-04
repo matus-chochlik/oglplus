@@ -161,12 +161,12 @@ public:
 	>*/
 
 #if GL_ARB_seamless_cubemap_per_texture
-	bool Seamless(void) const; /*<
+	__Boolean Seamless(void) const; /*<
 	Returns the value of the seamless-cube map setting of this
 	sampler object.
 	See [glfunc GetSamplerParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].
 	>*/
-	void Seamless(bool enable); /*<
+	void Seamless(__Boolean enable); /*<
 	Sets the seamless cubemap setting for this sampler object.
 	See [glfunc SamplerParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].
 	>*/

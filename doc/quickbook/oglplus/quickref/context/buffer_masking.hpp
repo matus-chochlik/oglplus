@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -11,7 +11,12 @@ namespace context {
 class BufferMaskingState
 {
 public:
-	static void ColorMask(bool r, bool g, bool b, bool a); /*<
+	static void ColorMask(
+		__Boolean r,
+		__Boolean g,
+		__Boolean b,
+		__Boolean a
+	); /*<
 	Sets the color mask for the default color buffer.
 	See [glfunc ColorMask].
 	>*/
@@ -22,7 +27,13 @@ public:
 	>*/
 
 #if GL_VERSION_3_0
-	static void ColorMask(GLuint buffer, bool r, bool g, bool b, bool a); /*<
+	static void ColorMask(
+		GLuint buffer,
+		__Boolean r,
+		__Boolean g,
+		__Boolean b,
+		__Boolean a
+	); /*<
 	Sets the color mask for the specified color [^buffer].
 	See [glfunc ColorMaski].
 	>*/
@@ -33,11 +44,11 @@ public:
 	>*/
 #endif
 
-	static void DepthMask(bool mask); /*<
+	static void DepthMask(__Boolean mask); /*<
 	Sets the depth buffer [^mask].
 	See [glfunc DepthMask].
 	>*/
-	static bool DepthWriteMask(void); /*<
+	static __Boolean DepthWriteMask(void); /*<
 	Returns the value of depth buffer write mask.
 	See [glfunc Get], [glconst DEPTH_WRITEMASK].
 	>*/

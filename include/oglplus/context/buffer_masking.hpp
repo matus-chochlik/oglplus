@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,6 +14,7 @@
 #define OGLPLUS_CONTEXT_BUFFER_MASKING_1201040722_HPP
 
 #include <oglplus/glfunc.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/face_mode.hpp>
 #include <oglplus/context/color.hpp>
 
@@ -32,13 +33,13 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ColorMask}
 	 */
-	static void ColorMask(bool r, bool g, bool b, bool a)
+	static void ColorMask(Boolean r, Boolean g, Boolean b, Boolean a)
 	{
 		OGLPLUS_GLFUNC(ColorMask)(
-			r ? GL_TRUE : GL_FALSE,
-			g ? GL_TRUE : GL_FALSE,
-			b ? GL_TRUE : GL_FALSE,
-			a ? GL_TRUE : GL_FALSE
+			r._get(),
+			g._get(),
+			b._get(),
+			a._get()
 		);
 		OGLPLUS_VERIFY_SIMPLE(ColorMask);
 	}
@@ -46,10 +47,10 @@ public:
 	static void ColorMask(const RGBAMask& m)
 	{
 		OGLPLUS_GLFUNC(ColorMask)(
-			m._v[0] ? GL_TRUE : GL_FALSE,
-			m._v[1] ? GL_TRUE : GL_FALSE,
-			m._v[2] ? GL_TRUE : GL_FALSE,
-			m._v[3] ? GL_TRUE : GL_FALSE
+			m._v[0],
+			m._v[1],
+			m._v[2],
+			m._v[3]
 		);
 		OGLPLUS_VERIFY_SIMPLE(ColorMask);
 	}
@@ -60,14 +61,20 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ColorMaski}
 	 */
-	static void ColorMask(GLuint buffer, bool r, bool g, bool b, bool a)
+	static void ColorMask(
+		GLuint buffer,
+		Boolean r,
+		Boolean g,
+		Boolean b,
+		Boolean a
+	)
 	{
 		OGLPLUS_GLFUNC(ColorMaski)(
 			buffer,
-			r ? GL_TRUE : GL_FALSE,
-			g ? GL_TRUE : GL_FALSE,
-			b ? GL_TRUE : GL_FALSE,
-			a ? GL_TRUE : GL_FALSE
+			r._get(),
+			g._get(),
+			b._get(),
+			a._get()
 		);
 		OGLPLUS_VERIFY(
 			ColorMaski,
@@ -80,10 +87,10 @@ public:
 	{
 		OGLPLUS_GLFUNC(ColorMaski)(
 			buffer,
-			m._v[0] ? GL_TRUE : GL_FALSE,
-			m._v[1] ? GL_TRUE : GL_FALSE,
-			m._v[2] ? GL_TRUE : GL_FALSE,
-			m._v[3] ? GL_TRUE : GL_FALSE
+			m._v[0],
+			m._v[1],
+			m._v[2],
+			m._v[3]
 		);
 		OGLPLUS_VERIFY(
 			ColorMaski,
@@ -98,9 +105,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{DepthMask}
 	 */
-	static void DepthMask(bool mask)
+	static void DepthMask(Boolean mask)
 	{
-		OGLPLUS_GLFUNC(DepthMask)(mask ? GL_TRUE : GL_FALSE);
+		OGLPLUS_GLFUNC(DepthMask)(mask._get());
 		OGLPLUS_VERIFY_SIMPLE(DepthMask);
 	}
 
@@ -167,12 +174,15 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{DEPTH_WRITEMASK}
 	 */
-	static bool DepthWriteMask(void)
+	static Boolean DepthWriteMask(void)
 	{
-		GLint result;
-		OGLPLUS_GLFUNC(GetIntegerv)(GL_DEPTH_WRITEMASK, &result);
+		Boolean result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_DEPTH_WRITEMASK,
+			result._ptr()
+		);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
-		return result == GL_TRUE;
+		return result;
 	}
 
 	/// Returns the value of stencil write mask

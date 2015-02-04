@@ -58,9 +58,97 @@ public:
 	See [eglfunc CreateWindowSurface].
 	>*/
 
-// TODO
+	bool SwapBuffers(void); /*<
+	Swap the front and back buffers.
+	See [eglfunc SwapBuffers].
+	>*/
+
+	bool CopyBuffers(EGLNativePixmapType target); /*<
+	Copy buffer to native pixmap.
+	See [eglfunc CopyBuffers].
+	>*/
+
+	bool Attrib(__SurfaceAttrib attrib, EGLint value); /*<
+	Sets the value of the specified attribute.
+	See [eglfunc SurfaceAttrib].
+	>*/
+
+	bool QueryAttrib(__SurfaceAttrib attrib, EGLint& value) const; /*<
+	Queries the specified surface attribute value.
+	See [eglfunc QuerySurface].
+	>*/
+
+	EGLint GetAttrib(__SurfaceAttrib attrib) const; /*<
+	Gets the specified surface attribute value.
+	See [eglfunc QuerySurface].
+	>*/
+
+	EGLint Width(void) const; /*<
+	Returns the width of the surface.
+	See [eglfunc QuerySurface], [eglconst WIDTH].
+	>*/
+
+	EGLint Height(void) const; /*<
+	Returns the height of the surface.
+	See [eglfunc QuerySurface], [eglconst HEIGHT].
+	>*/
 //]
 //[eglplus_surface_2
+
+	__RenderBuffer RenderBuffer(void) const; /*<
+	Returns the render buffer setting of the surface.
+	See [eglfunc QuerySurface], [eglconst RENDER_BUFFER].
+	>*/
+
+	void RenderBuffer(__RenderBuffer render_buffer); /*<
+	Changes the render buffer setting of the surface.
+	See [eglfunc SurfaceAttrib], [eglconst RENDER_BUFFER].
+	>*/
+
+	__MultisampleResolve MultisampleResolve(void) const; /*<
+	Returns the multisample resolve setting of the surface.
+	See [eglfunc QuerySurface], [eglconst MULTISAMPLE_RESOLVE].
+	>*/
+
+	void MultisampleResolve(__MultisampleResolve value); /*<
+	Changes the multisample resolve setting of the surface.
+	See [eglfunc SurfaceAttrib], [eglconst MULTISAMPLE_RESOLVE].
+	>*/
+
+	__SwapBehavior SwapBehavior(void) const; /*<
+	Returns the buffer swap behavior setting of the surface.
+	See [eglfunc QuerySurface], [eglconst SWAP_BEHAVIOR].
+	>*/
+
+	void SwapBehavior(__SwapBehavior value); /*<
+	Changes the buffer swap behavior setting of the surface.
+	See [eglfunc SurfaceAttrib], [eglconst SWAP_BEHAVIOR].
+	>*/
+
+	__TextureTarget TextureTarget(void) const; /*<
+	Returns the texture target setting of the surface.
+	See [eglfunc QuerySurface], [eglconst TEXTURE_TARGET].
+	>*/
+
+	__TextureFormat TextureFormat(void) const; /*<
+	Returns the texture format setting of the surface.
+	See [eglfunc QuerySurface], [eglconst TEXTURE_FORMAT].
+	>*/
+
+	__GLColorspace GLColorspace(void) const; /*<
+	Returns the OpenGL colorspace setting of the surface.
+	See [eglfunc QuerySurface], [eglconst GL_COLORSPACE].
+	>*/
+
+	__VGColorspace VGColorspace(void) const; /*<
+	Returns the OpenVG colorspace setting of the surface.
+	See [eglfunc QuerySurface], [eglconst VG_COLORSPACE].
+	>*/
+
+	__VGAlphaFormat VGAlphaFormat(void) const; /*<
+	Returns the OpenVG alpha format of the surface.
+	See [eglfunc QuerySurface], [eglconst VG_ALPHA_FORMAT].
+	>*/
 };
 
 ::EGLSurface GetEGLHandle(const __Surface& surface)

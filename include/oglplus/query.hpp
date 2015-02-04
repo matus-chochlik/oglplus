@@ -19,6 +19,7 @@
 #include <oglplus/error/object.hpp>
 #include <oglplus/enums/query_target.hpp>
 #include <oglplus/enums/conditional_render_mode.hpp>
+#include <oglplus/boolean.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -102,6 +103,38 @@ protected:
 	 : ObjZeroOps<tag::DirectState, tag::Query>(name)
 	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef ObjZeroOps<tag::DirectState, tag::Query> _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 	/// Query execution target
 	typedef QueryTarget Target;
 
@@ -201,20 +234,20 @@ public:
 	 *  @glfunref{GetQueryObject}
 	 *  @gldefref{QUERY_RESULT_AVAILABLE}
 	 */
-	bool ResultAvailable(void) const
+	Boolean ResultAvailable(void) const
 	{
-		GLuint result = GL_FALSE;
-		OGLPLUS_GLFUNC(GetQueryObjectuiv)(
+		Boolean result;
+		OGLPLUS_GLFUNC(GetQueryObjectiv)(
 			_obj_name(),
 			GL_QUERY_RESULT_AVAILABLE,
-			&result
+			result._ptr()
 		);
 		OGLPLUS_VERIFY(
-			GetQueryObjectuiv,
+			GetQueryObjectiv,
 			ObjectError,
 			Object(*this)
 		);
-		return result == GL_TRUE;
+		return result;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0

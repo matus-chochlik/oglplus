@@ -21,6 +21,7 @@
 #include <eglplus/renderable_type_bit.hpp>
 #include <eglplus/surface_type_bit.hpp>
 #include <eglplus/attrib_list.hpp>
+#include <eglplus/boolean.hpp>
 #include <eglplus/display.hpp>
 
 #include <cassert>
@@ -236,9 +237,12 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{NATIVE_RENDERABLE}
 	 */
-	bool NativeRenderable(void) const
+	Boolean NativeRenderable(void) const
 	{
-		return GetAttrib(ConfigAttrib::NativeRenderable) == EGL_TRUE;
+		return Boolean(
+			EGLBoolean(GetAttrib(ConfigAttrib::NativeRenderable)),
+			std::nothrow
+		);
 	}
 
 	/// Returns the caveat for this config

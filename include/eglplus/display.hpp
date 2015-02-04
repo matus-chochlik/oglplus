@@ -14,6 +14,7 @@
 #define EGLPLUS_DISPLAY_1305291005_HPP
 
 #include <eglplus/eglfunc.hpp>
+#include <eglplus/boolean.hpp>
 #include <eglplus/error/basic.hpp>
 
 namespace eglplus {
@@ -61,14 +62,16 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{SwapInterval}
 	 */
-	bool SwapInterval(EGLint interval)
+	Boolean SwapInterval(EGLint interval)
 	{
-		EGLBoolean result = EGLPLUS_EGLFUNC(SwapInterval)(
-			_handle,
-			interval
+		Boolean result(
+			EGLPLUS_EGLFUNC(SwapInterval)(
+				_handle,
+				interval
+			), std::nothrow
 		);
 		EGLPLUS_CHECK_SIMPLE(SwapInterval);
-		return result == EGL_TRUE;
+		return result;
 	}
 
 	/// Releases the current context without assigning a new one
@@ -76,16 +79,18 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{MakeCurrent}
 	 */
-	bool ReleaseContext(void)
+	Boolean ReleaseContext(void)
 	{
-		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
-			_handle,
-			EGL_NO_SURFACE,
-			EGL_NO_SURFACE,
-			EGL_NO_CONTEXT
+		Boolean result(
+			EGLPLUS_EGLFUNC(MakeCurrent)(
+				_handle,
+				EGL_NO_SURFACE,
+				EGL_NO_SURFACE,
+				EGL_NO_CONTEXT
+			), std::nothrow
 		);
 		EGLPLUS_CHECK_SIMPLE(MakeCurrent);
-		return result == EGL_TRUE;
+		return result;
 	}
 };
 

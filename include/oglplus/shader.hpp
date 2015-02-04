@@ -17,6 +17,7 @@
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/array.hpp>
 #include <oglplus/error/program.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/precision_type.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/glsl_source.hpp>
@@ -95,6 +96,38 @@ protected:
 	{ }
 
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+#else
+	typedef ShaderName _base;
+
+	ObjCommonOps(ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjCommonOps(const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjCommonOps& operator = (ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjCommonOps& operator = (const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 #if OGLPLUS_DOCUMENTATION_ONLY || \
 	GL_ES_VERSION_3_0 || \
 	GL_VERSION_4_1 || \
@@ -136,6 +169,39 @@ protected:
 	 : ObjZeroOps<tag::DirectState, tag::Shader>(name)
 	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef ObjZeroOps<tag::DirectState, tag::Shader> _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
+
 	/// Types related to Shader
 	struct Property
 	{
@@ -234,13 +300,13 @@ public:
 	 *  @glfunref{GetShader}
 	 *  @gldefref{COMPILE_STATUS}
 	 */
-	bool IsCompiled(void) const
+	Boolean IsCompiled(void) const
 	{
-		int status;
+		Boolean status;
 		OGLPLUS_GLFUNC(GetShaderiv)(
 			_obj_name(),
 			GL_COMPILE_STATUS,
-			&status
+			status._ptr()
 		);
 		OGLPLUS_VERIFY(
 			GetShaderiv,
@@ -248,7 +314,7 @@ public:
 			Object(*this).
 			EnumParam(Type())
 		);
-		return status == GL_TRUE;
+		return status;
 	}
 
 	/// Returns the compiler output if the program is compiled
@@ -462,7 +528,9 @@ public:
 
 	Shader& operator = (Shader&& temp)
 	{
-		Object<ShaderOps>::operator = (std::move(temp));
+		Object<ShaderOps>::operator = (
+			static_cast<Object<ShaderOps>&&>(temp)
+		);
 		return *this;
 	}
 };
@@ -539,6 +607,12 @@ public:
 	SpecShader(SpecShader&& temp)
 	 : Shader(static_cast<Shader&&>(temp))
 	{ }
+
+	SpecShader& operator = (SpecShader&& temp)
+	{
+		Shader::operator = (static_cast<Shader&&>(temp));
+		return *this;
+	}
 };
 
 /// Vertex shader wrapper

@@ -14,6 +14,7 @@
 #define EGLPLUS_RENDERING_API_1303292057_HPP
 
 #include <eglplus/enums/rendering_api.hpp>
+#include <eglplus/boolean.hpp>
 #include <eglplus/eglfunc.hpp>
 #include <eglplus/error/basic.hpp>
 
@@ -24,9 +25,12 @@ namespace eglplus {
  *  @eglsymbols
  *  @eglfunref{BindAPI}
  */
-inline bool BindAPI(RenderingAPI api)
+inline Boolean BindAPI(RenderingAPI api)
 {
-	bool result = EGLPLUS_EGLFUNC(BindAPI)(EGLenum(api)) == EGL_TRUE;
+	Boolean result(
+		EGLPLUS_EGLFUNC(BindAPI)(EGLenum(api)),
+		std::nothrow
+	);
 	EGLPLUS_VERIFY_SIMPLE(BindAPI);
 	return result;
 }

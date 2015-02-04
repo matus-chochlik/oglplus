@@ -87,6 +87,15 @@ protected:
 	{
 		return ~NameT(0);
 	}
+
+	inline
+	bool _has_deletable_name(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		// TODO: fix this for objects where Gen*
+		// returns a valid name 0
+		return (_name > 0u) && (_name != _invalid_name());
+	}
 public:
 	static
 	ObjectName InvalidName(void)
@@ -135,13 +144,6 @@ public:
 			temp._name = _invalid_name();
 		}
 		return *this;
-	}
-
-	ObjectName ReleaseName(void)
-	{
-		ObjectName result = *this;
-		_name = _invalid_name();
-		return result;
 	}
 
 	/// Returns true if the object name is initialized, false otherwise

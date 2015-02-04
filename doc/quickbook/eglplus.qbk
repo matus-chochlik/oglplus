@@ -42,6 +42,15 @@
 [def __RenderableTypeBit [link eglplus.quickref.renderable_type_bit RenderableTypeBit]]
 [def __SurfaceTypeBit [link eglplus.quickref.surface_type_bit SurfaceTypeBit]]
 
+[def __TextureTarget [link eglplus.quickref.texture_target TextureTarget]]
+[def __TextureFormat [link eglplus.quickref.texture_format TextureFormat]]
+[def __RenderBuffer [link eglplus.quickref.render_buffer RenderBuffer]]
+[def __SwapBehavior [link eglplus.quickref.swap_behavior SwapBehavior]]
+[def __MultisampleResolve [link eglplus.quickref.multisample_resolve MultisampleResolve]]
+
+[def __GLColorspace [link eglplus.quickref.gl_colorspace GLColorSpace]]
+[def __VGColorspace [link eglplus.quickref.vg_colorspace VGColorSpace]]
+[def __VGAlphaFormat [link eglplus.quickref.vg_alpha_format VGAlphaFormat]]
 
 [/---------]
 [/Templates]
