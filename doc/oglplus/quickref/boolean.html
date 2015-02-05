@@ -42,25 +42,40 @@
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">TrueValue</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">FalseValue</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">WeakBoolImpl</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.boolean.c0" href="boolean.html#oglplus.quickref.boolean.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.boolean.c2" href="boolean.html#oglplus.quickref.boolean.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">TrueValue</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">FalseValue</span><span class="special">&gt;</span>
 <span class="keyword">struct</span> <span class="identifier">BoolImpl</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">BoolImpl</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
-	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.boolean.c0" href="boolean.html#oglplus.quickref.boolean.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.boolean.c4" href="boolean.html#oglplus.quickref.boolean.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 	<span class="identifier">BoolImpl</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">bool_value</span><span class="special">)</span>
 	<span class="keyword">noexcept</span><span class="special">;</span>
 
 	<span class="identifier">BoolImpl</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">nothrow_t</span><span class="special">);</span>
-	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.boolean.c2" href="boolean.html#oglplus.quickref.boolean.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.boolean.c6" href="boolean.html#oglplus.quickref.boolean.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
 	<span class="keyword">explicit</span>
-	<span class="identifier">BoolImpl</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.boolean.c4" href="boolean.html#oglplus.quickref.boolean.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">BoolImpl</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.boolean.c8" href="boolean.html#oglplus.quickref.boolean.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
 	<span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
-	<span class="keyword">noexcept</span><span class="special">;</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.boolean.c10" href="boolean.html#oglplus.quickref.boolean.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
 	<span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.boolean.c12" href="boolean.html#oglplus.quickref.boolean.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<span class="identifier">WeakBoolImpl</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">TrueValue</span><span class="special">,</span> <span class="identifier">FalseValue</span><span class="special">&gt;</span>
+	<span class="keyword">operator</span> <span class="special">~</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
 	<span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">};</span>
 </pre>
@@ -68,11 +83,25 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c1"></a><a href="#oglplus.quickref.boolean.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-              Creates a false boolean value.
+              Returns <code class="literal">true</code> if the wrapped value is not equal to
+              <code class="literal">FalseValue</code>.
             </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c3"></a><a href="#oglplus.quickref.boolean.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns <code class="literal">true</code> if the wrapped value is not equal to
+              <code class="literal">TrueValue</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c5"></a><a href="#oglplus.quickref.boolean.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Creates a false boolean value.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c7"></a><a href="#oglplus.quickref.boolean.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs a boolean from a value in the underlying type. This version
               does not throw if the <code class="literal">value</code> is neither <code class="literal">TrueValue</code>
@@ -81,11 +110,23 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c5"></a><a href="#oglplus.quickref.boolean.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c9"></a><a href="#oglplus.quickref.boolean.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Constructs a boolean from a value in the underlying type. This constructor
               throws a <code class="literal">std::domain_error</code> if <code class="literal">value</code>
               is neither <code class="literal">TrueValue</code> not <code class="literal">FalseValue</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c11"></a><a href="#oglplus.quickref.boolean.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns <code class="literal">true</code> if the wrapped value is equal to <code class="literal">TrueValue</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c13"></a><a href="#oglplus.quickref.boolean.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns <code class="literal">true</code> if the wrapped value is equal to <code class="literal">FalseValue</code>.
             </p></td>
 </tr>
 </table></div>

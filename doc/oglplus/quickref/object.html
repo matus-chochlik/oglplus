@@ -734,7 +734,7 @@
 <p>
             An <code class="literal">Optional&lt;<a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>&gt;</code>
             can be used everywhere an <code class="literal"><a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a></code>
-            could be used, but it must be initialized (the <code class="literal">IsInitialized()</code>
+            could be used, but it must be initialized (the <code class="literal">HasValidName()</code>
             member function must return true), otherwise usage results in undefined
             behavior.
           </p>
@@ -751,7 +751,7 @@
 	<span class="identifier">Optional</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&amp;&amp;</span> <span class="identifier">temp</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.optional.c6" href="object.html#oglplus.quickref.object.optional.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
 	<span class="keyword">explicit</span> <span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.optional.c8" href="object.html#oglplus.quickref.object.optional.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
-	<span class="keyword">bool</span> <span class="identifier">IsInitialized</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.optional.c10" href="object.html#oglplus.quickref.object.optional.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">HasValidName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.optional.c10" href="object.html#oglplus.quickref.object.optional.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
 	<a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a> <span class="identifier">Release</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.optional.c12" href="object.html#oglplus.quickref.object.optional.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 <span class="special">};</span>
@@ -792,14 +792,14 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.optional.c9"></a><a href="#oglplus.quickref.object.optional.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Equivalent to <code class="literal">IsInitialized</code>.
+                Equivalent to <code class="literal">HasValidName</code>.
               </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.optional.c11"></a><a href="#oglplus.quickref.object.optional.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Returns true if the object is initialized, false otherwise. The only
-                things that can safely be done with an uninitialized <code class="literal">Optional&lt;<a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>&gt;</code>
+                Returns true if the object has a valid name, false otherwise. The
+                only things that can safely be done with an invalid name <code class="literal">Optional&lt;<a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>&gt;</code>
                 is assignment, moving, destruction and checking whether it is initialized.
                 On the other hand initialized <code class="literal">Optional&lt;<a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a>&gt;</code>
                 can be used everywhere where a plain <code class="literal"><a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a></code>
