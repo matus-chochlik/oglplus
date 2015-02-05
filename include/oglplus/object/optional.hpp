@@ -24,7 +24,7 @@ namespace oglplus {
  *  instances which can be initialized later.
  *
  *  An Optional<Object> can be used everywhere an Object could be
- *  used, but it must be initialized (the IsInitialized() member function
+ *  used, but it must be initialized (the HasValidName() member function
  *  must return true), otherwise usage results in undefined behavior.
  *
  *  @ingroup modifier_classes
@@ -40,7 +40,7 @@ public:
 	 *  moving, destruction and checking whether it is
 	 *  initialized.
 	 *
-	 *  @see IsInitialized
+	 *  @see HasValidName
 	 *  @see Assign
 	 */
 	OptionalImpl(void)
@@ -53,7 +53,7 @@ public:
 	 *  a plain Object could be used, furthermore Optional<Object>
 	 *  can also be cleared (this brings it in uninitialized state)
 	 *
-	 *  @see IsInitialized
+	 *  @see HasValidName
 	 *  @see Clear
 	 */
 	OptionalImpl(Object&& temp)
@@ -77,7 +77,7 @@ public:
 	operator bool (void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return this->IsInitialized();
+		return this->HasValidName();
 	}
 
 	/// Releases the stored object and makes this Optional uninitialized

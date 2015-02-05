@@ -20,9 +20,42 @@
 namespace oglplus {
 
 template <typename T, T TrueVal, T FalseVal>
+struct BoolImpl;
+
+template <typename T, T TrueVal, T FalseVal>
+struct WeakBoolImpl
+{
+private:
+	T _v;
+
+	explicit
+	WeakBoolImpl(T v)
+	 : _v(v)
+	{ }
+
+	friend struct BoolImpl<T, TrueVal, FalseVal>;
+public:
+	operator bool (void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _v != FalseVal;
+	}
+
+	bool operator ! (void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _v != TrueVal;
+	}
+};
+
+template <typename T, T TrueVal, T FalseVal>
 struct BoolImpl
 {
 private:
+	static_assert(TrueVal != FalseVal, "");
+	static_assert(TrueVal >= 0, "");
+	static_assert(FalseVal>= 0, "");
+
 	T _v;
 public:
 	// implementation detail
@@ -68,6 +101,12 @@ public:
 		}
 	}
 
+	static
+	BoolImpl Indeterminate(void)
+	{
+		return BoolImpl(TrueVal+FalseVal+1);
+	}
+
 	operator bool (void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -78,6 +117,11 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _v == FalseVal;
+	}
+
+	WeakBoolImpl<T, TrueVal, FalseVal> operator ~ (void) const
+	{
+		return WeakBoolImpl<T, TrueVal, FalseVal>(_v);
 	}
 };
 

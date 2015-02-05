@@ -65,10 +65,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(DeletePathsNV);
 	}
 
-	static GLboolean IsA(GLuint name)
+	static Boolean IsA(GLuint name)
 	{
-		assert(name != 0);
-		GLboolean result = OGLPLUS_GLFUNC(IsPathNV)(name);
+		Boolean result(
+			OGLPLUS_GLFUNC(IsPathNV)(name),
+			std::nothrow
+		);
 		OGLPLUS_VERIFY_SIMPLE(IsPathNV);
 		return result;
 	}
