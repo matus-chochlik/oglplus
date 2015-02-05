@@ -30,6 +30,7 @@ private:
 
 	explicit
 	WeakBoolImpl(T v)
+	OGLPLUS_NOEXCEPT(true)
 	 : _v(v)
 	{ }
 
@@ -103,6 +104,7 @@ public:
 
 	static
 	BoolImpl Indeterminate(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return BoolImpl(TrueVal+FalseVal+1);
 	}
@@ -120,6 +122,7 @@ public:
 	}
 
 	WeakBoolImpl<T, TrueVal, FalseVal> operator ~ (void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return WeakBoolImpl<T, TrueVal, FalseVal>(_v);
 	}
