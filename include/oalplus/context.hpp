@@ -327,7 +327,7 @@ public:
 };
 
 /// A context that is made current right after construction
-class CurrentContext
+class ContextMadeCurrent
  : public Context
 {
 public:
@@ -337,7 +337,7 @@ public:
 	 *  @alcfunref{CreateContext}
 	 *  @alcfunref{MakeContextCurrent}
 	 */
-	CurrentContext(const Device& device)
+	ContextMadeCurrent(const Device& device)
 	 : Context(device)
 	{
 		MakeCurrent();
@@ -349,7 +349,7 @@ public:
 	 *  @alcfunref{CreateContext}
 	 *  @alcfunref{MakeContextCurrent}
 	 */
-	CurrentContext(
+	ContextMadeCurrent(
 		const Device& device,
 		const FinishedContextAttribs& attribs
 	): Context(device, attribs)
@@ -357,12 +357,12 @@ public:
 		MakeCurrent();
 	}
 
-	/// CurrentContext is move-constructible
+	/// ContextMadeCurrent is move-constructible
 	/**
 	 *  @alsymbols
 	 *  @alcfunref{MakeContextCurrent}
 	 */
-	CurrentContext(CurrentContext&& tmp)
+	ContextMadeCurrent(ContextMadeCurrent&& tmp)
 	 : Context(static_cast<Context&&>(tmp))
 	{
 		if(_context) MakeCurrent();

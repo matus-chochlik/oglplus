@@ -128,6 +128,32 @@ public:
 	>*/
 };
 
+//]
+//[oalplus_context_made_current
+
+class ContextMadeCurrent
+ : public __Context
+{
+public:
+	ContextMadeCurrent(const ContextMadeCurrent&) = delete;
+	ContextMadeCurrent(ContextMadeCurrent&&);
+
+	ContextMadeCurrent(const __Device& device); /*<
+	Constructs a context using the specified device
+	and makes it current.
+	See [alcfunc CreateContext], [alcfunc MakeCurrent].
+	>*/
+
+	ContextMadeCurrent(
+		const __Device& device,
+		const __FinishedContextAttribs& attribs
+	); /*<
+	Construct a context with the specified attributes using
+	the specified device and makes it current
+	See [alcfunc CreateContext], [alcfunc MakeCurrent].
+	>*/
+};
+
 } // namespace oalplus
 //]
 
