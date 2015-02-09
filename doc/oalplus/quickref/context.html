@@ -217,8 +217,6 @@
 
 	<span class="special">~</span><span class="identifier">Context</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c40" href="context.html#oalplus.quickref.context.c41"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oalplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -239,6 +237,49 @@
 <td valign="top" align="left"><p>
               Destroys this context. See <code class="literal">alcMakeContextCurrent</code>,
               <code class="literal">alcDestroyContext</code>.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oalplus.quickref.context.h3"></a>
+          <span class="phrase"><a name="oalplus.quickref.context.made_current"></a></span><a class="link" href="context.html#oalplus.quickref.context.made_current">Context
+          made current</a>
+        </h4>
+<p>
+          <code class="literal">ContextMadeCurrent</code> is a specialization of <a class="link" href="context.html#oalplus.quickref.context.wrapper">Context</a>
+          which also makes the wrapped context current before the constructor finishes.
+        </p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ContextMadeCurrent</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="context.html#oalplus.quickref.context.wrapper">Context</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ContextMadeCurrent</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">ContextMadeCurrent</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span>
+	<span class="identifier">ContextMadeCurrent</span><span class="special">(</span><span class="identifier">ContextMadeCurrent</span><span class="special">&amp;&amp;);</span>
+
+	<span class="identifier">ContextMadeCurrent</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="device.html#oalplus.quickref.device.playback">Device</a><span class="special">&amp;</span> <span class="identifier">device</span><span class="special">);</span> <a class="co" name="oalplus.quickref.context.c42" href="context.html#oalplus.quickref.context.c43"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">ContextMadeCurrent</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="device.html#oalplus.quickref.device.playback">Device</a><span class="special">&amp;</span> <span class="identifier">device</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="context.html#oalplus.quickref.context.attribs">FinishedContextAttribs</a><span class="special">&amp;</span> <span class="identifier">attribs</span>
+	<span class="special">);</span> <a class="co" name="oalplus.quickref.context.c44" href="context.html#oalplus.quickref.context.c45"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oalplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c43"></a><a href="#oalplus.quickref.context.c42"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Constructs a context using the specified device and makes it current.
+              See <code class="literal">alcCreateContext</code>, <code class="literal">alcMakeCurrent</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.quickref.context.c45"></a><a href="#oalplus.quickref.context.c44"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Construct a context with the specified attributes using the specified
+              device and makes it current See <code class="literal">alcCreateContext</code>,
+              <code class="literal">alcMakeCurrent</code>.
             </p></td>
 </tr>
 </table></div>

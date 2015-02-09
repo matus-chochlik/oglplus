@@ -16,12 +16,110 @@
 <div class="chapter">
 <div class="titlepage"><div><div><h2 class="title">
 <a name="oalplus.intro"></a>Chapter&#160;4.&#160;Introduction</h2></div></div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl class="toc"><dt><span class="section"><a href="intro.html#oalplus.intro.hello_world">Hello world</a></span></dt></dl>
+</div>
 <p>
         OALplus is a header-only library which implements a thin object-oriented
         facade over the OpenAL&#174; C-language API. It provides wrappers which automate
         resource and object management and make the use of OpenAL in C++ safer and
         easier.
       </p>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oalplus.intro.hello_world"></a><a class="link" href="intro.html#oalplus.intro.hello_world" title="Hello world">Hello world</a>
+</h2></div></div></div>
+<p>
+          The following code shows a basic, working example of usage of the OALplus
+          library.
+        </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">oalplus</span><span class="special">/</span><span class="identifier">al</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">oalplus</span><span class="special">/</span><span class="identifier">all</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">oalplus</span><span class="special">/</span><span class="identifier">alut</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">chrono</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">thread</span><span class="special">&gt;</span>
+
+<span class="keyword">int</span> <span class="identifier">main</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">argc</span><span class="special">,</span> <span class="keyword">char</span><span class="special">**</span> <span class="identifier">argv</span><span class="special">)</span>
+<span class="special">{</span>
+	<span class="identifier">oalplus</span><span class="special">::</span><a class="link" href="quickref/device.html#oalplus.quickref.device.playback">Device</a> <span class="identifier">device</span><span class="special">;</span> <a class="co" name="oalplus.intro.hello_world.c0" href="intro.html#oalplus.intro.hello_world.c1"><img src="../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">oalplus</span><span class="special">::</span><a class="link" href="quickref/context.html#oalplus.quickref.context.made_current">ContextMadeCurrent</a> <span class="identifier">context</span><span class="special">(</span><span class="identifier">device</span><span class="special">);</span> <a class="co" name="oalplus.intro.hello_world.c2" href="intro.html#oalplus.intro.hello_world.c3"><img src="../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">oalplus</span><span class="special">::</span><a class="link" href="quickref/alut.html" title="AL Utility Toolkit">ALUtilityToolkit</a> <span class="identifier">alut</span><span class="special">(</span><span class="keyword">false</span><span class="special">,</span> <span class="identifier">argc</span><span class="special">,</span> <span class="identifier">argv</span><span class="special">);</span> <a class="co" name="oalplus.intro.hello_world.c4" href="intro.html#oalplus.intro.hello_world.c5"><img src="../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="identifier">oalplus</span><span class="special">::</span><a class="link" href="quickref/listener.html" title="Listener">Listener</a> <span class="identifier">listener</span><span class="special">;</span> <a class="co" name="oalplus.intro.hello_world.c6" href="intro.html#oalplus.intro.hello_world.c7"><img src="../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="identifier">listener</span><span class="special">.</span><span class="identifier">Position</span><span class="special">(</span><span class="number">0.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">);</span>
+	<span class="identifier">listener</span><span class="special">.</span><span class="identifier">Velocity</span><span class="special">(</span><span class="number">0.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">);</span>
+	<span class="identifier">listener</span><span class="special">.</span><span class="identifier">Orientation</span><span class="special">(</span><span class="number">0.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">,-</span><span class="number">1.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">,</span> <span class="number">1.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">);</span>
+
+	<span class="identifier">oalplus</span><span class="special">::</span><a class="link" href="quickref/buffer.html" title="Buffers">Buffer</a> <span class="identifier">buffer</span> <span class="special">=</span> <span class="identifier">alut</span><span class="special">.</span><span class="identifier">CreateBufferHelloWorld</span><span class="special">();</span> <a class="co" name="oalplus.intro.hello_world.c8" href="intro.html#oalplus.intro.hello_world.c9"><img src="../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="identifier">oalplus</span><span class="special">::</span><a class="link" href="quickref/source.html" title="Sources">Source</a> <span class="identifier">source</span><span class="special">;</span> <a class="co" name="oalplus.intro.hello_world.c10" href="intro.html#oalplus.intro.hello_world.c11"><img src="../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="identifier">source</span><span class="special">.</span><span class="identifier">Buffer</span><span class="special">(</span><span class="identifier">buffer</span><span class="special">);</span>
+	<span class="identifier">source</span><span class="special">.</span><span class="identifier">Position</span><span class="special">(</span><span class="number">0.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">,-</span><span class="number">1.0f</span><span class="special">);</span>
+
+	<span class="identifier">source</span><span class="special">.</span><span class="identifier">Play</span><span class="special">();</span> <a class="co" name="oalplus.intro.hello_world.c12" href="intro.html#oalplus.intro.hello_world.c13"><img src="../images/callouts/7.png" alt="7" border="0"></a>
+	
+	<span class="identifier">std</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">seconds</span> <span class="identifier">duration</span><span class="special">(</span><span class="number">2</span><span class="special">);</span>
+	<span class="identifier">std</span><span class="special">::</span><span class="identifier">this_thread</span><span class="special">::</span><span class="identifier">sleep_for</span><span class="special">(</span><span class="identifier">duration</span><span class="special">);</span> <a class="co" name="oalplus.intro.hello_world.c14" href="intro.html#oalplus.intro.hello_world.c15"><img src="../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.intro.hello_world.c1"></a><a href="#oalplus.intro.hello_world.c0"><img src="../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Creates a wrapper for and opens the default audio device.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.intro.hello_world.c3"></a><a href="#oalplus.intro.hello_world.c2"><img src="../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Creates a context using the device wrapper and makes it current.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.intro.hello_world.c5"></a><a href="#oalplus.intro.hello_world.c4"><img src="../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Creates an instance of a wrapper of the ALUT library.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.intro.hello_world.c7"></a><a href="#oalplus.intro.hello_world.c6"><img src="../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Creates a listener and sets its position, velocity and orientation.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.intro.hello_world.c9"></a><a href="#oalplus.intro.hello_world.c8"><img src="../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Creates a <span class="emphasis"><em>Hello World</em></span> sound and stores it into
+              a buffer.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.intro.hello_world.c11"></a><a href="#oalplus.intro.hello_world.c10"><img src="../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Create an audio source from the data in buffer and sets its position.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.intro.hello_world.c13"></a><a href="#oalplus.intro.hello_world.c12"><img src="../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Makes the source play the queued sound.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oalplus.intro.hello_world.c15"></a><a href="#oalplus.intro.hello_world.c14"><img src="../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Waits for a couple of seconds before exitting.
+            </p></td>
+</tr>
+</table></div>
+</div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
