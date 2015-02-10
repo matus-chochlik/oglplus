@@ -117,7 +117,9 @@
 [def __TextureWrapCoord [link oglplus.quickref.texture.wrap_coord TextureWrapCoord]]
 [def __TextureWrap [link oglplus.quickref.texture.wrap TextureWrap]]
 [def __TextureUnitSelector [link oglplus.quickref.texture.unit_selector TextureUnitSelector]]
+[def __TextureHandle [link oglplus.quickref.texture_handle TextureHandle]]
 [def __ImageUnitSelector [link oglplus.quickref.texture.unit_selector ImageUnitSelector]]
+[def __ImageHandle [link oglplus.quickref.texture_handle ImageHandle]]
 
 [def __Sampler [link oglplus.quickref.sampler.def Sampler]]
 [def __NoSampler [link oglplus.quickref.sampler.def NoSampler]]

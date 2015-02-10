@@ -50,6 +50,7 @@ the concept.
 [include quickref/sync.qbk]
 
 [include quickref/vertex_attrib_slot.qbk]
+[include quickref/texture_handle.qbk]
 
 [include quickref/context.qbk]
 
