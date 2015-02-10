@@ -16,6 +16,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/error/object.hpp>
+#include <oglplus/boolean.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -54,10 +55,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(DeleteVertexArrays);
 	}
 
-	static GLboolean IsA(GLuint name)
+	static Boolean IsA(GLuint name)
 	{
-		assert(name != 0);
-		GLboolean result = OGLPLUS_GLFUNC(IsVertexArray)(name);
+		Boolean result(
+			OGLPLUS_GLFUNC(IsVertexArray)(name),
+			std::nothrow
+		);
 		OGLPLUS_VERIFY_SIMPLE(IsVertexArray);
 		return result;
 	}

@@ -57,10 +57,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(DeleteRenderbuffers);
 	}
 
-	static GLboolean IsA(GLuint name)
+	static Boolean IsA(GLuint name)
 	{
-		assert(name != 0);
-		GLboolean result = OGLPLUS_GLFUNC(IsRenderbuffer)(name);
+		Boolean result(
+			OGLPLUS_GLFUNC(IsRenderbuffer)(name),
+			std::nothrow
+		);
 		OGLPLUS_VERIFY_SIMPLE(IsRenderbuffer);
 		return result;
 	}

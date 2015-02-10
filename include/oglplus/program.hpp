@@ -68,10 +68,12 @@ protected:
 		}
 	}
 
-	static GLboolean IsA(GLuint name)
+	static Boolean IsA(GLuint name)
 	{
-		assert(name != 0);
-		GLboolean result = OGLPLUS_GLFUNC(IsProgram)(name);
+		Boolean result(
+			OGLPLUS_GLFUNC(IsProgram)(name),
+			std::nothrow
+		);
 		OGLPLUS_VERIFY_SIMPLE(IsProgram);
 		return result;
 	}

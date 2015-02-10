@@ -68,10 +68,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(DeleteBuffers);
 	}
 
-	static GLboolean IsA(GLuint name)
+	static Boolean IsA(GLuint name)
 	{
-		assert(name != 0);
-		GLboolean result = OGLPLUS_GLFUNC(IsBuffer)(name);
+		Boolean result(
+			OGLPLUS_GLFUNC(IsBuffer)(name),
+			std::nothrow
+		);
 		OGLPLUS_VERIFY_SIMPLE(IsBuffer);
 		return result;
 	}

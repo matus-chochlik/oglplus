@@ -60,10 +60,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(DeleteTransformFeedbacks);
 	}
 
-	static GLboolean IsA(GLuint name)
+	static Boolean IsA(GLuint name)
 	{
-		assert(name != 0);
-		GLboolean result = OGLPLUS_GLFUNC(IsTransformFeedback)(name);
+		Boolean result(
+			OGLPLUS_GLFUNC(IsTransformFeedback)(name),
+			std::nothrow
+		);
 		OGLPLUS_VERIFY_SIMPLE(IsTransformFeedback);
 		return result;
 	}

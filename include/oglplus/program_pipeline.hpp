@@ -64,10 +64,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(DeleteProgramPipelines);
 	}
 
-	static GLboolean IsA(GLuint name)
+	static Boolean IsA(GLuint name)
 	{
-		assert(name != 0);
-		GLboolean result = OGLPLUS_GLFUNC(IsProgramPipeline)(name);
+		Boolean result(
+			OGLPLUS_GLFUNC(IsProgramPipeline)(name),
+			std::nothrow
+		);
 		OGLPLUS_VERIFY_SIMPLE(IsProgramPipeline);
 		return result;
 	}

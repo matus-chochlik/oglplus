@@ -67,10 +67,12 @@ protected:
 		}
 	}
 
-	static GLboolean IsA(GLuint name)
+	static Boolean IsA(GLuint name)
 	{
-		assert(name != 0);
-		GLboolean result = OGLPLUS_GLFUNC(IsShader)(name);
+		Boolean result(
+			OGLPLUS_GLFUNC(IsShader)(name),
+			std::nothrow
+		);
 		OGLPLUS_VERIFY_SIMPLE(IsShader);
 		return result;
 	}

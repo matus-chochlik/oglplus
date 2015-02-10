@@ -86,10 +86,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(DeleteTextures);
 	}
 
-	static GLboolean IsA(GLuint name)
+	static Boolean IsA(GLuint name)
 	{
-		assert(name != 0);
-		GLboolean result = OGLPLUS_GLFUNC(IsTexture)(name);
+		Boolean result(
+			OGLPLUS_GLFUNC(IsTexture)(name),
+			std::nothrow
+		);
 		OGLPLUS_VERIFY_SIMPLE(IsTexture);
 		return result;
 	}

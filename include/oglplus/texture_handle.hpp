@@ -77,7 +77,9 @@ public:
 };
 
 /// Returns the GL handle value from TextureHandle
-inline GLuint64 GetGLHandle(TextureHandle th)
+inline
+GLuint64 GetGLHandle(TextureHandle th)
+noexcept
 {
 	return th._handle;
 }
@@ -149,7 +151,9 @@ public:
 };
 
 /// Returns the GL handle value from ImageHandle
-inline GLuint64 GetGLHandle(ImageHandle ih)
+inline
+GLuint64 GetGLHandle(ImageHandle ih)
+noexcept
 {
 	return ih._handle;
 }
