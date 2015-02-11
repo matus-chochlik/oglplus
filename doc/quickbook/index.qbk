@@ -51,13 +51,13 @@
 
 [def __EnumValueRange [link oglplus.quickref.enums.functions EnumValueRange]]
 [def __EnumValueName [link oglplus.quickref.enums.functions EnumValueName]]
-[def __Bitfield [link oglplus.quickref.enums.bitfield Bitfield]]
 [def __EnumArray [link oglplus.quickref.enums.array EnumArray]]
 [def __OneOf [link oglplus.quickref.enums.one_of OneOf]]
 
 
 [def __oglplus_String [link oglplus.quickref.string.def oglplus::String]]
 [def __oglplus_StrCRef [link oglplus.quickref.string.ref oglplus::StrCRef]]
+[def __oglplus_Bitfield [link oglplus.quickref.bitfield oglplus::Bitfield]]
 
 [def __oglplus_Angle [link oglplus.quickref.math.angle oglplus::Angle]]
 [def __oglplus_Vector [link oglplus.quickref.math.vector oglplus::Vector]]
