@@ -6,12 +6,12 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="oglplus.org">
 <link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
-<link rel="prev" href="math.html" title="Math utilities">
+<link rel="prev" href="bitfield.html" title="Bitfield">
 <link rel="next" href="limited_value.html" title="Limited values">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="math.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="limited_value.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="bitfield.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="limited_value.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
@@ -83,96 +83,6 @@
 </table></div>
 <h4>
 <a name="oglplus.quickref.enums.h2"></a>
-          <span class="phrase"><a name="oglplus.quickref.enums.bitfield"></a></span><a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Enum
-          bitfields</a>
-        </h4>
-<p>
-          The <code class="literal">Bitfield</code> template serves as a wrapper for OpenGL
-          bitfields. It allows to combine strongly-typed enumerated values into a
-          single bitfield value.
-        </p>
-<p>
-          Library end-user applications rarely need to use this class directly. Instantiations
-          of this template are used as types for parameters in functions taking bitfields
-          based on strongly-type enumerations. When constructing a bitfield the application
-          simply passes the enumerated value or a combination of enumerated values
-          using the bitwise-or operator or initializer list.
-        </p>
-<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Bits</span><span class="special">&gt;</span>
-<span class="keyword">class</span> <span class="identifier">Bitfield</span>
-<span class="special">{</span>
-<span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">Bitfield</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c4" href="enums.html#oglplus.quickref.enums.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-	<span class="identifier">Bitfield</span><span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">_bit</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c6" href="enums.html#oglplus.quickref.enums.c7"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
-	<span class="identifier">Bitfield</span><span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">_bit_a</span><span class="special">,</span> <span class="identifier">Bits</span> <span class="identifier">_bit_b</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c8" href="enums.html#oglplus.quickref.enums.c9"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-
-<span class="preprocessor">#if</span> <span class="special">!</span><a class="link" href="config.html#oglplus.quickref.config.site.compiler" title="Compiler"><code class="literal">OGLPLUS_NO_INITIALIZER_LISTS</code></a>
-	<span class="identifier">Bitfield</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span><span class="identifier">Bits</span><span class="special">&gt;&amp;</span> <span class="identifier">bits</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c10" href="enums.html#oglplus.quickref.enums.c11"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
-<span class="preprocessor">#endif</span>
-	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iter</span><span class="special">&gt;</span>
-	<span class="identifier">Bitfield</span><span class="special">(</span><span class="identifier">Iter</span> <span class="identifier">pos</span><span class="special">,</span> <span class="identifier">Iter</span> <span class="identifier">end</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c12" href="enums.html#oglplus.quickref.enums.c13"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
-
-	<span class="keyword">friend</span> <span class="identifier">Bitfield</span> <span class="keyword">operator</span> <span class="special">|</span> <span class="special">(</span><span class="identifier">Bitfield</span> <span class="identifier">bf</span><span class="special">,</span> <span class="identifier">Bits</span> <span class="identifier">b</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c14" href="enums.html#oglplus.quickref.enums.c15"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
-	<span class="identifier">Bitfield</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">|=</span> <span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">b</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c16" href="enums.html#oglplus.quickref.enums.c17"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
-
-	<span class="keyword">bool</span> <span class="identifier">Test</span><span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">b</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.enums.c18" href="enums.html#oglplus.quickref.enums.c19"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
-<span class="special">};</span>
-
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Bits</span><span class="special">&gt;</span>
-<a class="link" href="enums.html#oglplus.quickref.enums.bitfield">Bitfield</a><span class="special">&lt;</span><span class="identifier">Bits</span><span class="special">&gt;</span> <span class="keyword">operator</span> <span class="special">|</span> <span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">b1</span><span class="special">,</span> <span class="identifier">Bits</span> <span class="identifier">b2</span><span class="special">);</span>
-</pre>
-<div class="calloutlist"><table border="0" summary="Callout list">
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c5"></a><a href="#oglplus.quickref.enums.c4"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              Constructs an empty (zero) bitfield.
-            </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c7"></a><a href="#oglplus.quickref.enums.c6"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              Construct a bitfield from a single strongly-typed enumeration value.
-            </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c9"></a><a href="#oglplus.quickref.enums.c8"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              Construct a bitfield from a pair of strongly-typed enumeration values.
-            </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c11"></a><a href="#oglplus.quickref.enums.c10"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              Construct a bitfield from an initializer list of enumeration values.
-            </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c13"></a><a href="#oglplus.quickref.enums.c12"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              Construction from a pair of iterators through <code class="literal">Bits</code>.
-            </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c15"></a><a href="#oglplus.quickref.enums.c14"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              Bitwise-or operator for combining enumeration values into a bitfield.
-            </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c17"></a><a href="#oglplus.quickref.enums.c16"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              Bitwise-or operator for combining enumeration values into a bitfield.
-            </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c19"></a><a href="#oglplus.quickref.enums.c18"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              Tests if a specified bit is set.
-            </p></td>
-</tr>
-</table></div>
-<h4>
-<a name="oglplus.quickref.enums.h3"></a>
           <span class="phrase"><a name="oglplus.quickref.enums.array"></a></span><a class="link" href="enums.html#oglplus.quickref.enums.array">Enum
           arrays</a>
         </h4>
@@ -203,7 +113,7 @@
 <span class="special">};</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.enums.h4"></a>
+<a name="oglplus.quickref.enums.h3"></a>
           <span class="phrase"><a name="oglplus.quickref.enums.one_of"></a></span><a class="link" href="enums.html#oglplus.quickref.enums.one_of">OneOf</a>
         </h4>
 <p>
@@ -230,13 +140,13 @@
 <span class="keyword">class</span> <span class="identifier">OneOf</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">OneOf</span><span class="special">(</span><span class="identifier">Enum</span><span class="special">)...;</span> <a class="co" name="oglplus.quickref.enums.c20" href="enums.html#oglplus.quickref.enums.c21"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">OneOf</span><span class="special">(</span><span class="identifier">Enum</span><span class="special">)...;</span> <a class="co" name="oglplus.quickref.enums.c4" href="enums.html#oglplus.quickref.enums.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c21"></a><a href="#oglplus.quickref.enums.c20"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c5"></a><a href="#oglplus.quickref.enums.c4"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               (<span class="emphasis"><em>Pseudocode</em></span>) - <code class="literal">OneOf</code> has a
               constructor for each enumeration type passed in the template argument
@@ -254,7 +164,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="math.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="limited_value.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="bitfield.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="limited_value.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

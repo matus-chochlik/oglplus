@@ -8,7 +8,6 @@ oglplus/quickref/error.html
 oglplus/quickref/gen_tags.html
 oglplus/quickref/ops_tags.html
 oglplus/quickref/object.html
-oglplus/quickref/boolean.html
 oglplus/quickref/buffer.html
 oglplus/quickref/buffer_map.html
 oglplus/quickref/vertex_array.html
@@ -56,6 +55,8 @@ oglplus/quickref/reset_notif_strategy.html
 oglplus/quickref/graphics_reset_status.html
 oglplus/quickref/config.html
 oglplus/quickref/math.html
+oglplus/quickref/boolean.html
+oglplus/quickref/bitfield.html
 oglplus/quickref/enums.html
 oglplus/quickref/limited_value.html
 oglplus/quickref/glsl_source.html

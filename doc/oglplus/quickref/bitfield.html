@@ -1,0 +1,126 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Bitfield</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="boolean.html" title="Boolean">
+<link rel="next" href="enums.html" title="Enumerations">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="boolean.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="enums.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.bitfield"></a><a class="link" href="bitfield.html" title="Bitfield">Bitfield</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/bitfield.hpp&gt;</code>
+        </p>
+<p>
+          The <code class="literal">Bitfield</code> template serves as a wrapper for OpenGL
+          bitfields. It allows to combine strongly-typed enumerated values into a
+          single bitfield value.
+        </p>
+<p>
+          Library end-user applications rarely need to use this class directly. Instantiations
+          of this template are used as types for parameters in functions taking bitfields
+          based on strongly-type enumerations. When constructing a bitfield the application
+          simply passes the enumerated value or a combination of enumerated values
+          using the bitwise-or operator or initializer list.
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Bits</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">Bitfield</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Bitfield</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.bitfield.c0" href="bitfield.html#oglplus.quickref.bitfield.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">Bitfield</span><span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">_bit</span><span class="special">);</span> <a class="co" name="oglplus.quickref.bitfield.c2" href="bitfield.html#oglplus.quickref.bitfield.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">Bitfield</span><span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">_bit_a</span><span class="special">,</span> <span class="identifier">Bits</span> <span class="identifier">_bit_b</span><span class="special">);</span> <a class="co" name="oglplus.quickref.bitfield.c4" href="bitfield.html#oglplus.quickref.bitfield.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+<span class="preprocessor">#if</span> <span class="special">!</span><a class="link" href="config.html#oglplus.quickref.config.site.compiler" title="Compiler"><code class="literal">OGLPLUS_NO_INITIALIZER_LISTS</code></a>
+	<span class="identifier">Bitfield</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span><span class="identifier">Bits</span><span class="special">&gt;&amp;</span> <span class="identifier">bits</span><span class="special">);</span> <a class="co" name="oglplus.quickref.bitfield.c6" href="bitfield.html#oglplus.quickref.bitfield.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="preprocessor">#endif</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iter</span><span class="special">&gt;</span>
+	<span class="identifier">Bitfield</span><span class="special">(</span><span class="identifier">Iter</span> <span class="identifier">pos</span><span class="special">,</span> <span class="identifier">Iter</span> <span class="identifier">end</span><span class="special">);</span> <a class="co" name="oglplus.quickref.bitfield.c8" href="bitfield.html#oglplus.quickref.bitfield.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="keyword">friend</span> <span class="identifier">Bitfield</span> <span class="keyword">operator</span> <span class="special">|</span> <span class="special">(</span><span class="identifier">Bitfield</span> <span class="identifier">bf</span><span class="special">,</span> <span class="identifier">Bits</span> <span class="identifier">b</span><span class="special">);</span> <a class="co" name="oglplus.quickref.bitfield.c10" href="bitfield.html#oglplus.quickref.bitfield.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="identifier">Bitfield</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">|=</span> <span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">b</span><span class="special">);</span> <a class="co" name="oglplus.quickref.bitfield.c12" href="bitfield.html#oglplus.quickref.bitfield.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">Test</span><span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">b</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.bitfield.c14" href="bitfield.html#oglplus.quickref.bitfield.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Bits</span><span class="special">&gt;</span>
+<a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><span class="identifier">Bits</span><span class="special">&gt;</span> <span class="keyword">operator</span> <span class="special">|</span> <span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">b1</span><span class="special">,</span> <span class="identifier">Bits</span> <span class="identifier">b2</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bitfield.c1"></a><a href="#oglplus.quickref.bitfield.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Constructs an empty (zero) bitfield.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bitfield.c3"></a><a href="#oglplus.quickref.bitfield.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Construct a bitfield from a single value of <code class="literal">Bits</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bitfield.c5"></a><a href="#oglplus.quickref.bitfield.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Construct a bitfield from a pair of <code class="literal">Bits</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bitfield.c7"></a><a href="#oglplus.quickref.bitfield.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Construct a bitfield from an initializer list of <code class="literal">Bits</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bitfield.c9"></a><a href="#oglplus.quickref.bitfield.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Construction from a pair of iterators through <code class="literal">Bits</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bitfield.c11"></a><a href="#oglplus.quickref.bitfield.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Bitwise-or operator for combining <code class="literal">Bits</code> into a bitfield.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bitfield.c13"></a><a href="#oglplus.quickref.bitfield.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Bitwise-or operator for combining <code class="literal">Bits</code> into a bitfield.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bitfield.c15"></a><a href="#oglplus.quickref.bitfield.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Tests if a specified bit is set.
+            </p></td>
+</tr>
+</table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="boolean.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="enums.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
