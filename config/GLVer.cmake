@@ -39,7 +39,7 @@ configure_file(
 )
 
 message(STATUS "Detecting OpenGL version")
-foreach(GL_VERSION 4_4 4_3 4_2 4_1 4_0 3_3 3_2 3_1)
+foreach(GL_VERSION 4_5 4_4 4_3 4_2 4_1 4_0 3_3 3_2 3_1)
 	if(NOT(OGLPLUS_GL_VERSION_MAJOR))
 		if(NOT("${GL_VERSION}" STRGREATER "${OGLPLUS_MAX_GL_VERSION}"))
 			gl_version_detection(GL ${GL_VERSION})

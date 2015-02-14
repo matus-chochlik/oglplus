@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,36 +13,24 @@
 #ifndef EGLPLUS_RENDERING_API_1303292057_HPP
 #define EGLPLUS_RENDERING_API_1303292057_HPP
 
-#include <eglplus/enumerations.hpp>
+#include <eglplus/enums/rendering_api.hpp>
+#include <eglplus/boolean.hpp>
 #include <eglplus/eglfunc.hpp>
 #include <eglplus/error/basic.hpp>
 
 namespace eglplus {
-
-/// Rendering API enumeration
-/**
- *  @ingroup eglplus_enumerations
- */
-EGLPLUS_ENUM_CLASS_BEGIN(RenderingAPI, EGLenum)
-#include <eglplus/enums/rendering_api.ipp>
-EGLPLUS_ENUM_CLASS_END(RenderingAPI)
-
-#if !EGLPLUS_NO_ENUM_VALUE_NAMES
-#include <eglplus/enums/rendering_api_names.ipp>
-#endif
-
-#if !EGLPLUS_ENUM_VALUE_RANGES
-#include <eglplus/enums/rendering_api_range.ipp>
-#endif
 
 /// Bind the specified rendering API
 /**
  *  @eglsymbols
  *  @eglfunref{BindAPI}
  */
-inline bool BindAPI(RenderingAPI api)
+inline Boolean BindAPI(RenderingAPI api)
 {
-	bool result = EGLPLUS_EGLFUNC(BindAPI)(EGLenum(api));
+	Boolean result(
+		EGLPLUS_EGLFUNC(BindAPI)(EGLenum(api)),
+		std::nothrow
+	);
 	EGLPLUS_VERIFY_SIMPLE(BindAPI);
 	return result;
 }

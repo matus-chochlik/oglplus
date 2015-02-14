@@ -17,7 +17,7 @@
 #include <oglplus/config/gl.hpp>
 
 #if !OGLPLUS_NO_GLFUNC_CHECKS
-#include <oglplus/error/basic.hpp>
+#include <oglplus/error/glfunc.hpp>
 #endif
 
 namespace oglplus {

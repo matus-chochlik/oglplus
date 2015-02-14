@@ -14,6 +14,7 @@
 #include <oglplus/string/empty.hpp>
 #include <oglplus/string/utf8.hpp>
 #include <oglplus/error/object.hpp>
+#include <oglplus/error/glfunc.hpp>
 #include <oglplus/error/prog_var.hpp>
 #include <oglplus/error/limit.hpp>
 #include <oglplus/data_type.hpp>
@@ -27,4 +28,5 @@
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/vertex_attrib.hpp>
+#include <oglplus/frag_data.hpp>
 #include "epilogue.ipp"

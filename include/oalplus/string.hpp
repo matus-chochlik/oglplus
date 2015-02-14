@@ -14,7 +14,7 @@
 #define OALPLUS_STRING_1303291951_HPP
 
 #include <oglplus/string/utf8.hpp>
-#include <oglplus/string/lit_tpl.hpp>
+#include <oglplus/string/ref_tpl.hpp>
 #include <oglplus/string/empty.hpp>
 
 namespace oalplus {
@@ -24,12 +24,6 @@ namespace oalplus {
  *  @ingroup oalplus_strings
  */
 typedef ::std::basic_string<ALchar> String;
-
-/// String literal wrapper
-/**
- *  @ingroup oalplus_strings
- */
-typedef ::oglplus::StrLitTpl<ALchar> StrLit;
 
 /// String const reference wrapper
 /**

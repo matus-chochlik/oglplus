@@ -27,7 +27,7 @@ namespace context {
 /**
  *  @ingroup ogl_context
  */
-class Drawing
+class DrawingOps
 {
 public:
 	/// Draws @a count of primitives from the bound array buffers
@@ -44,7 +44,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(DrawArrays)(GLenum(primitive), first, count);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawArrays,
 			Error,
 			EnumParam(primitive)
@@ -75,7 +75,7 @@ public:
 			inst_count,
 			base_instance
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawArraysInstancedBaseInstance,
 			Error,
 			EnumParam(primitive)
@@ -105,7 +105,7 @@ public:
 			count,
 			inst_count
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawArraysInstanced,
 			Error,
 			EnumParam(primitive)
@@ -131,7 +131,7 @@ public:
 			GLenum(primitive),
 			indirect
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawArraysIndirect,
 			Error,
 			EnumParam(primitive)
@@ -162,7 +162,7 @@ public:
 			const_cast<GLsizei*>(count), // remove when GLEW fixed
 			primcount
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			MultiDrawArrays,
 			Error,
 			EnumParam(primitive)
@@ -192,7 +192,7 @@ public:
 			draw_count,
 			stride
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			MultiDrawArraysIndirect,
 			Error,
 			EnumParam(primitive)
@@ -219,7 +219,7 @@ public:
 			GLenum(data_type),
 			nullptr
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawElements,
 			Error,
 			EnumParam(primitive)
@@ -247,7 +247,7 @@ public:
 			GLenum(GetDataType<T>()),
 			indices
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawElements,
 			Error,
 			EnumParam(primitive)
@@ -275,7 +275,7 @@ public:
 			nullptr,
 			instance_count
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawElementsInstanced,
 			Error,
 			EnumParam(primitive)
@@ -305,7 +305,7 @@ public:
 			indices,
 			instance_count
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawElementsInstanced,
 			Error,
 			EnumParam(primitive)
@@ -337,7 +337,7 @@ public:
 			inst_count,
 			base_instance
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawElementsInstancedBaseInstance,
 			Error,
 			EnumParam(primitive)
@@ -370,7 +370,7 @@ public:
 			inst_count,
 			base_instance
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawElementsInstancedBaseInstance,
 			Error,
 			EnumParam(primitive)
@@ -400,7 +400,7 @@ public:
 			nullptr,
 			draw_count
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			MultiDrawElements,
 			Error,
 			EnumParam(primitive)
@@ -430,7 +430,7 @@ public:
 			indices,
 			draw_count
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			MultiDrawElements,
 			Error,
 			EnumParam(primitive)
@@ -461,7 +461,7 @@ public:
 			GLenum(data_type),
 			nullptr
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawRangeElements,
 			Error,
 			EnumParam(primitive)
@@ -493,7 +493,7 @@ public:
 			GLenum(GetDataType<T>()),
 			indices
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawRangeElements,
 			Error,
 			EnumParam(primitive)
@@ -520,7 +520,7 @@ public:
 			GLenum(data_type),
 			indirect
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawElementsIndirect,
 			Error,
 			EnumParam(primitive)
@@ -552,7 +552,7 @@ public:
 			draw_count,
 			stride
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			MultiDrawElementsIndirect,
 			Error,
 			EnumParam(primitive)
@@ -583,7 +583,7 @@ public:
 			nullptr,
 			base_vertex
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawElementsBaseVertex,
 			Error,
 			EnumParam(primitive)
@@ -614,7 +614,7 @@ public:
 			indices,
 			base_vertex
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawElementsBaseVertex,
 			Error,
 			EnumParam(primitive)
@@ -647,7 +647,7 @@ public:
 			nullptr,
 			base_vertex
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawRangeElementsBaseVertex,
 			Error,
 			EnumParam(primitive)
@@ -682,7 +682,7 @@ public:
 			indices,
 			base_vertex
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawRangeElementsBaseVertex,
 			Error,
 			EnumParam(primitive)
@@ -713,7 +713,7 @@ public:
 			inst_count,
 			base_vertex
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawElementsInstancedBaseVertex,
 			Error,
 			EnumParam(primitive)
@@ -746,7 +746,7 @@ public:
 			inst_count,
 			base_vertex
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawElementsInstancedBaseVertex,
 			Error,
 			EnumParam(primitive)
@@ -777,7 +777,7 @@ public:
 			draw_count,
 			const_cast<GLint*>(base_vertex) //TODO remove const_cast
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			MultiDrawElementsBaseVertex,
 			Error,
 			EnumParam(primitive)
@@ -810,7 +810,7 @@ public:
 			draw_count,
 			const_cast<GLint*>(base_vertex) //TODO remove const_cast
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			MultiDrawElementsBaseVertex,
 			Error,
 			EnumParam(primitive)
@@ -845,7 +845,7 @@ public:
 			base_vertex,
 			base_instance
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawElementsInstancedBaseVertexBaseInstance,
 			Error,
 			EnumParam(primitive)
@@ -880,7 +880,7 @@ public:
 			base_vertex,
 			base_instance
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawElementsInstancedBaseVertexBaseInstance,
 			Error,
 			EnumParam(primitive)
@@ -898,7 +898,7 @@ public:
 			GLenum(primitive),
 			GetGLName(xfb)
 		);
-		OGLPLUS_CHECK(
+		OGLPLUS_VERIFY(
 			DrawTransformFeedback,
 			ObjectError,
 			Object(xfb).
@@ -959,7 +959,15 @@ public:
 		);
 	}
 #endif
+};
 
+/// Wrapper for primitive drawing settings
+/**
+ *  @ingroup ogl_context
+ */
+class DrawingState
+{
+public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 	/// Sets the primitive restart index
 	/**
@@ -977,6 +985,17 @@ public:
 			Error,
 			Index(index)
 		);
+	}
+
+	static GLuint PrimitiveRestartIndex(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_PRIMITIVE_RESTART_INDEX,
+			&result
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return GLuint(result);
 	}
 #endif
 

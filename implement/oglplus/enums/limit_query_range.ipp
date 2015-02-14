@@ -1,14 +1,14 @@
-/*
- *  .file oglplus/enums/limit_query_range.ipp
- *
- *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/oglplus/limit_query.txt' instead.
- *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
- *  Software License, Version 1.0. (See accompanying file
- *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
- */
-
+//  File implement/oglplus/enums/limit_query_range.ipp
+//
+//  Automatically generated file, DO NOT modify manually.
+//  Edit the source 'source/enums/oglplus/limit_query.txt'
+//  or the 'source/enums/make_enum.py' script instead.
+//
+//  Copyright 2010-2015 Matus Chochlik.
+//  Distributed under the Boost Software License, Version 1.0.
+//  See accompanying file LICENSE_1_0.txt or copy at
+//  http://www.boost.org/LICENSE_1_0.txt
+//
 namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
@@ -33,6 +33,12 @@ GL_MAX_ATOMIC_COUNTER_BUFFER_SIZE,
 #endif
 #if defined GL_MAX_CLIP_DISTANCES
 GL_MAX_CLIP_DISTANCES,
+#endif
+#if defined GL_MAX_CULL_DISTANCES
+GL_MAX_CULL_DISTANCES,
+#endif
+#if defined GL_MAX_COMBINED_CLIP_AND_CULL_DISTANCES
+GL_MAX_COMBINED_CLIP_AND_CULL_DISTANCES,
 #endif
 #if defined GL_MAX_COLOR_ATTACHMENTS
 GL_MAX_COLOR_ATTACHMENTS,
@@ -339,9 +345,6 @@ GL_MIN_PROGRAM_TEXEL_OFFSET,
 #endif
 #if defined GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET
 GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET,
-#endif
-#if defined GL_MIN_SAMPLE_SHADING_VALUE
-GL_MIN_SAMPLE_SHADING_VALUE,
 #endif
 0
 };

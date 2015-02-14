@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -7,6 +7,16 @@
 [/=============================]
 
 [include object/tags.qbk]
+[include object/type.qbk]
 [include object/name.qbk]
+[include object/desc.qbk]
+
+
+[include object/wrapper.qbk]
+
+[include object/optional.qbk]
+[include object/reference.qbk]
+[include object/sequence.qbk]
+[include object/group.qbk]
 
 [endsect]

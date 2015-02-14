@@ -85,14 +85,9 @@ public:
 
 	void Set(const char* c_str, const std::size_t size);
 
-	void Set(const StrLit& string_literal)
+	void Set(StrCRef str)
 	{
-		Set(string_literal.c_str(), string_literal.size());
-	}
-
-	void Set(const String& string)
-	{
-		Set(string.c_str(), string.size());
+		Set(str.begin(), str.size());
 	}
 
 	void Set(const CodePoint* code_points, const GLsizei length)

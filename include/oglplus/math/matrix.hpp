@@ -227,11 +227,10 @@ protected:
 
 	struct _op_mult_c
 	{
-		void operator()(
-			Matrix& t,
-			const Matrix& a,
-			const T& v
-		)
+		const Matrix& a;
+		const T& v;
+
+		void operator()(Matrix& t) const
 		{
 			for(std::size_t i=0; i!=Rows; ++i)
 			for(std::size_t j=0; j!=Cols; ++j)

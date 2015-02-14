@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,13 +13,18 @@ namespace oglplus {
 namespace shapes {
 
 OGLPLUS_LIB_FUNC
-Plane::IndexArray Plane::Indices(void) const
+Plane::IndexArray
+Plane::Indices(Plane::Default) const
 {
 	unsigned k = 0;
 	unsigned offs = 0, leap = _udiv + 1;
 
 	// primitive restart index (the count of indices)
+#ifdef GL_PRIMITIVE_RESTART
 	GLuint pri = _vdiv * (2 * leap + 1);
+#else
+    GLuint pri = _vdiv * (2 * leap + 2);
+#endif
 	IndexArray indices(pri);
 
 	for(unsigned j=0; j!=_vdiv; ++j)
@@ -29,8 +34,13 @@ Plane::IndexArray Plane::Indices(void) const
 			indices[k++] = offs + i;
 			indices[k++] = offs + i + leap;
 		}
-		indices[k++] = pri;
 		offs += leap;
+#ifdef GL_PRIMITIVE_RESTART
+		indices[k++] = pri;
+#else
+        indices[k++] = offs + leap - 1;
+        indices[k++] = offs;
+#endif
 	}
 	assert(k == indices.size());
 	//
@@ -39,17 +49,26 @@ Plane::IndexArray Plane::Indices(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions Plane::Instructions(void) const
+DrawingInstructions
+Plane::Instructions(Plane::Default) const
 {
 	auto instructions = this->MakeInstructions();
 
+#ifdef GL_PRIMITIVE_RESTART
 	GLuint pri = _vdiv * (2 * (_udiv + 1) + 1);
+#else
+	GLuint pri = _vdiv * (2 * (_udiv + 1) + 2);
+#endif
 	DrawOperation operation;
 	operation.method = DrawOperation::Method::DrawElements;
 	operation.mode = PrimitiveType::TriangleStrip;
 	operation.first = GLuint(0);
 	operation.count = pri;
+#ifdef GL_PRIMITIVE_RESTART
 	operation.restart_index = pri;
+#else
+    operation.restart_index = DrawOperation::NoRestartIndex();
+#endif
 	operation.phase = 0;
 	this->AddInstruction(instructions, operation);
 
@@ -58,7 +77,8 @@ DrawingInstructions Plane::Instructions(void) const
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
 OGLPLUS_LIB_FUNC
-Plane::IndexArray Plane::PatchIndices(void) const
+Plane::IndexArray
+Plane::Indices(Plane::Patches) const
 {
 	unsigned k = 0;
 	unsigned offs = 0, leap = _udiv + 1;
@@ -84,7 +104,8 @@ Plane::IndexArray Plane::PatchIndices(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions Plane::PatchInstructions(void) const
+DrawingInstructions
+Plane::Instructions(Plane::Patches) const
 {
 	auto instructions = this->MakeInstructions();
 
@@ -102,7 +123,8 @@ DrawingInstructions Plane::PatchInstructions(void) const
 #endif //GL_VERSION_4_0
 
 OGLPLUS_LIB_FUNC
-Plane::IndexArray Plane::EdgeIndices(void) const
+Plane::IndexArray
+Plane::Indices(Plane::Edges) const
 {
 	unsigned k = 0;
 	unsigned leap = _udiv + 1;
@@ -124,7 +146,8 @@ Plane::IndexArray Plane::EdgeIndices(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions Plane::EdgeInstructions(void) const
+DrawingInstructions
+Plane::Instructions(Plane::Edges) const
 {
 	auto instructions = this->MakeInstructions();
 

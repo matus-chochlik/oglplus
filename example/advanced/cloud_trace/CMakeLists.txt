@@ -60,7 +60,7 @@ if(
 			saver.cpp
 	)
 	target_link_libraries(cloud_trace ${${CLOUD_TRACE_GL_INIT}_LIBRARIES})
-	target_link_libraries(cloud_trace ${OGLPLUS_GL_LIBS})
+	target_link_libraries(cloud_trace ${OGLPLUS_GL_LIBRARIES})
 	target_link_libraries(cloud_trace ${THREADS_LIBRARIES})
 
 	if(${WIN32})

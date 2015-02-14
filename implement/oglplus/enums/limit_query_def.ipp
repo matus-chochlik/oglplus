@@ -1,14 +1,14 @@
-/*
- *  .file oglplus/enums/limit_query_def.ipp
- *
- *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/oglplus/limit_query.txt' instead.
- *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
- *  Software License, Version 1.0. (See accompanying file
- *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
- */
-
+//  File implement/oglplus/enums/limit_query_def.ipp
+//
+//  Automatically generated file, DO NOT modify manually.
+//  Edit the source 'source/enums/oglplus/limit_query.txt'
+//  or the 'source/enums/make_enum.py' script instead.
+//
+//  Copyright 2010-2015 Matus Chochlik.
+//  Distributed under the Boost Software License, Version 1.0.
+//  See accompanying file LICENSE_1_0.txt or copy at
+//  http://www.boost.org/LICENSE_1_0.txt
+//
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif
@@ -88,6 +88,38 @@
 #  pragma pop_macro("MaxClipDistances")
 # else
    OGLPLUS_ENUM_CLASS_VALUE(MaxClipDistances, GL_MAX_CLIP_DISTANCES)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_CULL_DISTANCES
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined MaxCullDistances
+#  pragma push_macro("MaxCullDistances")
+#  undef MaxCullDistances
+   OGLPLUS_ENUM_CLASS_VALUE(MaxCullDistances, GL_MAX_CULL_DISTANCES)
+#  pragma pop_macro("MaxCullDistances")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(MaxCullDistances, GL_MAX_CULL_DISTANCES)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_CLIP_AND_CULL_DISTANCES
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined MaxCombinedClipAndCullDistances
+#  pragma push_macro("MaxCombinedClipAndCullDistances")
+#  undef MaxCombinedClipAndCullDistances
+   OGLPLUS_ENUM_CLASS_VALUE(MaxCombinedClipAndCullDistances, GL_MAX_COMBINED_CLIP_AND_CULL_DISTANCES)
+#  pragma pop_macro("MaxCombinedClipAndCullDistances")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(MaxCombinedClipAndCullDistances, GL_MAX_COMBINED_CLIP_AND_CULL_DISTANCES)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
@@ -1720,22 +1752,6 @@
 #  pragma pop_macro("MinProgramTextureGatherOffset")
 # else
    OGLPLUS_ENUM_CLASS_VALUE(MinProgramTextureGatherOffset, GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_MIN_SAMPLE_SHADING_VALUE
-# if OGLPLUS_LIST_NEEDS_COMMA
-   OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if defined MinSampleShadingValue
-#  pragma push_macro("MinSampleShadingValue")
-#  undef MinSampleShadingValue
-   OGLPLUS_ENUM_CLASS_VALUE(MinSampleShadingValue, GL_MIN_SAMPLE_SHADING_VALUE)
-#  pragma pop_macro("MinSampleShadingValue")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(MinSampleShadingValue, GL_MIN_SAMPLE_SHADING_VALUE)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1

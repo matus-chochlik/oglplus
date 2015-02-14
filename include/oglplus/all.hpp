@@ -15,6 +15,8 @@
 
 #include <oglplus/fwd.hpp>
 
+#include <oglplus/string/ref_ios.hpp>
+
 #include <oglplus/math/angle.hpp>
 #include <oglplus/math/vector.hpp>
 #include <oglplus/math/quaternion.hpp>
@@ -32,13 +34,15 @@
 #include <oglplus/data_type.hpp>
 #include <oglplus/primitive_type.hpp>
 
-#include <oglplus/buffer.hpp>
 #include <oglplus/uniform.hpp>
 #include <oglplus/dsa/uniform.hpp>
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/vertex_attrib.hpp>
+#include <oglplus/frag_data.hpp>
+
 #include <oglplus/vertex_array.hpp>
+#include <oglplus/buffer.hpp>
 #include <oglplus/texture.hpp>
 #include <oglplus/sampler.hpp>
 #include <oglplus/framebuffer.hpp>
@@ -49,6 +53,8 @@
 #include <oglplus/program.hpp>
 #include <oglplus/shader.hpp>
 #include <oglplus/sync.hpp>
+
+#include <oglplus/named_string.hpp>
 
 #include <oglplus/object/group.hpp>
 #include <oglplus/object/array.hpp>

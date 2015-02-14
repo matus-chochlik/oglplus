@@ -4,6 +4,7 @@
 #
 cmake_minimum_required(VERSION 2.8)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set(CMAKE_DEBUG_POSTFIX d)
 
 project(OGLplus)
 
@@ -134,14 +135,16 @@ if((${OGLPLUS_USE_GLCOREARB_H}) OR (${OGLPLUS_USE_GL3_H}))
 
 	set(OGLPLUS_GL_INCLUDE_DIRS ${OPENGL_INCLUDE_DIRS})
 	include_directories(BEFORE SYSTEM ${OPENGL_INCLUDE_DIRS})
-	set(OGLPLUS_GL_LIBS ${OPENGL_LIBRARIES})
+	set(OGLPLUS_GL_LIBRARIES ${OPENGL_LIBRARIES})
+	set(OGLPLUS_GL_FOUND 1)
 
 	message(STATUS "Using native OpenGL API library")
 elseif(${OGLPLUS_USE_GLEW})
 
 	set(OGLPLUS_GL_INCLUDE_DIRS ${GLEW_INCLUDE_DIRS})
 	include_directories(BEFORE SYSTEM ${GLEW_INCLUDE_DIRS})
-	set(OGLPLUS_GL_LIBS ${GLEW_LIBRARIES} ${OPENGL_LIBRARIES})
+	set(OGLPLUS_GL_LIBRARIES ${GLEW_LIBRARIES} ${OPENGL_LIBRARIES})
+	set(OGLPLUS_GL_FOUND 1)
 
 	message(STATUS "Using GLEW as GL API library")
 else()
@@ -150,7 +153,7 @@ else()
 endif()
 
 if(${BoostConfig_FOUND})
-	include_directories(BEFORE SYSTEM BoostConfig_INCLUDE_DIRS)
+	include_directories(BEFORE SYSTEM ${BoostConfig_INCLUDE_DIRS})
 endif()
 
 # now create the site-configuration header

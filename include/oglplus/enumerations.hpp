@@ -16,12 +16,17 @@
 #include <oglplus/config/compiler.hpp>
 #include <oglplus/config/enums.hpp>
 #include <oglplus/string/def.hpp>
-#include <oglplus/string/literal.hpp>
+#include <oglplus/string/ref.hpp>
 #include <oglplus/detail/enum_class.hpp>
 #include <oglplus/detail/base_range.hpp>
 #include <vector>
 
 namespace oglplus {
+
+/// A tag template used mainly for data-type-based function overload dispatching
+template <typename GLtype>
+struct TypeTag
+{ };
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 
@@ -38,7 +43,7 @@ namespace oglplus {
  *  @ingroup enumerations
  *  @see OGLPLUS_NO_ENUM_VALUE_NAMES
  */
-StrLit EnumValueName(Enum enum_value);
+StrCRef EnumValueName(Enum enum_value);
 
 /// Returns a @c Range of values in an @p Enumeration
 /** This template function is available for the enumerated types defined by
@@ -59,19 +64,48 @@ Range<Enum> EnumValueRange(void);
 
 namespace enums {
 
+template <typename Base, typename Enum, template <Enum> class Transform>
+class EnumToClass;
+
 template <typename Enum>
 struct EnumBaseType
 {
 	typedef GLenum Type;
 };
 
-inline StrLit ValueName_(GLenum*, GLenum)
+template <typename Enum, Enum Value>
+struct EnumAssocType
 {
-	return StrLit();
+	typedef void Type;
+};
+
+template <typename Enum, Enum Value>
+struct EnumAssocGLType
+{
+	static GLfloat _get(TypeTag<float>);
+	static GLint _get(TypeTag<int>);
+	static GLboolean _get(TypeTag<bool>);
+
+	template <typename T>
+	static T _get(TypeTag<T>);
+
+	typedef decltype(_get(
+		TypeTag<
+			typename EnumAssocType<
+				Enum,
+				Value
+			>::Type
+		>()
+	)) Type;
+};
+
+inline StrCRef ValueName_(GLenum*, GLenum)
+{
+	return StrCRef();
 }
 
 template <typename EnumType>
-inline StrLit EnumValueName(EnumType enum_value)
+inline StrCRef EnumValueName(EnumType enum_value)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 	typedef typename EnumBaseType<EnumType>::Type BaseType;
@@ -81,7 +115,7 @@ inline StrLit EnumValueName(EnumType enum_value)
 	);
 #else
 	OGLPLUS_FAKE_USE(enum_value);
-	return StrLit();
+	return StrCRef();
 #endif
 }
 

@@ -52,7 +52,7 @@ oglplus::Program SpectraSharedObjects::BuildProgramWithXFB(
 		while(!types.Empty())
 		{
 			type = types.Front();
-			StrLit name = EnumValueName(type);
+			StrCRef name = EnumValueName(type);
 			name_len = name.size();
 			if(std::strncmp(line, name.c_str(), name.size()) == 0)
 				break;

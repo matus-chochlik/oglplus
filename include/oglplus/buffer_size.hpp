@@ -74,10 +74,22 @@ public:
 		return BufferSize(_size+sizeof(T)*count);
 	}
 
-	BufferSize Add(const BufferSize& bs)
+	BufferSize Add(const BufferSize& bs) const
 	{
 		return BufferSize(_size+bs._size);
 	}
+};
+
+template <typename Type>
+class BufferTypedSize
+ : public BufferSize
+{
+public:
+	BufferTypedSize(void) { }
+
+	BufferTypedSize(GLsizeiptr count)
+	 : BufferSize(int(count), (Type*)nullptr)
+	{ }
 };
 
 } // namespace oglplus

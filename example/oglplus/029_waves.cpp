@@ -33,7 +33,7 @@ public:
 	LiquidVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Liquid vertex shader"),
-		StrLit("#version 330\n"
+		StrCRef("#version 330\n"
 		"uniform vec3 GridOffset;"
 		"uniform float Time;"
 
@@ -84,7 +84,7 @@ public:
 	LiquidGeomShader(void)
 	 : GeometryShader(
 		ObjectDesc("Liquid geometry shader"),
-		StrLit("#version 330\n"
+		StrCRef("#version 330\n"
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 4) out;"
 
@@ -199,7 +199,7 @@ public:
 	LiquidFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Liquid fragment shader"),
-		StrLit("#version 330\n"
+		StrCRef("#version 330\n"
 
 		"uniform samplerCube EnvMap;"
 
@@ -294,8 +294,8 @@ protected:
 public:
 	Grid(const Program& prog, float quality)
 	 : make_grid(1.0, 16 + quality*quality*64)
-	 , grid_instr(make_grid.InstructionsWithAdjacency())
-	 , grid_indices(make_grid.IndicesWithAdjacency())
+	 , grid_instr(make_grid.Instructions())
+	 , grid_indices(make_grid.Indices())
 	{
 		// bind the VAO for the shape
 		vao.Bind();

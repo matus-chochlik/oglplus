@@ -146,11 +146,5 @@ GLint Error::Index(void) const
 #endif
 }
 
-OGLPLUS_LIB_FUNC
-const char* MissingFunction::Message(void)
-{
-	return "Function called through an invalid pointer";
-}
-
 } // namespace oglplus
 

@@ -22,11 +22,106 @@
 namespace oglplus {
 namespace context {
 
+/// Helper structure storing front and back polygon modes
+struct PolygonModes
+{
+	// private implementation detail, do not use
+	GLint _v[2];
+
+	PolygonModes(void)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
+	PolygonModes(PolygonMode mode)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_v[0] = GLenum(mode);
+		_v[1] = GLenum(mode);
+	}
+
+	PolygonModes(PolygonMode front, PolygonMode back)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_v[0] = GLenum(front);
+		_v[1] = GLenum(back);
+	}
+
+	/// The front polygon mode
+	PolygonMode Front(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return PolygonMode(GLenum(_v[0]));
+	}
+
+	/// The back polygon mode
+	PolygonMode Back(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return PolygonMode(GLenum(_v[1]));
+	}
+
+	friend
+	bool operator == (const PolygonModes& a, const PolygonModes& b)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return (a._v[0] == b._v[0]) && (a._v[1] == b._v[1]);
+	}
+
+	friend
+	bool operator != (const PolygonModes& a, const PolygonModes& b)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return (a._v[0] != b._v[0]) || (a._v[1] != b._v[1]);
+	}
+};
+
+struct PolygonOffsPara
+{
+	GLfloat _factor;
+	GLfloat _units;
+
+	PolygonOffsPara(void)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
+	PolygonOffsPara(GLfloat factor, GLfloat units)
+	OGLPLUS_NOEXCEPT(true)
+	 : _factor(factor)
+	 , _units(units)
+	{ }
+
+	GLfloat Factor(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _factor;
+	}
+
+	GLfloat Units(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _units;
+	}
+
+	friend
+	bool operator == (const PolygonOffsPara& a, const PolygonOffsPara& b)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return (a._factor == b._factor) && (a._units == b._units);
+	}
+
+	friend
+	bool operator != (const PolygonOffsPara& a, const PolygonOffsPara& b)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return (a._factor != b._factor) || (a._units != b._units);
+	}
+};
+
 /// Wrapper for the basic point, line and polygon rasterization operations
 /**
  *  @ingroup ogl_context
  */
-class Rasterization
+class RasterizationState
 {
 public:
 	/// Sets the polygon facing mode
@@ -42,6 +137,14 @@ public:
 			Error,
 			EnumParam(orientation)
 		);
+	}
+
+	static FaceOrientation FrontFace(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_FRONT_FACE, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return FaceOrientation(GLenum(result));
 	}
 
 	/// Sets the face culling mode
@@ -104,18 +207,65 @@ public:
 		);
 	}
 
-	/// Returns the face culling mode
+	/// Returns the front face rasterization mode
 	/**
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{POLYGON_MODE}
 	 */
-	static oglplus::PolygonMode PolygonMode(void)
+	static oglplus::PolygonMode PolygonModeFront(void)
+	{
+		GLint result[2];
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_POLYGON_MODE, result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return oglplus::PolygonMode(result[0]);
+	}
+
+	/// Returns the back face rasterization mode
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{POLYGON_MODE}
+	 */
+	static oglplus::PolygonMode PolygonModeBack(void)
 	{
 		GLint result[2];
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_POLYGON_MODE, result);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return oglplus::PolygonMode(result[1]);
+	}
+
+	static void PolygonMode(const PolygonModes& modes)
+	{
+		if(modes._v[0] == modes._v[1])
+		{
+			OGLPLUS_GLFUNC(PolygonMode)(
+				GL_FRONT_AND_BACK,
+				modes._v[0]
+			);
+			OGLPLUS_VERIFY_SIMPLE(PolygonMode);
+		}
+		else
+		{
+			OGLPLUS_GLFUNC(PolygonMode)(
+				GL_FRONT,
+				modes._v[0]
+			);
+			OGLPLUS_VERIFY_SIMPLE(PolygonMode);
+			OGLPLUS_GLFUNC(PolygonMode)(
+				GL_BACK,
+				modes._v[1]
+			);
+			OGLPLUS_VERIFY_SIMPLE(PolygonMode);
+		}
+	}
+
+	static PolygonModes PolygonMode(void)
+	{
+		PolygonModes result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_POLYGON_MODE, result._v);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return result;
 	}
 #endif // GL_VERSION_3_0
 
@@ -156,6 +306,20 @@ public:
 		OGLPLUS_GLFUNC(GetFloatv)(GL_POLYGON_OFFSET_UNITS, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
+	}
+
+	static void PolygonOffset(const PolygonOffsPara& para)
+	{
+		OGLPLUS_GLFUNC(PolygonOffset)(para.Factor(), para.Units());
+		OGLPLUS_VERIFY_SIMPLE(PolygonOffset);
+	}
+
+	static PolygonOffsPara PolygonOffset(void)
+	{
+		return PolygonOffsPara(
+			PolygonOffsetFactor(),
+			PolygonOffsetUnits()
+		);
 	}
 
 	/// Sets the line width
@@ -267,6 +431,40 @@ public:
 		return ProvokeMode(result);
 	}
 #endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
+	/// Returns the minimal sample shading value
+	/**
+	 *  @glverreq{4,0}
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{MIN_SAMPLE_SHADING_VALUE}
+	 */
+	static GLfloat MinSampleShading(void)
+	{
+		GLfloat result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_MIN_SAMPLE_SHADING_VALUE, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
+		return result;
+	}
+
+	/// Sets the multisampling minimal sample shading value
+	/**
+	 *  @glverreq{4,0}
+	 *  @glsymbols
+	 *  @glfunref{MinSampleShading}
+	 */
+	static void MinSampleShading(GLfloat value)
+	{
+		OGLPLUS_GLFUNC(MinSampleShading)(value);
+		OGLPLUS_VERIFY_SIMPLE(MinSampleShading);
+	}
+#endif
+};
+
+class RasterizationOps
+{
+public:
 	/// Returns the value of sample buffers
 	/**
 	 *  @glsymbols
@@ -313,35 +511,6 @@ public:
 		);
 		OGLPLUS_VERIFY_SIMPLE(GetMultisamplefv);
 		return result;
-	}
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
-	/// Returns the minimal sample shading value
-	/**
-	 *  @glverreq{4,0}
-	 *  @glsymbols
-	 *  @glfunref{Get}
-	 *  @gldefref{MIN_SAMPLE_SHADING_VALUE}
-	 */
-	static GLfloat MinSampleShading(void)
-	{
-		GLfloat result;
-		OGLPLUS_GLFUNC(GetFloatv)(GL_MIN_SAMPLE_SHADING_VALUE, &result);
-		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
-		return result;
-	}
-
-	/// Sets the multisampling minimal sample shading value
-	/**
-	 *  @glverreq{4,0}
-	 *  @glsymbols
-	 *  @glfunref{MinSampleShading}
-	 */
-	static void MinSampleShading(GLfloat value)
-	{
-		OGLPLUS_GLFUNC(MinSampleShading)(value);
-		OGLPLUS_VERIFY_SIMPLE(MinSampleShading);
 	}
 #endif
 };

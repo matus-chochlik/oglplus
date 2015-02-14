@@ -129,10 +129,7 @@ inline T ReorderToNative(Endian from, T value)
 	return ReorderFromTo(from, NativeByteOrder(), value);
 }
 
-template <
-	typename oglplus::enums::EnumValueType<Endian>::Type From,
-	typename oglplus::enums::EnumValueType<Endian>::Type To
->
+template <Endian From, Endian To>
 struct EndianReorderer;
 
 template <>
@@ -155,13 +152,10 @@ struct EndianReorderer<Endian::Little, Endian::Big>
  : EndianDoReorder
 { };
 
-template <typename oglplus::enums::EnumValueType<Endian>::Type From>
+template <Endian From>
 struct Reorder
 {
-	template <
-		typename oglplus::enums::EnumValueType<Endian>::Type To,
-		typename T
-	>
+	template <Endian To, typename T>
 	static inline T As(T value)
 	{
 		return EndianReorderer<From, To>::Reorder(value);

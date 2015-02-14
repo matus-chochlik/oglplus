@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,6 +14,7 @@
 #define EGLPLUS_DISPLAY_1305291005_HPP
 
 #include <eglplus/eglfunc.hpp>
+#include <eglplus/boolean.hpp>
 #include <eglplus/error/basic.hpp>
 
 namespace eglplus {
@@ -21,7 +22,8 @@ namespace eglplus {
 class EGLInitializer;
 
 class Display;
-::EGLDisplay GetEGLHandle(const Display&);
+::EGLDisplay GetEGLHandle(const Display&)
+OGLPLUS_NOEXCEPT(true);
 
 /// Wrapper around EGLDisplay
 class Display
@@ -29,7 +31,8 @@ class Display
 private:
 	::EGLDisplay _handle;
 
-	friend ::EGLDisplay GetEGLHandle(const Display&);
+	friend ::EGLDisplay GetEGLHandle(const Display&)
+	OGLPLUS_NOEXCEPT(true);
 public:
 	/// Opens the default display
 	/**
@@ -59,14 +62,16 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{SwapInterval}
 	 */
-	bool SwapInterval(EGLint interval)
+	Boolean SwapInterval(EGLint interval)
 	{
-		EGLBoolean result = EGLPLUS_EGLFUNC(SwapInterval)(
-			_handle,
-			interval
+		Boolean result(
+			EGLPLUS_EGLFUNC(SwapInterval)(
+				_handle,
+				interval
+			), std::nothrow
 		);
 		EGLPLUS_CHECK_SIMPLE(SwapInterval);
-		return result == EGL_TRUE;
+		return result;
 	}
 
 	/// Releases the current context without assigning a new one
@@ -74,20 +79,24 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{MakeCurrent}
 	 */
-	bool ReleaseContext(void)
+	Boolean ReleaseContext(void)
 	{
-		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
-			_handle,
-			EGL_NO_SURFACE,
-			EGL_NO_SURFACE,
-			EGL_NO_CONTEXT
+		Boolean result(
+			EGLPLUS_EGLFUNC(MakeCurrent)(
+				_handle,
+				EGL_NO_SURFACE,
+				EGL_NO_SURFACE,
+				EGL_NO_CONTEXT
+			), std::nothrow
 		);
 		EGLPLUS_CHECK_SIMPLE(MakeCurrent);
-		return result == EGL_TRUE;
+		return result;
 	}
 };
 
-inline ::EGLDisplay GetEGLHandle(const Display& display)
+inline
+::EGLDisplay GetEGLHandle(const Display& display)
+OGLPLUS_NOEXCEPT(true)
 {
 	return display._handle;
 }

@@ -69,7 +69,7 @@ public:
 		}
 
 		// Set the vertex shader source
-		vs.Source(StrLit(
+		vs.Source(
 			"#version 330\n"
 			"in vec2 Position;"
 			"out vec3 vertPosition;"
@@ -78,12 +78,12 @@ public:
 			"	vertPosition = vec3(Position, 0.0);"
 			"	gl_Position = vec4(vertPosition, 1.0);"
 			"}"
-		));
+		);
 		// compile it
 		vs.Compile();
 
 		// set the fragment shader source
-		fs.Source(StrLit(
+		fs.Source(
 			"#version 330\n"
 			"uniform sampler1D Metaballs;"
 			"in vec3 vertPosition;"
@@ -124,7 +124,7 @@ public:
 			"	}"
 			"	else fragColor = vec3(0.4, 0.4, 0.4);"
 			"}"
-		));
+		);
 		// compile it
 		fs.Compile();
 

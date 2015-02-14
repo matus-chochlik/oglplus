@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -36,7 +36,7 @@ template <>
 class ObjGenDelOps<tag::Buffer>
 {
 protected:
-	static void Gen(ALsizei count, ALuint* names)
+	static void Gen(tag::Generate, ALsizei count, ALuint* names)
 	{
 		assert(names != nullptr);
 		OALPLUS_ALFUNC(GenBuffers)(count, names);
@@ -68,11 +68,46 @@ protected:
  */
 template <>
 class ObjectOps<tag::DirectState, tag::Buffer>
- : public ObjectName<tag::Buffer>
+ : public BufferName
 {
 protected:
-	ObjectOps(void) { }
+	ObjectOps(BufferName name)
+	OALPLUS_NOEXCEPT(true)
+	 : BufferName(name)
+	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef BufferName  _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 	/// Specifies the buffer data
 	/**
 	 *  @alsymbols
@@ -86,7 +121,7 @@ public:
 	)
 	{
 		OALPLUS_ALFUNC(BufferData)(
-			ALuint(this->_name),
+			ALuint(_obj_name()),
 			ALenum(format),
 			data,
 			size,
@@ -109,7 +144,7 @@ public:
 	{
 		ALint result = 0;
 		OALPLUS_ALFUNC(GetBufferiv)(
-			_name,
+			_obj_name(),
 			AL_FREQUENCY,
 			&result
 		);
@@ -131,7 +166,7 @@ public:
 	{
 		ALint result = 0;
 		OALPLUS_ALFUNC(GetBufferiv)(
-			_name,
+			_obj_name(),
 			AL_SIZE,
 			&result
 		);
@@ -153,7 +188,7 @@ public:
 	{
 		ALint result = 0;
 		OALPLUS_ALFUNC(GetBufferiv)(
-			_name,
+			_obj_name(),
 			AL_BITS,
 			&result
 		);
@@ -175,7 +210,7 @@ public:
 	{
 		ALint result = 0;
 		OALPLUS_ALFUNC(GetBufferiv)(
-			_name,
+			_obj_name(),
 			AL_CHANNELS,
 			&result
 		);
@@ -218,12 +253,19 @@ class ObjGenDelOps<oalplus::tag::Buffer>
 template <typename OpsTag>
 class ObjectOps<OpsTag, oalplus::tag::Buffer>
  : public oalplus::ObjectOps<OpsTag, oalplus::tag::Buffer>
-{ };
+{
+protected:
+	ObjectOps(ObjectName<oalplus::tag::Buffer> name)
+	OALPLUS_NOEXCEPT(true)
+	 : oalplus::ObjectOps<OpsTag, oalplus::tag::Buffer>(name)
+	{ }
+};
 
 } // namespace oglplus
 namespace oalplus {
 
-typedef oglplus::ObjectOps<tag::DirectState, tag::Buffer> BufferOps;
+typedef oglplus::ObjectOps<tag::DirectState, tag::Buffer>
+	BufferOps;
 
 /// An @ref oalplus_object encapsulating the OpenAL buffer functionality
 /**

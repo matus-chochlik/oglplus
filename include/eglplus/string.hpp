@@ -13,7 +13,6 @@
 #ifndef EGLPLUS_STRING_1303291951_HPP
 #define EGLPLUS_STRING_1303291951_HPP
 
-#include <oglplus/string/lit_tpl.hpp>
 #include <oglplus/string/ref_tpl.hpp>
 #include <string>
 
@@ -24,12 +23,6 @@ namespace eglplus {
  *  @ingroup eglplus_strings
  */
 typedef ::std::basic_string<char> String;
-
-/// String literal wrapper
-/**
- *  @ingroup eglplus_strings
- */
-typedef ::oglplus::StrLitTpl<char> StrLit;
 
 /// String const reference wrapper
 /**

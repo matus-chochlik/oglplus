@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,27 +13,20 @@
 #ifndef OGLPLUS_LIMIT_QUERY_1202091518_HPP
 #define OGLPLUS_LIMIT_QUERY_1202091518_HPP
 
-#include <oglplus/enumerations.hpp>
+#include <cstdint>
+#include <oglplus/enums/limit_query.hpp>
 
 namespace oglplus {
+namespace enums {
+template <LimitQuery Query>
+struct EnumAssocType<LimitQuery, Query>
+{
+	typedef int Type;
+};
+} // namespace enums
 
-/// Enumeration of implementation-dependent limit queries
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{LogicOp}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(LimitQuery, GLenum)
-#include <oglplus/enums/limit_query.ipp>
-OGLPLUS_ENUM_CLASS_END(LimitQuery)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/limit_query_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/limit_query_range.ipp>
+#if !OGLPLUS_NO_ENUM_VALUE_CLASSES
+#include <oglplus/enums/limit_query_class.ipp>
 #endif
 
 } // namespace oglplus

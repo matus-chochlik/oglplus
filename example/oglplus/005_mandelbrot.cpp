@@ -38,7 +38,7 @@ public:
 		// Vertex shader
 		VertexShader vs;
 		// Set the vertex shader source
-		vs.Source(StrLit(" \
+		vs.Source(StrCRef(" \
 			#version 330\n \
 			in vec2 Position; \
 			in vec2 Coord; \
@@ -49,13 +49,11 @@ public:
 				gl_Position = vec4(Position, 0.0, 1.0); \
 			} \
 		"));
-		// compile it
-		vs.Compile();
 
 		// Fragment shader
 		FragmentShader fs;
 		// set the fragment shader source
-		fs.Source(StrLit(" \
+		fs.Source(StrCRef(" \
 			#version 330\n \
 			in vec2 vertCoord; \
 			out vec4 fragColor; \
@@ -90,14 +88,12 @@ public:
 				} \
 			} \
 		"));
-		// compile it
-		fs.Compile();
 
 		// attach the shaders to the program
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
-		// link and use it
-		prog.Link();
+		// compile, link and use it
+		prog.Build();
 		prog.Use();
 
 		// bind the VAO for the rectangle

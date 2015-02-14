@@ -27,6 +27,7 @@ namespace shapes {
 /// Class providing data and instructions for rendering of a "spiral sphere"
 class SpiralSphere
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	const double _radius, _thickness;
@@ -228,10 +229,10 @@ public:
 	typedef std::vector<GLushort> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const;
+	IndexArray Indices(Default = Default()) const;
 
 	/// Returns the instructions for rendering
-	DrawingInstructions Instructions(void) const;
+	DrawingInstructions Instructions(Default = Default()) const;
 };
 
 } // shapes

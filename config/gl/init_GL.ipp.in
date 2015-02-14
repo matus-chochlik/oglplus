@@ -41,8 +41,16 @@ bool oglplus_config_test_gl_func(Func func)
 			<< #NAME \
 			<< " not available." \
 			<< std::endl; \
-		return false; \
+		++missing_gl_symbols; \
 	}
+
+#define OGLPLUS_CONFIG_MISSING_GL_CONST(NAME) \
+		std::cerr \
+			<< "Required constant: " \
+			<< #NAME \
+			<< " not available." \
+			<< std::endl; \
+		++missing_gl_symbols; \
 
 bool do_query_gl(void);
 
@@ -136,10 +144,8 @@ bool query_gl_GLFW(void)
 	return result;
 }
 #elif @GLUT_FOUND@
-bool query_gl_GLUT(void)
+bool query_gl_GLUT(int argc, char **argv)
 {
-	int argc = 0;
-	char** argv = nullptr;
 	glutInit(&argc, argv);
 	glutInitDisplayMode(
 		GLUT_DOUBLE|
@@ -183,7 +189,7 @@ bool query_gl_SDL(void)
 }
 #endif
 
-bool query_gl(void)
+bool query_gl(int argc, char **argv)
 {
 #if @GLX_FOUND@
 	return query_gl_GLX();
@@ -192,7 +198,7 @@ bool query_gl(void)
 #elif @GLFW_FOUND@
 	return query_gl_GLFW();
 #elif @GLUT_FOUND@
-	return query_gl_GLUT();
+	return query_gl_GLUT(argc,argv);
 #elif @SDL_FOUND@
 	return query_gl_SDL();
 #else
@@ -200,7 +206,7 @@ bool query_gl(void)
 #endif
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
-	return query_gl()?0:1;
+	return query_gl(argc,argv)?0:1;
 }

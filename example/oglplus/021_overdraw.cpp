@@ -17,10 +17,10 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/dsa/buffer.hpp>
-#include <oglplus/dsa/framebuffer.hpp>
-#include <oglplus/dsa/renderbuffer.hpp>
-#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/ext/buffer.hpp>
+#include <oglplus/dsa/ext/framebuffer.hpp>
+#include <oglplus/dsa/ext/renderbuffer.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
 #include <oglplus/dsa/uniform.hpp>
 
 #include <oglplus/images/image_spec.hpp>
@@ -174,11 +174,11 @@ private:
 	DrawProg draw_prog;
 
 	shapes::ShapeWrapper screen, cube;
-	DSABuffer cube_pos;
+	DSABufferEXT cube_pos;
 
-	DSATexture palette, tex;
-	DSAFramebuffer fbo;
-	DSARenderbuffer rbo;
+	DSATextureEXT palette, tex;
+	DSAFramebufferEXT fbo;
+	DSARenderbufferEXT rbo;
 	DefaultFramebuffer dfb;
 public:
 	CubeExample(void)

@@ -52,15 +52,15 @@ public:
 		Vec3f(100.0f,   0.0f,   0.0f),
 		Vec3f(  0.0f,   0.0f,-100.0f),
 		50, 50
-	), plane_instr(make_plane.PatchInstructions())
-	 , plane_indices(make_plane.PatchIndices())
+	), plane_instr(make_plane.Instructions(shapes::DrawMode::Patches()))
+	 , plane_indices(make_plane.Indices(shapes::DrawMode::Patches()))
 	 , camera_matrix(prog, "CameraMatrix")
 	 , camera_position(prog, "CameraPosition")
 	 , anim_time(prog, "Time")
 	 , prev_period(-1)
 	{
 		VertexShader vs(ObjectDesc("Vertex"));
-		vs.Source(StrLit(
+		vs.Source(
 			"#version 330\n"
 
 			"uniform vec3 CameraPosition;"
@@ -75,8 +75,7 @@ public:
 			"	vertPosition = Position;"
 			"	vertDistance = distance(CameraPosition, Position);"
 			"}"
-		));
-		vs.Compile();
+		);
 		prog.AttachShader(vs);
 
 		TessControlShader cs(ObjectDesc("TessControl"));
@@ -123,7 +122,6 @@ public:
 			"	}"
 			"}"
 		);
-		cs.Compile();
 		prog.AttachShader(cs);
 
 		TessEvaluationShader es(ObjectDesc("TessEvaluation"));
@@ -189,11 +187,10 @@ public:
 			"	teevDistance = distance(CameraPosition, Pos);"
 			"}"
 		);
-		es.Compile();
 		prog.AttachShader(es);
 
 		FragmentShader fs(ObjectDesc("Fragment"));
-		fs.Source(StrLit(
+		fs.Source(
 			"#version 330\n"
 
 			"uniform samplerCube EnvMap;"
@@ -226,11 +223,10 @@ public:
 
 			"	fragColor = mix(WaveColor, FogColor, 1.0-Dim);"
 			"}"
-		));
-		fs.Compile();
+		);
 		prog.AttachShader(fs);
 
-		prog.Link();
+		prog.Build();
 		gl.Use(prog);
 
 		gl.Bind(plane);

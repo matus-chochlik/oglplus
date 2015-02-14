@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -768,7 +768,8 @@ std::vector<GLfloat> WickerTorus::_tex_coords(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions WickerTorus::Instructions(void) const
+DrawingInstructions
+WickerTorus::Instructions(WickerTorus::Default) const
 {
 	auto instructions = this->MakeInstructions();
 	unsigned strip = 2*(_sections*3 + 1);
@@ -814,7 +815,8 @@ DrawingInstructions WickerTorus::Instructions(void) const
 }
 
 OGLPLUS_LIB_FUNC
-WickerTorus::IndexArray WickerTorus::EdgeIndices(void) const
+WickerTorus::IndexArray
+WickerTorus::Indices(WickerTorus::Edges) const
 {
 	const unsigned leap_1 = 2*_rings*(_sections*3 + 1);
 	const unsigned leap_2 = 2*_sections*(_rings*2 + 1);
@@ -861,7 +863,8 @@ WickerTorus::IndexArray WickerTorus::EdgeIndices(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions WickerTorus::EdgeInstructions(void) const
+DrawingInstructions
+WickerTorus::Instructions(WickerTorus::Edges) const
 {
 	auto instructions = this->MakeInstructions();
 

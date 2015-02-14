@@ -1,0 +1,42 @@
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
+[/ Software License, Version 1.0. (See accompanying file            ]
+[/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
+
+[chapter Quick reference
+	[quickbook 1.6]
+	[id oalplus.quickref]
+]
+
+[section:intro Introduction]
+
+This quick reference describes the public API of the __OALplus__ library.
+The implementation details, i.e. parts of of OALplus not listed in this
+reference should not be used by the library users and are subject to
+change without any prior notice.
+
+[endsect]
+
+[include quickref/string.qbk]
+[include quickref/error.qbk]
+
+[include quickref/gen_tags.qbk]
+[include quickref/ops_tags.qbk]
+[include quickref/object.qbk]
+
+[include quickref/attrib_list.qbk]
+
+[include quickref/device.qbk]
+[include quickref/context.qbk]
+
+[include quickref/buffer.qbk]
+[include quickref/source.qbk]
+[include quickref/listener.qbk]
+
+[include quickref/context_attrib.qbk]
+[include quickref/data_format.qbk]
+[include quickref/distance_model.qbk]
+[include quickref/source_state.qbk]
+[include quickref/source_type.qbk]
+[include quickref/string_query.qbk]
+
+[include quickref/math.qbk]

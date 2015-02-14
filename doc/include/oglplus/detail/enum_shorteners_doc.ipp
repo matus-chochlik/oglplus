@@ -5412,6 +5412,39 @@ template <typename Enum> friend bool operator==(Enum value, Debug);
 template <typename Enum> friend bool operator!=(Enum value, Debug);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c DebugOutputSynchronous value.
+/**
+ *  @see @ref oglplus::Capability "Capability"
+ *
+ *  @glsymbols
+ *  @gldefref{DEBUG_OUTPUT_SYNCHRONOUS}
+ *
+ *  @ingroup smart_enums
+ */
+struct DebugOutputSynchronous {
+
+/// Conversion to any @p Enum type having the DebugOutputSynchronous value.
+/** Instances of the @ref oglplus::smart_enums::DebugOutputSynchronous "DebugOutputSynchronous"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c DebugOutputSynchronous value.
+ */
+template <typename Enum, Enum = Enum::DebugOutputSynchronous> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the DebugOutputSynchronous value.
+/** Instances of the @c smart_enums::DebugOutputSynchronous type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c DebugOutputSynchronous value.
+ */
+template <typename Enum> friend bool operator==(Enum value, DebugOutputSynchronous);
+
+/// Non-equality comparison with any @p Enum type having the DebugOutputSynchronous value.
+/** Instances of the @c smart_enums::DebugOutputSynchronous type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c DebugOutputSynchronous value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, DebugOutputSynchronous);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Decr value.
 /**
  *  @see @ref oglplus::StencilOperation "StencilOperation"
@@ -23057,6 +23090,39 @@ template <typename Enum> friend bool operator==(Enum value, SampleCoverage);
 template <typename Enum> friend bool operator!=(Enum value, SampleCoverage);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c SampleMask value.
+/**
+ *  @see @ref oglplus::Capability "Capability"
+ *
+ *  @glsymbols
+ *  @gldefref{SAMPLE_MASK}
+ *
+ *  @ingroup smart_enums
+ */
+struct SampleMask {
+
+/// Conversion to any @p Enum type having the SampleMask value.
+/** Instances of the @ref oglplus::smart_enums::SampleMask "SampleMask"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c SampleMask value.
+ */
+template <typename Enum, Enum = Enum::SampleMask> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the SampleMask value.
+/** Instances of the @c smart_enums::SampleMask type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c SampleMask value.
+ */
+template <typename Enum> friend bool operator==(Enum value, SampleMask);
+
+/// Non-equality comparison with any @p Enum type having the SampleMask value.
+/** Instances of the @c smart_enums::SampleMask type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c SampleMask value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, SampleMask);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Sampler value.
 /**
  *  @see @ref oglplus::ObjectType "ObjectType"
@@ -24015,6 +24081,39 @@ template <typename Enum> friend bool operator==(Enum value, ShaderImageAccess);
  *  the @c ShaderImageAccess value.
  */
 template <typename Enum> friend bool operator!=(Enum value, ShaderImageAccess);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ShaderInclude value.
+/**
+ *  @see @ref oglplus::NamedStringType "NamedStringType"
+ *
+ *  @glsymbols
+ *  @gldefref{SHADER_INCLUDE_ARB}
+ *
+ *  @ingroup smart_enums
+ */
+struct ShaderInclude {
+
+/// Conversion to any @p Enum type having the ShaderInclude value.
+/** Instances of the @ref oglplus::smart_enums::ShaderInclude "ShaderInclude"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ShaderInclude value.
+ */
+template <typename Enum, Enum = Enum::ShaderInclude> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ShaderInclude value.
+/** Instances of the @c smart_enums::ShaderInclude type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ShaderInclude value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ShaderInclude);
+
+/// Non-equality comparison with any @p Enum type having the ShaderInclude value.
+/** Instances of the @c smart_enums::ShaderInclude type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ShaderInclude value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ShaderInclude);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ShaderStorage value.

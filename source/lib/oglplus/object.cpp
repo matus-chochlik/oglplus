@@ -15,10 +15,11 @@
 #include <oglplus/string/empty.hpp>
 #include <oglplus/string/utf8.hpp>
 #include <oglplus/error/basic.hpp>
+#include <oglplus/error/glfunc.hpp>
 #include <oglplus/error/limit.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/error/framebuffer.hpp>
-#include <oglplus/compare_func.hpp>
+#include <oglplus/compare_function.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/access_specifier.hpp>
@@ -43,11 +44,13 @@
 
 #include <oglplus/object/desc.hpp>
 #include <oglplus/texture.hpp>
+#include <oglplus/sampler.hpp>
 #include <oglplus/buffer.hpp>
 #include <oglplus/framebuffer.hpp>
 #include <oglplus/renderbuffer.hpp>
 #include <oglplus/transform_feedback.hpp>
-#include <oglplus/dsa/framebuffer.hpp>
-#include <oglplus/dsa/renderbuffer.hpp>
-#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/ext/buffer.hpp>
+#include <oglplus/dsa/ext/framebuffer.hpp>
+#include <oglplus/dsa/ext/renderbuffer.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
 #include "epilogue.ipp"

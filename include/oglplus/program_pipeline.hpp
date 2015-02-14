@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,6 +14,7 @@
 #define OGLPLUS_PROGRAM_PIPELINE_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/program_pipeline_stage.hpp>
 #include <oglplus/object/wrapper.hpp>
@@ -40,12 +41,21 @@ template <>
 class ObjGenDelOps<tag::ProgramPipeline>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenProgramPipelines)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenProgramPipelines);
 	}
+
+#if GL_VERSION_4_5 || GL_ARB_direct_state_access
+	static void Gen(tag::Create, GLsizei count, GLuint* names)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(CreateProgramPipelines)(count, names);
+		OGLPLUS_CHECK_SIMPLE(CreateProgramPipelines);
+	}
+#endif
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
@@ -116,8 +126,48 @@ class ObjCommonOps<tag::ProgramPipeline>
  , public ObjBindingOps<tag::ProgramPipeline>
 {
 protected:
-	ObjCommonOps(void){ }
+	ObjCommonOps(ProgramPipelineName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ProgramPipelineName(name)
+	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+#else
+	typedef ProgramPipelineName _base1;
+	typedef ObjBindingOps<tag::ProgramPipeline> _base2;
+
+	ObjCommonOps(ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base1(static_cast<_base1&&>(temp))
+	 , _base2(static_cast<_base2&&>(temp))
+	{ }
+
+	ObjCommonOps(const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base1(static_cast<const _base1&>(that))
+	 , _base2(static_cast<const _base2&>(that))
+	{ }
+
+	ObjCommonOps& operator = (ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base1::operator = (static_cast<_base1&&>(temp));
+		_base2::operator = (static_cast<_base2&&>(temp));
+		return *this;
+	}
+
+	ObjCommonOps& operator = (const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base1::operator = (static_cast<const _base1&>(that));
+		_base2::operator = (static_cast<const _base2&>(that));
+		return *this;
+	}
+#endif
 	using ObjBindingOps<tag::ProgramPipeline>::Bind;
 
 	/// Binds this program pipeline object
@@ -139,8 +189,43 @@ class ObjectOps<tag::DirectState, tag::ProgramPipeline>
  : public ObjZeroOps<tag::DirectState, tag::ProgramPipeline>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(ProgramPipelineName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectState, tag::ProgramPipeline>(name)
+	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef ObjZeroOps<tag::DirectState, tag::ProgramPipeline> _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 	/// Types related to ProgramPipeline
 	struct Properties
 	{
@@ -151,7 +236,11 @@ public:
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result;
-		OGLPLUS_GLFUNC(GetProgramPipelineiv)(_name, query, &result);
+		OGLPLUS_GLFUNC(GetProgramPipelineiv)(
+			_obj_name(),
+			query,
+			&result
+		);
 		OGLPLUS_VERIFY(
 			GetProgramPipelineiv,
 			ObjectError,
@@ -187,9 +276,8 @@ public:
 	 */
 	ProgPLUseStages UseStages(ProgramName program) const
 	{
-		assert(_name != 0);
 		return ProgPLUseStages(
-			_name,
+			_obj_name(),
 			GetGLName(program),
 			0
 		);
@@ -205,9 +293,8 @@ public:
 		ProgramName program
 	) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(UseProgramStages)(
-			_name,
+			_obj_name(),
 			GLbitfield(stages),
 			GetGLName(program)
 		);
@@ -226,9 +313,8 @@ public:
 	 */
 	void UseAllStages(ProgramName program) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(UseProgramStages)(
-			_name,
+			_obj_name(),
 			GL_ALL_SHADER_BITS,
 			GetGLName(program)
 		);
@@ -255,9 +341,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetProgramPipeline}
 	 */
-	bool IsValid(void) const
+	Boolean IsValid(void) const
 	{
-		return GetIntParam(GL_VALIDATE_STATUS) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_VALIDATE_STATUS),
+			std::nothrow
+		);
 	}
 
 	/// Validates this program pipeline
@@ -277,9 +366,8 @@ public:
 	 */
 	void ActiveShaderProgram(ProgramName program) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(ActiveShaderProgram)(
-			_name,
+			_obj_name(),
 			GetGLName(program)
 		);
 		OGLPLUS_CHECK(

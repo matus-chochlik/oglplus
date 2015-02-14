@@ -30,7 +30,7 @@ struct GLSLtoCppTypeMatcher;
 
 OGLPLUS_ENUM_CLASS_FWD(SLDataType, GLenum)
 
-template <typename enums::EnumValueType<oglplus::SLDataType>::Type>
+template <oglplus::SLDataType>
 struct SLtoCpp;
 
 template <typename T>
@@ -42,7 +42,7 @@ struct GLSLtoCppTypeMatcher
 	}
 };
 
-template <typename enums::EnumValueType<oglplus::SLDataType>::Type SLType>
+template <oglplus::SLDataType SLType>
 struct GLSLtoCppTypeMatcher<oglplus::SLtoCpp<SLType> >
 {
 	static bool _matches(GLenum sl_type)

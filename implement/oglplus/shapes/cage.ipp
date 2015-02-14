@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -47,6 +47,7 @@ GLuint Cage::_vert_count(void) const
 OGLPLUS_LIB_FUNC
 GLuint Cage::_index_count(void) const
 {
+#ifdef GL_PRIMITIVE_RESTART
 	return 6*11+
 		(_divs.z()-1)*2*5*2+
 		(_divs.x()-1)*4*5*2+
@@ -58,6 +59,19 @@ GLuint Cage::_index_count(void) const
 		(_divs.x()*_divs.y())*40+
 		(_divs.x()*_divs.z())*40+
 		(_divs.y()*_divs.z())*40;
+#else
+	return 6*12+
+		(_divs.z()-1)*2*6*2+
+		(_divs.x()-1)*4*6*2+
+
+		(_divs.y()-1)*_divs.z()*2*6*2+
+		(_divs.z()-1)*_divs.x()*2*6*2+
+		(_divs.y()-1)*_divs.x()*2*6*2+
+
+		(_divs.x()*_divs.y())*48+
+		(_divs.x()*_divs.z())*48+
+		(_divs.y()*_divs.z())*48;
+#endif
 }
 
 OGLPLUS_LIB_FUNC
@@ -424,7 +438,8 @@ std::vector<GLfloat> Cage::_tex_coords(void) const
 }
 
 OGLPLUS_LIB_FUNC
-Cage::IndexArray Cage::Indices(void) const
+Cage::IndexArray
+Cage::Indices(Cage::Default) const
 {
 	IndexArray indices(_index_count(), _pri());
 	auto i=indices.begin();
@@ -437,9 +452,15 @@ Cage::IndexArray Cage::Indices(void) const
 		{
 			*i++ = offs + v%8;
 		}
-		++i; // end of strip
 
 		offs += 8;
+		// end of strip
+#ifdef GL_PRIMITIVE_RESTART
+		++i;
+#else
+		*i++ = offs - 1;
+		*i++ = offs;
+#endif
 
 		GLuint dx = _face_divs(f, 0);
 		for(GLuint s=0; s!=2; ++s)
@@ -448,8 +469,14 @@ Cage::IndexArray Cage::Indices(void) const
 			{
 				for(GLuint v=0; v!=4; ++v)
 					*i++ = offs + v;
-				++i; // end of strip
 				offs += 4;
+				// end of strip
+#ifdef GL_PRIMITIVE_RESTART
+				++i;
+#else
+				*i++ = offs - 1;
+				*i++ = offs;
+#endif
 			}
 		}
 
@@ -462,8 +489,14 @@ Cage::IndexArray Cage::Indices(void) const
 				{
 					for(GLuint v=0; v!=4; ++v)
 						*i++ = offs + v;
-					++i; // end of strip
 					offs += 4;
+					// end of strip
+#ifdef GL_PRIMITIVE_RESTART
+					++i;
+#else
+					*i++ = offs - 1;
+					*i++ = offs;
+#endif
 				}
 			}
 		}
@@ -476,8 +509,14 @@ Cage::IndexArray Cage::Indices(void) const
 				{
 					for(GLuint w=0; w!=4; ++w)
 						*i++ = offs + w;
-					++i; // end of strip
 					offs += 4;
+					// end of strip
+#ifdef GL_PRIMITIVE_RESTART
+					++i;
+#else
+					*i++ = offs - 1;
+					*i++ = offs;
+#endif
 				}
 			}
 		}
@@ -487,14 +526,19 @@ Cage::IndexArray Cage::Indices(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions Cage::Instructions(void) const
+DrawingInstructions
+Cage::Instructions(Cage::Default) const
 {
 	DrawOperation operation;
 	operation.method = DrawOperation::Method::DrawElements;
 	operation.mode = PrimitiveType::TriangleStrip;
 	operation.first = 0;
 	operation.count = _index_count();
+#ifdef GL_PRIMITIVE_RESTART
 	operation.restart_index = _pri();
+#else
+	operation.restart_index = DrawOperation::NoRestartIndex();
+#endif
 	operation.phase = 0;
 
 	return this->MakeInstructions(operation);

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -18,9 +18,15 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_ARB_direct_state_access
 
-/// Class wrapping renderbuffer-related functionality with direct state access
+template <>
+struct ObjGenTag<tag::DirectState, tag::Buffer>
+{
+	typedef tag::Create Type;
+};
+
+/// Class wrapping buffer-related functionality with direct state access
 /** @note Do not use this class directly, use DSABuffer instead.
  *
  */
@@ -29,8 +35,43 @@ class ObjectOps<tag::DirectState, tag::Buffer>
  : public ObjZeroOps<tag::DirectState, tag::Buffer>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(BufferName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectState, tag::Buffer>(name)
+	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef ObjZeroOps<tag::DirectState, tag::Buffer> _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 	GLint GetIntParam(GLenum query) const;
 
 	/// Types related to Buffer
@@ -54,9 +95,12 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	bool Mapped(void) const
+	Boolean Mapped(void) const
 	{
-		return GetIntParam(GL_BUFFER_MAPPED) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_BUFFER_MAPPED),
+			std::nothrow
+		);
 	}
 
 	/// Allocates buffer storage to the specified size without any data
@@ -64,7 +108,7 @@ public:
 	 *  to the specifies @p size, without uploading any data.
 	 *
 	 *  @glsymbols
-	 *  @glfunref{NamedBufferDataEXT}
+	 *  @glfunref{NamedBufferData}
 	 *
 	 *  @see SubData
 	 *  @throws Error
@@ -74,14 +118,14 @@ public:
 		BufferUsage usage = BufferUsage::StaticDraw
 	)
 	{
-		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
-			_name,
+		OGLPLUS_GLFUNC(NamedBufferData)(
+			_obj_name(),
 			size.Get(),
 			nullptr,
 			GLenum(usage)
 		);
 		OGLPLUS_CHECK(
-			NamedBufferDataEXT,
+			NamedBufferData,
 			ObjectError,
 			Object(*this).
 			EnumParam(usage)
@@ -101,14 +145,14 @@ public:
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
 	{
-		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
-			_name,
+		OGLPLUS_GLFUNC(NamedBufferData)(
+			_obj_name(),
 			GLsizei(data.Size()),
 			data.Data(),
 			GLenum(usage)
 		);
 		OGLPLUS_CHECK(
-			NamedBufferDataEXT,
+			NamedBufferData,
 			ObjectError,
 			Object(*this).
 			EnumParam(usage)
@@ -163,14 +207,14 @@ public:
 		const BufferData& data
 	) const
 	{
-		OGLPLUS_GLFUNC(NamedBufferSubDataEXT)(
-			_name,
+		OGLPLUS_GLFUNC(NamedBufferSubData)(
+			_obj_name(),
 			GLintptr(offset.Get()),
 			GLsizei(data.Size()),
 			data.Data()
 		);
 		OGLPLUS_CHECK(
-			NamedBufferSubDataEXT,
+			NamedBufferSubData,
 			ObjectError,
 			Object(*this)
 		);
@@ -209,7 +253,7 @@ public:
 		BufferSize size
 	)
 	{
-		OGLPLUS_GLFUNC(NamedCopyBufferSubDataEXT)(
+		OGLPLUS_GLFUNC(CopyNamedBufferSubData)(
 			GetGLName(readbuffer),
 			GetGLName(writebuffer),
 			GLintptr(readoffset.Get()),
@@ -217,7 +261,7 @@ public:
 			GLsizeiptr(size.Get())
 		);
 		OGLPLUS_CHECK(
-			NamedCopyBufferSubDataEXT,
+			CopyNamedBufferSubData,
 			ObjectPairError,
 			Subject(readbuffer).
 			Object(writebuffer)
@@ -225,7 +269,6 @@ public:
 	}
 #endif // copy buffer
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
 	/// Clear the buffer data
 	/**
 	 *  @see Data
@@ -244,15 +287,15 @@ public:
 		const GLtype* data
 	) const
 	{
-		OGLPLUS_GLFUNC(ClearNamedBufferDataEXT)(
-			_name,
+		OGLPLUS_GLFUNC(ClearNamedBufferData)(
+			_obj_name(),
 			GLenum(internal_format),
 			GLenum(format),
 			GLenum(GetDataType<GLtype>()),
 			data
 		);
 		OGLPLUS_CHECK(
-			ClearNamedBufferDataEXT,
+			ClearNamedBufferData,
 			ObjectError,
 			Object(*this).
 			EnumParam(internal_format)
@@ -279,8 +322,8 @@ public:
 		const GLtype* data
 	) const
 	{
-		OGLPLUS_GLFUNC(ClearNamedBufferSubDataEXT)(
-			_name,
+		OGLPLUS_GLFUNC(ClearNamedBufferSubData)(
+			_obj_name(),
 			GLenum(internal_format),
 			GLintptr(offset.Get()),
 			GLsizeiptr(size.Get()),
@@ -289,13 +332,39 @@ public:
 			data
 		);
 		OGLPLUS_CHECK(
-			ClearNamedBufferSubDataEXT,
+			ClearNamedBufferSubData,
 			ObjectError,
 			Object(*this).
 			EnumParam(internal_format)
 		);
 	}
-#endif
+
+	void Storage(
+		const BufferData& data,
+		Bitfield<BufferStorageBit> flags
+	) const
+	{
+		OGLPLUS_GLFUNC(NamedBufferStorage)(
+			_obj_name(),
+			GLsizeiptr(data.Size()),
+			data.Data(),
+			GLbitfield(flags)
+		);
+		OGLPLUS_CHECK(
+			NamedBufferStorage,
+			ObjectError,
+			Object(*this)
+		);
+	}
+
+	void Storage(
+		BufferSize size,
+		const void* data,
+		Bitfield<BufferStorageBit> flags
+	) const
+	{
+		Storage(BufferData(size, data), flags);
+	}
 
 	/// Returns the buffer size
 	/**
@@ -354,7 +423,7 @@ public:
 	void MakeResident(AccessSpecifier access) const
 	{
 		OGLPLUS_GLFUNC(MakeNamedBufferResidentNV)(
-			_name,
+			_obj_name(),
 			GLenum(access)
 		);
 		OGLPLUS_CHECK(
@@ -375,7 +444,7 @@ public:
 	 */
 	void MakeNonResident(void) const
 	{
-		OGLPLUS_GLFUNC(MakeNamedBufferNonResidentNV)(_name);
+		OGLPLUS_GLFUNC(MakeNamedBufferNonResidentNV)(_obj_name());
 		OGLPLUS_CHECK(
 			MakeNamedBufferNonResidentNV,
 			ObjectError,
@@ -396,7 +465,7 @@ public:
 	{
 		GLuint64EXT value = 0;
 		OGLPLUS_GLFUNC(GetNamedBufferParameterui64vNV)(
-			_name,
+			_obj_name(),
 			GL_BUFFER_GPU_ADDRESS_NV,
 			&value
 		);
@@ -568,9 +637,7 @@ inline DSABufferOps& operator << (
  */
 typedef Object<DSABufferOps> DSABuffer;
 
-#else
-#error Direct State Access Buffers not available
-#endif // GL_EXT_direct_state_access
+#endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
 

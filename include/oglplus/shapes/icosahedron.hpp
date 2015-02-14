@@ -33,6 +33,7 @@ protected:
 /// Class providing vertex attributes and instructions for drawing of a icosahedron
 class SimpleIcosahedron
  : public DrawingInstructionWriter
+ , public DrawMode
  , public IcosahedronBase
 {
 public:
@@ -78,7 +79,7 @@ public:
 	typedef std::vector<GLushort> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const
+	IndexArray Indices(Default = Default()) const
 	{
 		const GLushort* i = _indices();
 		return IndexArray(i, i+20*3);
@@ -87,7 +88,7 @@ public:
 	DrawingInstructions Instructions(PrimitiveType mode) const;
 
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const
+	DrawingInstructions Instructions(Default = Default()) const
 	{
 		return Instructions(PrimitiveType::Triangles);
 	}
@@ -96,6 +97,7 @@ public:
 /// Class providing vertex attributes and instructions for drawing of a icosahedron
 class Icosahedron
  : public DrawingInstructionWriter
+ , public DrawMode
  , public IcosahedronBase
 {
 public:
@@ -197,7 +199,7 @@ public:
 	typedef std::vector<GLushort> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const
+	IndexArray Indices(Default = Default()) const
 	{
 		return IndexArray();
 	}
@@ -205,7 +207,7 @@ public:
 	DrawingInstructions Instructions(PrimitiveType mode) const;
 
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const
+	DrawingInstructions Instructions(Default = Default()) const
 	{
 		return Instructions(PrimitiveType::Triangles);
 	}

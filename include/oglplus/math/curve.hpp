@@ -154,8 +154,8 @@ public:
 	{
 		assert(PointsOk(_points));
 
-		if(_connected) return (_points.size() - 1) / Order;
-		else return _points.size() / (Order+1);
+		if(_connected) return unsigned((_points.size() - 1) / Order);
+		else return unsigned(_points.size() / ( Order + 1 ));
 	}
 
 	/// Returns the contol points of the curve
@@ -297,10 +297,10 @@ private:
 		auto ir = result.begin();
 		while(i != n)
 		{
-			unsigned a = (n+i-1)%n;
-			unsigned b = i;
-			unsigned c = (i+1)%n;
-			unsigned d = (i+2)%n;
+			unsigned a = unsigned(( n + i - 1 ) % n);
+			unsigned b = unsigned(i);
+			unsigned c = unsigned(( i + 1 ) % n);
+			unsigned d = unsigned(( i + 2 ) % n);
 			assert(ir != result.end());
 			*ir = points[b];
 			++ir;

@@ -1,3 +1,176 @@
+Version 0.59.0
+
+- Problems with move construction and move-assignment of objects
+  were fixed.
+- The Boolean wrappers were added.
+- The Quickbook documentation was updated.
+
+Version 0.58.0
+
+- Noexcept specifiers were added to some functions.
+- The oalplus::GetALName function was added.
+- Small changes were made to oalplus::Listener and Device wrappers.
+- Several assignments constructors were fixed to prevent problems with
+  self assignment.
+- The GL/AL object wrappers were refactored.
+- Most of the standalone examples were backported to MSVC.
+- Some MSVC warnings were fixed.
+- Collisions between preprocessor macros and variable names were fixed.
+- A problem that caused access violations in GL feature tests was fixed.
+- The Quickbook documentation was updated.
+
+Version 0.57.0
+
+- The setting stack functionality in oglplus::ClientContext was reimplemented.
+- Noexcept specifiers were added to some functions.
+- The script for auto-generating of the enumeration headers was updated,
+  now almost everything related to the enumerations is auto-generated.
+- A bug in the definition of EnumValueRange was fixed.
+- Minor problems in the GLSL shaders in the examples were fixed.
+- The Quickbook documentation was updated.
+
+Version 0.56.0
+
+- The new state getter/setter functions were added to oglplus::Context.
+- The oglplus::ClientContext class was updated, wrappers for other GL state
+  variables and functions were added.
+- A problem with the wxGL example harness on Windows was fixed.
+- A missing include was added to the GLFW3 example harness.
+- The GLM interoperability classes were updated to work with both older
+  and newer versions of GLM.
+- Minor fixes were made in the enumeration types.
+- The automatically-generated enumeration headers were and the related
+  tools were updated.
+- The EnumAssocType and EnumAssocGLType metafunctions were added.
+- The build system was updated, check of support for strongly-typed
+  enum template parameters was added.
+- The quickbook documentation was updated.
+
+Version 0.55.0
+
+- The EnumToClass helper template and its specializations were added.
+- Some of the base classes of oglplus::Context were refactored and updated.
+- The oglplus::ClientContext class, maintaining and managing GL state was added.
+- Some of the shape builders were backported to platforms not supporting
+  primitive restart indices.
+- A bug in the Texture::Active getter was fixed.
+- The quickbook documentation was updated.
+
+Version 0.54.0
+
+- The TransformFeedback::Activator and Pauser classes were moved
+  to namespace level.
+- A bug in Matrix-by-scalar multiplcation was fixed.
+- A new overload of Context::ClearColor with ColorClearValue parameter
+  was added.
+- Minor changes were made in the GLSLSource and BufferSize classes
+- The build system was updated make C++ SCOPED_ENUMS a requirement.
+- Clang++ warnings and errors were fixed.
+- MSVC warnings related to conversion to bool were fixed.
+- Some of the shape builders were backported to platforms not supporting
+  primitive restart indices.
+- The quickbook documentation was updated.
+
+
+Version 0.53.0
+
+- GL version detection in the build system was updated and should now
+  be even more reliable.
+- Minor changes were made to the ObjHandle wrapper.
+- A bug in vector uniform setting was fixed.
+- The quickbook docs were updated.
+
+
+Version 0.52.0
+
+- The tools for automatic-generation of the enumeration headers were updated
+  and the headers were re-generated.
+- The OutputData class was added and used in Texture.
+- Regressions in the text rendering utilities were fixed.
+- Regressions in GLES v3 and android support were fixed.
+- Wrappers and enumerations for KHR_blend_equation_advanced were added.
+- New constructor was added to the ProgVar template.
+- The Object template was refactored, ObjHandle was added.
+- The documentation was updated.
+
+
+Version 0.51.0
+
+- Smart enumeration values were added to OALplus and EGLplus.
+- The QueryTarget enumeration was updated.
+- The LimitQuery enumeration was updated.
+- The ErrorCode enumeration was updated.
+- Detection of GL 4.5 and ARB_direct_state_access was added to the build system.
+- Wrappers for GL 4.5 / ARB_direct_state_access functions for
+  - Texture
+  - Buffer
+  - Framebuffer
+  - Renderbuffer
+  - TransformFeedback
+  - VertexArray
+  - Vertex attributes
+  were added.
+- The EXT_direct_state_access wrappers were moved to the ./oglplus/dsa/ext
+  subdirectory.
+- The EXT_dsa wrappers were renamed from DSA{Object} to DSA{Object}EXT.
+- Wrappers for ARB_sparse_buffer and ARB_robustness were added.
+- The Query class was updated
+  - The BeginConditionalRender and EndConditionalRender functions were added.
+  - The ConditionalRenderMode enumeration was added.
+  - The ConditionalRender class was added.
+- Several header files were renamed.
+- The Quickbook documentation was updated.
+
+
+Version 0.50.0
+
+- Support for different methods of GL object construction was added.
+- The implementation of smart-enums was updated and the smart-enum-values
+  were added.
+- The context::ClearBuffers class was renamed to context::BufferClearing.
+- The Capability enumeration was updated.
+- The StaticGroup class template was updated.
+- The Range utilities were updated, the Contains, Has and CountIf
+  functionw were added.
+- The StrQueryRange::Size member function was added.
+- The implementation of Nothing was moved from ./detail/ to ./utils/.
+- The Error::Code function was added.
+- The MultiplyBy and DivideBy functions in Vector were renabled to
+  Multiply and Divide.
+- The FragData class was added.
+- The Set function was removed from UniformBlock.
+- New constructors and comparison operators were added to StrCRef.
+- All occurences of StrLit were replaced by StrCRef and the StrLit class
+  was completely removed.
+- Syntax sugar operators for Sampler were added.
+- The MissingFunction exception class was moved into a separate file.
+- Several examples were updated and/or fixed.
+- Detection of GL version 4.5 was added to the build system.
+- The Quickbook documentation was updated.
+
+Version 0.49.0
+
+- Wrappers for the ARB_shading_language_include extension was added.
+- The Program::Build functions were added.
+- The GLSLString and GLSLStrings classes were added.
+- The GLSLSource class was updated.
+- The implementation of Shader::Source and ShaderProgram was updated.
+- The BufferSize and BufferData types were added.
+- The {DSA}Buffer::Data and {DSA}Buffer::SubData functions were changed
+  to use the BufferSize and BufferData types.
+- The {DSA}Buffer::RawData functions were added.
+- The {DSA}Buffer::Resize functions were added.
+- The Indices() and Instructions() member functions of the shape
+  generators/loaders were made more generic.
+- Several bugs were fixed:
+  - Some shader errors in examples.
+  - A problem in the ObjMesh loader was fixed.
+  - Several problems in the build-system
+- Several examples were updated to show the usage of the new features.
+- The documentation was updated.
+- The pre-generated MSVC10 solution and projects were removed.
+
+
 Version 0.48.0
 
 - Wrapper for the ARB_copy_image extension was added.

@@ -15,10 +15,6 @@
 
 #include <oglplus/config/compiler.hpp>
 
-#if OGLPLUS_NO_SCOPED_ENUMS
-#error Strongly-typed enums are required but not supported by the used compiler!
-#endif
-
 namespace oglplus {
 
 #define OGLPLUS_ENUM_CLASS_FWD(NAME, TYPE) \
@@ -40,12 +36,6 @@ enum class NAME : TYPE {
 using enums::NAME;
 
 namespace enums {
-
-template <typename Enum>
-struct EnumValueType
-{
-	typedef Enum Type;
-};
 
 template <typename Enum>
 struct EnumBaseType;

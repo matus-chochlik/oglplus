@@ -25,6 +25,7 @@ namespace shapes {
 /// Class providing vertex attributes and instructions for drawing of a sky box
 class SkyBox
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 public:
@@ -81,8 +82,9 @@ public:
 	typedef std::vector<GLushort> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const
+	IndexArray Indices(Default = Default()) const
 	{
+#ifdef GL_PRIMITIVE_RESTART
 		const GLushort _indices[6*5] = {
 			1, 3, 5, 7, 9,
 			4, 6, 0, 2, 9,
@@ -92,17 +94,33 @@ public:
 			0, 2, 1, 3, 9
 		};
 		return IndexArray(_indices, _indices+6*5);
+#else
+		const GLushort _indices[6*5+5] = {
+			1, 3, 5, 7, 7, 4,
+			4, 6, 0, 2, 2, 2,
+			2, 6, 3, 7, 7, 4,
+			4, 0, 5, 1, 1, 5,
+			5, 7, 4, 6, 6, 0,
+			0, 2, 1, 3, 3
+		};
+		return IndexArray(_indices, _indices+6*5+5);
+#endif
 	}
 
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const
+	DrawingInstructions Instructions(Default = Default()) const
 	{
 		DrawOperation operation;
 		operation.method = DrawOperation::Method::DrawElements;
 		operation.mode = PrimitiveType::TriangleStrip;
 		operation.first = 0;
+#ifdef GL_PRIMITIVE_RESTART
 		operation.count = 6*5;
 		operation.restart_index = 9;
+#else
+		operation.count = 6*5+5;
+		operation.restart_index = DrawOperation::NoRestartIndex();
+#endif
 		operation.phase = 0;
 
 		return this->MakeInstructions(operation);

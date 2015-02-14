@@ -80,7 +80,7 @@ namespace smart_enums {
 #else
 
 # if !OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
-#  include <oglplus/detail/enum_shorteners.ipp>
+#  include <oglplus/detail/smart_enums.ipp>
 # else
 #  error "Smart enumerations require support for function template default args!"
 # endif
@@ -88,6 +88,13 @@ namespace smart_enums {
 #endif
 
 } // namespace smart_enums
+
+namespace smart_values
+{
+#if !OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
+# include <oglplus/detail/smart_values.ipp>
+#endif
+} // namespace smart_values
 } // namespace oglplus
 
 #endif // include guard

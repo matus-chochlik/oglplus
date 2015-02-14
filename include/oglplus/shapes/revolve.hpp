@@ -31,6 +31,7 @@ namespace shapes {
 template <typename Type>
 class RevolveY
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	const std::vector<Type> _sections, _section_factors;
@@ -139,6 +140,8 @@ private:
 		}
 	}
 public:
+	using DrawMode::Default;
+
 	/// Creates a shape by revolving curve approximation around the y-axis
 	RevolveY(
 		unsigned sections,
@@ -361,10 +364,14 @@ public:
 	typedef std::vector<GLuint> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const
+	IndexArray Indices(Default = Default()) const
 	{
 		const unsigned sn = _sections.size() - 1;
+#ifdef GL_PRIMITIVE_RESTART
 		const unsigned n = sn * (2 * _rings + 1);
+#else
+		const unsigned n = sn * (2 * _rings + 2);
+#endif
 		//
 		IndexArray indices(n);
 		unsigned k = 0;
@@ -377,9 +384,14 @@ public:
 				indices[k++] = offs + r + _rings;
 				indices[k++] = offs + r;
 			}
-			// primitive restart index
-			indices[k++] = n;
 			offs += _rings;
+			// primitive restart index
+#ifdef GL_PRIMITIVE_RESTART
+			indices[k++] = n;
+#else
+			indices[k++] = offs - 1;
+			indices[k++] = offs + _rings;
+#endif
 		}
 		assert(k == indices.size());
 		//
@@ -388,18 +400,26 @@ public:
 	}
 
 	/// Returns the instructions for rendering
-	DrawingInstructions Instructions(void) const
+	DrawingInstructions Instructions(Default = Default()) const
 	{
 		auto instructions = this->MakeInstructions();
 		const unsigned sn = _sections.size() - 1;
+#ifdef GL_PRIMITIVE_RESTART
 		const unsigned n = sn * (2 * _rings + 1);
+#else
+		const unsigned n = sn * (2 * _rings + 2);
+#endif
 
 		DrawOperation operation;
 		operation.method = DrawOperation::Method::DrawElements;
 		operation.mode = PrimitiveType::TriangleStrip;
 		operation.first = GLuint(0);
 		operation.count = GLuint(n);
+#ifdef GL_PRIMITIVE_RESTART
 		operation.restart_index = GLuint(n);
+#else
+		operation.restart_index = DrawOperation::NoRestartIndex();
+#endif
 		operation.phase = 0;
 
 		this->AddInstruction(instructions, operation);

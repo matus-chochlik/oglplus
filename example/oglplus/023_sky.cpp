@@ -73,7 +73,7 @@ public:
 	 , shape_camera_position(shape_prog, "CameraPosition")
 	{
 		VertexShader sky_box_vs;
-		sky_box_vs.Source(StrLit(
+		sky_box_vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"mat4 Matrix = ProjectionMatrix*CameraMatrix;"
@@ -85,12 +85,12 @@ public:
 			"	gl_Position = Matrix * vec4(Position * 100.0, 1.0);"
 			"	vertTexCoord = Position;"
 			"}"
-		));
+		);
 		sky_box_vs.Compile();
 		sky_box_prog.AttachShader(sky_box_vs);
 
 		VertexShader shape_vs;
-		shape_vs.Source(StrLit(
+		shape_vs.Source(
 			"#version 330\n"
 
 			"uniform vec3 SunPosition;"
@@ -113,12 +113,12 @@ public:
 			"	vertLightDir = SunPosition - gl_Position.xyz;"
 			"	gl_Position = ProjectionMatrix*CameraMatrix*gl_Position;"
 			"}"
-		));
+		);
 		shape_vs.Compile();
 		shape_prog.AttachShader(shape_vs);
 
 		FragmentShader sky_box_fs;
-		sky_box_fs.Source(StrLit(
+		sky_box_fs.Source(
 			"#version 330\n"
 
 			"in vec3 vertTexCoord;"
@@ -131,12 +131,12 @@ public:
 			"{"
 			"	fragColor = sky_color(normalize(vertTexCoord));"
 			"}"
-		));
+		);
 		sky_box_fs.Compile();
 		sky_box_prog.AttachShader(sky_box_fs);
 
 		FragmentShader shape_fs;
-		shape_fs.Source(StrLit(
+		shape_fs.Source(
 			"#version 330\n"
 
 			"in vec3 vertNormal, vertViewRefl, vertLightDir;"
@@ -153,12 +153,12 @@ public:
 			"		0.1*vec3(1.0, 1.0, 1.0)*(a+l)+"
 			"		0.9*sky_color(normalize(vertViewRefl));"
 			"}"
-		));
+		);
 		shape_fs.Compile();
 		shape_prog.AttachShader(shape_fs);
 
 		FragmentShader sky_fs;
-		sky_fs.Source(StrLit(
+		sky_fs.Source(
 			"#version 330\n"
 
 			"const float WorldRadius = 6371000;"
@@ -208,7 +208,7 @@ public:
 
 			"	return mix(Air, Clouds, cl.a*(1.0-cl.r*0.8))+Sun*(1.0-cl.a);"
 			"}"
-		));
+		);
 		sky_fs.Compile();
 		sky_box_prog.AttachShader(sky_fs);
 		shape_prog.AttachShader(sky_fs);

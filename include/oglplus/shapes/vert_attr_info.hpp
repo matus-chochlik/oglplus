@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -30,7 +30,7 @@ template <class ShapeBuilder> \
 struct VertexAttribInfo<ShapeBuilder, Vertex ## GETTER_NAME ## Tag> \
 { \
 public: \
-	static const GLchar* _name(void) \
+	static const GLchar* _att_name(void) \
 	{ \
 		return #ATTR_NAME; \
 	} \
@@ -115,7 +115,7 @@ private:
 			ShapeBuilder,
 			typename std::tuple_element<I, VertexAttribTags>::type
 		>();
-		if(name == info._name()) return true;
+		if(name == info._att_name()) return true;
 		else return _has_vertex_attrib(
 			name,
 			std::integral_constant<std::size_t, I+1>(),
@@ -163,7 +163,7 @@ private:
 			ShapeBuilder,
 			typename std::tuple_element<I, VertexAttribTags>::type
 		>();
-		if(std::strcmp(name.c_str(), info._name()) == 0)
+		if(std::strcmp(name.c_str(), info._att_name()) == 0)
 		{
 			return info._getter(selector);
 		}

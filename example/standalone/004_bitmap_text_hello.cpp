@@ -2,7 +2,7 @@
  *  @example standalone/004_bitmap_text_hello.cpp
  *  @brief Shows the usage of OGLplus' text rendering utilities
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -45,7 +45,7 @@ public:
 	 , rndr(tr.GetRenderer(
 			oglplus::FragmentShader(
 				oglplus::ObjectDesc("Pixel color"),
-				oglplus::StrLit("#version 330\n"
+				"#version 330\n"
 				"uniform vec3 Color;"
 				"uniform float Opacity;"
 				"vec4 PixelColor("
@@ -58,7 +58,7 @@ public:
 				")"
 				"{"
 				"	return vec4(Color, TexelColor.r*Opacity);"
-				"}")
+				"}"
 			)
 		)
 	), rndr_color(rndr.GetUniform<oglplus::Vec3f>("Color"))
@@ -87,6 +87,7 @@ public:
 			Dir direction;
 			const char* text;
 		} lines[] = {
+#if !OGLPLUS_NO_UNICODE_LITERALS
 			{Dir::LeftToRight, u8"Hello world"},
 			{Dir::LeftToRight, u8"Nazdar svet"},
 			{Dir::LeftToRight, u8"Γεια σας κόσμο"},
@@ -113,6 +114,17 @@ public:
 			{Dir::LeftToRight, u8"Здраво светот"},
 			{Dir::RightToLeft, u8"שלום עולם"},
 			{Dir::LeftToRight, u8"Hei verden"}
+#else
+			{Dir::LeftToRight, "Hello world"},
+			{Dir::LeftToRight, "Nazdar svet"},
+			{Dir::LeftToRight, "Moi maailma"},
+			{Dir::LeftToRight, "Hallo welt"},
+			{Dir::LeftToRight, "Zdravo svet"},
+			{Dir::LeftToRight, "Pozdrav svijetu"},
+			{Dir::LeftToRight, "Hola mundo"},
+			{Dir::LeftToRight, "Ciao mondo"},
+			{Dir::LeftToRight, "Hei verden"}
+#endif
 		};
 		const std::size_t line_count = sizeof(lines)/sizeof(lines[0]);
 

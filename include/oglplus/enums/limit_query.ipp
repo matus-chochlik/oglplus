@@ -1,14 +1,14 @@
-/*
- *  .file oglplus/enums/limit_query.ipp
- *
- *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/oglplus/limit_query.txt' instead.
- *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
- *  Software License, Version 1.0. (See accompanying file
- *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
- */
-
+//  File include/oglplus/enums/limit_query.ipp
+//
+//  Automatically generated file, DO NOT modify manually.
+//  Edit the source 'source/enums/oglplus/limit_query.txt'
+//  or the 'source/enums/make_enum.py' script instead.
+//
+//  Copyright 2010-2015 Matus Chochlik.
+//  Distributed under the Boost Software License, Version 1.0.
+//  See accompanying file LICENSE_1_0.txt or copy at
+//  http://www.boost.org/LICENSE_1_0.txt
+//
 #if OGLPLUS_DOCUMENTATION_ONLY
 
 /// MAX_3D_TEXTURE_SIZE
@@ -21,6 +21,10 @@ MaxAtomicCounterBufferBindings,
 MaxAtomicCounterBufferSize,
 /// MAX_CLIP_DISTANCES
 MaxClipDistances,
+/// MAX_CULL_DISTANCES
+MaxCullDistances,
+/// MAX_COMBINED_CLIP_AND_CULL_DISTANCES
+MaxCombinedClipAndCullDistances,
 /// MAX_COLOR_ATTACHMENTS
 MaxColorAttachments,
 /// MAX_COLOR_TEXTURE_SAMPLES
@@ -224,9 +228,7 @@ MinMapBufferAlignment,
 /// MIN_PROGRAM_TEXEL_OFFSET
 MinProgramTexelOffset,
 /// MIN_PROGRAM_TEXTURE_GATHER_OFFSET
-MinProgramTextureGatherOffset,
-/// MIN_SAMPLE_SHADING_VALUE
-MinSampleShadingValue
+MinProgramTextureGatherOffset
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 

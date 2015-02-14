@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,6 +17,7 @@
 #include <oglplus/error/object.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/sequence.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/buffer_binding.hpp>
 #include <oglplus/buffer_usage.hpp>
 #include <oglplus/buffer_storage_bit.hpp>
@@ -45,12 +46,20 @@ template <>
 class ObjGenDelOps<tag::Buffer>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenBuffers)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenBuffers);
 	}
+#if GL_VERSION_4_5 || GL_ARB_direct_state_access
+	static void Gen(tag::Create, GLsizei count, GLuint* names)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(GenBuffers)(count, names);
+		OGLPLUS_CHECK_SIMPLE(GenBuffers);
+	}
+#endif
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
@@ -241,6 +250,24 @@ public:
 			BindTarget(target)
 		);
 	}
+
+	static void BindRange(
+		BufferIndexedTarget target,
+		GLuint first,
+		const Sequence<BufferName>& buffers,
+		const GLintptr* offsets,
+		const GLsizeiptr* sizes
+	)
+	{
+		BindRange(
+			target,
+			first,
+			GLsizei(buffers.size()),
+			GetGLNames(buffers),
+			offsets,
+			sizes
+		);
+	}
 #endif
 };
 
@@ -254,8 +281,48 @@ class ObjCommonOps<tag::Buffer>
  , public ObjBindingOps<tag::Buffer>
 {
 protected:
-	ObjCommonOps(void){ }
+	ObjCommonOps(BufferName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : BufferName(name)
+	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+#else
+	typedef BufferName _base1;
+	typedef ObjBindingOps<tag::Buffer> _base2;
+
+	ObjCommonOps(ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base1(static_cast<_base1&&>(temp))
+	 , _base2(static_cast<_base2&&>(temp))
+	{ }
+
+	ObjCommonOps(const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base1(static_cast<const _base1&>(that))
+	 , _base2(static_cast<const _base2&>(that))
+	{ }
+
+	ObjCommonOps& operator = (ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base1::operator = (static_cast<_base1&&>(temp));
+		_base2::operator = (static_cast<_base2&&>(temp));
+		return *this;
+	}
+
+	ObjCommonOps& operator = (const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base1::operator = (static_cast<const _base1&>(that));
+		_base2::operator = (static_cast<const _base2&>(that));
+		return *this;
+	}
+#endif
 	using ObjBindingOps<tag::Buffer>::Bind;
 	using ObjBindingOps<tag::Buffer>::BindBase;
 	using ObjBindingOps<tag::Buffer>::BindRange;
@@ -366,7 +433,7 @@ public:
 	 */
 	void InvalidateData(void)
 	{
-		OGLPLUS_GLFUNC(InvalidateBufferData)(_name);
+		OGLPLUS_GLFUNC(InvalidateBufferData)(_obj_name());
 		OGLPLUS_CHECK(
 			InvalidateBufferData,
 			ObjectError,
@@ -384,11 +451,11 @@ public:
 	 *
 	 *  @glvoereq{4,3,ARB,invalidate_subdata}
 	 */
-	void InvalidateSubData(GLintptr offset, BufferSize size)
+	void InvalidateSubData(BufferSize offset, BufferSize size)
 	{
 		OGLPLUS_GLFUNC(InvalidateBufferSubData)(
-			_name,
-			offset,
+			_obj_name(),
+			GLintptr(offset.Get()),
 			GLsizeiptr(size.Get())
 		);
 		OGLPLUS_CHECK(
@@ -408,8 +475,43 @@ class ObjectOps<tag::ExplicitSel, tag::Buffer>
  : public ObjZeroOps<tag::ExplicitSel, tag::Buffer>
 {
 protected:
-	ObjectOps(void) { }
+	ObjectOps(BufferName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::ExplicitSel, tag::Buffer>(name)
+	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef ObjZeroOps<tag::ExplicitSel, tag::Buffer> _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 	static GLint GetIntParam(Target target, GLenum query);
 
 	/// Types related to Buffer
@@ -434,9 +536,12 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	static bool Mapped(Target target)
+	static Boolean Mapped(Target target)
 	{
-		return GetIntParam(target, GL_BUFFER_MAPPED) == GL_TRUE;
+		return Boolean(
+			GetIntParam(target, GL_BUFFER_MAPPED),
+			std::nothrow
+		);
 	}
 #endif // GL_VERSION_3_0
 
@@ -680,6 +785,25 @@ public:
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_buffer_storage
+	static void Storage(
+		Target target,
+		const BufferData& data,
+		Bitfield<BufferStorageBit> flags
+	)
+	{
+		OGLPLUS_GLFUNC(BufferStorage)(
+			GLenum(target),
+			GLsizeiptr(data.Size()),
+			data.Data(),
+			GLbitfield(flags)
+		);
+		OGLPLUS_CHECK(
+			BufferStorage,
+			ObjectError,
+			ObjectBinding(target)
+		);
+	}
+
 	/// Creates a data store for a buffer object
 	/**
 	 *  @see Data
@@ -699,17 +823,7 @@ public:
 		Bitfield<BufferStorageBit> flags
 	)
 	{
-		OGLPLUS_GLFUNC(BufferStorage)(
-			GLenum(target),
-			GLsizeiptr(size.Get()),
-			data,
-			GLbitfield(flags)
-		);
-		OGLPLUS_CHECK(
-			BufferStorage,
-			ObjectError,
-			ObjectBinding(target)
-		);
+		Storage(target, BufferData(size, data), flags);
 	}
 
 	/// Returns true if the buffer storage is immutable
@@ -721,12 +835,14 @@ public:
 	 *  @glfunref{GetBufferParameter}
 	 *  @gldefref{BUFFER_IMMUTABLE_STORAGE}
 	 */
-	static bool ImmutableStorage(Target target)
+	static Boolean ImmutableStorage(Target target)
 	{
-		return GetIntParam(
-			target,
-			GL_BUFFER_IMMUTABLE_STORAGE
-		) == GL_TRUE;
+		return Boolean(
+			GetIntParam(
+				target,
+				GL_BUFFER_IMMUTABLE_STORAGE
+			), std::nothrow
+		);
 	}
 
 	/// Returns the buffer storage flags
@@ -743,6 +859,39 @@ public:
 		return Bitfield<BufferStorageBit>(GLbitfield(
 			GetIntParam(target, GL_BUFFER_STORAGE_FLAGS)
 		));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_sparse_buffer
+	static void PageCommitment(
+		Target target,
+		BufferSize offset,
+		BufferSize size,
+		Boolean commit
+	)
+	{
+		OGLPLUS_GLFUNC(BufferPageCommitmentARB)(
+			GLenum(target),
+			GLintptr(offset.Get()),
+			GLsizeiptr(size.Get()),
+			commit._get()
+		);
+		OGLPLUS_VERIFY(
+			BufferPageCommitmentARB,
+			ObjectError,
+			ObjectBinding(target)
+		);
+	}
+
+	static GLsizei PageSize(void)
+	{
+		GLint value = 0;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_SPARSE_BUFFER_PAGE_SIZE_ARB,
+			&value
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return GLsizei(value);
 	}
 #endif
 
@@ -965,7 +1114,6 @@ inline BufferTarget operator << (
 }
 
 // SubData
-template <typename GLtype>
 inline BufferTarget operator << (
 	BufferTargetAndOffset&& tao,
 	const BufferData& data

@@ -40,9 +40,19 @@
 
 namespace oglplus {
 
+#if	(GLM_VERSION_MAJOR > 0) || ( \
+	(GLM_VERSION_MINOR > 9) || ( \
+		(GLM_VERSION_MINOR == 9) && \
+		(GLM_VERSION_PATCH > 5) \
+	))
+#define OGLPLUS_GLM_TPLNS ::glm
+#else
+#define OGLPLUS_GLM_TPLNS ::glm::detail
+#endif
+
 #define OGLPLUS_IMPL_GLM_VEC_UNIFORM_OPS(DIM) \
 template <typename OpsTag, typename T, glm::precision P> \
-class ProgVarGetSetOps<OpsTag, tag::Uniform, glm::detail::tvec##DIM<T, P>> \
+class ProgVarGetSetOps<OpsTag, tag::Uniform, OGLPLUS_GLM_TPLNS::tvec##DIM<T, P>> \
  : public ProgVarCommonOps<tag::Uniform> \
  , public ProgVarBaseSetOps<OpsTag, tag::Uniform, tag::NativeTypes, T, 4> \
 { \
@@ -51,7 +61,7 @@ protected: \
 	 : ProgVarCommonOps<tag::Uniform>(uloc) \
 	{ } \
 public: \
-	void SetValue(const glm::detail::tvec##DIM<T, P>& value) \
+	void SetValue(const OGLPLUS_GLM_TPLNS::tvec##DIM<T, P>& value) \
 	{ \
 		this->template _do_set<DIM>( \
 			_program, \
@@ -61,7 +71,7 @@ public: \
 	} \
 }; \
 template <typename T, glm::precision P> \
-struct GLSLtoCppTypeMatcher<glm::detail::tvec##DIM<T, P>> \
+struct GLSLtoCppTypeMatcher<OGLPLUS_GLM_TPLNS::tvec##DIM<T, P>> \
  : GLSLtoCppTypeMatcher<oglplus::Vector<T, DIM> > { }; \
 
 OGLPLUS_IMPL_GLM_VEC_UNIFORM_OPS(2)
@@ -72,7 +82,7 @@ OGLPLUS_IMPL_GLM_VEC_UNIFORM_OPS(4)
 
 #define OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(R, C) \
 template <typename OpsTag, typename T, glm::precision P> \
-class ProgVarGetSetOps<OpsTag, tag::Uniform, glm::detail::tmat##C##x##R<T, P>> \
+class ProgVarGetSetOps<OpsTag, tag::Uniform, OGLPLUS_GLM_TPLNS::tmat##C##x##R<T, P>> \
  : public ProgVarCommonOps<tag::Uniform> \
  , public ProgVarBaseSetOps<OpsTag, tag::Uniform, tag::MatrixTypes, T, 16> \
 { \
@@ -81,7 +91,7 @@ protected: \
 	 : ProgVarCommonOps<tag::Uniform>(uloc) \
 	{ } \
 public: \
-	void SetValue(const glm::detail::tmat##C##x##R<T, P>& value) \
+	void SetValue(const OGLPLUS_GLM_TPLNS::tmat##C##x##R<T, P>& value) \
 	{ \
 		this->template _do_set_mat<C, R>( \
 			this->_program, \
@@ -93,7 +103,7 @@ public: \
 	} \
 }; \
 template <typename T, glm::precision P> \
-struct GLSLtoCppTypeMatcher<glm::detail::tmat##C##x##R<T, P>> \
+struct GLSLtoCppTypeMatcher<OGLPLUS_GLM_TPLNS::tmat##C##x##R<T, P>> \
  : GLSLtoCppTypeMatcher<oglplus::Matrix<T, R, C> > { }; \
 
 OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(2, 2)
@@ -107,6 +117,7 @@ OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(4, 3)
 OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(4, 4)
 
 #undef OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS
+#undef OGLPLUS_GLM_TPLNS
 
 } // namespace oglplus
 

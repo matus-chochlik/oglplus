@@ -5,9 +5,9 @@
 
 # we need C++11
 if(${CMAKE_COMPILER_IS_GNUCXX})
-	set(OGLPLUS_CPP_STD_COMPILER_SWITCH -std=c++0x)
+	set(OGLPLUS_CPP_STD_COMPILER_SWITCH -std=c++11)
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	set(OGLPLUS_CPP_STD_COMPILER_SWITCH -std=c++0x -stdlib=libc++ -DOGLPLUS_NO_NOEXCEPT=1)
+	set(OGLPLUS_CPP_STD_COMPILER_SWITCH -std=c++11)
 endif()
 # TODO add support for other compilers
 
@@ -42,7 +42,21 @@ function(cpp_feature_detection FEATURE_NAME)
 	endif()
 endfunction()
 
-cpp_feature_detection(SCOPED_ENUMS)
+function(require_cpp_feature FEATURE_NAME)
+	cpp_feature_detection(${FEATURE_NAME})
+
+	if(${OGLPLUS_NO_${FEATURE_NAME}})
+		message(FATAL_ERROR
+			"C++ feature '${FEATURE_NAME}' is required "
+			"but not supported by the currently used compiler!"
+		)
+	endif()
+
+endfunction()
+
+require_cpp_feature(SCOPED_ENUMS)
+
+cpp_feature_detection(SCOPED_ENUM_TEMPLATE_PARAMS)
 cpp_feature_detection(VARIADIC_MACROS)
 cpp_feature_detection(VARIADIC_TEMPLATES)
 cpp_feature_detection(UNIFIED_INITIALIZATION_SYNTAX)
@@ -61,9 +75,3 @@ cpp_feature_detection(LAMBDAS)
 cpp_feature_detection(CHRONO)
 cpp_feature_detection(THREADS)
 
-# explicit configuration
-if(
-	("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-)
-	set(OGLPLUS_NO_CHRONO 1)
-endif()

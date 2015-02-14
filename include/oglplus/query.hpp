@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,26 +17,12 @@
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/reference.hpp>
 #include <oglplus/error/object.hpp>
-#include <oglplus/enumerations.hpp>
+#include <oglplus/enums/query_target.hpp>
+#include <oglplus/enums/conditional_render_mode.hpp>
+#include <oglplus/boolean.hpp>
 #include <cassert>
 
 namespace oglplus {
-
-/// Query bind target
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(QueryTarget, GLenum)
-#include <oglplus/enums/query_target.ipp>
-OGLPLUS_ENUM_CLASS_END(QueryTarget)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/query_target_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/query_target_range.ipp>
-#endif
 
 /// Class wrapping query construction/destruction functions
 /** @note Do not use this class directly, use Query instead.
@@ -50,12 +36,32 @@ template <>
 class ObjGenDelOps<tag::Query>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenQueries)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenQueries);
 	}
+#if GL_VERSION_4_5 || GL_ARB_direct_state_access
+	static void Gen(
+		tag::Create,
+		GLenum target,
+		GLsizei count,
+		GLuint* names
+	)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(CreateQueries)(target, count, names);
+		OGLPLUS_CHECK_SIMPLE(CreateQueries);
+	}
+
+	GLenum _type;
+
+	void Gen(tag::Create create, GLsizei count, GLuint* names)
+	{
+		Gen(create, _type, count, names);
+	}
+#endif
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
@@ -73,6 +79,12 @@ protected:
 	}
 };
 
+template <>
+struct ObjectSubtype<tag::Query>
+{
+	typedef QueryTarget Type;
+};
+
 class QueryActivator;
 
 template <typename ResultType>
@@ -86,8 +98,43 @@ class ObjectOps<tag::DirectState, tag::Query>
  : public ObjZeroOps<tag::DirectState, tag::Query>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(QueryName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectState, tag::Query>(name)
+	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef ObjZeroOps<tag::DirectState, tag::Query> _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 	/// Query execution target
 	typedef QueryTarget Target;
 
@@ -98,8 +145,7 @@ public:
 	 */
 	void Begin(Target target)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BeginQuery)(GLenum(target), _name);
+		OGLPLUS_GLFUNC(BeginQuery)(GLenum(target), _obj_name());
 		OGLPLUS_VERIFY(
 			BeginQuery,
 			ObjectError,
@@ -115,7 +161,6 @@ public:
 	 */
 	void End(Target target)
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(EndQuery)(GLenum(target));
 		OGLPLUS_VERIFY(
 			EndQuery,
@@ -125,6 +170,35 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+	/// Begin conditional render on the query in the specified mode
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BeginConditionalRender}
+	 */
+	void BeginConditionalRender(ConditionalRenderMode mode)
+	{
+		OGLPLUS_GLFUNC(BeginConditionalRender)(_obj_name(), GLenum(mode));
+		OGLPLUS_VERIFY(
+			BeginConditionalRender,
+			ObjectError,
+			Object(*this).
+			EnumParam(mode)
+		);
+	}
+
+	/// Ends currently active conditional render
+	/**
+	 *  @glsymbols
+	 *  @glfunref{EndConditionalRender}
+	 */
+	static void EndConditionalRender(void)
+	{
+		OGLPLUS_GLFUNC(EndConditionalRender)();
+		OGLPLUS_VERIFY_SIMPLE(EndConditionalRender);
+	}
+#endif
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_timer_query
 	/// Do a counter query on the specified @p target
 	/**
@@ -133,8 +207,7 @@ public:
 	 */
 	void Counter(Target target)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(QueryCounter)(_name, GLenum(target));
+		OGLPLUS_GLFUNC(QueryCounter)(_obj_name(), GLenum(target));
 		OGLPLUS_VERIFY(
 			QueryCounter,
 			ObjectError,
@@ -161,21 +234,20 @@ public:
 	 *  @glfunref{GetQueryObject}
 	 *  @gldefref{QUERY_RESULT_AVAILABLE}
 	 */
-	bool ResultAvailable(void) const
+	Boolean ResultAvailable(void) const
 	{
-		assert(_name != 0);
-		GLuint result = GL_FALSE;
-		OGLPLUS_GLFUNC(GetQueryObjectuiv)(
-			_name,
+		Boolean result;
+		OGLPLUS_GLFUNC(GetQueryObjectiv)(
+			_obj_name(),
 			GL_QUERY_RESULT_AVAILABLE,
-			&result
+			result._ptr()
 		);
 		OGLPLUS_VERIFY(
-			GetQueryObjectuiv,
+			GetQueryObjectiv,
 			ObjectError,
 			Object(*this)
 		);
-		return result == GL_TRUE;
+		return result;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
@@ -187,9 +259,8 @@ public:
 	 */
 	void Result(GLint& result) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(GetQueryObjectiv)(
-			_name,
+			_obj_name(),
 			GL_QUERY_RESULT,
 			&result
 		);
@@ -209,9 +280,8 @@ public:
 	 */
 	void Result(GLuint& result) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(GetQueryObjectuiv)(
-			_name,
+			_obj_name(),
 			GL_QUERY_RESULT,
 			&result
 		);
@@ -232,9 +302,8 @@ public:
 	 */
 	void Result(GLint64& result) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(GetQueryObjecti64v)(
-			_name,
+			_obj_name(),
 			GL_QUERY_RESULT,
 			&result
 		);
@@ -254,9 +323,8 @@ public:
 	 */
 	void Result(GLuint64& result) const
 	{
-		assert(_name != 0);
 		OGLPLUS_GLFUNC(GetQueryObjectui64v)(
-			_name,
+			_obj_name(),
 			GL_QUERY_RESULT,
 			&result
 		);
@@ -279,6 +347,8 @@ public:
 
 	/// The activator class
 	typedef QueryActivator Activator;
+
+	Activator Activate(Target target);
 
 	/// Executes this query on the specified @p target and gets the @p result
 	/** This function creates an instance of the QueryExecution class which
@@ -348,6 +418,55 @@ public:
 	}
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+/// RAII conditional render activator/deactivator
+/**
+ *  @see Query
+ */
+class ConditionalRender
+{
+private:
+	bool _alive;
+	ConditionalRender(const ConditionalRender&);
+public:
+	/// Begins conditional render on  @p query in the specified @p mode
+	ConditionalRender(
+		QueryName query,
+		ConditionalRenderMode mode
+	): _alive(false)
+	{
+		Reference<QueryOps>(query).BeginConditionalRender(mode);
+		_alive = true;
+	}
+
+	/// ConditionalRenders are moveable
+	ConditionalRender(ConditionalRender&& temp)
+	 : _alive(temp._alive)
+	{
+		temp._alive = false;
+	}
+
+	/// Ends the conditional render
+	~ConditionalRender(void)
+	{
+		try { Finish(); }
+		catch(...) { }
+	}
+
+	/// Explicitly ends the conditional render
+	bool Finish(void)
+	{
+		if(_alive)
+		{
+			QueryOps::EndConditionalRender();
+			_alive = false;
+			return true;
+		}
+		else return false;
+	}
+};
+#endif
+
 /// A helper class automatically executing a query
 /** Instances of this class begin the query in the constructor
  *  and end the query in the destructor. It is more convenient
@@ -390,7 +509,16 @@ public:
 	}
 };
 
+inline
+QueryActivator
+ObjectOps<tag::DirectState, tag::Query>::
+Activate(Target target)
+{
+	return QueryActivator(*this, target);
+}
+
 template <typename ResultType>
+inline
 QueryExecution<ResultType>
 ObjectOps<tag::DirectState, tag::Query>::
 Execute(QueryTarget target, ResultType& result)

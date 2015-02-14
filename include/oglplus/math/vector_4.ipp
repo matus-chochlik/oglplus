@@ -20,8 +20,8 @@ public:
 	Vector(void)
 	{ }
 
-	template <typename U>
-	Vector(const Vector<U, 4>& vector)
+	template <typename U, std::size_t M>
+	Vector(const Vector<U, M>& vector)
 	 : Base(vector)
 	{ }
 
@@ -50,30 +50,33 @@ public:
 		this->_elem[3] = v3;
 	}
 
-	Vector(const Vector<T, 1>& v, T v1, T v2, T v3)
+	template <typename U>
+	Vector(const Vector<U, 1>& v, T v1, T v2, T v3)
 	 : Base(oglplus::Nothing())
 	{
-		this->_elem[0] = v[0];
+		this->_elem[0] = T(v[0]);
 		this->_elem[1] = v1;
 		this->_elem[2] = v2;
 		this->_elem[3] = v3;
 	}
 
-	Vector(const Vector<T, 2>& v, T v2, T v3)
+	template <typename U>
+	Vector(const Vector<U, 2>& v, T v2, T v3)
 	 : Base(oglplus::Nothing())
 	{
-		this->_elem[0] = v[0];
-		this->_elem[1] = v[1];
+		this->_elem[0] = T(v[0]);
+		this->_elem[1] = T(v[1]);
 		this->_elem[2] = v2;
 		this->_elem[3] = v3;
 	}
 
-	Vector(const Vector<T, 3>& v, T v3)
+	template <typename U>
+	Vector(const Vector<U, 3>& v, T v3)
 	 : Base(oglplus::Nothing())
 	{
-		this->_elem[0] = v[0];
-		this->_elem[1] = v[1];
-		this->_elem[2] = v[2];
+		this->_elem[0] = T(v[0]);
+		this->_elem[1] = T(v[1]);
+		this->_elem[2] = T(v[2]);
 		this->_elem[3] = v3;
 	}
 
@@ -160,13 +163,13 @@ public:
 
 	Vector& operator *= (T v)
 	{
-		this->MultiplyBy(v);
+		this->Multiply(v);
 		return *this;
 	}
 
 	Vector& operator *= (const Vector& v)
 	{
-		this->MultiplyBy(v);
+		this->Multiply(v);
 		return *this;
 	}
 
@@ -177,7 +180,7 @@ public:
 
 	Vector& operator /= (T v)
 	{
-		this->DivideBy(v);
+		this->Divide(v);
 		return *this;
 	}
 };

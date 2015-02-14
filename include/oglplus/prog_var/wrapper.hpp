@@ -18,6 +18,7 @@
 #include <oglplus/prog_var/location.hpp>
 #include <oglplus/prog_var/typecheck.hpp>
 #include <cassert>
+#include <new>
 
 namespace oglplus {
 
@@ -77,12 +78,12 @@ public:
 		Typecheck::CheckType(program, this->_location, identifier);
 	}
 
-	ProgVar operator[](std::size_t offset) const
+	/// Variable with the specified @p identifier in the specified @p program
+	ProgVar(ProgramName program, StrCRef identifier, std::nothrow_t)
+	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier, false))
+	 , Typecheck((BaseType*)0)
 	{
-		return ProgVar(
-			ProgramName(this->_program),
-			this->_location+offset
-		);
+		Typecheck::CheckType(program, this->_location, identifier);
 	}
 
 	ProgVar& BindTo(StrCRef identifier)
@@ -94,6 +95,14 @@ public:
 			identifier
 		);
 		return *this;
+	}
+
+	ProgVar operator[](std::size_t offset) const
+	{
+		return ProgVar(
+			ProgramName(this->_program),
+			this->_location+offset
+		);
 	}
 
 	ProgVar& operator = (ProgVarLoc<VarTag> pvloc)
@@ -159,6 +168,44 @@ public:
 	}
 };
 
+template <typename OpsTag, typename VarTag>
+class ProgVar<OpsTag, VarTag, tag::NoTypecheck, void>
+ : public ProgVarCommonOps<VarTag>
+{
+private:
+	typedef ProgVarCommonOps<VarTag> BaseOps;
+public:
+	/// Default construction
+	ProgVar(void)
+	 : BaseOps(ProgVarLoc<VarTag>())
+	{ }
+
+	/// Variable from a ProgVarLoc
+	ProgVar(ProgVarLoc<VarTag> pvloc)
+	 : BaseOps(pvloc)
+	{ }
+
+	/// Variable with the specified @p location in the specified @p program
+	ProgVar(ProgramName program, GLuint location)
+	 : BaseOps(ProgVarLoc<VarTag>(program, GLint(location)))
+	{ }
+
+	/// Variable with the specified @p identifier in the specified @p program
+	ProgVar(ProgramName program, StrCRef identifier)
+	 : BaseOps(ProgVarLoc<VarTag>(program, identifier))
+	{ }
+
+	/// Variable with the specified @p identifier in the specified @p program
+	ProgVar(ProgramName program, StrCRef identifier, bool active_only)
+	 : BaseOps(ProgVarLoc<VarTag>(program, identifier, active_only))
+	{ }
+
+	/// Variable with the specified @p identifier in the specified @p program
+	ProgVar(ProgramName program, StrCRef identifier, std::nothrow_t)
+	 : BaseOps(ProgVarLoc<VarTag>(program, identifier, false))
+	{ }
+};
+
 #if !OGLPLUS_NO_INHERITED_CONSTRUCTORS
 #define OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VAR_TAG, PROG_VAR, BASE) \
 	using BASE::BASE;
@@ -172,7 +219,9 @@ public:
 	PROG_VAR(ProgramName program, StrCRef identifier) \
 	 : BASE(program, identifier) { } \
 	PROG_VAR(ProgramName program, StrCRef identifier, bool active_only) \
-	 : BASE(program, identifier, active_only) { }
+	 : BASE(program, identifier, active_only) { } \
+	PROG_VAR(ProgramName program, StrCRef identifier, std::nothrow_t nt) \
+	 : BASE(program, identifier, nt) { }
 #endif
 
 #if !OGLPLUS_NO_TEMPLATE_ALIASES

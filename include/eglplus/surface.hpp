@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -110,7 +110,8 @@ typedef FinishedAttributeList<
 > FinishedSurfaceAttribs;
 
 class Surface;
-::EGLSurface GetEGLHandle(const Surface&);
+::EGLSurface GetEGLHandle(const Surface&)
+OGLPLUS_NOEXCEPT(true);
 
 /// Wrapper for EGLSurfaces
 class Surface
@@ -119,7 +120,8 @@ private:
 	Display _display;
 	::EGLSurface _handle;
 
-	friend ::EGLSurface GetEGLHandle(const Surface&);
+	friend ::EGLSurface GetEGLHandle(const Surface&)
+	OGLPLUS_NOEXCEPT(true);
 
 	Surface(const Surface&);
 
@@ -301,11 +303,13 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{SwapBuffers}
 	 */
-	bool SwapBuffers(void)
+	Boolean SwapBuffers(void)
 	{
-		bool result = EGLPLUS_EGLFUNC(SwapBuffers)(
-			GetEGLHandle(_display),
-			_handle
+		Boolean result(
+			EGLPLUS_EGLFUNC(SwapBuffers)(
+				GetEGLHandle(_display),
+				_handle
+			), std::nothrow
 		);
 		EGLPLUS_VERIFY_SIMPLE(SwapBuffers);
 		return result;
@@ -316,12 +320,14 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{CopyBuffers}
 	 */
-	bool CopyBuffers(EGLNativePixmapType target)
+	Boolean CopyBuffers(EGLNativePixmapType target)
 	{
-		bool result = EGLPLUS_EGLFUNC(CopyBuffers)(
-			GetEGLHandle(_display),
-			_handle,
-			target
+		Boolean result(
+			EGLPLUS_EGLFUNC(CopyBuffers)(
+				GetEGLHandle(_display),
+				_handle,
+				target
+			), std::nothrow
 		);
 		EGLPLUS_VERIFY_SIMPLE(CopyBuffers);
 		return result;
@@ -332,13 +338,15 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{SurfaceAttrib}
 	 */
-	bool Attrib(SurfaceAttrib attrib, EGLint value)
+	Boolean Attrib(SurfaceAttrib attrib, EGLint value)
 	{
-		bool result = EGLPLUS_EGLFUNC(SurfaceAttrib)(
-			GetEGLHandle(_display),
-			_handle,
-			EGLint(EGLenum(attrib)),
-			value
+		Boolean result(
+			EGLPLUS_EGLFUNC(SurfaceAttrib)(
+				GetEGLHandle(_display),
+				_handle,
+				EGLint(EGLenum(attrib)),
+				value
+			), std::nothrow
 		);
 		EGLPLUS_VERIFY_SIMPLE(SurfaceAttrib);
 		return result;
@@ -349,13 +357,15 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{QuerySurface}
 	 */
-	bool QueryAttrib(SurfaceAttrib attrib, EGLint& value) const
+	Boolean QueryAttrib(SurfaceAttrib attrib, EGLint& value) const
 	{
-		bool result = EGLPLUS_EGLFUNC(QuerySurface)(
-			GetEGLHandle(_display),
-			_handle,
-			EGLint(EGLenum(attrib)),
-			&value
+		Boolean result(
+			EGLPLUS_EGLFUNC(QuerySurface)(
+				GetEGLHandle(_display),
+				_handle,
+				EGLint(EGLenum(attrib)),
+				&value
+			), std::nothrow
 		);
 		EGLPLUS_VERIFY_SIMPLE(QuerySurface);
 		return result;
@@ -544,7 +554,9 @@ public:
 	}
 };
 
-inline ::EGLSurface GetEGLHandle(const Surface& surface)
+inline
+::EGLSurface GetEGLHandle(const Surface& surface)
+OGLPLUS_NOEXCEPT(true)
 {
 	return surface._handle;
 }

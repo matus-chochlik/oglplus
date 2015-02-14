@@ -114,17 +114,23 @@ public:
 
 	AnyFont& operator = (const AnyFont& that)
 	{
-		_intf* tmp = that._clone();
-		if(_pimpl) delete _pimpl;
-		_pimpl = tmp;
+		if(this != &that)
+		{
+			_intf* tmp = that._clone();
+			if(_pimpl) delete _pimpl;
+			_pimpl = tmp;
+		}
 		return *this;
 	}
 
 	AnyFont& operator = (AnyFont&& tmp)
 	{
-		if(_pimpl) delete _pimpl;
-		_pimpl = tmp._pimpl;
-		tmp._pimpl = nullptr;
+		if(this != &tmp)
+		{
+			if(_pimpl) delete _pimpl;
+			_pimpl = tmp._pimpl;
+			tmp._pimpl = nullptr;
+		}
 		return *this;
 	}
 
@@ -171,8 +177,7 @@ private:
 			const CodePoint* code_points,
 			const GLsizei length
 		) = 0;
-		virtual void Set(const StrLit& string_literal) = 0;
-		virtual void Set(const String& string) = 0;
+		virtual void Set(StrCRef string) = 0;
 	};
 
 	template <class Layout>
@@ -208,14 +213,9 @@ private:
 			_layout.Set(code_points, length);
 		}
 
-		void Set(const StrLit& string_literal)
+		void Set(StrCRef str)
 		{
-			_layout.Set(string_literal);
-		}
-
-		void Set(const String& string)
-		{
-			_layout.Set(string);
+			_layout.Set(str);
 		}
 	};
 
@@ -245,9 +245,12 @@ public:
 
 	AnyLayout& operator = (AnyLayout&& tmp)
 	{
-		if(_pimpl) delete _pimpl;
-		_pimpl = tmp._pimpl;
-		tmp._pimpl = nullptr;
+		if(this != &tmp)
+		{
+			if(_pimpl) delete _pimpl;
+			_pimpl = tmp._pimpl;
+			tmp._pimpl = nullptr;
+		}
 		return *this;
 	}
 
@@ -278,16 +281,10 @@ public:
 		_pimpl->Set(code_points, length);
 	}
 
-	void Set(const StrLit& string_literal)
+	void Set(StrCRef str)
 	{
 		assert(_pimpl);
-		_pimpl->Set(string_literal);
-	}
-
-	void Set(const String& string)
-	{
-		assert(_pimpl);
-		_pimpl->Set(string);
+		_pimpl->Set(str);
 	}
 };
 
@@ -376,9 +373,12 @@ public:
 
 	AnyRenderer& operator = (AnyRenderer&& tmp)
 	{
-		if(_pimpl) delete _pimpl;
-		_pimpl = tmp._pimpl;
-		tmp._pimpl = nullptr;
+		if(this != &tmp)
+		{
+			if(_pimpl) delete _pimpl;
+			_pimpl = tmp._pimpl;
+			tmp._pimpl = nullptr;
+		}
 		return *this;
 	}
 
@@ -443,8 +443,7 @@ private:
 
 		virtual AnyLayout MakeLayout(
 			const AnyFont& font,
-			const GLchar* c_str,
-			std::size_t size
+			StrCRef str
 		) = 0;
 
 		virtual AnyRenderer GetRenderer(
@@ -485,15 +484,13 @@ private:
 
 		AnyLayout MakeLayout(
 			const AnyFont& font,
-			const GLchar* c_str,
-			std::size_t size
+			StrCRef str
 		)
 		{
 			return AnyLayout(
 				_ru.MakeLayout(
 					font.As<Font>(),
-					c_str,
-					size
+					str
 				)
 			);
 		}
@@ -549,24 +546,10 @@ public:
 		return _pimpl->MakeLayout(font, capacity);
 	}
 
-	Layout MakeLayout(
-		const Font& font,
-		const GLchar* c_str,
-		std::size_t size
-	)
+	Layout MakeLayout(const Font& font, StrCRef str)
 	{
 		assert(_pimpl);
-		return _pimpl->MakeLayout(font, c_str, size);
-	}
-
-	Layout MakeLayout(const Font& font, const StrLit& lit)
-	{
-		return MakeLayout(font, lit.c_str(), lit.size());
-	}
-
-	Layout MakeLayout(const Font& font, const String& str)
-	{
-		return MakeLayout(font, str.c_str(), str.size());
+		return _pimpl->MakeLayout(font, str);
 	}
 
 	typedef AnyRenderer Renderer;

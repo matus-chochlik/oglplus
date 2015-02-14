@@ -5,7 +5,6 @@
  */
 
 //[oglplus_config_basic
-namespace oglplus {
 
 #ifndef OGLPLUS_LOW_PROFILE
 # define OGLPLUS_LOW_PROFILE 0 /*<
@@ -47,9 +46,8 @@ By default this option is set to 0 - everything is inlined.
 Disables the usage of the automatically-generated
 [link oglplus.quickref.config.site site configuration header].
 >*/
-#include <oglplus/config/site.hpp>
+# include <oglplus/config/site.hpp>
 #endif
 
-} // namespace oglplus
 //]
 

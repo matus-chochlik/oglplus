@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,7 +16,11 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/object/wrapper.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/enumerations.hpp>
+#include <oglplus/enums/debug_output_severity.hpp>
+#include <oglplus/enums/debug_output_source.hpp>
+#include <oglplus/enums/debug_output_type.hpp>
 
 #include <cassert>
 #include <stack>
@@ -24,56 +28,6 @@
 #include <memory>
 
 namespace oglplus {
-
-/// Debug output severity enumeration
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputSeverity, GLenum)
-#include <oglplus/enums/debug_output_severity.ipp>
-OGLPLUS_ENUM_CLASS_END(DebugOutputSeverity)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/debug_output_severity_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/debug_output_severity_range.ipp>
-#endif
-
-
-/// Debug output source enumeration
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputSource, GLenum)
-#include <oglplus/enums/debug_output_source.ipp>
-OGLPLUS_ENUM_CLASS_END(DebugOutputSource)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/debug_output_source_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/debug_output_source_range.ipp>
-#endif
-
-/// Debug output type enumeration
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputType, GLenum)
-#include <oglplus/enums/debug_output_type.ipp>
-OGLPLUS_ENUM_CLASS_END(DebugOutputType)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/debug_output_type_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/debug_output_type_range.ipp>
-#endif
-
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
 
@@ -102,7 +56,7 @@ public:
 		DebugOutputSource source,
 		DebugOutputType type,
 		DebugOutputSeverity severity,
-		bool enable
+		Boolean enable
 	)
 	{
 		OGLPLUS_GLFUNC(DebugMessageControl)(
@@ -110,7 +64,7 @@ public:
 			GLenum(type),
 			GLenum(severity),
 			0, nullptr,
-			enable ? GL_TRUE : GL_FALSE
+			enable._get()
 		);
 		OGLPLUS_VERIFY_SIMPLE(DebugMessageControl);
 	}
@@ -267,14 +221,14 @@ public:
 		Group(
 			DebugOutputSource source,
 			GLuint id,
-			const StrLit& message
+			StrCRef message
 		)
 		{
 			OGLPLUS_GLFUNC(PushDebugGroup)(
 				GLenum(source),
 				id,
 				message.size(),
-				message.c_str()
+				message.begin()
 			);
 			OGLPLUS_VERIFY_SIMPLE(PushDebugGroup);
 		}
@@ -403,7 +357,7 @@ public:
 		DebugOutputType type,
 		GLuint id,
 		DebugOutputSeverity severity,
-		const StrLit& message
+		StrCRef message
 	)
 	{
 		OGLPLUS_GLFUNC(DebugMessageInsert)(

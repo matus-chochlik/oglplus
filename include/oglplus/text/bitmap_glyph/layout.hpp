@@ -113,7 +113,7 @@ public:
 			if(std::find(i, e, page) == e)
 				_pages.push_back(page);
 		}
-		_font._essence->LoadPages(_pages.data(), _pages.size());
+		_font._essence->LoadPages(_pages.data(), GLsizei(_pages.size()));
 
 		// initialize the layout data
 		BitmapGlyphInitializeLayoutData(_parent,_data,_font, cps, size);
@@ -124,14 +124,9 @@ public:
 		Set(cps.data(), GLsizei(cps.size()));
 	}
 
-	void Set(const StrLit& lit)
+	void Set(StrCRef str)
 	{
-		Set(UTF8ToCodePoints(lit.c_str(), lit.size()));
-	}
-
-	void Set(const String& str)
-	{
-		Set(UTF8ToCodePoints(str.c_str(), str.size()));
+		Set(UTF8ToCodePoints(str.begin(), str.size()));
 	}
 };
 

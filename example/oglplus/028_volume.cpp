@@ -37,7 +37,7 @@ public:
 	VolumeVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Volume vertex shader"),
-		StrLit("#version 330\n"
+		StrCRef("#version 330\n"
 		"uniform sampler3D VolumeTex;"
 		"uniform float Threshold;"
 		"uniform float GridStep;"
@@ -74,7 +74,7 @@ public:
 	VolumeGeomShader(void)
 	 : GeometryShader(
 		ObjectDesc("Volume geometry shader"),
-		StrLit("#version 330\n"
+		StrCRef("#version 330\n"
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 4) out;"
 
@@ -86,7 +86,7 @@ public:
 
 		"out vec3 geomNormal, geomLightDir, geomViewDir;"
 
-		"void do_nothing(void){ };"
+		"void do_nothing(void){ }"
 
 		"float find_t(int i1, int i2)"
 		"{"
@@ -215,7 +215,7 @@ public:
 	VolumeFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Volume fragment shader"),
-		StrLit("#version 330\n"
+		StrCRef("#version 330\n"
 
 		"in vec3 geomNormal, geomLightDir, geomViewDir;"
 
@@ -296,8 +296,8 @@ public:
 	Grid(const Program& prog, float quality)
 	 : grid_div(64 + (quality > 0.75 ? 64 : 0))
 	 , make_grid(1.0, grid_div)
-	 , grid_instr(make_grid.InstructionsWithAdjacency())
-	 , grid_indices(make_grid.IndicesWithAdjacency())
+	 , grid_instr(make_grid.Instructions())
+	 , grid_indices(make_grid.Indices())
 	{
 		// bind the VAO for the shape
 		vao.Bind();

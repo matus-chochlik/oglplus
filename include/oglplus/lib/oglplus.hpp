@@ -102,9 +102,10 @@
 #include <oglplus/opt/resources.hpp>
 
 #include <oglplus/ext/ARB_debug_output.hpp>
-#include <oglplus/dsa/framebuffer.hpp>
-#include <oglplus/dsa/renderbuffer.hpp>
-#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/ext/buffer.hpp>
+#include <oglplus/dsa/ext/framebuffer.hpp>
+#include <oglplus/dsa/ext/renderbuffer.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
 
 #include <oglplus/native/common_glx.hpp>
 #include <oglplus/native/common_wgl.hpp>

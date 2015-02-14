@@ -1,6 +1,6 @@
 /**
  *  @file oglplus/buffer_data.hpp
- *  @brief Object wrapping data to be stores in a Buffer
+ *  @brief Object wrapping data to be stored in a Buffer
  *
  *  @author Matus Chochlik
  *
@@ -17,35 +17,43 @@
 
 namespace oglplus {
 
+/// Class used for passing the size of and pointer to data to be put in a Buffer
 class BufferData
 {
 private:
 	BufferSize _size;
 	const GLvoid* _data;
+
+	BufferData(const BufferData&);
 public:
+	/// Construction from @p size in bytes and pointer to @p data
 	BufferData(BufferSize size, const GLvoid* data)
 	 : _size(size)
 	 , _data(data)
 	{ }
 
+	/// Construction from @p count of instances of type @c T at @p data
 	template <typename T>
 	BufferData(GLsizei count, const T* data)
 	 : _size(count, data)
 	 , _data(data)
 	{ }
 
+	/// Construction from an array with known size
 	template <typename T, std::size_t N>
 	BufferData(const T (&data)[N])
 	 : _size(data)
 	 , _data(data)
 	{ }
 
+	/// Construction from a std::array
 	template <typename T, std::size_t N>
 	BufferData(const std::array<T, N>& a)
 	 : _size(a)
 	 , _data(a.data())
 	{ }
 
+	/// Construction from a std::vector
 	template <typename T>
 	BufferData(const std::vector<T>& v)
 	 : _size(v)

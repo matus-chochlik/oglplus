@@ -124,8 +124,8 @@ public:
 	{ }
 
 	/// Copy construction from a vector with different element type
-	template <typename U>
-	Vector(const Vector<U, N>& vector)
+	template <typename U, size_t M>
+	Vector(const Vector<U, M>& vector)
 	 : Base(vector)
 	{ }
 
@@ -171,13 +171,13 @@ public:
 	template <typename ... P>
 	Vector(const Vector<T, M>& a, P ... p);
 #else
-	template <typename ... P>
-	Vector(const Vector<T, N-1-sizeof...(P)>& a, T v, P ... p)
+	template <typename U, typename ... P>
+	Vector(const Vector<U, N-1-sizeof...(P)>& a, T v, P ... p)
 	 : Base(oglplus::Nothing())
 	{
 		const std::size_t M = N-1-sizeof...(P);
 		for(std::size_t i=0; i!=M; ++i)
-			this->_elem[i] = a[i];
+			this->_elem[i] = T(a[i]);
 		_init_by_pack(M, v, p...);
 	}
 #endif
@@ -322,13 +322,13 @@ public:
 	/// Multiples this vector by a scalar value
 	Vector& operator *= (T v)
 	{
-		this->MultiplyBy(v);
+		this->Multiply(v);
 		return *this;
 	}
 
 	Vector& operator *= (const Vector& v)
 	{
-		this->MultiplyBy(v);
+		this->Multiply(v);
 		return *this;
 	}
 
@@ -346,7 +346,7 @@ public:
 	/// Divides this vector by a scalar value
 	Vector& operator /= (T v)
 	{
-		this->DivideBy(v);
+		this->Divide(v);
 		return *this;
 	}
 

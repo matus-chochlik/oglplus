@@ -2,7 +2,7 @@
  *  @example standalone/004_bitmap_text_rendering.cpp
  *  @brief Shows the usage of OGLplus' text rendering utilities
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -51,24 +51,28 @@ public:
 	 : gl()
 	 , tr(0, 1, 2)
 	 , font(tr.LoadFont((argc>1)?argv[1]:"Sans"))
-	 , oglp_layout(tr.MakeLayout(font, oglplus::StrLit("OGLplus")))
-	 , desc_layout(tr.MakeLayout(font, oglplus::StrLit(u8"a C++ wrapper for OpenGL©")))
+	 , oglp_layout(tr.MakeLayout(font, "OGLplus"))
+#if !OGLPLUS_NO_UNICODE_LITERALS
+	 , desc_layout(tr.MakeLayout(font, u8"a C++ wrapper for OpenGL©"))
+#else
+	 , desc_layout(tr.MakeLayout(font, "a C++ wrapper for OpenGL(c)"))
+#endif
 	 , time_layout(tr.MakeLayout(font, 25))
 	 , rndr(tr.GetRenderer(
 			oglplus::GeometryShader(
 				oglplus::ObjectDesc("Layout transform"),
-				oglplus::StrLit("#version 330\n"
+				"#version 330\n"
 				"uniform mat4  ProjectionMatrix,CameraMatrix,LayoutMatrix;"
 				"mat4 Matrix = ProjectionMatrix*CameraMatrix*LayoutMatrix;"
 
 				"vec4 TransformLayout(vec3 GlyphPosition)"
 				"{"
 				"	return Matrix * vec4(GlyphPosition, 1.0);"
-				"}")
+				"}"
 			),
 			oglplus::GeometryShader(
 				oglplus::ObjectDesc("Glyph transform"),
-				oglplus::StrLit("#version 330\n"
+				"#version 330\n"
 				"uniform float Time;"
 
 				"vec3 TransformGlyph("
@@ -86,11 +90,11 @@ public:
 				"		Pos.y+sin(a)*0.1,"
 				"		cos(a)*0.05"
 				"	);"
-				"}")
+				"}"
 			),
 			oglplus::FragmentShader(
 				oglplus::ObjectDesc("Pixel color"),
-				oglplus::StrLit("#version 330\n"
+				"#version 330\n"
 				"vec4 PixelColor("
 				"	vec4 TexelColor,"
 				"	vec3 GlyphPosition,"
@@ -107,7 +111,7 @@ public:
 				"		(GlyphPosition.z+0.1)/0.2"
 				"	);"
 				"	return vec4(Color, TexelColor.r);"
-				"}")
+				"}"
 			)
 		)
 	), rndr_projection_matrix(rndr.GetUniform<oglplus::Mat4f>("ProjectionMatrix"))

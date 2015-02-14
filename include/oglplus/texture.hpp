@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,11 +15,12 @@
 
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/math/vector.hpp>
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/object/wrapper.hpp>
-#include <oglplus/compare_func.hpp>
+#include <oglplus/compare_function.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/access_specifier.hpp>
@@ -30,6 +31,7 @@
 #include <oglplus/texture_wrap.hpp>
 #include <oglplus/texture_unit.hpp>
 #include <oglplus/one_of.hpp>
+#include <oglplus/output_data.hpp>
 #include <oglplus/images/fwd.hpp>
 #include <cassert>
 
@@ -50,12 +52,32 @@ template <>
 class ObjGenDelOps<tag::Texture>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Generate, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenTextures)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenTextures);
 	}
+#if GL_VERSION_4_5 || GL_ARB_direct_state_access
+	static void Gen(
+		tag::Create,
+		GLenum target,
+		GLsizei count,
+		GLuint* names
+	)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(CreateTextures)(target, count, names);
+		OGLPLUS_CHECK_SIMPLE(CreateTextures);
+	}
+
+	GLenum _type;
+
+	void Gen(tag::Create create, GLsizei count, GLuint* names)
+	{
+		Gen(create, _type, count, names);
+	}
+#endif
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
@@ -71,6 +93,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(IsTexture);
 		return result;
 	}
+};
+
+template <>
+struct ObjectSubtype<tag::Texture>
+{
+	typedef TextureTarget Type;
 };
 
 /// Texture binding operations
@@ -128,7 +156,7 @@ public:
 		ImageUnitSelector unit,
 		TextureName texture,
 		GLint level,
-		bool layered,
+		Boolean layered,
 		GLint layer,
 		AccessSpecifier access,
 		ImageUnitFormat format
@@ -138,7 +166,7 @@ public:
 			GLuint(unit),
 			GetGLName(texture),
 			level,
-			layered? GL_TRUE : GL_FALSE,
+			layered._get(),
 			layer,
 			GLenum(access),
 			GLenum(format)
@@ -230,8 +258,48 @@ class ObjCommonOps<tag::Texture>
  , public ObjBindingOps<tag::Texture>
 {
 protected:
-	ObjCommonOps(void){ }
+	ObjCommonOps(TextureName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : TextureName(name)
+	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+#else
+	typedef TextureName _base1;
+	typedef ObjBindingOps<tag::Texture> _base2;
+
+	ObjCommonOps(ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base1(static_cast<_base1&&>(temp))
+	 , _base2(static_cast<_base2&&>(temp))
+	{ }
+
+	ObjCommonOps(const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base1(static_cast<const _base1&>(that))
+	 , _base2(static_cast<const _base2&>(that))
+	{ }
+
+	ObjCommonOps& operator = (ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base1::operator = (static_cast<_base1&&>(temp));
+		_base2::operator = (static_cast<_base2&&>(temp));
+		return *this;
+	}
+
+	ObjCommonOps& operator = (const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base1::operator = (static_cast<const _base1&>(that));
+		_base2::operator = (static_cast<const _base2&>(that));
+		return *this;
+	}
+#endif
 	/// Specify active texture unit for subsequent commands
 	/**
 	 *  @throws Error
@@ -270,7 +338,7 @@ public:
 			Error,
 			EnumParam(GLenum(GL_ACTIVE_TEXTURE))
 		);
-		return GL_TEXTURE0 - result;
+		return result - GL_TEXTURE0;
 	}
 
 	/// Returns the target for the i-th cube map @p face (0-5)
@@ -334,7 +402,7 @@ public:
 	 */
 	void InvalidateImage(GLsizei level)
 	{
-		OGLPLUS_GLFUNC(InvalidateTexImage)(_name, level);
+		OGLPLUS_GLFUNC(InvalidateTexImage)(_obj_name(), level);
 		OGLPLUS_CHECK(
 			InvalidateTexImage,
 			ObjectError,
@@ -360,7 +428,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(InvalidateTexSubImage)(
-			_name,
+			_obj_name(),
 			level,
 			xoffs,
 			yoffs,
@@ -393,7 +461,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ClearTexImage)(
-			_name,
+			_obj_name(),
 			level,
 			GLenum(format),
 			GLenum(GetDataType<GLtype>()),
@@ -427,7 +495,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ClearTexImage)(
-			_name,
+			_obj_name(),
 			level,
 			xoffs,
 			yoffs,
@@ -466,7 +534,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(TextureView)(
-			_name,
+			_obj_name(),
 			GLenum(target),
 			GetGLName(orig_texture),
 			GLenum(internal_format),
@@ -494,8 +562,44 @@ class ObjZeroOps<tag::ExplicitSel, tag::Texture>
  : public ObjCommonOps<tag::Texture>
 {
 protected:
-	ObjZeroOps(void) { }
+	ObjZeroOps(TextureName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjCommonOps<tag::Texture>(name)
+	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjZeroOps(ObjZeroOps&&) = default;
+	ObjZeroOps(const ObjZeroOps&) = default;
+	ObjZeroOps& operator = (ObjZeroOps&&) = default;
+	ObjZeroOps& operator = (const ObjZeroOps&) = default;
+#else
+	typedef ObjCommonOps<tag::Texture> _base;
+
+	ObjZeroOps(ObjZeroOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjZeroOps(const ObjZeroOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjZeroOps& operator = (ObjZeroOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjZeroOps& operator = (const ObjZeroOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
+
 	/// Types related to Texture
 	struct Property
 	{
@@ -887,9 +991,7 @@ public:
 		Target target,
 		GLint level,
 		PixelDataFormat format,
-		Property::PixDataType type,
-		GLsizei size,
-		GLvoid* buffer
+		const OutputData& dest
 	);
 
 	/// Allows to obtain the texture image in uncompressed form
@@ -907,24 +1009,33 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetTexImage}
 	 */
-	template <typename T>
 	static void GetImage(
 		Target target,
 		GLint level,
 		PixelDataFormat format,
-		std::vector<T>& dest
+		Property::PixDataType type,
+		GLsizei size,
+		GLvoid* buffer
 	)
 	{
-		GetImage(
-			target,
-			level,
-			format,
-			GetDataType<T>(),
-			dest.size()*sizeof(T),
-			dest.data()
-		);
+		GetImage(target, level, format, OutputData(type, size, buffer));
 	}
 
+	/// Allows to obtain the texture image in compressed form
+	/** This function stores the image of the texture bound to
+	 *  the specified texture @p target with the specified @p level
+	 *  of detail in compressed form into the @p dest buffer.
+	 *  This function automatically resizes the buffer so that
+	 *  it can accomodate the texture data.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetCompressedTexImage}
+	 */
+	static void GetCompressedImage(
+		Target target,
+		GLint level,
+		const OutputData& dest
+	);
 
 	/// Allows to obtain the texture image in compressed form
 	/** This function stores the image of the texture bound to
@@ -941,7 +1052,10 @@ public:
 		GLint level,
 		GLsizei size,
 		GLubyte* buffer
-	);
+	)
+	{
+		GetCompressedImage(target, level, OutputData(size, buffer));
+	}
 
 	/// Allows to obtain the texture image in compressed form
 	/** This function stores the image of the texture bound to
@@ -1760,7 +1874,7 @@ public:
 		GLsizei width,
 		GLsizei height,
 		GLsizei depth,
-		bool fixed_sample_locations
+		Boolean fixed_sample_locations
 	)
 	{
 		OGLPLUS_GLFUNC(TexImage3DMultisample)(
@@ -1770,7 +1884,7 @@ public:
 			width,
 			height,
 			depth,
-			fixed_sample_locations ? GL_TRUE : GL_FALSE
+			fixed_sample_locations._get()
 		);
 		OGLPLUS_CHECK(
 			TexImage3DMultisample,
@@ -1792,7 +1906,7 @@ public:
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
 		GLsizei height,
-		bool fixed_sample_locations
+		Boolean fixed_sample_locations
 	)
 	{
 		OGLPLUS_GLFUNC(TexImage2DMultisample)(
@@ -1801,7 +1915,7 @@ public:
 			GLint(internal_format),
 			width,
 			height,
-			fixed_sample_locations ? GL_TRUE : GL_FALSE
+			fixed_sample_locations._get()
 		);
 		OGLPLUS_CHECK(
 			TexImage2DMultisample,
@@ -2876,12 +2990,14 @@ public:
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	static bool Seamless(Target target)
+	static Boolean Seamless(Target target)
 	{
-		return GetIntParam(
-			target,
-			GL_TEXTURE_CUBE_MAP_SEAMLESS
-		) == GL_TRUE;
+		return Boolean(
+			GetIntParam(
+				target,
+				GL_TEXTURE_CUBE_MAP_SEAMLESS
+			), std::nothrow
+		);
 	}
 
 	/// Sets the seamless cubemap setting
@@ -2891,12 +3007,12 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	static void Seamless(Target target, bool enable)
+	static void Seamless(Target target, Boolean enable)
 	{
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_CUBE_MAP_SEAMLESS,
-			enable?GL_TRUE:GL_FALSE
+			enable._get()
 		);
 		OGLPLUS_CHECK(
 			TexParameteri,
@@ -2906,7 +3022,10 @@ public:
 	}
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_texture_barrier
+#if OGLPLUS_DOCUMENTATION_ONLY || \
+	GL_VERSION_4_5 || \
+	GL_ARB_texture_barrier || \
+	GL_NV_texture_barrier
 	/// Ensures that texture writes have been completed
 	/**
 	 *  @glextreq{NV,texture_barrier}
@@ -2915,8 +3034,13 @@ public:
 	 */
 	static void Barrier(void)
 	{
+#if GL_VERSION_4_5 || GL_ARB_texture_barrier
+		OGLPLUS_GLFUNC(TextureBarrier)();
+		OGLPLUS_VERIFY_SIMPLE(TextureBarrier);
+#elif GL_NV_texture_barrier
 		OGLPLUS_GLFUNC(TextureBarrierNV)();
 		OGLPLUS_VERIFY_SIMPLE(TextureBarrierNV);
+#endif
 	}
 #endif
 
@@ -2939,14 +3063,6 @@ public:
 /// DefaultTexture operations with explicit selector
 typedef ObjZeroOps<tag::ExplicitSel, tag::Texture>
 	DefaultTextureOps;
-
-template <>
-class ObjectOps<tag::ExplicitSel, tag::Texture>
- : public ObjZeroOps<tag::ExplicitSel, tag::Texture>
-{
-protected:
-	ObjectOps(void){ }
-};
 
 /// Texture operations with explicit selector
 typedef ObjectOps<tag::ExplicitSel, tag::Texture>

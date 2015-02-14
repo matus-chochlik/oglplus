@@ -33,10 +33,4 @@
 #define EGLPLUS_ENUM_CLASS_END(NAME) \
 	OGLPLUS_ENUM_CLASS_END(NAME)
 
-namespace eglplus {
-
-using oglplus::enums::EnumValueType;
-
-} // namespace eglplus
-
 #endif // include guard

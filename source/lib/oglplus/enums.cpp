@@ -11,7 +11,7 @@
 
 #include "prologue.ipp"
 #include <oglplus/string/def.hpp>
-#include <oglplus/string/literal.hpp>
+#include <oglplus/string/ref.hpp>
 #include "implement.ipp"
 #include <oglplus/detail/base_range.hpp>
 #include <oglplus/detail/enum_class.hpp>

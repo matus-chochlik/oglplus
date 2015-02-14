@@ -232,11 +232,14 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{ReleaseThread}
 	 */
-	static bool ReleaseThread(void)
+	static Boolean ReleaseThread(void)
 	{
-		EGLBoolean result = EGLPLUS_EGLFUNC(ReleaseThread)();
+		Boolean result(
+			EGLPLUS_EGLFUNC(ReleaseThread)(),
+			std::nothrow
+		);
 		EGLPLUS_CHECK_SIMPLE(ReleaseThread);
-		return result == EGL_TRUE;
+		return result;
 	}
 };
 

@@ -22,16 +22,18 @@ namespace context {
 struct ViewportPosition
 {
 	// private implementation detail, do not use
-	GLfloat _v[2];
+	GLint _v[2];
 
 	/// The x-coordinate
-	GLfloat X(void) const
+	GLint X(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _v[0];
 	}
 
 	/// The y-coordinate
-	GLfloat Y(void) const
+	GLint Y(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _v[1];
 	}
@@ -41,16 +43,18 @@ struct ViewportPosition
 struct ViewportSize
 {
 	// private implementation detail, do not use
-	GLfloat _v[2];
+	GLint _v[2];
 
 	/// The width of the viewport
-	GLfloat Width(void) const
+	GLint Width(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _v[0];
 	}
 
 	/// The height of the viewport
-	GLfloat Height(void) const
+	GLint Height(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _v[1];
 	}
@@ -60,47 +64,129 @@ struct ViewportSize
 struct ViewportExtents
 {
 	// private implementation detail, do not use
-	GLfloat _v[4];
+	GLint _v[4];
+
+	ViewportExtents(void)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
+	ViewportExtents(GLint x, GLint y, GLint w, GLint h)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_v[0] = x;
+		_v[1] = y;
+		_v[2] = w;
+		_v[3] = h;
+	}
 
 	/// The x-coordinate
-	GLfloat X(void) const
+	GLint X(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _v[0];
 	}
 
 	/// The y-coordinate
-	GLfloat Y(void) const
+	GLint Y(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _v[1];
+	}
+
+	/// The x-coordinate
+	GLint Left(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _v[0];
+	}
+
+	/// The y-coordinate
+	GLint Bottom(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _v[1];
 	}
 
 	/// The width of the viewport
-	GLfloat Width(void) const
+	GLint Width(void) const
 	{
 		return _v[2];
 	}
 
 	/// The height of the viewport
-	GLfloat Height(void) const
+	GLint Height(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _v[3];
+	}
+
+	friend
+	bool operator == (const ViewportExtents& a, const ViewportExtents& b)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		for(unsigned i=0; i<4; ++i)
+		{
+			if(a._v[i] != b._v[i]) return false;
+		}
+		return true;
+	}
+
+	friend
+	bool operator != (const ViewportExtents& a, const ViewportExtents& b)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return !(a == b);
+	}
+};
+
+/// Helper structure storing the min/max bounds range
+struct BoundsRange
+{
+	// private implementation detail, do not use
+	GLint _v[2];
+
+	/// The min limit
+	GLint Min(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _v[0];
+	}
+
+	/// The max limit
+	GLint Max(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _v[1];
 	}
 };
 
 /// Helper structure storing the near/far depth range
-struct DepthRange
+struct ViewportDepthRange
 {
 	// private implementation detail, do not use
 	GLfloat _v[2];
 
+	ViewportDepthRange(void)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
+	ViewportDepthRange(GLfloat near_val, GLfloat far_val)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_v[0] = near_val;
+		_v[1] = far_val;
+	}
+
 	/// The near limit
 	GLfloat Near(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _v[0];
 	}
 
 	/// The far limit
 	GLfloat Far(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _v[1];
 	}
@@ -110,7 +196,7 @@ struct DepthRange
 /**
  *  @ingroup ogl_context
  */
-class ViewportOps
+class ViewportState
 {
 public:
 	/// Sets the extents of the current viewport
@@ -139,43 +225,37 @@ public:
 		OGLPLUS_CHECK_SIMPLE(Viewport);
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
-	/// Returns the implementation-dependent viewport bounds range
+	/// Sets the extents of the current viewport
 	/**
 	 *  @throws Error
 	 *
 	 *  @glsymbols
-	 *  @glfunref{Get}
-	 *  @gldefref{VIEWPORT_BOUNDS_RANGE}
+	 *  @glfunref{Viewport}
 	 */
-	static ViewportPosition ViewportBoundsRange(void)
+	static void Viewport(const ViewportExtents& vp)
 	{
-		ViewportPosition result;
-		OGLPLUS_GLFUNC(GetFloatv)(
-			GL_VIEWPORT_BOUNDS_RANGE,
-			result._v
+		OGLPLUS_GLFUNC(Viewport)(
+			vp.X(),
+			vp.Y(),
+			vp.Width(),
+			vp.Height()
 		);
-		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
-		return result;
+		OGLPLUS_CHECK_SIMPLE(Viewport);
 	}
-#endif
 
-	/// Returns the implementation-dependent maximum viewport dimensions
+	/// Returns the extents of the current viewport
 	/**
 	 *  @throws Error
 	 *
 	 *  @glsymbols
 	 *  @glfunref{Get}
-	 *  @gldefref{MAX_VIEWPORT_DIMS}
+	 *  @gldefref{VIEWPORT}
 	 */
-	static ViewportSize MaxViewportDims(void)
+	static ViewportExtents Viewport(void)
 	{
-		ViewportSize result;
-		OGLPLUS_GLFUNC(GetFloatv)(
-			GL_MAX_VIEWPORT_DIMS,
-			result._v
-		);
-		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
+		ViewportExtents result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_VIEWPORT, result._v);
+		OGLPLUS_CHECK_SIMPLE(GetIntegerv);
 		return result;
 	}
 
@@ -196,9 +276,7 @@ public:
 		OGLPLUS_GLFUNC(DepthRangef)(near_val, far_val);
 		OGLPLUS_CHECK_SIMPLE(DepthRangef);
 	}
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+#elif OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Sets the @p near_val / @p far_val depth range of the default viewport
 	/**
 	 *  @throws Error
@@ -213,23 +291,28 @@ public:
 	}
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
-	/// Returns the number of available viewports
+	static void DepthRange(const ViewportDepthRange& vdr)
+	{
+		DepthRange(vdr._v[0], vdr._v[1]);
+	}
+
+	/// Returns the depth range of the default viewport
 	/**
 	 *  @throws Error
 	 *
 	 *  @glsymbols
 	 *  @glfunref{Get}
-	 *  @gldefref{MAX_VIEWPORTS}
+	 *  @gldefref{DEPTH_RANGE}
 	 */
-	static GLuint MaxViewports(void)
+	static ViewportDepthRange DepthRange(void)
 	{
-		GLint result = 0;
-		OGLPLUS_GLFUNC(GetIntegerv)(GL_MAX_VIEWPORTS, &result);
-		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
-		return GLuint(result);
+		ViewportDepthRange result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_DEPTH_RANGE, result._v);
+		OGLPLUS_CHECK_SIMPLE(GetFloatv);
+		return result;
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
 	/// Sets the extents of the specified @p viewport
 	/**
 	 *  @throws Error
@@ -287,6 +370,32 @@ public:
 		OGLPLUS_CHECK_SIMPLE(ViewportArrayv);
 	}
 
+	/// Sets the extents of the specified @p viewport
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ViewportIndexedf}
+	 */
+	static void Viewport(
+		GLuint viewport,
+		const ViewportExtents& vp
+	)
+	{
+		OGLPLUS_GLFUNC(ViewportIndexedf)(
+			viewport,
+			GLfloat(vp.X()),
+			GLfloat(vp.Y()),
+			GLfloat(vp.Width()),
+			GLfloat(vp.Height())
+		);
+		OGLPLUS_CHECK(
+			ViewportIndexedf,
+			Error,
+			Index(viewport)
+		);
+	}
+
 	/// Returns the extents of the specified @p viewport
 	/**
 	 *  @throws Error
@@ -298,8 +407,8 @@ public:
 	static ViewportExtents Viewport(GLuint viewport)
 	{
 		ViewportExtents result;
-		OGLPLUS_GLFUNC(GetFloati_v)(GL_VIEWPORT, viewport, result._v);
-		OGLPLUS_CHECK_SIMPLE(GetFloati_v);
+		OGLPLUS_GLFUNC(GetIntegeri_v)(GL_VIEWPORT, viewport, result._v);
+		OGLPLUS_CHECK_SIMPLE(GetIntegeri_v);
 		return result;
 	}
 
@@ -319,6 +428,11 @@ public:
 			Error,
 			Index(viewport)
 		);
+	}
+
+	static void DepthRange(GLuint viewport, const ViewportDepthRange& vdr)
+	{
+		DepthRange(viewport, vdr._v[0], vdr._v[1]);
 	}
 
 	/// Sets depth ranges of viewports specified by @p first and @p count
@@ -346,9 +460,9 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{DEPTH_RANGE}
 	 */
-	static oglplus::context::DepthRange DepthRange(GLuint viewport)
+	static ViewportDepthRange DepthRange(GLuint viewport)
 	{
-		oglplus::context::DepthRange result;
+		ViewportDepthRange result;
 		OGLPLUS_GLFUNC(GetFloati_v)(GL_DEPTH_RANGE, viewport,result._v);
 		OGLPLUS_CHECK(
 			GetFloati_v,
@@ -356,6 +470,66 @@ public:
 			Index(viewport)
 		);
 		return result;
+	}
+#endif
+};
+
+class ViewportOps
+{
+public:
+	/// Returns the implementation-dependent maximum viewport dimensions
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{MAX_VIEWPORT_DIMS}
+	 */
+	static ViewportSize MaxViewportDims(void)
+	{
+		ViewportSize result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_MAX_VIEWPORT_DIMS,
+			result._v
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return result;
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
+	/// Returns the implementation-dependent viewport bounds range
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{VIEWPORT_BOUNDS_RANGE}
+	 */
+	static BoundsRange ViewportBoundsRange(void)
+	{
+		BoundsRange result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_VIEWPORT_BOUNDS_RANGE,
+			result._v
+		);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return result;
+	}
+
+	/// Returns the number of available viewports
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{MAX_VIEWPORTS}
+	 */
+	static GLuint MaxViewports(void)
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_MAX_VIEWPORTS, &result);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+		return GLuint(result);
 	}
 #endif
 };

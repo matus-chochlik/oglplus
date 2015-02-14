@@ -140,10 +140,14 @@ private:
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	void _init(std::size_t) { }
 
-	template <typename ... I>
-	void _init(std::size_t i, NameT name, I ... names)
+	template <typename ... Tags>
+	void _init(
+		std::size_t i,
+		ObjectName<ObjTag> name,
+		ObjectName<Tags> ... names
+	)
 	{
-		_names[i] = name;
+		_names[i] = GetName(name);
 		_init(i+1, names...);
 	}
 #endif
@@ -152,7 +156,7 @@ public:
 	{
 		for(std::size_t i=0; i!=N; ++i)
 		{
-			_names[i] = GetGLName(names[i]);
+			_names[i] = GetName(names[i]);
 		}
 	}
 
@@ -160,7 +164,7 @@ public:
 	template <typename ... Tag>
 	StaticGroup(ObjectName<Tag>... names)
 	{
-		_init(0, GetGLName(names)...);
+		_init(0, names...);
 	}
 #else
 	StaticGroup(
@@ -168,8 +172,8 @@ public:
 		ObjectName<ObjTag> n1
 	)
 	{
-		_names[0] = GetGLName(n0);
-		_names[1] = GetGLName(n1);
+		_names[0] = GetName(n0);
+		_names[1] = GetName(n1);
 	}
 
 	StaticGroup(
@@ -178,9 +182,9 @@ public:
 		ObjectName<ObjTag> n2
 	)
 	{
-		_names[0] = GetGLName(n0);
-		_names[1] = GetGLName(n1);
-		_names[2] = GetGLName(n2);
+		_names[0] = GetName(n0);
+		_names[1] = GetName(n1);
+		_names[2] = GetName(n2);
 	}
 #endif
 

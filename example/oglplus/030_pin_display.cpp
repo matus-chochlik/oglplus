@@ -15,8 +15,8 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/dsa/texture.hpp>
-#include <oglplus/dsa/framebuffer.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
+#include <oglplus/dsa/ext/framebuffer.hpp>
 
 #include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/shapes/cube.hpp>
@@ -343,12 +343,12 @@ private:
 	shapes::ShapeWrapper cube;
 	VertexArray display_vao, shadow_vao;
 
-	DSATexture offsets;
-	DSATexture heights;
-	DSATexture shadows;
+	DSATextureEXT offsets;
+	DSATextureEXT heights;
+	DSATextureEXT shadows;
 
-	DSAFramebuffer heights_fbo;
-	DSAFramebuffer shadows_fbo;
+	DSAFramebufferEXT heights_fbo;
+	DSAFramebufferEXT shadows_fbo;
 	DefaultFramebuffer default_fb;
 
 	void init_offsets(void)

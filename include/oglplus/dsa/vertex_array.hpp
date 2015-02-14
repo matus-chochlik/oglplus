@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,79 +19,76 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_ARB_direct_state_access
+
+template <>
+struct ObjGenTag<tag::DirectState, tag::VertexArray>
+{
+	typedef tag::Create Type;
+};
 
 /// Class wrapping vertex array-related functionality with direct state access
-/** @note Do not use this class directly, use DSARenderbuffer instead.
+/** @note Do not use this class directly, use DSAVertexArray instead.
  *
  */
 template <>
 class ObjectOps<tag::DirectState, tag::VertexArray>
  : public ObjZeroOps<tag::DirectState, tag::VertexArray>
 {
+protected:
+	ObjectOps(VertexArrayName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectState, tag::VertexArray>(name)
+	{ }
 public:
-	/// Setup the properties of the specified vertex attribute array
-	/**
-	 *  @glsymbols
-	 *  @glfunref{VertexArrayVertexAttribOffsetEXT}
-	 */
-	const ObjectOps& VertexAttribOffset(
-		BufferName buffer,
-		VertexAttribSlot location,
-		GLint values_per_vertex,
-		DataType data_type,
-		bool normalized,
-		GLsizei stride,
-		GLintptr offset
-	) const
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef ObjZeroOps<tag::DirectState, tag::VertexArray> _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
 	{
-		OGLPLUS_GLFUNC(VertexArrayVertexAttribOffsetEXT)(
-			_name,
-			GetGLName(buffer),
-			GLuint(location),
-			values_per_vertex,
-			GLenum(data_type),
-			normalized ? GL_TRUE : GL_FALSE,
-			stride,
-			offset
-		);
-		OGLPLUS_CHECK(
-			VertexArrayVertexAttribOffsetEXT,
-			ObjectError,
-			Object(*this).
-			Index(GLuint(location))
-		);
+		_base::operator = (static_cast<_base&&>(temp));
 		return *this;
 	}
 
-	/// Setup the properties of the specified vertex attribute array
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
+	/// Bind buffer to VAO's element buffer binding point
 	/**
 	 *  @glsymbols
-	 *  @glfunref{VertexArrayVertexAttribIOffsetEXT}
+	 *  @glfunref{VertexArrayElementBuffer}
 	 */
-	const ObjectOps& VertexAttribIOffset(
-		BufferName buffer,
-		VertexAttribSlot location,
-		GLint values_per_vertex,
-		DataType data_type,
-		GLsizei stride,
-		GLintptr offset
-	) const
+	ObjectOps& ElementBuffer(BufferName buffer)
 	{
-		OGLPLUS_GLFUNC(VertexArrayVertexAttribIOffsetEXT)(
-			_name,
-			GetGLName(buffer),
-			GLuint(location),
-			values_per_vertex,
-			GLenum(data_type),
-			stride,
-			offset
+		OGLPLUS_GLFUNC(VertexArrayElementBuffer)(
+			_obj_name(),
+			GetGLName(buffer)
 		);
 		OGLPLUS_CHECK(
-			VertexArrayVertexAttribIOffsetEXT,
-			ObjectError,
-			Object(*this).
-			Index(GLuint(location))
+			VertexArrayElementBuffer,
+			ObjectPairError,
+			Subject(buffer).
+			Object(*this)
 		);
 		return *this;
 	}
@@ -99,16 +96,16 @@ public:
 	/// Enable the specified vertex attribute array
 	/**
 	 *  @glsymbols
-	 *  @glfunref{EnableVertexArrayAttribEXT}
+	 *  @glfunref{EnableVertexArrayAttrib}
 	 */
 	const ObjectOps& EnableVertexAttrib(VertexAttribSlot location)
 	{
-		OGLPLUS_GLFUNC(EnableVertexArrayAttribEXT)(
-			_name,
+		OGLPLUS_GLFUNC(EnableVertexArrayAttrib)(
+			_obj_name(),
 			GLuint(location)
 		);
 		OGLPLUS_CHECK(
-			EnableVertexArrayAttribEXT,
+			EnableVertexArrayAttrib,
 			ObjectError,
 			Object(*this).
 			Index(GLuint(location))
@@ -116,19 +113,19 @@ public:
 		return *this;
 	}
 
-	/// Enable the specified vertex attribute array
+	/// Disable the specified vertex attribute array
 	/**
 	 *  @glsymbols
-	 *  @glfunref{DisableVertexArrayAttribEXT}
+	 *  @glfunref{DisableVertexArrayAttrib}
 	 */
 	const ObjectOps& DisableVertexAttrib(VertexAttribSlot location)
 	{
-		OGLPLUS_GLFUNC(DisableVertexArrayAttribEXT)(
-			_name,
+		OGLPLUS_GLFUNC(DisableVertexArrayAttrib)(
+			_obj_name(),
 			GLuint(location)
 		);
 		OGLPLUS_CHECK(
-			DisableVertexArrayAttribEXT,
+			DisableVertexArrayAttrib,
 			ObjectError,
 			Object(*this).
 			Index(GLuint(location))
@@ -147,7 +144,7 @@ typedef ObjectOps<tag::DirectState, tag::VertexArray>
  */
 typedef Object<DSAVertexArrayOps> DSAVertexArray;
 
-#endif // GL_EXT_direct_state_access
+#endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
 

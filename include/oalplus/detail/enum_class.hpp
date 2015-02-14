@@ -33,10 +33,4 @@
 #define OALPLUS_ENUM_CLASS_END(NAME) \
 	OGLPLUS_ENUM_CLASS_END(NAME)
 
-namespace oalplus {
-
-using oglplus::enums::EnumValueType;
-
-} // namespace oalplus
-
 #endif // include guard

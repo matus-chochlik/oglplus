@@ -14,8 +14,10 @@
 #include <GL/glut.h>
 
 #include <oglplus/context.hpp>
+#include <oglplus/string/ref_ios.hpp>
 
 #include <iostream>
+
 
 int main(int argc, char* argv[])
 {
@@ -29,7 +31,7 @@ int main(int argc, char* argv[])
 	{
 		glGetError();
 		oglplus::Context context;
-		//
+
 		std::cout << "Vendor: " << context.Vendor() << std::endl;
 		std::cout << "Version: " << context.Version() << std::endl;
 		std::cout << "Major version: " << context.MajorVersion() << std::endl;
@@ -37,9 +39,9 @@ int main(int argc, char* argv[])
 		std::cout << "GLSL Version: " << context.ShadingLanguageVersion() << std::endl;
 		std::cout << "Renderer: " << context.Renderer() << std::endl;
 		std::cout << "Extensions:" << std::endl;
-		//
+
 		for(auto r=context.Extensions(); !r.Empty(); r.Next())
-		std::cout << '\t' << r.Front() << std::endl;
+			std::cout << '\t' << r.Front() << std::endl;
 
 		return 0;
 	}

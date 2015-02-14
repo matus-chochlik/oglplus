@@ -18,16 +18,16 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 	const Sequence<ShaderName>& shaders
 ): _parent(parent)
  , _program(ObjectDesc("BitmapGlyphRenderer"))
- , _bitmap_sampler(_program, "oglpBitmap")
- , _metric_sampler(_program, "oglpMetric")
- , _pg_map_sampler(_program, "oglpPageMap")
- , _layout_width(_program, "oglpLayoutWidth")
+ , _bitmap_sampler(_program)
+ , _metric_sampler(_program)
+ , _pg_map_sampler(_program)
+ , _layout_width(_program)
  , _layout_width_active(false)
  , _prev_font_essence(nullptr)
  , _prev_layout_storage(nullptr)
 {
 	VertexShader vs(ObjectDesc("BitmapGlyphRenderer - Vertex"));
-	vs.Source(StrLit(
+	vs.Source(StrCRef(
 		"#version 330\n"
 
 		"uniform uint GlyphsPerPage;"
@@ -70,7 +70,7 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 	_program.AttachShader(vs);
 
 	GeometryShader gs(ObjectDesc("BitmapGlyphRenderer - Geometry"));
-	gs.Source(StrLit(
+	gs.Source(StrCRef(
 		"#version 330\n"
 		"layout (points) in;"
 		"layout (triangle_strip, max_vertices = 6) out;"
@@ -150,7 +150,7 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 	_program.AttachShader(gs);
 
 	FragmentShader fs(ObjectDesc("BitmapGlyphRenderer - Fragment"));
-	fs.Source(StrLit(
+	fs.Source(StrCRef(
 		"#version 330\n"
 		"uniform sampler2DArray oglpBitmap;"
 
@@ -189,11 +189,33 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 	_program.AttachShaders(shaders);
 
 	_program.Link();
+
+	_bitmap_sampler.BindTo("oglpBitmap");
+	_metric_sampler.BindTo("oglpMetric");
+	_pg_map_sampler.BindTo("oglpPageMap");
+	_layout_width.BindTo("oglpLayoutWidth");
+
 	ProgramUniform<GLuint>(_program, "GlyphsPerPage").Set(
 		BitmapGlyphGlyphsPerPage(_parent)
 	);
 	_layout_width_active = _layout_width.IsActive();
 }
+
+#if OGLPLUS_NO_DEFAULTED_FUNCTIONS
+OGLPLUS_LIB_FUNC
+BitmapGlyphRenderer::BitmapGlyphRenderer(BitmapGlyphRenderer&& tmp)
+ : _parent(tmp._parent)
+ , _program(std::move(tmp._program))
+ , _bitmap_sampler(std::move(tmp._bitmap_sampler))
+ , _metric_sampler(std::move(tmp._metric_sampler))
+ , _pg_map_sampler(std::move(tmp._pg_map_sampler))
+ , _layout_width(std::move(tmp._layout_width))
+ , _layout_width_active(std::move(tmp._layout_width_active))
+ , _prev_font_essence(std::move(tmp._prev_font_essence))
+ , _prev_layout_storage(std::move(tmp._prev_layout_storage))
+{ }
+#endif
+
 
 OGLPLUS_LIB_FUNC
 BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
@@ -204,7 +226,8 @@ BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
 	StaticGroup<ShaderName, 3>(
 		GeometryShader(
 			ObjectDesc("BitmapGlyphRenderer - Layout transform"),
-			StrLit("#version 330\n"
+			StrCRef(
+			"#version 330\n"
 			"uniform mat4 "
 			"	oglpProjectionMatrix,"
 			"	oglpCameraMatrix,"
@@ -221,7 +244,8 @@ BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
 		),
 		GeometryShader(
 			ObjectDesc("BitmapGlyphRenderer - Glyph transform"),
-			StrLit("#version 330\n"
+			StrCRef(
+			"#version 330\n"
 			"uniform float oglpAlignCoef;"
 			"uniform float oglpDirCoef;"
 
@@ -252,6 +276,15 @@ BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
 	)
 )
 { }
+
+#if OGLPLUS_NO_DEFAULTED_FUNCTIONS
+OGLPLUS_LIB_FUNC
+BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
+	BitmapGlyphDefaultRenderer&& tmp
+): DefaultRendererTpl<BitmapGlyphRenderer>(
+	static_cast<DefaultRendererTpl<BitmapGlyphRenderer>&&>(tmp)
+){ }
+#endif
 
 } // namespace text
 } // namespace oglplus

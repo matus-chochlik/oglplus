@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,6 +17,7 @@
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/array.hpp>
 #include <oglplus/error/program.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/precision_type.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/glsl_source.hpp>
@@ -39,7 +40,7 @@ template <>
 class ObjGenDelOps<tag::Shader>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names, GLenum type)
+	static void Gen(tag::Create, GLsizei count, GLuint* names, GLenum type)
 	{
 		assert(names != nullptr);
 		for(GLsizei i=0; i<count; ++i)
@@ -51,9 +52,9 @@ protected:
 
 	GLenum _type;
 
-	void Gen(GLsizei count, GLuint* names) const
+	void Gen(tag::Create create, GLsizei count, GLuint* names) const
 	{
-		Gen(count, names, _type);
+		Gen(create, count, names, _type);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
@@ -75,6 +76,12 @@ protected:
 	}
 };
 
+template <>
+struct ObjGenTag<tag::DirectState, tag::Shader>
+{
+	typedef tag::Create Type;
+};
+
 /// Common shader operations
 /** @note Do not use this class directly, use Shader instead.
  */
@@ -83,8 +90,44 @@ class ObjCommonOps<tag::Shader>
  : public ShaderName
 {
 protected:
-	ObjCommonOps(void) { }
+	ObjCommonOps(ShaderName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ShaderName(name)
+	{ }
 
+public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+#else
+	typedef ShaderName _base;
+
+	ObjCommonOps(ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjCommonOps(const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjCommonOps& operator = (ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjCommonOps& operator = (const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 #if OGLPLUS_DOCUMENTATION_ONLY || \
 	GL_ES_VERSION_3_0 || \
 	GL_VERSION_4_1 || \
@@ -118,11 +161,47 @@ protected:
  */
 template <>
 class ObjectOps<tag::DirectState, tag::Shader>
- : public ObjCommonOps<tag::Shader>
+ : public ObjZeroOps<tag::DirectState, tag::Shader>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(ShaderName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectState, tag::Shader>(name)
+	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef ObjZeroOps<tag::DirectState, tag::Shader> _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
+
 	/// Types related to Shader
 	struct Property
 	{
@@ -140,7 +219,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetShaderiv)(
-			_name,
+			_obj_name(),
 			GL_SHADER_TYPE,
 			&result
 		);
@@ -158,26 +237,29 @@ public:
 	 *  @glfunref{ShaderSource}
 	 */
 	ObjectOps& Source(
-		const GLchar** srcs,
-		const GLint* lens,
-		int count
+		const GLsizei count,
+		const GLchar* const * srcs,
+		const GLint* lens
 	)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(ShaderSource)(_name, count, srcs, lens);
+		OGLPLUS_GLFUNC(ShaderSource)(
+			_obj_name(),
+			count,
+			const_cast<const GLchar**>(srcs),
+			lens
+		);
+		OGLPLUS_VERIFY(
+			ShaderSource,
+			ObjectError,
+			Object(*this)
+		);
 		return *this;
 	}
 
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
-	ObjectOps& Source(const String& source)
+	template <typename Src>
+	ObjectOps& SourceTpl(const Src& src)
 	{
-		const GLchar* srcs[1] = {source.c_str()};
-		GLint lens[1] = {GLint(source.size())};
-		return Source(srcs, lens, 1);
+		return Source(src.Count(), src.Parts(), src.Lengths());
 	}
 
 	/// Set the source code of the shader
@@ -185,11 +267,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	ObjectOps& Source(const StrLit& source)
+	ObjectOps& Source(GLSLString&& source)
 	{
-		const GLchar* srcs[1] = {source.c_str()};
-		GLint lens[1] = {GLint(source.size())};
-		return Source(srcs, lens, 1);
+		return SourceTpl(source);
 	}
 
 	/// Set the source code of the shader
@@ -197,50 +277,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	ObjectOps& Source(const GLchar* source)
+	ObjectOps& Source(GLSLStrings&& source)
 	{
-		return Source(&source, nullptr, 1);
-	}
-
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
-	ObjectOps& Source(const GLchar** srcs, int count)
-	{
-		return Source(srcs, nullptr, count);
-	}
-
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
-	ObjectOps& Source(const std::vector<const GLchar*>& srcs)
-	{
-		return Source(
-			const_cast<const GLchar**>(srcs.data()),
-			nullptr,
-			srcs.size()
-		);
-	}
-
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
-	template <std::size_t N>
-	ObjectOps& Source(
-		const std::array<const GLchar*, N>& srcs
-	)
-	{
-		return Source(
-			const_cast<const GLchar**>(srcs.data()),
-			nullptr,
-			srcs.size()
-		);
+		return SourceTpl(source);
 	}
 
 	/// Set the source code of the shader
@@ -250,11 +289,7 @@ public:
 	 */
 	ObjectOps& Source(const GLSLSource& glsl_source)
 	{
-		return Source(
-			glsl_source.Parts(),
-			glsl_source.Lengths(),
-			glsl_source.Count()
-		);
+		return SourceTpl(glsl_source);
 	}
 
 	/// Returns true if the shader is already compiled, returns false otherwise
@@ -265,18 +300,21 @@ public:
 	 *  @glfunref{GetShader}
 	 *  @gldefref{COMPILE_STATUS}
 	 */
-	bool IsCompiled(void) const
+	Boolean IsCompiled(void) const
 	{
-		assert(_name != 0);
-		int status;
-		OGLPLUS_GLFUNC(GetShaderiv)(_name, GL_COMPILE_STATUS, &status);
+		Boolean status;
+		OGLPLUS_GLFUNC(GetShaderiv)(
+			_obj_name(),
+			GL_COMPILE_STATUS,
+			status._ptr()
+		);
 		OGLPLUS_VERIFY(
 			GetShaderiv,
 			ObjectError,
 			Object(*this).
 			EnumParam(Type())
 		);
-		return status == GL_TRUE;
+		return status;
 	}
 
 	/// Returns the compiler output if the program is compiled
@@ -300,6 +338,64 @@ public:
 	 *  @glfunref{CompileShader}
 	 */
 	ObjectOps& Compile(void);
+
+
+#if OGLPLUS_DOCUMENTATION_ONLY || \
+	GL_ARB_shading_language_include
+
+	/// Compiles the shader using the specified include paths
+	/**
+	 *  @post IsCompiled()
+	 *  @throws Error CompileError
+	 *  @see IsCompiled
+	 *
+	 *  @glverreq{ARB,shading_language_include}
+	 *  @glsymbols
+	 *  @glfunref{CompileShaderIncludeARB}
+	 */
+	ObjectOps& CompileInclude(
+		GLsizei count,
+		const GLchar* const* paths,
+		const GLint* lengths
+	);
+
+	/// Compiles the shader using the specified include paths
+	/**
+	 *  @post IsCompiled()
+	 *  @throws Error CompileError
+	 *  @see IsCompiled
+	 *
+	 *  @glverreq{ARB,shading_language_include}
+	 *  @glsymbols
+	 *  @glfunref{CompileShaderIncludeARB}
+	 */
+	ObjectOps& CompileInclude(GLSLString&& incl)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+
+	ObjectOps& CompileInclude(GLSLStrings&& incl)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+
+	ObjectOps& CompileInclude(const GLSLSource& incl)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || \
 	GL_ES_VERSION_3_0 || \
@@ -365,30 +461,50 @@ public:
 	/// Construction with type and source code wrapper
 	Shader(
 		ShaderType type,
-		const GLSLSource& glsl_source
+		GLSLString&& glsl_source
 	): Object<ShaderOps>(type)
 	{
-		this->Source(glsl_source);
+		this->Source(std::move(glsl_source));
 		this->Compile();
 	}
 
-	/// Construction with type, description and source code string
+	/// Construction with type, description and source code wrapper
 	Shader(
 		ShaderType type,
 		ObjectDesc&& description,
-		const GLchar* glsl_source
+		GLSLString&& glsl_source
 	): Object<ShaderOps>(type, std::move(description))
 	{
-		this->Source(glsl_source);
+		this->Source(std::move(glsl_source));
 		this->Compile();
 	}
 
-	/// Construction with type, description and source code string
+	/// Construction with type and source code wrapper
+	Shader(
+		ShaderType type,
+		GLSLStrings&& glsl_source
+	): Object<ShaderOps>(type)
+	{
+		this->Source(std::move(glsl_source));
+		this->Compile();
+	}
+
+	/// Construction with type, description and source code wrapper
 	Shader(
 		ShaderType type,
 		ObjectDesc&& description,
-		const StrLit& glsl_source
+		GLSLStrings&& glsl_source
 	): Object<ShaderOps>(type, std::move(description))
+	{
+		this->Source(std::move(glsl_source));
+		this->Compile();
+	}
+
+	/// Construction with type and source code wrapper
+	Shader(
+		ShaderType type,
+		const GLSLSource& glsl_source
+	): Object<ShaderOps>(type)
 	{
 		this->Source(glsl_source);
 		this->Compile();
@@ -412,7 +528,9 @@ public:
 
 	Shader& operator = (Shader&& temp)
 	{
-		Object<ShaderOps>::operator = (std::move(temp));
+		Object<ShaderOps>::operator = (
+			static_cast<Object<ShaderOps>&&>(temp)
+		);
 		return *this;
 	}
 };
@@ -433,7 +551,7 @@ public:
 };
 
 /// Base template for specialized shader types
-template <typename enums::EnumValueType<ShaderType>::Type ShType>
+template <ShaderType ShType>
 class SpecShader
  : public Shader
 {
@@ -451,22 +569,32 @@ public:
 	{ }
 
 	/// Construction with a source code wrapper
+	SpecShader(GLSLString&& glsl_source)
+	 : Shader(ShType, std::move(glsl_source))
+	{ }
+
+	/// Construction with description and source code wrapper
+	SpecShader(
+		ObjectDesc&& description,
+		GLSLString&& glsl_source
+	): Shader(ShType, std::move(description), std::move(glsl_source))
+	{ }
+
+	/// Construction with a source code wrapper
+	SpecShader(GLSLStrings&& glsl_source)
+	 : Shader(ShType, std::move(glsl_source))
+	{ }
+
+	/// Construction with description and source code wrapper
+	SpecShader(
+		ObjectDesc&& description,
+		GLSLStrings&& glsl_source
+	): Shader(ShType, std::move(description), std::move(glsl_source))
+	{ }
+
+	/// Construction with a source code wrapper
 	SpecShader(const GLSLSource& glsl_source)
 	 : Shader(ShType, glsl_source)
-	{ }
-
-	/// Construction with description and source code string
-	SpecShader(
-		ObjectDesc&& description,
-		const GLchar* glsl_source
-	): Shader(ShType, std::move(description), glsl_source)
-	{ }
-
-	/// Construction with description and source code string
-	SpecShader(
-		ObjectDesc&& description,
-		const StrLit& glsl_source
-	): Shader(ShType, std::move(description), glsl_source)
 	{ }
 
 	/// Construction with description and source code wrapper
@@ -479,6 +607,12 @@ public:
 	SpecShader(SpecShader&& temp)
 	 : Shader(static_cast<Shader&&>(temp))
 	{ }
+
+	SpecShader& operator = (SpecShader&& temp)
+	{
+		Shader::operator = (static_cast<Shader&&>(temp));
+		return *this;
+	}
 };
 
 /// Vertex shader wrapper
@@ -489,6 +623,7 @@ public:
  */
 typedef SpecShader<ShaderType::Vertex> VertexShader;
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_GEOMETRY_SHADER
 /// Geometry shader wrapper
 /**
  *  @see Shader
@@ -496,6 +631,7 @@ typedef SpecShader<ShaderType::Vertex> VertexShader;
  *  @ingroup oglplus_objects
  */
 typedef SpecShader<ShaderType::Geometry> GeometryShader;
+#endif
 
 /// Fragment shader wrapper
 /**

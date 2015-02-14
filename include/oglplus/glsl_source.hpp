@@ -13,13 +13,9 @@
 #ifndef OGLPLUS_GLSL_SOURCE_1207111232_HPP
 #define OGLPLUS_GLSL_SOURCE_1207111232_HPP
 
-#include <oglplus/config/compiler.hpp>
-#include <oglplus/string/ref.hpp>
-#include <oglplus/string/literal.hpp>
+#include <oglplus/glsl_string.hpp>
 #include <oglplus/detail/glsl_source.hpp>
-
-#include <utility>
-#include <cassert>
+#include <memory>
 
 namespace oglplus {
 
@@ -27,7 +23,7 @@ namespace oglplus {
 class GLSLSource
 {
 private:
-	aux::GLSLSourceWrapper* _impl;
+	std::unique_ptr<aux::GLSLSourceWrapper> _impl;
 
 	template <typename Impl, typename P1>
 	static aux::GLSLSourceWrapper* make_impl(P1&& p1)
@@ -43,64 +39,65 @@ private:
 			std::forward<P2>(p2)
 		);
 	}
-public:
-	~GLSLSource(void)
-	{
-		if(_impl) delete _impl;
-	}
 
-	GLSLSource(GLSLSource&& tmp)
-	 : _impl(tmp._impl)
-	{
-		tmp._impl = nullptr;
-	}
-
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
-	GLSLSource(const GLSLSource&) = delete;
-#else
-private:
 	GLSLSource(const GLSLSource&);
 public:
-#endif
-
-	GLSLSource(const StrLit& source)
-	 : _impl(make_impl<aux::LitGLSLSrcWrap>(source))
+	GLSLSource(GLSLSource&& tmp)
+	 : _impl(std::move(tmp._impl))
 	{ }
 
-	GLSLSource(const std::vector<StrLit>& lits)
-	 : _impl(make_impl<aux::LitsGLSLSrcWrap>(
+	explicit GLSLSource(const StrCRef& source)
+	 : _impl(make_impl<aux::StrCRefGLSLSrcWrap>(source))
+	{ }
+
+	GLSLSource(const std::vector<StrCRef>& lits)
+	 : _impl(make_impl<aux::StrCRefsGLSLSrcWrap>(
 		lits.begin(),
 		lits.end()
 	))
 	{ }
 
 	template <size_t N>
-	GLSLSource(const StrLit (&lits)[N])
-	 : _impl(make_impl<aux::LitsGLSLSrcWrap>(
+	GLSLSource(const StrCRef (&lits)[N])
+	 : _impl(make_impl<aux::StrCRefsGLSLSrcWrap>(
 		lits,
 		lits+N
 	))
 	{ }
 
+	GLSLSource(const std::vector<String>& strs)
+	 : _impl(make_impl<aux::StrsGLSLSrcWrap>(
+		strs.begin(),
+		strs.end()
+	))
+	{ }
+
 #if !OGLPLUS_NO_INITIALIZER_LISTS
-	GLSLSource(std::initializer_list<StrLit> lits)
-	 : _impl(make_impl<aux::LitsGLSLSrcWrap>(
+	GLSLSource(std::initializer_list<StrCRef> lits)
+	 : _impl(make_impl<aux::StrCRefsGLSLSrcWrap>(
 		lits.begin(),
 		lits.end()
+	))
+	{ }
+
+	GLSLSource(std::initializer_list<String> strs)
+	 : _impl(make_impl<aux::StrsGLSLSrcWrap>(
+		strs.begin(),
+		strs.end()
 	))
 	{ }
 #endif
 
 	template <typename Head, typename Tail>
-	GLSLSource(const aux::StrLitCatTpl<GLchar, Head, Tail>& source)
+	GLSLSource(const StrCRefChainTpl<GLchar, Head, Tail>& source)
 	 : _impl(make_impl<aux::StrGLSLSrcWrap>(source.str()))
 	{ }
 
-	GLSLSource(const String& source)
+	explicit GLSLSource(const String& source)
 	 : _impl(make_impl<aux::StrGLSLSrcWrap>(source))
 	{ }
 
-	GLSLSource(String&& source)
+	explicit GLSLSource(String&& source)
 	 : _impl(make_impl<aux::StrGLSLSrcWrap>(std::move(source)))
 	{ }
 
@@ -135,23 +132,23 @@ public:
 	GLsizei Count(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		assert(_impl);
+		assert(bool(_impl));
 		return _impl->Count();
 	}
 
 	/// Pointers to the individual parts of the source
-	const GLchar** Parts(void) const
+	const GLchar* const* Parts(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		assert(_impl);
+		assert(bool(_impl));
 		return _impl->Parts();
 	}
 
 	/// Pointer to the lengths of the individual parts of the source
-	const GLint* Lengths(void) const
+	GLint const * Lengths(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		assert(_impl);
+		assert(bool(_impl));
 		return _impl->Lengths();
 	}
 };

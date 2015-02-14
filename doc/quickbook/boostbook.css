@@ -9,29 +9,6 @@ body hr
 	display: none;
 }
 
-
-a
-{
-	text-decoration: none;
-	text-shadow: 1px 1px 1px rgba(40, 40, 40, 0.2);
-}
-
-a:link
-{
-	color: #6060A0;
-}
-
-a:visited
-{
-	color: #404080;
-}
-
-a:hover
-{
-	color: #202040;
-	text-shadow: 1px 1px 1px rgba(40, 40, 40, 0.5);
-}
-
 body > div.spirit-nav
 {
 	background-color: #9090D0;
@@ -67,6 +44,7 @@ body > div.section
 	box-shadow: inset 1px 1px 2px 1px #404040;
 
 	padding: 1em;
+	overflow: hidden;
 }
 
 div.copyright-footer
@@ -79,12 +57,53 @@ div.copyright-footer a
 	color: #E0E0E0;
 }
 
-pre.programlisting
+div.calloutlist
 {
-	border: solid #F0F0F0 1px;
-	background-color: #F8F8F0;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	border: solid #E0E0E0 1px;
+	background-color: #F8F8F4;
+	float: right;
+	width: 37%;
+	overflow: hidden;
+	box-shadow: 1px 0px 2px 2px #808080;
 }
 
+.calloutlist table
+{
+	font-size: 75%;
+}
+
+div.section,
+div.section > h2,
+div.section > h3,
+div.section > h4,
+div.section > h5,
+div.section > p
+{
+	clear: both;
+}
+
+div.section + div.section,
+div.section > h2,
+div.section > h3,
+div.section > h4,
+div.section > h5
+{
+	padding-top: 1em;
+}
+
+pre.programlisting
+{
+	margin-top: 0;
+	margin-bottom: 0;
+	border: solid #E0E0E0 1px;
+	background-color: #E8E8E4;
+	padding-right: 1em;
+	float: left;
+	width: 60%;
+	overflow: hidden;
+}
 
 .programlisting .preprocessor
 {
@@ -101,3 +120,31 @@ pre.programlisting
 	font-weight: 400;
 	color: #101020;
 }
+
+code.literal
+{
+	color: #101020;
+}
+
+a
+{
+	text-decoration: none;
+	text-shadow: 1px 1px 1px rgba(40, 40, 40, 0.2);
+}
+
+a:link
+{
+	color: #6060A0;
+}
+
+a:visited
+{
+	color: #404080;
+}
+
+a:hover
+{
+	color: #202040;
+	text-shadow: 1px 1px 1px rgba(40, 40, 40, 0.5);
+}
+

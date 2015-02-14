@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2011-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2011-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,7 +16,9 @@
 #include <oglplus/config/basic.hpp>
 #include <oglplus/text/unicode.hpp>
 
+#ifndef OGLPLUS_NO_STB_TRUETYPE
 #include <stb_truetype.h>
+#endif // OGLPLUS_NO_STB_TRUETYPE
 
 #include <vector>
 #include <istream>
@@ -26,7 +28,7 @@ namespace text {
 
 class STBTTFont2D;
 
-/// Wrapper arund the Sean Barrett's true type font glyph functionality
+/// Wrapper around the Sean Barrett's true type font glyph functionality
 /**
  *  This class is instantiated by STBTTFont2D class
  */
@@ -278,7 +280,7 @@ public:
 	{
 		int result = 0;
 		::stbtt_GetFontVMetrics(&_font, &result, nullptr, nullptr);
-		return result*ScaleForPixelHeight(size_in_pixels);
+		return result*ScaleForPixelHeight(float(size_in_pixels));
 	}
 
 	/// Get the height of the layout in pixels
@@ -289,7 +291,7 @@ public:
 	{
 		int asc = 0, dsc = 0;
 		::stbtt_GetFontVMetrics(&_font, &asc, &dsc, nullptr);
-		return (asc - dsc)*ScaleForPixelHeight(size_in_pixels);
+		return ( asc - dsc )*ScaleForPixelHeight(float(size_in_pixels));
 	}
 
 	/// Get the width of the layout in pixels

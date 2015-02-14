@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -18,6 +18,7 @@
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/error/program.hpp>
 #include <oglplus/error/prog_var.hpp>
+#include <oglplus/boolean.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/transform_feedback_mode.hpp>
 #include <oglplus/program_resource.hpp>
@@ -47,7 +48,7 @@ template <>
 class ObjGenDelOps<tag::Program>
 {
 protected:
-	static void Gen(GLsizei count, GLuint* names)
+	static void Gen(tag::Create, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		for(GLsizei i=0; i<count; ++i)
@@ -74,6 +75,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(IsProgram);
 		return result;
 	}
+};
+
+template <>
+struct ObjGenTag<tag::DirectState, tag::Program>
+{
+	typedef tag::Create Type;
 };
 
 /// Program binding operations
@@ -129,8 +136,48 @@ class ObjCommonOps<tag::Program>
  , public ObjBindingOps<tag::Program>
 {
 protected:
-	ObjCommonOps(void){ }
+	ObjCommonOps(ProgramName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ProgramName(name)
+	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjCommonOps(ObjCommonOps&&) = default;
+	ObjCommonOps(const ObjCommonOps&) = default;
+	ObjCommonOps& operator = (ObjCommonOps&&) = default;
+	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+#else
+	typedef ProgramName _base1;
+	typedef ObjBindingOps<tag::Program> _base2;
+
+	ObjCommonOps(ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base1(static_cast<_base1&&>(temp))
+	 , _base2(static_cast<_base2&&>(temp))
+	{ }
+
+	ObjCommonOps(const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base1(static_cast<const _base1&>(that))
+	 , _base2(static_cast<const _base2&>(that))
+	{ }
+
+	ObjCommonOps& operator = (ObjCommonOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base1::operator = (static_cast<_base1&&>(temp));
+		_base2::operator = (static_cast<_base2&&>(temp));
+		return *this;
+	}
+
+	ObjCommonOps& operator = (const ObjCommonOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base1::operator = (static_cast<const _base1&>(that));
+		_base2::operator = (static_cast<const _base2&>(that));
+		return *this;
+	}
+#endif
 	using ObjBindingOps<tag::Program>::Bind;
 
 	/// Binds (uses) this program object
@@ -171,12 +218,47 @@ class ObjectOps<tag::DirectState, tag::Program>
  : public ObjZeroOps<tag::DirectState, tag::Program>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(ProgramName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectState, tag::Program>(name)
+	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef ObjZeroOps<tag::DirectState, tag::Program> _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result;
-		OGLPLUS_GLFUNC(GetProgramiv)(_name, query, &result);
+		OGLPLUS_GLFUNC(GetProgramiv)(_obj_name(), query, &result);
 		OGLPLUS_VERIFY(
 			GetProgramiv,
 			ObjectError,
@@ -190,7 +272,7 @@ public:
 	GLint GetStageIntParam(GLenum stage, GLenum query) const
 	{
 		GLint result;
-		OGLPLUS_GLFUNC(GetProgramStageiv)(_name, stage, query, &result);
+		OGLPLUS_GLFUNC(GetProgramStageiv)(_obj_name(), stage, query, &result);
 		OGLPLUS_VERIFY(
 			GetProgramStageiv,
 			ObjectError,
@@ -227,9 +309,12 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{LINK_STATUS}
 	 */
-	bool IsLinked(void) const
+	Boolean IsLinked(void) const
 	{
-		return GetIntParam(GL_LINK_STATUS) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_LINK_STATUS),
+			std::nothrow
+		);
 	}
 
 	/// Returns the linker output if the program is linked
@@ -256,6 +341,75 @@ public:
 	 */
 	ObjectOps& Link(void);
 
+	/// builds this shading language program
+	/** This function checks if all attached shaders are compiled
+	 *  and if they are not the it compiles them and then links
+	 *  this Program.
+	 *
+	 *  @post IsLinked()
+	 *  @throws Error LinkError
+	 *  @see IsLinked
+	 *
+	 *  @glsymbols
+	 *  @glfunref{CompileShader}
+	 *  @glfunref{LinkProgram}
+	 *  @glfunref{GetProgram}
+	 *  @glfunref{GetProgramInfoLog}
+	 */
+	ObjectOps& Build(void);
+
+#if OGLPLUS_DOCUMENTATION_ONLY ||\
+	GL_ARB_shading_language_include
+
+	/// builds this shading language program using specified include paths
+	/** This function checks if all attached shaders are compiled
+	 *  and if they are not the it compiles them and then links
+	 *  this Program.
+	 *
+	 *  @post IsLinked()
+	 *  @throws Error LinkError
+	 *  @see IsLinked
+	 *
+	 *  @glsymbols
+	 *  @glfunref{CompileShader}
+	 *  @glfunref{LinkProgram}
+	 *  @glfunref{GetProgram}
+	 *  @glfunref{GetProgramInfoLog}
+	 */
+	ObjectOps& BuildInclude(
+		GLsizei count,
+		const GLchar* const* paths,
+		const GLint* lengths
+	);
+
+	ObjectOps& BuildInclude(GLSLString&& incl)
+	{
+		return BuildInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+
+	ObjectOps& BuildInclude(GLSLStrings&& incl)
+	{
+		return BuildInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+
+	ObjectOps& BuildInclude(const GLSLSource&& incl)
+	{
+		return BuildInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+#endif
+
 	/// Returns true if the program is validated, false otherwise
 	/**
 	 *  @see Validate
@@ -264,9 +418,12 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{VALIDATE_STATUS}
 	 */
-	bool IsValid(void) const
+	Boolean IsValid(void) const
 	{
-		return GetIntParam(GL_VALIDATE_STATUS) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_VALIDATE_STATUS),
+			std::nothrow
+		);
 	}
 
 	/// Validates this shading language program
@@ -427,9 +584,19 @@ public:
 		{ }
 	};
 
+	struct IteratedShaderName
+	 : ShaderName
+	{
+		IteratedShaderName(
+			const ShaderIterationContext& context,
+			unsigned index
+		): ShaderName(context._shader_names.at(index))
+		{ }
+	};
+
 	typedef aux::ContextElementRange<
 			ShaderIterationContext,
-			ShaderName
+			IteratedShaderName
 	> ShaderRange;
 #endif // !OGLPLUS_DOCUMENTATION_ONLY
 
@@ -581,7 +748,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
-	ObjectOps& MakeSeparable(bool para = true);
+	ObjectOps& MakeSeparable(Boolean para = true);
 #endif // separate shader objects
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_get_program_binary
@@ -593,7 +760,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
-	ObjectOps& MakeRetrievable(bool para = true);
+	ObjectOps& MakeRetrievable(Boolean para = true);
 
 	/// Returns this programs binary representation
 	/**
@@ -733,9 +900,12 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{TESS_GEN_POINT_MODE}
 	 */
-	bool TessGenPointMode(void) const
+	Boolean TessGenPointMode(void) const
 	{
-		return GetIntParam(GL_TESS_GEN_POINT_MODE) == GL_TRUE;
+		return Boolean(
+			GetIntParam(GL_TESS_GEN_POINT_MODE),
+			std::nothrow
+		);
 	}
 #endif // tessellation shader
 
@@ -750,7 +920,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(BindAttribLocation)(
-			_name,
+			_obj_name(),
 			GLuint(vertex_attrib_slot),
 			identifier.c_str()
 		);
@@ -863,7 +1033,7 @@ public:
 		if(!names.empty())
 		{
 			prog.TransformFeedbackVaryings(
-				names.size(),
+				GLsizei(names.size()),
 				names.data(),
 				mode
 			);
@@ -900,11 +1070,17 @@ class ShaderProgram
  : public Program
 {
 private:
-	static GLuint _make(
+	static ProgramName _make(
 		ShaderType shader_type,
 		GLsizei count,
-		const GLchar** strings
+		const GLchar* const* strings
 	);
+
+	template <typename Src>
+	static ProgramName _make(ShaderType shader_type, const Src& source)
+	{
+		return _make(shader_type, source.Count(), source.Parts());
+	}
 
 	void _check(void);
 public:
@@ -914,8 +1090,8 @@ public:
 	 */
 	ShaderProgram(
 		ShaderType shader_type,
-		const GLchar* source
-	): Program(_make(shader_type, 1, &source))
+		GLSLString&& source
+	): Program(_make(shader_type, source))
 	{ _check(); }
 
 	/// Creates a program with a single shader with specified type and source
@@ -924,9 +1100,30 @@ public:
 	 */
 	ShaderProgram(
 		ShaderType shader_type,
-		const GLchar* source,
+		GLSLString&& source,
 		ObjectDesc&& object_desc
-	): Program(_make(shader_type, 1, &source), std::move(object_desc))
+	): Program(_make(shader_type, source), std::move(object_desc))
+	{ _check(); }
+
+	/// Creates a program with a single shader with specified type and source
+	/**
+	 *  @throws ValidationError
+	 */
+	ShaderProgram(
+		ShaderType shader_type,
+		GLSLStrings&& source
+	): Program(_make(shader_type, source))
+	{ _check(); }
+
+	/// Creates a program with a single shader with specified type and source
+	/**
+	 *  @throws ValidationError
+	 */
+	ShaderProgram(
+		ShaderType shader_type,
+		GLSLStrings&& source,
+		ObjectDesc&& object_desc
+	): Program(_make(shader_type, source), std::move(object_desc))
 	{ _check(); }
 
 	/// Creates a program with a single shader with specified type and source

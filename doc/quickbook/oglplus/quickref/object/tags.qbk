@@ -6,6 +6,8 @@
 [section:tags Tags]
 [/----------------]
 
+[header oglplus/object/tags.hpp]
+
 The object tag types allow to differentiate between __OpenGL__ object types
 at compile time.
 

@@ -15,7 +15,7 @@
 
 #include <oglplus/fwd.hpp>
 #include <oglplus/string/def.hpp>
-#include <oglplus/string/literal.hpp>
+#include <oglplus/string/ref.hpp>
 
 #include <oglplus/detail/any_iter.hpp>
 
@@ -32,20 +32,20 @@ struct GLSLSourceWrapper
 
 	virtual GLsizei Count(void) const = 0;
 
-	virtual const GLchar** Parts(void) const = 0;
+	virtual const GLchar* const* Parts(void) const = 0;
 
 	virtual const GLint* Lengths(void) const = 0;
 };
 
-class LitGLSLSrcWrap
+class StrCRefGLSLSrcWrap
  : public GLSLSourceWrapper
 {
 private:
 	const GLchar* _ptr;
 	const GLint _size;
 public:
-	LitGLSLSrcWrap(const StrLit& source)
-	 : _ptr(source.c_str())
+	StrCRefGLSLSrcWrap(const StrCRef& source)
+	 : _ptr(source.begin())
 	 , _size(GLint(source.size()))
 	{
 		assert(_ptr != nullptr);
@@ -56,9 +56,9 @@ public:
 		return GLsizei(1);
 	}
 
-	const GLchar** Parts(void) const
+	const GLchar* const* Parts(void) const
 	{
-		return const_cast<const GLchar**>(&_ptr);
+		return &_ptr;
 	}
 
 	const GLint* Lengths(void) const
@@ -67,16 +67,16 @@ public:
 	}
 };
 
-class LitsGLSLSrcWrap
+class StrCRefsGLSLSrcWrap
  : public GLSLSourceWrapper
 {
 private:
 	std::vector<const GLchar*> _ptrs;
 	std::vector<GLint> _sizes;
 public:
-	LitsGLSLSrcWrap(
-		AnyInputIter<StrLit>&& i,
-		AnyInputIter<StrLit>&& e
+	StrCRefsGLSLSrcWrap(
+		AnyInputIter<StrCRef>&& i,
+		AnyInputIter<StrCRef>&& e
 	);
 
 	GLsizei Count(void) const
@@ -84,9 +84,9 @@ public:
 		return GLsizei(_ptrs.size());
 	}
 
-	const GLchar** Parts(void) const
+	const GLchar* const* Parts(void) const
 	{
-		return const_cast<const GLchar**>(_ptrs.data());
+		return _ptrs.data();
 	}
 
 	const GLint* Lengths(void) const
@@ -124,14 +124,47 @@ public:
 		return GLsizei(1);
 	}
 
-	const GLchar** Parts(void) const
+	const GLchar* const* Parts(void) const
 	{
-		return const_cast<const GLchar**>(&_ptr);
+		return &_ptr;
 	}
 
 	const GLint* Lengths(void) const
 	{
 		return &_size;
+	}
+};
+
+class StrsGLSLSrcWrap
+ : public GLSLSourceWrapper
+{
+private:
+	std::vector<String> _storage;
+	std::vector<const GLchar*> _ptrs;
+	std::vector<GLint> _sizes;
+
+	void _init(void);
+public:
+	StrsGLSLSrcWrap(
+		AnyInputIter<String>&& i,
+		AnyInputIter<String>&& e
+	);
+
+	StrsGLSLSrcWrap(std::vector<String>&& storage);
+
+	GLsizei Count(void) const
+	{
+		return GLsizei(_storage.size());
+	}
+
+	const GLchar* const* Parts(void) const
+	{
+		return _ptrs.data();
+	}
+
+	const GLint* Lengths(void) const
+	{
+		return _sizes.data();
 	}
 };
 
@@ -153,7 +186,7 @@ public:
 		return GLsizei(1);
 	}
 
-	const GLchar** Parts(void) const
+	const GLchar* const* Parts(void) const
 	{
 		return const_cast<const GLchar**>(&_pdata);
 	}

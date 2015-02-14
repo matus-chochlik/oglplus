@@ -14,6 +14,7 @@
 #include <oglplus/ext/KHR_debug/severity.hpp>
 #include <oglplus/ext/KHR_debug/source.hpp>
 #include <oglplus/ext/KHR_debug/type.hpp>
+#include <oglplus/error/glfunc.hpp>
 
 #include "implement.ipp"
 

@@ -11,7 +11,7 @@
 
 #include <oglplus/all.hpp>
 #include <oglplus/images/png.hpp>
-#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
 #include <oglplus/dsa/uniform.hpp>
 
 #include <fstream>
@@ -19,7 +19,7 @@
 #include <vector>
 
 class FontTexture
- : public oglplus::DSATexture
+ : public oglplus::DSATextureEXT
 {
 public:
 	FontTexture(const char* png_path)
@@ -185,7 +185,7 @@ private:
 		Program prog;
 		prog.AttachShader(VertexShader(
 			ObjectDesc("Glyph vertex"),
-			StrLit("#version 330\n"
+			"#version 330\n"
 
 			"layout(location = 0) in vec4 InkData;"
 			"layout(location = 1) in vec4 TexData;"
@@ -197,7 +197,7 @@ private:
 			"{"
 			"	vertInkData = InkData;"
 			"	vertTexData = TexData;"
-			"}")
+			"}"
 		));
 		/*
 		 *        (5)    (4)
@@ -221,7 +221,7 @@ private:
 		 */
 		prog.AttachShader(GeometryShader(
 			ObjectDesc("Glyph geometry"),
-			StrLit("#version 330\n"
+			"#version 330\n"
 			"layout(points) in;"
 			"layout(triangle_strip, max_vertices = 6) out;"
 
@@ -275,11 +275,11 @@ private:
 			"	make_vertex(vec2( rb,  as), to+vec2( tw,  ta));"
 			"	make_vertex(vec2( lb,  as), to+vec2(0.0,  ta));"
 			"	EndPrimitive();"
-			"}")
+			"}"
 		));
 		prog.AttachShader(FragmentShader(
 			ObjectDesc("Glyph fragment"),
-			StrLit("#version 330\n"
+			"#version 330\n"
 			"uniform sampler2D FontTexture;"
 
 			"in vec2 geomTexCoord;"
@@ -289,7 +289,7 @@ private:
 			"void main(void)"
 			"{"
 			"	fragColor = texture(FontTexture, geomTexCoord);"
-			"}")
+			"}"
 		));
 
 		prog.Link();

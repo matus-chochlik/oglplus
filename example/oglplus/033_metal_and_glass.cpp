@@ -113,7 +113,7 @@ public:
 	ShadowFragmentShader(void)
 	 : FragmentShader(
 		ObjectDesc("Shadow fragment shader"),
-		StrLit("#version 330\n"
+		"#version 330\n"
 		"in vec3 vertNormal;"
 		"in vec3 vertTangent;"
 		"in vec3 vertBitangent;"
@@ -124,7 +124,7 @@ public:
 
 		"void main(void)"
 		"{"
-		"}")
+		"}"
 	)
 	{ }
 };
@@ -152,7 +152,7 @@ public:
 	LightFragmentShader(void)
 	 : FragmentShader(
 		ObjectDesc("Shadow fragment shader"),
-		StrLit("#version 330\n"
+		"#version 330\n"
 		"uniform vec3 Color;"
 		"in vec3 vertNormal;"
 		"in vec3 vertTangent;"
@@ -170,7 +170,7 @@ public:
 		"		normalize(vertViewDir)"
 		"	));"
 		"	fragColor = vec4(Color, 0.4 + sqrt(Opacity)*0.6);"
-		"}")
+		"}"
 	)
 	{ }
 };
@@ -202,7 +202,7 @@ public:
 	GlassFragmentShader(void)
 	 : FragmentShader(
 		ObjectDesc("Metal fragment shader"),
-		StrLit("#version 330\n"
+		"#version 330\n"
 		"uniform sampler2DShadow FrameShadowTex;"
 		"uniform vec3 Color;"
 		"in vec3 vertNormal;"
@@ -269,7 +269,7 @@ public:
 		"		LightColor * Specular, "
 		"		0.4 + min(Specular, 1.0)*0.3"
 		"	);"
-		"}")
+		"}"
 	)
 	{ }
 };
@@ -303,7 +303,7 @@ public:
 	MetalFragmentShader(void)
 	 : FragmentShader(
 		ObjectDesc("Metal fragment shader"),
-		StrLit("#version 330\n"
+		"#version 330\n"
 		"uniform vec3 Color1, Color2;"
 		"uniform sampler2D MetalTex;"
 		"uniform sampler2DShadow FrameShadowTex;"
@@ -399,7 +399,7 @@ public:
 		"		LightColor * Specular, "
 		"		1.0"
 		"	);"
-		"}")
+		"}"
 	)
 	{ }
 };

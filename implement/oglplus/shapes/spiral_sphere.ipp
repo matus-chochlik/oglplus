@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -393,7 +393,8 @@ std::vector<GLfloat> SpiralSphere::_tex_coords(void) const
 }
 
 OGLPLUS_LIB_FUNC
-SpiralSphere::IndexArray SpiralSphere::Indices(void) const
+SpiralSphere::IndexArray
+SpiralSphere::Indices(SpiralSphere::Default) const
 {
 	assert(
 		(1 << (sizeof(GLushort) * 8)) - 1 >=
@@ -496,7 +497,8 @@ SpiralSphere::IndexArray SpiralSphere::Indices(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions SpiralSphere::Instructions(void) const
+DrawingInstructions
+SpiralSphere::Instructions(SpiralSphere::Default) const
 {
 	auto instructions = this->MakeInstructions();
 	const unsigned edge = _segments + 1;

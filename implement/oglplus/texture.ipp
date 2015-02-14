@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -195,9 +195,7 @@ GetImage(
 	Target target,
 	GLint level,
 	PixelDataFormat format,
-	Property::PixDataType type,
-	GLsizei size,
-	GLvoid* buffer
+	const OutputData& dest
 )
 {
 #if GL_ARB_robustness
@@ -205,9 +203,9 @@ GetImage(
 		GLenum(target),
 		level,
 		GLenum(format),
-		GLenum(type),
-		size,
-		buffer
+		GLenum(dest.Type()),
+		GLsizei(dest.Size()),
+		dest.Addr()
 	);
 	OGLPLUS_CHECK(
 		GetnTexImageARB,
@@ -222,8 +220,8 @@ GetImage(
 		GLenum(target),
 		level,
 		GLenum(format),
-		GLenum(type),
-		buffer
+		GLenum(dest.Type()),
+		dest.Addr()
 	);
 	OGLPLUS_CHECK(
 		GetTexImage,
@@ -240,16 +238,15 @@ void ObjZeroOps<tag::ExplicitSel, tag::Texture>::
 GetCompressedImage(
 	Target target,
 	GLint level,
-	GLsizei size,
-	GLubyte* buffer
+	const OutputData& dest
 )
 {
 #if GL_ARB_robustness
 	OGLPLUS_GLFUNC(GetnCompressedTexImageARB)(
 		GLenum(target),
 		level,
-		size,
-		buffer
+		GLsizei(dest.Size()),
+		dest.Addr()
 	);
 	OGLPLUS_CHECK(
 		GetnCompressedTexImageARB,
@@ -262,7 +259,7 @@ GetCompressedImage(
 	OGLPLUS_GLFUNC(GetCompressedTexImage)(
 		GLenum(target),
 		level,
-		buffer
+		dest.Addr()
 	);
 	OGLPLUS_CHECK(
 		GetCompressedTexImage,
@@ -285,8 +282,7 @@ GetCompressedImage(
 	GetCompressedImage(
 		target,
 		level,
-		dest.size()*sizeof(GLubyte),
-		dest.data()
+		OutputData(dest)
 	);
 }
 

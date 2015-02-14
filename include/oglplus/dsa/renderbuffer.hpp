@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,7 +17,13 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_ARB_direct_state_access
+
+template <>
+struct ObjGenTag<tag::DirectState, tag::Renderbuffer>
+{
+	typedef tag::Create Type;
+};
 
 /// Class wrapping renderbuffer-related functionality with direct state access
 /** @note Do not use this class directly, use DSARenderbuffer instead.
@@ -28,8 +34,43 @@ class ObjectOps<tag::DirectState, tag::Renderbuffer>
  : public ObjZeroOps<tag::DirectState, tag::Renderbuffer>
 {
 protected:
-	ObjectOps(void){ }
+	ObjectOps(RenderbufferName name)
+	OGLPLUS_NOEXCEPT(true)
+	 : ObjZeroOps<tag::DirectState, tag::Renderbuffer>(name)
+	{ }
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ObjectOps(ObjectOps&&) = default;
+	ObjectOps(const ObjectOps&) = default;
+	ObjectOps& operator = (ObjectOps&&) = default;
+	ObjectOps& operator = (const ObjectOps&) = default;
+#else
+	typedef ObjZeroOps<tag::DirectState, tag::Renderbuffer> _base;
+
+	ObjectOps(ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<_base&&>(temp))
+	{ }
+
+	ObjectOps(const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _base(static_cast<const _base&>(that))
+	{ }
+
+	ObjectOps& operator = (ObjectOps&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<_base&&>(temp));
+		return *this;
+	}
+
+	ObjectOps& operator = (const ObjectOps& that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_base::operator = (static_cast<const _base&>(that));
+		return *this;
+	}
+#endif
 	GLint GetIntParam(GLenum query) const;
 
 	/// Set the renderbuffer storage parameters
@@ -43,14 +84,14 @@ public:
 		GLsizei height
 	)
 	{
-		OGLPLUS_GLFUNC(NamedRenderbufferStorageEXT)(
-			_name,
+		OGLPLUS_GLFUNC(NamedRenderbufferStorage)(
+			_obj_name(),
 			GLenum(internalformat),
 			width,
 			height
 		);
 		OGLPLUS_CHECK(
-			NamedRenderbufferStorageEXT,
+			NamedRenderbufferStorage,
 			ObjectError,
 			Object(*this).
 			EnumParam(internalformat)
@@ -76,15 +117,15 @@ public:
 		GLsizei height
 	)
 	{
-		OGLPLUS_GLFUNC(NamedRenderbufferStorageMultisampleEXT)(
-			_name,
+		OGLPLUS_GLFUNC(NamedRenderbufferStorageMultisample)(
+			_obj_name(),
 			samples,
 			GLenum(internalformat),
 			width,
 			height
 		);
 		OGLPLUS_CHECK(
-			NamedRenderbufferStorageMultisampleEXT,
+			NamedRenderbufferStorageMultisample,
 			ObjectError,
 			Object(*this).
 			EnumParam(internalformat)
@@ -275,9 +316,7 @@ inline DSARenderbufferOps& operator << (
  */
 typedef Object<DSARenderbufferOps> DSARenderbuffer;
 
-#else
-#error Direct State Access Renderbuffers not available
-#endif // GL_EXT_direct_state_access
+#endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
 

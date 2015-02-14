@@ -174,7 +174,7 @@ private:
 	template <typename IT>
 	void* IndexPtr_(const std::vector<IT>& indices) const
 	{
-		const IT* base = indices.empty() ? nullptr : indices.data();
+		const IT* base = indices.empty() ? nullptr : &indices.front();
 		return (void*)(base + first);
 	}
 
@@ -422,6 +422,16 @@ protected:
 		return DrawingInstructions(std::forward<Operations>(ops));
 	}
 };
+
+struct DrawMode
+{
+	struct Default { };
+	struct WithAdjacency { };
+	struct Quads { };
+	struct Patches { };
+	struct Edges { };
+};
+
 
 } // shapes
 } // oglplus

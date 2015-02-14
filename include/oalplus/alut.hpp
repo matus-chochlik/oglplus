@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,6 +16,7 @@
 #include <oalplus/config.hpp>
 #include <oalplus/fwd.hpp>
 #include <oalplus/alfunc.hpp>
+#include <oalplus/boolean.hpp>
 #include <oalplus/string.hpp>
 #include <oalplus/error/alut.hpp>
 
@@ -36,9 +37,12 @@ private:
 
 	static bool _initialize(bool with_context, int argc, char** argv)
 	{
-		bool result = with_context
-		?(OALPLUS_ALUTFUNC(Init)(&argc, argv) == AL_TRUE)
-		:(OALPLUS_ALUTFUNC(InitWithoutContext)(&argc, argv)==AL_TRUE);
+		Boolean result(
+			with_context
+			?(OALPLUS_ALUTFUNC(Init)(&argc, argv))
+			:(OALPLUS_ALUTFUNC(InitWithoutContext)(&argc, argv)),
+			std::nothrow
+		);
 		OALPLUS_CHECK_SIMPLE_ALUT(Init);
 		return result;
 

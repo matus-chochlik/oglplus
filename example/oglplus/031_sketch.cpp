@@ -99,14 +99,14 @@ public:
 	ShadowFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Shadow fragment shader"),
-		StrLit("#version 330\n"
+		"#version 330\n"
 		"in float vertNoise;"
 		"in vec3 vertNormal;"
 		"in vec3 vertLightDir, vertViewDir;"
 		"in vec2 vertTexCoord;"
 		"in vec4 vertLightTexCoord;"
 
-		"void main(void){ }")
+		"void main(void){ }"
 	)
 	{ }
 };
@@ -134,7 +134,7 @@ public:
 	LineGeomShader(void)
 	 : GeometryShader(
 		ObjectDesc("Line geometry shader"),
-		StrLit("#version 330\n"
+		"#version 330\n"
 		"layout(lines) in;"
 		"layout(line_strip, max_vertices=4) out;"
 
@@ -182,7 +182,7 @@ public:
 		"	EmitVertex();"
 
 		"	EndPrimitive();"
-		"}")
+		"}"
 	)
 	{ }
 };
@@ -194,7 +194,7 @@ public:
 	LineFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Line fragment shader"),
-		StrLit("#version 330\n"
+		"#version 330\n"
 		"in float geomOpacity;"
 
 		"out vec4 fragColor;"
@@ -202,7 +202,7 @@ public:
 		"void main(void)"
 		"{"
 		"	fragColor = vec4(0.0, 0.0, 0.0, 0.1+0.4*geomOpacity);"
-		"}")
+		"}"
 	)
 	{ }
 };
@@ -231,7 +231,7 @@ public:
 	SketchFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Sketch fragment shader"),
-		StrLit("#version 330\n"
+		"#version 330\n"
 		"uniform sampler3D SketchTex;"
 		"uniform sampler2DShadow ShadowTex;"
 
@@ -296,7 +296,7 @@ public:
 		"	vec3 Sample = texture(SketchTex, vec3(vertTexCoord, Shadow)).rgb;"
 
 		"	fragColor = vec4(0.0, 0.0, 0.0, pow(Sample.b*(0.5 + Shadow*0.5), 0.5));"
-		"}")
+		"}"
 	)
 	{ }
 };
@@ -345,10 +345,10 @@ protected:
 public:
 	Shape(const Program& prog, const ShapeBuilder& builder)
 	 : make_shape(builder)
-	 , shape_instr(make_shape.Instructions())
-	 , edge_instr(make_shape.EdgeInstructions())
-	 , shape_indices(make_shape.Indices())
-	 , edge_indices(make_shape.EdgeIndices())
+	 , shape_instr(make_shape.Instructions(shapes::DrawMode::Default()))
+	 , edge_instr(make_shape.Instructions(shapes::DrawMode::Edges()))
+	 , shape_indices(make_shape.Indices(shapes::DrawMode::Default()))
+	 , edge_indices(make_shape.Indices(shapes::DrawMode::Edges()))
 	 , vbos(3)
 	{
 		// bind the VAO for the shape

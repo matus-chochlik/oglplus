@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -21,6 +21,7 @@
 #include <eglplus/renderable_type_bit.hpp>
 #include <eglplus/surface_type_bit.hpp>
 #include <eglplus/attrib_list.hpp>
+#include <eglplus/boolean.hpp>
 #include <eglplus/display.hpp>
 
 #include <cassert>
@@ -28,7 +29,8 @@
 namespace eglplus {
 
 class Config;
-::EGLConfig GetEGLHandle(const Config&);
+::EGLConfig GetEGLHandle(const Config&)
+OGLPLUS_NOEXCEPT(true);
 
 /// A wrapper for EGL configuration
 class Config
@@ -37,7 +39,8 @@ private:
 	Display _display;
 	::EGLConfig _handle;
 
-	friend ::EGLConfig GetEGLHandle(const Config&);
+	friend ::EGLConfig GetEGLHandle(const Config&)
+	OGLPLUS_NOEXCEPT(true);
 public:
 	Config(const Display& display, ::EGLConfig handle)
 	 : _display(display)
@@ -234,9 +237,12 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{NATIVE_RENDERABLE}
 	 */
-	EGLint NativeRenderable(void) const
+	Boolean NativeRenderable(void) const
 	{
-		return GetAttrib(ConfigAttrib::NativeRenderable);
+		return Boolean(
+			EGLBoolean(GetAttrib(ConfigAttrib::NativeRenderable)),
+			std::nothrow
+		);
 	}
 
 	/// Returns the caveat for this config
@@ -369,7 +375,9 @@ public:
 	}
 };
 
-inline ::EGLConfig GetEGLHandle(const Config& config)
+inline
+::EGLConfig GetEGLHandle(const Config& config)
+OGLPLUS_NOEXCEPT(true)
 {
 	return config._handle;
 }

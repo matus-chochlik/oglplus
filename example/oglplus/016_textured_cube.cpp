@@ -66,7 +66,7 @@ public:
 	 , camera_matrix(prog)
 	 , model_matrix(prog)
 	{
-		namespace se = oglplus::smart_enums;
+		namespace sv = oglplus::smart_values;
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
@@ -123,47 +123,47 @@ public:
 		// bind the VAO for the cube
 		cube.Bind();
 
-		verts.Bind(se::Array());
+		verts.Bind(sv::Array);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Positions(data);
-			Buffer::Data(se::Array(), data);
+			Buffer::Data(sv::Array, data);
 			(prog|"Position").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
-		normals.Bind(se::Array());
+		normals.Bind(sv::Array);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
-			Buffer::Data(se::Array(), data);
+			Buffer::Data(sv::Array, data);
 			(prog|"Normal").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
-		texcoords.Bind(se::Array());
+		texcoords.Bind(sv::Array);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.TexCoordinates(data);
-			Buffer::Data(se::Array(), data);
+			Buffer::Data(sv::Array, data);
 			(prog|"TexCoord").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
 		// setup the texture
-		gl.Bound(se::_2D(), tex)
+		gl.Bound(sv::_2D, tex)
 			.Image2D(images::LoadTexture("concrete_block"))
-			.MinFilter(se::Linear())
-			.MagFilter(se::Linear())
+			.MinFilter(sv::Linear)
+			.MagFilter(sv::Linear)
 			.Anisotropy(2.0f)
-			.WrapS(se::Repeat())
-			.WrapT(se::Repeat());
+			.WrapS(sv::Repeat)
+			.WrapT(sv::Repeat);
 		// set the uniform values
 		(prog/"TexUnit") = 0;
 		(prog/"LightPos") = Vec3f(1.0f, 2.0f, 3.0f);
 		//
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
-		gl.Enable(se::DepthTest());
+		gl.Enable(sv::DepthTest);
 
-		gl.Enable(se::CullFace());
+		gl.Enable(sv::CullFace);
 		gl.FrontFace(make_cube.FaceWinding());
 	}
 

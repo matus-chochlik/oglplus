@@ -37,7 +37,7 @@ BitmapGlyphLayoutStorage::BitmapGlyphLayoutStorage(
 		GLuint _linked_list[2] = {GLuint(_capacity), _list_nil()};
 		Buffer::SubData(
 			Buffer::Target::Array,
-			_list_head,
+			BufferTypedSize<GLuint>(_list_head),
 			sizeof(_linked_list)/sizeof(_linked_list[0]),
 			_linked_list
 		);
@@ -296,8 +296,8 @@ void BitmapGlyphLayoutStorage::Initialize(
 	_code_points.Bind(Buffer::Target::Array);
 	Buffer::SubData(
 		Buffer::Target::Array,
-		layout_data._offset,
-		code_points.size(),
+		BufferTypedSize<GLuint>(layout_data._offset),
+		GLsizei(code_points.size()),
 		code_points.data()
 	);
 	// upload the x-offsets
@@ -305,8 +305,8 @@ void BitmapGlyphLayoutStorage::Initialize(
 	_x_offsets.Bind(Buffer::Target::Array);
 	Buffer::SubData(
 		Buffer::Target::Array,
-		layout_data._offset,
-		x_offsets.size(),
+		BufferTypedSize<GLuint>(layout_data._offset),
+		GLsizei(x_offsets.size()),
 		x_offsets.data()
 	);
 }

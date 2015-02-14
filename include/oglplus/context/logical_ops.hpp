@@ -14,7 +14,7 @@
 #define OGLPLUS_CONTEXT_LOGICAL_OPS_1201040722_HPP
 
 #include <oglplus/glfunc.hpp>
-#include <oglplus/color_log_op.hpp>
+#include <oglplus/color_logic_operation.hpp>
 
 namespace oglplus {
 namespace context {
@@ -46,7 +46,7 @@ public:
 	/**
 	 *  @glsymbols
 	 *  @glfunref{Get}
-	 *  @gldefref{COLOR_LOGIC_OP}
+	 *  @gldefref{LOGIC_OP_MODE}
 	 */
 	static ColorLogicOperation LogicOpMode(void)
 	{

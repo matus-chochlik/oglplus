@@ -11,8 +11,7 @@
 
 namespace oglplus {
 
-#if GL_EXT_direct_state_access
-
+#if GL_VERSION_4_5 || GL_ARB_direct_state_access
 OGLPLUS_LIB_FUNC
 void ObjectOps<tag::DirectState, tag::Framebuffer>::
 HandleIncompleteError(FramebufferStatus status) const
@@ -24,11 +23,11 @@ HandleIncompleteError(FramebufferStatus status) const
 		IncompleteFramebuffer,
 		Status(status).
 		Object(*this).
-		GLFunc("CheckNamedFramebufferStatusEXT")
+		GLFunc("CheckNamedFramebufferStatus")
 	);
 }
 
-#endif // GL_EXT_direct_state_access
+#endif // GL_ARB_direct_state_access
 
 } // namespace oglplus
 

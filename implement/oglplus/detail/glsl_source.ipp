@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,9 +14,9 @@ namespace oglplus {
 namespace aux {
 
 OGLPLUS_LIB_FUNC
-LitsGLSLSrcWrap::LitsGLSLSrcWrap(
-	AnyInputIter<StrLit>&& i,
-	AnyInputIter<StrLit>&& e
+StrCRefsGLSLSrcWrap::StrCRefsGLSLSrcWrap(
+	AnyInputIter<StrCRef>&& i,
+	AnyInputIter<StrCRef>&& e
 ): _ptrs(distance(i, e))
  , _sizes(distance(i, e))
 {
@@ -26,13 +26,43 @@ LitsGLSLSrcWrap::LitsGLSLSrcWrap(
 	{
 		assert(pptr != _ptrs.end());
 		assert(psize != _sizes.end());
-		*pptr = i->c_str();
-		*psize = i->size();
+		*pptr = i->begin();
+		*psize = int(i->size());
 		++i;
 		++pptr;
 		++psize;
 	}
 	assert(_ptrs.size() == _sizes.size());
+}
+
+OGLPLUS_LIB_FUNC
+void StrsGLSLSrcWrap::_init(void)
+{
+	for(std::size_t i=0, n=_storage.size(); i!=n; ++i)
+	{
+		_ptrs[i] = _storage[i].c_str();
+		_sizes[i] = GLint(_storage[i].size());
+	}
+}
+
+OGLPLUS_LIB_FUNC
+StrsGLSLSrcWrap::StrsGLSLSrcWrap(
+	AnyInputIter<String>&& i,
+	AnyInputIter<String>&& e
+): _storage(i, e)
+ , _ptrs(_storage.size(), nullptr)
+ , _sizes(_storage.size(), 0)
+{
+	_init();
+}
+
+OGLPLUS_LIB_FUNC
+StrsGLSLSrcWrap::StrsGLSLSrcWrap(std::vector<String>&& storage)
+ : _storage(std::move(storage))
+ , _ptrs(_storage.size(), nullptr)
+ , _sizes(_storage.size(), 0)
+{
+	_init();
 }
 
 OGLPLUS_LIB_FUNC
@@ -94,7 +124,7 @@ OGLPLUS_LIB_FUNC
 InputStreamGLSLSrcWrap::InputStreamGLSLSrcWrap(std::istream& input)
  : _storage(_read_data(input, _check_and_get_size(input)))
  , _pdata(_storage.data())
- , _size(_storage.size())
+ , _size(GLint(_storage.size()))
 { }
 
 OGLPLUS_LIB_FUNC

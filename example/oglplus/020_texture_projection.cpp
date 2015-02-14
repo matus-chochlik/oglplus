@@ -16,7 +16,7 @@
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/images/load.hpp>
-#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
 
 #include <cmath>
 
@@ -160,7 +160,7 @@ public:
 		}
 
 		// setup the texture
-		gl.Direct(Texture::Target::_2D, tex)
+		gl.DirectEXT(Texture::Target::_2D, tex)
 			.Image2D(images::LoadTexture("flower_glass"))
 			.GenerateMipmap()
 			.BorderColor(Vec4f(1.0f, 1.0f, 1.0f, 0.0f))
