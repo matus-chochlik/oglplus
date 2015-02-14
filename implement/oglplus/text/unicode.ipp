@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -38,7 +38,7 @@ OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
 OGLPLUS_LIB_FUNC void CodePointsToUTF8(
 	const CodePoint* begin,
 	const CodePoint* end,
-	std::vector<char>& result
+	eagine::base::vector<char>& result
 )
 {
 	eagine::base::convert_code_points_to_utf8(begin, end-begin, result);
@@ -47,7 +47,7 @@ OGLPLUS_LIB_FUNC void CodePointsToUTF8(
 OGLPLUS_LIB_FUNC void CodePointsToUTF8(
 	const CodePoint* c_str,
 	std::size_t length,
-	std::vector<char>& result
+	eagine::base::vector<char>& result
 )
 {
 	eagine::base::convert_code_points_to_utf8(c_str, length, result);

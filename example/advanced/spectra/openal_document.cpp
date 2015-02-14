@@ -91,7 +91,7 @@ bool SpectraOpenALDocument::FinishLoading(void)
 	alut.LoadMemoryFromFile(
 		raw_data,
 		samples,
-		(const char*)file_path.mb_str(wxConvUTF8),
+		oalplus::ALCStrRef(file_path.mb_str(wxConvUTF8)),
 		&format,
 		&frequency
 	);

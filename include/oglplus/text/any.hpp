@@ -146,7 +146,7 @@ public:
 	Rectangle GlyphLogicalMetrics(CodePoint code_point)
 	{
 		assert(_pimpl);
-		_pimpl->GlyphLogicalMetrics(code_point);
+		return _pimpl->GlyphLogicalMetrics(code_point);
 	}
 
 	GLfloat QueryXOffsets(
@@ -156,7 +156,7 @@ public:
 	)
 	{
 		assert(_pimpl);
-		_pimpl->QueryXOffsets(cps, size, x_offsets);
+		return _pimpl->QueryXOffsets(cps, size, x_offsets);
 	}
 };
 
