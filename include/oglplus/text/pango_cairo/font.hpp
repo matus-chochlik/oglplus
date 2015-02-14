@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -18,7 +18,16 @@
 #include <oglplus/text/pango_cairo/fwd.hpp>
 #include <oglplus/text/pango_cairo/handle.hpp>
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-register"
+#endif
+
 #include <pango/pangocairo.h>
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#endif
 
 #include <cassert>
 #include <memory>
