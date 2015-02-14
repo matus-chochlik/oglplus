@@ -89,7 +89,7 @@ if(GLUT_FOUND AND GLEW_FOUND)
           add_definitions(${PANGO_CAIRO_LDFLAGS})
           standalone_example_common(
             004_pango_cairo_hello
-            ${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${PANGO_CAIRO_LIBRARIES}
+	    GLUT GLEW PANGO_CAIRO
             )
 	endif()
 
@@ -97,7 +97,7 @@ if(GLUT_FOUND AND GLEW_FOUND)
 		include_directories(${GLM_INCLUDE_DIRS})
 		standalone_example_common(
 			007_glm_boxes
-			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+			GLUT GLEW
 		)
 	endif()
 
