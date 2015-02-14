@@ -93,7 +93,7 @@ if(GLUT_FOUND AND GLEW_FOUND)
             )
 	endif()
 
-	if(FALSE AND GLM_FOUND)
+	if(GLM_FOUND)
 		include_directories(${GLM_INCLUDE_DIRS})
 		standalone_example_common(
 			007_glm_boxes
