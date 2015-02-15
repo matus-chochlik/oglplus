@@ -84,6 +84,7 @@
 
 [def __Buffer [link oglplus.quickref.buffer.def Buffer]]
 [def __NoBuffer [link oglplus.quickref.buffer.def NoBuffer]]
+[def __DSABuffer [link oglplus.quickref.dsa_buffer.def DSABuffer]]
 [def __BufferTarget [link oglplus.quickref.buffer.target BufferTarget]]
 [def __BufferIndexedTarget [link oglplus.quickref.buffer.indexed_target BufferIndexedTarget]]
 [def __BufferUsage [link oglplus.quickref.buffer.usage BufferUsage]]
