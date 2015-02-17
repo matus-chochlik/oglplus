@@ -1,0 +1,225 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>DSA buffer maps</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="dsa_buffer.html" title="DSA Buffers">
+<link rel="next" href="vertex_array.html" title="Vertex arrays">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="dsa_buffer.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="vertex_array.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.dsa_buffer_map"></a><a class="link" href="dsa_buffer_map.html" title="DSA buffer maps">DSA buffer maps</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/dsa/buffer_map.hpp&gt;</code>
+        </p>
+<h4>
+<a name="oglplus.quickref.dsa_buffer_map.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.dsa_buffer_map.raw"></a></span><a class="link" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.raw">Raw</a>
+        </h4>
+<p>
+          The <code class="literal">DSABufferRawMap</code> allows to map the contents of a
+          GPU buffer into the client's address space.
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_5</span> <span class="special">||</span> <span class="identifier">GL_ARB_direct_state_access</span>
+
+<span class="keyword">class</span> <span class="identifier">DSABufferRawMap</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">DSABufferRawMap</span><span class="special">(</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">buffer</span><span class="special">,</span>
+		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">offset</span><span class="special">,</span>
+		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">size</span><span class="special">,</span>
+		<a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="buffer_map.html#oglplus.quickref.buffer_map.access">BufferMapAccess</a><span class="special">&gt;</span> <span class="identifier">access</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c0" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">DSABufferRawMap</span><span class="special">(</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">buffer</span><span class="special">,</span>
+		<a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="buffer_map.html#oglplus.quickref.buffer_map.access">BufferMapAccess</a><span class="special">&gt;</span> <span class="identifier">access</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c2" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">DSABufferRawMap</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">DSABufferRawMap</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c4" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">DSABufferRawMap</span><span class="special">(</span><span class="identifier">DSABufferRawMap</span><span class="special">&amp;&amp;);</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c6" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="special">~</span><span class="identifier">DSABufferRawMap</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c8" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Unmap</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+
+	<span class="keyword">bool</span> <span class="identifier">Mapped</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c10" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="identifier">GLsizeiptr</span> <span class="identifier">Size</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c12" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<span class="keyword">const</span> <span class="identifier">GLvoid</span><span class="special">*</span> <span class="identifier">RawData</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c14" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="identifier">GLvoid</span><span class="special">*</span> <span class="identifier">RawData</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+
+	<span class="keyword">void</span> <span class="identifier">FlushRange</span><span class="special">(</span><a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">offset</span><span class="special">,</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">length</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c16" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c1"></a><a href="#oglplus.quickref.dsa_buffer_map.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Maps a range (specified by <code class="literal">offset</code> and <code class="literal">size</code>)
+              of the specified <code class="literal">buffer</code> with the specified <code class="literal">access</code>
+              to the client address space. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMapNamedBufferRange.xml" target="_top">glMapNamedBufferRange</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c3"></a><a href="#oglplus.quickref.dsa_buffer_map.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Maps the whole specified buffer with the specified <code class="literal">access</code>
+              to the client address space. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMapNamedBuffer.xml" target="_top">glMapNamedBuffer</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c5"></a><a href="#oglplus.quickref.dsa_buffer_map.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              DSABuffer maps are not copyable.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c7"></a><a href="#oglplus.quickref.dsa_buffer_map.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              DSABuffer maps are moveable.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c9"></a><a href="#oglplus.quickref.dsa_buffer_map.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Unmaps the buffer from client address space (if mapped). See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glUnmapNamedBuffer.xml" target="_top">glUnmapNamedBuffer</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c11"></a><a href="#oglplus.quickref.dsa_buffer_map.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if the buffer is mapped.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c13"></a><a href="#oglplus.quickref.dsa_buffer_map.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the size (in bytes) of the mapped buffer.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c15"></a><a href="#oglplus.quickref.dsa_buffer_map.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns a raw pointer to the mapped data. Note that the buffer has
+              to be mapped or the result is undefined.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c17"></a><a href="#oglplus.quickref.dsa_buffer_map.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Indicate modifications to a mapped buffer range. Note that the buffer
+              has to be mapped or the result is undefined. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glFlushMappedNamedBufferRange.xml" target="_top">glFlushMappedNamedBufferRange</a></code>.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.dsa_buffer_map.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.dsa_buffer_map.typed"></a></span><a class="link" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.typed">Types</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Type</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">DSABufferTypedMap</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.raw">DSABufferRawMap</a>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">DSABufferTypedMap</span><span class="special">(</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">buffer</span><span class="special">,</span>
+		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferTypedSize</a><span class="special">&lt;</span><span class="identifier">Type</span><span class="special">&gt;</span> <span class="identifier">offset</span><span class="special">,</span>
+		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferTypedSize</a><span class="special">&lt;</span><span class="identifier">Type</span><span class="special">&gt;</span> <span class="identifier">size</span><span class="special">,</span>
+		<a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="buffer_map.html#oglplus.quickref.buffer_map.access">BufferMapAccess</a><span class="special">&gt;</span> <span class="identifier">access</span>
+	<span class="special">)</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c18" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c19"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">DSABufferTypedMap</span><span class="special">(</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">buffer</span><span class="special">,</span>
+		<a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="buffer_map.html#oglplus.quickref.buffer_map.access">BufferMapAccess</a><span class="special">&gt;</span> <span class="identifier">access</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c20" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c21"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">GLsizeiptr</span> <span class="identifier">Count</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c22" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c23"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">const</span> <span class="identifier">Type</span><span class="special">*</span> <span class="identifier">Data</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c24" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c25"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="identifier">Type</span><span class="special">*</span> <span class="identifier">Data</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+
+	<span class="keyword">const</span> <span class="identifier">Type</span><span class="special">&amp;</span> <span class="identifier">At</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">index</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c26" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c27"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">Type</span><span class="special">&amp;</span> <span class="identifier">At</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">index</span><span class="special">);</span>
+
+	<span class="keyword">void</span> <span class="identifier">FlushElements</span><span class="special">(</span>
+		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferTypedSize</a><span class="special">&lt;</span><span class="identifier">Type</span><span class="special">&gt;</span> <span class="identifier">start</span><span class="special">,</span>
+		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferTypedSize</a><span class="special">&lt;</span><span class="identifier">Type</span><span class="special">&gt;</span> <span class="identifier">count</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_buffer_map.c28" href="dsa_buffer_map.html#oglplus.quickref.dsa_buffer_map.c29"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="special">};</span>
+
+<span class="preprocessor">#endif</span> <span class="comment">// GL_VERSION_4_5 || GL_ARB_direct_state_access</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c19"></a><a href="#oglplus.quickref.dsa_buffer_map.c18"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Maps a range (specified by <code class="literal">offset</code> and <code class="literal">size</code>)
+              of the specified <code class="literal">buffer</code> with the specified <code class="literal">access</code>
+              to the client address space. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMapNamedBufferRange.xml" target="_top">glMapNamedBufferRange</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c21"></a><a href="#oglplus.quickref.dsa_buffer_map.c20"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Maps the whole specified buffer with the specified <code class="literal">access</code>
+              to the client address space. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glMapNamedBuffer.xml" target="_top">glMapNamedBuffer</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c23"></a><a href="#oglplus.quickref.dsa_buffer_map.c22"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the count of elements of <code class="literal">Type</code> in the mapped
+              buffer.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c25"></a><a href="#oglplus.quickref.dsa_buffer_map.c24"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns a typed pointer to the mapped data. Note that the buffer has
+              to be mapped or the result is undefined.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c27"></a><a href="#oglplus.quickref.dsa_buffer_map.c26"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns a reference to the element at the specified <code class="literal">index</code>.
+              Note that the buffer has to be mapped or the result is undefined.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_buffer_map.c29"></a><a href="#oglplus.quickref.dsa_buffer_map.c28"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Indicate modifications to a mapped range of elements of <code class="literal">Type</code>.
+              Note that the buffer has to be mapped or the result is undefined. See
+              <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glFlushMappedNamedBufferRange.xml" target="_top">glFlushMappedNamedBufferRange</a></code>.
+            </p></td>
+</tr>
+</table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="dsa_buffer.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="vertex_array.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

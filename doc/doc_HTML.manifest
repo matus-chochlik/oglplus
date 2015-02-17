@@ -11,6 +11,7 @@ oglplus/quickref/object.html
 oglplus/quickref/buffer.html
 oglplus/quickref/buffer_map.html
 oglplus/quickref/dsa_buffer.html
+oglplus/quickref/dsa_buffer_map.html
 oglplus/quickref/vertex_array.html
 oglplus/quickref/texture.html
 oglplus/quickref/sampler.html
