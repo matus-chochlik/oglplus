@@ -100,6 +100,8 @@
 
 [def __BufferRawMap [link oglplus.quickref.buffer_map.raw BufferRawMap]]
 [def __BufferTypedMap [link oglplus.quickref.buffer_map.typed BufferTypedMap]]
+[def __DSABufferRawMap [link oglplus.quickref.dsa_buffer_map.raw DSABufferRawMap]]
+[def __DSABufferTypedMap [link oglplus.quickref.dsa_buffer_map.typed DSABufferTypedMap]]
 [def __BufferMapAccess [link oglplus.quickref.buffer_map.access BufferMapAccess]]
 
 [def __VertexArray [link oglplus.quickref.vertex_array.def VertexArray]]

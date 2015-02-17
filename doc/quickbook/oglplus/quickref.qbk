@@ -37,6 +37,7 @@ the concept.
 [include quickref/buffer.qbk]
 [include quickref/buffer_map.qbk]
 [include quickref/dsa/buffer.qbk]
+[include quickref/dsa/buffer_map.qbk]
 [include quickref/vertex_array.qbk]
 [include quickref/texture.qbk]
 [include quickref/sampler.qbk]
