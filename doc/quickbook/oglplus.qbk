@@ -128,6 +128,7 @@
 [def __NoSampler [link oglplus.quickref.sampler.def NoSampler]]
 
 [def __Framebuffer [link oglplus.quickref.framebuffer.def Framebuffer]]
+[def __DSAFramebuffer [link oglplus.quickref.dsa_framebuffer.def DSAFramebuffer]]
 [def __DefaultFramebuffer [link oglplus.quickref.framebuffer.def DefaultFramebuffer]]
 [def __FramebufferTarget [link oglplus.quickref.framebuffer.target FramebufferTarget]]
 [def __FramebufferBuffer [link oglplus.quickref.framebuffer.buffer FramebufferBuffer]]
@@ -137,6 +138,7 @@
 [def __FramebufferStatus [link oglplus.quickref.framebuffer.status FramebufferStatus]]
 
 [def __Renderbuffer [link oglplus.quickref.renderbuffer.def Renderbuffer]]
+[def __DSARenderbuffer [link oglplus.quickref.dsa_renderbuffer.def DSARenderbuffer]]
 [def __NoRenderbuffer [link oglplus.quickref.renderbuffer.def NoRenderbuffer]]
 [def __RenderbufferTarget [link oglplus.quickref.renderbuffer.target RenderbufferTarget]]
 
