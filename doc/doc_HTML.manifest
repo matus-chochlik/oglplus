@@ -16,7 +16,9 @@ oglplus/quickref/vertex_array.html
 oglplus/quickref/texture.html
 oglplus/quickref/sampler.html
 oglplus/quickref/framebuffer.html
+oglplus/quickref/dsa_framebuffer.html
 oglplus/quickref/renderbuffer.html
+oglplus/quickref/dsa_renderbuffer.html
 oglplus/quickref/shader.html
 oglplus/quickref/program.html
 oglplus/quickref/program_pipeline.html
