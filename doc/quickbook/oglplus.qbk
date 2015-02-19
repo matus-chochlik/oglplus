@@ -106,6 +106,7 @@
 
 [def __VertexArray [link oglplus.quickref.vertex_array.def VertexArray]]
 [def __NoVertexArray [link oglplus.quickref.vertex_array.def NoVertexArray]]
+[def __DSAVertexArray [link oglplus.quickref.dsa_vertex_array.def DSAVertexArray]]
 
 [def __Texture [link oglplus.quickref.texture.def Texture]]
 [def __DefaultTexture [link oglplus.quickref.texture.def DefaultTexture]]
@@ -175,6 +176,7 @@
 [def __TransformFeedbackTarget [link oglplus.quickref.transform_feedback.target TransformFeedbackTarget]]
 [def __TransformFeedbackMode [link oglplus.quickref.transform_feedback.mode TransformFeedbackMode]]
 [def __TransformFeedbackPrimitiveType [link oglplus.quickref.transform_feedback.primitive_type TransformFeedbackPrimitiveType]]
+[def __DSATransformFeedback [link oglplus.quickref.dsa_transform_feedback.def DSATransformFeedback]]
 
 [def __OptionalObject [link oglplus.quickref.object.optional Optional]]
 

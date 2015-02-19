@@ -39,6 +39,7 @@ the concept.
 [include quickref/dsa/buffer.qbk]
 [include quickref/dsa/buffer_map.qbk]
 [include quickref/vertex_array.qbk]
+[include quickref/dsa/vertex_array.qbk]
 [include quickref/texture.qbk]
 [include quickref/sampler.qbk]
 [include quickref/framebuffer.qbk]
@@ -50,6 +51,7 @@ the concept.
 [include quickref/program_pipeline.qbk]
 [include quickref/query.qbk]
 [include quickref/transform_feedback.qbk]
+[include quickref/dsa/transform_feedback.qbk]
 [include quickref/sync.qbk]
 
 [include quickref/vertex_attrib_slot.qbk]
