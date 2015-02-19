@@ -1,0 +1,88 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>DSA vertex arrays</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="vertex_array.html" title="Vertex arrays">
+<link rel="next" href="texture.html" title="Textures">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="vertex_array.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="texture.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.dsa_vertex_array"></a><a class="link" href="dsa_vertex_array.html" title="DSA vertex arrays">DSA vertex arrays</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/dsa/vertex_array.hpp&gt;</code>
+        </p>
+<h4>
+<a name="oglplus.quickref.dsa_vertex_array.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.dsa_vertex_array.operations_with_direct_state_acc"></a></span><a class="link" href="dsa_vertex_array.html#oglplus.quickref.dsa_vertex_array.operations_with_direct_state_acc">Operations
+          with direct state access</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::VertexArray</a><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::VertexArray</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">ElementBuffer</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">buffer</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_vertex_array.c0" href="dsa_vertex_array.html#oglplus.quickref.dsa_vertex_array.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">EnableVertexAttrib</span><span class="special">(</span><a class="link" href="vertex_attrib_slot.html" title="Vertex attrib slot">VertexAttribSlot</a> <span class="identifier">location</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_vertex_array.c2" href="dsa_vertex_array.html#oglplus.quickref.dsa_vertex_array.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">DisableVertexAttrib</span><span class="special">(</span><a class="link" href="vertex_attrib_slot.html" title="Vertex attrib slot">VertexAttribSlot</a> <span class="identifier">location</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_vertex_array.c4" href="dsa_vertex_array.html#oglplus.quickref.dsa_vertex_array.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_vertex_array.c1"></a><a href="#oglplus.quickref.dsa_vertex_array.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Bind buffer to <code class="literal">this</code> VAO's element buffer binding
+              point. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glVertexArrayElementBuffer.xml" target="_top">glVertexArrayElementBuffer</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_vertex_array.c3"></a><a href="#oglplus.quickref.dsa_vertex_array.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Disable the specified vertex attribute array. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEnableVertexArrayAttrib.xml" target="_top">glEnableVertexArrayAttrib</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_vertex_array.c5"></a><a href="#oglplus.quickref.dsa_vertex_array.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Enable the specified vertex attribute array. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDisableVertexArrayAttrib.xml" target="_top">glDisableVertexArrayAttrib</a></code>.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.dsa_vertex_array.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.dsa_vertex_array.def"></a></span><a class="link" href="dsa_vertex_array.html#oglplus.quickref.dsa_vertex_array.def">Definition</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::VertexArray</a><span class="special">&gt;</span>
+	<span class="identifier">DSAVertexArrayOps</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&lt;</span><span class="identifier">DSAVertexArrayOps</span><span class="special">&gt;</span> <span class="identifier">DSAVertexArray</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="vertex_array.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="texture.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

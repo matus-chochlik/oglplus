@@ -13,6 +13,7 @@ oglplus/quickref/buffer_map.html
 oglplus/quickref/dsa_buffer.html
 oglplus/quickref/dsa_buffer_map.html
 oglplus/quickref/vertex_array.html
+oglplus/quickref/dsa_vertex_array.html
 oglplus/quickref/texture.html
 oglplus/quickref/sampler.html
 oglplus/quickref/framebuffer.html
@@ -24,6 +25,7 @@ oglplus/quickref/program.html
 oglplus/quickref/program_pipeline.html
 oglplus/quickref/query.html
 oglplus/quickref/transform_feedback.html
+oglplus/quickref/dsa_transform_feedback.html
 oglplus/quickref/sync.html
 oglplus/quickref/vertex_attrib_slot.html
 oglplus/quickref/texture_handle.html
