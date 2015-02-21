@@ -29,32 +29,38 @@
 
 <span class="keyword">template</span> <span class="special">&lt;&gt;</span>
 <span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::VertexArray</a><span class="special">&gt;</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::VertexArray</a><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::VertexArray</a><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.dsa_vertex_array.c0" href="dsa_vertex_array.html#oglplus.quickref.dsa_vertex_array.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">ElementBuffer</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">buffer</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_vertex_array.c0" href="dsa_vertex_array.html#oglplus.quickref.dsa_vertex_array.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">ElementBuffer</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">buffer</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_vertex_array.c2" href="dsa_vertex_array.html#oglplus.quickref.dsa_vertex_array.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
-	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">EnableVertexAttrib</span><span class="special">(</span><a class="link" href="vertex_attrib_slot.html" title="Vertex attrib slot">VertexAttribSlot</a> <span class="identifier">location</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_vertex_array.c2" href="dsa_vertex_array.html#oglplus.quickref.dsa_vertex_array.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">EnableVertexAttrib</span><span class="special">(</span><a class="link" href="vertex_attrib_slot.html" title="Vertex attrib slot">VertexAttribSlot</a> <span class="identifier">location</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_vertex_array.c4" href="dsa_vertex_array.html#oglplus.quickref.dsa_vertex_array.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
-	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">DisableVertexAttrib</span><span class="special">(</span><a class="link" href="vertex_attrib_slot.html" title="Vertex attrib slot">VertexAttribSlot</a> <span class="identifier">location</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_vertex_array.c4" href="dsa_vertex_array.html#oglplus.quickref.dsa_vertex_array.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">DisableVertexAttrib</span><span class="special">(</span><a class="link" href="vertex_attrib_slot.html" title="Vertex attrib slot">VertexAttribSlot</a> <span class="identifier">location</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_vertex_array.c6" href="dsa_vertex_array.html#oglplus.quickref.dsa_vertex_array.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="special">};</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_vertex_array.c1"></a><a href="#oglplus.quickref.dsa_vertex_array.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-              Bind buffer to <code class="literal">this</code> VAO's element buffer binding
-              point. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glVertexArrayElementBuffer.xml" target="_top">glVertexArrayElementBuffer</a></code>.
+              Indirectly inherits from <a class="link" href="vertex_array.html#oglplus.quickref.vertex_array.common">ObjCommonOps&lt;tag::VertexArray&gt;</a>.
             </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_vertex_array.c3"></a><a href="#oglplus.quickref.dsa_vertex_array.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-              Disable the specified vertex attribute array. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEnableVertexArrayAttrib.xml" target="_top">glEnableVertexArrayAttrib</a></code>.
+              Bind buffer to <code class="literal">this</code> VAO's element buffer binding
+              point. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glVertexArrayElementBuffer.xml" target="_top">glVertexArrayElementBuffer</a></code>.
             </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_vertex_array.c5"></a><a href="#oglplus.quickref.dsa_vertex_array.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Disable the specified vertex attribute array. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEnableVertexArrayAttrib.xml" target="_top">glEnableVertexArrayAttrib</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_vertex_array.c7"></a><a href="#oglplus.quickref.dsa_vertex_array.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Enable the specified vertex attribute array. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDisableVertexArrayAttrib.xml" target="_top">glDisableVertexArrayAttrib</a></code>.
             </p></td>

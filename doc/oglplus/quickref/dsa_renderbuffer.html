@@ -29,14 +29,14 @@
 
 <span class="keyword">template</span> <span class="special">&lt;&gt;</span>
 <span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Renderbuffer</a><span class="special">&gt;</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Renderbuffer</a><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Renderbuffer</a><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c0" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">void</span> <span class="identifier">Storage</span><span class="special">(</span>
 		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internalformat</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">height</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c0" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c2" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	<span class="keyword">void</span> <span class="identifier">Storage</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image_spec" title="Image specification">images::ImageSpec</a><span class="special">&amp;</span> <span class="identifier">image_spec</span><span class="special">);</span>
 
 	<span class="keyword">void</span> <span class="identifier">StorageMultisample</span><span class="special">(</span>
@@ -44,39 +44,45 @@
 		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internalformat</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">height</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c2" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c4" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
-	<span class="identifier">GLsizei</span> <span class="identifier">Width</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c4" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-	<span class="identifier">GLsizei</span> <span class="identifier">Height</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c6" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">Width</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c6" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">Height</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c8" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
-	<span class="identifier">GLsizei</span> <span class="identifier">RedSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c8" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
-	<span class="identifier">GLsizei</span> <span class="identifier">GreenSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c10" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
-	<span class="identifier">GLsizei</span> <span class="identifier">BlueSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c12" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
-	<span class="identifier">GLsizei</span> <span class="identifier">AlphaSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c14" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
-	<span class="identifier">GLsizei</span> <span class="identifier">DepthSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c16" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
-	<span class="identifier">GLsizei</span> <span class="identifier">StencilSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c18" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">RedSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c10" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">GreenSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c12" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">BlueSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c14" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">AlphaSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c16" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">DepthSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c18" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">StencilSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c20" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c21"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
 
-	<span class="identifier">GLsizei</span> <span class="identifier">Samples</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c20" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c21"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">InternalFormat</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c22" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c23"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+	<span class="identifier">GLsizei</span> <span class="identifier">Samples</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c22" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c23"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">InternalFormat</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c24" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c25"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
 <span class="special">};</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c1"></a><a href="#oglplus.quickref.dsa_renderbuffer.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
+              Indirectly inherits from <a class="link" href="renderbuffer.html#oglplus.quickref.renderbuffer.common">ObjCommonOps&lt;tag::Renderbuffer&gt;</a>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c3"></a><a href="#oglplus.quickref.dsa_renderbuffer.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
               Sets the storage parameters for <code class="literal">this</code> renderbuffer.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glNamedRenderbufferStorage.xml" target="_top">glNamedRenderbufferStorage</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c3"></a><a href="#oglplus.quickref.dsa_renderbuffer.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c5"></a><a href="#oglplus.quickref.dsa_renderbuffer.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Sets multipsample storage parameters for <code class="literal">this</code> renderbuffer.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glNamedRenderbufferStorageMultisample.xml" target="_top">glNamedRenderbufferStorageMultisample</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c5"></a><a href="#oglplus.quickref.dsa_renderbuffer.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c7"></a><a href="#oglplus.quickref.dsa_renderbuffer.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the width in pixels of <code class="literal">this</code> renderbuffer.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetNamedRenderbufferParameter.xml" target="_top">glGetNamedRenderbufferParameter</a></code>,
@@ -84,7 +90,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c7"></a><a href="#oglplus.quickref.dsa_renderbuffer.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c9"></a><a href="#oglplus.quickref.dsa_renderbuffer.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the height in pixels of <code class="literal">this</code> renderbuffer.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetNamedRenderbufferParameter.xml" target="_top">glGetNamedRenderbufferParameter</a></code>,
@@ -92,7 +98,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c9"></a><a href="#oglplus.quickref.dsa_renderbuffer.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c11"></a><a href="#oglplus.quickref.dsa_renderbuffer.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the size in bits of the red component of <code class="literal">this</code>
               renderbuffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetNamedRenderbufferParameter.xml" target="_top">glGetNamedRenderbufferParameter</a></code>,
@@ -100,7 +106,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c11"></a><a href="#oglplus.quickref.dsa_renderbuffer.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c13"></a><a href="#oglplus.quickref.dsa_renderbuffer.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the size in bits of the green component of <code class="literal">this</code>
               renderbuffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetNamedRenderbufferParameter.xml" target="_top">glGetNamedRenderbufferParameter</a></code>,
@@ -108,7 +114,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c13"></a><a href="#oglplus.quickref.dsa_renderbuffer.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c15"></a><a href="#oglplus.quickref.dsa_renderbuffer.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the size in bits of the blue component of <code class="literal">this</code>
               renderbuffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetNamedRenderbufferParameter.xml" target="_top">glGetNamedRenderbufferParameter</a></code>,
@@ -116,7 +122,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c15"></a><a href="#oglplus.quickref.dsa_renderbuffer.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c17"></a><a href="#oglplus.quickref.dsa_renderbuffer.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the size in bits of the alpha component of <code class="literal">this</code>
               renderbuffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetNamedRenderbufferParameter.xml" target="_top">glGetNamedRenderbufferParameter</a></code>,
@@ -124,7 +130,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c17"></a><a href="#oglplus.quickref.dsa_renderbuffer.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c19"></a><a href="#oglplus.quickref.dsa_renderbuffer.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the size in bits of the depth component of <code class="literal">this</code>
               renderbuffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetNamedRenderbufferParameter.xml" target="_top">glGetNamedRenderbufferParameter</a></code>,
@@ -132,7 +138,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c19"></a><a href="#oglplus.quickref.dsa_renderbuffer.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c21"></a><a href="#oglplus.quickref.dsa_renderbuffer.c20"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the size in bits of the stencil component of <code class="literal">this</code>
               renderbuffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetNamedRenderbufferParameter.xml" target="_top">glGetNamedRenderbufferParameter</a></code>,
@@ -140,7 +146,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c21"></a><a href="#oglplus.quickref.dsa_renderbuffer.c20"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c23"></a><a href="#oglplus.quickref.dsa_renderbuffer.c22"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the number of samples of <code class="literal">this</code> renderbuffer.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetNamedRenderbufferParameter.xml" target="_top">glGetNamedRenderbufferParameter</a></code>,
@@ -148,7 +154,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c23"></a><a href="#oglplus.quickref.dsa_renderbuffer.c22"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c25"></a><a href="#oglplus.quickref.dsa_renderbuffer.c24"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the internal format of <code class="literal">this</code> renderbuffer.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetNamedRenderbufferParameter.xml" target="_top">glGetNamedRenderbufferParameter</a></code>,
@@ -173,24 +179,24 @@
 <pre class="programlisting"><span class="identifier">DSARenderbufferOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
 	<span class="identifier">DSARenderbufferOps</span><span class="special">&amp;</span> <span class="identifier">rbo</span><span class="special">,</span>
 	<a class="link" href="renderbuffer.html#oglplus.quickref.renderbuffer.target">RenderbufferTarget</a> <span class="identifier">target</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c24" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c25"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c26" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c27"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 <span class="identifier">DSARenderbufferOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
 	<span class="identifier">DSARenderbufferOps</span><span class="special">&amp;</span> <span class="identifier">rbo</span><span class="special">,</span>
 	<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image_spec" title="Image specification">images::ImageSpec</a><span class="special">&amp;</span> <span class="identifier">image_spec</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c26" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c27"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_renderbuffer.c28" href="dsa_renderbuffer.html#oglplus.quickref.dsa_renderbuffer.c29"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c25"></a><a href="#oglplus.quickref.dsa_renderbuffer.c24"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c27"></a><a href="#oglplus.quickref.dsa_renderbuffer.c26"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Binds <code class="literal">rbo</code> to the specified <code class="literal">target</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c27"></a><a href="#oglplus.quickref.dsa_renderbuffer.c26"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_renderbuffer.c29"></a><a href="#oglplus.quickref.dsa_renderbuffer.c28"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Sets the storage parameters from <code class="literal">image_spec</code> to the
               renderbuffer currently bound to the specified <code class="literal">target</code>.

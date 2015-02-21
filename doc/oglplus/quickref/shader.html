@@ -22,7 +22,7 @@
         </p>
 <h4>
 <a name="oglplus.quickref.shader.h0"></a>
-          <span class="phrase"><a name="oglplus.quickref.shader.common_shader_operations"></a></span><a class="link" href="shader.html#oglplus.quickref.shader.common_shader_operations">Common
+          <span class="phrase"><a name="oglplus.quickref.shader.common"></a></span><a class="link" href="shader.html#oglplus.quickref.shader.common">Common
           shader operations</a>
         </h4>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
@@ -60,7 +60,7 @@
         </h4>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
 <span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Shader</a><span class="special">&gt;</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Shader</a><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Shader</a><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.shader.c2" href="shader.html#oglplus.quickref.shader.c3"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">struct</span> <span class="identifier">Property</span>
@@ -68,36 +68,36 @@
 		<span class="keyword">typedef</span> <a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">Type</span><span class="special">;</span>
 	<span class="special">};</span>
 
-	<a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">Type</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.shader.c2" href="shader.html#oglplus.quickref.shader.c3"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">Type</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.shader.c4" href="shader.html#oglplus.quickref.shader.c5"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 	<a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&amp;</span> <span class="identifier">Source</span><span class="special">(</span>
 		<span class="keyword">const</span> <span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLchar</span><span class="special">*</span> <span class="keyword">const</span> <span class="special">*</span> <span class="identifier">srcs</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">lens</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.shader.c4" href="shader.html#oglplus.quickref.shader.c5"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.shader.c6" href="shader.html#oglplus.quickref.shader.c7"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Source</span><span class="special">(</span><a class="link" href="glsl_string.html" title="GLSL Strings">GLSLString</a><span class="special">&amp;&amp;</span> <span class="identifier">source</span><span class="special">);</span>
 	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Source</span><span class="special">(</span><a class="link" href="glsl_string.html" title="GLSL Strings">GLSLStrings</a><span class="special">&amp;&amp;</span> <span class="identifier">source</span><span class="special">);</span>
 	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Source</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="glsl_source.html" title="GLSL Source code">GLSLSource</a><span class="special">&amp;</span> <span class="identifier">glsl_source</span><span class="special">);</span>
 
-	<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">IsCompiled</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.shader.c6" href="shader.html#oglplus.quickref.shader.c7"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">IsCompiled</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.shader.c8" href="shader.html#oglplus.quickref.shader.c9"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
-	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Compile</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.shader.c8" href="shader.html#oglplus.quickref.shader.c9"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Compile</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.shader.c10" href="shader.html#oglplus.quickref.shader.c11"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
-	<a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a> <span class="identifier">GetInfoLog</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.shader.c10" href="shader.html#oglplus.quickref.shader.c11"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a> <span class="identifier">GetInfoLog</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.shader.c12" href="shader.html#oglplus.quickref.shader.c13"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_ARB_shading_language_include</span>
 	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompileInclude</span><span class="special">(</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLchar</span><span class="special">*</span> <span class="keyword">const</span><span class="special">*</span> <span class="identifier">paths</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">lengths</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.shader.c12" href="shader.html#oglplus.quickref.shader.c13"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.shader.c14" href="shader.html#oglplus.quickref.shader.c15"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompileInclude</span><span class="special">(</span><a class="link" href="glsl_string.html" title="GLSL Strings">GLSLString</a><span class="special">&amp;&amp;</span> <span class="identifier">incl</span><span class="special">);</span>
 	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompileInclude</span><span class="special">(</span><a class="link" href="glsl_string.html" title="GLSL Strings">GLSLStrings</a><span class="special">&amp;&amp;</span> <span class="identifier">incl</span><span class="special">);</span>
 	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompileInclude</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="glsl_source.html" title="GLSL Source code">GLSLSource</a><span class="special">&amp;</span> <span class="identifier">incl</span><span class="special">);</span>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_ES_VERSION_3_0</span> <span class="special">||</span> <span class="identifier">GL_VERSION_4_1</span> <span class="special">||</span> <span class="identifier">GL_ARB_ES2_compatibility</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ReleaseCompiler</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.shader.c14" href="shader.html#oglplus.quickref.shader.c15"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ReleaseCompiler</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.shader.c16" href="shader.html#oglplus.quickref.shader.c17"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
 </pre>
@@ -105,45 +105,51 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c3"></a><a href="#oglplus.quickref.shader.c2"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-              Returns the type of <code class="literal">this</code> shader. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetShader.xml" target="_top">glGetShader</a></code>,
-              <span class="bold"><strong><code class="literal">GL_SHADER_TYPE</code></strong></span>.
+              Indirectly inherits from <a class="link" href="shader.html#oglplus.quickref.shader.common">ObjCommonOps&lt;tag::Shader&gt;</a>.
             </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c5"></a><a href="#oglplus.quickref.shader.c4"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-              Set the source code of this shader. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glShaderSource.xml" target="_top">glShaderSource</a></code>.
+              Returns the type of <code class="literal">this</code> shader. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetShader.xml" target="_top">glGetShader</a></code>,
+              <span class="bold"><strong><code class="literal">GL_SHADER_TYPE</code></strong></span>.
             </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c7"></a><a href="#oglplus.quickref.shader.c6"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Set the source code of this shader. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glShaderSource.xml" target="_top">glShaderSource</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c9"></a><a href="#oglplus.quickref.shader.c8"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns true if the shader is already compiled, returns false otherwise.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetShader.xml" target="_top">glGetShader</a></code>, <span class="bold"><strong><code class="literal">GL_COMPILE_STATUS</code></strong></span>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c9"></a><a href="#oglplus.quickref.shader.c8"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c11"></a><a href="#oglplus.quickref.shader.c10"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Compiles <code class="literal">this</code> shader. Throws <a class="link" href="error.html#oglplus.quickref.error.program" title="Program build errors">CompileError</a>
               if the shader cannot be compiled. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glCompileShader.xml" target="_top">glCompileShader</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c11"></a><a href="#oglplus.quickref.shader.c10"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c13"></a><a href="#oglplus.quickref.shader.c12"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the compiler output if the shader is compiled. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetShader.xml" target="_top">glGetShader</a></code>,
               <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetShaderInfoLog.xml" target="_top">glGetShaderInfoLog</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c13"></a><a href="#oglplus.quickref.shader.c12"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c15"></a><a href="#oglplus.quickref.shader.c14"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Compiles the shader using the specified include paths. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glCompileShaderIncludeARB.xml" target="_top">glCompileShaderIncludeARB</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c15"></a><a href="#oglplus.quickref.shader.c14"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.shader.c17"></a><a href="#oglplus.quickref.shader.c16"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Indicates that the resources associated with the compiler can be freed.
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glReleaseShaderCompiler.xml" target="_top">glReleaseShaderCompiler</a></code>.

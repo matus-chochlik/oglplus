@@ -22,7 +22,7 @@
         </p>
 <h4>
 <a name="oglplus.quickref.vertex_array.h0"></a>
-          <span class="phrase"><a name="oglplus.quickref.vertex_array.common_vertex_array_operations"></a></span><a class="link" href="vertex_array.html#oglplus.quickref.vertex_array.common_vertex_array_operations">Common
+          <span class="phrase"><a name="oglplus.quickref.vertex_array.common"></a></span><a class="link" href="vertex_array.html#oglplus.quickref.vertex_array.common">Common
           vertex array operations</a>
         </h4>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
@@ -63,9 +63,30 @@
 <a name="oglplus.quickref.vertex_array.h1"></a>
           <span class="phrase"><a name="oglplus.quickref.vertex_array.def"></a></span><a class="link" href="vertex_array.html#oglplus.quickref.vertex_array.def">Definition</a>
         </h4>
-<p>
-          [oglplus_vertex_array_1]
-        </p>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::VertexArray</a><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.vertex_array.c6" href="vertex_array.html#oglplus.quickref.vertex_array.c7"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">VertexArrayOps</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&lt;</span><span class="identifier">VertexArrayOps</span><span class="special">&gt;</span> <span class="identifier">VertexArray</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper.obj_zero">ObjectZero</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::VertexArray</a><span class="special">&gt;&gt;</span> <a class="co" name="oglplus.quickref.vertex_array.c8" href="vertex_array.html#oglplus.quickref.vertex_array.c9"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">NoVertexArray</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_array.c7"></a><a href="#oglplus.quickref.vertex_array.c6"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Indirectly inherits from <a class="link" href="vertex_array.html#oglplus.quickref.vertex_array.common">ObjCommonOps&lt;tag::VertexArray&gt;</a>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_array.c9"></a><a href="#oglplus.quickref.vertex_array.c8"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Indirectly inherits from <a class="link" href="vertex_array.html#oglplus.quickref.vertex_array.common">ObjCommonOps&lt;tag::VertexArray&gt;</a>.
+            </p></td>
+</tr>
+</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
