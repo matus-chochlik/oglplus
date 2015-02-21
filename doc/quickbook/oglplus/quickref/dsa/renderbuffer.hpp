@@ -9,7 +9,9 @@ namespace oglplus {
 
 template <>
 class __ObjectOps<__tag_DirectState, __tag_Renderbuffer>
- : public __ObjZeroOps<__tag_DirectState, __tag_Renderbuffer>
+ : public __ObjZeroOps<__tag_DirectState, __tag_Renderbuffer> /*<
+Indirectly inherits from __ObjCommonOps_Renderbuffer.
+>*/
 {
 public:
 	void Storage(

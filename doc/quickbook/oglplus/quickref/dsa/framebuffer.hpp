@@ -9,7 +9,9 @@ namespace oglplus {
 
 template <>
 class __ObjectOps<__tag_DirectState, __tag_Framebuffer>
- : public __ObjZeroOps<__tag_DirectState, __tag_Framebuffer>
+ : public __ObjZeroOps<__tag_DirectState, __tag_Framebuffer> /*<
+Indirectly inherits from __ObjCommonOps_Framebuffer.
+>*/
 {
 public:
 	struct Property

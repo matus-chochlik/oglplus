@@ -11,7 +11,9 @@ namespace oglplus {
 
 template <>
 class __ObjectOps<__tag_DirectState, __tag_Buffer>
- : public __ObjZeroOps<__tag_DirectState, __tag_Buffer>
+ : public __ObjZeroOps<__tag_DirectState, __tag_Buffer> /*<
+Indirectly inherits from __ObjCommonOps_Buffer.
+>*/
 {
 public:
 	struct Property
