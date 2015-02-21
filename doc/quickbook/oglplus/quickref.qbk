@@ -30,6 +30,11 @@ the concept.
 [def __ObjCommonOps_Buffer [link oglplus.quickref.buffer.common ObjCommonOps<tag::Buffer>]]
 [def __ObjCommonOps_Framebuffer [link oglplus.quickref.framebuffer.common ObjCommonOps<tag::Framebuffer>]]
 [def __ObjCommonOps_Renderbuffer [link oglplus.quickref.renderbuffer.common ObjCommonOps<tag::Renderbuffer>]]
+[def __ObjCommonOps_Sampler [link oglplus.quickref.sampler.common ObjCommonOps<tag::Sampler>]]
+[def __ObjCommonOps_VertexArray [link oglplus.quickref.vertex_array.common ObjCommonOps<tag::VertexArray>]]
+[def __ObjCommonOps_Shader [link oglplus.quickref.shader.common ObjCommonOps<tag::Shader>]]
+[def __ObjCommonOps_ProgramPipeline [link oglplus.quickref.program_pipeline.common ObjCommonOps<tag::ProgramPipeline>]]
+[def __ObjCommonOps_TransformFeedback [link oglplus.quickref.transform_feedback.common ObjCommonOps<tag::TransformFeedback>]]
 
 [include quickref/concept.qbk]
 [include quickref/string.qbk]

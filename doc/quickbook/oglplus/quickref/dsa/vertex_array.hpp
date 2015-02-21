@@ -9,7 +9,9 @@ namespace oglplus {
 
 template <>
 class __ObjectOps<__tag_DirectState, __tag_VertexArray>
- : public __ObjZeroOps<__tag_DirectState, __tag_VertexArray>
+ : public __ObjZeroOps<__tag_DirectState, __tag_VertexArray> /*<
+Indirectly inherits from __ObjCommonOps_VertexArray.
+>*/
 {
 public:
 	ObjectOps& ElementBuffer(__BufferName buffer); /*<
