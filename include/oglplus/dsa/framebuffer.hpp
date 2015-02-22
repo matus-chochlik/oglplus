@@ -47,20 +47,7 @@ public:
 	ObjectOps& operator = (const ObjectOps&) = default;
 
 	/// Types related to Framebuffer
-	struct Property
-	{
-		/// Attachment of a Framebuffer
-		typedef OneOf<
-			GLenum,
-			std::tuple<
-				FramebufferAttachment,
-				FramebufferColorAttachment
-			>
-		> Attachment;
-
-		/// Status of a Framebuffer
-		typedef FramebufferStatus Status;
-	};
+	typedef FramebufferOps::Property Property;
 
 	using ObjZeroOps<tag::DirectState, tag::Framebuffer>::Bind;
 	void Bind(Target target)

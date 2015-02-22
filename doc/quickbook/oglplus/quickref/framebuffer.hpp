@@ -34,7 +34,9 @@ public:
 //[oglplus_framebuffer_1
 template <>
 class __ObjectOps<__tag_ExplicitSel, __tag_Framebuffer>
- : public __ObjZeroOps<__tag_ExplicitSel, __tag_Framebuffer>
+ : public __ObjZeroOps<__tag_ExplicitSel, __tag_Framebuffer> /*<
+Indirectly inherits from __ObjCommonOps_Framebuffer.
+>*/
 {
 public:
 	struct Property

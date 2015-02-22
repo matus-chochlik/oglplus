@@ -2,20 +2,20 @@
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
-[/---------------------------------]
-[section:vertex_array Vertex arrays]
-[/---------------------------------]
+[/-----------------------------------------]
+[section:dsa_vertex_array DSA vertex arrays]
+[/-----------------------------------------]
 
-[header oglplus/vertex_array.hpp]
+[header oglplus/dsa/vertex_array.hpp]
 
 [import vertex_array.hpp]
 
-[heading:common Common vertex array operations]
+[heading Operations with direct state access]
 
-[oglplus_vertex_array_common]
+[oglplus_dsa_vertex_array_1]
 
 [heading:def Definition]
 
-[oglplus_vertex_array_def]
+[oglplus_dsa_vertex_array_def]
 
 [endsect]

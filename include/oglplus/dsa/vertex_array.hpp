@@ -72,7 +72,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{EnableVertexArrayAttrib}
 	 */
-	const ObjectOps& EnableVertexAttrib(VertexAttribSlot location)
+	ObjectOps& EnableVertexAttrib(VertexAttribSlot location)
 	{
 		OGLPLUS_GLFUNC(EnableVertexArrayAttrib)(
 			_obj_name(),
@@ -92,7 +92,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{DisableVertexArrayAttrib}
 	 */
-	const ObjectOps& DisableVertexAttrib(VertexAttribSlot location)
+	ObjectOps& DisableVertexAttrib(VertexAttribSlot location)
 	{
 		OGLPLUS_GLFUNC(DisableVertexArrayAttrib)(
 			_obj_name(),

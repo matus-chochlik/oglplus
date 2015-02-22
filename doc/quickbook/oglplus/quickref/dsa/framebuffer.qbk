@@ -2,29 +2,24 @@
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
-[/-----------------------]
-[section:sampler Samplers]
-[/-----------------------]
+[/---------------------------------------]
+[section:dsa_framebuffer DSA framebuffers]
+[/---------------------------------------]
 
-[header oglplus/sampler.hpp]
+[header oglplus/dsa/framebuffer.hpp]
 
-[import sampler.hpp]
-
-[heading:common Common sampler operations]
-
-[oglplus_sampler_common]
+[import framebuffer.hpp]
 
 [heading Operations with direct state access]
 
-[oglplus_sampler_1]
-[oglplus_sampler_2]
+[oglplus_dsa_framebuffer_1]
 
 [heading:def Definition]
 
-[oglplus_sampler_def]
+[oglplus_dsa_framebuffer_def]
 
 [heading:syntax_sugar Syntax sugar operators]
 
-[oglplus_sampler_sugar]
+[oglplus_dsa_framebuffer_sugar]
 
 [endsect]

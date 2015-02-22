@@ -163,7 +163,9 @@ public:
 //[oglplus_texture_1
 template <>
 class __ObjectOps<__tag_ExplicitSel, __tag_Texture>
- : public __ObjZeroOps<__tag_ExplicitSel, __tag_Texture>
+ : public __ObjZeroOps<__tag_ExplicitSel, __tag_Texture> /*<
+Indirectly inherits from __ObjCommonOps_Texture.
+>*/
 {
 public:
 	struct Property
@@ -1059,7 +1061,9 @@ typedef ObjectOps<__tag_ExplicitSel, __tag_Texture>
 
 typedef __Object<TextureOps> Texture;
 
-typedef __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Texture>>
+typedef __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Texture>> /*<
+Indirectly inherits from __ObjCommonOps_Texture.
+>*/
 	DefaultTexture;
 //]
 //[oglplus_texture_sugar1
