@@ -109,6 +109,7 @@
 [def __DSAVertexArray [link oglplus.quickref.dsa_vertex_array.def DSAVertexArray]]
 
 [def __Texture [link oglplus.quickref.texture.def Texture]]
+[def __DSATexture [link oglplus.quickref.dsa_texture.def Texture]]
 [def __DefaultTexture [link oglplus.quickref.texture.def DefaultTexture]]
 [def __TextureTarget [link oglplus.quickref.texture.target TextureTarget]]
 [def __TextureCompareMode [link oglplus.quickref.texture.compare_mode TextureCompareMode]]
