@@ -72,46 +72,7 @@ public:
 	}
 #endif
 	/// Types related to Texture
-	struct Property
-	{
-		/// Depth texture comparison mode
-		typedef TextureCompareMode CompareMode;
-
-		/// Filter
-		typedef TextureFilter Filter;
-
-		/// Maginification filter
-		typedef TextureMagFilter MagFilter;
-
-		/// Minification filter
-		typedef TextureMinFilter MinFilter;
-
-		/// Texture swizzle coordinate
-		typedef TextureSwizzleCoord SwizzleCoord;
-
-		/// Texture swizzle value
-		typedef TextureSwizzle Swizzle;
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
-		/// Texture swizzle tuple
-		typedef TextureSwizzleTuple SwizzleTuple;
-#endif
-
-		/// Texture wrap mode for coordinate
-		typedef TextureWrapCoord WrapCoord;
-
-		/// Texture wrap mode value
-		typedef TextureWrap Wrap;
-
-		/// The pixel data type
-		typedef OneOf<
-			GLenum,
-			std::tuple<
-				DataType,
-				PixelDataType
-			>
-		> PixDataType;
-	};
+	typedef TextureOps::Property Property;
 
 	using ObjCommonOps<tag::Texture>::Bind;
 

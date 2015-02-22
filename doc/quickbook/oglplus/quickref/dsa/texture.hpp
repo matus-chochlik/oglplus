@@ -30,7 +30,7 @@ public:
 
 		typedef __TextureSwizzle Swizzle;
 
-#if GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#if GL_ARB_texture_swizzle
 		typedef __TextureSwizzleTuple SwizzleTuple;
 #endif
 		typedef __TextureWrapCoord WrapCoord;
@@ -43,7 +43,6 @@ public:
 		> PixDataType;
 	};
 
-#if GL_VERSION_3_0
 	GLsizei Width(GLint level = 0) const; /*<
 	Returns the width of the texture image on the specified [^level].
 	See [glfunc GetTextureLevelParameter], [glconst TEXTURE_WIDTH].
@@ -159,7 +158,7 @@ public:
 	) const; /*<
 	Stores the image of [^this] texture with the specified [^level]
 	of detail in compressed form into the [^dest] buffer.
-	See [glfunc GetCompressedTexImage].
+	See [glfunc GetCompressedTextureImage].
 	This function automatically resizes the buffer so that
 	it can accomodate the texture data.
 	>*/
@@ -172,8 +171,8 @@ public:
 		GLsizei size,
 		GLubyte* buffer
 	) const;
-#endif
-	void Image3D(
+
+	ObjectOps& Image3D(
 		GLint level,
 		__PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -185,16 +184,16 @@ public:
 		const void* data
 	); /*<
 	Specifies a three dimensional texture image.
-	See [glfunc TexImage3D].
+	See [glfunc TextureImage3D].
 	>*/
 
-	void Image3D(
+	ObjectOps& Image3D(
 		const __images_Image& image,
 		GLint level = 0,
 		GLint border = 0
 	);
 
-	void SubImage3D(
+	ObjectOps& SubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -207,10 +206,10 @@ public:
 		const void* data
 	); /*<
 	Specifies a three dimensional texture subimage.
-	See [glfunc TexSubImage3D].
+	See [glfunc TextureSubImage3D].
 	>*/
 
-	void SubImage3D(
+	ObjectOps& SubImage3D(
 		const __images_Image& image,
 		GLint xoffs,
 		GLint yoffs,
@@ -218,7 +217,7 @@ public:
 		GLint level = 0
 	);
 
-	void Image2D(
+	ObjectOps& Image2D(
 		GLint level,
 		__PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -229,16 +228,16 @@ public:
 		const void* data
 	); /*<
 	Specifies a two dimensional texture image.
-	See [glfunc TexImage2D].
+	See [glfunc TextureImage2D].
 	>*/
 
-	void Image2D(
+	ObjectOps& Image2D(
 		const __images_Image& image,
 		GLint level = 0,
 		GLint border = 0
 	);
 
-	void SubImage2D(
+	ObjectOps& SubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -249,18 +248,17 @@ public:
 		const void* data
 	); /*<
 	Specifies a two dimensional texture subimage.
-	See [glfunc TexSubImage2D].
+	See [glfunc TextureSubImage2D].
 	>*/
 
-	void SubImage2D(
+	ObjectOps& SubImage2D(
 		const __images_Image& image,
 		GLint xoffs,
 		GLint yoffs,
 		GLint level = 0
 	);
 
-#if GL_VERSION_3_0
-	void Image1D(
+	ObjectOps& Image1D(
 		GLint level,
 		__PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -270,16 +268,16 @@ public:
 		const void* data
 	); /*<
 	Specifies a one dimensional texture image.
-	See [glfunc TexImage1D].
+	See [glfunc TextureImage1D].
 	>*/
 
-	void Image1D(
+	ObjectOps& Image1D(
 		const __images_Image& image,
 		GLint level = 0,
 		GLint border = 0
 	);
 
-	void SubImage1D(
+	ObjectOps& SubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLsizei width,
@@ -288,20 +286,19 @@ public:
 		const void* data
 	);  /*<
 	Specifies a one dimensional texture subimage.
-	See [glfunc TexSubImage1D].
+	See [glfunc TextureSubImage1D].
 	>*/
 
-	void SubImage1D(
+	ObjectOps& SubImage1D(
 		const __images_Image& image,
 		GLint xoffs,
 		GLint level = 0
 	);
-#endif
 
 //]
 //[oglplus_dsa_texture_3
 
-	void CopySubImage3D(
+	ObjectOps& CopySubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -312,10 +309,10 @@ public:
 		GLsizei height
 	); /*<
 	Copies a three dimensional texture subimage from the current framebuffer.
-	See [glfunc CopyTexSubImage3D].
+	See [glfunc CopyTextureSubImage3D].
 	>*/
 
-	void CopySubImage2D(
+	ObjectOps& CopySubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -325,10 +322,10 @@ public:
 		GLsizei height
 	); /*<
 	Copies a two dimensional texture subimage from the current framebuffer.
-	See [glfunc CopyTexSubImage2D].
+	See [glfunc CopyTextureSubImage2D].
 	>*/
 
-	void CopySubImage1D(
+	ObjectOps& CopySubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLint x,
@@ -336,10 +333,10 @@ public:
 		GLsizei width
 	); /*<
 	Copies a one dimensional texture subimage from the current framebuffer.
-	See [glfunc CopyTexSubImage2D].
+	See [glfunc CopyTextureSubImage2D].
 	>*/
 
-	void CompressedSubImage3D(
+	ObjectOps& CompressedSubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -352,10 +349,10 @@ public:
 		const void* data
 	); /*<
 	Specifies a three dimensional compressed texture subimage.
-	See [glfunc CompressedTexSubImage3D].
+	See [glfunc CompressedTextureSubImage3D].
 	>*/
 
-	void CompressedSubImage2D(
+	ObjectOps& CompressedSubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -366,10 +363,10 @@ public:
 		const void* data
 	); /*<
 	Specifies a two dimensional compressed texture subimage.
-	See [glfunc CompressedTexSubImage2D].
+	See [glfunc CompressedTextureSubImage2D].
 	>*/
 
-	void CompressedSubImage1D(
+	ObjectOps& CompressedSubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLsizei width,
@@ -378,12 +375,12 @@ public:
 		const void* data
 	); /*<
 	Specifies a one dimensional compressed texture subimage.
-	See [glfunc CompressedTexSubImage1D].
+	See [glfunc CompressedTextureSubImage1D].
 	>*/
 //]
 //[oglplus_dsa_texture_4
 
-	void Buffer(
+	ObjectOps& Buffer(
 		__PixelDataInternalFormat internal_format,
 		__BufferName buffer
 	); /*<
@@ -401,7 +398,7 @@ public:
 		GLsizei depth
 	); /*<
 	Specifies all levels of 3D texture at the same time.
-	See [glfunc TexStorage3D].
+	See [glfunc TextureStorage3D].
 	>*/
 
 	static void Storage2D(
@@ -412,7 +409,7 @@ public:
 		GLsizei height
 	); /*<
 	Specifies all levels of 2D texture at the same time.
-	See [glfunc TexStorage2D].
+	See [glfunc TextureStorage2D].
 	>*/
 
 	static void Storage1D(
@@ -422,7 +419,7 @@ public:
 		GLsizei width
 	); /*<
 	Specifies all levels of 1D texture at the same time.
-	See [glfunc TexStorage1D].
+	See [glfunc TextureStorage1D].
 	>*/
 #endif
 
@@ -431,9 +428,9 @@ public:
 	See [glfunc GetTextureParameter], [glconst TEXTURE_BASE_LEVEL].
 	>*/
 
-	void BaseLevel(GLuint level); /*<
+	ObjectOps& BaseLevel(GLuint level); /*<
 	Sets the texture base level.
-	See [glfunc TexParameter], [glconst TEXTURE_BASE_LEVEL].
+	See [glfunc TextureParameter], [glconst TEXTURE_BASE_LEVEL].
 	>*/
 
 	Vector<GLfloat, 4> BorderColor(__TypeTag<GLfloat>) const; /*<
@@ -443,21 +440,21 @@ public:
 	Vector<GLint, 4> BorderColor(__TypeTag<GLint>) const;
 	Vector<GLuint, 4> BorderColor(__TypeTag<GLuint>) const;
 
-	void BorderColor(Vector<GLfloat, 4> color); /*<
+	ObjectOps& BorderColor(Vector<GLfloat, 4> color); /*<
 	Sets the texture border color.
-	See [glfunc TexParameter], [glconst TEXTURE_BORDER_COLOR].
+	See [glfunc TextureParameter], [glconst TEXTURE_BORDER_COLOR].
 	>*/
-	void BorderColor(Vector<GLint, 4> color);
-	void BorderColor(Vector<GLuint, 4> color);
+	ObjectOps& BorderColor(Vector<GLint, 4> color);
+	ObjectOps& BorderColor(Vector<GLuint, 4> color);
 
 	__TextureCompareMode CompareMode(void) const; /*<
 	Gets the texture compare mode.
 	See [glfunc GetTextureParameter], [glconst TEXTURE_COMPARE_MODE].
 	>*/
 
-	void CompareMode(__TextureCompareMode mode); /*<
+	ObjectOps& CompareMode(__TextureCompareMode mode); /*<
 	Sets the texture compare mode.
-	See [glfunc TexParameter], [glconst TEXTURE_COMPARE_MODE].
+	See [glfunc TextureParameter], [glconst TEXTURE_COMPARE_MODE].
 	>*/
 
 	__CompareFunction CompareFunc(void) const; /*<
@@ -465,9 +462,9 @@ public:
 	See [glfunc GetTextureParameter], [glconst TEXTURE_COMPARE_FUNC].
 	>*/
 
-	void CompareFunc(__CompareFunction func); /*<
+	ObjectOps& CompareFunc(__CompareFunction func); /*<
 	Sets the texture compare function.
-	See [glfunc TexParameter], [glconst TEXTURE_COMPARE_FUNC].
+	See [glfunc TextureParameter], [glconst TEXTURE_COMPARE_FUNC].
 	>*/
 //]
 //[oglplus_dsa_texture_5
@@ -477,14 +474,14 @@ public:
 	See [glfunc GetTextureParameter], [glconst TEXTURE_LOD_BIAS].
 	>*/
 
-	void LODBias(GLfloat value); /*<
+	ObjectOps& LODBias(GLfloat value); /*<
 	Sets the level-of-detail bias value.
-	See [glfunc TexParameter], [glconst TEXTURE_LOD_BIAS].
+	See [glfunc TextureParameter], [glconst TEXTURE_LOD_BIAS].
 	>*/
 
-	void Filter(__TextureFilter filter); /*<
+	ObjectOps& Filter(__TextureFilter filter); /*<
 	Sets both the minification and magnification filter.
-	See [glfunc TexParameter], [glconst TEXTURE_MIN_FILTER], [glconst TEXTURE_MAG_FILTER].
+	See [glfunc TextureParameter], [glconst TEXTURE_MIN_FILTER], [glconst TEXTURE_MAG_FILTER].
 	>*/
 
 	__TextureMagFilter MagFilter(void) const; /*<
@@ -492,9 +489,9 @@ public:
 	See [glfunc GetTextureParameter], [glconst TEXTURE_MAG_FILTER].
 	>*/
 
-	void MagFilter(__TextureMagFilter filter); /*<
+	ObjectOps& MagFilter(__TextureMagFilter filter); /*<
 	Sets the magnification filter.
-	See [glfunc TexParameter], [glconst TEXTURE_MAG_FILTER].
+	See [glfunc TextureParameter], [glconst TEXTURE_MAG_FILTER].
 	>*/
 
 	__TextureMinFilter MinFilter(void) const; /*<
@@ -502,9 +499,9 @@ public:
 	See [glfunc GetTextureParameter], [glconst TEXTURE_MIN_FILTER].
 	>*/
 
-	void MinFilter(__TextureMinFilter filter); /*<
+	ObjectOps& MinFilter(__TextureMinFilter filter); /*<
 	Sets the minification filter.
-	See [glfunc TexParameter], [glconst TEXTURE_MIN_FILTER].
+	See [glfunc TextureParameter], [glconst TEXTURE_MIN_FILTER].
 	>*/
 
 	GLfloat MinLOD(void) const; /*<
@@ -512,9 +509,9 @@ public:
 	See [glfunc GetTextureParameter], [glconst TEXTURE_MIN_LOD].
 	>*/
 
-	void MinLOD(GLfloat value); /*<
+	ObjectOps& MinLOD(GLfloat value); /*<
 	Sets minimal level-of-detail value.
-	See [glfunc TexParameter], [glconst TEXTURE_MIN_LOD].
+	See [glfunc TextureParameter], [glconst TEXTURE_MIN_LOD].
 	>*/
 
 	GLfloat MaxLOD(void) const; /*<
@@ -522,9 +519,9 @@ public:
 	See [glfunc GetTextureParameter], [glconst TEXTURE_MAX_LOD].
 	>*/
 
-	void MaxLOD(GLfloat value); /*<
+	ObjectOps& MaxLOD(GLfloat value); /*<
 	Sets maximal level-of-detail value.
-	See [glfunc TexParameter], [glconst TEXTURE_MAX_LOD].
+	See [glfunc TextureParameter], [glconst TEXTURE_MAX_LOD].
 	>*/
 
 	GLint MaxLevel(void) const; /*<
@@ -532,9 +529,9 @@ public:
 	See [glfunc GetTextureParameter], [glconst TEXTURE_MAX_LEVEL].
 	>*/
 
-	void MaxLevel(GLint value); /*<
+	ObjectOps& MaxLevel(GLint value); /*<
 	Sets the maximum level value.
-	See [glfunc TexParameter], [glconst TEXTURE_MAX_LEVEL].
+	See [glfunc TextureParameter], [glconst TEXTURE_MAX_LEVEL].
 	>*/
 //]
 //[oglplus_dsa_texture_6
@@ -549,12 +546,12 @@ public:
 	See [glfunc GetTextureParameter], [glconst TEXTURE_MAX_ANISOTROPY_EXT].
 	>*/
 
-	void Anisotropy(GLfloat value); /*<
+	ObjectOps& Anisotropy(GLfloat value); /*<
 	Sets the anisotropy level.
-	See [glfunc TexParameter], [glconst TEXTURE_MAX_ANISOTROPY_EXT].
+	See [glfunc TextureParameter], [glconst TEXTURE_MAX_ANISOTROPY_EXT].
 	>*/
 
-#if GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#if GL_ARB_texture_swizzle
 	__TextureSwizzle Swizzle(__TextureSwizzleCoord coord) const; /*<
 	Gets the swizzle parameter.
 	See [glfunc GetTextureParameter], [glconst TEXTURE_SWIZZLE_R],
@@ -567,27 +564,27 @@ public:
 	__TextureSwizzle SwizzleA(void) const;
 	__TextureSwizzleTuple SwizzleRGBA(void) const;
 
-	void Swizzle(
+	ObjectOps& Swizzle(
 		__TextureSwizzleCoord coord,
 		__TextureSwizzle mode
 	); /*<
 	Sets the swizzle parameter.
-	See [glfunc TexParameter], [glconst TEXTURE_SWIZZLE_R],
+	See [glfunc TextureParameter], [glconst TEXTURE_SWIZZLE_R],
 	[glconst TEXTURE_SWIZZLE_G], [glconst TEXTURE_SWIZZLE_B],
 	[glconst TEXTURE_SWIZZLE_A], [glconst TEXTURE_SWIZZLE_RGBA].
 	>*/
-	void SwizzleR(__TextureSwizzle mode);
-	void SwizzleG(__TextureSwizzle mode);
-	void SwizzleB(__TextureSwizzle mode);
-	void SwizzleA(__TextureSwizzle mode);
-	void SwizzleRGBA(__TextureSwizzle mode);
-	void SwizzleRGBA(
+	ObjectOps& SwizzleR(__TextureSwizzle mode);
+	ObjectOps& SwizzleG(__TextureSwizzle mode);
+	ObjectOps& SwizzleB(__TextureSwizzle mode);
+	ObjectOps& SwizzleA(__TextureSwizzle mode);
+	ObjectOps& SwizzleRGBA(__TextureSwizzle mode);
+	ObjectOps& SwizzleRGBA(
 		__TextureSwizzle mode_r,
 		__TextureSwizzle mode_g,
 		__TextureSwizzle mode_b,
 		__TextureSwizzle mode_a
 	);
-	void SwizzleRGBA(const __TextureSwizzleTuple& modes);
+	ObjectOps& SwizzleRGBA(const __TextureSwizzleTuple& modes);
 #endif
 
 	__TextureWrap Wrap(__TextureWrapCoord coord) const; /*<
@@ -600,41 +597,41 @@ public:
 	__TextureWrap WrapR(void) const;
 
 
-	void Wrap(
+	ObjectOps& Wrap(
 		__TextureWrapCoord coord,
 		__TextureWrap mode
 	); /*<
 	Sets the swizzle parameter.
-	See [glfunc TexParameter], [glconst TEXTURE_WRAP_S],
+	See [glfunc TextureParameter], [glconst TEXTURE_WRAP_S],
 	[glconst TEXTURE_WRAP_T], [glconst TEXTURE_WRAP_R].
 	>*/
-	void WrapS(__TextureWrap mode);
-	void WrapT(__TextureWrap mode);
-	void WrapR(__TextureWrap mode);
+	ObjectOps& WrapS(__TextureWrap mode);
+	ObjectOps& WrapT(__TextureWrap mode);
+	ObjectOps& WrapR(__TextureWrap mode);
 
 	__PixelDataFormat DepthStencilMode(void) const; /*<
 	Gets the depth stencil mode parameter.
 	See [glfunc GetTextureParameter], [glconst DEPTH_STENCIL_TEXTURE_MODE].
 	>*/
 
-	void DepthStencilMode(__PixelDataFormat mode); /*<
+	ObjectOps& DepthStencilMode(__PixelDataFormat mode); /*<
 	Sets the depth stencil mode parameter.
-	See [glfunc TexParameter], [glconst DEPTH_STENCIL_TEXTURE_MODE].
+	See [glfunc TextureParameter], [glconst DEPTH_STENCIL_TEXTURE_MODE].
 	>*/
 
 #if GL_ARB_seamless_cubemap_per_texture
-	static __Boolean Seamless(void); /*<
+	__Boolean Seamless(void); /*<
 	Gets the seamless cubemap setting value.
 	See [glfunc GetTextureParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].
 	>*/
 
-	static void Seamless(__Boolean enable); /*<
+	ObjectOps& Seamless(__Boolean enable); /*<
 	Changes the seamless cubemap setting value.
-	See [glfunc TexParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].
+	See [glfunc TextureParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].
 	>*/
 #endif
 
-	void GenerateMipmap(void) /*<
+	ObjectOps& GenerateMipmap(void) /*<
 	Generates mipmap for the texture bound to the specified target.
 	See [glfunc GenerateTextureMipmap].
 	>*/
