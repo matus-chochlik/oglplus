@@ -287,7 +287,7 @@ public:
 	);  /*<
 	Specifies a one dimensional texture subimage.
 	See [glfunc TextureSubImage1D].
-	>*/
+>*/
 
 	ObjectOps& SubImage1D(
 		const __images_Image& image,
@@ -376,7 +376,7 @@ public:
 	); /*<
 	Specifies a one dimensional compressed texture subimage.
 	See [glfunc CompressedTextureSubImage1D].
-	>*/
+>*/
 //]
 //[oglplus_dsa_texture_4
 
@@ -532,7 +532,7 @@ public:
 	ObjectOps& MaxLevel(GLint value); /*<
 	Sets the maximum level value.
 	See [glfunc TextureParameter], [glconst TEXTURE_MAX_LEVEL].
-	>*/
+>*/
 //]
 //[oglplus_dsa_texture_6
 
@@ -646,6 +646,66 @@ typedef __Object<DSATextureOps> Texture;
 
 //]
 //[oglplus_dsa_texture_sugar1
+
+struct DSATextureOpsAndSlot { }; /*<
+Helper class for syntax-sugar operators.
+>*/
+
+DSATextureOpsAndSlot operator | (
+	DSATextureOps& tex,
+	GLuint slot
+);
+
+DSATextureOps& operator << (
+	DSATextureOps& tex,
+	__TextureTarget target
+); /*< Bind >*/
+
+DSATextureOps& operator << (
+	DSATextureOps& tex,
+	__TextureFilter filter
+); /*< Filter >*/
+
+DSATextureOps& operator << (
+	DSATextureOps& tex,
+	__TextureMinFilter filter
+); /*< MinFilter >*/
+
+DSATextureOps& operator << (
+	DSATextureOps& tex,
+	__TextureMagFilter filter
+); /*< MagFilter >*/
+
+DSATextureOps& operator << (
+	DSATextureOps& tex,
+	__TextureCompareMode mode
+); /*< CompareMode >*/
+
+DSATextureOps& operator << (
+	DSATextureOps& tex,
+	__CompareFunction func
+); /*< CompareFunc >*/
+
+DSATextureOps& operator << (
+	DSATextureOpsAndSlot tas,
+	__TextureWrap wrap
+); /*< Wrap >*/
+
+DSATextureOps& operator << (
+	DSATextureOps& tex,
+	__TextureSwizzle swizzle
+); /*< Swizzle >*/
+
+DSATextureOps& operator << (
+	DSATextureOpsAndSlot tas,
+	__TextureSwizzle swizzle
+); /*< Swizzle >*/
+
+template <typename T>
+DSATextureOps& operator << (
+	DSATextureOps& tex,
+	const Vector<T, 4>& col
+); /*< BorderColor >*/
 
 // TODO
 
