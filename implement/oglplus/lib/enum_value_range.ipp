@@ -179,6 +179,9 @@ OGLPLUS_ENUM_CLASS_FWD(ResetNotificationStrategy, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(ShaderType, GLenum)
 #include <oglplus/enums/shader_type_range.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(SingleFace, GLenum)
+#include <oglplus/enums/single_face_range.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(SLDataType, GLenum)
 #include <oglplus/enums/sl_data_type_range.ipp>
 
