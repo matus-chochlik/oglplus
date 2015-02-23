@@ -207,141 +207,141 @@
             </p></td>
 </tr>
 </table></div>
-<pre class="programlisting"><span class="identifier">GLsizei</span> <span class="identifier">CompressedImageSize</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c32" href="dsa_texture.html#oglplus.quickref.dsa_texture.c33"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<pre class="programlisting">	<span class="identifier">GLsizei</span> <span class="identifier">CompressedImageSize</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c32" href="dsa_texture.html#oglplus.quickref.dsa_texture.c33"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">InternalFormat</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c34" href="dsa_texture.html#oglplus.quickref.dsa_texture.c35"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">InternalFormat</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c34" href="dsa_texture.html#oglplus.quickref.dsa_texture.c35"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
-<span class="keyword">void</span> <span class="identifier">GetImage</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
-	<span class="keyword">const</span> <a class="link" href="output_data.html" title="Output data wrapper">OutputData</a><span class="special">&amp;</span> <span class="identifier">dest</span>
-<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c36" href="dsa_texture.html#oglplus.quickref.dsa_texture.c37"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-<span class="keyword">void</span> <span class="identifier">GetImage</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
-	<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">size</span><span class="special">,</span>
-	<span class="identifier">GLvoid</span><span class="special">*</span> <span class="identifier">buffer</span>
-<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="keyword">void</span> <span class="identifier">GetImage</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="output_data.html" title="Output data wrapper">OutputData</a><span class="special">&amp;</span> <span class="identifier">dest</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c36" href="dsa_texture.html#oglplus.quickref.dsa_texture.c37"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">GetImage</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">size</span><span class="special">,</span>
+		<span class="identifier">GLvoid</span><span class="special">*</span> <span class="identifier">buffer</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 
-<span class="keyword">void</span> <span class="identifier">GetCompressedImage</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<span class="keyword">const</span> <a class="link" href="output_data.html" title="Output data wrapper">OutputData</a><span class="special">&amp;</span> <span class="identifier">dest</span>
-<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c38" href="dsa_texture.html#oglplus.quickref.dsa_texture.c39"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
-<span class="keyword">void</span> <span class="identifier">GetCompressedImage</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">GLubyte</span><span class="special">&gt;&amp;</span> <span class="identifier">dest</span>
-<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-<span class="keyword">void</span> <span class="identifier">GetCompressedImage</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">size</span><span class="special">,</span>
-	<span class="identifier">GLubyte</span><span class="special">*</span> <span class="identifier">buffer</span>
-<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="keyword">void</span> <span class="identifier">GetCompressedImage</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="output_data.html" title="Output data wrapper">OutputData</a><span class="special">&amp;</span> <span class="identifier">dest</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c38" href="dsa_texture.html#oglplus.quickref.dsa_texture.c39"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">GetCompressedImage</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">GLubyte</span><span class="special">&gt;&amp;</span> <span class="identifier">dest</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="keyword">void</span> <span class="identifier">GetCompressedImage</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">size</span><span class="special">,</span>
+		<span class="identifier">GLubyte</span><span class="special">*</span> <span class="identifier">buffer</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Image3D</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">depth</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
-	<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
-	<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c40" href="dsa_texture.html#oglplus.quickref.dsa_texture.c41"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Image3D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">depth</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c40" href="dsa_texture.html#oglplus.quickref.dsa_texture.c41"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Image3D</span><span class="special">(</span>
-	<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
-<span class="special">);</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Image3D</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">);</span>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">SubImage3D</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">depth</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
-	<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
-	<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c42" href="dsa_texture.html#oglplus.quickref.dsa_texture.c43"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">SubImage3D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">depth</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c42" href="dsa_texture.html#oglplus.quickref.dsa_texture.c43"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">SubImage3D</span><span class="special">(</span>
-	<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
-<span class="special">);</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">SubImage3D</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">);</span>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Image2D</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
-	<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
-	<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c44" href="dsa_texture.html#oglplus.quickref.dsa_texture.c45"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Image2D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c44" href="dsa_texture.html#oglplus.quickref.dsa_texture.c45"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Image2D</span><span class="special">(</span>
-	<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
-<span class="special">);</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Image2D</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">);</span>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">SubImage2D</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
-	<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
-	<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c46" href="dsa_texture.html#oglplus.quickref.dsa_texture.c47"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">SubImage2D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c46" href="dsa_texture.html#oglplus.quickref.dsa_texture.c47"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">SubImage2D</span><span class="special">(</span>
-	<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
-<span class="special">);</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">SubImage2D</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">);</span>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Image1D</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
-	<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
-	<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c48" href="dsa_texture.html#oglplus.quickref.dsa_texture.c49"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Image1D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c48" href="dsa_texture.html#oglplus.quickref.dsa_texture.c49"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Image1D</span><span class="special">(</span>
-	<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
-<span class="special">);</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Image1D</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">);</span>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">SubImage1D</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
-	<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
-	<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
-<span class="special">);</span>  <a class="co" name="oglplus.quickref.dsa_texture.c50" href="dsa_texture.html#oglplus.quickref.dsa_texture.c51"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">SubImage1D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span>  <a class="co" name="oglplus.quickref.dsa_texture.c50" href="dsa_texture.html#oglplus.quickref.dsa_texture.c51"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">SubImage1D</span><span class="special">(</span>
-	<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
-<span class="special">);</span>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">SubImage1D</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a><span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">);</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -429,67 +429,67 @@
             </p></td>
 </tr>
 </table></div>
-<pre class="programlisting"><span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CopySubImage3D</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">height</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c52" href="dsa_texture.html#oglplus.quickref.dsa_texture.c53"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<pre class="programlisting">	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CopySubImage3D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c52" href="dsa_texture.html#oglplus.quickref.dsa_texture.c53"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CopySubImage2D</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">height</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c54" href="dsa_texture.html#oglplus.quickref.dsa_texture.c55"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CopySubImage2D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c54" href="dsa_texture.html#oglplus.quickref.dsa_texture.c55"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CopySubImage1D</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">width</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c56" href="dsa_texture.html#oglplus.quickref.dsa_texture.c57"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CopySubImage1D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c56" href="dsa_texture.html#oglplus.quickref.dsa_texture.c57"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompressedSubImage3D</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">depth</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">image_size</span><span class="special">,</span>
-	<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c58" href="dsa_texture.html#oglplus.quickref.dsa_texture.c59"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompressedSubImage3D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">depth</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">image_size</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c58" href="dsa_texture.html#oglplus.quickref.dsa_texture.c59"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompressedSubImage2D</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">image_size</span><span class="special">,</span>
-	<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c60" href="dsa_texture.html#oglplus.quickref.dsa_texture.c61"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompressedSubImage2D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">image_size</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c60" href="dsa_texture.html#oglplus.quickref.dsa_texture.c61"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompressedSubImage1D</span><span class="special">(</span>
-	<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
-	<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
-	<span class="identifier">GLsizei</span> <span class="identifier">image_size</span><span class="special">,</span>
-	<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
-<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c62" href="dsa_texture.html#oglplus.quickref.dsa_texture.c63"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">CompressedSubImage1D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">GLsizei</span> <span class="identifier">image_size</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c62" href="dsa_texture.html#oglplus.quickref.dsa_texture.c63"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -665,31 +665,31 @@
             </p></td>
 </tr>
 </table></div>
-<pre class="programlisting"><span class="identifier">GLfloat</span> <span class="identifier">LODBias</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c88" href="dsa_texture.html#oglplus.quickref.dsa_texture.c89"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<pre class="programlisting">	<span class="identifier">GLfloat</span> <span class="identifier">LODBias</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c88" href="dsa_texture.html#oglplus.quickref.dsa_texture.c89"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">LODBias</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c90" href="dsa_texture.html#oglplus.quickref.dsa_texture.c91"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">LODBias</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c90" href="dsa_texture.html#oglplus.quickref.dsa_texture.c91"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Filter</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureFilter</a> <span class="identifier">filter</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c92" href="dsa_texture.html#oglplus.quickref.dsa_texture.c93"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">Filter</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureFilter</a> <span class="identifier">filter</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c92" href="dsa_texture.html#oglplus.quickref.dsa_texture.c93"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
-<a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMagFilter</a> <span class="identifier">MagFilter</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c94" href="dsa_texture.html#oglplus.quickref.dsa_texture.c95"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMagFilter</a> <span class="identifier">MagFilter</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c94" href="dsa_texture.html#oglplus.quickref.dsa_texture.c95"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">MagFilter</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMagFilter</a> <span class="identifier">filter</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c96" href="dsa_texture.html#oglplus.quickref.dsa_texture.c97"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">MagFilter</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMagFilter</a> <span class="identifier">filter</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c96" href="dsa_texture.html#oglplus.quickref.dsa_texture.c97"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
-<a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMinFilter</a> <span class="identifier">MinFilter</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c98" href="dsa_texture.html#oglplus.quickref.dsa_texture.c99"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMinFilter</a> <span class="identifier">MinFilter</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c98" href="dsa_texture.html#oglplus.quickref.dsa_texture.c99"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">MinFilter</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMinFilter</a> <span class="identifier">filter</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c100" href="dsa_texture.html#oglplus.quickref.dsa_texture.c101"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">MinFilter</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMinFilter</a> <span class="identifier">filter</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c100" href="dsa_texture.html#oglplus.quickref.dsa_texture.c101"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
-<span class="identifier">GLfloat</span> <span class="identifier">MinLOD</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c102" href="dsa_texture.html#oglplus.quickref.dsa_texture.c103"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="identifier">GLfloat</span> <span class="identifier">MinLOD</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c102" href="dsa_texture.html#oglplus.quickref.dsa_texture.c103"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">MinLOD</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c104" href="dsa_texture.html#oglplus.quickref.dsa_texture.c105"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">MinLOD</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c104" href="dsa_texture.html#oglplus.quickref.dsa_texture.c105"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
-<span class="identifier">GLfloat</span> <span class="identifier">MaxLOD</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c106" href="dsa_texture.html#oglplus.quickref.dsa_texture.c107"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="identifier">GLfloat</span> <span class="identifier">MaxLOD</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c106" href="dsa_texture.html#oglplus.quickref.dsa_texture.c107"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">MaxLOD</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c108" href="dsa_texture.html#oglplus.quickref.dsa_texture.c109"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">MaxLOD</span><span class="special">(</span><span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c108" href="dsa_texture.html#oglplus.quickref.dsa_texture.c109"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
 
-<span class="identifier">GLint</span> <span class="identifier">MaxLevel</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c110" href="dsa_texture.html#oglplus.quickref.dsa_texture.c111"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+	<span class="identifier">GLint</span> <span class="identifier">MaxLevel</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.dsa_texture.c110" href="dsa_texture.html#oglplus.quickref.dsa_texture.c111"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
 
-<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">MaxLevel</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c112" href="dsa_texture.html#oglplus.quickref.dsa_texture.c113"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+	<span class="identifier">ObjectOps</span><span class="special">&amp;</span> <span class="identifier">MaxLevel</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c112" href="dsa_texture.html#oglplus.quickref.dsa_texture.c113"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -956,6 +956,138 @@
           <span class="phrase"><a name="oglplus.quickref.dsa_texture.sugar"></a></span><a class="link" href="dsa_texture.html#oglplus.quickref.dsa_texture.sugar">Syntax
           sugar</a>
         </h4>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">DSATextureOpsAndSlot</span> <span class="special">{</span> <span class="special">};</span> <a class="co" name="oglplus.quickref.dsa_texture.c138" href="dsa_texture.html#oglplus.quickref.dsa_texture.c139"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<span class="identifier">DSATextureOpsAndSlot</span> <span class="keyword">operator</span> <span class="special">|</span> <span class="special">(</span>
+	<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="identifier">tex</span><span class="special">,</span>
+	<span class="identifier">GLuint</span> <span class="identifier">slot</span>
+<span class="special">);</span>
+
+<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
+	<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="identifier">tex</span><span class="special">,</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c140" href="dsa_texture.html#oglplus.quickref.dsa_texture.c141"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
+	<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="identifier">tex</span><span class="special">,</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureFilter</a> <span class="identifier">filter</span>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c142" href="dsa_texture.html#oglplus.quickref.dsa_texture.c143"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
+	<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="identifier">tex</span><span class="special">,</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMinFilter</a> <span class="identifier">filter</span>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c144" href="dsa_texture.html#oglplus.quickref.dsa_texture.c145"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
+	<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="identifier">tex</span><span class="special">,</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMagFilter</a> <span class="identifier">filter</span>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c146" href="dsa_texture.html#oglplus.quickref.dsa_texture.c147"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
+	<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="identifier">tex</span><span class="special">,</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.compare_mode">TextureCompareMode</a> <span class="identifier">mode</span>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c148" href="dsa_texture.html#oglplus.quickref.dsa_texture.c149"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
+	<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="identifier">tex</span><span class="special">,</span>
+	<a class="link" href="compare_function.html" title="Compare function">CompareFunction</a> <span class="identifier">func</span>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c150" href="dsa_texture.html#oglplus.quickref.dsa_texture.c151"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
+	<span class="identifier">DSATextureOpsAndSlot</span> <span class="identifier">tas</span><span class="special">,</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a> <span class="identifier">wrap</span>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c152" href="dsa_texture.html#oglplus.quickref.dsa_texture.c153"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
+	<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="identifier">tex</span><span class="special">,</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">swizzle</span>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c154" href="dsa_texture.html#oglplus.quickref.dsa_texture.c155"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+
+<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
+	<span class="identifier">DSATextureOpsAndSlot</span> <span class="identifier">tas</span><span class="special">,</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">swizzle</span>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c156" href="dsa_texture.html#oglplus.quickref.dsa_texture.c157"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
+	<span class="identifier">DSATextureOps</span><span class="special">&amp;</span> <span class="identifier">tex</span><span class="special">,</span>
+	<span class="keyword">const</span> <span class="identifier">Vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="number">4</span><span class="special">&gt;&amp;</span> <span class="identifier">col</span>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.dsa_texture.c158" href="dsa_texture.html#oglplus.quickref.dsa_texture.c159"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+
+<span class="comment">// TODO</span>
+
+<span class="preprocessor">#endif</span> <span class="comment">// GL_VERSION_4_5 || GL_ARB_direct_state_access</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_texture.c139"></a><a href="#oglplus.quickref.dsa_texture.c138"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Helper class for syntax-sugar operators.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_texture.c141"></a><a href="#oglplus.quickref.dsa_texture.c140"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Bind
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_texture.c143"></a><a href="#oglplus.quickref.dsa_texture.c142"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Filter
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_texture.c145"></a><a href="#oglplus.quickref.dsa_texture.c144"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              MinFilter
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_texture.c147"></a><a href="#oglplus.quickref.dsa_texture.c146"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              MagFilter
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_texture.c149"></a><a href="#oglplus.quickref.dsa_texture.c148"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              CompareMode
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_texture.c151"></a><a href="#oglplus.quickref.dsa_texture.c150"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              CompareFunc
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_texture.c153"></a><a href="#oglplus.quickref.dsa_texture.c152"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Wrap
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_texture.c155"></a><a href="#oglplus.quickref.dsa_texture.c154"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Swizzle
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_texture.c157"></a><a href="#oglplus.quickref.dsa_texture.c156"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Swizzle
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.dsa_texture.c159"></a><a href="#oglplus.quickref.dsa_texture.c158"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              BorderColor
+            </p></td>
+</tr>
+</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
