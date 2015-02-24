@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -28,7 +28,11 @@ GLuint SimpleSubdivSphere::_midpoint(GLuint ia, GLuint ib)
 		Vec3f mp = Normalized((va+vb)*0.5);
 		GLuint result = _positions.size();
 
-		_positions.insert(_positions.end(), mp.Data(), mp.Data()+3);
+		_positions.insert(
+			_positions.end(),
+			data(mp).addr(),
+			data(mp).addr()+3
+		);
 
 		assert(result % 3 == 0);
 		result /= 3;

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -66,7 +66,7 @@ BaseMetaballs::BaseMetaballs(
 
 					if(n > 3)
 					{
-						GLfloat w = value(ArcTan(d.y(), d.x())/fc);
+						GLfloat w = value(ArcTan(d[1], d[0])/fc);
 						w += balls[b+2];
 						w = Sin(fc*w*balls[b+3]);
 

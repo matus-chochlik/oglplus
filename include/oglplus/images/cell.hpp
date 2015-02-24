@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -153,7 +153,7 @@ public:
 						ccy = (ccy+ih)%ih;
 						ccx = (ccx+iw)%iw;
 
-						colors[l] = input.Pixel(ccx, ccy, ccz).xyz();
+						colors[l] = Vec<T,3>(input.Pixel(ccx, ccy, ccz));
 						Vec3d co = colors[l];
 
 						dists[l] = get_distance(dims, tc, cc, co, is);
@@ -166,7 +166,7 @@ public:
 					for(std::size_t c=0; c!=CH; ++c)
 					{
 						assert(pos != this->_end<T>());
-						GLdouble vc = value.At(c);
+						GLdouble vc = value[c];
 						*pos++ = T(one*vc);
 					}
 				}

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -24,7 +24,7 @@ namespace images {
 OGLPLUS_LIB_FUNC
 void Cloud::_adjust_sphere(Vec3f& center, GLfloat& radius) const
 {
-	GLfloat c[3] = {center.x(), center.y(), center.z()};
+	GLfloat c[3] = {center[0], center[1], center[2]};
 	for(unsigned i=0; i!=3; ++i)
 	{
 		if(c[i] < -1.0f)
@@ -64,9 +64,9 @@ bool Cloud::_apply_sphere(const Vec3f& center, GLfloat radius)
 	GLfloat r = radius*0.5f;
 	GLsizei w = Width(), h = Height(), d = Depth();
 	GLubyte* data = _begin_ub();
-	for(GLsizei k=(c.z()-r)*d, ke=(c.z()+r)*d; k!=ke; ++k)
-	for(GLsizei j=(c.y()-r)*h, je=(c.y()+r)*h; j!=je; ++j)
-	for(GLsizei i=(c.x()-r)*w, ie=(c.x()+r)*w; i!=ie; ++i)
+	for(GLsizei k=(c[2]-r)*d, ke=(c[2]+r)*d; k!=ke; ++k)
+	for(GLsizei j=(c[1]-r)*h, je=(c[1]+r)*h; j!=je; ++j)
+	for(GLsizei i=(c[0]-r)*w, ie=(c[0]+r)*w; i!=ie; ++i)
 	{
 		assert(k >= 0 && k < d);
 		assert(j >= 0 && j < h);

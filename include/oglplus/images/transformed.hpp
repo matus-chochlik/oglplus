@@ -43,12 +43,12 @@ private:
 			T one
 		) const
 		{
-			const Vector<double, 4> c(Vector<double, 4>(
+			const Vector<double, 4> c(Vec<double, 4>(
 				extractor(sampler(0, 0, 0)),
 				1.0
 			));
 			const Vector<double, N> res = _matrix*c*one;
-			return Vector<T, N>(res);
+			return Vec<T, N>(res);
 		}
 	};
 public:

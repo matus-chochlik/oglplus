@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -62,7 +62,7 @@ private:
 			for(unsigned ci=0; ci!=CH; ++ci)
 			{
 				assert(p != this->_end<T>());
-				*p = outv.At(ci);
+				*p = outv[ci];
 				++p;
 			}
 		}
@@ -78,7 +78,7 @@ public:
 			T one
 		) const
 		{
-			return Vector<T, CH>(extractor(sampler(0, 0, 0))*one);
+			return Vec<T, CH>(extractor(sampler(0, 0, 0))*one);
 		}
 	};
 
@@ -106,9 +106,9 @@ public:
 			Vector<double, 4> in((x+0.5)/w, (y+0.5)/h, (z+0.5)/d, 1);
 			Vector<double, 4> out = _transf * in;
 
-			x = int(std::floor(out.x()*w));
-			y = int(std::floor(out.y()*h));
-			z = int(std::floor(out.z()*d));
+			x = int(std::floor(out[0]*w));
+			y = int(std::floor(out[1]*h));
+			z = int(std::floor(out[2]*d));
 		}
 	};
 
@@ -244,7 +244,7 @@ public:
 	{
 		double operator()(const Vector<double, 4>& v) const
 		{
-			return v.At(I);
+			return v[I];
 		}
 	};
 
@@ -253,7 +253,7 @@ public:
 	{
 		Vector<double, N> operator()(const Vector<double, 4>& v) const
 		{
-			return Vector<double, N>(v);
+			return Vec<double, N>(v);
 		}
 	};
 

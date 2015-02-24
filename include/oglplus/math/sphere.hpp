@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,6 +14,7 @@
 #define OGLPLUS_MATH_SPHERE_1310040710_HPP
 
 #include <oglplus/math/vector.hpp>
+#include <oglplus/math/matrix.hpp>
 
 #include <cassert>
 #include <type_traits>
@@ -29,7 +30,7 @@ template <typename T>
 class Sphere
 {
 private:
-	Vector<T, 3> _center;
+	Vec<T, 3> _center;
 	T _radius;
 public:
 	/// Constructs a unit sphere at the origin

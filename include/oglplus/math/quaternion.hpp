@@ -90,7 +90,7 @@ public:
 	/// Returns the imaginary vector part of the quaternion
 	Vector<T, 3> Imag(void) const
 	{
-		return Vector<T, 3>(_x, _y, _z);
+		return Vec<T, 3>(_x, _y, _z);
 	}
 
 	T At(std::size_t index) const

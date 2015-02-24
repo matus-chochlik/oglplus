@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,49 +14,23 @@
 #define OGLPLUS_FWD_1107121519_HPP
 
 #include <oglplus/config/compiler.hpp>
+#include <eagine/math/fwd.hpp>
 #include <type_traits>
 #include <cstddef>
 
 namespace oglplus {
 
 // Vector
-template <typename T, std::size_t N>
-class Vector;
+template <typename T, unsigned N>
+using Vector = ::eagine::math::vector<T, N>;
 
-template <typename T, std::size_t N>
-const T* Data(const Vector<T, N>& a);
-
-template <typename T, std::size_t N>
-std::size_t Size(const Vector<T, N>&);
-
-template <typename T, std::size_t N>
-T At(const Vector<T, N>& a, std::size_t i);
-
-template <typename T, std::size_t N>
-T At(const Vector<T, N>& a, std::size_t i, T fallback);
+// Matrix
+template <typename T, unsigned R, unsigned C>
+using Matrix = ::eagine::math::matrix<T, R, C, true>;
 
 // Quaternion
 template <typename T>
 class Quaternion;
-
-// Matrix
-template <typename T, std::size_t Rows, std::size_t Cols>
-class Matrix;
-
-template <typename T, std::size_t R, std::size_t C>
-const T* Data(const Matrix<T, R, C>& matrix);
-
-template <typename T, std::size_t R, std::size_t C>
-std::size_t Size(const Matrix<T, R, C>&);
-
-template <typename T, std::size_t R, std::size_t C>
-std::size_t Rows(const Matrix<T, R, C>&);
-
-template <typename T, std::size_t R, std::size_t C>
-std::size_t Cols(const Matrix<T, R, C>&);
-
-template <typename T, std::size_t R, std::size_t C>
-T At(const Matrix<T, R, C>& matrix, std::size_t i, std::size_t j);
 
 // Tags
 namespace tag {

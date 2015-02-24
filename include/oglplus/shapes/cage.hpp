@@ -29,25 +29,25 @@ class Cage
  , public DrawMode
 {
 private:
-	Vector<GLdouble, 3> _size;
-	Vector<GLdouble, 3> _barw;
-	Vector<GLdouble, 3> _divs;
+	Vec<GLdouble, 3> _size;
+	Vec<GLdouble, 3> _barw;
+	Vec<GLdouble, 3> _divs;
 
 	static const Matrix<GLdouble, 3, 3>& _face_mat(GLuint face);
 
 	GLdouble _face_size(GLuint face, GLuint axis) const
 	{
-		return std::fabs(Dot(_face_mat(face).Row(axis), _size));
+		return std::fabs(Dot(Row(_face_mat(face),axis), _size));
 	}
 
 	GLdouble _face_barw(GLuint face, GLuint axis) const
 	{
-		return std::fabs(Dot(_face_mat(face).Row(axis), _barw));
+		return std::fabs(Dot(Row(_face_mat(face),axis), _barw));
 	}
 
 	GLuint _face_divs(GLuint face, GLuint axis) const
 	{
-		return GLuint(std::fabs(Dot(_face_mat(face).Row(axis), _divs)));
+		return GLuint(std::fabs(Dot(Row(_face_mat(face),axis), _divs)));
 	}
 
 	static const Vector<GLdouble, 3> _face_vec(

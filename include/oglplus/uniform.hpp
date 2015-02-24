@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -153,8 +153,8 @@ public:
 	}
 };
 
-template <typename OpsTag, typename T, std::size_t N>
-class ProgVarGetSetOps<OpsTag, tag::Uniform, Vector<T, N>>
+template <typename OpsTag, typename T, unsigned N>
+class ProgVarGetSetOps<OpsTag, tag::Uniform, eagine::math::vector<T, N>>
  : public ProgVarCommonOps<tag::Uniform>
  , public ProgVarBaseSetOps<OpsTag, tag::Uniform, tag::NativeTypes, T, 4>
 {
@@ -163,9 +163,13 @@ protected:
 	 : ProgVarCommonOps<tag::Uniform>(uloc)
 	{ }
 public:
-	void SetValue(const Vector<T, N>& value)
+	void SetValue(const eagine::math::vector<T, N>& value)
 	{
-		this->template _do_set<N>(_program, _location, Data(value));
+		this->template _do_set<N>(
+			_program,
+			_location,
+			data(value).addr()
+		);
 	}
 
 	void SetValues(std::size_t n, const T* values)
@@ -179,37 +183,68 @@ public:
 		);
 	}
 
-	void SetValues(std::size_t n, const Vector<T, N>* values, std::true_type)
+	void SetValues(
+		std::size_t n,
+		const eagine::math::vector<T, N>* values,
+		std::true_type
+	)
 	{
 		const T* temp = (const T*)(values);
 		SetValues(n*N, temp);
 	}
 
-	void SetValues(std::size_t n, const Vector<T, N>* values,std::false_type)
+	void SetValues(
+		std::size_t n,
+		const eagine::math::vector<T, N>* values,
+		std::false_type
+	)
 	{
 		std::vector<T> temp;
 		temp.reserve(n*N);
 		for(std::size_t i=0; i!=n; ++i)
 		{
-			temp.insert(temp.end(), Data(values), Data(values)+N);
+			auto vd = data(*values);
+			temp.insert(
+				temp.end(),
+				vd.addr(),
+				vd.addr()+N
+			);
 		}
 		SetValues(temp.size(), temp.data());
 	}
 
-	void SetValues(std::size_t n, const Vector<T, N>* values)
+	void SetValues(
+		std::size_t n,
+		const eagine::math::vector<T, N>* values
+	)
 	{
 		SetValues(
 			n, values,
 			std::integral_constant<
 				bool,
-				sizeof(Vector<T, N>[4]) == sizeof(T[N*4])
+				sizeof(eagine::math::vector<T, N>[4]) ==
+				sizeof(T[N*4])
 			>()
 		);
 	}
 };
 
-template <typename OpsTag, typename T, std::size_t R, std::size_t C>
-class ProgVarGetSetOps<OpsTag, tag::Uniform, Matrix<T, R, C>>
+template <typename OpsTag, typename T, unsigned N>
+class ProgVarGetSetOps<OpsTag, tag::Uniform, eagine::math::tvec<T,N>>
+ : public ProgVarGetSetOps<OpsTag, tag::Uniform, eagine::math::vector<T,N>>
+{
+protected:
+	ProgVarGetSetOps(UniformLoc uloc)
+	 : ProgVarGetSetOps<
+		OpsTag,
+		tag::Uniform,
+		eagine::math::vector<T,N>
+	>(uloc)
+	{ }
+};
+
+template <typename OpsTag, typename T, unsigned R, unsigned C, bool RM>
+class ProgVarGetSetOps<OpsTag, tag::Uniform, eagine::math::matrix<T, R, C, RM>>
  : public ProgVarCommonOps<tag::Uniform>
  , public ProgVarBaseSetOps<OpsTag, tag::Uniform, tag::MatrixTypes, T, 16>
 {
@@ -218,14 +253,14 @@ protected:
 	 : ProgVarCommonOps<tag::Uniform>(uloc)
 	{ }
 public:
-	void SetValue(const Matrix<T, R, C>& value)
+	void SetValue(const eagine::math::matrix<T, R, C, RM>& value)
 	{
 		this->template _do_set_mat<C, R>(
 			this->_program,
 			this->_location,
 			1,
-			true,
-			Data(value)
+			RM,
+			data(value).addr()
 		);
 	}
 
@@ -243,7 +278,7 @@ public:
 
 	void SetValues(
 		std::size_t n,
-		const Matrix<T, R, C>* values,
+		const eagine::math::matrix<T, R, C, RM>* values,
 		std::true_type
 	)
 	{
@@ -253,7 +288,7 @@ public:
 
 	void SetValues(
 		std::size_t n,
-		const Matrix<T, R, C>* values,
+		const eagine::math::matrix<T, R, C, RM>* values,
 		std::false_type
 	)
 	{
@@ -261,21 +296,44 @@ public:
 		temp.reserve(n*R*C);
 		for(std::size_t i=0; i!=n; ++i)
 		{
-			temp.insert(temp.end(), Data(values), Data(values)+R*C);
+			auto md = data(*values);
+			temp.insert(
+				temp.end(),
+				md.addr(),
+				md.addr()+R*C
+			);
 		}
 		SetValues(temp.size(), temp.data());
 	}
 
-	void SetValues(std::size_t n, const Matrix<T, R, C>* values)
+	void SetValues(
+		std::size_t n,
+		const eagine::math::matrix<T, R, C, RM>* values
+	)
 	{
 		SetValues(
 			n, values,
 			std::integral_constant<
 				bool,
-				sizeof(Matrix<T, R, C>[4]) == sizeof(T[R*C*4])
+				sizeof(eagine::math::matrix<T, R, C, RM>[4]) ==
+				sizeof(T[R*C*4])
 			>()
 		);
 	}
+};
+
+template <typename OpsTag, typename T, unsigned R, unsigned C, bool RM>
+class ProgVarGetSetOps<OpsTag, tag::Uniform, eagine::math::tmat<T,R,C,RM>>
+ : public ProgVarGetSetOps<OpsTag, tag::Uniform, eagine::math::matrix<T,R,C,RM>>
+{
+protected:
+	ProgVarGetSetOps(UniformLoc uloc)
+	 : ProgVarGetSetOps<
+		OpsTag,
+		tag::Uniform,
+		eagine::math::matrix<T,R,C,RM>
+	>(uloc)
+	{ }
 };
 
 OGLPLUS_DECLARE_PROG_VAR(

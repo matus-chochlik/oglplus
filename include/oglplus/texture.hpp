@@ -2071,7 +2071,7 @@ public:
 			ObjectError,
 			ObjectBinding(target)
 		);
-		return Vector<GLfloat, 4>(result, 4);
+		return Vec<GLfloat, 4>(result, 4);
 	}
 
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
@@ -2085,7 +2085,7 @@ public:
 		OGLPLUS_GLFUNC(TexParameterfv)(
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
-			Data(color)
+			data(color).addr()
 		);
 		OGLPLUS_CHECK(
 			TexParameterfv,
@@ -2113,7 +2113,7 @@ public:
 			ObjectError,
 			ObjectBinding(target)
 		);
-		return Vector<GLint, 4>(result, 4);
+		return Vec<GLint, 4>(result, 4);
 	}
 
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
@@ -2127,7 +2127,7 @@ public:
 		OGLPLUS_GLFUNC(TexParameterIiv)(
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
-			Data(color)
+			data(color).addr()
 		);
 		OGLPLUS_CHECK(
 			TexParameterIiv,
@@ -2155,7 +2155,7 @@ public:
 			ObjectError,
 			ObjectBinding(target)
 		);
-		return Vector<GLuint, 4>(result, 4);
+		return Vec<GLuint, 4>(result, 4);
 	}
 
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
@@ -2169,7 +2169,7 @@ public:
 		OGLPLUS_GLFUNC(TexParameterIuiv)(
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
-			Data(color)
+			data(color).addr()
 		);
 		OGLPLUS_CHECK(
 			TexParameterIuiv,

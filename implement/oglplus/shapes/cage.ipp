@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,7 +16,7 @@ OGLPLUS_LIB_FUNC
 const Matrix<GLdouble, 3, 3>& Cage::_face_mat(GLuint face)
 {
 	assert(face < 6);
-	typedef Matrix<GLdouble, 3, 3> M;
+	typedef Mat<GLdouble, 3, 3> M;
 	static M m[6] = {
 		M( 0, 0, 1,  0,-1, 0,  1, 0, 0),//[0]+x
 		M( 0, 0,-1,  0,-1, 0, -1, 0, 0),//[1]-x
@@ -80,7 +80,7 @@ std::vector<GLfloat> Cage::_positions(void) const
 	std::vector<GLfloat> dest(_vert_count()*3);
 	auto p=dest.begin();
 
-	typedef Vector<GLdouble, 3> V;
+	typedef Vec<GLdouble, 3> V;
 
 	// for each face
 	for(GLuint f=0; f!=6; ++f)
@@ -204,14 +204,14 @@ std::vector<GLfloat> Cage::_normals(void) const
 	std::vector<GLfloat> dest(_vert_count()*3);
 	auto p=dest.begin();
 
-	typedef Vector<GLdouble, 3> V;
+	typedef Vec<GLdouble, 3> V;
 
 	// for each face
 	for(GLuint f=0; f!=6; ++f)
 	{
-		V t = _face_mat(f).Row(0);
-		V b = _face_mat(f).Row(1);
-		V n = _face_mat(f).Row(2);
+		V t = Row<0>(_face_mat(f));
+		V b = Row<1>(_face_mat(f));
+		V n = Row<2>(_face_mat(f));
 
 		for(GLuint v=0; v!=8; ++v)
 			p = _write(p, n);
@@ -266,13 +266,13 @@ std::vector<GLfloat> Cage::_tangents(void) const
 	std::vector<GLfloat> dest(_vert_count()*3);
 	auto p=dest.begin();
 
-	typedef Vector<GLdouble, 3> V;
+	typedef Vec<GLdouble, 3> V;
 
 	// for each face
 	for(GLuint f=0; f!=6; ++f)
 	{
-		V t = -_face_mat(f).Row(0);
-		V n = -_face_mat(f).Row(2);
+		V t = -Row<0>(_face_mat(f));
+		V n = -Row<2>(_face_mat(f));
 
 		for(GLuint v=0; v!=8; ++v)
 			p = _write(p, t);
@@ -321,7 +321,7 @@ std::vector<GLfloat> Cage::_tex_coords(void) const
 	std::vector<GLfloat> dest(_vert_count()*3);
 	auto p=dest.begin();
 
-	typedef Vector<GLdouble, 3> V;
+	typedef Vec<GLdouble, 3> V;
 
 	// for each face
 	for(GLuint f=0; f!=6; ++f)
