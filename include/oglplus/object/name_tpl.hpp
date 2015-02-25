@@ -146,8 +146,8 @@ public:
 		return *this;
 	}
 
-	/// Returns true if the object name is initialized, false otherwise
-	bool IsInitialized(void) const
+	/// Returns true if the object name is valid, false otherwise
+	bool HasValidName(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return this->_name != _invalid_name();

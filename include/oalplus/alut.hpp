@@ -212,10 +212,14 @@ public:
 	 *  @alsymbols
 	 *  @alutfunref{CreateBufferFromFile}
 	 */
-	Buffer CreateBufferFromFile(const ALchar* file_path) const
+	Buffer CreateBufferFromFile(const StrCRef& file_path) const
 	{
 		assert(_initialized);
-		ALuint name = OALPLUS_ALUTFUNC(CreateBufferFromFile)(file_path);
+		ALuint name = OALPLUS_ALUTFUNC(CreateBufferFromFile)(
+			file_path.is_nts()?
+			file_path.c_str():
+			file_path.str().c_str()
+		);
 		OALPLUS_VERIFY_SIMPLE_ALUT(CreateBufferFromFile);
 		return Buffer::FromRawName(BufferName(name));
 	}
@@ -260,7 +264,7 @@ public:
 	 *  @alutfunref{LoadMemoryFromFile}
 	 */
 	std::vector<ALfloat> LoadMemoryFromFileNormalized(
-		const ALchar* file_path,
+		const StrCRef& file_path,
 		DataFormat* data_format,
 		ALfloat* frequency
 	) const
@@ -268,7 +272,9 @@ public:
 		::ALenum format = 0;
 		::ALsizei size = 0;
 		::ALvoid* ptr = OALPLUS_ALUTFUNC(LoadMemoryFromFile)(
-			file_path,
+			file_path.is_nts()?
+			file_path.c_str():
+			file_path.str().c_str(),
 			&format,
 			&size,
 			frequency
@@ -292,7 +298,7 @@ public:
 	 *  @alutfunref{LoadMemoryFromFile}
 	 */
 	std::vector<ALubyte> LoadMemoryFromFile(
-		const ALchar* file_path,
+		const StrCRef& file_path,
 		DataFormat* data_format,
 		ALfloat* frequency
 	) const
@@ -300,7 +306,9 @@ public:
 		::ALenum format = 0;
 		::ALsizei size = 0;
 		::ALvoid* ptr = OALPLUS_ALUTFUNC(LoadMemoryFromFile)(
-			file_path,
+			file_path.is_nts()?
+			file_path.c_str():
+			file_path.str().c_str(),
 			&format,
 			&size,
 			frequency
@@ -329,7 +337,7 @@ public:
 	void LoadMemoryFromFile(
 		std::vector<ALubyte>& raw,
 		std::vector<ALfloat>& norm,
-		const ALchar* file_path,
+		const StrCRef& file_path,
 		DataFormat* data_format,
 		ALfloat* frequency
 	) const
@@ -337,7 +345,9 @@ public:
 		::ALenum format = 0;
 		::ALsizei size = 0;
 		::ALvoid* ptr = OALPLUS_ALUTFUNC(LoadMemoryFromFile)(
-			file_path,
+			file_path.is_nts()?
+			file_path.c_str():
+			file_path.str().c_str(),
 			&format,
 			&size,
 			frequency

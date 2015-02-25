@@ -18,15 +18,19 @@
 #endif
 
 #include <oglplus/enums/face.hpp>
+#include <oglplus/enums/single_face.hpp>
 #include <oglplus/enums/face_orientation.hpp>
 
 namespace oglplus {
 
 #if !OGLPLUS_NO_ENUM_VALUE_CLASSES
 #include <oglplus/enums/face_class.ipp>
+#include <oglplus/enums/single_face_class.ipp>
 #endif
 
-inline Face Opposite(Face facing)
+inline
+Face Opposite(Face facing)
+OGLPLUS_NOEXCEPT(true)
 {
 	if(facing == Face::Front)
 		return Face::Back;
@@ -42,7 +46,9 @@ inline Face Opposite(Face facing)
  *  @glsymbols
  *  @glfunref{FrontFace}
  */
-inline FaceOrientation Inverted(FaceOrientation winding)
+inline
+FaceOrientation Inverted(FaceOrientation winding)
+OGLPLUS_NOEXCEPT(true)
 {
 	if(winding == FaceOrientation::CW)
 		return FaceOrientation::CCW;

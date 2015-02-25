@@ -67,10 +67,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(DeleteSamplers);
 	}
 
-	static GLboolean IsA(GLuint name)
+	static Boolean IsA(GLuint name)
 	{
-		assert(name != 0);
-		GLboolean result = OGLPLUS_GLFUNC(IsSampler)(name);
+		Boolean result(
+			OGLPLUS_GLFUNC(IsSampler)(name),
+			std::nothrow
+		);
 		OGLPLUS_VERIFY_SIMPLE(IsSampler);
 		return result;
 	}

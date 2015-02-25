@@ -96,7 +96,7 @@ struct Object_default_construction_tester
 	void operator () (void) const
 	{
 		Object object;
-		(void)object;
+		BOOST_ASSERT(object.HasValidName());
 	}
 };
 
@@ -112,7 +112,7 @@ struct Object_move_construction_tester
 	{
 		Object object1;
 
-		BOOST_ASSERT( object1.IsInitialized());
+		BOOST_ASSERT( object1.HasValidName());
 		const GLint name = GetName(object1);
 
 		Object object2 = std::move(object1);
@@ -120,8 +120,8 @@ struct Object_move_construction_tester
 		BOOST_ASSERT(name != GetName(object1));
 		BOOST_ASSERT(name == GetName(object2));
 
-		BOOST_ASSERT(!object1.IsInitialized());
-		BOOST_ASSERT( object2.IsInitialized());
+		BOOST_ASSERT(!object1.HasValidName());
+		BOOST_ASSERT( object2.HasValidName());
 	}
 };
 
@@ -137,8 +137,8 @@ struct Object_move_assignment_tester
 	{
 		Object object1, object2;
 
-		BOOST_ASSERT( object1.IsInitialized());
-		BOOST_ASSERT( object2.IsInitialized());
+		BOOST_ASSERT( object1.HasValidName());
+		BOOST_ASSERT( object2.HasValidName());
 
 		const GLint name = GetName(object1);
 
@@ -147,16 +147,16 @@ struct Object_move_assignment_tester
 		BOOST_ASSERT(name != GetName(object1));
 		BOOST_ASSERT(name == GetName(object2));
 
-		BOOST_ASSERT(!object1.IsInitialized());
-		BOOST_ASSERT( object2.IsInitialized());
+		BOOST_ASSERT(!object1.HasValidName());
+		BOOST_ASSERT( object2.HasValidName());
 
 		{ Object object3 = std::move(object2); }
 
 		BOOST_ASSERT(name != GetName(object1));
 		BOOST_ASSERT(name != GetName(object2));
 
-		BOOST_ASSERT(!object1.IsInitialized());
-		BOOST_ASSERT(!object2.IsInitialized());
+		BOOST_ASSERT(!object1.HasValidName());
+		BOOST_ASSERT(!object2.HasValidName());
 	}
 };
 

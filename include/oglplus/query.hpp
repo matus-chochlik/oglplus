@@ -70,10 +70,12 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(DeleteQueries);
 	}
 
-	static GLboolean IsA(GLuint name)
+	static Boolean IsA(GLuint name)
 	{
-		assert(name != 0);
-		GLboolean result = OGLPLUS_GLFUNC(IsQuery)(name);
+		Boolean result(
+			OGLPLUS_GLFUNC(IsQuery)(name), 
+			std::nothrow
+		);
 		OGLPLUS_VERIFY_SIMPLE(IsQuery);
 		return result;
 	}

@@ -13,3 +13,4 @@ C-language API.
 It provides wrappers which automate resource and object
 management and make the use of OpenAL in C++ safer and easier.
 
+[include intro/hello_world.qbk]

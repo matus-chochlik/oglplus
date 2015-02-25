@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -27,9 +27,15 @@ private:
 	::Display* _display;
 	::GLXContext _context;
 
-	friend ::Display* GetGLXDisplay(const ContextGLX&);
-	friend ::GLXContext GetGLXContext(const ContextGLX&);
+	friend
+	::Display* GetGLXDisplay(const ContextGLX&)
+	OGLPLUS_NOEXCEPT(true);
 
+	friend
+	::GLXContext GetGLXContext(const ContextGLX&)
+	OGLPLUS_NOEXCEPT(true);
+
+protected:
 	struct Current_ { };
 
 	ContextGLX(Current_)
@@ -40,6 +46,31 @@ private:
 		if(!_context) HandleNoGLXContext();
 	}
 public:
+	friend
+	bool operator == (const ContextGLX& a, const ContextGLX& b)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return	(a._display == b._display) &&
+			(a._context == b._context);
+	}
+
+	friend
+	bool operator != (const ContextGLX& a, const ContextGLX& b)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return	(a._display != b._display) ||
+			(a._context != b._context);
+	}
+
+	friend
+	bool operator <  (const ContextGLX& a, const ContextGLX& b)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return	(a._display <  b._display) || (
+			(a._display == b._display) &&
+			(a._context <  b._context));
+	}
+
 	/// Returns a wrapper for the currently bound GLX context
 	/** This function gets and wraps the current GLX context (+display).
 	 *  If no context is current it throws a @c runtime_error.
@@ -72,17 +103,32 @@ public:
 	}
 };
 
-inline ::Display* GetGLXDisplay(const ContextGLX& cglx)
+inline
+::Display* GetGLXDisplay(const ContextGLX& cglx)
+OGLPLUS_NOEXCEPT(true)
 {
 	return cglx._display;
 }
 
-inline ::GLXContext GetGLXContext(const ContextGLX& cglx)
+inline
+::GLXContext GetGLXContext(const ContextGLX& cglx)
+OGLPLUS_NOEXCEPT(true)
 {
 	return cglx._context;
 }
 
 typedef ContextGLX Context;
+
+class CurrentContextGLX
+ : public ContextGLX
+{
+public:
+	CurrentContextGLX(void)
+	 : ContextGLX(ContextGLX::Current_())
+	{ }
+};
+
+typedef CurrentContextGLX CurrentContext;
 
 } // namespace native
 } // namespace oglplus

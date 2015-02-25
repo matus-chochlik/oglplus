@@ -43,6 +43,7 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	standalone_example_common(001_gl_limits GLUT GLEW)
 
 	standalone_example_common(001_triangle_glut_glew GLUT GLEW)
+	standalone_example_common(001_hello_glut_glew GLUT GLEW)
 
 	standalone_example_common(001_shape2dot GLUT GLEW) 
 	if(HAS_GL_VERSION_4_3)

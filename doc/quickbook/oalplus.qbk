@@ -56,6 +56,9 @@
 [def __ContextAttribs [link oalplus.quickref.context.attribs ContextAttribs]]
 [def __FinishedContextAttribs [link oalplus.quickref.context.attribs FinishedContextAttribs]]
 [def __Context [link oalplus.quickref.context.wrapper Context]]
+[def __ContextMadeCurrent [link oalplus.quickref.context.made_current ContextMadeCurrent]]
+
+[def __ALUtilityToolkit [link oalplus.quickref.alut ALUtilityToolkit]]
 
 [def __Angle [link oalplus.quickref.math.angle Angle]]
 [def __Vector [link oalplus.quickref.math.vector Vector]]

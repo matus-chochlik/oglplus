@@ -17,7 +17,7 @@
 
 [def __String [link oglplus.quickref.string.def String]]
 [def __StrCRef [link oglplus.quickref.string.ref StrCRef]]
-[def __Bitfield [link oglplus.quickref.enums.bitfield Bitfield]]
+[def __Bitfield [link oglplus.quickref.bitfield Bitfield]]
 
 [def __BoolImpl [link oglplus.quickref.boolean.impl BoolImpl]]
 [def __Boolean [link oglplus.quickref.boolean.def Boolean]]
@@ -84,6 +84,7 @@
 
 [def __Buffer [link oglplus.quickref.buffer.def Buffer]]
 [def __NoBuffer [link oglplus.quickref.buffer.def NoBuffer]]
+[def __DSABuffer [link oglplus.quickref.dsa_buffer.def DSABuffer]]
 [def __BufferTarget [link oglplus.quickref.buffer.target BufferTarget]]
 [def __BufferIndexedTarget [link oglplus.quickref.buffer.indexed_target BufferIndexedTarget]]
 [def __BufferUsage [link oglplus.quickref.buffer.usage BufferUsage]]
@@ -99,12 +100,16 @@
 
 [def __BufferRawMap [link oglplus.quickref.buffer_map.raw BufferRawMap]]
 [def __BufferTypedMap [link oglplus.quickref.buffer_map.typed BufferTypedMap]]
+[def __DSABufferRawMap [link oglplus.quickref.dsa_buffer_map.raw DSABufferRawMap]]
+[def __DSABufferTypedMap [link oglplus.quickref.dsa_buffer_map.typed DSABufferTypedMap]]
 [def __BufferMapAccess [link oglplus.quickref.buffer_map.access BufferMapAccess]]
 
 [def __VertexArray [link oglplus.quickref.vertex_array.def VertexArray]]
 [def __NoVertexArray [link oglplus.quickref.vertex_array.def NoVertexArray]]
+[def __DSAVertexArray [link oglplus.quickref.dsa_vertex_array.def DSAVertexArray]]
 
 [def __Texture [link oglplus.quickref.texture.def Texture]]
+[def __DSATexture [link oglplus.quickref.dsa_texture.def Texture]]
 [def __DefaultTexture [link oglplus.quickref.texture.def DefaultTexture]]
 [def __TextureTarget [link oglplus.quickref.texture.target TextureTarget]]
 [def __TextureCompareMode [link oglplus.quickref.texture.compare_mode TextureCompareMode]]
@@ -117,12 +122,15 @@
 [def __TextureWrapCoord [link oglplus.quickref.texture.wrap_coord TextureWrapCoord]]
 [def __TextureWrap [link oglplus.quickref.texture.wrap TextureWrap]]
 [def __TextureUnitSelector [link oglplus.quickref.texture.unit_selector TextureUnitSelector]]
+[def __TextureHandle [link oglplus.quickref.texture_handle TextureHandle]]
 [def __ImageUnitSelector [link oglplus.quickref.texture.unit_selector ImageUnitSelector]]
+[def __ImageHandle [link oglplus.quickref.texture_handle ImageHandle]]
 
 [def __Sampler [link oglplus.quickref.sampler.def Sampler]]
 [def __NoSampler [link oglplus.quickref.sampler.def NoSampler]]
 
 [def __Framebuffer [link oglplus.quickref.framebuffer.def Framebuffer]]
+[def __DSAFramebuffer [link oglplus.quickref.dsa_framebuffer.def DSAFramebuffer]]
 [def __DefaultFramebuffer [link oglplus.quickref.framebuffer.def DefaultFramebuffer]]
 [def __FramebufferTarget [link oglplus.quickref.framebuffer.target FramebufferTarget]]
 [def __FramebufferBuffer [link oglplus.quickref.framebuffer.buffer FramebufferBuffer]]
@@ -132,6 +140,7 @@
 [def __FramebufferStatus [link oglplus.quickref.framebuffer.status FramebufferStatus]]
 
 [def __Renderbuffer [link oglplus.quickref.renderbuffer.def Renderbuffer]]
+[def __DSARenderbuffer [link oglplus.quickref.dsa_renderbuffer.def DSARenderbuffer]]
 [def __NoRenderbuffer [link oglplus.quickref.renderbuffer.def NoRenderbuffer]]
 [def __RenderbufferTarget [link oglplus.quickref.renderbuffer.target RenderbufferTarget]]
 
@@ -168,6 +177,7 @@
 [def __TransformFeedbackTarget [link oglplus.quickref.transform_feedback.target TransformFeedbackTarget]]
 [def __TransformFeedbackMode [link oglplus.quickref.transform_feedback.mode TransformFeedbackMode]]
 [def __TransformFeedbackPrimitiveType [link oglplus.quickref.transform_feedback.primitive_type TransformFeedbackPrimitiveType]]
+[def __DSATransformFeedback [link oglplus.quickref.dsa_transform_feedback.def DSATransformFeedback]]
 
 [def __OptionalObject [link oglplus.quickref.object.optional Optional]]
 
