@@ -195,7 +195,9 @@ public:
 
 /// Returns the GL location/index of the specified @p variable
 template <typename VarTag>
-inline GLint GetGLLocation(ProgVarLoc<VarTag> variable)
+static inline
+GLint GetGLLocation(ProgVarLoc<VarTag> variable)
+OGLPLUS_NOEXCEPT(true)
 {
 	return variable._location;
 }

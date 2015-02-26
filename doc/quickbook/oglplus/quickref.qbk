@@ -68,6 +68,8 @@ the concept.
 [include quickref/vertex_attrib_slot.qbk]
 [include quickref/texture_handle.qbk]
 
+[include quickref/prog_var.qbk]
+
 [include quickref/context.qbk]
 
 [include quickref/capability.qbk]

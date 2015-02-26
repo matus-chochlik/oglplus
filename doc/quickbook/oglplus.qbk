@@ -55,6 +55,14 @@
 [def __tag_PerfMonitorAMD [link oglplus.quickref.object.tags tag::PerfMonitorAMD]]
 [def __tag_PathNV [link oglplus.quickref.object.tags tag::PathNV]]
 
+[def __VarTag [link oglplus.quickref.prog_var.tags VarTag]]
+[def __tag_VertexAttrib [link oglplus.quickref.prog_var.tags tag::VertexAttrib]]
+[def __tag_Uniform [link oglplus.quickref.prog_var.tags tag::Uniform]]
+[def __tag_UniformBlock [link oglplus.quickref.prog_var.tags tag::UniformBlock]]
+[def __tag_Subroutine [link oglplus.quickref.prog_var.tags tag::Subroutine]]
+[def __tag_SubroutineUniform [link oglplus.quickref.prog_var.tags tag::SubroutineUniform]]
+[def __tag_FragData [link oglplus.quickref.prog_var.tags tag::FragData]]
+
 [def __ObjectType [link oglplus.quickref.object.type ObjectType]]
 [def __ObjectSubtype [link oglplus.quickref.object.subtype ObjectSubtype]]
 [def __ObjTypeOps [link oglplus.quickref.object.type.ops ObjTypeOps]]
@@ -209,6 +217,8 @@
 [def __GLSLSource [link oglplus.quickref.glsl_source GLSLSource]]
 [def __GLSLString [link oglplus.quickref.glsl_string GLSLString]]
 [def __GLSLStrings [link oglplus.quickref.glsl_string GLSLStrings]]
+
+[def __ProgVarLoc [link oglplus.quickref.prog_var.location ProgVarLoc]]
 
 [def __Context [link oglplus.quickref.context Context]]
 
