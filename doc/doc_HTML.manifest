@@ -30,6 +30,7 @@ oglplus/quickref/dsa_transform_feedback.html
 oglplus/quickref/sync.html
 oglplus/quickref/vertex_attrib_slot.html
 oglplus/quickref/texture_handle.html
+oglplus/quickref/prog_var.html
 oglplus/quickref/context.html
 oglplus/quickref/capability.html
 oglplus/quickref/hint.html

@@ -1,0 +1,217 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>OGLplus program variables</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="texture_handle.html" title="Texture handle">
+<link rel="next" href="context.html" title="Current GL context">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="texture_handle.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="context.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.prog_var"></a><a class="link" href="prog_var.html" title="OGLplus program variables">OGLplus program variables</a>
+</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="prog_var.html#oglplus.quickref.prog_var.tags">Tags</a></span></dt>
+<dt><span class="section"><a href="prog_var.html#oglplus.quickref.prog_var.location">Location</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.prog_var.tags"></a><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">Tags</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/prog_var/location.hpp&gt;</code>
+          </p>
+<p>
+            The program variable tag types allow to differentiate between objects
+            wrapping references to GLSL variables (uniforms, uniform blocks, vertex
+            attributes, etc.) at compile time.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+<span class="keyword">namespace</span> <span class="identifier">tag</span> <span class="special">{</span>
+
+<span class="keyword">struct</span> <span class="identifier">VertexAttrib</span><span class="special">;</span>
+<span class="keyword">struct</span> <span class="identifier">Uniform</span><span class="special">;</span>
+<span class="keyword">struct</span> <span class="identifier">UniformBlock</span><span class="special">;</span>
+<span class="keyword">struct</span> <span class="identifier">Subroutine</span><span class="special">;</span>
+<span class="keyword">struct</span> <span class="identifier">SubroutineUniform</span><span class="special">;</span>
+<span class="keyword">struct</span> <span class="identifier">FragData</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace tag</span>
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.prog_var.location"></a><a class="link" href="prog_var.html#oglplus.quickref.prog_var.location" title="Location">Location</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/prog_var/location.hpp&gt;</code>
+          </p>
+<p>
+            The <code class="computeroutput"><span class="identifier">ProgVarLoc</span></code> template
+            wraps the raw <code class="computeroutput"><span class="identifier">GLuint</span></code>
+            program identifier and <code class="computeroutput"><span class="identifier">GLint</span></code>
+            location of a GLSL variable (vertex attribute, uniform, fragment shader
+            output, etc.). Since all types of GLSL variables share the same namespace
+            (the domain of the <code class="computeroutput"><span class="identifier">GLint</span></code>
+            type) it is easy to confuse objects of different types.
+          </p>
+<p>
+            In order to avoid such mismatches, the <code class="computeroutput"><span class="identifier">VarTag</span></code>
+            template parameter of <code class="computeroutput"><span class="identifier">ProgVarLoc</span></code>
+            conveys information about the actual object type and prevents for example
+            passing an uniform location to a function requiring a vertex attribute,
+            etc.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">ProgVarLoc</span>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">__ProgVarLocOps</span><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ProgVarLoc</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">ProgVarLoc</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.location.c0" href="prog_var.html#oglplus.quickref.prog_var.location.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">explicit</span>
+	<span class="identifier">ProgVarLoc</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">location</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.location.c2" href="prog_var.html#oglplus.quickref.prog_var.location.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">ProgVarLoc</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">location</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.location.c4" href="prog_var.html#oglplus.quickref.prog_var.location.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="identifier">ProgVarLoc</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span> <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">);</span> <a class="co" name="oglplus.quickref.prog_var.location.c6" href="prog_var.html#oglplus.quickref.prog_var.location.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="identifier">ProgVarLoc</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span> <span class="identifier">StrCRef</span> <span class="identifier">identifier</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">active_only</span><span class="special">);</span> <a class="co" name="oglplus.quickref.prog_var.location.c8" href="prog_var.html#oglplus.quickref.prog_var.location.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="identifier">ProgVarLoc</span><span class="special">&amp;</span> <span class="identifier">BindTo</span><span class="special">(</span><a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">is_active</span> <span class="special">=</span> <span class="keyword">true</span><span class="special">);</span> <a class="co" name="oglplus.quickref.prog_var.location.c10" href="prog_var.html#oglplus.quickref.prog_var.location.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">Program</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.location.c12" href="prog_var.html#oglplus.quickref.prog_var.location.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<span class="identifier">GLint</span> <span class="identifier">Location</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.location.c14" href="prog_var.html#oglplus.quickref.prog_var.location.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">IsActive</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.location.c16" href="prog_var.html#oglplus.quickref.prog_var.location.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+
+	<span class="keyword">explicit</span>
+	<span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.location.c18" href="prog_var.html#oglplus.quickref.prog_var.location.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">==</span> <span class="special">(</span><span class="identifier">ProgVarLoc</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">ProgVarLoc</span> <span class="identifier">b</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!=</span> <span class="special">(</span><span class="identifier">ProgVarLoc</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">ProgVarLoc</span> <span class="identifier">b</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">&lt;</span> <span class="special">(</span><span class="identifier">ProgVarLoc</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">ProgVarLoc</span> <span class="identifier">b</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="comment">/// Returns the GL location/index of the specified @p variable</span>
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
+<span class="identifier">GLint</span> <span class="identifier">GetGLLocation</span><span class="special">(</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.location" title="Location">ProgVarLoc</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span> <span class="identifier">variable</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.location.c1"></a><a href="#oglplus.quickref.prog_var.location.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Creates variable without specific location in the specified <code class="literal">program</code>.
+                The location can be specified later.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.location.c3"></a><a href="#oglplus.quickref.prog_var.location.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Creates variable with specified <code class="literal">location</code> without
+                a reference to a specific program. The program can be specified later.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.location.c5"></a><a href="#oglplus.quickref.prog_var.location.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Creates variable with the specified <code class="literal">location</code> in
+                the specified <code class="literal">program</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.location.c7"></a><a href="#oglplus.quickref.prog_var.location.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Creates variable with the specified <code class="literal">identifier</code>
+                in the specified <code class="literal">program</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.location.c9"></a><a href="#oglplus.quickref.prog_var.location.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Creates variable with the specified <code class="literal">identifier</code>
+                in the specified <code class="literal">program</code>. This overload allows
+                to specify whether the constructor should throw if no such variable
+                is active in the program. If <code class="literal">active_only</code> is <code class="literal">true</code>
+                then the constructor throws.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.location.c11"></a><a href="#oglplus.quickref.prog_var.location.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Late initialization of the variable location from its identifier.
+                The program name must already be specified.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.location.c13"></a><a href="#oglplus.quickref.prog_var.location.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                The <code class="literal">program</code> that <code class="literal">this</code> variable
+                belongs to.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.location.c15"></a><a href="#oglplus.quickref.prog_var.location.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                The location of <code class="literal">this</code> variable.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.location.c17"></a><a href="#oglplus.quickref.prog_var.location.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns <code class="literal">true</code> if the variable is active, false
+                otherwise.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.location.c19"></a><a href="#oglplus.quickref.prog_var.location.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns <code class="literal">true</code> if the variable is active, false
+                otherwise. Synonym for <code class="literal">Active</code>.
+              </p></td>
+</tr>
+</table></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="texture_handle.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="context.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
