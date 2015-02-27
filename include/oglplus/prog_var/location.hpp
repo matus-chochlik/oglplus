@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -22,7 +22,8 @@
 namespace oglplus {
 
 template <typename VarTag>
-GLint GetGLLocation(ProgVarLoc<VarTag>);
+GLint GetGLLocation(ProgVarLoc<VarTag>)
+OGLPLUS_NOEXCEPT(true);
 
 /// Wrapper encapsulating program variable location/index
 template <typename VarTag>
@@ -30,7 +31,9 @@ class ProgVarLoc
  : public ProgVarLocOps<VarTag>
 {
 protected:
-	friend GLint GetGLLocation<VarTag>(ProgVarLoc);
+	friend GLint GetGLLocation<VarTag>(ProgVarLoc)
+	OGLPLUS_NOEXCEPT(true);
+
 	GLuint _program;
 	GLint _location;
 
