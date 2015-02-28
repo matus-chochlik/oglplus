@@ -18,6 +18,7 @@
 #include <oglplus/math/angle.hpp>
 #include <oglplus/math/quaternion.hpp>
 #include <eagine/math/tmat.hpp>
+#include <eagine/math/matrix_ctrs.hpp>
 
 namespace oglplus {
 
@@ -53,7 +54,6 @@ Vector<T, C> Row(const Matrix<T, R, C>& m, unsigned i)
 	return ::eagine::math::row(m, i);
 }
 
-#ifdef NEVER_DEFINED
 /// Class implementing model transformation matrix named constructors
 /** The static member functions of this class can be used to construct
  *  various model transformation matrices.
@@ -67,59 +67,163 @@ class ModelMatrix
 private:
 	typedef Matrix<T, 4, 4> Base;
 public:
-	/// Constructs an identity matrix
-	ModelMatrix(void)
-	 : Base()
-	{ }
+	ModelMatrix(void) = default;
 
 	ModelMatrix(const Base& base)
 	 : Base(base)
 	{ }
 
-	struct Translation_ { };
-
-	ModelMatrix(Translation_, T dx, T dy, T dz)
-	 : Base(oglplus::Nothing())
+	static inline
+	auto Translation(T dx, T dy, T dz)
 	{
-		InitMatrix4x4(
-			*this,
-			T(1), T(0), T(0),   dx,
-			T(0), T(1), T(0),   dy,
-			T(0), T(0), T(1),   dz,
-			T(0), T(0), T(0), T(1)
-		);
+		return eagine::math::translation<Base>(dx, dy, dz)();
 	}
 
-	/// Constructs a translation matrix
-	static inline ModelMatrix Translation(T dx, T dy, T dz)
+	static inline
+	auto TranslationX(T d)
 	{
-		return ModelMatrix(Translation_(), dx, dy, dz);
+		return eagine::math::translation_x<Base>(d)();
 	}
 
-	/// Constructs a translation matrix
-	static inline ModelMatrix TranslationX(T dx)
+	static inline
+	auto TranslationY(T d)
 	{
-		return ModelMatrix(Translation_(), dx, T(0), T(0));
+		return eagine::math::translation_y<Base>(d)();
 	}
 
-	/// Constructs a translation matrix
-	static inline ModelMatrix TranslationY(T dy)
+	static inline
+	auto TranslationZ(T d)
 	{
-		return ModelMatrix(Translation_(), T(0), dy, T(0));
+		return eagine::math::translation_z<Base>(d)();
 	}
 
-	/// Constructs a translation matrix
-	static inline ModelMatrix TranslationZ(T dz)
+	static inline
+	auto RotationX(Angle<T> a)
 	{
-		return ModelMatrix(Translation_(), T(0), T(0), dz);
+		return eagine::math::rotation_x<Base>(a)();
 	}
 
-	/// Constructs a translation matrix
-	static inline ModelMatrix Translation(const Vector<T, 3>& dp)
+	static inline
+	auto RotationY(Angle<T> a)
 	{
-		return ModelMatrix(Translation_(), dp.x(), dp.y(), dp.z());
+		return eagine::math::rotation_y<Base>(a)();
 	}
 
+	static inline
+	auto RotationZ(Angle<T> a)
+	{
+		return eagine::math::rotation_z<Base>(a)();
+	}
+};
+
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
+/// Model transformation float matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef ModelMatrix<GLfloat> ModelMatrixf;
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
+/// Model transformation double precision matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef ModelMatrix<GLdouble> ModelMatrixd;
+#endif
+
+/// Class implementing camera matrix named constructors
+/** The static methods of this class can be used for the construction
+ *  of various camera matrices.
+ *
+ *  @ingroup math_utils
+ */
+template <typename T>
+class CameraMatrix
+ : public Matrix<T, 4, 4>
+{
+private:
+	typedef Matrix<T, 4, 4> Base;
+public:
+	CameraMatrix(void) = default;
+
+	CameraMatrix(const Base& base)
+	 : Base(base)
+	{ }
+
+	static inline
+	auto PerspectiveX(
+		Angle<T> xfov,
+		T aspect,
+		T z_near,
+		T z_far
+	)
+	{
+		return eagine::math::perspective<Base>::x(
+			xfov,
+			aspect,
+			z_near,
+			z_far
+		)();
+	}
+
+	static inline
+	auto PerspectiveY(
+		Angle<T> yfov,
+		T aspect,
+		T z_near,
+		T z_far
+	)
+	{
+		return eagine::math::perspective<Base>::y(
+			yfov,
+			aspect,
+			z_near,
+			z_far
+		)();
+	}
+
+	static inline
+	auto Orbiting(
+		const Vector<T, 3>& target,
+		T radius,
+		Angle<T> azimuth,
+		Angle<T> elevation
+	)
+	{
+		return eagine::math::orbiting_y<Base>(
+			target,
+			radius,
+			azimuth,
+			elevation
+		)();
+	}
+};
+
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
+/// Camera matrix using float numbers
+/**
+ *  @ingroup math_utils
+ */
+typedef CameraMatrix<GLfloat> CamMatrixf;
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
+/// Camera matrix using double precition numbers
+/**
+ *  @ingroup math_utils
+ */
+typedef CameraMatrix<GLdouble> CamMatrixd;
+#endif
+
+#ifdef NEVER_DEFINED
+template <typename T>
+class ModelMatrix
+ : public Matrix<T, 4, 4>
+{
+private:
+	typedef Matrix<T, 4, 4> Base;
+public:
 	struct Scale_ { };
 
 	ModelMatrix(Scale_, T sx, T sy, T sz)
@@ -283,28 +387,6 @@ public:
 
 };
 
-#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
-/// Model transformation float matrix
-/**
- *  @ingroup math_utils
- */
-typedef ModelMatrix<GLfloat> ModelMatrixf;
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
-/// Model transformation double precision matrix
-/**
- *  @ingroup math_utils
- */
-typedef ModelMatrix<GLdouble> ModelMatrixd;
-#endif
-
-/// Class implementing camera matrix named constructors
-/** The static methods of this class can be used for the construction
- *  of various camera matrices.
- *
- *  @ingroup math_utils
- */
 template <typename T>
 class CameraMatrix
  : public Matrix<T, 4, 4>
@@ -855,22 +937,6 @@ public:
 		return CameraMatrix(Roll_(), angle);
 	}
 };
-
-#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
-/// Camera matrix using float numbers
-/**
- *  @ingroup math_utils
- */
-typedef CameraMatrix<GLfloat> CamMatrixf;
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
-/// Camera matrix using double precition numbers
-/**
- *  @ingroup math_utils
- */
-typedef CameraMatrix<GLdouble> CamMatrixd;
-#endif
 
 #endif // NEVER_DEFINED
 

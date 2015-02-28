@@ -103,8 +103,8 @@ public:
 			double w, double h, double d
 		) const
 		{
-			Vector<double, 4> in((x+0.5)/w, (y+0.5)/h, (z+0.5)/d, 1);
-			Vector<double, 4> out = _transf * in;
+			Vec<double, 4> in((x+0.5)/w, (y+0.5)/h, (z+0.5)/d, 1);
+			Vec<double, 4> out = _transf * in;
 
 			x = int(std::floor(out[0]*w));
 			y = int(std::floor(out[1]*h));
