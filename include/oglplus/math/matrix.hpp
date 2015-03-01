@@ -114,6 +114,12 @@ public:
 	{
 		return eagine::math::rotation_z<Base>(a)();
 	}
+
+	static inline
+	auto RotationA(const Vector<T,3>& axis, Angle<T> angle)
+	{
+		return eagine::math::rotation_a<Base>(axis, angle)();
+	}
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
@@ -197,6 +203,33 @@ public:
 			azimuth,
 			elevation
 		)();
+	}
+
+	static inline
+	auto ScreenStretch(
+		T x_left,
+		T x_right,
+		T y_bottom,
+		T y_top
+	)
+	{
+		return eagine::math::screen_stretch<Base>(
+			x_left,
+			x_right,
+			y_bottom,
+			y_top
+		)();
+	}
+
+	static inline
+	auto ScreenTile(
+		unsigned x,
+		unsigned y,
+		unsigned nx,
+		unsigned ny
+	)
+	{
+		return eagine::math::screen_stretch<Base>::tile(x, y, nx, ny)();
 	}
 };
 

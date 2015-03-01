@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{026_nv_path_rendering}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -492,7 +492,7 @@ public:
 			.LoadIdentity()
 			.Translate(64, 64, 0)
 			.Translate(192, 192, 0)
-			.Rotate(RightAngles(time), Vec3f::Unit(2))
+			.Rotate(RightAngles(time), Vec3f::axis<2>())
 			.Translate(-192, -192, 0);
 		shape.StencilFill(PathNVFillMode::CountUp, 0xFF);
 		shape.CoverFill(PathNVFillCoverMode::BoundingBox);
@@ -526,7 +526,7 @@ public:
 		dsa.ModelviewMatrix()
 			.LoadIdentity()
 			.Translate(tex_side-border, border, 0)
-			.Rotate(RightAngles(1), Vec3f::Unit(2));
+			.Rotate(RightAngles(1), Vec3f::axis<2>());
 		text	<< "Frame: "
 			<< std::setw(7)
 			<< std::fixed
@@ -538,7 +538,7 @@ public:
 		dsa.ModelviewMatrix()
 			.LoadIdentity()
 			.Translate(tex_side-border, tex_side-border, 0)
-			.Rotate(RightAngles(2), Vec3f::Unit(2));
+			.Rotate(RightAngles(2), Vec3f::axis<2>(2));
 		text	<< "FPS: ";
 		if(time < 1) text << "<N/A>";
 		else text << std::setw(7) << std::fixed << frame_no / time;
@@ -549,7 +549,7 @@ public:
 		dsa.ModelviewMatrix()
 			.LoadIdentity()
 			.Translate(border, tex_side-border, 0)
-			.Rotate(RightAngles(3), Vec3f::Unit(2));
+			.Rotate(RightAngles(3), Vec3f::axis<2>());
 		RenderText("OpenGL");
 
 		// sync

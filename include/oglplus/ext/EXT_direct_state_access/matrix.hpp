@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -82,7 +82,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(MatrixLoadTransposefEXT)(
 			GLenum(_mode),
-			Data(matrix)
+			data(matrix).addr()
 		);
 		OGLPLUS_VERIFY_SIMPLE(MatrixLoadTransposefEXT);
 		return *this;
@@ -97,7 +97,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(MatrixLoadTransposedEXT)(
 			GLenum(_mode),
-			Data(matrix)
+			data(matrix).addr()
 		);
 		OGLPLUS_VERIFY_SIMPLE(MatrixLoadTransposedEXT);
 		return *this;
@@ -112,7 +112,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(MatrixMultTransposefEXT)(
 			GLenum(_mode),
-			Data(matrix)
+			data(matrix).addr()
 		);
 		OGLPLUS_VERIFY_SIMPLE(MatrixMultTransposefEXT);
 		return *this;
@@ -127,7 +127,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(MatrixMultTransposedEXT)(
 			GLenum(_mode),
-			Data(matrix)
+			data(matrix).addr()
 		);
 		OGLPLUS_VERIFY_SIMPLE(MatrixMultTransposedEXT);
 		return *this;
@@ -167,9 +167,9 @@ public:
 		OGLPLUS_GLFUNC(MatrixRotatefEXT)(
 			GLenum(_mode),
 			value(Degree<GLfloat>(angle)),
-			At(axis, 0),
-			At(axis, 1),
-			At(axis, 2)
+			axis.x(),
+			axis.y(),
+			axis.z()
 		);
 		OGLPLUS_VERIFY_SIMPLE(MatrixRotatefEXT);
 		return *this;
@@ -188,9 +188,9 @@ public:
 		OGLPLUS_GLFUNC(MatrixRotatedEXT)(
 			GLenum(_mode),
 			value(Degree<GLfloat>(angle)),
-			At(axis, 0),
-			At(axis, 1),
-			At(axis, 2)
+			axis.x(),
+			axis.y(),
+			axis.z()
 		);
 		OGLPLUS_VERIFY_SIMPLE(MatrixRotatedEXT);
 		return *this;
@@ -217,9 +217,9 @@ public:
 	{
 		OGLPLUS_GLFUNC(MatrixScalefEXT)(
 			GLenum(_mode),
-			At(amount, 0),
-			At(amount, 1),
-			At(amount, 2)
+			amount.x(),
+			amount.y(),
+			amount.z()
 		);
 		OGLPLUS_VERIFY_SIMPLE(MatrixScalefEXT);
 		return *this;
@@ -234,9 +234,9 @@ public:
 	{
 		OGLPLUS_GLFUNC(MatrixScalefEXT)(
 			GLenum(_mode),
-			At(amount, 0),
-			At(amount, 1),
-			At(amount, 2)
+			amount.x(),
+			amount.y(),
+			amount.z()
 		);
 		OGLPLUS_VERIFY_SIMPLE(MatrixScaledEXT);
 		return *this;
@@ -267,9 +267,9 @@ public:
 	{
 		OGLPLUS_GLFUNC(MatrixTranslatefEXT)(
 			GLenum(_mode),
-			At(amount, 0),
-			At(amount, 1),
-			At(amount, 2)
+			amount.x(),
+			amount.y(),
+			amount.z()
 		);
 		OGLPLUS_VERIFY_SIMPLE(MatrixTranslatefEXT);
 		return *this;
@@ -284,9 +284,9 @@ public:
 	{
 		OGLPLUS_GLFUNC(MatrixTranslatefEXT)(
 			GLenum(_mode),
-			At(amount, 0),
-			At(amount, 1),
-			At(amount, 2)
+			amount.x(),
+			amount.y(),
+			amount.z()
 		);
 		OGLPLUS_VERIFY_SIMPLE(MatrixTranslatedEXT);
 		return *this;

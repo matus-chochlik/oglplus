@@ -24,9 +24,17 @@ namespace oglplus {
 template <typename T, unsigned N>
 using Vector = ::eagine::math::vector<T, N>;
 
+// Vec
+template <typename T, unsigned N>
+using Vec = ::eagine::math::tvec<T, N>;
+
 // Matrix
 template <typename T, unsigned R, unsigned C>
 using Matrix = ::eagine::math::matrix<T, R, C, true>;
+
+// Mat
+template <typename T, unsigned R, unsigned C>
+using Mat = ::eagine::math::tmat<T, R, C, true>;
 
 // Quaternion
 template <typename T>
