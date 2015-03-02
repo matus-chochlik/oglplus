@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -54,7 +54,7 @@ struct AdjustProgVar<bool>
 	}
 };
 
-template <std::size_t N>
+template <unsigned N>
 struct AdjustProgVar<oglplus::Vector<bool, N> >
 {
 	typedef oglplus::Vector<GLboolean, N> BaseType;

@@ -318,7 +318,7 @@ public:
 		);
 		// set the matrix for camera orbiting the origin
 		camera_matrix_3.Set(projection * camera);
-		camera_position_3.Set(camera.Position());
+		camera_position_3.Set(CameraPosition(camera));
 
 		// set the model matrix
 		model_matrix.Set(

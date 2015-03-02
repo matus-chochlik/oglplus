@@ -23,7 +23,7 @@ namespace images {
 /**
  *  @ingroup image_load_gen
  */
-template <typename T, typename std::size_t N>
+template <typename T, typename unsigned N>
 class TransformComponents
  : public FilteredImage<T, N>
 {
@@ -71,7 +71,7 @@ public:
 /**
  *  @ingroup image_load_gen
  */
-template <typename T, std::size_t N>
+template <typename T, unsigned N>
 class FlipImageAxes
  : public FilteredImage<T, N>
 {

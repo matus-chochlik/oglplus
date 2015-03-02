@@ -493,7 +493,7 @@ public:
 		draw_vao.Bind();
 		draw_prog.Use();
 		Vec4f lsp = projection * camera * Vec4f(light_position, 1.0);
-		draw_prog.light_screen_pos = lsp.xyz()/lsp.w();
+		draw_prog.light_screen_pos = Vec3f(lsp)/lsp.w();
 		draw_prog.camera_matrix.Set(camera);
 		model_matrix = &draw_prog.model_matrix;
 

@@ -552,7 +552,7 @@ public:
 		light_prog.camera_matrix.Set(camera);
 		flare_prog.camera_matrix.Set(camera);
 		shape_prog.camera_matrix.Set(camera);
-		shape_prog.camera_position.Set(camera.Position());
+		shape_prog.camera_position.Set(CameraPosition(camera));
 
 		shape_prog.model_matrix.Set(
 			ModelMatrixf::RotationX(FullCircles(time / 30.0))

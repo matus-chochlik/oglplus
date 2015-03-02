@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -120,7 +120,7 @@ struct GLSLtoCppTypeMatcher_Vec
 	);
 };
 
-template <typename T, std::size_t N>
+template <typename T, unsigned N>
 struct GLSLtoCppTypeMatcher<oglplus::Vector<T, N> >
  : public GLSLtoCppTypeMatcher_Vec
 {
@@ -153,7 +153,7 @@ struct GLSLtoCppTypeMatcher_Mat
 	);
 };
 
-template <typename T, std::size_t Rows, std::size_t Cols>
+template <typename T, unsigned Rows, unsigned Cols>
 struct GLSLtoCppTypeMatcher<oglplus::Matrix<T, Rows, Cols> >
  : public GLSLtoCppTypeMatcher_Mat
 {

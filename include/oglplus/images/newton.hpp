@@ -63,7 +63,7 @@ private:
 		return a*(1.0f - coef) + b*coef;
 	}
 
-	template <typename Function, typename Mixer, std::size_t N>
+	template <typename Function, typename Mixer, unsigned N>
 	void _make(
 		GLsizei width,
 		GLsizei height,
@@ -84,7 +84,7 @@ private:
 				_mix(lb.x(), rt.x(), float(i)/float(width-1)),
 				_mix(lb.y(), rt.y(), float(j)/float(height-1))
 			);
-			std::size_t n, max = 256;
+			unsigned n, max = 256;
 			for(n = 0; n != max; ++n)
 			{
 				Vec2f zn = z - _cdiv(
@@ -102,7 +102,7 @@ private:
 			for(n=0; n!=N; ++n)
 			{
 				assert(p != this->_end<GLfloat>());
-				*p = c.At(n);
+				*p = c[n];
 				++p;
 			}
 		}

@@ -217,7 +217,7 @@ public:
 			ModelMatrixf::RotationY(Degrees(time * 63))*
 			ModelMatrixf::RotationX(Degrees(time * 79));
 		// make the reflection matrix
-		auto reflection = ModelMatrixf::Reflection(false, true, false);
+		auto reflection = ModelMatrixf::ReflectionY();
 		//
 		gl.Disable(Capability::Blend);
 		gl.Disable(Capability::DepthTest);

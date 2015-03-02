@@ -120,6 +120,24 @@ public:
 	{
 		return eagine::math::rotation_a<Base>(axis, angle)();
 	}
+
+	static inline
+	auto ReflectionX(bool r = true)
+	{
+		return eagine::math::reflection_x<Base>(r)();
+	}
+
+	static inline
+	auto ReflectionY(bool r = true)
+	{
+		return eagine::math::reflection_y<Base>(r)();
+	}
+
+	static inline
+	auto ReflectionZ(bool r = true)
+	{
+		return eagine::math::reflection_z<Base>(r)();
+	}
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
@@ -190,6 +208,18 @@ public:
 	}
 
 	static inline
+	auto LookingAt(
+		const Vector<T, 3>& eye,
+		const Vector<T, 3>& target
+	)
+	{
+		return eagine::math::looking_at_y_up<Base>(
+			eye,
+			target
+		)();
+	}
+
+	static inline
 	auto Orbiting(
 		const Vector<T, 3>& target,
 		T radius,
@@ -197,7 +227,7 @@ public:
 		Angle<T> elevation
 	)
 	{
-		return eagine::math::orbiting_y<Base>(
+		return eagine::math::orbiting_y_up<Base>(
 			target,
 			radius,
 			azimuth,
@@ -231,6 +261,24 @@ public:
 	{
 		return eagine::math::screen_stretch<Base>::tile(x, y, nx, ny)();
 	}
+
+	static inline
+	auto Pitch(Angle<T> a)
+	{
+		return eagine::math::pitch<Base>(a)();
+	}
+
+	static inline
+	auto Yaw(Angle<T> a)
+	{
+		return eagine::math::yaw<Base>(a)();
+	}
+
+	static inline
+	auto Roll(Angle<T> a)
+	{
+		return eagine::math::roll<Base>(a)();
+	}
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
@@ -248,6 +296,25 @@ typedef CameraMatrix<GLfloat> CamMatrixf;
  */
 typedef CameraMatrix<GLdouble> CamMatrixd;
 #endif
+
+template <typename T>
+inline
+Vector<T, 3>
+CameraPosition(const Matrix<T,4,4>& m)
+{
+	using eagine::math::inverse;
+	using eagine::math::column;
+	return Vec<T,3>(column<3>(inverse(m).get()));
+}
+
+template <typename T>
+inline
+Vector<T, 3>
+CameraDirection(const Matrix<T,4,4>& m)
+{
+	using eagine::math::row;
+	return -Vec<T, 3>(Row(m, 2));
+}
 
 #ifdef NEVER_DEFINED
 template <typename T>

@@ -32,7 +32,7 @@ private:
 	template <
 		typename P,
 		typename T,
-		std::size_t N
+		unsigned N
 	> static void _make_gradient(
 		const Vector<T, N>& background,
 		GLsizei dimension,
@@ -109,7 +109,7 @@ private:
 		return v;
 	}
 
-	template <typename T, std::size_t N>
+	template <typename T, unsigned N>
 	static void _apply_gradient(
 		const std::vector<Vector<T, N>>& grad0,
 		GLubyte* dp,
@@ -121,17 +121,17 @@ private:
 		for(auto gp0=gb0; gp0!=ge0; ++gp0)
 		{
 			Vector<T, N> color = *gp0;
-			for(std::size_t c=0; c!=N; ++c)
+			for(unsigned c=0; c!=N; ++c)
 			{
 				assert(dp != de);
-				*dp++ = GLubyte(_clamp(color.At(c))*_cc_max());
+				*dp++ = GLubyte(_clamp(color[c])*_cc_max());
 			}
 		}
 		OGLPLUS_FAKE_USE(de);
 		assert(dp == de);
 	}
 
-	template <typename Combine, typename T, std::size_t N>
+	template <typename Combine, typename T, unsigned N>
 	static void _apply_gradient(
 		Combine combine,
 		const std::vector<Vector<T, N>>& grad0,
@@ -147,7 +147,7 @@ private:
 		for(auto gp1=gb1; gp1!=ge1; ++gp1)
 		{
 			Vector<T, N> color = combine(*gp0, *gp1);
-			for(std::size_t c=0; c!=N; ++c)
+			for(unsigned c=0; c!=N; ++c)
 			{
 				assert(dp != de);
 				*dp++ = GLubyte(_clamp(color.At(c))*_cc_max());
@@ -157,7 +157,7 @@ private:
 		assert(dp == de);
 	}
 
-	template <typename Combine, typename T, std::size_t N>
+	template <typename Combine, typename T, unsigned N>
 	static void _apply_gradient(
 		Combine combine,
 		const std::vector<Vector<T, N>>& grad0,
@@ -176,7 +176,7 @@ private:
 		for(auto gp2=gb2; gp2!=ge2; ++gp2)
 		{
 			Vector<T, N> color = combine(*gp0, *gp1, *gp2);
-			for(std::size_t c=0; c!=N; ++c)
+			for(unsigned c=0; c!=N; ++c)
 			{
 				assert(dp != de);
 				*dp++ = GLubyte(_clamp(color.At(c))*_cc_max());
@@ -188,7 +188,7 @@ private:
 public:
 	struct AddComponents
 	{
-		template <typename T, std::size_t N>
+		template <typename T, unsigned N>
 		Vector<T, N> operator()(
 			const Vector<T, N>& a,
 			const Vector<T, N>& b
@@ -197,7 +197,7 @@ public:
 			return a + b;
 		}
 
-		template <typename T, std::size_t N>
+		template <typename T, unsigned N>
 		Vector<T, N> operator()(
 			const Vector<T, N>& a,
 			const Vector<T, N>& b,
@@ -208,7 +208,7 @@ public:
 		}
 	};
 
-	template <typename P, typename T, std::size_t N>
+	template <typename P, typename T, unsigned N>
 	LinearGradient(
 		GLsizei width,
 		const Vector<T, N>& background,
@@ -225,7 +225,7 @@ public:
 		_apply_gradient(x_gradient, _begin_ub(), _end_ub());
 	}
 
-	template <typename P, typename T, std::size_t N, typename Combine>
+	template <typename P, typename T, unsigned N, typename Combine>
 	LinearGradient(
 		GLsizei width,
 		GLsizei height,
@@ -260,7 +260,7 @@ public:
 		);
 	}
 
-	template <typename P, typename T, std::size_t N, typename Combine>
+	template <typename P, typename T, unsigned N, typename Combine>
 	LinearGradient(
 		GLsizei width,
 		GLsizei height,

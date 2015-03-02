@@ -353,7 +353,7 @@ public:
 	}
 };
 
-template <typename OpsTag, typename T, std::size_t N>
+template <typename OpsTag, typename T, unsigned N>
 class ProgVarGetSetOps<OpsTag, tag::VertexAttrib, Vector<T, N>>
  : public ProgVarCommonOps<tag::VertexAttrib>
  , public ProgVarBaseSetOps<OpsTag, tag::VertexAttrib, tag::NativeTypes, T, 4>
@@ -369,7 +369,7 @@ public:
 	}
 };
 
-template <typename OpsTag, typename T, std::size_t R, std::size_t C>
+template <typename OpsTag, typename T, unsigned R, unsigned C>
 class ProgVarGetSetOps<OpsTag, tag::VertexAttrib, Matrix<T, R, C>>
  : public ProgVarCommonOps<tag::VertexAttrib>
  , public ProgVarBaseSetOps<OpsTag, tag::VertexAttrib, tag::NativeTypes, T, 16>

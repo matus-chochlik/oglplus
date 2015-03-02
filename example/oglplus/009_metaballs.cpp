@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{009_metaballs}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -184,7 +184,7 @@ public:
 			Vec4f pos = ball_paths[ball].Position(time / 10.0);
 
 			for(std::size_t coord=0; coord != 4; ++coord)
-				metaballs[k++] = pos.At(coord);
+				metaballs[k++] = pos[coord];
 		}
 
 		Texture::Image1D(

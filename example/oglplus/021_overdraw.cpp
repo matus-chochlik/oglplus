@@ -202,7 +202,7 @@ public:
 			<< images::LinearGradient(
 				16,
 				Vec3f(0, 0, 0),
-				std::map<GLfloat, Vec3f>({
+				std::map<GLfloat, Vector<GLfloat,3>>({
 					{  0.0/16.0, Vec3f(0.0, 0.0, 0.0)},
 					{  1.0/16.0, Vec3f(0.5, 0.0, 1.0)},
 					{  3.0/16.0, Vec3f(0.0, 0.0, 1.0)},
