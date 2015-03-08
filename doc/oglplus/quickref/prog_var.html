@@ -20,6 +20,7 @@
 <div class="toc"><dl class="toc">
 <dt><span class="section"><a href="prog_var.html#oglplus.quickref.prog_var.tags">Tags</a></span></dt>
 <dt><span class="section"><a href="prog_var.html#oglplus.quickref.prog_var.location">Location</a></span></dt>
+<dt><span class="section"><a href="prog_var.html#oglplus.quickref.prog_var.wrapper">Wrapper</a></span></dt>
 </dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -42,6 +43,18 @@
 <span class="keyword">struct</span> <span class="identifier">Subroutine</span><span class="special">;</span>
 <span class="keyword">struct</span> <span class="identifier">SubroutineUniform</span><span class="special">;</span>
 <span class="keyword">struct</span> <span class="identifier">FragData</span><span class="special">;</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.prog_var.tags.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.prog_var.tags.typecheck"></a></span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">Type-checking
+            tags</a>
+          </h5>
+<p>
+            The typechecking tags allow to enable or disable program variable typechecking
+            at compile time.
+          </p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">Typecheck</span><span class="special">;</span>
+<span class="keyword">struct</span> <span class="identifier">NoTypecheck</span><span class="special">;</span>
 
 <span class="special">}</span> <span class="comment">// namespace tag</span>
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
@@ -199,6 +212,102 @@
               </p></td>
 </tr>
 </table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.prog_var.wrapper"></a><a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper" title="Wrapper">Wrapper</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/prog_var/wrapper.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.prog_var.wrapper.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.prog_var.wrapper.common_ops"></a></span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.common_ops">Common
+            program variable operations</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">ProgVarCommonOps</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.location" title="Location">ProgVarLoc</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+<span class="special">};</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.prog_var.wrapper.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.prog_var.wrapper.get_set_ops"></a></span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.get_set_ops">Get/set
+            program variable operations</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">ProgVarGetSetOps</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.common_ops">ProgVarCommonOps</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">void</span> <span class="identifier">SetValue</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span>
+<span class="special">};</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.prog_var.wrapper.h2"></a>
+            <span class="phrase"><a name="oglplus.quickref.prog_var.wrapper.typecheck"></a></span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.typecheck">Program
+            variable typechecking</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">ChkTag</a><span class="special">,</span> <span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">ProgVarTypecheck</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">void</span> <span class="identifier">CheckType</span><span class="special">(</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">location</span><span class="special">,</span>
+		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.prog_var.wrapper.h3"></a>
+            <span class="phrase"><a name="oglplus.quickref.prog_var.wrapper.prog_var"></a></span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var"><code class="literal">ProgVar</code></a>
+          </h5>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">,</span> <span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">ChkTag</a><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">ProgVar</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.get_set_ops">ProgVarGetSetOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.typecheck">ProgVarTypecheck</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">ChkTag</a><span class="special">,</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ProgVar</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="identifier">ProgVar</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">ProgVar</span><span class="special">&amp;);</span>
+
+	<span class="identifier">ProgVar</span><span class="special">(</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.location" title="Location">ProgVarLoc</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span> <span class="identifier">pvloc</span><span class="special">);</span>
+
+	<span class="identifier">ProgVar</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span> <span class="identifier">GLuint</span> <span class="identifier">location</span><span class="special">);</span>
+
+	<span class="identifier">ProgVar</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span> <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">);</span>
+
+	<span class="identifier">ProgVar</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span> <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">active_only</span><span class="special">);</span>
+
+	<span class="identifier">ProgVar</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span> <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">nothrow_t</span><span class="special">);</span>
+
+	<span class="identifier">ProgVar</span><span class="special">&amp;</span> <span class="identifier">BindTo</span><span class="special">(</span><a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">);</span>
+
+	<span class="identifier">ProgVar</span> <span class="keyword">operator</span><span class="special">[](</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">offset</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">ProgVar</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">ProgVar</span><span class="special">&amp;</span> <span class="identifier">var</span><span class="special">);</span>
+	<span class="identifier">ProgVar</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">=</span> <span class="special">(</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.location" title="Location">ProgVarLoc</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span> <span class="identifier">pvloc</span><span class="special">);</span>
+
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span>
+
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">values</span><span class="special">);</span>
+
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;</span> <span class="identifier">values</span><span class="special">);</span>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">P</span><span class="special">&gt;</span>
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">P</span> <span class="special">...</span> <span class="identifier">v</span><span class="special">);</span>
+
+	<span class="keyword">void</span> <span class="identifier">TrySet</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span>
+<span class="special">};</span>
+<span class="comment">// TODO</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
