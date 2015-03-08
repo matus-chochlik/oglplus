@@ -9,7 +9,7 @@
  *  from a medical scan stored in MINC format using the *nix minc-tools
  *  (mincinfo, mincreshape and minctoraw).
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -296,7 +296,7 @@ public:
 			images::LinearGradient(
 				256,
 				Vec4f(0, 0, 0, 0),
-				std::map<GLfloat, Vec4f>({
+				std::map<GLfloat, Vector<GLfloat,4>>({
 					{  0.0/256.0, Vec4f(0.0, 0.0, 0.0,     0)},
 					{  1.0/256.0, Vec4f(0.0, 0.0, 0.0,     0)},
 					{128.0/256.0, Vec4f(0.5, 0.5, 0.9, 0.500)},
@@ -341,7 +341,7 @@ public:
 			Degrees(SineWave(time / 31.0) * 85)
 		);
 
-		prog.camera_position.Set(camera.Position());
+		prog.camera_position.Set(CameraPosition(camera));
 		prog.camera_matrix.Set(camera);
 
 		Anglef phi = FullCircles(CosineWave(time / 41.0));

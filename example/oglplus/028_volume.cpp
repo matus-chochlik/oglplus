@@ -408,7 +408,7 @@ public:
 			FullCircles(time / 19.0),
 			Degrees(45 + SineWave(time / 17.0) * 40)
 		);
-		Vec3f camera_position = camera.Position();
+		Vec3f camera_position = CameraPosition(camera);
 
 		auto model = ModelMatrixf::Translation(-0.5, -0.5, -0.5);
 

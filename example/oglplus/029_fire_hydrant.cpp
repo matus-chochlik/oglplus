@@ -413,7 +413,7 @@ public:
 		gl.Disable(Capability::PolygonOffsetFill);
 
 		draw_prog.light_position.Set(light_pos);
-		draw_prog.camera_position.Set(camera_matrix.Position());
+		draw_prog.camera_position.Set(CameraPosition(camera_matrix));
 		draw_prog.camera_matrix.Set(camera_matrix);
 		draw_prog.light_matrix.Set(light_matrix);
 

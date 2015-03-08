@@ -409,7 +409,7 @@ public:
 		);
 
 		prog.camera_matrix.Set(camera);
-		prog.light_position.Set(light.Position());
+		prog.light_position.Set(CameraPosition(light));
 
 		GLfloat fade_coef = 1.1*(1.0-CosineWave01(time / 90.0));
 		prog.fade_coef.Set(fade_coef);

@@ -535,7 +535,7 @@ public:
 		plane.Bind();
 
 		plane_camera_matrix.Set(camera);
-		plane_camera_position.Set(camera.Position());
+		plane_camera_position.Set(CameraPosition(camera));
 
 		plane_instr.Draw(plane_indices);
 	}

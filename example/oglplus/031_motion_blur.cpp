@@ -132,10 +132,12 @@ public:
 						Vec4f(pos+btg*s[j], 1)
 					);
 
+				auto mdata = data(matrix);
+
 				p = std::copy(
-					Data(matrix),
-					Data(matrix)+
-					Size(matrix),
+					mdata.addr(),
+					mdata.addr()+
+					mdata.size(),
 					p
 				);
 			}
@@ -169,7 +171,7 @@ public:
 		Vec3f nml = Normalized(dtt != 0.0 ? tmp-tgt*dtt : tmp);
 		Vec3f btg = Cross(nml, tgt);
 
-		return Transposed(Mat4f(
+		return transpose(Mat4f(
 			Vec4f(btg, 0),
 			Vec4f(nml, 0),
 			Vec4f(tgt, 0),

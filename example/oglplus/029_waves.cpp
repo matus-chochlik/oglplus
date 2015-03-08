@@ -404,7 +404,7 @@ public:
 			FullCircles(time / 71.0),
 			Degrees(55 + SineWave(time / 27.0) * 30)
 		);
-		Vec3f camera_position = camera.Position();
+		Vec3f camera_position = CameraPosition(camera);
 
 		liquid_prog.camera_position = camera_position;
 		liquid_prog.camera_matrix = perspective*camera;

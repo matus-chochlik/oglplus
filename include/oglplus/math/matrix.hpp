@@ -300,11 +300,14 @@ typedef CameraMatrix<GLdouble> CamMatrixd;
 template <typename T>
 inline
 Vector<T, 3>
-CameraPosition(const Matrix<T,4,4>& m)
+CameraPosition(Matrix<T,4,4> m)
 {
-	using eagine::math::inverse;
-	using eagine::math::column;
-	return Vec<T,3>(column<3>(inverse(m).get()));
+	Matrix<T,4,4> i = eagine::math::identity<Matrix<T,4,4>>()();
+	if(eagine::math::gauss_jordan(m, i))
+	{
+		return Vec<T,3>(eagine::math::column<3>(i));
+	}
+	return Vec<T,3>();
 }
 
 template <typename T>

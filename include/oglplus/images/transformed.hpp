@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -23,7 +23,7 @@ namespace images {
 /**
  *  @ingroup image_load_gen
  */
-template <typename T, typename unsigned N>
+template <typename T, unsigned N>
 class TransformComponents
  : public FilteredImage<T, N>
 {
@@ -47,7 +47,7 @@ private:
 				extractor(sampler(0, 0, 0)),
 				1.0
 			));
-			const Vector<double, N> res = _matrix*c*one;
+			const Vector<double, 4> res(_matrix*c*one);
 			return Vec<T, N>(res);
 		}
 	};
@@ -85,11 +85,11 @@ private:
 	)
 	{
 		typedef Vector<double, 3> V3d;
-		V3d x = (x_axis<0) ? -V3d::Unit(-x_axis) : V3d::Unit(x_axis);
-		V3d y = (y_axis<0) ? -V3d::Unit(-y_axis) : V3d::Unit(y_axis);
-		V3d z = (z_axis<0) ? -V3d::Unit(-z_axis) : V3d::Unit(z_axis);
+		V3d x = (x_axis<0)? -V3d::axis(-x_axis, 1):V3d::axis(x_axis, 1);
+		V3d y = (y_axis<0)? -V3d::axis(-y_axis, 1):V3d::axis(y_axis, 1);
+		V3d z = (z_axis<0)? -V3d::axis(-z_axis, 1):V3d::axis(z_axis, 1);
 
-		return Matrix<double, 4, 4>(
+		return Mat<double, 4, 4>(
 			x.x(), x.y(), x.z(), 0,
 			y.x(), y.y(), y.z(), 0,
 			z.x(), z.y(), z.z(), 0,

@@ -151,8 +151,8 @@ public:
 		List("Position")("Normal")("TexCoord").Get(),
 		shapes::RevolveY<GLfloat>(
 			36,
-			BezierCurves<Vec3f, GLfloat, 3>(
-				ListOf<Vec3f>
+			BezierCurves<Vector<GLfloat,3>, GLfloat, 3>(
+				ListOf<Vector<GLfloat,3>>
 					(Vec3f( 0.00, 0.00, 0.00))
 
 					(Vec3f( 0.20, 0.00, 0.00))
@@ -204,9 +204,9 @@ public:
 					(Vec3f( 0.00, 0.10, 0.00))
 				.Get()
 			).Approximate(8),
-			std::vector<Vec3f>(),
-			BezierCurves<Vec3f, GLfloat, 3>(
-				ListOf<Vec3f>
+			std::vector<Vector<GLfloat,3>>(),
+			BezierCurves<Vector<GLfloat,3>, GLfloat, 3>(
+				ListOf<Vector<GLfloat,3>>
 					(Vec3f( 5.00,-2.00, 1.00))
 
 					(Vec3f( 5.00,-1.67, 1.00))
@@ -318,7 +318,7 @@ public:
 			Degrees(SineWave(time / 20.0) * 30 + 35)
 		);
 		vase_prog.camera_matrix = camera;
-		vase_prog.camera_position = camera.Position();
+		vase_prog.camera_position = CameraPosition(camera);
 
 		vase_prog.model_matrix =
 			ModelMatrixf::RotationY(FullCircles(time / 7.0))*
