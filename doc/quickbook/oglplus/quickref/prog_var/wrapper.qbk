@@ -1,0 +1,29 @@
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
+[/ Software License, Version 1.0. (See accompanying file            ]
+[/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
+
+[/----------------------]
+[section:wrapper Wrapper]
+[/----------------------]
+
+[header oglplus/prog_var/wrapper.hpp]
+
+[import wrapper.hpp]
+
+[heading:common_ops Common program variable operations]
+
+[oglplus_prog_var_common_ops]
+
+[heading:get_set_ops Get/set program variable operations]
+
+[oglplus_prog_var_get_set_ops]
+
+[heading:typecheck Program variable typechecking]
+
+[oglplus_prog_var_typecheck]
+
+[heading:prog_var [^ProgVar]]
+
+[oglplus_prog_var_wrapper]
+
+[endsect]

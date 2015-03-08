@@ -15,4 +15,11 @@ vertex attributes, etc.) at compile time.
 [import tags.hpp]
 [oglplus_prog_var_tags]
 
+[heading:typecheck Type-checking tags]
+
+The typechecking tags allow to enable or disable program variable
+typechecking at compile time.
+
+[oglplus_prog_var_typecheck_tags]
+
 [endsect]

@@ -63,6 +63,10 @@
 [def __tag_SubroutineUniform [link oglplus.quickref.prog_var.tags tag::SubroutineUniform]]
 [def __tag_FragData [link oglplus.quickref.prog_var.tags tag::FragData]]
 
+[def __ChkTag [link oglplus.quickref.prog_var.tags.typecheck ChkTag]]
+[def __tag_Typecheck [link oglplus.quickref.prog_var.tags.typecheck tag::Typecheck]]
+[def __tag_NoTypecheck [link oglplus.quickref.prog_var.tags.typecheck tag::NoTypecheck]]
+
 [def __ObjectType [link oglplus.quickref.object.type ObjectType]]
 [def __ObjectSubtype [link oglplus.quickref.object.subtype ObjectSubtype]]
 [def __ObjTypeOps [link oglplus.quickref.object.type.ops ObjTypeOps]]
@@ -219,6 +223,10 @@
 [def __GLSLStrings [link oglplus.quickref.glsl_string GLSLStrings]]
 
 [def __ProgVarLoc [link oglplus.quickref.prog_var.location ProgVarLoc]]
+[def __ProgVarCommonOps [link oglplus.quickref.prog_var.wrapper.common_ops ProgVarCommonOps]]
+[def __ProgVarGetSetOps [link oglplus.quickref.prog_var.wrapper.get_set_ops ProgVarGetSetOps]]
+[def __ProgVarTypecheck [link oglplus.quickref.prog_var.wrapper.typecheck ProgVarTypecheck]]
+[def __ProgVar [link oglplus.quickref.prog_var.wrapper.prog_var ProgVar]]
 
 [def __Context [link oglplus.quickref.context Context]]
 

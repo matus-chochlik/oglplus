@@ -15,6 +15,12 @@ struct Subroutine;
 struct SubroutineUniform;
 struct FragData;
 
+//]
+//[oglplus_prog_var_typecheck_tags
+
+struct Typecheck;
+struct NoTypecheck;
+
 } // namespace tag
 } // namespace oglplus
 //]
