@@ -27,7 +27,7 @@ template <typename T>
 class Plane
 {
 private:
-	Vector<T, 4> _equation;
+	Vec<T, 4> _equation;
 public:
 	/// construction from parameters
 	Plane(T a, T b, T c, T d)

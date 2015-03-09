@@ -273,7 +273,7 @@ public:
 		prog.Use();
 		prog.tex_1.Set(holder.TexUnit1());
 		prog.tex_2.Set(holder.TexUnit2());
-		prog.new_drop.Set(std::rand()%size, std::rand()%size);
+		prog.new_drop.Set(Vec2i(std::rand()%size, std::rand()%size));
 
 		vao.Bind();
 		gl.DrawArrays(PrimitiveType::Points, 0, 1);
@@ -568,7 +568,7 @@ public:
 
 		water_prog.Use();
 		water_prog.camera_matrix.Set(camera);
-		water_prog.camera_position.Set(camera.Position());
+		water_prog.camera_position.Set(CameraPosition(camera));
 
 		water.Draw();
 	}

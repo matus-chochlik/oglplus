@@ -54,6 +54,13 @@ Vector<T, C> Row(const Matrix<T, R, C>& m, unsigned i)
 	return ::eagine::math::row(m, i);
 }
 
+template <typename T, unsigned R, unsigned C>
+static inline
+Matrix<T, C, R> Transposed(const Matrix<T,R,C>& m)
+{
+	return eagine::math::transpose(m);
+}
+
 /// Class implementing model transformation matrix named constructors
 /** The static member functions of this class can be used to construct
  *  various model transformation matrices.
@@ -216,6 +223,20 @@ public:
 		return eagine::math::looking_at_y_up<Base>(
 			eye,
 			target
+		)();
+	}
+
+	static inline
+	auto LookingAt(
+		const Vector<T, 3>& eye,
+		const Vector<T, 3>& target,
+		const Vector<T, 3>& up
+	)
+	{
+		return eagine::math::looking_at<Base>(
+			eye,
+			target,
+			up
 		)();
 	}
 

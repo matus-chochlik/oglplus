@@ -352,7 +352,7 @@ public:
 		// Render the shape
 		shape_prog.Use();
 
-		auto clip_plane = Planef::FromNormal(Vec3f(Data(camera.Row(2)), 3));
+		auto clip_plane = Planef::FromNormal(Vec3f(Row<2>(camera)));
 
 		shape_clip_plane.Set(clip_plane.Equation());
 

@@ -24,6 +24,13 @@ using Vector = ::eagine::math::vector<T, N>;
 template <typename T, unsigned N>
 using Vec = ::eagine::math::tvec<T, N>;
 
+#ifdef GL_INT
+typedef Vec<GLint, 1> Vec1i;
+typedef Vec<GLint, 2> Vec2i;
+typedef Vec<GLint, 3> Vec3i;
+typedef Vec<GLint, 4> Vec4i;
+#endif
+
 #ifdef GL_FLOAT
 typedef Vec<GLfloat, 1> Vec1f;
 typedef Vec<GLfloat, 2> Vec2f;

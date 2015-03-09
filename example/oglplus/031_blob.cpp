@@ -595,7 +595,7 @@ public:
 			Vec4f pos = ball_paths[ball].Position(time / 21.0);
 
 			for(GLuint coord=0; coord != 4; ++coord)
-				metaballs[k++] = pos.At(coord);
+				metaballs[k++] = pos[coord];
 		}
 
 		gl.Bound(Texture::Target::_1D, metaballs_tex)
@@ -627,7 +627,7 @@ public:
 			FullCircles(time / 26.0),
 			Degrees(45 + SineWave(time / 17.0) * 40)
 		);
-		Vec3f camera_position = camera.Position();
+		Vec3f camera_position = CameraPosition(camera);
 
 		metal_prog.Use();
 		metal_prog.camera_position.Set(camera_position);

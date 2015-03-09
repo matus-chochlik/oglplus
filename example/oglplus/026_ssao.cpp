@@ -369,7 +369,7 @@ public:
 
 		GLfloat cam_tgt_dist = Distance(
 			shape.BoundingSphere().Center(),
-			camera.Position()
+			CameraPosition(camera)
 		);
 
 		auto cam_proj =
@@ -387,8 +387,8 @@ public:
 		data_prog.Use();
 		data_prog.camera_matrix.Set(cam_proj*camera);
 		data_prog.model_matrix.Set(model);
-		data_prog.camera_position.Set(camera.Position());
-		data_prog.light_position.Set(light.Position());
+		data_prog.camera_position.Set(CameraPosition(camera));
+		data_prog.light_position.Set(CameraPosition(light));
 
 		data_buffer.Bind();
 
