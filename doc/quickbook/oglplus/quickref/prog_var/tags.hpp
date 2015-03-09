@@ -18,8 +18,12 @@ struct FragData;
 //]
 //[oglplus_prog_var_typecheck_tags
 
-struct Typecheck;
-struct NoTypecheck;
+struct Typecheck; /*<
+Enables GPU program variable typechecking if possible.
+>*/
+struct NoTypecheck; /*<
+Disables GPU program variable typechecking.
+>*/
 
 } // namespace tag
 } // namespace oglplus

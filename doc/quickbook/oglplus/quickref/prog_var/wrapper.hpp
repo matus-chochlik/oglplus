@@ -22,7 +22,9 @@ class ProgVarGetSetOps
  : public __ProgVarCommonOps<__VarTag>
 {
 public:
-	void SetValue(T value);
+	void SetValue(T value); /*<
+	Sets the GPU program variable value.
+	>*/
 };
 
 
@@ -52,33 +54,56 @@ public:
 	ProgVar(void);
 	ProgVar(const ProgVar&);
 
-	ProgVar(__ProgVarLoc<__VarTag> pvloc);
+	ProgVar(__ProgVarLoc<__VarTag> pvloc); /*<
+	Constructs a [^ProgVar] from the specified location.
+	>*/
 
-	ProgVar(__ProgramName program, GLuint location);
+	ProgVar(__ProgramName program, GLuint location); /*<
+	Constructs a [^ProgVar] from a reference to a program and a location.
+	>*/
 
-	ProgVar(__ProgramName program, __StrCRef identifier);
+	ProgVar(__ProgramName program, __StrCRef identifier); /*<
+	Constructs a [^ProgVar] from a reference to a program
+	and an identifier of the variable. If no such variable
+	is active, then this constructor throws __ProgVarError.
+	>*/
 
-	ProgVar(__ProgramName program, __StrCRef identifier, bool active_only);
+	ProgVar(__ProgramName program, __StrCRef identifier, bool active_only); /*<
+	Constructs a [^ProgVar] from a reference to a program
+	and an identifier of the variable. If no such variable
+	is active and [^active_only] is [^true] then this
+	constructor throws __ProgVarError.
+	>*/
 
-	ProgVar(__ProgramName program, __StrCRef identifier, std::nothrow_t);
+	ProgVar(__ProgramName program, __StrCRef identifier, std::nothrow_t); /*<
+	Constructs a [^ProgVar] from a reference to a program
+	and an identifier of the variable. Does not throw
+	if no such variable is active.
+	>*/
 
 	ProgVar& BindTo(__StrCRef identifier);
 
-	ProgVar operator[](std::size_t offset) const;
+	ProgVar operator[](std::size_t offset) const; /*<
+	Allows to access elements in array GPU program variables.
+	>*/
 
 	ProgVar& operator = (const ProgVar& var);
 	ProgVar& operator = (__ProgVarLoc<__VarTag> pvloc);
 
-	void Set(T value);
+	void Set(T value); /*<
+	Sets the GPU program variable to the specified value.
+	Throws if the referenced variable is not active.
+	>*/
 
 	void Set(std::size_t count, const T* values);
 
 	void Set(const std::vector<T>& values);
 
-	template <typename ... P>
-	void Set(P ... v);
+	void TrySet(T value); /*<
+	Sets the GPU program variable to the specified value,
+	but only if the referenced variable is active.
+	>*/
 
-	void TrySet(T value);
 };
 // TODO
 
