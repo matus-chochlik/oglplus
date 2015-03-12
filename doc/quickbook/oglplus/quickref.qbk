@@ -69,6 +69,8 @@ the concept.
 [include quickref/texture_handle.qbk]
 
 [include quickref/prog_var.qbk]
+[include quickref/uniform.qbk]
+[include quickref/vertex_attrib.qbk]
 
 [include quickref/context.qbk]
 

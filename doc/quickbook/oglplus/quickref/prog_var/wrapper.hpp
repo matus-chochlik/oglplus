@@ -89,21 +89,6 @@ public:
 
 	ProgVar& operator = (const ProgVar& var);
 	ProgVar& operator = (__ProgVarLoc<__VarTag> pvloc);
-
-	void Set(T value); /*<
-	Sets the GPU program variable to the specified value.
-	Throws if the referenced variable is not active.
-	>*/
-
-	void Set(std::size_t count, const T* values);
-
-	void Set(const std::vector<T>& values);
-
-	void TrySet(T value); /*<
-	Sets the GPU program variable to the specified value,
-	but only if the referenced variable is active.
-	>*/
-
 };
 // TODO
 

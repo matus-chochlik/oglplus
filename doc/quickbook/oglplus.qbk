@@ -204,6 +204,7 @@
 [def __LimitError [link oglplus.quickref.error.limit LimitError]]
 [def __ObjectError [link oglplus.quickref.error.object ObjectError]]
 [def __ObjectPairError [link oglplus.quickref.error.object ObjectPairError]]
+[def __ProgVarError [link oglplus.quickref.error.prog_var ProgVarError]]
 [def __ProgramBuildError [link oglplus.quickref.error.program ProgramBuildError]]
 [def __CompileError [link oglplus.quickref.error.program CompileError]]
 [def __LinkError [link oglplus.quickref.error.program LinkError]]
@@ -227,6 +228,11 @@
 [def __ProgVarGetSetOps [link oglplus.quickref.prog_var.wrapper.get_set_ops ProgVarGetSetOps]]
 [def __ProgVarTypecheck [link oglplus.quickref.prog_var.wrapper.typecheck ProgVarTypecheck]]
 [def __ProgVar [link oglplus.quickref.prog_var.wrapper.prog_var ProgVar]]
+
+[def __Uniform [link oglplus.quickref.uniform Uniform]]
+[def __UntypedUniform [link oglplus.quickref.uniform.untyped UntypedUniform]]
+[def __VertexAttrib [link oglplus.quickref.vertex_attrib VertexAttrib]]
+[def __VertexArrayAttrib [link oglplus.quickref.vertex_attrib.array VertexArrayAttrib]]
 
 [def __Context [link oglplus.quickref.context Context]]
 
