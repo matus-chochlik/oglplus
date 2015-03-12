@@ -4,23 +4,13 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_uniform
+//[oglplus_uniform_loc_ops
 namespace oglplus {
 
-template <typename T>
-class Uniform
- : public __ProgVar<__tag_ImplicitSel, __tag_Uniform, __tag_NoTypecheck, T>
+template <>
+class __ProgVarLocOps<__tag_Uniform>
 {
 public:
-	using __ProgVar<
-		__tag_ImplicitSel,
-		__tag_Uniform,
-		__tag_NoTypecheck,
-		T
-	>::ProgVar; /*<
-	[^Uniform] inherits the constructors from __ProgVar.
-	>*/
-
 	static GLint GetLocation(
 		__ProgramName program,
 		__StrCRef identifier,
@@ -31,21 +21,62 @@ public:
 	throws __ProgVarError if no such uniform exists or if it is not active.
 	See [glfunc GetUniformLocation].
 	>*/
+};
 
-	void Set(T value); /*<
-	Sets the uniform variable to the specified value.
-	Throws if the referenced variable is not active.
+//]
+//[oglplus_uniform_get_set_ops
+
+template <typename __OpsTag, typename T>
+class __ProgVarGetSetOps<__OpsTag, __tag_Uniform, T>
+ : public __ProgVarCommonOps<__tag_Uniform>
+{
+public:
+	void Set(T value);
+	void SetValue(T value); /*<
+	Sets uniform value.
 	>*/
 
-	void Set(std::size_t count, const T* values);
-
-	void Set(const std::vector<T>& values);
+	void SetValues(std::size_t n, const T* values); /*<
+	Sets multiple consecutive values.
+	>*/
 
 	void TrySet(T value); /*<
-	Sets the uniform variable to the specified value,
-	but only if the referenced variable is active.
+	Sets the uniform value if it is active.
+	See [glfunc VertexAttrib].
 	>*/
 };
+
+template <typename __OpsTag>
+class __ProgVarGetSetOps<__OpsTag, __tag_Uniform, void>
+ : public __ProgVarCommonOps<__tag_Uniform>
+{
+public:
+	template <typename T>
+	void Set(T value);
+
+	template <typename T>
+	void SetValue(T value); /*<
+	Sets uniform value.
+	>*/
+
+	template <typename T>
+	void SetValues(std::size_t n, const T* values); /*<
+	Sets multiple consecutive values.
+	>*/
+};
+
+//]
+//[oglplus_uniform_def
+
+template <typename T>
+using Uniform = __ProgVar<
+	__tag_ImplicitSel,
+	__tag_Uniform,
+	__tag_NoTypecheck,
+	T
+>; /*<
+[^Uniform] indirectly inherits from __ProgVarLocOps_Uniform and __ProgVarGetSetOps_Uniform.
+>*/
 
 //]
 //[oglplus_untyped_uniform
@@ -55,7 +86,9 @@ typedef __ProgVar<
 	__tag_Uniform,
 	__tag_NoTypecheck,
 	void
-> UntypedUniform;
+> UntypedUniform; /*<
+[^Uniform] indirectly inherits from __ProgVarLocOps_Uniform and __ProgVarGetSetOps_Uniform.
+>*/
 
 UntypedUniform
 operator / (__ProgramName program, __StrCRef identifier);

@@ -218,21 +218,26 @@
 [def __SyncWaitResult [link oglplus.quickref.sync.wait_result SyncWaitResult]]
 
 [def __VertexAttribSlot [link oglplus.quickref.vertex_attrib_slot VertexAttribSlot]]
+[def __FragmentDataSlot [link oglplus.quickref.frag_data_slot FragmentDataSlot]]
+[def __FragDataSlot [link oglplus.quickref.frag_data_slot FragDataSlot]]
 
 [def __GLSLSource [link oglplus.quickref.glsl_source GLSLSource]]
 [def __GLSLString [link oglplus.quickref.glsl_string GLSLString]]
 [def __GLSLStrings [link oglplus.quickref.glsl_string GLSLStrings]]
 
 [def __ProgVarLoc [link oglplus.quickref.prog_var.location ProgVarLoc]]
+[def __ProgVarLocOps [link oglplus.quickref.prog_var.wrapper.loc_ops ProgVarLocOps]]
 [def __ProgVarCommonOps [link oglplus.quickref.prog_var.wrapper.common_ops ProgVarCommonOps]]
 [def __ProgVarGetSetOps [link oglplus.quickref.prog_var.wrapper.get_set_ops ProgVarGetSetOps]]
 [def __ProgVarTypecheck [link oglplus.quickref.prog_var.wrapper.typecheck ProgVarTypecheck]]
 [def __ProgVar [link oglplus.quickref.prog_var.wrapper.prog_var ProgVar]]
 
-[def __Uniform [link oglplus.quickref.uniform Uniform]]
+[def __Uniform [link oglplus.quickref.uniform.def Uniform]]
 [def __UntypedUniform [link oglplus.quickref.uniform.untyped UntypedUniform]]
-[def __VertexAttrib [link oglplus.quickref.vertex_attrib VertexAttrib]]
+[def __VertexAttrib [link oglplus.quickref.vertex_attrib.def VertexAttrib]]
 [def __VertexArrayAttrib [link oglplus.quickref.vertex_attrib.array VertexArrayAttrib]]
+[def __FragmentData [link oglplus.quickref.frag_data.def FragmentData]]
+[def __FragData [link oglplus.quickref.frag_data.def FragData]]
 
 [def __Context [link oglplus.quickref.context Context]]
 

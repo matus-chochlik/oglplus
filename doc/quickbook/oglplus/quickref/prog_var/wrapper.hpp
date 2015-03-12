@@ -4,8 +4,17 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_prog_var_common_ops
+//[oglplus_prog_var_loc_ops
 namespace oglplus {
+
+template <typename __VarTag>
+class ProgVarLocOps
+{
+public:
+};
+
+//]
+//[oglplus_prog_var_common_ops
 
 template <typename __VarTag>
 class ProgVarCommonOps
@@ -22,11 +31,7 @@ class ProgVarGetSetOps
  : public __ProgVarCommonOps<__VarTag>
 {
 public:
-	void SetValue(T value); /*<
-	Sets the GPU program variable value.
-	>*/
 };
-
 
 //]
 //[oglplus_prog_var_typecheck
@@ -81,14 +86,14 @@ public:
 	if no such variable is active.
 	>*/
 
+	ProgVar& operator = (const ProgVar& var);
+	ProgVar& operator = (__ProgVarLoc<__VarTag> pvloc);
+
 	ProgVar& BindTo(__StrCRef identifier);
 
 	ProgVar operator[](std::size_t offset) const; /*<
 	Allows to access elements in array GPU program variables.
 	>*/
-
-	ProgVar& operator = (const ProgVar& var);
-	ProgVar& operator = (__ProgVarLoc<__VarTag> pvloc);
 };
 // TODO
 

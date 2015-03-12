@@ -10,6 +10,10 @@
 
 [import wrapper.hpp]
 
+[heading:loc_ops Basic program variable location operations]
+
+[oglplus_prog_var_loc_ops]
+
 [heading:common_ops Common program variable operations]
 
 [oglplus_prog_var_common_ops]

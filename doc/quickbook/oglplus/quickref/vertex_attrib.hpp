@@ -4,23 +4,13 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_vertex_attrib
+//[oglplus_vertex_attrib_loc_ops
 namespace oglplus {
 
-template <typename T>
-class VertexAttrib
- : public __ProgVar<__tag_ImplicitSel, __tag_VertexAttrib, __tag_NoTypecheck, T>
+template <>
+class __ProgVarLocOps<__tag_VertexAttrib>
 {
 public:
-	using __ProgVar<
-		__tag_ImplicitSel,
-		__tag_Uniform,
-		__tag_NoTypecheck,
-		T
-	>::ProgVar; /*<
-	[^VertexAttrib] inherits the constructors from __ProgVar.
-	>*/
-
 	static void BindLocation(
 		__ProgramName program,
 		__VertexAttribSlot location,
@@ -41,7 +31,7 @@ public:
 	For a non-throwing version see QueryActiveLocation().
 	See [glfunc GetAttribLocation].
 	>*/
-	static VertexAttribSlot GetLocation(
+	static __VertexAttribSlot GetLocation(
 		__ProgramName program,
 		__StrCRef identifier
 	); /*<
@@ -90,19 +80,66 @@ public:
 	position.
 	See [glfunc GetAttribLocation].
 	>*/
+};
 
-	void Set(T value); /*<
-	Sets the vertex attribute to the specified value.
-	Throws if the referenced variable is not active.
+//]
+//[oglplus_vertex_attrib_common_ops
+
+template <>
+class __ProgVarCommonOps<__tag_VertexAttrib> /*<
+Indirectly inherits from __ProgVarLocOps_VertexAttrib
+>*/
+ : public __ProgVarLoc<__tag_VertexAttrib>
+{
+public:
+	void Bind(__StrCRef identifier); /*<
+	Binds the vertex attribute specified by [^identifier]
+	to [^this] vertex attribute location.
+	See [glfunc BindAttribLocation].
+	>*/
+
+#if GL_VERSION_3_3
+	void Divisor(GLuint divisor) const; /*<
+	Sets the vertex attribute divisor
+	See [glfunc VertexAttribDivisor].
+	>*/
+#endif
+};
+
+//]
+//[oglplus_vertex_attrib_get_set_ops
+
+template <typename __OpsTag, typename T>
+class __ProgVarGetSetOps<__OpsTag, __tag_VertexAttrib, T>
+ : public __ProgVarCommonOps_VertexAttrib<__tag_VertexAttrib>
+{
+public:
+	void Set(T value);
+	void SetValue(T value); /*<
+	Sets the vertex attribute value.
+	See [glfunc VertexAttrib].
 	>*/
 
 	void TrySet(T value); /*<
-	Sets the vertex attribute to the specified value,
-	but only if the referenced variable is active.
+	Sets the vertex attribute value if it is active.
+	See [glfunc VertexAttrib].
 	>*/
 };
-// TODO
 
+//]
+//[oglplus_vertex_attrib_def
+
+template <typename T>
+using VertexAttrib = __ProgVar<
+	__tag_ImplicitSel,
+	__tag_Uniform,
+	__tag_NoTypecheck,
+	T
+>; /*<
+[^VertexAttrib] inherits indirectly from __ProgVarLocOps_VertexAttrib,
+__ProgVarCommonOps_VertexAttrib and __ProgVarGetSetOps_VertexAttrib.
+>*/
+ 
 //]
 //[oglplus_vertex_array_attrib
 

@@ -66,11 +66,13 @@ the concept.
 [include quickref/sync.qbk]
 
 [include quickref/vertex_attrib_slot.qbk]
+[include quickref/frag_data_slot.qbk]
 [include quickref/texture_handle.qbk]
 
 [include quickref/prog_var.qbk]
 [include quickref/uniform.qbk]
 [include quickref/vertex_attrib.qbk]
+[include quickref/frag_data.qbk]
 
 [include quickref/context.qbk]
 

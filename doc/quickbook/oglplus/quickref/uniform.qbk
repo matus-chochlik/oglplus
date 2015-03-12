@@ -10,10 +10,18 @@
 
 [import uniform.hpp]
 
-[oglplus_uniform]
+[heading:loc_ops Basic location operations]
+[oglplus_uniform_loc_ops]
+[def __ProgVarLocOps_Uniform [link oglplus.quickref.uniform.loc_ops ProgVarLocOps]]
+
+[heading:get_set_ops Value get/set operations]
+[oglplus_uniform_get_set_ops]
+[def __ProgVarGetSetOps_Uniform [link oglplus.quickref.uniform.get_set_ops ProgVarGetSetOps]]
+
+[heading:def Definition]
+[oglplus_uniform_def]
 
 [heading:untyped Untyped]
-
 [oglplus_untyped_uniform]
 
 [endsect]
