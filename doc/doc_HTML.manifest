@@ -31,6 +31,8 @@ oglplus/quickref/sync.html
 oglplus/quickref/vertex_attrib_slot.html
 oglplus/quickref/texture_handle.html
 oglplus/quickref/prog_var.html
+oglplus/quickref/uniform.html
+oglplus/quickref/vertex_attrib.html
 oglplus/quickref/context.html
 oglplus/quickref/capability.html
 oglplus/quickref/hint.html

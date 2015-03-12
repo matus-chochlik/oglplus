@@ -1,0 +1,113 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Uniforms</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="prog_var.html" title="OGLplus program variables">
+<link rel="next" href="vertex_attrib.html" title="Vertex attributes">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="prog_var.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="vertex_attrib.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.uniform"></a><a class="link" href="uniform.html" title="Uniforms">Uniforms</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/uniform.hpp&gt;</code>
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">Uniform</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::Uniform</a><span class="special">,</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">tag::NoTypecheck</a><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">using</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&lt;</span>
+		<a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span>
+		<a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::Uniform</a><span class="special">,</span>
+		<a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">tag::NoTypecheck</a><span class="special">,</span>
+		<span class="identifier">T</span>
+	<span class="special">&gt;::</span><span class="identifier">ProgVar</span><span class="special">;</span> <a class="co" name="oglplus.quickref.uniform.c0" href="uniform.html#oglplus.quickref.uniform.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">GetLocation</span><span class="special">(</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span>
+		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">,</span>
+		<span class="keyword">bool</span> <span class="identifier">active_only</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.uniform.c2" href="uniform.html#oglplus.quickref.uniform.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform.c4" href="uniform.html#oglplus.quickref.uniform.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">values</span><span class="special">);</span>
+
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;</span> <span class="identifier">values</span><span class="special">);</span>
+
+	<span class="keyword">void</span> <span class="identifier">TrySet</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform.c6" href="uniform.html#oglplus.quickref.uniform.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c1"></a><a href="#oglplus.quickref.uniform.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              <code class="literal">Uniform</code> inherits the constructors from <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c3"></a><a href="#oglplus.quickref.uniform.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Finds the location of the uniform variable specified by <code class="literal">identifier</code>
+              in a <code class="literal">program</code>. If <code class="literal">active_only</code>
+              is <code class="literal">true</code> then throws <a class="link" href="error.html#oglplus.quickref.error.prog_var" title="Program variable errors">ProgVarError</a>
+              if no such uniform exists or if it is not active. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetUniformLocation.xml" target="_top">glGetUniformLocation</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c5"></a><a href="#oglplus.quickref.uniform.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the uniform variable to the specified value. Throws if the referenced
+              variable is not active.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c7"></a><a href="#oglplus.quickref.uniform.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the uniform variable to the specified value, but only if the referenced
+              variable is active.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.uniform.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.uniform.untyped"></a></span><a class="link" href="uniform.html#oglplus.quickref.uniform.untyped">Untyped</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&lt;</span>
+	<a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span>
+	<a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::Uniform</a><span class="special">,</span>
+	<a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">tag::NoTypecheck</a><span class="special">,</span>
+	<span class="keyword">void</span>
+<span class="special">&gt;</span> <span class="identifier">UntypedUniform</span><span class="special">;</span>
+
+<span class="identifier">UntypedUniform</span>
+<span class="keyword">operator</span> <span class="special">/</span> <span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span> <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="prog_var.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="vertex_attrib.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
