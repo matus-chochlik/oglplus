@@ -6,12 +6,12 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="oglplus.org">
 <link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
-<link rel="prev" href="uniform.html" title="Uniforms">
-<link rel="next" href="context.html" title="Current GL context">
+<link rel="prev" href="uniform_block.html" title="Uniform blocks">
+<link rel="next" href="frag_data.html" title="Fragment output data">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="uniform.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="context.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="uniform_block.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="frag_data.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
@@ -20,74 +20,60 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/vertex_attrib.hpp&gt;</code>
         </p>
+<h4>
+<a name="oglplus.quickref.vertex_attrib.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.vertex_attrib.loc_ops"></a></span><a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.loc_ops">Basic
+          vertex attribute location operations</a>
+        </h4>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-<span class="keyword">class</span> <span class="identifier">VertexAttrib</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::VertexAttrib</a><span class="special">,</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">tag::NoTypecheck</a><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.loc_ops">ProgVarLocOps</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::VertexAttrib</a><span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="keyword">using</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&lt;</span>
-		<a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span>
-		<a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::Uniform</a><span class="special">,</span>
-		<a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">tag::NoTypecheck</a><span class="special">,</span>
-		<span class="identifier">T</span>
-	<span class="special">&gt;::</span><span class="identifier">ProgVar</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c0" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BindLocation</span><span class="special">(</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span>
 		<a class="link" href="vertex_attrib_slot.html" title="Vertex attrib slot">VertexAttribSlot</a> <span class="identifier">location</span><span class="special">,</span>
 		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c2" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c0" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">GetLocation</span><span class="special">(</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span>
 		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">,</span>
 		<span class="keyword">bool</span> <span class="identifier">active_only</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c4" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-	<span class="keyword">static</span> <span class="identifier">VertexAttribSlot</span> <span class="identifier">GetLocation</span><span class="special">(</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c2" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="vertex_attrib_slot.html" title="Vertex attrib slot">VertexAttribSlot</a> <span class="identifier">GetLocation</span><span class="special">(</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span>
 		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c6" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c4" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">QueryActiveLocation</span><span class="special">(</span>
 		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span>
 		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">,</span>
 		<a class="link" href="vertex_attrib_slot.html" title="Vertex attrib slot">VertexAttribSlot</a><span class="special">&amp;</span> <span class="identifier">location</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c8" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c6" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
 	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">QueryCommonLocation</span><span class="special">(</span>
 		<span class="keyword">const</span> <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a><span class="special">&gt;&amp;</span> <span class="identifier">programs</span><span class="special">,</span>
 		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">,</span>
 		<a class="link" href="vertex_attrib_slot.html" title="Vertex attrib slot">VertexAttribSlot</a><span class="special">&amp;</span> <span class="identifier">location</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c10" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c8" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
 	<span class="keyword">static</span> <a class="link" href="vertex_attrib_slot.html" title="Vertex attrib slot">VertexAttribSlot</a> <span class="identifier">GetCommonLocation</span><span class="special">(</span>
 		<span class="keyword">const</span> <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a><span class="special">&gt;&amp;</span> <span class="identifier">programs</span><span class="special">,</span>
 		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c12" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
-
-	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c14" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
-
-	<span class="keyword">void</span> <span class="identifier">TrySet</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c16" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c10" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 <span class="special">};</span>
-<span class="comment">// TODO</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c1"></a><a href="#oglplus.quickref.vertex_attrib.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-              <code class="literal">VertexAttrib</code> inherits the constructors from <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a>.
-            </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c3"></a><a href="#oglplus.quickref.vertex_attrib.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
               Binds the vertex attribute location. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBindAttribLocation.xml" target="_top">glBindAttribLocation</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c5"></a><a href="#oglplus.quickref.vertex_attrib.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c3"></a><a href="#oglplus.quickref.vertex_attrib.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Finds the location of the input vertex attribute specified by <code class="literal">identifier</code>
               in a <code class="literal">program</code>. If <code class="literal">active_only</code>
@@ -97,20 +83,20 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c7"></a><a href="#oglplus.quickref.vertex_attrib.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c5"></a><a href="#oglplus.quickref.vertex_attrib.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Equivalent to <code class="literal">GetLocation(program, identifier, true)</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c9"></a><a href="#oglplus.quickref.vertex_attrib.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c7"></a><a href="#oglplus.quickref.vertex_attrib.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Queries the vertex attribute location, returns <code class="literal">false</code>
               on failure. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetAttribLocation.xml" target="_top">glGetAttribLocation</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c11"></a><a href="#oglplus.quickref.vertex_attrib.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c9"></a><a href="#oglplus.quickref.vertex_attrib.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left">
 <p>
               Allows to query the vertex attribute <code class="literal">location</code> in
@@ -139,7 +125,7 @@
 </td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c13"></a><a href="#oglplus.quickref.vertex_attrib.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c11"></a><a href="#oglplus.quickref.vertex_attrib.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns vertex attribute location in multiple programs if it's consistent.
               Finds the location of the input vertex attribute specified by <code class="literal">identifier</code>
@@ -149,23 +135,97 @@
               Otherwise returns the vertex attribute position. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetAttribLocation.xml" target="_top">glGetAttribLocation</a></code>.
             </p></td>
 </tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.vertex_attrib.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.vertex_attrib.common_ops"></a></span><a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.common_ops">Common
+          operations</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.common_ops">ProgVarCommonOps</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::VertexAttrib</a><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c12" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c13"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.location" title="Location">ProgVarLoc</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::VertexAttrib</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c14" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c15"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span>
+	<span class="keyword">void</span> <span class="identifier">Divisor</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">divisor</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c16" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c17"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="preprocessor">#endif</span>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c15"></a><a href="#oglplus.quickref.vertex_attrib.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c13"></a><a href="#oglplus.quickref.vertex_attrib.c12"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-              Sets the vertex attribute to the specified value. Throws if the referenced
-              variable is not active.
+              Indirectly inherits from <a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.loc_ops">ProgVarCommonOps</a>
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c17"></a><a href="#oglplus.quickref.vertex_attrib.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c15"></a><a href="#oglplus.quickref.vertex_attrib.c14"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-              Sets the vertex attribute to the specified value, but only if the referenced
-              variable is active.
+              Binds the vertex attribute specified by <code class="literal">identifier</code>
+              to <code class="literal">this</code> vertex attribute location. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glBindAttribLocation.xml" target="_top">glBindAttribLocation</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c17"></a><a href="#oglplus.quickref.vertex_attrib.c16"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the vertex attribute divisor See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glVertexAttribDivisor.xml" target="_top">glVertexAttribDivisor</a></code>.
             </p></td>
 </tr>
 </table></div>
 <h4>
-<a name="oglplus.quickref.vertex_attrib.h0"></a>
+<a name="oglplus.quickref.vertex_attrib.h2"></a>
+          <span class="phrase"><a name="oglplus.quickref.vertex_attrib.get_set_ops"></a></span><a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.get_set_ops">Get/set
+          operations</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.get_set_ops">ProgVarGetSetOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::VertexAttrib</a><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.common_ops">ProgVarCommonOps</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::VertexAttrib</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span>
+	<span class="keyword">void</span> <span class="identifier">SetValue</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c18" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c19"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">TrySet</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.vertex_attrib.c20" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c21"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c19"></a><a href="#oglplus.quickref.vertex_attrib.c18"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the vertex attribute value. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glVertexAttrib.xml" target="_top">glVertexAttrib</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c21"></a><a href="#oglplus.quickref.vertex_attrib.c20"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Sets the vertex attribute value if it is active. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glVertexAttrib.xml" target="_top">glVertexAttrib</a></code>.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.vertex_attrib.h3"></a>
+          <span class="phrase"><a name="oglplus.quickref.vertex_attrib.def"></a></span><a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.def">Definition</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">using</span> <span class="identifier">VertexAttrib</span> <span class="special">=</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&lt;</span>
+	<a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span>
+	<a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::Uniform</a><span class="special">,</span>
+	<a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">tag::NoTypecheck</a><span class="special">,</span>
+	<span class="identifier">T</span>
+<span class="special">&gt;;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c22" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c23"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c23"></a><a href="#oglplus.quickref.vertex_attrib.c22"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              <code class="literal">VertexAttrib</code> inherits indirectly from <a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.loc_ops">ProgVarCommonOps</a>,
+              <a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.common_ops">ProgVarCommonOps</a>
+              and <a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.get_set_ops">ProgVarGetSetOps</a>.
+            </p></td>
+</tr></table></div>
+<h4>
+<a name="oglplus.quickref.vertex_attrib.h4"></a>
           <span class="phrase"><a name="oglplus.quickref.vertex_attrib.array"></a></span><a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.array">Vertex
           array attributes</a>
         </h4>
@@ -187,10 +247,10 @@
 	<span class="keyword">const</span> <span class="identifier">VertexArrayAttrib</span><span class="special">&amp;</span> <span class="identifier">Setup</span><span class="special">(</span>
 		<span class="identifier">GLint</span> <span class="identifier">values_per_vertex</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span>
-	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c18" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c19"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c24" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c25"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-	<span class="keyword">const</span> <span class="identifier">VertexArrayAttrib</span><span class="special">&amp;</span> <span class="identifier">Setup</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">n</span> <span class="special">=</span> <span class="number">1</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c20" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c21"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">const</span> <span class="identifier">VertexArrayAttrib</span><span class="special">&amp;</span> <span class="identifier">Setup</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">n</span> <span class="special">=</span> <span class="number">1</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c26" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c27"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 	<span class="keyword">const</span> <span class="identifier">VertexArrayAttrib</span><span class="special">&amp;</span> <span class="identifier">Pointer</span><span class="special">(</span>
 		<span class="identifier">GLint</span> <span class="identifier">values_per_vertex</span><span class="special">,</span>
@@ -198,14 +258,14 @@
 		<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">normalized</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">stride</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">pointer</span>
-	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c22" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c23"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c28" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c29"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 	<span class="keyword">const</span> <span class="identifier">VertexArrayAttrib</span><span class="special">&amp;</span> <span class="identifier">IPointer</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">values_per_vertex</span><span class="special">,</span>
 		<span class="identifier">DataType</span> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">stride</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">pointer</span>
-	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c24" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c25"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c30" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c31"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_vertex_attrib_64bit</span>
 	<span class="keyword">const</span> <span class="identifier">VertexArrayAttrib</span><span class="special">&amp;</span> <span class="identifier">LPointer</span><span class="special">(</span>
@@ -213,7 +273,7 @@
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="identifier">GLsizei</span> <span class="identifier">stride</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">pointer</span>
-	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c26" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c27"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c32" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c33"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_vertex_attrib_binding</span>
@@ -222,24 +282,24 @@
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
 		<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">normalized</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">relative_offset</span>
-	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c28" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c29"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c34" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c35"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
 	<span class="keyword">const</span> <span class="identifier">VertexArrayAttrib</span><span class="special">&amp;</span> <span class="identifier">IFormat</span><span class="special">(</span>
 		<span class="identifier">GLint</span> <span class="identifier">values_per_vertex</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">relative_offset</span>
-	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c30" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c31"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c36" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c37"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
 	<span class="keyword">const</span> <span class="identifier">VertexArrayAttrib</span><span class="special">&amp;</span> <span class="identifier">LFormat</span><span class="special">(</span>
 		<span class="identifier">GLint</span> <span class="identifier">values_per_vertex</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">relative_offset</span>
-	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c32" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c33"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c38" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c39"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 <span class="preprocessor">#endif</span>
 
-	<span class="keyword">const</span> <span class="identifier">VertexArrayAttrib</span><span class="special">&amp;</span> <span class="identifier">Enable</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c34" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c35"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="keyword">const</span> <span class="identifier">VertexArrayAttrib</span><span class="special">&amp;</span> <span class="identifier">Enable</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c40" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c41"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
-	<span class="keyword">const</span> <span class="identifier">VertexArrayAttrib</span><span class="special">&amp;</span> <span class="identifier">Disable</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c36" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c37"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="keyword">const</span> <span class="identifier">VertexArrayAttrib</span><span class="special">&amp;</span> <span class="identifier">Disable</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.vertex_attrib.c42" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.c43"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 <span class="special">};</span>
 
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
@@ -257,7 +317,7 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c19"></a><a href="#oglplus.quickref.vertex_attrib.c18"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c25"></a><a href="#oglplus.quickref.vertex_attrib.c24"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left">
 <p>
               Sets up the properties of <code class="literal">this</code> vertex attribute
@@ -276,56 +336,56 @@
 </td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c21"></a><a href="#oglplus.quickref.vertex_attrib.c20"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c27"></a><a href="#oglplus.quickref.vertex_attrib.c26"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Sets up the properties of <code class="literal">this</code> vertex attribute
               array. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glVertexAttribPointer.xml" target="_top">glVertexAttribPointer</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c23"></a><a href="#oglplus.quickref.vertex_attrib.c22"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c29"></a><a href="#oglplus.quickref.vertex_attrib.c28"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glVertexAttribPointer.xml" target="_top">glVertexAttribPointer</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c25"></a><a href="#oglplus.quickref.vertex_attrib.c24"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c31"></a><a href="#oglplus.quickref.vertex_attrib.c30"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glVertexAttribIPointer.xml" target="_top">glVertexAttribIPointer</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c27"></a><a href="#oglplus.quickref.vertex_attrib.c26"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c33"></a><a href="#oglplus.quickref.vertex_attrib.c32"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glVertexAttribLPointer.xml" target="_top">glVertexAttribLPointer</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c29"></a><a href="#oglplus.quickref.vertex_attrib.c28"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c35"></a><a href="#oglplus.quickref.vertex_attrib.c34"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glVertexAttribFormat.xml" target="_top">glVertexAttribFormat</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c31"></a><a href="#oglplus.quickref.vertex_attrib.c30"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c37"></a><a href="#oglplus.quickref.vertex_attrib.c36"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glVertexAttribIFormat.xml" target="_top">glVertexAttribIFormat</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c33"></a><a href="#oglplus.quickref.vertex_attrib.c32"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c39"></a><a href="#oglplus.quickref.vertex_attrib.c38"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glVertexAttribLFormat.xml" target="_top">glVertexAttribLFormat</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c35"></a><a href="#oglplus.quickref.vertex_attrib.c34"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c41"></a><a href="#oglplus.quickref.vertex_attrib.c40"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Enables <code class="literal">this</code> vertex attribute array. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glEnableVertexArrayAttrib.xml" target="_top">glEnableVertexArrayAttrib</a></code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c37"></a><a href="#oglplus.quickref.vertex_attrib.c36"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.vertex_attrib.c43"></a><a href="#oglplus.quickref.vertex_attrib.c42"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Disables <code class="literal">this</code> vertex attribute array. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glDisableVertexArrayAttrib.xml" target="_top">glDisableVertexArrayAttrib</a></code>.
             </p></td>
@@ -342,7 +402,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="uniform.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="context.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="uniform_block.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="frag_data.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>
