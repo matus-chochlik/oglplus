@@ -54,9 +54,9 @@ SphereBumpMap::SphereBumpMap(
 			number x = number((i % hi) - hi/2)*invw;
 			number l = std::sqrt(x*x + y*y);
 			number d = sqrt(one-l*l);
-			Vec<number, 3> z(0.0, 0.0, one);
-			Vec<number, 3> n(-x, -y, d);
-			Vec<number, 3> v = (l >= one)?
+			Vector<number, 3> z(0.0, 0.0, one);
+			Vector<number, 3> n(-x, -y, d);
+			Vector<number, 3> v = (l >= one)?
 				z:
 				Normalized(z+n);
 			if(l >= one) d = 0;

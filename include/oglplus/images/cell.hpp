@@ -153,7 +153,7 @@ public:
 						ccy = (ccy+ih)%ih;
 						ccx = (ccx+iw)%iw;
 
-						colors[l] = Vec<T,3>(input.Pixel(ccx, ccy, ccz));
+						colors[l] = Vector<T,3>(input.Pixel(ccx, ccy, ccz));
 						Vec3d co = colors[l];
 
 						dists[l] = get_distance(dims, tc, cc, co, is);

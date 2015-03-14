@@ -30,7 +30,7 @@ template <typename T>
 class Sphere
 {
 private:
-	Vec<T, 3> _center;
+	Vector<T, 3> _center;
 	T _radius;
 public:
 	/// Constructs a unit sphere at the origin

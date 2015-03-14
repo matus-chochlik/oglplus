@@ -276,14 +276,8 @@ protected:
 	template <typename T, unsigned N>
 	static GLint _get_vpv(Vector<T, N>*) { return N; }
 
-	template <typename T, unsigned N>
-	static GLint _get_vpv(Vec<T, N>*) { return N; }
-
 	template <typename T, unsigned Rows, unsigned Cols>
 	static GLint _get_vpv(Matrix<T, Rows, Cols>*) { return Rows*Cols; }
-
-	template <typename T, unsigned Rows, unsigned Cols>
-	static GLint _get_vpv(Mat<T, Rows, Cols>*) { return Rows*Cols; }
 
 	// Functions for autodetection of element type
 	template <typename T>
@@ -292,14 +286,8 @@ protected:
 	template <typename T, unsigned N>
 	static T _get_et(Vector<T, N>*);
 
-	template <typename T, unsigned N>
-	static T _get_et(Vec<T, N>*);
-
 	template <typename T, unsigned Rows, unsigned Cols>
 	static T _get_et(Matrix<T, Rows, Cols>*);
-
-	template <typename T, unsigned Rows, unsigned Cols>
-	static T _get_et(Mat<T, Rows, Cols>*);
 public:
 	void Bind(const GLCStrRef& identifier)
 	{

@@ -19,59 +19,62 @@
 namespace oglplus {
 
 template <typename T, unsigned N>
-using Vector = ::eagine::math::vector<T, N>;
-
-template <typename T, unsigned N>
-using Vec = ::eagine::math::tvec<T, N>;
+using Vector = ::eagine::math::tvec<T, N>;
 
 #ifdef GL_INT
-typedef Vec<GLint, 1> Vec1i;
-typedef Vec<GLint, 2> Vec2i;
-typedef Vec<GLint, 3> Vec3i;
-typedef Vec<GLint, 4> Vec4i;
+typedef Vector<GLint, 1> Vec1i;
+typedef Vector<GLint, 2> Vec2i;
+typedef Vector<GLint, 3> Vec3i;
+typedef Vector<GLint, 4> Vec4i;
 #endif
 
 #ifdef GL_FLOAT
-typedef Vec<GLfloat, 1> Vec1f;
-typedef Vec<GLfloat, 2> Vec2f;
-typedef Vec<GLfloat, 3> Vec3f;
-typedef Vec<GLfloat, 4> Vec4f;
+typedef Vector<GLfloat, 1> Vec1f;
+typedef Vector<GLfloat, 2> Vec2f;
+typedef Vector<GLfloat, 3> Vec3f;
+typedef Vector<GLfloat, 4> Vec4f;
 #endif
 
 #ifdef GL_DOUBLE
-typedef Vec<GLdouble, 1> Vec1d;
-typedef Vec<GLdouble, 2> Vec2d;
-typedef Vec<GLdouble, 3> Vec3d;
-typedef Vec<GLdouble, 4> Vec4d;
+typedef Vector<GLdouble, 1> Vec1d;
+typedef Vector<GLdouble, 2> Vec2d;
+typedef Vector<GLdouble, 3> Vec3d;
+typedef Vector<GLdouble, 4> Vec4d;
 #endif
 
 template <typename T, unsigned N>
 static inline
-T Dot(const Vector<T, N>& a, const Vector<T, N>& b)
-noexcept
+T Dot(
+	const eagine::math::vector<T, N>& a,
+	const eagine::math::vector<T, N>& b
+) noexcept
 {
 	return dot(a, b);
 }
 
 template <typename T>
 static inline
-Vector<T, 3> Cross(const Vector<T, 3>& a, const Vector<T, 3>& b)
-noexcept
+Vector<T, 3> Cross(
+	const eagine::math::vector<T, 3>& a,
+	const eagine::math::vector<T, 3>& b
+) noexcept
 {
 	return cross(a, b);
 }
 
 template <typename T, unsigned N>
 static inline
-T Distance(const Vector<T, N>& a, const Vector<T, N>& b)
-noexcept
+T Distance(
+	const eagine::math::vector<T, N>& a,
+	const eagine::math::vector<T, N>& b
+) noexcept
 {
 	return distance(a, b);
 }
 
 template <typename T, unsigned N>
 static inline
-T Length(const Vector<T, N>& a)
+T Length(const eagine::math::vector<T, N>& a)
 noexcept
 {
 	return length(a);
@@ -79,7 +82,7 @@ noexcept
 
 template <typename T, unsigned N>
 static inline
-Vector<T, N> Normalized(const Vector<T, N>& a)
+Vector<T, N> Normalized(const eagine::math::vector<T, N>& a)
 noexcept
 {
 	return normalized(a);

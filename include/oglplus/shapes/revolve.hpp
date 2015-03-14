@@ -205,8 +205,8 @@ public:
 
 			for(unsigned r=0; r!=_rings; ++r)
 			{
-				const Vec<Type, 4> in(_get_position(r, si), 1);
-				const Vec<Type, 4> out = mat * in;
+				const Vector<Type, 4> in(_get_position(r, si), 1);
+				const Vector<Type, 4> out = mat * in;
 
 				dest[k++] = T(out.x());
 				dest[k++] = T(out.y());
@@ -231,8 +231,8 @@ public:
 
 			for(unsigned r=0; r!=_rings; ++r)
 			{
-				const Vec<Type, 4> in(_get_normal(r, si), 0);
-				const Vec<Type, 4> out = mat * in;
+				const Vector<Type, 4> in(_get_normal(r, si), 0);
+				const Vector<Type, 4> out = mat * in;
 
 				dest[k++] = T(out.x());
 				dest[k++] = T(out.y());
@@ -250,7 +250,7 @@ public:
 		dest.resize(_rings * _sections.size() * 3);
 		unsigned k = 0;
 
-		const Vec<Type, 4> in(0.0, 0.0, -1.0, 0.0);
+		const Vector<Type, 4> in(0.0, 0.0, -1.0, 0.0);
 
 		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
 		{
@@ -276,7 +276,7 @@ public:
 		dest.resize(_rings * _sections.size() * 3);
 		unsigned k = 0;
 
-		const Vec<Type, 3> tgt(0.0, 0.0, -1.0);
+		const Vector<Type, 3> tgt(0.0, 0.0, -1.0);
 
 		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
 		{
@@ -285,8 +285,8 @@ public:
 
 			for(unsigned r=0; r!=_rings; ++r)
 			{
-				const Vec<Type, 3> nml(_get_normal(r, si));
-				const Vec<Type, 4> in(Cross(nml, tgt), 0);
+				const Vector<Type, 3> nml(_get_normal(r, si));
+				const Vector<Type, 4> in(Cross(nml, tgt), 0);
 				const auto out = mat * in;
 
 				dest[k++] = T(out.x());
@@ -305,7 +305,7 @@ public:
 		dest.resize(_rings * _sections.size() * 3);
 		unsigned k = 0;
 		//
-		const Vec<Type, 4> in(0.0, 0.0, -1.0, 0.0);
+		const Vector<Type, 4> in(0.0, 0.0, -1.0, 0.0);
 
 		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
 		{

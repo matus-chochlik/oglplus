@@ -16,7 +16,7 @@ OGLPLUS_LIB_FUNC
 const Matrix<GLdouble, 3, 3>& Cage::_face_mat(GLuint face)
 {
 	assert(face < 6);
-	typedef Mat<GLdouble, 3, 3> M;
+	typedef Matrix<GLdouble, 3, 3> M;
 	static M m[6] = {
 		M( 0, 0, 1,  0,-1, 0,  1, 0, 0),//[0]+x
 		M( 0, 0,-1,  0,-1, 0, -1, 0, 0),//[1]-x
@@ -80,7 +80,7 @@ std::vector<GLfloat> Cage::_positions(void) const
 	std::vector<GLfloat> dest(_vert_count()*3);
 	auto p=dest.begin();
 
-	typedef Vec<GLdouble, 3> V;
+	typedef Vector<GLdouble, 3> V;
 
 	// for each face
 	for(GLuint f=0; f!=6; ++f)
@@ -204,7 +204,7 @@ std::vector<GLfloat> Cage::_normals(void) const
 	std::vector<GLfloat> dest(_vert_count()*3);
 	auto p=dest.begin();
 
-	typedef Vec<GLdouble, 3> V;
+	typedef Vector<GLdouble, 3> V;
 
 	// for each face
 	for(GLuint f=0; f!=6; ++f)
@@ -266,7 +266,7 @@ std::vector<GLfloat> Cage::_tangents(void) const
 	std::vector<GLfloat> dest(_vert_count()*3);
 	auto p=dest.begin();
 
-	typedef Vec<GLdouble, 3> V;
+	typedef Vector<GLdouble, 3> V;
 
 	// for each face
 	for(GLuint f=0; f!=6; ++f)
@@ -321,7 +321,7 @@ std::vector<GLfloat> Cage::_tex_coords(void) const
 	std::vector<GLfloat> dest(_vert_count()*3);
 	auto p=dest.begin();
 
-	typedef Vec<GLdouble, 3> V;
+	typedef Vector<GLdouble, 3> V;
 
 	// for each face
 	for(GLuint f=0; f!=6; ++f)

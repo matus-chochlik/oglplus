@@ -988,7 +988,7 @@ public:
 			ObjectError,
 			Object(*this)
 		);
-		return Vec<GLfloat, 4>(result, 4);
+		return Vector<GLfloat, 4>(result, 4);
 	}
 
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
@@ -1031,7 +1031,7 @@ public:
 			ObjectError,
 			Object(*this)
 		);
-		return Vec<GLint, 4>(result, 4);
+		return Vector<GLint, 4>(result, 4);
 	}
 
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
@@ -1074,7 +1074,7 @@ public:
 			ObjectError,
 			Object(*this)
 		);
-		return Vec<GLuint, 4>(result, 4);
+		return Vector<GLuint, 4>(result, 4);
 	}
 
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)

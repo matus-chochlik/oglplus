@@ -78,7 +78,7 @@ public:
 			T one
 		) const
 		{
-			return Vec<T, CH>(extractor(sampler(0, 0, 0))*one);
+			return Vector<T, CH>(extractor(sampler(0, 0, 0))*one);
 		}
 	};
 
@@ -103,8 +103,8 @@ public:
 			double w, double h, double d
 		) const
 		{
-			Vec<double, 4> in((x+0.5)/w, (y+0.5)/h, (z+0.5)/d, 1);
-			Vec<double, 4> out = _transf * in;
+			Vector<double, 4> in((x+0.5)/w, (y+0.5)/h, (z+0.5)/d, 1);
+			Vector<double, 4> out = _transf * in;
 
 			x = int(std::floor(out[0]*w));
 			y = int(std::floor(out[1]*h));
@@ -253,7 +253,7 @@ public:
 	{
 		Vector<double, N> operator()(const Vector<double, 4>& v) const
 		{
-			return Vec<double, N>(v);
+			return Vector<double, N>(v);
 		}
 	};
 

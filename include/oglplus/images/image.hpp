@@ -356,7 +356,7 @@ public:
 		assert(_convert);
 
 		std::size_t ppos = PixelPos(width, height, depth);
-		return Vec<double, 4>(
+		return Vector<double, 4>(
 			_channels>0?_convert(_storage.at(ppos+0)):0.0,
 			_channels>1?_convert(_storage.at(ppos+1)):0.0,
 			_channels>2?_convert(_storage.at(ppos+2)):0.0,

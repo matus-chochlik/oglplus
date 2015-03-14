@@ -32,11 +32,11 @@ struct NormalMap_filter
 		number spy = extractor(sampler( 0,+1, 0));
 		number snx = extractor(sampler(-1, 0, 0));
 		number sny = extractor(sampler( 0,-1, 0));
-		Vec<number, 3> vpx(+s, 0, (spx-sc));
-		Vec<number, 3> vpy(0, +s, (spy-sc));
-		Vec<number, 3> vnx(-s, 0, (snx-sc));
-		Vec<number, 3> vny(0, -s, (sny-sc));
-		return Vec<GLfloat, 4>(Vec<number, 4>(
+		Vector<number, 3> vpx(+s, 0, (spx-sc));
+		Vector<number, 3> vpy(0, +s, (spy-sc));
+		Vector<number, 3> vnx(-s, 0, (snx-sc));
+		Vector<number, 3> vny(0, -s, (sny-sc));
+		return Vector<GLfloat, 4>(Vector<number, 4>(
 			Normalized(
 				Cross(vpx, vpy) +
 				Cross(vpy, vnx) +

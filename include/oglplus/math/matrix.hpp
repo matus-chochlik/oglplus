@@ -23,40 +23,37 @@
 namespace oglplus {
 
 template <typename T, unsigned R, unsigned C>
-using Matrix = ::eagine::math::matrix<T, R, C, true>;
-
-template <typename T, unsigned R, unsigned C>
-using Mat = ::eagine::math::tmat<T, R, C, true>;
+using Matrix = ::eagine::math::tmat<T, R, C, true>;
 
 #ifdef GL_FLOAT
-typedef Mat<GLfloat, 2, 2> Mat2f;
-typedef Mat<GLfloat, 3, 3> Mat3f;
-typedef Mat<GLfloat, 4, 4> Mat4f;
+typedef Matrix<GLfloat, 2, 2> Mat2f;
+typedef Matrix<GLfloat, 3, 3> Mat3f;
+typedef Matrix<GLfloat, 4, 4> Mat4f;
 #endif
 
 #ifdef GL_DOUBLE
-typedef Mat<GLdouble, 2, 2> Mat2d;
-typedef Mat<GLdouble, 3, 3> Mat3d;
-typedef Mat<GLdouble, 4, 4> Mat4d;
+typedef Matrix<GLdouble, 2, 2> Mat2d;
+typedef Matrix<GLdouble, 3, 3> Mat3d;
+typedef Matrix<GLdouble, 4, 4> Mat4d;
 #endif
 
 template <unsigned I, typename T, unsigned R, unsigned C>
 static inline
-Vector<T, C> Row(const Matrix<T, R, C>& m)
+Vector<T, C> Row(const eagine::math::matrix<T,R,C,true>& m)
 {
 	return ::eagine::math::row<I>(m);
 }
 
 template <typename T, unsigned R, unsigned C>
 static inline
-Vector<T, C> Row(const Matrix<T, R, C>& m, unsigned i)
+Vector<T, C> Row(const eagine::math::matrix<T,R,C,true>& m, unsigned i)
 {
 	return ::eagine::math::row(m, i);
 }
 
 template <typename T, unsigned R, unsigned C>
 static inline
-Matrix<T, C, R> Transposed(const Matrix<T,R,C>& m)
+Matrix<T, C, R> Transposed(const eagine::math::matrix<T,R,C,true>& m)
 {
 	return eagine::math::transpose(m);
 }
@@ -69,10 +66,10 @@ Matrix<T, C, R> Transposed(const Matrix<T,R,C>& m)
  */
 template <typename T>
 class ModelMatrix
- : public Matrix<T, 4, 4>
+ : public eagine::math::matrix<T, 4, 4, true>
 {
 private:
-	typedef Matrix<T, 4, 4> Base;
+	typedef eagine::math::matrix<T, 4, 4, true> Base;
 public:
 	ModelMatrix(void) = default;
 
@@ -171,10 +168,10 @@ typedef ModelMatrix<GLdouble> ModelMatrixd;
  */
 template <typename T>
 class CameraMatrix
- : public Matrix<T, 4, 4>
+ : public eagine::math::matrix<T, 4, 4, true>
 {
 private:
-	typedef Matrix<T, 4, 4> Base;
+	typedef eagine::math::matrix<T, 4, 4, true> Base;
 public:
 	CameraMatrix(void) = default;
 
@@ -321,23 +318,25 @@ typedef CameraMatrix<GLdouble> CamMatrixd;
 template <typename T>
 inline
 Vector<T, 3>
-CameraPosition(Matrix<T,4,4> m)
+CameraPosition(eagine::math::matrix<T,4,4, true> m)
 {
-	Matrix<T,4,4> i = eagine::math::identity<Matrix<T,4,4>>()();
+	eagine::math::matrix<T,4,4,true> i = eagine::math::identity<
+		eagine::math::matrix<T,4,4,true>
+	>()();
 	if(eagine::math::gauss_jordan(m, i))
 	{
-		return Vec<T,3>(eagine::math::column<3>(i));
+		return Vector<T,3>(eagine::math::column<3>(i));
 	}
-	return Vec<T,3>();
+	return Vector<T,3>();
 }
 
 template <typename T>
 inline
 Vector<T, 3>
-CameraDirection(const Matrix<T,4,4>& m)
+CameraDirection(const eagine::math::matrix<T,4,4,true>& m)
 {
 	using eagine::math::row;
-	return -Vec<T, 3>(Row(m, 2));
+	return -Vector<T, 3>(Row(m, 2));
 }
 
 #ifdef NEVER_DEFINED
@@ -366,124 +365,6 @@ public:
 	static inline ModelMatrix Scale(T sx, T sy, T sz)
 	{
 		return ModelMatrix(Scale_(), sx, sy, sz);
-	}
-
-	struct Reflection_ { };
-
-	ModelMatrix(Reflection_, bool rx, bool ry, bool rz)
-	 : Base(oglplus::Nothing())
-	{
-		const T _rx = rx ?-T(1):T(1);
-		const T _ry = ry ?-T(1):T(1);
-		const T _rz = rz ?-T(1):T(1);
-		InitMatrix4x4(
-			*this,
-			 _rx, T(0), T(0), T(0),
-			T(0),  _ry, T(0), T(0),
-			T(0), T(0),  _rz, T(0),
-			T(0), T(0), T(0), T(1)
-		);
-	}
-
-	/// Constructs a reflection matrix
-	static inline ModelMatrix Reflection(bool rx, bool ry, bool rz)
-	{
-		return ModelMatrix(Reflection_(), rx, ry, rz);
-	}
-
-	struct RotationX_ { };
-
-	ModelMatrix(RotationX_, Angle<T> angle)
-	 : Base(oglplus::Nothing())
-	{
-		const T cosx = Cos(angle);
-		const T sinx = Sin(angle);
-		InitMatrix4x4(
-			*this,
-			 T(1),  T(0),  T(0),  T(0),
-			 T(0),  cosx, -sinx,  T(0),
-			 T(0),  sinx,  cosx,  T(0),
-			 T(0),  T(0),  T(0),  T(1)
-		);
-	}
-
-	/// Constructs a X-axis rotation matrix
-	static inline ModelMatrix RotationX(Angle<T> angle)
-	{
-		return ModelMatrix(RotationX_(), angle);
-	}
-
-	struct RotationY_ { };
-
-	ModelMatrix(RotationY_, Angle<T> angle)
-	 : Base(oglplus::Nothing())
-	{
-		const T cosx = Cos(angle);
-		const T sinx = Sin(angle);
-		InitMatrix4x4(
-			*this,
-			 cosx,  T(0),  sinx,  T(0),
-			 T(0),  T(1),  T(0),  T(0),
-			-sinx,  T(0),  cosx,  T(0),
-			 T(0),  T(0),  T(0),  T(1)
-		);
-	}
-
-	/// Constructs a Y-axis rotation matrix
-	static inline ModelMatrix RotationY(Angle<T> angle)
-	{
-		return ModelMatrix(RotationY_(), angle);
-	}
-
-	struct RotationZ_ { };
-
-	ModelMatrix(RotationZ_, Angle<T> angle)
-	 : Base(oglplus::Nothing())
-	{
-		const T cosx = Cos(angle);
-		const T sinx = Sin(angle);
-		InitMatrix4x4(
-			*this,
-			 cosx, -sinx,  T(0),  T(0),
-			 sinx,  cosx,  T(0),  T(0),
-			 T(0),  T(0),  T(1),  T(0),
-			 T(0),  T(0),  T(0),  T(1)
-		);
-	}
-
-	/// Constructs a Z-axis rotation matrix
-	static inline ModelMatrix RotationZ(Angle<T> angle)
-	{
-		return ModelMatrix(RotationZ_(), angle);
-	}
-
-	struct RotationA_ { };
-
-	ModelMatrix(RotationA_, const Vector<T,3>& axis, Angle<T> angle)
-	 : Base(oglplus::Nothing())
-	{
-		const Vector<T, 3> a = Normalized(axis);
-		const T sf = Sin(angle);
-		const T cf = Cos(angle);
-		const T _cf = T(1) - cf;
-		const T x = a.At(0), y = a.At(1), z = a.At(2);
-		const T xx= x*x, xy= x*y, xz= x*z, yy= y*y, yz= y*z, zz= z*z;
-		InitMatrix4x4(
-			*this,
-			xx*_cf +   cf,  xy*_cf - z*sf,  xz*_cf + y*sf,  T(0),
-			xy*_cf + z*sf,  yy*_cf +   cf,  yz*_cf - x*sf,  T(0),
-			xz*_cf - y*sf,  yz*_cf + x*sf,  zz*_cf +   cf,  T(0),
-			T(0),           T(0),           T(0),           T(1)
-		);
-	}
-
-	/// Constructs a rotation matrix from a vector and angle
-	static inline ModelMatrix RotationA(
-		const Vector<T,3>& axis,
-		Angle<T> angle
-	)
-	{
-		return ModelMatrix(RotationA_(), axis, angle);
 	}
 
 	ModelMatrix(RotationA_, Quaternion<T> quat)
@@ -528,12 +409,12 @@ public:
 
 	Vector<T, 3> Position(void) const
 	{
-		return Vec<T,3>(Inverse(*this).Col(3).Data(), 3);
+		return Vector<T,3>(Inverse(*this).Col(3).Data(), 3);
 	}
 
 	Vector<T, 3> Direction(void) const
 	{
-		return -Vec<T, 3>(this->Row(2).Data(), 3);
+		return -Vector<T, 3>(this->Row(2).Data(), 3);
 	}
 
 	struct Perspective_ { };
@@ -980,86 +861,6 @@ public:
 		);
 	}
 
-	struct Pitch_ { };
-
-	CameraMatrix(Pitch_, Angle<T> angle)
-	 : Base(oglplus::Nothing())
-	{
-		const T cosx = Cos(-angle);
-		const T sinx = Sin(-angle);
-		InitMatrix4x4(
-			*this,
-			 T(1),  T(0),  T(0),  T(0),
-			 T(0),  cosx, -sinx,  T(0),
-			 T(0),  sinx,  cosx,  T(0),
-			 T(0),  T(0),  T(0),  T(1)
-		);
-	}
-
-	/// Constructs a X-axis rotation (Pitch/Elevation) matrix
-	/** The initial heading is the negative Z-axis, y_top is the Y-axis,
-	 *  x_right is X-axis.
-	 *  Positive angle values do counter-clockwise rotation (looking up),
-	 *  negative angles cause clockwise changes in pitch (looking down).
-	 */
-	static inline CameraMatrix Pitch(Angle<T> angle)
-	{
-		return CameraMatrix(Pitch_(), angle);
-	}
-
-	struct Yaw_ { };
-
-	CameraMatrix(Yaw_, Angle<T> angle)
-	 : Base(oglplus::Nothing())
-	{
-		const T cosx = Cos(-angle);
-		const T sinx = Sin(-angle);
-		InitMatrix4x4(
-			*this,
-			 cosx,  T(0),  sinx,  T(0),
-			 T(0),  T(1),  T(0),  T(0),
-			-sinx,  T(0),  cosx,  T(0),
-			 T(0),  T(0),  T(0),  T(1)
-		);
-	}
-
-	/// Constructs a Y-axis rotation (Heading/Yaw) matrix
-	/** The initial heading is the negative Z-axix, y_top is the Y-axis,
-	 *  x_right is X-axis.
-	 *  Positive angle values do counter-clockwise rotation, negative
-	 *  angles cause clockwise changes in heading.
-	 */
-	static inline CameraMatrix Yaw(Angle<T> angle)
-	{
-		return CameraMatrix(Yaw_(), angle);
-	}
-
-	struct Roll_ { };
-
-	CameraMatrix(Roll_, Angle<T> angle)
-	 : Base(oglplus::Nothing())
-	{
-		const T cosx = Cos(-angle);
-		const T sinx = Sin(-angle);
-		InitMatrix4x4(
-			*this,
-			 cosx, -sinx,  T(0),  T(0),
-			 sinx,  cosx,  T(0),  T(0),
-			 T(0),  T(0),  T(1),  T(0),
-			 T(0),  T(0),  T(0),  T(1)
-		);
-	}
-
-	/// Constructs a Z-axis rotation (Bank/Roll) matrix
-	/** The initial position is that y_top is the Y-axis,
-	 *  heading in the negative Z-axis direction, x_right is X-axis.
-	 *  Positive angle values do counter-clockwise banking, negative
-	 *  angles do clockwise banking.
-	 */
-	static inline CameraMatrix Roll(Angle<T> angle)
-	{
-		return CameraMatrix(Roll_(), angle);
-	}
 };
 
 #endif // NEVER_DEFINED

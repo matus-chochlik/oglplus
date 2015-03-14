@@ -43,12 +43,12 @@ private:
 			T one
 		) const
 		{
-			const Vector<double, 4> c(Vec<double, 4>(
+			const Vector<double, 4> c(Vector<double, 4>(
 				extractor(sampler(0, 0, 0)),
 				1.0
 			));
 			const Vector<double, 4> res(_matrix*c*one);
-			return Vec<T, N>(res);
+			return Vector<T, N>(res);
 		}
 	};
 public:
@@ -89,7 +89,7 @@ private:
 		V3d y = (y_axis<0)? -V3d::axis(-y_axis, 1):V3d::axis(y_axis, 1);
 		V3d z = (z_axis<0)? -V3d::axis(-z_axis, 1):V3d::axis(z_axis, 1);
 
-		return Mat<double, 4, 4>(
+		return Matrix<double, 4, 4>(
 			x.x(), x.y(), x.z(), 0,
 			y.x(), y.y(), y.z(), 0,
 			z.x(), z.y(), z.z(), 0,
