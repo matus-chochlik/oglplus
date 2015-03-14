@@ -72,6 +72,7 @@ the concept.
 [include quickref/prog_var.qbk]
 [include quickref/uniform.qbk]
 [include quickref/uniform_block.qbk]
+[include quickref/uniform_subroutines.qbk]
 [include quickref/vertex_attrib.qbk]
 [include quickref/frag_data.qbk]
 
