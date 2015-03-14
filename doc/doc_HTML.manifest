@@ -34,6 +34,7 @@ oglplus/quickref/texture_handle.html
 oglplus/quickref/prog_var.html
 oglplus/quickref/uniform.html
 oglplus/quickref/uniform_block.html
+oglplus/quickref/uniform_subroutines.html
 oglplus/quickref/vertex_attrib.html
 oglplus/quickref/frag_data.html
 oglplus/quickref/context.html

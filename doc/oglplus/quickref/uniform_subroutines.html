@@ -1,0 +1,295 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Uniform subroutines</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="uniform_block.html" title="Uniform blocks">
+<link rel="next" href="vertex_attrib.html" title="Vertex attributes">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="uniform_block.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="vertex_attrib.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.uniform_subroutines"></a><a class="link" href="uniform_subroutines.html" title="Uniform subroutines">Uniform subroutines</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/uniform_subroutines.hpp&gt;</code>
+        </p>
+<h4>
+<a name="oglplus.quickref.uniform_subroutines.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.uniform_subroutines.loc_ops"></a></span><a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.loc_ops">Basic
+          location operations</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.loc_ops">ProgVarLocOps</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::Subroutine</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">GetLocation</span><span class="special">(</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span>
+		<a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">stage</span><span class="special">,</span>
+		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">,</span>
+		<span class="keyword">bool</span> <span class="identifier">active_only</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.uniform_subroutines.c0" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">GLint</span> <span class="identifier">GetLocation</span><span class="special">(</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span>
+		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">,</span>
+		<span class="keyword">bool</span> <span class="identifier">active_only</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">Stage</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.uniform_subroutines.c2" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform_subroutines.c1"></a><a href="#oglplus.quickref.uniform_subroutines.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Finds the location of the subroutine specified by <code class="literal">identifier</code>
+              in the <code class="literal">stage</code> of a <code class="literal">program</code>. If
+              <code class="literal">active_only</code> is <code class="literal">true</code> then throws
+              <a class="link" href="error.html#oglplus.quickref.error.prog_var" title="Program variable errors">ProgVarError</a>
+              if no such subroutine exists or if it is not active. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetSubroutineIndex.xml" target="_top">glGetSubroutineIndex</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform_subroutines.c3"></a><a href="#oglplus.quickref.uniform_subroutines.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns this subroutine's program stage.
+            </p></td>
+</tr>
+</table></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.loc_ops">ProgVarLocOps</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::SubroutineUniform</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">static</span> <span class="identifier">GLint</span> <span class="identifier">GetLocation</span><span class="special">(</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span>
+		<a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">stage</span><span class="special">,</span>
+		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">,</span>
+		<span class="keyword">bool</span> <span class="identifier">active_only</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.uniform_subroutines.c4" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">GLint</span> <span class="identifier">GetLocation</span><span class="special">(</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span>
+		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">,</span>
+		<span class="keyword">bool</span> <span class="identifier">active_only</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">Stage</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.uniform_subroutines.c6" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.c7"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform_subroutines.c5"></a><a href="#oglplus.quickref.uniform_subroutines.c4"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Finds the location of the subroutine uniform specified by <code class="literal">identifier</code>
+              in the <code class="literal">stage</code> of a <code class="literal">program</code>. If
+              <code class="literal">active_only</code> is <code class="literal">true</code> then throws
+              <a class="link" href="error.html#oglplus.quickref.error.prog_var" title="Program variable errors">ProgVarError</a>
+              if no such uniform exists or if it is not active. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGetSubroutineUniformLocation.xml" target="_top">glGetSubroutineUniformLocation</a></code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform_subroutines.c7"></a><a href="#oglplus.quickref.uniform_subroutines.c6"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns this subroutine uniforms's program stage.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.uniform_subroutines.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.uniform_subroutines.prog_var"></a></span><a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.prog_var">Specializations
+          of <code class="literal">ProgVar</code></a>
+        </h4>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::Subroutine</a><span class="special">,</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">tag::NoTypecheck</a><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.location" title="Location">ProgVarLoc</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::Subroutine</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ProgVar</span><span class="special">(</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.location" title="Location">ProgVarLoc</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::Subroutine</a><span class="special">&gt;</span> <span class="identifier">pvloc</span><span class="special">);</span>
+
+	<span class="identifier">ProgVar</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span> <a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">stage</span><span class="special">,</span> <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">);</span>
+
+	<span class="identifier">ProgVar</span><span class="special">(</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span>
+		<a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">stage</span><span class="special">,</span>
+		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">,</span>
+		<span class="keyword">bool</span> <span class="identifier">active_only</span>
+	<span class="special">);</span>
+<span class="special">};</span>
+</pre>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::SubroutineUniform</a><span class="special">,</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">tag::NoTypecheck</a><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.location" title="Location">ProgVarLoc</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::SubroutineUniform</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">ProgVar</span><span class="special">(</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.location" title="Location">ProgVarLoc</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::SubroutineUniform</a><span class="special">&gt;</span> <span class="identifier">pvloc</span><span class="special">);</span>
+
+	<span class="identifier">ProgVar</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span> <a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">stage</span><span class="special">,</span> <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">);</span>
+
+	<span class="identifier">ProgVar</span><span class="special">(</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span>
+		<a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">stage</span><span class="special">,</span>
+		<a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">,</span>
+		<span class="keyword">bool</span> <span class="identifier">active_only</span>
+	<span class="special">);</span>
+<span class="special">};</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.uniform_subroutines.h2"></a>
+          <span class="phrase"><a name="oglplus.quickref.uniform_subroutines.def"></a></span><a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.def">Definitions</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.prog_var">ProgVar</a><span class="special">&lt;</span>
+	<a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span>
+	<a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::Subroutine</a><span class="special">,</span>
+	<a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">tag::NoTypecheck</a><span class="special">,</span>
+	<span class="keyword">void</span>
+<span class="special">&gt;</span> <span class="identifier">Subroutine</span><span class="special">;</span>
+</pre>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.prog_var">ProgVar</a><span class="special">&lt;</span>
+	<a class="link" href="ops_tags.html" title="Operation kinds">tag::ImplicitSel</a><span class="special">,</span>
+	<a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">tag::SubroutineUniform</a><span class="special">,</span>
+	<a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">tag::NoTypecheck</a><span class="special">,</span>
+	<span class="keyword">void</span>
+<span class="special">&gt;</span> <span class="identifier">SubroutineUniform</span><span class="special">;</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.uniform_subroutines.h3"></a>
+          <span class="phrase"><a name="oglplus.quickref.uniform_subroutines.manager"></a></span><a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.manager">Manager</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">UniformSubroutines</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">UniformSubroutines</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span> <a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">stage</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform_subroutines.c8" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.c9"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">UniformSubroutines</span><span class="special">&amp;</span> <span class="identifier">Assign</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.def">SubroutineUniform</a><span class="special">&amp;</span> <span class="identifier">uniform</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.def">Subroutine</a><span class="special">&amp;</span> <span class="identifier">subroutine</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.uniform_subroutines.c10" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.c11"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">Apply</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform_subroutines.c12" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.c13"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">class</span> <span class="identifier">Preset</span> <a class="co" name="oglplus.quickref.uniform_subroutines.c14" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.c15"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="special">{</span>
+	<span class="keyword">public</span><span class="special">:</span>
+		<span class="identifier">Preset</span><span class="special">(</span><span class="identifier">Preset</span><span class="special">&amp;&amp;);</span>
+	<span class="special">};</span>
+
+	<span class="identifier">Preset</span> <span class="identifier">Save</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform_subroutines.c16" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.c17"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Load</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Preset</span><span class="special">&amp;</span> <span class="identifier">preset</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform_subroutines.c18" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.c19"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">Apply</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Preset</span><span class="special">&amp;</span> <span class="identifier">preset</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform_subroutines.c20" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.c21"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform_subroutines.c9"></a><a href="#oglplus.quickref.uniform_subroutines.c8"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Constructs a uniform subroutine manager for a <code class="literal">stage</code>
+              of a <code class="literal">program</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform_subroutines.c11"></a><a href="#oglplus.quickref.uniform_subroutines.c10"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">
+<p>
+              Remembers the assignment of a <code class="literal">subroutine</code> to the
+              specified subroutine <code class="literal">uniform</code>.
+            </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                This function does not immediately apply the changes to the actual
+                uniform variables in the managed stage of a GPU program. Use the
+                member <code class="literal">Apply</code> function to do this after the subroutines
+                are assigned to subroutine uniforms.
+              </p></td></tr>
+</table></div>
+</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform_subroutines.c13"></a><a href="#oglplus.quickref.uniform_subroutines.c12"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Applies all changes made by <code class="literal">Assign</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform_subroutines.c15"></a><a href="#oglplus.quickref.uniform_subroutines.c14"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              <code class="literal">Preset</code> stores a setting of the whole set of subroutine
+              uniforms. which can be later applied or loaded. Applications should
+              treat this type as opaque and use it only with the <code class="literal">Save</code>,
+              <code class="literal">Load</code> and <code class="literal">Apply</code> functions.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform_subroutines.c17"></a><a href="#oglplus.quickref.uniform_subroutines.c16"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Saves the current setting of subroutine uniforms into a preset.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform_subroutines.c19"></a><a href="#oglplus.quickref.uniform_subroutines.c18"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left">
+<p>
+              Loads the setting of subroutine uniforms from a <code class="literal">preset</code>.
+            </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                Only presets from the same instance of <code class="literal">UniformSubroutines</code>
+                that saved them can be loaded or applied.
+              </p></td></tr>
+</table></div>
+</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform_subroutines.c21"></a><a href="#oglplus.quickref.uniform_subroutines.c20"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left">
+<p>
+              Applies the setting from a preset without changing the current setting
+              of <code class="literal">this</code> instance of <code class="literal">UniformSubroutines</code>.
+            </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                Only presets from the same instance of <code class="literal">UniformSubroutines</code>
+                that saved them can be loaded or applied.
+              </p></td></tr>
+</table></div>
+</td>
+</tr>
+</table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="uniform_block.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="vertex_attrib.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
