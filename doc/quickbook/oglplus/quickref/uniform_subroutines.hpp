@@ -124,7 +124,59 @@ typedef __ProgVar_SubroutineUniform<
 	void
 > SubroutineUniform;
 
-//TODO
+//]
+//[oglplus_uniform_subroutines
+
+class UniformSubroutines
+{
+public:
+	UniformSubroutines(__ProgramName program, __ShaderType stage); /*<
+	Constructs a uniform subroutine manager for a [^stage] of a [^program].
+	>*/
+
+	UniformSubroutines& Assign(
+		const __SubroutineUniform& uniform,
+		const __Subroutine& subroutine
+	); /*<
+	Remembers the assignment of a [^subroutine] to the specified
+	subroutine [^uniform].
+	[note This function does not immediately apply the changes
+	to the actual uniform variables in the managed stage
+	of a GPU program. Use the member [^Apply] function to do this
+	after the subroutines are assigned to subroutine uniforms.]
+	>*/
+
+	void Apply(void); /*<
+	Applies all changes made by [^Assign].
+	>*/
+
+	class Preset /*<
+	[^Preset] stores a setting of the whole set of subroutine uniforms.
+	which can be later applied or loaded.
+	Applications should treat this type as opaque and use it
+	only with the [^Save], [^Load] and [^Apply] functions.
+	>*/
+	{
+	public:
+		Preset(Preset&&);
+	};
+
+	Preset Save(void); /*<
+	Saves the current setting of subroutine uniforms into a preset.
+	>*/
+	void Load(const Preset& preset); /*<
+	Loads the setting of subroutine uniforms from a [^preset].
+	[note Only presets from the same instance of [^UniformSubroutines]
+	that saved them can be loaded or applied.]
+	>*/
+
+	void Apply(const Preset& preset); /*<
+	Applies the setting from a preset without changing the current setting
+	of [^this] instance of [^UniformSubroutines].
+	[note Only presets from the same instance of [^UniformSubroutines]
+	that saved them can be loaded or applied.]
+	>*/
+};
 
 } // namespace oglplus
 //]

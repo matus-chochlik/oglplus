@@ -31,6 +31,8 @@
 [oglplus_subroutine_def]
 [oglplus_subroutine_uniform_def]
 
-TODO
+[heading:manager Manager]
+
+[oglplus_uniform_subroutines]
 
 [endsect]
