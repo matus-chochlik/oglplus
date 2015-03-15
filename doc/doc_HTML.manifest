@@ -33,6 +33,7 @@ oglplus/quickref/frag_data_slot.html
 oglplus/quickref/texture_handle.html
 oglplus/quickref/prog_var.html
 oglplus/quickref/uniform.html
+oglplus/quickref/dsa_uniform.html
 oglplus/quickref/uniform_block.html
 oglplus/quickref/uniform_subroutines.html
 oglplus/quickref/vertex_attrib.html
