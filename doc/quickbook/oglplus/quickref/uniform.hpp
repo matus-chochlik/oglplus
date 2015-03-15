@@ -78,6 +78,8 @@ using Uniform = __ProgVar<
 [^Uniform] indirectly inherits from __ProgVarLocOps_Uniform and __ProgVarGetSetOps_Uniform.
 >*/
 
+typedef __Uniform<GLint> UniformSampler;
+
 //]
 //[oglplus_untyped_uniform
 
