@@ -191,7 +191,7 @@
 [def __TransformFeedbackPrimitiveType [link oglplus.quickref.transform_feedback.primitive_type TransformFeedbackPrimitiveType]]
 [def __DSATransformFeedback [link oglplus.quickref.dsa_transform_feedback.def DSATransformFeedback]]
 
-[def __OptionalObject [link oglplus.quickref.object.optional Optional]]
+[def __Optional_Object [link oglplus.quickref.object.optional Optional]]
 
 [def __Reference [link oglplus.quickref.object.reference Reference]]
 [def __Sequence [link oglplus.quickref.object.sequence Sequence]]
@@ -231,6 +231,9 @@
 [def __ProgVarGetSetOps [link oglplus.quickref.prog_var.wrapper.get_set_ops ProgVarGetSetOps]]
 [def __ProgVarTypecheck [link oglplus.quickref.prog_var.wrapper.typecheck ProgVarTypecheck]]
 [def __ProgVar [link oglplus.quickref.prog_var.wrapper.prog_var ProgVar]]
+[def __Typechecked_ProgVar [link oglplus.quickref.prog_var.typechecked Typechecked]]
+[def __Optional_ProgVar [link oglplus.quickref.prog_var.optional Optional]]
+[def __Lazy_ProgVar [link oglplus.quickref.prog_var.lazy Lazy]]
 
 [def __Uniform [link oglplus.quickref.uniform.def Uniform]]
 [def __UniformSampler [link oglplus.quickref.uniform.def UniformSampler]]

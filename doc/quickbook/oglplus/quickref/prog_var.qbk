@@ -7,9 +7,11 @@
 [/=========================================]
 
 [include prog_var/tags.qbk]
-
 [include prog_var/location.qbk]
-
 [include prog_var/wrapper.qbk]
+
+[include prog_var/typechecked.qbk]
+[include prog_var/optional.qbk]
+[include prog_var/lazy.qbk]
 
 [endsect]

@@ -8,12 +8,12 @@
 namespace oglplus {
 namespace tag {
 
-struct VertexAttrib;
-struct Uniform;
-struct UniformBlock;
-struct Subroutine;
-struct SubroutineUniform;
-struct FragData;
+struct VertexAttrib; /*< See __VertexAttrib >*/
+struct Uniform; /*< See __Uniform and __ProgramUniform >*/
+struct UniformBlock; /*< See __UniformBlock >*/
+struct Subroutine; /*< See __Subroutine >*/
+struct SubroutineUniform; /*< See __SubroutineUniform >*/
+struct FragData; /*< See __FragData >*/
 
 //]
 //[oglplus_prog_var_typecheck_tags

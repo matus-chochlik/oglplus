@@ -13,7 +13,7 @@ of a GLSL variable (vertex attribute, uniform, fragment shader output, etc.).
 Since all types of GLSL variables share the same namespace (the domain of the `GLint`
 type) it is easy to confuse variables of different types.
 
-In order to avoid such mismatches, the `VarTag` template parameter of `ProgVarLoc`
+In order to avoid such mismatches, the __VarTag template parameter of `ProgVarLoc`
 conveys information about the actual variable type and prevents for example passing
 an uniform location to a function requiring a vertex attribute, etc.
 
