@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{033_metal_and_glass}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -760,7 +760,7 @@ public:
 			FullCircles(time / 24.0),
 			Degrees(45 + SineWave(time / 20.0) * 40)
 		);
-		Vec3f camera_position = camera.Position();
+		Vec3f camera_position = CameraPosition(camera);
 		transf_prog.camera_matrix.Set(perspective*camera);
 		transf_prog.camera_position.Set(camera_position);
 
