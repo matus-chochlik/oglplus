@@ -78,6 +78,12 @@ public:
 	{ }
 
 	static inline
+	auto Translation(const Vector<T, 3>& d)
+	{
+		return eagine::math::translation<Base>{d._v}();
+	}
+
+	static inline
 	auto Translation(T dx, T dy, T dz)
 	{
 		return eagine::math::translation<Base>(dx, dy, dz)();
@@ -180,6 +186,26 @@ public:
 	{ }
 
 	static inline
+	auto Perspective(
+		T x_left,
+		T x_right,
+		T y_bottom,
+		T y_top,
+		T z_near,
+		T z_far
+	)
+	{
+		return eagine::math::perspective<Base>(
+			x_left,
+			x_right,
+			y_bottom,
+			y_top,
+			z_near,
+			z_far
+		)();
+	}
+
+	static inline
 	auto PerspectiveX(
 		Angle<T> xfov,
 		T aspect,
@@ -204,6 +230,58 @@ public:
 	)
 	{
 		return eagine::math::perspective<Base>::y(
+			yfov,
+			aspect,
+			z_near,
+			z_far
+		)();
+	}
+
+	static inline
+	auto Ortho(
+		T x_left,
+		T x_right,
+		T y_bottom,
+		T y_top,
+		T z_near,
+		T z_far
+	)
+	{
+		return eagine::math::ortho<Base>(
+			x_left,
+			x_right,
+			y_bottom,
+			y_top,
+			z_near,
+			z_far
+		)();
+	}
+
+	static inline
+	auto OrthoX(
+		Angle<T> xfov,
+		T aspect,
+		T z_near,
+		T z_far
+	)
+	{
+		return eagine::math::ortho<Base>::x(
+			xfov,
+			aspect,
+			z_near,
+			z_far
+		)();
+	}
+
+	static inline
+	auto OrthoY(
+		Angle<T> yfov,
+		T aspect,
+		T z_near,
+		T z_far
+	)
+	{
+		return eagine::math::ortho<Base>::y(
 			yfov,
 			aspect,
 			z_near,

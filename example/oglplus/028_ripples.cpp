@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{028_ripples}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -423,7 +423,7 @@ public:
 			FullCircles(time / 26.0),
 			Degrees(55 + SineWave(time / 14.0) * 30)
 		);
-		Vec3f camera_position = camera.Position();
+		Vec3f camera_position = CameraPosition(camera);
 
 		liquid_prog.camera_position = camera_position;
 		liquid_prog.camera_matrix = perspective*camera;

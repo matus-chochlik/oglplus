@@ -1337,7 +1337,7 @@ void SurfaceExample::Render(ExampleClock& clock)
 		FullCircles(time / 90.0)-RightAngles(1),
 		Degrees(-CosineWave(time / 37.0) * 10)
 	);
-	surface_data.light_position = surface_data.light.Position();
+	surface_data.light_position = CameraPosition(surface_data.light);
 
 	surface_data.camera = CamMatrixf::Orbiting(
 		Vec3f(),
@@ -1345,7 +1345,7 @@ void SurfaceExample::Render(ExampleClock& clock)
 		FullCircles(time / 60),
 		Degrees(SineWave(time / 17.0) * 10)
 	);
-	surface_data.camera_position = surface_data.camera.Position();
+	surface_data.camera_position = CameraPosition(surface_data.camera);
 
 
 	GLuint p = surface_data.plane_to_draw[0].Pop();
@@ -1377,7 +1377,7 @@ void SurfaceExample::Render(ExampleClock& clock)
 		Vec4f(surface_data.light_position, 1.0)
 	));
 
-	surface_data.ndc_light_pos = tmp_light_pos.xyz()/tmp_light_pos.w();
+	surface_data.ndc_light_pos = Vec3f(tmp_light_pos)/tmp_light_pos.w();
 	ndc_light_pos.Set(surface_data.ndc_light_pos);
 
 	color_map_ready.Pop();
