@@ -75,6 +75,7 @@ the concept.
 [include quickref/uniform_block.qbk]
 [include quickref/uniform_subroutines.qbk]
 [include quickref/vertex_attrib.qbk]
+[include quickref/dsa/vertex_attrib.qbk]
 [include quickref/frag_data.qbk]
 
 [include quickref/context.qbk]

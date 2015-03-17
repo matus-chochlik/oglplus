@@ -245,6 +245,7 @@
 [def __SubroutineUniform [link oglplus.quickref.uniform_subroutines.def SubroutineUniform]]
 [def __VertexAttrib [link oglplus.quickref.vertex_attrib.def VertexAttrib]]
 [def __VertexArrayAttrib [link oglplus.quickref.vertex_attrib.array VertexArrayAttrib]]
+[def __DSAVertexArrayAttrib [link oglplus.quickref.dsa_vertex_attrib.array DSAVertexArrayAttrib]]
 [def __FragmentData [link oglplus.quickref.frag_data.def FragmentData]]
 [def __FragData [link oglplus.quickref.frag_data.def FragData]]
 
