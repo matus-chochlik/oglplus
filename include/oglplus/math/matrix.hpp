@@ -395,6 +395,18 @@ typedef CameraMatrix<GLdouble> CamMatrixd;
 
 template <typename T>
 inline
+eagine::math::matrix<T,4,4,true>
+Inverse(eagine::math::matrix<T,4,4, true> m)
+{
+	eagine::math::matrix<T,4,4,true> i = eagine::math::identity<
+		eagine::math::matrix<T,4,4,true>
+	>()();
+	eagine::math::gauss_jordan(m, i);
+	return m;
+}
+
+template <typename T>
+inline
 Vector<T, 3>
 CameraPosition(eagine::math::matrix<T,4,4, true> m)
 {

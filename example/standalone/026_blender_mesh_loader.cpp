@@ -2,7 +2,7 @@
  *  @example standalone/026_blender_mesh_loader.cpp
  *  @brief Shows the usage of the .blend file parser utility
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -441,15 +441,17 @@ public:
 			Degrees(SineWave(t / 41.0) * 85)
 		);
 		camera_matrix.Set(camera);
-		camera_position.Set(camera.Position());
+		camera_position.Set(CameraPosition(camera));
 
 		light_position.Set(
-			CamMatrixf::Orbiting(
-				camera_target,
-				camera_distance*2.0,
-				FullCircles(t / 37.0),
-				Degrees(SineWave(t / 31.0) * 85)
-			).Position()
+			CameraPosition(
+				CamMatrixf::Orbiting(
+					camera_target,
+					camera_distance*2.0,
+					FullCircles(t / 37.0),
+					Degrees(SineWave(t / 31.0) * 85)
+				)
+			)
 		);
 
 		face_normals.Set(int(t*0.25) % 2);
