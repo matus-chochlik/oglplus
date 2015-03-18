@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{031_brick_torus}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -545,7 +545,7 @@ public:
 		);
 
 		camera_matrix.Set(camera);
-		camera_position.Set(camera.Position());
+		camera_position.Set(CameraPosition(camera));
 
 		model_matrix.Set(
 			ModelMatrixf::TranslationX(+2.0f)*

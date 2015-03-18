@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{032_transitions}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -761,7 +761,7 @@ public:
 		);
 		auto cm_0 = projection_0*camera_0;
 		draw_prog.camera_matrix_0 = cm_0;
-		draw_prog.camera_position_0 = camera_0.Position();
+		draw_prog.camera_position_0 = CameraPosition(camera_0);
 		clear_prog.origin_0 = (cm_0*Vec4f(origin, 1.0)).xy();
 
 		Vec3f target_1 = Vec3f(0.0,-0.1, 0.1);
@@ -773,7 +773,7 @@ public:
 		);
 		auto cm_1 = projection_1*camera_1;
 		draw_prog.camera_matrix_1 = cm_1;
-		draw_prog.camera_position_1 = camera_1.Position();
+		draw_prog.camera_position_1 = CameraPosition(camera_1);
 		clear_prog.origin_1 = (cm_1*Vec4f(origin, 1.0)).xy();
 
 		gl.Viewport(width, height);

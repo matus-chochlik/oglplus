@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{028_depth_map_sss}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -351,7 +351,7 @@ public:
 
 		GLfloat lgt_tgt_dist = Distance(
 			shape.BoundingSphere().Center(),
-			light.Position()
+			CameraPosition(light)
 		);
 
 		auto lgt_proj =
@@ -372,7 +372,7 @@ public:
 
 		GLfloat cam_tgt_dist = Distance(
 			shape.BoundingSphere().Center(),
-			camera.Position()
+			CameraPosition(camera)
 		);
 
 		auto cam_proj =
@@ -408,8 +408,8 @@ public:
 		draw_prog.camera_matrix.Set(cam_proj*camera);
 		draw_prog.light_matrix.Set(lgt_proj*light);
 		draw_prog.model_matrix.Set(model);
-		draw_prog.camera_position.Set(camera.Position());
-		draw_prog.light_position.Set(light.Position());
+		draw_prog.camera_position.Set(CameraPosition(camera));
+		draw_prog.light_position.Set(CameraPosition(light));
 
 		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 		gl.Viewport(width, height);

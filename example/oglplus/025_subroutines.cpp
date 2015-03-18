@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{025_subroutines}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -339,7 +339,7 @@ public:
 			Degrees(SineWave(time / 20.0) * 30 + 35)
 		);
 		cube_prog.camera_matrix = camera;
-		cube_prog.camera_position = camera.Position();
+		cube_prog.camera_position = CameraPosition(camera);
 
 
 		// shiny gray/blue checkered cube

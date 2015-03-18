@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{023_waves}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -319,7 +319,7 @@ public:
 			Degrees(45 - SineWave(time / 29.0f) * 35)
 		);
 		camera_matrix.Set(camera);
-		camera_position.Set(camera.Position());
+		camera_position.Set(CameraPosition(camera));
 
 		anim_time.Set(time);
 

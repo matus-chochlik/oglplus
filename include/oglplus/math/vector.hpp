@@ -54,6 +54,14 @@ T Dot(
 
 template <typename T>
 static inline
+Vector<T, 2> Perpendicular(const eagine::math::vector<T, 2>& a)
+noexcept
+{
+	return perpendicular(a);
+}
+
+template <typename T>
+static inline
 Vector<T, 3> Cross(
 	const eagine::math::vector<T, 3>& a,
 	const eagine::math::vector<T, 3>& b

@@ -605,7 +605,7 @@ public:
 			FullCircles(time / 26.0),
 			Degrees(45 + SineWave(time / 17.0) * 40)
 		);
-		Vec3f camera_position = camera.Position();
+		Vec3f camera_position = CameraPosition(camera);
 		transf_prog.camera_matrix.Set(perspective*camera);
 		transf_prog.camera_position.Set(camera_position);
 

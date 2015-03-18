@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{023_sky}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -288,7 +288,7 @@ public:
 		shape_prog.Use();
 		shape_model_matrix.Set(model);
 		shape_camera_matrix.Set(camera);
-		shape_camera_position.Set(camera.Position());
+		shape_camera_position.Set(CameraPosition(camera));
 		shape_sun_position.Set(sun);
 		shape.Draw();
 	}

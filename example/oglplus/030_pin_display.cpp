@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{030_pin_display}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -521,8 +521,8 @@ public:
 		);
 
 		display_prog.fade.Set(fade);
-		display_prog.light_pos.Set(light.Position());
-		display_prog.camera_pos.Set(camera.Position());
+		display_prog.light_pos.Set(CameraPosition(light));
+		display_prog.camera_pos.Set(CameraPosition(camera));
 		display_prog.light_matrix.Set(light);
 		display_prog.camera_matrix.Set(camera);
 

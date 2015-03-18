@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{031_fog}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -142,10 +142,12 @@ public:
 					ModelMatrixf::RotationZ(FullCircles(nrand()))
 				);
 
+				auto mdata = data(matrix);
+
 				p = std::copy(
-					Data(matrix),
-					Data(matrix)+
-					Size(matrix),
+					mdata.addr(),
+					mdata.addr()+
+					mdata.size(),
 					p
 				);
 			}

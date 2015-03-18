@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{022_volumetric_light}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -291,13 +291,13 @@ public:
 		volume_prog.Use();
 		Uniform<Mat4f>(volume_prog, "CameraMatrix").Set(cameraMatrix);
 		Uniform<Vec3f>(volume_prog, "ViewX").Set(
-			cameraMatrix.Row(0).xyz()
+			Row<0>(cameraMatrix).xyz()
 		);
 		Uniform<Vec3f>(volume_prog, "ViewY").Set(
-			cameraMatrix.Row(1).xyz()
+			Row<1>(cameraMatrix).xyz()
 		);
 		Uniform<Vec3f>(volume_prog, "ViewZ").Set(
-			cameraMatrix.Row(2).xyz()
+			Row<2>(cameraMatrix).xyz()
 		);
 		gl.DrawArraysInstanced(
 			PrimitiveType::Points,
