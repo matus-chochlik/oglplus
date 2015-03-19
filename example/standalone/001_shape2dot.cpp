@@ -8,7 +8,7 @@
  *  ./001_shape2dot | neato -T png > 001_shape2dot.png
  *  @endcode
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -52,7 +52,7 @@ int main(void)
 			Vec4d v1 = face.Vert(1).MainAttrib();
 			Vec4d v2 = face.Vert(2).MainAttrib();
 
-			Vec4d v = tm*Vec4d((v0+v1+v2).xyz()/3.0, 1.0);
+			Vec4d v = tm*Vec4d(Vec3d((v0+v1+v2)/3.0), 1.0);
 			std::cout
 				<< "\tf" << f
 				<< " [label=\"" << f << "\""

@@ -451,7 +451,7 @@ public:
 
 		gl.Clear().ColorBuffer().DepthBuffer();
 		light_cam_pos.Set(
-			(cameraMatrix*Vec4f(30.0f, 30.0f, 30.0f, 1.0f)).xyz()
+			Vec3f(cameraMatrix*Vec4f(30.0f, 30.0f, 30.0f, 1.0f))
 		);
 		camera_matrix.Set(cameraMatrix);
 		// use the indices to draw the particles

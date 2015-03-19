@@ -154,7 +154,7 @@ public:
 };
 
 template <typename OpsTag, typename T, unsigned N>
-class ProgVarGetSetOps<OpsTag, tag::Uniform, eagine::math::vector<T, N>>
+class ProgVarGetSetOps<OpsTag, tag::Uniform, Vector<T, N>>
  : public ProgVarCommonOps<tag::Uniform>
  , public ProgVarBaseSetOps<OpsTag, tag::Uniform, tag::NativeTypes, T, 4>
 {
@@ -227,20 +227,6 @@ public:
 			>()
 		);
 	}
-};
-
-template <typename OpsTag, typename T, unsigned N>
-class ProgVarGetSetOps<OpsTag, tag::Uniform, eagine::math::tvec<T,N>>
- : public ProgVarGetSetOps<OpsTag, tag::Uniform, eagine::math::vector<T,N>>
-{
-protected:
-	ProgVarGetSetOps(UniformLoc uloc)
-	 : ProgVarGetSetOps<
-		OpsTag,
-		tag::Uniform,
-		eagine::math::vector<T,N>
-	>(uloc)
-	{ }
 };
 
 template <typename OpsTag, typename T, unsigned R, unsigned C, bool RM>

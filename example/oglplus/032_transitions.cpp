@@ -762,7 +762,7 @@ public:
 		auto cm_0 = projection_0*camera_0;
 		draw_prog.camera_matrix_0 = cm_0;
 		draw_prog.camera_position_0 = CameraPosition(camera_0);
-		clear_prog.origin_0 = (cm_0*Vec4f(origin, 1.0)).xy();
+		clear_prog.origin_0 = Vec2f(cm_0*Vec4f(origin, 1.0));
 
 		Vec3f target_1 = Vec3f(0.0,-0.1, 0.1);
 		auto camera_1 = CamMatrixf::Orbiting(
@@ -774,7 +774,7 @@ public:
 		auto cm_1 = projection_1*camera_1;
 		draw_prog.camera_matrix_1 = cm_1;
 		draw_prog.camera_position_1 = CameraPosition(camera_1);
-		clear_prog.origin_1 = (cm_1*Vec4f(origin, 1.0)).xy();
+		clear_prog.origin_1 = Vec2f(cm_1*Vec4f(origin, 1.0));
 
 		gl.Viewport(width, height);
 		gl.Disable(Capability::DepthTest);

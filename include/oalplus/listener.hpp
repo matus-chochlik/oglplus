@@ -71,7 +71,7 @@ public:
 	{
 		OALPLUS_ALFUNC(Listenerfv)(
 			AL_POSITION,
-			position.Data()
+			data(position).addr()
 		);
 		OALPLUS_VERIFY_SIMPLE(Listenerfv);
 	}
@@ -129,7 +129,7 @@ public:
 	{
 		OALPLUS_ALFUNC(Listenerfv)(
 			AL_VELOCITY,
-			velocity.Data()
+			data(velocity).addr()
 		);
 		OALPLUS_VERIFY_SIMPLE(Listenerfv);
 	}

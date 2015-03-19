@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -132,7 +132,7 @@ public:
 	 */
 	static void LoadMatrix(const Mat4f& matrix)
 	{
-		OGLPLUS_GLFUNC(LoadMatrixf)(Data(Transposed(matrix)));
+		OGLPLUS_GLFUNC(LoadMatrixf)(data(Transposed(matrix)).addr());
 		OGLPLUS_VERIFY_SIMPLE(LoadMatrixf);
 	}
 
@@ -143,7 +143,7 @@ public:
 	 */
 	static void LoadMatrix(const Mat4d& matrix)
 	{
-		OGLPLUS_GLFUNC(LoadMatrixd)(Data(Transposed(matrix)));
+		OGLPLUS_GLFUNC(LoadMatrixd)(data(Transposed(matrix)).addr());
 		OGLPLUS_VERIFY_SIMPLE(LoadMatrixd);
 	}
 

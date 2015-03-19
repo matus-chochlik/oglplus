@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -98,8 +98,8 @@ oglplus::Vec3f SpectraDocumentView::ScreenToWorld(GLint x, GLint y)
 
 oglplus::Vec3f SpectraDocumentView::PickOnPlane(unsigned vn, GLint x, GLint y)
 {
-	oglplus::Vec3f cam = camera_matrix.Position();
-	oglplus::Vec3f ray = Normalized(ScreenToWorld(x, y) - cam);
+	oglplus::Vec3f cam = oglplus::CameraPosition(camera_matrix);
+	oglplus::Vec3f ray = oglplus::Normalized(ScreenToWorld(x, y) - cam);
 
 	if(ray[vn] != 0)
 	{
@@ -122,14 +122,14 @@ oglplus::Vec3f SpectraDocumentView::PickOnWall(GLint x, GLint y)
 oglplus::Vec3f SpectraDocumentView::PickOnSphere(GLint x, GLint y)
 {
 	oglplus::Vec3f ori(target_x, target_y, target_z);
-	oglplus::Vec3f cam = camera_matrix.Position();
-	oglplus::Vec3f ray = Normalized(ScreenToWorld(x, y) - cam);
+	oglplus::Vec3f cam = oglplus::CameraPosition(camera_matrix);
+	oglplus::Vec3f ray = oglplus::Normalized(ScreenToWorld(x, y) - cam);
 	oglplus::Vec3f ofs = (cam-ori);
 	GLfloat rad = camera_distance*oglplus::Tan(camera_xfov*0.5f);
 
 	GLfloat a = 1.0f; //Dot(ray, ray);
-	GLfloat b = 2*Dot(ofs, ray);
-	GLfloat c = Dot(ofs, ofs)-rad*rad;
+	GLfloat b = 2*oglplus::Dot(ofs, ray);
+	GLfloat c = oglplus::Dot(ofs, ofs)-rad*rad;
 	GLfloat d = b*b-4*a*c;
 
 	if(d >= 0.0f)
@@ -170,10 +170,10 @@ void SpectraDocumentView::Orbit(GLint new_x, GLint new_y, GLint old_x, GLint old
 	oglplus::Anglef fc = oglplus::FullCircles(1);
 	oglplus::Anglef ra = oglplus::RightAngles(1)-oglplus::Degrees(1);
 
-	oglplus::Vec3f ns = Normalized(ScreenToWorld(new_x, new_y));
-	oglplus::Vec3f os = Normalized(ScreenToWorld(old_x, old_y));
+	oglplus::Vec3f ns = oglplus::Normalized(ScreenToWorld(new_x, new_y));
+	oglplus::Vec3f os = oglplus::Normalized(ScreenToWorld(old_x, old_y));
 
-	if(Length(ns) > 0.0f && Length(os) > 0.0f)
+	if(oglplus::Length(ns) > 0.0f && oglplus::Length(os) > 0.0f)
 	{
 		camera_azimuth = camera_azimuth + oglplus::Radians(
 			std::atan2(-ns.z(), ns.x())-
@@ -201,8 +201,8 @@ void SpectraDocumentView::Scale(GLint new_x, GLint new_y, GLint old_x, GLint old
 	oglplus::Vec3f ng = PickOnGround(new_x, new_y);
 	oglplus::Vec3f og = PickOnGround(old_x, old_y);
 
-	GLfloat lng = Distance(ng, t);
-	GLfloat log = Distance(og, t);
+	GLfloat lng = oglplus::Distance(ng, t);
+	GLfloat log = oglplus::Distance(og, t);
 
 	if(lng > 0)
 	{
@@ -292,7 +292,7 @@ void SpectraDocumentView::RecalcStretch(void)
 void SpectraDocumentView::RecalcTransf(void)
 {
 	transf_matrix = projection_matrix * camera_matrix * stretch_matrix;
-	inv_view_matrix = Inverse(projection_matrix * camera_matrix);
+	inv_view_matrix = oglplus::Inverse(projection_matrix * camera_matrix);
 }
 
 float SpectraDocumentView::TimeStretch(void) const

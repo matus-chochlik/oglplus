@@ -678,7 +678,7 @@ public:
 		OALPLUS_ALFUNC(Sourcefv)(
 			_obj_name(),
 			AL_POSITION,
-			dir.Data()
+			data(dir).addr()
 		);
 		OALPLUS_CHECK(
 			Sourcefv,
@@ -740,7 +740,7 @@ public:
 		OALPLUS_ALFUNC(Sourcefv)(
 			_obj_name(),
 			AL_VELOCITY,
-			dir.Data()
+			data(dir).addr()
 		);
 		OALPLUS_CHECK(
 			Sourcefv,
@@ -802,7 +802,7 @@ public:
 		OALPLUS_ALFUNC(Sourcefv)(
 			_obj_name(),
 			AL_DIRECTION,
-			dir.Data()
+			data(dir).addr()
 		);
 		OALPLUS_CHECK(
 			Sourcefv,

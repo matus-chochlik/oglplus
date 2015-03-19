@@ -132,6 +132,12 @@ public:
 	}
 
 	static inline
+	auto Scale(T sx, T sy, T sz)
+	{
+		return eagine::math::scale<Base>(sx, sy, sz)();
+	}
+
+	static inline
 	auto ReflectionX(bool r = true)
 	{
 		return eagine::math::reflection_x<Base>(r)();

@@ -282,10 +282,10 @@ public:
 				ModelMatrixf::Translation(offsets[i])*
 				ModelMatrixf::RotationZ(Degrees(time * (37+3*i)));
 
-			GLint level = GLint(17.0 / (Length((
+			GLint level = GLint(17.0 / (Length(Vec3f(
 				Inverse(model)*
 				Vec4f(CameraPosition(camera), 1)
-			).xyz())+0.1));
+			))+0.1));
 
 			model_matrix.Set(model);
 			tess_level.Set(level);

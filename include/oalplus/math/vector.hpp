@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -22,6 +22,8 @@ namespace oalplus {
 using oglplus::Vector;
 /// 3D Vector class
 typedef Vector<ALfloat, 3> Vec3f;
+
+using oglplus::Normalized;
 
 } // namespace oalplus
 

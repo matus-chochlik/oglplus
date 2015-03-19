@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{032_object_tracking}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -505,10 +505,12 @@ private:
 				ModelMatrixf::Scale(3.0f, 3.0f, 3.0f)
 			);
 
+			auto mdata = data(matrix);
+
 			p = std::copy(
-				Data(matrix),
-				Data(matrix)+
-				Size(matrix),
+				mdata.addr(),
+				mdata.addr()+
+				mdata.size(),
 				p
 			);
 		}

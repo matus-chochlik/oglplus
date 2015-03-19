@@ -338,10 +338,10 @@ public:
 
 			model_matrix.Set(model);
 			offset.Set(offsets[i]);
-			view_position.Set((
+			view_position.Set(Vec3f(
 				Inverse(model)*
 				Vec4f(CameraPosition(camera), 1)
-			).xyz());
+			));
 
 			shape_instr.Draw(shape_indices);
 		}

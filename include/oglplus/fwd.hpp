@@ -22,7 +22,7 @@ namespace oglplus {
 
 // Vector
 template <typename T, unsigned N>
-using Vector = ::eagine::math::tvec<T, N>;
+using Vector = ::eagine::math::vector_swizzles<::eagine::math::tvec<T, N>>;
 
 // Matrix
 template <typename T, unsigned R, unsigned C>
