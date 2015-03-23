@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -24,44 +24,44 @@ Mat4f RayMatrix(const AppData& app_data, unsigned face)
 	{
 		case 0: // +X
 		{
-			cx = +Vec3f::Unit(2);
-			cy = +Vec3f::Unit(1);
-			cz = -Vec3f::Unit(0);
+			cx = +Vec3f::axis<2>();
+			cy = +Vec3f::axis<1>();
+			cz = -Vec3f::axis<0>();
 			break;
 		}
 		case 1: // -X
 		{
-			cx = -Vec3f::Unit(2);
-			cy = +Vec3f::Unit(1);
-			cz = +Vec3f::Unit(0);
+			cx = -Vec3f::axis<2>();
+			cy = +Vec3f::axis<1>();
+			cz = +Vec3f::axis<0>();
 			break;
 		}
 		case 2: // +Y
 		{
-			cx = -Vec3f::Unit(0);
-			cy = +Vec3f::Unit(2);
-			cz = +Vec3f::Unit(1);
+			cx = -Vec3f::axis<0>();
+			cy = +Vec3f::axis<2>();
+			cz = +Vec3f::axis<1>();
 			break;
 		}
 		case 3: // -Y
 		{
-			cx = -Vec3f::Unit(0);
-			cy = -Vec3f::Unit(2);
-			cz = -Vec3f::Unit(1);
+			cx = -Vec3f::axis<0>();
+			cy = -Vec3f::axis<2>();
+			cz = -Vec3f::axis<1>();
 			break;
 		}
 		case 4: // +Z
 		{
-			cx = -Vec3f::Unit(0);
-			cy = +Vec3f::Unit(1);
-			cz = -Vec3f::Unit(2);
+			cx = -Vec3f::axis<0>();
+			cy = +Vec3f::axis<1>();
+			cz = -Vec3f::axis<2>();
 			break;
 		}
 		case 5: // -Z
 		{
-			cx = +Vec3f::Unit(0);
-			cy = +Vec3f::Unit(1);
-			cz = +Vec3f::Unit(2);
+			cx = +Vec3f::axis<0>();
+			cy = +Vec3f::axis<1>();
+			cz = +Vec3f::axis<2>();
 			break;
 		}
 		default: assert(!"Invalid cube face");
@@ -76,7 +76,7 @@ Mat4f RayMatrix(const AppData& app_data, unsigned face)
 			Vec4f(cx, 0),
 			Vec4f(cy, 0),
 			Vec4f(cz, 0),
-			Vec4f::Unit(3)
+			Vec4f::axis<3>()
 		);
 }
 

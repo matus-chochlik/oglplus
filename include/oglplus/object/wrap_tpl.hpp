@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_OBJECT_WRAP_TPL_1107121519_HPP
 #define OGLPLUS_OBJECT_WRAP_TPL_1107121519_HPP
 
+#include <oglplus/fwd.hpp>
 #include <oglplus/object/desc.hpp>
 #include <oglplus/object/name_tpl.hpp>
 #include <oglplus/object/seq_tpl.hpp>

@@ -28,10 +28,12 @@ GLuint SimpleSubdivSphere::_midpoint(GLuint ia, GLuint ib)
 		Vec3f mp = Normalized((va+vb)*0.5);
 		GLuint result = _positions.size();
 
+		auto mpd = data(mp);
+
 		_positions.insert(
 			_positions.end(),
-			data(mp).addr(),
-			data(mp).addr()+3
+			mpd.begin(),
+			mpd.end()
 		);
 
 		assert(result % 3 == 0);

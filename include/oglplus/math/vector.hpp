@@ -15,12 +15,11 @@
 
 #include <oglplus/config/compiler.hpp>
 #include <eagine/math/tvec.hpp>
-#include <eagine/math/vector_swizzles.hpp>
 
 namespace oglplus {
 
 template <typename T, unsigned N>
-using Vector = ::eagine::math::vector_swizzles<::eagine::math::tvec<T, N>>;
+using Vector = ::eagine::math::tvec<T, N>;
 
 #ifdef GL_INT
 typedef Vector<GLint, 1> Vec1i;

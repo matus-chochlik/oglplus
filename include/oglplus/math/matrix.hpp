@@ -66,16 +66,12 @@ Matrix<T, C, R> Transposed(const eagine::math::matrix<T,R,C,true>& m)
  */
 template <typename T>
 class ModelMatrix
- : public eagine::math::matrix<T, 4, 4, true>
+ : public Matrix<T,4,4>
 {
 private:
 	typedef eagine::math::matrix<T, 4, 4, true> Base;
 public:
-	ModelMatrix(void) = default;
-
-	ModelMatrix(const Base& base)
-	 : Base(base)
-	{ }
+	using Matrix<T,4,4>::Matrix;
 
 	static inline
 	auto Translation(const Vector<T, 3>& d)
@@ -180,16 +176,12 @@ typedef ModelMatrix<GLdouble> ModelMatrixd;
  */
 template <typename T>
 class CameraMatrix
- : public eagine::math::matrix<T, 4, 4, true>
+ : public Matrix<T,4,4>
 {
 private:
 	typedef eagine::math::matrix<T, 4, 4, true> Base;
 public:
-	CameraMatrix(void) = default;
-
-	CameraMatrix(const Base& base)
-	 : Base(base)
-	{ }
+	using Matrix<T,4,4>::Matrix;
 
 	static inline
 	auto Perspective(

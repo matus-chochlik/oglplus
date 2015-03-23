@@ -507,12 +507,7 @@ private:
 
 			auto mdata = data(matrix);
 
-			p = std::copy(
-				mdata.addr(),
-				mdata.addr()+
-				mdata.size(),
-				p
-			);
+			p = std::copy(mdata.begin(), mdata.end(), p);
 		}
 		assert(p == matrix_data.end());
 

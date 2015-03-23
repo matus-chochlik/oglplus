@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -129,26 +129,26 @@ void CloudData::LoadCSV(const AppData& app_data, std::istream& input)
 		else
 		{
 			// rotation
-			cloud.Set(0, 0, attr_values[ 0]);
-			cloud.Set(0, 1, attr_values[ 1]);
-			cloud.Set(0, 2, attr_values[ 2]);
-			cloud.Set(1, 0, attr_values[ 3]);
-			cloud.Set(1, 1, attr_values[ 4]);
-			cloud.Set(1, 2, attr_values[ 5]);
-			cloud.Set(2, 0, attr_values[ 6]);
-			cloud.Set(2, 1, attr_values[ 7]);
-			cloud.Set(2, 2, attr_values[ 8]);
+			set(cloud, 0, 0, attr_values[ 0]);
+			set(cloud, 0, 1, attr_values[ 1]);
+			set(cloud, 0, 2, attr_values[ 2]);
+			set(cloud, 1, 0, attr_values[ 3]);
+			set(cloud, 1, 1, attr_values[ 4]);
+			set(cloud, 1, 2, attr_values[ 5]);
+			set(cloud, 2, 0, attr_values[ 6]);
+			set(cloud, 2, 1, attr_values[ 7]);
+			set(cloud, 2, 2, attr_values[ 8]);
 		}
 		// position
-		cloud.Set(0, 3, attr_values[ 9]);
-		cloud.Set(1, 3, attr_values[10]);
-		cloud.Set(2, 3, attr_values[11]);
+		set(cloud, 0, 3, attr_values[ 9]);
+		set(cloud, 1, 3, attr_values[10]);
+		set(cloud, 2, 3, attr_values[11]);
 		// other
-		cloud.Set(3, 0, attr_values[12]);
-		cloud.Set(3, 1, attr_values[13]);
-		cloud.Set(3, 2, attr_values[14]);
+		set(cloud, 3, 0, attr_values[12]);
+		set(cloud, 3, 1, attr_values[13]);
+		set(cloud, 3, 2, attr_values[14]);
 		// size
-		cloud.Set(3, 3, attr_values[15]);
+		set(cloud, 3, 3, attr_values[15]);
 
 		storage.push_back(cloud);
 
@@ -213,9 +213,9 @@ void CloudData::Generate(const AppData& app_data)
 	{
 		cloud = ModelMatrixf::Translation(center);
 
-		cloud.Set(3, 3, radius-1);
-		cloud.Set(3, 0,-100);
-		cloud.Set(3, 1, 1);
+		set(cloud, 3, 3, radius-1.f);
+		set(cloud, 3, 0,-100.f);
+		set(cloud, 3, 1, 1.f);
 
 		storage.push_back(cloud);
 		++c;
@@ -256,14 +256,14 @@ void CloudData::Generate(const AppData& app_data)
 					FullCircles(r01(re))
 				);
 
-			cloud.Set(3, 3, size);
-			cloud.Set(3, 0, r01(re)*0.5f);
-			cloud.Set(3, 1, 0.1+0.9*r01(re));
+			set(cloud, 3, 3, size);
+			set(cloud, 3, 0, r01(re)*0.5f);
+			set(cloud, 3, 1, 0.1f+0.9f*r01(re));
 
 			storage.push_back(cloud);
 
 			Vec3f offs(r11(re)*1.4f, r11(re)*0.1f, r11(re));
-			offs.Normalize();
+			offs = Normalized(offs);
 
 			pos = cpos + offs*size;
 

@@ -206,8 +206,8 @@ public:
 			auto vd = data(*values);
 			temp.insert(
 				temp.end(),
-				vd.addr(),
-				vd.addr()+N
+				vd.begin(),
+				vd.end()
 			);
 		}
 		SetValues(temp.size(), temp.data());
@@ -285,8 +285,8 @@ public:
 			auto md = data(*values);
 			temp.insert(
 				temp.end(),
-				md.addr(),
-				md.addr()+R*C
+				md.begin(),
+				md.end()
 			);
 		}
 		SetValues(temp.size(), temp.data());
