@@ -145,15 +145,15 @@ void blend_to_csv(const std::string& input_path, const std::string& output_path)
 						MMd::RotationZ(Radians(+object_rot.Get(0, 2)))*
 						MMd::RotationX(Radians(+object_rot.Get(0, 0)));
 
-					rotxx = rot_m.At(0, 0);
-					rotxy = rot_m.At(0, 1);
-					rotxz = rot_m.At(0, 2);
-					rotyx = rot_m.At(1, 0);
-					rotyy = rot_m.At(1, 1);
-					rotyz = rot_m.At(1, 2);
-					rotzx = rot_m.At(2, 0);
-					rotzy = rot_m.At(2, 1);
-					rotzz = rot_m.At(2, 2);
+					rotxx = get(rot_m, 0, 0);
+					rotxy = get(rot_m, 0, 1);
+					rotxz = get(rot_m, 0, 2);
+					rotyx = get(rot_m, 1, 0);
+					rotyy = get(rot_m, 1, 1);
+					rotyz = get(rot_m, 1, 2);
+					rotzx = get(rot_m, 2, 0);
+					rotzy = get(rot_m, 2, 1);
+					rotzz = get(rot_m, 2, 2);
 				}
 				catch(std::runtime_error&) { }
 
