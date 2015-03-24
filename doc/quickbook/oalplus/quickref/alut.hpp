@@ -32,7 +32,7 @@ public:
 	See [alutfunc CreateBufferHelloWorld].
 	>*/
 
-	__Buffer CreateBufferFromFile(const __StrCRef& file_path) const; /*<
+	__Buffer CreateBufferFromFile(const __CStrRef& file_path) const; /*<
 	Create a buffer containing the samples from a specified sound file.
 	See [alutfunc CreateBufferFromFile].
 	>*/
@@ -47,7 +47,7 @@ public:
 	>*/
 
 	std::vector<ALfloat> LoadMemoryFromFileNormalized(
-		const __StrCRef& file_path,
+		const __CStrRef& file_path,
 		__DataFormat* data_format,
 		ALfloat* frequency
 	) const; /*<
@@ -57,7 +57,7 @@ public:
 	>*/
 
 	std::vector<ALubyte> LoadMemoryFromFile(
-		const __StrCRef& file_path,
+		const __CStrRef& file_path,
 		__DataFormat* data_format,
 		ALfloat* frequency
 	) const; /*<
@@ -68,7 +68,7 @@ public:
 	void LoadMemoryFromFile(
 		std::vector<ALubyte>& raw,
 		std::vector<ALfloat>& norm,
-		const __StrCRef& file_path,
+		const __CStrRef& file_path,
 		__DataFormat* data_format,
 		ALfloat* frequency
 	) const; /*<

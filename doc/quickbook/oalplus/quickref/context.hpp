@@ -27,7 +27,7 @@ public:
 	See [alcfunc GetCurrentContext], [alcfunc GetContextsDevice].
 	>*/
 
-	static StrCRef GetString(__StringQuery query); /*<
+	static CStrRef GetString(__StringQuery query); /*<
 	Queries a string from the current OpenAL context.
 	See [alcfunc GetString].
 	>*/
@@ -45,7 +45,7 @@ public:
 	See [alcfunc GetString], [alcconst VENDOR].
 	>*/
 
-	static __Range<__StrCRef> Extensions(void); /*<
+	static __Range<__CStrRef> Extensions(void); /*<
 	Returns a range of extension strings.
 	See [alcfunc GetString], [alcconst EXTENSIONS].
 	>*/

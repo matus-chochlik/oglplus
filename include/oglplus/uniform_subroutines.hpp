@@ -94,7 +94,7 @@ public:
 		ProgramName program,
 		const GLCStrRef& identifier,
 		bool active_only
-	)
+	) const
 	{
 		return GetLocation(
 			program,
@@ -209,7 +209,7 @@ public:
 		ProgramName program,
 		const GLCStrRef& identifier,
 		bool active_only
-	)
+	) const
 	{
 		return GetLocation(
 			program,

@@ -55,6 +55,18 @@
 [def __tag_PerfMonitorAMD [link oglplus.quickref.object.tags tag::PerfMonitorAMD]]
 [def __tag_PathNV [link oglplus.quickref.object.tags tag::PathNV]]
 
+[def __VarTag [link oglplus.quickref.prog_var.tags VarTag]]
+[def __tag_VertexAttrib [link oglplus.quickref.prog_var.tags tag::VertexAttrib]]
+[def __tag_Uniform [link oglplus.quickref.prog_var.tags tag::Uniform]]
+[def __tag_UniformBlock [link oglplus.quickref.prog_var.tags tag::UniformBlock]]
+[def __tag_Subroutine [link oglplus.quickref.prog_var.tags tag::Subroutine]]
+[def __tag_SubroutineUniform [link oglplus.quickref.prog_var.tags tag::SubroutineUniform]]
+[def __tag_FragData [link oglplus.quickref.prog_var.tags tag::FragData]]
+
+[def __ChkTag [link oglplus.quickref.prog_var.tags.typecheck ChkTag]]
+[def __tag_Typecheck [link oglplus.quickref.prog_var.tags.typecheck tag::Typecheck]]
+[def __tag_NoTypecheck [link oglplus.quickref.prog_var.tags.typecheck tag::NoTypecheck]]
+
 [def __ObjectType [link oglplus.quickref.object.type ObjectType]]
 [def __ObjectSubtype [link oglplus.quickref.object.subtype ObjectSubtype]]
 [def __ObjTypeOps [link oglplus.quickref.object.type.ops ObjTypeOps]]
@@ -179,7 +191,7 @@
 [def __TransformFeedbackPrimitiveType [link oglplus.quickref.transform_feedback.primitive_type TransformFeedbackPrimitiveType]]
 [def __DSATransformFeedback [link oglplus.quickref.dsa_transform_feedback.def DSATransformFeedback]]
 
-[def __OptionalObject [link oglplus.quickref.object.optional Optional]]
+[def __Optional_Object [link oglplus.quickref.object.optional Optional]]
 
 [def __Reference [link oglplus.quickref.object.reference Reference]]
 [def __Sequence [link oglplus.quickref.object.sequence Sequence]]
@@ -192,6 +204,7 @@
 [def __LimitError [link oglplus.quickref.error.limit LimitError]]
 [def __ObjectError [link oglplus.quickref.error.object ObjectError]]
 [def __ObjectPairError [link oglplus.quickref.error.object ObjectPairError]]
+[def __ProgVarError [link oglplus.quickref.error.prog_var ProgVarError]]
 [def __ProgramBuildError [link oglplus.quickref.error.program ProgramBuildError]]
 [def __CompileError [link oglplus.quickref.error.program CompileError]]
 [def __LinkError [link oglplus.quickref.error.program LinkError]]
@@ -205,10 +218,36 @@
 [def __SyncWaitResult [link oglplus.quickref.sync.wait_result SyncWaitResult]]
 
 [def __VertexAttribSlot [link oglplus.quickref.vertex_attrib_slot VertexAttribSlot]]
+[def __FragmentDataSlot [link oglplus.quickref.frag_data_slot FragmentDataSlot]]
+[def __FragDataSlot [link oglplus.quickref.frag_data_slot FragDataSlot]]
 
 [def __GLSLSource [link oglplus.quickref.glsl_source GLSLSource]]
 [def __GLSLString [link oglplus.quickref.glsl_string GLSLString]]
 [def __GLSLStrings [link oglplus.quickref.glsl_string GLSLStrings]]
+
+[def __ProgVarLoc [link oglplus.quickref.prog_var.location ProgVarLoc]]
+[def __ProgVarLocOps [link oglplus.quickref.prog_var.wrapper.loc_ops ProgVarLocOps]]
+[def __ProgVarCommonOps [link oglplus.quickref.prog_var.wrapper.common_ops ProgVarCommonOps]]
+[def __ProgVarGetSetOps [link oglplus.quickref.prog_var.wrapper.get_set_ops ProgVarGetSetOps]]
+[def __ProgVarTypecheck [link oglplus.quickref.prog_var.wrapper.typecheck ProgVarTypecheck]]
+[def __ProgVar [link oglplus.quickref.prog_var.wrapper.prog_var ProgVar]]
+[def __Typechecked_ProgVar [link oglplus.quickref.prog_var.typechecked Typechecked]]
+[def __Optional_ProgVar [link oglplus.quickref.prog_var.optional Optional]]
+[def __Lazy_ProgVar [link oglplus.quickref.prog_var.lazy Lazy]]
+
+[def __Uniform [link oglplus.quickref.uniform.def Uniform]]
+[def __UniformSampler [link oglplus.quickref.uniform.def UniformSampler]]
+[def __ProgramUniform [link oglplus.quickref.dsa_uniform.def ProgramUniform]]
+[def __ProgramUniformSampler [link oglplus.quickref.dsa_uniform.def ProgramUniformSampler]]
+[def __UntypedUniform [link oglplus.quickref.uniform.untyped UntypedUniform]]
+[def __UniformBlock [link oglplus.quickref.uniform_block.def UniformBlock]]
+[def __Subroutine [link oglplus.quickref.uniform_subroutines.def Subroutine]]
+[def __SubroutineUniform [link oglplus.quickref.uniform_subroutines.def SubroutineUniform]]
+[def __VertexAttrib [link oglplus.quickref.vertex_attrib.def VertexAttrib]]
+[def __VertexArrayAttrib [link oglplus.quickref.vertex_attrib.array VertexArrayAttrib]]
+[def __DSAVertexArrayAttrib [link oglplus.quickref.dsa_vertex_attrib.array DSAVertexArrayAttrib]]
+[def __FragmentData [link oglplus.quickref.frag_data.def FragmentData]]
+[def __FragData [link oglplus.quickref.frag_data.def FragData]]
 
 [def __Context [link oglplus.quickref.context Context]]
 

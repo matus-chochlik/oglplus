@@ -56,7 +56,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{EnableVertexArrayAttrib}
 	 */
-	const DSAVertexArrayAttrib& Enable(void) const
+	DSAVertexArrayAttrib& Enable(void)
 	{
 		OGLPLUS_GLFUNC(EnableVertexArrayAttrib)(
 			_vao,
@@ -66,12 +66,12 @@ public:
 		return *this;
 	}
 
-	/// Enable this specified vertex array attribute
+	/// Disable this specified vertex array attribute
 	/**
 	 *  @glsymbols
 	 *  @glfunref{DisableVertexArrayAttrib}
 	 */
-	const DSAVertexArrayAttrib& Disable(void) const
+	DSAVertexArrayAttrib& Disable(void)
 	{
 		OGLPLUS_GLFUNC(DisableVertexArrayAttrib)(
 			_vao,
@@ -82,7 +82,7 @@ public:
 	}
 
 	/// Set the vertex buffer for this vertex array attribute
-	const DSAVertexArrayAttrib& VertexBuffer(
+	DSAVertexArrayAttrib& VertexBuffer(
 		BufferName buffer,
 		GLintptr offset,
 		GLsizei stride
@@ -109,12 +109,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexArrayAttribFormat}
 	 */
-	const DSAVertexArrayAttrib& Format(
+	DSAVertexArrayAttrib& Format(
 		GLint values_per_vertex,
 		DataType data_type,
 		Boolean normalized,
 		GLuint relative_offset
-	) const
+	)
 	{
 		OGLPLUS_GLFUNC(VertexArrayAttribFormat)(
 			_vao,
@@ -138,11 +138,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexArrayAttribIFormat}
 	 */
-	const DSAVertexArrayAttrib& IFormat(
+	DSAVertexArrayAttrib& IFormat(
 		GLint values_per_vertex,
 		DataType data_type,
 		GLuint relative_offset
-	) const
+	)
 	{
 		OGLPLUS_GLFUNC(VertexArrayAttribIFormat)(
 			_vao,
@@ -165,11 +165,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexArrayAttribLFormat}
 	 */
-	const DSAVertexArrayAttrib& LFormat(
+	DSAVertexArrayAttrib& LFormat(
 		GLint values_per_vertex,
 		DataType data_type,
 		GLuint relative_offset
-	) const
+	)
 	{
 		OGLPLUS_GLFUNC(VertexArrayAttribLFormat)(
 			_vao,

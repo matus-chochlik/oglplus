@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -34,7 +34,7 @@ private:
 protected:
 	static const char* MsgUsingInactive(void);
 public:
-	/// Bind the vertex attribute location
+	/// Bind the fragment data location
 	/**
 	 *  @see GetLocation
 	 *  @see QueryLocation
@@ -133,6 +133,8 @@ typedef ProgVar<
 	tag::NoTypecheck,
 	void
 > FragData;
+
+typedef FragData FragmentData;
 
 } // namespace oglplus
 

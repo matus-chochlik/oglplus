@@ -10,7 +10,7 @@
 [/Quick reference links]
 
 [def __String [link eglplus.quickref.string String]]
-[def __StrCRef [link eglplus.quickref.string StrCRef]]
+[def __CStrRef [link eglplus.quickref.string CStrRef]]
 
 [def __Bitfield [link eglplus.quickref.bitfield Bitfield]]
 

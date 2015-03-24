@@ -8,7 +8,7 @@
 namespace eglplus {
 
 using __oglplus_String;
-using __oglplus_StrCRef;
+using __oglplus_CStrRef;
 
 } // namespace eglplus
 //]

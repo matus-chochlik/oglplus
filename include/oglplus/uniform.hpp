@@ -351,7 +351,22 @@ public:
 	template <typename T>
 	void Set(T value)
 	{
-		ProgVar<OpsTag, tag::Uniform, tag::NoTypecheck, T>(*this).Set(value);
+		ProgVar<OpsTag, tag::Uniform, tag::NoTypecheck, T>(*this)
+			.Set(value);
+	}
+
+	template <typename T>
+	void SetValue(T value)
+	{
+		ProgVar<OpsTag, tag::Uniform, tag::NoTypecheck, T>(*this)
+			.SetValue(value);
+	}
+
+	template <typename T>
+	void SetValues(std::size_t n, T values)
+	{
+		ProgVar<OpsTag, tag::Uniform, tag::NoTypecheck, T>(*this)
+			.SetValues(n, values);
 	}
 
 	template <typename T>
