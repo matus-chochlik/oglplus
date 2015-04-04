@@ -42,3 +42,4 @@ change without any prior notice.
 [include quickref/alut.qbk]
 
 [include quickref/math.qbk]
+[include quickref/boolean.qbk]
