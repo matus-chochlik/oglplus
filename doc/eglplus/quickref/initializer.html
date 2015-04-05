@@ -1,0 +1,173 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Initializer</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;7.&#160;Quick reference">
+<link rel="prev" href="string.html" title="Strings">
+<link rel="next" href="display.html" title="Displays">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="string.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="display.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="eglplus.quickref.initializer"></a><a class="link" href="initializer.html" title="Initializer">Initializer</a>
+</h2></div></div></div>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;eglplus/initializer.hpp&gt;</code>
+        </p>
+<p>
+          TODO
+        </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">eglplus</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">EGLInitializer</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">EGLInitializer</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="eglplus.quickref.initializer.c0" href="initializer.html#eglplus.quickref.initializer.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">EGLInitializer</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="display.html" title="Displays">Display</a><span class="special">&amp;</span> <span class="identifier">display</span><span class="special">);</span> <a class="co" name="eglplus.quickref.initializer.c2" href="initializer.html#eglplus.quickref.initializer.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">EGLInitializer</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">EGLInitializer</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span>
+	<span class="identifier">EGLInitializer</span><span class="special">(</span><span class="identifier">EGLInitializer</span><span class="special">&amp;&amp;);</span>
+
+	<span class="special">~</span><span class="identifier">EGLInitializer</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="eglplus.quickref.initializer.c4" href="initializer.html#eglplus.quickref.initializer.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">const</span> <a class="link" href="display.html" title="Displays">Display</a><span class="special">&amp;</span> <span class="identifier">Disp</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.initializer.c6" href="initializer.html#eglplus.quickref.initializer.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">const</span> <a class="link" href="display.html" title="Displays">Display</a><span class="special">&amp;</span> <span class="identifier">AssociatedDisplay</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">EGLint</span> <span class="identifier">VersionMajor</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.initializer.c8" href="initializer.html#eglplus.quickref.initializer.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">EGLint</span> <span class="identifier">VersionMinor</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.initializer.c10" href="initializer.html#eglplus.quickref.initializer.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">QueryString</span><span class="special">(</span><span class="identifier">__StringQuery</span> <span class="identifier">query</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.initializer.c12" href="initializer.html#eglplus.quickref.initializer.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">Vendor</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.initializer.c14" href="initializer.html#eglplus.quickref.initializer.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">Version</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.initializer.c16" href="initializer.html#eglplus.quickref.initializer.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+
+	<a class="link" href="../../oglplus/quickref/concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><a class="link" href="string.html" title="Strings">String</a><span class="special">&gt;</span> <span class="identifier">ClientAPIs</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.initializer.c18" href="initializer.html#eglplus.quickref.initializer.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+	<a class="link" href="../../oglplus/quickref/concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><a class="link" href="string.html" title="Strings">String</a><span class="special">&gt;</span> <span class="identifier">Extensions</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="eglplus.quickref.initializer.c20" href="initializer.html#eglplus.quickref.initializer.c21"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">bool</span> <span class="identifier">HasClientExtensions</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="eglplus.quickref.initializer.c22" href="initializer.html#eglplus.quickref.initializer.c23"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+
+	<span class="keyword">static</span> <a class="link" href="../../oglplus/quickref/concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><a class="link" href="string.html" title="Strings">String</a><span class="special">&gt;</span> <span class="identifier">ClientExtensions</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="eglplus.quickref.initializer.c24" href="initializer.html#eglplus.quickref.initializer.c25"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+
+	<span class="keyword">static</span> <a class="link" href="boolean.html" title="Boolean">Boolean</a> <span class="identifier">ReleaseThread</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="eglplus.quickref.initializer.c26" href="initializer.html#eglplus.quickref.initializer.c27"><img src="../../images/callouts/14.png" alt="14" border="0"></a>
+<span class="special">};</span>
+
+<span class="keyword">typedef</span> <span class="identifier">EGLInitializer</span> <span class="identifier">LibEGL</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace eglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c1"></a><a href="#eglplus.quickref.initializer.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Initializes EGL on the default display. See <code class="literal">eglGetDisplay</code>,
+              <code class="literal">eglInitialize</code>, <span class="bold"><strong><code class="literal">EGL_DEFAULT_DISPLAY</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c3"></a><a href="#eglplus.quickref.initializer.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Initializes EGL on the specified display. See <code class="literal">eglInitialize</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c5"></a><a href="#eglplus.quickref.initializer.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              See <code class="literal">eglTerminate</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c7"></a><a href="#eglplus.quickref.initializer.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns a reference to the associated display.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c9"></a><a href="#eglplus.quickref.initializer.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the major version number.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c11"></a><a href="#eglplus.quickref.initializer.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the minor version number.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c13"></a><a href="#eglplus.quickref.initializer.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Queries the specified EGL string. See <code class="literal">eglQueryString</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c15"></a><a href="#eglplus.quickref.initializer.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the vendor name. See <code class="literal">eglQueryString</code>, <span class="bold"><strong><code class="literal">EGL_EGL_VENDOR</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c17"></a><a href="#eglplus.quickref.initializer.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns the version string. See <code class="literal">eglQueryString</code>,
+              <span class="bold"><strong><code class="literal">EGL_EGL_VERSION</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c19"></a><a href="#eglplus.quickref.initializer.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns a range of supported API name strings. See <code class="literal">eglQueryString</code>,
+              <span class="bold"><strong><code class="literal">EGL_EGL_CLIENT_APIS</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c21"></a><a href="#eglplus.quickref.initializer.c20"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns a range of extension strings. See <code class="literal">eglQueryString</code>,
+              <span class="bold"><strong><code class="literal">EGL_EGL_EXTENSIONS</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c23"></a><a href="#eglplus.quickref.initializer.c22"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns true if the EGL implementation supports client extensions.
+              See <code class="literal">eglQueryString</code>, <span class="bold"><strong><code class="literal">EGL_EGL_EXTENSIONS</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c25"></a><a href="#eglplus.quickref.initializer.c24"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Returns a range of client extension strings. See <code class="literal">eglQueryString</code>,
+              <span class="bold"><strong><code class="literal">EGL_EGL_EXTENSIONS</code></strong></span>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="eglplus.quickref.initializer.c27"></a><a href="#eglplus.quickref.initializer.c26"><img src="../../images/callouts/14.png" alt="14" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Releases the current thread state. See <code class="literal">eglReleaseThread</code>.
+            </p></td>
+</tr>
+</table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="string.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="display.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
