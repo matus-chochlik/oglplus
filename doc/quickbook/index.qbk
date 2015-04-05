@@ -59,7 +59,7 @@
 [def __oglplus_StrCRef [link oglplus.quickref.string.ref oglplus::StrCRef]]
 [def __oglplus_Bitfield [link oglplus.quickref.bitfield oglplus::Bitfield]]
 
-[def __oglplus_Boolean [link oglplus.quickref.boolean oalplus::Boolean]]
+[def __oglplus_BoolImpl [link oglplus.quickref.boolean oglplus::BoolImpl]]
 
 [def __oglplus_Angle [link oglplus.quickref.math.angle oglplus::Angle]]
 [def __oglplus_Vector [link oglplus.quickref.math.vector oglplus::Vector]]

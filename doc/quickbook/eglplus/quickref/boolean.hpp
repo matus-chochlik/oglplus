@@ -4,11 +4,11 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oalplus_boolean
-namespace oalplus {
+//[eglplus_boolean
+namespace eglplus {
 
-typedef __oglplus_BoolImpl<ALint, AL_TRUE, AL_FALSE> Boolean;
+typedef __oglplus_BoolImpl<EGLBoolean, EGL_TRUE, EGL_FALSE> Boolean;
 
-} // namespace oalplus
+} // namespace eglplus
 //]
 
