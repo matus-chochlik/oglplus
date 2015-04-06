@@ -31,6 +31,8 @@
 [def __FinishedContextAttribs [link eglplus.quickref.context.attribs FinishedContextAttribs]]
 [def __Context [link eglplus.quickref.context.wrapper Context]]
 
+[def __ContextFlag [link eglplus.quickref.context_flag ContextFlag]]
+
 [def __SurfaceAttribs [link eglplus.quickref.surface.attribs SurfaceAttribs]]
 [def __FinishedSurfaceAttribs [link eglplus.quickref.surface.attribs FinishedSurfaceAttribs]]
 [def __Surface [link eglplus.quickref.surface.wrapper Surface]]
@@ -56,6 +58,10 @@
 [def __VGAlphaFormat [link eglplus.quickref.vg_alpha_format VGAlphaFormat]]
 
 [def __RenderingAPI [link eglplus.quickref.rendering_api RenderingAPI]]
+[def __OpenGLResetNotificationStrategy [link eglplus.quickref.opengl_rns OpenGLResetNotificationStrategy]]
+[def __OpenGLProfileBit [link eglplus.quickref.opengl_profile_bit OpenGLProfileBit]]
+[def __StringQuery [link eglplus.quickref.string_query StringQuery]]
+[def __ErrorCode [link eglplus.quickref.error_code ErrorCode]]
 
 [/---------]
 [/Templates]
