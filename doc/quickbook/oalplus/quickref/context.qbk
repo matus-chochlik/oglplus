@@ -27,4 +27,11 @@
 
 [oalplus_context]
 
+[heading:made_current Context made current]
+
+[^ContextMadeCurrent] is a specialization of __Context which also makes
+the wrapped context current before the constructor finishes.
+
+[oalplus_context_made_current]
+
 [endsect]

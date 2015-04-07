@@ -34,7 +34,9 @@ public:
 //[oglplus_sampler_1
 template <>
 class __ObjectOps<__tag_DirectState, __tag_Sampler>
- : public __ObjZeroOps<__tag_DirectState, __tag_Sampler>
+ : public __ObjZeroOps<__tag_DirectState, __tag_Sampler> /*<
+Indirectly inherits from __ObjCommonOps_Sampler.
+>*/
 {
 public:
 	__Vector<GLfloat, 4> BorderColor(__TypeTag<GLfloat>) const; /*<
@@ -95,6 +97,8 @@ public:
 	See [glfunc SamplerParameter], [glconst TEXTURE_MIN_FILTER],
 	[glconst TEXTURE_MAG_FILTER].
 	>*/
+//]
+//[oglplus_sampler_2
 
 	__TextureWrap Wrap(__TextureWrapCoord coord) const; /*<
 	Returns the currently set texture wrap mode on the specified
@@ -128,8 +132,7 @@ public:
 	>*/
 	void WrapT(TextureWrap mode);
 	void WrapR(TextureWrap mode);
-//]
-//[oglplus_sampler_2
+
 	GLfloat LODBias(void) const; /*<
 	Returns the currently set texture level-of-detail bias value
 	of this sampler object.

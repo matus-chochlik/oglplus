@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -17,7 +17,7 @@ based on how the object that the functions operate on is specified:
 
 # The object is bound to an implicit target (i.e. bound by using the
   appropriate function without any explicit target identifier) and
-  the function is called without any targer identifier).
+  the function is called without any target identifier).
   Such functions are referred to as having an ['implicit selector].
 
 # The object is accessed directly by its unique GL ['name].

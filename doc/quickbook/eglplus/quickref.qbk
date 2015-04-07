@@ -18,6 +18,8 @@ change without any prior notice.
 
 [include quickref/string.qbk]
 
+[include quickref/initializer.qbk]
+
 [include quickref/display.qbk]
 [include quickref/configs.qbk]
 [include quickref/context.qbk]
@@ -25,6 +27,7 @@ change without any prior notice.
 
 [include quickref/attrib_list.qbk]
 [include quickref/bitfield.qbk]
+[include quickref/boolean.qbk]
 
 [include quickref/context_attrib.qbk]
 [include quickref/context_flag.qbk]

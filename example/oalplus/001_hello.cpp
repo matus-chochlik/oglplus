@@ -2,7 +2,7 @@
  *  @example oalplus/001_hello.cpp
  *  @brief Shows the basic usage of OALplus by playing a sound
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -22,7 +22,7 @@ int main(int argc, char** argv)
 	// open the default device
 	oalplus::Device device;
 	// create a context using the device and make it current
-	oalplus::CurrentContext context(device);
+	oalplus::ContextMadeCurrent context(device);
 	// create an instance of ALUT
 	oalplus::ALUtilityToolkit alut(false, argc, argv);
 	// create a listener and set its position, velocity and orientation

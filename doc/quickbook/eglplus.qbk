@@ -13,9 +13,12 @@
 [def __StrCRef [link eglplus.quickref.string StrCRef]]
 
 [def __Bitfield [link eglplus.quickref.bitfield Bitfield]]
+[def __Boolean [link eglplus.quickref.boolean Boolean]]
 
 [def __FinishedAttributeList [link eglplus.quickref.attrib_list FinishedAttributeList]]
 [def __AttributeList [link eglplus.quickref.attrib_list AttributeList]]
+
+[def __Initializer [link eglplus.quickref.initializer Initializer]]
 
 [def __Display [link eglplus.quickref.display Display]]
 
@@ -27,6 +30,8 @@
 [def __ContextAttribs [link eglplus.quickref.context.attribs ContextAttribs]]
 [def __FinishedContextAttribs [link eglplus.quickref.context.attribs FinishedContextAttribs]]
 [def __Context [link eglplus.quickref.context.wrapper Context]]
+
+[def __ContextFlag [link eglplus.quickref.context_flag ContextFlag]]
 
 [def __SurfaceAttribs [link eglplus.quickref.surface.attribs SurfaceAttribs]]
 [def __FinishedSurfaceAttribs [link eglplus.quickref.surface.attribs FinishedSurfaceAttribs]]
@@ -51,6 +56,12 @@
 [def __GLColorspace [link eglplus.quickref.gl_colorspace GLColorSpace]]
 [def __VGColorspace [link eglplus.quickref.vg_colorspace VGColorSpace]]
 [def __VGAlphaFormat [link eglplus.quickref.vg_alpha_format VGAlphaFormat]]
+
+[def __RenderingAPI [link eglplus.quickref.rendering_api RenderingAPI]]
+[def __OpenGLResetNotificationStrategy [link eglplus.quickref.opengl_rns OpenGLResetNotificationStrategy]]
+[def __OpenGLProfileBit [link eglplus.quickref.opengl_profile_bit OpenGLProfileBit]]
+[def __StringQuery [link eglplus.quickref.string_query StringQuery]]
+[def __ErrorCode [link eglplus.quickref.error_code ErrorCode]]
 
 [/---------]
 [/Templates]

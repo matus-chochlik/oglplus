@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -33,12 +33,12 @@ public:
 	>*/
 
 	explicit operator bool (void) const; /*<
-	Equivalent to [^IsInitialized].
+	Equivalent to [^HasValidName].
 	>*/
-	bool IsInitialized(void) const noexcept; /*<
-	Returns true if the object is initialized, false otherwise.
+	bool HasValidName(void) const noexcept; /*<
+	Returns true if the object has a valid name, false otherwise.
 	The only things that can safely be done with
-	an uninitialized [^Optional<__Object>] is assignment,
+	an invalid name [^Optional<__Object>] is assignment,
 	moving, destruction and checking whether it is
 	initialized. On the other hand initialized
 	[^Optional<__Object>] can be used everywhere where

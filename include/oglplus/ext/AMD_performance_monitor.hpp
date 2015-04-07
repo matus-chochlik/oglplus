@@ -304,10 +304,9 @@ protected:
 		OGLPLUS_VERIFY_SIMPLE(DeleteSamplers);
 	}
 
-	static GLboolean IsA(GLuint name)
+	static Boolean IsA(GLuint /*name*/)
 	{
-		assert(name != 0);
-		return GL_TRUE;
+			return Boolean::Indeterminate();
 	}
 };
 

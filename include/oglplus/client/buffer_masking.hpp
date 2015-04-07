@@ -122,7 +122,7 @@ public:
 	{ }
 };
 
-template <Face F>
+template <SingleFace F>
 class StencilMask
  : public SettingStack<Boolean, Nothing>
 {
@@ -130,13 +130,13 @@ private:
 	static
 	Boolean _do_get(Nothing)
 	{
-		return context::BufferMaskingState::StencilWriteMask(F);
+		return context::BufferMaskingState::StencilWriteMaskSingle(F);
 	}
 
 	static
 	void _do_set(Boolean value, Nothing)
 	{
-		context::BufferMaskingState::StencilMaskSeparate(F, value);
+		context::BufferMaskingState::StencilMaskSeparateSingle(F, value);
 	}
 public:
 	StencilMask(void)
@@ -157,7 +157,7 @@ public:
 
 	oglplus::enums::EnumToClass<
 		Nothing,
-		Face,
+		SingleFace,
 		aux::StencilMask
 	> StencilMask;
 };

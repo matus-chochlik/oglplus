@@ -20,7 +20,7 @@ namespace oglplus {
 namespace client {
 namespace aux {
 
-template <Face F>
+template <SingleFace F>
 class StencilFunc
  : public SettingStack<context::StencilFuncArgs, Nothing>
 {
@@ -28,13 +28,13 @@ private:
 	static
 	context::StencilFuncArgs _do_get(Nothing)
 	{
-		return context::StencilTest::StencilFuncArgs(F);
+		return context::StencilTest::StencilFuncArgsSingle(F);
 	}
 
 	static
 	void _do_set(context::StencilFuncArgs val, Nothing)
 	{
-		context::StencilTest::StencilFuncSeparate(F, val);
+		context::StencilTest::StencilFuncSeparateSingle(F, val);
 	}
 public:
 	StencilFunc(void)
@@ -45,7 +45,7 @@ public:
 	{ }
 };
 
-template <Face F>
+template <SingleFace F>
 class StencilOp
  : public SettingStack<context::StencilOperations, Nothing>
 {
@@ -53,13 +53,13 @@ private:
 	static
 	context::StencilOperations _do_get(Nothing)
 	{
-		return context::StencilTest::StencilOps(F);
+		return context::StencilTest::StencilOpsSingle(F);
 	}
 
 	static
 	void _do_set(context::StencilOperations val, Nothing)
 	{
-		context::StencilTest::StencilOpSeparate(F, val);
+		context::StencilTest::StencilOpSeparateSingle(F, val);
 	}
 public:
 	StencilOp(void)
@@ -77,13 +77,13 @@ class StencilTest
 public:
 	oglplus::enums::EnumToClass<
 		Nothing,
-		Face,
+		SingleFace,
 		aux::StencilFunc
 	> StencilFunc;
 
 	oglplus::enums::EnumToClass<
 		Nothing,
-		Face,
+		SingleFace,
 		aux::StencilOp
 	> StencilOp;
 };

@@ -168,7 +168,7 @@ public:
 class PixelOps
 {
 public:
-	/// Sets the @p value of a pixel storage @p parameter
+	/// Reads the pixels from the current framebuffer into a host memory buffer
 	/**
 	 *  @glsymbols
 	 *  @glfunref{ReadPixels}

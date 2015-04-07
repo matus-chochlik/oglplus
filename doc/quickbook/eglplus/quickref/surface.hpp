@@ -58,22 +58,22 @@ public:
 	See [eglfunc CreateWindowSurface].
 	>*/
 
-	bool SwapBuffers(void); /*<
+	__Boolean SwapBuffers(void); /*<
 	Swap the front and back buffers.
 	See [eglfunc SwapBuffers].
 	>*/
 
-	bool CopyBuffers(EGLNativePixmapType target); /*<
+	__Boolean CopyBuffers(EGLNativePixmapType target); /*<
 	Copy buffer to native pixmap.
 	See [eglfunc CopyBuffers].
 	>*/
 
-	bool Attrib(__SurfaceAttrib attrib, EGLint value); /*<
+	__Boolean Attrib(__SurfaceAttrib attrib, EGLint value); /*<
 	Sets the value of the specified attribute.
 	See [eglfunc SurfaceAttrib].
 	>*/
 
-	bool QueryAttrib(__SurfaceAttrib attrib, EGLint& value) const; /*<
+	__Boolean QueryAttrib(__SurfaceAttrib attrib, EGLint& value) const; /*<
 	Queries the specified surface attribute value.
 	See [eglfunc QuerySurface].
 	>*/
