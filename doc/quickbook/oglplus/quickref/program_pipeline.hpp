@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -31,7 +31,9 @@ public:
 //[oglplus_program_pipeline_1
 template <>
 class __ObjectOps<__tag_DirectState, __tag_ProgramPipeline>
- : public __ObjZeroOps<__tag_DirectState, __tag_ProgramPipeline>
+ : public __ObjZeroOps<__tag_DirectState, __tag_ProgramPipeline> /*<
+Indirectly inherits from __ObjCommonOps_ProgramPipeline.
+>*/
 {
 public:
 	struct Properties
@@ -118,7 +120,9 @@ typedef ObjectOps<__tag_DirectState, __tag_ProgramPipeline>
 
 typedef __Object<ProgramPipelineOps> ProgramPipeline;
 
-typedef __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_ProgramPipeline>>
+typedef __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_ProgramPipeline>> /*<
+Indirectly inherits from __ObjCommonOps_ProgramPipeline.
+>*/
 	NoProgramPipeline;
 
 } // namespace oglplus

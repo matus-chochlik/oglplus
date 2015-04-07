@@ -133,6 +133,12 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(StencilMaskSeparate);
 	}
 
+	static void StencilMaskSeparateSingle(SingleFace face, GLuint mask)
+	{
+		OGLPLUS_GLFUNC(StencilMaskSeparate)(GLenum(face), mask);
+		OGLPLUS_VERIFY_SIMPLE(StencilMaskSeparate);
+	}
+
 	static oglplus::context::RGBAMask ColorWriteMask(void)
 	{
 		oglplus::context::RGBAMask result;
@@ -208,6 +214,11 @@ public:
 	static GLuint StencilWriteMask(Face face)
 	{
 		return StencilWriteMask(face == Face::Back);
+	}
+
+	static GLuint StencilWriteMaskSingle(SingleFace face)
+	{
+		return StencilWriteMask(face == SingleFace::Back);
 	}
 };
 

@@ -625,6 +625,7 @@ def action_impl_enum_type_ipp(options):
 	for item in items:
 		try:
 			if item.assoc_type:
+				print_line(options, "#if defined %s_%s" % (item.prefix, item.src_name))
 				print_line(options, "template <>")
 				print_line(options, "struct EnumAssocType<%s, %s::%s>" % (
 					options.enum_name,
@@ -632,6 +633,7 @@ def action_impl_enum_type_ipp(options):
 					item.dst_name
 				))
 				print_line(options, "{ typedef %s Type; };" % (item.assoc_type))
+				print_line(options, "#endif")
 		except AttributeError:
 			pass
 

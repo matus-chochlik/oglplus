@@ -8,6 +8,21 @@
 namespace oglplus {
 
 template <typename T, T TrueValue, T FalseValue>
+struct WeakBoolImpl
+{
+public:
+	operator bool (void) const
+	noexcept; /*<
+	Returns [^true] if the wrapped value is not equal to [^FalseValue].
+	>*/
+
+	bool operator ! (void) const;
+	noexcept; /*<
+	Returns [^true] if the wrapped value is not equal to [^TrueValue].
+	>*/
+};
+
+template <typename T, T TrueValue, T FalseValue>
 struct BoolImpl
 {
 public:
@@ -35,9 +50,17 @@ public:
 	>*/
 
 	operator bool (void) const
-	noexcept;
+	noexcept; /*<
+	Returns [^true] if the wrapped value is equal to [^TrueValue].
+	>*/
 
 	bool operator ! (void) const;
+	noexcept; /*<
+	Returns [^true] if the wrapped value is equal to [^FalseValue].
+	>*/
+
+	WeakBoolImpl<T, TrueValue, FalseValue>
+	operator ~ (void) const
 	noexcept;
 };
 

@@ -332,6 +332,13 @@ public:
 		return *this;
 	}
 
+	static
+	auto HasInstance(ObjectName<ObjTag> name) ->
+		decltype(ObjGenDelOps<ObjTag>::IsA(GetName(name))) // TODO
+	{
+		return ObjGenDelOps<ObjTag>::IsA(GetName(name));
+	}
+
 	/// Returns the textual description of this object
 	const std::string& Description(void) const
 	{

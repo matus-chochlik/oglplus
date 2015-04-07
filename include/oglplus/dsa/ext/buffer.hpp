@@ -69,14 +69,7 @@ public:
 	GLint GetIntParam(GLenum query) const;
 
 	/// Types related to Buffer
-	struct Property
-	{
-		/// The Buffer usage mode
-		typedef BufferUsage Usage;
-
-		/// The buffer map access mode
-		typedef BufferMapAccess MapAccess;
-	};
+	typedef BufferOps::Property Property;
 
 	/// Mapping of the buffer to the client address space
 	typedef DSABufferTypedMapEXT<GLubyte> Map;

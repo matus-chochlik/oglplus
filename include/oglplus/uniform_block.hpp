@@ -44,7 +44,7 @@ public:
 	 *  throws if no such uniform block exists or if it is not active.
 	 *
 	 *  @glsymbols
-	 *  @glfunref{GetUniformLocation}
+	 *  @glfunref{GetUniformBlockIndex}
 	 */
 	static GLint GetLocation(
 		ProgramName program,

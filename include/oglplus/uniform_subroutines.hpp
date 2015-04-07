@@ -92,7 +92,7 @@ public:
 		ProgramName program,
 		StrCRef identifier,
 		bool active_only
-	)
+	) const
 	{
 		return GetLocation(
 			program,
@@ -202,7 +202,7 @@ public:
 		ProgramName program,
 		StrCRef identifier,
 		bool active_only
-	)
+	) const
 	{
 		return GetLocation(
 			program,

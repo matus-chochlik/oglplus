@@ -204,6 +204,39 @@ public:
 		);
 	}
 
+	static void StencilFuncSeparateSingle(
+		SingleFace face,
+		CompareFunction func,
+		GLint ref = GLint(0),
+		GLuint mask = ~GLuint(0)
+	)
+	{
+		OGLPLUS_GLFUNC(StencilFuncSeparate)(
+			GLenum(face),
+			GLenum(func),
+			ref,
+			mask
+		);
+		OGLPLUS_VERIFY(
+			StencilFuncSeparate,
+			Error,
+			EnumParam(func)
+		);
+	}
+
+	static void StencilFuncSeparateSingle(
+		SingleFace face,
+		const StencilFuncArgs& fa
+	)
+	{
+		return StencilFuncSeparateSingle(
+			face,
+			fa.Func(),
+			fa.Ref(),
+			fa.ValueMask()
+		);
+	}
+
 	/// Returns the stencil function
 	/**
 	 *  @glsymbols
@@ -295,6 +328,12 @@ public:
 		return StencilFuncArgs(face == Face::Back);
 	}
 
+	static
+	oglplus::context::StencilFuncArgs StencilFuncArgsSingle(SingleFace face)
+	{
+		return StencilFuncArgs(face == SingleFace::Back);
+	}
+
 	/// Sets the stencil operation
 	/**
 	 *  @glsymbols
@@ -340,12 +379,41 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(StencilOpSeparate);
 	}
 
+	static void StencilOpSeparateSingle(
+		SingleFace face,
+		StencilOperation sfail,
+		StencilOperation dfail,
+		StencilOperation dpass
+	)
+	{
+		OGLPLUS_GLFUNC(StencilOpSeparate)(
+			GLenum(face),
+			GLenum(sfail),
+			GLenum(dfail),
+			GLenum(dpass)
+		);
+		OGLPLUS_VERIFY_SIMPLE(StencilOpSeparate);
+	}
+
 	static void StencilOpSeparate(
 		Face face,
 		const StencilOperations& ops
 	)
 	{
 		StencilOpSeparate(face, ops._sfail, ops._dfail, ops._dpass);
+	}
+
+	static void StencilOpSeparateSingle(
+		SingleFace face,
+		const StencilOperations& ops
+	)
+	{
+		StencilOpSeparateSingle(
+			face,
+			ops._sfail,	
+			ops._dfail,
+			ops._dpass
+		);
 	}
 
 	/// Returns the stencil-fail action
@@ -435,6 +503,11 @@ public:
 	static StencilOperations StencilOps(Face face)
 	{
 		return StencilOps(face == Face::Back);
+	}
+
+	static StencilOperations StencilOpsSingle(SingleFace face)
+	{
+		return StencilOps(face == SingleFace::Back);
 	}
 
 };

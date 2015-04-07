@@ -2,7 +2,7 @@
  *  @example standalone/020_oglplus_oalplus.cpp
  *  @brief Shows the usage of OGLplus and OALplus
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -216,7 +216,7 @@ private:
 	oglplus::Context gl;
 
 	oalplus::Device al_device;
-	oalplus::CurrentContext al;
+	oalplus::ContextMadeCurrent al;
 	oalplus::Listener listener;
 
 	OGLOALExampleSource source;

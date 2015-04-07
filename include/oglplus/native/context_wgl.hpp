@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -28,6 +28,7 @@ private:
 
 	friend ::HGLRC GetHGLRC(const ContextWGL&);
 
+protected:
 	struct Current_ { };
 
 	ContextWGL(Current_)
@@ -36,6 +37,27 @@ private:
 		if(!_context) HandleNoWGLRC();
 	}
 public:
+	friend
+	bool operator == (const ContextWGL& a, const ContextWGL& b)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return a._context == b._context;
+	}
+
+	friend
+	bool operator != (const ContextWGL& a, const ContextWGL& b)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return a._context != b._context;
+	}
+
+	friend
+	bool operator <  (const ContextWGL& a, const ContextWGL& b)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return a._context <  b._context;
+	}
+
 	/// Returns a wrapper for the currently bound WGL context
 	/** This function gets and wraps the current WGL rendering context.
 	 *  If no context is current it throws a @c runtime_error.
@@ -60,12 +82,25 @@ public:
 	}
 };
 
-inline ::HGLRC GetHGLRC(const ContextWGL& cwgl)
+inline
+::HGLRC GetHGLRC(const ContextWGL& cwgl)
+OGLPLUS_NOEXCEPT(true)
 {
 	return cwgl._context;
 }
 
 typedef ContextWGL Context;
+
+class CurrentContextWGL
+ : public ContextWGL
+{
+public:
+	CurrentContextWGL(void)
+	 : ContextWGL(ContextWGL::Current_())
+	{ }
+};
+
+typedef CurrentContextWGL CurrentContext;
 
 } // namespace native
 } // namespace oglplus

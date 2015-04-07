@@ -91,7 +91,7 @@ public:
 	See [eglfunc GetConfigAttrib], [eglconst MAX_SWAP_INTERVAL].
 	>*/
 
-	bool NativeRenderable(void) const; /*<
+	__Boolean NativeRenderable(void) const; /*<
 	Returns true if native rendering API can render to surface.
 	See [eglfunc GetConfigAttrib], [eglconst NATIVE_RENDERABLE].
 	>*/

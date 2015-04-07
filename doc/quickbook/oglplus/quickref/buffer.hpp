@@ -132,7 +132,9 @@ public:
 //[oglplus_buffer_1
 template <>
 class __ObjectOps<__tag_ExplicitSel, __tag_Buffer>
- : public __ObjZeroOps<__tag_ExplicitSel, __tag_Buffer>
+ : public __ObjZeroOps<__tag_ExplicitSel, __tag_Buffer> /*<
+Indirectly inherits from __ObjCommonOps_Buffer.
+>*/
 {
 public:
 	struct Property

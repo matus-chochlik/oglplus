@@ -34,11 +34,11 @@ public:
 	See [alfunc GetSourceiv], [alconst SOURCE_STATE].
 	>*/
 
-	void Relative(bool value); /*<
+	void Relative(__Boolean value); /*<
 	Sets the source to relative or absoulte state.
 	See [alfunc Sourcei], [alconst SOURCE_RELATIVE].
 	>*/
-	bool Relative(void) const; /*<
+	__Boolean Relative(void) const; /*<
 	Returns true if the source is relative.
 	See [alfunc GetSourceiv], [alconst SOURCE_RELATIVE].
 	>*/
@@ -52,11 +52,11 @@ public:
 	See [alfunc GetSourceiv], [alconst SOURCE_TYPE].
 	>*/
 
-	void Looping(bool value); /*<
+	void Looping(__Boolean value); /*<
 	Sets the looping mode.
 	See [alfunc Sourcei], [alconst LOOPING].
 	>*/
-	bool Looping(void) const; /*<
+	__Boolean Looping(void) const; /*<
 	Returns true if the source is in looping mode.
 	See [alfunc GetSourceiv], [alconst SOURCE_LOOPING].
 	>*/
