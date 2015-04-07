@@ -1,3 +1,16 @@
+Version 0.60.0
+
+- The Boolean wrapper was updated, the operator ~ was added.
+- The Object::HasInstance function was added.
+- The native GL context wrappers were updated.
+- The DSA Texture, Buffer and Framebuffer were partially refactored.
+- The SingleFace enumeration was added.
+- The FragmentData and FragmentDataSlot typedefs were added.
+- A new standalone example was added.
+- The oalplus::CurrentContext class was renamed to ContextMadeCurrent.
+- Missing #ifdefs were added around specializations of EnumAssocType.
+- The Quickbook documentation was updated.
+
 Version 0.59.0
 
 - Problems with move construction and move-assignment of objects

@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.59.0
+Release notes for version 0.60.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,5 +7,28 @@ Release notes for version 0.59.0
 Overview
 ========
 
-This is mostly a bugfix release of `OGLPLUS`_. A bug in move construction and move assignment in the ``Object`` wrappers were fixed. The ``Boolean`` wrapper for ``GLint``, ``ALint`` and ``EGLBoolean`` values implicitly convertible from and to ``bool`` was added.
+This release of `OGLplus`_ brings several minor changes, updates and bugfixes. The Quickbook documentation has also been updated.
+
+Changes
+-------
+
+- The ``Boolean`` wrapper class was updated, the ``operator ~`` was added.
+
+- The ``HasInstance`` function was added to the ``Object`` wrapper.
+
+- The native GL context wrappers were updated.
+
+- The DSA ``Texture``, ``Buffer`` and ``Framebuffer`` wrappers were partially refactored and simplified.
+
+- The ``SingleFace`` enumeration was added.
+
+- The ``FragmentData`` and ``FragmentDataSlot`` typedefs were added.
+
+- A new standalone example was added.
+
+- The ``oalplus::CurrentContext`` class was renamed to ``ContextMadeCurrent``.
+
+- Missing ``#ifdefs`` were added around specializations of ``EnumAssocType``.
+
+- The Quickbook documentation was updated.
 
