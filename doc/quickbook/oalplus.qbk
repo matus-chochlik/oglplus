@@ -12,6 +12,8 @@
 [def __String [link oalplus.quickref.string String]]
 [def __CStrRef [link oalplus.quickref.string CStrRef]]
 
+[def __Boolean [link oalplus.quickref.boolean.def Boolean]]
+
 [def __Error [link oalplus.quickref.error.basic Error]]
 
 [def __GenTag [link oalplus.quickref.gen_tags GenTag]]
