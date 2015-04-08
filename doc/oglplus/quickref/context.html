@@ -590,9 +590,11 @@
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c12" href="context.html#oglplus.quickref.context.buffer_masking.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilMaskSeparate</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">,</span> <span class="identifier">GLuint</span> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c14" href="context.html#oglplus.quickref.context.buffer_masking.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilMaskSeparateSingle</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a> <span class="identifier">face</span><span class="special">,</span> <span class="identifier">GLuint</span> <span class="identifier">mask</span><span class="special">);</span>
 
 	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilWriteMask</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c16" href="context.html#oglplus.quickref.context.buffer_masking.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilWriteMask</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">);</span>
+	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilWriteMaskSingle</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a> <span class="identifier">face</span><span class="special">);</span>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
@@ -1639,10 +1641,83 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/stencil_test.hpp&gt;</code>
           </p>
+<h5>
+<a name="oglplus.quickref.context.stencil_test.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.stencil_test.args"></a></span><a class="link" href="context.html#oglplus.quickref.context.stencil_test.args">Stencil
+            function arguments</a>
+          </h5>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
-<span class="keyword">class</span> <span class="identifier">StencilTest</span>
+<span class="keyword">struct</span> <span class="identifier">StencilFuncArgs</span>
+<span class="special">{</span>
+	<span class="identifier">StencilFuncArgs</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">StencilFuncArgs</span><span class="special">(</span>
+		<a class="link" href="compare_function.html" title="Compare function">CompareFunction</a> <span class="identifier">func</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">refv</span> <span class="special">=</span> <span class="identifier">GLint</span><span class="special">(</span><span class="number">0</span><span class="special">),</span>
+		<span class="identifier">GLuint</span> <span class="identifier">mask</span> <span class="special">=</span> <span class="special">~</span><span class="identifier">GLuint</span><span class="special">(</span><span class="number">0</span><span class="special">)</span>
+	<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="compare_function.html" title="Compare function">CompareFunction</a> <span class="identifier">Func</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLint</span> <span class="identifier">Ref</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">GLuint</span> <span class="identifier">ValueMask</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span>
+	<span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">==</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">StencilFuncArgs</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">StencilFuncArgs</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span>
+	<span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!=</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">StencilFuncArgs</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">StencilFuncArgs</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.context.stencil_test.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.stencil_test.ops"></a></span><a class="link" href="context.html#oglplus.quickref.context.stencil_test.ops">Stencil
+            operations</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">StencilOperations</span>
+<span class="special">{</span>
+	<span class="identifier">StencilOperations</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">StencilOperations</span><span class="special">(</span>
+		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">sfail</span><span class="special">,</span>
+		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dfail</span><span class="special">,</span>
+		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dpass</span>
+	<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">StencilFail</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">DepthFail</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">DepthPass</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span>
+	<span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">==</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">StencilOperations</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">StencilOperations</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span>
+	<span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!=</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">StencilOperations</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">StencilOperations</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.context.stencil_test.h2"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.stencil_test.state_and_operations"></a></span><a class="link" href="context.html#oglplus.quickref.context.stencil_test.state_and_operations">State
+            and operations</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">StencilTest</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilFunc</span><span class="special">(</span>
@@ -1650,12 +1725,29 @@
 		<span class="identifier">GLint</span> <span class="identifier">ref</span> <span class="special">=</span> <span class="identifier">GLint</span><span class="special">(</span><span class="number">0</span><span class="special">),</span>
 		<span class="identifier">GLuint</span> <span class="identifier">mask</span> <span class="special">=</span> <span class="special">~</span><span class="identifier">GLuint</span><span class="special">(</span><span class="number">0</span><span class="special">)</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c0" href="context.html#oglplus.quickref.context.stencil_test.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilFunc</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">StencilFuncArgs</span><span class="special">&amp;</span> <span class="identifier">fa</span><span class="special">);</span>
+
+
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilFuncSeparate</span><span class="special">(</span>
 		<a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">,</span>
 		<a class="link" href="compare_function.html" title="Compare function">CompareFunction</a> <span class="identifier">function</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">ref</span> <span class="special">=</span> <span class="identifier">GLint</span><span class="special">(</span><span class="number">0</span><span class="special">),</span>
 		<span class="identifier">GLuint</span> <span class="identifier">mask</span> <span class="special">=</span> <span class="special">~</span><span class="identifier">GLuint</span><span class="special">(</span><span class="number">0</span><span class="special">)</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c2" href="context.html#oglplus.quickref.context.stencil_test.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilFuncSeparate</span><span class="special">(</span>
+		<a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.stencil_test.args">StencilFuncArgs</a><span class="special">&amp;</span> <span class="identifier">fa</span>
+	<span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilFuncSeparateSingle</span><span class="special">(</span>
+		<a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a> <span class="identifier">face</span><span class="special">,</span>
+		<a class="link" href="compare_function.html" title="Compare function">CompareFunction</a> <span class="identifier">function</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">ref</span> <span class="special">=</span> <span class="identifier">GLint</span><span class="special">(</span><span class="number">0</span><span class="special">),</span>
+		<span class="identifier">GLuint</span> <span class="identifier">mask</span> <span class="special">=</span> <span class="special">~</span><span class="identifier">GLuint</span><span class="special">(</span><span class="number">0</span><span class="special">)</span>
+	<span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilFuncSeparateSingle</span><span class="special">(</span>
+		<a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a> <span class="identifier">face</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.stencil_test.args">StencilFuncArgs</a><span class="special">&amp;</span> <span class="identifier">fa</span>
+	<span class="special">);</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilOp</span><span class="special">(</span>
 		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">sfail</span><span class="special">,</span>
@@ -1669,6 +1761,12 @@
 		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dfail</span><span class="special">,</span>
 		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dpass</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c6" href="context.html#oglplus.quickref.context.stencil_test.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">StencilOpSeparateSingle</span><span class="special">(</span>
+		<a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a> <span class="identifier">face</span><span class="special">,</span>
+		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">sfail</span><span class="special">,</span>
+		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dfail</span><span class="special">,</span>
+		<a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">dpass</span>
+	<span class="special">);</span>
 
 	<span class="keyword">static</span> <a class="link" href="compare_function.html" title="Compare function">CompareFunction</a> <span class="identifier">StencilFunc</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c8" href="context.html#oglplus.quickref.context.stencil_test.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">CompareFunction</span> <span class="identifier">StencilFunc</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">);</span>
@@ -1679,14 +1777,21 @@
 	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilRef</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c12" href="context.html#oglplus.quickref.context.stencil_test.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">GLuint</span> <span class="identifier">StencilRef</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">);</span>
 
-	<span class="keyword">static</span> <a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">StencilFail</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c14" href="context.html#oglplus.quickref.context.stencil_test.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.stencil_test.args">StencilFuncArgs</a> <span class="identifier">StencilFuncArgs</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c14" href="context.html#oglplus.quickref.context.stencil_test.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.stencil_test.args">StencilFuncArgs</a> <span class="identifier">StencilFuncArgsSingle</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a> <span class="identifier">face</span><span class="special">);</span>
+
+	<span class="keyword">static</span> <a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">StencilFail</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c16" href="context.html#oglplus.quickref.context.stencil_test.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">StencilOperation</span> <span class="identifier">StencilFail</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">);</span>
 
-	<span class="keyword">static</span> <a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">StencilPassDepthFail</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c16" href="context.html#oglplus.quickref.context.stencil_test.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">StencilPassDepthFail</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c18" href="context.html#oglplus.quickref.context.stencil_test.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">StencilOperation</span> <span class="identifier">StencilPassDepthFail</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">);</span>
 
-	<span class="keyword">static</span> <a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">StencilPassDepthPass</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c18" href="context.html#oglplus.quickref.context.stencil_test.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="stencil_operation.html" title="Stencil operation">StencilOperation</a> <span class="identifier">StencilPassDepthPass</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.stencil_test.c20" href="context.html#oglplus.quickref.context.stencil_test.c21"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
 	<span class="keyword">static</span> <span class="identifier">StencilOperation</span> <span class="identifier">StencilPassDepthPass</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">)</span>
+
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.stencil_test.ops">StencilOperations</a> <span class="identifier">StencilOps</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">backface</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">);</span>
+	<span class="keyword">static</span> <span class="identifier">StencilOperations</span> <span class="identifier">StencilOps</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">face</span><span class="special">);</span>
+	<span class="keyword">static</span> <span class="identifier">StencilOperations</span> <span class="identifier">StencilOpsSingle</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a> <span class="identifier">face</span><span class="special">);</span>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
@@ -1747,13 +1852,19 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.stencil_test.c15"></a><a href="#oglplus.quickref.context.stencil_test.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
+                Returns the currently set stencil function arguments.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.stencil_test.c17"></a><a href="#oglplus.quickref.context.stencil_test.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
                 Returns the stencil-fail action. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_STENCIL_FAIL</code></strong></span>,
                 <span class="bold"><strong><code class="literal">GL_STENCIL_BACK_FAIL</code></strong></span>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.stencil_test.c17"></a><a href="#oglplus.quickref.context.stencil_test.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.stencil_test.c19"></a><a href="#oglplus.quickref.context.stencil_test.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the stencil-pass depth-fail action. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_STENCIL_PASS_DEPTH_FAIL</code></strong></span>,
@@ -1761,7 +1872,7 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.stencil_test.c19"></a><a href="#oglplus.quickref.context.stencil_test.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.stencil_test.c21"></a><a href="#oglplus.quickref.context.stencil_test.c20"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the stencil-pass depth-fail action. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_STENCIL_PASS_DEPTH_PASS</code></strong></span>,
