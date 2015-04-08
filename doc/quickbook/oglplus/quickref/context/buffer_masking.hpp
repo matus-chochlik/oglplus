@@ -61,6 +61,7 @@ public:
 	Sets the stencil mask separately for front and back faces.
 	See [glfunc StencilMaskSeparate].
 	>*/
+	static void StencilMaskSeparateSingle(__SingleFace face, GLuint mask);
 
 	static GLuint StencilWriteMask(bool backface = false); /*<
 	Returns the value of stencil buffer write mask.
@@ -68,6 +69,7 @@ public:
 	[glconst STENCIL_BACK_WRITEMASK].
 	>*/
 	static GLuint StencilWriteMask(__Face face);
+	static GLuint StencilWriteMaskSingle(__SingleFace face);
 };
 
 } // namespace context

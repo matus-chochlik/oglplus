@@ -268,6 +268,7 @@
 [def __TypeTag [link oglplus.quickref.data_type.utils TypeTag]]
 
 [def __Face [link oglplus.quickref.face_mode.face Face]]
+[def __SingleFace [link oglplus.quickref.face_mode.single_face SingleFace]]
 [def __FaceOrientation [link oglplus.quickref.face_mode.orientation FaceOrientation]]
 [def __BlendFunction [link oglplus.quickref.blend_function BlendFunction]]
 [def __BlendEquation [link oglplus.quickref.blend_function BlendEquation]]
