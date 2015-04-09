@@ -195,6 +195,8 @@
 
 [def __Reference [link oglplus.quickref.object.reference Reference]]
 [def __Sequence [link oglplus.quickref.object.sequence Sequence]]
+[def __SeqIterator [link oglplus.quickref.object.sequence.iter SeqIterator]]
+[def __Array [link oglplus.quickref.object.array Array]]
 [def __Group [link oglplus.quickref.object.group Group]]
 [def __StaticGroup [link oglplus.quickref.object.group StaticGroup]]
 
