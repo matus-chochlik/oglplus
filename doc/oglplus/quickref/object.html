@@ -30,6 +30,7 @@
 <dt><span class="section"><a href="object.html#oglplus.quickref.object.optional">Optional</a></span></dt>
 <dt><span class="section"><a href="object.html#oglplus.quickref.object.reference">Reference</a></span></dt>
 <dt><span class="section"><a href="object.html#oglplus.quickref.object.sequence">Sequence</a></span></dt>
+<dt><span class="section"><a href="object.html#oglplus.quickref.object.array">Array</a></span></dt>
 <dt><span class="section"><a href="object.html#oglplus.quickref.object.group">Group</a></span></dt>
 </dl></div>
 <div class="section">
@@ -932,6 +933,112 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.object.array"></a><a class="link" href="object.html#oglplus.quickref.object.array" title="Array">Array</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/object/array.hpp&gt;</code>
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Object</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">Array</span><span class="special">;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Array</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Array</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span>
+	<span class="identifier">Array</span><span class="special">(</span><span class="identifier">Array</span><span class="special">&amp;&amp;);</span>
+
+	<span class="identifier">Array</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">count</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.array.c0" href="object.html#oglplus.quickref.object.array.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">Array</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.subtype" title="Object subtype">ObjectSubtype</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;::</span><span class="identifier">Type</span> <span class="identifier">type</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.array.c2" href="object.html#oglplus.quickref.object.array.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="special">~</span><span class="identifier">Array</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+
+	<span class="keyword">bool</span> <span class="identifier">empty</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.array.c4" href="object.html#oglplus.quickref.object.array.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">size</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.array.c6" href="object.html#oglplus.quickref.object.array.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.reference" title="Reference">Reference</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&gt;</span> <span class="identifier">reference</span><span class="special">;</span>
+	<span class="keyword">typedef</span> <span class="keyword">const</span> <span class="identifier">reference</span> <span class="identifier">const_reference</span><span class="special">;</span>
+
+	<span class="identifier">reference</span> <span class="keyword">operator</span><span class="special">[](</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.array.c8" href="object.html#oglplus.quickref.object.array.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="identifier">const_reference</span> <span class="keyword">operator</span><span class="special">[](</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">index</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.array.c10" href="object.html#oglplus.quickref.object.array.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.sequence.iter">SeqIterator</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&gt;</span> <span class="identifier">iterator</span><span class="special">;</span>
+	<span class="keyword">typedef</span> <span class="identifier">iterator</span> <span class="identifier">const_iterator</span><span class="special">;</span>
+
+	<span class="identifier">const_iterator</span> <span class="identifier">begin</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.array.c12" href="object.html#oglplus.quickref.object.array.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="identifier">const_iterator</span> <span class="identifier">end</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.array.c14" href="object.html#oglplus.quickref.object.array.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+	<a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span> <span class="identifier">seq</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">operator</span> <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.array.c16" href="object.html#oglplus.quickref.object.array.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c1"></a><a href="#oglplus.quickref.object.array.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs an an array of <code class="literal">count</code> instances of Object.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c3"></a><a href="#oglplus.quickref.object.array.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Constructs an an array of <code class="literal">n</code> instances of Object
+                with the specified <code class="literal">type</code>
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c5"></a><a href="#oglplus.quickref.object.array.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns true if the array is empty.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c7"></a><a href="#oglplus.quickref.object.array.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the number of instances in the array.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c9"></a><a href="#oglplus.quickref.object.array.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a reference to the i-th instance in the array.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c11"></a><a href="#oglplus.quickref.object.array.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a const reference to the i-th instance in the array.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c13"></a><a href="#oglplus.quickref.object.array.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns an iterator pointing to the first element.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c15"></a><a href="#oglplus.quickref.object.array.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns an iterator pointing past the last element.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c17"></a><a href="#oglplus.quickref.object.array.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Implicit conversion to a sequence of object names, which can be passed
+                as an argument to various functions. Note that the returned sequence
+                must not be used after this array has been destroyed.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="oglplus.quickref.object.group"></a><a class="link" href="object.html#oglplus.quickref.object.group" title="Group">Group</a>
 </h3></div></div></div>
 <p>
@@ -962,6 +1069,8 @@
 <span class="preprocessor">#endif</span>
 
 	<span class="identifier">Group</span><span class="special">&amp;</span> <span class="identifier">Add</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">name</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.group.c6" href="object.html#oglplus.quickref.object.group.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span> <span class="identifier">seq</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 
 	<span class="keyword">operator</span> <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.group.c8" href="object.html#oglplus.quickref.object.group.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="special">};</span>
@@ -1039,6 +1148,8 @@
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">Tag</span><span class="special">&gt;</span>
 	<span class="identifier">StaticGroup</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><span class="identifier">Tag</span><span class="special">&gt;...</span> <span class="identifier">names</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.group.c16" href="object.html#oglplus.quickref.object.group.c17"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span> <span class="identifier">seq</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 
 	<span class="keyword">operator</span> <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;&gt;</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.group.c18" href="object.html#oglplus.quickref.object.group.c19"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="special">};</span>
