@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_WIDTH
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Width
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_HEIGHT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Height
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined EGL_CONFIG_ID
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ConfigId
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined EGL_VG_ALPHA_FORMAT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VGAlphaFormat
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined EGL_VG_COLORSPACE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VGColorspace
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined EGL_GL_COLORSPACE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GLColorspace
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined EGL_HORIZONTAL_RESOLUTION
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined HorizontalResolution
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined EGL_VERTICAL_RESOLUTION
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VerticalResolution
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined EGL_LARGEST_PBUFFER
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LargestPbuffer
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined EGL_MIPMAP_TEXTURE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MipmapTexture
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined EGL_MIPMAP_LEVEL
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MipmapLevel
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined EGL_MULTISAMPLE_RESOLVE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MultisampleResolve
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined EGL_PIXEL_ASPECT_RATIO
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PixelAspectRatio
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined EGL_RENDER_BUFFER
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RenderBuffer
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined EGL_SWAP_BEHAVIOR
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SwapBehavior
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined EGL_TEXTURE_FORMAT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TextureFormat
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined EGL_TEXTURE_TARGET
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TextureTarget

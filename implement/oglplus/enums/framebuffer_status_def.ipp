@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_FRAMEBUFFER_COMPLETE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Complete
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_UNDEFINED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Undefined
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IncompleteAttachment
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IncompleteMissingAttachment
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_UNSUPPORTED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Unsupported
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IncompleteMultisample
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IncompleteLayerTargets

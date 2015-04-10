@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_FUNC_ADD
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Add
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_FUNC_SUBTRACT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Subtract
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_FUNC_REVERSE_SUBTRACT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ReverseSubtract
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_MIN
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Min
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_MAX
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Max

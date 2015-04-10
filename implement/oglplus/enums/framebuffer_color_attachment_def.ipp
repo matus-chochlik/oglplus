@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_COLOR_ATTACHMENT0
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _0
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT1
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _1
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _2
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT3
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _3
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _4
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT5
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _5
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT6
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _6
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT7
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _7
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT8
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _8
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT9
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _9
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT10
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _10
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT11
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _11
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT12
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _12
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT13
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _13
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT14
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _14
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_COLOR_ATTACHMENT15
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _15

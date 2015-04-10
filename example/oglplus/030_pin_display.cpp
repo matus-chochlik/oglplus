@@ -241,7 +241,7 @@ private:
 
 	std::list<shapes::ShapeWrapper> shapes;
 	std::list<shapes::ShapeWrapper>::iterator ishape;
-	double shape_time, blank_time;
+	double shape_time;
 public:
 	DisplayScene(void)
 	 : gl()
@@ -251,7 +251,6 @@ public:
 	 , model_matrix(prog, "ModelMatrix")
 	 , ishape(shapes.end())
 	 , shape_time(0)
-	 , blank_time(0)
 	{ }
 
 	template <typename ShapeGenerator>

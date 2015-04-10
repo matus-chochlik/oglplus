@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_RENDERER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Renderer
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_VENDOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Vendor
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_VERSION
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Version
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_SHADING_LANGUAGE_VERSION
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ShadingLanguageVersion

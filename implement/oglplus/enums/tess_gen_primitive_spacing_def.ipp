@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_FRACTIONAL_EVEN
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FractionalEven
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_FRACTIONAL_ODD
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FractionalOdd
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_EQUAL
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Equal

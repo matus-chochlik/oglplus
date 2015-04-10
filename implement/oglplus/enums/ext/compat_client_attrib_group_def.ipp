@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_CLIENT_VERTEX_ARRAY_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VertexArray
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_CLIENT_PIXEL_STORE_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PixelStore
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_CLIENT_ALL_ATTRIB_BITS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AllAttribs

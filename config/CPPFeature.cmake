@@ -66,6 +66,7 @@ require_cpp_feature(OVERRIDE)
 require_cpp_feature(NOEXCEPT)
 require_cpp_feature(CONSTEXPR)
 require_cpp_feature(EXPLICIT_CONVERSION_OPERATORS)
+require_cpp_feature(GENERALIZED_ATTRIBUTES)
 require_cpp_feature(INITIALIZER_LISTS)
 
 cpp_feature_detection(FUNCTION_TEMPLATE_DEFAULT_ARGS)

@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_POINTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Points
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_LINE_STRIP
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LineStrip
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_LINE_LOOP
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LineLoop
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_LINES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Lines
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_TRIANGLE_STRIP
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TriangleStrip
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_TRIANGLE_FAN
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TriangleFan
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_TRIANGLES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Triangles
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_QUADS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Quads
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_QUAD_STRIP
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined QuadStrip
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_POLYGON
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Polygon

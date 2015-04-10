@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_NO_RESET_NOTIFICATION
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined NoResetNotification
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_LOSE_CONTEXT_ON_RESET
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LoseContextOnReset

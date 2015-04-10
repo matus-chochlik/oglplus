@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_QUERY_WAIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined QueryWait
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_QUERY_NO_WAIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined QueryNoWait
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_QUERY_BY_REGION_WAIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined QueryByRegionWait
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_QUERY_BY_REGION_NO_WAIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined QueryByRegionNoWait
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_QUERY_WAIT_INVERTED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined QueryWaitInverted
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_QUERY_NO_WAIT_INVERTED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined QueryNoWaitInverted
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_QUERY_BY_REGION_WAIT_INVERTED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined QueryByRegionWaitInverted
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_QUERY_BY_REGION_NO_WAIT_INVERTED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined QueryByRegionNoWaitInverted

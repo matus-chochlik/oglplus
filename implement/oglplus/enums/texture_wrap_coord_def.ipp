@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_TEXTURE_WRAP_S
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined S
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_WRAP_T
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined T
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_WRAP_R
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R

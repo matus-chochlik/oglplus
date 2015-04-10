@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_GLYPH_WIDTH_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GlyphWidth
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_GLYPH_HEIGHT_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GlyphHeight
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_GLYPH_HORIZONTAL_BEARING_X_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GlyphHorizontalBearingX
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_GLYPH_HORIZONTAL_BEARING_Y_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GlyphHorizontalBearingY
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_GLYPH_HORIZONTAL_BEARING_ADVANCE_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GlyphHorizontalBearingAdvance
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_GLYPH_VERTICAL_BEARING_X_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GlyphVerticalBearingX
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_GLYPH_VERTICAL_BEARING_Y_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GlyphVerticalBearingY
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_GLYPH_VERTICAL_BEARING_ADVANCE_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GlyphVerticalBearingAdvance
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_GLYPH_HAS_KERNING_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GlyphHasKerning
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_FONT_X_MIN_BOUNDS_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FontXMinBounds
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_FONT_Y_MIN_BOUNDS_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FontYMinBounds
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_FONT_X_MAX_BOUNDS_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FontXMaxBounds
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_FONT_Y_MAX_BOUNDS_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FontYMaxBounds
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_FONT_UNITS_PER_EM_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FontUnitsPerEm
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_FONT_ASCENDER_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FontAscender
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_FONT_DESCENDER_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FontDescender
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_FONT_HEIGHT_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FontHeight
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined GL_FONT_MAX_ADVANCE_WIDTH_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FontMaxAdvanceWidth
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined GL_FONT_MAX_ADVANCE_HEIGHT_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FontMaxAdvanceHeight
@@ -318,7 +318,7 @@
 # endif
 #endif
 #if defined GL_FONT_UNDERLINE_POSITION_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FontUnderlinePosition
@@ -334,7 +334,7 @@
 # endif
 #endif
 #if defined GL_FONT_UNDERLINE_THICKNESS_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FontUnderlineThickness
@@ -350,7 +350,7 @@
 # endif
 #endif
 #if defined GL_FONT_HAS_KERNING_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FontHasKerning

@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_STANDARD_FONT_NAME_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Standard
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_SYSTEM_FONT_NAME_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined System
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_FILE_NAME_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FileName

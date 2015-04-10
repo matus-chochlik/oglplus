@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_FLOAT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Float
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_FLOAT_VEC2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FloatVec2
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_FLOAT_VEC3
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FloatVec3
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_FLOAT_VEC4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FloatVec4
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_DOUBLE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Double
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_DOUBLE_VEC2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DoubleVec2
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_DOUBLE_VEC3
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DoubleVec3
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_DOUBLE_VEC4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DoubleVec4
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_INT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Int
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_INT_VEC2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntVec2
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_INT_VEC3
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntVec3
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_INT_VEC4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntVec4
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedInt
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_VEC2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntVec2
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_VEC3
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntVec3
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_VEC4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntVec4
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_BOOL
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Bool
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined GL_BOOL_VEC2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BoolVec2
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined GL_BOOL_VEC3
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BoolVec3
@@ -318,7 +318,7 @@
 # endif
 #endif
 #if defined GL_BOOL_VEC4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BoolVec4
@@ -334,7 +334,7 @@
 # endif
 #endif
 #if defined GL_FLOAT_MAT2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FloatMat2
@@ -350,7 +350,7 @@
 # endif
 #endif
 #if defined GL_FLOAT_MAT3
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FloatMat3
@@ -366,7 +366,7 @@
 # endif
 #endif
 #if defined GL_FLOAT_MAT4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FloatMat4
@@ -382,7 +382,7 @@
 # endif
 #endif
 #if defined GL_FLOAT_MAT2x3
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FloatMat2x3
@@ -398,7 +398,7 @@
 # endif
 #endif
 #if defined GL_FLOAT_MAT2x4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FloatMat2x4
@@ -414,7 +414,7 @@
 # endif
 #endif
 #if defined GL_FLOAT_MAT3x2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FloatMat3x2
@@ -430,7 +430,7 @@
 # endif
 #endif
 #if defined GL_FLOAT_MAT3x4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FloatMat3x4
@@ -446,7 +446,7 @@
 # endif
 #endif
 #if defined GL_FLOAT_MAT4x2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FloatMat4x2
@@ -462,7 +462,7 @@
 # endif
 #endif
 #if defined GL_FLOAT_MAT4x3
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FloatMat4x3
@@ -478,7 +478,7 @@
 # endif
 #endif
 #if defined GL_DOUBLE_MAT2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DoubleMat2
@@ -494,7 +494,7 @@
 # endif
 #endif
 #if defined GL_DOUBLE_MAT3
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DoubleMat3
@@ -510,7 +510,7 @@
 # endif
 #endif
 #if defined GL_DOUBLE_MAT4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DoubleMat4
@@ -526,7 +526,7 @@
 # endif
 #endif
 #if defined GL_DOUBLE_MAT2x3
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DoubleMat2x3
@@ -542,7 +542,7 @@
 # endif
 #endif
 #if defined GL_DOUBLE_MAT2x4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DoubleMat2x4
@@ -558,7 +558,7 @@
 # endif
 #endif
 #if defined GL_DOUBLE_MAT3x2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DoubleMat3x2
@@ -574,7 +574,7 @@
 # endif
 #endif
 #if defined GL_DOUBLE_MAT3x4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DoubleMat3x4
@@ -590,7 +590,7 @@
 # endif
 #endif
 #if defined GL_DOUBLE_MAT4x2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DoubleMat4x2
@@ -606,7 +606,7 @@
 # endif
 #endif
 #if defined GL_DOUBLE_MAT4x3
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DoubleMat4x3
@@ -622,7 +622,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_1D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler1D
@@ -638,7 +638,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_2D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler2D
@@ -654,7 +654,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_3D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler3D
@@ -670,7 +670,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_CUBE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SamplerCube
@@ -686,7 +686,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_1D_SHADOW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler1DShadow
@@ -702,7 +702,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_2D_SHADOW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler2DShadow
@@ -718,7 +718,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_1D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler1DArray
@@ -734,7 +734,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_2D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler2DArray
@@ -750,7 +750,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_CUBE_MAP_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SamplerCubeMapArray
@@ -766,7 +766,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_1D_ARRAY_SHADOW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler1DArrayShadow
@@ -782,7 +782,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_2D_ARRAY_SHADOW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler2DArrayShadow
@@ -798,7 +798,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_2D_MULTISAMPLE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler2DMultisample
@@ -814,7 +814,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_2D_MULTISAMPLE_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler2DMultisampleArray
@@ -830,7 +830,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_CUBE_SHADOW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SamplerCubeShadow
@@ -846,7 +846,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SamplerCubeMapArrayShadow
@@ -862,7 +862,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SamplerBuffer
@@ -878,7 +878,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_2D_RECT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler2DRect
@@ -894,7 +894,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER_2D_RECT_SHADOW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler2DRectShadow
@@ -910,7 +910,7 @@
 # endif
 #endif
 #if defined GL_INT_SAMPLER_1D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntSampler1D
@@ -926,7 +926,7 @@
 # endif
 #endif
 #if defined GL_INT_SAMPLER_2D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntSampler2D
@@ -942,7 +942,7 @@
 # endif
 #endif
 #if defined GL_INT_SAMPLER_3D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntSampler3D
@@ -958,7 +958,7 @@
 # endif
 #endif
 #if defined GL_INT_SAMPLER_CUBE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntSamplerCube
@@ -974,7 +974,7 @@
 # endif
 #endif
 #if defined GL_INT_SAMPLER_1D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntSampler1DArray
@@ -990,7 +990,7 @@
 # endif
 #endif
 #if defined GL_INT_SAMPLER_2D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntSampler2DArray
@@ -1006,7 +1006,7 @@
 # endif
 #endif
 #if defined GL_INT_SAMPLER_CUBE_MAP_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntSamplerCubeMapArray
@@ -1022,7 +1022,7 @@
 # endif
 #endif
 #if defined GL_INT_SAMPLER_2D_MULTISAMPLE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntSampler2DMultisample
@@ -1038,7 +1038,7 @@
 # endif
 #endif
 #if defined GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntSampler2DMultisampleArray
@@ -1054,7 +1054,7 @@
 # endif
 #endif
 #if defined GL_INT_SAMPLER_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntSamplerBuffer
@@ -1070,7 +1070,7 @@
 # endif
 #endif
 #if defined GL_INT_SAMPLER_2D_RECT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntSampler2DRect
@@ -1086,7 +1086,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_SAMPLER_1D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntSampler1D
@@ -1102,7 +1102,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_SAMPLER_2D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntSampler2D
@@ -1118,7 +1118,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_SAMPLER_3D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntSampler3D
@@ -1134,7 +1134,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_SAMPLER_CUBE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntSamplerCube
@@ -1150,7 +1150,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_SAMPLER_1D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntSampler1DArray
@@ -1166,7 +1166,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_SAMPLER_2D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntSampler2DArray
@@ -1182,7 +1182,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntSamplerCubeMapArray
@@ -1198,7 +1198,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntSampler2DMultisample
@@ -1214,7 +1214,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntSampler2DMultisampleArray
@@ -1230,7 +1230,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_SAMPLER_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntSamplerBuffer
@@ -1246,7 +1246,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_SAMPLER_2D_RECT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntSampler2DRect
@@ -1262,7 +1262,7 @@
 # endif
 #endif
 #if defined GL_IMAGE_1D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Image1D
@@ -1278,7 +1278,7 @@
 # endif
 #endif
 #if defined GL_IMAGE_2D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Image2D
@@ -1294,7 +1294,7 @@
 # endif
 #endif
 #if defined GL_IMAGE_3D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Image3D
@@ -1310,7 +1310,7 @@
 # endif
 #endif
 #if defined GL_IMAGE_2D_RECT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Image2DRect
@@ -1326,7 +1326,7 @@
 # endif
 #endif
 #if defined GL_IMAGE_CUBE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ImageCube
@@ -1342,7 +1342,7 @@
 # endif
 #endif
 #if defined GL_IMAGE_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ImageBuffer
@@ -1358,7 +1358,7 @@
 # endif
 #endif
 #if defined GL_IMAGE_1D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Image1DArray
@@ -1374,7 +1374,7 @@
 # endif
 #endif
 #if defined GL_IMAGE_2D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Image2DArray
@@ -1390,7 +1390,7 @@
 # endif
 #endif
 #if defined GL_IMAGE_2D_MULTISAMPLE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Image2DMultisample
@@ -1406,7 +1406,7 @@
 # endif
 #endif
 #if defined GL_IMAGE_2D_MULTISAMPLE_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Image2DMultisampleArray
@@ -1422,7 +1422,7 @@
 # endif
 #endif
 #if defined GL_INT_IMAGE_1D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntImage1D
@@ -1438,7 +1438,7 @@
 # endif
 #endif
 #if defined GL_INT_IMAGE_2D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntImage2D
@@ -1454,7 +1454,7 @@
 # endif
 #endif
 #if defined GL_INT_IMAGE_3D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntImage3D
@@ -1470,7 +1470,7 @@
 # endif
 #endif
 #if defined GL_INT_IMAGE_2D_RECT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntImage2DRect
@@ -1486,7 +1486,7 @@
 # endif
 #endif
 #if defined GL_INT_IMAGE_CUBE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntImageCube
@@ -1502,7 +1502,7 @@
 # endif
 #endif
 #if defined GL_INT_IMAGE_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntImageBuffer
@@ -1518,7 +1518,7 @@
 # endif
 #endif
 #if defined GL_INT_IMAGE_1D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntImage1DArray
@@ -1534,7 +1534,7 @@
 # endif
 #endif
 #if defined GL_INT_IMAGE_2D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntImage2DArray
@@ -1550,7 +1550,7 @@
 # endif
 #endif
 #if defined GL_INT_IMAGE_2D_MULTISAMPLE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntImage2DMultisample
@@ -1566,7 +1566,7 @@
 # endif
 #endif
 #if defined GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IntImage2DMultisampleArray
@@ -1582,7 +1582,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_IMAGE_1D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntImage1D
@@ -1598,7 +1598,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_IMAGE_2D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntImage2D
@@ -1614,7 +1614,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_IMAGE_3D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntImage3D
@@ -1630,7 +1630,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_IMAGE_2D_RECT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntImage2DRect
@@ -1646,7 +1646,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_IMAGE_CUBE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntImageCube
@@ -1662,7 +1662,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_IMAGE_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntImageBuffer
@@ -1678,7 +1678,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_IMAGE_1D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntImage1DArray
@@ -1694,7 +1694,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_IMAGE_2D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntImage2DArray
@@ -1710,7 +1710,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntImage2DMultisample
@@ -1726,7 +1726,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntImage2DMultisampleArray
@@ -1742,7 +1742,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_ATOMIC_COUNTER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedIntAtomicCounter
@@ -1758,7 +1758,7 @@
 # endif
 #endif
 #if defined GL_NONE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined None

@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_STREAM_DRAW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StreamDraw
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_STREAM_READ
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StreamRead
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_STREAM_COPY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StreamCopy
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_STATIC_DRAW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StaticDraw
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_STATIC_READ
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StaticRead
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_STATIC_COPY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StaticCopy
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_DYNAMIC_DRAW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DynamicDraw
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_DYNAMIC_READ
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DynamicRead
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_DYNAMIC_COPY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DynamicCopy

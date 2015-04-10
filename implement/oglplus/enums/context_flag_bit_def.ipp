@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ForwardCompatible
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_CONTEXT_FLAG_DEBUG_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Debug
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RobustAccess

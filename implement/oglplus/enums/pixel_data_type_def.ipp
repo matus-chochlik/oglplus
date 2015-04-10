@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_UNSIGNED_BYTE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedByte
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_BYTE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Byte
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_SHORT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedShort
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_SHORT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Short
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedInt
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_INT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Int
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_HALF_FLOAT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined HalfFloat
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_FLOAT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Float
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_BYTE_3_3_2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedByte_3_3_2
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_BYTE_2_3_3_REV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedByte_2_3_3_Rev
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_SHORT_5_6_5
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedShort_5_6_5
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_SHORT_5_6_5_REV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedShort_5_6_5_Rev
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_SHORT_4_4_4_4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedShort_4_4_4_4
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_SHORT_4_4_4_4_REV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedShort_4_4_4_4_Rev
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_SHORT_5_5_5_1
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedShort_5_5_5_1
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_SHORT_1_5_5_5_REV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedShort_1_5_5_5_Rev
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_8_8_8_8
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedInt_8_8_8_8
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_8_8_8_8_REV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedInt_8_8_8_8_Rev
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_10_10_10_2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedInt_10_10_10_2
@@ -318,7 +318,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_2_10_10_10_REV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedInt_2_10_10_10_Rev
@@ -334,7 +334,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_24_8
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedInt_24_8
@@ -350,7 +350,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_10F_11F_11F_REV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedInt_10f_11f_11f_Rev
@@ -366,7 +366,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT_5_9_9_9_REV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedInt_5_9_9_9_Rev
@@ -382,7 +382,7 @@
 # endif
 #endif
 #if defined GL_FLOAT_32_UNSIGNED_INT_24_8_REV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Float_32UnsignedInt_24_8_Rev

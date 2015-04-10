@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_MULTISAMPLE_RESOLVE_DEFAULT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Default
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_MULTISAMPLE_RESOLVE_BOX
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Box

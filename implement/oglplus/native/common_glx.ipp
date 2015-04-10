@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,18 +14,21 @@
 namespace oglplus {
 namespace native {
 
+[[noreturn]]
 OGLPLUS_LIB_FUNC
 void HandleNoGLXDisplay(void)
 {
 	throw std::runtime_error("Failed to get current glX Display");
 }
 
+[[noreturn]]
 OGLPLUS_LIB_FUNC
 void HandleNoGLXContext(void)
 {
 	throw std::runtime_error("Failed to get current glX Context");
 }
 
+[[noreturn]]
 OGLPLUS_LIB_FUNC
 void HandleNoGLXDrawable(void)
 {

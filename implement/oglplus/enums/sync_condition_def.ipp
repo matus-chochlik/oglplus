@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_SYNC_GPU_COMMANDS_COMPLETE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GPUCommandsComplete

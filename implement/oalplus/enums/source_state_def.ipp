@@ -14,7 +14,7 @@
 #endif
 
 #if defined AL_INITIAL
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Initial
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined AL_PLAYING
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Playing
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined AL_PAUSED
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Paused
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined AL_STOPPED
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Stopped

@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_CONTEXT_OPENGL_DEBUG_BIT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OpenGLDebug
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_CONTEXT_OPENGL_FORWARD_COMPATIBLE_BIT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OpenGLForwardCompatible
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined EGL_CONTEXT_OPENGL_ROBUST_ACCESS_BIT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OpenGLRobustAccess

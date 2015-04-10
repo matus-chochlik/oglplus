@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_SHADER_INCLUDE_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ShaderInclude
