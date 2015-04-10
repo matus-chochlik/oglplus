@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_INVERT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Invert
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_COUNT_UP_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CountUp
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_COUNT_DOWN_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CountDown
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_PATH_FILL_MODE_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FillMode

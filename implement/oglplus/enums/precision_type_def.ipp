@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_LOW_FLOAT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LowFloat
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_MEDIUM_FLOAT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MediumFloat
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_HIGH_FLOAT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined HighFloat
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_LOW_INT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LowInt
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_MEDIUM_INT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MediumInt
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_HIGH_INT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined HighInt

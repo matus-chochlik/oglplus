@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2011-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2011-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -74,7 +74,7 @@ public:
 
 inline bool ValidUTF8(const char* begin, const char* end)
 {
-#if !OGLPLUS_NO_UTF8_CHECKS
+#if !defined(OGLPLUS_NO_UTF8_CHECKS) || !OGLPLUS_NO_UTF8_CHECKS
 	UTF8Validator valid_utf8;
 	return valid_utf8(begin, end);
 #else

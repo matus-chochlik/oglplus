@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_DEBUG_TYPE_ERROR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Error
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DeprecatedBehavior
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UndefinedBehavior
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_TYPE_PORTABILITY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Portability
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_TYPE_PERFORMANCE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Performance
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_TYPE_OTHER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Other
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_TYPE_MARKER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Marker
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_TYPE_PUSH_GROUP
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PushGroup
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_TYPE_POP_GROUP
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PopGroup
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_DONT_CARE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DontCare

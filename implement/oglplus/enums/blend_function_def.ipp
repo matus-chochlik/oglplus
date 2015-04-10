@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_ZERO
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Zero
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_ONE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined One
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_SRC_COLOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SrcColor
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_ONE_MINUS_SRC_COLOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OneMinusSrcColor
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_DST_COLOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DstColor
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_ONE_MINUS_DST_COLOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OneMinusDstColor
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_SRC_ALPHA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SrcAlpha
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_ONE_MINUS_SRC_ALPHA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OneMinusSrcAlpha
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_DST_ALPHA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DstAlpha
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_ONE_MINUS_DST_ALPHA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OneMinusDstAlpha
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_CONSTANT_COLOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ConstantColor
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_ONE_MINUS_CONSTANT_COLOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OneMinusConstantColor
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_CONSTANT_ALPHA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ConstantAlpha
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_ONE_MINUS_CONSTANT_ALPHA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OneMinusConstantAlpha
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_SRC_ALPHA_SATURATE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SrcAlphaSaturate
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_SRC1_COLOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Src1Color
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_ONE_MINUS_SRC1_COLOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OneMinusSrc1Color
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined GL_SRC1_ALPHA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Src1Alpha
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined GL_ONE_MINUS_SRC1_ALPHA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OneMinusSrc1Alpha

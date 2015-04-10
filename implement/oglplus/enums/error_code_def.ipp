@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_NO_ERROR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined NoError
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_OUT_OF_MEMORY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OutOfMemory
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_INVALID_ENUM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined InvalidEnum
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_INVALID_VALUE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined InvalidValue
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_INVALID_OPERATION
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined InvalidOperation
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_INVALID_FRAMEBUFFER_OPERATION
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined InvalidFramebufferOperation
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_STACK_OVERFLOW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StackOverflow
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_STACK_UNDERFLOW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StackUnderflow
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_TABLE_TOO_LARGE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TableTooLarge
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_CONTEXT_LOST
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ContextLost

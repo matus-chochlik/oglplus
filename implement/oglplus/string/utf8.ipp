@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2011-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2011-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,19 +20,19 @@ std::size_t UTF8BytesRequired(const UnicodeCP* cp_str, std::size_t len)
 	for(std::size_t i=0; i!=len; ++i)
 	{
 		UnicodeCP cp = *cp_str++;
-		if((cp & ~0x0000007F) == 0)
+		if((cp & ~0x0000007Fu) == 0)
 			result += 1;
-		else if((cp & ~0x000007FF) == 0)
+		else if((cp & ~0x000007FFu) == 0)
 			result += 2;
-		else if((cp & ~0x0000FFFF) == 0)
+		else if((cp & ~0x0000FFFFu) == 0)
 			result += 3;
-		else if((cp & ~0x001FFFFF) == 0)
+		else if((cp & ~0x001FFFFFu) == 0)
 			result += 4;
-		else if((cp & ~0x03FFFFFF) == 0)
+		else if((cp & ~0x03FFFFFFu) == 0)
 			result += 5;
-		else if((cp & ~0x7FFFFFFF) == 0)
+		else if((cp & ~0x7FFFFFFFu) == 0)
 			result += 6;
-		else assert(!"Invalid code point");
+		else assert(!bool("Invalid code point"));
 	}
 	return result;
 }
@@ -41,57 +41,57 @@ OGLPLUS_LIB_FUNC
 void ConvertCodePointToUTF8(UnicodeCP cp, char* str, std::size_t& len)
 {
 	// 7-bits -> one byte
-	if((cp & ~0x0000007F) == 0)
+	if((cp & ~0x0000007Fu) == 0)
 	{
 		str[0] = char(cp);
 		len = 1;
 	}
 	// 11-bits -> two bytes
-	else if((cp & ~0x000007FF) == 0)
+	else if((cp & ~0x000007FFu) == 0)
 	{
-		str[0] = char(((cp & 0x000007C0) >>  6) | 0xC0);
-		str[1] = char(((cp & 0x0000003F) >>  0) | 0x80);
+		str[0] = char(((cp & 0x000007C0u) >>  6) | 0xC0);
+		str[1] = char(((cp & 0x0000003Fu) >>  0) | 0x80);
 		len = 2;
 	}
 	// 16-bits -> three bytes
-	else if((cp & ~0x0000FFFF) == 0)
+	else if((cp & ~0x0000FFFFu) == 0)
 	{
-		str[0] = char(((cp & 0x0000F000) >> 12) | 0xE0);
-		str[1] = char(((cp & 0x00000FC0) >>  6) | 0x80);
-		str[2] = char(((cp & 0x0000003F) >>  0) | 0x80);
+		str[0] = char(((cp & 0x0000F000u) >> 12) | 0xE0);
+		str[1] = char(((cp & 0x00000FC0u) >>  6) | 0x80);
+		str[2] = char(((cp & 0x0000003Fu) >>  0) | 0x80);
 		len = 3;
 	}
 	// 21-bits -> four bytes
-	else if((cp & ~0x001FFFFF) == 0)
+	else if((cp & ~0x001FFFFFu) == 0)
 	{
-		str[0] = char(((cp & 0x001C0000) >> 18) | 0xF0);
-		str[1] = char(((cp & 0x0003F000) >> 12) | 0x80);
-		str[2] = char(((cp & 0x00000FC0) >>  6) | 0x80);
-		str[3] = char(((cp & 0x0000003F) >>  0) | 0x80);
+		str[0] = char(((cp & 0x001C0000u) >> 18) | 0xF0);
+		str[1] = char(((cp & 0x0003F000u) >> 12) | 0x80);
+		str[2] = char(((cp & 0x00000FC0u) >>  6) | 0x80);
+		str[3] = char(((cp & 0x0000003Fu) >>  0) | 0x80);
 		len = 4;
 	}
 	// 26-bits -> five bytes
-	else if((cp & ~0x03FFFFFF) == 0)
+	else if((cp & ~0x03FFFFFFu) == 0)
 	{
-		str[0] = char(((cp & 0x03000000) >> 24) | 0xF8);
-		str[1] = char(((cp & 0x00FC0000) >> 18) | 0x80);
-		str[2] = char(((cp & 0x0003F000) >> 12) | 0x80);
-		str[3] = char(((cp & 0x00000FC0) >>  6) | 0x80);
-		str[4] = char(((cp & 0x0000003F) >>  0) | 0x80);
+		str[0] = char(((cp & 0x03000000u) >> 24) | 0xF8);
+		str[1] = char(((cp & 0x00FC0000u) >> 18) | 0x80);
+		str[2] = char(((cp & 0x0003F000u) >> 12) | 0x80);
+		str[3] = char(((cp & 0x00000FC0u) >>  6) | 0x80);
+		str[4] = char(((cp & 0x0000003Fu) >>  0) | 0x80);
 		len = 5;
 	}
 	// 31-bits -> six bytes
-	else if((cp & ~0x7FFFFFFF) == 0)
+	else if((cp & ~0x7FFFFFFFu) == 0)
 	{
-		str[0] = char(((cp & 0x40000000) >> 30) | 0xFC);
-		str[1] = char(((cp & 0x3F000000) >> 24) | 0x80);
-		str[2] = char(((cp & 0x00FC0000) >> 18) | 0x80);
-		str[3] = char(((cp & 0x0003F000) >> 12) | 0x80);
-		str[4] = char(((cp & 0x00000FC0) >>  6) | 0x80);
-		str[5] = char(((cp & 0x0000003F) >>  0) | 0x80);
+		str[0] = char(((cp & 0x40000000u) >> 30) | 0xFC);
+		str[1] = char(((cp & 0x3F000000u) >> 24) | 0x80);
+		str[2] = char(((cp & 0x00FC0000u) >> 18) | 0x80);
+		str[3] = char(((cp & 0x0003F000u) >> 12) | 0x80);
+		str[4] = char(((cp & 0x00000FC0u) >>  6) | 0x80);
+		str[5] = char(((cp & 0x0000003Fu) >>  0) | 0x80);
 		len = 6;
 	}
-	else assert(!"Invalid code point");
+	else assert(!bool("Invalid code point"));
 }
 
 OGLPLUS_LIB_FUNC
@@ -141,7 +141,7 @@ std::size_t CodePointsRequired(const char* str, std::size_t len)
 			skip = 5;
 		else if(((*pb) & 0xFE) == 0xFC)
 			skip = 6;
-		else assert(!"Invalid UTF8 sequence");
+		else assert(!bool("Invalid UTF8 sequence"));
 		assert(len >= skip);
 		len -= skip;
 		pb += skip;
@@ -170,8 +170,8 @@ UnicodeCP ConvertUTF8ToCodePoint(const char* str, std::size_t len, std::size_t& 
 		assert(len >= 2);
 		cp_len = 2;
 		return UnicodeCP(
-			(((bytes[0] & ~0xE0) <<  6) & 0x00000FC0)|
-			(((bytes[1] & ~0xC0) <<  0) & 0x0000003F)
+			(((bytes[0] & ~0xE0u) <<  6) & 0x00000FC0u)|
+			(((bytes[1] & ~0xC0u) <<  0) & 0x0000003Fu)
 		);
 	}
 	// 1110xxxx
@@ -182,9 +182,9 @@ UnicodeCP ConvertUTF8ToCodePoint(const char* str, std::size_t len, std::size_t& 
 		assert(len >= 3);
 		cp_len = 3;
 		return UnicodeCP(
-			(((bytes[0] & ~0xF0) << 12) & 0x0003F000)|
-			(((bytes[1] & ~0xC0) <<  6) & 0x00000FC0)|
-			(((bytes[2] & ~0xC0) <<  0) & 0x0000003F)
+			(((bytes[0] & ~0xF0u) << 12) & 0x0003F000u)|
+			(((bytes[1] & ~0xC0u) <<  6) & 0x00000FC0u)|
+			(((bytes[2] & ~0xC0u) <<  0) & 0x0000003Fu)
 		);
 	}
 	// 11110xxx
@@ -195,10 +195,10 @@ UnicodeCP ConvertUTF8ToCodePoint(const char* str, std::size_t len, std::size_t& 
 		assert(len >= 4);
 		cp_len = 4;
 		return UnicodeCP(
-			(((bytes[0] & ~0xF8) << 18) & 0x00FC0000)|
-			(((bytes[1] & ~0xC0) << 12) & 0x0003F000)|
-			(((bytes[2] & ~0xC0) <<  6) & 0x00000FC0)|
-			(((bytes[3] & ~0xC0) <<  0) & 0x0000003F)
+			(((bytes[0] & ~0xF8u) << 18) & 0x00FC0000u)|
+			(((bytes[1] & ~0xC0u) << 12) & 0x0003F000u)|
+			(((bytes[2] & ~0xC0u) <<  6) & 0x00000FC0u)|
+			(((bytes[3] & ~0xC0u) <<  0) & 0x0000003Fu)
 		);
 	}
 	// 111110xx
@@ -209,11 +209,11 @@ UnicodeCP ConvertUTF8ToCodePoint(const char* str, std::size_t len, std::size_t& 
 		assert(len >= 5);
 		cp_len = 5;
 		return UnicodeCP(
-			(((bytes[0] & ~0xFC) << 24) & 0x3F000000)|
-			(((bytes[1] & ~0xC0) << 18) & 0x00FC0000)|
-			(((bytes[2] & ~0xC0) << 12) & 0x0003F000)|
-			(((bytes[3] & ~0xC0) <<  6) & 0x00000FC0)|
-			(((bytes[4] & ~0xC0) <<  0) & 0x0000003F)
+			(((bytes[0] & ~0xFCu) << 24) & 0x3F000000u)|
+			(((bytes[1] & ~0xC0u) << 18) & 0x00FC0000u)|
+			(((bytes[2] & ~0xC0u) << 12) & 0x0003F000u)|
+			(((bytes[3] & ~0xC0u) <<  6) & 0x00000FC0u)|
+			(((bytes[4] & ~0xC0u) <<  0) & 0x0000003Fu)
 		);
 	}
 	// 1111110x
@@ -224,15 +224,15 @@ UnicodeCP ConvertUTF8ToCodePoint(const char* str, std::size_t len, std::size_t& 
 		assert(len >= 6);
 		cp_len = 6;
 		return UnicodeCP(
-			(((bytes[0] & ~0xFE) << 30) & 0xC0000000)|
-			(((bytes[1] & ~0xC0) << 24) & 0x3F000000)|
-			(((bytes[2] & ~0xC0) << 18) & 0x00FC0000)|
-			(((bytes[3] & ~0xC0) << 12) & 0x0003F000)|
-			(((bytes[4] & ~0xC0) <<  6) & 0x00000FC0)|
-			(((bytes[5] & ~0xC0) <<  0) & 0x0000003F)
+			(((bytes[0] & ~0xFEu) << 30) & 0xC0000000u)|
+			(((bytes[1] & ~0xC0u) << 24) & 0x3F000000u)|
+			(((bytes[2] & ~0xC0u) << 18) & 0x00FC0000u)|
+			(((bytes[3] & ~0xC0u) << 12) & 0x0003F000u)|
+			(((bytes[4] & ~0xC0u) <<  6) & 0x00000FC0u)|
+			(((bytes[5] & ~0xC0u) <<  0) & 0x0000003Fu)
 		);
 	}
-	assert(!"Invalid UTF8 sequence");
+	assert(!bool("Invalid UTF8 sequence"));
 	return UnicodeCP();
 }
 

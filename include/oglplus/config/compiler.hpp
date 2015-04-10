@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -168,6 +168,10 @@
 #endif
 #endif
 
+#ifndef OGLPLUS_NO_GENERALIZED_ATTRIBUTES
+#define OGLPLUS_NO_GENERALIZED_ATTRIBUTES 1
+#endif
+
 #ifndef OGLPLUS_NO_LAMBDAS
 #if	defined(BOOST_NO_CXX11_LAMBDAS) ||\
 	defined(BOOST_NO_LAMBDAS)
@@ -196,7 +200,7 @@
 
 // ------- C++11 feature availability detection -------
 
-#if OGLPLUS_NO_NULLPTR
+#if defined(OGLPLUS_NO_NULLPTR) && OGLPLUS_NO_NULLPTR
 #define nullptr 0
 #endif
 
@@ -209,9 +213,17 @@
 #if !OGLPLUS_NO_NOEXCEPT
 #define OGLPLUS_NOEXCEPT(...) noexcept(__VA_ARGS__)
 #define OGLPLUS_NOEXCEPT_IF(...) noexcept(noexcept(__VA_ARGS__))
+#define OGLPLUS_NOTHROW noexcept
 #else
 #define OGLPLUS_NOEXCEPT(...)
 #define OGLPLUS_NOEXCEPT_IF(...)
+#define OGLPLUS_NOTHROW throw()
+#endif
+
+#if !OGLPLUS_NO_GENERALIZED_ATTRIBUTES
+#define OGLPLUS_NORETURN [[noreturn]]
+#else
+#define OGLPLUS_NORETURN
 #endif
 
 // -------- disable certain warnings ---------

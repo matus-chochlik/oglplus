@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_LEQUAL
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LEqual
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_GEQUAL
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GEqual
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_LESS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Less
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_GREATER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Greater
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_EQUAL
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Equal
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_NOTEQUAL
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined NotEqual
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_ALWAYS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Always
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_NEVER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Never

@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_PACK_SWAP_BYTES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PackSwapBytes
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_PACK_LSB_FIRST
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PackLSBFirst
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_PACK_ROW_LENGTH
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PackRowLength
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_PACK_SKIP_ROWS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PackSkipRows
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_PACK_SKIP_PIXELS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PackSkipPixels
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_PACK_ALIGNMENT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PackAlignment
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_PACK_IMAGE_HEIGHT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PackImageHeight
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_PACK_SKIP_IMAGES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PackSkipImages
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_PACK_COMPRESSED_BLOCK_WIDTH
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PackCompressedBlockWidth
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_PACK_COMPRESSED_BLOCK_HEIGHT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PackCompressedBlockHeight
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_PACK_COMPRESSED_BLOCK_DEPTH
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PackCompressedBlockDepth
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_PACK_COMPRESSED_BLOCK_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PackCompressedBlockSize
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_UNPACK_SWAP_BYTES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnpackSwapBytes
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_UNPACK_LSB_FIRST
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnpackLSBFirst
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_UNPACK_ROW_LENGTH
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnpackRowLength
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_UNPACK_SKIP_ROWS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnpackSkipRows
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_UNPACK_SKIP_PIXELS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnpackSkipPixels
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined GL_UNPACK_ALIGNMENT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnpackAlignment
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined GL_UNPACK_IMAGE_HEIGHT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnpackImageHeight
@@ -318,7 +318,7 @@
 # endif
 #endif
 #if defined GL_UNPACK_SKIP_IMAGES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnpackSkipImages
@@ -334,7 +334,7 @@
 # endif
 #endif
 #if defined GL_UNPACK_COMPRESSED_BLOCK_WIDTH
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnpackCompressedBlockWidth
@@ -350,7 +350,7 @@
 # endif
 #endif
 #if defined GL_UNPACK_COMPRESSED_BLOCK_HEIGHT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnpackCompressedBlockHeight
@@ -366,7 +366,7 @@
 # endif
 #endif
 #if defined GL_UNPACK_COMPRESSED_BLOCK_DEPTH
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnpackCompressedBlockDepth
@@ -382,7 +382,7 @@
 # endif
 #endif
 #if defined GL_UNPACK_COMPRESSED_BLOCK_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnpackCompressedBlockSize

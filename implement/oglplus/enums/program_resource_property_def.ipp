@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_ARRAY_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ArraySize
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_OFFSET
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Offset
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_BLOCK_INDEX
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BlockIndex
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_ARRAY_STRIDE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ArrayStride
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_MATRIX_STRIDE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MatrixStride
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_IS_ROW_MAJOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IsRowMajor
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_ATOMIC_COUNTER_BUFFER_INDEX
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AtomicCounterBufferIndex
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_BUFFER_BINDING
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BufferBinding
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_BUFFER_DATA_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BufferDataSize
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_NUM_ACTIVE_VARIABLES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined NumActiveVariables
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_ACTIVE_VARIABLES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ActiveVariables
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_REFERENCED_BY_VERTEX_SHADER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ReferencedByVertexShader
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_REFERENCED_BY_TESS_CONTROL_SHADER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ReferencedByTessControlShader
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_REFERENCED_BY_TESS_EVALUATION_SHADER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ReferencedByTessEvaluationShader
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_REFERENCED_BY_GEOMETRY_SHADER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ReferencedByGeometryShader
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_REFERENCED_BY_FRAGMENT_SHADER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ReferencedByFragmentShader
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_REFERENCED_BY_COMPUTE_SHADER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ReferencedByComputeShader
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined GL_NUM_COMPATIBLE_SUBROUTINES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined NumCompatibleSubroutines
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined GL_COMPATIBLE_SUBROUTINES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompatibleSubroutines
@@ -318,7 +318,7 @@
 # endif
 #endif
 #if defined GL_TOP_LEVEL_ARRAY_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TopLevelArraySize
@@ -334,7 +334,7 @@
 # endif
 #endif
 #if defined GL_TOP_LEVEL_ARRAY_STRIDE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TopLevelArrayStride
@@ -350,7 +350,7 @@
 # endif
 #endif
 #if defined GL_LOCATION
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Location
@@ -366,7 +366,7 @@
 # endif
 #endif
 #if defined GL_LOCATION_INDEX
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LocationIndex
@@ -382,7 +382,7 @@
 # endif
 #endif
 #if defined GL_LOCATION_COMPONENT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LocationComponent
@@ -398,7 +398,7 @@
 # endif
 #endif
 #if defined GL_IS_PER_PATCH
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IsPerPatch
@@ -414,7 +414,7 @@
 # endif
 #endif
 #if defined GL_TRANSFORM_FEEDBACK_BUFFER_INDEX
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransformFeedbackBufferIndex
@@ -430,7 +430,7 @@
 # endif
 #endif
 #if defined GL_TRANSFORM_FEEDBACK_BUFFER_STRIDE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransformFeedbackBufferStride

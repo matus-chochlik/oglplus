@@ -41,7 +41,8 @@ public:
 	 : ObjectError(message)
 	{ }
 
-	~IncompleteFramebuffer(void) throw()
+	~IncompleteFramebuffer(void)
+	OGLPLUS_NOTHROW
 	{ }
 
 	IncompleteFramebuffer& Status(FramebufferStatus status)

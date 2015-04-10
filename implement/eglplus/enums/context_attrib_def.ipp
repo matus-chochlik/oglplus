@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_CONTEXT_MAJOR_VERSION
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MajorVersion
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_CONTEXT_MINOR_VERSION
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MinorVersion
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined EGL_CONTEXT_FLAGS
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Flags
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined EGL_CONTEXT_OPENGL_PROFILE_MASK
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OpenGLProfileMask
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OpenGLResetNotificationStrategy

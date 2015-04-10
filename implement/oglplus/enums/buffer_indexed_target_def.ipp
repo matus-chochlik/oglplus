@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_ATOMIC_COUNTER_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AtomicCounter
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_SHADER_STORAGE_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ShaderStorage
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_TRANSFORM_FEEDBACK_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransformFeedback
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_UNIFORM_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Uniform

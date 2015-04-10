@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_FIRST_VERTEX_CONVENTION
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FirstVertexConvention
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_LAST_VERTEX_CONVENTION
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LastVertexConvention

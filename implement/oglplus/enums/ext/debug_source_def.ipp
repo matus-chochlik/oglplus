@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_DEBUG_SOURCE_API
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined API
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_SOURCE_WINDOW_SYSTEM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined WindowSystem
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_SOURCE_SHADER_COMPILER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ShaderCompiler
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_SOURCE_THIRD_PARTY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ThirdParty
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_SOURCE_APPLICATION
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Application
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_SOURCE_OTHER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Other
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_DONT_CARE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DontCare

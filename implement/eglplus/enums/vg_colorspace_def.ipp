@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_VG_COLORSPACE_sRGB
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined sRGB
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_VG_COLORSPACE_LINEAR
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Linear

@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_OPENGL_API
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OpenGL
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_OPENGL_ES_API
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OpenGL_ES
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined EGL_OPENVG_API
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OpenVG
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined EGL_NONE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined None

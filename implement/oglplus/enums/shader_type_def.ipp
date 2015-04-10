@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_VERTEX_SHADER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Vertex
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_TESS_CONTROL_SHADER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TessControl
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_TESS_EVALUATION_SHADER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TessEvaluation
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_GEOMETRY_SHADER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Geometry
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_FRAGMENT_SHADER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Fragment
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_COMPUTE_SHADER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Compute
