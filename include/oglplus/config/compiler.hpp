@@ -222,8 +222,15 @@
 
 #if !OGLPLUS_NO_GENERALIZED_ATTRIBUTES
 #define OGLPLUS_NORETURN [[noreturn]]
+#if defined(__clang__)
+#define OGLPLUS_FALLTHROUGH [[clang::fallthrough]];
+#endif
 #else
 #define OGLPLUS_NORETURN
+#endif
+
+#ifndef OGLPLUS_FALLTHROUGH
+#define OGLPLUS_FALLTHROUGH
 #endif
 
 // -------- disable certain warnings ---------

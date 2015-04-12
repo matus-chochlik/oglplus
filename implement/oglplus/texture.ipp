@@ -521,7 +521,7 @@ Image(
 			break;
 		}
 #endif
-		default: assert(!"Invalid texture dimension");
+		default: assert(!bool("Invalid texture dimension"));
 	}
 }
 
@@ -583,7 +583,7 @@ Image(
 			break;
 		}
 #endif
-		default: assert(!"Invalid texture dimension");
+		default: assert(!bool("Invalid texture dimension"));
 	}
 }
 

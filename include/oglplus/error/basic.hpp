@@ -218,6 +218,15 @@ public:
 	 */
 	const char* EnumParamName(void) const;
 
+	Error& Index(GLint index)
+	{
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
+		_index = index;
+#endif
+		(void)index;
+		return *this;
+	}
+
 	Error& Index(GLuint index)
 	{
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
@@ -226,6 +235,7 @@ public:
 		(void)index;
 		return *this;
 	}
+
 
 	/// Returns the index parameter related to the error
 	/** This function returns the value of the index

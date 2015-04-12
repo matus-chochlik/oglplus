@@ -1489,7 +1489,7 @@ public:
 		OGLPLUS_GLFUNC(CopyTexImage2D)(
 			GLenum(target),
 			level,
-			GLint(internal_format),
+			GLenum(internal_format),
 			x,
 			y,
 			width,
@@ -1524,7 +1524,7 @@ public:
 		OGLPLUS_GLFUNC(CopyTexImage1D)(
 			GLenum(target),
 			level,
-			GLint(internal_format),
+			GLenum(internal_format),
 			x,
 			y,
 			width,
@@ -1662,7 +1662,7 @@ public:
 		OGLPLUS_GLFUNC(CompressedTexImage3D)(
 			GLenum(target),
 			level,
-			GLint(internal_format),
+			GLenum(internal_format),
 			width,
 			height,
 			depth,
@@ -1698,7 +1698,7 @@ public:
 		OGLPLUS_GLFUNC(CompressedTexImage2D)(
 			GLenum(target),
 			level,
-			GLint(internal_format),
+			GLenum(internal_format),
 			width,
 			height,
 			border,
@@ -1733,7 +1733,7 @@ public:
 		OGLPLUS_GLFUNC(CompressedTexImage1D)(
 			GLenum(target),
 			level,
-			GLint(internal_format),
+			GLenum(internal_format),
 			width,
 			border,
 			image_size,
@@ -1777,7 +1777,7 @@ public:
 			width,
 			height,
 			depth,
-			GLint(format),
+			GLenum(format),
 			image_size,
 			data
 		);
@@ -1814,7 +1814,7 @@ public:
 			yoffs,
 			width,
 			height,
-			GLint(format),
+			GLenum(format),
 			image_size,
 			data
 		);
@@ -1848,7 +1848,7 @@ public:
 			level,
 			xoffs,
 			width,
-			GLint(format),
+			GLenum(format),
 			image_size,
 			data
 		);
@@ -1882,7 +1882,7 @@ public:
 		OGLPLUS_GLFUNC(TexImage3DMultisample)(
 			GLenum(target),
 			samples,
-			GLint(internal_format),
+			GLenum(internal_format),
 			width,
 			height,
 			depth,
@@ -1914,7 +1914,7 @@ public:
 		OGLPLUS_GLFUNC(TexImage2DMultisample)(
 			GLenum(target),
 			samples,
-			GLint(internal_format),
+			GLenum(internal_format),
 			width,
 			height,
 			fixed_sample_locations._get()
@@ -2085,7 +2085,7 @@ public:
 	 */
 	static GLuint BaseLevel(Target target)
 	{
-		return GetIntParam(target, GL_TEXTURE_BASE_LEVEL);
+		return GLuint(GetIntParam(target, GL_TEXTURE_BASE_LEVEL));
 	}
 
 	/// Sets the texture base level (TEXTURE_BASE_LEVEL)
@@ -2094,7 +2094,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_BASE_LEVEL}
 	 */
-	static void BaseLevel(Target target, GLuint level)
+	static void BaseLevel(Target target, GLint level)
 	{
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
@@ -2262,7 +2262,7 @@ public:
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_COMPARE_MODE,
-			GLenum(mode)
+			GLint(mode)
 		);
 		OGLPLUS_CHECK(
 			TexParameteri,
@@ -2297,7 +2297,7 @@ public:
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_COMPARE_FUNC,
-			GLenum(func)
+			GLint(func)
 		);
 		OGLPLUS_CHECK(
 			TexParameteri,
@@ -2352,7 +2352,7 @@ public:
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_MIN_FILTER,
-			GLenum(filter)
+			GLint(filter)
 		);
 		OGLPLUS_CHECK(
 			TexParameteri,
@@ -2363,7 +2363,7 @@ public:
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_MAG_FILTER,
-			GLenum(filter)
+			GLint(filter)
 		);
 		OGLPLUS_CHECK(
 			TexParameteri,
@@ -2398,7 +2398,7 @@ public:
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_MAG_FILTER,
-			GLenum(filter)
+			GLint(filter)
 		);
 		OGLPLUS_CHECK(
 			TexParameteri,
@@ -2433,7 +2433,7 @@ public:
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_MIN_FILTER,
-			GLenum(filter)
+			GLint(filter)
 		);
 		OGLPLUS_CHECK(
 			TexParameteri,
@@ -2629,7 +2629,7 @@ public:
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GLenum(coord),
-			GLenum(mode)
+			GLint(mode)
 		);
 		OGLPLUS_CHECK(
 			TexParameteri,
@@ -2866,7 +2866,7 @@ public:
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GLenum(coord),
-			GLenum(mode)
+			GLint(mode)
 		);
 		OGLPLUS_CHECK(
 			TexParameteri,
@@ -2973,7 +2973,7 @@ public:
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_DEPTH_STENCIL_TEXTURE_MODE,
-			GLenum(mode)
+			GLint(mode)
 		);
 		OGLPLUS_CHECK(
 			TexParameteri,
@@ -3087,7 +3087,7 @@ struct TextureTargetAndSlot
 };
 
 // syntax sugar operators
-inline TextureTargetAndSlot operator | (TextureTarget target, GLuint slot)
+inline TextureTargetAndSlot operator | (TextureTarget target, GLint slot)
 {
 	return TextureTargetAndSlot(target, slot);
 }
@@ -3164,10 +3164,13 @@ inline TextureTarget operator << (TextureTarget target, TextureWrap wrap)
 	switch(TextureTargetDimensions(target))
 	{
 		case 3: DefaultTextureOps::WrapR(target, wrap);
+			OGLPLUS_FALLTHROUGH
 		case 2: DefaultTextureOps::WrapT(target, wrap);
+			OGLPLUS_FALLTHROUGH
 		case 1: DefaultTextureOps::WrapS(target, wrap);
+			OGLPLUS_FALLTHROUGH
 		case 0: break;
-		default: assert(!"Invalid texture wrap dimension");
+		default: assert(!bool("Invalid texture wrap dimension"));
 	}
 	return target;
 }
@@ -3183,7 +3186,7 @@ inline TextureTargetAndSlot operator << (
 		case 0: DefaultTextureOps::WrapS(tas.target, wrap); break;
 		case 1: DefaultTextureOps::WrapT(tas.target, wrap); break;
 		case 2: DefaultTextureOps::WrapR(tas.target, wrap); break;
-		default: assert(!"Invalid texture wrap slot");
+		default: assert(!bool("Invalid texture wrap slot"));
 	}
 	return tas;
 }
@@ -3208,7 +3211,7 @@ inline TextureTargetAndSlot operator << (
 		case 1: DefaultTextureOps::SwizzleG(tas.target, swizzle); break;
 		case 2: DefaultTextureOps::SwizzleB(tas.target, swizzle); break;
 		case 3: DefaultTextureOps::SwizzleA(tas.target, swizzle); break;
-		default: assert(!"Invalid texture swizzle slot");
+		default: assert(!bool("Invalid texture swizzle slot"));
 	}
 	return tas;
 }
