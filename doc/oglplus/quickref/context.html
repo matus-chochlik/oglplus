@@ -20,6 +20,7 @@
 <div class="toc"><dl class="toc">
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.errors">Errors</a></span></dt>
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.capabilities">Capabilities</a></span></dt>
+<dt><span class="section"><a href="context.html#oglplus.quickref.context.clip_control">Clip control</a></span></dt>
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.viewport">Viewport operations</a></span></dt>
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.buffer_selection">Buffer
           selection</a></span></dt>
@@ -68,6 +69,7 @@
 <span class="keyword">class</span> <span class="identifier">Context</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.errors" title="Errors">context::Errors</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.capabilities" title="Capabilities">context::Capabilities</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.clip_control.state">context::ClipControlState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.state">context::ViewportState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.ops">context::ViewportOps</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.buffer_selection" title="Buffer selection">context::BufferSelection</a>
@@ -214,6 +216,59 @@
 <td valign="top" align="left"><p>
                 Checks if the specified <code class="literal">capability</code> is enabled
                 on an <code class="literal">index</code>ed target. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glIsEnabledi.xml" target="_top">glIsEnabledi</a></code>.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.context.clip_control"></a><a class="link" href="context.html#oglplus.quickref.context.clip_control" title="Clip control">Clip control</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/clip_control.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.context.clip_control.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.clip_control.state"></a></span><a class="link" href="context.html#oglplus.quickref.context.clip_control.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">ClipControlState</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_5</span> <span class="special">||</span> <span class="identifier">GL_ARB_clip_control</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ClipControl</span><span class="special">(</span><a class="link" href="clip_control.html#oglplus.quickref.clip_control.origin">ClipOrigin</a> <span class="identifier">origin</span><span class="special">,</span> <a class="link" href="clip_control.html#oglplus.quickref.clip_control.depth_mode">ClipDepthMode</a> <span class="identifier">depth</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.clip_control.c0" href="context.html#oglplus.quickref.context.clip_control.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">static</span> <a class="link" href="clip_control.html#oglplus.quickref.clip_control.origin">ClipOrigin</a> <span class="identifier">ClipOrigin</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.clip_control.c2" href="context.html#oglplus.quickref.context.clip_control.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">static</span> <a class="link" href="clip_control.html#oglplus.quickref.clip_control.depth_mode">ClipDepthMode</a> <span class="identifier">ClipDepthMode</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.clip_control.c4" href="context.html#oglplus.quickref.context.clip_control.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="preprocessor">#endif</span>
+
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace context</span>
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.clip_control.c1"></a><a href="#oglplus.quickref.context.clip_control.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the clipping mode. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glClipControl.xml" target="_top">glClipControl</a></code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.clip_control.c3"></a><a href="#oglplus.quickref.context.clip_control.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Queries the current clip origin setting. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+                <span class="bold"><strong><code class="literal">GL_CLIP_ORIGIN</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.clip_control.c5"></a><a href="#oglplus.quickref.context.clip_control.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Queries the current clip depth mode setting. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
+                <span class="bold"><strong><code class="literal">GL_CLIP_DEPTH_MODE</code></strong></span>.
               </p></td>
 </tr>
 </table></div>

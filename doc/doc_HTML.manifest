@@ -49,6 +49,7 @@ oglplus/quickref/stencil_operation.html
 oglplus/quickref/access_specifier.html
 oglplus/quickref/data_type.html
 oglplus/quickref/face_mode.html
+oglplus/quickref/clip_control.html
 oglplus/quickref/blend_function.html
 oglplus/quickref/color_buffer.html
 oglplus/quickref/buffer_select_bit.html

@@ -41,7 +41,7 @@
         </h4>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
 
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">TrueValue</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">FalseValue</span><span class="special">&gt;</span>
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">B</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">TrueValue</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">FalseValue</span><span class="special">&gt;</span>
 <span class="keyword">struct</span> <span class="identifier">WeakBoolImpl</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -52,7 +52,7 @@
 	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.boolean.c2" href="boolean.html#oglplus.quickref.boolean.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="special">};</span>
 
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">TrueValue</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">FalseValue</span><span class="special">&gt;</span>
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">B</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">TrueValue</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">FalseValue</span><span class="special">&gt;</span>
 <span class="keyword">struct</span> <span class="identifier">BoolImpl</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -134,7 +134,7 @@
 <a name="oglplus.quickref.boolean.h2"></a>
           <span class="phrase"><a name="oglplus.quickref.boolean.def"></a></span><a class="link" href="boolean.html#oglplus.quickref.boolean.def">Definition</a>
         </h4>
-<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="boolean.html#oglplus.quickref.boolean.impl">BoolImpl</a><span class="special">&lt;</span><span class="identifier">GLint</span><span class="special">,</span> <span class="identifier">GL_TRUE</span><span class="special">,</span> <span class="identifier">GL_FALSE</span><span class="special">&gt;</span> <span class="identifier">Boolean</span><span class="special">;</span>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="boolean.html#oglplus.quickref.boolean.impl">BoolImpl</a><span class="special">&lt;</span><span class="identifier">GLboolean</span><span class="special">,</span> <span class="identifier">GLint</span><span class="special">,</span> <span class="identifier">GL_TRUE</span><span class="special">,</span> <span class="identifier">GL_FALSE</span><span class="special">&gt;</span> <span class="identifier">Boolean</span><span class="special">;</span>
 
 <span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
