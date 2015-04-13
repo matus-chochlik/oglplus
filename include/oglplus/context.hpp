@@ -16,6 +16,7 @@
 #include <oglplus/context/errors.hpp>
 #include <oglplus/context/capabilities.hpp>
 #include <oglplus/context/viewport.hpp>
+#include <oglplus/context/clip_control.hpp>
 #include <oglplus/context/buffer_selection.hpp>
 #include <oglplus/context/buffer_masking.hpp>
 #include <oglplus/context/buffer_clearing.hpp>
@@ -63,6 +64,7 @@ class Context
  , public context::Capabilities
  , public context::ViewportState
  , public context::ViewportOps
+ , public context::ClipControlState
  , public context::BufferSelection
  , public context::BufferMaskingState
  , public context::BufferClearingState
