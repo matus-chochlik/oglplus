@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -10,6 +10,7 @@ namespace oglplus {
 class Context
  : public __context_Errors
  , public __context_Capabilities
+ , public __context_ClipControlState
  , public __context_ViewportState
  , public __context_ViewportOps
  , public __context_BufferSelection
