@@ -995,7 +995,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			level,
-			GLint(internal_format),
+			GLenum(internal_format),
 			x,
 			y,
 			width,
@@ -1030,7 +1030,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			level,
-			GLint(internal_format),
+			GLenum(internal_format),
 			x,
 			y,
 			width,
@@ -1169,7 +1169,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			level,
-			GLint(internal_format),
+			GLenum(internal_format),
 			width,
 			height,
 			depth,
@@ -1206,7 +1206,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			level,
-			GLint(internal_format),
+			GLenum(internal_format),
 			width,
 			height,
 			border,
@@ -1241,7 +1241,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			level,
-			GLint(internal_format),
+			GLenum(internal_format),
 			width,
 			border,
 			image_size,
@@ -1285,7 +1285,7 @@ public:
 			width,
 			height,
 			depth,
-			GLint(format),
+			GLenum(format),
 			image_size,
 			data
 		);
@@ -1323,7 +1323,7 @@ public:
 			yoffs,
 			width,
 			height,
-			GLint(format),
+			GLenum(format),
 			image_size,
 			data
 		);
@@ -1357,7 +1357,7 @@ public:
 			level,
 			xoffs,
 			width,
-			GLint(format),
+			GLenum(format),
 			image_size,
 			data
 		);
@@ -1408,7 +1408,7 @@ public:
 	 */
 	GLuint BaseLevel(void) const
 	{
-		return GetIntParam(GL_TEXTURE_BASE_LEVEL);
+		return GLuint(GetIntParam(GL_TEXTURE_BASE_LEVEL));
 	}
 
 	/// Sets the texture base level (TEXTURE_BASE_LEVEL)
@@ -1423,7 +1423,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_BASE_LEVEL,
-			level
+			GLint(level)
 		);
 		OGLPLUS_CHECK(
 			TextureParameteriEXT,
@@ -1594,7 +1594,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_COMPARE_MODE,
-			GLenum(mode)
+			GLint(mode)
 		);
 		OGLPLUS_CHECK(
 			TextureParameteriEXT,
@@ -1630,7 +1630,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_COMPARE_FUNC,
-			GLenum(func)
+			GLint(func)
 		);
 		OGLPLUS_CHECK(
 			TextureParameteriEXT,
@@ -1687,7 +1687,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_MIN_FILTER,
-			GLenum(filter)
+			GLint(filter)
 		);
 		OGLPLUS_CHECK(
 			TextureParameteriEXT,
@@ -1699,7 +1699,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_MAG_FILTER,
-			GLenum(filter)
+			GLint(filter)
 		);
 		OGLPLUS_CHECK(
 			TextureParameteriEXT,
@@ -1735,7 +1735,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_MAG_FILTER,
-			GLenum(filter)
+			GLint(filter)
 		);
 		OGLPLUS_CHECK(
 			TextureParameteriEXT,
@@ -1771,7 +1771,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			GL_TEXTURE_MIN_FILTER,
-			GLenum(filter)
+			GLint(filter)
 		);
 		OGLPLUS_CHECK(
 			TextureParameteriEXT,
@@ -1966,7 +1966,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			GLenum(coord),
-			GLenum(mode)
+			GLint(mode)
 		);
 		OGLPLUS_CHECK(
 			TextureParameteriEXT,
@@ -2205,7 +2205,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			GLenum(coord),
-			GLenum(mode)
+			GLint(mode)
 		);
 		OGLPLUS_CHECK(
 			TextureParameteriEXT,
@@ -2310,7 +2310,7 @@ public:
 			_obj_name(),
 			GLenum(target),
 			GL_DEPTH_STENCIL_TEXTURE_MODE,
-			GLenum(mode)
+			GLint(mode)
 		);
 		OGLPLUS_CHECK(
 			TextureParameteriEXT,
@@ -2404,7 +2404,7 @@ struct DSATextureOpsAndSlotEXT
 // syntax sugar operators
 inline DSATextureOpsAndSlotEXT operator | (
 	DSATextureOpsEXT& tex,
-	GLuint slot
+	GLint slot
 )
 {
 	return DSATextureOpsAndSlotEXT(tex, slot);
@@ -2490,11 +2490,11 @@ inline DSATextureOpsEXT& operator << (
 {
 	switch(TextureTargetDimensions(tex.target))
 	{
-		case 3: tex.WrapR(wrap);
-		case 2: tex.WrapT(wrap);
-		case 1: tex.WrapS(wrap);
+		case 3: tex.WrapR(wrap); OGLPLUS_FALLTHROUGH
+		case 2: tex.WrapT(wrap); OGLPLUS_FALLTHROUGH
+		case 1: tex.WrapS(wrap); OGLPLUS_FALLTHROUGH
 		case 0: break;
-		default: assert(!"Invalid texture wrap dimension");
+		default: OGLPLUS_ABORT("Invalid texture wrap dimension");
 	}
 	return tex;
 }
@@ -2510,7 +2510,7 @@ inline DSATextureOpsEXT& operator << (
 		case 0: tas.tex.WrapS(wrap); break;
 		case 1: tas.tex.WrapT(wrap); break;
 		case 2: tas.tex.WrapR(wrap); break;
-		default: assert(!"Invalid texture wrap slot");
+		default: OGLPLUS_ABORT("Invalid texture wrap slot");
 	}
 	return tas.tex;
 }
@@ -2537,7 +2537,7 @@ inline DSATextureOpsEXT& operator << (
 		case 1: tas.tex.SwizzleG(swizzle); break;
 		case 2: tas.tex.SwizzleB(swizzle); break;
 		case 3: tas.tex.SwizzleA(swizzle); break;
-		default: assert(!"Invalid texture swizzle slot");
+		default: OGLPLUS_ABORT("Invalid texture swizzle slot");
 	}
 	return tas.tex;
 }

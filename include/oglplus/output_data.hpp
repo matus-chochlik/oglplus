@@ -55,7 +55,7 @@ public:
 	template <typename T>
 	OutputData(GLsizei count, T* addr)
 	 : _type(GetDataType<T>())
-	 , _size(count, addr)
+	 , _size(unsigned(count), addr)
 	 , _addr(addr)
 	{ }
 

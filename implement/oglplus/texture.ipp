@@ -105,7 +105,7 @@ _binding(Target target)
 		Error,
 		EnumParam(_binding_query(target))
 	);
-	return name;
+	return GLuint(name);
 }
 
 OGLPLUS_LIB_FUNC
@@ -278,7 +278,7 @@ GetCompressedImage(
 	std::vector<GLubyte>& dest
 )
 {
-	dest.resize(CompressedImageSize(target, level));
+	dest.resize(std::size_t(CompressedImageSize(target, level)));
 	GetCompressedImage(
 		target,
 		level,
@@ -521,7 +521,7 @@ Image(
 			break;
 		}
 #endif
-		default: assert(!bool("Invalid texture dimension"));
+		default: OGLPLUS_ABORT("Invalid texture dimension");
 	}
 }
 
@@ -583,7 +583,7 @@ Image(
 			break;
 		}
 #endif
-		default: assert(!bool("Invalid texture dimension"));
+		default: OGLPLUS_ABORT("Invalid texture dimension");
 	}
 }
 

@@ -14,9 +14,9 @@
 #define OGLPLUS_IMAGES_IMAGE_1107121519_HPP
 
 #include <limits>
-#include <cassert>
 #include <cstddef>
 #include <cstring>
+#include <oglplus/assert.hpp>
 #include <oglplus/math/vector.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
@@ -246,7 +246,7 @@ public:
 		if(i == 1) return Height();
 		if(i == 2) return Depth();
 		if(i == 3) return Channels();
-		assert(!bool("Invalid image dimension specified"));
+		OGLPLUS_ABORT("Invalid image dimension specified");
 		return -1;
 	}
 
@@ -372,7 +372,7 @@ public:
 	) const
 	{
 		std::size_t ppos = PixelPos(width, height, depth);
-		return std::size_t(ppos+component);
+		return ppos+std::size_t(component);
 	}
 
 	/// Returns the component of the pixel at the specified coordinates

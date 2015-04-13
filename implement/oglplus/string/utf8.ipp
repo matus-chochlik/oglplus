@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #include <oglplus/config/basic.hpp>
+#include <oglplus/assert.hpp>
 
 namespace oglplus {
 namespace aux {
@@ -32,7 +33,7 @@ std::size_t UTF8BytesRequired(const UnicodeCP* cp_str, std::size_t len)
 			result += 5;
 		else if((cp & ~0x7FFFFFFFu) == 0)
 			result += 6;
-		else assert(!bool("Invalid code point"));
+		else OGLPLUS_ABORT("Invalid code point");
 	}
 	return result;
 }
@@ -91,7 +92,7 @@ void ConvertCodePointToUTF8(UnicodeCP cp, char* str, std::size_t& len)
 		str[5] = char(((cp & 0x0000003Fu) >>  0) | 0x80);
 		len = 6;
 	}
-	else assert(!bool("Invalid code point"));
+	else OGLPLUS_ABORT("Invalid code point");
 }
 
 OGLPLUS_LIB_FUNC
@@ -141,7 +142,7 @@ std::size_t CodePointsRequired(const char* str, std::size_t len)
 			skip = 5;
 		else if(((*pb) & 0xFE) == 0xFC)
 			skip = 6;
-		else assert(!bool("Invalid UTF8 sequence"));
+		else OGLPLUS_ABORT("Invalid UTF8 sequence");
 		assert(len >= skip);
 		len -= skip;
 		pb += skip;
@@ -232,7 +233,7 @@ UnicodeCP ConvertUTF8ToCodePoint(const char* str, std::size_t len, std::size_t& 
 			(((bytes[5] & ~0xC0u) <<  0) & 0x0000003Fu)
 		);
 	}
-	assert(!bool("Invalid UTF8 sequence"));
+	OGLPLUS_ABORT("Invalid UTF8 sequence");
 	return UnicodeCP();
 }
 

@@ -4,11 +4,12 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #include <oglplus/config/basic.hpp>
+#include <oglplus/assert.hpp>
 
 namespace oglplus {
 namespace imports {
@@ -29,7 +30,7 @@ BlendFilePointerTpl<Level> BlendFileBlockData::_do_make_pointer(
 			_byte_order,
 			*reinterpret_cast<const uint64_t*>(pos)
 		), type_index);
-	assert(!"Invalid pointer size!");
+	OGLPLUS_ABORT("Invalid pointer size!");
 	return BlendFilePointerTpl<Level>();
 }
 

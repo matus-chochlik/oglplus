@@ -36,22 +36,22 @@ public:
 
 	template <typename T>
 	BufferSize(unsigned count, const T*)
-	 : _size(sizeof(T)*count)
+	 : _size(GLsizeiptr(sizeof(T)*count))
 	{ }
 
 	template <typename T, std::size_t N>
 	BufferSize(const T (&)[N])
-	 : _size(sizeof(T)*N)
+	 : _size(GLsizeiptr(sizeof(T)*N))
 	{ }
 
 	template <typename T, std::size_t N>
 	BufferSize(const std::array<T, N>& a)
-	 : _size(sizeof(T)*a.size())
+	 : _size(GLsizeiptr(sizeof(T)*a.size()))
 	{ }
 
 	template <typename T>
 	BufferSize(const std::vector<T>& v)
-	 : _size(sizeof(T)*v.size())
+	 : _size(GLsizeiptr(sizeof(T)*v.size()))
 	{ }
 
 	/// Gets the size in bytes

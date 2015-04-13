@@ -16,6 +16,7 @@
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/one_of.hpp>
+#include <oglplus/assert.hpp>
 
 namespace oglplus {
 namespace images {
@@ -213,7 +214,7 @@ struct ImageSpec
 		{
 			depth = dim;
 		}
-		else assert(!bool("Too many dimensions specified!"));
+		else OGLPLUS_ABORT("Too many dimensions specified!");
 		return *this;
 	}
 };

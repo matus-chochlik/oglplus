@@ -33,7 +33,7 @@
 #include <oglplus/one_of.hpp>
 #include <oglplus/output_data.hpp>
 #include <oglplus/images/fwd.hpp>
-#include <cassert>
+#include <oglplus/assert.hpp>
 
 namespace oglplus {
 
@@ -3170,7 +3170,7 @@ inline TextureTarget operator << (TextureTarget target, TextureWrap wrap)
 		case 1: DefaultTextureOps::WrapS(target, wrap);
 			OGLPLUS_FALLTHROUGH
 		case 0: break;
-		default: assert(!bool("Invalid texture wrap dimension"));
+		default: OGLPLUS_ABORT("Invalid texture wrap dimension");
 	}
 	return target;
 }
@@ -3186,7 +3186,7 @@ inline TextureTargetAndSlot operator << (
 		case 0: DefaultTextureOps::WrapS(tas.target, wrap); break;
 		case 1: DefaultTextureOps::WrapT(tas.target, wrap); break;
 		case 2: DefaultTextureOps::WrapR(tas.target, wrap); break;
-		default: assert(!bool("Invalid texture wrap slot"));
+		default: OGLPLUS_ABORT("Invalid texture wrap slot");
 	}
 	return tas;
 }
@@ -3211,7 +3211,7 @@ inline TextureTargetAndSlot operator << (
 		case 1: DefaultTextureOps::SwizzleG(tas.target, swizzle); break;
 		case 2: DefaultTextureOps::SwizzleB(tas.target, swizzle); break;
 		case 3: DefaultTextureOps::SwizzleA(tas.target, swizzle); break;
-		default: assert(!bool("Invalid texture swizzle slot"));
+		default: OGLPLUS_ABORT("Invalid texture swizzle slot");
 	}
 	return tas;
 }

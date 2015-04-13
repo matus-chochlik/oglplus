@@ -2010,7 +2010,7 @@ inline DSATextureOps& operator << (
 		case 0: tas.tex.WrapS(wrap); break;
 		case 1: tas.tex.WrapT(wrap); break;
 		case 2: tas.tex.WrapR(wrap); break;
-		default: assert(!"Invalid texture wrap slot");
+		default: OGLPLUS_ABORT("Invalid texture wrap slot");
 	}
 	return tas.tex;
 }
@@ -2037,7 +2037,7 @@ inline DSATextureOps& operator << (
 		case 1: tas.tex.SwizzleG(swizzle); break;
 		case 2: tas.tex.SwizzleB(swizzle); break;
 		case 3: tas.tex.SwizzleA(swizzle); break;
-		default: assert(!"Invalid texture swizzle slot");
+		default: OGLPLUS_ABORT("Invalid texture swizzle slot");
 	}
 	return tas.tex;
 }
