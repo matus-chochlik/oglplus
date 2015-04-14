@@ -31,7 +31,7 @@ public:
 
 	/// Construction of the specified size in bytes
 	BufferSize(GLsizeiptr size)
-	 : _size(size)
+	 : _size(GLsizeiptr(size))
 	{ }
 
 	template <typename T>
