@@ -14,8 +14,8 @@
 #define OGLPLUS_IMAGES_CELL_1107121519_HPP
 
 #include <oglplus/images/image.hpp>
+#include <oglplus/assert.hpp>
 
-#include <cassert>
 #include <vector>
 
 namespace oglplus {
@@ -36,7 +36,7 @@ private:
 			case 4: return PixelDataFormat::RGBA;
 			default:;
 		}
-		assert(!"Invalid number of channels!");
+		OGLPLUS_ABORT("Invalid number of channels!");
 		return PixelDataFormat();
 	}
 
@@ -51,7 +51,7 @@ private:
 			case 4: return PixelDataInternalFormat::RGBA;
 			default:;
 		}
-		assert(!"Invalid number of channels!");
+		OGLPLUS_ABORT("Invalid number of channels!");
 		return PixelDataInternalFormat();
 	}
 public:

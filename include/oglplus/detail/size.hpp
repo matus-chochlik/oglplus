@@ -1,0 +1,165 @@
+/**
+ *  .file oglplus/detail/size.hpp
+ *  .brief Implementation of wrapper for sizei
+ *
+ *  @author Matus Chochlik
+ *
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#pragma once
+#ifndef OGLPLUS_DETAIL_SIZE_1501311633_HPP
+#define OGLPLUS_DETAIL_SIZE_1501311633_HPP
+
+#include <oglplus/config/compiler.hpp>
+#include <type_traits>
+#include <stdexcept>
+#include <cstddef>
+#include <limits>
+#include <new>
+
+namespace oglplus {
+
+template <typename T>
+struct SizeImpl
+{
+private:
+	T _v;
+
+	template <typename R, typename X>
+	static
+	typename std::enable_if<(sizeof(R) <= sizeof(X)), R>::type
+	_chkin2(X v)
+	{
+		if(v > X(std::numeric_limits<T>::max()))
+		{
+			throw std::domain_error("Size value too big");
+		}
+		return R(v);
+	}
+
+	template <typename R, typename X>
+	static
+	typename std::enable_if<(sizeof(R) > sizeof(X)), R>::type
+	_chkin2(X v)
+	{
+		return R(v);
+	}
+
+	template <typename R, typename X>
+	static inline
+	typename std::enable_if<std::is_signed<X>::value, R>::type
+	_chkin1(X v)
+	{
+		if(v < X(0))
+		{
+			throw std::domain_error("Negative size value");
+		}
+		return _chkin2<R>(v);
+	}
+
+	template <typename R, typename X>
+	static inline
+	typename std::enable_if<!std::is_signed<X>(), R>::type
+	_chkin1(X v)
+	{
+		return _chkin2<R>(v);
+	}
+
+	template <typename X>
+	static inline
+	T _checkin(X v)
+	{
+		return _chkin1<T>(v);
+	}
+
+	template <typename X>
+	static
+	typename std::enable_if<(sizeof(T) <= sizeof(X)), T>::type
+	_cv_in1(X v)
+	noexcept
+	{
+		if(v > X(std::numeric_limits<T>::max()))
+		{
+			return T(-1);
+		}
+		return T(v);
+	}
+
+	template <typename X>
+	static
+	typename std::enable_if<(sizeof(T) > sizeof(X)), T>::type
+	_cv_in1(X v)
+	noexcept
+	{
+		return T(v);
+	}
+
+	template <typename X>
+	static inline
+	T _conv_in(X v)
+	noexcept
+	{
+		return _cv_in1(v);
+	}
+public:
+	SizeImpl(void)
+	noexcept
+	 : _v(T(0))
+	{ }
+
+	template <typename X>
+	SizeImpl(X v)
+	 : _v(_checkin(v))
+	{ }
+
+	SizeImpl(T v, std::nothrow_t)
+	noexcept
+	 : _v(v)
+	{ }
+
+	template <typename X>
+	SizeImpl(X v, std::nothrow_t)
+	noexcept
+	 : _v(_conv_in(v))
+	{ }
+
+	T get(void) const
+	noexcept
+	{
+		return _v;
+	}
+
+	explicit
+	operator bool (void) const
+	noexcept
+	{
+		return _v >= T(0);
+	}
+
+	bool operator ! (void) const
+	noexcept
+	{
+		return _v < T(0);
+	}
+
+	operator T (void) const
+	noexcept
+	{
+		return _v;
+	}
+
+	template <typename X>
+	explicit
+	operator X (void) const
+	noexcept
+	{
+		return _chkin1<X>(_v);
+	}
+};
+
+} // namespace oglplus
+
+#endif // include guard

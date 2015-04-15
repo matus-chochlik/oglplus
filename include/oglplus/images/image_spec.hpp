@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,6 +16,7 @@
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/one_of.hpp>
+#include <oglplus/assert.hpp>
 
 namespace oglplus {
 namespace images {
@@ -213,7 +214,7 @@ struct ImageSpec
 		{
 			depth = dim;
 		}
-		else assert(!"Too many dimensions specified!");
+		else OGLPLUS_ABORT("Too many dimensions specified!");
 		return *this;
 	}
 };

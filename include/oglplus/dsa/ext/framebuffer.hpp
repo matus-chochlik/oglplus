@@ -436,7 +436,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(FramebufferDrawBuffersEXT)(
 			_obj_name(),
-			buffers.Count(),
+			GLint(buffers.Count()),
 			buffers.Values()
 		);
 		OGLPLUS_VERIFY(

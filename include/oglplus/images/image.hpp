@@ -14,9 +14,9 @@
 #define OGLPLUS_IMAGES_IMAGE_1107121519_HPP
 
 #include <limits>
-#include <cassert>
 #include <cstddef>
 #include <cstring>
+#include <oglplus/assert.hpp>
 #include <oglplus/math/vector.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
@@ -57,7 +57,7 @@ private:
 	{
 		assert(ptr != nullptr);
 		const double v = double(*static_cast<T*>(ptr));
-		const double n = double(_one((T*)nullptr));
+		const double n = double(_one(static_cast<T*>(nullptr)));
 		return v / n;
 	}
 
@@ -193,8 +193,8 @@ public:
 	 , _type(PixelDataType(GetDataType<T>()))
 	 , _storage(oglplus::aux::AlignedPODArray(data, _width*_height*_depth*_channels))
 	 , _convert(&_do_convert<T>)
-	 , _format(_get_def_pdf(channels))
-	 , _internal(_get_def_pdif(channels))
+	 , _format(_get_def_pdf(unsigned(channels)))
+	 , _internal(_get_def_pdif(unsigned(channels)))
 	{ }
 
 	template <typename T>
@@ -246,7 +246,7 @@ public:
 		if(i == 1) return Height();
 		if(i == 2) return Depth();
 		if(i == 3) return Channels();
-		assert(!"Invalid image dimension specified");
+		OGLPLUS_ABORT("Invalid image dimension specified");
 		return -1;
 	}
 
@@ -372,7 +372,7 @@ public:
 	) const
 	{
 		std::size_t ppos = PixelPos(width, height, depth);
-		return std::size_t(ppos+component);
+		return ppos+std::size_t(component);
 	}
 
 	/// Returns the component of the pixel at the specified coordinates

@@ -17,6 +17,7 @@
 #include <oglplus/error/code.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/ref.hpp>
+#include <oglplus/size.hpp>
 #include <stdexcept>
 #include <cassert>
 
@@ -74,6 +75,39 @@ public:
 	noexcept;
 
 	Error(const char* message);
+
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	Error(const Error& that)
+	 : std::runtime_error(that)
+	 , _code(that._code)
+#if !OGLPLUS_ERROR_NO_FILE
+	 , _file(that._file)
+#endif
+#if !OGLPLUS_ERROR_NO_FUNC
+	 , _func(that._func)
+#endif
+#if !OGLPLUS_ERROR_NO_LINE
+	 , _line(that._line)
+#endif
+
+#if !OGLPLUS_ERROR_NO_GL_LIB
+	 , _gllib_name(that._gllib_name)
+#endif
+
+#if !OGLPLUS_ERROR_NO_GL_FUNC
+	 , _glfunc_name(that._glfunc_name)
+#endif
+
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
+	 , _enumpar_name(that._enumpar_name)
+	 , _enumpar(that._enumpar)
+	 , _index(that._index)
+#endif
+	{ }
+#else
+	Error(const Error&) = default;
+	Error& operator = (const Error&) = default;
+#endif
 
 	~Error(void)
 	noexcept
@@ -240,7 +274,7 @@ public:
 	const char* EnumParamName(void) const
 	noexcept;
 
-	Error& Index(GLuint index)
+	Error& Index(SizeType index)
 	noexcept
 	{
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL

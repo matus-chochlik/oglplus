@@ -97,6 +97,14 @@
 #endif
 #endif
 
+#if defined(__clang__)
+#define OGLPLUS_FALLTHROUGH [[clang::fallthrough]];
+#endif
+
+#ifndef OGLPLUS_FALLTHROUGH
+#define OGLPLUS_FALLTHROUGH
+#endif
+
 // -------- disable certain warnings ---------
 
 #ifdef _MSC_VER

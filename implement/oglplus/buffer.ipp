@@ -46,7 +46,7 @@ _binding(BufferTarget target)
 		Error,
 		EnumParam(_binding_query(target))
 	);
-	return name;
+	return GLuint(name);
 }
 
 OGLPLUS_LIB_FUNC
@@ -60,7 +60,7 @@ _binding(BufferIndexedTarget target, GLuint index)
 		Error,
 		EnumParam(_binding_query(target))
 	);
-	return name;
+	return GLuint(name);
 }
 
 OGLPLUS_LIB_FUNC

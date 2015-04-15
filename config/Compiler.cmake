@@ -7,10 +7,11 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 	add_definitions(
 		-pedantic
 		-Wall
-		-Weverything
+		#-Weverything
 		#-Werror
 		-Wno-c++98-compat
 		-Wno-c++98-compat-pedantic
+		-Wno-undef
 		-Wno-global-constructors
 		-Wno-exit-time-destructors
 		-Wno-date-time

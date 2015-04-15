@@ -269,6 +269,8 @@
 [def __SLDataType [link oglplus.quickref.data_type SLDataType]]
 [def __TypeTag [link oglplus.quickref.data_type.utils TypeTag]]
 
+[def __ClipOrigin [link oglplus.quickref.clip_control.origin ClipOrigin]]
+[def __ClipDepthMode [link oglplus.quickref.clip_control.depth_mode ClipDepthMode]]
 [def __Face [link oglplus.quickref.face_mode.face Face]]
 [def __SingleFace [link oglplus.quickref.face_mode.single_face SingleFace]]
 [def __FaceOrientation [link oglplus.quickref.face_mode.orientation FaceOrientation]]

@@ -25,7 +25,7 @@
 #include <oglplus/texture_compare.hpp>
 #include <oglplus/texture_filter.hpp>
 #include <oglplus/texture_unit.hpp>
-#include <cassert>
+#include <oglplus/assert.hpp>
 
 namespace oglplus {
 
@@ -390,7 +390,7 @@ public:
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_obj_name(),
 			GL_TEXTURE_COMPARE_MODE,
-			GLenum(mode)
+			GLint(mode)
 		);
 		OGLPLUS_CHECK(
 			SamplerParameteri,
@@ -424,7 +424,7 @@ public:
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_obj_name(),
 			GL_TEXTURE_COMPARE_FUNC,
-			GLenum(func)
+			GLint(func)
 		);
 		OGLPLUS_CHECK(
 			SamplerParameteri,
@@ -477,7 +477,7 @@ public:
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_obj_name(),
 			GL_TEXTURE_MIN_FILTER,
-			GLenum(filter)
+			GLint(filter)
 		);
 		OGLPLUS_CHECK(
 			SamplerParameteri,
@@ -488,7 +488,7 @@ public:
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_obj_name(),
 			GL_TEXTURE_MAG_FILTER,
-			GLenum(filter)
+			GLint(filter)
 		);
 		OGLPLUS_CHECK(
 			SamplerParameteri,
@@ -522,7 +522,7 @@ public:
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_obj_name(),
 			GL_TEXTURE_MAG_FILTER,
-			GLenum(filter)
+			GLint(filter)
 		);
 		OGLPLUS_CHECK(
 			SamplerParameteri,
@@ -556,7 +556,7 @@ public:
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_obj_name(),
 			GL_TEXTURE_MIN_FILTER,
-			GLenum(filter)
+			GLint(filter)
 		);
 		OGLPLUS_CHECK(
 			SamplerParameteri,
@@ -648,7 +648,7 @@ public:
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_obj_name(),
 			GLenum(coord),
-			GLenum(mode)
+			GLint(mode)
 		);
 		OGLPLUS_CHECK(
 			SamplerParameteri,
@@ -780,7 +780,7 @@ struct SamplerOpsAndSlot
 // syntax sugar operators
 inline SamplerOpsAndSlot operator | (
 	SamplerOps& sam,
-	GLuint slot
+	GLint slot
 )
 {
 	return SamplerOpsAndSlot(sam, slot);
@@ -869,7 +869,7 @@ inline SamplerOps& operator << (
 		case 0: sas.sam.WrapS(wrap); break;
 		case 1: sas.sam.WrapT(wrap); break;
 		case 2: sas.sam.WrapR(wrap); break;
-		default: assert(!"Invalid texture wrap slot");
+		default: OGLPLUS_ABORT("Invalid texture wrap slot");
 	}
 	return sas.sam;
 }

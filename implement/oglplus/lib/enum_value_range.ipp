@@ -47,6 +47,12 @@ OGLPLUS_ENUM_CLASS_FWD(BufferUsage, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(Capability, GLenum)
 #include <oglplus/enums/capability_range.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(ClipDepthMode, GLenum)
+#include <oglplus/enums/clip_depth_mode_range.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(ClipOrigin, GLenum)
+#include <oglplus/enums/clip_origin_range.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(ColorBuffer, GLenum)
 #include <oglplus/enums/color_buffer_range.ipp>
 

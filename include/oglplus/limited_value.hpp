@@ -74,6 +74,8 @@ protected:
 	}
 public:
 
+	LimitedCount(const LimitedCount&) = default;
+
 	LimitedCount& operator = (const LimitedCount& other)
 	{
 		_value = other._value;

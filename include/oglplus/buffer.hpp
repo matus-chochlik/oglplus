@@ -521,7 +521,7 @@ public:
 	}
 
 	/// Uploads (sets) the buffer data
-	/** This member function uploads the specified @data to the buffer bound
+	/** This member function uploads the specified data to the buffer bound
 	 *  to the specified @p target using the @p usage as hint.
 	 *
 	 *  @see SubData

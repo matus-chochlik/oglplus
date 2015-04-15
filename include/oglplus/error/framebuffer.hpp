@@ -43,6 +43,18 @@ public:
 	 : ObjectError(message)
 	{ }
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	IncompleteFramebuffer(const IncompleteFramebuffer& that)
+	 : ObjectError(that)
+	 , _status(that._status)
+	{ }
+#else
+	IncompleteFramebuffer(const IncompleteFramebuffer&)
+		= default;
+	IncompleteFramebuffer& operator = (const IncompleteFramebuffer&)
+		= default;
+#endif
+
 	~IncompleteFramebuffer(void)
 	noexcept
 	{ }
