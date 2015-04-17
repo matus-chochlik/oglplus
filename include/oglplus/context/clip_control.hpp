@@ -19,6 +19,34 @@
 namespace oglplus {
 namespace context {
 
+struct ClipControlParams
+{
+	GLenum _origin;
+	GLenum _depth;
+
+	ClipControlParams(void)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
+	ClipControlParams(ClipOrigin origin, ClipDepthMode depth)
+	OGLPLUS_NOEXCEPT(true)
+	 : _origin(GLenum(origin))
+	 , _depth(GLenum(depth))
+	{ }
+
+	ClipOrigin Origin(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ClipOrigin(_origin);
+	}
+
+	ClipDepthMode DepthMode(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ClipDepthMode(_depth);
+	}
+};
+
 /// Wrapper for the clip control-related operations
 /**
  *  @ingroup ogl_context
@@ -37,6 +65,12 @@ public:
 	static void ClipControl(ClipOrigin origin, ClipDepthMode depth)
 	{
 		OGLPLUS_GLFUNC(ClipControl)(GLenum(origin), GLenum(depth));
+		OGLPLUS_VERIFY_SIMPLE(ClipControl);
+	}
+
+	static void ClipControl(const ClipControlParams& params)
+	{
+		OGLPLUS_GLFUNC(ClipControl)(params._origin, params._depth);
 		OGLPLUS_VERIFY_SIMPLE(ClipControl);
 	}
 
@@ -68,6 +102,14 @@ public:
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_CLIP_DEPTH_MODE, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return oglplus::ClipDepthMode(GLenum(result));
+	}
+
+	static ClipControlParams ClipControl(void)
+	{
+		return ClipControlParams(
+			ClipOrigin(),
+			ClipDepthMode()
+		);
 	}
 #endif
 };
