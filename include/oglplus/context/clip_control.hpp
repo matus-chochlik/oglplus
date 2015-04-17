@@ -54,7 +54,7 @@ struct ClipControlParams
 class ClipControlState
 {
 public:
-#if GL_VERSION_4_5 || GL_ARB_clip_control
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_ARB_clip_control
 	/// Sets the clipping mode
 	/**
 	 *  @throws Error

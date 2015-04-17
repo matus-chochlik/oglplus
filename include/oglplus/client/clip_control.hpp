@@ -20,7 +20,7 @@ namespace oglplus {
 namespace client {
 namespace aux {
 
-#if GL_VERSION_4_5 || GL_ARB_clip_control
+#if GL_VERSION_4_5
 
 class ClipControl
  : public SettingStack<context::ClipControlParams, Nothing>
@@ -53,7 +53,7 @@ public:
 class ClipControlState
 {
 public:
-#if GL_VERSION_4_5 || GL_ARB_clip_control
+#if GL_VERSION_4_5
 	aux::ClipControl ClipControl;
 #endif
 };
