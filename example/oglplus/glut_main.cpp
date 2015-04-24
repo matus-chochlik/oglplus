@@ -263,6 +263,7 @@ int glut_example_main(int argc, char ** argv)
 	GLuint width = 800, height = 600;
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL | profile);
+	glutInitContextVersion(OGLPLUS_GL_VERSION_MAJOR, OGLPLUS_GL_VERSION_MINOR);
 	glutInitWindowSize(width, height);
 	glutInitWindowPosition(100,100);
 	glutCreateWindow("OGLplus example");
