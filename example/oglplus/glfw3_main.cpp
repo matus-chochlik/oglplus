@@ -34,6 +34,9 @@ public:
 	{
 		if(!glfwInit())
 			throw std::runtime_error("GLFW initialization error");
+
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OGLPLUS_GL_VERSION_MAJOR);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OGLPLUS_GL_VERSION_MINOR);
 	}
 
 	~GLFWInitializer(void)

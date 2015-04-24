@@ -162,11 +162,6 @@ configure_file(
 	${PROJECT_BINARY_DIR}/include/oglplus/config/site.hpp
 )
 
-install(
-	FILES ${PROJECT_BINARY_DIR}/include/oglplus/config/site.hpp
-	DESTINATION include/oglplus/config
-)
-
 # include the oglplus headers
 include_directories(${PROJECT_SOURCE_DIR}/include)
 # include the generated headers
@@ -182,6 +177,17 @@ include(config/GLVerExt.cmake)
 include(config/GLVer.cmake)
 # GL extension detection
 include(config/GLExt.cmake)
+
+# re-create the site-configuration header
+configure_file(
+	${PROJECT_SOURCE_DIR}/config/oglplus/config/site.hpp.in
+	${PROJECT_BINARY_DIR}/include/oglplus/config/site.hpp
+)
+
+install(
+	FILES ${PROJECT_BINARY_DIR}/include/oglplus/config/site.hpp
+	DESTINATION include/oglplus/config
+)
 
 include(config/OGLplusLib.cmake)
 
