@@ -2,7 +2,7 @@
  *  .file example/oglplus/glfw3_main.cpp
  *  Implements GLFW-3-based program main function for running examples
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -33,10 +33,14 @@ public:
 	GLFWInitializer(void)
 	{
 		if(!glfwInit())
+		{
 			throw std::runtime_error("GLFW initialization error");
+		}
 
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OGLPLUS_GL_VERSION_MAJOR);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OGLPLUS_GL_VERSION_MINOR);
+		// TODO: this caused problems for some users
+		// have a look what GLFW actually does here
+		//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OGLPLUS_GL_VERSION_MAJOR);
+		//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OGLPLUS_GL_VERSION_MINOR);
 	}
 
 	~GLFWInitializer(void)
