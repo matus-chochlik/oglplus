@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
-#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -193,6 +193,30 @@ def get_argument_parser():
 			information about the available configurations on the current machine.
 		"""
 	)
+	argparser_use_boost_config_group = argparser.add_mutually_exclusive_group()
+	argparser_use_boost_config_group .add_argument(
+		"--use-boost-config",
+		dest="use_boost_config",
+		type=BoolArgValue,
+		choices=[True, False],
+		action="store",
+		default=True,
+		help="""
+			Enables or disables the use of the Boost.Config library for the
+			detection of availability of C++ language features (default = %(default)s).
+		"""
+	)
+	argparser_use_boost_config_group .add_argument(
+		"--no-boost-config",
+		dest="use_boost_config",
+		action="store_false",
+		help="""
+			Do not use the Boost.Config library for C++ feature availability
+			detection.
+			Equivalent to --use-boost-config=False.
+		"""
+	)
+
 	argparser_build_examples_group = argparser.add_mutually_exclusive_group()
 	argparser_build_examples_group.add_argument(
 		"--build-examples",
@@ -878,6 +902,7 @@ def main(argv):
 		options.build_examples = False
 		options.make_screenshots = False
 		options.build_docs = False
+		options.use_boost_config = False
 		options.build = False
 
 	# disable building the examples
@@ -887,6 +912,10 @@ def main(argv):
 	# disable example screenshots in the docs
 	if(not options.make_screenshots):
 		cmake_options.append("-DOGLPLUS_NO_SCREENSHOTS=On")
+
+	# don't use Boost.Config
+	if(not options.use_boost_config):
+		cmake_options.append("-DOGLPLUS_NO_BOOST_CONFIG=On")
 
 	# disable building the docs
 	if(not options.build_docs):
