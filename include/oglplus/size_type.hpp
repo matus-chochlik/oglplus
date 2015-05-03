@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/size.hpp
+ *  @file oglplus/size_type.hpp
  *  @brief Wrapper for GLsizei and GLsizeiptr
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_SIZE_1501311633_HPP
-#define OGLPLUS_SIZE_1501311633_HPP
+#ifndef OGLPLUS_SIZE_TYPE_1501311633_HPP
+#define OGLPLUS_SIZE_TYPE_1501311633_HPP
 
 #include <oglplus/detail/size.hpp>
 

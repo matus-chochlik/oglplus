@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -34,7 +34,7 @@ class PathArrayNV
 {
 public:
 	/// Creates a sequence of @p count paths
-	PathArrayNV(GLsizei count)
+	PathArrayNV(SizeType count)
 	 : Array<PathNV>(count)
 	{ }
 
@@ -48,7 +48,7 @@ public:
 		PathNVFontTarget font_target,
 		const GLchar* font_name,
 		Bitfield<PathNVFontStyle> font_style,
-		GLsizei num_glyphs,
+		SizeType num_glyphs,
 		const CharType* char_codes,
 		PathNVMissingGlyph handle_missing_glyphs,
 		GLuint parameter_template,
@@ -156,7 +156,7 @@ public:
 		const GLchar* font_name,
 		Bitfield<PathNVFontStyle> font_style,
 		GLuint first_glyph,
-		GLsizei num_glyphs,
+		SizeType num_glyphs,
 		PathNVMissingGlyph handle_missing_glyphs,
 		GLuint parameter_template,
 		GLfloat em_scale
@@ -189,7 +189,7 @@ public:
 	template <typename IndexType>
 	PathArrayNV& GetSpacing(
 		PathNVListMode list_mode,
-		GLsizei num_indices,
+		SizeType num_indices,
 		const IndexType* indices,
 		GLfloat advance_scale,
 		GLfloat kerning_scale,
@@ -291,9 +291,9 @@ public:
 	template <typename IndexType>
 	PathArrayNV& GetMetrics(
 		Bitfield<PathNVMetricQuery> query_mask,
-		GLsizei num_indices,
+		SizeType num_indices,
 		const IndexType* indices,
-		GLsizei stride,
+		SizeType stride,
 		GLfloat* returned_values
 	)
 	{
@@ -319,7 +319,7 @@ public:
 	PathArrayNV& GetMetrics(
 		Bitfield<PathNVMetricQuery> query_mask,
 		const std::vector<IndexType>& indices,
-		GLsizei stride,
+		SizeType stride,
 		GLfloat* returned_values
 	)
 	{
@@ -344,7 +344,7 @@ public:
 	PathArrayNV& GetMetrics(
 		Bitfield<PathNVMetricQuery> query_mask,
 		StrCRef indices,
-		GLsizei stride,
+		SizeType stride,
 		GLfloat* returned_values
 	)
 	{
@@ -368,8 +368,8 @@ public:
 	 */
 	PathArrayNV& GetMetricRange(
 		Bitfield<PathNVMetricQuery> query_mask,
-		GLsizei num_paths,
-		GLsizei stride,
+		SizeType num_paths,
+		SizeType stride,
 		GLfloat* returned_values
 	)
 	{
@@ -391,7 +391,7 @@ public:
 	 */
 	template <typename IndexType>
 	PathArrayNV& StencilFillInstanced(
-		GLsizei num_paths,
+		SizeType num_paths,
 		const IndexType* paths,
 		PathNVFillMode mode,
 		GLuint mask,
@@ -491,7 +491,7 @@ public:
 	 */
 	template <typename IndexType>
 	PathArrayNV& CoverFillInstanced(
-		GLsizei num_paths,
+		SizeType num_paths,
 		const IndexType* paths,
 		PathNVFillCoverMode mode,
 		PathNVTransformType transform_type,
@@ -581,7 +581,7 @@ public:
 	 */
 	template <typename IndexType>
 	PathArrayNV& StencilStrokeInstanced(
-		GLsizei num_paths,
+		SizeType num_paths,
 		const IndexType* paths,
 		GLint reference,
 		GLuint mask,
@@ -665,7 +665,7 @@ public:
 	 */
 	template <typename IndexType>
 	PathArrayNV& CoverStrokeInstanced(
-		GLsizei num_paths,
+		SizeType num_paths,
 		const IndexType* paths,
 		PathNVStrokeCoverMode mode,
 		PathNVTransformType transform_type,

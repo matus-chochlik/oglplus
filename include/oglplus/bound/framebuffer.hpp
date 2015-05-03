@@ -5,7 +5,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -279,7 +279,7 @@ public:
 	 *  @see Framebuffer::Invalidate()
 	 */
 	const BoundObjOps& Invalidate(
-		GLsizei count,
+		SizeType count,
 		const ExplicitOps::Property::Buffer * buffers
 	) const
 	{
@@ -301,8 +301,8 @@ public:
 		const EnumArray< ExplicitOps::Property::Buffer > & buffers,
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height
+		SizeType width,
+		SizeType height
 	) const
 	{
 		ExplicitOps::Invalidate(
@@ -323,12 +323,12 @@ public:
 	 *  @see Framebuffer::Invalidate()
 	 */
 	const BoundObjOps& Invalidate(
-		GLsizei count,
+		SizeType count,
 		const ExplicitOps::Property::Buffer * buffers,
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height
+		SizeType width,
+		SizeType height
 	) const
 	{
 		ExplicitOps::Invalidate(

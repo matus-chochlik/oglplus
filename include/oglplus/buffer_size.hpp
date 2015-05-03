@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_BUFFER_SIZE_1310102147_HPP
 #define OGLPLUS_BUFFER_SIZE_1310102147_HPP
 
-#include <oglplus/size.hpp>
+#include <oglplus/size_type.hpp>
 #include <vector>
 #include <array>
 

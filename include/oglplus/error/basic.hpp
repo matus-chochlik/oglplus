@@ -18,7 +18,7 @@
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/string/empty.hpp>
-#include <oglplus/size.hpp>
+#include <oglplus/size_type.hpp>
 #include <stdexcept>
 #include <cassert>
 

@@ -21,7 +21,7 @@
 #include <oglplus/precision_type.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/glsl_source.hpp>
-#include <oglplus/size.hpp>
+#include <oglplus/size_type.hpp>
 
 #include <array>
 #include <vector>
@@ -548,7 +548,7 @@ class Array<Shader>
  : public Array<ObjectOps<tag::DirectState, tag::Shader>>
 {
 public:
-	Array(GLsizei n, ShaderType type)
+	Array(BigSizeType n, ShaderType type)
 	 : Array<ObjectOps<tag::DirectState, tag::Shader>>(n, type)
 	{ }
 };
