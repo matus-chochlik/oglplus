@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_BUFFER_SIZE_1310102147_HPP
 #define OGLPLUS_BUFFER_SIZE_1310102147_HPP
 
+#include <oglplus/size.hpp>
 #include <vector>
 #include <array>
 
@@ -20,44 +21,47 @@ namespace oglplus {
 
 /// This class represents the size of a GPU buffer in bytes
 class BufferSize
+ : public BigSizeType
 {
-private:
-	GLsizeiptr _size;
 public:
 	/// Construction of zero size
 	BufferSize(void)
-	 : _size(0)
+	 : BigSizeType(0)
 	{ }
 
 	/// Construction of the specified size in bytes
 	BufferSize(GLsizeiptr size)
-	 : _size(GLsizeiptr(size))
+	 : BigSizeType(size)
+	{ }
+
+	BufferSize(BigSizeType size)
+	 : BigSizeType(size)
 	{ }
 
 	template <typename T>
 	BufferSize(unsigned count, const T*)
-	 : _size(GLsizeiptr(sizeof(T)*count))
+	 : BigSizeType(GLsizeiptr(sizeof(T)*count))
 	{ }
 
 	template <typename T, std::size_t N>
 	BufferSize(const T (&)[N])
-	 : _size(GLsizeiptr(sizeof(T)*N))
+	 : BigSizeType(GLsizeiptr(sizeof(T)*N))
 	{ }
 
 	template <typename T, std::size_t N>
 	BufferSize(const std::array<T, N>& a)
-	 : _size(GLsizeiptr(sizeof(T)*a.size()))
+	 : BigSizeType(GLsizeiptr(sizeof(T)*a.size()))
 	{ }
 
 	template <typename T>
 	BufferSize(const std::vector<T>& v)
-	 : _size(GLsizeiptr(sizeof(T)*v.size()))
+	 : BigSizeType(GLsizeiptr(sizeof(T)*v.size()))
 	{ }
 
 	/// Gets the size in bytes
 	GLsizeiptr Get(void) const
 	{
-		return _size;
+		return GLsizeiptr(*this);
 	}
 
 	/// Makes the size of count instances of T
@@ -71,12 +75,12 @@ public:
 	template <typename T>
 	BufferSize Add(unsigned count, const T* = nullptr) const
 	{
-		return BufferSize(_size+sizeof(T)*count);
+		return BufferSize(Get()+sizeof(T)*count);
 	}
 
 	BufferSize Add(const BufferSize& bs) const
 	{
-		return BufferSize(_size+bs._size);
+		return BufferSize(Get()+bs.Get());
 	}
 };
 
