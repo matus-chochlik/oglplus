@@ -40,10 +40,10 @@ SphereBumpMap::SphereBumpMap(
 
 	typedef double number;
 	number one = number(1);
-	number invw = (2.0f*xrep)/width;
-	number invh = (2.0f*yrep)/height;
-	GLsizei hi = number(width)/xrep;
-	GLsizei hj = number(height)/yrep;
+	number invw = number(2*xrep)/number(width);
+	number invh = number(2*yrep)/number(height);
+	GLsizei hi = width/xrep;
+	GLsizei hj = height/yrep;
 
 	auto p = this->_begin<GLfloat>();
 	for(GLsizei j=0; j<height; ++j)

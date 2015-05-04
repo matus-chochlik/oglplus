@@ -36,8 +36,8 @@ Squares::Squares(
 	for(GLsizei y=0; y!=height; ++y)
 	for(GLsizei x=0; x!=width;  ++x)
 	{
-		float vx = float((x * xrep)% width)/width;
-		float vy = float((y * yrep)%height)/height;
+		float vx = float((x * xrep)% width)/float(width);
+		float vy = float((y * yrep)%height)/float(height);
 		bool outside =
 			((vx < rmin) || (vx > rmax)) ||
 			((vy < rmin) || (vy > rmax));

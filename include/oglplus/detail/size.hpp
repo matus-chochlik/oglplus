@@ -157,6 +157,192 @@ public:
 	{
 		return _chkin1<X>(_v);
 	}
+
+	friend bool operator == (SizeImpl s1, SizeImpl s2)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s1._v == s2._v;
+	}
+
+	friend bool operator == (T v, SizeImpl s)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return v == s._v;
+	}
+
+	friend bool operator == (SizeImpl s, T v)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s._v == v;
+	}
+
+
+	friend bool operator != (SizeImpl s1, SizeImpl s2)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s1._v != s2._v;
+	}
+
+	friend bool operator != (T v, SizeImpl s)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return v != s._v;
+	}
+
+	friend bool operator != (SizeImpl s, T v)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s._v != v;
+	}
+
+
+	friend bool operator <  (SizeImpl s1, SizeImpl s2)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s1._v <  s2._v;
+	}
+
+	friend bool operator <  (T v, SizeImpl s)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return v <  s._v;
+	}
+
+	friend bool operator <  (SizeImpl s, T v)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s._v <  v;
+	}
+
+
+	friend bool operator <= (SizeImpl s1, SizeImpl s2)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s1._v <= s2._v;
+	}
+
+	friend bool operator <= (T v, SizeImpl s)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return v <= s._v;
+	}
+
+	friend bool operator <= (SizeImpl s, T v)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s._v <= v;
+	}
+
+
+	friend bool operator >  (SizeImpl s1, SizeImpl s2)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s1._v >  s2._v;
+	}
+
+	friend bool operator >  (T v, SizeImpl s)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return v >  s._v;
+	}
+
+	friend bool operator >  (SizeImpl s, T v)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s._v >  v;
+	}
+
+
+	friend bool operator >= (SizeImpl s1, SizeImpl s2)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s1._v >= s2._v;
+	}
+
+	friend bool operator >= (T v, SizeImpl s)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return v >= s._v;
+	}
+
+	friend bool operator >= (SizeImpl s, T v)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s._v >= v;
+	}
+
+
+	friend T operator + (SizeImpl s1, SizeImpl s2)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s1._v + s2._v;
+	}
+
+	friend T operator + (SizeImpl s, T v)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s._v + v;
+	}
+
+	friend T operator + (T v, SizeImpl s)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return v + s._v;
+	}
+
+	friend T operator * (SizeImpl s1, SizeImpl s2)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s1._v * s2._v;
+	}
+
+	friend T operator * (SizeImpl s, T v)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s._v * v;
+	}
+
+	friend T operator * (T v, SizeImpl s)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return v * s._v;
+	}
+
+	friend T operator / (SizeImpl s1, SizeImpl s2)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s1._v / s2._v;
+	}
+
+	friend T operator / (SizeImpl s, T v)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s._v / v;
+	}
+
+	friend T operator / (T v, SizeImpl s)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return v / s._v;
+	}
+
+	friend T operator % (SizeImpl s1, SizeImpl s2)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s1._v % s2._v;
+	}
+
+	friend T operator % (SizeImpl s, T v)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return s._v % v;
+	}
+
+	friend T operator % (T v, SizeImpl s)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return v % s._v;
+	}
 };
 
 } // namespace oglplus

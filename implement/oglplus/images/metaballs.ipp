@@ -44,12 +44,12 @@ BaseMetaballs::BaseMetaballs(
 
 	for(GLsizei y=0; y!=height; ++y)
 	{
-		const GLfloat j = (y+0.5f)/height;
+		const GLfloat j = (y+0.5f)/GLfloat(height);
 
 		for(GLsizei x=0; x!=width; ++x)
 		{
 			GLfloat v = 0.0f;
-			const GLfloat i = (x+0.5f)/width;
+			const GLfloat i = (x+0.5f)/GLfloat(width);
 			const Vec2f p(i, j);
 
 			for(std::size_t b=0; b!=size; b+=n)
