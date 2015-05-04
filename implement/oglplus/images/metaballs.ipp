@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -22,8 +22,8 @@ namespace images {
 
 OGLPLUS_LIB_FUNC
 BaseMetaballs::BaseMetaballs(
-	GLsizei width,
-	GLsizei height,
+	SizeType width,
+	SizeType height,
 	const GLfloat* balls,
 	std::size_t size,
 	std::size_t n
@@ -108,8 +108,8 @@ std::vector<GLfloat> RandomMetaballs::_make_balls(
 
 OGLPLUS_LIB_FUNC
 RandomMetaballs::RandomMetaballs(
-	GLsizei width,
-	GLsizei height,
+	SizeType width,
+	SizeType height,
 	std::size_t count,
 	GLfloat rad_min,
 	GLfloat rad_max
@@ -154,8 +154,8 @@ std::vector<GLfloat> RandomMetastars::_make_stars(
 
 OGLPLUS_LIB_FUNC
 RandomMetastars::RandomMetastars(
-	GLsizei width,
-	GLsizei height,
+	SizeType width,
+	SizeType height,
 	std::size_t count,
 	GLfloat rad_min,
 	GLfloat rad_max,

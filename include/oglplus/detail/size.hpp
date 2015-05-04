@@ -154,7 +154,6 @@ public:
 	template <typename X>
 	OGLPLUS_EXPLICIT
 	operator X (void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _chkin1<X>(_v);
 	}

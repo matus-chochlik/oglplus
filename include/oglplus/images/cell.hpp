@@ -77,9 +77,9 @@ public:
 
 	template <typename GetDistance, typename GetValue>
 	CellImageGen(
-		GLsizei cell_w,
-		GLsizei cell_h,
-		GLsizei cell_d,
+		SizeType cell_w,
+		SizeType cell_h,
+		SizeType cell_d,
 		const Image& input,
 		GetDistance get_distance,
 		GetValue get_value
@@ -198,7 +198,7 @@ private:
 		Vec1d operator()(
 			const GLdouble* dists,
 			const Vec3d*,
-			GLsizei count
+			SizeType count
 		)
 		{
 			for(unsigned o=0; o!=_order; ++o)
@@ -228,9 +228,9 @@ private:
 public:
 	template <typename ValueCalc>
 	WorleyCellGen(
-		GLsizei cell_w,
-		GLsizei cell_h,
-		GLsizei cell_d,
+		SizeType cell_w,
+		SizeType cell_h,
+		SizeType cell_d,
 		const Image& input,
 		ValueCalc calc_value,
 		unsigned order
