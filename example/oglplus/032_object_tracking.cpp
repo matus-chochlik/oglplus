@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{032_object_tracking}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -99,8 +99,6 @@ private:
 		return nml_data;
 	}
 	CubicBezierLoop<Vec3f, double> path_nml;
-
-	GLuint count;
 public:
 	Path(void)
 	 : path_pos(make_positions(), 0.25)
