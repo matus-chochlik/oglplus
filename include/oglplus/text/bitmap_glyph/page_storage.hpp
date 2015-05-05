@@ -51,7 +51,7 @@ public:
 		TextureUnitSelector bitmap_tex_unit,
 		TextureUnitSelector metric_tex_unit,
 		const GLint init_frame,
-		const GLsizei frames,
+		const SizeType frames,
 		const oglplus::images::Image& image,
 		const std::vector<GLfloat>& metrics
 	);

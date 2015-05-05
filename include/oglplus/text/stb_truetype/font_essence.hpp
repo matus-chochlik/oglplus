@@ -98,7 +98,7 @@ public:
 		TextureUnitSelector metric_tex_unit,
 		TextureUnitSelector pg_map_tex_unit,
 		const std::string& font_name,
-		GLsizei frames,
+		SizeType frames,
 		GLint default_page,
 		GLuint pixel_height
 	);
@@ -124,7 +124,7 @@ public:
 		return _pager.PageMapTexUnit();
 	}
 
-	void LoadPages(const GLint* pages, GLsizei size)
+	void LoadPages(const GLint* pages, SizeType size)
 	{
 		assert(size < GLsizei(_pager.FrameCount()));
 		_do_load_pages(pages, size);
@@ -132,7 +132,7 @@ public:
 
 	GLfloat QueryXOffsets(
 		const CodePoint* cps,
-		GLsizei size,
+		SizeType size,
 		std::vector<GLfloat>& x_offsets
 	) const;
 

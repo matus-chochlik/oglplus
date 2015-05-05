@@ -33,7 +33,7 @@ struct BitmapGlyphLayoutData
 	BitmapGlyphLayoutStorage* _storage;
 	GLfloat _width;
 
-	BitmapGlyphLayoutData(GLsizei capacity)
+	BitmapGlyphLayoutData(SizeType capacity)
 	 : _offset(-1)
 	 , _length(0)
 	 , _capacity(capacity)
@@ -65,8 +65,8 @@ private:
 public:
 	BitmapGlyphLayoutStorage(
 		BitmapGlyphRenderingBase& parent,
-		GLsizei capacity,
-		GLsizei alloc_unit = 4
+		SizeType capacity,
+		SizeType alloc_unit = 4
 	);
 
 	void Use(void) const
@@ -74,14 +74,14 @@ public:
 		_vao.Bind();
 	}
 
-	GLsizei Capacity(void) const
+	SizeType Capacity(void) const
 	{
-		return _capacity;
+		return SizeType(_capacity, std::nothrow);
 	}
 
-	GLsizei Free(void) const
+	SizeType Free(void) const
 	{
-		return _free;
+		return SizeType(_free, std::nothrow);
 	}
 
 	bool Empty(void) const
@@ -98,7 +98,7 @@ public:
 		GLfloat width,
 		const std::vector<GLfloat>& x_offsets,
 		const CodePoint* cps,
-		GLsizei length
+		SizeType length
 	);
 };
 

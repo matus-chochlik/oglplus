@@ -111,8 +111,12 @@ public:
 	{ }
 
 	template <typename X>
-	SizeImpl(X v)
-	 : _v(_checkin(v))
+	SizeImpl(
+		X v,
+		typename std::enable_if<
+			std::is_integral<X>::value
+		>::type* = nullptr
+	): _v(_checkin(v))
 	{ }
 
 	SizeImpl(T v, std::nothrow_t)
@@ -121,8 +125,13 @@ public:
 	{ }
 
 	template <typename X>
-	SizeImpl(X v, std::nothrow_t)
-	OGLPLUS_NOEXCEPT(true)
+	SizeImpl(
+		X v,
+		std::nothrow_t,
+		typename std::enable_if<
+			std::is_integral<X>::value
+		>::type* = nullptr
+	) OGLPLUS_NOEXCEPT(true)
 	 : _v(_conv_in(v))
 	{ }
 
