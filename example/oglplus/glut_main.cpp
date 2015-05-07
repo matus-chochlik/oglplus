@@ -2,7 +2,7 @@
  *  .file example/oglplus/glut_main.cpp
  *  Implements GLUT-based program main function for running examples
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,7 +12,7 @@
 
 #if OGLPLUS_FREEGLUT_FOUND
 # include <GL/freeglut.h>
-#elif __APPLE__
+#elif defined(__APPLE__) && __APPLE__
 # include <GLUT/glut.h>
 #else
 # include <GL/glut.h>
@@ -254,16 +254,23 @@ public:
 
 int glut_example_main(int argc, char ** argv)
 {
-#if __APPLE__
-	int const profile = GLUT_3_2_CORE_PROFILE;
-#else
-	int const profile = 0;
-#endif
-
 	GLuint width = 800, height = 600;
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL | profile);
-	glutInitContextVersion(OGLPLUS_GL_VERSION_MAJOR, OGLPLUS_GL_VERSION_MINOR);
+	glutInitDisplayMode(
+#if defined(__APPLE__) && __APPLE__
+		GLUT_3_2_CORE_PROFILE |
+#endif
+		GLUT_DOUBLE |
+		GLUT_RGBA |
+		GLUT_DEPTH |
+		GLUT_STENCIL
+	);
+#if OGLPLUS_FREEGLUT_FOUND
+	glutInitContextVersion(
+		OGLPLUS_GL_VERSION_MAJOR,
+		OGLPLUS_GL_VERSION_MINOR
+	);
+#endif
 	glutInitWindowSize(width, height);
 	glutInitWindowPosition(100,100);
 	glutCreateWindow("OGLplus example");
