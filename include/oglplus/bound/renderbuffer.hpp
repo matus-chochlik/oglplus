@@ -5,7 +5,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -67,8 +67,8 @@ public:
 	 */
 	const BoundObjOps& Storage(
 		PixelDataInternalFormat internalformat,
-		GLsizei width,
-		GLsizei height
+		SizeType width,
+		SizeType height
 	) const
 	{
 		ExplicitOps::Storage(
@@ -100,10 +100,10 @@ public:
 	 *  @see Renderbuffer::StorageMultisample()
 	 */
 	const BoundObjOps& StorageMultisample(
-		GLsizei samples,
+		SizeType samples,
 		PixelDataInternalFormat internalformat,
-		GLsizei width,
-		GLsizei height
+		SizeType width,
+		SizeType height
 	) const
 	{
 		ExplicitOps::StorageMultisample(
@@ -120,7 +120,7 @@ public:
 	/** Wrapper for Renderbuffer::Width()
 	 *  @see Renderbuffer::Width()
 	 */
-	GLsizei Width(void) const
+	SizeType Width(void) const
 	{
 		return ExplicitOps::Width(
 			this->target
@@ -131,7 +131,7 @@ public:
 	/** Wrapper for Renderbuffer::Height()
 	 *  @see Renderbuffer::Height()
 	 */
-	GLsizei Height(void) const
+	SizeType Height(void) const
 	{
 		return ExplicitOps::Height(
 			this->target
@@ -142,7 +142,7 @@ public:
 	/** Wrapper for Renderbuffer::RedSize()
 	 *  @see Renderbuffer::RedSize()
 	 */
-	GLsizei RedSize(void) const
+	SizeType RedSize(void) const
 	{
 		return ExplicitOps::RedSize(
 			this->target
@@ -153,7 +153,7 @@ public:
 	/** Wrapper for Renderbuffer::GreenSize()
 	 *  @see Renderbuffer::GreenSize()
 	 */
-	GLsizei GreenSize(void) const
+	SizeType GreenSize(void) const
 	{
 		return ExplicitOps::GreenSize(
 			this->target
@@ -164,7 +164,7 @@ public:
 	/** Wrapper for Renderbuffer::BlueSize()
 	 *  @see Renderbuffer::BlueSize()
 	 */
-	GLsizei BlueSize(void) const
+	SizeType BlueSize(void) const
 	{
 		return ExplicitOps::BlueSize(
 			this->target
@@ -175,7 +175,7 @@ public:
 	/** Wrapper for Renderbuffer::AlphaSize()
 	 *  @see Renderbuffer::AlphaSize()
 	 */
-	GLsizei AlphaSize(void) const
+	SizeType AlphaSize(void) const
 	{
 		return ExplicitOps::AlphaSize(
 			this->target
@@ -186,7 +186,7 @@ public:
 	/** Wrapper for Renderbuffer::DepthSize()
 	 *  @see Renderbuffer::DepthSize()
 	 */
-	GLsizei DepthSize(void) const
+	SizeType DepthSize(void) const
 	{
 		return ExplicitOps::DepthSize(
 			this->target
@@ -197,7 +197,7 @@ public:
 	/** Wrapper for Renderbuffer::StencilSize()
 	 *  @see Renderbuffer::StencilSize()
 	 */
-	GLsizei StencilSize(void) const
+	SizeType StencilSize(void) const
 	{
 		return ExplicitOps::StencilSize(
 			this->target
@@ -208,7 +208,7 @@ public:
 	/** Wrapper for Renderbuffer::Samples()
 	 *  @see Renderbuffer::Samples()
 	 */
-	GLsizei Samples(void) const
+	SizeType Samples(void) const
 	{
 		return ExplicitOps::Samples(
 			this->target

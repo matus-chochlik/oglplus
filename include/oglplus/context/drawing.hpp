@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -18,6 +18,7 @@
 #include <oglplus/primitive_type.hpp>
 #include <oglplus/patch_parameter.hpp>
 #include <oglplus/data_type.hpp>
+#include <oglplus/size_type.hpp>
 #include <oglplus/object/name.hpp>
 
 namespace oglplus {
@@ -40,7 +41,7 @@ public:
 	static void DrawArrays(
 		PrimitiveType primitive,
 		GLint first,
-		GLsizei count
+		SizeType count
 	)
 	{
 		OGLPLUS_GLFUNC(DrawArrays)(GLenum(primitive), first, count);
@@ -63,9 +64,9 @@ public:
 	static void DrawArraysInstancedBaseInstance(
 		PrimitiveType primitive,
 		GLint first,
-		GLsizei count,
-		GLsizei inst_count,
-		GLsizei base_instance
+		SizeType count,
+		SizeType inst_count,
+		SizeType base_instance
 	)
 	{
 		OGLPLUS_GLFUNC(DrawArraysInstancedBaseInstance)(
@@ -95,8 +96,8 @@ public:
 	static void DrawArraysInstanced(
 		PrimitiveType primitive,
 		GLint first,
-		GLsizei count,
-		GLsizei inst_count
+		SizeType count,
+		SizeType inst_count
 	)
 	{
 		OGLPLUS_GLFUNC(DrawArraysInstanced)(
@@ -153,7 +154,7 @@ public:
 		PrimitiveType primitive,
 		const GLint* first,
 		const GLsizei* count,
-		GLsizei primcount
+		SizeType primcount
 	)
 	{
 		OGLPLUS_GLFUNC(MultiDrawArrays)(
@@ -181,8 +182,8 @@ public:
 	 */
 	static void MultiDrawArraysIndirect(
 		PrimitiveType primitive,
-		GLsizei draw_count,
-		GLsizei stride = 0,
+		SizeType draw_count,
+		SizeType stride = 0,
 		const void* indirect = nullptr
 	)
 	{
@@ -209,7 +210,7 @@ public:
 	 */
 	static void DrawElements(
 		PrimitiveType primitive,
-		GLsizei count,
+		SizeType count,
 		DataType data_type
 	)
 	{
@@ -237,7 +238,7 @@ public:
 	static typename std::enable_if<IsGLDataType<T>::value, void>::type
 	DrawElements(
 		PrimitiveType primitive,
-		GLsizei count,
+		SizeType count,
 		const T* indices
 	)
 	{
@@ -263,9 +264,9 @@ public:
 	 */
 	static void DrawElementsInstanced(
 		PrimitiveType primitive,
-		GLsizei count,
+		SizeType count,
 		DataType data_type,
-		GLsizei instance_count
+		SizeType instance_count
 	)
 	{
 		OGLPLUS_GLFUNC(DrawElementsInstanced)(
@@ -293,9 +294,9 @@ public:
 	static typename std::enable_if<IsGLDataType<T>::value, void>::type
 	DrawElementsInstanced(
 		PrimitiveType primitive,
-		GLsizei count,
+		SizeType count,
 		const T* indices,
-		GLsizei instance_count
+		SizeType instance_count
 	)
 	{
 		OGLPLUS_GLFUNC(DrawElementsInstanced)(
@@ -323,9 +324,9 @@ public:
 	 */
 	static void DrawElementsInstancedBaseInstance(
 		PrimitiveType primitive,
-		GLsizei count,
+		SizeType count,
 		DataType data_type,
-		GLsizei inst_count,
+		SizeType inst_count,
 		GLuint base_instance
 	)
 	{
@@ -356,9 +357,9 @@ public:
 	static typename std::enable_if<IsGLDataType<T>::value, void>::type
 	DrawElementsInstancedBaseInstance(
 		PrimitiveType primitive,
-		GLsizei count,
+		SizeType count,
 		const T* indices,
-		GLsizei inst_count,
+		SizeType inst_count,
 		GLuint base_instance
 	)
 	{
@@ -390,7 +391,7 @@ public:
 		PrimitiveType primitive,
 		const GLsizei* count,
 		DataType data_type,
-		GLsizei draw_count
+		SizeType draw_count
 	)
 	{
 		OGLPLUS_GLFUNC(MultiDrawElements)(
@@ -420,7 +421,7 @@ public:
 		PrimitiveType primitive,
 		const GLsizei* count,
 		T* const * indices,
-		GLsizei draw_count
+		SizeType draw_count
 	)
 	{
 		OGLPLUS_GLFUNC(MultiDrawElements)(
@@ -449,7 +450,7 @@ public:
 		PrimitiveType primitive,
 		GLuint start,
 		GLuint end,
-		GLsizei count,
+		SizeType count,
 		DataType data_type
 	)
 	{
@@ -481,7 +482,7 @@ public:
 		PrimitiveType primitive,
 		GLuint start,
 		GLuint end,
-		GLsizei count,
+		SizeType count,
 		const T* indices
 	)
 	{
@@ -540,8 +541,8 @@ public:
 	static void MultiDrawElementsIndirect(
 		PrimitiveType primitive,
 		DataType data_type,
-		GLsizei draw_count,
-		GLsizei stride = 0,
+		SizeType draw_count,
+		SizeType stride = 0,
 		const void* indirect = nullptr
 	)
 	{
@@ -571,7 +572,7 @@ public:
 	 */
 	static void DrawElementsBaseVertex(
 		PrimitiveType primitive,
-		GLsizei count,
+		SizeType count,
 		DataType data_type,
 		GLint base_vertex
 	)
@@ -602,7 +603,7 @@ public:
 	static typename std::enable_if<IsGLDataType<T>::value, void>::type
 	DrawElementsBaseVertex(
 		PrimitiveType primitive,
-		GLsizei count,
+		SizeType count,
 		const T* indices,
 		GLint base_vertex
 	)
@@ -633,7 +634,7 @@ public:
 		PrimitiveType primitive,
 		GLuint start,
 		GLuint end,
-		GLsizei count,
+		SizeType count,
 		DataType data_type,
 		GLint base_vertex
 	)
@@ -668,7 +669,7 @@ public:
 		PrimitiveType primitive,
 		GLuint start,
 		GLuint end,
-		GLsizei count,
+		SizeType count,
 		const T* indices,
 		GLint base_vertex
 	)
@@ -699,9 +700,9 @@ public:
 	 */
 	static void DrawElementsInstancedBaseVertex(
 		PrimitiveType primitive,
-		GLsizei count,
+		SizeType count,
 		DataType data_type,
-		GLsizei inst_count,
+		SizeType inst_count,
 		GLint base_vertex
 	)
 	{
@@ -732,9 +733,9 @@ public:
 	static typename std::enable_if<IsGLDataType<T>::value, void>::type
 	DrawElementsInstancedBaseVertex(
 		PrimitiveType primitive,
-		GLsizei count,
+		SizeType count,
 		const T* indices,
-		GLsizei inst_count,
+		SizeType inst_count,
 		GLint base_vertex
 	)
 	{
@@ -765,7 +766,7 @@ public:
 		PrimitiveType primitive,
 		const GLsizei* count,
 		DataType data_type,
-		GLsizei draw_count,
+		SizeType draw_count,
 		const GLint* base_vertex
 	)
 	{
@@ -798,7 +799,7 @@ public:
 		PrimitiveType primitive,
 		const GLsizei* count,
 		T* const * indices,
-		GLsizei draw_count,
+		SizeType draw_count,
 		const GLint* base_vertex
 	)
 	{
@@ -829,9 +830,9 @@ public:
 	 */
 	static void DrawElementsInstancedBaseVertexBaseInstance(
 		PrimitiveType primitive,
-		GLsizei count,
+		SizeType count,
 		DataType data_type,
-		GLsizei inst_count,
+		SizeType inst_count,
 		GLint base_vertex,
 		GLuint base_instance
 	)
@@ -864,9 +865,9 @@ public:
 	static typename std::enable_if<IsGLDataType<T>::value, void>::type
 	DrawElementsInstancedBaseVertexBaseInstance(
 		PrimitiveType primitive,
-		GLsizei count,
+		SizeType count,
 		const T* indices,
-		GLsizei inst_count,
+		SizeType inst_count,
 		GLint base_vertex,
 		GLuint base_instance
 	)

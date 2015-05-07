@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -45,8 +45,8 @@ public:
 	 *  @pre (balls) && (size) && (size % n_per_ball == 0)
 	 */
 	BaseMetaballs(
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		const GLfloat* balls,
 		std::size_t size,
 		std::size_t n_per_ball
@@ -73,8 +73,8 @@ public:
 	 *  @param size the number of values in the balls array.
 	 */
 	Metaballs(
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		const GLfloat* balls,
 		std::size_t size
 	): BaseMetaballs(width, height, balls, size, 3)
@@ -105,8 +105,8 @@ public:
 	 *  @param rad_max the maximum radius of a metaball normalized to (0, 1).
 	 */
 	RandomMetaballs(
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		std::size_t count,
 		GLfloat rad_min,
 		GLfloat rad_max
@@ -136,8 +136,8 @@ public:
 	 *  @param size the number of values in the balls array.
 	 */
 	Metastars(
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		const GLfloat* balls,
 		std::size_t size
 	): BaseMetaballs(width, height, balls, size, 5)
@@ -171,8 +171,8 @@ public:
 	 *  @param rad_max the maximum radius of a metaball normalized to (0, 1).
 	 */
 	RandomMetastars(
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		std::size_t count,
 		GLfloat rad_min,
 		GLfloat rad_max,

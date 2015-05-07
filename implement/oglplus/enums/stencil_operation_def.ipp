@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_KEEP
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Keep
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_ZERO
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Zero
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_REPLACE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Replace
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_INCR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Incr
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_DECR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Decr
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_INVERT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Invert
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_INCR_WRAP
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined IncrWrap
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_DECR_WRAP
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DecrWrap

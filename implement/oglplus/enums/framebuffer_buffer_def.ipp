@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_COLOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Color
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_DEPTH
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Depth
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_STENCIL
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Stencil
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_DEPTH_STENCIL
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DepthStencil

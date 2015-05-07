@@ -79,7 +79,7 @@ OGLPLUS_LIB_FUNC
 BitmapGlyphPager::BitmapGlyphPager(
 	BitmapGlyphRenderingBase& parent,
 	TextureUnitSelector pg_map_tex_unit,
-	GLsizei frame_count
+	SizeType frame_count
 ): _parent(parent)
  , _frames(frame_count, GLint(-1))
  , _ages(frame_count, _zero_age())

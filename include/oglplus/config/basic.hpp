@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -34,6 +34,10 @@
  *  using the @c -D compiler option (or its equivalent for defining
  *  preprocessor symbols on the command-line).
  */
+
+#ifndef OGLPLUS_DOCUMENTATION_ONLY
+#define OGLPLUS_DOCUMENTATION_ONLY 0
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Compile-time option enabling the low-profile mode

@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_PATCH_VERTICES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PatchVertices
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_PATCH_DEFAULT_OUTER_LEVEL
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PatchDefaultOuterLevel
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_PATCH_DEFAULT_INNER_LEVEL
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PatchDefaultInnerLevel

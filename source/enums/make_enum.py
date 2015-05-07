@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
-#  Copyright 2014 Matus Chochlik. Distributed under the Boost
+#  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -391,7 +391,7 @@ def action_impl_enum_def_ipp(options):
 	for item in items:
 
 		print_line(options, "#if defined %s_%s" % (item.prefix, item.src_name))
-		print_line(options, "# if %s_LIST_NEEDS_COMMA" % options.library_uc)
+		print_line(options, "# ifdef %s_LIST_NEEDS_COMMA" % options.library_uc)
 		print_line(options, "   %s_ENUM_CLASS_COMMA" % options.library_uc)
 		print_line(options, "# endif")
 

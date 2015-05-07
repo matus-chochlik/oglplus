@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_PRIMITIVE_RESTART
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PrimitiveRestart
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_DEPTH_TEST
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DepthTest
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_STENCIL_TEST
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StencilTest
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_SCISSOR_TEST
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ScissorTest
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_CULL_FACE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CullFace
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_RASTERIZER_DISCARD
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RasterizerDiscard
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_POLYGON_OFFSET_POINT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PolygonOffsetPoint
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_POLYGON_OFFSET_LINE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PolygonOffsetLine
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_POLYGON_OFFSET_FILL
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PolygonOffsetFill
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_BLEND
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Blend
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_COLOR_LOGIC_OP
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ColorLogicOp
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_DITHER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Dither
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_MULTISAMPLE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Multisample
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_SAMPLE_SHADING
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SampleShading
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_LINE_SMOOTH
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LineSmooth
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_POLYGON_SMOOTH
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PolygonSmooth
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_PROGRAM_POINT_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ProgramPointSize
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_CUBE_MAP_SEAMLESS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TextureCubeMapSeamless
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined GL_SAMPLE_ALPHA_TO_COVERAGE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SampleAlphaToCoverage
@@ -318,7 +318,7 @@
 # endif
 #endif
 #if defined GL_SAMPLE_ALPHA_TO_ONE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SampleAlphaToOne
@@ -334,7 +334,7 @@
 # endif
 #endif
 #if defined GL_SAMPLE_COVERAGE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SampleCoverage
@@ -350,7 +350,7 @@
 # endif
 #endif
 #if defined GL_SAMPLE_MASK
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SampleMask
@@ -366,7 +366,7 @@
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_SRGB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FramebufferSRGB
@@ -382,7 +382,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_OUTPUT_SYNCHRONOUS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DebugOutputSynchronous
@@ -398,7 +398,7 @@
 # endif
 #endif
 #if defined GL_STREAM_RASTERIZATION_AMD
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StreamRasterization
@@ -414,7 +414,7 @@
 # endif
 #endif
 #if defined GL_BLEND_ADVANCED_COHERENT_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BlendAdvancedCoherent

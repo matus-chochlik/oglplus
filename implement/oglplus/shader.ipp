@@ -56,7 +56,7 @@ OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Shader>&
 ObjectOps<tag::DirectState, tag::Shader>::
 CompileInclude(
-	GLsizei count,
+	const SizeType count,
 	const GLchar* const* paths,
 	const GLint* lengths
 )

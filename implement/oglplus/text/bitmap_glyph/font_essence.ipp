@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -137,7 +137,7 @@ std::vector<GLfloat> BitmapGlyphFontEssence::_load_page_metric(GLint page)
 OGLPLUS_LIB_FUNC
 GLfloat BitmapGlyphFontEssence::QueryXOffsets(
 	const CodePoint* cps,
-	GLsizei size,
+	SizeType size,
 	std::vector<GLfloat>& x_offsets
 ) const
 {

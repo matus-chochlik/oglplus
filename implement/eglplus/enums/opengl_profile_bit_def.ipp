@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Core
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Compatibility

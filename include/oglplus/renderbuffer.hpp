@@ -17,6 +17,7 @@
 #include <oglplus/error/object.hpp>
 #include <oglplus/renderbuffer_target.hpp>
 #include <oglplus/pixel_data.hpp>
+#include <oglplus/size_type.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/images/fwd.hpp>
 #include <cassert>
@@ -233,8 +234,8 @@ public:
 	static void Storage(
 		Target target,
 		PixelDataInternalFormat internalformat,
-		GLsizei width,
-		GLsizei height
+		SizeType width,
+		SizeType height
 	)
 	{
 		OGLPLUS_GLFUNC(RenderbufferStorage)(
@@ -265,10 +266,10 @@ public:
 	 */
 	static void StorageMultisample(
 		Target target,
-		GLsizei samples,
+		SizeType samples,
 		PixelDataInternalFormat internalformat,
-		GLsizei width,
-		GLsizei height
+		SizeType width,
+		SizeType height
 	)
 	{
 		OGLPLUS_GLFUNC(RenderbufferStorageMultisample)(
@@ -295,9 +296,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_WIDTH}
 	 */
-	static GLsizei Width(Target target)
+	static SizeType Width(Target target)
 	{
-		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_WIDTH));
+		return SizeType(
+			GetIntParam(target, GL_RENDERBUFFER_WIDTH),
+			std::nothrow
+		);
 	}
 
 	/// Returns the height of the renderbuffer as it was specified by Storage*
@@ -308,9 +312,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_HEIGHT}
 	 */
-	static GLsizei Height(Target target)
+	static SizeType Height(Target target)
 	{
-		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_HEIGHT));
+		return SizeType(
+			GetIntParam(target, GL_RENDERBUFFER_HEIGHT),
+			std::nothrow
+		);
 	}
 
 	/// Returns the size in bits of the renderbuffer's red component
@@ -323,9 +330,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_RED_SIZE}
 	 */
-	static GLsizei RedSize(Target target)
+	static SizeType RedSize(Target target)
 	{
-		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_RED_SIZE));
+		return SizeType(
+			GetIntParam(target, GL_RENDERBUFFER_RED_SIZE),
+			std::nothrow
+		);
 	}
 
 	/// Returns the size in bits of the renderbuffer's green component
@@ -340,9 +350,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_GREEN_SIZE}
 	 */
-	static GLsizei GreenSize(Target target)
+	static SizeType GreenSize(Target target)
 	{
-		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_GREEN_SIZE));
+		return SizeType(
+			GetIntParam(target, GL_RENDERBUFFER_GREEN_SIZE),
+			std::nothrow
+		);
 	}
 
 	/// Returns the size in bits of the renderbuffer's blue component
@@ -357,9 +370,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_BLUE_SIZE}
 	 */
-	static GLsizei BlueSize(Target target)
+	static SizeType BlueSize(Target target)
 	{
-		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_BLUE_SIZE));
+		return SizeType(
+			GetIntParam(target, GL_RENDERBUFFER_BLUE_SIZE),
+			std::nothrow
+		);
 	}
 
 	/// Returns the size in bits of the renderbuffer's alpha component
@@ -374,9 +390,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_ALPHA_SIZE}
 	 */
-	static GLsizei AlphaSize(Target target)
+	static SizeType AlphaSize(Target target)
 	{
-		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_ALPHA_SIZE));
+		return SizeType(
+			GetIntParam(target, GL_RENDERBUFFER_ALPHA_SIZE),
+			std::nothrow
+		);
 	}
 
 	/// Returns the size in bits of the renderbuffer's depth component
@@ -391,9 +410,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_DEPTH_SIZE}
 	 */
-	static GLsizei DepthSize(Target target)
+	static SizeType DepthSize(Target target)
 	{
-		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_DEPTH_SIZE));
+		return SizeType(
+			GetIntParam(target, GL_RENDERBUFFER_DEPTH_SIZE),
+			std::nothrow
+		);
 	}
 
 	/// Returns the size in bits of the renderbuffer's stencil component
@@ -408,9 +430,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_STENCIL_SIZE}
 	 */
-	static GLsizei StencilSize(Target target)
+	static SizeType StencilSize(Target target)
 	{
-		return GLsizei(GetIntParam(target,GL_RENDERBUFFER_STENCIL_SIZE));
+		return SizeType(
+			GetIntParam(target,GL_RENDERBUFFER_STENCIL_SIZE),
+			std::nothrow
+		);
 	}
 
 	/// Returns the number of samples of the renderbuffer
@@ -419,9 +444,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_SAMPLES}
 	 */
-	static GLsizei Samples(Target target)
+	static SizeType Samples(Target target)
 	{
-		return GLsizei(GetIntParam(target,GL_RENDERBUFFER_SAMPLES));
+		return SizeType(
+			GetIntParam(target,GL_RENDERBUFFER_SAMPLES),
+			std::nothrow
+		);
 	}
 
 	/// Returns the internal format of the renderbuffer

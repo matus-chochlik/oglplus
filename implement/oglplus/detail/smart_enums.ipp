@@ -1859,6 +1859,11 @@ template <typename Enum, Enum = Enum::LowInt> operator Enum (void) const{ return
 template <typename Enum> friend bool operator==(Enum value, LowInt){ return value == Enum::LowInt; }
 template <typename Enum> friend bool operator!=(Enum value, LowInt){ return value != Enum::LowInt; }
 };
+struct LowerLeft {
+template <typename Enum, Enum = Enum::LowerLeft> operator Enum (void) const{ return Enum::LowerLeft; }
+template <typename Enum> friend bool operator==(Enum value, LowerLeft){ return value == Enum::LowerLeft; }
+template <typename Enum> friend bool operator!=(Enum value, LowerLeft){ return value != Enum::LowerLeft; }
+};
 struct Luminance {
 template <typename Enum, Enum = Enum::Luminance> operator Enum (void) const{ return Enum::Luminance; }
 template <typename Enum> friend bool operator==(Enum value, Luminance){ return value == Enum::Luminance; }
@@ -2538,6 +2543,11 @@ struct NearestMipmapNearest {
 template <typename Enum, Enum = Enum::NearestMipmapNearest> operator Enum (void) const{ return Enum::NearestMipmapNearest; }
 template <typename Enum> friend bool operator==(Enum value, NearestMipmapNearest){ return value == Enum::NearestMipmapNearest; }
 template <typename Enum> friend bool operator!=(Enum value, NearestMipmapNearest){ return value != Enum::NearestMipmapNearest; }
+};
+struct NegativeOneToOne {
+template <typename Enum, Enum = Enum::NegativeOneToOne> operator Enum (void) const{ return Enum::NegativeOneToOne; }
+template <typename Enum> friend bool operator==(Enum value, NegativeOneToOne){ return value == Enum::NegativeOneToOne; }
+template <typename Enum> friend bool operator!=(Enum value, NegativeOneToOne){ return value != Enum::NegativeOneToOne; }
 };
 struct Never {
 template <typename Enum, Enum = Enum::Never> operator Enum (void) const{ return Enum::Never; }
@@ -4424,6 +4434,11 @@ template <typename Enum, Enum = Enum::Unsynchronized> operator Enum (void) const
 template <typename Enum> friend bool operator==(Enum value, Unsynchronized){ return value == Enum::Unsynchronized; }
 template <typename Enum> friend bool operator!=(Enum value, Unsynchronized){ return value != Enum::Unsynchronized; }
 };
+struct UpperLeft {
+template <typename Enum, Enum = Enum::UpperLeft> operator Enum (void) const{ return Enum::UpperLeft; }
+template <typename Enum> friend bool operator==(Enum value, UpperLeft){ return value == Enum::UpperLeft; }
+template <typename Enum> friend bool operator!=(Enum value, UpperLeft){ return value != Enum::UpperLeft; }
+};
 struct Use {
 template <typename Enum, Enum = Enum::Use> operator Enum (void) const{ return Enum::Use; }
 template <typename Enum> friend bool operator==(Enum value, Use){ return value == Enum::Use; }
@@ -4518,6 +4533,11 @@ struct Zero {
 template <typename Enum, Enum = Enum::Zero> operator Enum (void) const{ return Enum::Zero; }
 template <typename Enum> friend bool operator==(Enum value, Zero){ return value == Enum::Zero; }
 template <typename Enum> friend bool operator!=(Enum value, Zero){ return value != Enum::Zero; }
+};
+struct ZeroToOne {
+template <typename Enum, Enum = Enum::ZeroToOne> operator Enum (void) const{ return Enum::ZeroToOne; }
+template <typename Enum> friend bool operator==(Enum value, ZeroToOne){ return value == Enum::ZeroToOne; }
+template <typename Enum> friend bool operator!=(Enum value, ZeroToOne){ return value != Enum::ZeroToOne; }
 };
 struct _0 {
 template <typename Enum, Enum = Enum::_0> operator Enum (void) const{ return Enum::_0; }

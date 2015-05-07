@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,8 +14,8 @@
 #define OGLPLUS_IMAGES_CELL_1107121519_HPP
 
 #include <oglplus/images/image.hpp>
+#include <oglplus/assert.hpp>
 
-#include <cassert>
 #include <vector>
 
 namespace oglplus {
@@ -36,7 +36,7 @@ private:
 			case 4: return PixelDataFormat::RGBA;
 			default:;
 		}
-		assert(!"Invalid number of channels!");
+		OGLPLUS_ABORT("Invalid number of channels!");
 		return PixelDataFormat();
 	}
 
@@ -51,7 +51,7 @@ private:
 			case 4: return PixelDataInternalFormat::RGBA;
 			default:;
 		}
-		assert(!"Invalid number of channels!");
+		OGLPLUS_ABORT("Invalid number of channels!");
 		return PixelDataInternalFormat();
 	}
 public:
@@ -77,9 +77,9 @@ public:
 
 	template <typename GetDistance, typename GetValue>
 	CellImageGen(
-		GLsizei cell_w,
-		GLsizei cell_h,
-		GLsizei cell_d,
+		SizeType cell_w,
+		SizeType cell_h,
+		SizeType cell_d,
 		const Image& input,
 		GetDistance get_distance,
 		GetValue get_value
@@ -198,7 +198,7 @@ private:
 		Vec1d operator()(
 			const GLdouble* dists,
 			const Vec3d*,
-			GLsizei count
+			SizeType count
 		)
 		{
 			for(unsigned o=0; o!=_order; ++o)
@@ -228,9 +228,9 @@ private:
 public:
 	template <typename ValueCalc>
 	WorleyCellGen(
-		GLsizei cell_w,
-		GLsizei cell_h,
-		GLsizei cell_d,
+		SizeType cell_w,
+		SizeType cell_h,
+		SizeType cell_d,
 		const Image& input,
 		ValueCalc calc_value,
 		unsigned order

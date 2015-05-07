@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,6 +14,7 @@
 #define OGLPLUS_CONFIG_ERROR_1107121519_HPP
 
 #include <oglplus/config/object.hpp>
+#include <oglplus/config/enums.hpp>
 
 #ifndef OGLPLUS_ERROR_NO_GL_LIB
 # define OGLPLUS_ERROR_NO_GL_LIB 0
@@ -130,7 +131,7 @@
 # endif
 #endif
 
-#if OGLPLUS_NO_OBJECT_DESCS
+#if defined(OGLPLUS_NO_OBJECT_DESCS) && OGLPLUS_NO_OBJECT_DESCS
 #ifdef OGLPLUS_ERROR_NO_OBJECT_DESC
 #undef OGLPLUS_ERROR_NO_OBJECT_DESC
 #endif
@@ -152,6 +153,62 @@
 #else
 # ifndef OGLPLUS_ERROR_NO_OBJECT_DESC
 #  define OGLPLUS_ERROR_NO_OBJECT_DESC OGLPLUS_LOW_PROFILE
+# endif
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Compile-time switch disabling the ObjectType attribute of ObjectError
+/**
+ *  Defaults to 0
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_ERROR_NO_OBJECT_TYPE
+#else
+# ifndef OGLPLUS_ERROR_NO_OBJECT_TYPE
+#  define OGLPLUS_ERROR_NO_OBJECT_TYPE 0
+# endif
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Compile-time switch disabling the BindTarget attribute of ObjectError
+/**
+ *  Defaults to 0
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_ERROR_NO_BIND_TARGET
+#else
+# ifndef OGLPLUS_ERROR_NO_BIND_TARGET
+#  define OGLPLUS_ERROR_NO_BIND_TARGET 0
+# endif
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Compile-time switch disabling the Program attribute of ProgVarError
+/**
+ *  Defaults to 0
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_ERROR_NO_PROG_NAME
+#else
+# ifndef OGLPLUS_ERROR_NO_PROG_NAME
+#  define OGLPLUS_ERROR_NO_PROG_NAME 0
+# endif
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Compile-time switch disabling the Identifier attribute of ProgVarError
+/**
+ *  Defaults to 0
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_ERROR_NO_IDENTIFIER
+#else
+# ifndef OGLPLUS_ERROR_NO_IDENTIFIER
+#  define OGLPLUS_ERROR_NO_IDENTIFIER 0
 # endif
 #endif
 

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -37,7 +37,7 @@ public:
 		TextureUnitSelector metric_tex_unit,
 		TextureUnitSelector pg_map_tex_unit,
 		const std::string& name,
-		GLsizei frames,
+		SizeType frames,
 		GLint default_page,
 		GLuint pixel_height
 #ifdef _MSC_VER
@@ -58,7 +58,7 @@ public:
 
 	GLfloat QueryXOffsets(
 		const CodePoint* cps,
-		GLsizei size,
+		SizeType size,
 		std::vector<GLfloat>& x_offsets
 	)
 	{

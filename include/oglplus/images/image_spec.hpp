@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,6 +16,7 @@
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/one_of.hpp>
+#include <oglplus/assert.hpp>
 
 namespace oglplus {
 namespace images {
@@ -40,9 +41,9 @@ struct ImageSpecData
 	const void* data_ptr;
 
 	ImageSpecData(
-		GLsizei w,
-		GLsizei h,
-		GLsizei d,
+		SizeType w,
+		SizeType h,
+		SizeType d,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		PixDataType type,
@@ -81,22 +82,22 @@ struct ImageSpec
 	{ }
 
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
+		SizeType w,
+		SizeType h,
 		PixelDataInternalFormat ifmt
 	): _base(w, h, 1, _conv(ifmt), ifmt, PixelDataType(), nullptr)
 	{ }
 
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
+		SizeType w,
+		SizeType h,
 		PixelDataFormat fmt,
 		PixDataType type
 	): _base(w, h, 1, fmt, _conv(fmt), type, nullptr)
 	{ }
 
 	ImageSpec(
-		GLsizei w,
+		SizeType w,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		PixDataType type
@@ -104,8 +105,8 @@ struct ImageSpec
 	{ }
 
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
+		SizeType w,
+		SizeType h,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		PixDataType type
@@ -113,9 +114,9 @@ struct ImageSpec
 	{ }
 
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
-		GLsizei d,
+		SizeType w,
+		SizeType h,
+		SizeType d,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		PixDataType type
@@ -124,8 +125,8 @@ struct ImageSpec
 
 	template <typename T>
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
+		SizeType w,
+		SizeType h,
 		PixelDataFormat fmt,
 		const T* data,
 		typename std::enable_if<
@@ -137,7 +138,7 @@ struct ImageSpec
 
 	template <typename T>
 	ImageSpec(
-		GLsizei w,
+		SizeType w,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		const T* data,
@@ -151,8 +152,8 @@ struct ImageSpec
 
 	template <typename T>
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
+		SizeType w,
+		SizeType h,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		const T* data,
@@ -166,9 +167,9 @@ struct ImageSpec
 
 	template <typename T>
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
-		GLsizei d,
+		SizeType w,
+		SizeType h,
+		SizeType d,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		const T* data,
@@ -198,7 +199,7 @@ struct ImageSpec
 		return *this;
 	}
 
-	ImageSpec& NextDim(GLsizei dim)
+	ImageSpec& NextDim(SizeType dim)
 	{
 		assert(dim > 0);
 		if(width <= 1)
@@ -213,17 +214,17 @@ struct ImageSpec
 		{
 			depth = dim;
 		}
-		else assert(!"Too many dimensions specified!");
+		else OGLPLUS_ABORT("Too many dimensions specified!");
 		return *this;
 	}
 };
 
-inline ImageSpec& operator << (ImageSpec& that, GLsizei dim)
+inline ImageSpec& operator << (ImageSpec& that, SizeType dim)
 {
 	return that.NextDim(dim);
 }
 
-inline ImageSpec&& operator << (ImageSpec&& that, GLsizei dim)
+inline ImageSpec&& operator << (ImageSpec&& that, SizeType dim)
 {
 	return std::move(that.NextDim(dim));
 }

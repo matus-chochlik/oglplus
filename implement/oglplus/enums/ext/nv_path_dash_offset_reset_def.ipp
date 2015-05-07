@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_MOVE_TO_RESET_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MoveToReset
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_MOVE_TO_CONTINUES_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MoveToContinues

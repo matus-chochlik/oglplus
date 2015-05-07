@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -54,7 +54,7 @@ public:
 	BitmapGlyphLayoutTpl(
 		BitmapGlyphRenderingBase& parent,
 		const BitmapFont& font,
-		GLsizei max_len
+		SizeType max_len
 	): _parent(parent)
 	 , _font(font)
 	 , _data(max_len)
@@ -89,9 +89,9 @@ public:
 			BitmapGlyphDeallocateLayoutData(_parent, _data);
 	}
 
-	GLsizei Capacity(void) const
+	SizeType Capacity(void) const
 	{
-		return _data._capacity;
+		return SizeType(_data._capacity, std::nothrow);
 	}
 
 	GLfloat Width(void) const
@@ -99,7 +99,7 @@ public:
 		return _data._width;
 	}
 
-	void Set(const CodePoint* cps, GLsizei size)
+	void Set(const CodePoint* cps, SizeType size)
 	{
 		assert(_is_ok());
 		assert(size <= Capacity());
@@ -113,7 +113,7 @@ public:
 			if(std::find(i, e, page) == e)
 				_pages.push_back(page);
 		}
-		_font._essence->LoadPages(_pages.data(), GLsizei(_pages.size()));
+		_font._essence->LoadPages(_pages.data(), _pages.size());
 
 		// initialize the layout data
 		BitmapGlyphInitializeLayoutData(_parent,_data,_font, cps, size);
@@ -121,7 +121,7 @@ public:
 
 	void Set(const CodePoints& cps)
 	{
-		Set(cps.data(), GLsizei(cps.size()));
+		Set(cps.data(), cps.size());
 	}
 
 	void Set(StrCRef str)

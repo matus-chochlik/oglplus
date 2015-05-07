@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_TIME_ELAPSED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TimeElapsed
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_TIMESTAMP
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Timestamp
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_SAMPLES_PASSED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SamplesPassed
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_ANY_SAMPLES_PASSED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AnySamplesPassed
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_PRIMITIVES_GENERATED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PrimitivesGenerated
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransformFeedbackPrimitivesWritten
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_VERTICES_SUBMITTED_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VerticesSubmitted
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_PRIMITIVES_SUBMITTED_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PrimitivesSubmitted
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_VERTEX_SHADER_INVOCATIONS_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VertexShaderInvocations
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_TESS_CONTROL_SHADER_PATCHES_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TessControlShaderPatches
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_TESS_EVALUATION_SHADER_INVOCATIONS_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TessEvaluationShaderInvocations
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_GEOMETRY_SHADER_INVOCATIONS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GeometryShaderInvocations
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_GEOMETRY_SHADER_PRIMITIVES_EMITTED_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GeometryShaderPrimitivesEmitted
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_FRAGMENT_SHADER_INVOCATIONS_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FragmentShaderInvocations
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_COMPUTE_SHADER_INVOCATIONS_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ComputeShaderInvocations
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_CLIPPING_INPUT_PRIMITIVES_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ClippingInputPrimitives
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_CLIPPING_OUTPUT_PRIMITIVES_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ClippingOutputPrimitives
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined GL_TRANSFORM_FEEDBACK_OVERFLOW_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransformFeedbackOverflow
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransformFeedbackStreamOverflow

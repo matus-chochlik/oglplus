@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -28,11 +28,11 @@ class Squares
 public:
 	/// Creates an image with specified dimensions and pattern repeats
 	Squares(
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		GLfloat ratio = 0.8f,
-		GLsizei xrep = 2,
-		GLsizei yrep = 2
+		SizeType xrep = 2,
+		SizeType yrep = 2
 	);
 };
 

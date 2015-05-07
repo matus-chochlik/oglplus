@@ -29,6 +29,8 @@ public:
 	Add a new name to this group.
 	>*/
 
+	__Sequence<__ObjectName<__ObjTag>> seq(void) const;
+
 	operator __Sequence<__ObjectName<__ObjTag>> (void) const; /*<
 	Implicit conversion to a sequence of object names, which can
 	be passed as an argument to various functions.
@@ -68,6 +70,8 @@ public:
 	Construction from a pack of object names. All names must refer to objects
 	of the same type.
 	>*/
+
+	__Sequence<__ObjectName<__ObjTag>> seq(void) const;
 
 	operator __Sequence<__ObjectName<__ObjTag>> (void) const; /*<
 	Implicit conversion to a sequence of object names, which can

@@ -17,7 +17,7 @@
 
 namespace eglplus {
 
-typedef oglplus::BoolImpl<EGLBoolean, EGL_TRUE, EGL_FALSE> Boolean;
+typedef oglplus::BoolImpl<EGLBoolean, EGLBoolean, EGL_TRUE, EGL_FALSE> Boolean;
 
 } // namespace eglplus
 

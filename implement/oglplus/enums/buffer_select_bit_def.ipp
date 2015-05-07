@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_COLOR_BUFFER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ColorBuffer
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_DEPTH_BUFFER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DepthBuffer
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_STENCIL_BUFFER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StencilBuffer

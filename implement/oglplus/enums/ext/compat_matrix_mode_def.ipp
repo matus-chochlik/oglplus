@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_PROJECTION
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Projection
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_MODELVIEW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Modelview
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Texture
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_COLOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Color

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -41,9 +41,9 @@ struct VoronoiNearestPointColor
 
 OGLPLUS_LIB_FUNC
 VoronoiDiagram::VoronoiDiagram(
-	GLsizei cell_w,
-	GLsizei cell_h,
-	GLsizei cell_d,
+	SizeType cell_w,
+	SizeType cell_h,
+	SizeType cell_d,
 	const Image& input
 ): Image(static_cast<Image&&>(
 	CellImageGen<GLubyte, 3>(
@@ -66,9 +66,9 @@ struct VoronoiCellDistance
 
 OGLPLUS_LIB_FUNC
 VoronoiCells::VoronoiCells(
-	GLsizei cell_w,
-	GLsizei cell_h,
-	GLsizei cell_d,
+	SizeType cell_w,
+	SizeType cell_h,
+	SizeType cell_d,
 	const Image& input
 ): Image(static_cast<Image&&>(
 	WorleyCellGen(

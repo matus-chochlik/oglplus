@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_DEPTH_COMPONENT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DepthComponent
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_DEPTH_STENCIL
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DepthStencil
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_STENCIL_INDEX8
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StencilIndex8
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_RED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Red
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_RG
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RG
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_RGB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_RGBA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_R8
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R8
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_R8_SNORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R8SNorm
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_R16
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R16
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_R16_SNORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R16SNorm
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_RG8
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RG8
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_RG8_SNORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RG8SNorm
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_RG16
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RG16
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_RG16_SNORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RG16SNorm
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_R3_G3_B2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R3G3B2
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_RGB4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB4
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined GL_RGB5
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB5
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined GL_RGB8
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB8
@@ -318,7 +318,7 @@
 # endif
 #endif
 #if defined GL_RGB8_SNORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB8SNorm
@@ -334,7 +334,7 @@
 # endif
 #endif
 #if defined GL_RGB10
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB10
@@ -350,7 +350,7 @@
 # endif
 #endif
 #if defined GL_RGB12
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB12
@@ -366,7 +366,7 @@
 # endif
 #endif
 #if defined GL_RGB16
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB16
@@ -382,7 +382,7 @@
 # endif
 #endif
 #if defined GL_RGB16_SNORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB16SNorm
@@ -398,7 +398,7 @@
 # endif
 #endif
 #if defined GL_RGBA2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA2
@@ -414,7 +414,7 @@
 # endif
 #endif
 #if defined GL_RGBA4
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA4
@@ -430,7 +430,7 @@
 # endif
 #endif
 #if defined GL_RGB5_A1
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB5A1
@@ -446,7 +446,7 @@
 # endif
 #endif
 #if defined GL_RGBA8
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA8
@@ -462,7 +462,7 @@
 # endif
 #endif
 #if defined GL_RGBA8_SNORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA8SNorm
@@ -478,7 +478,7 @@
 # endif
 #endif
 #if defined GL_RGB10_A2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB10A2
@@ -494,7 +494,7 @@
 # endif
 #endif
 #if defined GL_RGB10_A2UI
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB10A2UI
@@ -510,7 +510,7 @@
 # endif
 #endif
 #if defined GL_RGBA12
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA12
@@ -526,7 +526,7 @@
 # endif
 #endif
 #if defined GL_RGBA16
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA16
@@ -542,7 +542,7 @@
 # endif
 #endif
 #if defined GL_RGBA16_SNORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA16SNorm
@@ -558,7 +558,7 @@
 # endif
 #endif
 #if defined GL_SRGB8
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SRGB8
@@ -574,7 +574,7 @@
 # endif
 #endif
 #if defined GL_SRGB8_ALPHA8
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SRGB8Alpha8
@@ -590,7 +590,7 @@
 # endif
 #endif
 #if defined GL_R16F
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R16F
@@ -606,7 +606,7 @@
 # endif
 #endif
 #if defined GL_RG16F
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RG16F
@@ -622,7 +622,7 @@
 # endif
 #endif
 #if defined GL_RGB16F
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB16F
@@ -638,7 +638,7 @@
 # endif
 #endif
 #if defined GL_RGBA16F
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA16F
@@ -654,7 +654,7 @@
 # endif
 #endif
 #if defined GL_R32F
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R32F
@@ -670,7 +670,7 @@
 # endif
 #endif
 #if defined GL_RG32F
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RG32F
@@ -686,7 +686,7 @@
 # endif
 #endif
 #if defined GL_RGB32F
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB32F
@@ -702,7 +702,7 @@
 # endif
 #endif
 #if defined GL_RGBA32F
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA32F
@@ -718,7 +718,7 @@
 # endif
 #endif
 #if defined GL_R11F_G11F_B10F
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R11FG11FB10F
@@ -734,7 +734,7 @@
 # endif
 #endif
 #if defined GL_RGB9_E5
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB9E5
@@ -750,7 +750,7 @@
 # endif
 #endif
 #if defined GL_R8I
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R8I
@@ -766,7 +766,7 @@
 # endif
 #endif
 #if defined GL_R8UI
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R8UI
@@ -782,7 +782,7 @@
 # endif
 #endif
 #if defined GL_R16I
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R16I
@@ -798,7 +798,7 @@
 # endif
 #endif
 #if defined GL_R16UI
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R16UI
@@ -814,7 +814,7 @@
 # endif
 #endif
 #if defined GL_R32I
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R32I
@@ -830,7 +830,7 @@
 # endif
 #endif
 #if defined GL_R32UI
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R32UI
@@ -846,7 +846,7 @@
 # endif
 #endif
 #if defined GL_RG8I
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RG8I
@@ -862,7 +862,7 @@
 # endif
 #endif
 #if defined GL_RG8UI
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RG8UI
@@ -878,7 +878,7 @@
 # endif
 #endif
 #if defined GL_RG16I
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RG16I
@@ -894,7 +894,7 @@
 # endif
 #endif
 #if defined GL_RG16UI
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RG16UI
@@ -910,7 +910,7 @@
 # endif
 #endif
 #if defined GL_RG32I
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RG32I
@@ -926,7 +926,7 @@
 # endif
 #endif
 #if defined GL_RG32UI
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RG32UI
@@ -942,7 +942,7 @@
 # endif
 #endif
 #if defined GL_RGB8I
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB8I
@@ -958,7 +958,7 @@
 # endif
 #endif
 #if defined GL_RGB8UI
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB8UI
@@ -974,7 +974,7 @@
 # endif
 #endif
 #if defined GL_RGB16I
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB16I
@@ -990,7 +990,7 @@
 # endif
 #endif
 #if defined GL_RGB16UI
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB16UI
@@ -1006,7 +1006,7 @@
 # endif
 #endif
 #if defined GL_RGB32I
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB32I
@@ -1022,7 +1022,7 @@
 # endif
 #endif
 #if defined GL_RGB32UI
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB32UI
@@ -1038,7 +1038,7 @@
 # endif
 #endif
 #if defined GL_RGBA8I
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA8I
@@ -1054,7 +1054,7 @@
 # endif
 #endif
 #if defined GL_RGBA8UI
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA8UI
@@ -1070,7 +1070,7 @@
 # endif
 #endif
 #if defined GL_RGBA16I
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA16I
@@ -1086,7 +1086,7 @@
 # endif
 #endif
 #if defined GL_RGBA16UI
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA16UI
@@ -1102,7 +1102,7 @@
 # endif
 #endif
 #if defined GL_RGBA32I
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA32I
@@ -1118,7 +1118,7 @@
 # endif
 #endif
 #if defined GL_RGBA32UI
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA32UI
@@ -1134,7 +1134,7 @@
 # endif
 #endif
 #if defined GL_DEPTH_COMPONENT16
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DepthComponent16
@@ -1150,7 +1150,7 @@
 # endif
 #endif
 #if defined GL_DEPTH_COMPONENT24
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DepthComponent24
@@ -1166,7 +1166,7 @@
 # endif
 #endif
 #if defined GL_DEPTH_COMPONENT32
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DepthComponent32
@@ -1182,7 +1182,7 @@
 # endif
 #endif
 #if defined GL_DEPTH_COMPONENT32F
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DepthComponent32F
@@ -1198,7 +1198,7 @@
 # endif
 #endif
 #if defined GL_DEPTH24_STENCIL8
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Depth24Stencil8
@@ -1214,7 +1214,7 @@
 # endif
 #endif
 #if defined GL_DEPTH32F_STENCIL8
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Depth32fStencil8
@@ -1230,7 +1230,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_RED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedRed
@@ -1246,7 +1246,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_RG
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedRG
@@ -1262,7 +1262,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_RGB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedRGB
@@ -1278,7 +1278,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_RGBA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedRGBA
@@ -1294,7 +1294,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_SRGB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedSRGB
@@ -1310,7 +1310,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_SRGB_ALPHA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedSRGBAlpha
@@ -1326,7 +1326,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_RED_RGTC1
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedRedRGTC1
@@ -1342,7 +1342,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_SIGNED_RED_RGTC1
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedSignedRedRGTC1
@@ -1358,7 +1358,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_RG_RGTC2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedRGRGTC2
@@ -1374,7 +1374,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_SIGNED_RG_RGTC2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedSignedRGRGTC2
@@ -1390,7 +1390,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_RGBA_BPTC_UNORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedRGBABPTCUNorm
@@ -1406,7 +1406,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_SRGB_ALPHA_BPTC_UNORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedSRGBAlphaBPTCUNorm
@@ -1422,7 +1422,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_RGB_BPTC_SIGNED_FLOAT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedRGBBPTCSignedFloat
@@ -1438,7 +1438,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedRGBBPTCUnsignedFloat
@@ -1454,7 +1454,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_RGB8_ETC2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedRGB8ETC2
@@ -1470,7 +1470,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_SRGB8_ETC2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedSRGB8ETC2
@@ -1486,7 +1486,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedRGB8PunchthroughAlpha1ETC2
@@ -1502,7 +1502,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedSRGB8PunchthroughAlpha1ETC2
@@ -1518,7 +1518,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_RGBA8_ETC2_EAC
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedETC2EAC
@@ -1534,7 +1534,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedSRGB8Alpha8ETC2EAC
@@ -1550,7 +1550,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_R11_EAC
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedR11EAC
@@ -1566,7 +1566,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_SIGNED_R11_EAC
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedSignedR11EAC
@@ -1582,7 +1582,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_RG11_EAC
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedRG11EAC
@@ -1598,7 +1598,7 @@
 # endif
 #endif
 #if defined GL_COMPRESSED_SIGNED_RG11_EAC
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CompressedSignedRG11EAC

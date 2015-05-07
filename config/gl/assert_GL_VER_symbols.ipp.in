@@ -4,7 +4,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -767,6 +767,9 @@ if(req_major >= 3 && req_minor >= 1)
 	OGLPLUS_CONFIG_ASSERT_GL_FUNC(glGetActiveUniformBlockiv);
 	OGLPLUS_CONFIG_ASSERT_GL_FUNC(glGetActiveUniformBlockName);
 	OGLPLUS_CONFIG_ASSERT_GL_FUNC(glUniformBlockBinding);
+	OGLPLUS_CONFIG_ASSERT_GL_FUNC(glBindBufferRange);
+	OGLPLUS_CONFIG_ASSERT_GL_FUNC(glBindBufferBase);
+	OGLPLUS_CONFIG_ASSERT_GL_FUNC(glGetIntegeri_v);
 
 #	ifndef GL_SAMPLER_2D_RECT
 	OGLPLUS_CONFIG_MISSING_GL_CONST(GL_SAMPLER_2D_RECT);
@@ -3221,9 +3224,6 @@ if(req_major >= 4 && req_minor >= 5)
 #	endif
 #	ifndef GL_TEXTURE_BINDING_RECTANGLE
 	OGLPLUS_CONFIG_MISSING_GL_CONST(GL_TEXTURE_BINDING_RECTANGLE);
-#	endif
-#	ifndef GL_TEXTURE_BINDING
-	OGLPLUS_CONFIG_MISSING_GL_CONST(GL_TEXTURE_BINDING);
 #	endif
 #	ifndef GL_BACK
 	OGLPLUS_CONFIG_MISSING_GL_CONST(GL_BACK);

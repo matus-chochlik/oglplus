@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Buffer
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_FRAMEBUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Framebuffer
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_PROGRAM_PIPELINE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ProgramPipeline
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_PROGRAM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Program
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_QUERY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Query
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_RENDERBUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Renderbuffer
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_SAMPLER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Sampler
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_SHADER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Shader
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Texture
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_TRANSFORM_FEEDBACK
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransformFeedback
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_VERTEX_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VertexArray
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_NONE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined None

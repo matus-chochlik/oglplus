@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_CLEAR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Clear
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_AND
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined And
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_AND_REVERSE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AndReverse
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_COPY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Copy
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_AND_INVERTED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AndInverted
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_NOOP
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Noop
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_XOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Xor
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_OR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Or
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_NOR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Nor
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_EQUIV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Equiv
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_INVERT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Invert
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_OR_REVERSE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OrReverse
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_COPY_INVERTED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CopyInverted
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_OR_INVERTED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined OrInverted
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_NAND
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Nand
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_SET
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Set

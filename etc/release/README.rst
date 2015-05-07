@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.60.0
+Release notes for version 0.61.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,28 +7,22 @@ Release notes for version 0.60.0
 Overview
 ========
 
-This release of `OGLplus`_ brings several minor changes, updates and bugfixes. The Quickbook documentation has also been updated.
+This release of `OGLplus`_ brings updates to GL version detection and other minor changes in the build system, error code enumerations and updated exceptions in OALplus, wrappers for GL ARB_clip_control, updated Quickbook documentation.
 
 Changes
 -------
 
-- The ``Boolean`` wrapper class was updated, the ``operator ~`` was added.
+- The ``SizeType`` and ``BigSizeType`` classes were added and some occurences of ``GLsizei`` and ``GLsizeiptr`` were replaced.
 
-- The ``HasInstance`` function was added to the ``Object`` wrapper.
+- Wrappers for the ``ARB_clip_control`` extension were added.
 
-- The native GL context wrappers were updated.
+- The ``ALErrorCode``, ``ALCErrorCode`` and ``ALUTErrorCode`` enumerations were added to OALplus.
 
-- The DSA ``Texture``, ``Buffer`` and ``Framebuffer`` wrappers were partially refactored and simplified.
+- The ``ErrorAL`` exception class was added to OALplus.
 
-- The ``SingleFace`` enumeration was added.
+- The GL version detection in the build system and the GLUT example harness were updated.
 
-- The ``FragmentData`` and ``FragmentDataSlot`` typedefs were added.
-
-- A new standalone example was added.
-
-- The ``oalplus::CurrentContext`` class was renamed to ``ContextMadeCurrent``.
-
-- Missing ``#ifdefs`` were added around specializations of ``EnumAssocType``.
+- Some compiler warnings were silenced.
 
 - The Quickbook documentation was updated.
 

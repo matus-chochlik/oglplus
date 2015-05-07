@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_PATH_FORMAT_SVG_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SVG
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_PATH_FORMAT_PS_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PS

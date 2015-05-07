@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_BUFFER_PRESERVED
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BufferPreserved
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_BUFFER_DESTROYED
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BufferDestroyed

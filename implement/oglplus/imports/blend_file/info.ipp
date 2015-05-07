@@ -4,11 +4,12 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #include <oglplus/config/basic.hpp>
+#include <oglplus/assert.hpp>
 
 namespace oglplus {
 namespace imports {
@@ -49,7 +50,7 @@ Endian BlendFileInfo::_read_endianness(BlendFileReader& bfr)
 	);
 	if(c == 'v') return Endian::Little;
 	if(c == 'V') return Endian::Big;
-	assert(!"Logic error!");
+	OGLPLUS_ABORT("Logic error!");
 	return Endian();
 }
 

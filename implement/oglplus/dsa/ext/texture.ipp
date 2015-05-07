@@ -156,7 +156,7 @@ GetCompressedImage(
 	std::vector<GLubyte>& dest
 ) const
 {
-	dest.resize(CompressedImageSize(level));
+	dest.resize(std::size_t(CompressedImageSize(level)));
 	GetCompressedImage(
 		level,
 		OutputData(dest)
@@ -380,7 +380,7 @@ Image(
 			Image1D(image, level, border);
 			break;
 		}
-		default: assert(!"Invalid texture dimension");
+		default: OGLPLUS_ABORT("Invalid texture dimension");
 	}
 	return *this;
 }
@@ -440,7 +440,7 @@ Image(
 			);
 			break;
 		}
-		default: assert(!"Invalid texture dimension");
+		default: OGLPLUS_ABORT("Invalid texture dimension");
 	}
 	return *this;
 }

@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_NOT_INITIALIZED
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined NotInitialized
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_BAD_ACCESS
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BadAccess
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined EGL_BAD_ALLOC
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BadAlloc
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined EGL_BAD_ATTRIBUTE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BadAttribute
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined EGL_BAD_CONTEXT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BadContext
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined EGL_BAD_CONFIG
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BadConfig
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined EGL_BAD_CURRENT_SURFACE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BadCurrentSurface
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined EGL_BAD_DISPLAY
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BadDisplay
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined EGL_BAD_SURFACE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BadSurface
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined EGL_BAD_MATCH
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BadMatch
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined EGL_BAD_PARAMETER
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BadParameter
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined EGL_BAD_NATIVE_PIXMAP
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BadNativePixmap
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined EGL_BAD_NATIVE_WINDOW
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BadNativeWindow
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined EGL_CONTEXT_LOST
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ContextLost

@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_FRONT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Front
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_BACK
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Back
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_FRONT_AND_BACK
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FrontAndBack

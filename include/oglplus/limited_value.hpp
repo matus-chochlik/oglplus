@@ -74,12 +74,16 @@ protected:
 	}
 public:
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	LimitedCount(const LimitedCount&) = default;
+
 	LimitedCount& operator = (const LimitedCount& other)
 	{
 		_value = other._value;
 		assert(_value < _limit());
 		return *this;
 	}
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns the value

@@ -27,7 +27,7 @@ OGLPLUS_NOEXCEPT(true)
 	if(n == 2) return PixelDataFormat::RG;
 	if(n == 3) return PixelDataFormat::RGB;
 	if(n == 4) return PixelDataFormat::RGBA;
-	assert(!"Invalid number of color channels!");
+	OGLPLUS_ABORT("Invalid number of color channels!");
 	return PixelDataFormat::Red;
 }
 
@@ -39,7 +39,7 @@ OGLPLUS_NOEXCEPT(true)
 	if(n == 2) return PixelDataInternalFormat::RG;
 	if(n == 3) return PixelDataInternalFormat::RGB;
 	if(n == 4) return PixelDataInternalFormat::RGBA;
-	assert(!"Invalid number of color channels!");
+	OGLPLUS_ABORT("Invalid number of color channels!");
 	return PixelDataInternalFormat::Red;
 }
 
