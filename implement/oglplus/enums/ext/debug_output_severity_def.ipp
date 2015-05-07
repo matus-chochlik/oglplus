@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_DEBUG_SEVERITY_HIGH_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined High
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_SEVERITY_MEDIUM_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Medium
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_DEBUG_SEVERITY_LOW_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Low
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_DONT_CARE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DontCare

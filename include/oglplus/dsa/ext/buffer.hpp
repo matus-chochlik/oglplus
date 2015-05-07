@@ -120,7 +120,7 @@ public:
 	}
 
 	/// Uploads (sets) the buffer data
-	/** This member function uploads the specified @data to this buffer
+	/** This member function uploads the specified data to this buffer
 	 *  using the @p usage as hint.
 	 *
 	 *  @see SubData

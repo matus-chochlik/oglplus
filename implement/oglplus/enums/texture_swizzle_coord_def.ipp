@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_TEXTURE_SWIZZLE_R
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined R
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_SWIZZLE_G
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined G
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_SWIZZLE_B
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined B
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_SWIZZLE_A
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined A
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_SWIZZLE_RGBA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA

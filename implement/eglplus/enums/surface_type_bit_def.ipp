@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_WINDOW_BIT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Window
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_PIXMAP_BIT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Pixmap
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined EGL_PBUFFER_BIT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Pbuffer
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined EGL_MULTISAMPLE_RESOLVE_BOX_BIT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MultisampleResolveBox
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined EGL_SWAP_BEHAVIOR_PRESERVED_BIT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SwapBehaviorPreserved
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined EGL_VG_COLORSPACE_LINEAR_BIT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VGColorspaceLinear
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined EGL_VG_ALPHA_FORMAT_PRE_BIT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VGAlphaFormatPre

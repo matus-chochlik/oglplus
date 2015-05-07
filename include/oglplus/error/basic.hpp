@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,10 +14,12 @@
 #define OGLPLUS_ERROR_BASIC_1107121317_HPP
 
 #include <oglplus/config/error.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/error/code.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/string/empty.hpp>
+#include <oglplus/size_type.hpp>
 #include <stdexcept>
 #include <cassert>
 
@@ -74,7 +76,44 @@ public:
 
 	Error(const char* message);
 
-	~Error(void) throw() { }
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	Error(const Error& that)
+	 : std::runtime_error(that)
+	 , _code(that._code)
+#if !OGLPLUS_ERROR_NO_FILE
+	 , _file(that._file)
+#endif
+#if !OGLPLUS_ERROR_NO_FUNC
+	 , _func(that._func)
+#endif
+#if !OGLPLUS_ERROR_NO_LINE
+	 , _line(that._line)
+#endif
+
+#if !OGLPLUS_ERROR_NO_GL_LIB
+	 , _gllib_name(that._gllib_name)
+#endif
+
+#if !OGLPLUS_ERROR_NO_GL_FUNC
+	 , _glfunc_name(that._glfunc_name)
+#endif
+
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
+	 , _enumpar_name(that._enumpar_name)
+	 , _enumpar(that._enumpar)
+	 , _index(that._index)
+#endif
+	{ }
+#else
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	Error(const Error&) = default;
+	Error& operator = (const Error&) = default;
+#endif
+#endif
+
+	~Error(void)
+	OGLPLUS_NOTHROW
+	{ }
 
 	Error& NoInfo(void) { return *this; }
 
@@ -216,7 +255,7 @@ public:
 	 */
 	const char* EnumParamName(void) const;
 
-	Error& Index(GLuint index)
+	Error& Index(SizeType index)
 	{
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
 		_index = GLint(index);

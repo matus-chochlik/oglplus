@@ -2,7 +2,7 @@
  *  .file example/oglplus/wxgl_main.cpp
  *  Implements wxGL-based program main function for running examples
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -46,13 +46,13 @@ struct ExampleInfoDisplay
 		unsigned height
 	) = 0;
 
-	virtual void Update(
+	virtual void FrameUpdate(
 		unsigned frame_no,
 		double sim_time,
 		double real_time
 	) = 0;
 
-	virtual void Stats(
+	virtual void RenderStats(
 		double fps,
 		double pps,
 		double ppf
@@ -326,7 +326,7 @@ private:
 		if(this_interval >= fps_interval)
 		{
 			fps_time = real_time;
-			info_display->Stats(
+			info_display->RenderStats(
 				fps_frame_no/this_interval,
 				prim_count/this_interval,
 				prim_count/fps_frame_no
@@ -335,7 +335,7 @@ private:
 			fps_frame_no = 0;
 			prim_count = 0.0;
 		}
-		info_display->Update(frame_no, frame_time, real_time);
+		info_display->FrameUpdate(frame_no, frame_time, real_time);
 		++frame_no;
 		++fps_frame_no;
 	}
@@ -576,7 +576,7 @@ private:
 		);
 	}
 
-	void Update(unsigned frame_no, double frame_time, double real_time)
+	void FrameUpdate(unsigned frame_no, double frame_time, double real_time)
 	{
 		frame_no_label->SetLabel(wxString::Format(
 			wxT("%u"),
@@ -592,7 +592,7 @@ private:
 		));
 	}
 
-	void Stats(double fps, double pps, double ppf)
+	void RenderStats(double fps, double pps, double ppf)
 	{
 		fps_label->SetLabel(wxString::Format(
 			wxT("%.1f"),

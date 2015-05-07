@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_UNIFORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Uniform
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_UNIFORM_BLOCK
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UniformBlock
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_ATOMIC_COUNTER_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AtomicCounterBuffer
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_PROGRAM_INPUT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ProgramInput
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_PROGRAM_OUTPUT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ProgramOutput
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_VERTEX_SUBROUTINE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VertexSubroutine
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_TESS_CONTROL_SUBROUTINE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TessControlSubroutine
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_TESS_EVALUATION_SUBROUTINE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TessEvaluationSubroutine
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_GEOMETRY_SUBROUTINE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GeometrySubroutine
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_FRAGMENT_SUBROUTINE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FragmentSubroutine
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_COMPUTE_SUBROUTINE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ComputeSubroutine
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_VERTEX_SUBROUTINE_UNIFORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VertexSubroutineUniform
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_TESS_CONTROL_SUBROUTINE_UNIFORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TessControlSubroutineUniform
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_TESS_EVALUATION_SUBROUTINE_UNIFORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TessEvaluationSubroutineUniform
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_GEOMETRY_SUBROUTINE_UNIFORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GeometrySubroutineUniform
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_FRAGMENT_SUBROUTINE_UNIFORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FragmentSubroutineUniform
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_COMPUTE_SUBROUTINE_UNIFORM
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ComputeSubroutineUniform
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined GL_TRANSFORM_FEEDEBACK_VARYING
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransformFeedebackVarying
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined GL_BUFFER_VARIABLE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BufferVariable
@@ -318,7 +318,7 @@
 # endif
 #endif
 #if defined GL_SHADER_STORAGE_BLOCK
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ShaderStorageBlock

@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_TRIANGLES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Triangles
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_LINES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Lines
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_POINTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Points

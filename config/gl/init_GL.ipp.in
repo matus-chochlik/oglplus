@@ -1,5 +1,5 @@
 /**
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,7 +19,11 @@
 #elif @GLFW_FOUND@
 #include <GL/glfw.h>
 #elif @GLUT_FOUND@
-#include <GL/glut.h>
+# if defined(__APPLE__) && __APPLE__
+# include <GLUT/glut.h>
+# else
+# include <GL/glut.h>
+# endif
 #elif @SDL_FOUND@
 #include <SDL/SDL.h>
 #endif
@@ -148,6 +152,9 @@ bool query_gl_GLUT(int argc, char **argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(
+#if defined(__APPLE__) && __APPLE__ && defined(GLUT_3_2_CORE_PROFILE)
+		GLUT_3_2_CORE_PROFILE|
+#endif
 		GLUT_DOUBLE|
 		GLUT_RGBA|
 		GLUT_DEPTH|

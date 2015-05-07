@@ -4,11 +4,12 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #include <oglplus/config/basic.hpp>
+#include <oglplus/assert.hpp>
 
 namespace oglplus {
 namespace imports {
@@ -61,7 +62,7 @@ uint64_t BlendFileBlock::_read_old_ptr(
 			bfi.ByteOrder(),
 			"Failed to read file block old pointer"
 		);
-	else assert(!"Logic error!");
+	else OGLPLUS_ABORT("Logic error!");
 	return 0;
 }
 

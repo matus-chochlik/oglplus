@@ -21,6 +21,7 @@
 #include <oglplus/precision_type.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/glsl_source.hpp>
+#include <oglplus/size_type.hpp>
 
 #include <array>
 #include <vector>
@@ -239,7 +240,7 @@ public:
 	 *  @glfunref{ShaderSource}
 	 */
 	ObjectOps& Source(
-		const GLsizei count,
+		const SizeType count,
 		const GLchar* const * srcs,
 		const GLint* lens
 	)
@@ -356,7 +357,7 @@ public:
 	 *  @glfunref{CompileShaderIncludeARB}
 	 */
 	ObjectOps& CompileInclude(
-		GLsizei count,
+		const SizeType count,
 		const GLchar* const* paths,
 		const GLint* lengths
 	);
@@ -547,7 +548,7 @@ class Array<Shader>
  : public Array<ObjectOps<tag::DirectState, tag::Shader>>
 {
 public:
-	Array(GLsizei n, ShaderType type)
+	Array(BigSizeType n, ShaderType type)
 	 : Array<ObjectOps<tag::DirectState, tag::Shader>>(n, type)
 	{ }
 };

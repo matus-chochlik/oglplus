@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_SKIP_MISSING_GLYPH_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Skip
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_USE_MISSING_GLYPH_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Use

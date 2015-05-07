@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_ARRAY_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Array
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_ATOMIC_COUNTER_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AtomicCounter
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_COPY_READ_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CopyRead
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_COPY_WRITE_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CopyWrite
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_DISPATCH_INDIRECT_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DispatchIndirect
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_DRAW_INDIRECT_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DrawIndirect
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_ELEMENT_ARRAY_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ElementArray
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_PIXEL_PACK_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PixelPack
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_PIXEL_UNPACK_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PixelUnpack
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_SHADER_STORAGE_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ShaderStorage
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Texture
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_TRANSFORM_FEEDBACK_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransformFeedback
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_UNIFORM_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Uniform
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_QUERY_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Query
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_PARAMETER_BUFFER_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Parameter
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ExternalVirtualMemory

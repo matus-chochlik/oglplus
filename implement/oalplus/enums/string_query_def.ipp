@@ -14,7 +14,7 @@
 #endif
 
 #if defined AL_VERSION
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Version
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined AL_RENDERER
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Renderer
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined AL_VENDOR
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Vendor
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined AL_EXTENSIONS
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Extensions

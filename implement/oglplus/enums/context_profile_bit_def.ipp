@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_CONTEXT_CORE_PROFILE_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Core
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_CONTEXT_COMPATIBILITY_PROFILE_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Compatibility

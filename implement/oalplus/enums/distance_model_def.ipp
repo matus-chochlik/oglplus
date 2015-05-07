@@ -14,7 +14,7 @@
 #endif
 
 #if defined AL_NONE
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined None
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined AL_INVERSE_DISTANCE
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined InverseDistance
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined AL_INVERSE_DISTANCE_CLAMPED
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined InverseDistanceClamped
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined AL_LINEAR_DISTANCE
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LinearDistance
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined AL_LINEAR_DISTANCE_CLAMPED
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LinearDistanceClamped
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined AL_EXPONENT_DISTANCE
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ExponentDistance
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined AL_EXPONENT_DISTANCE_CLAMPED
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ExponentDistanceClamped

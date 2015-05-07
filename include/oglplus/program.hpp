@@ -379,7 +379,7 @@ public:
 	 *  @glfunref{GetProgramInfoLog}
 	 */
 	ObjectOps& BuildInclude(
-		GLsizei count,
+		SizeType count,
 		const GLchar* const* paths,
 		const GLint* lengths
 	);
@@ -449,7 +449,7 @@ public:
 	 *  @glfunref{TransformFeedbackVaryings}
 	 */
 	void TransformFeedbackVaryings(
-		GLsizei count,
+		SizeType count,
 		const GLchar** varyings,
 		TransformFeedbackMode mode
 	);
@@ -1035,7 +1035,7 @@ public:
 		if(!names.empty())
 		{
 			prog.TransformFeedbackVaryings(
-				GLsizei(names.size()),
+				names.size(),
 				names.data(),
 				mode
 			);

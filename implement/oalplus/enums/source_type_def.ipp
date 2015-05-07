@@ -14,7 +14,7 @@
 #endif
 
 #if defined AL_UNDETERMINED
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Undetermined
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined AL_STATIC
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Static
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined AL_STREAMING
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Streaming

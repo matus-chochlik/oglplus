@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_LUMINANCE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Luminance
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_ALPHA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Alpha
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_INTENSITY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Intensity
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_LUMINANCE_ALPHA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LuminanceAlpha
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_RGB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_RGBA
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA

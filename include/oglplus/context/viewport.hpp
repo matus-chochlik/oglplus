@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,6 +14,7 @@
 #define OGLPLUS_CONTEXT_VIEWPORT_1201040722_HPP
 
 #include <oglplus/glfunc.hpp>
+#include <oglplus/size_type.hpp>
 
 namespace oglplus {
 namespace context {
@@ -206,7 +207,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Viewport}
 	 */
-	static void Viewport(GLint x, GLint y, GLsizei w, GLsizei h)
+	static void Viewport(GLint x, GLint y, SizeType w, SizeType h)
 	{
 		OGLPLUS_GLFUNC(Viewport)(x, y, w, h);
 		OGLPLUS_CHECK_SIMPLE(Viewport);
@@ -219,7 +220,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Viewport}
 	 */
-	static void Viewport(GLsizei w, GLsizei h)
+	static void Viewport(SizeType w, SizeType h)
 	{
 		OGLPLUS_GLFUNC(Viewport)(0, 0, w, h);
 		OGLPLUS_CHECK_SIMPLE(Viewport);
@@ -362,7 +363,7 @@ public:
 	 */
 	static void ViewportArray(
 		GLuint first,
-		GLsizei count,
+		SizeType count,
 		const GLfloat* extents
 	)
 	{
@@ -444,7 +445,7 @@ public:
 	 */
 	static void DepthRangeArray(
 		GLuint first,
-		GLsizei count,
+		SizeType count,
 		const GLclampd *v
 	)
 	{

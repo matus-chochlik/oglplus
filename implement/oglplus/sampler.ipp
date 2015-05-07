@@ -29,7 +29,7 @@ _binding(TextureUnitSelector tex_unit)
 		Error,
 		EnumParam(GLenum(GL_SAMPLER_BINDING))
 	);
-	return name;
+	return GLuint(name);
 }
 
 } // namespace oglplus

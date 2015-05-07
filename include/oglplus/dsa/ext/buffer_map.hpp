@@ -59,7 +59,7 @@ private:
 public:
 	/// Maps a range of the buffer
 	/**
-	 *  @param target use the buffer bound to the target specified
+	 *  @param buffer use the specified buffer
 	 *  @param offset map offset in units of Type
 	 *  @param size map size in units of Type
 	 *  @param access the access specifier for the buffer mapping
@@ -91,7 +91,7 @@ public:
 
 	/// Maps the whole buffer
 	/**
-	 *  @param target use the buffer bound to the target specified
+	 *  @param buffer use the specified buffer
 	 *  @param access the access specifier for the buffer mapping
 	 *
 	 * This class is non-copyable.
@@ -199,7 +199,7 @@ class DSABufferTypedMapEXT
 public:
 	/// Maps a range of the buffer
 	/**
-	 *  @param target use the buffer bound to the target specified
+	 *  @param buffer use the specified buffer
 	 *  @param offset map offset in units of Type
 	 *  @param size map size in units of Type
 	 *  @param access the access specifier for the buffer mapping
@@ -216,7 +216,7 @@ public:
 
 	/// Maps the whole buffer
 	/**
-	 *  @param target use the buffer bound to the target specified
+	 *  @param buffer use the specified buffer
 	 *  @param access the access specifier for the buffer mapping
 	 *
 	 * This class is non-copyable.

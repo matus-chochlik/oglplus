@@ -17,7 +17,7 @@
 
 namespace oglplus {
 
-typedef BoolImpl<GLint, GL_TRUE, GL_FALSE> Boolean;
+typedef BoolImpl<GLboolean, GLint, GL_TRUE, GL_FALSE> Boolean;
 
 } // namespace oglplus
 

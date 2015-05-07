@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -43,9 +43,9 @@ private:
 public:
 	/// Creates a cloud image of given @p width, @p height and @p depth
 	Cloud(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
+		SizeType width,
+		SizeType height,
+		SizeType depth,
 		const Vec3f& origin = Vec3f(0.0f, -0.3f, 0.0f),
 		GLfloat init_radius = 0.7f,
 		GLfloat sub_scale = 0.333f,

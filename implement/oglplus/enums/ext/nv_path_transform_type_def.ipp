@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_NONE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined None
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_TRANSLATE_X_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TranslateX
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_TRANSLATE_Y_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TranslateY
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_TRANSLATE_2D_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Translate2D
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_TRANSLATE_3D_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Translate3D
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_AFFINE_2D_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Affine2D
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_AFFINE_3D_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Affine3D
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_TRANSPOSE_AFFINE_2D_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransposeAffine2D
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_TRANSPOSE_AFFINE_3D_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransposeAffine3D

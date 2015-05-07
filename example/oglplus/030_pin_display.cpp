@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{030_pin_display}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -241,7 +241,7 @@ private:
 
 	std::list<shapes::ShapeWrapper> shapes;
 	std::list<shapes::ShapeWrapper>::iterator ishape;
-	double shape_time, blank_time;
+	double shape_time;
 public:
 	DisplayScene(void)
 	 : gl()
@@ -251,7 +251,6 @@ public:
 	 , model_matrix(prog, "ModelMatrix")
 	 , ishape(shapes.end())
 	 , shape_time(0)
-	 , blank_time(0)
 	{ }
 
 	template <typename ShapeGenerator>

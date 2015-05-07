@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -31,7 +31,9 @@
 // at the beginning but undefs it at the end of the header
 #if defined(__MINGW32__) || defined(__CYGWIN__)
 #  define GLAPIENTRY __stdcall
-#elif (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED) || defined(__BORLANDC__)
+#elif (defined(_MSC_VER) && _MSC_VER >= 800) ||\
+	defined(_STDCALL_SUPPORTED) ||\
+	defined(__BORLANDC__)
 #  define GLAPIENTRY __stdcall
 #else
 #  define GLAPIENTRY

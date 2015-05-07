@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_CLIENT_APIS
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ClientAPIs
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_EXTENSIONS
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Extensions
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined EGL_VENDOR
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Vendor
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined EGL_VERSION
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Version

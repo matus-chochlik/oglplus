@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -31,7 +31,7 @@ class TwistedTorus
 {
 private:
 	const GLdouble _radius_out, _radius_in, _thickness;
-	const GLdouble _r_slip_coef, _s_slip_coef;
+	const GLdouble _s_slip_coef;
 	const unsigned _sections, _rings, _twist;
 public:
 	/// Creates a torus with unit radius centered at the origin
@@ -39,7 +39,6 @@ public:
 	 : _radius_out(1.0)
 	 , _radius_in(0.5)
 	 , _thickness(0.02)
-	 , _r_slip_coef(0.25)
 	 , _s_slip_coef(0.20)
 	 , _sections(12)
 	 , _rings(48)
@@ -57,7 +56,6 @@ public:
 	): _radius_out(rad_out)
 	 , _radius_in(rad_in)
 	 , _thickness(thickness)
-	 , _r_slip_coef(0.25)
 	 , _s_slip_coef(0.20)
 	 , _sections(sects)
 	 , _rings(rings)

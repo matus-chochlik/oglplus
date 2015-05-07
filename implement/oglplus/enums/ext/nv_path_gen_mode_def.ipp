@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_NONE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined None
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_EYE_LINEAR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined EyeLinear
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_OBJECT_LINEAR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ObjectLinear
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_PATH_OBJECT_BOUNDING_BOX_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ObjectBoundingBox

@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_UNSIGNED_INT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedInt
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_FLOAT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Float
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNED_INT64_AMD
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnsignedInt64
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_PERCENTAGE_AMD
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Percentage

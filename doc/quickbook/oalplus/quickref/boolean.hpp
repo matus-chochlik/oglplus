@@ -7,7 +7,7 @@
 //[oalplus_boolean
 namespace oalplus {
 
-typedef __oglplus_BoolImpl<ALint, AL_TRUE, AL_FALSE> Boolean;
+typedef __oglplus_BoolImpl<ALboolean, ALint, AL_TRUE, AL_FALSE> Boolean;
 
 } // namespace oalplus
 //]

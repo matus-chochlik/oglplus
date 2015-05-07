@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_ACCUM_BUFFER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AccumBuffer
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_COLOR_BUFFER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ColorBuffer
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_CURRENT_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Current
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_DEPTH_BUFFER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DepthBuffer
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_ENABLE_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Enable
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_EVAL_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Eval
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_FOG_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Fog
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_HINT_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Hint
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_LIGHTING_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Lighting
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_LINE_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Line
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_LIST_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined List
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_MULTISAMPLE_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Multisample
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_PIXEL_MODE_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PixelMode
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_POINT_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Point
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_POLYGON_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Polygon
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_POLYGON_STIPPLE_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PolygonStipple
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_SCISSOR_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Scissor
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined GL_STENCIL_BUFFER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StencilBuffer
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Texture
@@ -318,7 +318,7 @@
 # endif
 #endif
 #if defined GL_TRANSFORM_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Transform
@@ -334,7 +334,7 @@
 # endif
 #endif
 #if defined GL_VIEWPORT_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Viewport
@@ -350,7 +350,7 @@
 # endif
 #endif
 #if defined GL_ALL_ATTRIB_BITS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AllAttribs

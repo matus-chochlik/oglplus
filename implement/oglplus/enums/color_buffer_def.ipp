@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_NONE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined None
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_FRONT_LEFT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FrontLeft
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_FRONT_RIGHT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FrontRight
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_BACK_LEFT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BackLeft
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_BACK_RIGHT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BackRight
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_FRONT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Front
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_BACK
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Back
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_LEFT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Left
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_RIGHT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Right
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_FRONT_AND_BACK
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FrontAndBack

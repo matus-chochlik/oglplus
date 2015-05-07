@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_FASTEST
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Fastest
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_NICEST
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Nicest
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_DONT_CARE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DontCare

@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -14,6 +14,7 @@ values of the current context.
 
 [def __context_Errors [link oglplus.quickref.context.errors context::Errors]]
 [def __context_Capabilities [link oglplus.quickref.context.capabilities context::Capabilities]]
+[def __context_ClipControlState [link oglplus.quickref.context.clip_control.state context::ClipControlState]]
 [def __context_ViewportExtents [link oglplus.quickref.context.viewport.helpers context::ViewportExtents]]
 [def __context_ViewportDepthRange [link oglplus.quickref.context.viewport.helpers context::ViewportDepthRange]]
 [def __context_ViewportState [link oglplus.quickref.context.viewport.state context::ViewportState]]
@@ -63,6 +64,7 @@ but the library end-users should rarely need to use them directly.
 
 [include context/errors.qbk]
 [include context/capabilities.qbk]
+[include context/clip_control.qbk]
 [include context/viewport.qbk]
 [include context/buffer_selection.qbk]
 [include context/buffer_masking.qbk]

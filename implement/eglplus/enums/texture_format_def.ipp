@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_TEXTURE_RGB
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGB
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_TEXTURE_RGBA
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBA
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined EGL_NO_TEXTURE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined NoTexture

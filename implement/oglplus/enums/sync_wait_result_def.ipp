@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_CONDITION_SATISFIED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ConditionSatisfied
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_ALREADY_SIGNALED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AlreadySignaled
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_TIMEOUT_EXPIRED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TimeoutExpired
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_WAIT_FAILED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined WaitFailed

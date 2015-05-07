@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_DRAW_FRAMEBUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Draw
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_READ_FRAMEBUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Read
