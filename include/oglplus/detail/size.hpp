@@ -62,7 +62,7 @@ private:
 
 	template <typename R, typename X>
 	static inline
-	typename std::enable_if<!std::is_signed<X>(), R>::type
+	typename std::enable_if<!std::is_signed<X>::value, R>::type
 	_chkin1(X v)
 	{
 		return _chkin2<R>(v);

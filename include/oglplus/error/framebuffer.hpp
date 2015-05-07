@@ -42,15 +42,15 @@ public:
 	{ }
 
 #if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	IncompleteFramebuffer(const IncompleteFramebuffer& that)
-	 : ObjectError(that)
-	 , _status(that._status)
-	{ }
-#else
 	IncompleteFramebuffer(const IncompleteFramebuffer&)
 		= default;
 	IncompleteFramebuffer& operator = (const IncompleteFramebuffer&)
 		= default;
+#else
+	IncompleteFramebuffer(const IncompleteFramebuffer& that)
+	 : ObjectError(that)
+	 , _status(that._status)
+	{ }
 #endif
 
 	~IncompleteFramebuffer(void)
