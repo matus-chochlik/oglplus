@@ -1,3 +1,19 @@
+Version 0.61.0
+
+- The GL version detection in the build system was updated
+  to work better on MacOS.
+- A preprocessor switch for enabling/disabling of Boost.Config was added.
+- Wrappers for ARB_clip_control were added.
+- Exceptions in OALplus were updated.
+  - Error code enumerations were added.
+  - ErrorAL was added.
+  - The Code member function was added to ErrorAL, ErrorALC and ErrorALUT.
+- Some compiler warnings were silenced.
+- The SizeType and BigSizeType classes were added and some occurences
+  of GLsizei and GLsizeiptr were replaced by them.
+- The Quickbook documentation was updated.
+
+
 Version 0.60.0
 
 - The Boolean wrapper was updated, the operator ~ was added.

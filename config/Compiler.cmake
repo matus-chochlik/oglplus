@@ -21,7 +21,13 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 		-Wno-documentation-unknown-command
 	)
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-	add_definitions(-pedantic -Werror -Wall -Wextra -Wshadow)
+	add_definitions(
+		-pedantic
+		#-Werror
+		-Wall
+		-Wextra
+		-Wshadow
+	)
 endif()
 
 add_definitions(-D_USE_MATH_DEFINES)

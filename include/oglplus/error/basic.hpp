@@ -14,6 +14,7 @@
 #define OGLPLUS_ERROR_BASIC_1107121317_HPP
 
 #include <oglplus/config/error.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/error/code.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/ref.hpp>
@@ -104,8 +105,10 @@ public:
 #endif
 	{ }
 #else
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	Error(const Error&) = default;
 	Error& operator = (const Error&) = default;
+#endif
 #endif
 
 	~Error(void)
