@@ -192,7 +192,7 @@ public:
 	static void BindBase(
 		BufferIndexedTarget target,
 		GLuint first,
-		GLsizei count,
+		SizeType count,
 		const GLuint* names
 	)
 	{
@@ -579,7 +579,7 @@ public:
 	template <typename GLtype>
 	static void Data(
 		Target target,
-		GLsizei count,
+		SizeType count,
 		const GLtype* data,
 		BufferUsage usage = BufferUsage::StaticDraw
 	)
@@ -616,7 +616,7 @@ public:
 	static void SubData(
 		Target target,
 		BufferSize offset,
-		GLsizei count,
+		SizeType count,
 		const GLtype* data
 	)
 	{
@@ -812,7 +812,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
-	 *  @glverreq{ARB,sparse_buffer}
+	 *  @glextreq{ARB,sparse_buffer}
 	 *  @glsymbols
 	 *  @glfunref{BufferPageCommitmentARB}
 	 */
@@ -836,16 +836,16 @@ public:
 		);
 	}
 
-	/// Returns the page size
+	/// Returns the buffer page size
 	/**
 	 *  @throws Error
 	 *
-	 *  @glverreq{ARB,sparse_buffer}
+	 *  @glextreq{ARB,sparse_buffer}
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{SPARSE_BUFFER_PAGE_SIZE_ARB}
 	 */
-	static GLsizei PageSize(void)
+	static SizeType PageSize(void)
 	{
 		GLint value = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(
@@ -853,7 +853,7 @@ public:
 			&value
 		);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
-		return GLsizei(value);
+		return SizeType(value, std::nothrow);
 	}
 #endif
 
@@ -865,9 +865,12 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	static GLsizei Size(Target target)
+	static SizeType Size(Target target)
 	{
-		return GLsizei(GetIntParam(target, GL_BUFFER_SIZE));
+		return SizeType(
+			GetIntParam(target, GL_BUFFER_SIZE),
+			std::nothrow
+		);
 	}
 
 	/// Returns the buffer usage

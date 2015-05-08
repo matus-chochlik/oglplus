@@ -19,6 +19,7 @@
 #include <oglplus/assert.hpp>
 #include <oglplus/math/vector.hpp>
 #include <oglplus/data_type.hpp>
+#include <oglplus/size_type.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/detail/aligned_pod_array.hpp>
 
@@ -181,10 +182,10 @@ public:
 
 	template <typename T>
 	Image(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
-		GLsizei channels,
+		SizeType width,
+		SizeType height,
+		SizeType depth,
+		SizeType channels,
 		const T* data
 	): _width(width)
 	 , _height(height)
@@ -199,10 +200,10 @@ public:
 
 	template <typename T>
 	Image(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
-		GLsizei channels,
+		SizeType width,
+		SizeType height,
+		SizeType depth,
+		SizeType channels,
 		const T* data,
 		PixelDataFormat format,
 		PixelDataInternalFormat internal
@@ -330,9 +331,9 @@ public:
 	}
 
 	std::size_t PixelPos(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth
+		SizeType width,
+		SizeType height,
+		SizeType depth
 	) const
 	{
 		assert(_is_initialized());
@@ -348,9 +349,9 @@ public:
 
 	/// Returns the pixel at the specified coordinates
 	Vector<double, 4> Pixel(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth
+		SizeType width,
+		SizeType height,
+		SizeType depth
 	) const
 	{
 		assert(_convert);
@@ -365,10 +366,10 @@ public:
 	}
 
 	std::size_t ComponentPos(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
-		GLsizei component
+		SizeType width,
+		SizeType height,
+		SizeType depth,
+		SizeType component
 	) const
 	{
 		std::size_t ppos = PixelPos(width, height, depth);
@@ -377,10 +378,10 @@ public:
 
 	/// Returns the component of the pixel at the specified coordinates
 	double Component(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
-		GLsizei component
+		SizeType width,
+		SizeType height,
+		SizeType depth,
+		SizeType component
 	) const
 	{
 		if(component >= Channels()) return 0.0;
@@ -396,10 +397,10 @@ public:
 	/// Returns the component of the pixel at the specified coordinates
 	template <typename T>
 	T ComponentAs(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
-		GLsizei component
+		SizeType width,
+		SizeType height,
+		SizeType depth,
+		SizeType component
 	) const
 	{
 		assert(_type_ok<T>());

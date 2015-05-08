@@ -151,7 +151,7 @@ public:
 
 	GLfloat QueryXOffsets(
 		const CodePoint* cps,
-		GLsizei size,
+		SizeType size,
 		std::vector<GLfloat>& x_offsets
 	)
 	{
@@ -263,10 +263,10 @@ public:
 		return *static_cast<const Layout*>(ptr);
 	}
 
-	GLsizei Capacity(void) const
+	SizeType Capacity(void) const
 	{
 		assert(_pimpl);
-		return _pimpl->Capacity();
+		return SizeType(_pimpl->Capacity(), std::nothrow);
 	}
 
 	GLfloat Width(void) const

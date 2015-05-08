@@ -17,7 +17,7 @@
 #include <oalplus/fwd.hpp>
 #include <oalplus/alfunc.hpp>
 #include <oalplus/math/vector.hpp>
-#include <oalplus/error/basic.hpp>
+#include <oalplus/error/al.hpp>
 
 namespace oalplus {
 

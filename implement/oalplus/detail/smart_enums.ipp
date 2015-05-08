@@ -9,6 +9,21 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //
+struct AlErrorOnEntry {
+template <typename Enum, Enum = Enum::AlErrorOnEntry> operator Enum (void) const{ return Enum::AlErrorOnEntry; }
+template <typename Enum> friend bool operator==(Enum value, AlErrorOnEntry){ return value == Enum::AlErrorOnEntry; }
+template <typename Enum> friend bool operator!=(Enum value, AlErrorOnEntry){ return value != Enum::AlErrorOnEntry; }
+};
+struct AlcErrorOnEntry {
+template <typename Enum, Enum = Enum::AlcErrorOnEntry> operator Enum (void) const{ return Enum::AlcErrorOnEntry; }
+template <typename Enum> friend bool operator==(Enum value, AlcErrorOnEntry){ return value == Enum::AlcErrorOnEntry; }
+template <typename Enum> friend bool operator!=(Enum value, AlcErrorOnEntry){ return value != Enum::AlcErrorOnEntry; }
+};
+struct CorruptOrTruncatedData {
+template <typename Enum, Enum = Enum::CorruptOrTruncatedData> operator Enum (void) const{ return Enum::CorruptOrTruncatedData; }
+template <typename Enum> friend bool operator==(Enum value, CorruptOrTruncatedData){ return value == Enum::CorruptOrTruncatedData; }
+template <typename Enum> friend bool operator!=(Enum value, CorruptOrTruncatedData){ return value != Enum::CorruptOrTruncatedData; }
+};
 struct ExponentDistance {
 template <typename Enum, Enum = Enum::ExponentDistance> constexpr operator Enum (void) const noexcept { return Enum::ExponentDistance; }
 template <typename Enum> friend constexpr bool operator==(Enum value, ExponentDistance) noexcept { return value == Enum::ExponentDistance; }
@@ -33,6 +48,36 @@ struct Initial {
 template <typename Enum, Enum = Enum::Initial> constexpr operator Enum (void) const noexcept { return Enum::Initial; }
 template <typename Enum> friend constexpr bool operator==(Enum value, Initial) noexcept { return value == Enum::Initial; }
 template <typename Enum> friend constexpr bool operator!=(Enum value, Initial) noexcept { return value != Enum::Initial; }
+};
+struct InvalidContext {
+template <typename Enum, Enum = Enum::InvalidContext> operator Enum (void) const{ return Enum::InvalidContext; }
+template <typename Enum> friend bool operator==(Enum value, InvalidContext){ return value == Enum::InvalidContext; }
+template <typename Enum> friend bool operator!=(Enum value, InvalidContext){ return value != Enum::InvalidContext; }
+};
+struct InvalidDevice {
+template <typename Enum, Enum = Enum::InvalidDevice> operator Enum (void) const{ return Enum::InvalidDevice; }
+template <typename Enum> friend bool operator==(Enum value, InvalidDevice){ return value == Enum::InvalidDevice; }
+template <typename Enum> friend bool operator!=(Enum value, InvalidDevice){ return value != Enum::InvalidDevice; }
+};
+struct InvalidEnum {
+template <typename Enum, Enum = Enum::InvalidEnum> operator Enum (void) const{ return Enum::InvalidEnum; }
+template <typename Enum> friend bool operator==(Enum value, InvalidEnum){ return value == Enum::InvalidEnum; }
+template <typename Enum> friend bool operator!=(Enum value, InvalidEnum){ return value != Enum::InvalidEnum; }
+};
+struct InvalidName {
+template <typename Enum, Enum = Enum::InvalidName> operator Enum (void) const{ return Enum::InvalidName; }
+template <typename Enum> friend bool operator==(Enum value, InvalidName){ return value == Enum::InvalidName; }
+template <typename Enum> friend bool operator!=(Enum value, InvalidName){ return value != Enum::InvalidName; }
+};
+struct InvalidOperation {
+template <typename Enum, Enum = Enum::InvalidOperation> operator Enum (void) const{ return Enum::InvalidOperation; }
+template <typename Enum> friend bool operator==(Enum value, InvalidOperation){ return value == Enum::InvalidOperation; }
+template <typename Enum> friend bool operator!=(Enum value, InvalidOperation){ return value != Enum::InvalidOperation; }
+};
+struct InvalidValue {
+template <typename Enum, Enum = Enum::InvalidValue> operator Enum (void) const{ return Enum::InvalidValue; }
+template <typename Enum> friend bool operator==(Enum value, InvalidValue){ return value == Enum::InvalidValue; }
+template <typename Enum> friend bool operator!=(Enum value, InvalidValue){ return value != Enum::InvalidValue; }
 };
 struct InverseDistance {
 template <typename Enum, Enum = Enum::InverseDistance> constexpr operator Enum (void) const noexcept { return Enum::InverseDistance; }
@@ -69,10 +114,25 @@ template <typename Enum, Enum = Enum::MonoSources> constexpr operator Enum (void
 template <typename Enum> friend constexpr bool operator==(Enum value, MonoSources) noexcept { return value == Enum::MonoSources; }
 template <typename Enum> friend constexpr bool operator!=(Enum value, MonoSources) noexcept { return value != Enum::MonoSources; }
 };
+struct NoCurrentContext {
+template <typename Enum, Enum = Enum::NoCurrentContext> operator Enum (void) const{ return Enum::NoCurrentContext; }
+template <typename Enum> friend bool operator==(Enum value, NoCurrentContext){ return value == Enum::NoCurrentContext; }
+template <typename Enum> friend bool operator!=(Enum value, NoCurrentContext){ return value != Enum::NoCurrentContext; }
+};
+struct NoError {
+template <typename Enum, Enum = Enum::NoError> operator Enum (void) const{ return Enum::NoError; }
+template <typename Enum> friend bool operator==(Enum value, NoError){ return value == Enum::NoError; }
+template <typename Enum> friend bool operator!=(Enum value, NoError){ return value != Enum::NoError; }
+};
 struct None {
 template <typename Enum, Enum = Enum::None> constexpr operator Enum (void) const noexcept { return Enum::None; }
 template <typename Enum> friend constexpr bool operator==(Enum value, None) noexcept { return value == Enum::None; }
 template <typename Enum> friend constexpr bool operator!=(Enum value, None) noexcept { return value != Enum::None; }
+};
+struct OutOfMemory {
+template <typename Enum, Enum = Enum::OutOfMemory> operator Enum (void) const{ return Enum::OutOfMemory; }
+template <typename Enum> friend bool operator==(Enum value, OutOfMemory){ return value == Enum::OutOfMemory; }
+template <typename Enum> friend bool operator!=(Enum value, OutOfMemory){ return value != Enum::OutOfMemory; }
 };
 struct Paused {
 template <typename Enum, Enum = Enum::Paused> constexpr operator Enum (void) const noexcept { return Enum::Paused; }
@@ -133,6 +193,16 @@ struct Undetermined {
 template <typename Enum, Enum = Enum::Undetermined> constexpr operator Enum (void) const noexcept { return Enum::Undetermined; }
 template <typename Enum> friend constexpr bool operator==(Enum value, Undetermined) noexcept { return value == Enum::Undetermined; }
 template <typename Enum> friend constexpr bool operator!=(Enum value, Undetermined) noexcept { return value != Enum::Undetermined; }
+};
+struct UnsupportedFileSubtype {
+template <typename Enum, Enum = Enum::UnsupportedFileSubtype> operator Enum (void) const{ return Enum::UnsupportedFileSubtype; }
+template <typename Enum> friend bool operator==(Enum value, UnsupportedFileSubtype){ return value == Enum::UnsupportedFileSubtype; }
+template <typename Enum> friend bool operator!=(Enum value, UnsupportedFileSubtype){ return value != Enum::UnsupportedFileSubtype; }
+};
+struct UnsupportedFileType {
+template <typename Enum, Enum = Enum::UnsupportedFileType> operator Enum (void) const{ return Enum::UnsupportedFileType; }
+template <typename Enum> friend bool operator==(Enum value, UnsupportedFileType){ return value == Enum::UnsupportedFileType; }
+template <typename Enum> friend bool operator!=(Enum value, UnsupportedFileType){ return value != Enum::UnsupportedFileType; }
 };
 struct Vendor {
 template <typename Enum, Enum = Enum::Vendor> constexpr operator Enum (void) const noexcept { return Enum::Vendor; }

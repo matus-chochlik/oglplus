@@ -1,4 +1,4 @@
-#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -19,14 +19,16 @@ set_property(CACHE OGLPLUS_FORCE_GL_INIT_LIB PROPERTY STRINGS ${OGLPLUS_GL_INIT_
 set(OGLPLUS_FORCE_GL_API_LIB "NONE" CACHE STRING "The GL API definition library to be used.")
 set_property(CACHE OGLPLUS_FORCE_GL_API_LIB PROPERTY STRINGS ${OGLPLUS_GL_API_LIBS})
 
-option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures" Off)
-option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs" Off)
-option(OGLPLUS_NO_DOCS "Don't build and install the documentation" Off)
+option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures." Off)
+option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs." Off)
+option(OGLPLUS_NO_DOCS "Don't build and install the documentation." Off)
 
-option(OGLPLUS_WITH_TESTS "Configure the testsuite" Off)
+option(OGLPLUS_NO_BOOST_CONFIG "Don't use the Boost.Config library for the detection of support for C++ features." Off)
+
+option(OGLPLUS_WITH_TESTS "Configure the testsuite." Off)
 
 # The low-profile setting
-option(OGLPLUS_CONFIG_SET_LOW_PROFILE "Set the OGLPLUS_LOW_PROFILE switch in site_config.hpp" Off)
+option(OGLPLUS_CONFIG_SET_LOW_PROFILE "Set the OGLPLUS_LOW_PROFILE switch in site_config.hpp." Off)
 
 if(OGLPLUS_CONFIG_SET_LOW_PROFILE)
 	set(OGLPLUS_CONFIG_SET_LOW_PROFILE 1)
@@ -162,11 +164,6 @@ configure_file(
 	${PROJECT_BINARY_DIR}/include/oglplus/config/site.hpp
 )
 
-install(
-	FILES ${PROJECT_BINARY_DIR}/include/oglplus/config/site.hpp
-	DESTINATION include/oglplus/config
-)
-
 configure_file(
 	${PROJECT_SOURCE_DIR}/eagine/config/eagine/site_config.hpp.in
 	${PROJECT_BINARY_DIR}/eagine/include/eagine/site_config.hpp
@@ -196,6 +193,17 @@ include(config/GLVerExt.cmake)
 include(config/GLVer.cmake)
 # GL extension detection
 include(config/GLExt.cmake)
+
+# re-create the site-configuration header
+configure_file(
+	${PROJECT_SOURCE_DIR}/config/oglplus/config/site.hpp.in
+	${PROJECT_BINARY_DIR}/include/oglplus/config/site.hpp
+)
+
+install(
+	FILES ${PROJECT_BINARY_DIR}/include/oglplus/config/site.hpp
+	DESTINATION include/oglplus/config
+)
 
 include(config/OGLplusLib.cmake)
 

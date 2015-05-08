@@ -1860,9 +1860,9 @@ template <typename Enum> friend constexpr bool operator==(Enum value, LowInt) no
 template <typename Enum> friend constexpr bool operator!=(Enum value, LowInt) noexcept { return value != Enum::LowInt; }
 };
 struct LowerLeft {
-template <typename Enum, Enum = Enum::LowerLeft> operator Enum (void) const{ return Enum::LowerLeft; }
-template <typename Enum> friend bool operator==(Enum value, LowerLeft){ return value == Enum::LowerLeft; }
-template <typename Enum> friend bool operator!=(Enum value, LowerLeft){ return value != Enum::LowerLeft; }
+template <typename Enum, Enum = Enum::LowerLeft> constexpr operator Enum (void) const noexcept { return Enum::LowerLeft; }
+template <typename Enum> friend constexpr bool operator==(Enum value, LowerLeft) noexcept { return value == Enum::LowerLeft; }
+template <typename Enum> friend constexpr bool operator!=(Enum value, LowerLeft) noexcept { return value != Enum::LowerLeft; }
 };
 struct Luminance {
 template <typename Enum, Enum = Enum::Luminance> constexpr operator Enum (void) const noexcept { return Enum::Luminance; }
@@ -2545,9 +2545,9 @@ template <typename Enum> friend constexpr bool operator==(Enum value, NearestMip
 template <typename Enum> friend constexpr bool operator!=(Enum value, NearestMipmapNearest) noexcept { return value != Enum::NearestMipmapNearest; }
 };
 struct NegativeOneToOne {
-template <typename Enum, Enum = Enum::NegativeOneToOne> operator Enum (void) const{ return Enum::NegativeOneToOne; }
-template <typename Enum> friend bool operator==(Enum value, NegativeOneToOne){ return value == Enum::NegativeOneToOne; }
-template <typename Enum> friend bool operator!=(Enum value, NegativeOneToOne){ return value != Enum::NegativeOneToOne; }
+template <typename Enum, Enum = Enum::NegativeOneToOne> constexpr operator Enum (void) const noexcept { return Enum::NegativeOneToOne; }
+template <typename Enum> friend constexpr bool operator==(Enum value, NegativeOneToOne) noexcept { return value == Enum::NegativeOneToOne; }
+template <typename Enum> friend constexpr bool operator!=(Enum value, NegativeOneToOne) noexcept { return value != Enum::NegativeOneToOne; }
 };
 struct Never {
 template <typename Enum, Enum = Enum::Never> constexpr operator Enum (void) const noexcept { return Enum::Never; }
@@ -4435,9 +4435,9 @@ template <typename Enum> friend constexpr bool operator==(Enum value, Unsynchron
 template <typename Enum> friend constexpr bool operator!=(Enum value, Unsynchronized) noexcept { return value != Enum::Unsynchronized; }
 };
 struct UpperLeft {
-template <typename Enum, Enum = Enum::UpperLeft> operator Enum (void) const{ return Enum::UpperLeft; }
-template <typename Enum> friend bool operator==(Enum value, UpperLeft){ return value == Enum::UpperLeft; }
-template <typename Enum> friend bool operator!=(Enum value, UpperLeft){ return value != Enum::UpperLeft; }
+template <typename Enum, Enum = Enum::UpperLeft> constexpr operator Enum (void) const noexcept { return Enum::UpperLeft; }
+template <typename Enum> friend constexpr bool operator==(Enum value, UpperLeft) noexcept { return value == Enum::UpperLeft; }
+template <typename Enum> friend constexpr bool operator!=(Enum value, UpperLeft) noexcept { return value != Enum::UpperLeft; }
 };
 struct Use {
 template <typename Enum, Enum = Enum::Use> constexpr operator Enum (void) const noexcept { return Enum::Use; }
@@ -4535,9 +4535,9 @@ template <typename Enum> friend constexpr bool operator==(Enum value, Zero) noex
 template <typename Enum> friend constexpr bool operator!=(Enum value, Zero) noexcept { return value != Enum::Zero; }
 };
 struct ZeroToOne {
-template <typename Enum, Enum = Enum::ZeroToOne> operator Enum (void) const{ return Enum::ZeroToOne; }
-template <typename Enum> friend bool operator==(Enum value, ZeroToOne){ return value == Enum::ZeroToOne; }
-template <typename Enum> friend bool operator!=(Enum value, ZeroToOne){ return value != Enum::ZeroToOne; }
+template <typename Enum, Enum = Enum::ZeroToOne> constexpr operator Enum (void) const noexcept { return Enum::ZeroToOne; }
+template <typename Enum> friend constexpr bool operator==(Enum value, ZeroToOne) noexcept { return value == Enum::ZeroToOne; }
+template <typename Enum> friend constexpr bool operator!=(Enum value, ZeroToOne) noexcept { return value != Enum::ZeroToOne; }
 };
 struct _0 {
 template <typename Enum, Enum = Enum::_0> constexpr operator Enum (void) const noexcept { return Enum::_0; }

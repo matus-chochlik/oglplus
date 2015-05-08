@@ -110,7 +110,7 @@ OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>&
 ObjectOps<tag::DirectState, tag::Program>::
 BuildInclude(
-	GLsizei count,
+	SizeType count,
 	const GLchar* const* paths,
 	const GLint* lengths
 )
@@ -171,7 +171,7 @@ GetInfoLog(void) const
 OGLPLUS_LIB_FUNC
 void ObjectOps<tag::DirectState, tag::Program>::
 TransformFeedbackVaryings(
-	GLsizei count,
+	SizeType count,
 	const GLchar** varyings,
 	TransformFeedbackMode mode
 )

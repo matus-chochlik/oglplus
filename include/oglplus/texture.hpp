@@ -15,7 +15,7 @@
 
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/size.hpp>
+#include <oglplus/size_type.hpp>
 #include <oglplus/boolean.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/math/vector.hpp>
@@ -1919,7 +1919,7 @@ public:
 		PixelDataInternalFormat internal_format,
 		BufferName buffer,
 		GLintptr offset,
-		GLsizeiptr size
+		BigSizeType size
 	)
 	{
 		OGLPLUS_GLFUNC(TexBufferRange)(

@@ -239,7 +239,7 @@ private:
 			GLuint _lo;
 			GLuint _hi;
 		} _qw;
-	};
+	} _un;
 
 	PerfMonitorAMDResult(
 		PerfMonitorAMDCounter counter,
@@ -247,8 +247,8 @@ private:
 		GLuint hi
 	): _counter(counter)
 	{
-		_qw._lo = lo;
-		_qw._hi = hi;
+		_un._qw._lo = lo;
+		_un._qw._hi = hi;
 	}
 
 	friend class ObjectOps<tag::DirectState, tag::PerfMonitorAMD>;
@@ -262,19 +262,19 @@ public:
 	/// Returns the low dword of the result
 	GLuint Low(void) const
 	{
-		return _qw._lo;
+		return _un._qw._lo;
 	}
 
 	/// Returns the high dword of the result
 	GLuint High(void) const
 	{
-		return _qw._lo;
+		return _un._qw._lo;
 	}
 
 	/// Returns the floating-point value of the result
 	GLfloat Float(void) const
 	{
-		return _fl;
+		return _un._fl;
 	}
 };
 

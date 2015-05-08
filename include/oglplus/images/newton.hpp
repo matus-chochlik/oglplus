@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -203,8 +203,8 @@ public:
 		typename Mixer = DefaultMixer
 	>
 	NewtonFractal(
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		Vec3f c1,
 		Vec3f c2,
 		Vec2f lb = Vec2f(-1.0f, -1.0f),
@@ -230,8 +230,8 @@ public:
 		typename Mixer = DefaultMixer
 	>
 	NewtonFractal(
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		Function func = Function(),
 		Mixer mixer = Mixer()
 	): Image(width, height, 1, 1, (GLfloat*)0)
@@ -247,8 +247,8 @@ public:
 #else
 	template <typename Function, typename Mixer>
 	NewtonFractal(
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		Vec3f c1,
 		Vec3f c2,
 		Vec2f lb,
@@ -262,8 +262,8 @@ public:
 
 	template <typename Function, typename Mixer>
 	NewtonFractal(
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		Function func,
 		Mixer mixer
 	): Image(width, height, 1, 1, (GLfloat*)0)

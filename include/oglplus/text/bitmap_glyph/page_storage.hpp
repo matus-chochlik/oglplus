@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -30,8 +30,6 @@ namespace text {
 class BitmapGlyphPageStorage
 {
 private:
-	BitmapGlyphRenderingBase& _parent;
-
 	TextureUnitSelector _bitmap_tex_unit;
 	TextureUnitSelector _metric_tex_unit;
 
@@ -53,7 +51,7 @@ public:
 		TextureUnitSelector bitmap_tex_unit,
 		TextureUnitSelector metric_tex_unit,
 		const GLint init_frame,
-		const GLsizei frames,
+		const SizeType frames,
 		const oglplus::images::Image& image,
 		const std::vector<GLfloat>& metrics
 	);

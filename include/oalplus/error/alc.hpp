@@ -14,6 +14,7 @@
 #define OALPLUS_ERROR_ALC_1107121317_HPP
 
 #include <oalplus/error/basic.hpp>
+#include <oalplus/enums/alc_error_code.hpp>
 
 namespace oalplus {
 
@@ -34,8 +35,14 @@ public:
 	{ }
 
 	~ErrorALC(void)
-	OGLPLUS_NOTHROW
+	noexcept
 	{ }
+
+	ALCErrorCode Code(void) const
+	noexcept
+	{
+		return ALCErrorCode(_code);
+	}
 
 	ErrorALC& Device(const ::ALCdevice* device)
 	{

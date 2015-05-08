@@ -5,7 +5,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -67,7 +67,7 @@ public:
 	/** Wrapper for Buffer::Mapped()
 	 *  @see Buffer::Mapped()
 	 */
-	bool Mapped(void) const
+	Boolean Mapped(void) const
 	{
 		return ExplicitOps::Mapped(
 			this->target
@@ -133,7 +133,7 @@ public:
 	 */
 	template <typename GLtype>
 	const BoundObjOps& Data(
-		GLsizei count,
+		SizeType count,
 		const GLtype * data,
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
@@ -171,7 +171,7 @@ public:
 	template <typename GLtype>
 	const BoundObjOps& SubData(
 		BufferSize offset,
-		GLsizei count,
+		SizeType count,
 		const GLtype * data
 	) const
 	{
@@ -275,7 +275,7 @@ public:
 	/** Wrapper for Buffer::ImmutableStorage()
 	 *  @see Buffer::ImmutableStorage()
 	 */
-	bool ImmutableStorage(void) const
+	Boolean ImmutableStorage(void) const
 	{
 		return ExplicitOps::ImmutableStorage(
 			this->target
@@ -296,7 +296,7 @@ public:
 	}
 #endif // GL_VERSION_4_4 GL_ARB_buffer_storage
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_ARB_sparse_buffer
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_sparse_buffer
 
 	/** Wrapper for Buffer::PageCommitment()
 	 *  @see Buffer::PageCommitment()
@@ -304,7 +304,7 @@ public:
 	const BoundObjOps& PageCommitment(
 		BufferSize offset,
 		BufferSize size,
-		bool commit
+		Boolean commit
 	) const
 	{
 		ExplicitOps::PageCommitment(
@@ -315,13 +315,13 @@ public:
 		);
 		return *this;
 	}
-#endif // GL_VERSION_ARB_sparse_buffer
+#endif // GL_ARB_sparse_buffer
 
 
 	/** Wrapper for Buffer::Size()
 	 *  @see Buffer::Size()
 	 */
-	GLsizei Size(void) const
+	SizeType Size(void) const
 	{
 		return ExplicitOps::Size(
 			this->target

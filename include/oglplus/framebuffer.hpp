@@ -572,7 +572,7 @@ public:
 	 */
 	static void Invalidate(
 		Target target,
-		GLsizei count,
+		SizeType count,
 		const Property::Buffer* buffers
 	)
 	{
@@ -596,8 +596,8 @@ public:
 		const EnumArray<Property::Buffer>& buffers,
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height
+		SizeType width,
+		SizeType height
 	)
 	{
 		OGLPLUS_GLFUNC(InvalidateSubFramebuffer)(
@@ -624,12 +624,12 @@ public:
 	 */
 	static void Invalidate(
 		Target target,
-		GLsizei count,
+		SizeType count,
 		const Property::Buffer* buffers,
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height
+		SizeType width,
+		SizeType height
 	)
 	{
 		Invalidate(

@@ -19,6 +19,7 @@
 #include <oglplus/error/object.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/data_type.hpp>
+#include <oglplus/size_type.hpp>
 
 #include <oglplus/ext/NV_path_rendering/command.hpp>
 #include <oglplus/ext/NV_path_rendering/format.hpp>
@@ -99,9 +100,9 @@ public:
 	 */
 	template <typename CoordType>
 	ObjectOps& Commands(
-		GLsizei num_commands,
+		SizeType num_commands,
 		const PathNVCommand* commands,
-		GLsizei num_coords,
+		SizeType num_coords,
 		const CoordType* coords
 	)
 	{
@@ -167,7 +168,7 @@ public:
 	 *  @glfunref{PathCoordsNV}
 	 */
 	template <typename CoordType>
-	ObjectOps& Coords(GLsizei num_coords, const CoordType* coords)
+	ObjectOps& Coords(SizeType num_coords, const CoordType* coords)
 	{
 		OGLPLUS_GLFUNC(PathCoordsNV)(
 			_obj_name(),
@@ -212,11 +213,11 @@ public:
 	 */
 	template <typename CoordType>
 	ObjectOps& SubCommands(
-		GLsizei command_start,
-		GLsizei commands_to_delete,
-		GLsizei num_commands,
+		SizeType command_start,
+		SizeType commands_to_delete,
+		SizeType num_commands,
 		const PathNVCommand* commands,
-		GLsizei num_coords,
+		SizeType num_coords,
 		const CoordType* coords
 	)
 	{
@@ -245,8 +246,8 @@ public:
 	 */
 	template <typename CoordType>
 	ObjectOps& SubCommands(
-		GLsizei command_start,
-		GLsizei commands_to_delete,
+		SizeType command_start,
+		SizeType commands_to_delete,
 		const std::vector<PathNVCommand>& commands,
 		const std::vector<CoordType>& coords
 	)
@@ -276,8 +277,8 @@ public:
 	 */
 	template <typename CoordType>
 	ObjectOps& SubSpec(
-		GLsizei command_start,
-		GLsizei commands_to_delete,
+		SizeType command_start,
+		SizeType commands_to_delete,
 		const PathNVSpec<CoordType>& spec
 	)
 	{
@@ -296,8 +297,8 @@ public:
 	 */
 	template <typename CoordType>
 	ObjectOps& SubCoords(
-		GLsizei coord_start,
-		GLsizei num_coords,
+		SizeType coord_start,
+		SizeType num_coords,
 		const CoordType* coords
 	)
 	{
@@ -323,7 +324,7 @@ public:
 	 */
 	template <typename CoordType>
 	ObjectOps& SubCoords(
-		GLsizei coord_start,
+		SizeType coord_start,
 		const std::vector<CoordType>& coords
 	)
 	{
@@ -350,7 +351,7 @@ public:
 	 */
 	ObjectOps& PathString(
 		PathNVFormat format,
-		GLsizei length,
+		SizeType length,
 		const GLchar* path_string
 	)
 	{
@@ -395,7 +396,7 @@ public:
 	 *  @glfunref{PathStringNV}
 	 *  @gldefref{PATH_FORMAT_SVG_NV}
 	 */
-	ObjectOps& SVGString(GLsizei length, const GLchar* path_string)
+	ObjectOps& SVGString(SizeType length, const GLchar* path_string)
 	{
 		PathString(PathNVFormat::SVG, length, path_string);
 		return *this;
@@ -419,7 +420,7 @@ public:
 	 *  @glfunref{PathStringNV}
 	 *  @gldefref{PATH_FORMAT_PS_NV}
 	 */
-	ObjectOps& PSString(GLsizei length, const GLchar* path_string)
+	ObjectOps& PSString(SizeType length, const GLchar* path_string)
 	{
 		PathString(PathNVFormat::PS, length, path_string);
 		return *this;
@@ -485,7 +486,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetPathLengthNV}
 	 */
-	GLfloat GetLength(GLsizei start_segment, GLsizei num_segments) const
+	GLfloat GetLength(SizeType start_segment, SizeType num_segments) const
 	{
 		GLfloat result = OGLPLUS_GLFUNC(GetPathLengthNV)(
 			_obj_name(),
@@ -506,8 +507,8 @@ public:
 	 *  @glfunref{PointAlongPathNV}
 	 */
 	Boolean PointAlong(
-		GLsizei start_segment,
-		GLsizei num_segments,
+		SizeType start_segment,
+		SizeType num_segments,
 		GLfloat distance,
 		GLfloat& ref_x,
 		GLfloat& ref_y,
@@ -795,7 +796,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PathDashArrayNV}
 	 */
-	ObjectOps& DashArray(GLsizei dash_count, const GLfloat* dash_array)
+	ObjectOps& DashArray(SizeType dash_count, const GLfloat* dash_array)
 	{
 		OGLPLUS_GLFUNC(PathDashArrayNV)(
 			_obj_name(),

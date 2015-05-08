@@ -67,21 +67,31 @@ public:
 	Error(const char* message);
 
 	~Error(void)
-	OGLPLUS_NOTHROW
+	noexcept
 	{ }
 
-	Error& NoInfo(void) { return *this; }
+	Error& NoInfo(void)
+	noexcept
+	{
+		return *this;
+	}
 
 	Error& Code(EGLenum code)
+	noexcept
 	{
 		_code = code;
 		return *this;
 	}
 
 	/// Returns the EGL error code related to the error
-	EGLenum Code(void) const { return _code; }
+	EGLenum Code(void) const
+	noexcept
+	{
+		return _code;
+	}
 
 	Error& SourceFile(const char* file)
+	noexcept
 	{
 #if !EGLPLUS_ERROR_NO_FILE
 		_file = file;
@@ -100,6 +110,7 @@ public:
 	const char* SourceFile(void) const;
 
 	Error& SourceFunc(const char* func)
+	noexcept
 	{
 #if !EGLPLUS_ERROR_NO_FUNC
 		_func = func;
@@ -118,6 +129,7 @@ public:
 	const char* SourceFunc(void) const;
 
 	Error& SourceLine(unsigned line)
+	noexcept
 	{
 #if !EGLPLUS_ERROR_NO_LINE
 		_line = line;
@@ -136,6 +148,7 @@ public:
 	unsigned SourceLine(void) const;
 
 	Error& EGLFunc(const char* func_name)
+	noexcept
 	{
 #if !EGLPLUS_ERROR_NO_EGL_FUNC
 		_eglfunc_name = func_name;

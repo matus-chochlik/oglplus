@@ -62,7 +62,7 @@ private:
 
 	template <typename R, typename X>
 	static inline
-	typename std::enable_if<!std::is_signed<X>(), R>::type
+	typename std::enable_if<!std::is_signed<X>::value, R>::type
 	_chkin1(X v)
 	{
 		return _chkin2<R>(v);
@@ -111,8 +111,12 @@ public:
 	{ }
 
 	template <typename X>
-	SizeImpl(X v)
-	 : _v(_checkin(v))
+	SizeImpl(
+		X v,
+		typename std::enable_if<
+			std::is_integral<X>::value
+		>::type* = nullptr
+	): _v(_checkin(v))
 	{ }
 
 	SizeImpl(T v, std::nothrow_t)
@@ -121,8 +125,13 @@ public:
 	{ }
 
 	template <typename X>
-	SizeImpl(X v, std::nothrow_t)
-	noexcept
+	SizeImpl(
+		X v,
+		std::nothrow_t,
+		typename std::enable_if<
+			std::is_integral<X>::value
+		>::type* = nullptr
+	) noexcept
 	 : _v(_conv_in(v))
 	{ }
 
@@ -157,6 +166,192 @@ public:
 	noexcept
 	{
 		return _chkin1<X>(_v);
+	}
+
+	friend bool operator == (SizeImpl s1, SizeImpl s2)
+	noexcept
+	{
+		return s1._v == s2._v;
+	}
+
+	friend bool operator == (T v, SizeImpl s)
+	noexcept
+	{
+		return v == s._v;
+	}
+
+	friend bool operator == (SizeImpl s, T v)
+	noexcept
+	{
+		return s._v == v;
+	}
+
+
+	friend bool operator != (SizeImpl s1, SizeImpl s2)
+	noexcept
+	{
+		return s1._v != s2._v;
+	}
+
+	friend bool operator != (T v, SizeImpl s)
+	noexcept
+	{
+		return v != s._v;
+	}
+
+	friend bool operator != (SizeImpl s, T v)
+	noexcept
+	{
+		return s._v != v;
+	}
+
+
+	friend bool operator <  (SizeImpl s1, SizeImpl s2)
+	noexcept
+	{
+		return s1._v <  s2._v;
+	}
+
+	friend bool operator <  (T v, SizeImpl s)
+	noexcept
+	{
+		return v <  s._v;
+	}
+
+	friend bool operator <  (SizeImpl s, T v)
+	noexcept
+	{
+		return s._v <  v;
+	}
+
+
+	friend bool operator <= (SizeImpl s1, SizeImpl s2)
+	noexcept
+	{
+		return s1._v <= s2._v;
+	}
+
+	friend bool operator <= (T v, SizeImpl s)
+	noexcept
+	{
+		return v <= s._v;
+	}
+
+	friend bool operator <= (SizeImpl s, T v)
+	noexcept
+	{
+		return s._v <= v;
+	}
+
+
+	friend bool operator >  (SizeImpl s1, SizeImpl s2)
+	noexcept
+	{
+		return s1._v >  s2._v;
+	}
+
+	friend bool operator >  (T v, SizeImpl s)
+	noexcept
+	{
+		return v >  s._v;
+	}
+
+	friend bool operator >  (SizeImpl s, T v)
+	noexcept
+	{
+		return s._v >  v;
+	}
+
+
+	friend bool operator >= (SizeImpl s1, SizeImpl s2)
+	noexcept
+	{
+		return s1._v >= s2._v;
+	}
+
+	friend bool operator >= (T v, SizeImpl s)
+	noexcept
+	{
+		return v >= s._v;
+	}
+
+	friend bool operator >= (SizeImpl s, T v)
+	noexcept
+	{
+		return s._v >= v;
+	}
+
+
+	friend T operator + (SizeImpl s1, SizeImpl s2)
+	noexcept
+	{
+		return s1._v + s2._v;
+	}
+
+	friend T operator + (SizeImpl s, T v)
+	noexcept
+	{
+		return s._v + v;
+	}
+
+	friend T operator + (T v, SizeImpl s)
+	noexcept
+	{
+		return v + s._v;
+	}
+
+	friend T operator * (SizeImpl s1, SizeImpl s2)
+	noexcept
+	{
+		return s1._v * s2._v;
+	}
+
+	friend T operator * (SizeImpl s, T v)
+	noexcept
+	{
+		return s._v * v;
+	}
+
+	friend T operator * (T v, SizeImpl s)
+	noexcept
+	{
+		return v * s._v;
+	}
+
+	friend T operator / (SizeImpl s1, SizeImpl s2)
+	noexcept
+	{
+		return s1._v / s2._v;
+	}
+
+	friend T operator / (SizeImpl s, T v)
+	noexcept
+	{
+		return s._v / v;
+	}
+
+	friend T operator / (T v, SizeImpl s)
+	noexcept
+	{
+		return v / s._v;
+	}
+
+	friend T operator % (SizeImpl s1, SizeImpl s2)
+	noexcept
+	{
+		return s1._v % s2._v;
+	}
+
+	friend T operator % (SizeImpl s, T v)
+	noexcept
+	{
+		return s._v % v;
+	}
+
+	friend T operator % (T v, SizeImpl s)
+	noexcept
+	{
+		return v % s._v;
 	}
 };
 

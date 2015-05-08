@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -108,7 +108,7 @@ public:
 		// load the font pages referenced by the layout
 		layout._font._essence->LoadPages(
 			layout._pages.data(),
-			GLsizei(layout._pages.size())
+			layout._pages.size()
 		);
 
 		// set the Layout Width uniform value if necessary

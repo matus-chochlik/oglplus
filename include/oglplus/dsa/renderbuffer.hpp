@@ -54,8 +54,8 @@ public:
 	 */
 	void Storage(
 		PixelDataInternalFormat internalformat,
-		GLsizei width,
-		GLsizei height
+		SizeType width,
+		SizeType height
 	)
 	{
 		OGLPLUS_GLFUNC(NamedRenderbufferStorage)(
@@ -85,10 +85,10 @@ public:
 	 *  @glfunref{RenderbufferStorageMultisample}
 	 */
 	void StorageMultisample(
-		GLsizei samples,
+		SizeType samples,
 		PixelDataInternalFormat internalformat,
-		GLsizei width,
-		GLsizei height
+		SizeType width,
+		SizeType height
 	)
 	{
 		OGLPLUS_GLFUNC(NamedRenderbufferStorageMultisample)(
@@ -115,9 +115,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_WIDTH}
 	 */
-	GLsizei Width(void) const
+	SizeType Width(void) const
 	{
-		return GLsizei(GetIntParam(GL_RENDERBUFFER_WIDTH));
+		return SizeType(
+			GetIntParam(GL_RENDERBUFFER_WIDTH),
+			std::nothrow
+		);
 	}
 
 	/// Returns the height of the renderbuffer as it was specified by Storage*
@@ -128,9 +131,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_HEIGHT}
 	 */
-	GLsizei Height(void) const
+	SizeType Height(void) const
 	{
-		return GLsizei(GetIntParam(GL_RENDERBUFFER_HEIGHT));
+		return SizeType(
+			GetIntParam(GL_RENDERBUFFER_HEIGHT),
+			std::nothrow
+		);
 	}
 
 	/// Returns the size in bits of the renderbuffer's red component
@@ -143,9 +149,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_RED_SIZE}
 	 */
-	GLsizei RedSize(void) const
+	SizeType RedSize(void) const
 	{
-		return GLsizei(GetIntParam(GL_RENDERBUFFER_RED_SIZE));
+		return SizeType(
+			GetIntParam(GL_RENDERBUFFER_RED_SIZE),
+			std::nothrow
+		);
 	}
 
 	/// Returns the size in bits of the renderbuffer's green component
@@ -160,9 +169,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_GREEN_SIZE}
 	 */
-	GLsizei GreenSize(void) const
+	SizeType GreenSize(void) const
 	{
-		return GLsizei(GetIntParam(GL_RENDERBUFFER_GREEN_SIZE));
+		return SizeType(
+			GetIntParam(GL_RENDERBUFFER_GREEN_SIZE),
+			std::nothrow
+		);
 	}
 
 	/// Returns the size in bits of the renderbuffer's blue component
@@ -177,9 +189,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_BLUE_SIZE}
 	 */
-	GLsizei BlueSize(void) const
+	SizeType BlueSize(void) const
 	{
-		return GLsizei(GetIntParam(GL_RENDERBUFFER_BLUE_SIZE));
+		return SizeType(
+			GetIntParam(GL_RENDERBUFFER_BLUE_SIZE),
+			std::nothrow
+		);
 	}
 
 	/// Returns the size in bits of the renderbuffer's alpha component
@@ -194,9 +209,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_ALPHA_SIZE}
 	 */
-	GLsizei AlphaSize(void) const
+	SizeType AlphaSize(void) const
 	{
-		return GLsizei(GetIntParam(GL_RENDERBUFFER_ALPHA_SIZE));
+		return SizeType(
+			GetIntParam(GL_RENDERBUFFER_ALPHA_SIZE),
+			std::nothrow
+		);
 	}
 
 	/// Returns the size in bits of the renderbuffer's depth component
@@ -211,9 +229,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_DEPTH_SIZE}
 	 */
-	GLsizei DepthSize(void) const
+	SizeType DepthSize(void) const
 	{
-		return GLsizei(GetIntParam(GL_RENDERBUFFER_DEPTH_SIZE));
+		return SizeType(
+			GetIntParam(GL_RENDERBUFFER_DEPTH_SIZE),
+			std::nothrow
+		);
 	}
 
 	/// Returns the size in bits of the renderbuffer's stencil component
@@ -228,9 +249,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_STENCIL_SIZE}
 	 */
-	GLsizei StencilSize(void) const
+	SizeType StencilSize(void) const
 	{
-		return GLsizei(GetIntParam(GL_RENDERBUFFER_STENCIL_SIZE));
+		return SizeType(
+			GetIntParam(GL_RENDERBUFFER_STENCIL_SIZE),
+			std::nothrow
+		);
 	}
 
 	/// Returns the number of samples of the renderbuffer
@@ -239,9 +263,12 @@ public:
 	 *  @glfunref{GetRenderbufferParameter}
 	 *  @gldefref{RENDERBUFFER_SAMPLES}
 	 */
-	GLsizei Samples(void) const
+	SizeType Samples(void) const
 	{
-		return GLsizei(GetIntParam(GL_RENDERBUFFER_SAMPLES));
+		return SizeType(
+			GetIntParam(GL_RENDERBUFFER_SAMPLES),
+			std::nothrow
+		);
 	}
 
 	/// Returns the internal format of the renderbuffer

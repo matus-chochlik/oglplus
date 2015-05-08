@@ -41,9 +41,9 @@ struct ImageSpecData
 	const void* data_ptr;
 
 	ImageSpecData(
-		GLsizei w,
-		GLsizei h,
-		GLsizei d,
+		SizeType w,
+		SizeType h,
+		SizeType d,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		PixDataType type,
@@ -82,22 +82,22 @@ struct ImageSpec
 	{ }
 
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
+		SizeType w,
+		SizeType h,
 		PixelDataInternalFormat ifmt
 	): _base(w, h, 1, _conv(ifmt), ifmt, PixelDataType(), nullptr)
 	{ }
 
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
+		SizeType w,
+		SizeType h,
 		PixelDataFormat fmt,
 		PixDataType type
 	): _base(w, h, 1, fmt, _conv(fmt), type, nullptr)
 	{ }
 
 	ImageSpec(
-		GLsizei w,
+		SizeType w,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		PixDataType type
@@ -105,8 +105,8 @@ struct ImageSpec
 	{ }
 
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
+		SizeType w,
+		SizeType h,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		PixDataType type
@@ -114,9 +114,9 @@ struct ImageSpec
 	{ }
 
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
-		GLsizei d,
+		SizeType w,
+		SizeType h,
+		SizeType d,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		PixDataType type
@@ -125,8 +125,8 @@ struct ImageSpec
 
 	template <typename T>
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
+		SizeType w,
+		SizeType h,
 		PixelDataFormat fmt,
 		const T* data,
 		typename std::enable_if<
@@ -138,7 +138,7 @@ struct ImageSpec
 
 	template <typename T>
 	ImageSpec(
-		GLsizei w,
+		SizeType w,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		const T* data,
@@ -152,8 +152,8 @@ struct ImageSpec
 
 	template <typename T>
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
+		SizeType w,
+		SizeType h,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		const T* data,
@@ -167,9 +167,9 @@ struct ImageSpec
 
 	template <typename T>
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
-		GLsizei d,
+		SizeType w,
+		SizeType h,
+		SizeType d,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
 		const T* data,
@@ -199,7 +199,7 @@ struct ImageSpec
 		return *this;
 	}
 
-	ImageSpec& NextDim(GLsizei dim)
+	ImageSpec& NextDim(SizeType dim)
 	{
 		assert(dim > 0);
 		if(width <= 1)
@@ -219,12 +219,12 @@ struct ImageSpec
 	}
 };
 
-inline ImageSpec& operator << (ImageSpec& that, GLsizei dim)
+inline ImageSpec& operator << (ImageSpec& that, SizeType dim)
 {
 	return that.NextDim(dim);
 }
 
-inline ImageSpec&& operator << (ImageSpec&& that, GLsizei dim)
+inline ImageSpec&& operator << (ImageSpec&& that, SizeType dim)
 {
 	return std::move(that.NextDim(dim));
 }

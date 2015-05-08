@@ -99,8 +99,6 @@ private:
 		return nml_data;
 	}
 	CubicBezierLoop<Vec3f, double> path_nml;
-
-	GLuint count;
 public:
 	Path(void)
 	 : path_pos(make_positions(), 0.25)

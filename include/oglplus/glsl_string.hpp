@@ -16,7 +16,7 @@
 #include <oglplus/config/compiler.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/string/def.hpp>
-#include <oglplus/size.hpp>
+#include <oglplus/size_type.hpp>
 
 #include <cassert>
 #include <utility>

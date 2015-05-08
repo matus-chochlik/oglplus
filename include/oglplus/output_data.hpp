@@ -15,6 +15,7 @@
 
 #include <oglplus/buffer_size.hpp>
 #include <oglplus/data_type.hpp>
+#include <oglplus/size_type.hpp>
 
 namespace oglplus {
 
@@ -53,7 +54,7 @@ public:
 
 	/// Construction from @p count of instances of type @c T at @p addr
 	template <typename T>
-	OutputData(GLsizei count, T* addr)
+	OutputData(SizeType count, T* addr)
 	 : _type(GetDataType<T>())
 	 , _size(unsigned(count), addr)
 	 , _addr(addr)
@@ -88,9 +89,9 @@ public:
 		return _type;
 	}
 
-	GLsizeiptr Size(void) const
+	BigSizeType Size(void) const
 	{
-		return _size.Get();
+		return _size;
 	}
 
 	GLvoid* Addr(void) const

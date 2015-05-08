@@ -128,9 +128,9 @@ void Cloud::_make_spheres(Vec3f center, GLfloat radius)
 
 OGLPLUS_LIB_FUNC
 Cloud::Cloud(
-	GLsizei width,
-	GLsizei height,
-	GLsizei depth,
+	SizeType width,
+	SizeType height,
+	SizeType depth,
 	const Vec3f& origin,
 	GLfloat init_radius,
 	GLfloat sub_scale,

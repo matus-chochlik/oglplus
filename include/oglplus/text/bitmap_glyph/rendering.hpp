@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -95,7 +95,7 @@ protected:
 		BitmapGlyphLayoutData& layout_data,
 		BitmapFont& font,
 		const CodePoint* cps,
-		GLsizei length
+		SizeType length
 	);
 
 	friend void BitmapGlyphDeallocateLayoutData(
@@ -195,7 +195,7 @@ inline void BitmapGlyphInitializeLayoutData(
 	BitmapGlyphLayoutData& layout_data,
 	BitmapFont& font,
 	const CodePoint* cps,
-	GLsizei length
+	SizeType length
 )
 {
 	OGLPLUS_FAKE_USE(that);
@@ -250,7 +250,7 @@ public:
 		TextureUnitSelector bitmap_tex_unit,
 		TextureUnitSelector metric_tex_unit,
 		TextureUnitSelector pg_map_tex_unit,
-		GLsizei frames,
+		SizeType frames,
 		GLint page,
 		GLuint pixel_height
 	)
@@ -282,7 +282,7 @@ public:
 
 	typedef BitmapGlyphLayoutTpl<BitmapFont> Layout;
 
-	Layout MakeLayout(const Font& font, GLsizei max_len)
+	Layout MakeLayout(const Font& font, SizeType max_len)
 	{
 		return Layout(*this, font, max_len);
 	}
@@ -292,7 +292,7 @@ public:
 		CodePoints cps;
 		UTF8ToCodePoints(str.data(), str.size(), cps);
 
-		Layout layout(MakeLayout(font, GLsizei(cps.size())));
+		Layout layout(MakeLayout(font, cps.size()));
 		layout.Set(cps);
 		return std::move(layout);
 	}

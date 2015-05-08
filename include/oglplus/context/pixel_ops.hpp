@@ -19,6 +19,7 @@
 #include <oglplus/blit_filter.hpp>
 #include <oglplus/buffer_select_bit.hpp>
 #include <oglplus/boolean.hpp>
+#include <oglplus/size_type.hpp>
 #include <oglplus/bitfield.hpp>
 
 namespace oglplus {
@@ -176,8 +177,8 @@ public:
 	static void ReadPixels(
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		PixelDataFormat format,
 		PixelDataType type,
 		void* data

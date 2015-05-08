@@ -16,6 +16,7 @@
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/boolean.hpp>
+#include <oglplus/size_type.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/vertex_attrib_slot.hpp>
 #include <oglplus/string/ref.hpp>
@@ -563,7 +564,7 @@ public:
 		GLint values_per_vertex,
 		DataType data_type,
 		Boolean normalized,
-		GLsizei stride,
+		SizeType stride,
 		const void* pointer
 	) const
 	{
@@ -592,7 +593,7 @@ public:
 	const VertexArrayAttrib& IPointer(
 		GLuint values_per_vertex,
 		DataType data_type,
-		GLsizei stride,
+		SizeType stride,
 		const void* pointer
 	) const
 	{
@@ -622,7 +623,7 @@ public:
 	const VertexArrayAttrib& LPointer(
 		GLuint values_per_vertex,
 		DataType data_type,
-		GLsizei stride,
+		SizeType stride,
 		const void* pointer
 	) const
 	{
@@ -644,7 +645,7 @@ public:
 	const VertexArrayAttrib& LPointer(
 		GLuint,
 		DataType,
-		GLsizei,
+		SizeType,
 		const void*
 	) const
 	{

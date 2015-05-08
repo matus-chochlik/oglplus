@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -28,10 +28,10 @@ class CheckerRedBlack
 public:
 	/// Creates a checker image with specified dimensions and pattern repeats
 	CheckerRedBlack(
-		GLsizei width,
-		GLsizei height,
-		GLsizei xrep = 4,
-		GLsizei yrep = 4
+		SizeType width,
+		SizeType height,
+		SizeType xrep = 4,
+		SizeType yrep = 4
 	);
 };
 

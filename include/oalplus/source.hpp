@@ -19,7 +19,7 @@
 #include <oalplus/boolean.hpp>
 #include <oalplus/math/angle.hpp>
 #include <oalplus/math/vector.hpp>
-#include <oalplus/error/basic.hpp>
+#include <oalplus/error/al.hpp>
 #include <oalplus/object/wrapper.hpp>
 #include <oalplus/object/sequence.hpp>
 #include <oalplus/buffer.hpp>

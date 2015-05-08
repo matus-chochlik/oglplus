@@ -5,7 +5,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -113,7 +113,7 @@ public:
 	/** Wrapper for Texture::Width()
 	 *  @see Texture::Width()
 	 */
-	GLsizei Width(
+	SizeType Width(
 		GLint level = 0
 	) const
 	{
@@ -127,7 +127,7 @@ public:
 	/** Wrapper for Texture::Height()
 	 *  @see Texture::Height()
 	 */
-	GLsizei Height(
+	SizeType Height(
 		GLint level = 0
 	) const
 	{
@@ -141,7 +141,7 @@ public:
 	/** Wrapper for Texture::Depth()
 	 *  @see Texture::Depth()
 	 */
-	GLsizei Depth(
+	SizeType Depth(
 		GLint level = 0
 	) const
 	{
@@ -225,7 +225,7 @@ public:
 	/** Wrapper for Texture::RedSize()
 	 *  @see Texture::RedSize()
 	 */
-	GLsizei RedSize(
+	SizeType RedSize(
 		GLint level = 0
 	) const
 	{
@@ -239,7 +239,7 @@ public:
 	/** Wrapper for Texture::GreenSize()
 	 *  @see Texture::GreenSize()
 	 */
-	GLsizei GreenSize(
+	SizeType GreenSize(
 		GLint level = 0
 	) const
 	{
@@ -253,7 +253,7 @@ public:
 	/** Wrapper for Texture::BlueSize()
 	 *  @see Texture::BlueSize()
 	 */
-	GLsizei BlueSize(
+	SizeType BlueSize(
 		GLint level = 0
 	) const
 	{
@@ -267,7 +267,7 @@ public:
 	/** Wrapper for Texture::AlphaSize()
 	 *  @see Texture::AlphaSize()
 	 */
-	GLsizei AlphaSize(
+	SizeType AlphaSize(
 		GLint level = 0
 	) const
 	{
@@ -281,7 +281,7 @@ public:
 	/** Wrapper for Texture::DepthSize()
 	 *  @see Texture::DepthSize()
 	 */
-	GLsizei DepthSize(
+	SizeType DepthSize(
 		GLint level = 0
 	) const
 	{
@@ -295,7 +295,7 @@ public:
 	/** Wrapper for Texture::StencilSize()
 	 *  @see Texture::StencilSize()
 	 */
-	GLsizei StencilSize(
+	SizeType StencilSize(
 		GLint level = 0
 	) const
 	{
@@ -309,7 +309,7 @@ public:
 	/** Wrapper for Texture::SharedSize()
 	 *  @see Texture::SharedSize()
 	 */
-	GLsizei SharedSize(
+	SizeType SharedSize(
 		GLint level = 0
 	) const
 	{
@@ -323,7 +323,7 @@ public:
 	/** Wrapper for Texture::CompressedImageSize()
 	 *  @see Texture::CompressedImageSize()
 	 */
-	GLsizei CompressedImageSize(
+	SizeType CompressedImageSize(
 		GLint level = 0
 	) const
 	{
@@ -374,7 +374,7 @@ public:
 		GLint level,
 		PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
-		GLsizei size,
+		SizeType size,
 		GLvoid * buffer
 	) const
 	{
@@ -412,7 +412,7 @@ public:
 	 */
 	const BoundObjOps& GetCompressedImage(
 		GLint level,
-		GLsizei size,
+		SizeType size,
 		GLubyte * buffer
 	) const
 	{
@@ -449,9 +449,9 @@ public:
 	const BoundObjOps& Image3D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
+		SizeType width,
+		SizeType height,
+		SizeType depth,
 		GLint border,
 		PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
@@ -501,9 +501,9 @@ public:
 		GLint xoffs,
 		GLint yoffs,
 		GLint zoffs,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
+		SizeType width,
+		SizeType height,
+		SizeType depth,
 		PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
 		const void * data
@@ -555,8 +555,8 @@ public:
 	const BoundObjOps& Image2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		GLint border,
 		PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
@@ -604,8 +604,8 @@ public:
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
 		const void * data
@@ -653,7 +653,7 @@ public:
 	const BoundObjOps& Image1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
-		GLsizei width,
+		SizeType width,
 		GLint border,
 		PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
@@ -699,7 +699,7 @@ public:
 	const BoundObjOps& SubImage1D(
 		GLint level,
 		GLint xoffs,
-		GLsizei width,
+		SizeType width,
 		PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
 		const void * data
@@ -783,8 +783,8 @@ public:
 		PixelDataInternalFormat internal_format,
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		GLint border
 	) const
 	{
@@ -810,7 +810,7 @@ public:
 		PixelDataInternalFormat internal_format,
 		GLint x,
 		GLint y,
-		GLsizei width,
+		SizeType width,
 		GLint border
 	) const
 	{
@@ -837,8 +837,8 @@ public:
 		GLint zoffs,
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height
+		SizeType width,
+		SizeType height
 	) const
 	{
 		ExplicitOps::CopySubImage3D(
@@ -865,8 +865,8 @@ public:
 		GLint yoffs,
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height
+		SizeType width,
+		SizeType height
 	) const
 	{
 		ExplicitOps::CopySubImage2D(
@@ -891,7 +891,7 @@ public:
 		GLint xoffs,
 		GLint x,
 		GLint y,
-		GLsizei width
+		SizeType width
 	) const
 	{
 		ExplicitOps::CopySubImage1D(
@@ -912,11 +912,11 @@ public:
 	const BoundObjOps& CompressedImage3D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
+		SizeType width,
+		SizeType height,
+		SizeType depth,
 		GLint border,
-		GLsizei image_size,
+		SizeType image_size,
 		const void * data
 	) const
 	{
@@ -941,10 +941,10 @@ public:
 	const BoundObjOps& CompressedImage2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		GLint border,
-		GLsizei image_size,
+		SizeType image_size,
 		const void * data
 	) const
 	{
@@ -968,9 +968,9 @@ public:
 	const BoundObjOps& CompressedImage1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
-		GLsizei width,
+		SizeType width,
 		GLint border,
-		GLsizei image_size,
+		SizeType image_size,
 		const void * data
 	) const
 	{
@@ -995,11 +995,11 @@ public:
 		GLint xoffs,
 		GLint yoffs,
 		GLint zoffs,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
+		SizeType width,
+		SizeType height,
+		SizeType depth,
 		PixelDataFormat format,
-		GLsizei image_size,
+		SizeType image_size,
 		const void * data
 	) const
 	{
@@ -1027,10 +1027,10 @@ public:
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		PixelDataFormat format,
-		GLsizei image_size,
+		SizeType image_size,
 		const void * data
 	) const
 	{
@@ -1055,9 +1055,9 @@ public:
 	const BoundObjOps& CompressedSubImage1D(
 		GLint level,
 		GLint xoffs,
-		GLsizei width,
+		SizeType width,
 		PixelDataFormat format,
-		GLsizei image_size,
+		SizeType image_size,
 		const void * data
 	) const
 	{
@@ -1079,12 +1079,12 @@ public:
 	 *  @see Texture::Image3DMultisample()
 	 */
 	const BoundObjOps& Image3DMultisample(
-		GLsizei samples,
+		SizeType samples,
 		PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
-		bool fixed_sample_locations
+		SizeType width,
+		SizeType height,
+		SizeType depth,
+		Boolean fixed_sample_locations
 	) const
 	{
 		ExplicitOps::Image3DMultisample(
@@ -1106,11 +1106,11 @@ public:
 	 *  @see Texture::Image2DMultisample()
 	 */
 	const BoundObjOps& Image2DMultisample(
-		GLsizei samples,
+		SizeType samples,
 		PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
-		bool fixed_sample_locations
+		SizeType width,
+		SizeType height,
+		Boolean fixed_sample_locations
 	) const
 	{
 		ExplicitOps::Image2DMultisample(
@@ -1153,7 +1153,7 @@ public:
 		PixelDataInternalFormat internal_format,
 		BufferName buffer,
 		GLintptr offset,
-		GLsizeiptr size
+		BigSizeType size
 	) const
 	{
 		ExplicitOps::BufferRange(
@@ -1173,9 +1173,9 @@ public:
 	 *  @see Texture::Storage1D()
 	 */
 	const BoundObjOps& Storage1D(
-		GLsizei levels,
+		SizeType levels,
 		PixelDataInternalFormat internal_format,
-		GLsizei width
+		SizeType width
 	) const
 	{
 		ExplicitOps::Storage1D(
@@ -1194,10 +1194,10 @@ public:
 	 *  @see Texture::Storage2D()
 	 */
 	const BoundObjOps& Storage2D(
-		GLsizei levels,
+		SizeType levels,
 		PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height
+		SizeType width,
+		SizeType height
 	) const
 	{
 		ExplicitOps::Storage2D(
@@ -1217,11 +1217,11 @@ public:
 	 *  @see Texture::Storage3D()
 	 */
 	const BoundObjOps& Storage3D(
-		GLsizei levels,
+		SizeType levels,
 		PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth
+		SizeType width,
+		SizeType height,
+		SizeType depth
 	) const
 	{
 		ExplicitOps::Storage3D(
@@ -1252,7 +1252,7 @@ public:
 	 *  @see Texture::BaseLevel()
 	 */
 	const BoundObjOps& BaseLevel(
-		GLuint level
+		GLint level
 	) const
 	{
 		ExplicitOps::BaseLevel(
@@ -1978,7 +1978,7 @@ public:
 	/** Wrapper for Texture::Seamless()
 	 *  @see Texture::Seamless()
 	 */
-	bool Seamless(void) const
+	Boolean Seamless(void) const
 	{
 		return ExplicitOps::Seamless(
 			this->target
@@ -1992,7 +1992,7 @@ public:
 	 *  @see Texture::Seamless()
 	 */
 	const BoundObjOps& Seamless(
-		bool enable
+		Boolean enable
 	) const
 	{
 		ExplicitOps::Seamless(

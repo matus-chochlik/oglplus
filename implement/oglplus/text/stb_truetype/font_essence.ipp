@@ -162,7 +162,7 @@ STBTTFontEssence::STBTTFontEssence(
 	TextureUnitSelector metric_tex_unit,
 	TextureUnitSelector pg_map_tex_unit,
 	const std::string& font_name,
-	GLsizei frames,
+	SizeType frames,
 	GLint default_page,
 	GLuint pixel_height
 ): _parent(parent)
@@ -190,7 +190,7 @@ STBTTFontEssence::STBTTFontEssence(
 OGLPLUS_LIB_FUNC
 GLfloat STBTTFontEssence::QueryXOffsets(
 	const CodePoint* cps,
-	GLsizei size,
+	SizeType size,
 	std::vector<GLfloat>& x_offsets
 ) const
 {

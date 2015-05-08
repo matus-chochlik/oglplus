@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -49,7 +49,7 @@ public:
 	PangoCairoLayout(
 		PangoCairoRendering& parent,
 		const PangoCairoFont& font,
-		GLsizei capacity
+		SizeType capacity
 	);
 
 	PangoCairoLayout(PangoCairoLayout&& tmp)
@@ -73,9 +73,9 @@ public:
 		return PangoCairoUseLayoutData(_parent, _data);
 	}
 
-	GLsizei Capacity(void) const
+	SizeType Capacity(void) const
 	{
-		return _capacity;
+		return SizeType(_capacity, std::nothrow);
 	}
 
 	GLfloat Width(void) const
@@ -90,7 +90,7 @@ public:
 		Set(str.data(), str.size());
 	}
 
-	void Set(const CodePoint* code_points, const GLsizei length)
+	void Set(const CodePoint* code_points, std::size_t length)
 	{
 		std::vector<char> str;
 		CodePointsToUTF8(code_points, length, str);

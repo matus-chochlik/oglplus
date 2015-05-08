@@ -14,6 +14,7 @@
 #define OALPLUS_ERROR_ALUT_1107121317_HPP
 
 #include <oalplus/error/basic.hpp>
+#include <oalplus/enums/alut_error_code.hpp>
 
 namespace oalplus {
 
@@ -28,8 +29,14 @@ public:
 	{ }
 
 	~ErrorALUT(void)
-	OGLPLUS_NOTHROW
+	noexcept
 	{ }
+
+	ALUTErrorCode Code(void) const
+	noexcept
+	{
+		return ALUTErrorCode(_code);
+	}
 };
 
 #define OALPLUS_CHECK_ALUT(ALFUNC, ERROR, ERROR_INFO) \
