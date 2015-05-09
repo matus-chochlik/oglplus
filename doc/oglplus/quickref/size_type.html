@@ -1,0 +1,170 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>SizeType</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="boolean.html" title="Boolean">
+<link rel="next" href="bitfield.html" title="Bitfield">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="boolean.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="bitfield.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.size_type"></a><a class="link" href="size_type.html" title="SizeType">SizeType</a>
+</h2></div></div></div>
+<h4>
+<a name="oglplus.quickref.size_type.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.size_type.oglplus_size_type_hpp"></a></span><a class="link" href="size_type.html#oglplus.quickref.size_type.oglplus_size_type_hpp">oglplus/size_type.hpp</a>
+        </h4>
+<p>
+          OGLplus defines a wrapper for size types represented in OpenGL, OpenAL,
+          etc. by integer like <code class="literal">GLsizei</code> or <code class="literal">GLsizeiptr</code>.
+        </p>
+<p>
+          Instances of this type are constructible from integral types and the constructors
+          can throw if the initial value is negative or out of range.
+        </p>
+<h4>
+<a name="oglplus.quickref.size_type.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.size_type.impl"></a></span><a class="link" href="size_type.html#oglplus.quickref.size_type.impl">Implementation</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">SizeImpl</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">SizeImpl</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.size_type.c0" href="size_type.html#oglplus.quickref.size_type.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">X</span><span class="special">,</span> <span class="keyword">typename</span> <span class="special">=</span> <span class="keyword">typename</span> <span class="identifier">is_integral</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">&gt;</span>
+	<span class="identifier">SizeImpl</span><span class="special">(</span><span class="identifier">X</span> <span class="identifier">v</span><span class="special">);</span> <a class="co" name="oglplus.quickref.size_type.c2" href="size_type.html#oglplus.quickref.size_type.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">X</span><span class="special">,</span> <span class="keyword">typename</span> <span class="special">=</span> <span class="keyword">typename</span> <span class="identifier">is_integral</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">&gt;</span>
+	<span class="identifier">SizeImpl</span><span class="special">(</span><span class="identifier">X</span> <span class="identifier">v</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">nothrow_t</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.size_type.c4" href="size_type.html#oglplus.quickref.size_type.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="identifier">T</span> <span class="identifier">get</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">explicit</span>
+	<span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.size_type.c6" href="size_type.html#oglplus.quickref.size_type.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.size_type.c8" href="size_type.html#oglplus.quickref.size_type.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="keyword">operator</span> <span class="identifier">T</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.size_type.c10" href="size_type.html#oglplus.quickref.size_type.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">X</span><span class="special">&gt;</span>
+	<span class="keyword">explicit</span>
+	<span class="keyword">operator</span> <span class="identifier">X</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.size_type.c12" href="size_type.html#oglplus.quickref.size_type.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">==</span> <span class="special">(</span><span class="identifier">SizeImpl</span> <span class="identifier">s1</span><span class="special">,</span> <span class="identifier">SizeImpl</span> <span class="identifier">s2</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!=</span> <span class="special">(</span><span class="identifier">SizeImpl</span> <span class="identifier">s1</span><span class="special">,</span> <span class="identifier">SizeImpl</span> <span class="identifier">s2</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">&lt;</span>  <span class="special">(</span><span class="identifier">SizeImpl</span> <span class="identifier">s1</span><span class="special">,</span> <span class="identifier">SizeImpl</span> <span class="identifier">s2</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">&lt;=</span> <span class="special">(</span><span class="identifier">SizeImpl</span> <span class="identifier">s1</span><span class="special">,</span> <span class="identifier">SizeImpl</span> <span class="identifier">s2</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">&gt;</span>  <span class="special">(</span><span class="identifier">SizeImpl</span> <span class="identifier">s1</span><span class="special">,</span> <span class="identifier">SizeImpl</span> <span class="identifier">s2</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">&gt;=</span> <span class="special">(</span><span class="identifier">SizeImpl</span> <span class="identifier">s1</span><span class="special">,</span> <span class="identifier">SizeImpl</span> <span class="identifier">s2</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">+</span> <span class="special">(</span><span class="identifier">SizeImpl</span> <span class="identifier">s1</span><span class="special">,</span> <span class="identifier">SizeImpl</span> <span class="identifier">s2</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">*</span> <span class="special">(</span><span class="identifier">SizeImpl</span> <span class="identifier">s1</span><span class="special">,</span> <span class="identifier">SizeImpl</span> <span class="identifier">s2</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">/</span> <span class="special">(</span><span class="identifier">SizeImpl</span> <span class="identifier">s1</span><span class="special">,</span> <span class="identifier">SizeImpl</span> <span class="identifier">s2</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">%</span> <span class="special">(</span><span class="identifier">SizeImpl</span> <span class="identifier">s1</span><span class="special">,</span> <span class="identifier">SizeImpl</span> <span class="identifier">s2</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.size_type.c1"></a><a href="#oglplus.quickref.size_type.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Constructs a zero size instance.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.size_type.c3"></a><a href="#oglplus.quickref.size_type.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Conversion from other signed or unsigned integral types. Throws if
+              the passed value is negative or out of range of <code class="literal">T</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.size_type.c5"></a><a href="#oglplus.quickref.size_type.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Conversion from other signed or unsigned integral types. Does not throw.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.size_type.c7"></a><a href="#oglplus.quickref.size_type.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Indicates if the stored value is valid i.e. nonnegativa and was in
+              range of <code class="literal">T</code> when initialized.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.size_type.c9"></a><a href="#oglplus.quickref.size_type.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Indicates if the stored value is invalid i.e. negativa or was out of
+              range of <code class="literal">T</code> when initialized.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.size_type.c11"></a><a href="#oglplus.quickref.size_type.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Implicit conversion to <code class="literal">T</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.size_type.c13"></a><a href="#oglplus.quickref.size_type.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Explicit conversion to other (integral) types. May throw if the stored
+              value is negative and <code class="literal">X</code> is unsigned or if it is
+              out of range of <code class="literal">X</code>.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.size_type.h2"></a>
+          <span class="phrase"><a name="oglplus.quickref.size_type.def"></a></span><a class="link" href="size_type.html#oglplus.quickref.size_type.def">Definition</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="size_type.html#oglplus.quickref.size_type.impl">SizeImpl</a><span class="special">&lt;</span><span class="identifier">GLsizei</span><span class="special">&gt;</span> <span class="identifier">SizeType</span><span class="special">;</span>
+<span class="keyword">typedef</span> <a class="link" href="size_type.html#oglplus.quickref.size_type.impl">SizeImpl</a><span class="special">&lt;</span><span class="identifier">GLsizeiptr</span><span class="special">&gt;</span> <span class="identifier">BigSizeType</span><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="boolean.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="bitfield.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
