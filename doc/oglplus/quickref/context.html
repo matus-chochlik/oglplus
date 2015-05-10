@@ -378,8 +378,8 @@
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ViewportState</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">w</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">h</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c10" href="context.html#oglplus.quickref.context.viewport.c11"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLsizei</span> <span class="identifier">w</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">h</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c12" href="context.html#oglplus.quickref.context.viewport.c13"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span> <span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span> <a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">w</span><span class="special">,</span> <a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">h</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c10" href="context.html#oglplus.quickref.context.viewport.c11"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">w</span><span class="special">,</span> <a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">h</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c12" href="context.html#oglplus.quickref.context.viewport.c13"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportExtents</a><span class="special">&amp;</span> <span class="identifier">vp</span><span class="special">);</span>
 
 	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportExtents</a> <span class="identifier">Viewport</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c14" href="context.html#oglplus.quickref.context.viewport.c15"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
@@ -402,7 +402,7 @@
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ViewportArray</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">first</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLfloat</span><span class="special">*</span> <span class="identifier">extents</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c24" href="context.html#oglplus.quickref.context.viewport.c25"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
@@ -411,7 +411,7 @@
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRange</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="identifier">GLclampd</span> <span class="identifier">near</span><span class="special">,</span> <span class="identifier">GLclampd</span> <span class="identifier">far</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c28" href="context.html#oglplus.quickref.context.viewport.c29"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRange</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportDepthRange</a><span class="special">&amp;);</span>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRangeArray</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLclampd</span> <span class="special">*</span><span class="identifier">v</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c30" href="context.html#oglplus.quickref.context.viewport.c31"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRangeArray</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">first</span><span class="special">,</span> <a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLclampd</span> <span class="special">*</span><span class="identifier">v</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c30" href="context.html#oglplus.quickref.context.viewport.c31"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
 
 	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportDepthRange</a> <span class="identifier">DepthRange</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c32" href="context.html#oglplus.quickref.context.viewport.c33"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
 <span class="preprocessor">#endif</span>
@@ -567,7 +567,7 @@
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawBuffer</span><span class="special">(</span><span class="identifier">ColorBuffer</span> <span class="identifier">buffer</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_selection.c2" href="context.html#oglplus.quickref.context.buffer_selection.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawBuffers</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="enums.html#oglplus.quickref.enums.array">EnumArray</a><span class="special">&lt;</span><span class="identifier">ColorBuffer</span><span class="special">&gt;&amp;</span> <span class="identifier">buffers</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_selection.c4" href="context.html#oglplus.quickref.context.buffer_selection.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawBuffers</span><span class="special">(</span><span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">ColorBuffer</span><span class="special">*</span> <span class="identifier">buffers</span><span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawBuffers</span><span class="special">(</span><a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">ColorBuffer</span><span class="special">*</span> <span class="identifier">buffers</span><span class="special">);</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ReadBuffer</span><span class="special">(</span><span class="identifier">ColorBuffer</span> <span class="identifier">buffer</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_selection.c6" href="context.html#oglplus.quickref.context.buffer_selection.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="special">};</span>
@@ -1211,15 +1211,15 @@
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawArrays</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">first</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c4" href="context.html#oglplus.quickref.context.drawing.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_1</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawArraysInstanced</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">first</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">inst_count</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">inst_count</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c6" href="context.html#oglplus.quickref.context.drawing.c7"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="preprocessor">#endif</span>
 
@@ -1227,9 +1227,9 @@
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawArraysInstancedBaseInstance</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">first</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">inst_count</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">base_instance</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">inst_count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">base_instance</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c8" href="context.html#oglplus.quickref.context.drawing.c9"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="preprocessor">#endif</span>
 
@@ -1245,22 +1245,22 @@
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">first</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLsizei</span><span class="special">*</span> <span class="identifier">count</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">primcount</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">primcount</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c12" href="context.html#oglplus.quickref.context.drawing.c13"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_multi_draw_indirect</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">MultiDrawArraysIndirect</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">draw_count</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">stride</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">draw_count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">stride</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">indirect</span> <span class="special">=</span> <code class="literal">nullptr</code>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c14" href="context.html#oglplus.quickref.context.drawing.c15"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawElements</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c16" href="context.html#oglplus.quickref.context.drawing.c17"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
@@ -1268,15 +1268,15 @@
 	<span class="keyword">static</span>
 	<span class="keyword">void</span> <span class="identifier">DrawElements</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">indices</span>
 	<span class="special">);</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawElementsInstanced</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">instance_count</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">instance_count</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c18" href="context.html#oglplus.quickref.context.drawing.c19"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
@@ -1336,17 +1336,17 @@
 	<span class="keyword">static</span>
 	<span class="keyword">void</span> <span class="identifier">DrawElementsInstanced</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">indices</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">instance_count</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">instance_count</span>
 	<span class="special">);</span>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_2</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawElementsInstancedBaseInstance</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">inst_count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">inst_count</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">base_instance</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c20" href="context.html#oglplus.quickref.context.drawing.c21"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
@@ -1354,9 +1354,9 @@
 	<span class="keyword">static</span>
 	<span class="keyword">void</span> <span class="identifier">DrawElementsInstancedBaseInstance</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">indices</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">inst_count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">inst_count</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">base_instance</span>
 	<span class="special">);</span>
 <span class="preprocessor">#endif</span>
@@ -1365,7 +1365,7 @@
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLsizei</span><span class="special">*</span> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">draw_count</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">draw_count</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c22" href="context.html#oglplus.quickref.context.drawing.c23"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
@@ -1374,14 +1374,14 @@
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLsizei</span><span class="special">*</span> <span class="identifier">count</span><span class="special">,</span>
 		<span class="identifier">T</span><span class="special">*</span> <span class="keyword">const</span> <span class="special">*</span> <span class="identifier">indices</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">draw_count</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">draw_count</span>
 	<span class="special">);</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawRangeElements</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">start</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">end</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span>
 	<span class="special">);</span>  <a class="co" name="oglplus.quickref.context.drawing.c24" href="context.html#oglplus.quickref.context.drawing.c25"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
@@ -1391,7 +1391,7 @@
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">start</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">end</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">indices</span>
 	<span class="special">);</span>
 
@@ -1407,8 +1407,8 @@
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">MultiDrawElementsIndirect</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">draw_count</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">stride</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">draw_count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">stride</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="keyword">void</span><span class="special">*</span> <span class="identifier">indirect</span> <span class="special">=</span> <code class="literal">nullptr</code>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c28" href="context.html#oglplus.quickref.context.drawing.c29"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="preprocessor">#endif</span>
@@ -1416,7 +1416,7 @@
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_draw_elements_base_vertex</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawElementsBaseVertex</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">base_vertex</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c30" href="context.html#oglplus.quickref.context.drawing.c31"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
@@ -1425,7 +1425,7 @@
 	<span class="keyword">static</span>
 	<span class="keyword">void</span> <span class="identifier">DrawElementsBaseVertex</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">indices</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">base_vertex</span>
 	<span class="special">);</span>
@@ -1434,7 +1434,7 @@
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">start</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">end</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">base_vertex</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c32" href="context.html#oglplus.quickref.context.drawing.c33"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
@@ -1445,16 +1445,16 @@
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">start</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">end</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">indices</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">base_vertex</span>
 	<span class="special">);</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawElementsInstancedBaseVertex</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">inst_count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">inst_count</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">base_vertex</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c34" href="context.html#oglplus.quickref.context.drawing.c35"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
@@ -1462,9 +1462,9 @@
 	<span class="keyword">static</span>
 	<span class="keyword">void</span> <span class="identifier">DrawElementsInstancedBaseVertex</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">indices</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">inst_count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">inst_count</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">base_vertex</span>
 	<span class="special">);</span>
 
@@ -1472,7 +1472,7 @@
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLsizei</span><span class="special">*</span> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">draw_count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">draw_count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">base_vertex</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c36" href="context.html#oglplus.quickref.context.drawing.c37"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
@@ -1482,7 +1482,7 @@
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLsizei</span><span class="special">*</span> <span class="identifier">count</span><span class="special">,</span>
 		<span class="identifier">T</span><span class="special">*</span> <span class="keyword">const</span> <span class="special">*</span> <span class="identifier">indices</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">draw_count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">draw_count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">base_vertex</span>
 	<span class="special">);</span>
 <span class="preprocessor">#endif</span>
@@ -1490,9 +1490,9 @@
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_2</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DrawElementsInstancedBaseVertexBaseInstance</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<a class="link" href="data_type.html" title="Data types">DataType</a> <span class="identifier">data_type</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">inst_count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">inst_count</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">base_vertex</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">base_instance</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.drawing.c38" href="context.html#oglplus.quickref.context.drawing.c39"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
@@ -1501,9 +1501,9 @@
 	<span class="keyword">static</span>
 	<span class="keyword">void</span> <span class="identifier">DrawElementsInstancedBaseVertexBaseInstance</span><span class="special">(</span>
 		<a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a> <span class="identifier">primitive</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span>
 		<span class="keyword">const</span> <span class="identifier">T</span><span class="special">*</span> <span class="identifier">indices</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">inst_count</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">inst_count</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">base_vertex</span><span class="special">,</span>
 		<span class="identifier">GLuint</span> <span class="identifier">base_instance</span>
 	<span class="special">);</span>
@@ -1973,8 +1973,8 @@
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Scissor</span><span class="special">(</span>
 		<span class="identifier">GLint</span> <span class="identifier">left</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">bottom</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">height</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c0" href="context.html#oglplus.quickref.context.scissor_test.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_1</span> <span class="special">||</span> <span class="identifier">GL_ARB_viewport_array</span>
@@ -1982,12 +1982,12 @@
 		<span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">left</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">bottom</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">height</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c2" href="context.html#oglplus.quickref.context.scissor_test.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Scissor</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">v</span><span class="special">);</span>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ScissorArray</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">GLsizei</span> <span class="identifier">count</span><span class="special">,</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">v</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c4" href="context.html#oglplus.quickref.context.scissor_test.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ScissorArray</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">first</span><span class="special">,</span> <a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">v</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c4" href="context.html#oglplus.quickref.context.scissor_test.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="ScissorTest">context::ScissorRectangle</a> <span class="identifier">ScissorBox</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c6" href="context.html#oglplus.quickref.context.scissor_test.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="preprocessor">#endif</span>
@@ -2104,8 +2104,8 @@
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ReadPixels</span><span class="special">(</span>
 		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">width</span><span class="special">,</span>
-		<span class="identifier">GLsizei</span> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
 		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
 		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">type</span><span class="special">,</span>
 		<span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
