@@ -31,7 +31,7 @@ private:
 	template <typename R, typename X>
 	static
 	typename std::enable_if<(sizeof(R) <= sizeof(X)), R>::type
-	_chkin2(X v)
+	_check2(X v)
 	{
 		if(v > X(std::numeric_limits<T>::max()))
 		{
@@ -43,7 +43,7 @@ private:
 	template <typename R, typename X>
 	static
 	typename std::enable_if<(sizeof(R) > sizeof(X)), R>::type
-	_chkin2(X v)
+	_check2(X v)
 	{
 		return R(v);
 	}
@@ -51,34 +51,34 @@ private:
 	template <typename R, typename X>
 	static inline
 	typename std::enable_if<std::is_signed<X>::value, R>::type
-	_chkin1(X v)
+	_check1(X v)
 	{
 		if(v < X(0))
 		{
 			throw std::domain_error("Negative size value");
 		}
-		return _chkin2<R>(v);
+		return _check2<R>(v);
 	}
 
 	template <typename R, typename X>
 	static inline
 	typename std::enable_if<!std::is_signed<X>::value, R>::type
-	_chkin1(X v)
+	_check1(X v)
 	{
-		return _chkin2<R>(v);
+		return _check2<R>(v);
 	}
 
 	template <typename X>
 	static inline
-	T _checkin(X v)
+	T _check(X v)
 	{
-		return _chkin1<T>(v);
+		return _check1<T>(v);
 	}
 
 	template <typename X>
 	static
 	typename std::enable_if<(sizeof(T) <= sizeof(X)), T>::type
-	_cv_in1(X v)
+	_conv1(X v)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		if(v > X(std::numeric_limits<T>::max()))
@@ -91,7 +91,7 @@ private:
 	template <typename X>
 	static
 	typename std::enable_if<(sizeof(T) > sizeof(X)), T>::type
-	_cv_in1(X v)
+	_conv1(X v)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return T(v);
@@ -99,10 +99,10 @@ private:
 
 	template <typename X>
 	static inline
-	T _conv_in(X v)
+	T _conv(X v)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return _cv_in1(v);
+		return _conv1(v);
 	}
 public:
 	SizeImpl(void)
@@ -116,7 +116,7 @@ public:
 		typename std::enable_if<
 			std::is_integral<X>::value
 		>::type* = nullptr
-	): _v(_checkin(v))
+	): _v(_check(v))
 	{ }
 
 	SizeImpl(T v, std::nothrow_t)
@@ -132,7 +132,7 @@ public:
 			std::is_integral<X>::value
 		>::type* = nullptr
 	) OGLPLUS_NOEXCEPT(true)
-	 : _v(_conv_in(v))
+	 : _v(_conv(v))
 	{ }
 
 	T get(void) const
@@ -157,200 +157,170 @@ public:
 	operator T (void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return _v;
+		return _check<T>(_v);
 	}
 
 	template <typename X>
 	OGLPLUS_EXPLICIT
 	operator X (void) const
 	{
-		return _chkin1<X>(_v);
+		return _check<X>(_v);
 	}
 
 	friend bool operator == (SizeImpl s1, SizeImpl s2)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s1._v == s2._v;
+		return _check<T>(s1._v) == _check<T>(s2._v);
 	}
 
 	friend bool operator == (T v, SizeImpl s)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return v == s._v;
+		return _check<T>(v) == _check<T>(s._v);
 	}
 
 	friend bool operator == (SizeImpl s, T v)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s._v == v;
+		return _check<T>(s._v) == _check<T>(v);
 	}
 
 
 	friend bool operator != (SizeImpl s1, SizeImpl s2)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s1._v != s2._v;
+		return _check<T>(s1._v) != _check<T>(s2._v);
 	}
 
 	friend bool operator != (T v, SizeImpl s)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return v != s._v;
+		return _check<T>(v) != _check<T>(s._v);
 	}
 
 	friend bool operator != (SizeImpl s, T v)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s._v != v;
+		return _check<T>(s._v) != _check<T>(v);
 	}
 
 
 	friend bool operator <  (SizeImpl s1, SizeImpl s2)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s1._v <  s2._v;
+		return _check<T>(s1._v) <  _check<T>(s2._v);
 	}
 
 	friend bool operator <  (T v, SizeImpl s)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return v <  s._v;
+		return _check<T>(v) <  _check<T>(s._v);
 	}
 
 	friend bool operator <  (SizeImpl s, T v)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s._v <  v;
+		return _check<T>(s._v) <  _check<T>(v);
 	}
 
 
 	friend bool operator <= (SizeImpl s1, SizeImpl s2)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s1._v <= s2._v;
+		return _check<T>(s1._v) <= _check<T>(s2._v);
 	}
 
 	friend bool operator <= (T v, SizeImpl s)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return v <= s._v;
+		return _check<T>(v) <= _check<T>(s._v);
 	}
 
 	friend bool operator <= (SizeImpl s, T v)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s._v <= v;
+		return _check<T>(s._v) <= _check<T>(v);
 	}
 
 
 	friend bool operator >  (SizeImpl s1, SizeImpl s2)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s1._v >  s2._v;
+		return _check<T>(s1._v) >  _check<T>(s2._v);
 	}
 
 	friend bool operator >  (T v, SizeImpl s)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return v >  s._v;
+		return _check<T>(v) >  _check<T>(s._v);
 	}
 
 	friend bool operator >  (SizeImpl s, T v)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s._v >  v;
+		return _check<T>(s._v) >  _check<T>(v);
 	}
 
 
 	friend bool operator >= (SizeImpl s1, SizeImpl s2)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s1._v >= s2._v;
+		return _check<T>(s1._v) >= _check<T>(s2._v);
 	}
 
 	friend bool operator >= (T v, SizeImpl s)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return v >= s._v;
+		return _check<T>(v) >= _check<T>(s._v);
 	}
 
 	friend bool operator >= (SizeImpl s, T v)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s._v >= v;
+		return _check<T>(s._v) >= _check<T>(v);
 	}
 
 
 	friend T operator + (SizeImpl s1, SizeImpl s2)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s1._v + s2._v;
+		return _check<T>(s1._v) + _check<T>(s2._v);
 	}
 
 	friend T operator + (SizeImpl s, T v)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s._v + v;
+		return _check<T>(s._v) + _check<T>(v);
 	}
 
 	friend T operator + (T v, SizeImpl s)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return v + s._v;
+		return _check<T>(v) + _check<T>(s._v);
 	}
 
 	friend T operator * (SizeImpl s1, SizeImpl s2)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s1._v * s2._v;
+		return _check<T>(s1._v) * _check<T>(s2._v);
 	}
 
 	friend T operator * (SizeImpl s, T v)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s._v * v;
+		return _check<T>(s._v) * _check<T>(v);
 	}
 
 	friend T operator * (T v, SizeImpl s)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return v * s._v;
+		return _check<T>(v) * _check<T>(s._v);
 	}
 
 	friend T operator / (SizeImpl s1, SizeImpl s2)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s1._v / s2._v;
+		return _check<T>(s1._v) / _check<T>(s2._v);
 	}
 
 	friend T operator / (SizeImpl s, T v)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s._v / v;
+		return _check<T>(s._v) / _check<T>(v);
 	}
 
 	friend T operator / (T v, SizeImpl s)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return v / s._v;
+		return _check<T>(v) / _check<T>(s._v);
 	}
 
 	friend T operator % (SizeImpl s1, SizeImpl s2)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s1._v % s2._v;
+		return _check<T>(s1._v) % _check<T>(s2._v);
 	}
 
 	friend T operator % (SizeImpl s, T v)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return s._v % v;
+		return _check<T>(s._v) % _check<T>(v);
 	}
 
 	friend T operator % (T v, SizeImpl s)
-	OGLPLUS_NOEXCEPT(true)
 	{
-		return v % s._v;
+		return _check<T>(v) % _check<T>(s._v);
 	}
 };
 
