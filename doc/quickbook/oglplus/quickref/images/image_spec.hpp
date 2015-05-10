@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,8 +17,8 @@ struct ImageSpec
 	>*/
 
 	ImageSpec(
-		GLsizei width,
-		GLsizei height,
+		__SizeType width,
+		__SizeType height,
 		__PixelDataInternalFormat internal_format
 	): /*<
 	Specifies a two dimensional image with a particular [^internal_format],
@@ -28,8 +28,8 @@ struct ImageSpec
 	>*/
 
 	ImageSpec(
-		GLsizei width,
-		GLsizei height,
+		__SizeType width,
+		__SizeType height,
 		__PixelDataFormat format,
 		PixDataType type
 	); /*<
@@ -38,7 +38,7 @@ struct ImageSpec
 	>*/
 
 	ImageSpec(
-		GLsizei width,
+		__SizeType width,
 		__PixelDataFormat format,
 		__PixelDataInternalFormat internal_format,
 		PixDataType type
@@ -49,8 +49,8 @@ struct ImageSpec
 	>*/
 
 	ImageSpec(
-		GLsizei width,
-		GLsizei height,
+		__SizeType width,
+		__SizeType height,
 		__PixelDataFormat format,
 		__PixelDataInternalFormat internal_format,
 		PixDataType type
@@ -61,9 +61,9 @@ struct ImageSpec
 	>*/
 
 	ImageSpec(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
 		__PixelDataFormat format,
 		__PixelDataInternalFormat internal_format,
 		PixDataType type
@@ -75,7 +75,7 @@ struct ImageSpec
 
 	template <typename T>
 	ImageSpec(
-		GLsizei width,
+		__SizeType width,
 		__PixelDataFormat format,
 		__PixelDataInternalFormat internal_format,
 		const T* data
@@ -87,8 +87,8 @@ struct ImageSpec
 
 	template <typename T>
 	ImageSpec(
-		GLsizei width,
-		GLsizei height,
+		__SizeType width,
+		__SizeType height,
 		__PixelDataFormat format,
 		const T* data
 	); /*<
@@ -99,8 +99,8 @@ struct ImageSpec
 
 	template <typename T>
 	ImageSpec(
-		GLsizei w,
-		GLsizei h,
+		__SizeType w,
+		__SizeType h,
 		__PixelDataFormat format,
 		__PixelDataInternalFormat internal_format,
 		const T* data

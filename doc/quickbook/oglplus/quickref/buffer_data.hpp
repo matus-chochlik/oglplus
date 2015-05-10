@@ -17,7 +17,7 @@ public:
 
 	/// Construction from @p count of instances of type @c T at @p data
 	template <typename T>
-	BufferData(GLsizei count, const T* data); /*<
+	BufferData(__SizeType count, const T* data); /*<
 	Constructs [^BufferData] from a pointer to [^count] instances
 	of type [^T].
 	>*/

@@ -21,19 +21,19 @@ public:
 
 	template <typename T>
 	Image(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
-		GLsizei channels,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
+		__SizeType channels,
 		const T* data
 	);
 
 	template <typename T>
 	Image(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
-		GLsizei channels,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
+		__SizeType channels,
 		const T* data,
 		__PixelDataFormat format,
 		__PixelDataInternalFormat internal

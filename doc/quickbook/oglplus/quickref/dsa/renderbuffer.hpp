@@ -16,8 +16,8 @@ Indirectly inherits from __ObjCommonOps_Renderbuffer.
 public:
 	void Storage(
 		__PixelDataInternalFormat internalformat,
-		GLsizei width,
-		GLsizei height
+		__SizeType width,
+		__SizeType height
 	); /*<
 	Sets the storage parameters for [^this] renderbuffer.
 	See [glfunc NamedRenderbufferStorage].
@@ -25,50 +25,50 @@ public:
 	void Storage(const __images_ImageSpec& image_spec);
 
 	void StorageMultisample(
-		GLsizei samples,
+		__SizeType samples,
 		__PixelDataInternalFormat internalformat,
-		GLsizei width,
-		GLsizei height
+		__SizeType width,
+		__SizeType height
 	); /*<
 	Sets multipsample storage parameters for [^this] renderbuffer.
 	See [glfunc NamedRenderbufferStorageMultisample].
 	>*/
 
-	GLsizei Width(void) const; /*<
+	__SizeType Width(void) const; /*<
 	Returns the width in pixels of [^this] renderbuffer.
 	See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_WIDTH].
 	>*/
-	GLsizei Height(void) const; /*<
+	__SizeType Height(void) const; /*<
 	Returns the height in pixels of [^this] renderbuffer.
 	See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_HEIGHT].
 	>*/
 
-	GLsizei RedSize(void) const; /*<
+	__SizeType RedSize(void) const; /*<
 	Returns the size in bits of the red component of [^this] renderbuffer.
 	See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_RED_SIZE].
 	>*/
-	GLsizei GreenSize(void) const; /*<
+	__SizeType GreenSize(void) const; /*<
 	Returns the size in bits of the green component of [^this] renderbuffer.
 	See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_GREEN_SIZE].
 	>*/
-	GLsizei BlueSize(void) const; /*<
+	__SizeType BlueSize(void) const; /*<
 	Returns the size in bits of the blue component of [^this] renderbuffer.
 	See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_BLUE_SIZE].
 	>*/
-	GLsizei AlphaSize(void) const; /*<
+	__SizeType AlphaSize(void) const; /*<
 	Returns the size in bits of the alpha component of [^this] renderbuffer.
 	See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_ALPHA_SIZE].
 	>*/
-	GLsizei DepthSize(void) const; /*<
+	__SizeType DepthSize(void) const; /*<
 	Returns the size in bits of the depth component of [^this] renderbuffer.
 	See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_DEPTH_SIZE].
 	>*/
-	GLsizei StencilSize(void) const; /*<
+	__SizeType StencilSize(void) const; /*<
 	Returns the size in bits of the stencil component of [^this] renderbuffer.
 	See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_STENCIL_SIZE].
 	>*/
 
-	GLsizei Samples(void) const; /*<
+	__SizeType Samples(void) const; /*<
 	Returns the number of samples of [^this] renderbuffer.
 	See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_SAMPLES].
 	>*/

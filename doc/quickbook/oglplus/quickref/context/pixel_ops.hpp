@@ -53,8 +53,8 @@ public:
 	static void ReadPixels(
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height,
+		__SizeType width,
+		__SizeType height,
 		__PixelDataFormat format,
 		__PixelDataType type,
 		void* data

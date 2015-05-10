@@ -42,8 +42,8 @@ public:
 	static void Storage(
 		__RenderbufferTarget target,
 		__PixelDataInternalFormat internalformat,
-		GLsizei width,
-		GLsizei height
+		__SizeType width,
+		__SizeType height
 	); /*<
 	Sets the storage parameters for the renderbuffer currently
 	bound to the specified [^target].
@@ -56,59 +56,59 @@ public:
 
 	static void StorageMultisample(
 		__RenderbufferTarget target,
-		GLsizei samples,
+		__SizeType samples,
 		__PixelDataInternalFormat internalformat,
-		GLsizei width,
-		GLsizei height
+		__SizeType width,
+		__SizeType height
 	); /*<
 	Sets multipsample storage parameters for the renderbuffer currently
 	bound to the specified [^target].
 	See [glfunc RenderbufferStorageMultisample].
 	>*/
 
-	static GLsizei Width(__RenderbufferTarget target); /*<
+	static __SizeType Width(__RenderbufferTarget target); /*<
 	Returns the width in pixels of the renderbuffer currently bound
 	to the specified [^target].
 	See [glfunc GetRenderbufferParameter], [glconst RENDERBUFFER_WIDTH].
 	>*/
-	static GLsizei Height(__RenderbufferTarget target); /*<
+	static __SizeType Height(__RenderbufferTarget target); /*<
 	Returns the height in pixels of the renderbuffer currently bound
 	to the specified [^target].
 	See [glfunc GetRenderbufferParameter], [glconst RENDERBUFFER_HEIGHT].
 	>*/
 
-	static GLsizei RedSize(__RenderbufferTarget target); /*<
+	static __SizeType RedSize(__RenderbufferTarget target); /*<
 	Returns the size in bits of the red component of the renderbuffer
 	currently bound to the specified [^target].
 	See [glfunc GetRenderbufferParameter], [glconst RENDERBUFFER_RED_SIZE].
 	>*/
-	static GLsizei GreenSize(__RenderbufferTarget target); /*<
+	static __SizeType GreenSize(__RenderbufferTarget target); /*<
 	Returns the size in bits of the green component of the renderbuffer
 	currently bound to the specified [^target].
 	See [glfunc GetRenderbufferParameter], [glconst RENDERBUFFER_GREEN_SIZE].
 	>*/
-	static GLsizei BlueSize(__RenderbufferTarget target); /*<
+	static __SizeType BlueSize(__RenderbufferTarget target); /*<
 	Returns the size in bits of the blue component of the renderbuffer
 	currently bound to the specified [^target].
 	See [glfunc GetRenderbufferParameter], [glconst RENDERBUFFER_BLUE_SIZE].
 	>*/
-	static GLsizei AlphaSize(__RenderbufferTarget target); /*<
+	static __SizeType AlphaSize(__RenderbufferTarget target); /*<
 	Returns the size in bits of the alpha component of the renderbuffer
 	currently bound to the specified [^target].
 	See [glfunc GetRenderbufferParameter], [glconst RENDERBUFFER_ALPHA_SIZE].
 	>*/
-	static GLsizei DepthSize(__RenderbufferTarget target); /*<
+	static __SizeType DepthSize(__RenderbufferTarget target); /*<
 	Returns the size in bits of the depth component of the renderbuffer
 	currently bound to the specified [^target].
 	See [glfunc GetRenderbufferParameter], [glconst RENDERBUFFER_DEPTH_SIZE].
 	>*/
-	static GLsizei StencilSize(__RenderbufferTarget target); /*<
+	static __SizeType StencilSize(__RenderbufferTarget target); /*<
 	Returns the size in bits of the stencil component of the renderbuffer
 	currently bound to the specified [^target].
 	See [glfunc GetRenderbufferParameter], [glconst RENDERBUFFER_STENCIL_SIZE].
 	>*/
 
-	static GLsizei Samples(__RenderbufferTarget target); /*<
+	static __SizeType Samples(__RenderbufferTarget target); /*<
 	Returns the number of samples of the renderbuffer currently
 	bound to the specified [^target].
 	See [glfunc GetRenderbufferParameter], [glconst RENDERBUFFER_SAMPLES].
