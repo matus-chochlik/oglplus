@@ -155,7 +155,6 @@ public:
 	}
 
 	operator T (void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _check<T>(_v);
 	}

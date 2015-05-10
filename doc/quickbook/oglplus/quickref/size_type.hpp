@@ -28,7 +28,8 @@ public:
 	Does not throw.
 	>*/
 
-	T get(void) const;
+	T get(void) const
+	noexcept;
 
 	explicit
 	operator bool (void) const
@@ -39,12 +40,11 @@ public:
 
 	bool operator ! (void) const
 	noexcept; /*<
-	Indicates if the stored value is invalid i.e. negativa or was
+	Indicates if the stored value is invalid i.e. negative or was
 	out of range of [^T] when initialized.
 	>*/
 
-	operator T (void) const
-	noexcept; /*<
+	operator T (void) const; /*<
 	Implicit conversion to [^T].
 	>*/
 
@@ -56,35 +56,25 @@ public:
 	out of range of [^X].
 	>*/
 
-	friend bool operator == (SizeImpl s1, SizeImpl s2)
-	noexcept;
+	friend bool operator == (SizeImpl s1, SizeImpl s2);
 
-	friend bool operator != (SizeImpl s1, SizeImpl s2)
-	noexcept;
+	friend bool operator != (SizeImpl s1, SizeImpl s2);
 
-	friend bool operator <  (SizeImpl s1, SizeImpl s2)
-	noexcept;
+	friend bool operator <  (SizeImpl s1, SizeImpl s2);
 
-	friend bool operator <= (SizeImpl s1, SizeImpl s2)
-	noexcept;
+	friend bool operator <= (SizeImpl s1, SizeImpl s2);
 
-	friend bool operator >  (SizeImpl s1, SizeImpl s2)
-	noexcept;
+	friend bool operator >  (SizeImpl s1, SizeImpl s2);
 
-	friend bool operator >= (SizeImpl s1, SizeImpl s2)
-	noexcept;
+	friend bool operator >= (SizeImpl s1, SizeImpl s2);
 
-	friend bool operator + (SizeImpl s1, SizeImpl s2)
-	noexcept;
+	friend bool operator + (SizeImpl s1, SizeImpl s2);
 
-	friend bool operator * (SizeImpl s1, SizeImpl s2)
-	noexcept;
+	friend bool operator * (SizeImpl s1, SizeImpl s2);
 
-	friend bool operator / (SizeImpl s1, SizeImpl s2)
-	noexcept;
+	friend bool operator / (SizeImpl s1, SizeImpl s2);
 
-	friend bool operator % (SizeImpl s1, SizeImpl s2)
-	noexcept;
+	friend bool operator % (SizeImpl s1, SizeImpl s2);
 };
 
 //]
