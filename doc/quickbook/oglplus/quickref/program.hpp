@@ -81,7 +81,7 @@ public:
 
 #if GL_ARB_shading_language_include
 	ObjectOps& BuildInclude(
-		GLsizei count,
+		__SizeType count,
 		const GLchar* const* paths,
 		const GLint* lengths
 	); /*<
@@ -114,7 +114,7 @@ public:
 	>*/
 
 	void TransformFeedbackVaryings(
-		GLsizei count,
+		__SizeType count,
 		const GLchar** varyings,
 		__TransformFeedbackMode mode
 	); /*<

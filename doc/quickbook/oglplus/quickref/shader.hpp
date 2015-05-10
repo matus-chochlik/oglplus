@@ -48,7 +48,7 @@ public:
 	>*/
 
 	__ObjectOps& Source(
-		const GLsizei count,
+		const __SizeType count,
 		const GLchar* const * srcs,
 		const GLint* lens
 	); /*<
@@ -77,7 +77,7 @@ public:
 
 #if GL_ARB_shading_language_include
 	ObjectOps& CompileInclude(
-		GLsizei count,
+		__SizeType count,
 		const GLchar* const* paths,
 		const GLint* lengths
 	); /*<

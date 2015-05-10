@@ -178,7 +178,7 @@ public:
 		GLint values_per_vertex,
 		__DataType data_type,
 		__Boolean normalized,
-		GLsizei stride,
+		__SizeType stride,
 		const void* pointer
 	) const; /*<
 	See [glfunc VertexAttribPointer].
@@ -187,7 +187,7 @@ public:
 	const VertexArrayAttrib& IPointer(
 		GLuint values_per_vertex,
 		DataType data_type,
-		GLsizei stride,
+		__SizeType stride,
 		const void* pointer
 	) const; /*<
 	See [glfunc VertexAttribIPointer].
@@ -197,7 +197,7 @@ public:
 	const VertexArrayAttrib& LPointer(
 		GLuint values_per_vertex,
 		__DataType data_type,
-		GLsizei stride,
+		__SizeType stride,
 		const void* pointer
 	) const; /*<
 	See [glfunc VertexAttribLPointer].

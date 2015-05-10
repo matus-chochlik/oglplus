@@ -35,8 +35,8 @@ public:
 	static void Scissor(
 		GLint left,
 		GLint bottom,
-		GLsizei width,
-		GLsizei height
+		__SizeType width,
+		__SizeType height
 	); /*<
 	Defines the scissor rectangle for the first viewport.
 	See [glfunc Scissor].
@@ -47,15 +47,15 @@ public:
 		GLuint viewport,
 		GLint left,
 		GLint bottom,
-		GLsizei width,
-		GLsizei height
+		__SizeType width,
+		__SizeType height
 	); /*<
 	Defines the scissor rectangle for the specified [^viewport].
 	See [glfunc ScissorIndexed].
 	>*/
 	static void Scissor(GLuint viewport, GLint* v);
 
-	static void ScissorArray(GLuint first, GLsizei count, GLint* v); /*<
+	static void ScissorArray(GLuint first, __SizeType count, GLint* v); /*<
 	Defines scissor rectangles for viewports specified
 	by [^first] and [^count].
 	See [glfunc ScissorArray].

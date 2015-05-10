@@ -117,6 +117,7 @@ the concept.
 [include quickref/config.qbk]
 [include quickref/math.qbk]
 [include quickref/boolean.qbk]
+[include quickref/size_type.qbk]
 [include quickref/bitfield.qbk]
 [include quickref/enums.qbk]
 [include quickref/limited_value.qbk]

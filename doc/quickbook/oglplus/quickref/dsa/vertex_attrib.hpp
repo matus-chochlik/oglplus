@@ -41,7 +41,7 @@ public:
 	DSAVertexArrayAttrib& VertexBuffer(
 		__BufferName buffer,
 		GLintptr offset,
-		GLsizei stride
+		__SizeType stride
 	); /*<
 	Sets the vertex buffer for [^this] vertex array attribute.
 	See [glfunc VertexArrayVertexBuffer].

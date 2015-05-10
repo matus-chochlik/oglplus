@@ -21,7 +21,7 @@ public:
 	>*/
 
 	template <typename T>
-	OutputData(GLsizei count, T* addr); /*<
+	OutputData(__SizeType count, T* addr); /*<
 	Construction from [^count] of instances of type [^T] located at [^addr].
 	>*/
 
@@ -44,7 +44,7 @@ public:
 	The pixel data type.
 	>*/
 
-	GLsizeiptr Size(void) const; /*<
+	BigSizeType Size(void) const; /*<
 	Geturns size in bytes.
 	>*/
 

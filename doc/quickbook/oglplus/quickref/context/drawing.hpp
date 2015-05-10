@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -38,7 +38,7 @@ public:
 	static void DrawArrays(
 		__PrimitiveType primitive,
 		GLint first,
-		GLsizei count
+		__SizeType count
 	); /*<
 	Draws a range of primitives of the specified type from
 	the bound array buffers.
@@ -49,8 +49,8 @@ public:
 	static void DrawArraysInstanced(
 		__PrimitiveType primitive,
 		GLint first,
-		GLsizei count,
-		GLsizei inst_count
+		__SizeType count,
+		__SizeType inst_count
 	); /*<
 	Draws multiple instances of a range of elements.
 	See [glfunc DrawArraysInstanced].
@@ -61,9 +61,9 @@ public:
 	static void DrawArraysInstancedBaseInstance(
 		__PrimitiveType primitive,
 		GLint first,
-		GLsizei count,
-		GLsizei inst_count,
-		GLsizei base_instance
+		__SizeType count,
+		__SizeType inst_count,
+		__SizeType base_instance
 	); /*<
 	Draws multiple instances of a range of elements with
 	offset applied to instanced attributes.
@@ -86,7 +86,7 @@ public:
 		__PrimitiveType primitive,
 		const GLint* first,
 		const GLsizei* count,
-		GLsizei primcount
+		__SizeType primcount
 	); /*<
 	Draws multiple primcount ranges of primitives from the bound
 	array buffers.
@@ -97,8 +97,8 @@ public:
 #if GL_VERSION_4_3 || GL_ARB_multi_draw_indirect
 	static void MultiDrawArraysIndirect(
 		__PrimitiveType primitive,
-		GLsizei draw_count,
-		GLsizei stride = 0,
+		__SizeType draw_count,
+		__SizeType stride = 0,
 		const void* indirect = nullptr
 	); /*<
 	See [glfunc MultiDrawArraysIndirect].
@@ -107,7 +107,7 @@ public:
 
 	static void DrawElements(
 		__PrimitiveType primitive,
-		GLsizei count,
+		__SizeType count,
 		__DataType data_type
 	); /*<
 	See [glfunc DrawElements].
@@ -117,15 +117,15 @@ public:
 	static
 	void DrawElements(
 		__PrimitiveType primitive,
-		GLsizei count,
+		__SizeType count,
 		const T* indices
 	);
 
 	static void DrawElementsInstanced(
 		__PrimitiveType primitive,
-		GLsizei count,
+		__SizeType count,
 		__DataType data_type,
-		GLsizei instance_count
+		__SizeType instance_count
 	); /*<
 	See [glfunc DrawElementsInstanced].
 	>*/
@@ -136,17 +136,17 @@ public:
 	static
 	void DrawElementsInstanced(
 		__PrimitiveType primitive,
-		GLsizei count,
+		__SizeType count,
 		const T* indices,
-		GLsizei instance_count
+		__SizeType instance_count
 	);
 
 #if GL_VERSION_4_2
 	static void DrawElementsInstancedBaseInstance(
 		__PrimitiveType primitive,
-		GLsizei count,
+		__SizeType count,
 		__DataType data_type,
-		GLsizei inst_count,
+		__SizeType inst_count,
 		GLuint base_instance
 	); /*<
 	See [glfunc DrawElementsInstancedBaseInstance].
@@ -156,9 +156,9 @@ public:
 	static
 	void DrawElementsInstancedBaseInstance(
 		__PrimitiveType primitive,
-		GLsizei count,
+		__SizeType count,
 		const T* indices,
-		GLsizei inst_count,
+		__SizeType inst_count,
 		GLuint base_instance
 	);
 #endif
@@ -167,7 +167,7 @@ public:
 		__PrimitiveType primitive,
 		const GLsizei* count,
 		__DataType data_type,
-		GLsizei draw_count
+		__SizeType draw_count
 	); /*<
 	See [glfunc MultiDrawElements].
 	>*/
@@ -178,14 +178,14 @@ public:
 		__PrimitiveType primitive,
 		const GLsizei* count,
 		T* const * indices,
-		GLsizei draw_count
+		__SizeType draw_count
 	);
 
 	static void DrawRangeElements(
 		__PrimitiveType primitive,
 		GLuint start,
 		GLuint end,
-		GLsizei count,
+		__SizeType count,
 		__DataType data_type
 	);  /*<
 	See [glfunc DrawRangeElements].
@@ -197,7 +197,7 @@ public:
 		__PrimitiveType primitive,
 		GLuint start,
 		GLuint end,
-		GLsizei count,
+		__SizeType count,
 		const T* indices
 	);
 
@@ -215,8 +215,8 @@ public:
 	static void MultiDrawElementsIndirect(
 		__PrimitiveType primitive,
 		__DataType data_type,
-		GLsizei draw_count,
-		GLsizei stride = 0,
+		__SizeType draw_count,
+		__SizeType stride = 0,
 		const void* indirect = nullptr
 	); /*<
 	See [glfunc MultiDrawElementsIndirect].
@@ -226,7 +226,7 @@ public:
 #if GL_VERSION_3_2 || GL_ARB_draw_elements_base_vertex
 	static void DrawElementsBaseVertex(
 		__PrimitiveType primitive,
-		GLsizei count,
+		__SizeType count,
 		__DataType data_type,
 		GLint base_vertex
 	); /*<
@@ -237,7 +237,7 @@ public:
 	static
 	void DrawElementsBaseVertex(
 		__PrimitiveType primitive,
-		GLsizei count,
+		__SizeType count,
 		const T* indices,
 		GLint base_vertex
 	);
@@ -246,7 +246,7 @@ public:
 		__PrimitiveType primitive,
 		GLuint start,
 		GLuint end,
-		GLsizei count,
+		__SizeType count,
 		__DataType data_type,
 		GLint base_vertex
 	); /*<
@@ -259,16 +259,16 @@ public:
 		__PrimitiveType primitive,
 		GLuint start,
 		GLuint end,
-		GLsizei count,
+		__SizeType count,
 		const T* indices,
 		GLint base_vertex
 	);
 
 	static void DrawElementsInstancedBaseVertex(
 		__PrimitiveType primitive,
-		GLsizei count,
+		__SizeType count,
 		__DataType data_type,
-		GLsizei inst_count,
+		__SizeType inst_count,
 		GLint base_vertex
 	); /*<
 	See [glfunc DrawElementsInstancedBaseVertex].
@@ -278,9 +278,9 @@ public:
 	static
 	void DrawElementsInstancedBaseVertex(
 		__PrimitiveType primitive,
-		GLsizei count,
+		__SizeType count,
 		const T* indices,
-		GLsizei inst_count,
+		__SizeType inst_count,
 		GLint base_vertex
 	);
 
@@ -288,7 +288,7 @@ public:
 		__PrimitiveType primitive,
 		const GLsizei* count,
 		__DataType data_type,
-		GLsizei draw_count,
+		__SizeType draw_count,
 		const GLint* base_vertex
 	); /*<
 	See [glfunc MultiDrawElementsBaseVertex].
@@ -300,7 +300,7 @@ public:
 		__PrimitiveType primitive,
 		const GLsizei* count,
 		T* const * indices,
-		GLsizei draw_count,
+		__SizeType draw_count,
 		const GLint* base_vertex
 	);
 #endif
@@ -308,9 +308,9 @@ public:
 #if GL_VERSION_4_2
 	static void DrawElementsInstancedBaseVertexBaseInstance(
 		__PrimitiveType primitive,
-		GLsizei count,
+		__SizeType count,
 		__DataType data_type,
-		GLsizei inst_count,
+		__SizeType inst_count,
 		GLint base_vertex,
 		GLuint base_instance
 	); /*<
@@ -321,9 +321,9 @@ public:
 	static
 	void DrawElementsInstancedBaseVertexBaseInstance(
 		__PrimitiveType primitive,
-		GLsizei count,
+		__SizeType count,
 		const T* indices,
-		GLsizei inst_count,
+		__SizeType inst_count,
 		GLint base_vertex,
 		GLuint base_instance
 	);
