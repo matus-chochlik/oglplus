@@ -23,7 +23,8 @@ public:
 	>*/
 
 	template <typename X, typename = typename is_integral<X>::type>
-	SizeImpl(X v, std::nothrow_t) noexcept; /*<
+	SizeImpl(X v, std::nothrow_t)
+	noexcept; /*<
 	Conversion from other signed or unsigned integral types.
 	Does not throw.
 	>*/
@@ -69,6 +70,8 @@ public:
 	friend bool operator >= (SizeImpl s1, SizeImpl s2);
 
 	friend bool operator + (SizeImpl s1, SizeImpl s2);
+
+	friend bool operator - (SizeImpl s1, SizeImpl s2);
 
 	friend bool operator * (SizeImpl s1, SizeImpl s2);
 
