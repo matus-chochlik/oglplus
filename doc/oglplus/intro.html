@@ -16,6 +16,10 @@
 <div class="chapter">
 <div class="titlepage"><div><div><h2 class="title">
 <a name="oglplus.intro"></a>Chapter&#160;1.&#160;Introduction</h2></div></div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl class="toc"><dt><span class="section"><a href="intro.html#oglplus.intro.hello_world">Hello world</a></span></dt></dl>
+</div>
 <p>
         <a href="http://oglplus.org/" target="_top">OGLplus</a> is a header-only library
         which implements a thin object-oriented facade over the modern <a href="http://www.opengl.org/" target="_top">OpenGL</a>&#174;
@@ -23,6 +27,167 @@
         resource and object management and make the use of OpenGL in C++ safer, easier
         and more convenient.
       </p>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.intro.hello_world"></a><a class="link" href="intro.html#oglplus.intro.hello_world" title="Hello world">Hello world</a>
+</h2></div></div></div>
+<p>
+          The following code shows a basic, working example of usage of the OGLplus
+          library, using the GLUT and GLEW libraries.
+        </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">cassert</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">GL</span><span class="special">/</span><span class="identifier">glew</span><span class="special">.</span><span class="identifier">h</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">GL</span><span class="special">/</span><span class="identifier">glut</span><span class="special">.</span><span class="identifier">h</span><span class="special">&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">oglplus</span><span class="special">/</span><span class="identifier">all</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Example</span>
+<span class="special">{</span>
+<span class="keyword">private</span><span class="special">:</span>
+	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/context.html" title="Current GL context">Context</a> <span class="identifier">gl</span><span class="special">;</span>
+
+	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/shader.html#oglplus.quickref.shader.specialized">VertexShader</a> <span class="identifier">vs</span><span class="special">;</span>
+
+	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/shader.html#oglplus.quickref.shader.specialized">FragmentShader</a> <span class="identifier">fs</span><span class="special">;</span>
+
+	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/program.html#oglplus.quickref.program.def">Program</a> <span class="identifier">prog</span><span class="special">;</span>
+
+	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/vertex_array.html#oglplus.quickref.vertex_array.def">VertexArray</a> <span class="identifier">triangle</span><span class="special">;</span>
+
+	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/buffer.html#oglplus.quickref.buffer.def">Buffer</a> <span class="identifier">verts</span><span class="special">;</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Example</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="special">{</span>
+		<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">oglplus</span><span class="special">;</span>
+
+		<span class="identifier">vs</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(</span>
+			<span class="string">"#version 330\n"</span>
+			<span class="string">"in vec3 Position;"</span>
+			<span class="string">"void main(void)"</span>
+			<span class="string">"{"</span>
+			<span class="string">"	gl_Position = vec4(Position, 1.0);"</span>
+			<span class="string">"}"</span>
+		<span class="special">);</span>
+		<span class="identifier">vs</span><span class="special">.</span><span class="identifier">Compile</span><span class="special">();</span>
+
+		<span class="identifier">fs</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(</span>
+			<span class="string">"#version 330\n"</span>
+			<span class="string">"out vec4 fragColor;"</span>
+			<span class="string">"void main(void)"</span>
+			<span class="string">"{"</span>
+			<span class="string">"	fragColor = vec4(1.0, 0.0, 0.0, 1.0);"</span>
+			<span class="string">"}"</span>
+		<span class="special">);</span>
+		<span class="identifier">fs</span><span class="special">.</span><span class="identifier">Compile</span><span class="special">();</span>
+
+		<span class="identifier">prog</span><span class="special">.</span><span class="identifier">AttachShader</span><span class="special">(</span><span class="identifier">vs</span><span class="special">);</span>
+		<span class="identifier">prog</span><span class="special">.</span><span class="identifier">AttachShader</span><span class="special">(</span><span class="identifier">fs</span><span class="special">);</span>
+
+		<span class="identifier">prog</span><span class="special">.</span><span class="identifier">Link</span><span class="special">();</span>
+		<span class="identifier">prog</span><span class="special">.</span><span class="identifier">Use</span><span class="special">();</span>
+
+		<span class="identifier">triangle</span><span class="special">.</span><span class="identifier">Bind</span><span class="special">();</span>
+
+		<span class="identifier">GLfloat</span> <span class="identifier">triangle_verts</span><span class="special">[</span><span class="number">9</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span>
+			<span class="number">0.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">,</span>
+			<span class="number">1.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">,</span>
+			<span class="number">0.0f</span><span class="special">,</span> <span class="number">1.0f</span><span class="special">,</span> <span class="number">0.0f</span>
+		<span class="special">};</span>
+
+		<span class="identifier">verts</span><span class="special">.</span><span class="identifier">Bind</span><span class="special">(</span><a class="link" href="quickref/buffer.html#oglplus.quickref.buffer.target">BufferTarget</a><span class="special">::</span><span class="identifier">Array</span><span class="special">);</span>
+		<a class="link" href="quickref/buffer.html#oglplus.quickref.buffer.def">Buffer</a><span class="special">::</span><span class="identifier">Data</span><span class="special">(</span>
+			<a class="link" href="quickref/buffer.html#oglplus.quickref.buffer.target">BufferTarget</a><span class="special">::</span><span class="identifier">Array</span><span class="special">,</span>
+			<span class="number">9</span><span class="special">,</span>
+			<span class="identifier">triangle_verts</span>
+		<span class="special">);</span>
+
+		<a class="link" href="quickref/vertex_attrib.html#oglplus.quickref.vertex_attrib.array">VertexArrayAttrib</a> <span class="identifier">vert_attr</span><span class="special">(</span><span class="identifier">prog</span><span class="special">,</span> <span class="string">"Position"</span><span class="special">);</span>
+		<span class="identifier">vert_attr</span><span class="special">.</span><span class="identifier">Setup</span><span class="special">&lt;</span><span class="identifier">GLfloat</span><span class="special">&gt;(</span><span class="number">3</span><span class="special">);</span>
+		<span class="identifier">vert_attr</span><span class="special">.</span><span class="identifier">Enable</span><span class="special">();</span>
+
+		<span class="identifier">gl</span><span class="special">.</span><span class="identifier">ClearColor</span><span class="special">(</span><span class="number">0.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">);</span>
+		<span class="identifier">gl</span><span class="special">.</span><span class="identifier">ClearDepth</span><span class="special">(</span><span class="number">1.0f</span><span class="special">);</span>
+	<span class="special">}</span>
+
+	<span class="keyword">void</span> <span class="identifier">Display</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="special">{</span>
+		<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">oglplus</span><span class="special">;</span>
+
+		<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Clear</span><span class="special">().</span><span class="identifier">ColorBuffer</span><span class="special">().</span><span class="identifier">DepthBuffer</span><span class="special">();</span>
+
+		<span class="identifier">gl</span><span class="special">.</span><span class="identifier">DrawArrays</span><span class="special">(</span><a class="link" href="quickref/primitive_type.html" title="Primitive type">PrimitiveType</a><span class="special">::</span><span class="identifier">Triangles</span><span class="special">,</span> <span class="number">0</span><span class="special">,</span> <span class="number">3</span><span class="special">);</span>
+	<span class="special">}</span>
+<span class="special">};</span>
+</pre>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">SingleExample</span>
+<span class="special">{</span>
+<span class="keyword">private</span><span class="special">:</span>
+	<span class="keyword">static</span> <span class="identifier">Example</span><span class="special">*&amp;</span> <span class="identifier">SingleInstance</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="special">{</span>
+		<span class="keyword">static</span> <span class="identifier">Example</span><span class="special">*</span> <span class="identifier">test</span> <span class="special">=</span> <code class="literal">nullptr</code><span class="special">;</span>
+		<span class="keyword">return</span> <span class="identifier">test</span><span class="special">;</span>
+	<span class="special">}</span>
+
+	<span class="identifier">SingleExample</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">SingleExample</span><span class="special">&amp;);</span>
+<span class="keyword">public</span><span class="special">:</span>
+
+	<span class="identifier">SingleExample</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="special">{</span>
+		<span class="identifier">assert</span><span class="special">(!</span><span class="identifier">SingleInstance</span><span class="special">());</span>
+		<span class="identifier">SingleInstance</span><span class="special">()</span> <span class="special">=</span> <span class="keyword">new</span> <span class="identifier">Example</span><span class="special">();</span>
+	<span class="special">}</span>
+
+	<span class="special">~</span><span class="identifier">SingleExample</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="special">{</span>
+		<span class="identifier">assert</span><span class="special">(</span><span class="identifier">SingleInstance</span><span class="special">());</span>
+		<span class="keyword">delete</span> <span class="identifier">SingleInstance</span><span class="special">();</span>
+		<span class="identifier">SingleInstance</span><span class="special">()</span> <span class="special">=</span> <code class="literal">nullptr</code><span class="special">;</span>
+	<span class="special">}</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Display</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="special">{</span>
+		<span class="identifier">assert</span><span class="special">(</span><span class="identifier">SingleInstance</span><span class="special">());</span>
+		<span class="identifier">SingleInstance</span><span class="special">()-&gt;</span><span class="identifier">Display</span><span class="special">();</span>
+		<span class="identifier">glutSwapBuffers</span><span class="special">();</span>
+	<span class="special">}</span>
+<span class="special">};</span>
+</pre>
+<pre class="programlisting"><span class="keyword">int</span> <span class="identifier">main</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">argc</span><span class="special">,</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">argv</span><span class="special">[])</span>
+<span class="special">{</span>
+	<span class="identifier">glutInit</span><span class="special">(&amp;</span><span class="identifier">argc</span><span class="special">,</span> <span class="identifier">argv</span><span class="special">);</span>
+	<span class="identifier">glutInitDisplayMode</span><span class="special">(</span><span class="identifier">GLUT_DOUBLE</span> <span class="special">|</span> <span class="identifier">GLUT_RGBA</span> <span class="special">|</span> <span class="identifier">GLUT_DEPTH</span><span class="special">);</span>
+	<span class="identifier">glutInitWindowSize</span><span class="special">(</span><span class="number">800</span><span class="special">,</span> <span class="number">600</span><span class="special">);</span>
+	<span class="identifier">glutInitWindowPosition</span><span class="special">(</span><span class="number">100</span><span class="special">,</span><span class="number">100</span><span class="special">);</span>
+	<span class="identifier">glutCreateWindow</span><span class="special">(</span><span class="string">"OGLplus+GLUT+GLEW"</span><span class="special">);</span>
+
+	<span class="keyword">if</span><span class="special">(</span><span class="identifier">glewInit</span><span class="special">()</span> <span class="special">==</span> <span class="identifier">GLEW_OK</span><span class="special">)</span> <span class="keyword">try</span>
+	<span class="special">{</span>
+		<span class="identifier">glGetError</span><span class="special">();</span>
+		<span class="identifier">SingleExample</span> <span class="identifier">example</span><span class="special">;</span>
+		<span class="identifier">glutDisplayFunc</span><span class="special">(&amp;</span><span class="identifier">SingleExample</span><span class="special">::</span><span class="identifier">Display</span><span class="special">);</span>
+		<span class="identifier">glutMainLoop</span><span class="special">();</span>
+		<span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
+	<span class="special">}</span>
+	<span class="keyword">catch</span><span class="special">(</span><span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a><span class="special">&amp;</span> <span class="identifier">err</span><span class="special">)</span>
+	<span class="special">{</span>
+		<span class="identifier">std</span><span class="special">::</span><span class="identifier">cerr</span>
+			<span class="special">&lt;&lt;</span> <span class="string">"Error (in "</span>
+			<span class="special">&lt;&lt;</span> <span class="identifier">err</span><span class="special">.</span><span class="identifier">GLFunc</span><span class="special">()</span>
+			<span class="special">&lt;&lt;</span> <span class="string">"'): "</span>
+			<span class="special">&lt;&lt;</span> <span class="identifier">err</span><span class="special">.</span><span class="identifier">what</span><span class="special">()</span>
+			<span class="special">&lt;&lt;</span> <span class="string">" ["</span>
+			<span class="special">&lt;&lt;</span> <span class="identifier">err</span><span class="special">.</span><span class="identifier">SourceFile</span><span class="special">()</span>
+			<span class="special">&lt;&lt;</span> <span class="string">":"</span>
+			<span class="special">&lt;&lt;</span> <span class="identifier">err</span><span class="special">.</span><span class="identifier">SourceLine</span><span class="special">()</span>
+			<span class="special">&lt;&lt;</span> <span class="string">"] "</span>
+			<span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+	<span class="special">}</span>
+	<span class="keyword">return</span> <span class="number">1</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+</div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
