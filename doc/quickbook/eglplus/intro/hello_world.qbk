@@ -3,18 +3,13 @@
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
 [/==============================]
-[section:initializer Initializer]
+[section:hello_world Hello world]
 [/==============================]
 
-[header eglplus/initializer.hpp]
+The following code shows a basic, working example of usage of the EGLplus library.
 
-TODO
-
-[import initializer.hpp]
-[eglplus_initializer]
-
-[heading:alias Alias]
-
-[eglplus_initializer_alias]
+[import hello_world.cpp]
+[eglplus_example_hello_world_1]
+[eglplus_example_hello_world_2]
 
 [endsect]

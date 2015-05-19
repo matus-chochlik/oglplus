@@ -81,7 +81,10 @@ public:
 	>*/
 };
 
-typedef EGLInitializer LibEGL;
+//]
+//[eglplus_initializer_alias
+
+typedef __EGLInitializer LibEGL;
 
 } // namespace eglplus
 //]
