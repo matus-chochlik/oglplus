@@ -16,11 +16,57 @@
 <div class="chapter">
 <div class="titlepage"><div><div><h2 class="title">
 <a name="eglplus.intro"></a>Chapter&#160;6.&#160;Introduction</h2></div></div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl class="toc"><dt><span class="section"><a href="intro.html#eglplus.intro.hello_world">Hello world</a></span></dt></dl>
+</div>
 <p>
         EGLplus is a header-only library which implements a thin object-oriented
         facade over the EGL C-language API. It provides wrappers which automate resource
         and object management and make the use of EGL in C++ safer and easier.
       </p>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="eglplus.intro.hello_world"></a><a class="link" href="intro.html#eglplus.intro.hello_world" title="Hello world">Hello world</a>
+</h2></div></div></div>
+<p>
+          The following code shows a basic, working example of usage of the EGLplus
+          library.
+        </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">eglplus</span><span class="special">/</span><span class="identifier">egl</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">eglplus</span><span class="special">/</span><span class="identifier">all</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
+</pre>
+<pre class="programlisting"><span class="keyword">int</span> <span class="identifier">main</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+<span class="special">{</span>
+	<span class="keyword">if</span><span class="special">(</span><span class="identifier">eglplus</span><span class="special">::</span><a class="link" href="quickref/initializer.html#eglplus.quickref.initializer.alias">LibEGL</a><span class="special">::</span><span class="identifier">HasClientExtensions</span><span class="special">())</span>
+	<span class="special">{</span>
+		<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Client extensions:"</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+		<span class="keyword">for</span><span class="special">(</span><span class="keyword">auto</span> <span class="identifier">r</span><span class="special">=</span><span class="identifier">eglplus</span><span class="special">::</span><a class="link" href="quickref/initializer.html#eglplus.quickref.initializer.alias">LibEGL</a><span class="special">::</span><span class="identifier">ClientExtensions</span><span class="special">();</span> <span class="special">!</span><span class="identifier">r</span><span class="special">.</span><span class="identifier">Empty</span><span class="special">();</span> <span class="identifier">r</span><span class="special">.</span><span class="identifier">Next</span><span class="special">())</span>
+			<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'\t'</span> <span class="special">&lt;&lt;</span> <span class="identifier">r</span><span class="special">.</span><span class="identifier">Front</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+	<span class="special">}</span>
+	<span class="keyword">else</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"No client extensions."</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+
+	<span class="identifier">eglplus</span><span class="special">::</span><a class="link" href="quickref/display.html" title="Displays">Display</a> <span class="identifier">display</span><span class="special">;</span>
+
+	<span class="identifier">eglplus</span><span class="special">::</span><a class="link" href="quickref/initializer.html#eglplus.quickref.initializer.alias">LibEGL</a> <span class="identifier">egl</span><span class="special">(</span><span class="identifier">display</span><span class="special">);</span>
+
+	<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Vendor: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">egl</span><span class="special">.</span><span class="identifier">Vendor</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+	<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Version: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">egl</span><span class="special">.</span><span class="identifier">Version</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+
+	<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Client APIs:"</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+	<span class="keyword">for</span><span class="special">(</span><span class="keyword">auto</span> <span class="identifier">r</span><span class="special">=</span><span class="identifier">egl</span><span class="special">.</span><span class="identifier">ClientAPIs</span><span class="special">();</span> <span class="special">!</span><span class="identifier">r</span><span class="special">.</span><span class="identifier">Empty</span><span class="special">();</span> <span class="identifier">r</span><span class="special">.</span><span class="identifier">Next</span><span class="special">())</span>
+		<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'\t'</span> <span class="special">&lt;&lt;</span> <span class="identifier">r</span><span class="special">.</span><span class="identifier">Front</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+
+	<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Extensions:"</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+	<span class="keyword">for</span><span class="special">(</span><span class="keyword">auto</span> <span class="identifier">r</span><span class="special">=</span><span class="identifier">egl</span><span class="special">.</span><span class="identifier">Extensions</span><span class="special">();</span> <span class="special">!</span><span class="identifier">r</span><span class="special">.</span><span class="identifier">Empty</span><span class="special">();</span> <span class="identifier">r</span><span class="special">.</span><span class="identifier">Next</span><span class="special">())</span>
+		<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'\t'</span> <span class="special">&lt;&lt;</span> <span class="identifier">r</span><span class="special">.</span><span class="identifier">Front</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+
+	<span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+</div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
