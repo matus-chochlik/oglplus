@@ -5,7 +5,6 @@
  */
 
 //[oalplus_object_Sequence
-namespace oalplus {
 
 using __oglplus_SeqIterator;
 using __oglplus_Sequence;
@@ -14,6 +13,5 @@ template <typename ObjectT>
 const ALuint* GetNames(const __Sequence<ObjectT>& sequence)
 noexcept;
 
-} // namespace oalplus
 //]
 

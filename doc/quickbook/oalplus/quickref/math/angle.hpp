@@ -5,12 +5,10 @@
  */
 
 //[oalplus_angle
-namespace oalplus {
 
 using __oglplus_Angle;
 
 typedef Angle<ALfloat> Anglef;
 
-} // namespace oalplus
 //]
 

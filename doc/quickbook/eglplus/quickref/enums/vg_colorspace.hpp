@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_vg_colorspace
-namespace eglplus {
 
 enum class VGColorspace : EGLenum
 {
@@ -23,5 +22,4 @@ __Range<VGColorspace> __EnumValueRange<VGColorspace>(void);
 
 __StrCRef __EnumValueName(VGColorspace);
 
-} // namespace eglplus
 //]

@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oalplus_enums_context_attrib
-namespace oalplus {
 
 enum class ContextAttrib : ALenum
 {
@@ -26,5 +25,4 @@ __Range<ContextAttrib> __EnumValueRange<ContextAttrib>(void);
 
 __StrCRef __EnumValueName(ContextAttrib);
 
-} // namespace oalplus
 //]

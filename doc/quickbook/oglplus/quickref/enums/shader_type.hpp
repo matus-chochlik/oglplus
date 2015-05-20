@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_shader_type
-namespace oglplus {
 
 enum class ShaderType : GLenum
 {
@@ -27,5 +26,4 @@ __Range<ShaderType> __EnumValueRange<ShaderType>(void);
 
 __StrCRef __EnumValueName(ShaderType);
 
-} // namespace oglplus
 //]

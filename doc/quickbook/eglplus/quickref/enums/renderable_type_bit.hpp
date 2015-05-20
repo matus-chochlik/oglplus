@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_renderable_type_bit
-namespace eglplus {
 
 enum class RenderableTypeBit : EGLenum
 {
@@ -26,5 +25,4 @@ __Range<RenderableTypeBit> __EnumValueRange<RenderableTypeBit>(void);
 
 __StrCRef __EnumValueName(RenderableTypeBit);
 
-} // namespace eglplus
 //]

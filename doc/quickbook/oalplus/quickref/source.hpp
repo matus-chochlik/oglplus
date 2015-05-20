@@ -5,7 +5,6 @@
  */
 
 //[oalplus_source_common_1
-namespace oalplus {
 
 template <>
 class __ObjectOps<__tag_DirectState, __tag_Source>
@@ -223,6 +222,5 @@ typedef ObjectOps<__tag_DirectState, __tag_Source>
 
 typedef __Object<SourceOps> Source;
 
-} // namespace oalplus
 //]
 

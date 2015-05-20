@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_pixel_parameter
-namespace oglplus {
 
 enum class PixelParameter : GLenum
 {
@@ -45,5 +44,4 @@ __Range<PixelParameter> __EnumValueRange<PixelParameter>(void);
 
 __StrCRef __EnumValueName(PixelParameter);
 
-} // namespace oglplus
 //]

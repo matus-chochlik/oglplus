@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_buffer_map_access
-namespace oglplus {
 
 enum class BufferMapAccess : GLbitfield
 {
@@ -31,5 +30,4 @@ __StrCRef __EnumValueName(BufferMapAccess);
 
 __Bitfield<BufferMapAccess> operator | (BufferMapAccess b1, BufferMapAccess b2);
 
-} // namespace oglplus
 //]

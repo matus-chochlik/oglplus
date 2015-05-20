@@ -5,11 +5,9 @@
  */
 
 //[oalplus_attrib_list
-namespace oalplus {
 
 using __oglplus_AttributeList;
 using __oglplus_FinishedAttributeList;
 
-} // namespace oalplus
 //]
 

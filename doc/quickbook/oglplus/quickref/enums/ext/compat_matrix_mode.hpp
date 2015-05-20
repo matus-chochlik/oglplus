@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_compat_matrix_mode
-namespace oglplus {
 
 enum class CompatibilityMatrixMode : GLenum
 {
@@ -25,5 +24,4 @@ __Range<CompatibilityMatrixMode> __EnumValueRange<CompatibilityMatrixMode>(void)
 
 __StrCRef __EnumValueName(CompatibilityMatrixMode);
 
-} // namespace oglplus
 //]

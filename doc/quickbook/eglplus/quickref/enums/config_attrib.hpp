@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_config_attrib
-namespace eglplus {
 
 enum class ConfigAttrib : EGLenum
 {
@@ -53,5 +52,4 @@ __Range<ConfigAttrib> __EnumValueRange<ConfigAttrib>(void);
 
 __StrCRef __EnumValueName(ConfigAttrib);
 
-} // namespace eglplus
 //]
