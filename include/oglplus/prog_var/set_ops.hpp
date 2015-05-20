@@ -236,7 +236,7 @@ protected:
 		OGLPLUS_CHECK_CTXT(
 			ProgVarError,
 			Program(ProgramName(program)).
-			Index(base_location)
+			Index(location)
 		);
 	}
 
@@ -253,7 +253,7 @@ protected:
 		OGLPLUS_CHECK_CTXT(
 			ProgVarError,
 			Program(ProgramName(program)).
-			Index(base_location)
+			Index(location)
 		);
 	}
 
@@ -270,7 +270,7 @@ protected:
 		OGLPLUS_CHECK_CTXT(
 			ProgVarError,
 			Program(ProgramName(program)).
-			Index(base_location)
+			Index(location)
 		);
 	}
 #endif //NO_VARIADIC_TEMPLATES
