@@ -23,14 +23,12 @@ The namespace-definition opening,
 ``
 namespace oalplus {
 ``
-
 and closing,
 
 ``
 } // namespace oalplus
 ``
-
-statements are omitted for the sake of brevity from this reference.
+statements are assumed, but omitted for the sake of brevity from this reference.
 
 [endsect]
 

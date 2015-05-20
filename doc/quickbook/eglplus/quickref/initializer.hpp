@@ -5,7 +5,6 @@
  */
 
 //[eglplus_initializer
-namespace eglplus {
 
 class EGLInitializer
 {
@@ -86,6 +85,5 @@ public:
 
 typedef __EGLInitializer LibEGL;
 
-} // namespace eglplus
 //]
 

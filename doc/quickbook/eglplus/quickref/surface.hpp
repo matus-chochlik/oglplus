@@ -5,7 +5,6 @@
  */
 
 //[eglplus_surface_attribs
-namespace eglplus {
 
 typedef __AttributeList<__SurfaceAttrib, ...> SurfaceAttribs; /*<
 Attribute list type for surface attributes.
@@ -156,6 +155,5 @@ noexcept; /*<
 Returns the EGL surface handle wrapped by a __Surface.
 >*/
 
-} // namespace eglplus
 //]
 
