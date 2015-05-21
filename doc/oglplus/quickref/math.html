@@ -35,13 +35,9 @@
             This headers implements several functions returning math constants commonly
             used by the rest of OGLplus.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">auto</span> <span class="identifier">Pi</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.math.constants.c0" href="math.html#oglplus.quickref.math.constants.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<pre class="programlisting"><span class="keyword">auto</span> <span class="identifier">Pi</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.math.constants.c0" href="math.html#oglplus.quickref.math.constants.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="keyword">auto</span> <span class="identifier">TwoPi</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.math.constants.c2" href="math.html#oglplus.quickref.math.constants.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="keyword">auto</span> <span class="identifier">HalfPi</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.math.constants.c4" href="math.html#oglplus.quickref.math.constants.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -88,9 +84,7 @@
 <a name="oglplus.quickref.math.angle.h0"></a>
             <span class="phrase"><a name="oglplus.quickref.math.angle.def"></a></span><a class="link" href="math.html#oglplus.quickref.math.angle.def">Definition</a>
           </h5>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">Angle</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -420,8 +414,6 @@
 <span class="identifier">T</span> <span class="identifier">CosineWave</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">t</span><span class="special">);</span> <a class="co" name="oglplus.quickref.math.angle.c76" href="math.html#oglplus.quickref.math.angle.c77"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 <span class="identifier">T</span> <span class="identifier">CosineWave01</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">t</span><span class="special">);</span> <a class="co" name="oglplus.quickref.math.angle.c78" href="math.html#oglplus.quickref.math.angle.c79"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -547,9 +539,7 @@
             to all instantiations of <code class="literal">Vector</code>. The differences to
             the specializations are noted below.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">Vector</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -962,8 +952,6 @@
 <span class="keyword">typedef</span> <span class="identifier">Vector</span><span class="special">&lt;</span><span class="identifier">GLdouble</span><span class="special">,</span> <span class="number">3</span><span class="special">&gt;</span> <span class="identifier">Vec3d</span><span class="special">;</span>
 <span class="keyword">typedef</span> <span class="identifier">Vector</span><span class="special">&lt;</span><span class="identifier">GLdouble</span><span class="special">,</span> <span class="number">4</span><span class="special">&gt;</span> <span class="identifier">Vec4d</span><span class="special">;</span>
 <span class="preprocessor">#endif</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -1006,9 +994,7 @@
 <a name="oglplus.quickref.math.matrix.basic.h0"></a>
               <span class="phrase"><a name="oglplus.quickref.math.matrix.basic.def"></a></span><a class="link" href="math.html#oglplus.quickref.math.matrix.basic.def">Definition</a>
             </h6>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">size_t</span> <span class="identifier">Rows</span><span class="special">,</span> <span class="identifier">size_t</span> <span class="identifier">Cols</span><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">size_t</span> <span class="identifier">Rows</span><span class="special">,</span> <span class="identifier">size_t</span> <span class="identifier">Cols</span><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">Matrix</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -1571,8 +1557,6 @@
 <span class="preprocessor">#ifdef</span> <span class="identifier">GL_DOUBLE</span>
 <span class="keyword">typedef</span> <span class="identifier">CameraMatrix</span><span class="special">&lt;</span><span class="identifier">GLdouble</span><span class="special">&gt;</span> <span class="identifier">CamMatrixd</span><span class="special">;</span>
 <span class="preprocessor">#endif</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -1698,16 +1682,12 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/math/plane.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">Plane</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 
 <span class="special">};</span> <span class="comment">// class Plane</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 </div>
 </div>

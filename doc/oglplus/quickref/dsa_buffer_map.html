@@ -28,9 +28,7 @@
           The <code class="literal">DSABufferRawMap</code> allows to map the contents of a
           GPU buffer into the client's address space.
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_5</span> <span class="special">||</span> <span class="identifier">GL_ARB_direct_state_access</span>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_5</span> <span class="special">||</span> <span class="identifier">GL_ARB_direct_state_access</span>
 
 <span class="keyword">class</span> <span class="identifier">DSABufferRawMap</span>
 <span class="special">{</span>
@@ -159,8 +157,6 @@
 <span class="special">};</span>
 
 <span class="preprocessor">#endif</span> <span class="comment">// GL_VERSION_4_5 || GL_ARB_direct_state_access</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>

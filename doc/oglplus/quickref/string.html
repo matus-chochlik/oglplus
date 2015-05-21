@@ -35,9 +35,7 @@
             The <code class="literal">String</code> class has the same interface as an <code class="literal">std::basic_string&lt;GLchar&gt;</code>
             except that the string stored inside must be UTF-8 encoded.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">String</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">String</span>
  <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">GLchar</span><span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -47,8 +45,6 @@
 <span class="keyword">const</span> <span class="identifier">String</span><span class="special">&amp;</span> <span class="identifier">EmptyString</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.string.def.c2" href="string.html#oglplus.quickref.string.def.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 <span class="keyword">bool</span> <span class="identifier">ValidString</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">begin</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">end</span><span class="special">);</span> <a class="co" name="oglplus.quickref.string.def.c4" href="string.html#oglplus.quickref.string.def.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -102,9 +98,7 @@
               wrapping it is being used.
             </p></td></tr>
 </table></div>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">StrCRef</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">StrCRef</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">StrCRef</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span> <a class="co" name="oglplus.quickref.string.ref.c0" href="string.html#oglplus.quickref.string.ref.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
@@ -144,8 +138,6 @@
 	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!=</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">StrCRef</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">Char</span><span class="special">*</span> <span class="identifier">b</span><span class="special">);</span>
 	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!=</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">Char</span><span class="special">*</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">StrCRef</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">);</span>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -242,11 +234,7 @@
             to <code class="literal">std::ostream</code> is implemented in a separate header
             file.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="identifier">out</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">StrCRef</span><span class="special">&amp;</span> <span class="identifier">str</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="identifier">out</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">StrCRef</span><span class="special">&amp;</span> <span class="identifier">str</span><span class="special">);</span>
 </pre>
 </div>
 </div>

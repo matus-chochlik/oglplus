@@ -25,9 +25,7 @@
           <span class="phrase"><a name="oglplus.quickref.query.common_query_operations"></a></span><a class="link" href="query.html#oglplus.quickref.query.common_query_operations">Common
           query operations</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
 <span class="keyword">struct</span> <a class="link" href="object.html#oglplus.quickref.object.subtype" title="Object subtype">ObjectSubtype</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Query</a><span class="special">&gt;</span>
 <span class="special">{</span>
 	<span class="keyword">typedef</span> <a class="link" href="query.html#oglplus.quickref.query.target">QueryTarget</a> <span class="identifier">Type</span><span class="special">;</span>
@@ -256,8 +254,6 @@
 
 	<span class="keyword">void</span> <span class="identifier">WaitForResult</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>  <a class="co" name="oglplus.quickref.query.c36" href="query.html#oglplus.quickref.query.c37"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -286,9 +282,7 @@
 <a name="oglplus.quickref.query.h5"></a>
           <span class="phrase"><a name="oglplus.quickref.query.target"></a></span><a class="link" href="query.html#oglplus.quickref.query.target">Target</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">QueryTarget</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">QueryTarget</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">TimeElapsed</span>                        <span class="special">=</span> <span class="identifier">GL_TIME_ELAPSED</span><span class="special">,</span>
 	<span class="identifier">Timestamp</span>                          <span class="special">=</span> <span class="identifier">GL_TIMESTAMP</span><span class="special">,</span>
@@ -315,17 +309,13 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">QueryTarget</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">QueryTarget</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">QueryTarget</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.query.h6"></a>
           <span class="phrase"><a name="oglplus.quickref.query.conditional_render_mode"></a></span><a class="link" href="query.html#oglplus.quickref.query.conditional_render_mode">Conditional
           render mode</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">ConditionalRenderMode</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">ConditionalRenderMode</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">QueryWait</span>                   <span class="special">=</span> <span class="identifier">GL_QUERY_WAIT</span><span class="special">,</span>
 	<span class="identifier">QueryNoWait</span>                 <span class="special">=</span> <span class="identifier">GL_QUERY_NO_WAIT</span><span class="special">,</span>
@@ -341,8 +331,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">ConditionalRenderMode</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">ConditionalRenderMode</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">ConditionalRenderMode</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

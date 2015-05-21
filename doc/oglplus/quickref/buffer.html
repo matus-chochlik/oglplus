@@ -25,9 +25,7 @@
           <span class="phrase"><a name="oglplus.quickref.buffer.common"></a></span><a class="link" href="buffer.html#oglplus.quickref.buffer.common">Common
           buffer operations</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
 <span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Buffer</a><span class="special">&gt;</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a>
 <span class="special">{</span>
@@ -582,8 +580,6 @@
 	<span class="identifier">BufferTargetAndOffset</span><span class="special">&amp;&amp;</span> <span class="identifier">tao</span><span class="special">,</span>
 	<span class="keyword">const</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.data">BufferData</a><span class="special">&amp;</span> <span class="identifier">data</span>
 <span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c96" href="buffer.html#oglplus.quickref.buffer.c97"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -665,9 +661,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/buffer_target.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">BufferTarget</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">BufferTarget</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Array</span>                 <span class="special">=</span> <span class="identifier">GL_ARRAY_BUFFER</span><span class="special">,</span>
 	<span class="identifier">AtomicCounter</span>         <span class="special">=</span> <span class="identifier">GL_ATOMIC_COUNTER_BUFFER</span><span class="special">,</span>
@@ -691,8 +685,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">BufferTarget</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">BufferTarget</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">BufferTarget</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.buffer.h5"></a>
@@ -701,9 +693,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/buffer_target.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">BufferIndexedTarget</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">BufferIndexedTarget</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">AtomicCounter</span>     <span class="special">=</span> <span class="identifier">GL_ATOMIC_COUNTER_BUFFER</span><span class="special">,</span>
 	<span class="identifier">ShaderStorage</span>     <span class="special">=</span> <span class="identifier">GL_SHADER_STORAGE_BUFFER</span><span class="special">,</span>
@@ -715,8 +705,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">BufferIndexedTarget</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">BufferIndexedTarget</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">BufferIndexedTarget</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.buffer.h6"></a>
@@ -726,9 +714,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/buffer_binding.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span> <span class="special">||</span> <span class="identifier">GL_ARB_transform_feedback3</span>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span> <span class="special">||</span> <span class="identifier">GL_ARB_transform_feedback3</span>
 <span class="keyword">class</span> <span class="identifier">UniformBufferBindingPoint</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
 <span class="special">{</span>
@@ -763,8 +749,6 @@
 	<span class="identifier">ShaderStorageBufferBindingPoint</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c104" href="buffer.html#oglplus.quickref.buffer.c105"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="special">};</span>
 <span class="preprocessor">#endif</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -810,9 +794,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/buffer_usage.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">BufferUsage</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">BufferUsage</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">StreamDraw</span>  <span class="special">=</span> <span class="identifier">GL_STREAM_DRAW</span><span class="special">,</span>
 	<span class="identifier">StreamRead</span>  <span class="special">=</span> <span class="identifier">GL_STREAM_READ</span><span class="special">,</span>
@@ -829,8 +811,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">BufferUsage</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">BufferUsage</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">BufferUsage</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.buffer.h8"></a>
@@ -840,9 +820,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/buffer_storage_bit.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">BufferStorageBit</span> <span class="special">:</span> <span class="identifier">GLbitfield</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">BufferStorageBit</span> <span class="special">:</span> <span class="identifier">GLbitfield</span>
 <span class="special">{</span>
 	<span class="identifier">MapRead</span>        <span class="special">=</span> <span class="identifier">GL_MAP_READ_BIT</span><span class="special">,</span>
 	<span class="identifier">MapWrite</span>       <span class="special">=</span> <span class="identifier">GL_MAP_WRITE_BIT</span><span class="special">,</span>
@@ -859,8 +837,6 @@
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">BufferStorageBit</span><span class="special">);</span>
 
 <a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><span class="identifier">BufferStorageBit</span><span class="special">&gt;</span> <span class="keyword">operator</span> <span class="special">|</span> <span class="special">(</span><span class="identifier">BufferStorageBit</span> <span class="identifier">b1</span><span class="special">,</span> <span class="identifier">BufferStorageBit</span> <span class="identifier">b2</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.buffer.h9"></a>
@@ -874,9 +850,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/buffer_size.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">BufferSize</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">BufferSize</span>
  <span class="special">:</span> <a class="link" href="size_type.html#oglplus.quickref.size_type.def">BigSizeType</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -989,8 +963,6 @@
 	<span class="identifier">BufferTypedSize</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
 	<span class="identifier">BufferTypedSize</span><span class="special">(</span><span class="identifier">GLsizeiptr</span> <span class="identifier">count</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c126" href="buffer.html#oglplus.quickref.buffer.c127"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c127"></a><a href="#oglplus.quickref.buffer.c126"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
@@ -1023,9 +995,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/buffer_data.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">BufferData</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">BufferData</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">BufferData</span><span class="special">(</span><a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">size</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLvoid</span><span class="special">*</span> <span class="identifier">data</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c128" href="buffer.html#oglplus.quickref.buffer.c129"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
@@ -1043,8 +1013,6 @@
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 	<span class="identifier">BufferData</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;</span> <span class="identifier">vector</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c136" href="buffer.html#oglplus.quickref.buffer.c137"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -1093,9 +1061,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/buffer_gpu_addr.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="preprocessor">#if</span> <span class="identifier">GL_NV_shader_buffer_load</span>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="identifier">GL_NV_shader_buffer_load</span>
 
 <span class="keyword">class</span> <span class="identifier">BufferGPUAddress</span>
 <span class="special">{</span>
@@ -1106,8 +1072,6 @@
 <span class="identifier">GLuint64EXT</span> <span class="identifier">GetGLAddress</span><span class="special">(</span><span class="identifier">BufferGPUAddress</span> <span class="identifier">bga</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c138" href="buffer.html#oglplus.quickref.buffer.c139"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 <span class="preprocessor">#endif</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.buffer.c139"></a><a href="#oglplus.quickref.buffer.c138"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>

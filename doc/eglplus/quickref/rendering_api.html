@@ -20,9 +20,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;eglplus/rendering_api.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">eglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">RenderingAPI</span> <span class="special">:</span> <span class="identifier">EGLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">RenderingAPI</span> <span class="special">:</span> <span class="identifier">EGLenum</span>
 <span class="special">{</span>
 	<span class="identifier">OpenGL</span>    <span class="special">=</span> <span class="identifier">EGL_OPENGL_API</span><span class="special">,</span>
 	<span class="identifier">OpenGL_ES</span> <span class="special">=</span> <span class="identifier">EGL_OPENGL_ES_API</span><span class="special">,</span>
@@ -34,16 +32,10 @@
 <a class="link" href="../../oglplus/quickref/concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">RenderingAPI</span><span class="special">&gt;</span> <a class="link" href="../../oglplus/quickref/enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">RenderingAPI</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html" title="Strings">StrCRef</a> <a class="link" href="../../oglplus/quickref/enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">RenderingAPI</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace eglplus</span>
 </pre>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">eglplus</span> <span class="special">{</span>
-
-<a class="link" href="boolean.html" title="Boolean">Boolean</a> <span class="identifier">BindAPI</span><span class="special">(</span><a class="link" href="rendering_api.html" title="Rendering API">RenderingAPI</a> <span class="identifier">api</span><span class="special">);</span> <a class="co" name="eglplus.quickref.rendering_api.c0" href="rendering_api.html#eglplus.quickref.rendering_api.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<pre class="programlisting"><a class="link" href="boolean.html" title="Boolean">Boolean</a> <span class="identifier">BindAPI</span><span class="special">(</span><a class="link" href="rendering_api.html" title="Rendering API">RenderingAPI</a> <span class="identifier">api</span><span class="special">);</span> <a class="co" name="eglplus.quickref.rendering_api.c0" href="rendering_api.html#eglplus.quickref.rendering_api.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 <a class="link" href="rendering_api.html" title="Rendering API">RenderingAPI</a> <span class="identifier">QueryAPI</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="eglplus.quickref.rendering_api.c2" href="rendering_api.html#eglplus.quickref.rendering_api.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
-
-<span class="special">}</span> <span class="comment">// namespace eglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>

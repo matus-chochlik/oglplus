@@ -25,9 +25,7 @@
           <span class="phrase"><a name="oglplus.quickref.program_pipeline.common"></a></span><a class="link" href="program_pipeline.html#oglplus.quickref.program_pipeline.common">Common
           program pipeline operations</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
 <span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::ProgramPipeline</a><span class="special">&gt;</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramPipelineName</a>
 <span class="special">{</span>
@@ -206,8 +204,6 @@ pp.UseStages(prog).All();
 
 <span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper.obj_zero">ObjectZero</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjZeroOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::DirectState</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::ProgramPipeline</a><span class="special">&gt;&gt;</span> <a class="co" name="oglplus.quickref.program_pipeline.c28" href="program_pipeline.html#oglplus.quickref.program_pipeline.c29"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 	<span class="identifier">NoProgramPipeline</span><span class="special">;</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program_pipeline.c29"></a><a href="#oglplus.quickref.program_pipeline.c28"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
@@ -222,9 +218,7 @@ pp.UseStages(prog).All();
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/program_pipeline_stage.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">ProgramPipelineStage</span> <span class="special">:</span> <span class="identifier">GLbitfield</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">ProgramPipelineStage</span> <span class="special">:</span> <span class="identifier">GLbitfield</span>
 <span class="special">{</span>
 	<span class="identifier">VertexShader</span>         <span class="special">=</span> <span class="identifier">GL_VERTEX_SHADER_BIT</span><span class="special">,</span>
 	<span class="identifier">TessControlShader</span>    <span class="special">=</span> <span class="identifier">GL_TESS_CONTROL_SHADER_BIT</span><span class="special">,</span>
@@ -241,8 +235,6 @@ pp.UseStages(prog).All();
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">ProgramPipelineStage</span><span class="special">);</span>
 
 <a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><span class="identifier">ProgramPipelineStage</span><span class="special">&gt;</span> <span class="keyword">operator</span> <span class="special">|</span> <span class="special">(</span><span class="identifier">ProgramPipelineStage</span> <span class="identifier">b1</span><span class="special">,</span> <span class="identifier">ProgramPipelineStage</span> <span class="identifier">b2</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

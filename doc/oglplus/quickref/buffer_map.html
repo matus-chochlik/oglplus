@@ -28,9 +28,7 @@
           The <code class="literal">BufferRawMap</code> allows to map the contents of a GPU
           buffer into the client's address space.
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">BufferRawMap</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">BufferRawMap</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">BufferRawMap</span><span class="special">(</span>
@@ -156,8 +154,6 @@
 		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferTypedSize</a><span class="special">&lt;</span><span class="identifier">Type</span><span class="special">&gt;</span> <span class="identifier">count</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.buffer_map.c28" href="buffer_map.html#oglplus.quickref.buffer_map.c29"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -213,9 +209,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/buffer_map_access.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">BufferMapAccess</span> <span class="special">:</span> <span class="identifier">GLbitfield</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">BufferMapAccess</span> <span class="special">:</span> <span class="identifier">GLbitfield</span>
 <span class="special">{</span>
 	<span class="identifier">Read</span>             <span class="special">=</span> <span class="identifier">GL_MAP_READ_BIT</span><span class="special">,</span>
 	<span class="identifier">Write</span>            <span class="special">=</span> <span class="identifier">GL_MAP_WRITE_BIT</span><span class="special">,</span>
@@ -233,8 +227,6 @@
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">BufferMapAccess</span><span class="special">);</span>
 
 <a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><span class="identifier">BufferMapAccess</span><span class="special">&gt;</span> <span class="keyword">operator</span> <span class="special">|</span> <span class="special">(</span><span class="identifier">BufferMapAccess</span> <span class="identifier">b1</span><span class="special">,</span> <span class="identifier">BufferMapAccess</span> <span class="identifier">b2</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

@@ -51,9 +51,7 @@
             the GL error code values. The GL error code can be obtained for example
             by calling the <code class="literal">Code</code> member function of <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">ErrorCode</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">ErrorCode</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">NoError</span>                     <span class="special">=</span> <span class="identifier">GL_NO_ERROR</span><span class="special">,</span>
 	<span class="identifier">OutOfMemory</span>                 <span class="special">=</span> <span class="identifier">GL_OUT_OF_MEMORY</span><span class="special">,</span>
@@ -71,8 +69,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">ErrorCode</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">ErrorCode</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">ErrorCode</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 </div>
 <div class="section">
@@ -93,9 +89,7 @@
             error types, like GL shading language compilation and linking errors,
             limit errors, etc.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">Error</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Error</span>
  <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">runtime_error</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -238,8 +232,6 @@
 
 	<span class="keyword">virtual</span> <span class="keyword">const</span> <span class="identifier">String</span><span class="special">&amp;</span> <span class="identifier">Log</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.basic.c48" href="error.html#oglplus.quickref.error.basic.c49"><img src="../../images/callouts/14.png" alt="14" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -370,16 +362,12 @@
             pointer was detected at run-time and allows the application to avoid
             memory access violation and terminate more gracefully.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">MissingFunction</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">MissingFunction</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">MissingFunction</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">message</span><span class="special">);</span>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 </div>
 <div class="section">
@@ -397,9 +385,7 @@
             of the GPU, maximum texture dimensions, maximum number of draw buffers,
             vertex attributes, etc.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">LimitError</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">LimitError</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -408,8 +394,6 @@
 	<span class="identifier">GLfloat</span> <span class="identifier">Value</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.limit.c0" href="error.html#oglplus.quickref.error.limit.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 	<span class="identifier">GLfloat</span> <span class="identifier">Limit</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.limit.c2" href="error.html#oglplus.quickref.error.limit.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -437,9 +421,7 @@
             Exception class indicating that an <a class="link" href="object.html" title="OGLplus objects">OGLplus
             object</a>-related error has occured.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">ObjectError</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ObjectError</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -527,8 +509,6 @@
 	<span class="identifier">GLint</span> <span class="identifier">SubjectName</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.object.c16" href="error.html#oglplus.quickref.error.object.c17"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 	<span class="keyword">const</span> <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a><span class="special">&amp;</span> <span class="identifier">SubjectDesc</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.object.c18" href="error.html#oglplus.quickref.error.object.c19"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -579,9 +559,7 @@
             <a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.def">VertexAttrib</a>,
             etc.) has occured.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">ProgVarError</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ProgVarError</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -593,8 +571,6 @@
 
 	<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">Identifier</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.prog_var.c6" href="error.html#oglplus.quickref.error.prog_var.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -635,9 +611,7 @@
 <p>
             Generic base exception for program build errors.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">ProgramBuildError</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ProgramBuildError</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.object" title="Object errors">ObjectError</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -686,8 +660,6 @@
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">ValidationError</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">message</span><span class="special">);</span>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 </div>
 <div class="section">
@@ -700,9 +672,7 @@
 <p>
             Exception indicating that an incomplete GL framebuffer error has occured.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">IncompleteFramebuffer</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">IncompleteFramebuffer</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.object" title="Object errors">ObjectError</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -710,8 +680,6 @@
 
 	<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.status">FramebufferStatus</a> <span class="identifier">Status</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.framebuffer.c0" href="error.html#oglplus.quickref.error.framebuffer.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.framebuffer.c1"></a><a href="#oglplus.quickref.error.framebuffer.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>

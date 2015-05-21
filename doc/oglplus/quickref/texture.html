@@ -24,9 +24,7 @@
 <a name="oglplus.quickref.texture.h0"></a>
           <span class="phrase"><a name="oglplus.quickref.texture.subtype"></a></span><a class="link" href="texture.html#oglplus.quickref.texture.subtype">Subtype</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
 <span class="keyword">struct</span> <a class="link" href="object.html#oglplus.quickref.object.subtype" title="Object subtype">ObjectSubtype</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Texture</a><span class="special">&gt;</span>
 <span class="special">{</span>
 	<span class="keyword">typedef</span> <a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">Type</span><span class="special">;</span>
@@ -1651,8 +1649,6 @@
 	<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">target</span><span class="special">,</span>
 	<span class="identifier">TextureMipmap</span>
 <span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c224" href="texture.html#oglplus.quickref.texture.c225"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -1724,9 +1720,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/texture_target.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureTarget</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureTarget</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">_1D</span>                 <span class="special">=</span> <span class="identifier">GL_TEXTURE_1D</span><span class="special">,</span>
 	<span class="identifier">_2D</span>                 <span class="special">=</span> <span class="identifier">GL_TEXTURE_2D</span><span class="special">,</span>
@@ -1751,8 +1745,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">TextureTarget</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">TextureTarget</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">TextureTarget</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.texture.h6"></a>
@@ -1762,9 +1754,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/texture_compare.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureCompareMode</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureCompareMode</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">None</span>                <span class="special">=</span> <span class="identifier">GL_NONE</span><span class="special">,</span>
 	<span class="identifier">CompareRefToTexture</span> <span class="special">=</span> <span class="identifier">GL_COMPARE_REF_TO_TEXTURE</span>
@@ -1774,8 +1764,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">TextureCompareMode</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">TextureCompareMode</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">TextureCompareMode</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.texture.h7"></a>
@@ -1785,9 +1773,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/texture_filter.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureFilter</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureFilter</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Nearest</span> <span class="special">=</span> <span class="identifier">GL_NEAREST</span><span class="special">,</span>
 	<span class="identifier">Linear</span>  <span class="special">=</span> <span class="identifier">GL_LINEAR</span>
@@ -1797,12 +1783,8 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">TextureFilter</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">TextureFilter</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">TextureFilter</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureMinFilter</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureMinFilter</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Nearest</span>              <span class="special">=</span> <span class="identifier">GL_NEAREST</span><span class="special">,</span>
 	<span class="identifier">Linear</span>               <span class="special">=</span> <span class="identifier">GL_LINEAR</span><span class="special">,</span>
@@ -1816,12 +1798,8 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">TextureMinFilter</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">TextureMinFilter</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">TextureMinFilter</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureMagFilter</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureMagFilter</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Nearest</span> <span class="special">=</span> <span class="identifier">GL_NEAREST</span><span class="special">,</span>
 	<span class="identifier">Linear</span>  <span class="special">=</span> <span class="identifier">GL_LINEAR</span>
@@ -1831,8 +1809,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">TextureMagFilter</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">TextureMagFilter</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">TextureMagFilter</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.texture.h8"></a>
@@ -1842,9 +1818,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/texture_swizzle.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureSwizzleCoord</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureSwizzleCoord</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">R</span>    <span class="special">=</span> <span class="identifier">GL_TEXTURE_SWIZZLE_R</span><span class="special">,</span>
 	<span class="identifier">G</span>    <span class="special">=</span> <span class="identifier">GL_TEXTURE_SWIZZLE_G</span><span class="special">,</span>
@@ -1857,8 +1831,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">TextureSwizzleCoord</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">TextureSwizzleCoord</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">TextureSwizzleCoord</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.texture.h9"></a>
@@ -1868,9 +1840,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/texture_swizzle.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureSwizzle</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureSwizzle</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Red</span>   <span class="special">=</span> <span class="identifier">GL_RED</span><span class="special">,</span>
 	<span class="identifier">Green</span> <span class="special">=</span> <span class="identifier">GL_GREEN</span><span class="special">,</span>
@@ -1884,8 +1854,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">TextureSwizzle</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">TextureSwizzle</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">TextureSwizzle</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.texture.h10"></a>
@@ -1895,9 +1863,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/texture_swizzle.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
 <span class="keyword">class</span> <span class="identifier">TextureSwizzleTuple</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -1937,8 +1903,6 @@
 	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">Swizzle</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.swizzle_coord">TextureSwizzleCoord</a> <span class="identifier">coordinate</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c248" href="texture.html#oglplus.quickref.texture.c249"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
 <span class="special">};</span>
 <span class="preprocessor">#endif</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -2022,9 +1986,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/texture_wrap.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureWrapCoord</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureWrapCoord</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">S</span> <span class="special">=</span> <span class="identifier">GL_TEXTURE_WRAP_S</span><span class="special">,</span>
 	<span class="identifier">T</span> <span class="special">=</span> <span class="identifier">GL_TEXTURE_WRAP_T</span><span class="special">,</span>
@@ -2035,8 +1997,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">TextureWrapCoord</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">TextureWrapCoord</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">TextureWrapCoord</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.texture.h12"></a>
@@ -2046,9 +2006,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/texture_wrap.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureWrap</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">TextureWrap</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">ClampToEdge</span>       <span class="special">=</span> <span class="identifier">GL_CLAMP_TO_EDGE</span><span class="special">,</span>
 	<span class="identifier">Repeat</span>            <span class="special">=</span> <span class="identifier">GL_REPEAT</span><span class="special">,</span>
@@ -2061,8 +2019,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">TextureWrap</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">TextureWrap</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">TextureWrap</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.texture.h13"></a>
@@ -2072,9 +2028,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/texture_unit.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">TextureUnitSelector</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">TextureUnitSelector</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -2089,8 +2043,6 @@
 	<span class="identifier">ImageUnitSelector</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c252" href="texture.html#oglplus.quickref.texture.c253"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="special">};</span>
 <span class="preprocessor">#endif</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>

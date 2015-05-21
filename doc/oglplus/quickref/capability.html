@@ -32,9 +32,7 @@
           member functions of the <a class="link" href="context.html" title="Current GL context">Context</a>
           class.
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">Capability</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">Capability</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">PrimitiveRestart</span>       <span class="special">=</span> <span class="identifier">GL_PRIMITIVE_RESTART</span><span class="special">,</span>
 	<span class="identifier">DepthTest</span>              <span class="special">=</span> <span class="identifier">GL_DEPTH_TEST</span><span class="special">,</span>
@@ -68,8 +66,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">Capability</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.capability.h1"></a>
@@ -89,9 +85,7 @@
           is <code class="literal">ClipDistance</code> where the i-th 'slot' enables the i-th
           clipping plane.
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">Functionality</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">Functionality</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">ClipDistance</span> <span class="special">=</span> <span class="identifier">GL_CLIP_DISTANCE0</span>
 <span class="special">};</span>
@@ -100,8 +94,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">Functionality</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">Functionality</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">Functionality</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.capability.h2"></a>
@@ -113,9 +105,7 @@
           enumerations have several syntax-sugar operators allowing less verbose
           use.
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><a class="link" href="capability.html" title="Capabilities">Capability</a> <span class="identifier">capability</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">enable</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c0" href="capability.html#oglplus.quickref.capability.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<pre class="programlisting"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><a class="link" href="capability.html" title="Capabilities">Capability</a> <span class="identifier">capability</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">enable</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c0" href="capability.html#oglplus.quickref.capability.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">+</span> <span class="special">(</span><span class="identifier">Capability</span> <span class="identifier">capability</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c2" href="capability.html#oglplus.quickref.capability.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">-</span> <span class="special">(</span><span class="identifier">Capability</span> <span class="identifier">capability</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c4" href="capability.html#oglplus.quickref.capability.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
@@ -126,8 +116,6 @@
 <span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">FunctionalityAndNumber</span> <span class="identifier">func_and_num</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">enable</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c10" href="capability.html#oglplus.quickref.capability.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 <span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">+</span> <span class="special">(</span><span class="identifier">FunctionalityAndNumber</span> <span class="identifier">func_and_num</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c12" href="capability.html#oglplus.quickref.capability.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 <span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">-</span> <span class="special">(</span><span class="identifier">FunctionalityAndNumber</span> <span class="identifier">func_and_num</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c14" href="capability.html#oglplus.quickref.capability.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -183,9 +171,7 @@
 <p>
           For example:
         </p>
-<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">oglplus</span><span class="special">;</span>
-
-<span class="identifier">Capability</span><span class="special">::</span><span class="identifier">DepthTest</span> <span class="special">&lt;&lt;</span> <span class="keyword">true</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c16" href="capability.html#oglplus.quickref.capability.c17"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<pre class="programlisting"><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">DepthTest</span> <span class="special">&lt;&lt;</span> <span class="keyword">true</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c16" href="capability.html#oglplus.quickref.capability.c17"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="identifier">Capability</span><span class="special">::</span><span class="identifier">StencilTest</span> <span class="special">&lt;&lt;</span> <span class="keyword">false</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c18" href="capability.html#oglplus.quickref.capability.c19"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 <span class="special">+</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">CullFace</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c20" href="capability.html#oglplus.quickref.capability.c21"><img src="../../images/callouts/3.png" alt="3" border="0"></a>

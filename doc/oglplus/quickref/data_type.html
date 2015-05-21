@@ -20,9 +20,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/data_type.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">DataType</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">DataType</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Byte</span>          <span class="special">=</span> <span class="identifier">GL_BYTE</span><span class="special">,</span>
 	<span class="identifier">Short</span>         <span class="special">=</span> <span class="identifier">GL_SHORT</span><span class="special">,</span>
@@ -40,12 +38,8 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">DataType</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">DataType</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">DataType</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SLDataType</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SLDataType</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Float</span>                                <span class="special">=</span> <span class="identifier">GL_FLOAT</span><span class="special">,</span>
 	<span class="identifier">FloatVec2</span>                            <span class="special">=</span> <span class="identifier">GL_FLOAT_VEC2</span><span class="special">,</span>
@@ -163,16 +157,12 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">SLDataType</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">SLDataType</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">SLDataType</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.data_type.h0"></a>
           <span class="phrase"><a name="oglplus.quickref.data_type.utils"></a></span><a class="link" href="data_type.html#oglplus.quickref.data_type.utils">Utilities</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 <span class="keyword">struct</span> <span class="identifier">IsGLDataType</span> <a class="co" name="oglplus.quickref.data_type.c0" href="data_type.html#oglplus.quickref.data_type.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
  <span class="special">:</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">,</span> <span class="special">...&gt;</span>
 <span class="special">{</span> <span class="special">};</span>
@@ -190,8 +180,6 @@
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GLtype</span><span class="special">&gt;</span>
 <span class="keyword">struct</span> <span class="identifier">TypeTag</span> <a class="co" name="oglplus.quickref.data_type.c6" href="data_type.html#oglplus.quickref.data_type.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="special">{</span> <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>

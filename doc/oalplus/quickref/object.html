@@ -40,14 +40,12 @@
             The object tag types allow to differentiate between <span class="emphasis"><em>OpenAL</em></span>
             object types at compile time.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">tag</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">tag</span> <span class="special">{</span>
 
 <span class="keyword">struct</span> <span class="identifier">Buffer</span> <span class="special">{</span> <span class="special">};</span>
 <span class="keyword">struct</span> <span class="identifier">Source</span> <span class="special">{</span> <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace tag</span>
-<span class="special">}</span> <span class="comment">// namespace oalplus</span>
 </pre>
 </div>
 <div class="section">
@@ -70,9 +68,7 @@
             conveys information about the actual object type and prevents for example
             passing a buffer name to a function requiring a source, etc.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
-
-<span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.name" title="Name">oglplus::ObjectName</a><span class="special">;</span>
+<pre class="programlisting"><span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.name" title="Name">oglplus::ObjectName</a><span class="special">;</span>
 
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjTag</span><span class="special">&gt;</span>
 <span class="keyword">const</span> <span class="identifier">ALuint</span> <span class="identifier">GetName</span><span class="special">(</span><span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">ObjTag</span><span class="special">&gt;</span> <span class="identifier">named</span><span class="special">)</span>
@@ -85,8 +81,6 @@
           </h5>
 <pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="object.html#oalplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oalplus.quickref.object.tags" title="Tags">tag::Buffer</a><span class="special">&gt;</span> <span class="identifier">BufferName</span><span class="special">;</span>
 <span class="keyword">typedef</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><a class="link" href="object.html#oalplus.quickref.object.tags" title="Tags">tag::Source</a><span class="special">&gt;</span> <span class="identifier">SourceName</span><span class="special">;</span>
-
-<span class="special">}</span> <span class="comment">// namespace oalplus</span>
 </pre>
 </div>
 <div class="section">
@@ -104,9 +98,7 @@
             by the <a class="link" href="object.html#oalplus.quickref.object.tags" title="Tags">ObjTag</a> template
             parameter.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
-
-<span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.ops" title="Type specific operations">oglplus::ObjGenDelOps</a><span class="special">;</span>
+<pre class="programlisting"><span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.ops" title="Type specific operations">oglplus::ObjGenDelOps</a><span class="special">;</span>
 </pre>
 </div>
 <div class="section">
@@ -143,8 +135,6 @@
             are <span class="emphasis"><em>move-only</em></span>.
           </p>
 <pre class="programlisting"><span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.wrapper" title="Object">oglplus::Object</a><span class="special">;</span>
-
-<span class="special">}</span> <span class="comment">// namespace oalplus</span>
 </pre>
 <h5>
 <a name="oalplus.quickref.object.wrapper.h0"></a>
@@ -183,11 +173,7 @@
             member function must return true), otherwise usage results in undefined
             behavior.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
-
-<span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.optional" title="Optional">oglplus::Optional</a><span class="special">;</span>
-
-<span class="special">}</span> <span class="comment">// namespace oalplus</span>
+<pre class="programlisting"><span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.optional" title="Optional">oglplus::Optional</a><span class="special">;</span>
 </pre>
 </div>
 <div class="section">
@@ -216,11 +202,7 @@
             Instances of <code class="literal">Reference</code> are for example created when
             accessing or iterating through the elements of a <a class="link" href="object.html#oalplus.quickref.object.sequence" title="Sequence">Sequence</a>.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
-
-<span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.reference" title="Reference">oglplus::Reference</a><span class="special">;</span>
-
-<span class="special">}</span> <span class="comment">// namespace oalplus</span>
+<pre class="programlisting"><span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.reference" title="Reference">oglplus::Reference</a><span class="special">;</span>
 </pre>
 </div>
 <div class="section">
@@ -236,16 +218,12 @@
             to objects</a> and is mostly used as the parameter type for functions
             working on multiple objects.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
-
-<span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.sequence.iter">oglplus::SeqIterator</a><span class="special">;</span>
+<pre class="programlisting"><span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.sequence.iter">oglplus::SeqIterator</a><span class="special">;</span>
 <span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.sequence" title="Sequence">oglplus::Sequence</a><span class="special">;</span>
 
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjectT</span><span class="special">&gt;</span>
 <span class="keyword">const</span> <span class="identifier">ALuint</span><span class="special">*</span> <span class="identifier">GetNames</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="object.html#oalplus.quickref.object.sequence" title="Sequence">Sequence</a><span class="special">&lt;</span><span class="identifier">ObjectT</span><span class="special">&gt;&amp;</span> <span class="identifier">sequence</span><span class="special">)</span>
 <span class="keyword">noexcept</span><span class="special">;</span>
-
-<span class="special">}</span> <span class="comment">// namespace oalplus</span>
 </pre>
 </div>
 <div class="section">
@@ -255,12 +233,8 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oalplus/object/group.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oalplus</span> <span class="special">{</span>
-
-<span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.group" title="Group">oglplus::Group</a><span class="special">;</span>
+<pre class="programlisting"><span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.group" title="Group">oglplus::Group</a><span class="special">;</span>
 <span class="keyword">using</span> <a class="link" href="../../oglplus/quickref/object.html#oglplus.quickref.object.group" title="Group">oglplus::StaticGroup</a><span class="special">;</span>
-
-<span class="special">}</span> <span class="comment">// namespace oalplus</span>
 </pre>
 </div>
 </div>

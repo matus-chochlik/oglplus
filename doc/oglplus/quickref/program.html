@@ -25,9 +25,7 @@
           <span class="phrase"><a name="oglplus.quickref.program.common_program_operations"></a></span><a class="link" href="program.html#oglplus.quickref.program.common_program_operations">Common program
           operations</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
 <span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Program</a><span class="special">&gt;</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a>
 <span class="special">{</span>
@@ -616,17 +614,13 @@
 
 <span class="keyword">typedef</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&lt;</span><span class="identifier">ProgramOps</span><span class="special">&gt;</span>
 	<span class="identifier">Program</span><span class="special">;</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.program.h3"></a>
           <span class="phrase"><a name="oglplus.quickref.program.sugar"></a></span><a class="link" href="program.html#oglplus.quickref.program.sugar">Syntax
           sugar</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="identifier">ProgramOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
+<pre class="programlisting"><span class="identifier">ProgramOps</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span>
 	<span class="identifier">ProgramOps</span><span class="special">&amp;</span> <span class="identifier">program</span><span class="special">,</span>
 	<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ShaderName</a> <span class="identifier">shader</span>
 <span class="special">);</span> <a class="co" name="oglplus.quickref.program.c110" href="program.html#oglplus.quickref.program.c111"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
@@ -665,8 +659,6 @@
 	<span class="identifier">ProgXFBModeAndNames</span><span class="special">&amp;&amp;</span> <span class="identifier">pman</span><span class="special">,</span>
 	<span class="keyword">const</span> <span class="identifier">GLchar</span><span class="special">*</span> <span class="identifier">name</span>
 <span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.program.c111"></a><a href="#oglplus.quickref.program.c110"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
@@ -679,9 +671,7 @@
           <span class="phrase"><a name="oglplus.quickref.program.shader_program"></a></span><a class="link" href="program.html#oglplus.quickref.program.shader_program">Shader
           program</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_1</span> <span class="special">||</span> <span class="identifier">GL_ARB_separate_shader_objects</span>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_1</span> <span class="special">||</span> <span class="identifier">GL_ARB_separate_shader_objects</span>
 <span class="keyword">class</span> <span class="identifier">ShaderProgram</span> <a class="co" name="oglplus.quickref.program.c112" href="program.html#oglplus.quickref.program.c113"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="program.html#oglplus.quickref.program.def">Program</a>
 <span class="special">{</span>
@@ -720,8 +710,6 @@
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.program.c124" href="program.html#oglplus.quickref.program.c125"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 <span class="special">};</span>
 <span class="preprocessor">#endif</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -784,9 +772,7 @@
           and it is linked and made active. Optionally the program can also be made
           separable.
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">QuickProgram</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">QuickProgram</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="program.html#oglplus.quickref.program.def">Program</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -807,8 +793,6 @@
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.program.c132" href="program.html#oglplus.quickref.program.c133"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -847,9 +831,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/program_resource.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">ProgramResource</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ProgramResource</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">GLint</span> <span class="identifier">GetIntParam</span><span class="special">(</span><a class="link" href="program_interface.html#oglplus.quickref.program_interface.resource_property">ProgramResourceProperty</a> <span class="identifier">property</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c134" href="program.html#oglplus.quickref.program.c135"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
@@ -877,8 +859,6 @@
 
 	<span class="identifier">Boolean</span> <span class="identifier">ReferencedBy</span><span class="special">(</span><a class="link" href="shader_type.html" title="Shader type">ShaderType</a> <span class="identifier">shader_type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.program.c158" href="program.html#oglplus.quickref.program.c159"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>

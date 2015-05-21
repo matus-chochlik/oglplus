@@ -38,8 +38,7 @@
             wrapping references to GLSL variables (uniforms, uniform blocks, vertex
             attributes, etc.) at compile time.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">tag</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">tag</span> <span class="special">{</span>
 
 <span class="keyword">struct</span> <span class="identifier">VertexAttrib</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c0" href="prog_var.html#oglplus.quickref.prog_var.tags.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="keyword">struct</span> <span class="identifier">Uniform</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c2" href="prog_var.html#oglplus.quickref.prog_var.tags.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
@@ -100,7 +99,6 @@
 <span class="keyword">struct</span> <span class="identifier">NoTypecheck</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c14" href="prog_var.html#oglplus.quickref.prog_var.tags.c15"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 <span class="special">}</span> <span class="comment">// namespace tag</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -140,9 +138,7 @@
             passing an uniform location to a function requiring a vertex attribute,
             etc.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">ProgVarLoc</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.loc_ops">ProgVarLocOps</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
 <span class="special">{</span>
@@ -192,8 +188,6 @@
 <span class="comment">/// Returns the GL location/index of the specified @p variable</span>
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
 <span class="identifier">GLint</span> <span class="identifier">GetGLLocation</span><span class="special">(</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.location" title="Location">ProgVarLoc</a><span class="special">&lt;</span><a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span> <span class="identifier">variable</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -288,9 +282,7 @@
             variables, most notably finding the location of a variable by their identifiers
             or in some cases binding the variables to a particular location.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">ProgVarLocOps</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -398,8 +390,6 @@
 	<span class="identifier">ProgVar</span> <span class="keyword">operator</span><span class="special">[](</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">offset</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.wrapper.c10" href="prog_var.html#oglplus.quickref.prog_var.wrapper.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 <span class="special">};</span>
 <span class="comment">// TODO</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -464,17 +454,13 @@
             but uses <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">tag::Typecheck</a>
             as template argument which enables the type-checking.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">Typechecked</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">using</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">::</span><span class="identifier">ProgVar</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.typechecked.c0" href="prog_var.html#oglplus.quickref.prog_var.typechecked.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.typechecked.c1"></a><a href="#oglplus.quickref.prog_var.typechecked.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
@@ -497,17 +483,13 @@
             provides a new set of constructors which do not throw <a class="link" href="error.html#oglplus.quickref.error.prog_var" title="Program variable errors">ProgVarError</a>
             if the requested GPU program variable cannot be located.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">Optional</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">OptionalImpl</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">ProgramName</a> <span class="identifier">program</span><span class="special">,</span> <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <span class="identifier">identifier</span><span class="special">);</span> <a class="co" name="oglplus.quickref.prog_var.optional.c0" href="prog_var.html#oglplus.quickref.prog_var.optional.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.optional.c1"></a><a href="#oglplus.quickref.prog_var.optional.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
@@ -540,9 +522,7 @@
             the identifier string and postpones the search for the variable in the
             GPU program until it is actually required or requested by the user.
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">Lazy</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.wrapper.prog_var">ProgVar</a>
 <span class="special">{</span>
@@ -558,8 +538,6 @@
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">T</span><span class="special">&amp;&amp;</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.prog_var.lazy.c8" href="prog_var.html#oglplus.quickref.prog_var.lazy.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>

@@ -64,9 +64,7 @@
           in the <code class="literal">context</code> namespace, but the library end-users
           should rarely need to use them directly.
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">Context</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Context</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.errors" title="Errors">context::Errors</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.capabilities" title="Capabilities">context::Capabilities</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.clip_control.state">context::ClipControlState</a>
@@ -96,8 +94,6 @@
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.object_binding" title="ObjectBinding">context::ObjectBinding</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.object_dsa" title="ObjectDSA">context::ObjectDSA</a>
 <span class="special">{</span> <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -106,8 +102,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/errors.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">Errors</span>
 <span class="special">{</span>
@@ -116,7 +111,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.errors.c1"></a><a href="#oglplus.quickref.context.errors.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
@@ -133,8 +127,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/capabilities.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">Capabilities</span>
 <span class="special">{</span>
@@ -156,7 +149,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -231,8 +223,7 @@
 <a name="oglplus.quickref.context.clip_control.h0"></a>
             <span class="phrase"><a name="oglplus.quickref.context.clip_control.state"></a></span><a class="link" href="context.html#oglplus.quickref.context.clip_control.state">State</a>
           </h5>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">ClipControlState</span>
 <span class="special">{</span>
@@ -248,7 +239,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -285,8 +275,7 @@
             <span class="phrase"><a name="oglplus.quickref.context.viewport.helpers"></a></span><a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">Helper
             classes</a>
           </h5>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">struct</span> <span class="identifier">ViewportPosition</span> <a class="co" name="oglplus.quickref.context.viewport.c0" href="context.html#oglplus.quickref.context.viewport.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">{</span>
@@ -520,7 +509,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -554,8 +542,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/buffer_selection.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">BufferSelection</span>
 <span class="special">{</span>
@@ -573,7 +560,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -613,8 +599,7 @@
 <a name="oglplus.quickref.context.buffer_masking.h0"></a>
             <span class="phrase"><a name="oglplus.quickref.context.buffer_masking.state"></a></span><a class="link" href="context.html#oglplus.quickref.context.buffer_masking.state">State</a>
           </h5>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">BufferMaskingState</span>
 <span class="special">{</span>
@@ -653,7 +638,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -730,9 +714,7 @@
 <a name="oglplus.quickref.context.buffer_clearing.h0"></a>
             <span class="phrase"><a name="oglplus.quickref.context.buffer_clearing.helpers"></a></span><a class="link" href="context.html#oglplus.quickref.context.buffer_clearing.helpers">Helper classes</a>
           </h5>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">typedef</span> <a class="link" href="buffer_select_bit.html" title="Buffer selection bits">BufferSelectBit</a> <span class="identifier">ClearBit</span><span class="special">;</span>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="buffer_select_bit.html" title="Buffer selection bits">BufferSelectBit</a> <span class="identifier">ClearBit</span><span class="special">;</span>
 
 <span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
@@ -872,7 +854,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -943,8 +924,7 @@
             <span class="phrase"><a name="oglplus.quickref.context.rasterization.helpers"></a></span><a class="link" href="context.html#oglplus.quickref.context.rasterization.helpers">Helper
             classes</a>
           </h5>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">PolygonModes</span>
 <span class="special">{</span>
@@ -1131,7 +1111,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -1168,8 +1147,7 @@
 <a name="oglplus.quickref.context.drawing.h0"></a>
             <span class="phrase"><a name="oglplus.quickref.context.drawing.state"></a></span><a class="link" href="context.html#oglplus.quickref.context.drawing.state">State</a>
           </h5>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">DrawingState</span>
 <span class="special">{</span>
@@ -1534,7 +1512,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -1618,8 +1595,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/computing.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">ComputingOps</span>
 <span class="special">{</span>
@@ -1636,7 +1612,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -1660,8 +1635,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/depth_test.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">DepthTest</span>
 <span class="special">{</span>
@@ -1671,7 +1645,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -1701,8 +1674,7 @@
             <span class="phrase"><a name="oglplus.quickref.context.stencil_test.args"></a></span><a class="link" href="context.html#oglplus.quickref.context.stencil_test.args">Stencil
             function arguments</a>
           </h5>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">struct</span> <span class="identifier">StencilFuncArgs</span>
 <span class="special">{</span>
@@ -1850,7 +1822,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -1943,8 +1914,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/scissor_test.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">struct</span> <span class="identifier">ScissorRectangle</span>
 <span class="special">{</span>
@@ -1994,7 +1964,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -2033,8 +2002,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/logical_ops.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">LogicalOps</span>
 <span class="special">{</span>
@@ -2047,7 +2015,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -2072,8 +2039,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/pixel_ops.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">PixelOps</span>
 <span class="special">{</span>
@@ -2126,7 +2092,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -2186,8 +2151,7 @@
             <span class="phrase"><a name="oglplus.quickref.context.blending.helpers"></a></span><a class="link" href="context.html#oglplus.quickref.context.blending.helpers">Helper
             classes</a>
           </h5>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">struct</span> <span class="identifier">BlendEquationSeparate</span>
 <span class="special">{</span>
@@ -2336,7 +2300,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -2400,8 +2363,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/synchronization.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">Synchronization</span>
 <span class="special">{</span>
@@ -2415,7 +2377,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -2447,8 +2408,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/hints.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">Hints</span>
 <span class="special">{</span>
@@ -2458,7 +2418,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -2483,8 +2442,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/limit_queries.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">LimitQueries</span>
 <span class="special">{</span>
@@ -2506,7 +2464,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -2568,8 +2525,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/numeric_queries.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">NumericQueries</span>
 <span class="special">{</span>
@@ -2597,7 +2553,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -2662,8 +2617,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/string_queries.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">StringQueries</span>
 <span class="special">{</span>
@@ -2687,7 +2641,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -2775,8 +2728,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/object_binding.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">ObjectBinding</span>
 <span class="special">{</span>
@@ -2785,7 +2737,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 </div>
 <div class="section">
@@ -2795,8 +2746,7 @@
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/object_dsa.hpp&gt;</code>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">class</span> <span class="identifier">ObjectDSA</span>
 <span class="special">{</span>
@@ -2805,7 +2755,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 </div>
 <div class="section">
@@ -2817,8 +2766,7 @@
             <span class="phrase"><a name="oglplus.quickref.context.helpers.rgba_value"></a></span><a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_value">RGBA
             value</a>
           </h5>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-<span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
 <span class="keyword">struct</span> <span class="identifier">RGBAValue</span> <a class="co" name="oglplus.quickref.context.helpers.c0" href="context.html#oglplus.quickref.context.helpers.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">{</span>
@@ -2874,7 +2822,6 @@
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.helpers.c3"></a><a href="#oglplus.quickref.context.helpers.c2"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>

@@ -25,9 +25,7 @@
           <span class="phrase"><a name="oglplus.quickref.sync.synchronization_object_operation"></a></span><a class="link" href="sync.html#oglplus.quickref.sync.synchronization_object_operation">Synchronization
           object operations</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">Sync</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Sync</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">struct</span> <span class="identifier">Property</span>
@@ -59,8 +57,6 @@
 	<span class="keyword">void</span> <span class="identifier">Wait</span><span class="special">(</span><span class="identifier">GLuint64</span> <span class="identifier">timeout</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.sync.c12" href="sync.html#oglplus.quickref.sync.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 	<span class="keyword">void</span> <span class="identifier">Wait</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.sync.c14" href="sync.html#oglplus.quickref.sync.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -124,9 +120,7 @@
 <a name="oglplus.quickref.sync.h1"></a>
           <span class="phrase"><a name="oglplus.quickref.sync.condition"></a></span><a class="link" href="sync.html#oglplus.quickref.sync.condition">Condition</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SyncCondition</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SyncCondition</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">GPUCommandsComplete</span> <span class="special">=</span> <span class="identifier">GL_SYNC_GPU_COMMANDS_COMPLETE</span>
 <span class="special">};</span>
@@ -135,16 +129,12 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">SyncCondition</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">SyncCondition</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">SyncCondition</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.sync.h2"></a>
           <span class="phrase"><a name="oglplus.quickref.sync.type"></a></span><a class="link" href="sync.html#oglplus.quickref.sync.type">Type</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SyncType</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SyncType</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Fence</span> <span class="special">=</span> <span class="identifier">GL_SYNC_FENCE</span>
 <span class="special">};</span>
@@ -153,16 +143,12 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">SyncType</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">SyncType</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">SyncType</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.sync.h3"></a>
           <span class="phrase"><a name="oglplus.quickref.sync.status"></a></span><a class="link" href="sync.html#oglplus.quickref.sync.status">Status</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SyncStatus</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SyncStatus</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Signaled</span>   <span class="special">=</span> <span class="identifier">GL_SIGNALED</span><span class="special">,</span>
 	<span class="identifier">Unsignaled</span> <span class="special">=</span> <span class="identifier">GL_UNSIGNALED</span>
@@ -172,17 +158,13 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">SyncStatus</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">SyncStatus</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">SyncStatus</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.sync.h4"></a>
           <span class="phrase"><a name="oglplus.quickref.sync.wait_result"></a></span><a class="link" href="sync.html#oglplus.quickref.sync.wait_result">Wait
           result</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SyncWaitResult</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SyncWaitResult</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">ConditionSatisfied</span> <span class="special">=</span> <span class="identifier">GL_CONDITION_SATISFIED</span><span class="special">,</span>
 	<span class="identifier">AlreadySignaled</span>    <span class="special">=</span> <span class="identifier">GL_ALREADY_SIGNALED</span><span class="special">,</span>
@@ -194,8 +176,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">SyncWaitResult</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">SyncWaitResult</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">SyncWaitResult</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

@@ -25,9 +25,7 @@
           <span class="phrase"><a name="oglplus.quickref.framebuffer.common"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.common">Common
           framebuffer operations</a>
         </h4>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
 <span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjCommonOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Framebuffer</a><span class="special">&gt;</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.name.typedefs">FramebufferName</a>
 <span class="special">{</span>
@@ -355,8 +353,6 @@
 	<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.target">FramebufferTarget</a> <span class="identifier">target</span><span class="special">,</span>
 	<span class="identifier">FramebufferComplete</span>
 <span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c48" href="framebuffer.html#oglplus.quickref.framebuffer.c49"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -414,9 +410,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer_target.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferTarget</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferTarget</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Draw</span> <span class="special">=</span> <span class="identifier">GL_DRAW_FRAMEBUFFER</span><span class="special">,</span>
 	<span class="identifier">Read</span> <span class="special">=</span> <span class="identifier">GL_READ_FRAMEBUFFER</span>
@@ -426,8 +420,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">FramebufferTarget</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">FramebufferTarget</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FramebufferTarget</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.framebuffer.h5"></a>
@@ -436,9 +428,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer_attachment.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferBuffer</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferBuffer</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Color</span>        <span class="special">=</span> <span class="identifier">GL_COLOR</span><span class="special">,</span>
 	<span class="identifier">Depth</span>        <span class="special">=</span> <span class="identifier">GL_DEPTH</span><span class="special">,</span>
@@ -450,8 +440,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">FramebufferBuffer</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">FramebufferBuffer</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FramebufferBuffer</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.framebuffer.h6"></a>
@@ -460,9 +448,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer_attachment.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferAttachment</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferAttachment</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Color</span>        <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT0</span><span class="special">,</span>
 	<span class="identifier">Color1</span>       <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT1</span><span class="special">,</span>
@@ -489,8 +475,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">FramebufferAttachment</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">FramebufferAttachment</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FramebufferAttachment</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.framebuffer.h7"></a>
@@ -500,9 +484,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer_attachment.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferColorAttachment</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferColorAttachment</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">_0</span>  <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT0</span><span class="special">,</span>
 	<span class="identifier">_1</span>  <span class="special">=</span> <span class="identifier">GL_COLOR_ATTACHMENT1</span><span class="special">,</span>
@@ -526,8 +508,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">FramebufferColorAttachment</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">FramebufferColorAttachment</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FramebufferColorAttachment</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <h4>
 <a name="oglplus.quickref.framebuffer.h8"></a>
@@ -537,16 +517,12 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer_attachment.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">class</span> <span class="identifier">FramebufferColorAttachmentNumber</span>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">FramebufferColorAttachmentNumber</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">FramebufferColorAttachmentNumber</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c50" href="framebuffer.html#oglplus.quickref.framebuffer.c51"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c51"></a><a href="#oglplus.quickref.framebuffer.c50"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
@@ -563,9 +539,7 @@
 <p>
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/framebuffer_status.hpp&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">oglplus</span> <span class="special">{</span>
-
-<span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferStatus</span> <span class="special">:</span> <span class="identifier">GLenum</span>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferStatus</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Complete</span>                    <span class="special">=</span> <span class="identifier">GL_FRAMEBUFFER_COMPLETE</span><span class="special">,</span>
 	<span class="identifier">Undefined</span>                   <span class="special">=</span> <span class="identifier">GL_FRAMEBUFFER_UNDEFINED</span><span class="special">,</span>
@@ -580,8 +554,6 @@
 <a class="link" href="concept.html#oglplus.quickref.concept.range" title="Ranges"><span class="emphasis"><em>Range</em></span></a><span class="special">&lt;</span><span class="identifier">FramebufferStatus</span><span class="special">&gt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><span class="identifier">FramebufferStatus</span><span class="special">&gt;(</span><span class="keyword">void</span><span class="special">);</span>
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FramebufferStatus</span><span class="special">);</span>
-
-<span class="special">}</span> <span class="comment">// namespace oglplus</span>
 </pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
