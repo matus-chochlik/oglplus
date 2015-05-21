@@ -5,7 +5,6 @@
  */
 
 //[oglplus_context_DrawingState
-namespace oglplus {
 namespace context {
 
 class DrawingState
@@ -358,6 +357,5 @@ public:
 };
 
 } // namespace context
-} // namespace oglplus
 //]
 

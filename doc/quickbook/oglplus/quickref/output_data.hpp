@@ -5,7 +5,6 @@
  */
 
 //[oglplus_output_data
-namespace oglplus {
 
 class OutputData
 {
@@ -53,6 +52,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

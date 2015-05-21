@@ -5,7 +5,6 @@
  */
 
 //[oglplus_texture_subtype
-namespace oglplus {
 
 template <>
 struct __ObjectSubtype<__tag_Texture>
@@ -1229,6 +1228,5 @@ __TextureTarget operator << (
 Generates mipmap on the texture currently bound to [^target].
 >*/
 
-} // namespace oglplus
 //]
 

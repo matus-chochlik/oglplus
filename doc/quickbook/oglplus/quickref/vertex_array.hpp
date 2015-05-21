@@ -5,7 +5,6 @@
  */
 
 //[oglplus_vertex_array_common
-namespace oglplus {
 
 template <>
 class __ObjCommonOps<__tag_VertexArray>
@@ -41,6 +40,5 @@ Indirectly inherits from __ObjCommonOps_VertexArray.
 >*/
 	NoVertexArray;
 
-} // namespace oglplus
 //]
 

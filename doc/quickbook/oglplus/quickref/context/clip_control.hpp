@@ -5,7 +5,6 @@
  */
 
 //[oglplus_context_ClipControlState
-namespace oglplus {
 namespace context {
 
 class ClipControlState
@@ -31,6 +30,5 @@ public:
 };
 
 } // namespace context
-} // namespace oglplus
 //]
 

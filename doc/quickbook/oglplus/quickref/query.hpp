@@ -5,7 +5,6 @@
  */
 
 //[oglplus_query_common
-namespace oglplus {
 
 template <>
 struct __ObjectSubtype<__tag_Query>
@@ -173,6 +172,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

@@ -5,7 +5,6 @@
  */
 
 //[oglplus_dsa_vertex_array_attrib
-namespace oglplus {
 
 #if GL_VERSION_4_5 || GL_ARB_direct_state_access
 
@@ -78,6 +77,5 @@ public:
 
 #endif
 
-} // namespace oglplus
 //]
 

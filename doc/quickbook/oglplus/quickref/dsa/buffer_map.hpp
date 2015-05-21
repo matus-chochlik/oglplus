@@ -5,7 +5,6 @@
  */
 
 //[oglplus_dsa_buffer_raw_map
-namespace oglplus {
 
 #if GL_VERSION_4_5 || GL_ARB_direct_state_access
 
@@ -122,6 +121,5 @@ public:
 
 #endif // GL_VERSION_4_5 || GL_ARB_direct_state_access
 
-} // namespace oglplus
 //]
 

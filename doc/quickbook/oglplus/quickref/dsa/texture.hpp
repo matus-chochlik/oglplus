@@ -5,7 +5,6 @@
  */
 
 //[oglplus_dsa_texture_1
-namespace oglplus {
 
 #if GL_VERSION_4_5 || GL_ARB_direct_state_access
 
@@ -711,6 +710,5 @@ DSATextureOps& operator << (
 
 #endif // GL_VERSION_4_5 || GL_ARB_direct_state_access
 
-} // namespace oglplus
 //]
 

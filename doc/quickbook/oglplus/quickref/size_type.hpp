@@ -5,7 +5,6 @@
  */
 
 //[oglplus_size_impl
-namespace oglplus {
 
 template <typename T>
 struct SizeImpl
@@ -86,6 +85,5 @@ public:
 typedef __SizeImpl<GLsizei> SizeType;
 typedef __SizeImpl<GLsizeiptr> BigSizeType;
 
-} // namespace oglplus
 //]
 

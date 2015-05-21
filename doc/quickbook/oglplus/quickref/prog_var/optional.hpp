@@ -5,7 +5,6 @@
  */
 
 //[oglplus_prog_var_optional
-namespace oglplus {
 
 template <typename __ProgVar>
 class Optional
@@ -20,6 +19,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

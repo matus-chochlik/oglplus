@@ -5,7 +5,6 @@
  */
 
 //[oglplus_attrib_list
-namespace oglplus {
 
 template <typename AttribKind, class Traits>
 class FinishedAttributeList
@@ -62,6 +61,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

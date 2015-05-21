@@ -5,7 +5,6 @@
  */
 
 //[oglplus_dsa_renderbuffer_1
-namespace oglplus {
 
 template <>
 class __ObjectOps<__tag_DirectState, __tag_Renderbuffer>
@@ -103,6 +102,5 @@ Sets the storage parameters from [^image_spec] to the renderbuffer
 currently bound to the specified [^target].
 >*/
 
-} // namespace oglplus
 //]
 

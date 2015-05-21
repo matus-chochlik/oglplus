@@ -5,7 +5,6 @@
  */
 
 //[oglplus_vertex_attrib_loc_ops
-namespace oglplus {
 
 template <>
 class __ProgVarLocOps<__tag_VertexAttrib>
@@ -253,6 +252,5 @@ __VertexArrayAttrib operator | (
 	GLuint location
 );
 
-} // namespace oglplus
 //]
 

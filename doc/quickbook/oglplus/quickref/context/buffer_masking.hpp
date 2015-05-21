@@ -5,7 +5,6 @@
  */
 
 //[oglplus_context_BufferMaskingState
-namespace oglplus {
 namespace context {
 
 class BufferMaskingState
@@ -73,6 +72,5 @@ public:
 };
 
 } // namespace context
-} // namespace oglplus
 //]
 

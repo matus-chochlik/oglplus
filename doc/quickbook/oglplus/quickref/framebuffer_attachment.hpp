@@ -5,7 +5,6 @@
  */
 
 //[oglplus_framebuffer_color_attachment_number
-namespace oglplus {
 
 class FramebufferColorAttachmentNumber
  : public __LimitedCount
@@ -19,6 +18,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

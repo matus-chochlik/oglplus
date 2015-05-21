@@ -5,7 +5,6 @@
  */
 
 //[oglplus_shader_common
-namespace oglplus {
 
 template <>
 struct __ObjectSubtype<__tag_Shader>
@@ -182,6 +181,5 @@ typedef __SpecShader<__ShaderType::Fragment> FragmentShader;
 typedef __SpecShader<__ShaderType::Compute> ComputeShader;
 #endif
 
-} // namespace oglplus
 //]
 

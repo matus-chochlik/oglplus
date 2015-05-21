@@ -5,7 +5,6 @@
  */
 
 //[oglplus_images_ImageSpec
-namespace oglplus {
 namespace images {
 
 struct ImageSpec
@@ -112,6 +111,5 @@ struct ImageSpec
 };
 
 } // namespace images
-} // namespace oglplus
 //]
 
