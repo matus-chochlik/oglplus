@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_transform_type
-namespace oglplus {
 
 enum class PathNVTransformType : GLenum
 {
@@ -30,5 +29,4 @@ __Range<PathNVTransformType> __EnumValueRange<PathNVTransformType>(void) noexcep
 
 __CStrRef __EnumValueName(PathNVTransformType) noexcept;
 
-} // namespace oglplus
 //]

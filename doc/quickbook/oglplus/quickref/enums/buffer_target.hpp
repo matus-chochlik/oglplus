@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_buffer_target
-namespace oglplus {
 
 enum class BufferTarget : GLenum
 {
@@ -37,5 +36,4 @@ __Range<BufferTarget> __EnumValueRange<BufferTarget>(void) noexcept;
 
 __CStrRef __EnumValueName(BufferTarget) noexcept;
 
-} // namespace oglplus
 //]

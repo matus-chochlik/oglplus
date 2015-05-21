@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_surface_attrib
-namespace eglplus {
 
 enum class SurfaceAttrib : EGLenum
 {
@@ -38,5 +37,4 @@ __Range<SurfaceAttrib> __EnumValueRange<SurfaceAttrib>(void) noexcept;
 
 __CStrRef __EnumValueName(SurfaceAttrib) noexcept;
 
-} // namespace eglplus
 //]

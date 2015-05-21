@@ -5,7 +5,6 @@
  */
 
 //[oglplus_uniform_block_loc_ops
-namespace oglplus {
 
 template <>
 class __ProgVarLocOps<__tag_UniformBlock>
@@ -65,6 +64,5 @@ using Uniform = __ProgVar<
 [^UniformBlock] indirectly inherits from __ProgVarLocOps_UniformBlock and __ProgVarCommonOps_Uniform.
 >*/
 
-} // namespace oglplus
 //]
 

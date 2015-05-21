@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_patch_parameter
-namespace oglplus {
 
 enum class PatchParameter : GLenum
 {
@@ -24,5 +23,4 @@ __Range<PatchParameter> __EnumValueRange<PatchParameter>(void) noexcept;
 
 __CStrRef __EnumValueName(PatchParameter) noexcept;
 
-} // namespace oglplus
 //]

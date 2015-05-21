@@ -5,7 +5,6 @@
  */
 
 //[oglplus_prog_var_loc_ops
-namespace oglplus {
 
 template <typename __VarTag>
 class ProgVarLocOps
@@ -97,6 +96,5 @@ public:
 };
 // TODO
 
-} // namespace oglplus
 //]
 

@@ -5,7 +5,6 @@
  */
 
 //[oglplus_prog_var_typechecked
-namespace oglplus {
 
 template <typename __ProgVar>
 class Typechecked
@@ -19,6 +18,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

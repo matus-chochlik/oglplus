@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_color_format
-namespace oglplus {
 
 enum class PathNVColorFormat : GLenum
 {
@@ -27,5 +26,4 @@ __Range<PathNVColorFormat> __EnumValueRange<PathNVColorFormat>(void) noexcept;
 
 __CStrRef __EnumValueName(PathNVColorFormat) noexcept;
 
-} // namespace oglplus
 //]

@@ -5,7 +5,6 @@
  */
 
 //[oglplus_images_Image
-namespace oglplus {
 namespace images {
 
 class Image
@@ -89,6 +88,5 @@ public:
 };
 
 } // namespace images
-} // namespace oglplus
 //]
 

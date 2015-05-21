@@ -278,6 +278,21 @@ public:
 		return _check<T>(v) + _check<T>(s._v);
 	}
 
+	friend T operator - (SizeImpl s1, SizeImpl s2)
+	{
+		return _check<T>(s1._v) - _check<T>(s2._v);
+	}
+
+	friend T operator - (SizeImpl s, T v)
+	{
+		return _check<T>(s._v) - _check<T>(v);
+	}
+
+	friend T operator - (T v, SizeImpl s)
+	{
+		return _check<T>(v) - _check<T>(s._v);
+	}
+
 	friend T operator * (SizeImpl s1, SizeImpl s2)
 	{
 		return _check<T>(s1._v) * _check<T>(s2._v);

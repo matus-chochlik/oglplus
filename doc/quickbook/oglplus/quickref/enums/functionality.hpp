@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_functionality
-namespace oglplus {
 
 enum class Functionality : GLenum
 {
@@ -22,5 +21,4 @@ __Range<Functionality> __EnumValueRange<Functionality>(void) noexcept;
 
 __CStrRef __EnumValueName(Functionality) noexcept;
 
-} // namespace oglplus
 //]

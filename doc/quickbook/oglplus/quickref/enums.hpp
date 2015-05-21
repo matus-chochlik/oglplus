@@ -5,7 +5,6 @@
  */
 
 //[oglplus_enums_functions
-namespace oglplus {
 
 template <typename Enumeration>
 __Range<Enumeration> EnumValueRange(void); /*<
@@ -53,6 +52,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

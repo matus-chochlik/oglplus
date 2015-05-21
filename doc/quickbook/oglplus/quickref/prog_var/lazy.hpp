@@ -5,7 +5,6 @@
  */
 
 //[oglplus_prog_var_lazy
-namespace oglplus {
 
 template <typename __ProgVar>
 class Lazy
@@ -44,6 +43,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

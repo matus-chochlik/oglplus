@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_graphics_reset_status
-namespace oglplus {
 
 enum class GraphicsResetStatusARB : GLenum
 {
@@ -25,5 +24,4 @@ __Range<GraphicsResetStatusARB> __EnumValueRange<GraphicsResetStatusARB>(void) n
 
 __CStrRef __EnumValueName(GraphicsResetStatusARB) noexcept;
 
-} // namespace oglplus
 //]

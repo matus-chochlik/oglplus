@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oalplus_enums_data_format
-namespace oalplus {
 
 enum class DataFormat : ALenum
 {
@@ -25,5 +24,4 @@ __Range<DataFormat> __EnumValueRange<DataFormat>(void) noexcept;
 
 __CStrRef __EnumValueName(DataFormat) noexcept;
 
-} // namespace oalplus
 //]

@@ -5,7 +5,6 @@
  */
 
 //[oglplus_prog_var_location
-namespace oglplus {
 
 template <typename __VarTag>
 class ProgVarLoc
@@ -85,6 +84,5 @@ public:
 template <typename __VarTag>
 GLint GetGLLocation(__ProgVarLoc<__VarTag> variable);
 
-} // namespace oglplus
 //]
 

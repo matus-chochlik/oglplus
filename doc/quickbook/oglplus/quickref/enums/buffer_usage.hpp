@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_buffer_usage
-namespace oglplus {
 
 enum class BufferUsage : GLenum
 {
@@ -30,5 +29,4 @@ __Range<BufferUsage> __EnumValueRange<BufferUsage>(void) noexcept;
 
 __CStrRef __EnumValueName(BufferUsage) noexcept;
 
-} // namespace oglplus
 //]

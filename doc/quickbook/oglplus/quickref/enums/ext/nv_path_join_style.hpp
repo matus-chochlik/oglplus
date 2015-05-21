@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_join_style
-namespace oglplus {
 
 enum class PathNVJoinStyle : GLenum
 {
@@ -26,5 +25,4 @@ __Range<PathNVJoinStyle> __EnumValueRange<PathNVJoinStyle>(void) noexcept;
 
 __CStrRef __EnumValueName(PathNVJoinStyle) noexcept;
 
-} // namespace oglplus
 //]

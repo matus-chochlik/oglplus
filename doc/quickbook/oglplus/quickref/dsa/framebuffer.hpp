@@ -5,7 +5,6 @@
  */
 
 //[oglplus_dsa_framebuffer_1
-namespace oglplus {
 
 template <>
 class __ObjectOps<__tag_DirectState, __tag_Framebuffer>
@@ -136,6 +135,5 @@ DSAFramebufferOps& operator << (
 Attaches [^rbo] to the attachment of the framebuffer specified by [^faa].
 >*/
 
-} // namespace oglplus
 //]
 

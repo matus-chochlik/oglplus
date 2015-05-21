@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_gl_colorspace
-namespace eglplus {
 
 enum class GLColorspace : EGLenum
 {
@@ -23,5 +22,4 @@ __Range<GLColorspace> __EnumValueRange<GLColorspace>(void) noexcept;
 
 __CStrRef __EnumValueName(GLColorspace) noexcept;
 
-} // namespace eglplus
 //]

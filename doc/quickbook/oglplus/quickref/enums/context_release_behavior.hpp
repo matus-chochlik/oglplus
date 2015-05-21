@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_context_release_behavior
-namespace oglplus {
 
 enum class ContextReleaseBehavior : GLenum
 {
@@ -23,5 +22,4 @@ __Range<ContextReleaseBehavior> __EnumValueRange<ContextReleaseBehavior>(void) n
 
 __CStrRef __EnumValueName(ContextReleaseBehavior) noexcept;
 
-} // namespace oglplus
 //]

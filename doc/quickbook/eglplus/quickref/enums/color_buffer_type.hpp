@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_color_buffer_type
-namespace eglplus {
 
 enum class ColorBufferType : EGLenum
 {
@@ -23,5 +22,4 @@ __Range<ColorBufferType> __EnumValueRange<ColorBufferType>(void) noexcept;
 
 __CStrRef __EnumValueName(ColorBufferType) noexcept;
 
-} // namespace eglplus
 //]

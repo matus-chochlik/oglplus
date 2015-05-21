@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_image_unit_format
-namespace oglplus {
 
 enum class ImageUnitFormat : GLenum
 {
@@ -60,5 +59,4 @@ __Range<ImageUnitFormat> __EnumValueRange<ImageUnitFormat>(void) noexcept;
 
 __CStrRef __EnumValueName(ImageUnitFormat) noexcept;
 
-} // namespace oglplus
 //]

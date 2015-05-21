@@ -5,7 +5,6 @@
  */
 
 //[oglplus_object_Array
-namespace oglplus {
 
 template <typename Object>
 class Array;
@@ -64,6 +63,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

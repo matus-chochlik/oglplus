@@ -5,10 +5,8 @@
  */
 
 //[oalplus_object_Reference
-namespace oalplus {
 
 using __oglplus_Reference;
 
-} // namespace oalplus
 //]
 

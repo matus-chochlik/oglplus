@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -12,4 +12,6 @@ a thin object-oriented facade over the EGL
 C-language API.
 It provides wrappers which automate resource and object
 management and make the use of EGL in C++ safer and easier.
+
+[include intro/hello_world.qbk]
 

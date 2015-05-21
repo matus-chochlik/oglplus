@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_error_code
-namespace oglplus {
 
 enum class ErrorCode : GLenum
 {
@@ -31,5 +30,4 @@ __Range<ErrorCode> __EnumValueRange<ErrorCode>(void) noexcept;
 
 __CStrRef __EnumValueName(ErrorCode) noexcept;
 
-} // namespace oglplus
 //]

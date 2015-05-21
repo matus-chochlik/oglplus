@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oalplus_enums_alc_error_code
-namespace oalplus {
 
 enum class ALCErrorCode : ALenum
 {
@@ -27,5 +26,4 @@ __Range<ALCErrorCode> __EnumValueRange<ALCErrorCode>(void) noexcept;
 
 __CStrRef __EnumValueName(ALCErrorCode) noexcept;
 
-} // namespace oalplus
 //]

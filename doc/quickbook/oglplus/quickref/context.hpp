@@ -5,7 +5,6 @@
  */
 
 //[oglplus_Context
-namespace oglplus {
 
 class Context
  : public __context_Errors
@@ -38,6 +37,5 @@ class Context
  , public __context_ObjectDSA
 { };
 
-} // namespace oglplus
 //]
 

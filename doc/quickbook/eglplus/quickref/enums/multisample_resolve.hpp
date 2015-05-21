@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_multisample_resolve
-namespace eglplus {
 
 enum class MultisampleResolve : EGLenum
 {
@@ -23,5 +22,4 @@ __Range<MultisampleResolve> __EnumValueRange<MultisampleResolve>(void) noexcept;
 
 __CStrRef __EnumValueName(MultisampleResolve) noexcept;
 
-} // namespace eglplus
 //]

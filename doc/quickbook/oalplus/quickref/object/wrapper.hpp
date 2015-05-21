@@ -5,7 +5,6 @@
  */
 
 //[oalplus_object_ObjGenDelOps
-namespace oalplus {
 
 using __oglplus_ObjGenDelOps;
 
@@ -19,6 +18,5 @@ using __oglplus_ObjectOps;
 
 using __oglplus_Object;
 
-} // namespace oalplus
 //]
 

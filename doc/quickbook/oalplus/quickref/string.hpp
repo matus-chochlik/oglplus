@@ -5,11 +5,9 @@
  */
 
 //[oalplus_string
-namespace oalplus {
 
 using __oglplus_String;
 using __oglplus_CStrRef;
 
-} // namespace oalplus
 //]
 

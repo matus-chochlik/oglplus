@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_render_buffer
-namespace eglplus {
 
 enum class RenderBuffer : EGLenum
 {
@@ -23,5 +22,4 @@ __Range<RenderBuffer> __EnumValueRange<RenderBuffer>(void) noexcept;
 
 __CStrRef __EnumValueName(RenderBuffer) noexcept;
 
-} // namespace eglplus
 //]

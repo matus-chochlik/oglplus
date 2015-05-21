@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_provoke_mode
-namespace oglplus {
 
 enum class ProvokeMode : GLenum
 {
@@ -23,5 +22,4 @@ __Range<ProvokeMode> __EnumValueRange<ProvokeMode>(void) noexcept;
 
 __CStrRef __EnumValueName(ProvokeMode) noexcept;
 
-} // namespace oglplus
 //]

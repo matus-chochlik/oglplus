@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_texture_mag_filter
-namespace oglplus {
 
 enum class TextureMagFilter : GLenum
 {
@@ -23,5 +22,4 @@ __Range<TextureMagFilter> __EnumValueRange<TextureMagFilter>(void) noexcept;
 
 __CStrRef __EnumValueName(TextureMagFilter) noexcept;
 
-} // namespace oglplus
 //]

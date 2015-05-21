@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_query_target
-namespace oglplus {
 
 enum class QueryTarget : GLenum
 {
@@ -40,5 +39,4 @@ __Range<QueryTarget> __EnumValueRange<QueryTarget>(void) noexcept;
 
 __CStrRef __EnumValueName(QueryTarget) noexcept;
 
-} // namespace oglplus
 //]

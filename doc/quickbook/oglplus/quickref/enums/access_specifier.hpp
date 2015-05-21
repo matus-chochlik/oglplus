@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_access_specifier
-namespace oglplus {
 
 enum class AccessSpecifier : GLenum
 {
@@ -24,5 +23,4 @@ __Range<AccessSpecifier> __EnumValueRange<AccessSpecifier>(void) noexcept;
 
 __CStrRef __EnumValueName(AccessSpecifier) noexcept;
 
-} // namespace oglplus
 //]

@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_tess_gen_primitive_spacing
-namespace oglplus {
 
 enum class TessGenPrimitiveSpacing : GLenum
 {
@@ -24,5 +23,4 @@ __Range<TessGenPrimitiveSpacing> __EnumValueRange<TessGenPrimitiveSpacing>(void)
 
 __CStrRef __EnumValueName(TessGenPrimitiveSpacing) noexcept;
 
-} // namespace oglplus
 //]

@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_text_encoding
-namespace oglplus {
 
 enum class PathNVTextEncoding : GLenum
 {
@@ -23,5 +22,4 @@ __Range<PathNVTextEncoding> __EnumValueRange<PathNVTextEncoding>(void) noexcept;
 
 __CStrRef __EnumValueName(PathNVTextEncoding) noexcept;
 
-} // namespace oglplus
 //]

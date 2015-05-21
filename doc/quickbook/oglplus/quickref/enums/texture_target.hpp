@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_texture_target
-namespace oglplus {
 
 enum class TextureTarget : GLenum
 {
@@ -38,5 +37,4 @@ __Range<TextureTarget> __EnumValueRange<TextureTarget>(void) noexcept;
 
 __CStrRef __EnumValueName(TextureTarget) noexcept;
 
-} // namespace oglplus
 //]

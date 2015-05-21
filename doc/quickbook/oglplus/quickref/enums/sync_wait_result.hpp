@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_sync_wait_result
-namespace oglplus {
 
 enum class SyncWaitResult : GLenum
 {
@@ -25,5 +24,4 @@ __Range<SyncWaitResult> __EnumValueRange<SyncWaitResult>(void) noexcept;
 
 __CStrRef __EnumValueName(SyncWaitResult) noexcept;
 
-} // namespace oglplus
 //]

@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_texture_swizzle
-namespace oglplus {
 
 enum class TextureSwizzle : GLenum
 {
@@ -27,5 +26,4 @@ __Range<TextureSwizzle> __EnumValueRange<TextureSwizzle>(void) noexcept;
 
 __CStrRef __EnumValueName(TextureSwizzle) noexcept;
 
-} // namespace oglplus
 //]

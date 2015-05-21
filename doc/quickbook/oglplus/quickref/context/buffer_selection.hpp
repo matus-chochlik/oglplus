@@ -5,7 +5,6 @@
  */
 
 //[oglplus_context_BufferSelection
-namespace oglplus {
 namespace context {
 
 class BufferSelection
@@ -35,6 +34,5 @@ public:
 };
 
 } // namespace context
-} // namespace oglplus
 //]
 

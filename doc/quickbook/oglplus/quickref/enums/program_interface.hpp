@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_program_interface
-namespace oglplus {
 
 enum class ProgramInterface : GLenum
 {
@@ -41,5 +40,4 @@ __Range<ProgramInterface> __EnumValueRange<ProgramInterface>(void) noexcept;
 
 __CStrRef __EnumValueName(ProgramInterface) noexcept;
 
-} // namespace oglplus
 //]

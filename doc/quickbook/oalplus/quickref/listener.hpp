@@ -5,7 +5,6 @@
  */
 
 //[oalplus_listener_helpers
-namespace oalplus {
 
 struct ListenerOrientation
 {
@@ -76,6 +75,5 @@ public:
 	>*/
 };
 
-} // namespace oalplus
 //]
 

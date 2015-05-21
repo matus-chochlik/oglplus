@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_polygon_mode
-namespace oglplus {
 
 enum class PolygonMode : GLenum
 {
@@ -24,5 +23,4 @@ __Range<PolygonMode> __EnumValueRange<PolygonMode>(void) noexcept;
 
 __CStrRef __EnumValueName(PolygonMode) noexcept;
 
-} // namespace oglplus
 //]

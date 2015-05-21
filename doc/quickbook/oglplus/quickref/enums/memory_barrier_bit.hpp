@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_memory_barrier_bit
-namespace oglplus {
 
 enum class MemoryBarrierBit : GLbitfield
 {
@@ -38,5 +37,4 @@ __CStrRef __EnumValueName(MemoryBarrierBit) noexcept;
 
 __Bitfield<MemoryBarrierBit> operator | (MemoryBarrierBit b1, MemoryBarrierBit b2) noexcept;
 
-} // namespace oglplus
 //]

@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_conditional_render_mode
-namespace oglplus {
 
 enum class ConditionalRenderMode : GLenum
 {
@@ -29,5 +28,4 @@ __Range<ConditionalRenderMode> __EnumValueRange<ConditionalRenderMode>(void) noe
 
 __CStrRef __EnumValueName(ConditionalRenderMode) noexcept;
 
-} // namespace oglplus
 //]

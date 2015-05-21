@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_config_caveat
-namespace eglplus {
 
 enum class ConfigCaveat : EGLenum
 {
@@ -24,5 +23,4 @@ __Range<ConfigCaveat> __EnumValueRange<ConfigCaveat>(void) noexcept;
 
 __CStrRef __EnumValueName(ConfigCaveat) noexcept;
 
-} // namespace eglplus
 //]

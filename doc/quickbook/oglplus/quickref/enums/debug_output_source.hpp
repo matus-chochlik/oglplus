@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_debug_output_source
-namespace oglplus {
 
 enum class DebugOutputSource : GLenum
 {
@@ -28,5 +27,4 @@ __Range<DebugOutputSource> __EnumValueRange<DebugOutputSource>(void) noexcept;
 
 __CStrRef __EnumValueName(DebugOutputSource) noexcept;
 
-} // namespace oglplus
 //]

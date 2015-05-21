@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_sync_status
-namespace oglplus {
 
 enum class SyncStatus : GLenum
 {
@@ -23,5 +22,4 @@ __Range<SyncStatus> __EnumValueRange<SyncStatus>(void) noexcept;
 
 __CStrRef __EnumValueName(SyncStatus) noexcept;
 
-} // namespace oglplus
 //]

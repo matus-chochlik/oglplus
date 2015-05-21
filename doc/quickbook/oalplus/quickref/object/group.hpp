@@ -5,11 +5,9 @@
  */
 
 //[oalplus_object_Group
-namespace oalplus {
 
 using __oglplus_Group;
 using __oglplus_StaticGroup;
 
-} // namespace oalplus
 //]
 

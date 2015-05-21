@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_compat_client_attrib_group
-namespace oglplus {
 
 enum class CompatibilityClientAttributeGroup : GLbitfield
 {
@@ -26,5 +25,4 @@ __CStrRef __EnumValueName(CompatibilityClientAttributeGroup) noexcept;
 
 __Bitfield<CompatibilityClientAttributeGroup> operator | (CompatibilityClientAttributeGroup b1, CompatibilityClientAttributeGroup b2) noexcept;
 
-} // namespace oglplus
 //]

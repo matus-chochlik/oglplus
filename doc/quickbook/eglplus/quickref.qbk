@@ -14,6 +14,22 @@ The implementation details, i.e. parts of of EGLplus not listed in this
 reference should not be used by the library users and are subject to
 change without any prior notice.
 
+Unless stated otherwise, all EGLplus definitions are made inside of the
+top-level [^eglplus] namespace or in namespaces nested inside
+of namespace [^eglplus].
+
+The namespace-definition opening,
+
+``
+namespace eglplus {
+``
+and closing,
+
+``
+} // namespace eglplus
+``
+statements are assumed, but omitted for the sake of brevity from this reference.
+
 [endsect]
 
 [include quickref/string.qbk]

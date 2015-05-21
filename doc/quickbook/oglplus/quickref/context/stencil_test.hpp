@@ -5,7 +5,6 @@
  */
 
 //[oglplus_context_StencilFuncArgs
-namespace oglplus {
 namespace context {
 
 struct StencilFuncArgs
@@ -181,6 +180,5 @@ public:
 };
 
 } // namespace context
-} // namespace oglplus
 //]
 

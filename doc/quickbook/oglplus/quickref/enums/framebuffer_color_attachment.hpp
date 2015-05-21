@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_framebuffer_color_attachment
-namespace oglplus {
 
 enum class FramebufferColorAttachment : GLenum
 {
@@ -37,5 +36,4 @@ __Range<FramebufferColorAttachment> __EnumValueRange<FramebufferColorAttachment>
 
 __CStrRef __EnumValueName(FramebufferColorAttachment) noexcept;
 
-} // namespace oglplus
 //]

@@ -5,7 +5,6 @@
  */
 
 //[oglplus_context_PixelOps
-namespace oglplus {
 namespace context {
 
 class PixelOps
@@ -81,6 +80,5 @@ public:
 };
 
 } // namespace context
-} // namespace oglplus
 //]
 

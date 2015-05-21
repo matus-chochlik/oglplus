@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_surface_type_bit
-namespace eglplus {
 
 enum class SurfaceTypeBit : EGLenum
 {
@@ -28,5 +27,4 @@ __Range<SurfaceTypeBit> __EnumValueRange<SurfaceTypeBit>(void) noexcept;
 
 __CStrRef __EnumValueName(SurfaceTypeBit) noexcept;
 
-} // namespace eglplus
 //]

@@ -5,7 +5,6 @@
  */
 
 //[oalplus_object_name
-namespace oalplus {
 
 using __oglplus_ObjectName;
 
@@ -19,6 +18,5 @@ noexcept;
 typedef __ObjectName<__tag_Buffer> BufferName;
 typedef ObjectName<__tag_Source> SourceName;
 
-} // namespace oalplus
 //]
 

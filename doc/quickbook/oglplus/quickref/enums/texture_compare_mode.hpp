@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_texture_compare_mode
-namespace oglplus {
 
 enum class TextureCompareMode : GLenum
 {
@@ -23,5 +22,4 @@ __Range<TextureCompareMode> __EnumValueRange<TextureCompareMode>(void) noexcept;
 
 __CStrRef __EnumValueName(TextureCompareMode) noexcept;
 
-} // namespace oglplus
 //]

@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_dash_offset_reset
-namespace oglplus {
 
 enum class PathNVDashOffsetReset : GLenum
 {
@@ -23,5 +22,4 @@ __Range<PathNVDashOffsetReset> __EnumValueRange<PathNVDashOffsetReset>(void) noe
 
 __CStrRef __EnumValueName(PathNVDashOffsetReset) noexcept;
 
-} // namespace oglplus
 //]

@@ -5,10 +5,8 @@
  */
 
 //[oglplus_string_ref_ios
-namespace oglplus {
 
 std::ostream& operator << (std::ostream& out, const CStrRef& str);
 
-} // namespace oglplus
 //]
 

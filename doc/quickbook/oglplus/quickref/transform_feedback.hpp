@@ -5,7 +5,6 @@
  */
 
 //[oglplus_transform_feedback_common
-namespace oglplus {
 
 template <>
 class __ObjCommonOps<__tag_TransformFeedback>
@@ -86,7 +85,6 @@ Indirectly inherits from __ObjCommonOps_TransformFeedback
 >*/
 	DefaultTransformFeedback;
 
-} // namespace oglplus
 //]
 //[oglplus_transform_feedback_activator
 class TransformFeedbackActivator

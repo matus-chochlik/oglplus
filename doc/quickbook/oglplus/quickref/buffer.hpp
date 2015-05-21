@@ -5,7 +5,6 @@
  */
 
 //[oglplus_buffer_common_1
-namespace oglplus {
 
 template <>
 class __ObjCommonOps<__tag_Buffer>
@@ -417,6 +416,5 @@ __BufferTarget operator << (
 Equivalent to [^BufferOps::SubData(target, offset, data)].
 >*/
 
-} // namespace oglplus
 //]
 

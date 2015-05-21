@@ -5,7 +5,6 @@
  */
 
 //[oglplus_buffer_size
-namespace oglplus {
 
 class BufferSize
  : __BigSizeType
@@ -70,6 +69,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

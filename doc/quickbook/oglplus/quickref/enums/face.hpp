@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_face
-namespace oglplus {
 
 enum class Face : GLenum
 {
@@ -24,5 +23,4 @@ __Range<Face> __EnumValueRange<Face>(void) noexcept;
 
 __CStrRef __EnumValueName(Face) noexcept;
 
-} // namespace oglplus
 //]

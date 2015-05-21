@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_command
-namespace oglplus {
 
 enum class PathNVCommand : GLenum
 {
@@ -55,5 +54,4 @@ __Range<PathNVCommand> __EnumValueRange<PathNVCommand>(void) noexcept;
 
 __CStrRef __EnumValueName(PathNVCommand) noexcept;
 
-} // namespace oglplus
 //]

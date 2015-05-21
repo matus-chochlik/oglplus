@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_missing_glyph
-namespace oglplus {
 
 enum class PathNVMissingGlyph : GLenum
 {
@@ -23,5 +22,4 @@ __Range<PathNVMissingGlyph> __EnumValueRange<PathNVMissingGlyph>(void) noexcept;
 
 __CStrRef __EnumValueName(PathNVMissingGlyph) noexcept;
 
-} // namespace oglplus
 //]

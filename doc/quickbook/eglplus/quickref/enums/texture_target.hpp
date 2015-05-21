@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_texture_target
-namespace eglplus {
 
 enum class TextureTarget : EGLenum
 {
@@ -23,5 +22,4 @@ __Range<TextureTarget> __EnumValueRange<TextureTarget>(void) noexcept;
 
 __CStrRef __EnumValueName(TextureTarget) noexcept;
 
-} // namespace eglplus
 //]

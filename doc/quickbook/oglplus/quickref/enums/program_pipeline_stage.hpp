@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_program_pipeline_stage
-namespace oglplus {
 
 enum class ProgramPipelineStage : GLbitfield
 {
@@ -30,5 +29,4 @@ __CStrRef __EnumValueName(ProgramPipelineStage) noexcept;
 
 __Bitfield<ProgramPipelineStage> operator | (ProgramPipelineStage b1, ProgramPipelineStage b2) noexcept;
 
-} // namespace oglplus
 //]

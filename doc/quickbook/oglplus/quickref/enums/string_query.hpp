@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_string_query
-namespace oglplus {
 
 enum class StringQuery : GLenum
 {
@@ -25,5 +24,4 @@ __Range<StringQuery> __EnumValueRange<StringQuery>(void) noexcept;
 
 __CStrRef __EnumValueName(StringQuery) noexcept;
 
-} // namespace oglplus
 //]

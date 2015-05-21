@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_cap_style
-namespace oglplus {
 
 enum class PathNVCapStyle : GLenum
 {
@@ -25,5 +24,4 @@ __Range<PathNVCapStyle> __EnumValueRange<PathNVCapStyle>(void) noexcept;
 
 __CStrRef __EnumValueName(PathNVCapStyle) noexcept;
 
-} // namespace oglplus
 //]

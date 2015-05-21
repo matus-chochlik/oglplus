@@ -5,12 +5,10 @@
  */
 
 //[oalplus_vector
-namespace oalplus {
 
 using __oglplus_Vector;
 
 typedef Vector<ALfloat, 3> Vec3f;
 
-} // namespace oalplus
 //]
 

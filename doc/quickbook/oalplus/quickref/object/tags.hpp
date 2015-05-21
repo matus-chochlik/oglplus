@@ -5,13 +5,11 @@
  */
 
 //[oalplus_object_tags
-namespace oalplus {
 namespace tag {
 
 struct Buffer { };
 struct Source { };
 
 } // namespace tag
-} // namespace oalplus
 //]
 

@@ -5,8 +5,6 @@
  */
 
 //[oalplus_context_attribs
-namespace oalplus {
-
 
 typedef __AttributeList<__ContextAttrib, ...> ContextAttribs; /*<
 Attribute list type for context attributes.
@@ -154,6 +152,5 @@ public:
 	>*/
 };
 
-} // namespace oalplus
 //]
 

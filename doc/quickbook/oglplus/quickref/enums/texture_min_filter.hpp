@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_texture_min_filter
-namespace oglplus {
 
 enum class TextureMinFilter : GLenum
 {
@@ -27,5 +26,4 @@ __Range<TextureMinFilter> __EnumValueRange<TextureMinFilter>(void) noexcept;
 
 __CStrRef __EnumValueName(TextureMinFilter) noexcept;
 
-} // namespace oglplus
 //]

@@ -222,7 +222,6 @@ def action_qbk_hpp(options):
 
 	print_cpp_header(options)
 	print_line(options, "//[%s_enums_%s" % (options.library, options.output_id))
-	print_line(options, "namespace %s {" % options.library)
 	print_newline(options)
 	print_line(options, "enum class %s : %s%s" % (
 		options.enum_name,
@@ -272,7 +271,6 @@ def action_qbk_hpp(options):
 			)
 		)
 		print_newline(options)
-	print_line(options, "} // namespace %s" % options.library)
 	print_line(options, "//]")
 
 def action_incl_enum_hpp(options):

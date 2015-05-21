@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_rendering_api
-namespace eglplus {
 
 enum class RenderingAPI : EGLenum
 {
@@ -25,5 +24,4 @@ __Range<RenderingAPI> __EnumValueRange<RenderingAPI>(void) noexcept;
 
 __CStrRef __EnumValueName(RenderingAPI) noexcept;
 
-} // namespace eglplus
 //]

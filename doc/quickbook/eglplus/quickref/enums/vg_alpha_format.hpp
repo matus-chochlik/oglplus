@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_vg_alpha_format
-namespace eglplus {
 
 enum class VGAlphaFormat : EGLenum
 {
@@ -23,5 +22,4 @@ __Range<VGAlphaFormat> __EnumValueRange<VGAlphaFormat>(void) noexcept;
 
 __CStrRef __EnumValueName(VGAlphaFormat) noexcept;
 
-} // namespace eglplus
 //]

@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_context_attrib
-namespace eglplus {
 
 enum class ContextAttrib : EGLenum
 {
@@ -26,5 +25,4 @@ __Range<ContextAttrib> __EnumValueRange<ContextAttrib>(void) noexcept;
 
 __CStrRef __EnumValueName(ContextAttrib) noexcept;
 
-} // namespace eglplus
 //]

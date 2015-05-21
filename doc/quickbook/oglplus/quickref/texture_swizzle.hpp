@@ -5,7 +5,6 @@
  */
 
 //[oglplus_texture_swizzle_tuple
-namespace oglplus {
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
 class TextureSwizzleTuple
@@ -72,6 +71,5 @@ public:
 };
 #endif
 
-} // namespace oglplus
 //]
 

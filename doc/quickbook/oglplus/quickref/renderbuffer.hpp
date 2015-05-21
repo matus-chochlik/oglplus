@@ -5,7 +5,6 @@
  */
 
 //[oglplus_renderbuffer_common
-namespace oglplus {
 
 template <>
 class __ObjCommonOps<__tag_Renderbuffer>
@@ -147,6 +146,5 @@ Sets the storage parameters from [^image_spec] to the renderbuffer
 currently bound to the specified [^target].
 >*/
 
-} // namespace oglplus
 //]
 

@@ -5,7 +5,6 @@
  */
 
 //[oalplus_ops_tags
-namespace oalplus {
 namespace tag {
 
 struct DirectState; /*<
@@ -13,6 +12,5 @@ Operations with ['direct state access]
 >*/
 
 } // namespace tag
-} // namespace oalplus
 //]
 

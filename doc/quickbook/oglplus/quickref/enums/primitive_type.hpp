@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_primitive_type
-namespace oglplus {
 
 enum class PrimitiveType : GLenum
 {
@@ -33,5 +32,4 @@ __Range<PrimitiveType> __EnumValueRange<PrimitiveType>(void) noexcept;
 
 __CStrRef __EnumValueName(PrimitiveType) noexcept;
 
-} // namespace oglplus
 //]

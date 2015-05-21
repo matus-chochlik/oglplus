@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_stroke_cover_mode
-namespace oglplus {
 
 enum class PathNVStrokeCoverMode : GLenum
 {
@@ -25,5 +24,4 @@ __Range<PathNVStrokeCoverMode> __EnumValueRange<PathNVStrokeCoverMode>(void) noe
 
 __CStrRef __EnumValueName(PathNVStrokeCoverMode) noexcept;
 
-} // namespace oglplus
 //]

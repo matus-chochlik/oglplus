@@ -5,7 +5,6 @@
  */
 
 //[oglplus_program_common
-namespace oglplus {
 
 template <>
 class __ObjCommonOps<__tag_Program>
@@ -375,12 +374,8 @@ typedef __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_Program>>
 typedef __Object<ProgramOps>
 	Program;
 
-} // namespace oglplus
-
 //]
 //[oglplus_program_sugar
-
-namespace oglplus {
 
 ProgramOps& operator << (
 	ProgramOps& program,
@@ -424,12 +419,9 @@ ProgXFBModeAndNames operator << (
 	const GLchar* name
 );
 
-} // namespace oglplus
 
 //]
 //[oglplus_shader_program
-
-namespace oglplus {
 
 #if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 class ShaderProgram /*<
@@ -494,12 +486,8 @@ public:
 };
 #endif
 
-} // namespace oglplus
-
 //]
 //[oglplus_quick_program
-
-namespace oglplus {
 
 class QuickProgram
  : public __Program
@@ -532,6 +520,5 @@ public:
 #endif
 };
 
-} // namespace oglplus
 //]
 

@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_clip_origin
-namespace oglplus {
 
 enum class ClipOrigin : GLenum
 {
@@ -23,5 +22,4 @@ __Range<ClipOrigin> __EnumValueRange<ClipOrigin>(void) noexcept;
 
 __CStrRef __EnumValueName(ClipOrigin) noexcept;
 
-} // namespace oglplus
 //]

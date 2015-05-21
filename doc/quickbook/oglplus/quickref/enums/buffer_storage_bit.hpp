@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_buffer_storage_bit
-namespace oglplus {
 
 enum class BufferStorageBit : GLbitfield
 {
@@ -30,5 +29,4 @@ __CStrRef __EnumValueName(BufferStorageBit) noexcept;
 
 __Bitfield<BufferStorageBit> operator | (BufferStorageBit b1, BufferStorageBit b2) noexcept;
 
-} // namespace oglplus
 //]

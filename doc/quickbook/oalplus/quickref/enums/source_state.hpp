@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oalplus_enums_source_state
-namespace oalplus {
 
 enum class SourceState : ALenum
 {
@@ -25,5 +24,4 @@ __Range<SourceState> __EnumValueRange<SourceState>(void) noexcept;
 
 __CStrRef __EnumValueName(SourceState) noexcept;
 
-} // namespace oalplus
 //]

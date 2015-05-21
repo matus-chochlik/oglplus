@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_context_profile_bit
-namespace oglplus {
 
 enum class ContextProfileBit : GLenum
 {
@@ -23,5 +22,4 @@ __Range<ContextProfileBit> __EnumValueRange<ContextProfileBit>(void) noexcept;
 
 __CStrRef __EnumValueName(ContextProfileBit) noexcept;
 
-} // namespace oglplus
 //]

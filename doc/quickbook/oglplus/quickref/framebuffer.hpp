@@ -5,7 +5,6 @@
  */
 
 //[oglplus_framebuffer_common
-namespace oglplus {
 
 template <>
 class __ObjCommonOps<__tag_Framebuffer>
@@ -271,6 +270,5 @@ __FramebufferTarget operator << (
 Equivalent to [^FramebufferOps::Complete(target)].
 >*/
 
-} // namespace oglplus
 //]
 

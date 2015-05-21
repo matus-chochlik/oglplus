@@ -5,7 +5,6 @@
  */
 
 //[oalplus_buffer_common_1
-namespace oalplus {
 
 template <>
 class __ObjectOps<__tag_DirectState, __tag_Buffer>
@@ -55,6 +54,5 @@ typedef ObjectOps<__tag_DirectState, __tag_Buffer>
 
 typedef __Object<BufferOps> Buffer;
 
-} // namespace oalplus
 //]
 

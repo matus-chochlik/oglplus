@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_opengl_rns
-namespace eglplus {
 
 enum class OpenGLResetNotificationStrategy : EGLenum
 {
@@ -23,5 +22,4 @@ __Range<OpenGLResetNotificationStrategy> __EnumValueRange<OpenGLResetNotificatio
 
 __CStrRef __EnumValueName(OpenGLResetNotificationStrategy) noexcept;
 
-} // namespace eglplus
 //]
