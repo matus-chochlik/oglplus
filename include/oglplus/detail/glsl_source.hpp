@@ -194,7 +194,7 @@ private:
 	GLchar* _pdata;
 	GLint _size;
 
-	static GLint _check_and_get_size(std::istream& in);
+	static std::size_t _check_and_get_size(std::istream& in);
 	static std::vector<GLchar> _read_data(std::istream&, std::size_t);
 public:
 	InputStreamGLSLSrcWrap(std::istream& input);

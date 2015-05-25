@@ -34,6 +34,9 @@ public:
 	 : ObjectError(message)
 	{ }
 
+	ProgramBuildError(const ProgramBuildError&) = default;
+	ProgramBuildError(ProgramBuildError&&) = default;
+
 	~ProgramBuildError(void)
 	noexcept
 	{ }

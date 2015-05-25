@@ -47,7 +47,7 @@ namespace oglplus {
 class ProgramResource
 {
 private:
-	GLint _prog_name;
+	GLuint _prog_name;
 	GLenum _interface;
 	GLuint _index;
 	GLString _res_name;

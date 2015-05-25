@@ -32,6 +32,9 @@ private:
 public:
 	ProgVarError(const char* message);
 
+	ProgVarError(const ProgVarError&) = default;
+	ProgVarError(ProgVarError&&) = default;
+
 	~ProgVarError(void)
 	noexcept
 	{ }

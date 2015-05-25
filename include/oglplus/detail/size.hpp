@@ -164,7 +164,7 @@ public:
 	operator X (void) const
 	noexcept
 	{
-		return _check<X>(_v);
+		return _check1<X>(_v);
 	}
 
 	friend bool operator == (SizeImpl s1, SizeImpl s2)

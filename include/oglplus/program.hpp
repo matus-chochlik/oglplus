@@ -99,7 +99,8 @@ protected:
 			Error,
 			EnumParam(GLenum(GL_CURRENT_PROGRAM))
 		);
-		return name;
+		assert(not(name < 0));
+		return GLuint(name);
 	}
 public:
 	/// Returns the currently bound (active) Program
@@ -200,7 +201,7 @@ public:
 
 	GLint GetIntParam(GLenum query) const
 	{
-		GLint result;
+		GLint result = 0;
 		OGLPLUS_GLFUNC(GetProgramiv)(_obj_name(), query, &result);
 		OGLPLUS_VERIFY(
 			GetProgramiv,
@@ -209,6 +210,13 @@ public:
 			EnumParam(query)
 		);
 		return result;
+	}
+
+	GLuint GetUIntParam(GLenum query) const
+	{
+		GLint res = GetIntParam(query);
+		assert(not(res < 0));
+		return GLuint(res);
 	}
 
 #if GL_VERSION_4_0 || GL_ARB_shader_subroutine
@@ -223,6 +231,13 @@ public:
 			EnumParam(query)
 		);
 		return result;
+	}
+
+	GLuint GetStageUIntParam(GLenum stage, GLenum query) const
+	{
+		GLint res = GetStageIntParam(stage, query);
+		assert(not(res < 0));
+		return GLuint(res);
 	}
 #endif
 

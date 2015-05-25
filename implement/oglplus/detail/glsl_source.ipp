@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #include <stdexcept>
+#include <cassert>
 
 namespace oglplus {
 namespace aux {
@@ -17,9 +18,15 @@ OGLPLUS_LIB_FUNC
 GLCStrRefsGLSLSrcWrap::GLCStrRefsGLSLSrcWrap(
 	AnyInputIter<GLCStrRef>&& i,
 	AnyInputIter<GLCStrRef>&& e
-): _ptrs(distance(i, e))
- , _sizes(distance(i, e))
+)
 {
+	auto d = distance(i, e);
+
+	assert(not(d < 0));
+
+	_ptrs.resize(std::size_t(d));
+	_sizes.resize(std::size_t(d));
+
 	auto pptr = _ptrs.begin();
 	auto psize = _sizes.begin();
 	while(i != e)
@@ -66,17 +73,19 @@ StrsGLSLSrcWrap::StrsGLSLSrcWrap(std::vector<GLString>&& storage)
 }
 
 OGLPLUS_LIB_FUNC
-GLint InputStreamGLSLSrcWrap::_check_and_get_size(std::istream& in)
+std::size_t InputStreamGLSLSrcWrap::_check_and_get_size(std::istream& in)
 {
-	GLint default_size = 1023;
+	static const std::size_t default_size = 1023;
 	if(!in.good())
 	{
 		std::string msg("Failed to read GLSL input stream.");
 		throw std::runtime_error(msg);
 	}
+
 	in.exceptions(std::ios::badbit);
 	std::streampos begin = in.tellg();
 	in.seekg(0, std::ios::end);
+
 	if(in.good())
 	{
 		std::streampos end = in.tellg();
@@ -85,7 +94,8 @@ GLint InputStreamGLSLSrcWrap::_check_and_get_size(std::istream& in)
 			in.seekg(0, std::ios::beg);
 			if(in.good())
 			{
-				return GLint(end - begin);
+				assert(not(end < begin));
+				return std::size_t(end - begin);
 			}
 		}
 	}
@@ -94,8 +104,10 @@ GLint InputStreamGLSLSrcWrap::_check_and_get_size(std::istream& in)
 		in.clear();
 		return default_size;
 	}
+
 	in.clear();
 	in.seekg(0, std::ios::beg);
+
 	if(in.good())
 	{
 		return default_size;
