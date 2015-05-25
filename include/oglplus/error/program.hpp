@@ -34,6 +34,19 @@ public:
 	 : ObjectError(message)
 	{ }
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ProgramBuildError(const ProgramBuildError&) = default;
+	ProgramBuildError(ProgramBuildError&&) = default;
+#else
+	ProgramBuildError(const ProgramBuildError& that)
+	 : _log(that._log)
+	{ }
+
+	ProgramBuildError(ProgramBuildError&& temp)
+	 : _log(std::move(temp._log))
+	{ }
+#endif
+
 	~ProgramBuildError(void)
 	OGLPLUS_NOTHROW
 	{ }

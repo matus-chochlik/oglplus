@@ -70,7 +70,10 @@ ProgramResource::ProgramResource(
 			EnumParam(_interface).
 			Index(_index)
 		);
-		_res_name.assign(context.Buffer().data(), length);
+
+		assert(not(length < 0));
+
+		_res_name.assign(context.Buffer().data(), std::size_t(length));
 	}
 }
 

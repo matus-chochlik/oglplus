@@ -50,7 +50,10 @@ ActiveVariableInfo::ActiveVariableInfo(
 		&_type,
 		context.Buffer().data()
 	);
-	_var_name = String(context.Buffer().data(), strlen);
+
+	assert(not(strlen < 0));
+
+	_var_name = String(context.Buffer().data(), std::size_t(strlen));
 }
 
 OGLPLUS_LIB_FUNC
@@ -113,7 +116,10 @@ ActiveSubroutineInfo::ActiveSubroutineInfo(
 		EnumParam(context.Stage()).
 		Index(index)
 	);
-	_var_name = String(context.Buffer().data(), strlen);
+
+	assert(not(strlen < 0));
+
+	_var_name = String(context.Buffer().data(), std::size_t(strlen));
 }
 
 OGLPLUS_LIB_FUNC
@@ -167,7 +173,10 @@ ActiveSubroutineUniformInfo::ActiveSubroutineUniformInfo(
 		EnumParam(context.Stage()).
 		Index(index)
 	);
-	_var_name = String(context.Buffer().data(), strlen);
+
+	assert(not(strlen < 0));
+
+	_var_name = String(context.Buffer().data(), std::size_t(strlen));
 }
 
 OGLPLUS_LIB_FUNC
@@ -222,8 +231,12 @@ ActiveUniformBlockInfo::ActiveUniformBlockInfo(
 		EnumParam(GLenum(GL_UNIFORM_BLOCK_NAME_LENGTH))
 	);
 
-	if(context.Buffer().size() < size_t(length))
-		context.Buffer().resize(length);
+	assert(not(length < 0));
+
+	if(context.Buffer().size() < std::size_t(length))
+	{
+		context.Buffer().resize(std::size_t(length));
+	}
 
 	GLsizei strlen = 0;
 	OGLPLUS_GLFUNC(GetActiveUniformBlockName)(
@@ -239,7 +252,10 @@ ActiveUniformBlockInfo::ActiveUniformBlockInfo(
 		Object(context.Program()).
 		Index(index)
 	);
-	_var_name = String(context.Buffer().data(), strlen);
+
+	assert(not(strlen < 0));
+
+	_var_name = String(context.Buffer().data(), std::size_t(strlen));
 }
 
 OGLPLUS_LIB_FUNC
