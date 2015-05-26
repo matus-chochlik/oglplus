@@ -34,6 +34,7 @@ private:
 	GLfloat _value;
 	GLfloat _limit;
 public:
+	static const char* MessageNeg(void);
 	static const char* Message(void);
 
 	LimitError(const char* message)

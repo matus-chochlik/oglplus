@@ -1891,7 +1891,7 @@ public:
 		OGLPLUS_GLFUNC(TexImage3DMultisample)(
 			GLenum(target),
 			samples,
-			GLenum(internal_format),
+			GLint(internal_format),
 			width,
 			height,
 			depth,
@@ -1923,7 +1923,7 @@ public:
 		OGLPLUS_GLFUNC(TexImage2DMultisample)(
 			GLenum(target),
 			samples,
-			GLenum(internal_format),
+			GLint(internal_format),
 			width,
 			height,
 			fixed_sample_locations._get()
