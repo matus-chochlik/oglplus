@@ -78,7 +78,10 @@ public:
 			EnumParam(stage)
 		);
 
-		assert(not(result < 0));
+		if(result == GL_INVALID_INDEX)
+		{
+			return -1;
+		}
 		return GLint(result);
 	}
 

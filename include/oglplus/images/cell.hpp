@@ -87,11 +87,11 @@ public:
 		input.Width() *cell_w,
 		input.Height()*cell_h,
 		input.Depth() *cell_d,
-		CH, (T*)nullptr,
-		_fmt(CH), _ifmt((T*)nullptr, CH)
+		CH, static_cast<T*>(nullptr),
+		_fmt(CH), _ifmt(static_cast<T*>(nullptr), CH)
 	)
 	{
-		const T one = this->_one((T*)0);
+		const T one = this->_one(static_cast<T*>(nullptr));
 
 		const GLdouble i_w = 1.0/Width();
 		const GLdouble i_h = 1.0/Height();

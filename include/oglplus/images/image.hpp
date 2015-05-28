@@ -192,8 +192,12 @@ public:
 	 , _depth(depth)
 	 , _channels(channels)
 	 , _type(PixelDataType(GetDataType<T>()))
-	 , _storage(oglplus::aux::AlignedPODArray(data, _width*_height*_depth*_channels))
-	 , _convert(&_do_convert<T>)
+	 , _storage(
+		oglplus::aux::AlignedPODArray(
+			data,
+			std::size_t(_width*_height*_depth*_channels)
+		)
+	), _convert(&_do_convert<T>)
 	 , _format(_get_def_pdf(unsigned(channels)))
 	 , _internal(_get_def_pdif(unsigned(channels)))
 	{ }
@@ -212,8 +216,12 @@ public:
 	 , _depth(depth)
 	 , _channels(channels)
 	 , _type(PixelDataType(GetDataType<T>()))
-	 , _storage(oglplus::aux::AlignedPODArray(data, _width*_height*_depth*_channels))
-	 , _convert(&_do_convert<T>)
+	 , _storage(
+		oglplus::aux::AlignedPODArray(
+			data,
+			std::size_t(_width*_height*_depth*_channels)
+		)
+	), _convert(&_do_convert<T>)
 	 , _format(format)
 	 , _internal(internal)
 	{ }

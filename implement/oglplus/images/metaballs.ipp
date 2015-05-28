@@ -32,7 +32,7 @@ BaseMetaballs::BaseMetaballs(
 	height,
 	1,
 	1,
-	(GLfloat*)nullptr,
+	static_cast<GLfloat*>(nullptr),
 	PixelDataFormat::Red,
 	PixelDataInternalFormat::R32F
 )
@@ -74,7 +74,7 @@ BaseMetaballs::BaseMetaballs(
 						else r += 0.25f*r*w;
 					}
 
-					float t = (r*r/Dot(d,d))-0.25;
+					float t = (r*r/Dot(d,d))-0.25f;
 					v += (t>0.0f)?t:0.0f;
 				}
 			}

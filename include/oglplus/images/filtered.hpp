@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -49,11 +49,11 @@ private:
 	{
 		sampler.SetInput(input);
 		auto p = this->_begin<T>();
-		unsigned w = input.Width(), h = input.Height(), d = input.Depth();
+		GLsizei w = input.Width(), h = input.Height(), d = input.Depth();
 
-		for(unsigned k=0; k!=d; ++k)
-		for(unsigned j=0; j!=h; ++j)
-		for(unsigned i=0; i!=w; ++i)
+		for(GLsizei k=0; k<d; ++k)
+		for(GLsizei j=0; j<h; ++j)
+		for(GLsizei i=0; i<w; ++i)
 		{
 			sampler.SetOrigin(i, j, k);
 
@@ -168,14 +168,14 @@ public:
 		}
 
 		void SetOrigin(
-			unsigned x,
-			unsigned y,
-			unsigned z
+			GLsizei x,
+			GLsizei y,
+			GLsizei z
 		)
 		{
-			_ori_x = int(x);
-			_ori_y = int(y);
-			_ori_z = int(z);
+			_ori_x = x;
+			_ori_y = y;
+			_ori_z = z;
 
 			assert(_image);
 
@@ -275,9 +275,21 @@ public:
 		Filter filter,
 		Sampler sampler,
 		Extractor extractor
-	): Image(input.Width(), input.Height(), input.Depth(), CH, (T*)0)
+	): Image(
+		input.Width(),
+		input.Height(),
+		input.Depth(),
+		CH,
+		static_cast<T*>(nullptr)
+	)
 	{
-		_calculate(input, filter, sampler, extractor, this->_one((T*)0));
+		_calculate(
+			input,
+			filter,
+			sampler,
+			extractor,
+			this->_one(static_cast<T*>(nullptr))
+		);
 	}
 };
 

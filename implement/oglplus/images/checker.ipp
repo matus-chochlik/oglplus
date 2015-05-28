@@ -26,7 +26,7 @@ CheckerRedBlack::CheckerRedBlack(
 	height,
 	1,
 	1,
-	(GLubyte*)0,
+	static_cast<GLubyte*>(nullptr),
 	PixelDataFormat::Red,
 	PixelDataInternalFormat::Red
 )

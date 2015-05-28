@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -44,7 +44,7 @@ inline unsigned SortNWMap::_num_steps(unsigned size)
 
 OGLPLUS_LIB_FUNC
 SortNWMap::SortNWMap(unsigned size)
- : Image(size, _num_steps(size), 1, 1, (T*)0)
+ : Image(size, _num_steps(size), 1, 1, static_cast<T*>(nullptr))
 {
 	this->_format = PixelDataFormat::RedInteger;
 	this->_internal = PixelDataInternalFormat::R16UI;
@@ -66,13 +66,13 @@ SortNWMap::SortNWMap(unsigned size)
 				for(unsigned e=0; e<q; ++e)
 				{
 					x = c*p+e;
-					enc  = q << 2; // step
+					enc  = T(q << 2); // step
 					enc |= 0x0; // step sign (positive)
 					enc |= direction?0x0:0x1;
 					this->_at<T>(x, y) = enc;
 
 					x = x+q;
-					enc  = q << 2; // step
+					enc  = T(q << 2); // step
 					enc |= 0x2; // step sign (negative)
 					enc |= direction?0x0:0x1;
 					this->_at<T>(x, y) = enc;
@@ -85,13 +85,13 @@ SortNWMap::SortNWMap(unsigned size)
 				{
 					bool direction = (f/r) % 2 == 0;
 					x = f*p+c;
-					enc  = q << 2; // step
+					enc  = T(q << 2); // step
 					enc |= 0x0; // step sign (positive)
 					enc |= direction?0x0:0x1;
 					this->_at<T>(x, y) = enc;
 
 					x = x+q;
-					enc  = q << 2; // step
+					enc  = T(q << 2); // step
 					enc |= 0x2; // step sign (negative)
 					enc |= direction?0x0:0x1;
 					this->_at<T>(x, y) = enc;
