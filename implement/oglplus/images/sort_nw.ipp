@@ -44,7 +44,7 @@ inline unsigned SortNWMap::_num_steps(unsigned size)
 
 OGLPLUS_LIB_FUNC
 SortNWMap::SortNWMap(unsigned size)
- : Image(size, _num_steps(size), 1, 1, static_cast<T*>(nullptr))
+ : Image(size, _num_steps(size), 1, 1, &TypeTag<T>())
 {
 	this->_format = PixelDataFormat::RedInteger;
 	this->_internal = PixelDataInternalFormat::R16UI;

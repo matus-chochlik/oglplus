@@ -137,7 +137,7 @@ Cloud::Cloud(
 	GLfloat sub_scale,
 	GLfloat sub_variance,
 	GLfloat min_radius
-): Image(width, height, depth, 1, static_cast<GLubyte*>(nullptr))
+): Image(width, height, depth, 1, &TypeTag<GLubyte>())
  , _sub_scale(sub_scale)
  , _sub_variance(sub_variance)
  , _min_radius(min_radius)
@@ -148,7 +148,7 @@ Cloud::Cloud(
 
 OGLPLUS_LIB_FUNC
 Cloud2D::Cloud2D(const Cloud& cloud)
- : Image(cloud.Width(), cloud.Height(), 1, 3, static_cast<GLubyte*>(nullptr))
+ : Image(cloud.Width(), cloud.Height(), 1, 3, &TypeTag<GLubyte>())
 {
 	auto p = this->_begin_ub();
 	auto e = this->_end_ub();

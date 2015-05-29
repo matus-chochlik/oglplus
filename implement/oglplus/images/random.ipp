@@ -17,7 +17,7 @@ namespace images {
 
 OGLPLUS_LIB_FUNC
 RandomRedUByte::RandomRedUByte(SizeType width, SizeType height, SizeType depth)
- : Image(width, height, depth, 1, static_cast<GLubyte*>(nullptr))
+ : Image(width, height, depth, 1, &TypeTag<GLubyte>())
 {
 	auto p = this->_begin_ub(), e = this->_end_ub();
 	for(GLsizei k=0, d=depth; k<d; ++k)
@@ -34,7 +34,7 @@ RandomRedUByte::RandomRedUByte(SizeType width, SizeType height, SizeType depth)
 
 OGLPLUS_LIB_FUNC
 RandomRGBUByte::RandomRGBUByte(SizeType width, SizeType height, SizeType depth)
- : Image(width, height, depth, 3, static_cast<GLubyte*>(nullptr))
+ : Image(width, height, depth, 3, &TypeTag<GLubyte>())
 {
 	auto p = this->_begin_ub(), e = this->_end_ub();
 	for(GLsizei k=0, d=depth; k<d; ++k)

@@ -32,7 +32,7 @@ BaseMetaballs::BaseMetaballs(
 	height,
 	1,
 	1,
-	static_cast<GLfloat*>(nullptr),
+	&TypeTag<GLfloat>(),
 	PixelDataFormat::Red,
 	PixelDataInternalFormat::R32F
 )

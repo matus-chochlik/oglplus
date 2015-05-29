@@ -41,7 +41,7 @@ private:
 	}
 
 	template <typename X>
-	static PixelDataInternalFormat _ifmt(X*, unsigned c)
+	static PixelDataInternalFormat _ifmt(TypeTag<X>, unsigned c)
 	{
 		switch(c)
 		{
@@ -87,11 +87,11 @@ public:
 		input.Width() *cell_w,
 		input.Height()*cell_h,
 		input.Depth() *cell_d,
-		CH, static_cast<T*>(nullptr),
-		_fmt(CH), _ifmt(static_cast<T*>(nullptr), CH)
+		CH, &TypeTag<T>(),
+		_fmt(CH), _ifmt(TypeTag<T>(), CH)
 	)
 	{
-		const T one = this->_one(static_cast<T*>(nullptr));
+		const T one = this->_one(TypeTag<T>());
 
 		const GLdouble i_w = 1.0/Width();
 		const GLdouble i_h = 1.0/Height();

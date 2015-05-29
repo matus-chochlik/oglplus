@@ -117,7 +117,7 @@ BrushedMetalUByte::BrushedMetalUByte(
 	int s_disp_max,
 	int t_disp_min,
 	int t_disp_max
-): Image(width, height, 1, 3, static_cast<GLubyte*>(nullptr))
+): Image(width, height, 1, 3, &TypeTag<GLubyte>())
 {
 	GLubyte *p = this->_begin_ub(), *e = this->_end_ub();
 	while(n_scratches--)

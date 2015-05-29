@@ -22,6 +22,7 @@
 #include <oglplus/size_type.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/detail/aligned_pod_array.hpp>
+#include <oglplus/utils/type_tag.hpp>
 
 namespace oglplus {
 namespace images {
@@ -58,7 +59,7 @@ private:
 	{
 		assert(ptr != nullptr);
 		const double v = double(*static_cast<T*>(ptr));
-		const double n = double(_one(static_cast<T*>(nullptr)));
+		const double n = double(_one(TypeTag<T>()));
 		return v / n;
 	}
 
@@ -78,7 +79,7 @@ protected:
 	PixelDataInternalFormat _internal;
 
 	template <typename T>
-	static T _one(T*)
+	static T _one(TypeTag<T>)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return std::numeric_limits<T>::max();

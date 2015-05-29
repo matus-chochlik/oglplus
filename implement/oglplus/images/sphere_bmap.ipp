@@ -30,7 +30,7 @@ SphereBumpMap::SphereBumpMap(
 	height,
 	1,
 	4,
-	static_cast<GLfloat*>(nullptr),
+	&TypeTag<GLfloat>(),
 	PixelDataFormat::RGBA,
 	PixelDataInternalFormat::RGBA16F
 )

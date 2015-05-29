@@ -27,6 +27,7 @@
 #include <oglplus/prog_var/varpara_fns.hpp>
 #include <oglplus/prog_var/set_ops.hpp>
 #include <oglplus/prog_var/wrapper.hpp>
+#include <oglplus/utils/type_tag.hpp>
 
 #include <type_traits>
 
@@ -268,23 +269,23 @@ protected:
 
 	// Functions for autodetection of values-per-vertex
 	template <typename T>
-	static GLint _get_vpv(T*) { return 1; }
+	static GLint _get_vpv(TypeTag<T>) { return 1; }
 
 	template <typename T, std::size_t N>
-	static GLint _get_vpv(Vector<T, N>*) { return N; }
+	static GLint _get_vpv(TypeTag<Vector<T, N>>) { return N; }
 
 	template <typename T, std::size_t Rows, std::size_t Cols>
-	static GLint _get_vpv(Matrix<T, Rows, Cols>*) { return Rows*Cols; }
+	static GLint _get_vpv(TypeTag<Matrix<T, Rows, Cols>>) { return Rows*Cols; }
 
 	// Functions for autodetection of element type
 	template <typename T>
-	static T _get_et(T* p);
+	static T _get_et(TypeTag<T>);
 
 	template <typename T, std::size_t N>
-	static T _get_et(Vector<T, N>*);
+	static T _get_et(TypeTag<Vector<T, N>>);
 
 	template <typename T, std::size_t Rows, std::size_t Cols>
-	static T _get_et(Matrix<T, Rows, Cols>*);
+	static T _get_et(TypeTag<Matrix<T, Rows, Cols>>);
 
 	GLuint _attrib_index(void) const
 	{
@@ -561,10 +562,10 @@ public:
 	template <typename T>
 	const VertexArrayAttrib& Setup(GLuint n = 1) const
 	{
-		typedef decltype(_get_et(static_cast<T*>(nullptr))) elem_type;
+		typedef decltype(_get_et(TypeTag<T>())) elem_type;
 
 		return Setup(
-			_get_vpv(static_cast<T*>(nullptr))*n,
+			_get_vpv(TypeTag<T>())*n,
 			typename DataTypeCT<elem_type>::type()
 		);
 	}

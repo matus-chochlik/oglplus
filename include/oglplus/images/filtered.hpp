@@ -280,7 +280,7 @@ public:
 		input.Height(),
 		input.Depth(),
 		CH,
-		static_cast<T*>(nullptr)
+		&TypeTag<T>()
 	)
 	{
 		_calculate(
@@ -288,7 +288,7 @@ public:
 			filter,
 			sampler,
 			extractor,
-			this->_one(static_cast<T*>(nullptr))
+			this->_one(TypeTag<T>())
 		);
 	}
 };
