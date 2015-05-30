@@ -127,6 +127,12 @@ public:
 		BaseGetSetOps::SetValue(AdjustProgVar<T>::Adjust(value));
 	}
 
+	template <typename S>
+	void Set(SizeImpl<S> value)
+	{
+		Set(ParamType(value));
+	}
+
 	/// Set multiple values
 	void Set(std::size_t count, const T* values)
 	{

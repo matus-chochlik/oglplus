@@ -441,7 +441,7 @@ template <typename T, std::size_t N>
 inline Vector<T, N> Normalized(Vector<T, N> a)
 {
 	T l = Length(a);
-	if(l != T(0) && l != T(1))
+	if(l > T(0) && (l < T(1) || l > T(1)))
 		a = Multiplied(a, T(1) / l);
 	return a;
 }

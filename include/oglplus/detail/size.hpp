@@ -166,6 +166,16 @@ public:
 		return _check1<X>(_v);
 	}
 
+	std::size_t st(void) const
+	{
+		return _check1<std::size_t>(_v);
+	}
+
+	unsigned u(void) const
+	{
+		return _check1<unsigned>(_v);
+	}
+
 	friend bool operator == (SizeImpl s1, SizeImpl s2)
 	{
 		return _check<T>(s1._v) == _check<T>(s2._v);

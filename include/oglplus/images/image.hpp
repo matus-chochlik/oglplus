@@ -249,7 +249,7 @@ public:
 	 *  2: Depth
 	 *  3: Channels
 	 */
-	GLsizei Dimension(std::size_t i) const
+	SizeType Dimension(std::size_t i) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		if(i == 0) return Width();
@@ -262,31 +262,31 @@ public:
 
 
 	/// Returns the width of the image
-	GLsizei Width(void) const
+	SizeType Width(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return _width;
+		return SizeType(_width, std::nothrow);
 	}
 
 	/// Returns the height of the image
-	GLsizei Height(void) const
+	SizeType Height(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return _height;
+		return SizeType(_height, std::nothrow);
 	}
 
 	/// Returns the depth of the image
-	GLsizei Depth(void) const
+	SizeType Depth(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return _depth;
+		return SizeType(_depth, std::nothrow);
 	}
 
 	/// Returns the number of channels
-	GLsizei Channels(void) const
+	SizeType Channels(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return _channels;
+		return SizeType(_channels, std::nothrow);
 	}
 
 	/// Returns the pixel data type
