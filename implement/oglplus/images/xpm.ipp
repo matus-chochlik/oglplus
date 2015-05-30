@@ -412,7 +412,10 @@ void xpm_load(
 		throw std::runtime_error("Failed to parse XPM header");
 	}
 	// so we need to read the line with the dimensions data
-	else if(!input.getline(line, max_line).good() || !(line_len = input.gcount()))
+	else if(
+		!input.getline(line, max_line).good() ||
+		!(line_len = std::size_t(input.gcount()))
+	)
 	{
 		throw std::runtime_error("Failed to read XPM header data from input");
 	}
@@ -440,7 +443,7 @@ void xpm_load(
 			{
 				throw std::runtime_error("Failed to read XPM palette entry");
 			}
-			line_len = input.gcount();
+			line_len = std::size_t(input.gcount());
 		}
 		while(line_len == 0);
 
