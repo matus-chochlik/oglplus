@@ -15,6 +15,7 @@
 
 #include <oglplus/enums/data_type.hpp>
 #include <oglplus/enums/sl_data_type.hpp>
+#include <oglplus/utils/type_tag.hpp>
 #include <type_traits>
 
 namespace oglplus {
@@ -82,7 +83,7 @@ std::false_type _get_is_gl_data_type(...);
 template <typename T>
 struct _is_gl_data_type
 {
-	typedef decltype(_get_is_gl_data_type(static_cast<T*>(0))) type;
+	typedef decltype(_get_is_gl_data_type(&TypeTag<T>())) type;
 };
 
 } // namespace aux

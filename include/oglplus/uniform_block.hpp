@@ -52,7 +52,7 @@ public:
 		bool active_only
 	)
 	{
-		GLint result = OGLPLUS_GLFUNC(GetUniformBlockIndex)(
+		GLuint result = OGLPLUS_GLFUNC(GetUniformBlockIndex)(
 			GetGLName(program),
 			identifier.null_terminated()?
 				identifier.data():
@@ -65,14 +65,19 @@ public:
 			Identifier(identifier)
 		);
 		OGLPLUS_HANDLE_ERROR_IF(
-			active_only && (result < 0),
+			active_only && (result == GL_INVALID_INDEX),
 			GL_INVALID_OPERATION,
 			MsgGettingInactive(),
 			ProgVarError,
 			Program(program).
 			Identifier(identifier)
 		);
-		return result;
+
+		if(result == GL_INVALID_INDEX)
+		{
+			return -1;
+		}
+		return GLint(result);
 	}
 };
 
@@ -87,6 +92,15 @@ protected:
 	ProgVarCommonOps(UniformBlockLoc ubloc)
 	 : ProgVarLoc<tag::UniformBlock>(ubloc)
 	{ }
+
+	GLuint _block_index(void) const
+	{
+		if(this->_location < 0)
+		{
+			return GL_INVALID_INDEX;
+		}
+		return GLuint(this->_location);
+	}
 public:
 	/// Return the maximum number of uniform blocks for a @p shader_type
 	static GLuint MaxIn(ShaderType shader_type)
@@ -115,7 +129,7 @@ public:
 		Boolean result;
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
 			this->_program,
-			this->_location,
+			_block_index(),
 			_translate_ref(shader_type),
 			result._ptr()
 		);
@@ -137,7 +151,7 @@ public:
 		GLint result;
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
 			this->_program,
-			this->_location,
+			_block_index(),
 			GL_UNIFORM_BLOCK_DATA_SIZE,
 			&result
 		);
@@ -159,7 +173,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(UniformBlockBinding)(
 			this->_program,
-			this->_location,
+			_block_index(),
 			GLuint(binding)
 		);
 		OGLPLUS_VERIFY(

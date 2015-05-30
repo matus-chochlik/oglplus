@@ -30,7 +30,7 @@ SphereBumpMap::SphereBumpMap(
 	height,
 	1,
 	4,
-	(GLfloat*)0,
+	&TypeTag<GLfloat>(),
 	PixelDataFormat::RGBA,
 	PixelDataInternalFormat::RGBA16F
 )
@@ -61,10 +61,10 @@ SphereBumpMap::SphereBumpMap(
 				Normalized(z+n);
 			if(l >= one) d = 0;
 			assert(p != this->_end<GLfloat>());
-			*p = v[0]; ++p;
-			*p = v[1]; ++p;
-			*p = v[2]; ++p;
-			*p = d; ++p;
+			*p = GLfloat(v[0]); ++p;
+			*p = GLfloat(v[1]); ++p;
+			*p = GLfloat(v[2]); ++p;
+			*p = GLfloat(d); ++p;
 		}
 	}
 	assert(p == this->_end<GLfloat>());

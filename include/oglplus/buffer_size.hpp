@@ -96,7 +96,7 @@ public:
 	BufferTypedSize(void) { }
 
 	BufferTypedSize(GLsizeiptr count)
-	 : BufferSize(int(count), static_cast<Type*>(nullptr))
+	 : BufferSize(int(count), &TypeTag<Type>())
 	{ }
 };
 

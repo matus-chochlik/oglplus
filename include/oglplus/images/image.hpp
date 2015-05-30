@@ -22,6 +22,7 @@
 #include <oglplus/size_type.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/detail/aligned_pod_array.hpp>
+#include <oglplus/utils/type_tag.hpp>
 
 namespace oglplus {
 namespace images {
@@ -58,7 +59,7 @@ private:
 	{
 		assert(ptr != nullptr);
 		const double v = double(*static_cast<T*>(ptr));
-		const double n = double(_one(static_cast<T*>(nullptr)));
+		const double n = double(_one(TypeTag<T>()));
 		return v / n;
 	}
 
@@ -78,7 +79,7 @@ protected:
 	PixelDataInternalFormat _internal;
 
 	template <typename T>
-	static T _one(T*)
+	static T _one(TypeTag<T>)
 	noexcept
 	{
 		return std::numeric_limits<T>::max();
@@ -192,8 +193,12 @@ public:
 	 , _depth(depth)
 	 , _channels(channels)
 	 , _type(PixelDataType(GetDataType<T>()))
-	 , _storage(oglplus::aux::AlignedPODArray(data, _width*_height*_depth*_channels))
-	 , _convert(&_do_convert<T>)
+	 , _storage(
+		oglplus::aux::AlignedPODArray(
+			data,
+			std::size_t(_width*_height*_depth*_channels)
+		)
+	), _convert(&_do_convert<T>)
 	 , _format(_get_def_pdf(unsigned(channels)))
 	 , _internal(_get_def_pdif(unsigned(channels)))
 	{ }
@@ -212,8 +217,12 @@ public:
 	 , _depth(depth)
 	 , _channels(channels)
 	 , _type(PixelDataType(GetDataType<T>()))
-	 , _storage(oglplus::aux::AlignedPODArray(data, _width*_height*_depth*_channels))
-	 , _convert(&_do_convert<T>)
+	 , _storage(
+		oglplus::aux::AlignedPODArray(
+			data,
+			std::size_t(_width*_height*_depth*_channels)
+		)
+	), _convert(&_do_convert<T>)
 	 , _format(format)
 	 , _internal(internal)
 	{ }
@@ -253,31 +262,31 @@ public:
 
 
 	/// Returns the width of the image
-	GLsizei Width(void) const
+	SizeType Width(void) const
 	noexcept
 	{
-		return _width;
+		return SizeType(_width, std::nothrow);
 	}
 
 	/// Returns the height of the image
-	GLsizei Height(void) const
+	SizeType Height(void) const
 	noexcept
 	{
-		return _height;
+		return SizeType(_height, std::nothrow);
 	}
 
 	/// Returns the depth of the image
-	GLsizei Depth(void) const
+	SizeType Depth(void) const
 	noexcept
 	{
-		return _depth;
+		return SizeType(_depth, std::nothrow);
 	}
 
 	/// Returns the number of channels
-	GLsizei Channels(void) const
+	SizeType Channels(void) const
 	noexcept
 	{
-		return _channels;
+		return SizeType(_channels, std::nothrow);
 	}
 
 	/// Returns the pixel data type

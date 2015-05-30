@@ -579,7 +579,7 @@ public:
 		Invalidate(
 			target,
 			EnumArray<Property::Buffer>(
-				std::size_t(count),
+				count,
 				buffers
 			)
 		);
@@ -635,7 +635,7 @@ public:
 		Invalidate(
 			target,
 			EnumArray<Property::Buffer>(
-				std::size_t(count),
+				count,
 				buffers
 			),
 			x, y, width, height

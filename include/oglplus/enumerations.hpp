@@ -19,14 +19,10 @@
 #include <oglplus/string/ref.hpp>
 #include <oglplus/detail/enum_class.hpp>
 #include <oglplus/detail/base_range.hpp>
+#include <oglplus/utils/type_tag.hpp>
 #include <vector>
 
 namespace oglplus {
-
-/// A tag template used mainly for data-type-based function overload dispatching
-template <typename GLtype>
-struct TypeTag
-{ };
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 
@@ -110,7 +106,7 @@ inline GLCStrRef EnumValueName(EnumType enum_value)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 	typedef typename EnumBaseType<EnumType>::Type BaseType;
 	return ValueName_(
-		static_cast<EnumType*>(nullptr),
+		&TypeTag<EnumType>(),
 		BaseType(enum_value)
 	);
 #else
@@ -126,7 +122,7 @@ inline aux::CastIterRange<
 > EnumValueRange(void)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_RANGES
-	return ValueRange_(static_cast<EnumType*>(nullptr));
+	return ValueRange_(&TypeTag<EnumType>());
 #else
 	const typename EnumBaseType<EnumType>::Type *x = nullptr;
 	return aux::CastIterRange<

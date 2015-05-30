@@ -41,7 +41,7 @@ private:
 	}
 
 	template <typename X>
-	static PixelDataInternalFormat _ifmt(X*, unsigned c)
+	static PixelDataInternalFormat _ifmt(TypeTag<X>, unsigned c)
 	{
 		switch(c)
 		{
@@ -87,15 +87,15 @@ public:
 		input.Width() *cell_w,
 		input.Height()*cell_h,
 		input.Depth() *cell_d,
-		CH, (T*)nullptr,
-		_fmt(CH), _ifmt((T*)nullptr, CH)
+		CH, &TypeTag<T>(),
+		_fmt(CH), _ifmt(TypeTag<T>(), CH)
 	)
 	{
-		const T one = this->_one((T*)0);
+		const T one = this->_one(TypeTag<T>());
 
-		const GLdouble i_w = 1.0/Width();
-		const GLdouble i_h = 1.0/Height();
-		const GLdouble i_d = 1.0/Depth();
+		const GLdouble i_w = 1.0/GLsizei(Width());
+		const GLdouble i_h = 1.0/GLsizei(Height());
+		const GLdouble i_d = 1.0/GLsizei(Depth());
 
 		const GLsizei iw = input.Width();
 		const GLsizei ih = input.Height();
@@ -119,15 +119,15 @@ public:
 
 		auto pos = this->_begin<T>();
 
-		for(GLsizei z=0; z!=Depth(); ++z)
+		for(GLsizei z=0; z<Depth(); ++z)
 		{
 			GLsizei cz = z/cell_d;
 
-			for(GLsizei y=0; y!=Height(); ++y)
+			for(GLsizei y=0; y<Height(); ++y)
 			{
 				GLsizei cy = y/cell_h;
 
-				for(GLsizei x=0; x!=Width(); ++x)
+				for(GLsizei x=0; x<Width(); ++x)
 				{
 					GLsizei cx = x/cell_w;
 
@@ -219,7 +219,7 @@ private:
 					}
 				}
 			}
-			GLfloat result = _calc_value(_d);
+			GLfloat result = GLfloat(_calc_value(_d));
 			if(result > 1) result = 1;
 			if(result < 0) result = 0;
 			return Vec1d(result);

@@ -64,9 +64,10 @@ bool Cloud::_apply_sphere(const Vec3f& center, GLfloat radius)
 	GLfloat r = radius*0.5f;
 	GLsizei w = Width(), h = Height(), d = Depth();
 	GLubyte* data = _begin_ub();
-	for(GLsizei k=(c[2]-r)*d, ke=(c[2]+r)*d; k!=ke; ++k)
-	for(GLsizei j=(c[1]-r)*h, je=(c[1]+r)*h; j!=je; ++j)
-	for(GLsizei i=(c[0]-r)*w, ie=(c[0]+r)*w; i!=ie; ++i)
+
+	for(GLsizei k=GLsizei(c[2]-r)*d, ke=GLsizei(c[2]+r)*d; k!=ke; ++k)
+	for(GLsizei j=GLsizei(c[1]-r)*h, je=GLsizei(c[1]+r)*h; j!=je; ++j)
+	for(GLsizei i=GLsizei(c[0]-r)*w, ie=GLsizei(c[0]+r)*w; i!=ie; ++i)
 	{
 		assert(k >= 0 && k < d);
 		assert(j >= 0 && j < h);
@@ -108,7 +109,8 @@ void Cloud::_make_spheres(Vec3f center, GLfloat radius)
 	if(radius < _min_radius) return;
 	if(!_apply_sphere(center, radius)) return;
 	GLfloat sub_radius = radius * _sub_scale;
-	GLsizei i = 0, n = (8.0f*radius*radius)/(sub_radius*sub_radius);
+	GLsizei i = 0;
+	GLsizei n = GLsizei((8.0f*radius*radius)/(sub_radius*sub_radius));
 	while(i != n)
 	{
 		auto rad = radius*(1.0f + _rand_s()*_sub_variance*0.5f);
@@ -136,7 +138,7 @@ Cloud::Cloud(
 	GLfloat sub_scale,
 	GLfloat sub_variance,
 	GLfloat min_radius
-): Image(width, height, depth, 1, (GLubyte*)0)
+): Image(width, height, depth, 1, &TypeTag<GLubyte>())
  , _sub_scale(sub_scale)
  , _sub_variance(sub_variance)
  , _min_radius(min_radius)
@@ -147,7 +149,7 @@ Cloud::Cloud(
 
 OGLPLUS_LIB_FUNC
 Cloud2D::Cloud2D(const Cloud& cloud)
- : Image(cloud.Width(), cloud.Height(), 1, 3, (GLubyte*)0)
+ : Image(cloud.Width(), cloud.Height(), 1, 3, &TypeTag<GLubyte>())
 {
 	auto p = this->_begin_ub();
 	auto e = this->_end_ub();
@@ -165,13 +167,16 @@ Cloud2D::Cloud2D(const Cloud& cloud)
 			{
 				if(c != 0)
 				{
-					depth_near = (256*k)/d;
+					depth_near = GLubyte((0xFF*k)/d);
 					depth_far = depth_near;
 				}
 			}
 			else if(depth_far == depth_near)
 			{
-				if(c == 0) depth_far = (256*k)/d;
+				if(c == 0)
+				{
+					depth_far = GLubyte((0xFF*k)/d);
+				}
 			}
 			total_density += c;
 		}

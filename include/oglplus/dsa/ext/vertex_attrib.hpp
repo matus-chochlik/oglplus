@@ -164,11 +164,11 @@ public:
 		GLuint n = 1
 	) const
 	{
-		typedef decltype(_get_et((T*)nullptr)) elem_type;
+		typedef decltype(_get_et(TypeTag<T>())) elem_type;
 
 		return Setup(
 			buffer,
-			_get_vpv((T*)nullptr)*n,
+			_get_vpv(TypeTag<T>())*n,
 			typename DataTypeCT<elem_type>::type()
 		);
 	}

@@ -77,7 +77,7 @@ public:
 
 	template <typename S>
 	Array(SizeImpl<S> count)
-	 : _names(std::size_t(count), 0u)
+	 : _names(count, 0u)
 	{
 		_init(Nothing());
 	}
@@ -91,7 +91,7 @@ public:
 
 	template <typename S>
 	Array(SizeImpl<S> n, typename ObjectSubtype<ObjTag>::Type type)
-	 : _names(std::size_t(n), 0u)
+	 : _names(n, 0u)
 	{
 		_init(type);
 	}

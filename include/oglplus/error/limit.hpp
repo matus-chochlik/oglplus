@@ -35,6 +35,10 @@ private:
 	GLfloat _limit;
 public:
 	static
+	const char* MessageNeg(void)
+	noexcept;
+
+	static
 	const char* Message(void)
 	noexcept;
 

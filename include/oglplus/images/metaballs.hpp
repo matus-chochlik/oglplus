@@ -133,7 +133,6 @@ public:
  	 *   star's points. The fifth value controls the 'pointiness'
 	 *   of the star, normalized to (0, 1).
 	 *  @param size the number of values in the balls array.
-	 *  @param size the number of values in the balls array.
 	 */
 	Metastars(
 		SizeType width,

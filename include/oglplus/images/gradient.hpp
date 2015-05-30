@@ -215,7 +215,7 @@ public:
 		const std::map<P, Vector<T, N>>& x_points
 	): Image(width, 1, 1, N, (GLubyte*)0)
 	{
-		std::vector<Vector<T, N>> x_gradient((std::size_t(width)));
+		std::vector<Vector<T, N>> x_gradient(width.st());
 		_make_gradient(
 			background,
 			width,
@@ -235,7 +235,7 @@ public:
 		Combine combine
 	): Image(width, height, 1, N, (GLubyte*)0)
 	{
-		std::vector<Vector<T, N>> y_gradient((std::size_t(height)));
+		std::vector<Vector<T, N>> y_gradient(height.st());
 		_make_gradient(
 			background,
 			height,
@@ -243,7 +243,7 @@ public:
 			y_gradient
 		);
 
-		std::vector<Vector<T, N>> x_gradient((std::size_t(width)));
+		std::vector<Vector<T, N>> x_gradient(width.st());
 		_make_gradient(
 			background,
 			width,
