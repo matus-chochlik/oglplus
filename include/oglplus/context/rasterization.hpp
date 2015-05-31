@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -35,15 +35,15 @@ struct PolygonModes
 	PolygonModes(PolygonMode mode)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		_v[0] = GLenum(mode);
-		_v[1] = GLenum(mode);
+		_v[0] = GLint(mode);
+		_v[1] = GLint(mode);
 	}
 
 	PolygonModes(PolygonMode front, PolygonMode back)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		_v[0] = GLenum(front);
-		_v[1] = GLenum(back);
+		_v[0] = GLint(front);
+		_v[1] = GLint(back);
 	}
 
 	/// The front polygon mode

@@ -57,7 +57,7 @@ void DrawOperation::CleanupPrimitiveRestart_(void) const
 
 OGLPLUS_LIB_FUNC
 void DrawOperation::Draw_(
-	void* indices,
+	const void* indices,
 	DataType index_data_type,
 	GLuint inst_count,
 	GLuint base_inst
@@ -133,7 +133,7 @@ void DrawOperation::DrawArrays_(GLuint inst_count, GLuint base_inst) const
 
 OGLPLUS_LIB_FUNC
 void DrawOperation::DrawElements_(
-	void* indices,
+	const void* indices,
 	DataType index_data_type,
 	GLuint inst_count,
 	GLuint base_inst

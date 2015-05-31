@@ -71,7 +71,7 @@ struct RGBAValue
 	{
 		for(unsigned i=0; i<4; ++i)
 		{
-			if(a._v[i] != b._v[i])
+			if((a._v[i] < b._v[i]) || (a._v[i] > b._v[i]))
 			{
 				return false;
 			}

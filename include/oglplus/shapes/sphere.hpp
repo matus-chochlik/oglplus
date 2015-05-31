@@ -267,7 +267,7 @@ public:
 	}
 
 	/// The type of index container returned by Indices()
-	typedef std::vector<GLushort> IndexArray;
+	typedef std::vector<GLuint> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray Indices(Default = Default()) const;
