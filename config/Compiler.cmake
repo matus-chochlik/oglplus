@@ -9,6 +9,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 		-Wall
 		#-Weverything
 		#-Werror
+		#-Wno-float-equal
 		-Wno-c++98-compat
 		-Wno-c++98-compat-pedantic
 		-Wno-undef

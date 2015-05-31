@@ -65,10 +65,10 @@ OGLPLUS_ENUM_CLASS_FWD(CompareFunction, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(ConditionalRenderMode, GLenum)
 #include <oglplus/enums/conditional_render_mode_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(ContextFlagBit, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(ContextFlagBit, GLbitfield)
 #include <oglplus/enums/context_flag_bit_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(ContextProfileBit, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(ContextProfileBit, GLbitfield)
 #include <oglplus/enums/context_profile_bit_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(ContextReleaseBehavior, GLenum)

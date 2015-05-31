@@ -241,7 +241,7 @@ public:
 		{
 			OGLPLUS_GLFUNC(PolygonMode)(
 				GL_FRONT_AND_BACK,
-				modes._v[0]
+				GLenum(modes._v[0])
 			);
 			OGLPLUS_VERIFY_SIMPLE(PolygonMode);
 		}
@@ -249,12 +249,12 @@ public:
 		{
 			OGLPLUS_GLFUNC(PolygonMode)(
 				GL_FRONT,
-				modes._v[0]
+				GLenum(modes._v[0])
 			);
 			OGLPLUS_VERIFY_SIMPLE(PolygonMode);
 			OGLPLUS_GLFUNC(PolygonMode)(
 				GL_BACK,
-				modes._v[1]
+				GLenum(modes._v[1])
 			);
 			OGLPLUS_VERIFY_SIMPLE(PolygonMode);
 		}

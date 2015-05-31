@@ -11,14 +11,14 @@
 //
 namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
-	const GLenum*,
+	const GLbitfield*,
 	ContextFlagBit
 > ValueRange_(ContextFlagBit*) noexcept
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_CONTEXTFLAGBIT)
 #define OGLPLUS_IMPL_EVR_CONTEXTFLAGBIT
 {
-static const GLenum _values[] = {
+static const GLbitfield _values[] = {
 #if defined GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT
 GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT,
 #endif
@@ -31,7 +31,7 @@ GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB,
 0
 };
 return aux::CastIterRange<
-	const GLenum*,
+	const GLbitfield*,
 	ContextFlagBit
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }

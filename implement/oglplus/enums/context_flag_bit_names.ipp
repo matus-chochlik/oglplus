@@ -12,7 +12,7 @@
 namespace enums {
 OGLPLUS_LIB_FUNC CStrRef ValueName_(
 	ContextFlagBit*,
-	GLenum value
+	GLbitfield value
 ) noexcept
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVN_CONTEXTFLAGBIT)

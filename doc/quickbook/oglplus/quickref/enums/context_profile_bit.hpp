@@ -11,7 +11,7 @@
 //
 //[oglplus_enums_context_profile_bit
 
-enum class ContextProfileBit : GLenum
+enum class ContextProfileBit : GLbitfield
 {
 	Core          = GL_CONTEXT_CORE_PROFILE_BIT,
 	Compatibility = GL_CONTEXT_COMPATIBILITY_PROFILE_BIT
@@ -21,5 +21,7 @@ template <>
 __Range<ContextProfileBit> __EnumValueRange<ContextProfileBit>(void) noexcept;
 
 __CStrRef __EnumValueName(ContextProfileBit) noexcept;
+
+__Bitfield<ContextProfileBit> operator | (ContextProfileBit b1, ContextProfileBit b2) noexcept;
 
 //]
