@@ -35,15 +35,15 @@ struct PolygonModes
 	PolygonModes(PolygonMode mode)
 	noexcept
 	{
-		_v[0] = GLenum(mode);
-		_v[1] = GLenum(mode);
+		_v[0] = GLint(mode);
+		_v[1] = GLint(mode);
 	}
 
 	PolygonModes(PolygonMode front, PolygonMode back)
 	noexcept
 	{
-		_v[0] = GLenum(front);
-		_v[1] = GLenum(back);
+		_v[0] = GLint(front);
+		_v[1] = GLint(back);
 	}
 
 	/// The front polygon mode

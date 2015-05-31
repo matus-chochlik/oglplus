@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,6 +16,7 @@
 #include <oglplus/config/basic.hpp>
 #include <oglplus/primitive_type.hpp>
 #include <oglplus/data_type.hpp>
+#include <oglplus/utils/type_tag.hpp>
 
 #include <vector>
 #include <cassert>
@@ -30,34 +31,40 @@ namespace shapes {
 class ElementIndexInfo
 {
 private:
-	const size_t _sizeof_index;
+	const std::size_t _sizeof_index;
 	const oglplus::DataType _index_data_type;
 
 	template <typename IT>
-	static size_t _do_get_sizeof_index(const std::vector<IT>*)
+	static
+	std::size_t _do_get_sizeof_index(TypeTag<std::vector<IT>>)
+	noexcept
 	{
 		return sizeof(IT);
 	}
 
 	template <class ShapeBuilder>
-	static size_t _get_sizeof_index(const ShapeBuilder&)
+	static
+	std::size_t _get_sizeof_index(const ShapeBuilder&)
+	noexcept
 	{
 		return _do_get_sizeof_index(
-			(typename ShapeBuilder::IndexArray*)nullptr
+			TypeTag<typename ShapeBuilder::IndexArray>()
 		);
 	}
 
 	template <typename IT>
-	static oglplus::DataType _do_get_index_data_type(const std::vector<IT>*)
+	static
+	oglplus::DataType _do_get_index_data_type(TypeTag<std::vector<IT>>)
 	{
 		return oglplus::GetDataType<IT>();
 	}
 
 	template <class ShapeBuilder>
-	static oglplus::DataType _get_index_data_type(const ShapeBuilder&)
+	static
+	oglplus::DataType _get_index_data_type(const ShapeBuilder&)
 	{
 		return _do_get_index_data_type(
-			(typename ShapeBuilder::IndexArray*)nullptr
+			TypeTag<typename ShapeBuilder::IndexArray>()
 		);
 	}
 public:
@@ -69,12 +76,14 @@ public:
 
 	/// Returns the size (in bytes) of index type used by ShapeBuilder
 	size_t Size(void) const
+	noexcept
 	{
 		return _sizeof_index;
 	}
 
 	/// Returns the GL datatype of index type used by ShapeBuilder
 	oglplus::DataType DataType(void) const
+	noexcept
 	{
 		return _index_data_type;
 	}
@@ -172,22 +181,22 @@ private:
 	}
 
 	template <typename IT>
-	void* IndexPtr_(const std::vector<IT>& indices) const
+	const void* IndexPtr_(const std::vector<IT>& indices) const
 	{
 		const IT* base = indices.empty() ? nullptr : &indices.front();
-		return (void*)(base + first);
+		return reinterpret_cast<const void*>(base + first);
 	}
 
-	void* IndexPtr_(const ElementIndexInfo& index_info) const
+	const void* IndexPtr_(const ElementIndexInfo& index_info) const
 	{
-		return (void*)(first * index_info.Size());
+		return reinterpret_cast<const void*>(first * index_info.Size());
 	}
 
 	void SetupPrimitiveRestart_(void) const;
 	void CleanupPrimitiveRestart_(void) const;
 
 	void Draw_(
-		void* indices,
+		const void* indices,
 		DataType index_data_type,
 		GLuint inst_count,
 		GLuint base_inst
@@ -196,7 +205,7 @@ private:
 	void DrawArrays_(GLuint inst_count, GLuint base_inst) const;
 
 	void DrawElements_(
-		void* indices,
+		const void* indices,
 		DataType index_data_type,
 		GLuint inst_count,
 		GLuint base_inst

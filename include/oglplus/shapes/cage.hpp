@@ -61,9 +61,9 @@ private:
 	template <typename Iter>
 	static Iter _write(Iter iter, const Vector<GLdouble, 3>& vec)
 	{
-		*iter++ = vec.x();
-		*iter++ = vec.y();
-		*iter++ = vec.z();
+		*iter++ = GLfloat(vec.x());
+		*iter++ = GLfloat(vec.y());
+		*iter++ = GLfloat(vec.z());
 		return iter;
 	}
 

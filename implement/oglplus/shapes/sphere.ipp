@@ -16,8 +16,6 @@ OGLPLUS_LIB_FUNC
 Sphere::IndexArray
 Sphere::Indices(Sphere::Default) const
 {
-	assert((1<<(sizeof(GLushort)*8))-1>=((_rings+2)*(_sections+1)));
-	//
 #ifdef GL_PRIMITIVE_RESTART
 	const unsigned n = (_rings + 1)*(2 * (_sections + 1) + 1);
 #else
