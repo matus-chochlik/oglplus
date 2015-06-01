@@ -122,9 +122,9 @@ void DrawOperation::DrawArrays_(GLuint inst_count, GLuint base_inst) const
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
 		OGLPLUS_GLFUNC(DrawArraysInstancedBaseInstance)(
 			GLenum(mode),
-			first,
-			count,
-			inst_count,
+			GLint(first),
+			GLsizei(count),
+			GLsizei(inst_count),
 			base_inst
 		);
 		OGLPLUS_CHECK_SIMPLE(DrawArraysInstancedBaseInstance);
@@ -179,10 +179,10 @@ void DrawOperation::DrawElements_(
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
 		OGLPLUS_GLFUNC(DrawElementsInstancedBaseInstance)(
 			GLenum(mode),
-			count,
+			GLsizei(count),
 			GLenum(index_data_type),
 			indices,
-			inst_count,
+			GLsizei(inst_count),
 			base_inst
 		);
 		OGLPLUS_CHECK_SIMPLE(DrawElementsInstancedBaseInstance);

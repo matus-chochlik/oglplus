@@ -73,7 +73,7 @@ std::string BlendFileSDNA::_field_name_from_def(std::string result)
 		char c = result[i];
 		if(!_is_field_name_char(c))
 		{
-			int k = 1;
+			std::size_t k = 1;
 			if(c == '[')
 			{
 				while((i+k != n) && (result[i+k] != ']'))

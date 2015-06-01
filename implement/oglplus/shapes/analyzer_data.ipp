@@ -25,7 +25,7 @@ _init_dr_ar_triangles(const DrawOperation& draw_op)
 	GLuint i=0;
 	while(i != draw_op.count)
 	{
-		_face_index.push_back(_face_verts.size());
+		_face_index.push_back(GLuint(_face_verts.size()));
 		_face_phase.push_back(draw_op.phase);
 
 		_face_verts.push_back(draw_op.first+i++);
@@ -54,7 +54,7 @@ _init_dr_ar_triangle_strip(const DrawOperation& draw_op)
 	GLuint i=0;
 	GLuint v=0;
 
-	_face_index.push_back(_face_verts.size());
+	_face_index.push_back(GLuint(_face_verts.size()));
 	_face_phase.push_back(draw_op.phase);
 
 	_face_verts.push_back(draw_op.first+i++);
@@ -77,7 +77,7 @@ _init_dr_ar_triangle_strip(const DrawOperation& draw_op)
 
 	while(i != draw_op.count)
 	{
-		_face_index.push_back(_face_verts.size());
+		_face_index.push_back(GLuint(_face_verts.size()));
 		_face_phase.push_back(draw_op.phase);
 		if(i % 2 != 0)
 		{
@@ -89,8 +89,8 @@ _init_dr_ar_triangle_strip(const DrawOperation& draw_op)
 			_face_adj_f.push_back(_nil_face());
 			_face_adj_f.push_back(_nil_face());
 
-			_face_adj_f[v-2] = _face_index.size()-1;
-			_face_adj_f[v+0] = _face_index.size()-2;
+			_face_adj_f[v-2] = GLuint(_face_index.size()-1);
+			_face_adj_f[v+0] = GLuint(_face_index.size()-2);
 
 			_face_adj_e.push_back(0);
 			_face_adj_e.push_back(0);
@@ -116,8 +116,8 @@ _init_dr_ar_triangle_strip(const DrawOperation& draw_op)
 			_face_adj_f.push_back(_nil_face());
 			_face_adj_f.push_back(_nil_face());
 
-			_face_adj_f[v-1] = _face_index.size()-1;
-			_face_adj_f[v+0] = _face_index.size()-1;
+			_face_adj_f[v-1] = GLuint(_face_index.size()-1);
+			_face_adj_f[v+0] = GLuint(_face_index.size()-1);
 
 			_face_adj_e.push_back(0);
 			_face_adj_e.push_back(0);
@@ -146,7 +146,7 @@ _init_dr_ar_triangle_fan(const DrawOperation& draw_op)
 	GLuint i=0;
 	GLuint v=0;
 
-	_face_index.push_back(_face_verts.size());
+	_face_index.push_back(GLuint(_face_verts.size()));
 	_face_phase.push_back(draw_op.phase);
 
 	_face_verts.push_back(draw_op.first+i++);
@@ -169,7 +169,7 @@ _init_dr_ar_triangle_fan(const DrawOperation& draw_op)
 
 	while(i != draw_op.count)
 	{
-		_face_index.push_back(_face_verts.size());
+		_face_index.push_back(GLuint(_face_verts.size()));
 		_face_phase.push_back(draw_op.phase);
 
 		_face_verts.push_back(draw_op.first);
@@ -180,8 +180,8 @@ _init_dr_ar_triangle_fan(const DrawOperation& draw_op)
 		_face_adj_f.push_back(_nil_face());
 		_face_adj_f.push_back(_nil_face());
 
-		_face_adj_f[v-1] = _face_index.size()-1;
-		_face_adj_f[v+0] = _face_index.size()-2;
+		_face_adj_f[v-1] = GLuint(_face_index.size()-1);
+		_face_adj_f[v+0] = GLuint(_face_index.size()-2);
 
 		_face_adj_e.push_back(0);
 		_face_adj_e.push_back(0);
@@ -238,7 +238,7 @@ _init_dr_el_triangles(const DrawOperation& draw_op)
 			continue;
 		}
 
-		_face_index.push_back(_face_verts.size());
+		_face_index.push_back(GLuint(_face_verts.size()));
 		_face_phase.push_back(draw_op.phase);
 
 		_face_verts.push_back(_index[draw_op.first+i++]);
@@ -275,7 +275,7 @@ _init_dr_el_triangle_strip(const DrawOperation& draw_op)
 			continue;
 		}
 
-		_face_index.push_back(_face_verts.size());
+		_face_index.push_back(GLuint(_face_verts.size()));
 		_face_phase.push_back(draw_op.phase);
 
 		_face_verts.push_back(_index[draw_op.first+i++]);
@@ -304,7 +304,7 @@ _init_dr_el_triangle_strip(const DrawOperation& draw_op)
 				break;
 			}
 
-			_face_index.push_back(_face_verts.size());
+			_face_index.push_back(GLuint(_face_verts.size()));
 			_face_phase.push_back(draw_op.phase);
 
 			if(i % 2 != 0)
@@ -317,8 +317,8 @@ _init_dr_el_triangle_strip(const DrawOperation& draw_op)
 				_face_adj_f.push_back(_nil_face());
 				_face_adj_f.push_back(_nil_face());
 
-				_face_adj_f[v-2] = _face_index.size()-1;
-				_face_adj_f[v] = _face_index.size()-2;
+				_face_adj_f[v-2] = GLuint(_face_index.size()-1);
+				_face_adj_f[v+0] = GLuint(_face_index.size()-2);
 
 				_face_adj_e.push_back(0);
 				_face_adj_e.push_back(0);
@@ -344,8 +344,8 @@ _init_dr_el_triangle_strip(const DrawOperation& draw_op)
 				_face_adj_f.push_back(_nil_face());
 				_face_adj_f.push_back(_nil_face());
 
-				_face_adj_f[v-1] = _face_index.size()-1;
-				_face_adj_f[v+0] = _face_index.size()-2;
+				_face_adj_f[v-1] = GLuint(_face_index.size()-1);
+				_face_adj_f[v+0] = GLuint(_face_index.size()-2);
 
 				_face_adj_e.push_back(0);
 				_face_adj_e.push_back(0);
@@ -383,7 +383,7 @@ _init_dr_el_triangle_fan(const DrawOperation& draw_op)
 			continue;
 		}
 
-		_face_index.push_back(_face_verts.size());
+		_face_index.push_back(GLuint(_face_verts.size()));
 		_face_phase.push_back(draw_op.phase);
 
 		_face_verts.push_back(_index[draw_op.first+i++]);
@@ -412,7 +412,7 @@ _init_dr_el_triangle_fan(const DrawOperation& draw_op)
 				break;
 			}
 
-			_face_index.push_back(_face_verts.size());
+			_face_index.push_back(GLuint(_face_verts.size()));
 			_face_phase.push_back(draw_op.phase);
 
 			_face_verts.push_back(_index[draw_op.first+i]);
@@ -423,8 +423,8 @@ _init_dr_el_triangle_fan(const DrawOperation& draw_op)
 			_face_adj_f.push_back(_nil_face());
 			_face_adj_f.push_back(_nil_face());
 
-			_face_adj_f[v-1] = _face_index.size()-1;
-			_face_adj_f[v+0] = _face_index.size()-2;
+			_face_adj_f[v-1] = GLuint(_face_index.size()-1);
+			_face_adj_f[v+0] = GLuint(_face_index.size()-2);
 
 			_face_adj_e.push_back(0);
 			_face_adj_e.push_back(0);
