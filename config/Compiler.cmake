@@ -20,6 +20,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 		-Wno-padded
 		-Wno-missing-prototypes
 		-Wno-documentation-unknown-command
+		-Wno-switch-enum
 	)
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 	add_definitions(

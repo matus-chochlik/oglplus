@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -45,7 +45,7 @@ std::size_t BlendFileSDNA::_field_elem_count(const std::string& def)
 				);
 			}
 			k *= 10;
-			k += c - '0';
+			k += std::size_t(c - '0');
 		} while(true);
 
 		// check the parsed number

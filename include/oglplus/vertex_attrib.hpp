@@ -565,7 +565,7 @@ public:
 		typedef decltype(_get_et(TypeTag<T>())) elem_type;
 
 		return Setup(
-			_get_vpv(TypeTag<T>())*n,
+			_get_vpv(TypeTag<T>())*GLint(n),
 			typename DataTypeCT<elem_type>::type()
 		);
 	}
