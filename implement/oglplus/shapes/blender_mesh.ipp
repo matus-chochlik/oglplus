@@ -103,9 +103,14 @@ void BlenderMesh::_load_mesh(
 	auto tface_ptr = object_mesh_data.Field<void*>("mtface").Get();
 	//
 	if(opts.load_texcoords && face_ptr && !tface_ptr)
+	{
 		throw std::runtime_error("Unable to load UV coordinates.");
+	}
 	if(opts.load_tangents && face_ptr && !tface_ptr)
+	{
 		throw std::runtime_error("Unable to load tangent vectors.");
+	}
+
 	// if we wanted to load the uv-coordinates and they are available
 	if(
 		(opts.load_texcoords && face_ptr && tface_ptr) ||
@@ -119,7 +124,9 @@ void BlenderMesh::_load_mesh(
 		std::size_t n_faces = face_data.BlockElementCount();
 
 		if(opts.load_texcoords || opts.load_tangents)
+		{
 			assert(n_faces == tface_data.BlockElementCount());
+		}
 		// get the vertex index fields of the face
 		auto face_v1_field = face_data.Field<int>("v1");
 		auto face_v2_field = face_data.Field<int>("v2");
@@ -151,7 +158,9 @@ void BlenderMesh::_load_mesh(
 				// get the uv coords fields
 				auto tface_uv_field = tface_data.Field<float>("uv");
 				for(std::size_t i=0; i!=8; ++i)
+				{
 					uv[i] = tface_uv_field.Get(f, i);
+				}
 			}
 
 			short mat_nr = face_mat_nr_field.Get(f, 0);

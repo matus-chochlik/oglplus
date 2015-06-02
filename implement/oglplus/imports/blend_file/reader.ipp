@@ -105,9 +105,9 @@ void BlendFileReader::_align(
 	const std::streamoff mod = _align_diff(input_pos, size);
 	if(mod != 0)
 	{
-		assert(size >= mod);
-		_skip(std::size_t(size - mod), error_message);
-		assert(_input.tellg() % size == 0);
+		assert(size >= std::size_t(mod));
+		_skip(size - std::size_t(mod), error_message);
+		assert(std::size_t(_input.tellg()) % size == 0);
 	}
 }
 
