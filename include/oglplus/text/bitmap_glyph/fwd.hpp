@@ -81,7 +81,7 @@ inline GLint BitmapGlyphPageOfCP(
 {
 	assert(BitmapGlyphGlyphsPerPage(parent) != 0);
 	assert(BitmapGlyphGlyphsPerPage(parent) % 4 == 0);
-	return code_point / BitmapGlyphGlyphsPerPage(parent);
+	return GLint(code_point / BitmapGlyphGlyphsPerPage(parent));
 }
 
 inline GLint BitmapGlyphCellOfCP(
@@ -91,7 +91,7 @@ inline GLint BitmapGlyphCellOfCP(
 {
 	assert(BitmapGlyphGlyphsPerPage(parent) != 0);
 	assert(BitmapGlyphGlyphsPerPage(parent) % 4 == 0);
-	return code_point % BitmapGlyphGlyphsPerPage(parent);
+	return GLint(code_point % BitmapGlyphGlyphsPerPage(parent));
 }
 
 std::string BitmapGlyphPageName(

@@ -333,8 +333,8 @@ void BlenderMesh::_load_mesh(
 
 					ais.push_back(
 						index_offset+
-						n_verts +
-						n_add_verts
+						GLuint(n_verts) +
+						GLuint(n_add_verts)
 					);
 					++n_add_verts;
 				}
@@ -406,7 +406,7 @@ void BlenderMesh::_load_mesh(
 
 			for(std::size_t l=0; l!=tl; ++l)
 			{
-				std::size_t v = std::size_t(loop_v_field.Get(ls+l, 0));
+				GLuint v = GLuint(loop_v_field.Get(ls+l, 0));
 				is.push_back(v+index_offset);
 			}
 			// primitive restart index
@@ -515,7 +515,7 @@ void BlenderMesh::_load_object(
 			)
 		);
 
-		_mesh_offsets[mesh_idx] = _idx_data.size();
+		_mesh_offsets[mesh_idx] = GLuint(_idx_data.size());
 
 		_load_mesh(
 			opts,
@@ -526,7 +526,7 @@ void BlenderMesh::_load_object(
 		);
 
 		_mesh_n_elems[mesh_idx] =
-			_idx_data.size() - _mesh_offsets[mesh_idx];
+			GLuint(_idx_data.size()) - _mesh_offsets[mesh_idx];
 	}
 }
 

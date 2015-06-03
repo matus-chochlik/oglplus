@@ -111,7 +111,9 @@ public:
 			GLint page = BitmapGlyphPageOfCP(_parent, cps[cp]);
 			auto i = _pages.begin(), e = _pages.end();
 			if(std::find(i, e, page) == e)
+			{
 				_pages.push_back(page);
+			}
 		}
 		_font._essence->LoadPages(_pages.data(), _pages.size());
 

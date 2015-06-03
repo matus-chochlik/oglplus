@@ -257,12 +257,12 @@ void ObjMesh::_load_meshes(
 			if(!mesh_offsets.empty())
 			{
 				mesh_counts.push_back(
-					idx_data.size()-
+					GLuint(idx_data.size())-
 					mesh_offsets.back()
 				);
 			}
 			mesh_names.push_back(std::string(i, e));
-			mesh_offsets.push_back(idx_data.size());
+			mesh_offsets.push_back(GLuint(idx_data.size()));
 		}
 	}
 	// the last mesh element count
@@ -271,12 +271,12 @@ void ObjMesh::_load_meshes(
 		if(!idx_data.empty())
 		{
 			mesh_offsets.push_back(1);
-			mesh_counts.push_back(idx_data.size()-1);
+			mesh_counts.push_back(GLuint(idx_data.size()-1));
 		}
 	}
 	else
 	{
-		mesh_counts.push_back(idx_data.size()-mesh_offsets.back());
+		mesh_counts.push_back(GLuint(idx_data.size()-mesh_offsets.back()));
 	}
 
 	if(mesh_names.empty())
@@ -339,8 +339,8 @@ void ObjMesh::_load_meshes(
 			_mtl_data[ii-1] = idx_data[ii]._mtl;
 			++ii;
 		}
-		_mesh_offsets.push_back(mo);
-		_mesh_counts.push_back(mc);
+		_mesh_offsets.push_back(GLuint(mo));
+		_mesh_counts.push_back(GLuint(mc));
 		mo += mc;
 	}
 
@@ -507,7 +507,7 @@ DrawingInstructions ObjMesh::Instructions(PrimitiveType primitive) const
 		operation.first = _mesh_offsets[m];
 		operation.count = _mesh_counts[m];
 		operation.restart_index = DrawOperation::NoRestartIndex();
-		operation.phase = m;
+		operation.phase = GLuint(m);
 		this->AddInstruction(instr, operation);
 	}
 	return std::move(instr);
