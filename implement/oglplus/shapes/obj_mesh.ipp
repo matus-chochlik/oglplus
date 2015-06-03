@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -38,7 +38,7 @@ bool ObjMesh::_load_index(
 		while((i != e) && (*i >= '0') && (*i <= '9'))
 		{
 			value *= 10;
-			value += *i-'0';
+			value += GLuint(*i-'0');
 			++i;
 		}
 		if(neg)
@@ -350,9 +350,14 @@ void ObjMesh::_load_meshes(
 	if(opts.load_tangents)
 	{
 		if(opts.load_tangents)
+		{
 			_tgt_data.resize(_pos_data.size());
+		}
 		if(opts.load_bitangents)
+		{
 			_btg_data.resize(_pos_data.size());
+		}
+
 		for(std::size_t f=0, nf = _pos_data.size()/9; f != nf; ++f)
 		{
 			for(std::size_t v=0; v!=3; ++v)
@@ -363,28 +368,28 @@ void ObjMesh::_load_meshes(
 					(v+2)%3
 				};
 
-				Vec3f p[3];
-				Vec2f uv[3];
-				for(size_t k=0; k!=3; ++k)
+				Vec3d p[3];
+				Vec2d uv[3];
+				for(std::size_t k=0; k<3; ++k)
 				{
-					p[k] = Vec3f(
+					p[k] = Vec3d(
 						_pos_data[f*9+j[k]*3+0],
 						_pos_data[f*9+j[k]*3+1],
 						_pos_data[f*9+j[k]*3+2]
 					);
-					uv[k] = Vec2f(
+					uv[k] = Vec2d(
 						_tex_data[f*9+j[k]*3+0],
 						_tex_data[f*9+j[k]*3+1]
 					);
 				}
 
-				Vec3f v0 = p[1] - p[0];
-				Vec3f v1 = p[2] - p[0];
+				Vec3d v0 = p[1] - p[0];
+				Vec3d v1 = p[2] - p[0];
 
-				Vec2f duv0 = uv[1] - uv[0];
-				Vec2f duv1 = uv[2] - uv[0];
+				Vec2d duv0 = uv[1] - uv[0];
+				Vec2d duv1 = uv[2] - uv[0];
 
-				float d = duv0.x()*duv1.y()-duv0.y()*duv1.x();
+				double d = duv0.x()*duv1.y()-duv0.y()*duv1.x();
 				if(d != 0.0f) d = 1.0f/d;
 
 				if(opts.load_tangents)
@@ -459,14 +464,14 @@ GLuint ObjMesh::GetMeshIndex(const std::string& name) const
 OGLPLUS_LIB_FUNC
 Spheref ObjMesh::MakeBoundingSphere(void) const
 {
-	GLfloat min_x = _pos_data[3], max_x = _pos_data[3];
-	GLfloat min_y = _pos_data[4], max_y = _pos_data[4];
-	GLfloat min_z = _pos_data[5], max_z = _pos_data[5];
+	GLdouble min_x = _pos_data[3], max_x = _pos_data[3];
+	GLdouble min_y = _pos_data[4], max_y = _pos_data[4];
+	GLdouble min_z = _pos_data[5], max_z = _pos_data[5];
 	for(std::size_t v=0, vn=_pos_data.size()/3; v!=vn; ++v)
 	{
-		GLfloat x = _pos_data[v*3+0];
-		GLfloat y = _pos_data[v*3+1];
-		GLfloat z = _pos_data[v*3+2];
+		GLdouble x = _pos_data[v*3+0];
+		GLdouble y = _pos_data[v*3+1];
+		GLdouble z = _pos_data[v*3+2];
 
 		if(min_x > x) min_x = x;
 		if(min_y > y) min_y = y;
@@ -476,15 +481,17 @@ Spheref ObjMesh::MakeBoundingSphere(void) const
 		if(max_z < z) max_z = z;
 	}
 
-	Vec3f c(
-		(min_x + max_x) * 0.5f,
-		(min_y + max_y) * 0.5f,
-		(min_z + max_z) * 0.5f
+	Vec3d c(
+		(min_x + max_x) * 0.5,
+		(min_y + max_y) * 0.5,
+		(min_z + max_z) * 0.5
 	);
 
 	return Spheref(
-		c.x(), c.y(), c.z(),
-		Distance(c, Vec3f(min_x, min_y, min_z))
+		GLfloat(c.x()),
+		GLfloat(c.y()),
+		GLfloat(c.z()),
+		GLfloat(Distance(c, Vec3d(min_x, min_y, min_z)))
 	);
 }
 

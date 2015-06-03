@@ -59,8 +59,9 @@ public:
 			&len
 		);
 		OGLPLUS_CHECK_SIMPLE(GetNamedStringivARB);
+		assert(not(len < 0));
 
-		String result(len, '\0');
+		String result(std::size_t(len), '\0');
 		OGLPLUS_GLFUNC(GetNamedStringARB)(
 			GLint(str_name.size()),
 			str_name.c_str(),
