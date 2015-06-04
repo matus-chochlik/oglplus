@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_IMPORTS_BLEND_FILE_SDNA_1107121519_HPP
 #define OGLPLUS_IMPORTS_BLEND_FILE_SDNA_1107121519_HPP
 
+#include <oglplus/utils/type_tag.hpp>
 #include <vector>
 #include <map>
 #include <memory>
@@ -276,7 +277,7 @@ private:
 
 	// returns an unique integer identifier for type T
 	template <typename T>
-	static std::size_t _type_id(T*)
+	static std::size_t _type_id(TypeTag<T>)
 	{
 		static std::size_t tid = _type_id_seq()++;
 		return tid;
@@ -289,7 +290,7 @@ private:
 	void _init_type_id_index(const std::string& type_name)
 	{
 		// get the type idntifier for type T
-		std::size_t tid = _type_id((T*)nullptr);
+		std::size_t tid = _type_id(TypeTag<T>());
 		// check if the type is already registered
 		if(_type_id_to_type_index.size() <= tid)
 		{
@@ -308,7 +309,7 @@ private:
 	template <typename T>
 	std::size_t _find_type_index(void) const
 	{
-		std::size_t tid = _type_id((T*)nullptr);
+		std::size_t tid = _type_id(TypeTag<T>());
 		if(_type_id_to_type_index.size() > tid)
 			return _type_id_to_type_index[tid];
 		else return _invalid_type_index();

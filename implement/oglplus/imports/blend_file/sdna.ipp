@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -45,7 +45,7 @@ std::size_t BlendFileSDNA::_field_elem_count(const std::string& def)
 				);
 			}
 			k *= 10;
-			k += c - '0';
+			k += std::size_t(c - '0');
 		} while(true);
 
 		// check the parsed number
@@ -73,7 +73,7 @@ std::string BlendFileSDNA::_field_name_from_def(std::string result)
 		char c = result[i];
 		if(!_is_field_name_char(c))
 		{
-			int k = 1;
+			std::size_t k = 1;
 			if(c == '[')
 			{
 				while((i+k != n) && (result[i+k] != ']'))
@@ -118,7 +118,7 @@ std::string BlendFileSDNA::_elem_field_suffix(uint64_t i)
 		result.resize(l);
 		for(std::size_t p=0; p!=l; ++p)
 		{
-			result[p] = '0' + i / d;
+			result[p] = char('0' + i / d);
 			i %= d;
 			d /= 10;
 		}
@@ -181,7 +181,7 @@ BlendFileSDNA::_struct_flatten_fields(std::size_t struct_index)
 
 	// otherwise ..
 	// get the number of atomic fields
-	const std::size_t fc = _struct_flat_field_count(struct_index);
+	const std::size_t fc = _struct_flat_field_count(uint32_t(struct_index));
 	// make a new instance of the flat info
 	result = std::make_shared<_flat_struct_info>(fc);
 
@@ -235,15 +235,18 @@ BlendFileSDNA::_struct_flatten_fields(std::size_t struct_index)
 			] = field_index;
 			// the index of the structure in which the field
 			// is actually defined
-			result->_field_structs[field_index] = struct_index;
+			result->_field_structs[field_index] = uint16_t(struct_index);
 			// the index of the field in the structure
-			result->_field_indices[field_index] = f;
+			result->_field_indices[field_index] = uint16_t(f);
 
 			// align the field offset to the fields size
 			std::size_t align_diff = _align_diff(offset, size);
-			if(align_diff) offset += size - align_diff;
+			if(align_diff)
+			{
+				offset += size - align_diff;
+			}
 			// store the offset
-			result->_field_offsets[field_index] = offset;
+			result->_field_offsets[field_index] = uint16_t(offset);
 			// update the offset
 			offset += size * elem_count;
 
@@ -300,9 +303,11 @@ BlendFileSDNA::_struct_flatten_fields(std::size_t struct_index)
 						&result->_field_names[field_index]
 					] = field_index;
 					// the parent structure
-					result->_field_structs[field_index] = nfs;
+					result->_field_structs[field_index] =
+						uint16_t(nfs);
 					// the index in the parent structure
-					result->_field_indices[field_index] = nfi;
+					result->_field_indices[field_index] =
+						uint16_t(nfi);
 
 					// the type of the field
 					uint16_t nfti = _structs[nfs].
@@ -319,14 +324,16 @@ BlendFileSDNA::_struct_flatten_fields(std::size_t struct_index)
 					// calculate the size
 					std::size_t size;
 					if(is_ptr2 || is_ptr3)
+					{
 						size = _ptr_size;
+					}
 					else size = _type_sizes[nfti];
 
 					// align the offset to size
 					std::size_t align_diff = _align_diff(offset, size);
 					if(align_diff) offset += size - align_diff;
 					// store the offset
-					result->_field_offsets[field_index] = offset;
+					result->_field_offsets[field_index] = uint16_t(offset);
 					// update the offset
 					offset += size * nfec;
 					// go to the next field
@@ -524,7 +531,8 @@ BlendFileSDNA::BlendFileSDNA(BlendFileReader& bfr, const BlendFileInfo& bfi)
 			// also get the element count in case of an array
 			// and store this info for the j-th field
 			// in the appropriate arrays
-			si._field_elem_counts[j] = is_array?_field_elem_count(def):1;
+			si._field_elem_counts[j] =
+				uint16_t(is_array?_field_elem_count(def):1);
 			si._field_ptr_flags[j] = is_ptr;
 			si._field_ptr2_flags[j] = is_ptr_to_ptr || is_fn_ptr;
 			si._field_array_flags[j] = is_array;

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_IMPORTS_BLEND_FILE_STRUCT_BLOCK_DATA_1107121519_HPP
 #define OGLPLUS_IMPORTS_BLEND_FILE_STRUCT_BLOCK_DATA_1107121519_HPP
 
+#include <oglplus/utils/type_tag.hpp>
 #include <type_traits>
 
 namespace oglplus {
@@ -50,7 +51,7 @@ protected:
 
 	template <unsigned Level>
 	BlendFilePointerTpl<Level> _do_get(
-		BlendFilePointerTpl<Level>* /*selector*/,
+		TypeTag<BlendFilePointerTpl<Level>> /*selector*/,
 		std::size_t block_element,
 		std::size_t field_element
 	) const
@@ -64,7 +65,7 @@ protected:
 	}
 
 	BlendFilePointer _do_get(
-		void** /*selector*/,
+		TypeTag<void*> /*selector*/,
 		std::size_t block_element,
 		std::size_t field_element
 	) const
@@ -78,7 +79,7 @@ protected:
 	}
 
 	BlendFilePointerToPointer _do_get(
-		void*** /*selector*/,
+		TypeTag<void**> /*selector*/,
 		std::size_t block_element,
 		std::size_t field_element
 	) const
@@ -92,7 +93,7 @@ protected:
 	}
 
 	std::string _do_get(
-		std::string* /*selector*/,
+		TypeTag<std::string> /*selector*/,
 		std::size_t block_element,
 		std::size_t field_element
 	) const
@@ -106,7 +107,7 @@ protected:
 	}
 
 	char _do_get(
-		char* /*selector*/,
+		TypeTag<char> /*selector*/,
 		std::size_t block_element,
 		std::size_t field_element
 	) const
@@ -120,7 +121,7 @@ protected:
 	}
 
 	float _do_get(
-		float* /*selector*/,
+		TypeTag<float> /*selector*/,
 		std::size_t block_element,
 		std::size_t field_element
 	) const
@@ -134,7 +135,7 @@ protected:
 	}
 
 	double _do_get(
-		double* /*selector*/,
+		TypeTag<double> /*selector*/,
 		std::size_t block_element,
 		std::size_t field_element
 	) const
@@ -152,7 +153,7 @@ protected:
 		std::is_integral<Int>::value,
 		Int
 	>::type _do_get(
-		Int* /*selector*/,
+		TypeTag<Int> /*selector*/,
 		std::size_t block_element,
 		std::size_t field_element
 	) const
@@ -184,7 +185,7 @@ private:
 	): _base(std::move(flat_field), block_data_ref, offset)
 	{ }
 public:
-	typedef decltype(_that()._do_get((T*)nullptr, 0, 0)) _value_type;
+	typedef decltype(_that()._do_get(TypeTag<T>(), 0, 0)) _value_type;
 	// this is a workaround for MSVC 12
 	typedef typename BlendFileFlatStructTypedFieldData<T>::_value_type
 		ValueType;
@@ -199,7 +200,7 @@ public:
 		std::size_t field_element
 	) const
 	{
-		return this->_do_get((T*)nullptr, block_element, field_element);
+		return this->_do_get(TypeTag<T>(), block_element, field_element);
 	}
 
 	/// Get the first value of the field from the first block
@@ -252,7 +253,7 @@ private:
 	template <typename T>
 	struct _adjust_type
 	{
-		typedef decltype(_adjust_value((T*)0)) type;
+		typedef decltype(_adjust_value(&TypeTag<T>())) type;
 	};
 
 public:

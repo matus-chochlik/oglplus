@@ -13,6 +13,7 @@
 #include <oglplus/config/basic.hpp>
 #include <eagine/base/utf8.hpp>
 #include <oglplus/lib/incl_end.ipp>
+#include <cassert>
 
 namespace oglplus {
 namespace text {
@@ -23,7 +24,12 @@ OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
 	CodePoints& result
 )
 {
-	eagine::base::convert_utf8_to_code_points(begin, end-begin, result);
+	assert(begin <= end);
+	eagine::base::convert_utf8_to_code_points(
+		begin,
+		std::size_t(end-begin),
+		result
+	);
 }
 
 OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
@@ -41,7 +47,12 @@ OGLPLUS_LIB_FUNC void CodePointsToUTF8(
 	eagine::base::vector<char>& result
 )
 {
-	eagine::base::convert_code_points_to_utf8(begin, end-begin, result);
+	assert(begin <= end);
+	eagine::base::convert_code_points_to_utf8(
+		begin,
+		std::size_t(end-begin),
+		result
+	);
 }
 
 OGLPLUS_LIB_FUNC void CodePointsToUTF8(

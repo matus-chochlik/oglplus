@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,6 +20,7 @@ bool BlendFileReader::_eof(void)
 	return _input.eof();
 }
 
+[[noreturn]]
 OGLPLUS_LIB_FUNC
 void BlendFileReader::_error(const std::string& message)
 {
@@ -47,8 +48,10 @@ void BlendFileReader::_raw_read(
 )
 {
 	assert(size != 0);
-	if(_input.read(buffer, size).fail())
+	if(_input.read(buffer, std::streamsize(size)).fail())
+	{
 		_error(error_message);
+	}
 }
 
 OGLPLUS_LIB_FUNC
@@ -59,8 +62,10 @@ void BlendFileReader::_read(
 )
 {
 	assert(max != 0);
-	if(_input.read(buffer, max).fail())
+	if(_input.read(buffer, std::streamsize(max)).fail())
+	{
 		_error(error_message);
+	}
 	else buffer[max] = '\0';
 }
 
@@ -72,7 +77,9 @@ void BlendFileReader::_read_until(
 )
 {
 	if(_input.get(sb, delimiter).fail())
+	{
 		_error(error_message);
+	}
 	_input.ignore();
 }
 
@@ -82,8 +89,10 @@ void BlendFileReader::_skip(
 	const char* error_message
 )
 {
-	if(_input.ignore(size).fail())
+	if(_input.ignore(std::streamsize(size)).fail())
+	{
 		_error(error_message);
+	}
 }
 
 OGLPLUS_LIB_FUNC
@@ -93,11 +102,12 @@ void BlendFileReader::_align(
 )
 {
 	std::streampos input_pos = _input.tellg();
-	const std::size_t mod = _align_diff(input_pos, size);
+	const std::streamoff mod = _align_diff(input_pos, size);
 	if(mod != 0)
 	{
-		_skip(size - mod, error_message);
-		assert(_input.tellg() % size == 0);
+		assert(size >= std::size_t(mod));
+		_skip(size - std::size_t(mod), error_message);
+		assert(std::size_t(_input.tellg()) % size == 0);
 	}
 }
 
