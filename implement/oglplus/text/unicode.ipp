@@ -25,11 +25,7 @@ OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
 )
 {
 	assert(begin <= end);
-	eagine::base::convert_utf8_to_code_points(
-		begin,
-		std::size_t(end-begin),
-		result
-	);
+	eagine::base::convert_utf8_to_code_points(begin, end, result);
 }
 
 OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
@@ -48,11 +44,7 @@ OGLPLUS_LIB_FUNC void CodePointsToUTF8(
 )
 {
 	assert(begin <= end);
-	eagine::base::convert_code_points_to_utf8(
-		begin,
-		std::size_t(end-begin),
-		result
-	);
+	eagine::base::convert_code_points_to_utf8(begin, end, result);
 }
 
 OGLPLUS_LIB_FUNC void CodePointsToUTF8(
