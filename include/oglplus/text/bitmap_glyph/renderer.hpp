@@ -46,7 +46,7 @@ private:
 	template <typename BitmapFontEssence>
 	void _use_font(const BitmapFontEssence& essence)
 	{
-		if(_prev_font_essence != (const void*)&essence)
+		if(_prev_font_essence != static_cast<const void*>(&essence))
 		{
 			essence.Use();
 			_bitmap_sampler.Set(GLint(essence.BitmapTexUnit()));
