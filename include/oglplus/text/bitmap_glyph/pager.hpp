@@ -45,7 +45,7 @@ private:
 	bool _frames_consistent(void) const;
 
 	// checks if the specified page is in _frames
-	bool _page_in_frames(GLint page) const;
+	bool _page_in_frames(GLuint page) const;
 
 	typedef unsigned long age_t;
 
@@ -66,13 +66,13 @@ private:
 
 	std::vector<age_t> _ages;
 
-	std::unordered_map<GLint, GLint> _active_pages;
+	std::unordered_map<GLuint, GLuint> _active_pages;
 
 	typedef GLubyte gpu_frame_t;
 
 	static gpu_frame_t _invalid_gpu_frame(void)
 	{
-		return ~gpu_frame_t(0);
+		return gpu_frame_t(~gpu_frame_t(0));
 	}
 
 	// notes frame usage
@@ -88,7 +88,7 @@ private:
 
 	// replaces the page in the specified frame
 	// with a new one
-	void _replace_page(GLint frame, GLint page);
+	void _replace_page(GLuint frame, GLuint page);
 public:
 	BitmapGlyphPager(
 		BitmapGlyphRenderingBase& parent,
@@ -117,20 +117,22 @@ public:
 	{
 		assert(_is_ok());
 		for(auto i=_ages.begin(), e=_ages.end(); i!=e; ++i)
+		{
 			*i >>= 1;
+		}
 	}
 
 	// finds the best frame for a new page
-	GLint FindFrame(void);
+	GLuint FindFrame(void);
 
 	// Checks if a page is available for usage
-	bool UsePage(GLint page);
+	bool UsePage(GLuint page);
 
-	GLint FrameOfPage(GLint page) const;
+	GLint FrameOfPage(GLuint page) const;
 
 	// Swaps the specified page into a frame
 	// Use only if the page is not already swapped in
-	void SwapPageIn(GLint frame, GLint page)
+	void SwapPageIn(GLuint frame, GLuint page)
 	{
 		assert(_is_ok());
 		_replace_page(frame, page);

@@ -4,10 +4,11 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
+#include <cassert>
 
 namespace oglplus {
 namespace text {
@@ -27,32 +28,46 @@ bool BitmapGlyphPager::_frames_consistent(void) const
 		if(page >= 0)
 		{
 			for(std::size_t j=0; j!=i; ++j)
+			{
 				if(page == _frames[j])
+				{
 					return false;
-			gpu_frame_t frame = page_frame_map.At(page);
+				}
+			}
+
+			assert(not(page < 0));
+
+			gpu_frame_t frame = page_frame_map.At(GLuint(page));
 			if(frame != gpu_frame_t(i))
+			{
 				return false;
+			}
 		}
 	}
 	return true;
 }
 
 OGLPLUS_LIB_FUNC
-bool BitmapGlyphPager::_page_in_frames(GLint page) const
+bool BitmapGlyphPager::_page_in_frames(GLuint page) const
 {
 	for(auto i=_frames.begin(), e=_frames.end(); i!=e; ++i)
-		if(*i == page) return true;
+	{
+		if(*i == GLint(page))
+		{
+			return true;
+		}
+	}
 	return false;
 }
 
 OGLPLUS_LIB_FUNC
-void BitmapGlyphPager::_replace_page(GLint frame, GLint page)
+void BitmapGlyphPager::_replace_page(GLuint frame, GLuint page)
 {
 	assert(!_page_in_frames(page));
 	// the previous page in the frame
 	GLint previous = _frames[frame];
 	// assign the new page to the frame
-	_frames[frame] = page;
+	_frames[frame] = GLint(page);
 	// update the age of the other frames
 	Update();
 	// initialize the age of the frame
@@ -67,8 +82,8 @@ void BitmapGlyphPager::_replace_page(GLint frame, GLint page)
 	if(previous >= 0)
 	{
 		// remove the previous page from active list
-		_active_pages.erase(previous);
-		page_frame_map.At(previous) = _invalid_gpu_frame();
+		_active_pages.erase(GLuint(previous));
+		page_frame_map.At(GLuint(previous)) = _invalid_gpu_frame();
 		// add the new page into the active list
 	}
 	_active_pages[page] = frame;
@@ -105,14 +120,19 @@ BitmapGlyphPager::BitmapGlyphPager(
 }
 
 OGLPLUS_LIB_FUNC
-GLint BitmapGlyphPager::FindFrame(void)
+GLuint BitmapGlyphPager::FindFrame(void)
 {
 	assert(_is_ok());
 
 	const std::size_t n = _frames.size();
 
 	for(std::size_t i=0; i!=n; ++i)
-		if(_frames[i] < 0) return GLint(i);
+	{
+		if(_frames[i] < 0)
+		{
+			return GLuint(i);
+		}
+	}
 
 	age_t min = _full_age();
 	std::size_t m = 0;
@@ -124,11 +144,11 @@ GLint BitmapGlyphPager::FindFrame(void)
 			m = i;
 		}
 	}
-	return GLint(m);
+	return GLuint(m);
 }
 
 OGLPLUS_LIB_FUNC
-bool BitmapGlyphPager::UsePage(GLint page)
+bool BitmapGlyphPager::UsePage(GLuint page)
 {
 	assert(_is_ok());
 
@@ -150,11 +170,13 @@ bool BitmapGlyphPager::UsePage(GLint page)
 }
 
 OGLPLUS_LIB_FUNC
-GLint BitmapGlyphPager::FrameOfPage(GLint page) const
+GLint BitmapGlyphPager::FrameOfPage(GLuint page) const
 {
 	auto pos = _active_pages.find(page);
 	if(pos != _active_pages.end())
-		return pos->second;
+	{
+		return GLint(pos->second);
+	}
 	else return GLint(-1);
 }
 

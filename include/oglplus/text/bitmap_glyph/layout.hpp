@@ -108,7 +108,7 @@ public:
 		_pages.clear();
 		for(GLsizei cp=0; cp!=size; ++cp)
 		{
-			GLint page = BitmapGlyphPageOfCP(_parent, cps[cp]);
+			GLuint page = BitmapGlyphPageOfCP(_parent, cps[cp]);
 			auto i = _pages.begin(), e = _pages.end();
 			if(std::find(i, e, page) == e)
 			{

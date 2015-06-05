@@ -17,7 +17,7 @@ namespace oglplus {
 namespace text {
 
 OGLPLUS_LIB_FUNC
-oglplus::images::Image BitmapGlyphFontEssence::_load_page_bitmap(GLint page)
+oglplus::images::Image BitmapGlyphFontEssence::_load_page_bitmap(GLuint page)
 {
 	return images::LoadByName(
 		"fonts",
@@ -38,6 +38,7 @@ void BitmapGlyphFontEssence::_check_input(std::istream& input)
 		throw std::runtime_error("Error reading .bgm file");
 }
 
+OGLPLUS_NORETURN
 OGLPLUS_LIB_FUNC
 void BitmapGlyphFontEssence::_unexpected_char(char)
 {
@@ -48,7 +49,7 @@ OGLPLUS_LIB_FUNC
 void BitmapGlyphFontEssence::_load_single_glyph(
 	std::istream& input,
 	char* line,
-	const size_t linelen,
+	const std::streamsize linelen,
 	GLfloat* values,
 	const size_t n_values
 )
@@ -91,7 +92,7 @@ void BitmapGlyphFontEssence::_load_single_glyph(
 }
 
 OGLPLUS_LIB_FUNC
-std::vector<GLfloat> BitmapGlyphFontEssence::_load_page_metric(GLint page)
+std::vector<GLfloat> BitmapGlyphFontEssence::_load_page_metric(GLuint page)
 {
 	ResourceFile input(
 		"fonts",
@@ -144,40 +145,44 @@ GLfloat BitmapGlyphFontEssence::QueryXOffsets(
 	if(size <= 0) return 0.0f;
 	x_offsets.resize(size);
 
-	GLsizei i = 0;
+	std::size_t i = 0, n = std::size_t(size);
 
-	GLint page = BitmapGlyphPageOfCP(_parent, cps[i]);
-	GLint cell = BitmapGlyphCellOfCP(_parent, cps[i]);
+
+	GLuint page = BitmapGlyphPageOfCP(_parent, cps[i]);
+	GLuint cell = BitmapGlyphCellOfCP(_parent, cps[i]);
 	GLint frame = _pager.FrameOfPage(page);
+	assert(not(frame < 0));
 	// Logical left bearing
-	GLfloat sum = _page_storage.GetGlyphMetric(frame, cell, 0);
+	GLfloat sum = _page_storage.GetGlyphMetric(GLuint(frame), cell, 0);
 	x_offsets[i] = sum;
 
-	while(++i != size)
+	while(++i < n)
 	{
-		sum += _page_storage.GetGlyphWidth(frame, cell);
+		sum += _page_storage.GetGlyphWidth(GLuint(frame), cell);
 		x_offsets[i] = sum;
 		page = BitmapGlyphPageOfCP(_parent, cps[i]);
 		cell = BitmapGlyphCellOfCP(_parent, cps[i]);
 		frame = _pager.FrameOfPage(page);
-		assert(frame >= 0);
+		assert(not(frame < 0));
 	}
-	return sum + _page_storage.GetGlyphWidth(frame, cell);
+	return sum + _page_storage.GetGlyphWidth(GLuint(frame), cell);
 }
 
 OGLPLUS_LIB_FUNC
 Rectangle BitmapGlyphFontEssence::GetGlyphMetrics(
 	CodePoint code_point,
-	GLint offs
+	GLuint offs
 ) const
 {
-	GLint page = BitmapGlyphPageOfCP(_parent, code_point);
-	GLint cell = BitmapGlyphCellOfCP(_parent, code_point);
-	GLint frame = _pager.FrameOfPage(page);
-
 	assert(offs % 4 == 0);
+
+	GLuint page = BitmapGlyphPageOfCP(_parent, code_point);
+	GLuint cell = BitmapGlyphCellOfCP(_parent, code_point);
+	GLint frame = _pager.FrameOfPage(page);
+	assert(not(frame < 0));
+
 	GLfloat buf[4];
-	_page_storage.QueryGlyphMetrics(frame, cell, offs, 4, buf);
+	_page_storage.QueryGlyphMetrics(GLuint(frame), cell, offs, 4, buf);
 	return Rectangle(buf[0], buf[1],-buf[3], buf[2]);
 }
 

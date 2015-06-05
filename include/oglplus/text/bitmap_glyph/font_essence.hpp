@@ -30,24 +30,25 @@ private:
 	BitmapGlyphRenderingBase& _parent;
 	const std::string _font_name;
 
-	oglplus::images::Image _load_page_bitmap(GLint page);
+	oglplus::images::Image _load_page_bitmap(GLuint page);
 
 	static void _check_input(std::istream& input);
 
+	OGLPLUS_NORETURN
 	static void _unexpected_char(char);
 
 	static void _load_single_glyph(
 		std::istream& input,
 		char* line,
-		const size_t linelen,
+		const std::streamsize linelen,
 		GLfloat* values,
 		const size_t n_values
 	);
 
-	std::vector<GLfloat> _load_page_metric(GLint page);
+	std::vector<GLfloat> _load_page_metric(GLuint page);
 
 	BitmapGlyphPager _pager;
-	const GLint _initial_frame;
+	const GLuint _initial_frame;
 	BitmapGlyphPageStorage _page_storage;
 
 	template <typename PageGetter, typename Element>
@@ -62,7 +63,7 @@ private:
 		for(GLsizei i=0; i!=size; ++i)
 		{
 			// get the page number for the glyph
-			GLint page = get_page(elem[i]);
+			GLuint page = get_page(elem[i]);
 			// check if the page is active
 			if(!_pager.UsePage(page))
 			{
@@ -97,7 +98,7 @@ public:
 		TextureUnitSelector pg_map_tex_unit,
 		const std::string& font_name,
 		SizeType frames,
-		GLint default_page,
+		GLuint default_page,
 		GLuint /* pixel_height*/
 	): _parent(parent)
 	 , _font_name(font_name)
@@ -152,7 +153,7 @@ public:
 		std::vector<GLfloat>& x_offsets
 	) const;
 
-	Rectangle GetGlyphMetrics(CodePoint code_point, GLint offs) const;
+	Rectangle GetGlyphMetrics(CodePoint code_point, GLuint offs) const;
 };
 
 } // namespace text
