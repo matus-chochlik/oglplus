@@ -39,7 +39,7 @@ private:
 	BitmapGlyphLayoutData _data;
 
 	// the list of font pages that this layout references
-	std::vector<GLint> _pages;
+	std::vector<GLuint> _pages;
 
 	friend class BitmapGlyphRenderer;
 

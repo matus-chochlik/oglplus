@@ -141,7 +141,7 @@ public:
 		return _pager.PageMapTexUnit();
 	}
 
-	void LoadPages(const GLint* pages, SizeType size)
+	void LoadPages(const GLuint* pages, SizeType size)
 	{
 		assert(size < GLsizei(_pager.FrameCount()));
 		_do_load_pages(_page_to_page(), pages, size);
