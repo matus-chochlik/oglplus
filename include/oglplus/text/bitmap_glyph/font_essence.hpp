@@ -85,7 +85,7 @@ private:
 
 	struct _page_to_page
 	{
-		GLint operator()(GLint page) const
+		GLuint operator()(GLuint page) const
 		{
 			return page;
 		}

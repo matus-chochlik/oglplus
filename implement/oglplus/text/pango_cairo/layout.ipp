@@ -56,7 +56,7 @@ void PangoCairoLayout::Set(const char* c_str, const std::size_t size)
 		::g_object_unref
 	);
 	// set the text
-	::pango_layout_set_text(layout, c_str, size);
+	::pango_layout_set_text(layout, c_str, int(size));
 	::pango_layout_set_font_description(
 		layout,
 		_font._essence->_font_desc

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -21,11 +21,12 @@ OGLPLUS_LIB_FUNC
 void ARB_debug_output_UniqueEssence::
 Call(const ARB_debug_output::CallbackData& data)
 {
-	if(GLsizei(buffer.capacity()) < data.length)
+	assert(not(data.length < 0));
+	if(buffer.capacity() < std::size_t(data.length))
 	{
-		buffer.resize(data.length);
+		buffer.resize(std::size_t(data.length));
 	}
-	buffer.assign(data.message, data.length);
+	buffer.assign(data.message, std::size_t(data.length));
 	if(already_done.find(buffer) == already_done.end())
 	{
 		already_done.insert(buffer);
@@ -85,11 +86,13 @@ OGLPLUS_LIB_FUNC
 void ARB_debug_output_ToXMLEssence::
 Call(const ARB_debug_output::CallbackData& data)
 {
+	assert(not(data.length < 0));
+
 	dbgout << "<entry>" << std::endl;
 	dbgout << "<id>" << data.id << "</id>" << std::endl;
 	dbgout
 		<< "<message>";
-	aux::xml_text_to_stream(data.message, data.length, dbgout)
+	aux::xml_text_to_stream(data.message, std::size_t(data.length), dbgout)
 		<< "</message>"
 		<< std::endl;
 	dbgout

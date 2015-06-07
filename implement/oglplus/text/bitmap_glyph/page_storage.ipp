@@ -146,7 +146,6 @@ void BitmapGlyphPageStorage::QueryGlyphMetrics(
 	const std::vector<GLfloat>& frame_data = _metrics[frame];
 	const GLuint offs = 4*_vects_per_glyph*cell+metric;
 
-	assert(count >= 0);
 	for(GLuint i=0; i!=count; ++i)
 	{
 		result[i] = frame_data[offs+i];
