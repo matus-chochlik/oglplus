@@ -217,7 +217,6 @@ GetImage(
 		Index(level)
 	);
 #else
-	OGLPLUS_FAKE_USE(size);
 	OGLPLUS_GLFUNC(GetTexImage)(
 		GLenum(target),
 		level,
@@ -257,7 +256,6 @@ GetCompressedImage(
 		Index(level)
 	);
 #else
-	OGLPLUS_FAKE_USE(size);
 	OGLPLUS_GLFUNC(GetCompressedTexImage)(
 		GLenum(target),
 		level,
