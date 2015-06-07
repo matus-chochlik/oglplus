@@ -85,13 +85,13 @@ protected:
 		return std::numeric_limits<T>::max();
 	}
 
-	static float _one(float*)
+	static float _one(TypeTag<float>)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return 1.0f;
 	}
 
-	static double _one(double*)
+	static double _one(TypeTag<double>)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return 1.0;
