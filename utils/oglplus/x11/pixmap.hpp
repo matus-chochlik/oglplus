@@ -37,7 +37,7 @@ public:
 			RootWindow(display.Get(), vi->screen),
 			width,
 			height,
-			vi->depth
+			unsigned(vi->depth)
 		),
 		::XFreePixmap,
 		"Error creating X Pixmap"
