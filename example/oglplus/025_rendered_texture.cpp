@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{025_rendered_texture}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -304,15 +304,15 @@ public:
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				3.5,
-				Degrees(time * 25),
-				Degrees(SineWave(time / 30.0) * 90)
+				Degrees(float(time * 25)),
+				Degrees(float(SineWave(time / 30.0) * 90))
 			)
 		);
 
 		torus_model_matrix.Set(
 			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
-				FullCircles(time * 0.5)
+				FullCircles(float(time * 0.5))
 			)
 		);
 
@@ -331,7 +331,7 @@ public:
 		cube_projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(70),
-				double(width)/height,
+				float(width)/height,
 				1, 30
 			)
 		);
@@ -340,13 +340,13 @@ public:
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				3.0,
-				Degrees(time * 35),
-				Degrees(SineWave(time / 20.0) * 60)
+				Degrees(float(time * 35)),
+				Degrees(float(SineWave(time / 20.0) * 60))
 			)
 		);
 
 		cube_model_matrix.Set(
-			ModelMatrixf::RotationX(FullCircles(time * 0.25))
+			ModelMatrixf::RotationX(FullCircles(float(time * 0.25)))
 		);
 
 		cube.Bind();

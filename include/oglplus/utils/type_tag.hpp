@@ -13,6 +13,8 @@
 #ifndef OGLPLUS_UTILS_TYPE_TAG_1107121519_HPP
 #define OGLPLUS_UTILS_TYPE_TAG_1107121519_HPP
 
+#include <oglplus/config/compiler.hpp>
+
 namespace oglplus {
 
 /// A tag template used mainly for data-type-based function overload dispatching
