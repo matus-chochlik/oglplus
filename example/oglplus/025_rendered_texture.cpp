@@ -304,15 +304,15 @@ public:
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				3.5,
-				Degrees(float(time * 25)),
-				Degrees(float(SineWave(time / 30.0) * 90))
+				Degrees(time * 25),
+				Degrees(SineWave(time / 30.0) * 90)
 			)
 		);
 
 		torus_model_matrix.Set(
 			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
-				FullCircles(float(time * 0.5))
+				FullCircles(time * 0.5)
 			)
 		);
 
@@ -340,13 +340,13 @@ public:
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				3.0,
-				Degrees(float(time * 35)),
-				Degrees(float(SineWave(time / 20.0) * 60))
+				Degrees(time * 35),
+				Degrees(SineWave(time / 20.0) * 60)
 			)
 		);
 
 		cube_model_matrix.Set(
-			ModelMatrixf::RotationX(FullCircles(float(time * 0.25)))
+			ModelMatrixf::RotationX(FullCircles(time * 0.25))
 		);
 
 		cube.Bind();
