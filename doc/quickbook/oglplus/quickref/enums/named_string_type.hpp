@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_named_string_type
-namespace oglplus {
 
 enum class NamedStringType : GLenum
 {
@@ -22,5 +21,4 @@ __Range<NamedStringType> __EnumValueRange<NamedStringType>(void);
 
 __StrCRef __EnumValueName(NamedStringType);
 
-} // namespace oglplus
 //]

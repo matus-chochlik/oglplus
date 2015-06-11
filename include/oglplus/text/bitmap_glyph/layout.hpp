@@ -39,7 +39,7 @@ private:
 	BitmapGlyphLayoutData _data;
 
 	// the list of font pages that this layout references
-	std::vector<GLint> _pages;
+	std::vector<GLuint> _pages;
 
 	friend class BitmapGlyphRenderer;
 
@@ -108,10 +108,12 @@ public:
 		_pages.clear();
 		for(GLsizei cp=0; cp!=size; ++cp)
 		{
-			GLint page = BitmapGlyphPageOfCP(_parent, cps[cp]);
+			GLuint page = BitmapGlyphPageOfCP(_parent, cps[cp]);
 			auto i = _pages.begin(), e = _pages.end();
 			if(std::find(i, e, page) == e)
+			{
 				_pages.push_back(page);
+			}
 		}
 		_font._essence->LoadPages(_pages.data(), _pages.size());
 

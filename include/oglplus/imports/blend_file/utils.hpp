@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -29,11 +29,21 @@ protected:
 	 : _ptr_size(ptr_size)
 	{ }
 
-	template <typename Int>
-	Int _align_diff(Int offset, std::size_t size)
+	std::streamoff _align_diff(std::streamoff offset, std::size_t size)
 	{
 		if(size > _ptr_size)
+		{
 			size = _ptr_size;
+		}
+		return offset % std::streamoff(size);
+	}
+
+	std::size_t _align_diff(std::size_t offset, std::size_t size)
+	{
+		if(size > _ptr_size)
+		{
+			size = _ptr_size;
+		}
 		return offset % size;
 	}
 
@@ -41,7 +51,10 @@ protected:
 	Int _do_align_offset(Int offset, std::size_t size)
 	{
 		Int diff = _align_diff(offset, size);
-		if(diff) offset += size - diff;
+		if(diff != 0)
+		{
+			offset += size - diff;
+		}
 		return offset;
 	}
 };

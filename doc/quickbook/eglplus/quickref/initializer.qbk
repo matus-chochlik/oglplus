@@ -13,4 +13,8 @@ TODO
 [import initializer.hpp]
 [eglplus_initializer]
 
+[heading:alias Alias]
+
+[eglplus_initializer_alias]
+
 [endsect]

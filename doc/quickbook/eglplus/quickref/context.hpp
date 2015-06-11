@@ -5,7 +5,6 @@
  */
 
 //[eglplus_context_attribs
-namespace eglplus {
 
 typedef __AttributeList<__ContextAttrib, ...> ContextAttribs; /*<
 Attribute list type for context attributes.
@@ -119,6 +118,5 @@ Returns the EGL context handle wrapped by a __Context.
 
 };
 
-} // namespace eglplus
 //]
 

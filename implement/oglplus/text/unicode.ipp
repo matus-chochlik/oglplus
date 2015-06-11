@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #include <oglplus/config/basic.hpp>
 #include <oglplus/string/utf8.hpp>
 #include <oglplus/lib/incl_end.ipp>
+#include <cassert>
 
 namespace oglplus {
 namespace text {
@@ -23,7 +24,12 @@ OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
 	CodePoints& result
 )
 {
-	aux::ConvertUTF8ToCodePoints(begin, end-begin, result);
+	assert(begin <= end);
+	aux::ConvertUTF8ToCodePoints(
+		begin,
+		std::size_t(end-begin),
+		result
+	);
 }
 
 OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
@@ -41,7 +47,12 @@ OGLPLUS_LIB_FUNC void CodePointsToUTF8(
 	std::vector<char>& result
 )
 {
-	aux::ConvertCodePointsToUTF8(begin, end-begin, result);
+	assert(begin <= end);
+	aux::ConvertCodePointsToUTF8(
+		begin,
+		std::size_t(end-begin),
+		result
+	);
 }
 
 OGLPLUS_LIB_FUNC void CodePointsToUTF8(

@@ -179,7 +179,7 @@ public:
 
 	void SetValues(std::size_t n, const Vector<T, N>* values, std::true_type)
 	{
-		const T* temp = (const T*)(values);
+		const T* temp = reinterpret_cast<const T*>(values);
 		SetValues(n*N, temp);
 	}
 
@@ -245,7 +245,7 @@ public:
 		std::true_type
 	)
 	{
-		const T* temp = (const T*)(values);
+		const T* temp = reinterpret_cast<const T*>(values);
 		SetValues(n*R*C, true, temp);
 	}
 
@@ -295,7 +295,7 @@ private:
 	typedef ProgVarCommonOps<tag::Uniform> Base;
 public:
 	ProgVar(ProgramName program, GLuint location)
-	 : Base(UniformLoc(program, location))
+	 : Base(UniformLoc(program, GLint(location)))
 	{ }
 
 	ProgVar(ProgramName program, StrCRef identifier)

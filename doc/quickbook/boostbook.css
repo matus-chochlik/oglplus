@@ -120,6 +120,11 @@ pre.programlisting
 	font-weight: 400;
 	color: #101020;
 }
+.programlisting .string
+{
+	font-weight: 600;
+	color: #303080;
+}
 
 code.literal
 {

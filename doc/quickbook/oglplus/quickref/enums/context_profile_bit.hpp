@@ -10,9 +10,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_context_profile_bit
-namespace oglplus {
 
-enum class ContextProfileBit : GLenum
+enum class ContextProfileBit : GLbitfield
 {
 	Core          = GL_CONTEXT_CORE_PROFILE_BIT,
 	Compatibility = GL_CONTEXT_COMPATIBILITY_PROFILE_BIT
@@ -23,5 +22,6 @@ __Range<ContextProfileBit> __EnumValueRange<ContextProfileBit>(void);
 
 __StrCRef __EnumValueName(ContextProfileBit);
 
-} // namespace oglplus
+__Bitfield<ContextProfileBit> operator | (ContextProfileBit b1, ContextProfileBit b2);
+
 //]

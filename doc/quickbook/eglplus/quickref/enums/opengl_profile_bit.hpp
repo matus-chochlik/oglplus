@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_opengl_profile_bit
-namespace eglplus {
 
 enum class OpenGLProfileBit : EGLenum
 {
@@ -23,5 +22,4 @@ __Range<OpenGLProfileBit> __EnumValueRange<OpenGLProfileBit>(void);
 
 __StrCRef __EnumValueName(OpenGLProfileBit);
 
-} // namespace eglplus
 //]

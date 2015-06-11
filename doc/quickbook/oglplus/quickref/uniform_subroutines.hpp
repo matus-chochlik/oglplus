@@ -5,7 +5,6 @@
  */
 
 //[oglplus_subroutine_loc_ops
-namespace oglplus {
 
 template <>
 class __ProgVarLocOps<__tag_Subroutine>
@@ -178,6 +177,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

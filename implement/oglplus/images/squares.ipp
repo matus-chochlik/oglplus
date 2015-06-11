@@ -22,7 +22,7 @@ Squares::Squares(
 	GLfloat ratio,
 	SizeType xrep,
 	SizeType yrep
-): Image(width, height, 1, 1, (GLubyte*)0)
+): Image(width, height, 1, 1, &TypeTag<GLubyte>())
 {
 	assert(width != 0 && height != 0);
 	assert(ratio > 0.0f && ratio <= 1.0f);

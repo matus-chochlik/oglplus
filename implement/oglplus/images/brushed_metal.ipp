@@ -54,31 +54,32 @@ void BrushedMetalUByte::_make_scratch(
 	GLsizei h,
 	GLint x,
 	GLint y,
-	GLdouble dx,
-	GLdouble dy
+	GLint dx,
+	GLint dy
 )
 {
 	if((dx == 0) && (dy == 0)) return;
-	GLubyte r = dy/std::sqrt(dx*dx + dy*dy)*0xFF;
-	GLubyte g = dx/std::sqrt(dx*dx + dy*dy)*0xFF;
+
+	GLubyte r = GLubyte((dy/std::sqrt(GLdouble(dx*dx + dy*dy)))*0xFF);
+	GLubyte g = GLubyte((dx/std::sqrt(GLdouble(dx*dx + dy*dy)))*0xFF);
 
 	if(dx > dy)
 	{
 		if(dx >= 0)
 		{
-			for(GLint i=0; i!=dx; ++i)
+			for(GLint i=0; i<dx; ++i)
 			{
 				GLdouble c = GLdouble(i)/dx;
-				GLint j = dy*c;
+				GLint j = GLint(dy*c);
 				_make_pixel(b,e,w,h,x+i,y+j,c,r,g);
 			}
 		}
 		else
 		{
-			for(GLint i=0; i!=dx; --i)
+			for(GLint i=0; i>dx; --i)
 			{
 				GLdouble c = GLdouble(i)/dx;
-				GLint j = dy*c;
+				GLint j = GLint(dy*c);
 				_make_pixel(b,e,w,h,x+i,y+j,c,r,g);
 			}
 		}
@@ -87,19 +88,19 @@ void BrushedMetalUByte::_make_scratch(
 	{
 		if(dy >= 0)
 		{
-			for(GLint j=0; j!=dy; ++j)
+			for(GLint j=0; j<dy; ++j)
 			{
 				GLdouble c = GLdouble(j)/dy;
-				GLint i = dx*c;
+				GLint i = GLint(dx*c);
 				_make_pixel(b,e,w,h,x+i,y+j,c,r,g);
 			}
 		}
 		else
 		{
-			for(GLint j=0; j!=dy; --j)
+			for(GLint j=0; j>dy; --j)
 			{
 				GLdouble c = GLdouble(j)/dy;
-				GLint i = dx*c;
+				GLint i = GLint(dx*c);
 				_make_pixel(b,e,w,h,x+i,y+j,c,r,g);
 			}
 		}
@@ -116,7 +117,7 @@ BrushedMetalUByte::BrushedMetalUByte(
 	int s_disp_max,
 	int t_disp_min,
 	int t_disp_max
-): Image(width, height, 1, 3, (GLubyte*)0)
+): Image(width, height, 1, 3, &TypeTag<GLubyte>())
 {
 	GLubyte *p = this->_begin_ub(), *e = this->_end_ub();
 	while(n_scratches--)
@@ -124,12 +125,12 @@ BrushedMetalUByte::BrushedMetalUByte(
 		const GLuint n_segments = 1 + std::rand() % 4;
 		GLint x = std::rand() % width;
 		GLint y = std::rand() % height;
-		for(GLuint seg=0; seg!=n_segments; ++seg)
+		for(GLuint seg=0; seg<n_segments; ++seg)
 		{
 			GLint dx = s_disp_min +
-				std::rand()%(s_disp_max-s_disp_min+1);
+				(std::rand()%(s_disp_max-s_disp_min+1));
 			GLint dy = t_disp_min +
-				std::rand()%(t_disp_max-t_disp_min+1);
+				(std::rand()%(t_disp_max-t_disp_min+1));
 
 			_make_scratch(
 				p, e,

@@ -17,7 +17,7 @@ BitmapGlyphPageStorage::BitmapGlyphPageStorage(
 	BitmapGlyphRenderingBase& parent,
 	TextureUnitSelector bitmap_tex_unit,
 	TextureUnitSelector metric_tex_unit,
-	const GLint init_frame,
+	const GLuint init_frame,
 	const SizeType frames,
 	const oglplus::images::Image& image,
 	const std::vector<GLfloat>& metrics
@@ -29,7 +29,7 @@ BitmapGlyphPageStorage::BitmapGlyphPageStorage(
  , _frames(frames)
  , _glyphs_per_page(BitmapGlyphGlyphsPerPage(parent))
  , _vects_per_glyph(3)
- , _metrics(_frames)
+ , _metrics(frames.st())
 {
 	//
 	// setup the bitmap texture
@@ -95,7 +95,7 @@ BitmapGlyphPageStorage::BitmapGlyphPageStorage(
 
 OGLPLUS_LIB_FUNC
 void BitmapGlyphPageStorage::LoadPage(
-	const GLint frame,
+	const GLuint frame,
 	const oglplus::images::Image& image,
 	const std::vector<GLfloat>& metrics
 )
@@ -109,7 +109,7 @@ void BitmapGlyphPageStorage::LoadPage(
 	Texture::SubImage3D(
 		Texture::Target::_2DArray,
 		0,
-		0, 0, frame,
+		0, 0, GLint(frame),
 		_width,
 		_height,
 		1,
@@ -125,7 +125,7 @@ void BitmapGlyphPageStorage::LoadPage(
 	Texture::SubImage2D(
 		Texture::Target::Rectangle,
 		0,
-		0, frame,
+		0, GLint(frame),
 		GLsizei(_glyphs_per_page*_vects_per_glyph), 1,
 		PixelDataFormat::RGBA,
 		PixelDataType::Float,
@@ -136,19 +136,20 @@ void BitmapGlyphPageStorage::LoadPage(
 
 OGLPLUS_LIB_FUNC
 void BitmapGlyphPageStorage::QueryGlyphMetrics(
-	GLint frame,
-	GLint cell,
-	GLint metric,
-	GLint count,
+	GLuint frame,
+	GLuint cell,
+	GLuint metric,
+	GLuint count,
 	GLfloat* result
 ) const
 {
 	const std::vector<GLfloat>& frame_data = _metrics[frame];
-	const GLint offs = GLint(4*_vects_per_glyph*cell+metric);
+	const GLuint offs = 4*_vects_per_glyph*cell+metric;
 
-	assert(count >= 0);
-	for(GLint i=0; i!=count; ++i)
+	for(GLuint i=0; i!=count; ++i)
+	{
 		result[i] = frame_data[offs+i];
+	}
 }
 
 } // namespace text

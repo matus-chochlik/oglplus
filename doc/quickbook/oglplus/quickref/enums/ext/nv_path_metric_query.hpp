@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_metric_query
-namespace oglplus {
 
 enum class PathNVMetricQuery : GLbitfield
 {
@@ -45,5 +44,4 @@ __StrCRef __EnumValueName(PathNVMetricQuery);
 
 __Bitfield<PathNVMetricQuery> operator | (PathNVMetricQuery b1, PathNVMetricQuery b2);
 
-} // namespace oglplus
 //]

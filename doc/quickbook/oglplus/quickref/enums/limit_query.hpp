@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_limit_query
-namespace oglplus {
 
 enum class LimitQuery : GLenum
 {
@@ -130,5 +129,4 @@ __Range<LimitQuery> __EnumValueRange<LimitQuery>(void);
 
 __StrCRef __EnumValueName(LimitQuery);
 
-} // namespace oglplus
 //]

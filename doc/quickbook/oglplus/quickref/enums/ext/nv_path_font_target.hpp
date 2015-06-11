@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_font_target
-namespace oglplus {
 
 enum class PathNVFontTarget : GLenum
 {
@@ -24,5 +23,4 @@ __Range<PathNVFontTarget> __EnumValueRange<PathNVFontTarget>(void);
 
 __StrCRef __EnumValueName(PathNVFontTarget);
 
-} // namespace oglplus
 //]

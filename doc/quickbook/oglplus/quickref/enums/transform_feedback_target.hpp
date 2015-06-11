@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_transform_feedback_target
-namespace oglplus {
 
 enum class TransformFeedbackTarget : GLenum
 {
@@ -22,5 +21,4 @@ __Range<TransformFeedbackTarget> __EnumValueRange<TransformFeedbackTarget>(void)
 
 __StrCRef __EnumValueName(TransformFeedbackTarget);
 
-} // namespace oglplus
 //]

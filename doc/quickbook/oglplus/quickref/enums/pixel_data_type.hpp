@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_pixel_data_type
-namespace oglplus {
 
 enum class PixelDataType : GLenum
 {
@@ -45,5 +44,4 @@ __Range<PixelDataType> __EnumValueRange<PixelDataType>(void);
 
 __StrCRef __EnumValueName(PixelDataType);
 
-} // namespace oglplus
 //]

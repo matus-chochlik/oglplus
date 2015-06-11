@@ -5,7 +5,6 @@
  */
 
 //[oalplus_device_common
-namespace oalplus {
 namespace tag {
 
 struct Playback { };
@@ -131,6 +130,5 @@ public:
 	>*/
 };
 
-} // namespace oalplus
 //]
 

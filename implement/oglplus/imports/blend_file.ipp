@@ -4,11 +4,12 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #include <oglplus/config/basic.hpp>
+#include <cassert>
 
 namespace oglplus {
 namespace imports {
@@ -116,11 +117,13 @@ BlendFileFlatStructBlockData BlendFile::StructuredBlockByPointer(
 		Pointee(pointer).AsStructure().Flattened():
 		BlockStructure(block).Flattened();
 
+	assert(!(offset < 0));
+
 	return BlendFileFlatStructBlockData(
 		std::move(flat_struct),
 		std::move(block),
 		std::move(block_data),
-		offset
+		std::size_t(offset)
 	);
 }
 

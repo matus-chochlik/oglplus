@@ -47,10 +47,10 @@ public:
 	static void ColorMask(const RGBAMask& m)
 	{
 		OGLPLUS_GLFUNC(ColorMask)(
-			m._v[0],
-			m._v[1],
-			m._v[2],
-			m._v[3]
+			GLboolean(m._v[0]),
+			GLboolean(m._v[1]),
+			GLboolean(m._v[2]),
+			GLboolean(m._v[3])
 		);
 		OGLPLUS_VERIFY_SIMPLE(ColorMask);
 	}
@@ -87,10 +87,10 @@ public:
 	{
 		OGLPLUS_GLFUNC(ColorMaski)(
 			buffer,
-			m._v[0],
-			m._v[1],
-			m._v[2],
-			m._v[3]
+			GLboolean(m._v[0]),
+			GLboolean(m._v[1]),
+			GLboolean(m._v[2]),
+			GLboolean(m._v[3])
 		);
 		OGLPLUS_VERIFY(
 			ColorMaski,

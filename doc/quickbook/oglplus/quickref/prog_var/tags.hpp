@@ -5,7 +5,6 @@
  */
 
 //[oglplus_prog_var_tags
-namespace oglplus {
 namespace tag {
 
 struct VertexAttrib; /*< See __VertexAttrib >*/
@@ -26,6 +25,5 @@ Disables GPU program variable typechecking.
 >*/
 
 } // namespace tag
-} // namespace oglplus
 //]
 

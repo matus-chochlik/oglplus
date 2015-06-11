@@ -5,7 +5,6 @@
  */
 
 //[oglplus_context_RGBAValue
-namespace oglplus {
 namespace context {
 
 struct RGBAValue /*<
@@ -58,6 +57,5 @@ Helper structure storing the color component mask.
 };
 
 } // namespace context
-} // namespace oglplus
 //]
 

@@ -5,7 +5,6 @@
  */
 
 //[oglplus_program_resource
-namespace oglplus {
 
 class ProgramResource
 {
@@ -70,6 +69,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

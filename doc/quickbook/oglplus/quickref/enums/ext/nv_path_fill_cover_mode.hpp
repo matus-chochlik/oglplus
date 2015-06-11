@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_fill_cover_mode
-namespace oglplus {
 
 enum class PathNVFillCoverMode : GLenum
 {
@@ -25,5 +24,4 @@ __Range<PathNVFillCoverMode> __EnumValueRange<PathNVFillCoverMode>(void);
 
 __StrCRef __EnumValueName(PathNVFillCoverMode);
 
-} // namespace oglplus
 //]

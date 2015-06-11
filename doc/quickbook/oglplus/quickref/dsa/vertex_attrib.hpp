@@ -5,7 +5,6 @@
  */
 
 //[oglplus_dsa_vertex_array_attrib
-namespace oglplus {
 
 #if GL_VERSION_4_5 || GL_ARB_direct_state_access
 
@@ -41,7 +40,7 @@ public:
 	DSAVertexArrayAttrib& VertexBuffer(
 		__BufferName buffer,
 		GLintptr offset,
-		GLsizei stride
+		__SizeType stride
 	); /*<
 	Sets the vertex buffer for [^this] vertex array attribute.
 	See [glfunc VertexArrayVertexBuffer].
@@ -78,6 +77,5 @@ public:
 
 #endif
 
-} // namespace oglplus
 //]
 

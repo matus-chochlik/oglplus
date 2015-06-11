@@ -59,11 +59,11 @@ GetType(ProgramName program, GLint /*location*/, StrCRef identifier)
 		Identifier(identifier)
 	);
 
-	for(GLint index=0; index!=active_uniforms; ++index)
+	for(GLint index=0; index<active_uniforms; ++index)
 	{
 		OGLPLUS_GLFUNC(GetActiveUniform)(
 			GetGLName(program),
-			index,
+			GLuint(index),
 			GLsizei(buffer.size()),
 			&length,
 			&size,
@@ -76,12 +76,15 @@ GetType(ProgramName program, GLint /*location*/, StrCRef identifier)
 			Program(program).
 			Identifier(identifier)
 		);
+
+		assert(!(length < 0));
+
 		if(GLsizei(identifier.size()) == length)
 		{
 			if(std::strncmp(
 				identifier.c_str(),
 				buffer.data(),
-				length
+				std::size_t(length)
 			) == 0)
 			{
 				result = type;

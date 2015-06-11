@@ -25,6 +25,22 @@ should be used to determine the actual type.
 Whenever this is the case, it is clearly noted in the section describing
 the concept.
 
+Unless stated otherwise, all OGLplus definitions are made inside of the
+top-level [^oglplus] namespace or in namespaces nested inside
+of namespace [^oglplus].
+
+The namespace-definition opening,
+
+``
+namespace oglplus {
+``
+and closing,
+
+``
+} // namespace oglplus
+``
+statements are assumed, but omitted for the sake of brevity from this reference.
+
 [endsect]
 
 [def __ObjCommonOps_Buffer [link oglplus.quickref.buffer.common ObjCommonOps<tag::Buffer>]]
@@ -117,6 +133,7 @@ the concept.
 [include quickref/config.qbk]
 [include quickref/math.qbk]
 [include quickref/boolean.qbk]
+[include quickref/size_type.qbk]
 [include quickref/bitfield.qbk]
 [include quickref/enums.qbk]
 [include quickref/limited_value.qbk]

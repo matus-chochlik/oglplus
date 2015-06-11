@@ -5,7 +5,6 @@
  */
 
 //[eglplus_rendering_api_func
-namespace eglplus {
 
 __Boolean BindAPI(__RenderingAPI api); /*<
 Binds the specified rendering [^api].
@@ -17,6 +16,5 @@ Queries the currently bound rendering API.
 See [eglfunc QueryAPI].
 >*/
 
-} // namespace eglplus
 //]
 

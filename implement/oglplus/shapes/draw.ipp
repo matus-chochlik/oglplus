@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error/basic.hpp>
 #include <oglplus/lib/incl_end.ipp>
+#include <oglplus/assert.hpp>
 
 namespace oglplus {
 namespace shapes {
@@ -34,8 +35,9 @@ void DrawOperation::SetupPrimitiveRestart_(void) const
 		OGLPLUS_VERIFY_SIMPLE(PrimitiveRestartIndex);
 	}
 #else
-	if(restart_index != NoRestartIndex()) {
-		assert(!
+	if(restart_index != NoRestartIndex())
+	{
+		OGLPLUS_ABORT(
 			"Primitive restarting required, "
 			"but not supported by the used version of OpenGL!"
 		);
@@ -57,7 +59,7 @@ void DrawOperation::CleanupPrimitiveRestart_(void) const
 
 OGLPLUS_LIB_FUNC
 void DrawOperation::Draw_(
-	void* indices,
+	const void* indices,
 	DataType index_data_type,
 	GLuint inst_count,
 	GLuint base_inst
@@ -91,7 +93,11 @@ void DrawOperation::DrawArrays_(GLuint inst_count, GLuint base_inst) const
 {
 	if(inst_count == 1)
 	{
-		OGLPLUS_GLFUNC(DrawArrays)(GLenum(mode), first, count);
+		OGLPLUS_GLFUNC(DrawArrays)(
+			GLenum(mode),
+			GLint(first),
+			GLsizei(count)
+		);
 		OGLPLUS_CHECK_SIMPLE(DrawArrays);
 	}
 	else if(base_inst == 0)
@@ -99,13 +105,13 @@ void DrawOperation::DrawArrays_(GLuint inst_count, GLuint base_inst) const
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 		OGLPLUS_GLFUNC(DrawArraysInstanced)(
 			GLenum(mode),
-			first,
-			count,
-			inst_count
+			GLint(first),
+			GLsizei(count),
+			GLsizei(inst_count)
 		);
 		OGLPLUS_CHECK_SIMPLE(DrawArraysInstanced);
 #else
-		assert(!
+		OGLPLUS_ABORT(
 			"DrawArraysInstanced required, "
 			"but not supported by the used version of OpenGL!"
 		);
@@ -116,14 +122,14 @@ void DrawOperation::DrawArrays_(GLuint inst_count, GLuint base_inst) const
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
 		OGLPLUS_GLFUNC(DrawArraysInstancedBaseInstance)(
 			GLenum(mode),
-			first,
-			count,
-			inst_count,
+			GLint(first),
+			GLsizei(count),
+			GLsizei(inst_count),
 			base_inst
 		);
 		OGLPLUS_CHECK_SIMPLE(DrawArraysInstancedBaseInstance);
 #else
-		assert(!
+		OGLPLUS_ABORT(
 			"DrawArraysInstancedBaseInstance required, "
 			"but not supported by the used version of OpenGL!"
 		);
@@ -133,7 +139,7 @@ void DrawOperation::DrawArrays_(GLuint inst_count, GLuint base_inst) const
 
 OGLPLUS_LIB_FUNC
 void DrawOperation::DrawElements_(
-	void* indices,
+	const void* indices,
 	DataType index_data_type,
 	GLuint inst_count,
 	GLuint base_inst
@@ -144,7 +150,7 @@ void DrawOperation::DrawElements_(
 	{
 		OGLPLUS_GLFUNC(DrawElements)(
 			GLenum(mode),
-			count,
+			GLsizei(count),
 			GLenum(index_data_type),
 			indices
 		);
@@ -155,14 +161,14 @@ void DrawOperation::DrawElements_(
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 		OGLPLUS_GLFUNC(DrawElementsInstanced)(
 			GLenum(mode),
-			count,
+			GLsizei(count),
 			GLenum(index_data_type),
 			indices,
-			inst_count
+			GLsizei(inst_count)
 		);
 		OGLPLUS_CHECK_SIMPLE(DrawElementsInstanced);
 #else
-		assert(!
+		OGLPLUS_ABORT(
 			"DrawElementsInstanced required, "
 			"but not supported by the used version of OpenGL!"
 		);
@@ -173,15 +179,15 @@ void DrawOperation::DrawElements_(
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
 		OGLPLUS_GLFUNC(DrawElementsInstancedBaseInstance)(
 			GLenum(mode),
-			count,
+			GLsizei(count),
 			GLenum(index_data_type),
 			indices,
-			inst_count,
+			GLsizei(inst_count),
 			base_inst
 		);
 		OGLPLUS_CHECK_SIMPLE(DrawElementsInstancedBaseInstance);
 #else
-		assert(!
+		OGLPLUS_ABORT(
 			"DrawElementsInstancedBaseInstance required, "
 			"but not supported by the used version of OpenGL!"
 		);

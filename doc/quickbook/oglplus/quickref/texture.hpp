@@ -5,7 +5,6 @@
  */
 
 //[oglplus_texture_subtype
-namespace oglplus {
 
 template <>
 struct __ObjectSubtype<__tag_Texture>
@@ -97,19 +96,19 @@ public:
 	>*/
 
 #if GL_VERSION_4_3
-	void InvalidateImage(GLsizei level); /*<
+	void InvalidateImage(__SizeType level); /*<
 	Invalidates the specified [^level] of texture image.
 	See [glfunc InvalidateTexImage].
 	>*/
 
 	void InvalidateSubImage(
-		GLsizei level,
+		__SizeType level,
 		GLint xoffs,
 		GLint yoffs,
 		GLint zoffs,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth
 	); /*<
 	Invalidates the specified part of texture image.
 	See [glfunc InvalidateTexSubImage].
@@ -119,7 +118,7 @@ public:
 #if GL_VERSION_4_4
 	template <typename GLtype>
 	void ClearImage(
-		GLsizei level,
+		__SizeType level,
 		__PixelDataFormat format,
 		const GLtype* data
 	); /*<
@@ -129,13 +128,13 @@ public:
 
 	template <typename GLtype>
 	void ClearSubImage(
-		GLsizei level,
+		__SizeType level,
 		GLint xoffs,
 		GLint yoffs,
 		GLint zoffs,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
 		__PixelDataFormat format,
 		const GLtype* data
 	); /*<
@@ -197,19 +196,19 @@ public:
 
 #if GL_VERSION_3_0
 	static
-	GLsizei Width(__TextureTarget target, GLint level = 0); /*<
+	__SizeType Width(__TextureTarget target, GLint level = 0); /*<
 	Returns the width of the texture image on the specified [^level].
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_WIDTH].
 	>*/
 
 	static
-	GLsizei Height(__TextureTarget target, GLint level = 0); /*<
+	__SizeType Height(__TextureTarget target, GLint level = 0); /*<
 	Returns the height of the texture image on the specified [^level].
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_HEIGHT].
 	>*/
 
 	static
-	GLsizei Depth(__TextureTarget target, GLint level = 0); /*<
+	__SizeType Depth(__TextureTarget target, GLint level = 0); /*<
 	Returns the depth of the texture image on the specified [^level].
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_DEPTH].
 	>*/
@@ -245,50 +244,50 @@ public:
 	>*/
 
 	static
-	GLsizei RedSize(__TextureTarget target, GLint level = 0); /*<
+	__SizeType RedSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the RED component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_RED_SIZE].
 	>*/
 
 	static
-	GLsizei GreenSize(__TextureTarget target, GLint level = 0); /*<
+	__SizeType GreenSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the GREEN component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_GREEN_SIZE].
 	>*/
 
 	static
-	GLsizei BlueSize(__TextureTarget target, GLint level = 0); /*<
+	__SizeType BlueSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the BLUE component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_BLUE_SIZE].
 	>*/
 
 	static
-	GLsizei AlphaSize(__TextureTarget target, GLint level = 0); /*<
+	__SizeType AlphaSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the ALPHA component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_ALPHA_SIZE].
 	>*/
 
 	static
-	GLsizei DepthSize(__TextureTarget target, GLint level = 0); /*<
+	__SizeType DepthSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the DEPTH component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_DEPTH_SIZE].
 	>*/
 
 	static
-	GLsizei StencilSize(__TextureTarget target, GLint level = 0); /*<
+	__SizeType StencilSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of the STENCIL component.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_STENCIL_SIZE].
 	>*/
 
 	static
-	GLsizei SharedSize(__TextureTarget target, GLint level = 0); /*<
+	__SizeType SharedSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the actual resolution of all texture components.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_SHARED_SIZE].
 	>*/
 //]
 //[oglplus_texture_2
 	static
-	GLsizei CompressedImageSize(__TextureTarget target, GLint level = 0); /*<
+	__SizeType CompressedImageSize(__TextureTarget target, GLint level = 0); /*<
 	Returns the size (in bytes) of the image array if it is compressed.
 	See [glfunc GetTexLevelParameter], [glconst TEXTURE_COMPRESSED_IMAGE_SIZE].
 	>*/
@@ -321,7 +320,7 @@ public:
 		GLint level,
 		__PixelDataFormat format,
 		Property::PixDataType type,
-		GLsizei size,
+		__SizeType size,
 		GLvoid* buffer
 	);
 
@@ -345,7 +344,7 @@ public:
 	static void GetCompressedImage(
 		__TextureTarget target,
 		GLint level,
-		GLsizei size,
+		__SizeType size,
 		GLubyte* buffer
 	);
 #endif
@@ -353,9 +352,9 @@ public:
 		__TextureTarget target,
 		GLint level,
 		__PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
 		GLint border,
 		__PixelDataFormat format,
 		Property::PixDataType type,
@@ -378,9 +377,9 @@ public:
 		GLint xoffs,
 		GLint yoffs,
 		GLint zoffs,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
 		__PixelDataFormat format,
 		Property::PixDataType type,
 		const void* data
@@ -402,8 +401,8 @@ public:
 		__TextureTarget target,
 		GLint level,
 		__PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
+		__SizeType width,
+		__SizeType height,
 		GLint border,
 		__PixelDataFormat format,
 		Property::PixDataType type,
@@ -424,8 +423,8 @@ public:
 		GLuint face,
 		GLint level,
 		__PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
+		__SizeType width,
+		__SizeType height,
 		GLint border,
 		__PixelDataFormat format,
 		Property::PixDataType type,
@@ -447,8 +446,8 @@ public:
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
-		GLsizei width,
-		GLsizei height,
+		__SizeType width,
+		__SizeType height,
 		__PixelDataFormat format,
 		Property::PixDataType type,
 		const void* data
@@ -470,7 +469,7 @@ public:
 		__TextureTarget target,
 		GLint level,
 		__PixelDataInternalFormat internal_format,
-		GLsizei width,
+		__SizeType width,
 		GLint border,
 		__PixelDataFormat format,
 		Property::PixDataType type,
@@ -491,7 +490,7 @@ public:
 		__TextureTarget target,
 		GLint level,
 		GLint xoffs,
-		GLsizei width,
+		__SizeType width,
 		__PixelDataFormat format,
 		Property::PixDataType type,
 		const void* data
@@ -532,8 +531,8 @@ public:
 		__PixelDataInternalFormat internal_format,
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height,
+		__SizeType width,
+		__SizeType height,
 		GLint border
 	); /*<
 	Copies a two dimensional texture image from the current framebuffer.
@@ -547,7 +546,7 @@ public:
 		__PixelDataInternalFormat internal_format,
 		GLint x,
 		GLint y,
-		GLsizei width,
+		__SizeType width,
 		GLint border
 	); /*<
 	Copies a one dimensional texture image from the current framebuffer.
@@ -563,8 +562,8 @@ public:
 		GLint zoffs,
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height
+		__SizeType width,
+		__SizeType height
 	); /*<
 	Copies a three dimensional texture subimage from the current framebuffer.
 	See [glfunc CopyTexSubImage3D].
@@ -577,8 +576,8 @@ public:
 		GLint yoffs,
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height
+		__SizeType width,
+		__SizeType height
 	); /*<
 	Copies a two dimensional texture subimage from the current framebuffer.
 	See [glfunc CopyTexSubImage2D].
@@ -591,7 +590,7 @@ public:
 		GLint xoffs,
 		GLint x,
 		GLint y,
-		GLsizei width
+		__SizeType width
 	); /*<
 	Copies a one dimensional texture subimage from the current framebuffer.
 	See [glfunc CopyTexSubImage2D].
@@ -602,11 +601,11 @@ public:
 		__TextureTarget target,
 		GLint level,
 		__PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
 		GLint border,
-		GLsizei image_size,
+		__SizeType image_size,
 		const void* data
 	); /*<
 	Specifies a three dimensional compressed texture image.
@@ -617,10 +616,10 @@ public:
 		__TextureTarget target,
 		GLint level,
 		__PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
+		__SizeType width,
+		__SizeType height,
 		GLint border,
-		GLsizei image_size,
+		__SizeType image_size,
 		const void* data
 	); /*<
 	Specifies a two dimensional compressed texture image.
@@ -632,9 +631,9 @@ public:
 		__TextureTarget target,
 		GLint level,
 		__PixelDataInternalFormat internal_format,
-		GLsizei width,
+		__SizeType width,
 		GLint border,
-		GLsizei image_size,
+		__SizeType image_size,
 		const void* data
 	); /*<
 	Specifies a one dimensional compressed texture image.
@@ -648,11 +647,11 @@ public:
 		GLint xoffs,
 		GLint yoffs,
 		GLint zoffs,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
 		__PixelDataFormat format,
-		GLsizei image_size,
+		__SizeType image_size,
 		const void* data
 	); /*<
 	Specifies a three dimensional compressed texture subimage.
@@ -664,10 +663,10 @@ public:
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
-		GLsizei width,
-		GLsizei height,
+		__SizeType width,
+		__SizeType height,
 		__PixelDataFormat format,
-		GLsizei image_size,
+		__SizeType image_size,
 		const void* data
 	); /*<
 	Specifies a two dimensional compressed texture subimage.
@@ -679,9 +678,9 @@ public:
 		__TextureTarget target,
 		GLint level,
 		GLint xoffs,
-		GLsizei width,
+		__SizeType width,
 		__PixelDataFormat format,
-		GLsizei image_size,
+		__SizeType image_size,
 		const void* data
 	); /*<
 	Specifies a one dimensional compressed texture subimage.
@@ -694,11 +693,11 @@ public:
 #if GL_VERSION_3_2 || GL_ARB_texture_multisample
 	static void Image3DMultisample(
 		__TextureTarget target,
-		GLsizei samples,
+		__SizeType samples,
 		__PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
 		__Boolean fixed_sample_locations
 	); /*<
 	Sets-up a three dimensional multisample texture.
@@ -707,10 +706,10 @@ public:
 
 	static void Image2DMultisample(
 		__TextureTarget target,
-		GLsizei samples,
+		__SizeType samples,
 		__PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
+		__SizeType width,
+		__SizeType height,
 		__Boolean fixed_sample_locations
 	); /*<
 	Sets-up a two dimensional multisample texture.
@@ -736,7 +735,7 @@ public:
 		__PixelDataInternalFormat internal_format,
 		__BufferName buffer,
 		GLintptr offset,
-		GLsizeiptr size
+		__BigSizeType size
 	); /*<
 	Assigns a buffer range storing the texel data to the texture.
 	See [glfunc TexBufferRange].
@@ -746,11 +745,11 @@ public:
 #if GL_VERSION_4_2 || GL_ARB_texture_storage
 	static void Storage3D(
 		__TextureTarget target,
-		GLsizei levels,
+		__SizeType levels,
 		__PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth
 	); /*<
 	Specifies all levels of 3D texture at the same time.
 	See [glfunc TexStorage3D].
@@ -758,10 +757,10 @@ public:
 
 	static void Storage2D(
 		__TextureTarget target,
-		GLsizei levels,
+		__SizeType levels,
 		__PixelDataInternalFormat internal_format,
-		GLsizei width,
-		GLsizei height
+		__SizeType width,
+		__SizeType height
 	); /*<
 	Specifies all levels of 2D texture at the same time.
 	See [glfunc TexStorage2D].
@@ -769,9 +768,9 @@ public:
 
 	static void Storage1D(
 		__TextureTarget target,
-		GLsizei levels,
+		__SizeType levels,
 		__PixelDataInternalFormat internal_format,
-		GLsizei width
+		__SizeType width
 	); /*<
 	Specifies all levels of 1D texture at the same time.
 	See [glfunc TexStorage1D].
@@ -1229,6 +1228,5 @@ __TextureTarget operator << (
 Generates mipmap on the texture currently bound to [^target].
 >*/
 
-} // namespace oglplus
 //]
 

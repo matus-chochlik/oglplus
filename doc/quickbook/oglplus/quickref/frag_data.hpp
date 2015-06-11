@@ -5,7 +5,6 @@
  */
 
 //[oglplus_frag_data_loc_ops
-namespace oglplus {
 
 template <>
 class __ProgVarLocOps<__tag_FragData>
@@ -62,6 +61,5 @@ Indirectly inherits from __ProgVarLocOps_FragData, __ProgVarCommonOps_FragData.
 
 typedef FragData FragmentData;
 
-} // namespace oglplus
 //]
 

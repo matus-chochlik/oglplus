@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_blend_function
-namespace oglplus {
 
 enum class BlendFunction : GLenum
 {
@@ -40,5 +39,4 @@ __Range<BlendFunction> __EnumValueRange<BlendFunction>(void);
 
 __StrCRef __EnumValueName(BlendFunction);
 
-} // namespace oglplus
 //]

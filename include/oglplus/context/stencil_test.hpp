@@ -269,7 +269,7 @@ public:
 	 *  @gldefref{STENCIL_REF}
 	 *  @gldefref{STENCIL_BACK_REF}
 	 */
-	static GLuint StencilRef(bool backface = false)
+	static GLint StencilRef(bool backface = false)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(
@@ -279,10 +279,10 @@ public:
 			&result
 		);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
-		return GLuint(result);
+		return result;
 	}
 
-	static GLuint StencilRef(Face face)
+	static GLint StencilRef(Face face)
 	{
 		return StencilRef(face == Face::Back);
 	}
@@ -410,7 +410,7 @@ public:
 	{
 		StencilOpSeparateSingle(
 			face,
-			ops._sfail,	
+			ops._sfail,
 			ops._dfail,
 			ops._dpass
 		);

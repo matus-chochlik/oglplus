@@ -2,7 +2,7 @@
  *  @file standalone/glut_glew_example.hpp
  *  @brief Implements GLUT/GLEW-based program main function for running examples
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -92,12 +92,12 @@ public:
 
 	int MouseDiffX(void) const
 	{
-		return _curr_mouse_x - _prev_mouse_x;
+		return int(_curr_mouse_x - _prev_mouse_x);
 	}
 
 	int MouseDiffY(void) const
 	{
-		return _curr_mouse_y - _prev_mouse_y;
+		return int(_curr_mouse_y - _prev_mouse_y);
 	}
 
 	double NormMouseX(void) const
@@ -251,8 +251,8 @@ class GlutInit
 {
 protected:
 	GlutInit(
-		GLuint xpos,
-		GLuint ypos,
+		GLint xpos,
+		GLint ypos,
 		GLuint width,
 		GLuint height,
 		const char* window_title,
@@ -270,7 +270,7 @@ protected:
 		);
 
 		glutInitWindowPosition(xpos, ypos);
-		glutInitWindowSize(width, height);
+		glutInitWindowSize(GLint(width), GLint(height));
 
 		glutCreateWindow(window_title);
 	}
@@ -303,8 +303,8 @@ private:
 	GlutGlewExampleApp(const GlutGlewExampleApp&);
 public:
 	GlutGlewExampleApp(
-		GLuint xpos,
-		GLuint ypos,
+		GLint xpos,
+		GLint ypos,
 		GLuint width,
 		GLuint height,
 		const char* window_title,

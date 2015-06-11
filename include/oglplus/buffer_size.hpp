@@ -39,7 +39,7 @@ public:
 	{ }
 
 	template <typename T>
-	BufferSize(unsigned count, const T*)
+	BufferSize(std::size_t count, const T*)
 	 : BigSizeType(GLsizeiptr(sizeof(T)*count))
 	{ }
 
@@ -91,8 +91,8 @@ class BufferTypedSize
 public:
 	BufferTypedSize(void) { }
 
-	BufferTypedSize(GLsizeiptr count)
-	 : BufferSize(int(count), static_cast<Type*>(nullptr))
+	BufferTypedSize(BigSizeType count)
+	 : BufferSize(std::size_t(count), &TypeTag<Type>())
 	{ }
 };
 

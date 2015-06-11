@@ -22,6 +22,10 @@
 [def __BoolImpl [link oglplus.quickref.boolean.impl BoolImpl]]
 [def __Boolean [link oglplus.quickref.boolean.def Boolean]]
 
+[def __SizeImpl [link oglplus.quickref.size_type.impl SizeImpl]]
+[def __SizeType [link oglplus.quickref.size_type.def SizeType]]
+[def __BigSizeType [link oglplus.quickref.size_type.def BigSizeType]]
+
 [def __Angle [link oglplus.quickref.math.angle Angle]]
 [def __Plane [link oglplus.quickref.math.plane Plane]]
 [def __Vector [link oglplus.quickref.math.vector Vector]]

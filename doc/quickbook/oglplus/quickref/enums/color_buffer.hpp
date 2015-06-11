@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_color_buffer
-namespace oglplus {
 
 enum class ColorBuffer : GLenum
 {
@@ -31,5 +30,4 @@ __Range<ColorBuffer> __EnumValueRange<ColorBuffer>(void);
 
 __StrCRef __EnumValueName(ColorBuffer);
 
-} // namespace oglplus
 //]

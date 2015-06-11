@@ -5,7 +5,6 @@
  */
 
 //[oglplus_context_PixelOps
-namespace oglplus {
 namespace context {
 
 class PixelOps
@@ -53,8 +52,8 @@ public:
 	static void ReadPixels(
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height,
+		__SizeType width,
+		__SizeType height,
 		__PixelDataFormat format,
 		__PixelDataType type,
 		void* data
@@ -81,6 +80,5 @@ public:
 };
 
 } // namespace context
-} // namespace oglplus
 //]
 

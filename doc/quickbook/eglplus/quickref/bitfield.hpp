@@ -5,10 +5,8 @@
  */
 
 //[eglplus_bitfield
-namespace eglplus {
 
 using __oglplus_Bitfield;
 
-} // namespace eglplus
 //]
 

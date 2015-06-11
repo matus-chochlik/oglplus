@@ -5,7 +5,6 @@
  */
 
 //[oglplus_images_Image
-namespace oglplus {
 namespace images {
 
 class Image
@@ -21,19 +20,19 @@ public:
 
 	template <typename T>
 	Image(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
-		GLsizei channels,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
+		__SizeType channels,
 		const T* data
 	);
 
 	template <typename T>
 	Image(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
-		GLsizei channels,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
+		__SizeType channels,
 		const T* data,
 		__PixelDataFormat format,
 		__PixelDataInternalFormat internal
@@ -89,6 +88,5 @@ public:
 };
 
 } // namespace images
-} // namespace oglplus
 //]
 

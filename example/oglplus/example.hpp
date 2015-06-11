@@ -2,7 +2,7 @@
  *  @file oglplus/example.hpp
  *  @brief Declares a common base class for examples
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -11,7 +11,7 @@
 
 #include <set>
 #include <memory>
-#include <cassert>
+#include <oglplus/assert.hpp>
 
 #ifndef _NDEBUG
 #include <iostream>
@@ -217,7 +217,7 @@ public:
 	/// Rendering procedure with simple timing
 	virtual void Render(double /*time*/)
 	{
-		assert(!"Render must be overloaded by examples!");
+		OGLPLUS_ABORT("Render must be overloaded by examples!");
 	}
 
 	/// Rendering procedure with advanced timing
@@ -301,7 +301,7 @@ public:
 	/// Rendering procedure with simple timing
 	virtual void Render(double /*time*/)
 	{
-		assert(!"Render must be overloaded by examples!");
+		OGLPLUS_ABORT("Render must be overloaded by examples!");
 	}
 
 	/// Rendering procedure with advanced timing

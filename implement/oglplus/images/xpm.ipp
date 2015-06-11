@@ -205,11 +205,11 @@ OGLPLUS_LIB_FUNC
 unsigned char xpm_load_convert_hex_digit(const char c)
 {
 	if((c >= '0') && (c <= '9'))
-		return c-'0';
+		return static_cast<unsigned char>(c-'0');
 	if((c >= 'a') && (c <= 'f'))
-		return c-'a'+10;
+		return static_cast<unsigned char>(c-'a'+10);
 	if((c >= 'A') && (c <= 'F'))
-		return c-'A'+10;
+		return static_cast<unsigned char>(c-'A'+10);
 	else throw std::runtime_error(
 		"Invalid hexadecimal digit in XPM palette"
 	);
@@ -385,7 +385,7 @@ void xpm_load(
 	{
 		throw std::runtime_error("Failed to read XPM header from input");
 	}
-	line_len = input.gcount();
+	line_len = std::size_t(input.gcount());
 
 	std::size_t width = 0, height = 0, depth = 0, colors = 0, chpp = 0, bipp = 0;
 
@@ -412,7 +412,10 @@ void xpm_load(
 		throw std::runtime_error("Failed to parse XPM header");
 	}
 	// so we need to read the line with the dimensions data
-	else if(!input.getline(line, max_line).good() || !(line_len = input.gcount()))
+	else if(
+		!input.getline(line, max_line).good() ||
+		!(line_len = std::size_t(input.gcount()))
+	)
 	{
 		throw std::runtime_error("Failed to read XPM header data from input");
 	}
@@ -440,7 +443,7 @@ void xpm_load(
 			{
 				throw std::runtime_error("Failed to read XPM palette entry");
 			}
-			line_len = input.gcount();
+			line_len = std::size_t(input.gcount());
 		}
 		while(line_len == 0);
 

@@ -5,7 +5,6 @@
  */
 
 //[oglplus_buffer_raw_map
-namespace oglplus {
 
 class BufferRawMap
 {
@@ -118,6 +117,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

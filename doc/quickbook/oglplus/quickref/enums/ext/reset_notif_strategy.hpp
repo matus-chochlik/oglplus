@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_reset_notif_strategy
-namespace oglplus {
 
 enum class ResetNotificationStrategyARB : GLenum
 {
@@ -23,5 +22,4 @@ __Range<ResetNotificationStrategyARB> __EnumValueRange<ResetNotificationStrategy
 
 __StrCRef __EnumValueName(ResetNotificationStrategyARB);
 
-} // namespace oglplus
 //]

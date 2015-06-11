@@ -5,10 +5,8 @@
  */
 
 //[eglplus_boolean
-namespace eglplus {
 
 typedef __oglplus_BoolImpl<EGLBoolean, EGLBoolean, EGL_TRUE, EGL_FALSE> Boolean;
 
-} // namespace eglplus
 //]
 

@@ -5,7 +5,6 @@
  */
 
 //[oglplus_frag_data_slot
-namespace oglplus {
 
 class FragDataSlot
  : public __LimitedCount
@@ -20,6 +19,5 @@ public:
 
 typedef __FragDataSlot FragmentDataSlot;
 
-} // namespace oglplus
 //]
 

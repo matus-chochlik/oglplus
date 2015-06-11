@@ -5,7 +5,6 @@
  */
 
 //[oglplus_bool_impl
-namespace oglplus {
 
 template <typename B, typename T, T TrueValue, T FalseValue>
 struct WeakBoolImpl
@@ -69,6 +68,5 @@ public:
 
 typedef __BoolImpl<GLboolean, GLint, GL_TRUE, GL_FALSE> Boolean;
 
-} // namespace oglplus
 //]
 

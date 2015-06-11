@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_debug_severity
-namespace oglplus {
 
 enum class DebugSeverity : GLenum
 {
@@ -26,5 +25,4 @@ __Range<DebugSeverity> __EnumValueRange<DebugSeverity>(void);
 
 __StrCRef __EnumValueName(DebugSeverity);
 
-} // namespace oglplus
 //]

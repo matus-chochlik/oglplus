@@ -5,7 +5,6 @@
  */
 
 //[oglplus_program_uniform_def
-namespace oglplus {
 
 template <typename T>
 using ProgramUniform = __ProgVar<
@@ -19,6 +18,5 @@ using ProgramUniform = __ProgVar<
 
 typedef __ProgramUniform<GLint> ProgramUniformSampler;
 
-} // namespace oglplus
 //]
 

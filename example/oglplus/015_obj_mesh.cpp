@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{015_obj_mesh}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -131,7 +131,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(70),
-				double(width)/height,
+				GLfloat(width)/height,
 				1, 20
 			)
 		);
@@ -155,7 +155,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				mesh_bs.Center(),
-				mesh_bs.Radius()*1.4+1.0,
+				mesh_bs.Radius()*1.4f+1.0f,
 				FullCircles(-time / 13.0),
 				Degrees(SineWave(time / 17.0) * 80)
 			)

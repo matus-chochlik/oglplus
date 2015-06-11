@@ -34,6 +34,8 @@ _binding(Target target)
 		Error,
 		EnumParam(_binding_query(target))
 	);
+
+	assert(!(name < 0));
 	return GLuint(name);
 }
 

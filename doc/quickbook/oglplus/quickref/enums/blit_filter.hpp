@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_blit_filter
-namespace oglplus {
 
 enum class BlitFilter : GLenum
 {
@@ -23,5 +22,4 @@ __Range<BlitFilter> __EnumValueRange<BlitFilter>(void);
 
 __StrCRef __EnumValueName(BlitFilter);
 
-} // namespace oglplus
 //]

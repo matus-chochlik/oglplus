@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_tess_gen_primitive_type
-namespace oglplus {
 
 enum class TessGenPrimitiveType : GLenum
 {
@@ -24,5 +23,4 @@ __Range<TessGenPrimitiveType> __EnumValueRange<TessGenPrimitiveType>(void);
 
 __StrCRef __EnumValueName(TessGenPrimitiveType);
 
-} // namespace oglplus
 //]

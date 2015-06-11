@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oalplus_enums_string_query
-namespace oalplus {
 
 enum class StringQuery : ALenum
 {
@@ -25,5 +24,4 @@ __Range<StringQuery> __EnumValueRange<StringQuery>(void);
 
 __StrCRef __EnumValueName(StringQuery);
 
-} // namespace oalplus
 //]

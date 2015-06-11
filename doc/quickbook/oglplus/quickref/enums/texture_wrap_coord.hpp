@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_texture_wrap_coord
-namespace oglplus {
 
 enum class TextureWrapCoord : GLenum
 {
@@ -24,5 +23,4 @@ __Range<TextureWrapCoord> __EnumValueRange<TextureWrapCoord>(void);
 
 __StrCRef __EnumValueName(TextureWrapCoord);
 
-} // namespace oglplus
 //]

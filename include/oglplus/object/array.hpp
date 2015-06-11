@@ -77,7 +77,7 @@ public:
 
 	template <typename S>
 	Array(SizeImpl<S> count)
-	 : _names(std::size_t(count), 0u)
+	 : _names(count, 0u)
 	{
 		_init(Nothing());
 	}
@@ -91,7 +91,7 @@ public:
 
 	template <typename S>
 	Array(SizeImpl<S> n, typename ObjectSubtype<ObjTag>::Type type)
-	 : _names(std::size_t(n), 0u)
+	 : _names(n, 0u)
 	{
 		_init(type);
 	}
@@ -132,7 +132,7 @@ public:
 	}
 
 	/// Returns a const reference to the i-th instance in the array
-	const_reference at(NameT index) const
+	const_reference at(std::size_t index) const
 	{
 		return const_reference(ObjectName<ObjTag>(_names.at(index)));
 	}

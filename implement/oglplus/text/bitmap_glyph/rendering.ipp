@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,7 +15,7 @@ namespace text {
 OGLPLUS_LIB_FUNC
 std::string BitmapGlyphPageName(
 	const BitmapGlyphRenderingBase& parent,
-	GLint page
+	GLuint page
 )
 {
 	const char hexdigit[16] = {
@@ -23,7 +23,7 @@ std::string BitmapGlyphPageName(
 		'5','6','7','8','9',
 		'A','B','C','D','E','F'
 	};
-	GLint page_head = page*BitmapGlyphGlyphsPerPage(parent);
+	GLuint page_head = page*BitmapGlyphGlyphsPerPage(parent);
 	const char result[6] = {
 		hexdigit[(page_head >> 20) & 0x0F],
 		hexdigit[(page_head >> 16) & 0x0F],

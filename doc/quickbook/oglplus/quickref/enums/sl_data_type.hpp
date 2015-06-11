@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_sl_data_type
-namespace oglplus {
 
 enum class SLDataType : GLenum
 {
@@ -131,5 +130,4 @@ __Range<SLDataType> __EnumValueRange<SLDataType>(void);
 
 __StrCRef __EnumValueName(SLDataType);
 
-} // namespace oglplus
 //]

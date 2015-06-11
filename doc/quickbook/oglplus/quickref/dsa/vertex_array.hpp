@@ -5,7 +5,6 @@
  */
 
 //[oglplus_dsa_vertex_array_1
-namespace oglplus {
 
 template <>
 class __ObjectOps<__tag_DirectState, __tag_VertexArray>
@@ -37,6 +36,5 @@ typedef __ObjectOps<__tag_DirectState, __tag_VertexArray>
 
 typedef __Object<DSAVertexArrayOps> DSAVertexArray;
 
-} // namespace oglplus
 //]
 

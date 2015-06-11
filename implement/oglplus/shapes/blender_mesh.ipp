@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -103,9 +103,14 @@ void BlenderMesh::_load_mesh(
 	auto tface_ptr = object_mesh_data.Field<void*>("mtface").Get();
 	//
 	if(opts.load_texcoords && face_ptr && !tface_ptr)
+	{
 		throw std::runtime_error("Unable to load UV coordinates.");
+	}
 	if(opts.load_tangents && face_ptr && !tface_ptr)
+	{
 		throw std::runtime_error("Unable to load tangent vectors.");
+	}
+
 	// if we wanted to load the uv-coordinates and they are available
 	if(
 		(opts.load_texcoords && face_ptr && tface_ptr) ||
@@ -119,7 +124,9 @@ void BlenderMesh::_load_mesh(
 		std::size_t n_faces = face_data.BlockElementCount();
 
 		if(opts.load_texcoords || opts.load_tangents)
+		{
 			assert(n_faces == tface_data.BlockElementCount());
+		}
 		// get the vertex index fields of the face
 		auto face_v1_field = face_data.Field<int>("v1");
 		auto face_v2_field = face_data.Field<int>("v2");
@@ -138,11 +145,11 @@ void BlenderMesh::_load_mesh(
 		for(std::size_t f=0; f!=n_faces; ++f)
 		{
 			// get face vertex indices
-			int fv[4] = {
-				face_v1_field.Get(f, 0),
-				face_v2_field.Get(f, 0),
-				face_v3_field.Get(f, 0),
-				face_v4_field.Get(f, 0)
+			GLuint fv[4] = {
+				GLuint(face_v1_field.Get(f, 0)),
+				GLuint(face_v2_field.Get(f, 0)),
+				GLuint(face_v3_field.Get(f, 0)),
+				GLuint(face_v4_field.Get(f, 0))
 			};
 
 			float uv[8];
@@ -151,7 +158,9 @@ void BlenderMesh::_load_mesh(
 				// get the uv coords fields
 				auto tface_uv_field = tface_data.Field<float>("uv");
 				for(std::size_t i=0; i!=8; ++i)
+				{
 					uv[i] = tface_uv_field.Get(f, i);
+				}
 			}
 
 			short mat_nr = face_mat_nr_field.Get(f, 0);
@@ -256,11 +265,11 @@ void BlenderMesh::_load_mesh(
 		for(std::size_t f=0; f!=n_faces; ++f)
 		{
 			// get face vertex indices
-			int fv[4] = {
-				face_v1_field.Get(f, 0),
-				face_v2_field.Get(f, 0),
-				face_v3_field.Get(f, 0),
-				face_v4_field.Get(f, 0)
+			GLuint fv[4] = {
+				GLuint(face_v1_field.Get(f, 0)),
+				GLuint(face_v2_field.Get(f, 0)),
+				GLuint(face_v3_field.Get(f, 0)),
+				GLuint(face_v4_field.Get(f, 0))
 			};
 
 			float uv[8];
@@ -324,8 +333,8 @@ void BlenderMesh::_load_mesh(
 
 					ais.push_back(
 						index_offset+
-						n_verts +
-						n_add_verts
+						GLuint(n_verts) +
+						GLuint(n_add_verts)
 					);
 					++n_add_verts;
 				}
@@ -350,15 +359,18 @@ void BlenderMesh::_load_mesh(
 		for(std::size_t f=0; f!=n_faces; ++f)
 		{
 			// get face vertex indices
-			int v1 = face_v1_field.Get(f, 0);
-			int v2 = face_v2_field.Get(f, 0);
-			int v3 = face_v3_field.Get(f, 0);
-			int v4 = face_v4_field.Get(f, 0);
+			GLuint v1 = GLuint(face_v1_field.Get(f, 0));
+			GLuint v2 = GLuint(face_v2_field.Get(f, 0));
+			GLuint v3 = GLuint(face_v3_field.Get(f, 0));
+			GLuint v4 = GLuint(face_v4_field.Get(f, 0));
 
 			is[ii++] = v1+index_offset;
 			is[ii++] = v2+index_offset;
 			is[ii++] = v3+index_offset;
-			if(v4) is[ii++] = v4+index_offset;
+			if(v4)
+			{
+				is[ii++] = v4+index_offset;
+			}
 			is[ii++] = 0; // primitive restart index
 		}
 		is.resize(ii);
@@ -389,12 +401,12 @@ void BlenderMesh::_load_mesh(
 		std::vector<GLuint> is;
 		for(std::size_t f=0; f!=n_polys; ++f)
 		{
-			int ls = poly_loopstart_field.Get(f, 0);
-			int tl = poly_totloop_field.Get(f, 0);
+			std::size_t ls = std::size_t(poly_loopstart_field.Get(f, 0));
+			std::size_t tl = std::size_t(poly_totloop_field.Get(f, 0));
 
-			for(int l=0; l!=tl; ++l)
+			for(std::size_t l=0; l!=tl; ++l)
 			{
-				int v = loop_v_field.Get(ls+l, 0);
+				GLuint v = GLuint(loop_v_field.Get(ls+l, 0));
 				is.push_back(v+index_offset);
 			}
 			// primitive restart index
@@ -442,7 +454,7 @@ void BlenderMesh::_load_object(
 		//
 		// find the index for the current mesh
 		assert(_mesh_offsets.size() == _mesh_n_elems.size());
-		std::size_t mesh_idx;
+		std::size_t mesh_idx = 0;
 		// if no names were specified
 		if(names_begin == names_end)
 		{
@@ -503,7 +515,7 @@ void BlenderMesh::_load_object(
 			)
 		);
 
-		_mesh_offsets[mesh_idx] = _idx_data.size();
+		_mesh_offsets[mesh_idx] = GLuint(_idx_data.size());
 
 		_load_mesh(
 			opts,
@@ -514,7 +526,7 @@ void BlenderMesh::_load_object(
 		);
 
 		_mesh_n_elems[mesh_idx] =
-			_idx_data.size() - _mesh_offsets[mesh_idx];
+			GLuint(_idx_data.size()) - _mesh_offsets[mesh_idx];
 	}
 }
 
