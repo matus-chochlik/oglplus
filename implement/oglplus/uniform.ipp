@@ -77,7 +77,7 @@ GetType(ProgramName program, GLint /*location*/, StrCRef identifier)
 			Identifier(identifier)
 		);
 
-		assert(not(length < 0));
+		assert(!(length < 0));
 
 		if(GLsizei(identifier.size()) == length)
 		{

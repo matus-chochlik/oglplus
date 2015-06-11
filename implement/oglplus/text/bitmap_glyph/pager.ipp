@@ -35,7 +35,7 @@ bool BitmapGlyphPager::_frames_consistent(void) const
 				}
 			}
 
-			assert(not(page < 0));
+			assert(!(page < 0));
 
 			gpu_frame_t frame = page_frame_map.At(GLuint(page));
 			if(frame != gpu_frame_t(i))

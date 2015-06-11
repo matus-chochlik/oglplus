@@ -39,11 +39,13 @@ public:
 	ProgramBuildError(ProgramBuildError&&) = default;
 #else
 	ProgramBuildError(const ProgramBuildError& that)
-	 : _log(that._log)
+	 : ObjectError(static_cast<const ObjectError&>(that))
+	 , _log(that._log)
 	{ }
 
 	ProgramBuildError(ProgramBuildError&& temp)
-	 : _log(std::move(temp._log))
+	 : ObjectError(static_cast<ObjectError&&>(temp))
+	 , _log(std::move(temp._log))
 	{ }
 #endif
 

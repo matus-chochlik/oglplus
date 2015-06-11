@@ -21,7 +21,7 @@ OGLPLUS_LIB_FUNC
 void ARB_debug_output_UniqueEssence::
 Call(const ARB_debug_output::CallbackData& data)
 {
-	assert(not(data.length < 0));
+	assert(!(data.length < 0));
 	if(buffer.capacity() < std::size_t(data.length))
 	{
 		buffer.resize(std::size_t(data.length));
@@ -86,7 +86,7 @@ OGLPLUS_LIB_FUNC
 void ARB_debug_output_ToXMLEssence::
 Call(const ARB_debug_output::CallbackData& data)
 {
-	assert(not(data.length < 0));
+	assert(!(data.length < 0));
 
 	dbgout << "<entry>" << std::endl;
 	dbgout << "<id>" << data.id << "</id>" << std::endl;

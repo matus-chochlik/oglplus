@@ -290,7 +290,7 @@ private:
 			EnumParam(stage)
 		);
 
-		assert(not(result < 0));
+		assert(!(result < 0));
 		return std::size_t(result);
 	}
 

@@ -37,12 +37,14 @@ public:
 	ProgVarError(ProgVarError&&) = default;
 #else
 	ProgVarError(const ProgVarError& that)
-	 : _prog_name(that._prog_name)
+	 : Error(static_cast<const Error&>(that))
+	 , _prog_name(that._prog_name)
 	 , _identifier(that._identifier)
 	{ }
 
 	ProgVarError(ProgVarError&& temp)
-	 : _prog_name(std::move(temp._prog_name))
+	 : Error(static_cast<Error&&>(temp))
+	 , _prog_name(std::move(temp._prog_name))
 	 , _identifier(std::move(temp._identifier))
 	{ }
 #endif

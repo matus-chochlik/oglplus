@@ -117,7 +117,7 @@ BlendFileFlatStructBlockData BlendFile::StructuredBlockByPointer(
 		Pointee(pointer).AsStructure().Flattened():
 		BlockStructure(block).Flattened();
 
-	assert(not(offset < 0));
+	assert(!(offset < 0));
 
 	return BlendFileFlatStructBlockData(
 		std::move(flat_struct),

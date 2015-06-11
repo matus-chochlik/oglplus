@@ -30,7 +30,7 @@ _binding(TextureUnitSelector tex_unit)
 		EnumParam(GLenum(GL_SAMPLER_BINDING))
 	);
 
-	assert(not(name < 0));
+	assert(!(name < 0));
 	return GLuint(name);
 }
 

@@ -99,7 +99,7 @@ protected:
 			Error,
 			EnumParam(GLenum(GL_CURRENT_PROGRAM))
 		);
-		assert(not(name < 0));
+		assert(!(name < 0));
 		return GLuint(name);
 	}
 public:
@@ -274,7 +274,7 @@ public:
 	GLuint GetUIntParam(GLenum query) const
 	{
 		GLint res = GetIntParam(query);
-		assert(not(res < 0));
+		assert(!(res < 0));
 		return GLuint(res);
 	}
 
@@ -295,7 +295,7 @@ public:
 	GLuint GetStageUIntParam(GLenum stage, GLenum query) const
 	{
 		GLint res = GetStageIntParam(stage, query);
-		assert(not(res < 0));
+		assert(!(res < 0));
 		return GLuint(res);
 	}
 #endif
