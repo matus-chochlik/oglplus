@@ -22,7 +22,7 @@ StrCRefsGLSLSrcWrap::StrCRefsGLSLSrcWrap(
 {
 	auto d = distance(i, e);
 
-	assert(not(d < 0));
+	assert(!(d < 0));
 
 	_ptrs.resize(std::size_t(d));
 	_sizes.resize(std::size_t(d));
@@ -94,7 +94,7 @@ std::size_t InputStreamGLSLSrcWrap::_check_and_get_size(std::istream& in)
 			in.seekg(0, std::ios::beg);
 			if(in.good())
 			{
-				assert(not(end < begin));
+				assert(!(end < begin));
 				return std::size_t(end - begin);
 			}
 		}

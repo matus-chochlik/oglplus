@@ -80,7 +80,7 @@ protected:
 			ObjectError,
 			EnumParam(GLenum(GL_VERTEX_ARRAY_BINDING))
 		);
-		assert(not(name < 0));
+		assert(!(name < 0));
 		return GLuint(name);
 	}
 public:

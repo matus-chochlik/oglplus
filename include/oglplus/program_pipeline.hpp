@@ -90,7 +90,7 @@ protected:
 			EnumParam(GLenum(GL_PROGRAM_PIPELINE_BINDING))
 		);
 
-		assert(not(name < 0));
+		assert(!(name < 0));
 
 		return GLuint(name);
 	}
@@ -258,7 +258,7 @@ public:
 	GLuint GetUIntParam(GLenum query) const
 	{
 		GLint res = GetIntParam(query);
-		assert(not(res < 0));
+		assert(!(res < 0));
 		return GLuint(res);
 	}
 

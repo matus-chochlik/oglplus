@@ -47,7 +47,7 @@ _binding(BufferTarget target)
 		EnumParam(_binding_query(target))
 	);
 
-	assert(not(name < 0));
+	assert(!(name < 0));
 	return GLuint(name);
 }
 
@@ -63,7 +63,7 @@ _binding(BufferIndexedTarget target, GLuint index)
 		EnumParam(_binding_query(target))
 	);
 
-	assert(not(name < 0));
+	assert(!(name < 0));
 	return GLuint(name);
 }
 
