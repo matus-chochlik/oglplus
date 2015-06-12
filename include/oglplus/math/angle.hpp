@@ -59,37 +59,41 @@ T Tan(Angle<T> a)
 template <typename T = AngleValueType>
 using Radian = ::eagine::unit::quantity< ::eagine::unit::radian, T>;
 
+template <typename T>
 inline
-Angle<AngleValueType> Radians(AngleValueType x)
+Angle<AngleValueType> Radians(T x)
 {
-	return Radian<AngleValueType>(x);
+	return Radian<AngleValueType>(AngleValueType(x));
 }
 
 template <typename T = AngleValueType>
 using Degree = ::eagine::unit::quantity< ::eagine::unit::degree, T>;
 
+template <typename T>
 inline
-Angle<AngleValueType> Degrees(AngleValueType x)
+Angle<AngleValueType> Degrees(T x)
 {
-	return Degree<AngleValueType>(x);
+	return Degree<AngleValueType>(AngleValueType(x));
 }
 
 template <typename T = AngleValueType>
 using FullCircle = ::eagine::unit::quantity< ::eagine::unit::turn, T>;
 
+template <typename T>
 inline
-Angle<AngleValueType> FullCircles(AngleValueType x)
+Angle<AngleValueType> FullCircles(T x)
 {
-	return FullCircle<AngleValueType>(x);
+	return FullCircle<AngleValueType>(AngleValueType(x));
 }
 
 template <typename T = AngleValueType>
 using RightAngle = ::eagine::unit::quantity< ::eagine::unit::quarter, T>;
 
+template <typename T>
 inline
-Angle<AngleValueType> RightAngles(AngleValueType x)
+Angle<AngleValueType> RightAngles(T x)
 {
-	return RightAngle<AngleValueType>(x);
+	return RightAngle<AngleValueType>(AngleValueType(x));
 }
 
 /// Creates a new angle using the arc sine function
@@ -105,10 +109,11 @@ Angle<AngleValueType> RightAngles(AngleValueType x)
  *
  *  @ingroup math_utils
  */
+template <typename T>
 inline
-Angle<AngleValueType> ArcSin(AngleValueType x)
+Angle<AngleValueType> ArcSin(T x)
 {
-	return ::eagine::math::asin<AngleValueType>(x);
+	return ::eagine::math::asin<AngleValueType>(AngleValueType(x));
 }
 
 /// Creates a new angle using the arc cosine function
@@ -124,10 +129,11 @@ Angle<AngleValueType> ArcSin(AngleValueType x)
  *
  *  @ingroup math_utils
  */
+template <typename T>
 inline
-Angle<AngleValueType> ArcCos(AngleValueType x)
+Angle<AngleValueType> ArcCos(T x)
 {
-	return ::eagine::math::acos<AngleValueType>(x);
+	return ::eagine::math::acos<AngleValueType>(AngleValueType(x));
 }
 
 /// Creates a new angle using the arc tangent function
@@ -142,10 +148,11 @@ Angle<AngleValueType> ArcCos(AngleValueType x)
  *
  *  @ingroup math_utils
  */
+template <typename T>
 inline
-Angle<AngleValueType> ArcTan(AngleValueType x)
+Angle<AngleValueType> ArcTan(T x)
 {
-	return ::eagine::math::atan<AngleValueType>(x);
+	return ::eagine::math::atan<AngleValueType>(AngleValueType(x));
 }
 
 /// Creates a new angle using the arc tangent function with 2 parameters
@@ -160,10 +167,14 @@ Angle<AngleValueType> ArcTan(AngleValueType x)
  *
  *  @ingroup math_utils
  */
+template <typename TY, typename TX>
 inline
-Angle<AngleValueType> ArcTan(AngleValueType y, AngleValueType x)
+Angle<AngleValueType> ArcTan(TY y, TX x)
 {
-	return ::eagine::math::atan2<AngleValueType>(y, x);
+	return ::eagine::math::atan2<AngleValueType>(
+		AngleValueType(y),
+		AngleValueType(x)
+	);
 }
 
 /// Returns a value on a sine wave at the specified point
