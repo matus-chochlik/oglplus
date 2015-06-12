@@ -400,7 +400,7 @@ public:
 
 		Mat4f perspective = CamMatrixf::PerspectiveX(
 			Degrees(65),
-			float(width)/height,
+			width, height,
 			1, 30
 		);
 

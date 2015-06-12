@@ -253,7 +253,7 @@ public:
 		gl.Viewport(width, height);
 		auto projection = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			float(width)/height,
+			width, height,
 			1, 50
 		);
 		proton.SetProjection(projection);

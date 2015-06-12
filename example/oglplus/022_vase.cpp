@@ -302,7 +302,7 @@ public:
 		gl.Viewport(width, height);
 		vase_prog.projection_matrix = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			float(width)/height,
+			width, height,
 			1, 30
 		);
 	}

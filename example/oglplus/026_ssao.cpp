@@ -374,7 +374,7 @@ public:
 		auto cam_proj =
 			CamMatrixf::PerspectiveX(
 				Degrees(45),
-				float(width)/height,
+				width, height,
 				cam_tgt_dist-bs_rad,
 				cam_tgt_dist+bs_rad
 			);

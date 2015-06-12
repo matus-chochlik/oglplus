@@ -277,7 +277,7 @@ public:
 		gl.Viewport(width, height);
 		Mat4f perspective = CamMatrixf::PerspectiveX(
 			Degrees(65),
-			float(width)/height,
+			width, height,
 			1, 40
 		);
 		ProgramUniform<Mat4f>(cloud_prog, "ProjectionMatrix").Set(perspective);

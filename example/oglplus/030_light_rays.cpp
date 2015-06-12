@@ -428,7 +428,7 @@ public:
 		projection =
 			CamMatrixf::PerspectiveX(
 				Degrees(70),
-				float(width)/height,
+				width, height,
 				1, 200
 			);
 
