@@ -59,7 +59,7 @@ private:
 	GLuint _check_u(GLuint value, const char* query_name)
 	{
 		OGLPLUS_HANDLE_ERROR_IF(
-			not(value < _limit()),
+			!(value < _limit()),
 			GL_INVALID_VALUE,
 			LimitError::Message(),
 			LimitError,
@@ -82,7 +82,7 @@ private:
 			EnumParam(Query, query_name)
 		);
 		OGLPLUS_HANDLE_ERROR_IF(
-			not(GLuint(value) < _limit()),
+			!(GLuint(value) < _limit()),
 			GL_INVALID_VALUE,
 			LimitError::Message(),
 			LimitError,

@@ -229,7 +229,7 @@ public:
 			GLenum(type),
 			id,
 			GLenum(severity),
-			message.size(),
+			GLsizei(message.size()),
 			message.data()
 		);
 		OGLPLUS_VERIFY_SIMPLE(DebugMessageInsertARB);

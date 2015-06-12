@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2011-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2011-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -40,8 +40,11 @@ std::vector<unsigned char> STBTTFont2D::_load_ttf(std::istream& input)
 	input.seekg(0, std::ios_base::end);
 	std::streampos size = input.tellg();
 	input.seekg(0, std::ios_base::beg);
-	std::vector<unsigned char> result(size, 0x00);
-	if(input.read((char*)result.data(), size).gcount() != size)
+	std::vector<unsigned char> result(std::size_t(size), 0x00);
+	if(input.read(
+		reinterpret_cast<char*>(result.data()),
+		size
+	).gcount() != size)
 	{
 		throw std::runtime_error("Error reading TTF input");
 	}
@@ -119,7 +122,7 @@ void STBTTFont2D::Render(
 		if(tmp_width < width_in_pixels)
 		{
 			tmp_width = width_in_pixels;
-			tmp_buffer.resize(tmp_width*tmp_height);
+			tmp_buffer.resize(std::size_t(tmp_width*tmp_height));
 		}
 		std::fill(tmp_buffer.begin(), tmp_buffer.end(), 0x00);
 
@@ -151,27 +154,50 @@ void STBTTFont2D::Render(
 
 		int gb = xo<0?-xo:0;
 		int gw = int(gb+1+(x1-x0));
-		if(gw > tmp_width) gw = tmp_width;
-		if(gw > int(buffer_width-xo)) gw = int(buffer_width-xo);
+		int bwxo = int(buffer_width)-xo;
+
+		if(gw > tmp_width)
+		{
+			gw = tmp_width;
+		}
+		if(gw > bwxo)
+		{
+			gw = bwxo;
+		}
+
 		int gy = int(std::floor(yshift));
-		if(gy < -yo) gy = -yo;
+
+		if(gy < -yo)
+		{
+			gy = -yo;
+		}
+
 		int gh = tmp_height;
-		if(gh > int(buffer_height-yo)) gh = int(buffer_height-yo);
+		int bhyo = int(buffer_height)-yo;
+
+		if(gh > bhyo)
+		{
+			gh = bhyo;
+		}
 
 		while(gy < gh)
 		{
 			int gx = gb;
 			while(gx < gw)
 			{
-				int si = gy*tmp_width+gx;
-				unsigned src = tmp_buffer[si];
+				int si = int(gy*tmp_width+gx);
+				unsigned src = tmp_buffer[std::size_t(si)];
 				if(src != 0)
 				{
-					int di = int((gy+yo)*buffer_width+gx+xo+x0);
-					unsigned dst = buffer_start[di]+src;
+					int di = (gy+yo)*int(buffer_width)+gx+xo+x0;
 
-					if(dst > 0xFF) dst = 0xFF;
-					buffer_start[di] = dst & 0xFF;
+					unsigned dst = buffer_start[std::size_t(di)]+src;
+
+					if(dst > 0xFF)
+					{
+						dst = 0xFF;
+					}
+					buffer_start[std::size_t(di)] = dst & 0xFF;
 				}
 				++gx;
 			}

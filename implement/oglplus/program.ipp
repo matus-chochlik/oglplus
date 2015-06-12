@@ -341,7 +341,7 @@ ActiveResourceContext(ProgramInterface intf) const
 	// silently ignore it here
 	OGLPLUS_GLFUNC(GetError)();
 
-	assert(not(length < 0));
+	assert(!(length < 0));
 
 	return InterfaceContext(_obj_name(), GLuint(length), GLenum(intf));
 }
@@ -366,7 +366,7 @@ ActiveResources(ProgramInterface intf) const
 		EnumParam(intf)
 	);
 
-	assert(not(count < 0));
+	assert(!(count < 0));
 
 	return ActiveResourceRange(ActiveResourceContext(intf), unsigned(count));
 }

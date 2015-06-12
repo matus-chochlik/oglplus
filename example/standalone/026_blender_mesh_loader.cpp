@@ -374,7 +374,7 @@ public:
 		indices.Bind(Buffer::Target::ElementArray);
 		Buffer::Data(Buffer::Target::ElementArray, idx_data);
 
-		element_count = idx_data.size();
+		element_count = GLuint(idx_data.size());
 
 		// find the extremes of the mesh(es)
 		GLfloat min_x = pos_data[3], max_x = pos_data[3];
@@ -396,12 +396,12 @@ public:
 
 		// position the camera target
 		camera_target = Vec3f(
-			(min_x + max_x) * 0.5,
-			(min_y + max_y) * 0.5,
-			(min_z + max_z) * 0.5
+			(min_x + max_x) * 0.5f,
+			(min_y + max_y) * 0.5f,
+			(min_z + max_z) * 0.5f
 		);
 		// and calculate a good value for camera distance
-		camera_distance = 1.1*Distance(camera_target, Vec3f(min_x, min_y, min_z))+1.0;
+		camera_distance = 1.1f*Distance(camera_target, Vec3f(min_x, min_y, min_z))+1.0f;
 
 
 		gl.ClearColor(0.17f, 0.22f, 0.17f, 0.0f);
@@ -420,7 +420,7 @@ public:
 		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
-				Aspect(),
+				float(Aspect()),
 				1, 70
 			)
 		);
@@ -437,8 +437,8 @@ public:
 		auto camera = CamMatrixf::Orbiting(
 			camera_target,
 			camera_distance,
-			-FullCircles(t / 17.0),
-			Degrees(SineWave(t / 41.0) * 85)
+			-FullCircles(float(t / 17.0)),
+			Degrees(float(SineWave(t / 41.0) * 85))
 		);
 		camera_matrix.Set(camera);
 		camera_position.Set(CameraPosition(camera));

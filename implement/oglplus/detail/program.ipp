@@ -51,7 +51,7 @@ ActiveVariableInfo::ActiveVariableInfo(
 		context.Buffer().data()
 	);
 
-	assert(not(strlen < 0));
+	assert(!(strlen < 0));
 
 	_var_name = GLString(context.Buffer().data(), std::size_t(strlen));
 }
@@ -117,7 +117,7 @@ ActiveSubroutineInfo::ActiveSubroutineInfo(
 		Index(index)
 	);
 
-	assert(not(strlen < 0));
+	assert(!(strlen < 0));
 
 	_var_name = GLString(context.Buffer().data(), std::size_t(strlen));
 }
@@ -174,7 +174,7 @@ ActiveSubroutineUniformInfo::ActiveSubroutineUniformInfo(
 		Index(index)
 	);
 
-	assert(not(strlen < 0));
+	assert(!(strlen < 0));
 
 	_var_name = GLString(context.Buffer().data(), std::size_t(strlen));
 }
@@ -231,7 +231,7 @@ ActiveUniformBlockInfo::ActiveUniformBlockInfo(
 		EnumParam(GLenum(GL_UNIFORM_BLOCK_NAME_LENGTH))
 	);
 
-	assert(not(length < 0));
+	assert(!(length < 0));
 
 	if(context.Buffer().size() < std::size_t(length))
 	{
@@ -253,7 +253,7 @@ ActiveUniformBlockInfo::ActiveUniformBlockInfo(
 		Index(index)
 	);
 
-	assert(not(strlen < 0));
+	assert(!(strlen < 0));
 
 	_var_name = GLString(context.Buffer().data(), std::size_t(strlen));
 }

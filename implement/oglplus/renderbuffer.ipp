@@ -39,7 +39,7 @@ _binding(RenderbufferTarget target)
 		EnumParam(_binding_query(target))
 	);
 
-	assert(not(name < 0));
+	assert(!(name < 0));
 	return GLuint(name);
 }
 

@@ -151,7 +151,7 @@ GLfloat BitmapGlyphFontEssence::QueryXOffsets(
 	GLuint page = BitmapGlyphPageOfCP(_parent, cps[i]);
 	GLuint cell = BitmapGlyphCellOfCP(_parent, cps[i]);
 	GLint frame = _pager.FrameOfPage(page);
-	assert(not(frame < 0));
+	assert(!(frame < 0));
 	// Logical left bearing
 	GLfloat sum = _page_storage.GetGlyphMetric(GLuint(frame), cell, 0);
 	x_offsets[i] = sum;
@@ -163,7 +163,7 @@ GLfloat BitmapGlyphFontEssence::QueryXOffsets(
 		page = BitmapGlyphPageOfCP(_parent, cps[i]);
 		cell = BitmapGlyphCellOfCP(_parent, cps[i]);
 		frame = _pager.FrameOfPage(page);
-		assert(not(frame < 0));
+		assert(!(frame < 0));
 	}
 	return sum + _page_storage.GetGlyphWidth(GLuint(frame), cell);
 }
@@ -179,7 +179,7 @@ Rectangle BitmapGlyphFontEssence::GetGlyphMetrics(
 	GLuint page = BitmapGlyphPageOfCP(_parent, code_point);
 	GLuint cell = BitmapGlyphCellOfCP(_parent, code_point);
 	GLint frame = _pager.FrameOfPage(page);
-	assert(not(frame < 0));
+	assert(!(frame < 0));
 
 	GLfloat buf[4];
 	_page_storage.QueryGlyphMetrics(GLuint(frame), cell, offs, 4, buf);

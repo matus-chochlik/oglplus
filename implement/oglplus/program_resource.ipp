@@ -71,7 +71,7 @@ ProgramResource::ProgramResource(
 			Index(_index)
 		);
 
-		assert(not(length < 0));
+		assert(!(length < 0));
 
 		_res_name.assign(context.Buffer().data(), std::size_t(length));
 	}
