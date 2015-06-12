@@ -712,7 +712,7 @@ public:
 		auto projection =
 			CamMatrixf::PerspectiveX(
 				Degrees(75),
-				double(width)/height,
+				float(width)/height,
 				1, 1000
 			);
 

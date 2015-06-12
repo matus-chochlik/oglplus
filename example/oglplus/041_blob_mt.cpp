@@ -5,7 +5,7 @@
  *
  *  @oglplus_screenshot{041_blob_mt}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -1322,7 +1322,7 @@ void SurfaceExample::Reshape(GLuint width, GLuint height)
 
 	surface_data.camera_projection = CamMatrixf::PerspectiveX(
 		Degrees(75),
-		double(width)/height,
+		float(width)/height,
 		1, 80
 	);
 }

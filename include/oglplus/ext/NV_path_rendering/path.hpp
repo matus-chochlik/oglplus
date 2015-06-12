@@ -138,10 +138,10 @@ public:
 		OGLPLUS_GLFUNC(PathCommandsNV)(
 			_obj_name(),
 			num_commands,
-			(const GLubyte*)commands,
+			reinterpret_cast<const GLubyte*>(commands),
 			num_coords,
 			GLenum(GetDataType<CoordType>()),
-			(const void*)coords
+			static_cast<const void*>(coords)
 		);
 		OGLPLUS_CHECK(
 			PathCommandsNV,
@@ -165,10 +165,10 @@ public:
 		OGLPLUS_GLFUNC(PathCommandsNV)(
 			_obj_name(),
 			GLsizei(commands.size()),
-			(const GLubyte*)commands.data(),
+			reinterpret_cast<const GLubyte*>(commands.data()),
 			GLsizei(coords.size()),
 			GLenum(GetDataType<CoordType>()),
-			(const void*)coords.data()
+			static_cast<const void*>(coords.data())
 		);
 		OGLPLUS_CHECK(
 			PathCommandsNV,
@@ -227,7 +227,7 @@ public:
 			_obj_name(),
 			GLsizei(coords.size()),
 			GLenum(GetDataType<CoordType>()),
-			(const void*)coords.data()
+			static_cast<const void*>(coords.data())
 		);
 		OGLPLUS_CHECK(
 			PathCoordsNV,
@@ -257,10 +257,10 @@ public:
 			command_start,
 			commands_to_delete,
 			num_commands,
-			(const GLubyte*)commands,
+			reinterpret_cast<const GLubyte*>(commands),
 			num_coords,
 			GLenum(GetDataType<CoordType>()),
-			(const void*)coords
+			static_cast<const void*>(coords)
 		);
 		OGLPLUS_CHECK(
 			PathSubCommandsNV,
@@ -288,10 +288,10 @@ public:
 			command_start,
 			commands_to_delete,
 			GLsizei(commands.size()),
-			(const GLubyte*)commands.data(),
+			reinterpret_cast<const GLubyte*>(commands.data()),
 			GLsizei(coords.size()),
 			GLenum(GetDataType<CoordType>()),
-			(const void*)coords.data()
+			static_cast<const void*>(coords.data())
 		);
 		OGLPLUS_CHECK(
 			PathSubCommandsNV,
@@ -366,7 +366,7 @@ public:
 			coord_start,
 			GLsizei(coords.size()),
 			GLenum(GetDataType<CoordType>()),
-			(const void*)coords
+			static_cast<const void*>(coords)
 		);
 		OGLPLUS_CHECK(
 			PathSubCoordsNV,
@@ -412,7 +412,7 @@ public:
 		OGLPLUS_GLFUNC(PathStringNV)(
 			_obj_name(),
 			GLenum(format),
-			path_string.size(),
+			GLsizei(path_string.size()),
 			static_cast<const void*>(path_string.c_str())
 		);
 		OGLPLUS_CHECK(

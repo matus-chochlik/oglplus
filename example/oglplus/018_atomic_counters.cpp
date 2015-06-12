@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{018_atomic_counters}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -195,7 +195,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
-				double(width)/height,
+				float(width)/height,
 				1, 20
 			)
 		);
@@ -208,14 +208,14 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(0.0f, 0.5f, 0.0f),
-				2.8,
+				2.8f,
 				FullCircles(time / 90.0),
 				Degrees(85)
 			)
 		);
-		vc_int.Set(SineWave(time / 5.0 - 0.25));
-		gc_int.Set(SineWave(time / 6.0));
-		fc_int.Set(SineWave(time / 7.0 + 0.25));
+		vc_int.Set(SineWave(GLfloat(time / 5.0 - 0.25)));
+		gc_int.Set(SineWave(GLfloat(time / 6.0)));
+		fc_int.Set(SineWave(GLfloat(time / 7.0 + 0.25)));
 
 		plane_instr.Draw(plane_indices);
 

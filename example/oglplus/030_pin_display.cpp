@@ -470,7 +470,7 @@ public:
 		display_prog.projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(65),
-				double(width)/height,
+				float(width)/height,
 				1, 3*side
 			)
 		);
