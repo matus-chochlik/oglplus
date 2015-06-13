@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,14 +19,10 @@
 #include <oglplus/string/ref.hpp>
 #include <oglplus/detail/enum_class.hpp>
 #include <oglplus/detail/base_range.hpp>
+#include <oglplus/utils/type_tag.hpp>
 #include <vector>
 
 namespace oglplus {
-
-/// A tag template used mainly for data-type-based function overload dispatching
-template <typename GLtype>
-struct TypeTag
-{ };
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 
@@ -110,7 +106,7 @@ inline StrCRef EnumValueName(EnumType enum_value)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 	typedef typename EnumBaseType<EnumType>::Type BaseType;
 	return ValueName_(
-		(EnumType*)nullptr,
+		&TypeTag<EnumType>(),
 		BaseType(enum_value)
 	);
 #else
@@ -126,7 +122,7 @@ inline aux::CastIterRange<
 > EnumValueRange(void)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_RANGES
-	return ValueRange_((EnumType*)nullptr);
+	return ValueRange_(&TypeTag<EnumType>());
 #else
 	const typename EnumBaseType<EnumType>::Type *x = nullptr;
 	return aux::CastIterRange<

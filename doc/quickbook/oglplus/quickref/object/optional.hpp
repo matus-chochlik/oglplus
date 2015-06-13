@@ -5,7 +5,6 @@
  */
 
 //[oglplus_object_Optional
-namespace oglplus {
 
 template <typename __Object>
 class Optional
@@ -51,6 +50,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

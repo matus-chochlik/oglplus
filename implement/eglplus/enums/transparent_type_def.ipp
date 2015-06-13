@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_NONE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined None
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_TRANSPARENT_RGB
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransparentRGB

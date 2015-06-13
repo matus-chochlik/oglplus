@@ -16,6 +16,7 @@
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/boolean.hpp>
+#include <oglplus/size_type.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/vertex_attrib_slot.hpp>
 #include <oglplus/string/ref.hpp>
@@ -26,6 +27,7 @@
 #include <oglplus/prog_var/varpara_fns.hpp>
 #include <oglplus/prog_var/set_ops.hpp>
 #include <oglplus/prog_var/wrapper.hpp>
+#include <oglplus/utils/type_tag.hpp>
 
 #include <type_traits>
 
@@ -267,23 +269,32 @@ protected:
 
 	// Functions for autodetection of values-per-vertex
 	template <typename T>
-	static GLint _get_vpv(T*) { return 1; }
+	static GLint _get_vpv(TypeTag<T>) { return 1; }
 
 	template <typename T, std::size_t N>
-	static GLint _get_vpv(Vector<T, N>*) { return N; }
+	static GLint _get_vpv(TypeTag<Vector<T, N>>) { return N; }
 
 	template <typename T, std::size_t Rows, std::size_t Cols>
-	static GLint _get_vpv(Matrix<T, Rows, Cols>*) { return Rows*Cols; }
+	static GLint _get_vpv(TypeTag<Matrix<T, Rows, Cols>>) { return Rows*Cols; }
 
 	// Functions for autodetection of element type
 	template <typename T>
-	static T _get_et(T* p);
+	static T _get_et(TypeTag<T>);
 
 	template <typename T, std::size_t N>
-	static T _get_et(Vector<T, N>*);
+	static T _get_et(TypeTag<Vector<T, N>>);
 
 	template <typename T, std::size_t Rows, std::size_t Cols>
-	static T _get_et(Matrix<T, Rows, Cols>*);
+	static T _get_et(TypeTag<Matrix<T, Rows, Cols>>);
+
+	GLuint _attrib_index(void) const
+	{
+		if(this->_location < 0)
+		{
+			return GL_INVALID_INDEX;
+		}
+		return GLuint(this->_location);
+	}
 public:
 	void Bind(StrCRef identifier)
 	{
@@ -304,7 +315,7 @@ public:
 	void Divisor(GLuint divisor) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribDivisor)(
-			_location,
+			_attrib_index(),
 			divisor
 		);
 		OGLPLUS_CHECK_SIMPLE(VertexAttribDivisor);
@@ -383,6 +394,15 @@ OGLPLUS_DECLARE_PROG_VAR(
 class VertexArrayAttrib
  : public ProgVarCommonOps<tag::VertexAttrib>
 {
+private:
+	GLuint _attrib_index(void) const
+	{
+		if(this->_location < 0)
+		{
+			return GL_INVALID_INDEX;
+		}
+		return GLuint(this->_location);
+	}
 public:
 	/// References the vertex attribute array at @p location
 	/**
@@ -542,10 +562,10 @@ public:
 	template <typename T>
 	const VertexArrayAttrib& Setup(GLuint n = 1) const
 	{
-		typedef decltype(_get_et((T*)nullptr)) elem_type;
+		typedef decltype(_get_et(TypeTag<T>())) elem_type;
 
 		return Setup(
-			_get_vpv((T*)nullptr)*n,
+			_get_vpv(TypeTag<T>())*GLint(n),
 			typename DataTypeCT<elem_type>::type()
 		);
 	}
@@ -559,12 +579,12 @@ public:
 		GLint values_per_vertex,
 		DataType data_type,
 		Boolean normalized,
-		GLsizei stride,
+		SizeType stride,
 		const void* pointer
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribPointer)(
-			_location,
+			_attrib_index(),
 			values_per_vertex,
 			GLenum(data_type),
 			normalized._get(),
@@ -586,14 +606,14 @@ public:
 	 *  @glfunref{VertexAttribPointer}
 	 */
 	const VertexArrayAttrib& IPointer(
-		GLuint values_per_vertex,
+		GLint values_per_vertex,
 		DataType data_type,
-		GLsizei stride,
+		SizeType stride,
 		const void* pointer
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribIPointer)(
-			_location,
+			_attrib_index(),
 			values_per_vertex,
 			GLenum(data_type),
 			stride,
@@ -616,14 +636,14 @@ public:
 	 *  @glfunref{VertexAttribPointer}
 	 */
 	const VertexArrayAttrib& LPointer(
-		GLuint values_per_vertex,
+		GLint values_per_vertex,
 		DataType data_type,
-		GLsizei stride,
+		SizeType stride,
 		const void* pointer
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribLPointer)(
-			_location,
+			_attrib_index(),
 			values_per_vertex,
 			GLenum(data_type),
 			stride,
@@ -638,9 +658,9 @@ public:
 	}
 #else
 	const VertexArrayAttrib& LPointer(
-		GLuint,
+		GLint,
 		DataType,
-		GLsizei,
+		SizeType,
 		const void*
 	) const
 	{
@@ -667,7 +687,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribFormat)(
-			_location,
+			_attrib_index(),
 			values_per_vertex,
 			GLenum(data_type),
 			normalized._get(),
@@ -694,7 +714,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribIFormat)(
-			_location,
+			_attrib_index(),
 			values_per_vertex,
 			GLenum(data_type),
 			relative_offset
@@ -720,7 +740,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribLFormat)(
-			_location,
+			_attrib_index(),
 			values_per_vertex,
 			GLenum(data_type),
 			relative_offset
@@ -742,7 +762,7 @@ public:
 	 */
 	const VertexArrayAttrib& Enable(void) const
 	{
-		OGLPLUS_GLFUNC(EnableVertexAttribArray)(_location);
+		OGLPLUS_GLFUNC(EnableVertexAttribArray)(_attrib_index());
 		OGLPLUS_VERIFY(
 			EnableVertexArrayAttrib,
 			Error,
@@ -758,7 +778,7 @@ public:
 	 */
 	const VertexArrayAttrib& Disable(void) const
 	{
-		OGLPLUS_GLFUNC(DisableVertexAttribArray)(_location);
+		OGLPLUS_GLFUNC(DisableVertexAttribArray)(_attrib_index());
 		OGLPLUS_VERIFY(
 			DisableVertexArrayAttrib,
 			Error,

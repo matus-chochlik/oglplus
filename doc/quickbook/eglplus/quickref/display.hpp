@@ -5,7 +5,6 @@
  */
 
 //[eglplus_display
-namespace eglplus {
 
 class Display
 {
@@ -20,12 +19,12 @@ public:
 	See [eglfunc GetDisplay].
 	>*/
 
-	bool SwapInterval(EGLint interval); /*<
+	__Boolean SwapInterval(EGLint interval); /*<
 	Sets the SwapInterval for [^this] display.
 	See [eglfunc SwapInterval].
 	>*/
 
-	bool ReleaseContext(void); /*<
+	__Boolean ReleaseContext(void); /*<
 	Releases the current context without assigning a new one.
 	See [eglfunc MakeCurrent].
 	>*/
@@ -36,6 +35,5 @@ noexcept; /*<
 Returns the EGL display handle wrapped by a __Display.
 >*/
 
-} // namespace eglplus
 //]
 

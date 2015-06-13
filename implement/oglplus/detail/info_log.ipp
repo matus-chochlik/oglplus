@@ -36,7 +36,7 @@ String GetInfoLog(
 	if(length > 0)
 	{
 		GLsizei real_length = 0;
-		std::vector<GLchar> buffer(length);
+		std::vector<GLchar> buffer((std::size_t(length)));
 		GetObjectInfoLog(
 			object_name,
 			GLsizei(buffer.size()),

@@ -712,7 +712,7 @@ public:
 
 		auto projection = CamMatrixf::PerspectiveX(
 			Degrees(65),
-			float(width)/height,
+			width, height,
 			1.0, 100.0
 		);
 		metal_prog.projection_matrix.Set(projection);

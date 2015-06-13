@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_READ_ONLY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ReadOnly
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_WRITE_ONLY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined WriteOnly
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_READ_WRITE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ReadWrite

@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{031_fog}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -599,7 +599,7 @@ public:
 		sky_prog.projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(75),
-				double(width)/height,
+				width, height,
 				1, 2000
 			)
 		);
@@ -608,7 +608,7 @@ public:
 		draw_prog.projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(75),
-				double(width)/height,
+				width, height,
 				1, 200
 			)
 		);

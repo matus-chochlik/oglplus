@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
-#  Copyright 2014 Matus Chochlik. Distributed under the Boost
+#  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -222,7 +222,6 @@ def action_qbk_hpp(options):
 
 	print_cpp_header(options)
 	print_line(options, "//[%s_enums_%s" % (options.library, options.output_id))
-	print_line(options, "namespace %s {" % options.library)
 	print_newline(options)
 	print_line(options, "enum class %s : %s%s" % (
 		options.enum_name,
@@ -272,7 +271,6 @@ def action_qbk_hpp(options):
 			)
 		)
 		print_newline(options)
-	print_line(options, "} // namespace %s" % options.library)
 	print_line(options, "//]")
 
 def action_incl_enum_hpp(options):
@@ -391,7 +389,7 @@ def action_impl_enum_def_ipp(options):
 	for item in items:
 
 		print_line(options, "#if defined %s_%s" % (item.prefix, item.src_name))
-		print_line(options, "# if %s_LIST_NEEDS_COMMA" % options.library_uc)
+		print_line(options, "# ifdef %s_LIST_NEEDS_COMMA" % options.library_uc)
 		print_line(options, "   %s_ENUM_CLASS_COMMA" % options.library_uc)
 		print_line(options, "# endif")
 
@@ -625,6 +623,7 @@ def action_impl_enum_type_ipp(options):
 	for item in items:
 		try:
 			if item.assoc_type:
+				print_line(options, "#if defined %s_%s" % (item.prefix, item.src_name))
 				print_line(options, "template <>")
 				print_line(options, "struct EnumAssocType<%s, %s::%s>" % (
 					options.enum_name,
@@ -632,6 +631,7 @@ def action_impl_enum_type_ipp(options):
 					item.dst_name
 				))
 				print_line(options, "{ typedef %s Type; };" % (item.assoc_type))
+				print_line(options, "#endif")
 		except AttributeError:
 			pass
 

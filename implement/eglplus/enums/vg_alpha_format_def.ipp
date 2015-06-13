@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_VG_ALPHA_FORMAT_PRE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Pre
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_VG_ALPHA_FORMAT_NONPRE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined NonPre

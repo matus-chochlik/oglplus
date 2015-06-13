@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,12 +16,10 @@ OGLPLUS_LIB_FUNC
 Sphere::IndexArray
 Sphere::Indices(Sphere::Default) const
 {
-	assert((1<<(sizeof(GLushort)*8))-1>=((_rings+2)*(_sections+1)));
-	//
 #ifdef GL_PRIMITIVE_RESTART
 	const unsigned n = (_rings + 1)*(2 * (_sections + 1) + 1);
 #else
-    const unsigned n = (_rings + 1)*(2 * (_sections + 1) + 2);
+	const unsigned n = (_rings + 1)*(2 * (_sections + 1) + 2);
 #endif
 	//
 	IndexArray indices(n);
@@ -39,8 +37,8 @@ Sphere::Indices(Sphere::Default) const
 #ifdef GL_PRIMITIVE_RESTART
 		indices[k++] = n;
 #else
-        indices[k++] = offs + _sections;
-        indices[k++] = offs;
+		indices[k++] = offs + _sections;
+		indices[k++] = offs;
 #endif
 	}
 	assert(k == indices.size());
@@ -69,7 +67,7 @@ Sphere::Instructions(Sphere::Default) const
 #ifdef GL_PRIMITIVE_RESTART
 	operation.restart_index = n;
 #else
-    operation.restart_index = DrawOperation::NoRestartIndex();
+	operation.restart_index = DrawOperation::NoRestartIndex();
 #endif
 	operation.phase = 0;
 	this->AddInstruction(instructions, operation);

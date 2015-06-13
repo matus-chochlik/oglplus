@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -22,8 +22,8 @@ namespace images {
 
 OGLPLUS_LIB_FUNC
 BaseMetaballs::BaseMetaballs(
-	GLsizei width,
-	GLsizei height,
+	SizeType width,
+	SizeType height,
 	const GLfloat* balls,
 	std::size_t size,
 	std::size_t n
@@ -32,7 +32,7 @@ BaseMetaballs::BaseMetaballs(
 	height,
 	1,
 	1,
-	(GLfloat*)nullptr,
+	&TypeTag<GLfloat>(),
 	PixelDataFormat::Red,
 	PixelDataInternalFormat::R32F
 )
@@ -44,12 +44,12 @@ BaseMetaballs::BaseMetaballs(
 
 	for(GLsizei y=0; y!=height; ++y)
 	{
-		const GLfloat j = (y+0.5f)/height;
+		const GLfloat j = (y+0.5f)/GLfloat(height);
 
 		for(GLsizei x=0; x!=width; ++x)
 		{
 			GLfloat v = 0.0f;
-			const GLfloat i = (x+0.5f)/width;
+			const GLfloat i = (x+0.5f)/GLfloat(width);
 			const Vec2f p(i, j);
 
 			for(std::size_t b=0; b!=size; b+=n)
@@ -74,7 +74,7 @@ BaseMetaballs::BaseMetaballs(
 						else r += 0.25f*r*w;
 					}
 
-					float t = (r*r/Dot(d,d))-0.25;
+					float t = (r*r/Dot(d,d))-0.25f;
 					v += (t>0.0f)?t:0.0f;
 				}
 			}
@@ -108,8 +108,8 @@ std::vector<GLfloat> RandomMetaballs::_make_balls(
 
 OGLPLUS_LIB_FUNC
 RandomMetaballs::RandomMetaballs(
-	GLsizei width,
-	GLsizei height,
+	SizeType width,
+	SizeType height,
 	std::size_t count,
 	GLfloat rad_min,
 	GLfloat rad_max
@@ -154,8 +154,8 @@ std::vector<GLfloat> RandomMetastars::_make_stars(
 
 OGLPLUS_LIB_FUNC
 RandomMetastars::RandomMetastars(
-	GLsizei width,
-	GLsizei height,
+	SizeType width,
+	SizeType height,
 	std::size_t count,
 	GLfloat rad_min,
 	GLfloat rad_max,

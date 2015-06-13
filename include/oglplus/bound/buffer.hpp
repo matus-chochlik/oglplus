@@ -5,7 +5,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -65,7 +65,7 @@ public:
 	/** Wrapper for Buffer::Mapped()
 	 *  @see Buffer::Mapped()
 	 */
-	bool Mapped(void) const
+	Boolean Mapped(void) const
 	{
 		return ExplicitOps::Mapped(
 			this->target
@@ -93,9 +93,45 @@ public:
 	/** Wrapper for Buffer::Data()
 	 *  @see Buffer::Data()
 	 */
+	const BoundObjOps& Data(
+		const BufferData & data,
+		BufferUsage usage = BufferUsage::StaticDraw
+	) const
+	{
+		ExplicitOps::Data(
+			this->target,
+			data,
+			usage
+		);
+		return *this;
+	}
+
+
+	/** Wrapper for Buffer::RawData()
+	 *  @see Buffer::RawData()
+	 */
+	const BoundObjOps& RawData(
+		BufferSize size,
+		const GLvoid * data,
+		BufferUsage usage = BufferUsage::StaticDraw
+	) const
+	{
+		ExplicitOps::RawData(
+			this->target,
+			size,
+			data,
+			usage
+		);
+		return *this;
+	}
+
+
+	/** Wrapper for Buffer::Data()
+	 *  @see Buffer::Data()
+	 */
 	template <typename GLtype>
 	const BoundObjOps& Data(
-		GLsizei count,
+		SizeType count,
 		const GLtype * data,
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
@@ -110,55 +146,18 @@ public:
 	}
 
 
-	/** Wrapper for Buffer::Data()
-	 *  @see Buffer::Data()
+	/** Wrapper for Buffer::SubData()
+	 *  @see Buffer::SubData()
 	 */
-	template <typename GLtype, std::size_t Count>
-	const BoundObjOps& Data(
-		const GLtype (&data)[Count],
-		BufferUsage usage = BufferUsage::StaticDraw
+	const BoundObjOps& SubData(
+		BufferSize offset,
+		const BufferData & data
 	) const
 	{
-		ExplicitOps::Data(
+		ExplicitOps::SubData(
 			this->target,
-			data,
-			usage
-		);
-		return *this;
-	}
-
-
-	/** Wrapper for Buffer::Data()
-	 *  @see Buffer::Data()
-	 */
-	template <typename GLtype>
-	const BoundObjOps& Data(
-		const std::vector< GLtype > & data,
-		BufferUsage usage = BufferUsage::StaticDraw
-	) const
-	{
-		ExplicitOps::Data(
-			this->target,
-			data,
-			usage
-		);
-		return *this;
-	}
-
-
-	/** Wrapper for Buffer::Data()
-	 *  @see Buffer::Data()
-	 */
-	template <typename GLtype, std::size_t N>
-	const BoundObjOps& Data(
-		const std::vector< Vector< GLtype, N > > & data,
-		BufferUsage usage = BufferUsage::StaticDraw
-	) const
-	{
-		ExplicitOps::Data(
-			this->target,
-			data,
-			usage
+			offset,
+			data
 		);
 		return *this;
 	}
@@ -170,7 +169,7 @@ public:
 	template <typename GLtype>
 	const BoundObjOps& SubData(
 		BufferSize offset,
-		GLsizei count,
+		SizeType count,
 		const GLtype * data
 	) const
 	{
@@ -178,42 +177,6 @@ public:
 			this->target,
 			offset,
 			count,
-			data
-		);
-		return *this;
-	}
-
-
-	/** Wrapper for Buffer::SubData()
-	 *  @see Buffer::SubData()
-	 */
-	template <typename GLtype, std::size_t Count>
-	const BoundObjOps& SubData(
-		BufferSize offset,
-		const GLtype (&data)[Count]
-	) const
-	{
-		ExplicitOps::SubData(
-			this->target,
-			offset,
-			data
-		);
-		return *this;
-	}
-
-
-	/** Wrapper for Buffer::SubData()
-	 *  @see Buffer::SubData()
-	 */
-	template <typename GLtype>
-	const BoundObjOps& SubData(
-		BufferSize offset,
-		const std::vector< GLtype > & data
-	) const
-	{
-		ExplicitOps::SubData(
-			this->target,
-			offset,
 			data
 		);
 		return *this;
@@ -267,7 +230,23 @@ public:
 	}
 #endif // GL_VERSION_4_3
 
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_buffer_storage
+	/** Wrapper for Buffer::Storage()
+	 *  @see Buffer::Storage()
+	 */
+	const BoundObjOps& Storage(
+		const BufferData & data,
+		Bitfield< BufferStorageBit > flags
+	) const
+	{
+		ExplicitOps::Storage(
+			this->target,
+			data,
+			flags
+		);
+		return *this;
+	}
 
 	/** Wrapper for Buffer::Storage()
 	 *  @see Buffer::Storage()
@@ -293,7 +272,7 @@ public:
 	/** Wrapper for Buffer::ImmutableStorage()
 	 *  @see Buffer::ImmutableStorage()
 	 */
-	bool ImmutableStorage(void) const
+	Boolean ImmutableStorage(void) const
 	{
 		return ExplicitOps::ImmutableStorage(
 			this->target
@@ -314,11 +293,32 @@ public:
 	}
 #endif // GL_VERSION_4_4 GL_ARB_buffer_storage
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_sparse_buffer
+
+	/** Wrapper for Buffer::PageCommitment()
+	 *  @see Buffer::PageCommitment()
+	 */
+	const BoundObjOps& PageCommitment(
+		BufferSize offset,
+		BufferSize size,
+		Boolean commit
+	) const
+	{
+		ExplicitOps::PageCommitment(
+			this->target,
+			offset,
+			size,
+			commit
+		);
+		return *this;
+	}
+#endif // GL_ARB_sparse_buffer
+
 
 	/** Wrapper for Buffer::Size()
 	 *  @see Buffer::Size()
 	 */
-	GLsizei Size(void) const
+	SizeType Size(void) const
 	{
 		return ExplicitOps::Size(
 			this->target

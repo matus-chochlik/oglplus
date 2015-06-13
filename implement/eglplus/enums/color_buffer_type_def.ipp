@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_RGB_BUFFER
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RGBBuffer
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_LUMINANCE_BUFFER
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LuminanceBuffer

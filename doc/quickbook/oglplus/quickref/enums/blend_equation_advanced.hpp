@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_blend_equation_advanced
-namespace oglplus {
 
 enum class BlendEquationAdvanced : GLenum
 {
@@ -36,5 +35,4 @@ __Range<BlendEquationAdvanced> __EnumValueRange<BlendEquationAdvanced>(void);
 
 __StrCRef __EnumValueName(BlendEquationAdvanced);
 
-} // namespace oglplus
 //]

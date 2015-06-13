@@ -14,6 +14,22 @@ The implementation details, i.e. parts of of OALplus not listed in this
 reference should not be used by the library users and are subject to
 change without any prior notice.
 
+Unless stated otherwise, all OALplus definitions are made inside of the
+top-level [^oalplus] namespace or in namespaces nested inside
+of namespace [^oalplus].
+
+The namespace-definition opening,
+
+``
+namespace oalplus {
+``
+and closing,
+
+``
+} // namespace oalplus
+``
+statements are assumed, but omitted for the sake of brevity from this reference.
+
 [endsect]
 
 [include quickref/string.qbk]
@@ -42,3 +58,4 @@ change without any prior notice.
 [include quickref/alut.qbk]
 
 [include quickref/math.qbk]
+[include quickref/boolean.qbk]

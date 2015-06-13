@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_MAX_3D_TEXTURE_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Max3DTextureSize
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_MAX_ARRAY_TEXTURE_LAYERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxArrayTextureLayers
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxAtomicCounterBufferBindings
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_MAX_ATOMIC_COUNTER_BUFFER_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxAtomicCounterBufferSize
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_MAX_CLIP_DISTANCES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxClipDistances
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_MAX_CULL_DISTANCES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCullDistances
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMBINED_CLIP_AND_CULL_DISTANCES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCombinedClipAndCullDistances
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_MAX_COLOR_ATTACHMENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxColorAttachments
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_MAX_COLOR_TEXTURE_SAMPLES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxColorTextureSamples
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMBINED_ATOMIC_COUNTER_BUFFERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCombinedAtomicCounterBuffers
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMBINED_ATOMIC_COUNTERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCombinedAtomicCounters
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCombinedFragmentUniformComponents
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMBINED_GEOMETRY_UNIFORM_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCombinedGeometryUniformComponents
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMBINED_IMAGE_UNIFORMS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCombinedImageUniforms
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMBINED_IMAGE_UNITS_AND_FRAGMENT_OUTPUTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCombinedImageUnitsAndFragmentOutputs
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMBINED_TESS_CONTROL_UNIFORM_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCombinedTessControlUniformComponents
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMBINED_TESS_EVALUATION_UNIFORM_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCombinedTessEvaluationUniformComponents
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCombinedTextureImageUnits
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMBINED_UNIFORM_BLOCKS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCombinedUniformBlocks
@@ -318,7 +318,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCombinedVertexUniformComponents
@@ -334,7 +334,7 @@
 # endif
 #endif
 #if defined GL_MAX_CUBE_MAP_TEXTURE_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxCubeMapTextureSize
@@ -350,7 +350,7 @@
 # endif
 #endif
 #if defined GL_MAX_DEPTH_TEXTURE_SAMPLES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxDepthTextureSamples
@@ -366,7 +366,7 @@
 # endif
 #endif
 #if defined GL_MAX_DRAW_BUFFERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxDrawBuffers
@@ -382,7 +382,7 @@
 # endif
 #endif
 #if defined GL_MAX_DUAL_SOURCE_DRAW_BUFFERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxDualSourceDrawBuffers
@@ -398,7 +398,7 @@
 # endif
 #endif
 #if defined GL_MAX_ELEMENTS_INDICES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxElementsIndices
@@ -414,7 +414,7 @@
 # endif
 #endif
 #if defined GL_MAX_ELEMENTS_VERTICES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxElementsVertices
@@ -430,7 +430,7 @@
 # endif
 #endif
 #if defined GL_MAX_FRAGMENT_ATOMIC_COUNTER_BUFFERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxFragmentAtomicCounterBuffers
@@ -446,7 +446,7 @@
 # endif
 #endif
 #if defined GL_MAX_FRAGMENT_ATOMIC_COUNTERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxFragmentAtomicCounters
@@ -462,7 +462,7 @@
 # endif
 #endif
 #if defined GL_MAX_FRAGMENT_IMAGE_UNIFORMS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxFragmentImageUniforms
@@ -478,7 +478,7 @@
 # endif
 #endif
 #if defined GL_MAX_FRAGMENT_INPUT_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxFragmentInputComponents
@@ -494,7 +494,7 @@
 # endif
 #endif
 #if defined GL_MAX_FRAGMENT_INTERPOLATION_OFFSET
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxFragmentInterpolationOffset
@@ -510,7 +510,7 @@
 # endif
 #endif
 #if defined GL_MAX_FRAGMENT_UNIFORM_BLOCKS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxFragmentUniformBlocks
@@ -526,7 +526,7 @@
 # endif
 #endif
 #if defined GL_MAX_FRAGMENT_UNIFORM_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxFragmentUniformComponents
@@ -542,7 +542,7 @@
 # endif
 #endif
 #if defined GL_MAX_FRAGMENT_UNIFORM_VECTORS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxFragmentUniformVectors
@@ -558,7 +558,7 @@
 # endif
 #endif
 #if defined GL_MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxGeometryAtomicCounterBuffers
@@ -574,7 +574,7 @@
 # endif
 #endif
 #if defined GL_MAX_GEOMETRY_ATOMIC_COUNTERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxGeometryAtomicCounters
@@ -590,7 +590,7 @@
 # endif
 #endif
 #if defined GL_MAX_GEOMETRY_IMAGE_UNIFORMS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxGeometryImageUniforms
@@ -606,7 +606,7 @@
 # endif
 #endif
 #if defined GL_MAX_GEOMETRY_INPUT_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxGeometryInputComponents
@@ -622,7 +622,7 @@
 # endif
 #endif
 #if defined GL_MAX_GEOMETRY_OUTPUT_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxGeometryOutputComponents
@@ -638,7 +638,7 @@
 # endif
 #endif
 #if defined GL_MAX_GEOMETRY_OUTPUT_VERTICES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxGeometryOutputVertices
@@ -654,7 +654,7 @@
 # endif
 #endif
 #if defined GL_MAX_GEOMETRY_SHADER_INVOCATIONS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxGeometryShaderInvocations
@@ -670,7 +670,7 @@
 # endif
 #endif
 #if defined GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxGeometryTextureImageUnits
@@ -686,7 +686,7 @@
 # endif
 #endif
 #if defined GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxGeometryTotalOutputComponents
@@ -702,7 +702,7 @@
 # endif
 #endif
 #if defined GL_MAX_GEOMETRY_UNIFORM_BLOCKS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxGeometryUniformBlocks
@@ -718,7 +718,7 @@
 # endif
 #endif
 #if defined GL_MAX_GEOMETRY_UNIFORM_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxGeometryUniformComponents
@@ -734,7 +734,7 @@
 # endif
 #endif
 #if defined GL_MAX_IMAGE_SAMPLES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxImageSamples
@@ -750,7 +750,7 @@
 # endif
 #endif
 #if defined GL_MAX_IMAGE_UNITS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxImageUnits
@@ -766,7 +766,7 @@
 # endif
 #endif
 #if defined GL_MAX_INTEGER_SAMPLES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxIntegerSamples
@@ -782,7 +782,7 @@
 # endif
 #endif
 #if defined GL_MAX_PATCH_VERTICES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxPatchVertices
@@ -798,7 +798,7 @@
 # endif
 #endif
 #if defined GL_MAX_PROGRAM_TEXEL_OFFSET
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxProgramTexelOffset
@@ -814,7 +814,7 @@
 # endif
 #endif
 #if defined GL_MAX_PROGRAM_TEXTURE_GATHER_OFFSET
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxProgramTextureGatherOffset
@@ -830,7 +830,7 @@
 # endif
 #endif
 #if defined GL_MAX_RECTANGLE_TEXTURE_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxRectangleTextureSize
@@ -846,7 +846,7 @@
 # endif
 #endif
 #if defined GL_MAX_RENDERBUFFER_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxRenderbufferSize
@@ -862,7 +862,7 @@
 # endif
 #endif
 #if defined GL_MAX_SAMPLE_MASK_WORDS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxSampleMaskWords
@@ -878,7 +878,7 @@
 # endif
 #endif
 #if defined GL_MAX_SAMPLES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxSamples
@@ -894,7 +894,7 @@
 # endif
 #endif
 #if defined GL_MAX_SERVER_WAIT_TIMEOUT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxServerWaitTimeout
@@ -910,7 +910,7 @@
 # endif
 #endif
 #if defined GL_MAX_SUBROUTINES
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxSubroutines
@@ -926,7 +926,7 @@
 # endif
 #endif
 #if defined GL_MAX_SUBROUTINE_UNIFORM_LOCATIONS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxSubroutineUniformLocations
@@ -942,7 +942,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessControlAtomicCounterBuffers
@@ -958,7 +958,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_CONTROL_ATOMIC_COUNTERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessControlAtomicCounters
@@ -974,7 +974,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_CONTROL_IMAGE_UNIFORMS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessControlImageUniforms
@@ -990,7 +990,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_CONTROL_INPUT_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessControlInputComponents
@@ -1006,7 +1006,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_CONTROL_OUTPUT_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessControlOutputComponents
@@ -1022,7 +1022,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessControlTextureImageUnits
@@ -1038,7 +1038,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_CONTROL_TOTAL_OUTPUT_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessControlTotalOutputComponents
@@ -1054,7 +1054,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessControlUniformBlocks
@@ -1070,7 +1070,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_CONTROL_UNIFORM_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessControlUniformComponents
@@ -1086,7 +1086,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessEvaluationAtomicCounterBuffers
@@ -1102,7 +1102,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_EVALUATION_ATOMIC_COUNTERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessEvaluationAtomicCounters
@@ -1118,7 +1118,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_EVALUATION_IMAGE_UNIFORMS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessEvaluationImageUniforms
@@ -1134,7 +1134,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_EVALUATION_INPUT_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessEvaluationInputComponents
@@ -1150,7 +1150,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_EVALUATION_OUTPUT_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessEvaluationOutputComponents
@@ -1166,7 +1166,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessEvaluationTextureImageUnits
@@ -1182,7 +1182,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessEvaluationUniformBlocks
@@ -1198,7 +1198,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_EVALUATION_UNIFORM_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessEvaluationUniformComponents
@@ -1214,7 +1214,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_GEN_LEVEL
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessGenLevel
@@ -1230,7 +1230,7 @@
 # endif
 #endif
 #if defined GL_MAX_TESS_PATCH_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTessPatchComponents
@@ -1246,7 +1246,7 @@
 # endif
 #endif
 #if defined GL_MAX_TEXTURE_BUFFER_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTextureBufferSize
@@ -1262,7 +1262,7 @@
 # endif
 #endif
 #if defined GL_MAX_TEXTURE_IMAGE_UNITS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTextureImageUnits
@@ -1278,7 +1278,7 @@
 # endif
 #endif
 #if defined GL_MAX_TEXTURE_LOD_BIAS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTextureLodBias
@@ -1294,7 +1294,7 @@
 # endif
 #endif
 #if defined GL_MAX_TEXTURE_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTextureSize
@@ -1310,7 +1310,7 @@
 # endif
 #endif
 #if defined GL_MAX_TRANSFORM_FEEDBACK_BUFFERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTransformFeedbackBuffers
@@ -1326,7 +1326,7 @@
 # endif
 #endif
 #if defined GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTransformFeedbackInterleavedComponents
@@ -1342,7 +1342,7 @@
 # endif
 #endif
 #if defined GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTransformFeedbackSeparateAttribs
@@ -1358,7 +1358,7 @@
 # endif
 #endif
 #if defined GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxTransformFeedbackSeparateComponents
@@ -1374,7 +1374,7 @@
 # endif
 #endif
 #if defined GL_MAX_UNIFORM_BLOCK_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxUniformBlockSize
@@ -1390,7 +1390,7 @@
 # endif
 #endif
 #if defined GL_MAX_UNIFORM_BUFFER_BINDINGS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxUniformBufferBindings
@@ -1406,7 +1406,7 @@
 # endif
 #endif
 #if defined GL_MAX_VARYING_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxVaryingComponents
@@ -1422,7 +1422,7 @@
 # endif
 #endif
 #if defined GL_MAX_VARYING_VECTORS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxVaryingVectors
@@ -1438,7 +1438,7 @@
 # endif
 #endif
 #if defined GL_MAX_VERTEX_ATOMIC_COUNTER_BUFFERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxVertexAtomicCounterBuffers
@@ -1454,7 +1454,7 @@
 # endif
 #endif
 #if defined GL_MAX_VERTEX_ATOMIC_COUNTERS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxVertexAtomicCounters
@@ -1470,7 +1470,7 @@
 # endif
 #endif
 #if defined GL_MAX_VERTEX_ATTRIBS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxVertexAttribs
@@ -1486,7 +1486,7 @@
 # endif
 #endif
 #if defined GL_MAX_VERTEX_IMAGE_UNIFORMS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxVertexImageUniforms
@@ -1502,7 +1502,7 @@
 # endif
 #endif
 #if defined GL_MAX_VERTEX_OUTPUT_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxVertexOutputComponents
@@ -1518,7 +1518,7 @@
 # endif
 #endif
 #if defined GL_MAX_VERTEX_STREAMS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxVertexStreams
@@ -1534,7 +1534,7 @@
 # endif
 #endif
 #if defined GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxVertexTextureImageUnits
@@ -1550,7 +1550,7 @@
 # endif
 #endif
 #if defined GL_MAX_VERTEX_UNIFORM_BLOCKS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxVertexUniformBlocks
@@ -1566,7 +1566,7 @@
 # endif
 #endif
 #if defined GL_MAX_VERTEX_UNIFORM_COMPONENTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxVertexUniformComponents
@@ -1582,7 +1582,7 @@
 # endif
 #endif
 #if defined GL_MAX_VERTEX_UNIFORM_VECTORS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxVertexUniformVectors
@@ -1598,7 +1598,7 @@
 # endif
 #endif
 #if defined GL_MAX_VIEWPORT_DIMS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxViewportDims
@@ -1614,7 +1614,7 @@
 # endif
 #endif
 #if defined GL_MAX_VIEWPORTS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxViewports
@@ -1630,7 +1630,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMPUTE_WORK_GROUP_COUNT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxComputeWorkGroupCount
@@ -1646,7 +1646,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMPUTE_WORK_GROUP_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxComputeWorkGroupSize
@@ -1662,7 +1662,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMPUTE_WORK_GROUP_INVOCATIONS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxComputeWorkGroupInvocations
@@ -1678,7 +1678,7 @@
 # endif
 #endif
 #if defined GL_MAX_COMPUTE_SHARED_MEMORY_SIZE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxComputeSharedMemorySize
@@ -1694,7 +1694,7 @@
 # endif
 #endif
 #if defined GL_MIN_FRAGMENT_INTERPOLATION_OFFSET
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MinFragmentInterpolationOffset
@@ -1710,7 +1710,7 @@
 # endif
 #endif
 #if defined GL_MIN_MAP_BUFFER_ALIGNMENT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MinMapBufferAlignment
@@ -1726,7 +1726,7 @@
 # endif
 #endif
 #if defined GL_MIN_PROGRAM_TEXEL_OFFSET
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MinProgramTexelOffset
@@ -1742,7 +1742,7 @@
 # endif
 #endif
 #if defined GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MinProgramTextureGatherOffset

@@ -5,7 +5,6 @@
  */
 
 //[eglplus_config_attribs
-namespace eglplus {
 
 typedef __AttributeList<__ConfigAttrib, ...> ConfigAttribs; /*<
 Attribute list type for config attributes.
@@ -91,7 +90,7 @@ public:
 	See [eglfunc GetConfigAttrib], [eglconst MAX_SWAP_INTERVAL].
 	>*/
 
-	bool NativeRenderable(void) const; /*<
+	__Boolean NativeRenderable(void) const; /*<
 	Returns true if native rendering API can render to surface.
 	See [eglfunc GetConfigAttrib], [eglconst NATIVE_RENDERABLE].
 	>*/
@@ -172,6 +171,5 @@ public:
 	>*/
 };
 
-} // namespace eglplus
 //]
 

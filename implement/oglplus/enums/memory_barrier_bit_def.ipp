@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VertexAttribArray
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_ELEMENT_ARRAY_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ElementArray
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_UNIFORM_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Uniform
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_FETCH_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TextureFetch
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_SHADER_IMAGE_ACCESS_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ShaderImageAccess
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_COMMAND_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Command
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_PIXEL_BUFFER_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined PixelBuffer
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_UPDATE_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TextureUpdate
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_BUFFER_UPDATE_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BufferUpdate
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Framebuffer
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_TRANSFORM_FEEDBACK_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransformFeedback
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_ATOMIC_COUNTER_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AtomicCounter
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_SHADER_STORAGE_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ShaderStorage
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_CLIENT_MAPPED_BUFFER_BARRIER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ClientMappedBuffer
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_ALL_BARRIER_BITS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined All

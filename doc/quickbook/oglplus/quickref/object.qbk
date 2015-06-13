@@ -17,6 +17,7 @@
 [include object/optional.qbk]
 [include object/reference.qbk]
 [include object/sequence.qbk]
+[include object/array.qbk]
 [include object/group.qbk]
 
 [endsect]

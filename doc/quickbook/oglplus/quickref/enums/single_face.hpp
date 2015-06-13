@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_single_face
-namespace oglplus {
 
 enum class SingleFace : GLenum
 {
@@ -23,5 +22,4 @@ __Range<SingleFace> __EnumValueRange<SingleFace>(void);
 
 __StrCRef __EnumValueName(SingleFace);
 
-} // namespace oglplus
 //]

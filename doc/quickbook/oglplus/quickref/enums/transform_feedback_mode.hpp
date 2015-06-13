@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_transform_feedback_mode
-namespace oglplus {
 
 enum class TransformFeedbackMode : GLenum
 {
@@ -23,5 +22,4 @@ __Range<TransformFeedbackMode> __EnumValueRange<TransformFeedbackMode>(void);
 
 __StrCRef __EnumValueName(TransformFeedbackMode);
 
-} // namespace oglplus
 //]

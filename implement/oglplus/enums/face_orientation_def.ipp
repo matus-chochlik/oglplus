@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_CW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CW
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_CCW
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CCW

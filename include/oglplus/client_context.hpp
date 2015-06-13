@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,6 +20,7 @@
 #include <oglplus/client/depth_test.hpp>
 #include <oglplus/client/logical_ops.hpp>
 #include <oglplus/client/viewport.hpp>
+#include <oglplus/client/clip_control.hpp>
 #include <oglplus/client/stencil_test.hpp>
 #include <oglplus/client/scissor_test.hpp>
 #include <oglplus/client/rasterization.hpp>
@@ -41,6 +42,7 @@ namespace oglplus {
 class ClientContext
  : public client::CurrentCapabilities
  , public client::ViewportState
+ , public client::ClipControlState
  , public client::BufferMaskingState
  , public client::BufferClearingOps
  , public client::BufferClearingState

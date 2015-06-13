@@ -25,6 +25,22 @@ should be used to determine the actual type.
 Whenever this is the case, it is clearly noted in the section describing
 the concept.
 
+Unless stated otherwise, all OGLplus definitions are made inside of the
+top-level [^oglplus] namespace or in namespaces nested inside
+of namespace [^oglplus].
+
+The namespace-definition opening,
+
+``
+namespace oglplus {
+``
+and closing,
+
+``
+} // namespace oglplus
+``
+statements are assumed, but omitted for the sake of brevity from this reference.
+
 [endsect]
 
 [def __ObjCommonOps_Buffer [link oglplus.quickref.buffer.common ObjCommonOps<tag::Buffer>]]
@@ -66,7 +82,17 @@ the concept.
 [include quickref/sync.qbk]
 
 [include quickref/vertex_attrib_slot.qbk]
+[include quickref/frag_data_slot.qbk]
 [include quickref/texture_handle.qbk]
+
+[include quickref/prog_var.qbk]
+[include quickref/uniform.qbk]
+[include quickref/dsa/uniform.qbk]
+[include quickref/uniform_block.qbk]
+[include quickref/uniform_subroutines.qbk]
+[include quickref/vertex_attrib.qbk]
+[include quickref/dsa/vertex_attrib.qbk]
+[include quickref/frag_data.qbk]
 
 [include quickref/context.qbk]
 
@@ -80,6 +106,7 @@ the concept.
 
 [include quickref/data_type.qbk]
 [include quickref/face_mode.qbk]
+[include quickref/clip_control.qbk]
 [include quickref/blend_function.qbk]
 [include quickref/color_buffer.qbk]
 [include quickref/buffer_select_bit.qbk]
@@ -106,6 +133,7 @@ the concept.
 [include quickref/config.qbk]
 [include quickref/math.qbk]
 [include quickref/boolean.qbk]
+[include quickref/size_type.qbk]
 [include quickref/bitfield.qbk]
 [include quickref/enums.qbk]
 [include quickref/limited_value.qbk]

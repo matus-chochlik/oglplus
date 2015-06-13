@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -31,7 +31,8 @@ const Matrix<GLdouble, 3, 3>& Cage::_face_mat(GLuint face)
 OGLPLUS_LIB_FUNC
 GLuint Cage::_vert_count(void) const
 {
-	return 6*8+
+	return GLuint(
+		6*8+
 		(_divs.z()-1)*2*4*2+
 		(_divs.x()-1)*4*4*2+
 
@@ -41,14 +42,16 @@ GLuint Cage::_vert_count(void) const
 
 		(_divs.x()*_divs.y())*32+
 		(_divs.x()*_divs.z())*32+
-		(_divs.y()*_divs.z())*32;
+		(_divs.y()*_divs.z())*32
+	);
 }
 
 OGLPLUS_LIB_FUNC
 GLuint Cage::_index_count(void) const
 {
 #ifdef GL_PRIMITIVE_RESTART
-	return 6*11+
+	return GLuint(
+		6*11+
 		(_divs.z()-1)*2*5*2+
 		(_divs.x()-1)*4*5*2+
 
@@ -58,9 +61,11 @@ GLuint Cage::_index_count(void) const
 
 		(_divs.x()*_divs.y())*40+
 		(_divs.x()*_divs.z())*40+
-		(_divs.y()*_divs.z())*40;
+		(_divs.y()*_divs.z())*40
+	);
 #else
-	return 6*12+
+	return GLuint(
+		6*12+
 		(_divs.z()-1)*2*6*2+
 		(_divs.x()-1)*4*6*2+
 
@@ -70,7 +75,8 @@ GLuint Cage::_index_count(void) const
 
 		(_divs.x()*_divs.y())*48+
 		(_divs.x()*_divs.z())*48+
-		(_divs.y()*_divs.z())*48;
+		(_divs.y()*_divs.z())*48
+	);
 #endif
 }
 

@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_NO_RESET_NOTIFICATION
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined NoResetNotification
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_LOSE_CONTEXT_ON_RESET
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LoseContextOnReset

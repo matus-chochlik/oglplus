@@ -80,7 +80,8 @@ protected:
 			ObjectError,
 			EnumParam(GLenum(GL_VERTEX_ARRAY_BINDING))
 		);
-		return name;
+		assert(!(name < 0));
+		return GLuint(name);
 	}
 public:
 	/// Returns the currently bound VertexArray

@@ -1,3 +1,41 @@
+Version 0.62.0
+
+- Some clang -Weverything compilation warnings were fixed.
+- The SizeType class was updated.
+- Other minor changes were made in the implementation details.
+- A missing-identifier bug was fixed in images::Image.
+- The Guickbook documentation was updated.
+
+
+Version 0.61.0
+
+- The GL version detection in the build system was updated
+  to work better on MacOS.
+- A preprocessor switch for enabling/disabling of Boost.Config was added.
+- Wrappers for ARB_clip_control were added.
+- Exceptions in OALplus were updated.
+  - Error code enumerations were added.
+  - ErrorAL was added.
+  - The Code member function was added to ErrorAL, ErrorALC and ErrorALUT.
+- Some compiler warnings were silenced.
+- The SizeType and BigSizeType classes were added and some occurences
+  of GLsizei and GLsizeiptr were replaced by them.
+- The Quickbook documentation was updated.
+
+
+Version 0.60.0
+
+- The Boolean wrapper was updated, the operator ~ was added.
+- The Object::HasInstance function was added.
+- The native GL context wrappers were updated.
+- The DSA Texture, Buffer and Framebuffer were partially refactored.
+- The SingleFace enumeration was added.
+- The FragmentData and FragmentDataSlot typedefs were added.
+- A new standalone example was added.
+- The oalplus::CurrentContext class was renamed to ContextMadeCurrent.
+- Missing #ifdefs were added around specializations of EnumAssocType.
+- The Quickbook documentation was updated.
+
 Version 0.59.0
 
 - Problems with move construction and move-assignment of objects

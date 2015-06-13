@@ -11,6 +11,15 @@
 //
 #if !OALPLUS_NO_ENUM_VALUE_RANGES
 
+OALPLUS_ENUM_CLASS_FWD(ALCErrorCode, ALenum)
+#include <oalplus/enums/alc_error_code_range.ipp>
+
+OALPLUS_ENUM_CLASS_FWD(ALErrorCode, ALenum)
+#include <oalplus/enums/al_error_code_range.ipp>
+
+OALPLUS_ENUM_CLASS_FWD(ALUTErrorCode, ALenum)
+#include <oalplus/enums/alut_error_code_range.ipp>
+
 OALPLUS_ENUM_CLASS_FWD(ContextAttrib, ALenum)
 #include <oalplus/enums/context_attrib_range.ipp>
 

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -30,8 +30,6 @@ namespace text {
 class BitmapGlyphPageStorage
 {
 private:
-	BitmapGlyphRenderingBase& _parent;
-
 	TextureUnitSelector _bitmap_tex_unit;
 	TextureUnitSelector _metric_tex_unit;
 
@@ -43,8 +41,8 @@ private:
 	Texture _bitmap_storage;
 	Texture _metric_storage;
 
-	const size_t _glyphs_per_page;
-	const size_t _vects_per_glyph;
+	const GLuint _glyphs_per_page;
+	const GLuint _vects_per_glyph;
 
 	std::vector<std::vector<GLfloat>> _metrics;
 public:
@@ -52,8 +50,8 @@ public:
 		BitmapGlyphRenderingBase& parent,
 		TextureUnitSelector bitmap_tex_unit,
 		TextureUnitSelector metric_tex_unit,
-		const GLint init_frame,
-		const GLsizei frames,
+		const GLuint init_frame,
+		const SizeType frames,
 		const oglplus::images::Image& image,
 		const std::vector<GLfloat>& metrics
 	);
@@ -77,25 +75,25 @@ public:
 	}
 
 	void LoadPage(
-		const GLint frame,
+		const GLuint frame,
 		const oglplus::images::Image& image,
 		const std::vector<GLfloat>& metrics
 	);
 
 	void QueryGlyphMetrics(
-		GLint frame,
-		GLint cell,
-		GLint metric,
-		GLint count,
+		GLuint frame,
+		GLuint cell,
+		GLuint metric,
+		GLuint count,
 		GLfloat* result
 	) const;
 
-	GLfloat GetGlyphMetric(GLint frame, GLint cell, GLint metric) const
+	GLfloat GetGlyphMetric(GLuint frame, GLuint cell, GLuint metric) const
 	{
 		return _metrics[frame][4*_vects_per_glyph*cell+metric];
 	}
 
-	GLfloat GetGlyphWidth(GLint frame, GLint offset) const
+	GLfloat GetGlyphWidth(GLuint frame, GLuint offset) const
 	{
 		return	GetGlyphMetric(frame, offset, 1)-
 			GetGlyphMetric(frame, offset, 0);

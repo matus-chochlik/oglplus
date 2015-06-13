@@ -2,7 +2,7 @@
  *  .file example/oglplus/glx_main.cpp
  *  Implements GLX-based program main function for running examples
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -284,17 +284,18 @@ void do_run_example_loop(
 						done = true;
 						break;
 					case ConfigureNotify:
-						width = event.xconfigure.width;
-						height = event.xconfigure.height;
+						width = GLuint(event.xconfigure.width);
+						height = GLuint(event.xconfigure.height);
 						example->Reshape(
 							width,
 							height
 						);
+						break;
 					case MotionNotify:
 						example->MouseMove(
-							event.xmotion.x,
+							GLuint(event.xmotion.x),
 							height-
-							event.xmotion.y,
+							GLuint(event.xmotion.y),
 							width,
 							height
 						);
@@ -387,7 +388,7 @@ void run_framedump_loop(
 )
 {
 	std::vector<char> txtbuf(1024);
-	std::cin.getline(txtbuf.data(), txtbuf.size());
+	std::cin.getline(txtbuf.data(), std::streamsize(txtbuf.size()));
 	if(std::strcmp(framedump_prefix, txtbuf.data()) != 0) return;
 
 	const std::size_t mouse_path_pts = 7;
@@ -397,14 +398,14 @@ void run_framedump_loop(
 	for(std::size_t p=0; p!= mouse_path_pts; ++p)
 	{
 		mouse_path_pos[p] = Vec2f(
-			std::rand() % width,
-			std::rand() % height
+			unsigned(std::rand()) % width,
+			unsigned(std::rand()) % height
 		);
 		mouse_path_dir[p] = Vec2f(
-			(std::rand()%2?1.0:-1.0)*10.0f*
-			(0.2+float(std::rand())/float(RAND_MAX)*0.8),
-			(std::rand()%2?1.0:-1.0)*10.0f*
-			(0.2+float(std::rand())/float(RAND_MAX)*0.8)
+			(std::rand()%2?1:-1)*10.0f*
+			(0.2f+float(std::rand())/float(RAND_MAX)*0.8f),
+			(std::rand()%2?1:-1)*10.0f*
+			(0.2f+float(std::rand())/float(RAND_MAX)*0.8f)
 		);
 	}
 
@@ -473,8 +474,8 @@ void run_framedump_loop(
 		glFinish();
 		glReadPixels(
 			0, 0,
-			width,
-			height,
+			GLsizei(width),
+			GLsizei(height),
 			GL_RGBA,
 			GL_UNSIGNED_BYTE,
 			pixels.data()
@@ -488,14 +489,14 @@ void run_framedump_loop(
 			frame_no << ".rgba";
 		{
 			std::ofstream file(filename.str());
-			file.write(pixels.data(), pixels.size());
+			file.write(pixels.data(), std::streamsize(pixels.size()));
 			file.flush();
 		}
 		std::cout << filename.str() << std::endl;
 		++frame_no;
 
 		txtbuf.resize(filename.str().size()+1);
-		std::cin.getline(txtbuf.data(), txtbuf.size());
+		std::cin.getline(txtbuf.data(), std::streamsize(txtbuf.size()));
 
 		if(std::strncmp(
 			filename.str().c_str(),
@@ -547,14 +548,14 @@ void make_screenshot(
 	std::vector<char> pixels(width * height * 3);
 	glReadPixels(
 		0, 0,
-		width,
-		height,
+		GLsizei(width),
+		GLsizei(height),
 		GL_RGB,
 		GL_UNSIGNED_BYTE,
 		pixels.data()
 	);
 	std::ofstream output(screenshot_path);
-	output.write(pixels.data(), pixels.size());
+	output.write(pixels.data(), std::streamsize(pixels.size()));
 	ctx.SwapBuffers(win);
 }
 
@@ -607,7 +608,7 @@ void run_example(
 	ExampleParams params(argc, argv);
 	if(framedump_prefix) params.quality = 1.0;
 	params.max_threads = 128;
-	params.num_gpus = screen_names.size(); // TODO: something more reliable
+	params.num_gpus = unsigned(screen_names.size()); // TODO: something more reliable
 	setupExample(params);
 	params.Check();
 
@@ -808,14 +809,14 @@ int glx_example_main(int argc, char ** argv)
 		{
 			if((std::strcmp(argv[a], "--width")) == 0 && (a+1<argc))
 			{
-				width = std::atoi(argv[a+1]);
+				width = GLuint(std::atoi(argv[a+1]));
 				for(int b=a+1; b<argc; ++b)
 					argv[b-2] = argv[b];
 				argc -= 2;
 			}
 			else if((std::strcmp(argv[a], "--height")) == 0 && (a+1<argc))
 			{
-				height = std::atoi(argv[a+1]);
+				height = GLuint(std::atoi(argv[a+1]));
 				for(int b=a+1; b<argc; ++b)
 					argv[b-2] = argv[b];
 				argc -= 2;

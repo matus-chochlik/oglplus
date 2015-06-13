@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -23,7 +23,7 @@ Plane::Indices(Plane::Default) const
 #ifdef GL_PRIMITIVE_RESTART
 	GLuint pri = _vdiv * (2 * leap + 1);
 #else
-    GLuint pri = _vdiv * (2 * leap + 2);
+	GLuint pri = _vdiv * (2 * leap + 2);
 #endif
 	IndexArray indices(pri);
 
@@ -38,8 +38,8 @@ Plane::Indices(Plane::Default) const
 #ifdef GL_PRIMITIVE_RESTART
 		indices[k++] = pri;
 #else
-        indices[k++] = offs + leap - 1;
-        indices[k++] = offs;
+		indices[k++] = offs + leap - 1;
+		indices[k++] = offs;
 #endif
 	}
 	assert(k == indices.size());
@@ -67,7 +67,7 @@ Plane::Instructions(Plane::Default) const
 #ifdef GL_PRIMITIVE_RESTART
 	operation.restart_index = pri;
 #else
-    operation.restart_index = DrawOperation::NoRestartIndex();
+	operation.restart_index = DrawOperation::NoRestartIndex();
 #endif
 	operation.phase = 0;
 	this->AddInstruction(instructions, operation);

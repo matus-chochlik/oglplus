@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -32,7 +32,26 @@ private:
 public:
 	ProgVarError(const char* message);
 
-	~ProgVarError(void) throw() { }
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ProgVarError(const ProgVarError&) = default;
+	ProgVarError(ProgVarError&&) = default;
+#else
+	ProgVarError(const ProgVarError& that)
+	 : Error(static_cast<const Error&>(that))
+	 , _prog_name(that._prog_name)
+	 , _identifier(that._identifier)
+	{ }
+
+	ProgVarError(ProgVarError&& temp)
+	 : Error(static_cast<Error&&>(temp))
+	 , _prog_name(std::move(temp._prog_name))
+	 , _identifier(std::move(temp._identifier))
+	{ }
+#endif
+
+	~ProgVarError(void)
+	OGLPLUS_NOTHROW
+	{ }
 
 	ProgVarError& Program(ProgramName program)
 	{

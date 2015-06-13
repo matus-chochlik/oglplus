@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_error_code
-namespace eglplus {
 
 enum class ErrorCode : EGLenum
 {
@@ -35,5 +34,4 @@ __Range<ErrorCode> __EnumValueRange<ErrorCode>(void);
 
 __StrCRef __EnumValueName(ErrorCode);
 
-} // namespace eglplus
 //]

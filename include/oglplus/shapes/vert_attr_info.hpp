@@ -51,7 +51,7 @@ public: \
 	} \
  \
 	template <typename T> \
-	static typename _getter_proc<T>::type _getter(T*) \
+	static typename _getter_proc<T>::type _getter(TypeTag<T>) \
 	{ \
 		return &VertexAttribInfo::_getter_wrapper<T>; \
 	} \
@@ -141,7 +141,7 @@ private:
 	template <typename T>
 	static typename _getter_proc<T>::type
 	_find_getter(
-		T*,
+		TypeTag<T>,
 		StrCRef,
 		std::integral_constant<std::size_t, N>,
 		std::integral_constant<std::size_t, N>
@@ -153,7 +153,7 @@ private:
 	template <typename T, std::size_t I>
 	static typename _getter_proc<T>::type
 	_find_getter(
-		T* selector,
+		TypeTag<T> selector,
 		StrCRef name,
 		std::integral_constant<std::size_t, I>,
 		std::integral_constant<std::size_t, N>
@@ -178,7 +178,7 @@ private:
 protected:
 	template <typename T>
 	static typename _getter_proc<T>::type
-	_find_getter(T* selector, StrCRef name)
+	_find_getter(TypeTag<T> selector, StrCRef name)
 	{
 		return _find_getter(
 			selector,
@@ -216,7 +216,7 @@ public:
 		StrCRef name
 	)
 	{
-		return _base::_find_getter((T*)nullptr, name);
+		return _base::_find_getter(TypeTag<T>(), name);
 	}
 };
 #endif

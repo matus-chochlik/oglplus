@@ -174,8 +174,8 @@ public:
 		_call_load_meshes(
 			blend_file,
 			nullptr,
-			(const char**)nullptr,
-			(const char**)nullptr,
+			static_cast<const char**>(nullptr),
+			static_cast<const char**>(nullptr),
 			LoadingOptions()
 		);
 	}

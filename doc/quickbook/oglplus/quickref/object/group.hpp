@@ -1,11 +1,10 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 //[oglplus_object_Group
-namespace oglplus {
 
 template <typename ObjectName>
 class Group;
@@ -28,6 +27,8 @@ public:
 	Group& Add(__ObjectName<__ObjTag> name); /*<
 	Add a new name to this group.
 	>*/
+
+	__Sequence<__ObjectName<__ObjTag>> seq(void) const;
 
 	operator __Sequence<__ObjectName<__ObjTag>> (void) const; /*<
 	Implicit conversion to a sequence of object names, which can
@@ -69,6 +70,8 @@ public:
 	of the same type.
 	>*/
 
+	__Sequence<__ObjectName<__ObjTag>> seq(void) const;
+
 	operator __Sequence<__ObjectName<__ObjTag>> (void) const; /*<
 	Implicit conversion to a sequence of object names, which can
 	be passed as an argument to various functions.
@@ -84,6 +87,5 @@ Creates a static group from a pack of object names. All names must refer to obje
 of the same type.
 >*/
 
-} // namespace oglplus
 //]
 

@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_texture_format
-namespace eglplus {
 
 enum class TextureFormat : EGLenum
 {
@@ -24,5 +23,4 @@ __Range<TextureFormat> __EnumValueRange<TextureFormat>(void);
 
 __StrCRef __EnumValueName(TextureFormat);
 
-} // namespace eglplus
 //]

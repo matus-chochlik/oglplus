@@ -5,7 +5,6 @@
  */
 
 //[oglplus_context_Capabilities
-namespace oglplus {
 namespace context {
 
 class Capabilities
@@ -55,6 +54,5 @@ public:
 };
 
 } // namespace context
-} // namespace oglplus
 //]
 

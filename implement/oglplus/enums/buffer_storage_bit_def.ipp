@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_MAP_READ_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MapRead
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_MAP_WRITE_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MapWrite
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_MAP_PERSISTENT_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MapPersistent
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_MAP_COHERENT_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MapCoherent
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_DYNAMIC_STORAGE_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DynamicStorage
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_CLIENT_STORAGE_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ClientStorage
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_SPARSE_STORAGE_BIT_ARB
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SparseStorage

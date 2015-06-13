@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_SIGNALED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Signaled
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_UNSIGNALED
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Unsignaled

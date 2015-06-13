@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -30,24 +30,25 @@ private:
 	BitmapGlyphRenderingBase& _parent;
 	const std::string _font_name;
 
-	oglplus::images::Image _load_page_bitmap(GLint page);
+	oglplus::images::Image _load_page_bitmap(GLuint page);
 
 	static void _check_input(std::istream& input);
 
+	OGLPLUS_NORETURN
 	static void _unexpected_char(char);
 
 	static void _load_single_glyph(
 		std::istream& input,
 		char* line,
-		const size_t linelen,
+		const std::streamsize linelen,
 		GLfloat* values,
 		const size_t n_values
 	);
 
-	std::vector<GLfloat> _load_page_metric(GLint page);
+	std::vector<GLfloat> _load_page_metric(GLuint page);
 
 	BitmapGlyphPager _pager;
-	const GLint _initial_frame;
+	const GLuint _initial_frame;
 	BitmapGlyphPageStorage _page_storage;
 
 	template <typename PageGetter, typename Element>
@@ -62,7 +63,7 @@ private:
 		for(GLsizei i=0; i!=size; ++i)
 		{
 			// get the page number for the glyph
-			GLint page = get_page(elem[i]);
+			GLuint page = get_page(elem[i]);
 			// check if the page is active
 			if(!_pager.UsePage(page))
 			{
@@ -84,7 +85,7 @@ private:
 
 	struct _page_to_page
 	{
-		GLint operator()(GLint page) const
+		GLuint operator()(GLuint page) const
 		{
 			return page;
 		}
@@ -96,8 +97,8 @@ public:
 		TextureUnitSelector metric_tex_unit,
 		TextureUnitSelector pg_map_tex_unit,
 		const std::string& font_name,
-		GLsizei frames,
-		GLint default_page,
+		SizeType frames,
+		GLuint default_page,
 		GLuint /* pixel_height*/
 	): _parent(parent)
 	 , _font_name(font_name)
@@ -140,7 +141,7 @@ public:
 		return _pager.PageMapTexUnit();
 	}
 
-	void LoadPages(const GLint* pages, GLsizei size)
+	void LoadPages(const GLuint* pages, SizeType size)
 	{
 		assert(size < GLsizei(_pager.FrameCount()));
 		_do_load_pages(_page_to_page(), pages, size);
@@ -148,11 +149,11 @@ public:
 
 	GLfloat QueryXOffsets(
 		const CodePoint* cps,
-		GLsizei size,
+		SizeType size,
 		std::vector<GLfloat>& x_offsets
 	) const;
 
-	Rectangle GetGlyphMetrics(CodePoint code_point, GLint offs) const;
+	Rectangle GetGlyphMetrics(CodePoint code_point, GLuint offs) const;
 };
 
 } // namespace text

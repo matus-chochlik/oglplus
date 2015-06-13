@@ -14,6 +14,7 @@
 #define OGLPLUS_TEXTURE_TARGET_1107121519_HPP
 
 #include <oglplus/fwd.hpp>
+#include <oglplus/config/enums.hpp>
 #include <oglplus/enums/texture_target.hpp>
 
 namespace oglplus {

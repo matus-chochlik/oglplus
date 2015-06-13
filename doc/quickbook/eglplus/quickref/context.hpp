@@ -5,7 +5,6 @@
  */
 
 //[eglplus_context_attribs
-namespace eglplus {
 
 typedef __AttributeList<__ContextAttrib, ...> ContextAttribs; /*<
 Attribute list type for context attributes.
@@ -65,28 +64,28 @@ public:
 	See [eglfunc DestroyContext].
 	>*/
 
-	bool MakeCurrent(
+	__Boolean MakeCurrent(
 		const __Surface& draw_surface,
 		const __Surface& read_surface
 	); /*<
 	Makes the context current.
 	See [eglfunc MakeCurrent].
 	>*/
-	bool MakeCurrent(const __Surface& surface);
+	__Boolean MakeCurrent(const __Surface& surface);
 
-	bool MakeCurrent(void); /*<
+	__Boolean MakeCurrent(void); /*<
 	Makes the context current without using any surfaces.
 	See [eglfunc MakeCurrent], [eglconst NO_SURFACE].
 	>*/
 
-	bool Release(void); /*<
+	__Boolean Release(void); /*<
 	Releases the current context without assigning a new one.
 	See [eglfunc MakeCurrent], [eglconst NO_SURFACE], [eglconst NO_CONTEXT].
 	>*/
 //]
 //[eglplus_context_2
 
-	bool Query(__ContextAttrib attrib, EGLint& value) const; /*<
+	__Boolean Query(__ContextAttrib attrib, EGLint& value) const; /*<
 	Queries a context attribute.
 	See [eglfunc QueryContext].
 	>*/
@@ -96,17 +95,17 @@ public:
 	See [eglfunc QueryContext], [eglconst CONFIG_ID].
 	>*/
 
-	bool WaitClient(void) const; /*<
+	__Boolean WaitClient(void) const; /*<
 	Waits for client API commands to complete.
 	See [eglfunc WaitClient].
 	>*/
 
-	bool WaitGL(void) const; /*<
+	__Boolean WaitGL(void) const; /*<
 	Waits for GL API commands to complete.
 	See [eglfunc WaitGL].
 	>*/
 
-	bool WaitNative(EGLint engine) const; /*<
+	__Boolean WaitNative(EGLint engine) const; /*<
 	Waits for native API commands to complete.
 	See [eglfunc WaitNative].
 	>*/
@@ -119,6 +118,5 @@ Returns the EGL context handle wrapped by a __Context.
 
 };
 
-} // namespace eglplus
 //]
 

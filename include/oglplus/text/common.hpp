@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,6 +16,7 @@
 #include <oglplus/text/unicode.hpp>
 #include <oglplus/dsa/uniform.hpp>
 #include <oglplus/math/matrix.hpp>
+#include <oglplus/size_type.hpp>
 
 namespace oglplus {
 
@@ -151,7 +152,7 @@ public:
 	/// Query the x-offsets (advance) of the individual glyphs
 	GLfloat QueryXOffsets(
 		const CodePoint* cps,
-		GLsizei size,
+		SizeType size,
 		std::vector<GLfloat>& x_offsets
 	);
 };
@@ -186,7 +187,7 @@ public:
 	 *
 	 *  @see Set
 	 */
-	GLsizei Capacity(void) const;
+	SizeType Capacity(void) const;
 
 	/// The width of the layout in font size units
 	GLfloat Width(void) const;
@@ -201,7 +202,7 @@ public:
 	 *
 	 *  @see Capacity
 	 */
-	void Set(const CodePoint* code_points, const GLsizei length);
+	void Set(const CodePoint* code_points, SizeType length);
 
 	/// Sets a new text to be layed-out
 	/** This function lays-out a new sequence of glyphs representing
@@ -344,7 +345,7 @@ public:
 	 *  Programs should request layouts with sufficient capacity and try
 	 *  to reuse them, if possible for optimal performance.
 	 */
-	Layout MakeLayout(Font font, GLsizei capacity);
+	Layout MakeLayout(Font font, SizeType capacity);
 
 	/// The concrete renderer type of the text rendering utility
 	typedef UnspecifiedRenderer Renderer;

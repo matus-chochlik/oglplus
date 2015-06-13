@@ -1,5 +1,5 @@
 @echo off
-:: Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+:: Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
 :: Software License, Version 1.0. (See accompanying file
 :: LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
@@ -34,6 +34,14 @@ IF DEFINED OGLPLUS_DEP_LIBRARY_DIRS (
 	IF "%~1" == "/?" CALL :print_usage && GOTO :eof
 	IF "%~1" == "--help" CALL :print_usage && GOTO :eof
 
+
+	::
+	:: Set OGLPLUS_NO_BOOST_CONFIG if we don't want to use Boost.Config
+	::
+	IF "%~1" == "--no-boost-config" (
+		SET /A OGLPLUS_NO_BOOST_CONFIG=1
+		GOTO :shift_cmd_line_args
+	)
 
 	::
 	:: Set OGLPLUS_NO_DOCS if we don't want to build docs
@@ -224,6 +232,13 @@ IF DEFINED OGLPLUS_GL_INIT_LIB (
 )
 
 ::
+:: .. define the OGLPLUS_NO_BOOST_CONFIG option ..
+::
+IF DEFINED OGLPLUS_NO_BOOST_CONFIG (
+	SET OGLPLUS_CMAKE_COMMAND=%OGLPLUS_CMAKE_COMMAND% "-DOGLPLUS_NO_BOOST_CONFIG=On"
+)
+
+::
 :: .. define the OGLPLUS_NO_DOCS option ..
 ::
 IF DEFINED OGLPLUS_NO_DOCS (
@@ -260,6 +275,7 @@ GOTO :eof
 	SET OGLPLUS_BUILD_DIR=
 	SET OGLPLUS_CMAKE_COMMAND=
 	SET OGLPLUS_CMAKE_OPTIONS=
+	SET OGLPLUS_NO_BOOST_CONFIG=
 	SET OGLPLUS_NO_DOCS=
 	SET OGLPLUS_NO_EXAMPLES=
 	SET OGLPLUS_PREFIX=

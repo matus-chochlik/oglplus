@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{026_ssao}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -261,7 +261,6 @@ public:
 class DataBuffer
 {
 private:
-	Context gl;
 	Texture tex;
 	Renderbuffer rbo;
 	Framebuffer fbo;
@@ -375,7 +374,7 @@ public:
 		auto cam_proj =
 			CamMatrixf::PerspectiveX(
 				Degrees(45),
-				double(width)/height,
+				width, height,
 				cam_tgt_dist-bs_rad,
 				cam_tgt_dist+bs_rad
 			);

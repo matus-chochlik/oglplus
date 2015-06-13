@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_VERTEX_SHADER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VertexShader
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_TESS_CONTROL_SHADER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TessControlShader
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_TESS_EVALUATION_SHADER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TessEvaluationShader
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_GEOMETRY_SHADER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GeometryShader
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_FRAGMENT_SHADER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FragmentShader
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_COMPUTE_SHADER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ComputeShader
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_ALL_SHADER_BITS
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AllShaders

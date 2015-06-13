@@ -14,7 +14,7 @@
 #endif
 
 #if defined AL_FORMAT_MONO8
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Mono8
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined AL_FORMAT_MONO16
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Mono16
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined AL_FORMAT_STEREO8
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Stereo8
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined AL_FORMAT_STEREO16
-# if OALPLUS_LIST_NEEDS_COMMA
+# ifdef OALPLUS_LIST_NEEDS_COMMA
    OALPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Stereo16

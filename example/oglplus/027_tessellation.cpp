@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{027_tessellation}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -413,7 +413,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(70),
-				double(width)/height,
+				float(width)/height,
 				1, 200
 			)
 		);

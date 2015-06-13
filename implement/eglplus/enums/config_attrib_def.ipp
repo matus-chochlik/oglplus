@@ -14,7 +14,7 @@
 #endif
 
 #if defined EGL_BUFFER_SIZE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BufferSize
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined EGL_RED_SIZE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RedSize
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined EGL_GREEN_SIZE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GreenSize
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined EGL_BLUE_SIZE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BlueSize
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined EGL_LUMINANCE_SIZE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LuminanceSize
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined EGL_ALPHA_SIZE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AlphaSize
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined EGL_ALPHA_MASK_SIZE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AlphaMaskSize
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined EGL_BIND_TO_TEXTURE_RGB
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BindToTextureRGB
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined EGL_BIND_TO_TEXTURE_RGBA
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined BindToTextureRGBA
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined EGL_COLOR_BUFFER_TYPE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ColorBufferType
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined EGL_CONFIG_CAVEAT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ConfigCaveat
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined EGL_CONFIG_ID
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ConfigId
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined EGL_CONFORMANT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Conformant
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined EGL_DEPTH_SIZE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DepthSize
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined EGL_LEVEL
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Level
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined EGL_MAX_PBUFFER_WIDTH
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxPbufferWidth
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined EGL_MAX_PBUFFER_HEIGHT
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxPbufferHeight
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined EGL_MAX_PBUFFER_PIXELS
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxPbufferPixels
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined EGL_MAX_SWAP_INTERVAL
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MaxSwapInterval
@@ -318,7 +318,7 @@
 # endif
 #endif
 #if defined EGL_MIN_SWAP_INTERVAL
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MinSwapInterval
@@ -334,7 +334,7 @@
 # endif
 #endif
 #if defined EGL_NATIVE_RENDERABLE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined NativeRenderable
@@ -350,7 +350,7 @@
 # endif
 #endif
 #if defined EGL_NATIVE_VISUAL_ID
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined NativeVisualId
@@ -366,7 +366,7 @@
 # endif
 #endif
 #if defined EGL_NATIVE_VISUAL_TYPE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined NativeVisualType
@@ -382,7 +382,7 @@
 # endif
 #endif
 #if defined EGL_RENDERABLE_TYPE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RenderableType
@@ -398,7 +398,7 @@
 # endif
 #endif
 #if defined EGL_SAMPLE_BUFFERS
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SampleBuffers
@@ -414,7 +414,7 @@
 # endif
 #endif
 #if defined EGL_SAMPLES
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Samples
@@ -430,7 +430,7 @@
 # endif
 #endif
 #if defined EGL_STENCIL_SIZE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined StencilSize
@@ -446,7 +446,7 @@
 # endif
 #endif
 #if defined EGL_SURFACE_TYPE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SurfaceType
@@ -462,7 +462,7 @@
 # endif
 #endif
 #if defined EGL_TRANSPARENT_TYPE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransparentType
@@ -478,7 +478,7 @@
 # endif
 #endif
 #if defined EGL_TRANSPARENT_RED_VALUE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransparentRedValue
@@ -494,7 +494,7 @@
 # endif
 #endif
 #if defined EGL_TRANSPARENT_GREEN_VALUE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransparentGreenValue
@@ -510,7 +510,7 @@
 # endif
 #endif
 #if defined EGL_TRANSPARENT_BLUE_VALUE
-# if EGLPLUS_LIST_NEEDS_COMMA
+# ifdef EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined TransparentBlueValue

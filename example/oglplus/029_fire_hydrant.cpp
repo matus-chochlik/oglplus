@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{029_fire_hydrant}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -363,7 +363,7 @@ public:
 		draw_prog.projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(75),
-				double(width)/height,
+				width, height,
 				1, 40
 			)
 		);

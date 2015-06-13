@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_stencil_operation
-namespace oglplus {
 
 enum class StencilOperation : GLenum
 {
@@ -29,5 +28,4 @@ __Range<StencilOperation> __EnumValueRange<StencilOperation>(void);
 
 __StrCRef __EnumValueName(StencilOperation);
 
-} // namespace oglplus
 //]

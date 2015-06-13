@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_framebuffer_target
-namespace oglplus {
 
 enum class FramebufferTarget : GLenum
 {
@@ -23,5 +22,4 @@ __Range<FramebufferTarget> __EnumValueRange<FramebufferTarget>(void);
 
 __StrCRef __EnumValueName(FramebufferTarget);
 
-} // namespace oglplus
 //]

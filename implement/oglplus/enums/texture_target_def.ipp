@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_TEXTURE_1D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _1D
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_2D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _2D
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_3D
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _3D
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_1D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _1DArray
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_2D_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _2DArray
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_RECTANGLE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Rectangle
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_BUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Buffer
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_CUBE_MAP
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CubeMap
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_CUBE_MAP_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CubeMapArray
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_2D_MULTISAMPLE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _2DMultisample
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_2D_MULTISAMPLE_ARRAY
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined _2DMultisampleArray
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_CUBE_MAP_POSITIVE_X
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CubeMapPositiveX
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_CUBE_MAP_NEGATIVE_X
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CubeMapNegativeX
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_CUBE_MAP_POSITIVE_Y
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CubeMapPositiveY
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CubeMapNegativeY
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_CUBE_MAP_POSITIVE_Z
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CubeMapPositiveZ
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CubeMapNegativeZ

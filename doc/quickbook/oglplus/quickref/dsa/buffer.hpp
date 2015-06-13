@@ -5,7 +5,6 @@
  */
 
 //[oglplus_dsa_buffer_1
-namespace oglplus {
 
 #if GL_VERSION_4_5 || GL_ARB_direct_state_access
 
@@ -62,7 +61,7 @@ public:
 
 	template <typename GLtype>
 	void Data(
-		GLsizei count,
+		__SizeType count,
 		const GLtype* data,
 		__BufferUsage usage = BufferUsage::StaticDraw
 	) const;
@@ -78,7 +77,7 @@ public:
 	template <typename GLtype>
 	static void SubData(
 		__BufferSize offset,
-		GLsizei count,
+		__SizeType count,
 		const GLtype* data
 	);
 
@@ -134,7 +133,7 @@ public:
 //]
 //[oglplus_dsa_buffer_2
 
-	GLsizei Size(void) const; /*<
+	__SizeType Size(void) const; /*<
 	Returns the size of [^this] buffer.
 	See [glfunc Get], [glconst BUFFER_SIZE].
 	>*/
@@ -247,6 +246,5 @@ Equivalent to [^buffer.SubData(offset, data)].
 
 #endif // GL_VERSION_4_5 || GL_ARB_direct_state_access
 
-} // namespace oglplus
 //]
 

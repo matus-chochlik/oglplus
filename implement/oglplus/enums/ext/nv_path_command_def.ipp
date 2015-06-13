@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_CLOSE_PATH_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Close
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_MOVE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MoveTo
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_RELATIVE_MOVE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RelativeMoveTo
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_LINE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LineTo
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_RELATIVE_LINE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RelativeLineTo
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_HORIZONTAL_LINE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined HorizontalLineTo
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_RELATIVE_HORIZONTAL_LINE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RelativeHorizontalLineTo
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_VERTICAL_LINE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined VerticalLineTo
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_RELATIVE_VERTICAL_LINE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RelativeVerticalLineTo
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_QUADRATIC_CURVE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined QuadraticCurveTo
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_RELATIVE_QUADRATIC_CURVE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RelativeQuadraticCurveTo
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_CUBIC_CURVE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CubicCurveTo
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_RELATIVE_CUBIC_CURVE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RelativeCubicCurveTo
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_SMOOTH_QUADRATIC_CURVE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SmoothQuadraticCurveTo
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_RELATIVE_SMOOTH_QUADRATIC_CURVE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RelativeSmoothQuadraticCurveTo
@@ -254,7 +254,7 @@
 # endif
 #endif
 #if defined GL_SMOOTH_CUBIC_CURVE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SmoothCubicCurveTo
@@ -270,7 +270,7 @@
 # endif
 #endif
 #if defined GL_RELATIVE_SMOOTH_CUBIC_CURVE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RelativeSmoothCubicCurveTo
@@ -286,7 +286,7 @@
 # endif
 #endif
 #if defined GL_SMALL_CCW_ARC_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SmallCCWArcTo
@@ -302,7 +302,7 @@
 # endif
 #endif
 #if defined GL_RELATIVE_SMALL_CCW_ARC_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RelativeSmallCCWArcTo
@@ -318,7 +318,7 @@
 # endif
 #endif
 #if defined GL_SMALL_CW_ARC_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined SmallCWArcTo
@@ -334,7 +334,7 @@
 # endif
 #endif
 #if defined GL_RELATIVE_SMALL_CW_ARC_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RelativeSmallCWArcTo
@@ -350,7 +350,7 @@
 # endif
 #endif
 #if defined GL_LARGE_CCW_ARC_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LargeCCWArcTo
@@ -366,7 +366,7 @@
 # endif
 #endif
 #if defined GL_RELATIVE_LARGE_CCW_ARC_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RelativeLargeCCWArcTo
@@ -382,7 +382,7 @@
 # endif
 #endif
 #if defined GL_LARGE_CW_ARC_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined LargeCWArcTo
@@ -398,7 +398,7 @@
 # endif
 #endif
 #if defined GL_RELATIVE_LARGE_CW_ARC_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RelativeLargeCWArcTo
@@ -414,7 +414,7 @@
 # endif
 #endif
 #if defined GL_RESTART_PATH_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Restart
@@ -430,7 +430,7 @@
 # endif
 #endif
 #if defined GL_DUP_FIRST_CUBIC_CURVE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DupFirstCubicCurveTo
@@ -446,7 +446,7 @@
 # endif
 #endif
 #if defined GL_DUP_LAST_CUBIC_CURVE_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined DupLastCubicCurveTo
@@ -462,7 +462,7 @@
 # endif
 #endif
 #if defined GL_RECT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Rect
@@ -478,7 +478,7 @@
 # endif
 #endif
 #if defined GL_CIRCULAR_CCW_ARC_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CircularCCWArcTo
@@ -494,7 +494,7 @@
 # endif
 #endif
 #if defined GL_CIRCULAR_CW_ARC_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CircularCWArcTo
@@ -510,7 +510,7 @@
 # endif
 #endif
 #if defined GL_CIRCULAR_TANGENT_ARC_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined CircularTangentArcTo
@@ -526,7 +526,7 @@
 # endif
 #endif
 #if defined GL_ARC_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ArcTo
@@ -542,7 +542,7 @@
 # endif
 #endif
 #if defined GL_RELATIVE_ARC_TO_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined RelativeArcTo

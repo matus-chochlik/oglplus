@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_FLAT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Flat
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_SQUARE_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Square
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_ROUND_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Round
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_TRIANGULAR_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Triangular

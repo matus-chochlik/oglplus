@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_context_flag
-namespace eglplus {
 
 enum class ContextFlag : EGLenum
 {
@@ -24,5 +23,4 @@ __Range<ContextFlag> __EnumValueRange<ContextFlag>(void);
 
 __StrCRef __EnumValueName(ContextFlag);
 
-} // namespace eglplus
 //]

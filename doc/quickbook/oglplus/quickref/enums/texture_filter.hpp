@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_texture_filter
-namespace oglplus {
 
 enum class TextureFilter : GLenum
 {
@@ -23,5 +22,4 @@ __Range<TextureFilter> __EnumValueRange<TextureFilter>(void);
 
 __StrCRef __EnumValueName(TextureFilter);
 
-} // namespace oglplus
 //]

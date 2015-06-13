@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,16 +17,16 @@ namespace images {
 
 OGLPLUS_LIB_FUNC
 CheckerRedBlack::CheckerRedBlack(
-	GLsizei width,
-	GLsizei height,
-	GLsizei xrep,
-	GLsizei yrep
+	SizeType width,
+	SizeType height,
+	SizeType xrep,
+	SizeType yrep
 ): Image(
 	width,
 	height,
 	1,
 	1,
-	(GLubyte*)0,
+	&TypeTag<GLubyte>(),
 	PixelDataFormat::Red,
 	PixelDataInternalFormat::Red
 )
@@ -34,8 +34,8 @@ CheckerRedBlack::CheckerRedBlack(
 	assert(width != 0 && height != 0);
 	assert(xrep != 0 && yrep != 0);
 
-	GLsizei xdiv = width / xrep;
-	GLsizei ydiv = height/ yrep;
+	GLsizei xdiv = GLsizei(width) / xrep;
+	GLsizei ydiv = GLsizei(height)/ yrep;
 
 	auto p = this->_begin<GLubyte>();
 	for(GLsizei j=0; j!=height; ++j)

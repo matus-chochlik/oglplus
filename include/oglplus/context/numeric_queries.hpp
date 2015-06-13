@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -97,7 +97,7 @@ public:
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_CONTEXT_PROFILE_MASK, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
-		return Bitfield<ContextProfileBit>(result);
+		return Bitfield<ContextProfileBit>(GLbitfield(result));
 	}
 #endif
 
@@ -113,7 +113,7 @@ public:
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_CONTEXT_FLAGS, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
-		return Bitfield<ContextFlagBit>(result);
+		return Bitfield<ContextFlagBit>(GLbitfield(result));
 	}
 #endif
 

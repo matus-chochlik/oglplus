@@ -5,7 +5,6 @@
  */
 
 //[oalplus_error_Error_1
-namespace oalplus {
 
 class Error
  : public std::runtime_error
@@ -98,6 +97,5 @@ public:
 	>*/
 };
 
-} // namespace oalplus
 //]
 

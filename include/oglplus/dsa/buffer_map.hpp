@@ -165,9 +165,9 @@ public:
 	}
 
 	/// Returns the size (in bytes) of the mapped buffer
-	GLsizeiptr Size(void) const
+	BigSizeType Size(void) const
 	{
-		return _size;
+		return BigSizeType(_size, std::nothrow);
 	}
 
 	/// Returns a const pointer to the mapped data

@@ -4,10 +4,11 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
+#include <oglplus/assert.hpp>
 
 namespace oglplus {
 namespace shapes {
@@ -26,7 +27,7 @@ GLuint SimpleSubdivSphere::_midpoint(GLuint ia, GLuint ib)
 		Vec3d va(_positions.data()+ea*3, 3);
 		Vec3d vb(_positions.data()+eb*3, 3);
 		Vec3f mp = Normalized((va+vb)*0.5);
-		GLuint result = _positions.size();
+		GLuint result = GLuint(_positions.size());
 
 		_positions.insert(_positions.end(), mp.Data(), mp.Data()+3);
 
@@ -197,7 +198,7 @@ SimpleSubdivSphere::SimpleSubdivSphere(GLuint subdivs, InitialShape init_shape)
 		_init_octoh();
 	else if(init_shape == InitialShape::Tetrahedron)
 		_init_tetrah();
-	else assert(!"Invalid initial shape!");
+	else OGLPLUS_ABORT("Invalid initial shape!");
 }
 
 OGLPLUS_LIB_FUNC
@@ -207,7 +208,7 @@ DrawingInstructions SimpleSubdivSphere::Instructions(PrimitiveType mode) const
 	operation.method = DrawOperation::Method::DrawElements;
 	operation.mode = mode;
 	operation.first = 0;
-	operation.count = _indices.size();
+	operation.count = GLuint(_indices.size());
 	operation.restart_index = DrawOperation::NoRestartIndex();
 	operation.phase = 0;
 

@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_CLAMP_TO_EDGE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ClampToEdge
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_REPEAT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Repeat
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_CLAMP_TO_BORDER
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined ClampToBorder
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_MIRRORED_REPEAT
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MirroredRepeat
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_MIRROR_CLAMP_TO_EDGE
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined MirrorClampToEdge

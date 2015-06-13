@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_ACCUM_ADJACENT_PAIRS_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AccumAdjacentPairs
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_ADJACENT_PAIRS_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined AdjacentPairs
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_FIRST_TO_REST_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined FirstToRest

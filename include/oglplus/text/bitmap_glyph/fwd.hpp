@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -66,7 +66,7 @@ void BitmapGlyphInitializeLayoutData(
 	BitmapGlyphLayoutData& layout_data,
 	BitmapFont& font,
 	const CodePoint* cps,
-	GLsizei length
+	SizeType length
 );
 void BitmapGlyphDeallocateLayoutData(
 	BitmapGlyphRenderingBase& parent,
@@ -74,29 +74,29 @@ void BitmapGlyphDeallocateLayoutData(
 );
 
 // Returns the page of the font containing the glyph for the specified codepoint
-inline GLint BitmapGlyphPageOfCP(
+inline GLuint BitmapGlyphPageOfCP(
 	const BitmapGlyphRenderingBase& parent,
 	CodePoint code_point
 )
 {
 	assert(BitmapGlyphGlyphsPerPage(parent) != 0);
 	assert(BitmapGlyphGlyphsPerPage(parent) % 4 == 0);
-	return code_point / BitmapGlyphGlyphsPerPage(parent);
+	return GLuint(code_point / BitmapGlyphGlyphsPerPage(parent));
 }
 
-inline GLint BitmapGlyphCellOfCP(
+inline GLuint BitmapGlyphCellOfCP(
 	const BitmapGlyphRenderingBase& parent,
 	CodePoint code_point
 )
 {
 	assert(BitmapGlyphGlyphsPerPage(parent) != 0);
 	assert(BitmapGlyphGlyphsPerPage(parent) % 4 == 0);
-	return code_point % BitmapGlyphGlyphsPerPage(parent);
+	return GLuint(code_point % BitmapGlyphGlyphsPerPage(parent));
 }
 
 std::string BitmapGlyphPageName(
 	const BitmapGlyphRenderingBase& parent,
-	GLint page
+	GLuint page
 );
 
 GLuint BitmapGlyphDefaultPageTexSide(

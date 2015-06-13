@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{022_parallax_map}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -222,8 +222,8 @@ public:
 
 		{
 			auto img = images::SphereBumpMap(512, 512, 2, 2);
-			Uniform<GLint>(prog, "BumpTexWidth").Set(img.Width());
-			Uniform<GLint>(prog, "BumpTexHeight").Set(img.Height());
+			Uniform<GLsizei>(prog, "BumpTexWidth").Set(img.Width());
+			Uniform<GLsizei>(prog, "BumpTexHeight").Set(img.Height());
 			UniformSampler(prog, "BumpTex").Set(0);
 			Texture::Active(0);
 
@@ -251,7 +251,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(54),
-				double(width)/height,
+				float(width)/height,
 				1, 10
 			)
 		);

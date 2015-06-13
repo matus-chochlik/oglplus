@@ -5,7 +5,6 @@
  */
 
 //[oglplus_buffer_common_1
-namespace oglplus {
 
 template <>
 class __ObjCommonOps<__tag_Buffer>
@@ -189,7 +188,7 @@ public:
 	template <typename GLtype>
 	static void Data(
 		__BufferTarget target,
-		GLsizei count,
+		__SizeType count,
 		const GLtype* data,
 		__BufferUsage usage = BufferUsage::StaticDraw
 	);
@@ -207,7 +206,7 @@ public:
 	static void SubData(
 		__BufferTarget target,
 		__BufferSize offset,
-		GLsizei count,
+		__SizeType count,
 		const GLtype* data
 	);
 
@@ -284,7 +283,7 @@ public:
 //]
 //[oglplus_buffer_2
 
-	static GLsizei Size(__BufferTarget target); /*<
+	static __SizeType Size(__BufferTarget target); /*<
 	Returns the size of a buffer currently bound to the specified [^target].
 	See [glfunc Get], [glconst BUFFER_SIZE].
 	>*/
@@ -309,7 +308,7 @@ public:
 	See [glfunc BufferPageCommitmentARB].
 	>*/
 
-	static GLsizei PageSize(void); /*<
+	static __SizeType PageSize(void); /*<
 	Returns the implementation-dependent sparse buffer storage page size.
 	See [glfunc Get], [glconst SPARSE_BUFFER_PAGE_SIZE_ARB].
 	>*/
@@ -417,6 +416,5 @@ __BufferTarget operator << (
 Equivalent to [^BufferOps::SubData(target, offset, data)].
 >*/
 
-} // namespace oglplus
 //]
 

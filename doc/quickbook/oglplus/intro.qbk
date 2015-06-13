@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -15,3 +15,4 @@ It provides wrappers which automate resource and object
 management and make the use of OpenGL in C++ safer, easier
 and more convenient.
 
+[include intro/hello_world.qbk]

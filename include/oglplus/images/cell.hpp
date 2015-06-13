@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,8 +14,8 @@
 #define OGLPLUS_IMAGES_CELL_1107121519_HPP
 
 #include <oglplus/images/image.hpp>
+#include <oglplus/assert.hpp>
 
-#include <cassert>
 #include <vector>
 
 namespace oglplus {
@@ -36,12 +36,12 @@ private:
 			case 4: return PixelDataFormat::RGBA;
 			default:;
 		}
-		assert(!"Invalid number of channels!");
+		OGLPLUS_ABORT("Invalid number of channels!");
 		return PixelDataFormat();
 	}
 
 	template <typename X>
-	static PixelDataInternalFormat _ifmt(X*, unsigned c)
+	static PixelDataInternalFormat _ifmt(TypeTag<X>, unsigned c)
 	{
 		switch(c)
 		{
@@ -51,7 +51,7 @@ private:
 			case 4: return PixelDataInternalFormat::RGBA;
 			default:;
 		}
-		assert(!"Invalid number of channels!");
+		OGLPLUS_ABORT("Invalid number of channels!");
 		return PixelDataInternalFormat();
 	}
 public:
@@ -77,9 +77,9 @@ public:
 
 	template <typename GetDistance, typename GetValue>
 	CellImageGen(
-		GLsizei cell_w,
-		GLsizei cell_h,
-		GLsizei cell_d,
+		SizeType cell_w,
+		SizeType cell_h,
+		SizeType cell_d,
 		const Image& input,
 		GetDistance get_distance,
 		GetValue get_value
@@ -87,15 +87,15 @@ public:
 		input.Width() *cell_w,
 		input.Height()*cell_h,
 		input.Depth() *cell_d,
-		CH, (T*)nullptr,
-		_fmt(CH), _ifmt((T*)nullptr, CH)
+		CH, &TypeTag<T>(),
+		_fmt(CH), _ifmt(TypeTag<T>(), CH)
 	)
 	{
-		const T one = this->_one((T*)0);
+		const T one = this->_one(TypeTag<T>());
 
-		const GLdouble i_w = 1.0/Width();
-		const GLdouble i_h = 1.0/Height();
-		const GLdouble i_d = 1.0/Depth();
+		const GLdouble i_w = 1.0/GLsizei(Width());
+		const GLdouble i_h = 1.0/GLsizei(Height());
+		const GLdouble i_d = 1.0/GLsizei(Depth());
 
 		const GLsizei iw = input.Width();
 		const GLsizei ih = input.Height();
@@ -119,15 +119,15 @@ public:
 
 		auto pos = this->_begin<T>();
 
-		for(GLsizei z=0; z!=Depth(); ++z)
+		for(GLsizei z=0; z<Depth(); ++z)
 		{
 			GLsizei cz = z/cell_d;
 
-			for(GLsizei y=0; y!=Height(); ++y)
+			for(GLsizei y=0; y<Height(); ++y)
 			{
 				GLsizei cy = y/cell_h;
 
-				for(GLsizei x=0; x!=Width(); ++x)
+				for(GLsizei x=0; x<Width(); ++x)
 				{
 					GLsizei cx = x/cell_w;
 
@@ -198,7 +198,7 @@ private:
 		Vec1d operator()(
 			const GLdouble* dists,
 			const Vec3d*,
-			GLsizei count
+			SizeType count
 		)
 		{
 			for(unsigned o=0; o!=_order; ++o)
@@ -219,7 +219,7 @@ private:
 					}
 				}
 			}
-			GLfloat result = _calc_value(_d);
+			GLfloat result = GLfloat(_calc_value(_d));
 			if(result > 1) result = 1;
 			if(result < 0) result = 0;
 			return Vec1d(result);
@@ -228,9 +228,9 @@ private:
 public:
 	template <typename ValueCalc>
 	WorleyCellGen(
-		GLsizei cell_w,
-		GLsizei cell_h,
-		GLsizei cell_d,
+		SizeType cell_w,
+		SizeType cell_h,
+		SizeType cell_d,
 		const Image& input,
 		ValueCalc calc_value,
 		unsigned order

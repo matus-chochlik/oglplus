@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,6 +16,7 @@
 #include <oglplus/object/reference.hpp>
 #include <oglplus/object/seq_tpl.hpp>
 #include <oglplus/utils/nothing.hpp>
+#include <oglplus/detail/size.hpp>
 
 #include <vector>
 #include <cassert>
@@ -74,8 +75,22 @@ public:
 		_init(Nothing());
 	}
 
+	template <typename S>
+	Array(SizeImpl<S> count)
+	 : _names(count, 0u)
+	{
+		_init(Nothing());
+	}
+
 	/// Constructs an an array of @p n instances of Object with @p type
 	Array(std::size_t n, typename ObjectSubtype<ObjTag>::Type type)
+	 : _names(n, 0u)
+	{
+		_init(type);
+	}
+
+	template <typename S>
+	Array(SizeImpl<S> n, typename ObjectSubtype<ObjTag>::Type type)
 	 : _names(n, 0u)
 	{
 		_init(type);
@@ -117,7 +132,7 @@ public:
 	}
 
 	/// Returns a const reference to the i-th instance in the array
-	const_reference at(NameT index) const
+	const_reference at(std::size_t index) const
 	{
 		return const_reference(ObjectName<ObjTag>(_names.at(index)));
 	}

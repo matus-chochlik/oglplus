@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -35,7 +35,7 @@ private:
 		std::size_t N
 	> static void _make_gradient(
 		const Vector<T, N>& background,
-		GLsizei dimension,
+		SizeType dimension,
 		const std::map<P, Vector<T, N>>& points,
 		std::vector<Vector<T, N>>& gradient
 	)
@@ -210,12 +210,12 @@ public:
 
 	template <typename P, typename T, std::size_t N>
 	LinearGradient(
-		GLsizei width,
+		SizeType width,
 		const Vector<T, N>& background,
 		const std::map<P, Vector<T, N>>& x_points
 	): Image(width, 1, 1, N, (GLubyte*)0)
 	{
-		std::vector<Vector<T, N>> x_gradient(width);
+		std::vector<Vector<T, N>> x_gradient(width.st());
 		_make_gradient(
 			background,
 			width,
@@ -227,15 +227,15 @@ public:
 
 	template <typename P, typename T, std::size_t N, typename Combine>
 	LinearGradient(
-		GLsizei width,
-		GLsizei height,
+		SizeType width,
+		SizeType height,
 		const Vector<T, N>& background,
 		const std::map<P, Vector<T, N>>& x_points,
 		const std::map<P, Vector<T, N>>& y_points,
 		Combine combine
 	): Image(width, height, 1, N, (GLubyte*)0)
 	{
-		std::vector<Vector<T, N>> y_gradient(height);
+		std::vector<Vector<T, N>> y_gradient(height.st());
 		_make_gradient(
 			background,
 			height,
@@ -243,7 +243,7 @@ public:
 			y_gradient
 		);
 
-		std::vector<Vector<T, N>> x_gradient(width);
+		std::vector<Vector<T, N>> x_gradient(width.st());
 		_make_gradient(
 			background,
 			width,
@@ -262,9 +262,9 @@ public:
 
 	template <typename P, typename T, std::size_t N, typename Combine>
 	LinearGradient(
-		GLsizei width,
-		GLsizei height,
-		GLsizei depth,
+		SizeType width,
+		SizeType height,
+		SizeType depth,
 		const Vector<T, N>& background,
 		const std::map<P, Vector<T, N>>& x_points,
 		const std::map<P, Vector<T, N>>& y_points,

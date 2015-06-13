@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_buffer_select_bit
-namespace oglplus {
 
 enum class BufferSelectBit : GLbitfield
 {
@@ -26,5 +25,4 @@ __StrCRef __EnumValueName(BufferSelectBit);
 
 __Bitfield<BufferSelectBit> operator | (BufferSelectBit b1, BufferSelectBit b2);
 
-} // namespace oglplus
 //]

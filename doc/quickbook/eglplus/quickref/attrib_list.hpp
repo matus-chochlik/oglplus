@@ -5,11 +5,9 @@
  */
 
 //[eglplus_attrib_list
-namespace eglplus {
 
 using __oglplus_AttributeList;
 using __oglplus_FinishedAttributeList;
 
-} // namespace eglplus
 //]
 

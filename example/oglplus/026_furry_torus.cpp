@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{026_furry_torus}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -211,21 +211,21 @@ public:
 		{
 			GLfloat u = GLfloat(std::rand()) / RAND_MAX;
 			GLfloat z = GLfloat(std::rand()) / RAND_MAX;
-			GLfloat v = z + std::pow(std::sin(2.0*M_PI*z)/(4.0*M_PI), 3);
+			GLfloat v = z + GLfloat(std::pow(std::sin(2.0*M_PI*z)/(4.0*M_PI), 3));
 
 			auto phi = FullCircles(u);
 			auto rho = FullCircles(v);
 
-			pos[i++] = Cos(phi) * (0.5 + 0.5 * (1.0 + Cos(rho)));
-			pos[i++] = Sin(rho) * 0.5;
-			pos[i++] = Sin(phi) * (0.5 + 0.5 * (1.0 + Cos(rho)));
+			pos[i++] = Cos(phi) * (0.5f + 0.5f * (1.0f + Cos(rho)));
+			pos[i++] = Sin(rho) * 0.5f;
+			pos[i++] = Sin(phi) * (0.5f + 0.5f * (1.0f + Cos(rho)));
 
 			nms[j++] = Cos(phi) * Cos(rho);
 			nms[j++] = Sin(rho);
 			nms[j++] = Sin(phi) * Cos(rho);
 
-			tcs[k++] = u * 4.0;
-			tcs[k++] = v * 2.0;
+			tcs[k++] = u * 4.0f;
+			tcs[k++] = v * 2.0f;
 		}
 
 		vbos[0].Bind(Buffer::Target::Array);
@@ -378,7 +378,7 @@ public:
 		gl.Viewport(width, height);
 		projection = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			width, height,
 			1, 30
 		);
 	}
@@ -416,7 +416,7 @@ public:
 		torus.Draw();
 
 		fur_prog.camera_matrix = projection * camera;
-		fur_prog.time = clock.Time();
+		fur_prog.time = GLfloat(clock.Time());
 		fur_prog.Use();
 		fur.Draw();
 	}

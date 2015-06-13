@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -31,7 +31,9 @@ struct PNGReadStruct
 	::png_structp _read;
 
 	// Error handling function
-	static void _png_handle_error(::png_structp /*sp*/, const char* msg);
+	OGLPLUS_NORETURN
+	static
+	void _png_handle_error(::png_structp /*sp*/, const char* msg);
 
 	// Warning handling function
 	static void _png_handle_warning(::png_structp/*sp*/, const char* /*msg*/);
@@ -99,7 +101,7 @@ PNGHeaderValidator::PNGHeaderValidator(std::istream& input)
 
 	const size_t sig_size = 8;
 	::png_byte sig[sig_size];
-	input.read((char*)sig, sig_size);
+	input.read(reinterpret_cast<char*>(sig), sig_size);
 
 	if(!input.good())
 	{
@@ -116,6 +118,7 @@ PNGHeaderValidator::PNGHeaderValidator(std::istream& input)
 	}
 }
 
+OGLPLUS_NORETURN
 OGLPLUS_LIB_FUNC
 void PNGReadStruct::_png_handle_error(
 	::png_structp /*sp*/,
@@ -137,7 +140,7 @@ OGLPLUS_LIB_FUNC
 PNGReadStruct::PNGReadStruct(PNGLoader& /*loader*/)
  : _read(::png_create_read_struct(
 	PNG_LIBPNG_VER_STRING,
-	(::png_voidp)this,
+	reinterpret_cast<::png_voidp>(this),
 	&_png_handle_error,
 	&_png_handle_warning
 ))
@@ -148,8 +151,8 @@ PNGReadStruct::~PNGReadStruct(void)
 {
 	::png_destroy_read_struct(
 		&_read,
-		(::png_infopp)0,
-		(::png_infopp)0
+		static_cast<::png_infopp>(nullptr),
+		static_cast<::png_infopp>(nullptr)
 	);
 }
 
@@ -165,7 +168,7 @@ PNGReadInfoStruct::~PNGReadInfoStruct(void)
 	::png_destroy_read_struct(
 		&_read,
 		&_info,
-		(::png_infopp)0
+		static_cast<::png_infopp>(nullptr)
 	);
 }
 
@@ -178,7 +181,7 @@ void PNGReadInfoEndStruct::_png_read_data(
 {
 	::png_voidp p = ::png_get_io_ptr(png);
 	assert(p != 0);
-	((PNGLoader*)p)->_read_data(data, size);
+	(reinterpret_cast<PNGLoader*>(p))->_read_data(data, size);
 }
 
 OGLPLUS_LIB_FUNC
@@ -189,7 +192,7 @@ int PNGReadInfoEndStruct::_png_read_user_chunk(
 {
 	::png_voidp p = ::png_get_user_chunk_ptr(png);
 	assert(p != 0);
-	return ((PNGLoader*)p)->_read_user_chunk(chunk);
+	return (reinterpret_cast<PNGLoader*>(p))->_read_user_chunk(chunk);
 }
 
 OGLPLUS_LIB_FUNC
@@ -199,12 +202,12 @@ PNGReadInfoEndStruct::PNGReadInfoEndStruct(PNGLoader& loader)
 {
 	::png_set_read_fn(
 		_read,
-		(::png_voidp)&loader,
+		reinterpret_cast<::png_voidp>(&loader),
 		&_png_read_data
 	);
 	::png_set_read_user_chunk_fn(
 		_read,
-		(::png_voidp)&loader,
+		reinterpret_cast<::png_voidp>(&loader),
 		&_png_read_user_chunk
 	);
 	::png_set_keep_unknown_chunks(
@@ -228,7 +231,7 @@ PNGReadInfoEndStruct::~PNGReadInfoEndStruct(void)
 OGLPLUS_LIB_FUNC
 void PNGLoader::_read_data(::png_bytep data, ::png_size_t size)
 {
-	_input.read((char*)data, size);
+	_input.read(reinterpret_cast<char*>(data), std::streamsize(size));
 	if(!_input.good())
 	{
 		throw std::runtime_error(
@@ -259,7 +262,7 @@ GLenum PNGLoader::_translate_format(GLuint color_type, bool /*has_alpha*/)
 		// TODO other color types
 		default:;
 	}
-	assert(!"Unknown color type!");
+	OGLPLUS_ABORT("Unknown color type!");
 	return 0;
 }
 
@@ -277,8 +280,8 @@ PNGLoader::PNGLoader(
 	::png_set_sig_bytes(_png._read, sig_size);
 	::png_read_info(_png._read, _png._info);
 
-	GLsizei width = png_get_image_width(_png._read, _png._info);
-	GLsizei height = png_get_image_height(_png._read, _png._info);
+	GLuint width = GLuint(png_get_image_width(_png._read, _png._info));
+	GLuint height = GLuint(png_get_image_height(_png._read, _png._info));
 	GLuint bitdepth = png_get_bit_depth(_png._read, _png._info);
 	GLuint channels = png_get_channels(_png._read, _png._info);
 	GLuint color_type = png_get_color_type(_png._read, _png._info);
@@ -310,21 +313,23 @@ PNGLoader::PNGLoader(
 
 	// if there are too many bits per channel strip them down
 	if(bitdepth == 16)
+	{
 		::png_set_strip_16(_png._read);
+	}
 
 	// bytes per row
-	GLsizei rowsize = width * channels * bitdepth / 8;
+	GLuint rowsize = width * channels * bitdepth / 8;
 	// allocate the buffer
 	std::vector<GLubyte> data(rowsize * height, GLubyte(0));
 	{
 		// allocate and initialize the row pointers
 		std::vector< ::png_bytep> rows(height);
 		//
-		for(GLsizei r=0; r!= height; ++r)
+		for(GLuint r=0; r<height; ++r)
 		{
-			GLsizei row = y_is_up? (height-r-1): r;
-			GLsizei offs = row * rowsize;
-			rows[r] = (::png_bytep)data.data() + offs;
+			GLuint row = y_is_up? (height-r-1): r;
+			GLuint offs = row * rowsize;
+			rows[r] = reinterpret_cast<::png_bytep>(data.data()) + offs;
 		}
 
 		// read
@@ -332,11 +337,11 @@ PNGLoader::PNGLoader(
 
 		if(!x_is_right)
 		{
-			for(GLsizei r=0; r!=height; ++r)
+			for(GLuint r=0; r<height; ++r)
 			{
-				for(GLsizei p=0; p!=width/2; ++p)
+				for(GLuint p=0; p<width/2; ++p)
 				{
-					for(GLuint c=0; c!=channels; ++c)
+					for(GLuint c=0; c<channels; ++c)
 					{
 						::png_byte tmp = rows[r][p*channels+c];
 						rows[r][p*channels+c] = rows[r][(width-p-1)*channels+c];

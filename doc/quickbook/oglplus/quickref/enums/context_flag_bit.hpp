@@ -10,9 +10,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_context_flag_bit
-namespace oglplus {
 
-enum class ContextFlagBit : GLenum
+enum class ContextFlagBit : GLbitfield
 {
 	ForwardCompatible = GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT,
 	Debug             = GL_CONTEXT_FLAG_DEBUG_BIT,
@@ -24,5 +23,6 @@ __Range<ContextFlagBit> __EnumValueRange<ContextFlagBit>(void);
 
 __StrCRef __EnumValueName(ContextFlagBit);
 
-} // namespace oglplus
+__Bitfield<ContextFlagBit> operator | (ContextFlagBit b1, ContextFlagBit b2);
+
 //]

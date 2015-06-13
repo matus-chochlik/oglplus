@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -15,7 +15,6 @@
 and is mostly used as the parameter type for functions working
 on multiple objects.
 
-[def __SeqIterator [link oglplus.quickref.object.sequence.iter SeqIterator]]
 [oglplus_object_Sequence]
 
 [heading:iter Iterator]

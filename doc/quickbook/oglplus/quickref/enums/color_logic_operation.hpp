@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_color_logic_operation
-namespace oglplus {
 
 enum class ColorLogicOperation : GLenum
 {
@@ -37,5 +36,4 @@ __Range<ColorLogicOperation> __EnumValueRange<ColorLogicOperation>(void);
 
 __StrCRef __EnumValueName(ColorLogicOperation);
 
-} // namespace oglplus
 //]

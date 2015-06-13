@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_MULTIPLY_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Multiply
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_SCREEN_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Screen
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_OVERLAY_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Overlay
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_DARKEN_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Darken
@@ -78,7 +78,7 @@
 # endif
 #endif
 #if defined GL_LIGHTEN_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Lighten
@@ -94,7 +94,7 @@
 # endif
 #endif
 #if defined GL_COLORDODGE_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Colordodge
@@ -110,7 +110,7 @@
 # endif
 #endif
 #if defined GL_COLORBURN_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Colorburn
@@ -126,7 +126,7 @@
 # endif
 #endif
 #if defined GL_HARDLIGHT_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Hardlight
@@ -142,7 +142,7 @@
 # endif
 #endif
 #if defined GL_SOFTLIGHT_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Softlight
@@ -158,7 +158,7 @@
 # endif
 #endif
 #if defined GL_DIFFERENCE_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Difference
@@ -174,7 +174,7 @@
 # endif
 #endif
 #if defined GL_EXCLUSION_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Exclusion
@@ -190,7 +190,7 @@
 # endif
 #endif
 #if defined GL_HSL_HUE_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined HSLHue
@@ -206,7 +206,7 @@
 # endif
 #endif
 #if defined GL_HSL_SATURATION_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined HSLSaturation
@@ -222,7 +222,7 @@
 # endif
 #endif
 #if defined GL_HSL_COLOR_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined HSLColor
@@ -238,7 +238,7 @@
 # endif
 #endif
 #if defined GL_HSL_LUMINOSITY_KHR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined HSLLuminosity

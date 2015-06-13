@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.59.0
+Release notes for version 0.62.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,5 +7,18 @@ Release notes for version 0.59.0
 Overview
 ========
 
-This is mostly a bugfix release of `OGLPLUS`_. A bug in move construction and move assignment in the ``Object`` wrappers were fixed. The ``Boolean`` wrapper for ``GLint``, ``ALint`` and ``EGLBoolean`` values implicitly convertible from and to ``bool`` was added.
+This release of `OGLplus`_ brings brings fixes to several bugs and compiler warnings and changes to internal implementation details.
+
+Changes
+-------
+
+- The ``SizeType`` and ``BigSizeType`` classes were updated and arithmetic operators were added.
+
+- A missing-identifier bug was fixed in images::Image.
+
+- Some compiler warnings were silenced.
+
+- Several other minor changes were made to the internals.
+
+- The Quickbook documentation was updated.
 

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,8 +15,8 @@ namespace text {
 OGLPLUS_LIB_FUNC
 BitmapGlyphLayoutStorage::BitmapGlyphLayoutStorage(
 	BitmapGlyphRenderingBase& parent,
-	GLsizei capacity,
-	GLsizei alloc_unit
+	SizeType capacity,
+	SizeType alloc_unit
 ): _parent(parent)
  , _list_head(0u)
  , _free(capacity)
@@ -28,10 +28,10 @@ BitmapGlyphLayoutStorage::BitmapGlyphLayoutStorage(
 	_vao.Bind();
 	{
 		_code_points.Bind(Buffer::Target::Array);
-		Buffer::Data(
+		Buffer::Data<GLuint>(
 			Buffer::Target::Array,
 			_capacity,
-			(GLuint*)nullptr
+			nullptr
 		);
 
 		GLuint _linked_list[2] = {GLuint(_capacity), _list_nil()};
@@ -49,10 +49,10 @@ BitmapGlyphLayoutStorage::BitmapGlyphLayoutStorage(
 	}
 	{
 		_x_offsets.Bind(Buffer::Target::Array);
-		Buffer::Data(
+		Buffer::Data<GLfloat>(
 			Buffer::Target::Array,
 			_capacity,
-			(GLfloat*)nullptr
+			nullptr
 		);
 
 		VertexAttribSlot location(1);
@@ -71,8 +71,11 @@ bool BitmapGlyphLayoutStorage::Allocate(BitmapGlyphLayoutData& layout_data)
 	assert(required > 0);
 	// adjust the allocation size to be a multiple
 	// of the allocation unit
-	GLuint pad = required % _alloc_unit;
-	if(pad != 0) required += _alloc_unit - pad;
+	GLint pad = required % _alloc_unit;
+	if(pad != 0)
+	{
+		required += _alloc_unit - pad;
+	}
 	// do a quick initial check if the allocation
 	// can be satisfied
 	if(required > _free) return false;
@@ -94,14 +97,14 @@ bool BitmapGlyphLayoutStorage::Allocate(BitmapGlyphLayoutData& layout_data)
 	// a temporary list pointer
 	GLuint temp_pos = _list_nil();
 	// best difference between the request and available space
-	GLint min_diff = GLint(_capacity);
+	GLsizei min_diff = _capacity;
 	while(list_pos != _list_nil())
 	{
 		// available space in the current chunk
-		GLuint available = map.At(list_pos);
+		GLsizei available = GLsizei(map.At(list_pos));
 		// the difference between the request
 		// and the current chunk
-		GLint diff = available - required;
+		GLsizei diff = available - required;
 		// if we have an ideal fit
 		if(diff == 0)
 		{
@@ -140,8 +143,8 @@ bool BitmapGlyphLayoutStorage::Allocate(BitmapGlyphLayoutData& layout_data)
 	if(min_diff > 0)
 	{
 		// insert a new list element
-		next_pos = best_pos + required;
-		map.At(next_pos) = min_diff;
+		next_pos = best_pos + GLuint(required);
+		map.At(next_pos) = GLuint(min_diff);
 		map.At(next_pos+1) = map.At(best_pos+1);
 	}
 	// if it fits perfectly
@@ -284,7 +287,7 @@ void BitmapGlyphLayoutStorage::Initialize(
 	GLfloat width,
 	const std::vector<GLfloat>& x_offsets,
 	const CodePoint* cps,
-	GLsizei length
+	SizeType length
 )
 {
 	assert(layout_data._capacity >= length);
@@ -292,7 +295,7 @@ void BitmapGlyphLayoutStorage::Initialize(
 	// set the length
 	layout_data._length = length;
 	// upload the code points
-	std::vector<GLuint> code_points(cps, cps+length);
+	std::vector<GLuint> code_points(cps, cps+GLsizei(length));
 	_code_points.Bind(Buffer::Target::Array);
 	Buffer::SubData(
 		Buffer::Target::Array,

@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_capability
-namespace oglplus {
 
 enum class Capability : GLenum
 {
@@ -47,5 +46,4 @@ __Range<Capability> __EnumValueRange<Capability>(void);
 
 __StrCRef __EnumValueName(Capability);
 
-} // namespace oglplus
 //]

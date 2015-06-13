@@ -15,6 +15,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/color_buffer.hpp>
 #include <oglplus/framebuffer_attachment.hpp>
+#include <oglplus/size_type.hpp>
 #include <oglplus/one_of.hpp>
 
 namespace oglplus {
@@ -62,7 +63,7 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(DrawBuffers);
 	}
 
-	static void DrawBuffers(GLsizei count, const ColorBuffer* buffers)
+	static void DrawBuffers(SizeType count, const ColorBuffer* buffers)
 	{
 		DrawBuffers(oglplus::EnumArray<ColorBuffer>(count, buffers));
 	}

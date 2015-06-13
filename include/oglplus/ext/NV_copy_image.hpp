@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -58,7 +58,7 @@ public:
 		typename ObjBindingOps<DstObjTag>::Target dst_target,
 		GLint dst_level,
 		GLint dst_x, GLint dst_y, GLint dst_z,
-		GLsizei width, GLsizei height, GLsizei depth
+		SizeType width, SizeType height, SizeType depth
 	)
 	{
 		_chk_params<SrcObjTag, DstObjTag>();
@@ -96,7 +96,7 @@ public:
 		typename ObjBindingOps<DstObjTag>::Target dst_target,
 		GLint dst_level,
 		GLint dst_x, GLint dst_y, GLint dst_z,
-		GLsizei width, GLsizei height, GLsizei depth
+		SizeType width, SizeType height, SizeType depth
 	)
 	{
 		using native::GetGLXContext;
@@ -144,7 +144,7 @@ public:
 		typename ObjBindingOps<DstObjTag>::Target dst_target,
 		GLint dst_level,
 		GLint dst_x, GLint dst_y, GLint dst_z,
-		GLsizei width, GLsizei height, GLsizei depth
+		SizeType width, SizeType height, SizeType depth
 	)
 	{
 		using native::GetHGLRC;

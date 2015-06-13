@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_compare_function
-namespace oglplus {
 
 enum class CompareFunction : GLenum
 {
@@ -29,5 +28,4 @@ __Range<CompareFunction> __EnumValueRange<CompareFunction>(void);
 
 __StrCRef __EnumValueName(CompareFunction);
 
-} // namespace oglplus
 //]

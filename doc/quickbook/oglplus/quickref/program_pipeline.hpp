@@ -5,7 +5,6 @@
  */
 
 //[oglplus_program_pipeline_common
-namespace oglplus {
 
 template <>
 class __ObjCommonOps<__tag_ProgramPipeline>
@@ -125,6 +124,5 @@ Indirectly inherits from __ObjCommonOps_ProgramPipeline.
 >*/
 	NoProgramPipeline;
 
-} // namespace oglplus
 //]
 

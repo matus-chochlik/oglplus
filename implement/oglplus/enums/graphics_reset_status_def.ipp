@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_NO_ERROR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined NoError
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_GUILTY_CONTEXT_RESET
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined GuiltyContextReset
@@ -46,7 +46,7 @@
 # endif
 #endif
 #if defined GL_INNOCENT_CONTEXT_RESET
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined InnocentContextReset
@@ -62,7 +62,7 @@
 # endif
 #endif
 #if defined GL_UNKNOWN_CONTEXT_RESET
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined UnknownContextReset

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -54,25 +54,60 @@ private:
 		static GLuint limit = _query_limit();
 		return limit;
 	}
+
+	static inline
+	GLuint _check_u(GLuint value, const char* query_name)
+	{
+		OGLPLUS_HANDLE_ERROR_IF(
+			!(value < _limit()),
+			GL_INVALID_VALUE,
+			LimitError::Message(),
+			LimitError,
+			Value(value).
+			Limit(_limit()).
+			EnumParam(Query, query_name)
+		);
+		return value;
+	}
+
+	static inline
+	GLuint _check_i(GLint value, const char* query_name)
+	{
+		OGLPLUS_HANDLE_ERROR_IF(
+			(value < 0),
+			GL_INVALID_VALUE,
+			LimitError::MessageNeg(),
+			LimitError,
+			Limit(_limit()).
+			EnumParam(Query, query_name)
+		);
+		OGLPLUS_HANDLE_ERROR_IF(
+			!(GLuint(value) < _limit()),
+			GL_INVALID_VALUE,
+			LimitError::Message(),
+			LimitError,
+			Value(GLuint(value)).
+			Limit(_limit()).
+			EnumParam(Query, query_name)
+		);
+		return GLuint(value);
+	}
 protected:
 	/**
 	 *  @throws Error
 	 *  @throws LimitError
 	 */
 	LimitedCount(GLuint value, const char* query_name)
-	 : _value(value)
-	{
-		OGLPLUS_HANDLE_ERROR_IF(
-			_value >= _limit(),
-			GL_INVALID_VALUE,
-			LimitError::Message(),
-			LimitError,
-			Value(_value).
-			Limit(_limit()).
-			EnumParam(Query, query_name)
-		);
-	}
+	 : _value(_check_u(value, query_name))
+	{ }
+
+	LimitedCount(GLint value, const char* query_name)
+	 : _value(_check_i(value, query_name))
+	{ }
 public:
+
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	LimitedCount(const LimitedCount&) = default;
 
 	LimitedCount& operator = (const LimitedCount& other)
 	{
@@ -80,6 +115,7 @@ public:
 		assert(_value < _limit());
 		return *this;
 	}
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns the value
@@ -148,6 +184,9 @@ class NAME \
 public: \
 	typedef GLuint _value_type; \
 	NAME(GLuint value = 0) \
+	 : LimitedCount<GL_ ## QUERY>(value, #QUERY) \
+	{ } \
+	NAME(GLint value) \
 	 : LimitedCount<GL_ ## QUERY>(value, #QUERY) \
 	{ } \
 };

@@ -116,6 +116,10 @@ if(GLUT_FOUND AND GLEW_FOUND)
 endif()
 
 if(GLFW3_FOUND)
+	standalone_example_common(002_triangles_glfw3_glew GLFW3 GLEW)
+endif()
+
+if(GLFW3_FOUND)
 	standalone_example_common(029_mandelbrot_glfw3 GLFW3 OGLPLUS_GL)
 endif()
 

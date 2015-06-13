@@ -78,7 +78,7 @@ public:
 		GLint values_per_vertex,
 		DataType data_type,
 		Boolean normalized,
-		GLsizei stride,
+		SizeType stride,
 		GLintptr offset
 	) const
 	{
@@ -111,7 +111,7 @@ public:
 		VertexAttribSlot location,
 		GLint values_per_vertex,
 		DataType data_type,
-		GLsizei stride,
+		SizeType stride,
 		GLintptr offset
 	) const
 	{

@@ -5,10 +5,8 @@
  */
 
 //[oalplus_object_Optional
-namespace oalplus {
 
 using __oglplus_Optional;
 
-} // namespace oalplus
 //]
 

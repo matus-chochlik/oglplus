@@ -14,7 +14,7 @@
 #endif
 
 #if defined GL_NEAREST
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Nearest
@@ -30,7 +30,7 @@
 # endif
 #endif
 #if defined GL_LINEAR
-# if OGLPLUS_LIST_NEEDS_COMMA
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Linear
