@@ -378,7 +378,7 @@ public:
 		gl.Viewport(width, height);
 		projection = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			GLfloat(width)/height,
+			width, height,
 			1, 30
 		);
 	}

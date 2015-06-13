@@ -255,7 +255,7 @@ public:
 		gl.Viewport(width, height);
 		auto perspective = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			width, height,
 			1, 40
 		);
 		ProgramUniform<Mat4f>(

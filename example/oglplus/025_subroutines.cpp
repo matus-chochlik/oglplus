@@ -323,7 +323,7 @@ public:
 		gl.Viewport(width, height);
 		cube_prog.projection_matrix = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			float(width)/height,
 			1, 25
 		);
 	}

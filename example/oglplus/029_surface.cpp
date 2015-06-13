@@ -424,7 +424,7 @@ public:
 		gl.Viewport(width, height);
 		perspective = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			float(width)/height,
 			1, 60
 		);
 		liquid_prog.viewport_dimensions.Set(Vec2f(width, height));

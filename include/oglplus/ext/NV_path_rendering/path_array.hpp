@@ -58,11 +58,11 @@ public:
 		OGLPLUS_GLFUNC(PathGlyphsNV)(
 			this->_names[0],
 			GLenum(font_target),
-			(const void*)font_name,
+			static_cast<const void*>(font_name),
 			GLbitfield(font_style),
 			num_glyphs,
 			GetDataType<CharType>(),
-			(const void*)char_codes,
+			static_cast<const void*>(char_codes),
 			GLenum(handle_missing_glyphs),
 			parameter_template,
 			em_scale
@@ -94,11 +94,11 @@ public:
 		OGLPLUS_GLFUNC(PathGlyphsNV)(
 			this->_names[0],
 			GLenum(font_target),
-			(const void*)font_name,
+			static_cast<const void*>(font_name),
 			GLbitfield(font_style),
 			GLsizei(char_codes.size()),
 			GetDataType<CharType>(),
-			(const void*)char_codes.data(),
+			static_cast<const void*>(char_codes.data()),
 			GLenum(handle_missing_glyphs),
 			parameter_template,
 			em_scale
@@ -129,11 +129,11 @@ public:
 		OGLPLUS_GLFUNC(PathGlyphsNV)(
 			this->_names[0],
 			GLenum(font_target),
-			(const void*)font_name,
+			static_cast<const void*>(font_name),
 			GLbitfield(font_style),
-			char_codes.size(),
+			GLsizei(char_codes.size()),
 			GL_UTF8_NV,
-			(const void*)char_codes.data(),
+			static_cast<const void*>(char_codes.data()),
 			GLenum(handle_missing_glyphs),
 			parameter_template,
 			em_scale
@@ -165,7 +165,7 @@ public:
 		OGLPLUS_GLFUNC(PathGlyphRangeNV)(
 			this->_names[0],
 			GLenum(font_target),
-			(const void*)font_name,
+			static_cast<const void*>(font_name),
 			GLbitfield(font_style),
 			first_glyph,
 			num_glyphs,
@@ -201,7 +201,7 @@ public:
 			GLenum(list_mode),
 			num_indices,
 			GLenum(GetDataType<IndexType>()),
-			(const void*)indices,
+			static_cast<const void*>(indices),
 			this->_names[0],
 			advance_scale,
 			kerning_scale,
@@ -235,7 +235,7 @@ public:
 			GLenum(list_mode),
 			GLsizei(indices.size()),
 			GLenum(GetDataType<IndexType>()),
-			(const void*)indices.data(),
+			static_cast<const void*>(indices.data()),
 			this->_names[0],
 			advance_scale,
 			kerning_scale,
@@ -268,7 +268,7 @@ public:
 			GLenum(list_mode),
 			GLsizei(indices.size()+1), //include null terminator
 			GL_UTF8_NV,
-			(const void*)indices.data(),
+			static_cast<const void*>(indices.data()),
 			this->_names[0],
 			advance_scale,
 			kerning_scale,
@@ -301,7 +301,7 @@ public:
 			GLbitfield(query_mask),
 			num_indices,
 			GLenum(GetDataType<IndexType>()),
-			(const void*)indices,
+			static_cast<const void*>(indices),
 			this->_names[0],
 			stride,
 			returned_values
@@ -327,7 +327,7 @@ public:
 			GLbitfield(query_mask),
 			GLsizei(indices.size()),
 			GLenum(GetDataType<IndexType>()),
-			(const void*)indices.data(),
+			static_cast<const void*>(indices.data()),
 			this->_names[0],
 			stride,
 			returned_values
@@ -352,7 +352,7 @@ public:
 			GLbitfield(query_mask),
 			GLsizei(indices.size()+1),
 			GL_UTF8_NV,
-			(const void*)indices.data(),
+			static_cast<const void*>(indices.data()),
 			this->_names[0],
 			stride,
 			returned_values
@@ -402,7 +402,7 @@ public:
 		OGLPLUS_GLFUNC(StencilFillPathInstancedNV)(
 			num_paths,
 			GLenum(GetDataType<IndexType>()),
-			(const void*)paths,
+			static_cast<const void*>(paths),
 			this->_names[0],
 			GLenum(mode),
 			mask,
@@ -436,7 +436,7 @@ public:
 		OGLPLUS_GLFUNC(StencilFillPathInstancedNV)(
 			GLsizei(paths.size()),
 			GLenum(GetDataType<IndexType>()),
-			(const void*)paths.data(),
+			static_cast<const void*>(paths.data()),
 			this->_names[0],
 			GLenum(mode),
 			mask,
@@ -469,7 +469,7 @@ public:
 		OGLPLUS_GLFUNC(StencilFillPathInstancedNV)(
 			GLsizei(paths.size()),
 			GL_UTF8_NV,
-			(const void*)paths.data(),
+			static_cast<const void*>(paths.data()),
 			this->_names[0],
 			GLenum(mode),
 			mask,
@@ -501,7 +501,7 @@ public:
 		OGLPLUS_GLFUNC(CoverFillPathInstancedNV)(
 			num_paths,
 			GLenum(GetDataType<IndexType>()),
-			(const void*)paths,
+			static_cast<const void*>(paths),
 			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),
@@ -531,7 +531,7 @@ public:
 		OGLPLUS_GLFUNC(CoverFillPathInstancedNV)(
 			GLsizei(paths.size()),
 			GLenum(GetDataType<IndexType>()),
-			(const void*)paths.data(),
+			static_cast<const void*>(paths.data()),
 			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),
@@ -560,7 +560,7 @@ public:
 		OGLPLUS_GLFUNC(CoverFillPathInstancedNV)(
 			GLsizei(paths.size()),
 			GL_UTF8_NV,
-			(const void*)paths.data(),
+			static_cast<const void*>(paths.data()),
 			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),
@@ -592,7 +592,7 @@ public:
 		OGLPLUS_GLFUNC(StencilStrokePathInstancedNV)(
 			num_paths,
 			GLenum(GetDataType<IndexType>()),
-			(const void*)paths,
+			static_cast<const void*>(paths),
 			this->_names[0],
 			reference,
 			mask,
@@ -620,7 +620,7 @@ public:
 		OGLPLUS_GLFUNC(StencilStrokePathInstancedNV)(
 			GLsizei(paths.size()),
 			GLenum(GetDataType<IndexType>()),
-			(const void*)paths.data(),
+			static_cast<const void*>(paths.data()),
 			this->_names[0],
 			reference,
 			mask,
@@ -647,7 +647,7 @@ public:
 		OGLPLUS_GLFUNC(StencilStrokePathInstancedNV)(
 			GLsizei(paths.size()),
 			GL_UTF8_NV,
-			(const void*)paths.data(),
+			static_cast<const void*>(paths.data()),
 			this->_names[0],
 			reference,
 			mask,
@@ -675,7 +675,7 @@ public:
 		OGLPLUS_GLFUNC(CoverStrokePathInstancedNV)(
 			num_paths,
 			GLenum(GetDataType<IndexType>()),
-			(const void*)paths,
+			static_cast<const void*>(paths),
 			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),
@@ -705,7 +705,7 @@ public:
 		OGLPLUS_GLFUNC(CoverStrokePathInstancedNV)(
 			GLsizei(paths.size()),
 			GLenum(GetDataType<IndexType>()),
-			(const void*)paths.data(),
+			static_cast<const void*>(paths.data()),
 			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),
@@ -734,7 +734,7 @@ public:
 		OGLPLUS_GLFUNC(CoverStrokePathInstancedNV)(
 			GLsizei(paths.size()),
 			GL_UTF8_NV,
-			(const void*)paths.data(),
+			static_cast<const void*>(paths.data()),
 			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),

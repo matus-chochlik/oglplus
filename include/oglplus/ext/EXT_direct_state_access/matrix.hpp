@@ -232,7 +232,7 @@ public:
 	 */
 	DSAMatrixEXT& Scale(const Vector<GLdouble, 3>& amount)
 	{
-		OGLPLUS_GLFUNC(MatrixScalefEXT)(
+		OGLPLUS_GLFUNC(MatrixScaledEXT)(
 			GLenum(_mode),
 			amount.x(),
 			amount.y(),
@@ -282,7 +282,7 @@ public:
 	 */
 	DSAMatrixEXT& Translate(const Vector<GLdouble, 3>& amount)
 	{
-		OGLPLUS_GLFUNC(MatrixTranslatefEXT)(
+		OGLPLUS_GLFUNC(MatrixTranslatedEXT)(
 			GLenum(_mode),
 			amount.x(),
 			amount.y(),

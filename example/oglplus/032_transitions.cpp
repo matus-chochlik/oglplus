@@ -739,12 +739,12 @@ public:
 
 		projection_0 = CamMatrixf::PerspectiveX(
 			Degrees(70),
-			float(width)/height,
+			width, height,
 			1, 20
 		);
 		projection_1 = CamMatrixf::PerspectiveX(
 			Degrees(24),
-			float(width)/height,
+			width, height,
 			1, 40
 		);
 	}

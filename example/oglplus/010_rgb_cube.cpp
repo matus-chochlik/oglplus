@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{010_rgb_cube}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -196,7 +196,7 @@ public:
 		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
-				GLfloat(width)/height,
+				width, height,
 				1, 100
 			)
 		);
