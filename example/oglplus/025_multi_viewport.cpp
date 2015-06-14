@@ -312,7 +312,7 @@ public:
 		//
 		CamMatrixf camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			4.5 - SineWave(time / 16.0) * 1.5,
+			4.5f - float(SineWave(time / 16.0)) * 1.5f,
 			FullCircles(time / 12.0),
 			Degrees(SineWave(time / 30.0) * 90)
 		);

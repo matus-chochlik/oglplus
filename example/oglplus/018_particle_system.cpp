@@ -185,7 +185,7 @@ public:
 	{
 		float disp = 2.0f;
 		float dx = (0.5f - (float(std::rand())/RAND_MAX))*disp;
-		float dy = 5.0f + (0.5 - (float(std::rand())/RAND_MAX))*disp;;
+		float dy = 5.0f + (0.5f - (float(std::rand())/RAND_MAX))*disp;;
 		float dz = (0.5f - (float(std::rand())/RAND_MAX))*disp;
 		return Vec3f(dx, dy, dz);
 	}
@@ -194,7 +194,7 @@ public:
 	{
 		// update the particle positions, ages and directions
 		GLuint i = 0;
-		float time_diff = (time - prev_time);
+		float time_diff = float(time - prev_time);
 		float age_mult = 0.2f;
 		while(i != positions.size())
 		{
