@@ -1,6 +1,6 @@
 /**
- *  @file oglplus/uniform_block.ipp
- *  @brief Implementation of UniformBlock
+ *  @file oglplus/shader_storage_block.ipp
+ *  @brief Implementation of ShaderStorageBlock
  *
  *  @author Matus Chochlik
  *
@@ -11,24 +11,24 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1 || GL_ARB_uniform_buffer_object
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_shader_storage_buffer_object
 
 OGLPLUS_LIB_FUNC
-const char* ProgVarLocOps<tag::UniformBlock>::
+const char* ProgVarLocOps<tag::ShaderStorageBlock>::
 MsgGettingInactive(void)
 {
-	return "Getting the location of inactive program uniform block";
+	return "Getting the location of inactive program shader-storage block";
 }
 
 OGLPLUS_LIB_FUNC
-const char* ProgVarLocOps<tag::UniformBlock>::
+const char* ProgVarLocOps<tag::ShaderStorageBlock>::
 MsgUsingInactive(void)
 {
-	return "Using inactive program uniform block";
+	return "Using inactive program shader-storage block";
 }
 
 OGLPLUS_LIB_FUNC
-GLenum ProgVarCommonOps<tag::UniformBlock>::
+GLenum ProgVarCommonOps<tag::ShaderStorageBlock>::
 _translate_ref(ShaderType shader_type)
 {
 	switch(shader_type)
@@ -62,40 +62,40 @@ _translate_ref(ShaderType shader_type)
 }
 
 OGLPLUS_LIB_FUNC
-GLenum ProgVarCommonOps<tag::UniformBlock>::
+GLenum ProgVarCommonOps<tag::ShaderStorageBlock>::
 _translate_max(ShaderType shader_type)
 {
 	switch(shader_type)
 	{
 #ifdef GL_VERTEX_SHADER
 		case ShaderType::Vertex:
-		return GL_MAX_VERTEX_UNIFORM_BLOCKS;
+		return GL_MAX_VERTEX_SHADER_STORAGE_BLOCKS;
 #endif
 #ifdef GL_TESS_CONTROL_SHADER
 		case ShaderType::TessControl:
-		return GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS;
+		return GL_MAX_TESS_CONTROL_SHADER_STORAGE_BLOCKS;
 #endif
 #ifdef GL_TESS_EVALUATION_SHADER
 		case ShaderType::TessEvaluation:
-		return GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS;
+		return GL_MAX_TESS_EVALUATION_SHADER_STORAGE_BLOCKS;
 #endif
 #ifdef GL_GEOMETRY_SHADER
 		case ShaderType::Geometry:
-		return GL_MAX_GEOMETRY_UNIFORM_BLOCKS;
+		return GL_MAX_GEOMETRY_SHADER_STORAGE_BLOCKS;
 #endif
 #ifdef GL_FRAGMENT_SHADER
 		case ShaderType::Fragment:
-		return GL_MAX_FRAGMENT_UNIFORM_BLOCKS;
+		return GL_MAX_FRAGMENT_SHADER_STORAGE_BLOCKS;
 #endif
 #ifdef GL_COMPUTE_SHADER
 		case ShaderType::Compute:
-		return GL_MAX_COMPUTE_UNIFORM_BLOCKS;
+		return GL_MAX_COMPUTE_SHADER_STORAGE_BLOCKS;
 #endif
 	}
 	return 0;
 }
 
-#endif // uniform buffer object
+#endif // shader storage buffer object
 
 } // namespace oglplus
 
