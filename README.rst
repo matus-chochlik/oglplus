@@ -329,6 +329,7 @@ Acknowledgements
 - *Jesús Zazueta* for useful feedback and help with the fixing of several bugs.
 - *Konstantin Gainullin* for porting to Marmalade and fixing several warnings.
 - *Peter Laufenberg* for several patches.
+- *Jan P Springer (regnirpsj)* for contributing SSBO wrappers and example.
 License
 =======
 

@@ -45,9 +45,9 @@ private:
 	// VBOs for the cube's vertices and the uniform block
 	Buffer verts, block_buf;
 
-  //
-  static unsigned const max_cubes = 54;
-  
+	//
+	static unsigned const max_cubes = 54;
+
 public:
 	CubeExample(void)
 	 : cube_instr(make_cube.Instructions())
@@ -68,8 +68,8 @@ public:
 			"void main(void)"
 			"{"
 			"	mat4 ModelMatrix = gl_InstanceID < ModelMatrices.length() ? "
-      "                    ModelMatrices[gl_InstanceID]           : "
-      "                    mat4(1.0);"
+			"                    ModelMatrices[gl_InstanceID]           : "
+			"                    mat4(1.0);"
 			"	gl_Position = "
 			"		ProjectionMatrix *"
 			"		CameraMatrix *"
@@ -114,7 +114,7 @@ public:
 			(prog|"Position").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
-    // make the matrices
+		// make the matrices
 		{
 			// nr_cubes x 4x4 matrices
 			std::vector<GLfloat> matrix_data(max_cubes*16);
@@ -155,7 +155,7 @@ public:
 			);
 			block_buf.BindBaseShaderStorage(0);
 		}
-    
+
 		//
 		gl.ClearColor(0.9f, 0.9f, 0.9f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -189,20 +189,22 @@ public:
 			)
 		);
 
-    static signed cubes    (0);
-    static signed incr     (-1);
-    static double time_last(time);
+		static signed cubes    (0);
+		static signed incr     (-1);
+		static double time_last(time);
 
 
-    if (0.05 < (time - time_last)) {
-      if ((max_cubes < cubes) || (1 > cubes)) {
-        incr *= -1;
-      }
+		if (0.05 < (time - time_last))
+		{
+			if ((max_cubes < cubes) || (1 > cubes))
+			{
+				incr *= -1;
+			}
 
-      cubes     += incr;
-      time_last  = time;
-    }
-    
+			cubes     += incr;
+			time_last  = time;
+		}
+
 		// draw 'cubes' instances of the cube
 		// the vertex shader will take care of their placement
 		cube_instr.Draw(cube_indices, cubes);

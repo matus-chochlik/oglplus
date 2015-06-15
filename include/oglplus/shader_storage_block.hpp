@@ -52,11 +52,11 @@ public:
 		bool active_only
 	)
 	{
-    GLuint result = OGLPLUS_GLFUNC(GetProgramResourceIndex)(
-      GetGLName(program),
-      GL_SHADER_STORAGE_BLOCK,
-      identifier.c_str()
-    );
+		GLuint result = OGLPLUS_GLFUNC(GetProgramResourceIndex)(
+			GetGLName(program),
+			GL_SHADER_STORAGE_BLOCK,
+			identifier.c_str()
+		);
 		OGLPLUS_CHECK(
 			GetProgramResourceIndex,
 			ProgVarError,
@@ -70,7 +70,7 @@ public:
 			ProgVarError,
 			Program(program).
 			Identifier(identifier)
-    );
+		);
 
 		if(result == GL_INVALID_INDEX)
 		{

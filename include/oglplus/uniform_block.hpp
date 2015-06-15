@@ -52,11 +52,11 @@ public:
 		bool active_only
 	)
 	{
-    GLuint result = OGLPLUS_GLFUNC(GetProgramResourceIndex)(
-      GetGLName(program),
-      GL_UNIFORM_BLOCK,
-      identifier.c_str()
-    );
+		GLuint result = OGLPLUS_GLFUNC(GetProgramResourceIndex)(
+			GetGLName(program),
+			GL_UNIFORM_BLOCK,
+			identifier.c_str()
+		);
 		OGLPLUS_CHECK(
 			GetProgramResourceIndex,
 			ProgVarError,
