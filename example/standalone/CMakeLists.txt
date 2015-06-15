@@ -85,11 +85,21 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	endif()
 
 	if(PANGO_CAIRO_FOUND)
-		standalone_example_common(004_pango_cairo_hello GLUT GLEW PANGO_CAIRO)
+          include_directories(${PANGO_CAIRO_INCLUDE_DIRS})
+          add_definitions(${PANGO_CAIRO_CFLAGS_OTHER})
+          add_definitions(${PANGO_CAIRO_LDFLAGS})
+          standalone_example_common(
+            004_pango_cairo_hello
+	    GLUT GLEW PANGO_CAIRO
+            )
 	endif()
 
 	if(GLM_FOUND)
-		standalone_example_common(007_glm_boxes GLUT GLEW GLM)
+		include_directories(${GLM_INCLUDE_DIRS})
+		standalone_example_common(
+			007_glm_boxes
+			GLUT GLEW
+		)
 	endif()
 
 	standalone_example_common(010_blender2html)

@@ -15,18 +15,24 @@
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wshadow"
-#include <glm/vec2.hpp>
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
-#include <glm/mat2x2.hpp>
-#include <glm/mat2x3.hpp>
-#include <glm/mat2x4.hpp>
-#include <glm/mat3x2.hpp>
-#include <glm/mat3x3.hpp>
-#include <glm/mat3x4.hpp>
-#include <glm/mat4x2.hpp>
-#include <glm/mat4x3.hpp>
-#include <glm/mat4x4.hpp>
+
+#if (95 < GLM_VERSION)
+#  include <glm/vec2.hpp>
+#  include <glm/vec3.hpp>
+#  include <glm/vec4.hpp>
+#  include <glm/mat2x2.hpp>
+#  include <glm/mat2x3.hpp>
+#  include <glm/mat2x4.hpp>
+#  include <glm/mat3x2.hpp>
+#  include <glm/mat3x3.hpp>
+#  include <glm/mat3x4.hpp>
+#  include <glm/mat4x2.hpp>
+#  include <glm/mat4x3.hpp>
+#  include <glm/mat4x4.hpp>
+#else
+#  include <glm/glm.hpp>
+#endif
+
 #include <glm/gtc/type_ptr.hpp>
 #pragma GCC diagnostic pop
 

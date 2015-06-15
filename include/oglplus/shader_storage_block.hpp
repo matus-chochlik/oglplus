@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/uniform_block.hpp
+ *  @file oglplus/shader_storage_block.hpp
  *  @brief Named uniform block wrappers
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_UNIFORM_BLOCK_1107121519_HPP
-#define OGLPLUS_UNIFORM_BLOCK_1107121519_HPP
+#ifndef OGLPLUS_SHADER_STORAGE_BLOCK_1506141200_HPP
+#define OGLPLUS_SHADER_STORAGE_BLOCK_1506141200_HPP
 
 #include <oglplus/glfunc.hpp>
 #include <oglplus/string/ref.hpp>
@@ -28,23 +28,23 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1 || GL_ARB_uniform_buffer_object
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_shader_storage_buffer_object
 
 template <>
-class ProgVarLocOps<tag::UniformBlock>
+class ProgVarLocOps<tag::ShaderStorageBlock>
 {
 private:
 	static const char* MsgGettingInactive(void);
 protected:
 	static const char* MsgUsingInactive(void);
 public:
-	/// Finds the uniform block location, throws on failure if active_only
-	/** Finds the location / index of the uniform block specified
+	/// Finds the shader-storage block location, throws on failure if active_only
+	/** Finds the location / index of the shader-storage block specified
 	 *  by @p identifier in a @p program. If active_only is true then
-	 *  throws if no such uniform block exists or if it is not active.
+	 *  throws if no such shader-storage block exists or if it is not active.
 	 *
 	 *  @glsymbols
-	 *  @glfunref{GetUniformBlockIndex}
+	 *  @glfunref{GetProgramResourceIndex}
 	 */
 	static GLint GetLocation(
 		ProgramName program,
@@ -54,7 +54,7 @@ public:
 	{
     GLuint result = OGLPLUS_GLFUNC(GetProgramResourceIndex)(
       GetGLName(program),
-      GL_UNIFORM_BLOCK,
+      GL_SHADER_STORAGE_BLOCK,
       identifier.c_str()
     );
 		OGLPLUS_CHECK(
@@ -70,7 +70,7 @@ public:
 			ProgVarError,
 			Program(program).
 			Identifier(identifier)
-		);
+    );
 
 		if(result == GL_INVALID_INDEX)
 		{
@@ -81,15 +81,15 @@ public:
 };
 
 template <>
-class ProgVarCommonOps<tag::UniformBlock>
- : public ProgVarLoc<tag::UniformBlock>
+class ProgVarCommonOps<tag::ShaderStorageBlock>
+ : public ProgVarLoc<tag::ShaderStorageBlock>
 {
 private:
 	static GLenum _translate_ref(ShaderType shader_type);
 	static GLenum _translate_max(ShaderType shader_type);
 protected:
-	ProgVarCommonOps(UniformBlockLoc ubloc)
-	 : ProgVarLoc<tag::UniformBlock>(ubloc)
+	ProgVarCommonOps(ShaderStorageBlockLoc ubloc)
+	 : ProgVarLoc<tag::ShaderStorageBlock>(ubloc)
 	{ }
 
 	GLuint _block_index(void) const
@@ -101,7 +101,7 @@ protected:
 		return GLuint(this->_location);
 	}
 public:
-	/// Return the maximum number of uniform blocks for a @p shader_type
+	/// Return the maximum number of shader-storage blocks for a @p shader_type
 	static GLuint MaxIn(ShaderType shader_type)
 	{
 		GLint result;
@@ -118,7 +118,7 @@ public:
 		return GLuint(result);
 	}
 
-	/// Returns true if this uniform block is referenced by @p shader_type
+	/// Returns true if this shader-storage block is referenced by @p shader_type
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetActiveUniformBlock}
@@ -126,6 +126,7 @@ public:
 	Boolean ReferencedBy(ShaderType shader_type) const
 	{
 		Boolean result;
+
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
 			this->_program,
 			_block_index(),
@@ -140,7 +141,7 @@ public:
 		return result;
 	}
 
-	/// Returns the size of the uniform block
+	/// Returns the size of the shader-storage block
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetActiveUniformBlock}
@@ -151,32 +152,32 @@ public:
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
 			this->_program,
 			_block_index(),
-			GL_UNIFORM_BLOCK_DATA_SIZE,
+			GL_SHADER_STORAGE_BUFFER_SIZE,
 			&result
 		);
 		OGLPLUS_VERIFY(
 			GetActiveUniformBlockiv,
 			Error,
-			EnumParam(GLenum(GL_UNIFORM_BLOCK_DATA_SIZE))
+			EnumParam(GLenum(GL_SHADER_STORAGE_BUFFER_SIZE))
 		);
 		assert(result >= 0);
 		return GLuint(result);
 	}
 
-	/// Sets up the uniform block binding
+	/// Sets up the shader-storage block binding
 	/**
 	 *  @glsymbols
-	 *  @glfunref{UniformBlockBinding}
+	 *  @glfunref{ShaderStorageBlockBinding}
 	 */
 	void Binding(UniformBufferBindingPoint binding)
 	{
-		OGLPLUS_GLFUNC(UniformBlockBinding)(
+		OGLPLUS_GLFUNC(ShaderStorageBlockBinding)(
 			this->_program,
 			_block_index(),
 			GLuint(binding)
 		);
 		OGLPLUS_VERIFY(
-			UniformBlockBinding,
+			ShaderStorageBlockBinding,
 			ProgVarError,
 			Program(ProgramName(this->_program)).
 			Index(GLuint(binding))
@@ -184,27 +185,27 @@ public:
 	}
 };
 
-/// Encapsulates uniform block operations
+/// Encapsulates shader-storage block operations
 /**
  *  @see Uniform
  *
  *  @ingroup shader_variables
  *
- *  @glvoereq{3,1,ARB,uniform_buffer_object}
+ *  @glvoereq{4,3,ARB,shader_storage_buffer_object}
  */
 typedef ProgVar<
 	tag::ImplicitSel,
-	tag::UniformBlock,
+	tag::ShaderStorageBlock,
 	tag::NoTypecheck,
 	void
-> UniformBlock;
+> ShaderStorageBlock;
 
-#endif // uniform buffer object
+#endif // shader-storage buffer object
 
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/uniform_block.ipp>
+#include <oglplus/shader_storage_block.ipp>
 #endif
 
 #endif // include guard
