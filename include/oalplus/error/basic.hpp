@@ -66,6 +66,33 @@ protected:
 public:
 	Error(const char* message);
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	Error(const Error&) = default;
+#else
+	Error(const Error& that)
+	 : _code(that._code)
+#if !OALPLUS_ERROR_NO_FILE
+	 , _file(that._file)
+#endif
+#if !OALPLUS_ERROR_NO_FUNC
+	 , _func(that._func)
+#endif
+#if !OALPLUS_ERROR_NO_LINE
+	 , _line(that._line)
+#endif
+#if !OALPLUS_ERROR_NO_AL_LIB
+	 , _allib_name(that._alllib_name)
+#endif
+#if !OALPLUS_ERROR_NO_AL_FUNC
+	 , _alfunc_name(that._alfunc_name)
+#endif
+#if !OALPLUS_ERROR_NO_AL_SYMBOL
+	 , _enumpar_name(that._enumpar_name)
+	 , _enumpar(that._enumpar)
+#endif
+	{ }
+#endif
+
 	~Error(void)
 	OGLPLUS_NOTHROW
 	{ }

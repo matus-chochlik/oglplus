@@ -370,7 +370,7 @@ public:
 	{
 		OALPLUS_ALFUNC(SourceQueueBuffers)(
 			_obj_name(),
-			buffers.size(),
+			ALsizei(buffers.size()),
 			const_cast<ALuint*>(GetALNames(buffers))
 		);
 		OALPLUS_VERIFY(
@@ -389,7 +389,7 @@ public:
 	{
 		OALPLUS_ALFUNC(SourceUnqueueBuffers)(
 			_obj_name(),
-			buffers.size(),
+			ALsizei(buffers.size()),
 			const_cast<ALuint*>(GetALNames(buffers))
 		);
 		OALPLUS_VERIFY(
