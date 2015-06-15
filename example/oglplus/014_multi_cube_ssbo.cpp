@@ -44,6 +44,10 @@ private:
 
 	// VBOs for the cube's vertices and the uniform block
 	Buffer verts, block_buf;
+
+  //
+  static unsigned const nr_cubes = 54;
+  
 public:
 	CubeExample(void)
 	 : cube_instr(make_cube.Instructions())
@@ -63,7 +67,9 @@ public:
 			"out vec3 vertColor;"
 			"void main(void)"
 			"{"
-			"	mat4 ModelMatrix = ModelMatrices[gl_InstanceID];"
+			"	mat4 ModelMatrix = gl_InstanceID < ModelMatrices.length() ? "
+      "                    ModelMatrices[gl_InstanceID]           : "
+      "                    mat4(1.0);"
 			"	gl_Position = "
 			"		ProjectionMatrix *"
 			"		CameraMatrix *"
@@ -110,11 +116,11 @@ public:
 
 		// make the matrices
 		{
-			// 36 x 4x4 matrices
-			std::vector<GLfloat> matrix_data(36*16);
+			// nr_cubes x 4x4 matrices
+			std::vector<GLfloat> matrix_data(nr_cubes*16);
 			auto p = matrix_data.begin(), e = matrix_data.end();
 
-			Angle<GLfloat> angle, astep = Angle<GLfloat>::Degrees(10);
+			Angle<GLfloat> angle, astep = Angle<GLfloat>::Degrees(360.0/float(nr_cubes));
 			while(p != e)
 			{
 				GLfloat cx = Cos(angle);
@@ -183,9 +189,9 @@ public:
 			)
 		);
 
-		// draw 36 instances of the cube
+		// draw 'nr_cubes' instances of the cube
 		// the vertex shader will take care of their placement
-		cube_instr.Draw(cube_indices, 36);
+		cube_instr.Draw(cube_indices, nr_cubes);
 	}
 
 	bool Continue(double time)
