@@ -454,7 +454,11 @@ public:
 		gl.Enable(Capability::Blend);
 		gl.Bind(vao);
 		gl.Use(prog);
-		gl.DrawElements(PrimitiveType::Points, particles.Count(), (GLuint*)0);
+		gl.DrawElements(
+			PrimitiveType::Points,
+			particles.Count(),
+			DataType::UnsignedInt
+		);
 		gl.Disable(Capability::Blend);
 	}
 };
@@ -501,7 +505,7 @@ public:
 	{
 		return CamMatrixf::Orbiting(
 			Vec3f(0, 0, 0),
-			5.0 - SineWave(time / 11.0),
+			GLfloat(5.0 - SineWave(time / 11.0)),
 			FullCircles(time / 23.0),
 			Degrees(SineWave(time / 17.0) * 80)
 		);

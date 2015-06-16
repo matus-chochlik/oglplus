@@ -22,7 +22,7 @@ PangoCairoLayout::PangoCairoLayout(
  , _font(font)
  , _capacity(capacity)
  , _curr_width(0)
- , _width(font._essence->ApproxGlyphWidth()*_capacity*1.2f)
+ , _width(int(font._essence->ApproxGlyphWidth()*_capacity*1.2f))
  , _height(font._essence->Height())
  , _surface(
 	::cairo_image_surface_create(CAIRO_FORMAT_A8, _width, _height),

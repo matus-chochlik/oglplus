@@ -196,7 +196,7 @@ public:
 
 		if (0.05 < (time - time_last))
 		{
-			if ((max_cubes < cubes) || (1 > cubes))
+			if ((signed(max_cubes) < cubes) || (1 > cubes))
 			{
 				incr *= -1;
 			}
