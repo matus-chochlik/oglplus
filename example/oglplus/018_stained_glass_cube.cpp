@@ -193,7 +193,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				6.0 - SineWave(time / 6.0) * 3.0,
+				GLfloat(6.0 - SineWave(time / 6.0) * 3.0),
 				FullCircles(time * 0.7),
 				Degrees(SineWave(time / 30.0) * 90)
 			)

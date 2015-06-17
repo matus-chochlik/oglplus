@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -35,7 +35,7 @@ class RevolveY
 {
 private:
 	const std::vector<Type> _sections, _section_factors;
-	const unsigned _rings;
+	const std::size_t _rings;
 
 	const std::vector<Vector<Type, 3>> _positions_0, _positions_1;
 	const std::vector<Vector<Type, 3>> _normals_0, _normals_1;
@@ -54,7 +54,10 @@ private:
 		return a * (Type(1) - factor) + b * factor;
 	}
 
-	Vector<Type, 3> _get_position(unsigned ring, unsigned section) const
+	Vector<Type, 3> _get_position(
+		std::size_t ring,
+		std::size_t section
+	) const
 	{
 		return _mix(
 			_positions_0[ring],
@@ -63,7 +66,10 @@ private:
 		);
 	}
 
-	Vector<Type, 3> _get_normal(unsigned ring, unsigned section) const
+	Vector<Type, 3> _get_normal(
+		std::size_t ring,
+		std::size_t section
+	) const
 	{
 		return _mix(
 			_normals_0[ring],
@@ -72,7 +78,10 @@ private:
 		);
 	}
 
-	Vector<Type, 3> _get_tex_coord(unsigned ring, unsigned section) const
+	Vector<Type, 3> _get_tex_coord(
+		std::size_t ring,
+		std::size_t section
+	) const
 	{
 		return _mix(
 			_tex_coords_0[ring],
@@ -81,7 +90,7 @@ private:
 		);
 	}
 
-	static std::vector<Type> _make_default_sections(unsigned sections)
+	static std::vector<Type> _make_default_sections(std::size_t sections)
 	{
 		std::vector<Type> result(sections + 1);
 		const Type s_step = Type(1) / Type(sections);
@@ -103,12 +112,14 @@ private:
 		}
 		std::vector<Vector<Type, 3>> result(pos.size());
 
-		const unsigned n = result.size()-1;
-		const Vec3f tgnt(0.0, 0.0, -1.0);
+		const std::size_t n = result.size()-1;
+		const Vec3f tgnt(0.0f, 0.0f, -1.0f);
 
 		result[0] = Normalized(Cross(tgnt, pos[1] - pos[0]));
-		for(unsigned i=1; i!=n; ++i)
+		for(std::size_t i=1; i!=n; ++i)
+		{
 			result[i] = Normalized(Cross(tgnt, pos[i+1]-pos[i-1]));
+		}
 		result[n] = Normalized(Cross(tgnt, pos[n] - pos[n-1]));
 		return result;
 	}
@@ -198,12 +209,12 @@ public:
 		dest.resize(_rings * _sections.size() * 3);
 		unsigned k = 0;
 		//
-		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
+		for(std::size_t si=0, sn=_sections.size(); si!=sn; ++si)
 		{
 			const auto angle = FullCircles(_sections[si]);
 			const auto mat = ModelMatrix<Type>::RotationY(angle);
 
-			for(unsigned r=0; r!=_rings; ++r)
+			for(std::size_t r=0; r!=_rings; ++r)
 			{
 				const Vector<Type, 4> in(_get_position(r, si), 1);
 				const Vector<Type, 4> out = mat * in;
@@ -224,12 +235,12 @@ public:
 		dest.resize(_rings * _sections.size() * 3);
 		unsigned k = 0;
 		//
-		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
+		for(std::size_t si=0, sn=_sections.size(); si!=sn; ++si)
 		{
 			const auto angle = FullCircles(_sections[si]);
 			const auto mat = ModelMatrix<Type>::RotationY(angle);
 
-			for(unsigned r=0; r!=_rings; ++r)
+			for(std::size_t r=0; r!=_rings; ++r)
 			{
 				const Vector<Type, 4> in(_get_normal(r, si), 0);
 				const Vector<Type, 4> out = mat * in;
@@ -248,17 +259,17 @@ public:
 	GLuint Tangents(std::vector<T>& dest) const
 	{
 		dest.resize(_rings * _sections.size() * 3);
-		unsigned k = 0;
+		std::size_t k = 0;
 
 		const Vector<Type, 4> in(0.0, 0.0, -1.0, 0.0);
 
-		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
+		for(std::size_t si=0, sn=_sections.size(); si!=sn; ++si)
 		{
 			const auto angle = FullCircles(_sections[si]);
 			const auto mat = ModelMatrix<Type>::RotationY(angle);
 			const auto out = mat * in;
 
-			for(unsigned r=0; r!=_rings; ++r)
+			for(std::size_t r=0; r!=_rings; ++r)
 			{
 				dest[k++] = T(out.x());
 				dest[k++] = T(out.y());
@@ -278,12 +289,12 @@ public:
 
 		const Vector<Type, 3> tgt(0.0, 0.0, -1.0);
 
-		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
+		for(std::size_t si=0, sn=_sections.size(); si!=sn; ++si)
 		{
 			const auto angle = FullCircles(_sections[si]);
 			const auto mat = ModelMatrix<Type>::RotationY(angle);
 
-			for(unsigned r=0; r!=_rings; ++r)
+			for(std::size_t r=0; r!=_rings; ++r)
 			{
 				const Vector<Type, 3> nml(_get_normal(r, si));
 				const Vector<Type, 4> in(Cross(nml, tgt), 0);
@@ -303,15 +314,15 @@ public:
 	GLuint TexCoordinates(std::vector<T>& dest) const
 	{
 		dest.resize(_rings * _sections.size() * 3);
-		unsigned k = 0;
+		std::size_t k = 0;
 		//
 		const Vector<Type, 4> in(0.0, 0.0, -1.0, 0.0);
 
-		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
+		for(std::size_t si=0, sn=_sections.size(); si!=sn; ++si)
 		{
 			const T u_mult = _sections[si];
 
-			for(unsigned r=0; r!=_rings; ++r)
+			for(std::size_t r=0; r!=_rings; ++r)
 			{
 				auto tc = _get_tex_coord(r, si);
 				dest[k++] = T(tc.x()*u_mult);
@@ -366,31 +377,31 @@ public:
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray Indices(Default = Default()) const
 	{
-		const unsigned sn = _sections.size() - 1;
+		const std::size_t sn = _sections.size() - 1;
 #ifdef GL_PRIMITIVE_RESTART
-		const unsigned n = sn * (2 * _rings + 1);
+		const std::size_t n = sn * (2 * _rings + 1);
 #else
-		const unsigned n = sn * (2 * _rings + 2);
+		const std::size_t n = sn * (2 * _rings + 2);
 #endif
 		//
 		IndexArray indices(n);
-		unsigned k = 0;
-		unsigned offs = 0;
+		std::size_t k = 0;
+		std::size_t offs = 0;
 		// the triangle strips
 		for(unsigned s=0; s!=sn; ++s)
 		{
 			for(unsigned r=0; r!=_rings; ++r)
 			{
-				indices[k++] = offs + r + _rings;
-				indices[k++] = offs + r;
+				indices[k++] = GLuint(offs + r + _rings);
+				indices[k++] = GLuint(offs + r);
 			}
-			offs += _rings;
+			offs += GLuint(_rings);
 			// primitive restart index
 #ifdef GL_PRIMITIVE_RESTART
-			indices[k++] = n;
+			indices[k++] = GLuint(n);
 #else
-			indices[k++] = offs - 1;
-			indices[k++] = offs + _rings;
+			indices[k++] = GLuint(offs - 1);
+			indices[k++] = GLuint(offs + _rings);
 #endif
 		}
 		assert(k == indices.size());
@@ -403,11 +414,11 @@ public:
 	DrawingInstructions Instructions(Default = Default()) const
 	{
 		auto instructions = this->MakeInstructions();
-		const unsigned sn = _sections.size() - 1;
+		const std::size_t sn = _sections.size() - 1;
 #ifdef GL_PRIMITIVE_RESTART
-		const unsigned n = sn * (2 * _rings + 1);
+		const std::size_t n = sn * (2 * _rings + 1);
 #else
-		const unsigned n = sn * (2 * _rings + 2);
+		const std::size_t n = sn * (2 * _rings + 2);
 #endif
 
 		DrawOperation operation;

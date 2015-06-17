@@ -273,7 +273,10 @@ public:
 		std::ifstream image_file;
 		OpenResourceFile(image_file, "textures", "brain_scan_512", ".raw");
 		std::vector<GLubyte> image(cube_side*cube_side*cube_side);
-		image_file.read((char*)image.data(), image.size());
+		image_file.read(
+			reinterpret_cast<char*>(image.data()),
+			image.size()
+		);
 		volume_tex.Image3D(
 			0,
 			PixelDataInternalFormat::R8,
@@ -299,11 +302,11 @@ public:
 				256,
 				Vec4f(0, 0, 0, 0),
 				std::map<GLfloat, Vec4f>({
-					{  0.0/256.0, Vec4f(0.0, 0.0, 0.0,     0)},
-					{  1.0/256.0, Vec4f(0.0, 0.0, 0.0,     0)},
-					{128.0/256.0, Vec4f(0.5, 0.5, 0.9, 0.500)},
-					{196.0/256.0, Vec4f(0.5, 1.4, 0.6, 0.900)},
-					{256.0/256.0, Vec4f(1.0, 1.0, 1.0, 1.000)}
+					{  0.f/256.f, Vec4f(0.0f, 0.0f, 0.0f, 0.000f)},
+					{  1.f/256.f, Vec4f(0.0f, 0.0f, 0.0f, 0.000f)},
+					{128.f/256.f, Vec4f(0.5f, 0.5f, 0.9f, 0.500f)},
+					{196.f/256.f, Vec4f(0.5f, 1.4f, 0.6f, 0.900f)},
+					{256.f/256.f, Vec4f(1.0f, 1.0f, 1.0f, 1.000f)}
 				})
 			)
 		);
@@ -338,7 +341,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0.5f, 0.5f, 0.5f),
-			3.5 - SineWave(time / 23.0) * 0.5,
+			GLfloat(3.5 - SineWave(time / 23.0) * 0.5),
 			FullCircles(time / 13.0),
 			Degrees(SineWave(time / 31.0) * 85)
 		);
@@ -351,10 +354,10 @@ public:
 		GLfloat rho = 0.30f;
 
 		prog.cutout_coord.Set(
-			0.5+rho*Sin(the)*Cos(phi),
-			0.5+rho*Cos(the),
-			0.5+rho*Sin(the)*Sin(phi),
-			0.20+SineWave(time / 11.0)*0.05
+			GLfloat(0.5+rho*Sin(the)*Cos(phi)),
+			GLfloat(0.5+rho*Cos(the)),
+			GLfloat(0.5+rho*Sin(the)*Sin(phi)),
+			GLfloat(0.20+SineWave(time / 11.0)*0.05)
 		);
 		gl.DrawArraysInstanced(PrimitiveType::Points, 0, 1, 6);
 	}
