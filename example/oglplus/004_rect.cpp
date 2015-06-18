@@ -127,7 +127,11 @@ public:
 	{
 		gl.Clear().ColorBuffer();
 
-		gl.DrawElements(PrimitiveType::TriangleStrip, 4, (GLuint*)0);
+		gl.DrawElements(
+			PrimitiveType::TriangleStrip,
+			4,
+			DataType::UnsignedInt
+		);
 	}
 };
 

@@ -301,7 +301,7 @@ public:
 		prog.Use();
 		prog.hmap_1.Set(holder.HMapUnit1());
 		prog.hmap_2.Set(holder.HMapUnit2());
-		prog.time.Set(time);
+		prog.time.Set(GLfloat(time));
 
 		screen.Use();
 

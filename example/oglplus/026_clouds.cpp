@@ -86,7 +86,7 @@ public:
 	CloudExample(const ExampleParams& params)
 	 : sphere_instr(make_sphere.Instructions())
 	 , sphere_indices(make_sphere.Indices())
-	 , samples(25 + params.quality*params.quality*100)
+	 , samples(GLuint(25 + params.quality*params.quality*100))
 	 , positions(make_positions())
 	 , sizes(make_sizes())
 	 , cloud_tex(positions.size())
@@ -317,7 +317,7 @@ public:
 			cloud_tex[i].Bind(Texture::Target::_3D);
 			gl.DrawArraysInstanced(
 				PrimitiveType::Points,
-				i, 1,
+				GLint(i), 1,
 				samples
 			);
 		}
