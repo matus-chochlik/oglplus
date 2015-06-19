@@ -310,8 +310,8 @@ public:
 		assert(nsteps % 2 == 0);
 
 		prog.Use();
-		prog.time.Set(time);
-		prog.interval.Set(time_diff / nsteps);
+		prog.time.Set(GLfloat(time));
+		prog.interval.Set(GLfloat(time_diff / nsteps));
 
 		for(GLuint s=0; s!=nsteps; ++s)
 		{
@@ -569,14 +569,14 @@ public:
 		{
 			for(GLuint e=0; e!=electron_count; ++e)
 			{
-				idx_data[k++] = e+electron_count*(p-1);
-				idx_data[k++] = e+electron_count*p;
+				idx_data[k++] = GLshort(e+electron_count*(p-1));
+				idx_data[k++] = GLshort(e+electron_count*p);
 			}
 		}
 		for(GLuint e=0; e!=electron_count; ++e)
 		{
-			idx_data[k++] = e+electron_count*(max_trail_points-1);
-			idx_data[k++] = e;
+			idx_data[k++] = GLshort(e+electron_count*(max_trail_points-1));
+			idx_data[k++] = GLshort(e);
 		}
 		assert(k == idx_data.size());
 
@@ -616,7 +616,7 @@ public:
 			gl.DrawElements(
 				PrimitiveType::Lines,
 				electron_count*(curr_trail_point-1)*2,
-				(GLushort*)0
+				DataType::UnsignedShort
 			);
 		}
 		if(trail_points >= max_trail_points)
@@ -624,7 +624,9 @@ public:
 			gl.DrawElements(
 				PrimitiveType::Lines,
 				electron_count*(max_trail_points-curr_trail_point)*2,
-				(GLushort*)(electron_count*curr_trail_point*2*sizeof(GLushort))
+				reinterpret_cast<GLushort*>(
+					electron_count*curr_trail_point*2*sizeof(GLushort)
+				)
 			);
 		}
 	}
@@ -680,7 +682,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			410.0+SineWave(time/21.0)*370.0f,
+			GLfloat(410.0+SineWave(time/21.0)*370.0),
 			Degrees(time* 15),
 			Degrees(SineWave(time*0.15) * 45)
 		);
@@ -696,7 +698,7 @@ public:
 		gl.DepthMask(false);
 		trail_prog.Use();
 		trail_prog.camera_matrix.Set(camera);
-		trail_prog.time.Set(time);
+		trail_prog.time.Set(GLfloat(time));
 		trails.Update(physics.Offsets());
 		trails.Use();
 		trails.Draw();

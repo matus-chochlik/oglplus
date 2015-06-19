@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{006_newton_zoom}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -144,7 +144,7 @@ public:
 	{
 		gl.Clear().ColorBuffer();
 
-		GLfloat scale = 1.0f / (3.0 * time + 1.0f);
+		GLfloat scale = GLfloat(1.0 / (3.0 * time + 1.0));
 		Angle<GLfloat> angle = FullCircles(time * 0.1);
 		Vec2f x(Cos(angle), Sin(angle));
 		Vec2f y = Perpendicular(x);

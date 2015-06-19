@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{016_textured_cube_glsl120}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -170,7 +170,7 @@ public:
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
 				GLfloat(width)/height,
-				0.1, 30
+				0.1f, 30
 			)
 		);
 	}
@@ -183,7 +183,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				7.5 - SineWave(time / 6.0) * 6.0,
+				GLfloat(7.5 - SineWave(time / 6.0) * 6.0),
 				FullCircles(time * 0.03),
 				Degrees(SineWave(time / 30.0) * 90)
 			)

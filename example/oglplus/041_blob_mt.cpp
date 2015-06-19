@@ -538,13 +538,13 @@ void SurfacePolygonizerCommon::InitMetaballs(SurfaceExample& parent)
 	{
 		GLuint j = 0, n = 3+std::rand()%3;
 		std::vector<Vec4f> points(n);
-		GLfloat ball_size = 0.15*std::rand()/GLdouble(RAND_MAX) + 0.20;
+		GLfloat ball_size = 0.15f*std::rand()/GLfloat(RAND_MAX) + 0.2f;
 		while(j != n)
 		{
 			points[j] = Vec4f(
-				1.2*std::rand()/GLdouble(RAND_MAX) - 0.6,
-				1.2*std::rand()/GLdouble(RAND_MAX) - 0.6,
-				1.2*std::rand()/GLdouble(RAND_MAX) - 0.6,
+				1.2f*std::rand()/GLfloat(RAND_MAX) - 0.6f,
+				1.2f*std::rand()/GLfloat(RAND_MAX) - 0.6f,
+				1.2f*std::rand()/GLfloat(RAND_MAX) - 0.6f,
 				ball_size
 			);
 			++j;
@@ -1341,7 +1341,7 @@ void SurfaceExample::Render(ExampleClock& clock)
 
 	surface_data.camera = CamMatrixf::Orbiting(
 		Vec3f(),
-		3.0 - SineWave(time / 14.0),
+		GLfloat(3.0 - SineWave(time / 14.0)),
 		FullCircles(time / 60),
 		Degrees(SineWave(time / 17.0) * 10)
 	);
