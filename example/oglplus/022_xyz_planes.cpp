@@ -300,7 +300,7 @@ public:
 		gl.Disable(Capability::Blend);
 	}
 
-	void BSP(const Mat4f& camera, std::size_t p)
+	void BSP(const Mat4f& camera, GLuint p)
 	{
 		assert(p < std::size_t(plane.size()));
 		// the normal vector of the plane
