@@ -207,8 +207,8 @@ private:
 		{
 			float u = std::rand() / float(RAND_MAX);
 			float v = std::rand() / float(RAND_MAX);
-			float x = std::sqrt(v) * std::cos(2*3.1415*u);
-			float y = std::sqrt(v) * std::sin(2*3.1415*u);
+			float x = float(std::sqrt(v) * std::cos(2*3.1415*u));
+			float y = float(std::sqrt(v) * std::sin(2*3.1415*u));
 			depth_offs[i].Set(x, y);
 		}
 
@@ -344,7 +344,7 @@ public:
 		auto light =
 			CamMatrixf::Orbiting(
 				shape.BoundingSphere().Center(),
-				shape.BoundingSphere().Radius()*10.0,
+				shape.BoundingSphere().Radius()*10.0f,
 				FullCircles(time / 23.0),
 				Degrees(35 + SineWave(time / 31.0) * 50)
 			);
@@ -365,7 +365,7 @@ public:
 		auto camera =
 			CamMatrixf::Orbiting(
 				shape.BoundingSphere().Center(),
-				shape.BoundingSphere().Radius()*2.8,
+				shape.BoundingSphere().Radius()*2.8f,
 				FullCircles(time / 17.0),
 				Degrees(SineWave(time / 19.0) * 80)
 			);

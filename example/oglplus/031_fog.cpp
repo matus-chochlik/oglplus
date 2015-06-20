@@ -405,8 +405,8 @@ private:
 			float u = std::rand() / float(RAND_MAX);
 			float v = std::rand() / float(RAND_MAX);
 			shadow_offs[i].Set(
-				std::sqrt(v) * std::cos(2*3.1415*u),
-				std::sqrt(v) * std::sin(2*3.1415*u)
+				GLfloat(std::sqrt(v) * std::cos(2*3.1415*u)),
+				GLfloat(std::sqrt(v) * std::sin(2*3.1415*u))
 			);
 		}
 
