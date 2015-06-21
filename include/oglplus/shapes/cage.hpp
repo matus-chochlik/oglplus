@@ -209,7 +209,7 @@ public:
 			T(0),
 			T(0),
 			T(0),
-			Length(_size)
+			T(Length(_size))
 		);
 	}
 

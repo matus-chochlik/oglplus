@@ -293,21 +293,21 @@ public:
 
 		gl.Clear().DepthBuffer();
 
-		float dist = (1.0+SineWave(time / 13.0))*2.5;
+		float dist = float((1.0+SineWave(time / 13.0))*2.5);
 
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(45),
-				1.0,
-				1.0+dist,
-				shape.BoundingSphere().Radius()*2.0+1.0+dist
+				1.0f,
+				1.0f+dist,
+				shape.BoundingSphere().Radius()*2.0f+1.0f+dist
 			)
 		);
 
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				shape.BoundingSphere().Radius()+1.5+dist,
+				GLfloat(shape.BoundingSphere().Radius()+1.5+dist),
 				FullCircles(time / 27.0),
 				Degrees(SineWave(time / 23.0) * 89)
 			)
@@ -491,13 +491,13 @@ public:
 		gl.Clear().DepthBuffer();
 
 		auto light = CamMatrixf::Orbiting(
-			Vec3f(0, side*0.25, 0),
-			side*1.5,
+			Vec3f(0, side*0.25f, 0),
+			side*1.5f,
 			Degrees(-time * 27),
 			Degrees(SineWave(time / 19.0)*25  + 45)
 		);
 
-		shadow_prog.fade.Set(fade);
+		shadow_prog.fade.Set(GLfloat(fade));
 		shadow_prog.camera_matrix.Set(light);
 
 		shadow_prog.Use();
@@ -514,12 +514,12 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			side*1.1,
+			side*1.1f,
 			Degrees(time * 19),
 			Degrees(SineWave(time / 20.0) * 39 + 50)
 		);
 
-		display_prog.fade.Set(fade);
+		display_prog.fade.Set(GLfloat(fade));
 		display_prog.light_pos.Set(light.Position());
 		display_prog.camera_pos.Set(camera.Position());
 		display_prog.light_matrix.Set(light);

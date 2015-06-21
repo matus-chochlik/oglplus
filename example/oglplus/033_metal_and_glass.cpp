@@ -670,7 +670,7 @@ public:
 
 		light_pp.Bind();
 
-		light_prog.color = Vec3f(0.6, 0.4, 0.1);
+		light_prog.color = Vec3f(0.6f, 0.4f, 0.1f);
 
 		gl.Disable(Capability::DepthTest);
 		gl.Enable(Functionality::ClipDistance, 0);
@@ -688,7 +688,9 @@ public:
 					[&p](GLuint phase) -> bool
 					{
 						if(p == 0 || p == 3)
+						{
 							return (phase == 4);
+						}
 						else return (phase > 4);
 					}
 				);
@@ -753,10 +755,10 @@ public:
 		);
 
 		// setup the camera
-		Vec3f camera_target(0.0, 0.8, 0.0);
+		Vec3f camera_target(0.0f, 0.8f, 0.0f);
 		auto camera = CamMatrixf::Orbiting(
 			camera_target,
-			8.0 - SineWave(time / 15.0)*3.0,
+			GLfloat(8.0 - SineWave(time / 15.0)*3.0),
 			FullCircles(time / 24.0),
 			Degrees(45 + SineWave(time / 20.0) * 40)
 		);
@@ -774,19 +776,19 @@ public:
 
 		// Render the plane
 		transf_prog.model_matrix = ModelMatrixf();
-		transf_prog.texture_matrix.Set(Mat2f(Vec2f(9.0, 0.0), Vec2f(0.0, 9.0)));
-		metal_prog.color_1 = Vec3f(1.0, 0.9, 0.8);
-		metal_prog.color_2 = Vec3f(0.9, 0.8, 0.6);
+		transf_prog.texture_matrix.Set(Mat2f(Vec2f(9.0f,0.0f), Vec2f(0.0f,9.0f)));
+		metal_prog.color_1 = Vec3f(1.0f, 0.9f, 0.8f);
+		metal_prog.color_2 = Vec3f(0.9f, 0.8f, 0.6f);
 		metal_prog.with_glass_shadow = 1;
 
 		plane.Draw([](GLuint) -> bool {return true;});
 
 		// Render the torus
 		transf_prog.model_matrix.Set(torus_matrix);
-		transf_prog.texture_matrix.Set(Mat2f(Vec2f(16.0, 0.0), Vec2f(0.0, 4.0)));
+		transf_prog.texture_matrix.Set(Mat2f(Vec2f(16.0f,0.0f), Vec2f(0.0f, 4.0f)));
 		metal_prog.metal_tex.Set(0);
-		metal_prog.color_1 = Vec3f(0.9, 0.9, 0.9);
-		metal_prog.color_2 = Vec3f(0.3, 0.3, 0.3);
+		metal_prog.color_1 = Vec3f(0.9f, 0.9f, 0.9f);
+		metal_prog.color_2 = Vec3f(0.3f, 0.3f, 0.3f);
 		metal_prog.with_glass_shadow = 0;
 
 		// the metal-part
@@ -800,7 +802,7 @@ public:
 		// now the glass part
 		glass_pp.Bind();
 
-		glass_prog.color = Vec3f(0.6, 0.4, 0.1);
+		glass_prog.color = Vec3f(0.6f, 0.4f, 0.1f);
 
 		gl.Enable(Functionality::ClipDistance, 0);
 		gl.Enable(Capability::Blend);
