@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -122,9 +122,9 @@ public:
 	): _face_winding(builder.FaceWinding())
 	 , _shape_instr(builder.Instructions(selector))
 	 , _index_info(builder)
-	 , _vbos(std::distance(names_begin, names_end)+1)
-	 , _npvs(std::distance(names_begin, names_end)+1, 0)
-	 , _names(std::distance(names_begin, names_end))
+	 , _vbos(std::size_t(std::distance(names_begin, names_end)+1))
+	 , _npvs(std::size_t(std::distance(names_begin, names_end)+1), 0)
+	 , _names(std::size_t(std::distance(names_begin, names_end)))
 	{
 		this->_init(
 			builder,

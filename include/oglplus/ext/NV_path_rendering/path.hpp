@@ -55,7 +55,9 @@ protected:
 		assert(names != nullptr);
 		GLuint base = OGLPLUS_GLFUNC(GenPathsNV)(count);
 		for(GLsizei i=0; i!=count; ++i)
-			names[i] = base+i;
+		{
+			names[i] = base+GLuint(i);
+		}
 		OGLPLUS_CHECK_SIMPLE(GenPathsNV);
 	}
 
