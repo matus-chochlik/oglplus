@@ -209,7 +209,7 @@ public:
 		rndr_camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				9.0 + SineWave(t / 7.0)*3.0,
+				GLfloat(9.0 + SineWave(t / 7.0)*3.0),
 				-FullCircles(t / 17.0),
 				Degrees(SineWave(t / 21.0) * 35)
 			)

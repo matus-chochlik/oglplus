@@ -2,7 +2,7 @@
  *  @example standalone/004_text_rendering.cpp
  *  @brief Shows usage of the NV_path_rendering extension for rendering text
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -114,7 +114,8 @@ public:
 		gl.Clear().ColorBuffer().StencilBuffer();
 
 		auto h = Height();
-		int l = font_height / 2, i = 1;
+		float l = font_height / 2;
+		int i = 1;
 		RenderText(l, h - font_height*i++, "NV_path_rendering");
 
 		{
