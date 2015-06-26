@@ -35,27 +35,27 @@ _translate_ref(ShaderType shader_type)
 	{
 #ifdef GL_VERTEX_SHADER
 		case ShaderType::Vertex:
-		return GL_REFERENCED_BY_VERTEX_SHADER;
+		return GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER;
 #endif
 #ifdef GL_TESS_CONTROL_SHADER
 		case ShaderType::TessControl:
-		return GL_REFERENCED_BY_TESS_CONTROL_SHADER;
+		return GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER;
 #endif
 #ifdef GL_TESS_EVALUATION_SHADER
 		case ShaderType::TessEvaluation:
-		return GL_REFERENCED_BY_TESS_EVALUATION_SHADER;
+		return GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER;
 #endif
 #ifdef GL_GEOMETRY_SHADER
 		case ShaderType::Geometry:
-		return GL_REFERENCED_BY_GEOMETRY_SHADER;
+		return GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER;
 #endif
 #ifdef GL_FRAGMENT_SHADER
 		case ShaderType::Fragment:
-		return GL_REFERENCED_BY_FRAGMENT_SHADER;
+		return GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER;
 #endif
 #ifdef GL_COMPUTE_SHADER
 		case ShaderType::Compute:
-		return GL_REFERENCED_BY_COMPUTE_SHADER;
+		return GL_UNIFORM_BLOCK_REFERENCED_BY_COMPUTE_SHADER;
 #endif
 	}
 	return 0;
