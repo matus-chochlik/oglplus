@@ -52,6 +52,7 @@ public:
 		bool active_only
 	)
 	{
+#if GL_VERSION_4_3
 		GLuint result = OGLPLUS_GLFUNC(GetProgramResourceIndex)(
 			GetGLName(program),
 			GL_UNIFORM_BLOCK,
@@ -63,6 +64,18 @@ public:
 			Program(program).
 			Identifier(identifier)
 		);
+#else
+		GLuint result = OGLPLUS_GLFUNC(GetUniformBlockIndex)(
+			GetGLName(program),
+			identifier.c_str()
+		);
+		OGLPLUS_CHECK(
+			GetUniformBlockIndex,
+			ProgVarError,
+			Program(program).
+			Identifier(identifier)
+		);
+#endif
 		OGLPLUS_HANDLE_ERROR_IF(
 			active_only && (result == GL_INVALID_INDEX),
 			GL_INVALID_OPERATION,
