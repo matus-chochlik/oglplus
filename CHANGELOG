@@ -1,10 +1,20 @@
+Version 0.63.0
+
+- Some clang -Weverything compilation warnings were fixed.
+- New overloads of CameraMatrix::Perspective functions were added.
+- The internals of OALplus and EGLplus were refactored.
+- Support for Shader-storage buffer objects was added.
+- A bug in the Cloud and BrushedMetal image generators were fixed.
+- A problem with the NV path command enumeration was fixed.
+
+
 Version 0.62.0
 
 - Some clang -Weverything compilation warnings were fixed.
 - The SizeType class was updated.
 - Other minor changes were made in the implementation details.
 - A missing-identifier bug was fixed in images::Image.
-- The Guickbook documentation was updated.
+- The Quickbook documentation was updated.
 
 
 Version 0.61.0

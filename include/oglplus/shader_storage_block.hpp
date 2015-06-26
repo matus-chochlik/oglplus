@@ -28,7 +28,7 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_shader_storage_buffer_object
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
 
 template <>
 class ProgVarLocOps<tag::ShaderStorageBlock>

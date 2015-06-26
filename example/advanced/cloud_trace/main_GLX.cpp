@@ -2,7 +2,7 @@
  *  @example advanced/cloud_trace/main_GLX.cpp
  *  @brief GLX-based implementation of the main function.
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -277,7 +277,7 @@ void pbuffer_loop(
 	AppData& app_data,
 	CommonData& common,
 	RaytracerTarget& rt_target,
-	std::size_t n_threads
+	unsigned n_threads
 )
 {
 	Context gl;
@@ -369,7 +369,7 @@ void window_loop(
 	AppData& app_data,
 	CommonData& common,
 	RaytracerTarget& rt_target,
-	std::size_t n_threads
+	unsigned n_threads
 )
 {
 	Context gl;

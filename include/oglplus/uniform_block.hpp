@@ -52,13 +52,12 @@ public:
 		bool active_only
 	)
 	{
-		GLuint result = OGLPLUS_GLFUNC(GetProgramResourceIndex)(
+		GLuint result = OGLPLUS_GLFUNC(GetUniformBlockIndex)(
 			GetGLName(program),
-			GL_UNIFORM_BLOCK,
 			identifier.c_str()
 		);
 		OGLPLUS_CHECK(
-			GetProgramResourceIndex,
+			GetUniformBlockIndex,
 			ProgVarError,
 			Program(program).
 			Identifier(identifier)

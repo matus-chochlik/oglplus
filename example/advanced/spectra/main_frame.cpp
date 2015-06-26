@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -80,11 +80,16 @@ int SpectraMainFrameDocumentLoader::PercentDone(void) const
 
 //-- SpectraMainFrame --
 
+static const
 int SpectraMainFrameID_MenuFile = wxID_HIGHEST+1;
+static const
 int SpectraMainFrameID_GenerateDoc = SpectraMainFrameID_MenuFile+1;
 
+static const
 int SpectraMainFrameID_MenuView = wxID_HIGHEST+100;
+static const
 int SpectraMainFrameID_DefaultRenderer = SpectraMainFrameID_MenuView+1;
+static const
 int SpectraMainFrameID_XSectionRenderer = SpectraMainFrameID_MenuView+2;
 
 void SpectraMainFrame::SetStatus(const wxString& status_text)
@@ -353,9 +358,11 @@ void SpectraMainFrame::DoGenerateDocument(wxCommandEvent&)
 		{
 			float operator()(float x) const
 			{
-				return sin(3.1415*10.0*(sin(x)+2.0+x*x))*
+				return float(
+					sin(3.1415*10.0*(sin(x)+2.0+x*x))*
 					std::rand()/float(RAND_MAX)*
-					std::rand()/float(RAND_MAX);
+					std::rand()/float(RAND_MAX)
+				);
 			}
 		};
 
@@ -365,7 +372,7 @@ void SpectraMainFrame::DoGenerateDocument(wxCommandEvent&)
 				SpectraOpenTestDoc(
 					TestSignal(),
 					11000,
-					4.71
+					4.71f
 				)
 			),
 			false
@@ -464,7 +471,7 @@ SpectraMainFrame::RendererGetter SpectraMainFrame::LazyRendererPicker(void)
 	struct RendererPicker
 	{
 		std::shared_ptr<SpectraRenderer> operator()(
-			SpectraApp& parent_app,
+			SpectraApp& main_app,
 			SpectraMainFrame* main_frame,
 			const std::shared_ptr<SpectraVisualisation>& doc_vis,
 			wxGLCanvas* canvas
@@ -472,7 +479,7 @@ SpectraMainFrame::RendererGetter SpectraMainFrame::LazyRendererPicker(void)
 		{
 			assert(main_frame);
 			return main_frame->PickRenderer(
-				parent_app,
+				main_app,
 				main_frame,
 				doc_vis,
 				canvas

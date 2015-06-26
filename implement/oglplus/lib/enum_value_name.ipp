@@ -296,7 +296,7 @@ OGLPLUS_ENUM_CLASS_FWD(PathNVColorFormat, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(PathNVColor, GLenum)
 #include <oglplus/enums/ext/nv_path_color_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(PathNVCommand, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(PathNVCommand, GLubyte)
 #include <oglplus/enums/ext/nv_path_command_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(PathNVDashOffsetReset, GLenum)
