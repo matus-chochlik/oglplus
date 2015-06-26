@@ -141,7 +141,7 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		int x=0, y=0, nx=1, ny=1;
+		unsigned x=0, y=0, nx=1, ny=1;
 		switch(int(time / 3.0) % 5)
 		{
 			case 1: x=1; y=1; nx=4; ny=4; break;

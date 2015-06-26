@@ -593,15 +593,15 @@ public:
 
 		Mat4f perspective = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			float(width)/height,
 			1, 60
 		);
 
 		// setup the camera
-		Vec3f camera_target(0.0, 0.8, 0.0);
+		Vec3f camera_target(0.0f, 0.8f, 0.0f);
 		auto camera = CamMatrixf::Orbiting(
 			camera_target,
-			7.0 - SineWave(time / 14.0)*3.0,
+			GLfloat(7.0 - SineWave(time / 14.0)*3.0),
 			FullCircles(time / 26.0),
 			Degrees(45 + SineWave(time / 17.0) * 40)
 		);

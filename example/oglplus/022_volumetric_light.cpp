@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{022_volumetric_light}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -153,7 +153,7 @@ public:
 
 		Vec3f lightPos(2.0f, 4.0f, -3.0f);
 		auto texProjMat =
-			CamMatrixf::PerspectiveX(Degrees(30), 1.0, 0.3, 20.0) *
+			CamMatrixf::PerspectiveX(Degrees(30), 1.0f, 0.3f, 20) *
 			CamMatrixf::LookingAt(lightPos, Vec3f(0, 0, 0));
 
 		Uniform<GLint>(volume_prog, "SampleCount").Set(samples);
@@ -255,7 +255,7 @@ public:
 		gl.Viewport(width, height);
 		auto perspective = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			width, height,
 			1, 40
 		);
 		ProgramUniform<Mat4f>(

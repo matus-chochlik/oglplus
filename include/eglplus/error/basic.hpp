@@ -66,6 +66,31 @@ public:
 
 	Error(const char* message);
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	Error(const Error&) = default;
+	Error(Error&&) = default;
+#else
+	Error(const Error& that)
+	 : _code(that._code)
+#if !EGLPLUS_ERROR_NO_FILE
+	 , _file(that._file)
+#endif
+#if !EGLPLUS_ERROR_NO_FUNC
+	 , _func(that._func)
+#endif
+#if !EGLPLUS_ERROR_NO_LINE
+	 , _line(that._line)
+#endif
+#if !EGLPLUS_ERROR_NO_EGL_FUNC
+	 , _eglfunc_name(that._eglfunc_name)
+#endif
+#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
+	 , _enumpar_name(that._enumpar_name)
+	 , _enumpar(that._enumpar)
+#endif
+	{ }
+#endif
+
 	~Error(void)
 	OGLPLUS_NOTHROW
 	{ }

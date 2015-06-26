@@ -11,7 +11,7 @@
 //
 //[oglplus_enums_ext_nv_path_command
 
-enum class PathNVCommand : GLenum
+enum class PathNVCommand : GLubyte
 {
 	Close                          = GL_CLOSE_PATH_NV,
 	MoveTo                         = GL_MOVE_TO_NV,

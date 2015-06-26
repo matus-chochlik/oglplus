@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{031_brick_torus}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -514,7 +514,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(70),
-				double(width)/height,
+				float(width)/height,
 				1, 20
 			)
 		);
@@ -528,9 +528,9 @@ public:
 
 		auto langle = FullCircles(time / 23.0);
 		light_position.Set(
-			Cos(langle)*20.0f,
-			(1.2+Sin(langle))*15.0f,
-			Sin(langle)*20.0f
+			GLfloat(Cos(langle)*20.0),
+			GLfloat((1.2+Sin(langle))*15.0),
+			GLfloat(Sin(langle)*20.0)
 		);
 
 		double x = SineWave(time / 13.0);
@@ -539,7 +539,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			9.5 + x*5.1,
+			GLfloat(9.5 + x*5.1),
 			FullCircles(time / 17.0),
 			Degrees(SineWave(time / 20.0) * 89)
 		);

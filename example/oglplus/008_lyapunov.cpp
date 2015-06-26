@@ -6,7 +6,7 @@
  *  @author Timo Keller
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -185,7 +185,7 @@ public:
 	{
 		gl.Clear().ColorBuffer();
 
-		scroll_factor.Set(1.0f / (0.005 * time + 1.0f));
+		scroll_factor.Set(GLfloat(1.0 / (0.005 * time + 1.0)));
 
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}

@@ -155,7 +155,7 @@ public:
 	 , prog()
 	 , screen(List("Position").Get(), shapes::Screen(), prog)
 	{
-		std::srand(std::time(0));
+		std::srand(unsigned(std::time(0)));
 
 		tex	<< TextureTarget::_2D
 			<< TextureFilter::Nearest
@@ -172,8 +172,11 @@ public:
 	{
 		float o = 2;
 		float s = 24;
-		prog.offset.Set(CosineWave(time/59.0)*o, SineWave(time/61.0)*o);
-		prog.scale.Set(s + 1 + SineWave(time / 19.0)*s);
+		prog.offset.Set(
+			GLfloat(CosineWave(time/59.0)*o),
+			GLfloat(SineWave(time/61.0)*o)
+		);
+		prog.scale.Set(GLfloat(s + 1 + SineWave(time / 19.0)*s));
 
 		screen.Draw();
 	}

@@ -17,7 +17,7 @@ namespace oglplus {
 /**
  *  @ingroup oglplus_enumerations
  */
-OGLPLUS_ENUM_CLASS_BEGIN(PathNVCommand, GLenum)
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVCommand, GLubyte)
 #include <oglplus/enums/ext/nv_path_command.ipp>
 OGLPLUS_ENUM_CLASS_END(PathNVCommand)
 

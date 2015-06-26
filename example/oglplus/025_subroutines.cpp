@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{025_subroutines}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -323,7 +323,7 @@ public:
 		gl.Viewport(width, height);
 		cube_prog.projection_matrix = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			float(width)/height,
 			1, 25
 		);
 	}
@@ -334,7 +334,7 @@ public:
 		//
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0.0, 1.5, 0.0),
-			7.0 + SineWave(time / 11.0)*1.5,
+			GLfloat(7.0 + SineWave(time / 11.0)*1.5),
 			FullCircles(time / 19.0),
 			Degrees(SineWave(time / 20.0) * 30 + 35)
 		);
@@ -346,12 +346,12 @@ public:
 		cube_prog.frag_subroutines.Apply(cube_prog.frag_shiny_checker);
 
 		cube_prog.specular_factor = 32;
-		cube_prog.color_1 = Vec3f(0.9, 0.8, 0.7);
-		cube_prog.color_2 = Vec3f(0.3, 0.4, 0.5);
+		cube_prog.color_1 = Vec3f(0.9f, 0.8f, 0.7f);
+		cube_prog.color_2 = Vec3f(0.3f, 0.4f, 0.5f);
 		cube_prog.tex_scale = Vec2f(4, 4);
 		cube_prog.model_matrix =
 			ModelMatrixf::RotationY(FullCircles(time / 7.0))*
-			ModelMatrixf::Translation( 2.0, 0.0, 0.0)*
+			ModelMatrixf::Translation( 2.0f, 0.0f, 0.0f)*
 			ModelMatrixf::RotationX(Degrees(25 * time));
 		cube.Draw();
 
@@ -362,7 +362,7 @@ public:
 		cube_prog.tex_scale = Vec2f(1, 1);
 		cube_prog.model_matrix =
 			ModelMatrixf::RotationY(FullCircles(time / 7.0))*
-			ModelMatrixf::Translation(-2.0, 0.0, 0.0)*
+			ModelMatrixf::Translation(-2.0f, 0.0f, 0.0f)*
 			ModelMatrixf::RotationX(Degrees(-17 * time));
 		cube.Draw();
 
@@ -370,12 +370,12 @@ public:
 		cube_prog.frag_subroutines.Apply(cube_prog.frag_shiny_strips);
 
 		cube_prog.specular_factor = 32;
-		cube_prog.color_1 = Vec3f(0.9, 0.9, 0.1);
-		cube_prog.color_2 = Vec3f(0.1, 0.1, 0.1);
+		cube_prog.color_1 = Vec3f(0.9f, 0.9f, 0.1f);
+		cube_prog.color_2 = Vec3f(0.1f, 0.1f, 0.1f);
 		cube_prog.tex_scale = Vec2f(16, 16);
 		cube_prog.model_matrix =
 			ModelMatrixf::RotationY(FullCircles(time / 7.0))*
-			ModelMatrixf::Translation( 0.0, 2.0, 0.0)*
+			ModelMatrixf::Translation( 0.0f, 2.0f, 0.0f)*
 			ModelMatrixf::RotationY(Degrees(37 * time));
 		cube.Draw();
 
@@ -383,12 +383,12 @@ public:
 		cube_prog.frag_subroutines.Apply(cube_prog.frag_shiny_spiral);
 
 		cube_prog.specular_factor = 24;
-		cube_prog.color_1 = Vec3f(0.9, 0.9, 0.9);
-		cube_prog.color_2 = Vec3f(0.4, 0.9, 0.4);
+		cube_prog.color_1 = Vec3f(0.9f, 0.9f, 0.9f);
+		cube_prog.color_2 = Vec3f(0.4f, 0.9f, 0.4f);
 		cube_prog.tex_scale = Vec2f(1, 1);
 		cube_prog.model_matrix =
 			ModelMatrixf::RotationY(FullCircles(time / 7.0))*
-			ModelMatrixf::Translation( 0.0,-2.0, 0.0)*
+			ModelMatrixf::Translation( 0.0f,-2.0f, 0.0f)*
 			ModelMatrixf::RotationY(Degrees(-13 * time));
 		cube.Draw();
 
@@ -403,8 +403,8 @@ public:
 			).Apply();
 
 		cube_prog.specular_factor = 32;
-		cube_prog.color_2 = Vec3f(1.0, 1.0, 1.0);
-		cube_prog.color_1 = Vec3f(0.9, 0.2, 0.2);
+		cube_prog.color_2 = Vec3f(1.0f, 1.0f, 1.0f);
+		cube_prog.color_1 = Vec3f(0.9f, 0.2f, 0.2f);
 		cube_prog.tex_scale = Vec2f(8, 6);
 		cube_prog.model_matrix =
 			ModelMatrixf::RotationY(FullCircles(time / 7.0))*

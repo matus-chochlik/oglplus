@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{027_depth_of_field}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -203,7 +203,7 @@ public:
 			attr.Enable();
 		}
 
-		Uniform<Vec3f>(main_prog, "LightPos").Set(30.0, 50.0, 20.0);
+		Uniform<Vec3f>(main_prog, "LightPos").Set(30.0f, 50.0f, 20.0f);
 
 		dof_vs.Source(
 			"#version 330\n"
@@ -346,7 +346,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(65),
-				double(width)/height,
+				float(width)/height,
 				4.0, 50.0
 			)
 		);
@@ -412,7 +412,7 @@ public:
 		dof_prog.Use();
 		gl.Bind(screen);
 
-		focus_depth.Set(0.6 + SineWave(time / 9.0)*0.3);
+		focus_depth.Set(GLfloat(0.6 + SineWave(time / 9.0)*0.3));
 
 		gl.Enable(Capability::Blend);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);

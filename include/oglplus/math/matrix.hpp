@@ -1143,6 +1143,18 @@ public:
 		);
 	}
 
+	static inline CameraMatrix PerspectiveX(
+		Angle<T> xfov,
+		T width,
+		T height,
+		T z_near,
+		T z_far
+	)
+	{
+		assert(height > 0);
+		return PerspectiveX(xfov, width/height, z_near, z_far);
+	}
+
 	/// Constructs a perspective projection matrix
 	/** Creates a new perspective matrix from y-axis @p yfov angle,
 	 *  x/y @p aspect ratio and z-axis @p z_near and @p z_far planes
@@ -1172,6 +1184,18 @@ public:
 			z_near,
 			z_far
 		);
+	}
+
+	static inline CameraMatrix PerspectiveY(
+		Angle<T> yfov,
+		T width,
+		T height,
+		T z_near,
+		T z_far
+	)
+	{
+		assert(height > 0);
+		return PerspectiveY(yfov, width/height, z_near, z_far);
 	}
 
 	struct Ortho_ { };

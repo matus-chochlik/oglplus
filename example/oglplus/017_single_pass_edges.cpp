@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{017_single_pass_edges}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -238,7 +238,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
-				double(width)/height,
+				width, height,
 				1, 20
 			)
 		);
@@ -248,12 +248,12 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		edge_width.Set(4.0+SineWave(time / 7.0)*3.0);
+		edge_width.Set(GLfloat(4.0+SineWave(time / 7.0)*3.0));
 
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				5.5 - SineWave(time / 27)*2.0,
+				GLfloat(5.5 - SineWave(time / 27)*2.0),
 				Degrees(time * 33),
 				Degrees(SineWave(time / 21.0) * 31)
 			)

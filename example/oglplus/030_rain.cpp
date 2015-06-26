@@ -335,7 +335,7 @@ public:
 				attr.Setup<GLfloat>(npv);
 				attr.Enable();
 			}
-			catch(Error& error)
+			catch(Error&)
 			{ }
 		}
 		vbos[nva].Bind(Buffer::Target::ElementArray);
@@ -525,7 +525,7 @@ public:
 	 , water_prog()
 	 , water(water_prog, shapes::Plane(Vec3f(40,0,0), Vec3f(0,0,-40)))
 	{
-		water_prog.light_position.Set(2.0, 10.0, -4.0);
+		water_prog.light_position.Set(2.0f, 10.0f, -4.0f);
 
 		water_prog.ripple_tex.Set(ripples.TexUnit());
 		water_prog.env_tex.Set(env_map.TexUnit());
@@ -561,7 +561,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			6.0 + SineWave(time / 31.0),
+			GLfloat(6.0 + SineWave(time / 31.0)),
 			FullCircles(time / 17.0),
 			Degrees(50 + SineWave(time / 21.0) * 35)
 		);

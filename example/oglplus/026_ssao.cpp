@@ -225,8 +225,8 @@ public:
 		{
 			float u = std::rand() / float(RAND_MAX);
 			float v = std::rand() / float(RAND_MAX);
-			float x = std::sqrt(v) * std::cos(2*3.1415*u);
-			float y = std::sqrt(v) * std::sin(2*3.1415*u);
+			float x = float(std::sqrt(v) * std::cos(2*3.1415*u));
+			float y = float(std::sqrt(v) * std::sin(2*3.1415*u));
 			sample_offs[i].Set(x, y);
 		}
 	}
@@ -352,7 +352,7 @@ public:
 		auto light =
 			CamMatrixf::Orbiting(
 				shape.BoundingSphere().Center(),
-				shape.BoundingSphere().Radius()*10.0,
+				shape.BoundingSphere().Radius()*10.0f,
 				FullCircles(time / 23.0),
 				Degrees(-CosineWave(time / 31.0) * 80)
 			);
@@ -361,7 +361,7 @@ public:
 			CamMatrixf::Orbiting(
 				shape.BoundingSphere().Center(),
 				shape.BoundingSphere().Radius()*
-				(3.2+SineWave(time / 23.0)*0.8),
+				GLfloat(3.2+SineWave(time / 23.0)*0.8),
 				FullCircles(time / 19.0),
 				Degrees(SineWave(time / 21.0) * 80)
 			);
@@ -374,7 +374,7 @@ public:
 		auto cam_proj =
 			CamMatrixf::PerspectiveX(
 				Degrees(45),
-				double(width)/height,
+				width, height,
 				cam_tgt_dist-bs_rad,
 				cam_tgt_dist+bs_rad
 			);
@@ -398,7 +398,7 @@ public:
 		shape.Draw();
 
 		draw_prog.Use();
-		draw_prog.slider.Set(CosineWave01(time / 11.0)*width);
+		draw_prog.slider.Set(GLfloat(CosineWave01(time / 11.0)*width));
 
 		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 

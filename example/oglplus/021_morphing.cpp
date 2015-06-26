@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{021_morphing}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -154,9 +154,9 @@ protected:
 			auto phi = FullCircles((std::rand() % 1001)*0.001);
 			auto rho = FullCircles((std::rand() % 1001)*0.001);
 
-			*i++ = Cos(phi) * (0.5 + 0.5 * (1.0 + Cos(rho)));
-			*i++ = Sin(rho) * 0.5;
-			*i++ = Sin(phi) * (0.5 + 0.5 * (1.0 + Cos(rho)));
+			*i++ = float(Cos(phi) * (0.5 + 0.5 * (1.0 + Cos(rho))));
+			*i++ = float(Sin(rho) * 0.5);
+			*i++ = float(Sin(phi) * (0.5 + 0.5 * (1.0 + Cos(rho))));
 		}
 
 		Buffer::Data(Buffer::Target::Array, data);
@@ -172,7 +172,9 @@ protected:
 
 		std::vector<GLfloat> data(point_count);
 		for(auto i=data.begin(), e=data.end(); i!=e; ++i)
-			*i = (std::rand() % 101) * 0.01;
+		{
+			*i = float((std::rand() % 101) * 0.01);
+		}
 		Buffer::Data(Buffer::Target::Array, data);
 
 		VertexArrayAttrib attr(prog, name);
@@ -232,7 +234,7 @@ public:
 		point_prog.projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
-				double(width)/height,
+				float(width)/height,
 				1, 20
 			)
 		);
@@ -253,11 +255,11 @@ public:
 
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		point_prog.status = 0.5 - 0.5*CosineWave(status * 0.5);
+		point_prog.status = GLfloat(0.5 - 0.5*CosineWave(status * 0.5));
 
 		CamMatrixf camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			5.5,
+			5.5f,
 			FullCircles(clock.Now().Seconds() / 19.0),
 			Degrees(45 + SineWave(clock.Now().Seconds()/15.0) * 40)
 		);

@@ -192,7 +192,7 @@ public:
 			_group,
 			&count,
 			&max_active_counters,
-			buffer.size(),
+			GLsizei(buffer.size()),
 			buffer.data()
 		);
 		OGLPLUS_CHECK(
@@ -473,7 +473,7 @@ public:
 		OGLPLUS_GLFUNC(GetPerfMonitorCounterDataAMD)(
 			this->_obj_name(),
 			GL_PERFMON_RESULT_AMD,
-			data.size() * sizeof(GLuint),
+			GLsizei(data.size() * sizeof(GLuint)),
 			data.data(),
 			nullptr
 		);
@@ -548,7 +548,7 @@ public:
 		std::vector<GLuint> buffer(count);
 		OGLPLUS_GLFUNC(GetPerfMonitorGroupsAMD)(
 			&count,
-			buffer.size(),
+			GLsizei(buffer.size()),
 			buffer.data()
 		);
 		OGLPLUS_CHECK_SIMPLE(GetPerfMonitorGroupsAMD);

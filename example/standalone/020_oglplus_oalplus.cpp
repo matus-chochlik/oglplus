@@ -244,7 +244,7 @@ public:
 		oglplus::Mat4f projection =
 			oglplus::CamMatrixf::PerspectiveX(
 				oglplus::Degrees(110),
-				Aspect(),
+				GLfloat(Aspect()),
 				1, 200
 			);
 
@@ -264,19 +264,19 @@ public:
 		double ltime = time / 19.0;
 
 		oglplus::Vec3f camera_position(
-			+oglplus::SineWave(ctime)*crad,
-			+oglplus::SineWave(time/9.0)+3.0,
-			+oglplus::CosineWave(ctime)*crad
+			GLfloat(+oglplus::SineWave(ctime)*crad),
+			GLfloat(+oglplus::SineWave(time/9.0)+3.0),
+			GLfloat(+oglplus::CosineWave(ctime)*crad)
 		);
 		oglplus::Vec3f target_position(
-			-oglplus::SineWave(ttime)*trad,
-			-oglplus::CosineWave(time/17.0)+2.5,
-			-oglplus::CosineWave(ttime)*trad
+			GLfloat(-oglplus::SineWave(ttime)*trad),
+			GLfloat(-oglplus::CosineWave(time/17.0)+2.5),
+			GLfloat(-oglplus::CosineWave(ttime)*trad)
 		);
 		oglplus::Vec3f light_position(
-			+oglplus::CosineWave(ltime)*lrad,
-			+oglplus::CosineWave(time/19.0)+2.5,
-			-oglplus::SineWave(ltime)*lrad
+			GLfloat(+oglplus::CosineWave(ltime)*lrad),
+			GLfloat(+oglplus::CosineWave(time/19.0)+2.5),
+			GLfloat(-oglplus::SineWave(ltime)*lrad)
 		);
 		oglplus::Mat4f camera =
 			oglplus::CamMatrixf::LookingAt(
@@ -317,9 +317,9 @@ public:
 		GLuint sp = 0;
 		query.WaitForResult(sp);
 
-		double sound_gain = double(sp)/300.0;
-		sound_gain = 0.2 + 0.8*sound_gain;
-		if(sound_gain > 1.0) sound_gain = 1.0;
+		float sound_gain = float(sp)/300.0f;
+		sound_gain = 0.2f + 0.8f*sound_gain;
+		if(sound_gain > 1.0f) sound_gain = 1.0f;
 		source.sound.Gain(sound_gain);
 
 		if(first_run)

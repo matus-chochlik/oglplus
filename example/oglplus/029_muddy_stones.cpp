@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{029_muddy_stones}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -368,7 +368,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(70),
-				double(width)/height,
+				width, height,
 				1, 20
 			)
 		);
@@ -380,7 +380,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			2.9,
+			2.9f,
 			FullCircles(time / 17.0),
 			Degrees(45 + SineWave(time / 20.0) * 40)
 		);
@@ -390,9 +390,9 @@ public:
 
 		auto langle = FullCircles(time / 31.0);
 		light_position.Set(
-			Cos(langle)*20.0f,
-			(1.2+Sin(langle))*15.0f,
-			Sin(langle)*20.0f
+			GLfloat(Cos(langle)*20.0f),
+			GLfloat((1.2+Sin(langle))*15.0f),
+			GLfloat(Sin(langle)*20.0f)
 		);
 
 		shape.Draw();

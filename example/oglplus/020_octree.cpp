@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{020_octree}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -314,7 +314,7 @@ public:
 		auto projection =
 			CamMatrixf::PerspectiveX(
 				Degrees(70),
-				double(width)/height,
+				float(width)/height,
 				1, 200
 			);
 
@@ -330,7 +330,7 @@ public:
 		auto camera =
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				8.0 + SineWave(time / 31.0),
+				GLfloat(8.0 + SineWave(time / 31.0)),
 				FullCircles(time / 17.0),
 				Degrees(SineWave(time / 21.0) * 90)
 			);

@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{022_blender_mesh}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -240,7 +240,7 @@ public:
 		auto projection =
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
-				double(width)/height,
+				float(width)/height,
 				1, 20
 			);
 		draw_prog.projection_matrix.Set(projection);
@@ -264,9 +264,19 @@ public:
 
 
 		const Vec3f colors[3][3] = {
-			{Vec3f(1.0, 0.3, 0.3), Vec3f(1.0, 0.5, 0.5), Vec3f(1.0, 0.7, 0.7)},
-			{Vec3f(0.3, 1.0, 0.3), Vec3f(0.5, 1.0, 0.5), Vec3f(0.7, 1.0, 0.7)},
-			{Vec3f(0.3, 0.3, 1.0), Vec3f(0.5, 0.5, 1.0), Vec3f(0.7, 0.7, 1.0)}
+			{
+				Vec3f(1.0f, 0.3f, 0.3f),
+				Vec3f(1.0f, 0.5f, 0.5f),
+				Vec3f(1.0f, 0.7f, 0.7f)
+			},{
+				Vec3f(0.3f, 1.0f, 0.3f),
+				Vec3f(0.5f, 1.0f, 0.5f),
+				Vec3f(0.7f, 1.0f, 0.7f)
+			},{
+				Vec3f(0.3f, 0.3f, 1.0f),
+				Vec3f(0.5f, 0.5f, 1.0f),
+				Vec3f(0.7f, 0.7f, 1.0f)
+			}
 		};
 
 		const Mat4f rot_matrices[3] = {
@@ -307,8 +317,10 @@ public:
 		monkeys.Draw(
 			[this, &colors, &rot_matrices, &pos_matrices](GLuint phase) -> bool
 			{
-				for(GLuint i=0; i!=3; ++i)
+				for(GLuint i=0; i<3; ++i)
+				{
 					this->draw_prog.colors[i].Set(colors[phase][i]);
+				}
 				this->draw_prog.model_matrix.Set(pos_matrices[phase]*rot_matrices[phase]);
 				return true;
 			}

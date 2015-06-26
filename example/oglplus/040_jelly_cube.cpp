@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{040_jelly_cube}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -375,7 +375,7 @@ public:
 		cam_prog.Use();
 
 		GLuint n = 10;
-		cam_prog.interval.Set(interval / n);
+		cam_prog.interval.Set(GLfloat(interval / n));
 
 		tfb_positions.BindBase(se::TransformFeedback(), 0);
 		tfb_velocities.BindBase(se::TransformFeedback(), 1);
@@ -880,7 +880,7 @@ private:
 		const Mat4f& transform
 	)
 	{
-		const GLfloat s_2 = size * 0.5;
+		const GLfloat s_2 = size * 0.5f;
 		const GLfloat s_n = size / (n - 1);
 
 		std::vector<GLfloat> pos_data(vertex_count * 4);
@@ -942,10 +942,10 @@ private:
 
 		UniformBlock(phys_prog, "PositionBlock").Binding(0);
 		Uniform<GLfloat>(phys_prog, "SpringALength").Set(s_n);
-		Uniform<GLfloat>(phys_prog, "SpringBLength").Set(sqrt(2.0f)*s_n);
-		Uniform<GLfloat>(phys_prog, "SpringCLength").Set(sqrt(3.0f)*s_n);
+		Uniform<GLfloat>(phys_prog, "SpringBLength").Set(GLfloat(sqrt(2.0f)*s_n));
+		Uniform<GLfloat>(phys_prog, "SpringCLength").Set(GLfloat(sqrt(3.0f)*s_n));
 
-		GLfloat k = 1.1;
+		GLfloat k = 1.1f;
 		Uniform<GLfloat>(phys_prog, "SpringAStrength").Set(mass * 4.2f * k);
 		Uniform<GLfloat>(phys_prog, "SpringBStrength").Set(mass * 4.0f * k);
 		Uniform<GLfloat>(phys_prog, "SpringCStrength").Set(mass * 3.8f * k);
@@ -1320,7 +1320,7 @@ public:
 		phys_prog.Use();
 
 		GLuint n = 20;
-		phys_prog.interval.Set(interval / n);
+		phys_prog.interval.Set(GLfloat(interval / n));
 
 		tfb_positions.BindBase(se::TransformFeedback(), 0);
 		tfb_velocities.BindBase(se::TransformFeedback(), 1);
@@ -1359,14 +1359,14 @@ public:
 		gl.PrimitiveRestartIndex(vertex_count);
 		gl.Enable(se::PrimitiveRestart());
 
-		draw_prog.ambient_color.Set(Vec3f(0.3, 0.4, 0.2));
-		draw_prog.diffuse_color.Set(Vec3f(0.6, 1.0, 0.4));
+		draw_prog.ambient_color.Set(Vec3f(0.3f, 0.4f, 0.2f));
+		draw_prog.diffuse_color.Set(Vec3f(0.6f, 1.0f, 0.4f));
 
 		se::TriangleStripAdjacency tswa;
 		gl.DrawElements(tswa, face_index_count, se::UnsignedInt());
 
-		draw_prog.ambient_color.Set(Vec3f(0.1, 0.2, 0.0));
-		draw_prog.diffuse_color.Set(Vec3f(0.3, 0.4, 0.2));
+		draw_prog.ambient_color.Set(Vec3f(0.1f, 0.2f, 0.0f));
+		draw_prog.diffuse_color.Set(Vec3f(0.3f, 0.4f, 0.2f));
 
 		gl.Enable(se::PolygonOffsetLine());
 		gl.PolygonMode(se::Line());
@@ -1482,7 +1482,7 @@ public:
 		gl.FrontFace(se::CW());
 		gl.CullFace(se::Back());
 
-		gl.PolygonOffset(-0.01, -1.0);
+		gl.PolygonOffset(-0.01f, -1.0f);
 	}
 
 	void Reshape(GLuint width, GLuint height)
@@ -1491,7 +1491,7 @@ public:
 
 		auto perspective = CamMatrixf::PerspectiveX(
 			Degrees(70),
-			double(width)/height,
+			float(width)/height,
 			1, 200
 		);
 
@@ -1502,18 +1502,18 @@ public:
 
 	void UpdateImpulse(double time, Vec3f pos)
 	{
-		double impulse_strength = 100.0 * (-SineWave(time / 5.0) - 0.99);
-		if(impulse_strength < 0.0) impulse_strength = 0.0;
-		impulse_strength = pow(impulse_strength, 12.0) * 2.0;
+		float impulse_strength = float(100.0 * (-SineWave(time / 5.0) - 0.99));
+		if(impulse_strength < 0) impulse_strength = 0;
+		impulse_strength = float(pow(impulse_strength, 12.0) * 2.0);
 
 		if(impulse_strength != 0.0)
 		{
 			if(prev_impulse_strength == 0.0)
 			{
 				phys_prog.impulse_center.Set(Vec3f(
-					+4.5f-float(std::rand())/float(RAND_MAX)*9.0+pos.x(),
+					+4.5f-float(std::rand())/float(RAND_MAX)*9.0f+pos.x(),
 					-4.5f-float(std::rand())/float(RAND_MAX),
-					+4.5f-float(std::rand())/float(RAND_MAX)*9.0+pos.z()
+					+4.5f-float(std::rand())/float(RAND_MAX)*9.0f+pos.z()
 				));
 			}
 			phys_prog.impulse_strength.Set(impulse_strength);
@@ -1552,8 +1552,8 @@ public:
 		metal_prog.camera_position.Set(camera.Position());
 
 		// Draw objects only with ambient light and the depth
-		metal_prog.light_multiplier.Set(0.2);
-		draw_prog.light_multiplier.Set(0.2);
+		metal_prog.light_multiplier.Set(0.2f);
+		draw_prog.light_multiplier.Set(0.2f);
 
 		gl.CullFace(se::Back());
 		gl.ColorMask(true, true, true, true);

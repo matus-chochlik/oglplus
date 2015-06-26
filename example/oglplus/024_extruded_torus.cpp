@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{024_extruded_torus}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -307,7 +307,7 @@ public:
 		gl.Viewport(width, height);
 		projection_matrix = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			float(width)/height,
 			1, 30
 		);
 	}
@@ -329,7 +329,7 @@ public:
 
 		camera_matrix.Set(camera);
 		model_matrix.Set(model);
-		transf_time.Set(time);
+		transf_time.Set(GLfloat(time));
 
 		face_pp.Bind();
 		gl.PolygonMode(PolygonMode::Fill);

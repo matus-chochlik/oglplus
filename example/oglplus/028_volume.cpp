@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{028_volume}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -320,9 +320,9 @@ public:
 		grid_indices.clear();
 	}
 
-	double Step(void) const
+	float Step(void) const
 	{
-		return 1.0 / grid_div;
+		return 1.0f / grid_div;
 	}
 
 	void Use(void)
@@ -400,13 +400,13 @@ public:
 
 		Mat4f perspective = CamMatrixf::PerspectiveX(
 			Degrees(65),
-			double(width)/height,
+			width, height,
 			1, 30
 		);
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0, 0, 0),
-			2.0 - SineWave(time / 14.0) * 0.2,
+			GLfloat(2.0 - SineWave(time / 14.0) * 0.2),
 			FullCircles(time / 19.0),
 			Degrees(45 + SineWave(time / 17.0) * 40)
 		);
@@ -416,7 +416,7 @@ public:
 
 		volume_prog.camera_position = camera_position;
 		volume_prog.transform_matrix = perspective*camera*model;
-		volume_prog.threshold = 0.5 + SineWave(time / 7.0) * 0.4;
+		volume_prog.threshold = GLfloat(0.5 + SineWave(time / 7.0) * 0.4);
 
 		grid.Draw();
 	}

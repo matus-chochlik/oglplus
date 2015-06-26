@@ -2,7 +2,7 @@
  *  @example standalone/001_gl_limits.cpp
  *  @brief Shows the basic usage of OGLplus by printing some info
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 		for(auto r=oglplus::EnumValueRange<oglplus::LimitQuery>(); !r.Empty(); r.Next())
 		{
 			auto ev = r.Front();
-			std::cout << std::setw(w) << EnumValueName(ev).c_str() << ": ";
+			std::cout << std::setw(int(w)) << EnumValueName(ev).c_str() << ": ";
 			try { std::cout << context.FloatLimit(ev); }
 			catch(...){ std::cout << "N/A"; }
 			std::cout << std::endl;

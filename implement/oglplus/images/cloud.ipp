@@ -64,9 +64,9 @@ bool Cloud::_apply_sphere(const Vec3f& center, GLfloat radius)
 	GLfloat r = radius*0.5f;
 	GLsizei w = Width(), h = Height(), d = Depth();
 	GLubyte* data = _begin_ub();
-	for(GLsizei k=GLsizei(c.z()-r)*d, ke=GLsizei(c.z()+r)*d; k!=ke; ++k)
-	for(GLsizei j=GLsizei(c.y()-r)*h, je=GLsizei(c.y()+r)*h; j!=je; ++j)
-	for(GLsizei i=GLsizei(c.x()-r)*w, ie=GLsizei(c.x()+r)*w; i!=ie; ++i)
+	for(GLsizei k=GLsizei((c.z()-r)*d), ke=GLsizei((c.z()+r)*d); k!=ke; ++k)
+	for(GLsizei j=GLsizei((c.y()-r)*h), je=GLsizei((c.y()+r)*h); j!=je; ++j)
+	for(GLsizei i=GLsizei((c.x()-r)*w), ie=GLsizei((c.x()+r)*w); i!=ie; ++i)
 	{
 		assert(k >= 0 && k < d);
 		assert(j >= 0 && j < h);

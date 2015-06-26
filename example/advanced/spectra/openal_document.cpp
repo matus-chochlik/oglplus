@@ -31,7 +31,7 @@ class SpectraOpenALDocument
 private:
 	const wxString file_path;
 	oalplus::DataFormat format;
-	::ALfloat frequency;
+	ALfloat frequency;
 
 	std::vector<ALubyte> raw_data;
 	std::vector<ALfloat> samples;
@@ -171,15 +171,18 @@ void SpectraOpenALDocument::Play(float from, float to)
 		std::size_t end = std::size_t(frequency*to)*mult;
 
 		if(end > raw_data.size())
+		{
 			end = raw_data.size();
+		}
+
 		if(begin < end)
 		{
 			sound_src.DetachBuffers();
 			sound_buf.Data(
 				format,
 				raw_data.data()+begin,
-				end-begin,
-				frequency
+				ALsizei(end-begin),
+				ALsizei(frequency)
 			);
 			sound_src.Buffer(sound_buf);
 			sound_src.Play();
