@@ -137,11 +137,10 @@ public:
 					Vec4f(0.0, 0.0, 1.0, 0.0),
 					Vec4f(0.0, 0.0, 0.0, 1.0)
 				));
-				p = std::copy(
-					Data(matrix),
-					Data(matrix)+Size(matrix),
-					p
-				);
+
+				auto md = data(matrix);
+
+				p = std::copy(md.addr(), md.addr()+md.size(), p);
 				angle += astep;
 			}
 
