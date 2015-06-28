@@ -55,7 +55,7 @@ public:
 		GLuint result = OGLPLUS_GLFUNC(GetProgramResourceIndex)(
 			GetGLName(program),
 			GL_SHADER_STORAGE_BLOCK,
-			identifier.c_str()
+			c_str(identifier)
 		);
 		OGLPLUS_CHECK(
 			GetProgramResourceIndex,
