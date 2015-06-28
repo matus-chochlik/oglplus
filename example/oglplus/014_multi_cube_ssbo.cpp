@@ -120,7 +120,8 @@ public:
 			std::vector<GLfloat> matrix_data(max_cubes*16);
 			auto p = matrix_data.begin(), e = matrix_data.end();
 
-			Angle<GLfloat> angle, astep = Angle<GLfloat>::Degrees(360.0f/float(max_cubes));
+			Angle<GLfloat> angle;
+			Angle<GLfloat> astep = Degrees(360.0f/float(max_cubes));
 			while(p != e)
 			{
 				GLfloat cx = Cos(angle);
