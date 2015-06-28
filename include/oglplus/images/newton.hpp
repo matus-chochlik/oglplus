@@ -97,7 +97,7 @@ private:
 			Vector<float, N> c = _mix(
 				c1,
 				c2,
-				mixer(float(n) / float(max-1))
+				float(mixer(float(n) / float(max-1)))
 			);
 			for(n=0; n!=N; ++n)
 			{
@@ -124,7 +124,7 @@ public:
 		{
 			return 3.0f * Vec2f(
 				n.x()*n.x() - n.y()*n.y(),
-				2.0 * n.x() * n.y()
+				2.0f * n.x() * n.y()
 			);
 		}
 	};
@@ -211,7 +211,7 @@ public:
 		Vec2f rt = Vec2f( 1.0f,  1.0f),
 		Function func = Function(),
 		Mixer mixer = Mixer()
-	): Image(width, height, 1, 3, (GLfloat*)0)
+	): Image(width, height, 1, 3, &TypeTag<GLfloat>())
 	{
 		_make(width, height, func, mixer, lb, rt, c1, c2);
 	}
@@ -234,7 +234,7 @@ public:
 		SizeType height,
 		Function func = Function(),
 		Mixer mixer = Mixer()
-	): Image(width, height, 1, 1, (GLfloat*)0)
+	): Image(width, height, 1, 1, &TypeTag<GLfloat>())
 	{
 		_make(
 			width, height,

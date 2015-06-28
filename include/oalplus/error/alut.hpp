@@ -28,6 +28,14 @@ public:
 	 : Error(message)
 	{ }
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ErrorALUT(const ErrorALUT&) = default;
+#else
+	ErrorALUT(const ErrorALUT& that)
+	 : Error(static_cast<const Error&>(that))
+	{ }
+#endif
+
 	~ErrorALUT(void)
 	noexcept
 	{ }

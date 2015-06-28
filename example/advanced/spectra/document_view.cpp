@@ -261,7 +261,7 @@ void SpectraDocumentView::RecalcProjection(void)
 {
 	projection_matrix = oglplus::CamMatrixf::PerspectiveX(
 		camera_xfov,
-		double(width)/height,
+		float(width)/height,
 		0.1f,
 		10000.0f
 	);

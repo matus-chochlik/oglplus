@@ -176,7 +176,7 @@ public:
 		}
 		gl.Bind(NoVertexArray());
 
-		Uniform<Vec3f>(prog, "LightPos").Set(1.5, 2.0, 2.5);
+		Uniform<Vec3f>(prog, "LightPos").Set(1.5f, 2.0f, 2.5f);
 		//
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);

@@ -22,6 +22,19 @@ namespace imports {
 
 struct BlendFileVisitor
 {
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	BlendFileVisitor(void) = default;
+	BlendFileVisitor(const BlendFileVisitor&) = default;
+	BlendFileVisitor(BlendFileVisitor&&) = default;
+#else
+	BlendFileVisitor(void)
+	{ }
+	BlendFileVisitor(const BlendFileVisitor&)
+	{ }
+	BlendFileVisitor(BlendFileVisitor&&)
+	{ }
+#endif
+
 	virtual ~BlendFileVisitor(void)
 	{ }
 

@@ -41,7 +41,7 @@ void RaytracerResources::Use(void)
 	cloud_tex.Use();
 	raytrace_prog.Use();
 	raytrace_prog.cloud_tex.Set(cloud_tex.tex_unit);
-	raytrace_prog.cloud_count.Set(cloud_buf.count);
+	raytrace_prog.cloud_count.Set(int(cloud_buf.count));
 	raytrace_prog.cloud_block.Binding(cloud_buf.ub_idx);
 }
 

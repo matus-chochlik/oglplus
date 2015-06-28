@@ -34,6 +34,14 @@ public:
 	 , _device(nullptr)
 	{ }
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ErrorALC(const ErrorALC&) = default;
+#else
+	ErrorALC(const ErrorALC& that)
+	 : _device(that._device)
+	{ }
+#endif
+
 	~ErrorALC(void)
 	noexcept
 	{ }

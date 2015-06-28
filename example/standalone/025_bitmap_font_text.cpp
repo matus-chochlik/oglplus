@@ -2,7 +2,7 @@
  *  @example standalone/025_bitmap_font_text.cpp
  *  @brief Shows rendering of text using a font stored in a texture+metrics
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -431,7 +431,7 @@ public:
 		font_prog.camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				11.0 + SineWave(t / 7.0)*3.0,
+				GLfloat(11.0 + SineWave(t / 7.0)*3.0),
 				FullCircles(t / 17.0),
 				Degrees(SineWave(t / 21.0) * 35)
 			)
@@ -439,7 +439,11 @@ public:
 
 		// the "OGLplus" string
 		font_prog.layout_matrix.Set(
-			ModelMatrixf::Translation(-4.0f, 3.0f+SineWave(t/0.5)*0.1, 0.1f)
+			ModelMatrixf::Translation(
+				-4.0f,
+				GLfloat(3.0+SineWave(t/0.5)*0.1),
+				0.1f
+			)
 		);
 		font.Render(font_prog, "OGLplus");
 
@@ -454,8 +458,11 @@ public:
 		// the frame number string
 		font_prog.layout_matrix.Set(
 			ModelMatrixf::RotationY(Degrees(-19))*
-			ModelMatrixf::Translation(-2.0f, 1.0f+SineWave(t/0.7)*0.2, 0.0f)*
-			ModelMatrixf::Scale(0.6f, 0.6f, 1.0f)
+			ModelMatrixf::Translation(
+				-2.0f,
+				GLfloat(1.0+SineWave(t/0.7)*0.2),
+				0.0f
+			)*ModelMatrixf::Scale(0.6f, 0.6f, 1.0f)
 		);
 		txt << "Frame number: " << frame_no++;
 		font.Render(font_prog, txt.str());
@@ -465,7 +472,11 @@ public:
 		font_prog.layout_matrix.Set(
 			ModelMatrixf::RotationY(Degrees(17))*
 			ModelMatrixf::Translation(-3.0f, 0.0f, 0.1f)*
-			ModelMatrixf::Scale(0.6f, 0.6f+CosineWave(t/0.6)*0.2, 1.0f)
+			ModelMatrixf::Scale(
+				0.6f,
+				GLfloat(0.6+CosineWave(t/0.6)*0.2),
+				1.0f
+			)
 		);
 		txt << "Frame time: " << t << " [s]";
 		font.Render(font_prog, txt.str());
@@ -475,7 +486,11 @@ public:
 		font_prog.layout_matrix.Set(
 			ModelMatrixf::RotationY(Degrees(-7))*
 			ModelMatrixf::Translation(-2.5f,-1.0f, 0.0f)*
-			ModelMatrixf::Scale(0.6f+SineWave(t/0.8)*0.1, 0.6f, 1.0f)
+			ModelMatrixf::Scale(
+				GLfloat(0.6+SineWave(t/0.8)*0.1),
+				0.6f,
+				1.0f
+			)
 		);
 		txt << "Frames per second : " << frame_no/t;
 		font.Render(font_prog, txt.str());

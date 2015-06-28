@@ -411,7 +411,7 @@ public:
 				attr.Setup<GLfloat>(npv);
 				attr.Enable();
 			}
-			catch(Error& error)
+			catch(Error&)
 			{ }
 		}
 	}
@@ -460,14 +460,14 @@ public:
 
 			light_positions[i] = Vec3f(
 				7.0f*Cos(angle),
-				0.2f*(std::rand()/rand_max)-0.1,
+				0.2f*(std::rand()/rand_max)-0.1f,
 				7.0f*Sin(angle)
 			);
 		}
 
 		shape_prog.light_position.Set(light_positions);
-		shape_prog.color_1 = Vec3f(0.3, 0.3, 0.5);
-		shape_prog.color_2 = Vec3f(0.8, 0.8, 1.0);
+		shape_prog.color_1 = Vec3f(0.3f, 0.3f, 0.5f);
+		shape_prog.color_2 = Vec3f(0.8f, 0.8f, 1.0f);
 
 		Texture::Active(0);
 		shape_prog.metal_tex.Set(0);
@@ -512,7 +512,7 @@ public:
 			flare_attr.Setup<Vec3f>();
 			flare_attr.Enable();
 		}
-		catch(Error& error)
+		catch(Error&)
 		{ }
 
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
@@ -545,7 +545,7 @@ public:
 
 		CamMatrixf camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			4.5 + SineWave(time / 25.0),
+			4.5f + float(SineWave(time / 25.0)),
 			FullCircles(time / 30.0),
 			Degrees(SineWave(time / 19.0) * 20)
 		);

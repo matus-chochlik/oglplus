@@ -64,8 +64,8 @@ private:
 		for(GLint i=0; i!=instance_count; ++i)
 		{
 			int id = i;
-			float omax = (cubes_per_side - 1)*0.5;
-			float imax = (cpe-1)*0.5;
+			float omax = (cubes_per_side - 1)*0.5f;
+			float imax = (cpe-1)*0.5f;
 			float dx, dy, dz;
 			if(id < cpf)
 			{
@@ -675,7 +675,7 @@ public:
 		sphere_projection_matrix.Set(persp);
 		sphere_camera_matrix.Set(cameraMatrix);
 		sphere_light_pos.Set(lightPos);
-		sphere_time.Set(time);
+		sphere_time.Set(float(time));
 
 		gl.FrontFace(make_sphere.FaceWinding());
 		sphere.Bind();

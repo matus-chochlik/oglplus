@@ -11,7 +11,7 @@
 
 #include "ray_matrix.hpp"
 
-#include <cassert>
+#include <oglplus/assert.hpp>
 
 namespace oglplus {
 namespace cloud_trace {
@@ -64,7 +64,7 @@ Mat4f RayMatrix(const AppData& app_data, unsigned face)
 			cz = +Vec3f::axis<2>();
 			break;
 		}
-		default: assert(!"Invalid cube face");
+		default: OGLPLUS_ABORT("Invalid cube face");
 	}
 
 	return

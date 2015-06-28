@@ -180,8 +180,8 @@ public:
 	): vertex_count(8*2+4)
 	 , index_count((9*2+1)+4*(4+1+3+1)+(4))
 	{
-		assert(size > 0.0);
-		assert(chamfer > 0.0 && chamfer < 0.5);
+		assert(size > 0.0f);
+		assert(chamfer > 0.0f && chamfer < 0.5f);
 		const GLfloat a = size * 0.5f;
 		const GLfloat b = a * chamfer;
 		const GLfloat z = 0.0f;
@@ -282,7 +282,7 @@ public:
 		auto ii = idx_data.begin(), ie = idx_data.end();
 
 		// primitive restart index
-		GLshort pri = vertex_count;
+		GLshort pri = GLshort(vertex_count);
 		// sides
 		for(GLushort i=0; i!=18; ++i) *ii++ = i % 16; *ii++ = pri;
 		// chamfer
@@ -384,8 +384,8 @@ public:
 	{
 		assert(space > 0.0);
 
-		const GLfloat h1 = 0.5*(size*side + space*(side-1));
-		const GLfloat h2 = 0.5*size;
+		const GLfloat h1 = 0.5f*(size*side + space*(side-1));
+		const GLfloat h2 = 0.5f*size;
 
 		auto pi = bar_pos_data.begin(), pe = bar_pos_data.end();
 
@@ -396,7 +396,7 @@ public:
 			{
 				const GLfloat xoffs = -h1 + h2 + x*(size+space);
 				assert(pi != pe); *pi++ = xoffs;
-				*pi++ = 4.0*(GLfloat(std::rand()) / GLfloat(RAND_MAX));
+				*pi++ = 4.f*(GLfloat(std::rand()) / GLfloat(RAND_MAX));
 				assert(pi != pe); *pi++ = zoffs;
 				*pi++ = h1;
 			}
@@ -414,9 +414,9 @@ public:
 	void Update(float interval, const std::vector<GLuint>& triggered)
 	{
 		const GLfloat max = 5.0f;
-		GLfloat falloff = interval * 0.5;
+		GLfloat falloff = interval * 0.5f;
 		if(falloff > 0.0f) falloff = 1.0f - falloff ;
-		for(GLuint i=0, n=bar_pos_data.size(); i!=n; i+=4)
+		for(std::size_t i=0, n=bar_pos_data.size(); i!=n; i+=4)
 		{
 			GLfloat incr = (GLfloat(std::rand()) / GLfloat(RAND_MAX));
 			incr *= incr*incr;
@@ -429,7 +429,7 @@ public:
 			bar_pos_data[i+1] *= falloff;
 		}
 
-		for(GLuint i=0, n=triggered.size(); i!=n; ++i)
+		for(std::size_t i=0, n=triggered.size(); i!=n; ++i)
 		{
 			GLuint idx = 4*triggered[i]+1;
 			assert(idx < bar_pos_data.size());
@@ -694,7 +694,7 @@ public:
 	 : gl()
 	 , floor(metal_prog)
 	 , side(16)
-	 , grid(draw_prog, shadow_prog, side, 0.8, 0.2, 0.2)
+	 , grid(draw_prog, shadow_prog, side, 0.8f, 0.2f, 0.2f)
 	{
 		triggered.reserve(10);
 
@@ -727,9 +727,9 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer().StencilBuffer();
 
 		Vec3f light_position(
-			20.0f+  SineWave(time / 37.0)*10.0,
-			25.0f+CosineWave(time / 37.0)*15.0,
-			10.0f
+			20.f+float(  SineWave(time / 37.f))*10.f,
+			25.f+float(CosineWave(time / 37.f))*15.f,
+			10.f
 		);
 
 		metal_prog.light_position = light_position;
@@ -744,7 +744,7 @@ public:
 		);
 		auto cam_pos = CameraPosition(camera);
 
-		grid.Update(clock.Interval().Seconds(), triggered);
+		grid.Update(float(clock.Interval().Seconds()), triggered);
 		triggered.clear();
 
 		metal_prog.camera_matrix.Set(camera);
@@ -758,8 +758,8 @@ public:
 		StencilOperation decr = StencilOperation::Decr;
 
 		// Draw objects with low light and the depth
-		metal_prog.light_multiplier.Set(0.4);
-		draw_prog.light_multiplier.Set(0.2);
+		metal_prog.light_multiplier.Set(0.4f);
+		draw_prog.light_multiplier.Set(0.2f);
 
 		gl.ColorMask(true, true, true, true);
 		gl.DepthMask(true);
@@ -809,10 +809,12 @@ public:
 
 	void MouseMoveNormalized(float x, float y, float)
 	{
-		GLuint ix = side*(0.5f * (1.0f + x));
-		GLuint iy = side*(0.5f * (1.0f + y));
+		GLuint ix = GLuint(side*(0.5f * (1.0f + x)));
+		GLuint iy = GLuint(side*(0.5f * (1.0f + y)));
 		if(ix < side && iy < side)
+		{
 			triggered.push_back(iy*side + ix);
+		}
 	}
 
 	bool Continue(double time)

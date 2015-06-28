@@ -60,8 +60,10 @@ void BrushedMetalUByte::_make_scratch(
 {
 	if((dx == 0) && (dy == 0)) return;
 
-	GLubyte r = GLubyte((dy/std::sqrt(GLdouble(dx*dx + dy*dy)))*0xFF);
-	GLubyte g = GLubyte((dx/std::sqrt(GLdouble(dx*dx + dy*dy)))*0xFF);
+	GLdouble dd = std::sqrt(GLdouble(dx*dx + dy*dy));
+
+	GLubyte r = GLubyte((dy/dd)*0xFF);
+	GLubyte g = GLubyte((dx/dd)*0xFF);
 
 	if(dx > dy)
 	{
@@ -119,7 +121,10 @@ BrushedMetalUByte::BrushedMetalUByte(
 	int t_disp_max
 ): Image(width, height, 1, 3, &TypeTag<GLubyte>())
 {
+	this->_bzero();
+
 	GLubyte *p = this->_begin_ub(), *e = this->_end_ub();
+
 	while(n_scratches--)
 	{
 		const GLuint n_segments = 1 + std::rand() % 4;

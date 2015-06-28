@@ -318,9 +318,9 @@ public:
 		grid_indices.clear();
 	}
 
-	double Step(void) const
+	float Step(void) const
 	{
-		return 1.0 / grid_div;
+		return 1.0f / grid_div;
 	}
 
 	void Use(void)
@@ -404,7 +404,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0, 0, 0),
-			2.0 - SineWave(time / 14.0) * 0.2,
+			GLfloat(2.0 - SineWave(time / 14.0) * 0.2),
 			FullCircles(time / 19.0),
 			Degrees(45 + SineWave(time / 17.0) * 40)
 		);
@@ -414,7 +414,7 @@ public:
 
 		volume_prog.camera_position = camera_position;
 		volume_prog.transform_matrix = perspective*camera*model;
-		volume_prog.threshold = 0.5 + SineWave(time / 7.0) * 0.4;
+		volume_prog.threshold = GLfloat(0.5 + SineWave(time / 7.0) * 0.4);
 
 		grid.Draw();
 	}

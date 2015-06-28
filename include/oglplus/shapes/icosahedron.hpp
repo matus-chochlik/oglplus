@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -124,7 +124,7 @@ public:
 			{
 				for(GLuint c=0; c!=3; ++c)
 				{
-					dest[f*9+v*3+c] = p[i[f*3+v]*3+c];
+					dest[f*9+v*3+c] = T(p[i[f*3+v]*3+c]);
 				}
 			}
 		}
@@ -143,19 +143,19 @@ public:
 		for(GLuint f=0; f!=20; ++f)
 		{
 			Vector<T, 3> v0(
-				p[i[f*3+0]*3+0],
-				p[i[f*3+0]*3+1],
-				p[i[f*3+0]*3+2]
+				static_cast<T>(p[i[f*3+0]*3+0]),
+				static_cast<T>(p[i[f*3+0]*3+1]),
+				static_cast<T>(p[i[f*3+0]*3+2])
 			);
 			Vector<T, 3> v1(
-				p[i[f*3+1]*3+0],
-				p[i[f*3+1]*3+1],
-				p[i[f*3+1]*3+2]
+				static_cast<T>(p[i[f*3+1]*3+0]),
+				static_cast<T>(p[i[f*3+1]*3+1]),
+				static_cast<T>(p[i[f*3+1]*3+2])
 			);
 			Vector<T, 3> v2(
-				p[i[f*3+2]*3+0],
-				p[i[f*3+2]*3+1],
-				p[i[f*3+2]*3+2]
+				static_cast<T>(p[i[f*3+2]*3+0]),
+				static_cast<T>(p[i[f*3+2]*3+1]),
+				static_cast<T>(p[i[f*3+2]*3+2])
 			);
 			Vector<T, 3> fn(Normalized(Cross(v1-v0, v2-v0)));
 

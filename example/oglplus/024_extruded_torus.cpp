@@ -329,7 +329,7 @@ public:
 
 		camera_matrix.Set(camera);
 		model_matrix.Set(model);
-		transf_time.Set(time);
+		transf_time.Set(GLfloat(time));
 
 		face_pp.Bind();
 		gl.PolygonMode(PolygonMode::Fill);

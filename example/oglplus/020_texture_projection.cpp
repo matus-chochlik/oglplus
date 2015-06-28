@@ -200,7 +200,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		Vec3f lightPos(-1.0f, 2.0f, 2.0f);
-		lightPos *= (1.0f - SineWave(time/5.0f)*0.4f);
+		lightPos *= float(1.0 - SineWave(time/5.0)*0.4);
 		light_pos.Set(lightPos);
 
 		tex_projection_matrix.Set(

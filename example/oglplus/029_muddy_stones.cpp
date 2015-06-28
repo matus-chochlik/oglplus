@@ -380,7 +380,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			2.9,
+			2.9f,
 			FullCircles(time / 17.0),
 			Degrees(45 + SineWave(time / 20.0) * 40)
 		);
@@ -390,9 +390,9 @@ public:
 
 		auto langle = FullCircles(time / 31.0);
 		light_position.Set(
-			Cos(langle)*20.0f,
-			(1.2+Sin(langle))*15.0f,
-			Sin(langle)*20.0f
+			GLfloat(Cos(langle)*20.0f),
+			GLfloat((1.2+Sin(langle))*15.0f),
+			GLfloat(Sin(langle)*20.0f)
 		);
 
 		shape.Draw();

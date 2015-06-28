@@ -327,7 +327,7 @@ public:
 				attr.Setup<GLfloat>(n_per_vertex);
 				attr.Enable();
 			}
-			else assert(!"Inconsistent 'Position' location");
+			else OGLPLUS_ABORT("Inconsistent 'Position' location");
 		}
 
 		// bind the VBO for the shape normals

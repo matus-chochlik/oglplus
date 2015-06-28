@@ -153,7 +153,7 @@ public:
 
 		Vec3f lightPos(2.0f, 4.0f, -3.0f);
 		auto texProjMat =
-			CamMatrixf::PerspectiveX(Degrees(30), 1.0, 0.3, 20.0) *
+			CamMatrixf::PerspectiveX(Degrees(30), 1.0f, 0.3f, 20) *
 			CamMatrixf::LookingAt(lightPos, Vec3f(0, 0, 0));
 
 		Uniform<GLint>(volume_prog, "SampleCount").Set(samples);

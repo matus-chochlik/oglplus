@@ -113,7 +113,7 @@ public:
 	{
 		return ProgVar(
 			ProgramName(this->_program),
-			this->_location+offset
+			this->_location+GLuint(offset)
 		);
 	}
 

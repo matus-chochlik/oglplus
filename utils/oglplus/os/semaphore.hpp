@@ -26,6 +26,7 @@
 #endif
 
 #include <stdexcept>
+#include <limits>
 
 namespace oglplus {
 namespace os {
@@ -48,11 +49,11 @@ public:
 	{
 	}
 
-	void Wait(unsigned n = 1)
+	void Wait(std::size_t n = 1)
 	{
 	}
 
-	void Signal(unsigned n = 1)
+	void Signal(std::size_t n = 1)
 	{
 	}
 };
@@ -72,7 +73,9 @@ private:
 		param.sem_op = diff;
 		param.sem_flg = SEM_UNDO;
 		if(::semop(_sem, &param, 1) < 0)
+		{
 			throw std::runtime_error("Semaphore operation failed");
+		}
 	}
 
 	static int _init_sem(
@@ -123,16 +126,21 @@ public:
 
 	~Semaphore(void)
 	{
-		if(_master) ::semctl(_sem, 0, IPC_RMID);
+		if(_master)
+		{
+			::semctl(_sem, 0, IPC_RMID);
+		}
 	}
 
-	void Wait(unsigned short n = 1)
+	void Wait(std::size_t n = 1)
 	{
+		assert(n < std::size_t(std::numeric_limits<short>::max()));
 		_op(short(-n));
 	}
 
-	void Signal(unsigned short n = 1)
+	void Signal(std::size_t n = 1)
 	{
+		assert(n < std::size_t(std::numeric_limits<short>::max()));
 		_op(short(+n));
 	}
 };

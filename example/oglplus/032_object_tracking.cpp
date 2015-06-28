@@ -412,13 +412,13 @@ public:
 		std::string s = u8"⊗";
 
 		auto lt = font.MakeLayout(text::UTF8ToCodePoints(s.c_str(), s.size()));
-		int px = 30*pow(ndc_z, 8.0f);
+		int px = int(30*pow(ndc_z, 8.0f));
 
 		RenderText(
 			font,
 			lt,
-			sc_x-font.Width(px, lt)/2,
-			sc_y-font.Height(px, lt)/2,
+			GLint(sc_x-font.Width(px, lt)/2),
+			GLint(sc_y-font.Height(px, lt)/2),
 			px
 		);
 
@@ -430,9 +430,9 @@ public:
 		RenderText(
 			font,
 			font.MakeLayout(text::UTF8ToCodePoints(s.c_str(), s.size())),
-			sc_x+30-ndc_z*20,
-			sc_y-40+ndc_z*20,
-			40-20*ndc_z
+			GLint(sc_x+30-ndc_z*20),
+			GLint(sc_y-40+ndc_z*20),
+			GLuint(40-20*ndc_z)
 		);
 
 		ss.str(std::string());
@@ -444,8 +444,8 @@ public:
 		RenderText(
 			font,
 			font.MakeLayout(text::UTF8ToCodePoints(s.c_str(), s.size())),
-			sc_x+30-ndc_z*20,
-			sc_y+10-ndc_z*5,
+			GLint(sc_x+30-ndc_z*20),
+			GLint(sc_y+10-ndc_z*5),
 			12
 		);
 	}

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -88,8 +88,8 @@ SpectraXSectionRenderer::SpectraXSectionRenderer(
  , xsection_selected_time(xsection_prog, "SelectedTime")
  , spectrum_plane_wrap(
 	Common().SpectrumPlane(
-		DocVis().GridSamples(),
-		DocVis().SignalSpectrumSize()
+		GLuint(DocVis().GridSamples()),
+		GLuint(DocVis().SignalSpectrumSize())
 	)
 ), spectrum_plane_vao(spectrum_plane_wrap.VAOForProgram(xsection_prog))
 {
@@ -133,8 +133,8 @@ void SpectraXSectionRenderer::RenderSpectrum(SpectraDocumentView& view)
 	oglplus::Texture::Active(0);
 	DocVis().SpectrumTex().Bind(oglplus::Texture::Target::Buffer);
 	xsection_spectrum_tex.TrySet(0);
-	xsection_spectrum_size.TrySet(DocVis().SignalSpectrumSize());
-	xsection_samples_per_unit.TrySet(DocVis().SignalSamplesPerGrid());
+	xsection_spectrum_size.TrySet(int(DocVis().SignalSpectrumSize()));
+	xsection_samples_per_unit.TrySet(int(DocVis().SignalSamplesPerGrid()));
 	xsection_selected_time.TrySet(DocVis().SelectedTime());
 
 

@@ -645,7 +645,7 @@ public:
 		vel_and_age_buf[xfb_i].BindBase(Buffer::IndexedTarget::TransformFeedback, 1);
 
 		pp_prog.Use();
-		pp_prog.delta_t = time_diff;
+		pp_prog.delta_t = GLfloat(time_diff);
 
 		TransformFeedback::Activator xfb_act(TransformFeedbackPrimitiveType::Points);
 		gl.DrawArrays(PrimitiveType::Points, 0, particle_count);

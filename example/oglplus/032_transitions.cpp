@@ -655,7 +655,7 @@ private:
 
 	// torus vertex attribute names and count and
 	// a wraper for the torus builder, VAO and VBOs
-	static std::size_t torus_vert_attr_count(void) { return 4; }
+	static GLuint torus_vert_attr_count(void) { return 4; }
 	static const GLchar** torus_vert_attr_names(void)
 	{
 		static const GLchar* attrs[] = {"Position", "Normal", "Tangent", "TexCoord"};
@@ -751,11 +751,11 @@ public:
 
 	void RenderFrames(double time)
 	{
-		Vec3f origin = Vec3f(0.0, 0.0, 0.0);
-		Vec3f target_0 = Vec3f(0.0, 1.5, 0.0);
+		Vec3f origin = Vec3f(0.0f, 0.0f, 0.0f);
+		Vec3f target_0 = Vec3f(0.0f, 1.5f, 0.0f);
 		auto camera_0 = CamMatrixf::Orbiting(
 			target_0,
-			4.0 + SineWave(time / 11.0)*2.0,
+			GLfloat(4.0 + SineWave(time / 11.0)*2.0),
 			FullCircles(time / 19.0),
 			Degrees(SineWave(time / 20.0) * 30 + 35)
 		);
@@ -764,10 +764,10 @@ public:
 		draw_prog.camera_position_0 = CameraPosition(camera_0);
 		clear_prog.origin_0 = Vec2f(cm_0*Vec4f(origin, 1.0));
 
-		Vec3f target_1 = Vec3f(0.0,-0.1, 0.1);
+		Vec3f target_1 = Vec3f(0.0f,-0.1f, 0.1f);
 		auto camera_1 = CamMatrixf::Orbiting(
 			target_1,
-			12.5,
+			12.5f,
 			FullCircles(time / 37.0),
 			Degrees(SineWave(time / 11.0) * 85)
 		);
@@ -801,7 +801,7 @@ public:
 		gl.Disable(Capability::DepthTest);
 
 		trans_prog.Use();
-		trans_prog.SetMixFactor(-CosineWave(time / 6.0)*0.5+0.5);
+		trans_prog.SetMixFactor(GLfloat(-CosineWave(time / 6.0)*0.5+0.5));
 
 		screen.Draw();
 	}
@@ -831,7 +831,7 @@ std::unique_ptr<ExampleThread> makeExampleThread(
 
 std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
-	std::srand(std::time(0));
+	std::srand(unsigned(std::time(0)));
 	return std::unique_ptr<Example>(new TransitionExample);
 }
 

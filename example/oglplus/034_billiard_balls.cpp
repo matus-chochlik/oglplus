@@ -579,7 +579,7 @@ public:
 				attr.Setup<GLfloat>(npv);
 				attr.Enable();
 			}
-			catch(Error& error)
+			catch(Error&)
 			{ }
 		}
 	}
@@ -702,12 +702,12 @@ public:
 		ball_pp.UseStages(geom_prog).Geometry();
 		ball_pp.UseStages(ball_prog).Fragment();
 
-		const Vec3f light_position(0.0, 20.0, -2.0);
+		const Vec3f light_position(0.0f, 20.0f, -2.0f);
 
 		vert_prog.light_position.Set(light_position);
 
-		cloth_prog.color_1.Set(Vec3f(0.1, 0.3, 0.1));
-		cloth_prog.color_2.Set(Vec3f(0.3, 0.4, 0.3));
+		cloth_prog.color_1.Set(Vec3f(0.1f, 0.3f, 0.1f));
+		cloth_prog.color_2.Set(Vec3f(0.3f, 0.4f, 0.3f));
 
 		Texture::Active(0);
 		cloth_prog.light_map.Set(0);
@@ -877,15 +877,15 @@ public:
 
 
 		GLfloat i_u = Length(plane_u);
-		i_u = 1.0 / (i_u*i_u);
+		i_u = 1.0f / (i_u*i_u);
 		GLfloat i_v = Length(plane_v);
-		i_v = 1.0 / (i_v*i_v);
+		i_v = 1.0f / (i_v*i_v);
 		prog.transform_matrix.Set(
 			Mat4f(
-				Vec4f(plane_u * i_u, 0.0),
-				Vec4f(plane_v * i_v, 0.0),
-				Vec4f(0.0, 1.0, 0.0, 0.0),
-				Vec4f(0.0, 0.0, 0.0, 1.0)
+				Vec4f(plane_u * i_u, 0.0f),
+				Vec4f(plane_v * i_v, 0.0f),
+				Vec4f(0.0f, 1.0f, 0.0f, 0.0f),
+				Vec4f(0.0f, 0.0f, 0.0f, 1.0f)
 			)
 		);
 		prog.light_position.Set(light_position);
@@ -1004,9 +1004,9 @@ public:
 		ball_prog_pipeline.Bind();
 
 		vert_prog.texture_matrix.Set(Mat3f(
-			6.0, 0.0, 0.0,
-			0.0, 3.0,-1.0,
-			0.0, 0.0, 1.0
+			6.0f, 0.0f, 0.0f,
+			0.0f, 3.0f,-1.0f,
+			0.0f, 0.0f, 1.0f
 		));
 		for(GLuint i=0; i!=ball_count; ++i)
 		{
@@ -1021,8 +1021,14 @@ public:
 				ModelMatrixf::RotationY(FullCircles(rot.y())) *
 				ModelMatrixf::RotationX(FullCircles(rot.x()))
 			);
-			if(i > 7) ball_prog.color_1 = Vec3f(1.0, 0.9, 0.8);
-			else ball_prog.color_1 = col;
+			if(i > 7)
+			{
+				ball_prog.color_1 = Vec3f(1.0f, 0.9f, 0.8f);
+			}
+			else
+			{
+				ball_prog.color_1 = col;
+			}
 			ball_prog.color_2 = col;
 			ball_prog.ball_idx = i;
 
@@ -1035,10 +1041,10 @@ public:
 	void Render(double time)
 	{
 		// setup the camera
-		Vec3f camera_target(0.0, 2.2, 5.0);
+		Vec3f camera_target(0.0f, 2.2f, 5.0f);
 		auto camera = CamMatrixf::Orbiting(
 			camera_target,
-			16.0 - SineWave(time / 15.0)*12.0,
+			GLfloat(16.0 - SineWave(time / 15.0)*12.0),
 			FullCircles(time / 24.0),
 			Degrees(50 + SineWave(time / 20.0) * 35)
 		);

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -193,7 +193,9 @@ bool SpectraVisDataUploader::DoWork(void)
 		spectrum_data.Bind(oglplus::Buffer::Target::Texture);
 		oglplus::Buffer::SubData(
 			oglplus::BufferTarget::Texture,
-			oglplus::BufferSize::Of<GLfloat>(spectrum_size*current_row),
+			oglplus::BufferSize::Of<GLfloat>(
+				spectrum_size*current_row
+			),
 			spectrum_size*n,
 			data_buf.data()
 		);
@@ -351,7 +353,7 @@ float SpectraVisualisation::SelectedTime(void) const
 
 void SpectraVisualisation::DragSelection(float time, float delta)
 {
-	float eps = (selection_end - selection_begin)*0.2;
+	float eps = (selection_end - selection_begin)*0.2f;
 	if(time-delta <= selection_begin+eps)
 	{
 		selection_begin = time;

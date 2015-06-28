@@ -106,7 +106,7 @@ public:
 	 , camera_matrix(prog, "CameraMatrix")
 	 , model_matrix(prog, "ModelMatrix")
 	{
-		Uniform<Vec4f>(prog, "ClipPlane").Set(0.0, 0.0, 1.0, 0.0);
+		Uniform<Vec4f>(prog, "ClipPlane").Set(0.f, 0.f, 1.f, 0.f);
 
 		// bind the VAO for the torus
 		torus.Bind();
@@ -165,7 +165,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				4.5,
+				4.5f,
 				FullCircles(time / 10.0),
 				Degrees(45.0 + SineWave(time / 7.0)*30.0)
 			)

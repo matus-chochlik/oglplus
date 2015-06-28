@@ -262,7 +262,7 @@ public:
 		//
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			15.0 - SineWave(time / 13)*8.0,
+			GLfloat(15.0 - SineWave(time / 13)*8.0),
 			Degrees(time * 33),
 			Degrees(SineWave(time / 21.0) * 31)
 		);

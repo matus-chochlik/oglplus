@@ -624,7 +624,9 @@ public:
 
 			blur_buffers.Accumulate();
 		}
-		blur_prog.splitter.Set((SineWave(frame_time / 20.0)*0.5+0.5)*screen_width);
+		blur_prog.splitter.Set(
+			GLfloat((SineWave(frame_time / 20.0)*0.5+0.5)*screen_width)
+		);
 	}
 
 	bool Continue(double time)

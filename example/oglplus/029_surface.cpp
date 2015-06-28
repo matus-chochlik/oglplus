@@ -354,7 +354,7 @@ protected:
 
 public:
 	Grid(const Program& prog, float quality)
-	 : make_grid(1.0, 8 + quality*quality*8)
+	 : make_grid(1.0, unsigned(8 + quality*quality*8))
 	 , grid_instr(make_grid.Instructions(shapes::DrawMode::WithAdjacency()))
 	 , grid_indices(make_grid.Indices(shapes::DrawMode::WithAdjacency()))
 	{
@@ -409,9 +409,9 @@ public:
 	SurfaceExample(const ExampleParams& params)
 	 : liquid_prog()
 	 , grid(liquid_prog, params.quality)
-	 , grid_repeat(1 + params.quality*2)
+	 , grid_repeat(int(1 + params.quality*2))
 	{
-		const Vec3f light_position(12.0, 1.0, 8.0);
+		const Vec3f light_position(12.0f, 1.0f, 8.0f);
 		liquid_prog.light_position.Set(light_position);
 
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
@@ -436,7 +436,7 @@ public:
 
 		double time = clock.Now().Seconds();
 		//
-		liquid_prog.time.Set(time);
+		liquid_prog.time.Set(GLfloat(time));
 
 		double t = SineWave(time / 13.0);
 		if(t+0.95 < 0.0) clock.Pace(0.05);
@@ -449,7 +449,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0, 0, 0),
-			4.0 - SineWave(time / 14.0),
+			GLfloat(4.0 - SineWave(time / 14.0)),
 			FullCircles(time / 26.0),
 			Degrees(55 + SineWave(time / 14.0) * 30)
 		);

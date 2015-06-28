@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -38,8 +38,8 @@ AppData::AppData(void)
  , render_width(raytrace_width)
  , render_height(raytrace_height)
  , tile(16)
- , unit_opacity(0.03)
- , unit_attenuation(0.02)
+ , unit_opacity(0.03f)
+ , unit_attenuation(0.02f)
  , cloud_count(512)
  , cloud_res(256)
  , dump_cloud_image(false)
@@ -47,7 +47,7 @@ AppData::AppData(void)
  , cloud_data_path()
  , planet_radius(6371)
  , atm_thickness(50)
- , covered_angle(0.7)
+ , covered_angle(0.7f)
  , cloud_mean_alt(3.0f)
  , cloud_alt_disp(0.4f)
  , cloud_mean_size(1.6f)
@@ -59,15 +59,15 @@ AppData::AppData(void)
  , light_z(100000)
  , high_light(1.0f)
  , ambi_light(0.0f)
- , crep_ray_far(cam_far*0.3)
+ , crep_ray_far(cam_far*0.3f)
  , crep_ray_sam(512)
 {
 	skip_face.fill(false);
 
-	for(unsigned f=0; f!=6; ++f)
+	for(unsigned f=0; f<6; ++f)
 	{
 		output_face_id[f] = "- ";
-		output_face_id[f][1] = '0'+f;
+		output_face_id[f][1] = char('0'+f);
 	}
 }
 

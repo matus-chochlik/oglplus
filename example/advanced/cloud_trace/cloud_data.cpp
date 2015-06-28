@@ -207,7 +207,7 @@ void CloudData::Generate(const AppData& app_data)
 	Vec3f center(0,-radius, 0);
 	Mat4f cloud;
 
-	unsigned c = 0, count = app_data.cloud_count;
+	std::size_t c = 0, count = app_data.cloud_count;
 
 	if(radius > 0)
 	{

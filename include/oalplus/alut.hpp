@@ -24,6 +24,8 @@
 
 #include <oalplus/buffer.hpp>
 
+#include <oalplus/utils/type_tag.hpp>
+
 #include <vector>
 
 namespace oalplus {
@@ -109,7 +111,7 @@ private:
 	template <typename T>
 	void _do_load_mem_norm(
 		std::vector<ALfloat>& result,
-		T*,
+		TypeTag<T>,
 		::ALvoid* raw_data,
 		::ALsizei size
 	) const
@@ -145,7 +147,7 @@ private:
 		{
 			_do_load_mem_norm(
 				result,
-				(::ALubyte*)nullptr,
+				TypeTag<ALubyte>(),
 				raw_data,
 				size
 			);
@@ -154,7 +156,7 @@ private:
 		{
 			_do_load_mem_norm(
 				result,
-				(::ALshort*)nullptr,
+				TypeTag<ALshort>(),
 				raw_data,
 				size
 			);
@@ -163,7 +165,7 @@ private:
 		{
 			_do_load_mem_norm(
 				result,
-				(::ALubyte*)nullptr,
+				TypeTag<ALubyte>(),
 				raw_data,
 				size
 			);
@@ -172,21 +174,21 @@ private:
 		{
 			_do_load_mem_norm(
 				result,
-				(::ALshort*)nullptr,
+				TypeTag<ALshort>(),
 				raw_data,
 				size
 			);
 		}
 
 		return std::move(result);
-	};
+	}
 
 	std::vector<ALubyte> _load_memory(
 		::ALvoid* raw_data,
 		::ALsizei size
 	) const
 	{
-		::ALubyte* data = (::ALubyte*)raw_data;
+		::ALubyte* data = reinterpret_cast<ALubyte*>(raw_data);
 		return std::vector<ALubyte>(data, data+size);
 	}
 public:

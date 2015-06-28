@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -103,8 +103,8 @@ SpectraDefaultRenderer::SpectraDefaultRenderer(
  , doc_vis_selection_end(doc_vis_prog, "SelectionEnd")
  , spectrum_plane_wrap(
 	Common().SpectrumPlane(
-		DocVis().GridSamples(),
-		DocVis().SignalSpectrumSize()
+		GLuint(DocVis().GridSamples()),
+		GLuint(DocVis().SignalSpectrumSize())
 	)
 ), spectrum_plane_vao(spectrum_plane_wrap.VAOForProgram(doc_vis_prog))
  , vis_cue_prog(Common().BuildProgram("default_vis_cue.prog"))
@@ -146,8 +146,8 @@ void SpectraDefaultRenderer::RenderSpectrum(SpectraDocumentView& view)
 	oglplus::Texture::Active(0);
 	DocVis().SpectrumTex().Bind(oglplus::Texture::Target::Buffer);
 	doc_vis_spectrum_tex.TrySet(0);
-	doc_vis_spectrum_size.TrySet(DocVis().SignalSpectrumSize());
-	doc_vis_samples_per_unit.TrySet(DocVis().SignalSamplesPerGrid());
+	doc_vis_spectrum_size.TrySet(int(DocVis().SignalSpectrumSize()));
+	doc_vis_samples_per_unit.TrySet(int(DocVis().SignalSamplesPerGrid()));
 	doc_vis_selected_time.TrySet(DocVis().SelectedTime());
 	doc_vis_selection_begin.TrySet(DocVis().SelectionBegin());
 	doc_vis_selection_end.TrySet(DocVis().SelectionEnd());

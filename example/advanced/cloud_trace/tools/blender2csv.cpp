@@ -2,7 +2,7 @@
  *  @file advanced/cloud_trace/tools/blender2csv.cpp
  *  @brief Generates a set of cross-linked html describing a .blend file
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,7 +19,7 @@ bool find_blend_obj_prop(
 	oglplus::imports::BlendFile& blend_file,
 	oglplus::imports::BlendFilePointer prop_ptr,
 	const char* name,
-	float& value
+	double& value
 )
 {
 	using namespace oglplus::imports;
@@ -38,7 +38,7 @@ bool find_blend_obj_prop(
 						prop.Field<int>("data.val").Get(),
 						prop.Field<int>("data.val2").Get()
 					};
-					value = *((double*)data);
+					value = *(reinterpret_cast<double*>(data));
 
 					return true;
 				}
@@ -125,12 +125,12 @@ void blend_to_csv(const std::string& input_path, const std::string& output_path)
 
 			if(type == 1) // TODO: other types?
 			{
-				float pos_x = 0, pos_y = 0, pos_z = 0;
-				float rotxx = 1, rotxy = 0, rotxz = 0;
-				float rotyx = 0, rotyy = 1, rotyz = 0;
-				float rotzx = 0, rotzy = 0, rotzz = 1;
-				float csize = 1, doffs = 0, dmult = 1;
-				float c_age = 0;
+				double pos_x = 0, pos_y = 0, pos_z = 0;
+				double rotxx = 1, rotxy = 0, rotxz = 0;
+				double rotyx = 0, rotyy = 1, rotyz = 0;
+				double rotzx = 0, rotzy = 0, rotzz = 1;
+				double csize = 1, doffs = 0, dmult = 1;
+				double c_age = 0;
 
 				try
 				{
@@ -177,7 +177,7 @@ void blend_to_csv(const std::string& input_path, const std::string& output_path)
 				catch(std::runtime_error&) { }
 
 				const char* prop_names[] = {"c_age", "doffs", "dmult"};
-				float*     prop_values[] = {&c_age , &doffs , &dmult };
+				double*    prop_values[] = {&c_age , &doffs , &dmult };
 
 				for(int p=0; p!=3; ++p)
 				{

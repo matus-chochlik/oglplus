@@ -66,6 +66,8 @@ struct Subroutine;
 struct SubroutineUniform;
 struct FragData;
 
+struct ShaderStorageBlock;
+
 struct NativeTypes;
 struct MatrixTypes;
 
@@ -151,6 +153,7 @@ typedef ProgVarLoc<tag::UniformBlock> UniformBlockLoc;
 typedef ProgVarLoc<tag::Subroutine> SubroutineLoc;
 typedef ProgVarLoc<tag::SubroutineUniform> SubroutineUniformLoc;
 typedef ProgVarLoc<tag::FragData> FragDataLoc;
+typedef ProgVarLoc<tag::ShaderStorageBlock> ShaderStorageBlockLoc;
 
 template <typename VarTag>
 class ProgVarLocOps;

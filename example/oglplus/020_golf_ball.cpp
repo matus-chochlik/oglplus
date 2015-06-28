@@ -82,11 +82,11 @@ private:
 			}
 			else if(na > 1)
 			{
-				float elev = el[e] * math::Pi();
+				float elev = float(el[e] * math::Pi());
 				float a_step = 1.0f / na;
 				for(GLuint a=0; a!=na; ++a)
 				{
-					float azim = si[s]*ao[e]+a*a_step*math::TwoPi();
+					float azim = float(si[s]*ao[e]+a*a_step*math::TwoPi());
 					data[k++] = std::cos(elev)*std::cos(azim);
 					data[k++] = std::sin(elev * si[s]);
 					data[k++] = std::cos(elev)*std::sin(azim);
@@ -303,7 +303,7 @@ public:
 		auto model =
 			ModelMatrixf::Translation(
 				0.0f,
-				sqrt(1.0f+SineWave(time / 2.0)),
+				GLfloat(sqrt(1.0f+SineWave(time / 2.0))),
 				0.0f
 			) *
 			ModelMatrixf::RotationX(FullCircles(time));

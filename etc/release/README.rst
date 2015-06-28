@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.62.0
+Release notes for version 0.63.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,18 +7,18 @@ Release notes for version 0.62.0
 Overview
 ========
 
-This release of `OGLplus`_ brings brings fixes to several bugs and compiler warnings and changes to internal implementation details.
+This release of `OGLplus`_ brings brings fixes to several bugs and compiler warnings, changes to internal implementation details and wrappers for shader storage buffer objects.
 
 Changes
 -------
 
-- The ``SizeType`` and ``BigSizeType`` classes were updated and arithmetic operators were added.
+- The ``ShaderStorageBlock`` class and related functionality was added.
 
-- A missing-identifier bug was fixed in images::Image.
+- Bugs in the ``Cloud`` and ``BrushedMetal`` image generators were fixed.
 
 - Some compiler warnings were silenced.
 
 - Several other minor changes were made to the internals.
 
-- The Quickbook documentation was updated.
+- A bug in the ``PathCommandNV`` enumeration was fixed.
 

@@ -308,7 +308,7 @@ protected:
 
 public:
 	Grid(const Program& prog, float quality)
-	 : make_grid(1.0, 12 + quality*24)
+	 : make_grid(1.0, GLuint(12 + quality*24))
 	 , grid_instr(make_grid.Instructions())
 	 , grid_indices(make_grid.Indices())
 	{
@@ -471,7 +471,7 @@ private:
 		static const GLchar* names[] = {"Position", "Normal", "Tangent", "TexCoord"};
 		return names;
 	}
-	static std::size_t AttrCount(void)
+	static GLuint AttrCount(void)
 	{
 		return 4;
 	}
@@ -520,13 +520,14 @@ public:
 		{
 			GLuint j = 0, n = 3+std::rand()%3;
 			std::vector<Vec4f> points(n);
-			GLfloat ball_size = 0.15*std::rand()/GLdouble(RAND_MAX) + 0.25;
+			GLfloat ball_size = 0.15f*std::rand()/GLfloat(RAND_MAX) + 0.25f;
+
 			while(j != n)
 			{
 				points[j] = Vec4f(
-					1.2*std::rand()/GLdouble(RAND_MAX) - 0.6,
-					1.2*std::rand()/GLdouble(RAND_MAX) - 0.6,
-					1.2*std::rand()/GLdouble(RAND_MAX) - 0.6,
+					1.2f*std::rand()/GLfloat(RAND_MAX) - 0.6f,
+					1.2f*std::rand()/GLfloat(RAND_MAX) - 0.6f,
+					1.2f*std::rand()/GLfloat(RAND_MAX) - 0.6f,
 					ball_size
 				);
 				++j;
@@ -623,7 +624,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0, 0, 0),
-			4.0 - SineWave(time / 14.0),
+			GLfloat(4.0 - SineWave(time / 14.0)),
 			FullCircles(time / 26.0),
 			Degrees(45 + SineWave(time / 17.0) * 40)
 		);

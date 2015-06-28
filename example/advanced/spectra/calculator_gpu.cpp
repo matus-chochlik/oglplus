@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -219,7 +219,7 @@ void SpectraDefaultGPUMatrixTransf::BeginBatch(void)
 	input_tex.Bind(Texture::Target::Buffer);
 	prog_input_data.Set(1);
 
-	prog_input_size.Set(in_size);
+	prog_input_size.Set(int(in_size));
 
 	vao.Bind();
 
@@ -257,7 +257,7 @@ unsigned SpectraDefaultGPUMatrixTransf::BeginTransform(
 		input
 	);
 
-	prog_input_offs.Set(current_transform*in_size);
+	prog_input_offs.Set(int(current_transform*in_size));
 
 	xfbs[current_transform].Bind();
 

@@ -162,7 +162,7 @@ public:
 			{
 				for(GLuint u=0;u!=s;++u)
 				{
-					tex_data[v*s+u] = rand() % 0x100;
+					tex_data[v*s+u] = GLubyte(rand() % 0x100);
 				}
 			}
 			gl.Current(Texture::Target::_2D)

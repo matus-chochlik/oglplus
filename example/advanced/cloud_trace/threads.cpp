@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -21,28 +21,28 @@ inline void Semaphore::_decr(void)
 	--_value;
 }
 
-inline void Semaphore::_incr(unsigned n)
+inline void Semaphore::_incr(std::size_t n)
 {
 	std::unique_lock<std::mutex> lock(_mutex);
 	_value += n;
 	_cv.notify_all();
 }
 
-Semaphore::Semaphore(unsigned initial)
+Semaphore::Semaphore(std::size_t initial)
  : _value(initial)
 { }
 
-void Semaphore::Wait(unsigned n)
+void Semaphore::Wait(std::size_t n)
 {
 	while(n--) _decr();
 }
 
-void Semaphore::Signal(unsigned n)
+void Semaphore::Signal(std::size_t n)
 {
 	_incr(n);
 }
 
-bool Semaphore::Signalled(unsigned n)
+bool Semaphore::Signalled(std::size_t n)
 {
 	std::unique_lock<std::mutex> lock(_mutex);
 	return _value >= n;

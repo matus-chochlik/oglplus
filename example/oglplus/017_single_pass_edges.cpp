@@ -248,12 +248,12 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		edge_width.Set(4.0+SineWave(time / 7.0)*3.0);
+		edge_width.Set(GLfloat(4.0+SineWave(time / 7.0)*3.0));
 
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				5.5 - SineWave(time / 27)*2.0,
+				GLfloat(5.5 - SineWave(time / 27)*2.0),
 				Degrees(time * 33),
 				Degrees(SineWave(time / 21.0) * 31)
 			)

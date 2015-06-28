@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -40,7 +40,7 @@ struct CloudData
 class CloudBuffer : public Buffer
 {
 public:
-	const unsigned count;
+	const std::size_t count;
 	const GLuint ub_idx;
 
 	CloudBuffer(const AppData&, const CloudData&, ResourceAllocator&);

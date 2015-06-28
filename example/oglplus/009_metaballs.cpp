@@ -57,15 +57,14 @@ public:
 			while(j != n)
 			{
 				points[j] = Vec4f(
-					1.4*std::rand()/GLdouble(RAND_MAX) - 0.7,
-					1.4*std::rand()/GLdouble(RAND_MAX) - 0.7,
-					0.0,
-					0.1*std::rand()/GLdouble(RAND_MAX) + 0.1
+					1.4f*std::rand()/GLfloat(RAND_MAX) - 0.7f,
+					1.4f*std::rand()/GLfloat(RAND_MAX) - 0.7f,
+					0.0f,
+					0.1f*std::rand()/GLfloat(RAND_MAX) + 0.1f
 				);
 				++j;
 			}
 			ball_paths.push_back(CubicBezierLoop<Vec4f, double>(points));
-			++i;
 		}
 
 		// Set the vertex shader source

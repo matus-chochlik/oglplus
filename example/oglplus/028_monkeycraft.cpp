@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{028_monkeycraft}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -396,14 +396,14 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			field.Radius()*(1.4 + SineWave(time / 6.0) * 0.2),
+			GLfloat(field.Radius()*(1.4 + SineWave(time / 6.0) * 0.2)),
 			FullCircles(time * 0.1),
 			Degrees(SineWave(time / 30.0) * 90)
 		);
 
 		auto light = CamMatrixf::Orbiting(
 			Vec3f(),
-			field.Radius()*1.6,
+			GLfloat(field.Radius()*1.6),
 			FullCircles(0.33-time * 0.07),
 			Degrees(SineWave(time / 31.0) * 80)
 		);
@@ -411,7 +411,7 @@ public:
 		prog.camera_matrix.Set(camera);
 		prog.light_position.Set(CameraPosition(light));
 
-		GLfloat fade_coef = 1.1*(1.0-CosineWave01(time / 90.0));
+		GLfloat fade_coef = GLfloat(1.1*(1.0-CosineWave01(time / 90.0)));
 		prog.fade_coef.Set(fade_coef);
 
 		field.Draw();
