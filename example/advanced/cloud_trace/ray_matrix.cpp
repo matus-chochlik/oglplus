@@ -4,14 +4,14 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #include "ray_matrix.hpp"
 
-#include <cassert>
+#include <oglplus/assert.hpp>
 
 namespace oglplus {
 namespace cloud_trace {
@@ -64,7 +64,7 @@ Mat4f RayMatrix(const AppData& app_data, unsigned face)
 			cz = +Vec3f::Unit(2);
 			break;
 		}
-		default: assert(!"Invalid cube face");
+		default: OGLPLUS_ABORT("Invalid cube face");
 	}
 
 	return
