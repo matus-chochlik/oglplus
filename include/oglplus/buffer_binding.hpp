@@ -36,24 +36,6 @@ typedef GLuint UniformBufferBindingPoint;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the shader storage buffer binding point index
-class ShaderStorageBufferBindingPoint
- : public LimitedCount
-{
-public:
-	/// Construction from a @c GLuint
-	ShaderStorageBufferBindingPoint(GLuint count);
-};
-#elif GL_VERSION_4_3 || GL_ARB_shader_storage_buffer_object
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	ShaderStorageBufferBindingPoint,
-	MAX_SHADER_STORAGE_BUFFER_BINDINGS
-)
-#else
-typedef GLuint ShaderStorageBufferBindingPoint;
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY
 /// Type for the transform feedback buffer binding point index
 class TransformFeedbackBufferBindingPoint
  : public LimitedCount
