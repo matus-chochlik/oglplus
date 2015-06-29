@@ -127,6 +127,7 @@ public:
 	{
 		Boolean result;
 
+		// TODO: check this
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
 			this->_program,
 			_block_index(),
@@ -146,22 +147,21 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetActiveUniformBlock}
 	 */
-	GLuint DataSize(void) const
+	GLuint64 DataSize(void) const
 	{
-		GLint result;
-		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
-			this->_program,
+		GLint64 result;
+		OGLPLUS_GLFUNC(GetInteger64i_v)(
 			_block_index(),
 			GL_SHADER_STORAGE_BUFFER_SIZE,
 			&result
 		);
 		OGLPLUS_VERIFY(
-			GetActiveUniformBlockiv,
+			GetInteger64i_v,
 			Error,
 			EnumParam(GLenum(GL_SHADER_STORAGE_BUFFER_SIZE))
 		);
 		assert(result >= 0);
-		return GLuint(result);
+		return GLuint64(result);
 	}
 
 	/// Sets up the shader-storage block binding
@@ -169,7 +169,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderStorageBlockBinding}
 	 */
-	void Binding(UniformBufferBindingPoint binding)
+	void Binding(ShaderStorageBufferBindingPoint binding)
 	{
 		OGLPLUS_GLFUNC(ShaderStorageBlockBinding)(
 			this->_program,
