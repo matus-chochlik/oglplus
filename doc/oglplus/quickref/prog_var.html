@@ -43,9 +43,10 @@
 <span class="keyword">struct</span> <span class="identifier">VertexAttrib</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c0" href="prog_var.html#oglplus.quickref.prog_var.tags.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="keyword">struct</span> <span class="identifier">Uniform</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c2" href="prog_var.html#oglplus.quickref.prog_var.tags.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="keyword">struct</span> <span class="identifier">UniformBlock</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c4" href="prog_var.html#oglplus.quickref.prog_var.tags.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-<span class="keyword">struct</span> <span class="identifier">Subroutine</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c6" href="prog_var.html#oglplus.quickref.prog_var.tags.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
-<span class="keyword">struct</span> <span class="identifier">SubroutineUniform</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c8" href="prog_var.html#oglplus.quickref.prog_var.tags.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
-<span class="keyword">struct</span> <span class="identifier">FragData</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c10" href="prog_var.html#oglplus.quickref.prog_var.tags.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="keyword">struct</span> <span class="identifier">ShaderStorageBlock</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c6" href="prog_var.html#oglplus.quickref.prog_var.tags.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="keyword">struct</span> <span class="identifier">Subroutine</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c8" href="prog_var.html#oglplus.quickref.prog_var.tags.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+<span class="keyword">struct</span> <span class="identifier">SubroutineUniform</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c10" href="prog_var.html#oglplus.quickref.prog_var.tags.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="keyword">struct</span> <span class="identifier">FragData</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c12" href="prog_var.html#oglplus.quickref.prog_var.tags.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -70,17 +71,23 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.tags.c7"></a><a href="#oglplus.quickref.prog_var.tags.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                See <a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.def">Subroutine</a>
+                See <a class="link" href="shader_storage_block.html#oglplus.quickref.shader_storage_block.def">ShaderStorageBlock</a>
               </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.tags.c9"></a><a href="#oglplus.quickref.prog_var.tags.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                See <a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.def">SubroutineUniform</a>
+                See <a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.def">Subroutine</a>
               </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.tags.c11"></a><a href="#oglplus.quickref.prog_var.tags.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                See <a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.def">SubroutineUniform</a>
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.tags.c13"></a><a href="#oglplus.quickref.prog_var.tags.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 See <a class="link" href="frag_data.html#oglplus.quickref.frag_data.def">FragData</a>
               </p></td>
@@ -95,20 +102,20 @@
             The typechecking tags allow to enable or disable program variable typechecking
             at compile time.
           </p>
-<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">Typecheck</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c12" href="prog_var.html#oglplus.quickref.prog_var.tags.c13"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-<span class="keyword">struct</span> <span class="identifier">NoTypecheck</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c14" href="prog_var.html#oglplus.quickref.prog_var.tags.c15"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">Typecheck</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c14" href="prog_var.html#oglplus.quickref.prog_var.tags.c15"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="keyword">struct</span> <span class="identifier">NoTypecheck</span><span class="special">;</span> <a class="co" name="oglplus.quickref.prog_var.tags.c16" href="prog_var.html#oglplus.quickref.prog_var.tags.c17"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 <span class="special">}</span> <span class="comment">// namespace tag</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.tags.c13"></a><a href="#oglplus.quickref.prog_var.tags.c12"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.tags.c15"></a><a href="#oglplus.quickref.prog_var.tags.c14"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Enables GPU program variable typechecking if possible.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.tags.c15"></a><a href="#oglplus.quickref.prog_var.tags.c14"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.prog_var.tags.c17"></a><a href="#oglplus.quickref.prog_var.tags.c16"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Disables GPU program variable typechecking.
               </p></td>
@@ -361,6 +368,7 @@
             <a class="link" href="uniform.html#oglplus.quickref.uniform.def">Uniform</a>, <a class="link" href="uniform_block.html#oglplus.quickref.uniform_block.def">UniformBlock</a>,
             <a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.def">Subroutine</a>,
             <a class="link" href="uniform_subroutines.html#oglplus.quickref.uniform_subroutines.def">SubroutineUniform</a>,
+            <a class="link" href="shader_storage_block.html#oglplus.quickref.shader_storage_block.def">ShaderStorageBlock</a>
             and <a class="link" href="frag_data.html#oglplus.quickref.frag_data.def">FragData</a>.
           </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="ops_tags.html" title="Operation kinds">OpsTag</a><span class="special">,</span> <span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags" title="Tags">VarTag</a><span class="special">,</span> <span class="keyword">typename</span> <a class="link" href="prog_var.html#oglplus.quickref.prog_var.tags.typecheck">ChkTag</a><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
