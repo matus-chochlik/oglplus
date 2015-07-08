@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{003_rect}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -42,9 +42,9 @@ public:
 	{
 		// Set the vertex shader source
 		vs.Source(" \
-			#version 330\n \
-			in vec2 Position; \
-			out vec2 vertCoord; \
+			#version 120\n \
+			attribute vec2 Position; \
+			varying vec2 vertCoord; \
 			void main(void) \
 			{ \
 				gl_Position = vec4(Position, 0.0, 1.0); \
@@ -59,12 +59,11 @@ public:
 
 		// set the fragment shader source
 		fs.Source(" \
-			#version 330\n \
-			in vec2 vertCoord; \
-			out vec4 fragColor; \
+			#version 120\n \
+			varying vec2 vertCoord; \
 			void main(void) \
 			{ \
-				fragColor = vec4( \
+				gl_FragColor = vec4( \
 					vertCoord.x - vertCoord.x * vertCoord.y,\
 					vertCoord.y - vertCoord.x * vertCoord.y,\
 					vertCoord.x * vertCoord.y, \
