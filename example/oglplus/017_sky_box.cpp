@@ -50,7 +50,7 @@ public:
 	{
 		VertexShader vs;
 		vs.Source(StrCRef(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"mat4 Matrix = ProjectionMatrix*CameraMatrix;"
 
@@ -67,7 +67,7 @@ public:
 
 		FragmentShader fs;
 		fs.Source(StrCRef(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform samplerCube EnvMap;"
 			"in vec3 vertTexCoord;"
 			"out vec4 fragColor;"

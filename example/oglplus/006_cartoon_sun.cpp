@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{006_cartoon_sun}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -44,7 +44,7 @@ public:
 	{
 		// Set the vertex shader source and compile it
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec2 Position;"
 			"out vec2 vertPos;"
 			"void main(void)"
@@ -56,23 +56,28 @@ public:
 
 		// set the fragment shader source and compile it
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform float Time;"
 			"uniform vec2 SunPos;"
 			"uniform vec3 Sun1, Sun2, Sky1, Sky2;"
 			"in vec2 vertPos;"
-			"out vec3 fragColor;"
 			"void main(void)"
 			"{"
 			"	vec2 v = vertPos - SunPos;"
 			"	float l = length(v);"
 			"	float a = (sin(l)+atan(v.y, v.x))/3.1415;"
 			"	if(l < 0.1)"
-			"		fragColor = Sun1;"
+			"	{"
+			"		gl_FragColor = vec4(Sun1, 1);"
+			"	}"
 			"	else if(int(18*(Time*0.1 + 1.0 + a)) % 2 == 0)"
-			"		fragColor = mix(Sun1, Sun2, l);"
+			"	{"
+			"		gl_FragColor = vec4(mix(Sun1, Sun2, l), 1);"
+			"	}"
 			"	else"
-			"		fragColor = mix(Sky1, Sky2, l);"
+			"	{"
+			"		gl_FragColor = vec4(mix(Sky1, Sky2, l), 1);"
+			"	}"
 			"}"
 		).Compile();
 

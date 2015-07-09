@@ -65,12 +65,12 @@ public:
 
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 120\n"
 			"uniform mat4 StretchMatrix, ProjectionMatrix, CameraMatrix;"
-			"in vec4 Position;"
-			"in vec3 Normal;"
+			"attribute vec4 Position;"
+			"attribute vec3 Normal;"
 
-			"out vec3 vertNormal;"
+			"varying vec3 vertNormal;"
 			"void main(void)"
 			"{"
 			"	vertNormal = Normal;"
@@ -84,13 +84,12 @@ public:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
-			"in vec3 vertNormal;"
-			"out vec3 fragColor;"
+			"#version 120\n"
+			"varying vec3 vertNormal;"
 			"void main(void)"
 			"{"
 			"	vec3 c = normalize(vec3(1, 1, 1) - vertNormal);"
-			"	fragColor = c;"
+			"	gl_FragColor = vec4(c, 1);"
 			"}"
 		).Compile();
 

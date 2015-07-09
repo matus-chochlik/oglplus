@@ -39,11 +39,11 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 120\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
-			"in vec4 Position;"
-			"in vec3 Normal;"
-			"out vec3 vertNormal;"
+			"attribute vec4 Position;"
+			"attribute vec3 Normal;"
+			"varying vec3 vertNormal;"
 			"void main(void)"
 			"{"
 			"	vertNormal = mat3(ModelMatrix)*Normal;"
@@ -57,9 +57,8 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
-			"in vec3 vertNormal;"
-			"out vec4 fragColor;"
+			"#version 120\n"
+			"varying vec3 vertNormal;"
 			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
@@ -69,13 +68,21 @@ private:
 			"		0.0"
 			"	);"
 			"	if(!gl_FrontFacing)"
-			"		fragColor = vec4(0.0, 0.0, 0.0, 1.0);"
+			"	{"
+			"		gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);"
+			"	}"
 			"	else if(intensity > 0.9)"
-			"		fragColor = vec4(1.0, 0.9, 0.8, 1.0);"
+			"	{"
+			"		gl_FragColor = vec4(1.0, 0.9, 0.8, 1.0);"
+			"	}"
 			"	else if(intensity > 0.1)"
-			"		fragColor = vec4(0.7, 0.6, 0.4, 1.0);"
+			"	{"
+			"		gl_FragColor = vec4(0.7, 0.6, 0.4, 1.0);"
+			"	}"
 			"	else"
-			"		fragColor = vec4(0.3, 0.2, 0.1, 1.0);"
+			"	{"
+			"		gl_FragColor = vec4(0.3, 0.2, 0.1, 1.0);"
+			"	}"
 			"}"
 		).Compile();
 
