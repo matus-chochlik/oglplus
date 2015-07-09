@@ -388,7 +388,26 @@ inline void HandleError(ErrorType& error)
 	using SOURCE::_errinf_glfn; \
 	using SOURCE::_errinf_cls;
 
+
 // Macro for generic error handling
+#define OGLPLUS_HANDLE_ERROR(\
+	ERROR_CODE,\
+	MESSAGE,\
+	ERROR,\
+	ERROR_INFO\
+)\
+{\
+	ERROR error(MESSAGE);\
+	(void)error\
+		.ERROR_INFO\
+		.SourceFile(__FILE__)\
+		.SourceFunc(__FUNCTION__)\
+		.SourceLine(__LINE__)\
+		.Code(error_code);\
+	HandleError(error);\
+}
+
+// Macro for optional generic error handling
 #define OGLPLUS_HANDLE_ERROR_IF(\
 	CONDITION,\
 	ERROR_CODE,\
@@ -399,16 +418,12 @@ inline void HandleError(ErrorType& error)
 {\
 	GLenum error_code = ERROR_CODE;\
 	if(CONDITION)\
-	{\
-		ERROR error(MESSAGE);\
-		(void)error\
-			.ERROR_INFO\
-			.SourceFile(__FILE__)\
-			.SourceFunc(__FUNCTION__)\
-			.SourceLine(__LINE__)\
-			.Code(error_code);\
-		HandleError(error);\
-	}\
+		OGLPLUS_HANDLE_ERROR(\
+			error_code,\
+			MESSAGE,\
+			ERROR,\
+			ERROR_INFO\
+		)\
 }
 
 #define OGLPLUS_GLFUNC_CHECK(FUNC_NAME, ERROR, ERROR_INFO)\
