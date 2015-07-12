@@ -22,6 +22,7 @@
 #include <oglplus/shader_type.hpp>
 #include <oglplus/glsl_source.hpp>
 #include <oglplus/size_type.hpp>
+#include <oglplus/error/outcome.hpp>
 
 #include <array>
 #include <vector>
@@ -340,7 +341,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompileShader}
 	 */
-	ObjectOps& Compile(void);
+	Outcome<ObjectOps&> Compile(void);
 
 
 #if OGLPLUS_DOCUMENTATION_ONLY || \

@@ -28,18 +28,18 @@ GetInfoLog(void) const
 }
 
 OGLPLUS_LIB_FUNC
-ObjectOps<tag::DirectState, tag::Shader>&
+Outcome<ObjectOps<tag::DirectState, tag::Shader>&>
 ObjectOps<tag::DirectState, tag::Shader>::
 Compile(void)
 {
 	OGLPLUS_GLFUNC(CompileShader)(_obj_name());
-	OGLPLUS_CHECK(
+	OGLPLUS_DEFERRED_CHECK(
 		CompileShader,
 		ObjectError,
 		Object(*this).
 		EnumParam(Type())
 	);
-	OGLPLUS_HANDLE_ERROR_IF(
+	OGLPLUS_RETURN_HANDLER_IF(
 		!IsCompiled(),
 		GL_INVALID_OPERATION,
 		CompileError::Message(),
