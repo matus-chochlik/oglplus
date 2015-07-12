@@ -68,7 +68,7 @@ public:
 	 , edge_width(prog, "EdgeWidth")
 	{
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"const vec3 LightPosition = vec3(10.0, 10.0, 7.0);"
 
@@ -100,7 +100,7 @@ public:
 		vs.Compile();
 
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout (triangles) in;"
 			"layout (triangle_strip, max_vertices = 3) out;"
 
@@ -167,7 +167,7 @@ public:
 		gs.Compile();
 
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform float EdgeWidth;"
 

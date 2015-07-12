@@ -60,7 +60,7 @@ public:
 	 , model_matrix(prog)
 	{
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"in vec4 Position;"
 
@@ -72,7 +72,7 @@ public:
 		vs.Compile();
 
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout (triangles) in;"
 			"layout (triangle_strip, max_vertices = 48) out;"
 
@@ -179,7 +179,7 @@ public:
 		gs.Compile();
 
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"noperspective in vec3 geomDist;"
 			"flat in vec3 geomNormal;"

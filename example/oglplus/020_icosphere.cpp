@@ -68,7 +68,7 @@ public:
 	 , model_matrix(prog, "ModelMatrix")
 	{
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
 			"out vec3 vertNormal;"
@@ -90,7 +90,7 @@ public:
 		vs.Compile();
 
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout (triangles) in;"
 			"layout (triangle_strip, max_vertices = 3) out;"
 
@@ -131,7 +131,7 @@ public:
 		gs.Compile();
 
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform samplerCube TexUnit;"
 			"in vec3 geomNormal;"
 			"in vec3 geomTexCoord;"

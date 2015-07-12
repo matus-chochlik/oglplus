@@ -136,7 +136,7 @@ private:
 		VertexShader shader;
 
 		shader.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
@@ -162,7 +162,7 @@ private:
 	static StrCRef fs_prologue(void)
 	{
 		return StrCRef(
-		"#version 330\n"
+		"#version 140\n"
 		"in vec3 vertNormal;"
 		"in vec3 vertLight;"
 		"in vec3 vertViewNormal;"
