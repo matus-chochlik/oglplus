@@ -36,7 +36,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ModelMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
@@ -57,7 +57,7 @@ private:
 
 		GeometryShader gs;
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 15) out;"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
@@ -158,7 +158,7 @@ private:
 	{
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec3 geomNormal;"
 			"in vec3 geomLight;"
 			"in float geomGlow;"
@@ -205,7 +205,7 @@ private:
 	{
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"

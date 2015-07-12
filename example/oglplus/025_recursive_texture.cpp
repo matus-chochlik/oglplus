@@ -84,7 +84,7 @@ public:
 	 , height(tex_side)
 	{
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
@@ -105,7 +105,7 @@ public:
 		vs.Compile();
 
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler2D TexUnit;"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"

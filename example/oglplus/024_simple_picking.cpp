@@ -66,7 +66,7 @@ public:
 	{
 		// Set the vertex shader source
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"in vec4 Position;"
 			"out vec3 vertColor;"
@@ -97,7 +97,7 @@ public:
 
 		// Set the geometry shader source
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(triangles) in;"
 			"layout(points, max_vertices = 1) out;"
 
@@ -168,7 +168,7 @@ public:
 
 		// set the fragment shader source
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"flat in int vertInstanceID;"
 			"in vec3 vertColor;"
 			"uniform int Picked;"

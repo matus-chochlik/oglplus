@@ -35,7 +35,7 @@ public:
 	VaseVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Vase vertex"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 140\n"
 		"uniform vec3 LightPosition;"
 		"uniform vec3 CameraPosition;"
 		"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -70,7 +70,7 @@ public:
 	VaseFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Vase fragment"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 140\n"
 		"uniform sampler2D VaseTex;"
 		"in vec3 vertNormal;"
 		"in vec3 vertLightDir;"
