@@ -39,7 +39,7 @@ public:
 		VertexShader vs;
 		// Set the vertex shader source
 		vs.Source(StrCRef(" \
-			#version 330\n \
+			#version 140\n \
 			in vec2 Position; \
 			in vec2 Coord; \
 			out vec2 vertCoord; \
@@ -54,7 +54,7 @@ public:
 		FragmentShader fs;
 		// set the fragment shader source
 		fs.Source(StrCRef(" \
-			#version 330\n \
+			#version 140\n \
 			in vec2 vertCoord; \
 			out vec4 fragColor; \
 			const int nclr = 5; \

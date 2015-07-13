@@ -53,7 +53,7 @@ Compile(void)
 
 #if GL_ARB_shading_language_include
 OGLPLUS_LIB_FUNC
-ObjectOps<tag::DirectState, tag::Shader>&
+Outcome<ObjectOps<tag::DirectState, tag::Shader>&>
 ObjectOps<tag::DirectState, tag::Shader>::
 CompileInclude(
 	const SizeType count,
@@ -67,7 +67,7 @@ CompileInclude(
 		const_cast<const GLchar**>(paths),
 		lengths
 	);
-	OGLPLUS_CHECK(
+	OGLPLUS_DEFERRED_CHECK(
 		CompileShaderIncludeARB,
 		ObjectError,
 		Object(*this).

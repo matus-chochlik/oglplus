@@ -357,7 +357,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompileShaderIncludeARB}
 	 */
-	ObjectOps& CompileInclude(
+	Outcome<ObjectOps&> CompileInclude(
 		const SizeType count,
 		const GLchar* const* paths,
 		const GLint* lengths
@@ -373,7 +373,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompileShaderIncludeARB}
 	 */
-	ObjectOps& CompileInclude(GLSLString&& incl)
+	Outcome<ObjectOps&> CompileInclude(GLSLString&& incl)
 	{
 		return CompileInclude(
 			incl.Count(),
@@ -382,7 +382,7 @@ public:
 		);
 	}
 
-	ObjectOps& CompileInclude(GLSLStrings&& incl)
+	Outcome<ObjectOps&> CompileInclude(GLSLStrings&& incl)
 	{
 		return CompileInclude(
 			incl.Count(),
@@ -391,7 +391,7 @@ public:
 		);
 	}
 
-	ObjectOps& CompileInclude(const GLSLSource& incl)
+	Outcome<ObjectOps&> CompileInclude(const GLSLSource& incl)
 	{
 		return CompileInclude(
 			incl.Count(),

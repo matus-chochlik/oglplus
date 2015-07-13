@@ -14,12 +14,18 @@
 #define OGLPLUS_ERROR_OUTCOME_1405082311_HPP
 
 #include <oglplus/error/deferred_handler.hpp>
+#include <cassert>
 
 namespace oglplus {
 
 template <typename T>
 class Outcome;
 
+/// Stores a reference to T or a deferred error handler
+/** If an instance of Outcome<T&> stores an error handler
+ *  and it is not dismissed, then the deferred error handler
+ *  is invoked in the dectructor.
+ */
 template <typename T>
 class Outcome<T&>
 {
@@ -46,6 +52,26 @@ public:
 	 : _error(handler)
 	 , _ptr(nullptr)
 	{ }
+
+	/// Trigger the error handler if any or return the stored reference 
+	T& Then(void)
+	{
+		_error.trigger();
+		assert(_ptr != nullptr);
+		return *_ptr;
+	}
+
+	/// Return true if there was no error, false otherwise
+	bool Done(void) const
+	{
+		return !_error;
+	}
+
+	// Dismisses the error handler and returns true if there was no error
+	bool DoneWithoutError(void)
+	{
+		return !_error.cancel();
+	}
 };
 
 } // namespace oglplus
