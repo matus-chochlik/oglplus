@@ -19,7 +19,49 @@
 namespace oglplus {
 
 template <typename T>
-class Outcome;
+class Outcome
+{
+private:
+	DeferredHandler _error;
+	T _value;
+public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	Outcome(Outcome&&) = default;
+#else
+	Outcome(Outcome&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _error(std::move(temp._error))
+	 , _value(std::move(temp._value))
+	{ }
+#endif
+	Outcome(T&& value)
+	OGLPLUS_NOEXCEPT(true)
+	 : _value(std::move(value))
+	{ }
+
+	template <typename Func>
+	Outcome(Func handler)
+	 : _error(handler)
+	{ }
+
+	/// Returns stored value or cancels the error and returns the parameter
+	const T& ValueOr(const T& value)
+	{
+		return _error.cancel()?value:_value;
+	}
+
+	/// Return true if there was no error, false otherwise
+	bool Done(void) const
+	{
+		return !_error;
+	}
+
+	// Dismisses the error handler and returns true if there was no error
+	bool DoneWithoutError(void)
+	{
+		return !_error.cancel();
+	}
+};
 
 /// Stores a reference to T or a deferred error handler
 /** If an instance of Outcome<T&> stores an error handler
