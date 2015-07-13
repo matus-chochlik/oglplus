@@ -18,6 +18,7 @@
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/error/program.hpp>
 #include <oglplus/error/prog_var.hpp>
+#include <oglplus/error/outcome.hpp>
 #include <oglplus/boolean.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/transform_feedback_mode.hpp>

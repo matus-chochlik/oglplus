@@ -19,9 +19,15 @@
 namespace oglplus {
 
 template <typename T>
+class PositiveOutcome;
+
+template <typename T>
+class NegativeOutcome;
+
+template <typename T>
 class Outcome
 {
-private:
+protected:
 	DeferredHandler _error;
 	T _value;
 public:
@@ -61,6 +67,9 @@ public:
 	{
 		return !_error.cancel();
 	}
+
+	PositiveOutcome<T> Positive(void);
+	NegativeOutcome<T> Negative(void);
 };
 
 /// Stores a reference to T or a deferred error handler
@@ -71,7 +80,7 @@ public:
 template <typename T>
 class Outcome<T&>
 {
-private:
+protected:
 	DeferredHandler _error;
 	T* _ptr;
 public:
@@ -105,6 +114,7 @@ public:
 
 	/// Return true if there was no error, false otherwise
 	bool Done(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return !_error;
 	}
@@ -114,7 +124,72 @@ public:
 	{
 		return !_error.cancel();
 	}
+
+	PositiveOutcome<T> Positive(void);
+	NegativeOutcome<T> Negative(void);
 };
+
+template <typename T>
+class PositiveOutcome
+ : public Outcome<T>
+{
+public:
+	PositiveOutcome(Outcome<T>&& base)
+	OGLPLUS_NOEXCEPT(true)
+	 : Outcome<T>(std::move(base))
+	{ }
+
+	OGLPLUS_EXPLICIT
+	operator bool (void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return !this->_error;
+	}
+
+	bool operator ! (void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return bool(this->_error);
+	}
+};
+
+template <typename T>
+class NegativeOutcome
+ : public Outcome<T>
+{
+public:
+	NegativeOutcome(Outcome<T>&& base)
+	OGLPLUS_NOEXCEPT(true)
+	 : Outcome<T>(std::move(base))
+	{ }
+
+	OGLPLUS_EXPLICIT
+	operator bool (void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return bool(this->_error);
+	}
+
+	bool operator ! (void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return !this->_error;
+	}
+};
+
+template <typename T>
+inline
+PositiveOutcome<T> Outcome<T>::Positive(void)
+{
+	return std::move(*this);
+}
+
+template <typename T>
+inline
+NegativeOutcome<T> Outcome<T>::Negative(void)
+{
+	return std::move(*this);
+}
 
 } // namespace oglplus
 

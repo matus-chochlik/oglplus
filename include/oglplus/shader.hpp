@@ -17,12 +17,12 @@
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/array.hpp>
 #include <oglplus/error/program.hpp>
+#include <oglplus/error/outcome.hpp>
 #include <oglplus/boolean.hpp>
 #include <oglplus/precision_type.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/glsl_source.hpp>
 #include <oglplus/size_type.hpp>
-#include <oglplus/error/outcome.hpp>
 
 #include <array>
 #include <vector>
