@@ -40,13 +40,13 @@ public:
 	 , _value(std::move(temp._value))
 	{ }
 #endif
+
 	Outcome(T&& value)
 	OGLPLUS_NOEXCEPT(true)
 	 : _value(std::move(value))
 	{ }
 
-	template <typename Func>
-	Outcome(Func handler)
+	Outcome(DeferredHandler handler)
 	 : _error(handler)
 	{ }
 
@@ -67,9 +67,6 @@ public:
 	{
 		return !_error.cancel();
 	}
-
-	PositiveOutcome<T> Positive(void);
-	NegativeOutcome<T> Negative(void);
 };
 
 /// Stores a reference to T or a deferred error handler
@@ -93,16 +90,28 @@ public:
 	 , _ptr(std::move(temp._ptr))
 	{ }
 #endif
+
 	Outcome(T& ref)
 	OGLPLUS_NOEXCEPT(true)
 	 : _ptr(&ref)
 	{ }
 
-	template <typename Func>
-	Outcome(Func handler)
-	 : _error(handler)
+	Outcome(DeferredHandler handler)
+	 : _error(std::move(handler))
 	 , _ptr(nullptr)
 	{ }
+
+	Outcome(DeferredHandler handler, T& ref)
+	OGLPLUS_NOEXCEPT(true)
+	 : _error(std::move(handler))
+	 , _ptr(&ref)
+	{ }
+
+	DeferredHandler ReleaseHandler(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return std::move(_error);
+	}
 
 	/// Trigger the error handler if any or return the stored reference 
 	T& Then(void)
@@ -124,9 +133,6 @@ public:
 	{
 		return !_error.cancel();
 	}
-
-	PositiveOutcome<T> Positive(void);
-	NegativeOutcome<T> Negative(void);
 };
 
 template <typename T>
@@ -158,6 +164,15 @@ class NegativeOutcome
  : public Outcome<T>
 {
 public:
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	NegativeOutcome(NegativeOutcome&&) = default;
+#else
+	NegativeOutcome(NegativeOutcome&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : Outcome<T>(static_cast<Outcome<T>&&>(temp))
+	{ }
+#endif
+
 	NegativeOutcome(Outcome<T>&& base)
 	OGLPLUS_NOEXCEPT(true)
 	 : Outcome<T>(std::move(base))
@@ -178,17 +193,17 @@ public:
 };
 
 template <typename T>
-inline
-PositiveOutcome<T> Outcome<T>::Positive(void)
+static inline
+PositiveOutcome<T> Succeeded(Outcome<T>&& outcome)
 {
-	return std::move(*this);
+	return std::move(outcome);
 }
 
 template <typename T>
-inline
-NegativeOutcome<T> Outcome<T>::Negative(void)
+static inline
+NegativeOutcome<T> Failed(Outcome<T>&& outcome)
 {
-	return std::move(*this);
+	return std::move(outcome);
 }
 
 } // namespace oglplus

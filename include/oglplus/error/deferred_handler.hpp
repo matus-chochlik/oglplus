@@ -80,6 +80,7 @@ public:
 #endif
 
 	template <typename Func>
+	explicit
 	DeferredHandler(Func func)
 	 : _handler(_wrap_func(func))
 	{ }

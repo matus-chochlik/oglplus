@@ -359,6 +359,8 @@ public:
 	 */
 	ObjectOps& Link(void);
 
+	Outcome<ObjectOps&> Link(std::nothrow_t);
+
 	/// builds this shading language program
 	/** This function checks if all attached shaders are compiled
 	 *  and if they are not the it compiles them and then links
@@ -374,7 +376,7 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
-	ObjectOps& Build(void);
+	Outcome<ObjectOps&> Build(void);
 
 #if OGLPLUS_DOCUMENTATION_ONLY ||\
 	GL_ARB_shading_language_include
@@ -394,13 +396,13 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
-	ObjectOps& BuildInclude(
+	Outcome<ObjectOps&> BuildInclude(
 		SizeType count,
 		const GLchar* const* paths,
 		const GLint* lengths
 	);
 
-	ObjectOps& BuildInclude(GLSLString&& incl)
+	Outcome<ObjectOps&> BuildInclude(GLSLString&& incl)
 	{
 		return BuildInclude(
 			incl.Count(),
@@ -409,7 +411,7 @@ public:
 		);
 	}
 
-	ObjectOps& BuildInclude(GLSLStrings&& incl)
+	Outcome<ObjectOps&> BuildInclude(GLSLStrings&& incl)
 	{
 		return BuildInclude(
 			incl.Count(),
@@ -418,7 +420,7 @@ public:
 		);
 	}
 
-	ObjectOps& BuildInclude(const GLSLSource&& incl)
+	Outcome<ObjectOps&> BuildInclude(const GLSLSource&& incl)
 	{
 		return BuildInclude(
 			incl.Count(),
@@ -456,6 +458,8 @@ public:
 	 *  @glfunref{GetProgramInfoLog}
 	 */
 	ObjectOps& Validate(void);
+
+	Outcome<ObjectOps&> Validate(std::nothrow_t);
 
 	/// Sets the variables that will be captured during transform feedback
 	/**

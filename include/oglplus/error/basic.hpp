@@ -414,7 +414,7 @@ inline void HandleError(ErrorType& error)
 	ERROR_INFO\
 )\
 {\
-	return [=](void) -> void\
+	return DeferredHandler([=](void) -> void\
 	{\
 		OGLPLUS_HANDLE_ERROR(\
 			ERROR_CODE,\
@@ -422,7 +422,7 @@ inline void HandleError(ErrorType& error)
 			ERROR,\
 			ERROR_INFO\
 		);\
-	};\
+	});\
 }
 
 // Macro for optional generic error handling
