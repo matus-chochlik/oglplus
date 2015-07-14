@@ -63,7 +63,7 @@ public:
 	See [glfunc GetShader], [glconst COMPILE_STATUS].
 	>*/
 
-	ObjectOps& Compile(void); /*<
+	__Outcome<ObjectOps&> Compile(void); /*<
 	Compiles [^this] shader.
 	Throws __CompileError if the shader cannot be compiled.
 	See [glfunc CompileShader].
@@ -75,7 +75,7 @@ public:
 	>*/
 
 #if GL_ARB_shading_language_include
-	ObjectOps& CompileInclude(
+	__Outcome<ObjectOps&> CompileInclude(
 		__SizeType count,
 		const GLchar* const* paths,
 		const GLint* lengths
@@ -83,9 +83,9 @@ public:
 	Compiles the shader using the specified include paths.
 	See [glfunc CompileShaderIncludeARB].
 	>*/
-	ObjectOps& CompileInclude(__GLSLString&& incl);
-	ObjectOps& CompileInclude(__GLSLStrings&& incl);
-	ObjectOps& CompileInclude(const __GLSLSource& incl);
+	__Outcome<ObjectOps&> CompileInclude(__GLSLString&& incl);
+	Outcome<ObjectOps&> CompileInclude(__GLSLStrings&& incl);
+	Outcome<ObjectOps&> CompileInclude(const __GLSLSource& incl);
 #endif
 
 #if GL_ES_VERSION_3_0 || GL_VERSION_4_1 || GL_ARB_ES2_compatibility

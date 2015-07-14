@@ -218,6 +218,9 @@
 [def __ValidationError [link oglplus.quickref.error.program ValidationError]]
 [def __IncompleteFramebuffer [link oglplus.quickref.error.framebuffer IncompleteFramebuffer]]
 
+[def __DeferredHandler [link oglplus.quickref.error.deferred_handler DeferredHandler]]
+[def __Outcome [link oglplus.quickref.error.outcome Outcome]]
+
 [def __Sync [link oglplus.quickref.sync Sync]]
 [def __SyncCondition [link oglplus.quickref.sync.condition SyncCondition]]
 [def __SyncType [link oglplus.quickref.sync.type SyncType]]

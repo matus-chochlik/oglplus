@@ -1,0 +1,21 @@
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
+[/ Software License, Version 1.0. (See accompanying file            ]
+[/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
+
+[/-------------------------------]
+[section:outcome Function outcome]
+[/-------------------------------]
+
+[header oglplus/error/outcome.hpp]
+
+Most OGLplus functions throw exceptions (or generally call the [^HandleError]
+function) eagerly within their body immediately after an error is detected.
+In some cases it is however desirable to allow to postpone or cancel the
+error handling. Such function return and instance of the [^Outcome<T>] class
+template.
+
+[import outcome.hpp]
+
+[oglplus_error_Outcome]
+
+[endsect]
