@@ -27,6 +27,9 @@
           errors</a></span></dt>
 <dt><span class="section"><a href="error.html#oglplus.quickref.error.program">Program build errors</a></span></dt>
 <dt><span class="section"><a href="error.html#oglplus.quickref.error.framebuffer">Framebuffer errors</a></span></dt>
+<dt><span class="section"><a href="error.html#oglplus.quickref.error.deferred_handler">Deferred
+          error handlers</a></span></dt>
+<dt><span class="section"><a href="error.html#oglplus.quickref.error.outcome">Function outcome</a></span></dt>
 </dl></div>
 <p>
           In order to detect and report any errors that occured during the calls
@@ -688,6 +691,149 @@
                 that raised this error.
               </p></td>
 </tr></table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.error.deferred_handler"></a><a class="link" href="error.html#oglplus.quickref.error.deferred_handler" title="Deferred error handlers">Deferred
+          error handlers</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/error/deferred_handler.hpp&gt;</code>
+          </p>
+<p>
+            Most OGLplus functions throw exceptions (or generally call the <code class="literal">HandleError</code>
+            function) eagerly within their body immediately after an error is detected.
+            In some cases it is however desirable to allow to postpone or cancel
+            the error handling. Such function return (usually indirectly) a class
+            which is derived from or contains an instance of <code class="literal">DeferredHandler</code>
+            which wraps the error handler function and unless it is cancelled it
+            invokes it at the latest in the destructor.
+          </p>
+<p>
+            There are very few reasons to use <code class="literal">DeferredHandler</code>
+            directly in library user code. Use the derived or related classes like
+            <a class="link" href="error.html#oglplus.quickref.error.outcome" title="Function outcome">Outcome</a> instead.
+          </p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">DeferredHandler</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">DeferredHandler</span><span class="special">(</span><span class="identifier">DeferredHandler</span><span class="special">&amp;&amp;);</span>
+
+	<span class="special">~</span><span class="identifier">DeferredHandler</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.error.deferred_handler.c0" href="error.html#oglplus.quickref.error.deferred_handler.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">void</span> <span class="identifier">trigger</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.error.deferred_handler.c2" href="error.html#oglplus.quickref.error.deferred_handler.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">cancel</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.error.deferred_handler.c4" href="error.html#oglplus.quickref.error.deferred_handler.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">explicit</span>
+	<span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.error.deferred_handler.c6" href="error.html#oglplus.quickref.error.deferred_handler.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.error.deferred_handler.c8" href="error.html#oglplus.quickref.error.deferred_handler.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.deferred_handler.c1"></a><a href="#oglplus.quickref.error.deferred_handler.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Invokes the error handler (which usually throws an exception) unless
+                the handler already has been triggered or it was cancelled.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.deferred_handler.c3"></a><a href="#oglplus.quickref.error.deferred_handler.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If <code class="literal">this</code> instance wraps an error handler, it is
+                invoked
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.deferred_handler.c5"></a><a href="#oglplus.quickref.error.deferred_handler.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If <code class="literal">this</code> instance wraps an error handler, cancels
+                its invocation and returns <code class="literal">true</code>, otherwise returns
+                <code class="literal">false</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.deferred_handler.c7"></a><a href="#oglplus.quickref.error.deferred_handler.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns true if <code class="literal">this</code> instance wraps an error handler.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.deferred_handler.c9"></a><a href="#oglplus.quickref.error.deferred_handler.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns true if <code class="literal">this</code> instance does not wrap an
+                error handler.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.error.outcome"></a><a class="link" href="error.html#oglplus.quickref.error.outcome" title="Function outcome">Function outcome</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/error/outcome.hpp&gt;</code>
+          </p>
+<p>
+            Most OGLplus functions throw exceptions (or generally call the <code class="literal">HandleError</code>
+            function) eagerly within their body immediately after an error is detected.
+            In some cases it is however desirable to allow to postpone or cancel
+            the error handling. Such function return and instance of the <code class="literal">Outcome&lt;T&gt;</code>
+            class template.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">Outcome</span>
+<span class="special">{</span>
+<span class="keyword">private</span><span class="special">:</span>
+	<a class="link" href="error.html#oglplus.quickref.error.deferred_handler" title="Deferred error handlers">DeferredHandler</a> <span class="identifier">handler</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.outcome.c0" href="error.html#oglplus.quickref.error.outcome.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">Outcome</span><span class="special">(</span><span class="identifier">Outcome</span><span class="special">&amp;&amp;);</span>
+
+	<span class="identifier">T</span> <span class="identifier">Then</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.error.outcome.c2" href="error.html#oglplus.quickref.error.outcome.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">Done</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.error.outcome.c4" href="error.html#oglplus.quickref.error.outcome.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">bool</span> <span class="identifier">DoneWithoutError</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.error.outcome.c6" href="error.html#oglplus.quickref.error.outcome.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="special">};</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c1"></a><a href="#oglplus.quickref.error.outcome.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                The error handler is invoked in the destructor unless it is dismissed.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c3"></a><a href="#oglplus.quickref.error.outcome.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If the operation which produced <code class="literal">this</code> instance
+                of <code class="literal">Outcome</code> generated an error, then its handler
+                is invoked, otherwise this function returns the resulting value of
+                that operation.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c5"></a><a href="#oglplus.quickref.error.outcome.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns <code class="literal">true</code> if the operation which produced
+                <code class="literal">this</code> instance completed without error, returns
+                <code class="literal">false</code> otherwise. The error handler <span class="bold"><strong>is
+                not</strong></span> dismissed and will be invoked later.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c7"></a><a href="#oglplus.quickref.error.outcome.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                If the operation that produced <code class="literal">this</code> instance ended
+                with an error then the error handler is dismissed (cancelled) and
+                will not be invoked and <code class="literal">false</code> is returned, otherwise
+                this function returns <code class="literal">true</code>.
+              </p></td>
+</tr>
+</table></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
