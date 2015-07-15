@@ -11,11 +11,19 @@
 Most OGLplus functions throw exceptions (or generally call the [^HandleError]
 function) eagerly within their body immediately after an error is detected.
 In some cases it is however desirable to allow to postpone or cancel the
-error handling. Such function return and instance of the [^Outcome<T>] class
+error handling. Such function return an instance of the [^Outcome<T>] class
 template.
 
 [import outcome.hpp]
 
 [oglplus_error_Outcome]
+
+[heading:positive Positive outcome]
+
+[oglplus_error_PositiveOutcome]
+
+[heading:negative Negative outcome]
+
+[oglplus_error_NegativeOutcome]
 
 [endsect]

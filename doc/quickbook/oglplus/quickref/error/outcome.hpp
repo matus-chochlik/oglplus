@@ -59,6 +59,10 @@ public:
 	noexcept;
 };
 
+template <typename T>
+__PositiveOutcome<T> Succeeded(__Outcome<T>&& outcome)
+noexcept;
+
 //]
 //[oglplus_error_NegativeOutcome
 
@@ -80,6 +84,10 @@ public:
 	>*/
 	noexcept;
 };
+
+template <typename T>
+__NegativeOutcome<T> Failed(__Outcome<T>&& outcome)
+noexcept;
 
 //]
 

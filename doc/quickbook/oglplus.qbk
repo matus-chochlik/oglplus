@@ -220,6 +220,8 @@
 
 [def __DeferredHandler [link oglplus.quickref.error.deferred_handler DeferredHandler]]
 [def __Outcome [link oglplus.quickref.error.outcome Outcome]]
+[def __PositiveOutcome [link oglplus.quickref.error.outcome.positive PositiveOutcome]]
+[def __NegativeOutcome [link oglplus.quickref.error.outcome.negative NegativeOutcome]]
 
 [def __Sync [link oglplus.quickref.sync Sync]]
 [def __SyncCondition [link oglplus.quickref.sync.condition SyncCondition]]
