@@ -781,7 +781,7 @@
             Most OGLplus functions throw exceptions (or generally call the <code class="literal">HandleError</code>
             function) eagerly within their body immediately after an error is detected.
             In some cases it is however desirable to allow to postpone or cancel
-            the error handling. Such function return and instance of the <code class="literal">Outcome&lt;T&gt;</code>
+            the error handling. Such function return an instance of the <code class="literal">Outcome&lt;T&gt;</code>
             class template.
           </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
@@ -831,6 +831,86 @@
                 with an error then the error handler is dismissed (cancelled) and
                 will not be invoked and <code class="literal">false</code> is returned, otherwise
                 this function returns <code class="literal">true</code>.
+              </p></td>
+</tr>
+</table></div>
+<h5>
+<a name="oglplus.quickref.error.outcome.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.error.outcome.positive"></a></span><a class="link" href="error.html#oglplus.quickref.error.outcome.positive">Positive
+            outcome</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">PositiveOutcome</span>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Outcome</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">explicit</span>
+	<span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.error.outcome.c8" href="error.html#oglplus.quickref.error.outcome.c9"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.error.outcome.c10" href="error.html#oglplus.quickref.error.outcome.c11"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<a class="link" href="error.html#oglplus.quickref.error.outcome.positive">PositiveOutcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="identifier">Succeeded</span><span class="special">(</span><a class="link" href="error.html#oglplus.quickref.error.outcome" title="Function outcome">Outcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;&amp;</span> <span class="identifier">outcome</span><span class="special">)</span>
+<span class="keyword">noexcept</span><span class="special">;</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c9"></a><a href="#oglplus.quickref.error.outcome.c8"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns <code class="literal">true</code> if the operation that produced <code class="literal">this</code>
+                instance completed without an error, returns <code class="literal">false</code>
+                otherwise.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c11"></a><a href="#oglplus.quickref.error.outcome.c10"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns <code class="literal">false</code> if the operation that produced
+                <code class="literal">this</code> instance completed without an error, returns
+                <code class="literal">true</code> otherwise.
+              </p></td>
+</tr>
+</table></div>
+<h5>
+<a name="oglplus.quickref.error.outcome.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.error.outcome.negative"></a></span><a class="link" href="error.html#oglplus.quickref.error.outcome.negative">Negative
+            outcome</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">NegativeOutcome</span>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Outcome</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">explicit</span>
+	<span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.error.outcome.c12" href="error.html#oglplus.quickref.error.outcome.c13"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.error.outcome.c14" href="error.html#oglplus.quickref.error.outcome.c15"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<a class="link" href="error.html#oglplus.quickref.error.outcome.negative">NegativeOutcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="identifier">Failed</span><span class="special">(</span><a class="link" href="error.html#oglplus.quickref.error.outcome" title="Function outcome">Outcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;&amp;</span> <span class="identifier">outcome</span><span class="special">)</span>
+<span class="keyword">noexcept</span><span class="special">;</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c13"></a><a href="#oglplus.quickref.error.outcome.c12"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns <code class="literal">false</code> if the operation that produced
+                <code class="literal">this</code> instance completed without an error, returns
+                <code class="literal">true</code> otherwise.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c15"></a><a href="#oglplus.quickref.error.outcome.c14"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns <code class="literal">true</code> if the operation that produced <code class="literal">this</code>
+                instance completed without an error, returns <code class="literal">false</code>
+                otherwise.
               </p></td>
 </tr>
 </table></div>
