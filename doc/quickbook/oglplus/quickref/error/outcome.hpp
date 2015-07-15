@@ -38,4 +38,48 @@ public:
 };
 
 //]
+//[oglplus_error_PositiveOutcome
+
+template <typename T>
+class PositiveOutcome
+ : public Outcome<T>
+{
+public:
+	explicit
+	operator bool (void) const /*<
+	Returns [^true] if the operation that produced [^this] instance
+	completed without an error, returns [^false] otherwise.
+	>*/
+	noexcept;
+
+	bool operator ! (void) const /*<
+	Returns [^false] if the operation that produced [^this] instance
+	completed without an error, returns [^true] otherwise.
+	>*/
+	noexcept;
+};
+
+//]
+//[oglplus_error_NegativeOutcome
+
+template <typename T>
+class NegativeOutcome
+ : public Outcome<T>
+{
+public:
+	explicit
+	operator bool (void) const /*<
+	Returns [^false] if the operation that produced [^this] instance
+	completed without an error, returns [^true] otherwise.
+	>*/
+	noexcept;
+
+	bool operator ! (void) const /*<
+	Returns [^true] if the operation that produced [^this] instance
+	completed without an error, returns [^false] otherwise.
+	>*/
+	noexcept;
+};
+
+//]
 
