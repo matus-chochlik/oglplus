@@ -113,7 +113,7 @@ public:
 		return std::move(_error);
 	}
 
-	/// Trigger the error handler if any or return the stored reference 
+	/// Trigger the error handler if any or return the stored reference
 	T& Then(void)
 	{
 		_error.trigger();
@@ -195,6 +195,7 @@ public:
 template <typename T>
 static inline
 PositiveOutcome<T> Succeeded(Outcome<T>&& outcome)
+OGLPLUS_NOEXCEPT(true)
 {
 	return std::move(outcome);
 }
@@ -202,6 +203,7 @@ PositiveOutcome<T> Succeeded(Outcome<T>&& outcome)
 template <typename T>
 static inline
 NegativeOutcome<T> Failed(Outcome<T>&& outcome)
+OGLPLUS_NOEXCEPT(true)
 {
 	return std::move(outcome);
 }
