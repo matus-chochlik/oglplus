@@ -28,9 +28,33 @@ GetInfoLog(void) const
 }
 
 OGLPLUS_LIB_FUNC
-Outcome<ObjectOps<tag::DirectState, tag::Shader>&>
+ObjectOps<tag::DirectState, tag::Shader>&
 ObjectOps<tag::DirectState, tag::Shader>::
 Compile(void)
+{
+	OGLPLUS_GLFUNC(CompileShader)(_obj_name());
+	OGLPLUS_CHECK(
+		CompileShader,
+		ObjectError,
+		Object(*this).
+		EnumParam(Type())
+	);
+	OGLPLUS_HANDLE_ERROR_IF(
+		!IsCompiled(),
+		GL_INVALID_OPERATION,
+		CompileError::Message(),
+		CompileError,
+		Log(GetInfoLog()).
+		Object(*this).
+		EnumParam(Type())
+	);
+	return *this;
+}
+
+OGLPLUS_LIB_FUNC
+Outcome<ObjectOps<tag::DirectState, tag::Shader>&>
+ObjectOps<tag::DirectState, tag::Shader>::
+Compile(std::nothrow_t)
 {
 	OGLPLUS_GLFUNC(CompileShader)(_obj_name());
 	OGLPLUS_DEFERRED_CHECK(
@@ -53,12 +77,37 @@ Compile(void)
 
 #if GL_ARB_shading_language_include
 OGLPLUS_LIB_FUNC
-Outcome<ObjectOps<tag::DirectState, tag::Shader>&>
+ObjectOps<tag::DirectState, tag::Shader>&
 ObjectOps<tag::DirectState, tag::Shader>::
 CompileInclude(
 	const SizeType count,
 	const GLchar* const* paths,
 	const GLint* lengths
+)
+{
+	OGLPLUS_GLFUNC(CompileShaderIncludeARB)(
+		_obj_name(),
+		count,
+		const_cast<const GLchar**>(paths),
+		lengths
+	);
+	OGLPLUS_CHECK(
+		CompileShaderIncludeARB,
+		ObjectError,
+		Object(*this).
+		EnumParam(Type())
+	);
+	return *this;
+}
+
+OGLPLUS_LIB_FUNC
+Outcome<ObjectOps<tag::DirectState, tag::Shader>&>
+ObjectOps<tag::DirectState, tag::Shader>::
+CompileInclude(
+	const SizeType count,
+	const GLchar* const* paths,
+	const GLint* lengths,
+	std::nothrow_t
 )
 {
 	OGLPLUS_GLFUNC(CompileShaderIncludeARB)(

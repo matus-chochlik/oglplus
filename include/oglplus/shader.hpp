@@ -341,8 +341,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompileShader}
 	 */
-	Outcome<ObjectOps&> Compile(void);
+	ObjectOps& Compile(void);
 
+	Outcome<ObjectOps&> Compile(std::nothrow_t);
 
 #if OGLPLUS_DOCUMENTATION_ONLY || \
 	GL_ARB_shading_language_include
@@ -357,10 +358,17 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompileShaderIncludeARB}
 	 */
-	Outcome<ObjectOps&> CompileInclude(
+	ObjectOps& CompileInclude(
 		const SizeType count,
 		const GLchar* const* paths,
 		const GLint* lengths
+	);
+
+	Outcome<ObjectOps&> CompileInclude(
+		const SizeType count,
+		const GLchar* const* paths,
+		const GLint* lengths,
+		std::nothrow_t
 	);
 
 	/// Compiles the shader using the specified include paths
@@ -373,7 +381,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompileShaderIncludeARB}
 	 */
-	Outcome<ObjectOps&> CompileInclude(GLSLString&& incl)
+	ObjectOps& CompileInclude(GLSLString&& incl)
 	{
 		return CompileInclude(
 			incl.Count(),
@@ -382,7 +390,17 @@ public:
 		);
 	}
 
-	Outcome<ObjectOps&> CompileInclude(GLSLStrings&& incl)
+	Outcome<ObjectOps&> CompileInclude(GLSLString&& incl, std::nothrow_t)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths(),
+			std::nothrow
+		);
+	}
+
+	ObjectOps& CompileInclude(GLSLStrings&& incl)
 	{
 		return CompileInclude(
 			incl.Count(),
@@ -391,12 +409,32 @@ public:
 		);
 	}
 
-	Outcome<ObjectOps&> CompileInclude(const GLSLSource& incl)
+	Outcome<ObjectOps&> CompileInclude(GLSLStrings&& incl, std::nothrow_t)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths(),
+			std::nothrow
+		);
+	}
+
+	ObjectOps& CompileInclude(const GLSLSource& incl)
 	{
 		return CompileInclude(
 			incl.Count(),
 			incl.Parts(),
 			incl.Lengths()
+		);
+	}
+
+	Outcome<ObjectOps&> CompileInclude(const GLSLSource& incl, std::nothrow_t)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths(),
+			std::nothrow
 		);
 	}
 #endif

@@ -122,7 +122,7 @@ Build(void)
 		Reference<ShaderOps> shader = shaders.Front();
 		if(!shader.IsCompiled())
 		{
-			if(auto outcome = Failed(shader.Compile()))
+			if(auto outcome = Failed(shader.Compile(std::nothrow)))
 			{
 				return Res(outcome.ReleaseHandler(), *this);
 			}
@@ -153,7 +153,8 @@ BuildInclude(
 			if(auto outcome = Failed(shader.CompileInclude(
 				count,
 				paths,
-				lengths
+				lengths,
+				std::nothrow
 			)))
 			{
 				return Res(outcome.ReleaseHandler(), *this);

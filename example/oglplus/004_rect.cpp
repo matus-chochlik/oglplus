@@ -51,7 +51,7 @@ public:
 				vertCoord = Position; \
 				gl_Position = vec4(Position, 0.0, 1.0); \
 			} \
-		").Compile().DoneWithoutError() || vs.Source(" \
+		").Compile(std::nothrow).DoneWithoutError() || vs.Source(" \
 			#version 120\n \
 			attribute vec2 Position; \
 			varying vec2 vertCoord; \
@@ -60,7 +60,7 @@ public:
 				vertCoord = Position; \
 				gl_Position = vec4(Position, 0.0, 1.0); \
 			} \
-		").Compile().Done();
+		").Compile(std::nothrow).Done();
 
 		fs.Source(" \
 			#version 330\n \
@@ -82,7 +82,7 @@ public:
 					1.0 \
 				); \
 			} \
-		").Compile().DoneWithoutError() || fs.Source("\
+		").Compile(std::nothrow).DoneWithoutError() || fs.Source("\
 			#version 120\n \
 			const float radius = 0.4; \
 			varying vec2 vertCoord; \
@@ -101,7 +101,7 @@ public:
 					1.0 \
 				); \
 			} \
-		").Compile().Done();
+		").Compile(std::nothrow).Done();
 
 		// attach the shaders to the program
 		prog.AttachShader(vs);

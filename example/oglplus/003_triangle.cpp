@@ -53,7 +53,7 @@ public:
 				gl_Position = Matrix * vec4(Position, 1.0); \
 				vertColor = vec4(Color, 1.0); \
 			} \
-		").Compile().DoneWithoutError() || vs.Source(" \
+		").Compile(std::nothrow).DoneWithoutError() || vs.Source(" \
 			#version 120\n \
 			attribute vec3 Position; \
 			attribute vec3 Color; \
@@ -64,7 +64,7 @@ public:
 				gl_Position = Matrix * vec4(Position, 1.0); \
 				vertColor = vec4(Color, 1.0); \
 			} \
-		").Compile().Done();
+		").Compile(std::nothrow).Done();
 
 		// set and compile the fragment shader source
 		fs.Source(" \
@@ -75,14 +75,14 @@ public:
 			{ \
 				fragColor = vertColor; \
 			} \
-		").Compile().DoneWithoutError() || fs.Source(" \
+		").Compile(std::nothrow).DoneWithoutError() || fs.Source(" \
 			#version 120\n \
 			varying vec4 vertColor; \
 			void main(void) \
 			{ \
 				gl_FragColor = vertColor; \
 			} \
-		").Compile().Done();
+		").Compile(std::nothrow).Done();
 
 		// attach the shaders to the program
 		prog.AttachShader(vs);
