@@ -46,8 +46,8 @@ public:
 	 : _value(std::move(value))
 	{ }
 
-	Outcome(DeferredHandler handler)
-	 : _error(handler)
+	Outcome(DeferredHandler&& handler)
+	 : _error(std::move(handler))
 	{ }
 
 	/// Returns stored value or cancels the error and returns the parameter
