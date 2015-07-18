@@ -44,9 +44,9 @@ public:
 	{
 		// Set the vertex shader source and compile it
 		vs.Source(
-			"#version 140\n"
-			"in vec2 Position;"
-			"out vec2 vertPos;"
+			"#version 120\n"
+			"attribute vec2 Position;"
+			"varying vec2 vertPos;"
 			"void main(void)"
 			"{"
 			"	gl_Position = vec4(Position, 0.0, 1.0);"
@@ -56,11 +56,12 @@ public:
 
 		// set the fragment shader source and compile it
 		fs.Source(
-			"#version 140\n"
+			"#version 120\n"
+			"#extension GL_EXT_gpu_shader4 : enable\n"
 			"uniform float Time;"
 			"uniform vec2 SunPos;"
 			"uniform vec3 Sun1, Sun2, Sky1, Sky2;"
-			"in vec2 vertPos;"
+			"varying vec2 vertPos;"
 			"void main(void)"
 			"{"
 			"	vec2 v = vertPos - SunPos;"

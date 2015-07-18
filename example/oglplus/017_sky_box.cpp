@@ -50,12 +50,12 @@ public:
 	{
 		VertexShader vs;
 		vs.Source(StrCRef(
-			"#version 140\n"
+			"#version 120\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"mat4 Matrix = ProjectionMatrix*CameraMatrix;"
 
-			"in vec3 Corner;"
-			"out vec3 vertTexCoord;"
+			"attribute vec3 Corner;"
+			"varying vec3 vertTexCoord;"
 			"void main(void)"
 			"{"
 			"	gl_Position = Matrix * vec4(Corner * 10.0, 1.0);"
@@ -67,13 +67,12 @@ public:
 
 		FragmentShader fs;
 		fs.Source(StrCRef(
-			"#version 140\n"
+			"#version 120\n"
 			"uniform samplerCube EnvMap;"
-			"in vec3 vertTexCoord;"
-			"out vec4 fragColor;"
+			"varying vec3 vertTexCoord;"
 			"void main(void)"
 			"{"
-			"	fragColor = vec4(texture(EnvMap, normalize(vertTexCoord)).rgb, 1.0);"
+			"	gl_FragColor = vec4(textureCube(EnvMap, normalize(vertTexCoord)).rgb, 1.0);"
 			"}"
 		));
 		fs.Compile();
