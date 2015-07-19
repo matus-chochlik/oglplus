@@ -262,13 +262,21 @@ void run_framedump_loop(
 			Vec2f pos = mouse_path_pos[p];
 
 			if((pos.x() < border) && (dir.x() < 0.0))
+			{
 				dir = Vec2f(-dir.x(), dir.y());
+			}
 			if((pos.y() < border) && (dir.y() < 0.0))
+			{
 				dir = Vec2f( dir.x(),-dir.y());
+			}
 			if((pos.x() > width-border) && (dir.x() > 0.0))
+			{
 				dir = Vec2f(-dir.x(), dir.y());
+			}
 			if((pos.y() >height-border) && (dir.y() > 0.0))
+			{
 				dir = Vec2f( dir.x(),-dir.y());
+			}
 
 			mouse_path_dir[p] = dir;
 			mouse_path_pos[p] = pos + dir;
@@ -291,6 +299,7 @@ void run_framedump_loop(
 
 		t += period;
 		clock.Update(t);
+
 		if(!example->Continue(clock)) break;
 
 		unsigned part_no = 0;
@@ -568,7 +577,9 @@ void run_example(
 		for(unsigned t=0; t!=params.num_threads; ++t)
 		{
 			if(thread_data[t].example_thread)
+			{
 				thread_data[t].example_thread->Cancel();
+			}
 		}
 		// join the example threads
 		for(unsigned t=0; t!=params.num_threads; ++t)
@@ -579,9 +590,11 @@ void run_example(
 		for(unsigned t=0; t!=params.num_threads; ++t)
 		{
 			if(!thread_data[t].error_message.empty())
+			{
 				throw std::runtime_error(
 					thread_data[t].error_message
 				);
+			}
 		}
 	}
 	catch(...)
@@ -601,16 +614,22 @@ int egl_example_main(int argc, char ** argv)
 	const char* screenshot_path = nullptr;
 	const char* framedump_prefix = nullptr;
 	if((argc >= 3) && (std::strcmp(argv[1], "--screenshot") == 0))
+	{
 		screenshot_path = argv[2];
+	}
 	if((argc >= 3) && (std::strcmp(argv[1], "--frame-dump") == 0))
+	{
 		framedump_prefix = argv[2];
+	}
 
 	GLuint width = 0, height = 0;
 
 	if(screenshot_path || framedump_prefix)
 	{
 		for(int a=3; a<argc; ++a)
+		{
 			argv[a-2] = argv[a];
+		}
 		argc -= 2;
 
 		int a=1;
@@ -620,14 +639,18 @@ int egl_example_main(int argc, char ** argv)
 			{
 				width = std::atoi(argv[a+1]);
 				for(int b=a+1; b<argc; ++b)
+				{
 					argv[b-2] = argv[b];
+				}
 				argc -= 2;
 			}
 			else if(std::strcmp(argv[a], "--height") == 0 && (a+1<argc))
 			{
 				height = std::atoi(argv[a+1]);
 				for(int b=a+1; b<argc; ++b)
+				{
 					argv[b-2] = argv[b];
+				}
 				argc -= 2;
 			}
 			else ++a;

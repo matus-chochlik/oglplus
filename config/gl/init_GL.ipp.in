@@ -133,7 +133,7 @@ bool query_gl_GLFW(void)
 {
 	if(!glfwInit()) return true;
 
-	if(!glfwOpenWindow(64, 64, 8, 8, 8, 8, 32, 8, GLFW_WINDOW))
+	if(!glfwOpenWindow(64, 64, 8, 8, 8, 8, 24, 8, GLFW_WINDOW))
 	{
 		glfwTerminate();
 		return true;
