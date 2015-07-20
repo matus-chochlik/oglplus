@@ -45,7 +45,7 @@ private:
 	static Program make(void)
 	{
 		Shader vs(se::Vertex(), ObjectDesc("Metal vertex"));
-		vs.Source("#version 330\n"
+		vs.Source("#version 150\n"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"uniform vec3 CameraPosition, LightPosition;"
 
@@ -71,7 +71,7 @@ private:
 		vs.Compile();
 
 		Shader fs(se::Fragment(), ObjectDesc("Metal fragment"));
-		fs.Source("#version 330\n"
+		fs.Source("#version 150\n"
 			"const vec3 Color1 = vec3(0.5, 0.7, 0.6);"
 			"const vec3 Color2 = vec3(0.7, 0.9, 0.8);"
 
@@ -193,7 +193,7 @@ private:
 	{
 		Shader tfbs(se::Vertex(), ObjectDesc("Camera drive"));
 		tfbs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform float Interval, Mass, TargetDistance, Elevation;"
 			"uniform uint CubeCenterIndex;"
@@ -423,7 +423,7 @@ private:
 	{
 		Shader tfbs(se::Vertex(), ObjectDesc("Jelly physics"));
 		tfbs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform vec3 ImpulseCenter;"
 			"uniform float ImpulseStrength, Interval, Mass;"
@@ -605,7 +605,7 @@ private:
 	{
 		Shader vs(se::Vertex(), ObjectDesc("Draw vertex"));
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform vec3 LightPosition;"
 
@@ -623,7 +623,7 @@ private:
 
 		Shader gs(se::Geometry(), ObjectDesc("Draw geometry"));
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(triangles_adjacency) in;"
 			"layout(triangle_strip, max_vertices = 3) out;"
 
@@ -676,7 +676,7 @@ private:
 
 		Shader fs(se::Fragment(), ObjectDesc("Draw fragment"));
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform vec3 AmbientColor, DiffuseColor;"
 			"uniform float LightMultiplier;"
@@ -732,7 +732,7 @@ private:
 	{
 		Shader vs(se::Vertex(), ObjectDesc("Shadow vertex"));
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform vec3 LightPosition;"
 
@@ -750,7 +750,7 @@ private:
 
 		Shader gs(se::Geometry(), ObjectDesc("Shadow geometry"));
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(triangles_adjacency) in;"
 			"layout(triangle_strip, max_vertices = 12) out;"
 

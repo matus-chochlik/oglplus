@@ -39,7 +39,7 @@ private:
 	static Program make(void)
 	{
 		const GLchar* shader_source =
-		"#version 330\n"
+		"#version 150\n"
 		"uniform mat4 CameraMatrix, ModelMatrix;"
 		"uniform mat4 LightProjMatrix;"
 		"uniform mat2 TextureMatrix;"
@@ -113,7 +113,7 @@ public:
 	ShadowFragmentShader(void)
 	 : FragmentShader(
 		ObjectDesc("Shadow fragment shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"in vec3 vertNormal;"
 		"in vec3 vertTangent;"
 		"in vec3 vertBitangent;"
@@ -152,7 +152,7 @@ public:
 	LightFragmentShader(void)
 	 : FragmentShader(
 		ObjectDesc("Shadow fragment shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"uniform vec3 Color;"
 		"in vec3 vertNormal;"
 		"in vec3 vertTangent;"
@@ -202,7 +202,7 @@ public:
 	GlassFragmentShader(void)
 	 : FragmentShader(
 		ObjectDesc("Metal fragment shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"uniform sampler2DShadow FrameShadowTex;"
 		"uniform vec3 Color;"
 		"in vec3 vertNormal;"
@@ -303,7 +303,7 @@ public:
 	MetalFragmentShader(void)
 	 : FragmentShader(
 		ObjectDesc("Metal fragment shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"uniform vec3 Color1, Color2;"
 		"uniform sampler2D MetalTex;"
 		"uniform sampler2DShadow FrameShadowTex;"
