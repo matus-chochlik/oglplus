@@ -163,7 +163,7 @@ public:
 		cube_count_def <<"#define CubeCount "<<cube_offsets.size()<<'\n';
 		// Set the vertex shader source
 		vs.Source(List
-			("#version 330\n")
+			("#version 150\n")
 			(max_lights_def.str().c_str())
 			(cube_count_def.str().c_str())(
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
@@ -287,7 +287,7 @@ public:
 
 		// set the fragment shader source
 		draw_fs.Source(List
-			("#version 330\n")
+			("#version 150\n")
 			(max_lights_def.str().c_str())(
 			"uniform vec3 LightColors[MaxLights];"
 			"uniform sampler2DShadow ShadowTexs[MaxLights];"
@@ -350,7 +350,7 @@ public:
 
 		// set the fragment shader source
 		shadow_fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"

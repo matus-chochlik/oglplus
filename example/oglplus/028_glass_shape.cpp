@@ -88,7 +88,7 @@ public:
 	 , tex_side(512)
 	{
 		plane_vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform vec3 LightPosition;"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
@@ -113,7 +113,7 @@ public:
 		plane_vs.Compile();
 
 		plane_fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform vec3 Normal;"
 			"in vec3 vertLightDir;"
 			"in vec2 vertTexCoord;"
@@ -174,7 +174,7 @@ public:
 		}
 
 		shape_vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform vec3 LightPosition;"
 			"uniform mat4 ProjectionMatrix, ModelMatrix, CameraMatrix;"
 			"uniform vec4 ClipPlane;"
@@ -212,7 +212,7 @@ public:
 		shape_vs.Compile();
 
 		shape_fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler2D RefractTex;"
 			"in vec3 vertNormal;"
 			"in vec3 vertLightDir;"

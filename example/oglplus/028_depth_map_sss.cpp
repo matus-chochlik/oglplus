@@ -40,7 +40,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4  CameraMatrix,ModelMatrix;"
 
 			"in vec4 Position;"
@@ -53,7 +53,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"void main(void)"
 			"{"
 			"}"
@@ -85,7 +85,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4  LightMatrix, ModelMatrix;"
 			"uniform vec3 LightPosition;"
 			"uniform vec3 CameraPosition;"
@@ -107,7 +107,7 @@ private:
 
 		GeometryShader gs;
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout (triangles) in;"
 			"layout (triangle_strip, max_vertices=3) out;"
 
@@ -146,7 +146,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform sampler2D DepthMap;"
 

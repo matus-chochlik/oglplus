@@ -33,7 +33,7 @@ public:
 	LiquidVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Liquid vertex shader"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 150\n"
 		"uniform vec3 GridOffset;"
 		"uniform float Time;"
 
@@ -84,7 +84,7 @@ public:
 	LiquidGeomShader(void)
 	 : GeometryShader(
 		ObjectDesc("Liquid geometry shader"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 150\n"
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 4) out;"
 
@@ -199,7 +199,7 @@ public:
 	LiquidFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Liquid fragment shader"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 150\n"
 
 		"uniform samplerCube EnvMap;"
 

@@ -121,7 +121,7 @@ public:
 	 , height(600)
 	{
 		main_vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"uniform vec3 LightPos;"
 			"in vec4 Position;"
@@ -141,7 +141,7 @@ public:
 
 		// set the fragment shader source
 		main_fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform vec3 AmbientColor, DiffuseColor;"
 			"in vec3 vertLightDir;"
 			"in vec3 vertNormal;"
@@ -206,7 +206,7 @@ public:
 		Uniform<Vec3f>(main_prog, "LightPos").Set(30.0f, 50.0f, 20.0f);
 
 		dof_vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform uint ViewportWidth, ViewportHeight;"
 			"in vec4 Position;"
 			"out vec2 vertTexCoord;"
@@ -222,7 +222,7 @@ public:
 		dof_vs.Compile();
 
 		dof_fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler2DRect ColorTex;"
 			"uniform sampler2DRect DepthTex;"
 			"uniform float FocusDepth;"

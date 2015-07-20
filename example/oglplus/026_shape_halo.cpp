@@ -83,7 +83,7 @@ public:
 	 , halo_model_matrix(halo_prog, "ModelMatrix")
 	{
 		vs_shape.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec4 Position;"
 			"in vec3 Normal;"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -103,7 +103,7 @@ public:
 		vs_shape.Compile();
 
 		fs_shape.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec3 vertNormal;"
 			"in vec3 vertViewNormal;"
 			"in vec3 vertLight;"
@@ -146,7 +146,7 @@ public:
 		shape_prog.Link();
 
 		vs_plane.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec4 Position;"
 			"in vec3 Normal;"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
@@ -166,7 +166,7 @@ public:
 		vs_plane.Compile();
 
 		fs_plane.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"
 			"out vec4 fragColor;"
@@ -189,7 +189,7 @@ public:
 		plane_prog.Link();
 
 		vs_halo.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec4 Position;"
 			"in vec3 Normal;"
 			"uniform mat4 ModelMatrix, CameraMatrix;"
@@ -212,7 +212,7 @@ public:
 		vs_halo.Compile();
 
 		gs_halo.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 12) out;"
 
@@ -288,7 +288,7 @@ public:
 		gs_halo.Compile();
 
 		fs_halo.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in float geomAlpha;"
 			"out vec4 fragColor;"
 			"void main(void)"

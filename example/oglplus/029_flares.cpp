@@ -36,7 +36,7 @@ public:
 	ShapeVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Shape vertex shader"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 150\n"
 
 		"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 		"uniform vec3 CameraPosition;"
@@ -77,7 +77,7 @@ public:
 	ShapeFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Shape fragment shader"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 150\n"
 
 		"const int LightCount = 32;"
 
@@ -179,7 +179,7 @@ public:
 	LightVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Light vertex shader"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 150\n"
 
 		"uniform mat4 ProjectionMatrix, CameraMatrix;"
 		"in vec4 Position;"
@@ -200,7 +200,7 @@ public:
 	LightFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Light fragment shader"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 150\n"
 
 		"out vec3 fragColor;"
 
@@ -242,7 +242,7 @@ public:
 	FlareVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Flare vertex shader"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 150\n"
 
 		"uniform mat4 CameraMatrix;"
 		"in vec4 Position;"
@@ -263,7 +263,7 @@ public:
 	FlareGeomShader(void)
 	 : GeometryShader(
 		ObjectDesc("Flare geometry shader"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 150\n"
 		"layout(points) in;"
 		"layout(triangle_strip, max_vertices = 72) out;"
 
@@ -313,7 +313,7 @@ public:
 	FlareFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Flare fragment shader"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 150\n"
 		"uniform sampler2D FlareTex;"
 
 		"in vec2 geomTexCoord;"
