@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_hint_target
-namespace oglplus {
 
 enum class HintTarget : GLenum
 {
@@ -25,5 +24,4 @@ __Range<HintTarget> __EnumValueRange<HintTarget>(void);
 
 __StrCRef __EnumValueName(HintTarget);
 
-} // namespace oglplus
 //]

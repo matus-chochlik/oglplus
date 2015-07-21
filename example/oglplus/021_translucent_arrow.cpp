@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{021_translucent_arrow}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -36,7 +36,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4  ProjectionMatrix,CameraMatrix,ModelMatrix;"
 
 			"in vec4 Position;"
@@ -49,7 +49,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"void main(void) { }"
 		).Compile();
 
@@ -80,7 +80,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4  ProjectionMatrix,CameraMatrix,ModelMatrix;"
 			"mat3 RotMatrix = mat3(ModelMatrix);"
 
@@ -107,7 +107,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"uniform sampler2DRect DepthTex;"
 
@@ -232,7 +232,7 @@ public:
 		auto projection =
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
-				double(width)/height,
+				float(width)/height,
 				1, 10000
 			);
 		draw_prog.Use();
@@ -249,7 +249,7 @@ public:
 		auto camera =
 			CamMatrixf::Orbiting(
 				objects.BoundingSphere().Center(),
-				objects.BoundingSphere().Radius()*2.8,
+				GLfloat(objects.BoundingSphere().Radius()*2.8),
 				FullCircles(time / 19.0),
 				Degrees(SineWave(time / 17.0) * 90)
 			);

@@ -279,7 +279,7 @@ public:
 	GLuint FaceCount(void) const
 	{
 		assert(!_data._face_index.empty());
-		return _data._face_index.size();
+		return GLuint(_data._face_index.size());
 	}
 
 	/// Returns the face_index-th face

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -47,8 +47,8 @@ oglplus::Program SpectraSharedObjects::BuildProgramWithXFB(
 		std::size_t line_len = prog_file.gcount();
 		++line_no;
 		auto types = EnumValueRange<ShaderType>();
-		ShaderType type;
-		unsigned name_len = 0;
+		ShaderType type = ShaderType::Fragment;
+		std::size_t name_len = 0;
 		while(!types.Empty())
 		{
 			type = types.Front();

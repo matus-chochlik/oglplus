@@ -18,6 +18,7 @@
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/error/program.hpp>
 #include <oglplus/error/prog_var.hpp>
+#include <oglplus/error/outcome.hpp>
 #include <oglplus/boolean.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/transform_feedback_mode.hpp>
@@ -99,7 +100,8 @@ protected:
 			Error,
 			EnumParam(GLenum(GL_CURRENT_PROGRAM))
 		);
-		return name;
+		assert(!(name < 0));
+		return GLuint(name);
 	}
 public:
 	/// Returns the currently bound (active) Program
@@ -259,7 +261,7 @@ public:
 #endif
 	GLint GetIntParam(GLenum query) const
 	{
-		GLint result;
+		GLint result = 0;
 		OGLPLUS_GLFUNC(GetProgramiv)(_obj_name(), query, &result);
 		OGLPLUS_VERIFY(
 			GetProgramiv,
@@ -268,6 +270,13 @@ public:
 			EnumParam(query)
 		);
 		return result;
+	}
+
+	GLuint GetUIntParam(GLenum query) const
+	{
+		GLint res = GetIntParam(query);
+		assert(!(res < 0));
+		return GLuint(res);
 	}
 
 #if GL_VERSION_4_0 || GL_ARB_shader_subroutine
@@ -282,6 +291,13 @@ public:
 			EnumParam(query)
 		);
 		return result;
+	}
+
+	GLuint GetStageUIntParam(GLenum stage, GLenum query) const
+	{
+		GLint res = GetStageIntParam(stage, query);
+		assert(!(res < 0));
+		return GLuint(res);
 	}
 #endif
 
@@ -343,6 +359,8 @@ public:
 	 */
 	ObjectOps& Link(void);
 
+	Outcome<ObjectOps&> Link(std::nothrow_t);
+
 	/// builds this shading language program
 	/** This function checks if all attached shaders are compiled
 	 *  and if they are not the it compiles them and then links
@@ -358,7 +376,7 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
-	ObjectOps& Build(void);
+	Outcome<ObjectOps&> Build(void);
 
 #if OGLPLUS_DOCUMENTATION_ONLY ||\
 	GL_ARB_shading_language_include
@@ -378,13 +396,13 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
-	ObjectOps& BuildInclude(
+	Outcome<ObjectOps&> BuildInclude(
 		SizeType count,
 		const GLchar* const* paths,
 		const GLint* lengths
 	);
 
-	ObjectOps& BuildInclude(GLSLString&& incl)
+	Outcome<ObjectOps&> BuildInclude(GLSLString&& incl)
 	{
 		return BuildInclude(
 			incl.Count(),
@@ -393,7 +411,7 @@ public:
 		);
 	}
 
-	ObjectOps& BuildInclude(GLSLStrings&& incl)
+	Outcome<ObjectOps&> BuildInclude(GLSLStrings&& incl)
 	{
 		return BuildInclude(
 			incl.Count(),
@@ -402,7 +420,7 @@ public:
 		);
 	}
 
-	ObjectOps& BuildInclude(const GLSLSource&& incl)
+	Outcome<ObjectOps&> BuildInclude(const GLSLSource&& incl)
 	{
 		return BuildInclude(
 			incl.Count(),
@@ -440,6 +458,8 @@ public:
 	 *  @glfunref{GetProgramInfoLog}
 	 */
 	ObjectOps& Validate(void);
+
+	Outcome<ObjectOps&> Validate(std::nothrow_t);
 
 	/// Sets the variables that will be captured during transform feedback
 	/**

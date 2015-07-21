@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{023_reflected_cube}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -39,7 +39,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec4 Position;"
 			"in vec3 Normal;"
 			"out vec3 vertColor;"
@@ -60,7 +60,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec3 vertColor;"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"
@@ -176,7 +176,7 @@ public:
 		}
 		gl.Bind(NoVertexArray());
 
-		Uniform<Vec3f>(prog, "LightPos").Set(1.5, 2.0, 2.5);
+		Uniform<Vec3f>(prog, "LightPos").Set(1.5f, 2.0f, 2.5f);
 		//
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -190,7 +190,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
-				double(width)/height,
+				width, height,
 				1, 20
 			)
 		);

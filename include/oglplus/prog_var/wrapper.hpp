@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -43,29 +43,35 @@ private:
 	typedef typename AdjustProgVar<T>::BaseType BaseType;
 	typedef ProgVarGetSetOps<OpsTag, VarTag, BaseType> BaseGetSetOps;
 	typedef ProgVarTypecheck<ChkTag, VarTag> Typecheck;
+
+	static inline
+	BaseType* _no_tc(void)
+	{
+		return nullptr;
+	}
 public:
 	/// Default construction
 	ProgVar(void)
 	 : BaseGetSetOps(ProgVarLoc<VarTag>())
-	 , Typecheck((BaseType*)0)
+	 , Typecheck(_no_tc())
 	{ }
 
 	/// Variable from a ProgVarLoc
 	ProgVar(ProgVarLoc<VarTag> pvloc)
 	 : BaseGetSetOps(pvloc)
-	 , Typecheck((BaseType*)0)
+	 , Typecheck(_no_tc())
 	{ }
 
 	/// Variable with the specified @p location in the specified @p program
 	ProgVar(ProgramName program, GLuint location)
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, GLint(location)))
-	 , Typecheck((BaseType*)0)
+	 , Typecheck(_no_tc())
 	{ }
 
 	/// Variable with the specified @p identifier in the specified @p program
 	ProgVar(ProgramName program, StrCRef identifier)
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier))
-	 , Typecheck((BaseType*)0)
+	 , Typecheck(_no_tc())
 	{
 		Typecheck::CheckType(program, this->_location, identifier);
 	}
@@ -73,7 +79,7 @@ public:
 	/// Variable with the specified @p identifier in the specified @p program
 	ProgVar(ProgramName program, StrCRef identifier, bool active_only)
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier, active_only))
-	 , Typecheck((BaseType*)0)
+	 , Typecheck(_no_tc())
 	{
 		Typecheck::CheckType(program, this->_location, identifier);
 	}
@@ -81,7 +87,7 @@ public:
 	/// Variable with the specified @p identifier in the specified @p program
 	ProgVar(ProgramName program, StrCRef identifier, std::nothrow_t)
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier, false))
-	 , Typecheck((BaseType*)0)
+	 , Typecheck(_no_tc())
 	{
 		Typecheck::CheckType(program, this->_location, identifier);
 	}
@@ -101,7 +107,7 @@ public:
 	{
 		return ProgVar(
 			ProgramName(this->_program),
-			this->_location+offset
+			this->_location+GLuint(offset)
 		);
 	}
 
@@ -119,6 +125,12 @@ public:
 	{
 		BaseGetSetOps::RequireActive();
 		BaseGetSetOps::SetValue(AdjustProgVar<T>::Adjust(value));
+	}
+
+	template <typename S>
+	void Set(SizeImpl<S> value)
+	{
+		Set(ParamType(value));
 	}
 
 	/// Set multiple values

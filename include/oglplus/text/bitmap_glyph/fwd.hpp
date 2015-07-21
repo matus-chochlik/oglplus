@@ -74,29 +74,29 @@ void BitmapGlyphDeallocateLayoutData(
 );
 
 // Returns the page of the font containing the glyph for the specified codepoint
-inline GLint BitmapGlyphPageOfCP(
+inline GLuint BitmapGlyphPageOfCP(
 	const BitmapGlyphRenderingBase& parent,
 	CodePoint code_point
 )
 {
 	assert(BitmapGlyphGlyphsPerPage(parent) != 0);
 	assert(BitmapGlyphGlyphsPerPage(parent) % 4 == 0);
-	return code_point / BitmapGlyphGlyphsPerPage(parent);
+	return GLuint(code_point / BitmapGlyphGlyphsPerPage(parent));
 }
 
-inline GLint BitmapGlyphCellOfCP(
+inline GLuint BitmapGlyphCellOfCP(
 	const BitmapGlyphRenderingBase& parent,
 	CodePoint code_point
 )
 {
 	assert(BitmapGlyphGlyphsPerPage(parent) != 0);
 	assert(BitmapGlyphGlyphsPerPage(parent) % 4 == 0);
-	return code_point % BitmapGlyphGlyphsPerPage(parent);
+	return GLuint(code_point % BitmapGlyphGlyphsPerPage(parent));
 }
 
 std::string BitmapGlyphPageName(
 	const BitmapGlyphRenderingBase& parent,
-	GLint page
+	GLuint page
 );
 
 GLuint BitmapGlyphDefaultPageTexSide(

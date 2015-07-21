@@ -41,6 +41,8 @@
 #include <oglplus/vertex_attrib.hpp>
 #include <oglplus/frag_data.hpp>
 
+#include <oglplus/shader_storage_block.hpp>
+
 #include <oglplus/vertex_array.hpp>
 #include <oglplus/buffer.hpp>
 #include <oglplus/texture.hpp>

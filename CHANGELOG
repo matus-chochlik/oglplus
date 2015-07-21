@@ -1,3 +1,34 @@
+Version 0.64.0
+
+- The DeferredHandler and the Outcome<T> classes which allow
+  to defer and/or cancel calling of error handlers were added.
+- New overloads of Shader::Compile, Shader::CompileInclude,
+  Program::Link and Program::Validate and ProgramPipeline::Validate,
+  which return Outcome<T> instead of handling errors eagerly were added.
+- Some of the examples were changes to show the usage of the new features.
+- Some of the examples were changed to use GLSL 120/130/140/150.
+- Some of the older examples were removed.
+- The Quickbook documentation was updated.
+
+Version 0.63.0
+
+- Some clang -Weverything compilation warnings were fixed.
+- New overloads of CameraMatrix::Perspective functions were added.
+- The internals of OALplus and EGLplus were refactored.
+- Support for Shader-storage buffer objects was added.
+- A bug in the Cloud and BrushedMetal image generators were fixed.
+- A problem with the NV path command enumeration was fixed.
+
+
+Version 0.62.0
+
+- Some clang -Weverything compilation warnings were fixed.
+- The SizeType class was updated.
+- Other minor changes were made in the implementation details.
+- A missing-identifier bug was fixed in images::Image.
+- The Quickbook documentation was updated.
+
+
 Version 0.61.0
 
 - The GL version detection in the build system was updated

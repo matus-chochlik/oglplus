@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_transparent_type
-namespace eglplus {
 
 enum class TransparentType : EGLenum
 {
@@ -23,5 +22,4 @@ __Range<TransparentType> __EnumValueRange<TransparentType>(void);
 
 __StrCRef __EnumValueName(TransparentType);
 
-} // namespace eglplus
 //]

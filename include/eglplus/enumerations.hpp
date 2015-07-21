@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,6 +17,7 @@
 #include <eglplus/string.hpp>
 #include <eglplus/detail/enum_class.hpp>
 #include <eglplus/detail/base_range.hpp>
+#include <eglplus/utils/type_tag.hpp>
 
 namespace eglplus {
 namespace enums {
@@ -33,7 +34,7 @@ inline StrCRef EnumValueName(EnumType enum_value)
 #if !EGLPLUS_NO_ENUM_VALUE_NAMES
 	typedef typename EnumBaseType<EnumType>::Type BaseType;
 	return ValueName_(
-		(EnumType*)nullptr,
+		&TypeTag<EnumType>(),
 		BaseType(enum_value)
 	);
 #else
@@ -49,7 +50,7 @@ inline aux::CastIterRange<
 > EnumValueRange(void)
 {
 #if !EGLPLUS_NO_ENUM_VALUE_RANGES
-	return ValueRange_((EnumType*)nullptr);
+	return ValueRange_(&TypeTag<EnumType>());
 #else
 	const typename EnumBaseType<EnumType>::Type* x = nullptr;
 	return aux::CastIterRange<

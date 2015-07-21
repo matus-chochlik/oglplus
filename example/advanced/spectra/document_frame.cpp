@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -22,7 +22,9 @@ void SpectraDocumentFrame::SetStatus(const wxString& status_text)
 	status_bar->SetStatusText(status_text);
 }
 
+static const
 int SpectraDocFrameID_MenuFile = wxID_HIGHEST+1001;
+static const
 int SpectraDocFrameID_Play = SpectraDocFrameID_MenuFile+1;
 
 void SpectraDocumentFrame::InitMainMenu(void)

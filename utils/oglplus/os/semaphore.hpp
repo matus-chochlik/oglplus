@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -26,6 +26,7 @@
 #endif
 
 #include <stdexcept>
+#include <limits>
 
 namespace oglplus {
 namespace os {
@@ -48,11 +49,11 @@ public:
 	{
 	}
 
-	void Wait(unsigned n = 1)
+	void Wait(std::size_t n = 1)
 	{
 	}
 
-	void Signal(unsigned n = 1)
+	void Signal(std::size_t n = 1)
 	{
 	}
 };
@@ -65,14 +66,16 @@ private:
 	int _sem;
 	bool _master;
 
-	void _op(int diff) const
+	void _op(short diff) const
 	{
 		struct ::sembuf param;
 		param.sem_num = 0;
 		param.sem_op = diff;
 		param.sem_flg = SEM_UNDO;
 		if(::semop(_sem, &param, 1) < 0)
+		{
 			throw std::runtime_error("Semaphore operation failed");
+		}
 	}
 
 	static int _init_sem(
@@ -123,17 +126,22 @@ public:
 
 	~Semaphore(void)
 	{
-		if(_master) ::semctl(_sem, 0, IPC_RMID);
+		if(_master)
+		{
+			::semctl(_sem, 0, IPC_RMID);
+		}
 	}
 
-	void Wait(unsigned n = 1)
+	void Wait(std::size_t n = 1)
 	{
-		_op(int(-n));
+		assert(n < std::size_t(std::numeric_limits<short>::max()));
+		_op(short(-n));
 	}
 
-	void Signal(unsigned n = 1)
+	void Signal(std::size_t n = 1)
 	{
-		_op(int(+n));
+		assert(n < std::size_t(std::numeric_limits<short>::max()));
+		_op(short(+n));
 	}
 };
 

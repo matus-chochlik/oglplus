@@ -1,10 +1,10 @@
 /**
- *  @example oglplus/010_rgb_cube.cpp
+ *  @example oglplus/010_cmy_cube_glsl120.cpp
  *  @brief Shows how to draw a RGB colored cube
  *
- *  @oglplus_screenshot{010_rgb_cube}
+ *  @oglplus_screenshot{010_cmy_cube_glsl120}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -41,13 +41,13 @@ private:
 public:
 	CubeExample(void)
 	{
-		// Set the vertex shader source
+		// Set the vertex shader source and compile it
 		vs.Source(
-			"#version 330\n"
+			"#version 120\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
-			"in vec4 Position;"
-			"in vec3 Normal;"
-			"out vec3 vertNormal;"
+			"attribute vec4 Position;"
+			"attribute vec3 Normal;"
+			"varying vec3 vertNormal;"
 			"void main(void)"
 			"{"
 			"	vertNormal = Normal;"
@@ -55,30 +55,23 @@ public:
 			"		CameraMatrix *"
 			"		Position;"
 			"}"
-		);
-		// compile it
-		vs.Compile();
+		).Compile();
 
 		// set the fragment shader source
 		// (uses the absolute value of normal as color)
 		fs.Source(
-			"#version 330\n"
-			"in vec3 vertNormal;"
-			"out vec4 fragColor;"
+			"#version 120\n"
+			"varying vec3 vertNormal;"
 			"void main(void)"
 			"{"
-			"	fragColor = vec4(abs(vertNormal), 1.0);"
+			"	gl_FragColor = vec4(normalize(abs(vec3(1, 1, 1) - vertNormal)), 1.0);"
 			"}"
-		);
-		// compile it
-		fs.Compile();
+		).Compile();
 
 		// attach the shaders to the program
-		prog.AttachShader(vs);
-		prog.AttachShader(fs);
+		prog.AttachShader(vs).AttachShader(fs);
 		// link and use it
-		prog.Link();
-		prog.Use();
+		prog.Link().Use();
 
 		// bind the VAO for the cube
 		cube.Bind();

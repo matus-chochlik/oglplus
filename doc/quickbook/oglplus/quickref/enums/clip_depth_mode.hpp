@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_clip_depth_mode
-namespace oglplus {
 
 enum class ClipDepthMode : GLenum
 {
@@ -23,5 +22,4 @@ __Range<ClipDepthMode> __EnumValueRange<ClipDepthMode>(void);
 
 __StrCRef __EnumValueName(ClipDepthMode);
 
-} // namespace oglplus
 //]

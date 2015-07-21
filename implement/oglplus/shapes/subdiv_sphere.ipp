@@ -27,7 +27,7 @@ GLuint SimpleSubdivSphere::_midpoint(GLuint ia, GLuint ib)
 		Vec3d va(_positions.data()+ea*3, 3);
 		Vec3d vb(_positions.data()+eb*3, 3);
 		Vec3f mp = Normalized((va+vb)*0.5);
-		GLuint result = _positions.size();
+		GLuint result = GLuint(_positions.size());
 
 		_positions.insert(_positions.end(), mp.Data(), mp.Data()+3);
 
@@ -208,7 +208,7 @@ DrawingInstructions SimpleSubdivSphere::Instructions(PrimitiveType mode) const
 	operation.method = DrawOperation::Method::DrawElements;
 	operation.mode = mode;
 	operation.first = 0;
-	operation.count = _indices.size();
+	operation.count = GLuint(_indices.size());
 	operation.restart_index = DrawOperation::NoRestartIndex();
 	operation.phase = 0;
 

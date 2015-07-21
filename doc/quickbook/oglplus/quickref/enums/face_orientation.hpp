@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_face_orientation
-namespace oglplus {
 
 enum class FaceOrientation : GLenum
 {
@@ -23,5 +22,4 @@ __Range<FaceOrientation> __EnumValueRange<FaceOrientation>(void);
 
 __StrCRef __EnumValueName(FaceOrientation);
 
-} // namespace oglplus
 //]

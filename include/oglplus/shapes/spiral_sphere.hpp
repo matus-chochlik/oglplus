@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -226,7 +226,7 @@ public:
 	}
 
 	/// The type of index container returned by Indices()
-	typedef std::vector<GLushort> IndexArray;
+	typedef std::vector<GLuint> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray Indices(Default = Default()) const;

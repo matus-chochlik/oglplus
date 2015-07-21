@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{019_helium}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -136,7 +136,7 @@ private:
 		VertexShader shader;
 
 		shader.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
@@ -162,7 +162,7 @@ private:
 	static StrCRef fs_prologue(void)
 	{
 		return StrCRef(
-		"#version 330\n"
+		"#version 140\n"
 		"in vec3 vertNormal;"
 		"in vec3 vertLight;"
 		"in vec3 vertViewNormal;"
@@ -253,7 +253,7 @@ public:
 		gl.Viewport(width, height);
 		auto projection = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			width, height,
 			1, 50
 		);
 		proton.SetProjection(projection);

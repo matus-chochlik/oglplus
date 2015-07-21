@@ -1,11 +1,10 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 //[oglplus_context_Viewport_helpers
-namespace oglplus {
 namespace context {
 
 struct ViewportPosition /*<
@@ -73,11 +72,11 @@ Helper structure storing the near/far depth range.
 class ViewportState
 {
 public:
-	static void Viewport(GLint x, GLint y, GLsizei w, GLsizei h); /*<
+	static void Viewport(GLint x, GLint y, __SizeType w, __SizeType h); /*<
 	Sets the extents of the current viewport.
 	See [glfunc Viewport].
 	>*/
-	static void Viewport(GLsizei w, GLsizei h); /*<
+	static void Viewport(__SizeType w, __SizeType h); /*<
 	Sets the size of the current viewport starting at (0,0).
 	See [glfunc Viewport].
 	>*/
@@ -118,7 +117,7 @@ public:
 
 	static void ViewportArray(
 		GLuint first,
-		GLsizei count,
+		__SizeType count,
 		const GLfloat* extents
 	); /*<
 	Sets [^extents] of the viewports specified by [^first] and [^count].
@@ -136,7 +135,7 @@ public:
 	>*/
 	static void DepthRange(GLuint viewport, const __context_ViewportDepthRange&);
 
-	static void DepthRangeArray(GLuint first, GLsizei count, const GLclampd *v); /*<
+	static void DepthRangeArray(GLuint first, __SizeType count, const GLclampd *v); /*<
 	Sets depth ranges of viewports specified by [^first] and [^count].
 	See [glfunc DepthRangeArray].
 	>*/
@@ -173,6 +172,5 @@ public:
 };
 
 } // namespace context
-} // namespace oglplus
 //]
 

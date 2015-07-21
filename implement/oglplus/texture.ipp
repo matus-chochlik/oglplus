@@ -105,6 +105,8 @@ _binding(Target target)
 		Error,
 		EnumParam(_binding_query(target))
 	);
+
+	assert(!(name < 0));
 	return GLuint(name);
 }
 
@@ -215,7 +217,6 @@ GetImage(
 		Index(level)
 	);
 #else
-	OGLPLUS_FAKE_USE(size);
 	OGLPLUS_GLFUNC(GetTexImage)(
 		GLenum(target),
 		level,
@@ -255,7 +256,6 @@ GetCompressedImage(
 		Index(level)
 	);
 #else
-	OGLPLUS_FAKE_USE(size);
 	OGLPLUS_GLFUNC(GetCompressedTexImage)(
 		GLenum(target),
 		level,

@@ -6,7 +6,7 @@
  *  @author Timo Keller
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -45,11 +45,11 @@ public:
 		VertexShader vs;
 		// Set the vertex shader source
 		vs.Source(" \
-			#version 330\n \
+			#version 120\n \
 			uniform float ScrollFactor; \
-			in vec2 Position; \
-			in vec2 Coord; \
-			out vec2 vertCoord; \
+			attribute vec2 Position; \
+			attribute vec2 Coord; \
+			varying vec2 vertCoord; \
 			void main(void) \
 			{ \
 				vertCoord = ScrollFactor * Coord; \
@@ -63,9 +63,8 @@ public:
 		FragmentShader fs;
 		// set the fragment shader source
 		fs.Source(" \
-			#version 330\n \
-			in vec2 vertCoord; \
-			out vec4 fragColor; \
+			#version 120\n \
+			varying vec2 vertCoord; \
 			const int npasses = 100; \
 			const int nclr = 5; \
 			uniform vec4 clrs[5]; \
@@ -108,7 +107,7 @@ public:
 					if(a >= clrs[i].a && a < clrs[i+1].a) \
 					{ \
 						float m = (a - clrs[i].a) / (clrs[i+1].a - clrs[i].a); \
-						fragColor = vec4( \
+						gl_FragColor = vec4( \
 							mix(clrs[i].rgb, clrs[i+1].rgb, m), \
 							1.0 \
 						); \
@@ -185,7 +184,7 @@ public:
 	{
 		gl.Clear().ColorBuffer();
 
-		scroll_factor.Set(1.0f / (0.005 * time + 1.0f));
+		scroll_factor.Set(GLfloat(1.0 / (0.005 * time + 1.0)));
 
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}

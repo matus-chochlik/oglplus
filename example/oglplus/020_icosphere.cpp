@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{020_icosphere}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -68,7 +68,7 @@ public:
 	 , model_matrix(prog, "ModelMatrix")
 	{
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
 			"out vec3 vertNormal;"
@@ -90,7 +90,7 @@ public:
 		vs.Compile();
 
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout (triangles) in;"
 			"layout (triangle_strip, max_vertices = 3) out;"
 
@@ -131,7 +131,7 @@ public:
 		gs.Compile();
 
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform samplerCube TexUnit;"
 			"in vec3 geomNormal;"
 			"in vec3 geomTexCoord;"
@@ -226,7 +226,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
-				double(width)/height,
+				float(width)/height,
 				1, 100
 			)
 		);
@@ -240,7 +240,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				4.5 - SineWave(time / 16.0) * 2.0,
+				GLfloat(4.5 - SineWave(time / 16.0) * 2.0),
 				FullCircles(time / 12.0),
 				Degrees(SineWave(time / 30.0) * 90)
 			)

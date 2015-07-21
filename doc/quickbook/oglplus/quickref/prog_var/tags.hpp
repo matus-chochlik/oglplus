@@ -5,12 +5,12 @@
  */
 
 //[oglplus_prog_var_tags
-namespace oglplus {
 namespace tag {
 
 struct VertexAttrib; /*< See __VertexAttrib >*/
 struct Uniform; /*< See __Uniform and __ProgramUniform >*/
 struct UniformBlock; /*< See __UniformBlock >*/
+struct ShaderStorageBlock; /*< See __ShaderStorageBlock >*/
 struct Subroutine; /*< See __Subroutine >*/
 struct SubroutineUniform; /*< See __SubroutineUniform >*/
 struct FragData; /*< See __FragData >*/
@@ -26,6 +26,5 @@ Disables GPU program variable typechecking.
 >*/
 
 } // namespace tag
-} // namespace oglplus
 //]
 

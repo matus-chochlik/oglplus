@@ -5,7 +5,6 @@
  */
 
 //[oglplus_dsa_transform_feedback_1
-namespace oglplus {
 
 template <>
 class __ObjectOps<__tag_DirectState, __tag_TransformFeedback>
@@ -66,6 +65,5 @@ typedef __Object<TransformFeedbackOps> TransformFeedback;
 typedef __ObjectZero<__ObjZeroOps<__tag_ImplicitSel, __tag_TransformFeedback>>
 	DefaultTransformFeedback;
 
-} // namespace oglplus
 //]
 

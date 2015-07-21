@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -286,7 +286,7 @@ public:
 
 	static T Ratio(const Angle& a, const Angle& b)
 	{
-		assert(b._val_rad != T(0));
+		assert(b._val_rad > T(0) || b._val_rad < T(0));
 		return a._val_rad / b._val_rad;
 	}
 
@@ -422,9 +422,13 @@ typedef double AngleValueType;
  *
  *  @ingroup math_utils
  */
-inline Angle<AngleValueType> Radians(AngleValueType val_rad)
+template <typename T>
+static inline
+Angle<AngleValueType> Radians(T val_rad)
 {
-	return Angle<AngleValueType>::Radians(val_rad);
+	return Angle<AngleValueType>::Radians(
+		AngleValueType(val_rad)
+	);
 }
 
 /// Creates a new angle from a value in degrees
@@ -449,9 +453,13 @@ inline Angle<AngleValueType> Radians(AngleValueType val_rad)
  *
  *  @ingroup math_utils
  */
-inline Angle<AngleValueType> Degrees(AngleValueType val_deg)
+template <typename T>
+static inline
+Angle<AngleValueType> Degrees(T val_deg)
 {
-	return Angle<AngleValueType>::Degrees(val_deg);
+	return Angle<AngleValueType>::Degrees(
+		AngleValueType(val_deg)
+	);
 }
 
 /// Creates a new angle from a value in "full circles" (i.e. 360 degrees)
@@ -477,16 +485,21 @@ inline Angle<AngleValueType> Degrees(AngleValueType val_deg)
  *
  *  @ingroup math_utils
  */
-inline Angle<AngleValueType> FullCircles(AngleValueType value)
+template <typename T>
+static inline
+Angle<AngleValueType> FullCircles(T value)
 {
 	return Angle<AngleValueType>::Radians(
 		AngleValueType(value * math::TwoPi())
 	);
 }
 
-inline Angle<AngleValueType> FullCircle(void)
+static inline
+Angle<AngleValueType> FullCircle(void)
 {
-	return Angle<AngleValueType>::Radians(AngleValueType(math::TwoPi()));
+	return Angle<AngleValueType>::Radians(
+		AngleValueType(math::TwoPi())
+	);
 }
 
 /// Creates a new angle from a value in "right angles" (i.e. 90 deg.)
@@ -512,16 +525,21 @@ inline Angle<AngleValueType> FullCircle(void)
  *
  *  @ingroup math_utils
  */
-inline Angle<AngleValueType> RightAngles(AngleValueType value)
+template <typename T>
+static inline
+Angle<AngleValueType> RightAngles(T value)
 {
 	return Angle<AngleValueType>::Radians(
 		AngleValueType(value * math::HalfPi())
 	);
 }
 
-inline Angle<AngleValueType> RightAngle(void)
+static inline
+Angle<AngleValueType> RightAngle(void)
 {
-	return Angle<AngleValueType>::Radians(AngleValueType(math::HalfPi()));
+	return Angle<AngleValueType>::Radians(
+		AngleValueType(math::HalfPi())
+	);
 }
 
 /// Creates a new angle using the arc sine function
@@ -537,9 +555,13 @@ inline Angle<AngleValueType> RightAngle(void)
  *
  *  @ingroup math_utils
  */
-inline Angle<AngleValueType> ArcSin(AngleValueType x)
+template <typename T>
+static inline
+Angle<AngleValueType> ArcSin(T x)
 {
-	return Angle<AngleValueType>::ArcSin(x);
+	return Angle<AngleValueType>::ArcSin(
+		AngleValueType(x)
+	);
 }
 
 /// Creates a new angle using the arc cosine function
@@ -555,9 +577,13 @@ inline Angle<AngleValueType> ArcSin(AngleValueType x)
  *
  *  @ingroup math_utils
  */
-inline Angle<AngleValueType> ArcCos(AngleValueType x)
+template <typename T>
+static inline
+Angle<AngleValueType> ArcCos(T x)
 {
-	return Angle<AngleValueType>::ArcCos(x);
+	return Angle<AngleValueType>::ArcCos(
+		AngleValueType(x)
+	);
 }
 
 /// Creates a new angle using the arc tangent function
@@ -572,9 +598,13 @@ inline Angle<AngleValueType> ArcCos(AngleValueType x)
  *
  *  @ingroup math_utils
  */
-inline Angle<AngleValueType> ArcTan(AngleValueType x)
+template <typename T>
+static inline
+Angle<AngleValueType> ArcTan(T x)
 {
-	return Angle<AngleValueType>::Radians(::std::atan(x));
+	return Angle<AngleValueType>::Radians(
+		::std::atan(AngleValueType(x))
+	);
 }
 
 /// Creates a new angle using the arc tangent function with 2 parameters
@@ -589,9 +619,12 @@ inline Angle<AngleValueType> ArcTan(AngleValueType x)
  *
  *  @ingroup math_utils
  */
-inline Angle<AngleValueType> ArcTan(AngleValueType y, AngleValueType x)
+template <typename TY, typename TX>
+inline Angle<AngleValueType> ArcTan(TY y, TX x)
 {
-	return Angle<AngleValueType>::Radians(::std::atan2(y, x));
+	return Angle<AngleValueType>::Radians(
+		::std::atan2(AngleValueType(y), AngleValueType(x))
+	);
 }
 
 /// Returns a value on a sine wave at the specified point

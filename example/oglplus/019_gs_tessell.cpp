@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{019_gs_tessell}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -60,7 +60,7 @@ public:
 	 , model_matrix(prog)
 	{
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"in vec4 Position;"
 
@@ -72,7 +72,7 @@ public:
 		vs.Compile();
 
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout (triangles) in;"
 			"layout (triangle_strip, max_vertices = 48) out;"
 
@@ -179,7 +179,7 @@ public:
 		gs.Compile();
 
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"noperspective in vec3 geomDist;"
 			"flat in vec3 geomNormal;"
@@ -250,7 +250,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
-				double(width)/height,
+				float(width)/height,
 				1, 50
 			)
 		);
@@ -262,7 +262,7 @@ public:
 		//
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			15.0 - SineWave(time / 13)*8.0,
+			GLfloat(15.0 - SineWave(time / 13)*8.0),
 			Degrees(time * 33),
 			Degrees(SineWave(time / 21.0) * 31)
 		);

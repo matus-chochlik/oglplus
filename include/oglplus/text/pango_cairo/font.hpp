@@ -21,12 +21,16 @@
 #ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-register"
+#pragma clang diagnostic ignored "-Wdocumentation"
+#pragma clang diagnostic ignored "-Wold-style-cast"
+#pragma clang diagnostic ignored "-Wshift-sign-overflow"
+#pragma clang diagnostic ignored "-Wfloat-conversion"
 #endif
 
 #include <pango/pangocairo.h>
 
 #ifdef __clang__
-#pragma clang diagnostic push
+#pragma clang diagnostic pop
 #endif
 
 #include <cassert>

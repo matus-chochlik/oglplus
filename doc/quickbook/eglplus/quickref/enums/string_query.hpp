@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_string_query
-namespace eglplus {
 
 enum class StringQuery : EGLenum
 {
@@ -25,5 +24,4 @@ __Range<StringQuery> __EnumValueRange<StringQuery>(void);
 
 __StrCRef __EnumValueName(StringQuery);
 
-} // namespace eglplus
 //]

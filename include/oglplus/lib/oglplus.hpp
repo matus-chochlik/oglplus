@@ -60,6 +60,8 @@
 #include <oglplus/program_resource.hpp>
 #include <oglplus/program_pipeline.hpp>
 
+#include <oglplus/shader_storage_block.hpp>
+
 #include <oglplus/imports/blend_file.hpp>
 
 #include <oglplus/shapes/cage.hpp>

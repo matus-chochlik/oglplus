@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{018_particle_system}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -32,7 +32,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ModelMatrix, CameraMatrix;"
 			"in vec4 Position;"
 			"in float Age;"
@@ -50,7 +50,7 @@ private:
 
 		GeometryShader gs;
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(points) in;"
 			"layout(triangle_strip, max_vertices = 4) out;"
 			"uniform mat4 ProjectionMatrix;"
@@ -82,7 +82,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in float geomAge;"
 			"out vec4 fragColor;"
 			"void main(void)"
@@ -174,7 +174,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
-				double(width)/height,
+				width, height,
 				1, 40
 			)
 		);
@@ -185,7 +185,7 @@ public:
 	{
 		float disp = 2.0f;
 		float dx = (0.5f - (float(std::rand())/RAND_MAX))*disp;
-		float dy = 5.0f + (0.5 - (float(std::rand())/RAND_MAX))*disp;;
+		float dy = 5.0f + (0.5f - (float(std::rand())/RAND_MAX))*disp;;
 		float dz = (0.5f - (float(std::rand())/RAND_MAX))*disp;
 		return Vec3f(dx, dy, dz);
 	}
@@ -194,7 +194,7 @@ public:
 	{
 		// update the particle positions, ages and directions
 		GLuint i = 0;
-		float time_diff = (time - prev_time);
+		float time_diff = float(time - prev_time);
 		float age_mult = 0.2f;
 		while(i != positions.size())
 		{

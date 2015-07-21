@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_font_style
-namespace oglplus {
 
 enum class PathNVFontStyle : GLbitfield
 {
@@ -25,5 +24,4 @@ __StrCRef __EnumValueName(PathNVFontStyle);
 
 __Bitfield<PathNVFontStyle> operator | (PathNVFontStyle b1, PathNVFontStyle b2);
 
-} // namespace oglplus
 //]

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_IMPORTS_BLEND_FILE_READER_1107121519_HPP
 #define OGLPLUS_IMPORTS_BLEND_FILE_READER_1107121519_HPP
 
+#include <oglplus/config/compiler.hpp>
 #include <cassert>
 #include <stdexcept>
 #include <istream>
@@ -39,6 +40,7 @@ private:
 	bool _eof(void);
 
 	// composes error message and throws an exception
+	OGLPLUS_NORETURN
 	void _error(const std::string& message);
 
 	// reads a single char throws on error

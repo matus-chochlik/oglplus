@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_gen_mode
-namespace oglplus {
 
 enum class PathNVGenMode : GLenum
 {
@@ -25,5 +24,4 @@ __Range<PathNVGenMode> __EnumValueRange<PathNVGenMode>(void);
 
 __StrCRef __EnumValueName(PathNVGenMode);
 
-} // namespace oglplus
 //]

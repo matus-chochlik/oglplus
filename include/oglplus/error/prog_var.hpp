@@ -32,6 +32,23 @@ private:
 public:
 	ProgVarError(const char* message);
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	ProgVarError(const ProgVarError&) = default;
+	ProgVarError(ProgVarError&&) = default;
+#else
+	ProgVarError(const ProgVarError& that)
+	 : Error(static_cast<const Error&>(that))
+	 , _prog_name(that._prog_name)
+	 , _identifier(that._identifier)
+	{ }
+
+	ProgVarError(ProgVarError&& temp)
+	 : Error(static_cast<Error&&>(temp))
+	 , _prog_name(std::move(temp._prog_name))
+	 , _identifier(std::move(temp._identifier))
+	{ }
+#endif
+
 	~ProgVarError(void)
 	OGLPLUS_NOTHROW
 	{ }

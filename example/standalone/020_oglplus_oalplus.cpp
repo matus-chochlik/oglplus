@@ -31,11 +31,11 @@ struct OGLOALExampleSource
 	{
 		oglplus::VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 120\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"uniform vec3 SourcePosition;"
 
-			"in vec4 Position;"
+			"attribute vec4 Position;"
 
 			"void main(void)"
 			"{"
@@ -47,12 +47,11 @@ struct OGLOALExampleSource
 
 		oglplus::FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 120\n"
 
-			"out vec3 fragColor;"
 			"void main(void)"
 			"{"
-			"	fragColor = vec3(1, 1, 1);"
+			"	gl_FragColor = vec4(1, 1, 1, 1);"
 			"}"
 		).Compile();
 
@@ -108,17 +107,17 @@ struct OGLOALExampleObjects
 	{
 		oglplus::VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 120\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"uniform vec3 LightPosition;"
 
-			"in vec4 Position;"
-			"in vec3 Normal;"
-			"in vec2 TexCoord;"
+			"attribute vec4 Position;"
+			"attribute vec3 Normal;"
+			"attribute vec2 TexCoord;"
 
-			"out vec3 vertNormal;"
-			"out vec3 vertLightDir;"
-			"out vec2 vertTexCoord;"
+			"varying vec3 vertNormal;"
+			"varying vec3 vertLightDir;"
+			"varying vec2 vertTexCoord;"
 
 			"void main(void)"
 			"{"
@@ -131,25 +130,24 @@ struct OGLOALExampleObjects
 
 		oglplus::FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 120\n"
 			"uniform sampler2D RandTex;"
 
-			"in vec3 vertNormal;"
-			"in vec3 vertLightDir;"
-			"in vec2 vertTexCoord;"
+			"varying vec3 vertNormal;"
+			"varying vec3 vertLightDir;"
+			"varying vec2 vertTexCoord;"
 
-			"out vec3 fragColor;"
 			"void main(void)"
 			"{"
 			"	vec3 Normal = normalize(vertNormal);"
 			"	vec3 LightDir = normalize(vertLightDir);"
 			"	float Ambient = 0.4;"
 			"	float Diffuse = max(dot(Normal, LightDir), 0.0);"
-			"	float x = texture(RandTex, vertTexCoord).r*"
-			"		(0.6+texture(RandTex, vertTexCoord/9.0).r*0.4)*"
-			"		(0.4+texture(RandTex, vertTexCoord/37.0).r*0.6);"
+			"	float x = texture2D(RandTex, vertTexCoord).r*"
+			"		(0.6+texture2D(RandTex, vertTexCoord/9.0).r*0.4)*"
+			"		(0.4+texture2D(RandTex, vertTexCoord/37.0).r*0.6);"
 			"	vec3 Color = mix(vec3(0.4, 0.3, 0.2), vec3(1.0, 0.9, 0.8), x);"
-			"	fragColor = Color*(Ambient+Diffuse);"
+			"	gl_FragColor = vec4(Color*(Ambient+Diffuse), 1.0);"
 			"}"
 		).Compile();
 
@@ -244,7 +242,7 @@ public:
 		oglplus::Mat4f projection =
 			oglplus::CamMatrixf::PerspectiveX(
 				oglplus::Degrees(110),
-				Aspect(),
+				GLfloat(Aspect()),
 				1, 200
 			);
 
@@ -264,19 +262,19 @@ public:
 		double ltime = time / 19.0;
 
 		oglplus::Vec3f camera_position(
-			+oglplus::SineWave(ctime)*crad,
-			+oglplus::SineWave(time/9.0)+3.0,
-			+oglplus::CosineWave(ctime)*crad
+			GLfloat(+oglplus::SineWave(ctime)*crad),
+			GLfloat(+oglplus::SineWave(time/9.0)+3.0),
+			GLfloat(+oglplus::CosineWave(ctime)*crad)
 		);
 		oglplus::Vec3f target_position(
-			-oglplus::SineWave(ttime)*trad,
-			-oglplus::CosineWave(time/17.0)+2.5,
-			-oglplus::CosineWave(ttime)*trad
+			GLfloat(-oglplus::SineWave(ttime)*trad),
+			GLfloat(-oglplus::CosineWave(time/17.0)+2.5),
+			GLfloat(-oglplus::CosineWave(ttime)*trad)
 		);
 		oglplus::Vec3f light_position(
-			+oglplus::CosineWave(ltime)*lrad,
-			+oglplus::CosineWave(time/19.0)+2.5,
-			-oglplus::SineWave(ltime)*lrad
+			GLfloat(+oglplus::CosineWave(ltime)*lrad),
+			GLfloat(+oglplus::CosineWave(time/19.0)+2.5),
+			GLfloat(-oglplus::SineWave(ltime)*lrad)
 		);
 		oglplus::Mat4f camera =
 			oglplus::CamMatrixf::LookingAt(
@@ -317,9 +315,9 @@ public:
 		GLuint sp = 0;
 		query.WaitForResult(sp);
 
-		double sound_gain = double(sp)/300.0;
-		sound_gain = 0.2 + 0.8*sound_gain;
-		if(sound_gain > 1.0) sound_gain = 1.0;
+		float sound_gain = float(sp)/300.0f;
+		sound_gain = 0.2f + 0.8f*sound_gain;
+		if(sound_gain > 1.0f) sound_gain = 1.0f;
 		source.sound.Gain(sound_gain);
 
 		if(first_run)

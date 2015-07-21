@@ -5,7 +5,6 @@
  */
 
 //[eglplus_display
-namespace eglplus {
 
 class Display
 {
@@ -36,6 +35,5 @@ noexcept; /*<
 Returns the EGL display handle wrapped by a __Display.
 >*/
 
-} // namespace eglplus
 //]
 

@@ -21,7 +21,6 @@ Torus::Indices(Torus::Default) const
 #else
 	const unsigned n = _rings * (2 * (_sections + 1) + 2);
 #endif
-	assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
 	//
 	IndexArray indices(n);
 	unsigned k = 0;
@@ -53,7 +52,6 @@ Torus::IndexArray
 Torus::Indices(Torus::Quads) const
 {
 	const unsigned n = _rings * (4 * _sections + 1);
-	assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
 	//
 	IndexArray indices(n);
 	unsigned k = 0;
@@ -83,7 +81,6 @@ Torus::Indices(WithAdjacency) const
 {
 	const unsigned m = _rings*(_sections + 1);
 	const unsigned n = _rings*(4 * (_sections + 1) + 1);
-	assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
 	//
 	IndexArray indices(n);
 	unsigned k = 0;

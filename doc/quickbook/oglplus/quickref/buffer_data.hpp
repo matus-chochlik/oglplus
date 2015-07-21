@@ -1,11 +1,10 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 //[oglplus_buffer_data
-namespace oglplus {
 
 class BufferData
 {
@@ -17,7 +16,7 @@ public:
 
 	/// Construction from @p count of instances of type @c T at @p data
 	template <typename T>
-	BufferData(GLsizei count, const T* data); /*<
+	BufferData(__SizeType count, const T* data); /*<
 	Constructs [^BufferData] from a pointer to [^count] instances
 	of type [^T].
 	>*/
@@ -38,6 +37,5 @@ public:
 	>*/
 };
 
-} // namespace oglplus
 //]
 

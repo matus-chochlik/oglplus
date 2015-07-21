@@ -10,9 +10,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_nv_path_command
-namespace oglplus {
 
-enum class PathNVCommand : GLenum
+enum class PathNVCommand : GLubyte
 {
 	Close                          = GL_CLOSE_PATH_NV,
 	MoveTo                         = GL_MOVE_TO_NV,
@@ -55,5 +54,4 @@ __Range<PathNVCommand> __EnumValueRange<PathNVCommand>(void);
 
 __StrCRef __EnumValueName(PathNVCommand);
 
-} // namespace oglplus
 //]

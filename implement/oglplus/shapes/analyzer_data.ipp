@@ -4,11 +4,12 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <oglplus/assert.hpp>
 #include <cassert>
 #include <cmath>
 
@@ -24,7 +25,7 @@ _init_dr_ar_triangles(const DrawOperation& draw_op)
 	GLuint i=0;
 	while(i != draw_op.count)
 	{
-		_face_index.push_back(_face_verts.size());
+		_face_index.push_back(GLuint(_face_verts.size()));
 		_face_phase.push_back(draw_op.phase);
 
 		_face_verts.push_back(draw_op.first+i++);
@@ -53,7 +54,7 @@ _init_dr_ar_triangle_strip(const DrawOperation& draw_op)
 	GLuint i=0;
 	GLuint v=0;
 
-	_face_index.push_back(_face_verts.size());
+	_face_index.push_back(GLuint(_face_verts.size()));
 	_face_phase.push_back(draw_op.phase);
 
 	_face_verts.push_back(draw_op.first+i++);
@@ -76,7 +77,7 @@ _init_dr_ar_triangle_strip(const DrawOperation& draw_op)
 
 	while(i != draw_op.count)
 	{
-		_face_index.push_back(_face_verts.size());
+		_face_index.push_back(GLuint(_face_verts.size()));
 		_face_phase.push_back(draw_op.phase);
 		if(i % 2 != 0)
 		{
@@ -88,8 +89,8 @@ _init_dr_ar_triangle_strip(const DrawOperation& draw_op)
 			_face_adj_f.push_back(_nil_face());
 			_face_adj_f.push_back(_nil_face());
 
-			_face_adj_f[v-2] = _face_index.size()-1;
-			_face_adj_f[v+0] = _face_index.size()-2;
+			_face_adj_f[v-2] = GLuint(_face_index.size()-1);
+			_face_adj_f[v+0] = GLuint(_face_index.size()-2);
 
 			_face_adj_e.push_back(0);
 			_face_adj_e.push_back(0);
@@ -115,8 +116,8 @@ _init_dr_ar_triangle_strip(const DrawOperation& draw_op)
 			_face_adj_f.push_back(_nil_face());
 			_face_adj_f.push_back(_nil_face());
 
-			_face_adj_f[v-1] = _face_index.size()-1;
-			_face_adj_f[v+0] = _face_index.size()-1;
+			_face_adj_f[v-1] = GLuint(_face_index.size()-1);
+			_face_adj_f[v+0] = GLuint(_face_index.size()-1);
 
 			_face_adj_e.push_back(0);
 			_face_adj_e.push_back(0);
@@ -145,7 +146,7 @@ _init_dr_ar_triangle_fan(const DrawOperation& draw_op)
 	GLuint i=0;
 	GLuint v=0;
 
-	_face_index.push_back(_face_verts.size());
+	_face_index.push_back(GLuint(_face_verts.size()));
 	_face_phase.push_back(draw_op.phase);
 
 	_face_verts.push_back(draw_op.first+i++);
@@ -168,7 +169,7 @@ _init_dr_ar_triangle_fan(const DrawOperation& draw_op)
 
 	while(i != draw_op.count)
 	{
-		_face_index.push_back(_face_verts.size());
+		_face_index.push_back(GLuint(_face_verts.size()));
 		_face_phase.push_back(draw_op.phase);
 
 		_face_verts.push_back(draw_op.first);
@@ -179,8 +180,8 @@ _init_dr_ar_triangle_fan(const DrawOperation& draw_op)
 		_face_adj_f.push_back(_nil_face());
 		_face_adj_f.push_back(_nil_face());
 
-		_face_adj_f[v-1] = _face_index.size()-1;
-		_face_adj_f[v+0] = _face_index.size()-2;
+		_face_adj_f[v-1] = GLuint(_face_index.size()-1);
+		_face_adj_f[v+0] = GLuint(_face_index.size()-2);
 
 		_face_adj_e.push_back(0);
 		_face_adj_e.push_back(0);
@@ -215,7 +216,7 @@ void ShapeAnalyzerGraphData::_init_draw_arrays(const DrawOperation& draw_op)
 		case Mode::TriangleFan:
 			_init_dr_ar_triangle_fan(draw_op);
 			break;
-		default: assert(
+		default: OGLPLUS_ABORT(
 			"Only Triangles, TriangleStrip and "
 			"TriangleFan are currently supported"
 		);
@@ -237,7 +238,7 @@ _init_dr_el_triangles(const DrawOperation& draw_op)
 			continue;
 		}
 
-		_face_index.push_back(_face_verts.size());
+		_face_index.push_back(GLuint(_face_verts.size()));
 		_face_phase.push_back(draw_op.phase);
 
 		_face_verts.push_back(_index[draw_op.first+i++]);
@@ -274,7 +275,7 @@ _init_dr_el_triangle_strip(const DrawOperation& draw_op)
 			continue;
 		}
 
-		_face_index.push_back(_face_verts.size());
+		_face_index.push_back(GLuint(_face_verts.size()));
 		_face_phase.push_back(draw_op.phase);
 
 		_face_verts.push_back(_index[draw_op.first+i++]);
@@ -303,7 +304,7 @@ _init_dr_el_triangle_strip(const DrawOperation& draw_op)
 				break;
 			}
 
-			_face_index.push_back(_face_verts.size());
+			_face_index.push_back(GLuint(_face_verts.size()));
 			_face_phase.push_back(draw_op.phase);
 
 			if(i % 2 != 0)
@@ -316,8 +317,8 @@ _init_dr_el_triangle_strip(const DrawOperation& draw_op)
 				_face_adj_f.push_back(_nil_face());
 				_face_adj_f.push_back(_nil_face());
 
-				_face_adj_f[v-2] = _face_index.size()-1;
-				_face_adj_f[v] = _face_index.size()-2;
+				_face_adj_f[v-2] = GLuint(_face_index.size()-1);
+				_face_adj_f[v+0] = GLuint(_face_index.size()-2);
 
 				_face_adj_e.push_back(0);
 				_face_adj_e.push_back(0);
@@ -343,8 +344,8 @@ _init_dr_el_triangle_strip(const DrawOperation& draw_op)
 				_face_adj_f.push_back(_nil_face());
 				_face_adj_f.push_back(_nil_face());
 
-				_face_adj_f[v-1] = _face_index.size()-1;
-				_face_adj_f[v+0] = _face_index.size()-2;
+				_face_adj_f[v-1] = GLuint(_face_index.size()-1);
+				_face_adj_f[v+0] = GLuint(_face_index.size()-2);
 
 				_face_adj_e.push_back(0);
 				_face_adj_e.push_back(0);
@@ -382,7 +383,7 @@ _init_dr_el_triangle_fan(const DrawOperation& draw_op)
 			continue;
 		}
 
-		_face_index.push_back(_face_verts.size());
+		_face_index.push_back(GLuint(_face_verts.size()));
 		_face_phase.push_back(draw_op.phase);
 
 		_face_verts.push_back(_index[draw_op.first+i++]);
@@ -411,7 +412,7 @@ _init_dr_el_triangle_fan(const DrawOperation& draw_op)
 				break;
 			}
 
-			_face_index.push_back(_face_verts.size());
+			_face_index.push_back(GLuint(_face_verts.size()));
 			_face_phase.push_back(draw_op.phase);
 
 			_face_verts.push_back(_index[draw_op.first+i]);
@@ -422,8 +423,8 @@ _init_dr_el_triangle_fan(const DrawOperation& draw_op)
 			_face_adj_f.push_back(_nil_face());
 			_face_adj_f.push_back(_nil_face());
 
-			_face_adj_f[v-1] = _face_index.size()-1;
-			_face_adj_f[v+0] = _face_index.size()-2;
+			_face_adj_f[v-1] = GLuint(_face_index.size()-1);
+			_face_adj_f[v+0] = GLuint(_face_index.size()-2);
 
 			_face_adj_e.push_back(0);
 			_face_adj_e.push_back(0);
@@ -459,7 +460,7 @@ void ShapeAnalyzerGraphData::_init_draw_elements(const DrawOperation& draw_op)
 		case Mode::TriangleFan:
 			_init_dr_el_triangle_fan(draw_op);
 			break;
-		default: assert(
+		default: OGLPLUS_ABORT(
 			"Only Triangles, TriangleStrip and "
 			"TriangleFan are currently supported"
 		);
@@ -493,7 +494,7 @@ GLuint ShapeAnalyzerGraphData::_guess_face_count(void)
 				if(i->count) result += 1+i->count-3;
 				break;
 			}
-			default: assert(
+			default: OGLPLUS_ABORT(
 				"Only Triangles, TriangleStrip and "
 				"TriangleFan are currently supported"
 			);
@@ -643,7 +644,8 @@ void ShapeAnalyzerGraphData::_detect_adjacent(void)
 	// for each face
 	while(fi != fe)
 	{
-		GLuint fien = _face_arity(fi-fb);
+		GLuint fifb = GLuint(fi-fb);
+		GLuint fien = _face_arity(fifb);
 		for(GLuint fie=0; fie!=fien; ++fie)
 		{
 			GLuint i=*fi+fie;
@@ -652,7 +654,8 @@ void ShapeAnalyzerGraphData::_detect_adjacent(void)
 				auto fj = fi+1;
 				while(fj != fe)
 				{
-					GLuint fjen = _face_arity(fj-fb);
+					GLuint fjfb = GLuint(fj-fb);
+					GLuint fjen = _face_arity(fjfb);
 					for(GLuint fje=0; fje!=fjen; ++fje)
 					{
 						GLuint j=*fj+fje;
@@ -661,27 +664,27 @@ void ShapeAnalyzerGraphData::_detect_adjacent(void)
 							_nil_face()
 						);
 						bool adjf = _adjacent_faces(
-							fi-fb,
+							fifb,
 							fie,
-							fj-fb,
+							fjfb,
 							fje
 						);
 						bool smtf = adjf&&_smooth_faces(
-							fi-fb,
+							fifb,
 							fie,
-							fj-fb,
+							fjfb,
 							fje
 						);
 						bool cntf = adjf&&_contin_faces(
-							fi-fb,
+							fifb,
 							fie,
-							fj-fb,
+							fjfb,
 							fje
 						);
 						if(nadj && adjf)
 						{
-							_face_adj_f[i]=fj-fb;
-							_face_adj_f[j]=fi-fb;
+							_face_adj_f[i]=fjfb;
+							_face_adj_f[j]=fifb;
 
 							_face_adj_e[i]=fje;
 							_face_adj_e[j]=fie;

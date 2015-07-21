@@ -23,7 +23,7 @@
 class Example
 {
 private:
-	std::size_t width, height;
+	GLint width, height;
 
 	oglplus::ResourceFile font_file;
 	oglplus::text::Font2D font;
@@ -33,7 +33,7 @@ private:
 	oglplus::Texture tex;
 	oglplus::Framebuffer fbo;
 public:
-	Example(std::size_t w, std::size_t h)
+	Example(GLint w, GLint h)
 	 : width(w)
 	 , height(h)
 	 , font_file("fonts", "FreeSans", ".ttf")
@@ -103,7 +103,7 @@ private:
 	SingleExample(const SingleExample&);
 public:
 
-	SingleExample(std::size_t width, std::size_t height)
+	SingleExample(GLint width, GLint height)
 	{
 		assert(!SingleInstance());
 		SingleInstance() = new Example(width, height);
@@ -129,8 +129,8 @@ int main(int argc, char* argv[])
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 
-	std::size_t width = 800;
-	std::size_t height = 150;
+	GLint width = 800;
+	GLint height = 150;
 
 	glutInitWindowSize(width, height);
 	glutInitWindowPosition(100,100);

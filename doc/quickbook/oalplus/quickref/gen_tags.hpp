@@ -5,7 +5,6 @@
  */
 
 //[oalplus_gen_tags
-namespace oalplus {
 namespace tag {
 
 struct Generate; /*<
@@ -13,6 +12,5 @@ Indicates that a [^alGen*] function should be used.
 >*/
 
 } // namespace tag
-} // namespace oalplus
 //]
 

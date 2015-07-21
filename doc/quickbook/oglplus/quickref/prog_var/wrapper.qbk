@@ -37,7 +37,7 @@ or setting of values of GPU program variables for which such operations do make 
 Specializations of [^ProgVarTypecheck] implement the typechecking functionality
 for those GPU program variables where it makes sense (for example __Uniform
 can check if the type used as the template argument matches the type declared
-in the GLSL shader). 
+in the GLSL shader).
 
 [heading:typecheck Program variable typechecking]
 
@@ -50,7 +50,7 @@ or indirectly) inherits from
 __ProgVarLoc and from various specializations of __ProgVarCommonOps, __ProgVarGetSetOps
 and __ProgVarTypecheck. [^ProgVar] is directly used as the definition of most of the
 GPU program variable wrappers like __VertexAttrib, __Uniform, __UniformBlock, __Subroutine,
-__SubroutineUniform, and __FragData.
+__SubroutineUniform, __ShaderStorageBlock and __FragData.
 
 [oglplus_prog_var_wrapper]
 

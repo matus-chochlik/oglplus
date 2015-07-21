@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[eglplus_enums_swap_behavior
-namespace eglplus {
 
 enum class SwapBehavior : EGLenum
 {
@@ -23,5 +22,4 @@ __Range<SwapBehavior> __EnumValueRange<SwapBehavior>(void);
 
 __StrCRef __EnumValueName(SwapBehavior);
 
-} // namespace eglplus
 //]

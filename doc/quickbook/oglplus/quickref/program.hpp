@@ -5,7 +5,6 @@
  */
 
 //[oglplus_program_common
-namespace oglplus {
 
 template <>
 class __ObjCommonOps<__tag_Program>
@@ -69,8 +68,9 @@ public:
 	Throws __LinkError if the program cannot be linked.
 	See [glfunc LinkProgram].
 	>*/
+	__Outcome<ObjectOps&> Link(std::nothrow_t);
 
-	ObjectOps& Build(void); /*<
+	__Outcome<ObjectOps&> Build(void); /*<
 	Checks if all attached shaders are compiled
 	and if they are not the it compiles them and then links
 	this __Program.
@@ -80,8 +80,8 @@ public:
 	>*/
 
 #if GL_ARB_shading_language_include
-	ObjectOps& BuildInclude(
-		GLsizei count,
+	__Outcome<ObjectOps&> BuildInclude(
+		__SizeType count,
 		const GLchar* const* paths,
 		const GLint* lengths
 	); /*<
@@ -90,9 +90,9 @@ public:
 	include paths and then links [^this] __Program.
 	See [glfunc CompileShader], [glfunc LinkProgram].
 	>*/
-	ObjectOps& BuildInclude(__GLSLString&& incl);
-	ObjectOps& BuildInclude(__GLSLStrings&& incl);
-	ObjectOps& BuildInclude(const __GLSLSource&& incl);
+	__Outcome<ObjectOps&> BuildInclude(__GLSLString&& incl);
+	Outcome<ObjectOps&> BuildInclude(__GLSLStrings&& incl);
+	Outcome<ObjectOps&> BuildInclude(const __GLSLSource&& incl);
 #endif
 
 	__Boolean IsValid(void) const; /*<
@@ -105,6 +105,7 @@ public:
 	Throws __ValidationError if the program is not valid.
 	See [glfunc ValidateProgram].
 	>*/
+	__Outcome<ObjectOps&> Validate(std::nothrow_t);
 //]
 //[oglplus_program_2
 
@@ -114,7 +115,7 @@ public:
 	>*/
 
 	void TransformFeedbackVaryings(
-		GLsizei count,
+		__SizeType count,
 		const GLchar** varyings,
 		__TransformFeedbackMode mode
 	); /*<
@@ -375,12 +376,8 @@ typedef __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_Program>>
 typedef __Object<ProgramOps>
 	Program;
 
-} // namespace oglplus
-
 //]
 //[oglplus_program_sugar
-
-namespace oglplus {
 
 ProgramOps& operator << (
 	ProgramOps& program,
@@ -424,12 +421,9 @@ ProgXFBModeAndNames operator << (
 	const GLchar* name
 );
 
-} // namespace oglplus
 
 //]
 //[oglplus_shader_program
-
-namespace oglplus {
 
 #if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 class ShaderProgram /*<
@@ -494,12 +488,8 @@ public:
 };
 #endif
 
-} // namespace oglplus
-
 //]
 //[oglplus_quick_program
-
-namespace oglplus {
 
 class QuickProgram
  : public __Program
@@ -532,6 +522,5 @@ public:
 #endif
 };
 
-} // namespace oglplus
 //]
 

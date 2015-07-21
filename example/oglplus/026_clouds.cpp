@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{026_clouds}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -86,7 +86,7 @@ public:
 	CloudExample(const ExampleParams& params)
 	 : sphere_instr(make_sphere.Instructions())
 	 , sphere_indices(make_sphere.Indices())
-	 , samples(25 + params.quality*params.quality*100)
+	 , samples(GLuint(25 + params.quality*params.quality*100))
 	 , positions(make_positions())
 	 , sizes(make_sizes())
 	 , cloud_tex(positions.size())
@@ -96,7 +96,7 @@ public:
 		std::srand(123456);
 
 		light_vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec3 Position;"
 			"uniform vec3 LightPos;"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
@@ -111,7 +111,7 @@ public:
 		).Compile();
 
 		light_fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"out vec4 fragLight;"
 			"void main(void)"
 			"{"
@@ -133,7 +133,7 @@ public:
 		}
 
 		cloud_vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec4 Position;"
 			"in float Size;"
 			"uniform int SampleCount;"
@@ -155,7 +155,7 @@ public:
 		).Compile();
 
 		cloud_gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(points) in;"
 			"layout(triangle_strip, max_vertices = 4) out;"
 			"in float vertZOffs[];"
@@ -194,7 +194,7 @@ public:
 		).Compile();
 
 		cloud_fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform sampler3D CloudTex;"
 			"in vec3 geomTexCoord;"
 			"in vec3 geomLightDir;"
@@ -277,7 +277,7 @@ public:
 		gl.Viewport(width, height);
 		Mat4f perspective = CamMatrixf::PerspectiveX(
 			Degrees(65),
-			double(width)/height,
+			width, height,
 			1, 40
 		);
 		ProgramUniform<Mat4f>(cloud_prog, "ProjectionMatrix").Set(perspective);
@@ -317,7 +317,7 @@ public:
 			cloud_tex[i].Bind(Texture::Target::_3D);
 			gl.DrawArraysInstanced(
 				PrimitiveType::Points,
-				i, 1,
+				GLint(i), 1,
 				samples
 			);
 		}

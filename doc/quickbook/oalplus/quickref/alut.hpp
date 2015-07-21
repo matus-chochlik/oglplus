@@ -5,7 +5,6 @@
  */
 
 //[oalplus_alut_1
-namespace oalplus {
 
 class ALUtilityToolkit
 {
@@ -80,6 +79,5 @@ public:
 	>*/
 };
 
-} // namespace oalplus
 //]
 

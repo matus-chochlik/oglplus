@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oalplus_enums_distance_model
-namespace oalplus {
 
 enum class DistanceModel : ALenum
 {
@@ -28,5 +27,4 @@ __Range<DistanceModel> __EnumValueRange<DistanceModel>(void);
 
 __StrCRef __EnumValueName(DistanceModel);
 
-} // namespace oalplus
 //]

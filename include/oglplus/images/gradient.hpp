@@ -213,9 +213,9 @@ public:
 		SizeType width,
 		const Vector<T, N>& background,
 		const std::map<P, Vector<T, N>>& x_points
-	): Image(width, 1, 1, N, (GLubyte*)0)
+	): Image(width, 1, 1, N, &TypeTag<GLubyte>())
 	{
-		std::vector<Vector<T, N>> x_gradient((std::size_t(width)));
+		std::vector<Vector<T, N>> x_gradient(width.st());
 		_make_gradient(
 			background,
 			width,
@@ -233,9 +233,9 @@ public:
 		const std::map<P, Vector<T, N>>& x_points,
 		const std::map<P, Vector<T, N>>& y_points,
 		Combine combine
-	): Image(width, height, 1, N, (GLubyte*)0)
+	): Image(width, height, 1, N, &TypeTag<GLubyte>())
 	{
-		std::vector<Vector<T, N>> y_gradient((std::size_t(height)));
+		std::vector<Vector<T, N>> y_gradient(height.st());
 		_make_gradient(
 			background,
 			height,
@@ -243,7 +243,7 @@ public:
 			y_gradient
 		);
 
-		std::vector<Vector<T, N>> x_gradient((std::size_t(width)));
+		std::vector<Vector<T, N>> x_gradient(width.st());
 		_make_gradient(
 			background,
 			width,
@@ -270,7 +270,7 @@ public:
 		const std::map<P, Vector<T, N>>& y_points,
 		const std::map<P, Vector<T, N>>& z_points,
 		Combine combine
-	): Image(width, height, depth, N, (GLubyte*)0)
+	): Image(width, height, depth, N, &TypeTag<GLubyte>())
 	{
 		std::vector<Vector<T, N>> z_gradient(depth);
 		_make_gradient(

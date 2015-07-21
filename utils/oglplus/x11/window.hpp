@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -31,8 +31,8 @@ private:
 		const Display& display,
 		const VisualInfo& vi,
 		const Colormap& cmap,
-		size_t width,
-		size_t height
+		unsigned width,
+		unsigned height
 	)
 	{
 		::XSetWindowAttributes swa;
@@ -59,8 +59,8 @@ public:
 		const VisualInfo& vi,
 		const Colormap& cmap,
 		const char* title,
-		size_t width,
-		size_t height
+		unsigned width,
+		unsigned height
 	): DisplayObject< ::Window>(
 		display,
 	 	make_window(display, vi, cmap, width, height),
@@ -69,8 +69,8 @@ public:
 	)
 	{
 		::XSizeHints size_hints;
-		size_hints.width = width;
-		size_hints.height = height;
+		size_hints.width = int(width);
+		size_hints.height = int(height);
 		size_hints.flags = USSize;
 		::XSetNormalHints(display, this->Handle(), &size_hints);
 

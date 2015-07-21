@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_program_resource_property
-namespace oglplus {
 
 enum class ProgramResourceProperty : GLenum
 {
@@ -48,5 +47,4 @@ __Range<ProgramResourceProperty> __EnumValueRange<ProgramResourceProperty>(void)
 
 __StrCRef __EnumValueName(ProgramResourceProperty);
 
-} // namespace oglplus
 //]

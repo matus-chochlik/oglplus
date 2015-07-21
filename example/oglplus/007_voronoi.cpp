@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{007_voronoi}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -37,7 +37,7 @@ private:
 
 		Shader vs(ShaderType::Vertex);
 		vs.Source(
-		"#version 330\n"
+		"#version 140\n"
 
 		"uniform vec2 Offset;"
 		"uniform float Scale;"
@@ -55,7 +55,7 @@ private:
 
 		Shader fs(ShaderType::Fragment);
 		fs.Source(
-		"#version 330\n"
+		"#version 140\n"
 
 		"uniform float Scale;"
 		"uniform sampler2D Tex;"
@@ -155,7 +155,7 @@ public:
 	 , prog()
 	 , screen(List("Position").Get(), shapes::Screen(), prog)
 	{
-		std::srand(std::time(0));
+		std::srand(unsigned(std::time(0)));
 
 		tex	<< TextureTarget::_2D
 			<< TextureFilter::Nearest
@@ -172,8 +172,11 @@ public:
 	{
 		float o = 2;
 		float s = 24;
-		prog.offset.Set(CosineWave(time/59.0)*o, SineWave(time/61.0)*o);
-		prog.scale.Set(s + 1 + SineWave(time / 19.0)*s);
+		prog.offset.Set(
+			GLfloat(CosineWave(time/59.0)*o),
+			GLfloat(SineWave(time/61.0)*o)
+		);
+		prog.scale.Set(GLfloat(s + 1 + SineWave(time / 19.0)*s));
 
 		screen.Draw();
 	}

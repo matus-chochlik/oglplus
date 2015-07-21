@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{030_cube_mapping}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -64,8 +64,8 @@ private:
 		for(GLint i=0; i!=instance_count; ++i)
 		{
 			int id = i;
-			float omax = (cubes_per_side - 1)*0.5;
-			float imax = (cpe-1)*0.5;
+			float omax = (cubes_per_side - 1)*0.5f;
+			float imax = (cpe-1)*0.5f;
 			float dx, dy, dz;
 			if(id < cpf)
 			{
@@ -643,7 +643,7 @@ public:
 		gl.Viewport(width, height);
 		auto persp = CamMatrixf::PerspectiveX(
 			Degrees(70),
-			double(width)/height,
+			float(width)/height,
 			1, 20
 		);
 		// clear it
@@ -675,7 +675,7 @@ public:
 		sphere_projection_matrix.Set(persp);
 		sphere_camera_matrix.Set(cameraMatrix);
 		sphere_light_pos.Set(lightPos);
-		sphere_time.Set(time);
+		sphere_time.Set(float(time));
 
 		gl.FrontFace(make_sphere.FaceWinding());
 		sphere.Bind();

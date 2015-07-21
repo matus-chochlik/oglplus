@@ -5,7 +5,6 @@
  */
 
 //[oglplus_uniform_loc_ops
-namespace oglplus {
 
 template <>
 class __ProgVarLocOps<__tag_Uniform>
@@ -95,6 +94,5 @@ typedef __ProgVar<
 UntypedUniform
 operator / (__ProgramName program, __StrCRef identifier);
 
-} // namespace oglplus
 //]
 

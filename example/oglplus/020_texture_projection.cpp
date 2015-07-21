@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{020_texture_projection}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -72,7 +72,7 @@ public:
 	{
 		// Set the vertex shader source
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"uniform mat4 TexProjectionMatrix;"
 			"in vec4 Position;"
@@ -107,7 +107,7 @@ public:
 
 		// set the fragment shader source
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler2D TexUnit;"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"
@@ -189,7 +189,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
-				double(width)/height,
+				float(width)/height,
 				1, 20
 			)
 		);
@@ -200,7 +200,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		Vec3f lightPos(-1.0f, 2.0f, 2.0f);
-		lightPos *= (1.0f - SineWave(time/5.0f)*0.4f);
+		lightPos *= float(1.0 - SineWave(time/5.0)*0.4);
 		light_pos.Set(lightPos);
 
 		tex_projection_matrix.Set(

@@ -103,7 +103,7 @@ public:
 		);
 		OALPLUS_CHECK_SIMPLE_ALC(nullptr, GetString);
 
-		return aux::SepStrRange((const char*)str);
+		return aux::SepStrRange(reinterpret_cast<const char*>(str));
 	}
 #endif
 };

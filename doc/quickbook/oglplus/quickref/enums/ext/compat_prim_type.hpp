@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_compat_prim_type
-namespace oglplus {
 
 enum class CompatibilityPrimitiveType : GLenum
 {
@@ -31,5 +30,4 @@ __Range<CompatibilityPrimitiveType> __EnumValueRange<CompatibilityPrimitiveType>
 
 __StrCRef __EnumValueName(CompatibilityPrimitiveType);
 
-} // namespace oglplus
 //]

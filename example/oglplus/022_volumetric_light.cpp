@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{022_volumetric_light}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -54,7 +54,7 @@ public:
 	 , samples(150)
 	{
 		volume_vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec4 Position;"
 			"out float vertZOffs;"
 			"uniform int SampleCount;"
@@ -75,7 +75,7 @@ public:
 		volume_vs.Compile();
 
 		volume_gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(points) in;"
 			"layout(triangle_strip, max_vertices = 4) out;"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
@@ -112,7 +112,7 @@ public:
 		volume_gs.Compile();
 
 		volume_fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform sampler2D LightTex;"
 			"uniform int SampleCount;"
 			"in vec4 geomTexCoord;"
@@ -153,7 +153,7 @@ public:
 
 		Vec3f lightPos(2.0f, 4.0f, -3.0f);
 		auto texProjMat =
-			CamMatrixf::PerspectiveX(Degrees(30), 1.0, 0.3, 20.0) *
+			CamMatrixf::PerspectiveX(Degrees(30), 1.0f, 0.3f, 20) *
 			CamMatrixf::LookingAt(lightPos, Vec3f(0, 0, 0));
 
 		Uniform<GLint>(volume_prog, "SampleCount").Set(samples);
@@ -161,7 +161,7 @@ public:
 		Uniform<Mat4f>(volume_prog, "TexProjectionMatrix").Set(texProjMat);
 
 		plane_vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec4 Position;"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"uniform mat4 TexProjectionMatrix;"
@@ -182,7 +182,7 @@ public:
 		plane_vs.Compile();
 
 		plane_fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform sampler2D LightTex;"
 			"in vec4 vertTexCoord;"
 			"in vec2 vertChecker;"
@@ -255,7 +255,7 @@ public:
 		gl.Viewport(width, height);
 		auto perspective = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			width, height,
 			1, 40
 		);
 		ProgramUniform<Mat4f>(

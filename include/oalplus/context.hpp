@@ -96,7 +96,9 @@ public:
 	 */
 	static const char* Vendor(void)
 	{
-		return (const char*)GetString(StringQuery::Vendor);
+		return reinterpret_cast<const char*>(
+			GetString(StringQuery::Vendor)
+		);
 	}
 
 	/// Returns the version string
@@ -107,7 +109,9 @@ public:
 	 */
 	static const char* Version(void)
 	{
-		return (const char*)GetString(StringQuery::Version);
+		return reinterpret_cast<const char*>(
+			GetString(StringQuery::Version)
+		);
 	}
 
 	/// Returns the renderer name
@@ -118,7 +122,9 @@ public:
 	 */
 	static const char* Renderer(void)
 	{
-		return (const char*)GetString(StringQuery::Renderer);
+		return reinterpret_cast<const char*>(
+			GetString(StringQuery::Renderer)
+		);
 	}
 
 #if OALPLUS_DOCUMENTATION_ONLY
@@ -133,7 +139,9 @@ public:
 	static aux::SepStrRange Extensions(void)
 	{
 		return aux::SepStrRange(
-			(const char*)GetString(StringQuery::Extensions)
+			reinterpret_cast<const char*>(
+				GetString(StringQuery::Extensions)
+			)
 		);
 	}
 #endif

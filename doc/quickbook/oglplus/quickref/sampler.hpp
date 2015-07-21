@@ -5,7 +5,6 @@
  */
 
 //[oglplus_sampler_common
-namespace oglplus {
 
 template <>
 class __ObjCommonOps<__tag_Sampler>
@@ -244,6 +243,5 @@ SamplerOps& operator << (
 	const Vector<T, 4>& col
 ); /*< Border color >*/
 
-} // namespace oglplus
 //]
 

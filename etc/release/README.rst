@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.61.0
+Release notes for version 0.64.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,22 +7,17 @@ Release notes for version 0.61.0
 Overview
 ========
 
-This release of `OGLplus`_ brings updates to GL version detection and other minor changes in the build system, error code enumerations and updated exceptions in OALplus, wrappers for GL ARB_clip_control, updated Quickbook documentation.
+This release of `OGLplus`_ brings new overloads of the GPU program build functions, which allow deferred handling of errors, updates in the examples and documentation.
 
 Changes
 -------
 
-- The ``SizeType`` and ``BigSizeType`` classes were added and some occurences of ``GLsizei`` and ``GLsizeiptr`` were replaced.
+- The ``DeferredHandler`` and the ``Outcome<T>`` classes, which allow to defer and/or cancel calling of error handlers were added.
 
-- Wrappers for the ``ARB_clip_control`` extension were added.
+- New overloads of ``Shader::Compile``, ``Shader::CompileInclude``, ``Program::Link`` and ``Program::Validate`` and ``ProgramPipeline::Validate``, which return ``Outcome<T>`` instead of handling errors eagerly were added.
 
-- The ``ALErrorCode``, ``ALCErrorCode`` and ``ALUTErrorCode`` enumerations were added to OALplus.
+- Some of the examples were changes to show the usage of the new features.
 
-- The ``ErrorAL`` exception class was added to OALplus.
+- Some of the examples were changed to use GLSL 120/130/140/150 in order to support GL implementations which don't implement higher GLSL versions.
 
-- The GL version detection in the build system and the GLUT example harness were updated.
-
-- Some compiler warnings were silenced.
-
-- The Quickbook documentation was updated.
 

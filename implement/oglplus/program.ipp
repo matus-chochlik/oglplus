@@ -88,26 +88,53 @@ Link(void)
 }
 
 OGLPLUS_LIB_FUNC
-ObjectOps<tag::DirectState, tag::Program>&
+Outcome<ObjectOps<tag::DirectState, tag::Program>&>
+ObjectOps<tag::DirectState, tag::Program>::
+Link(std::nothrow_t)
+{
+	OGLPLUS_GLFUNC(LinkProgram)(_obj_name());
+	OGLPLUS_DEFERRED_CHECK(
+		LinkProgram,
+		ObjectError,
+		Object(*this)
+	);
+	OGLPLUS_RETURN_HANDLER_IF(
+		!IsLinked(),
+		GL_INVALID_OPERATION,
+		LinkError::Message(),
+		LinkError,
+		Log(GetInfoLog()).
+		Object(*this)
+	);
+	return *this;
+}
+
+OGLPLUS_LIB_FUNC
+Outcome<ObjectOps<tag::DirectState, tag::Program>&>
 ObjectOps<tag::DirectState, tag::Program>::
 Build(void)
 {
+	typedef Outcome<ObjectOps<tag::DirectState, tag::Program>&> Res;
+
 	ShaderRange shaders = AttachedShaders();
 	while(!shaders.Empty())
 	{
 		Reference<ShaderOps> shader = shaders.Front();
 		if(!shader.IsCompiled())
 		{
-			shader.Compile();
+			if(auto outcome = Failed(shader.Compile(std::nothrow)))
+			{
+				return Res(outcome.ReleaseHandler(), *this);
+			}
 		}
 		shaders.Next();
 	}
-	return Link();
+	return Link(std::nothrow);
 }
 
 #if GL_ARB_shading_language_include
 OGLPLUS_LIB_FUNC
-ObjectOps<tag::DirectState, tag::Program>&
+Outcome<ObjectOps<tag::DirectState, tag::Program>&>
 ObjectOps<tag::DirectState, tag::Program>::
 BuildInclude(
 	SizeType count,
@@ -115,21 +142,27 @@ BuildInclude(
 	const GLint* lengths
 )
 {
+	typedef Outcome<ObjectOps<tag::DirectState, tag::Program>&> Res;
+
 	ShaderRange shaders = AttachedShaders();
 	while(!shaders.Empty())
 	{
 		Reference<ShaderOps> shader = shaders.Front();
 		if(!shader.IsCompiled())
 		{
-			shader.CompileInclude(
+			if(auto outcome = Failed(shader.CompileInclude(
 				count,
 				paths,
-				lengths
-			);
+				lengths,
+				std::nothrow
+			)))
+			{
+				return Res(outcome.ReleaseHandler(), *this);
+			}
 		}
 		shaders.Next();
 	}
-	return Link();
+	return Link(std::nothrow);
 }
 #endif
 
@@ -145,6 +178,28 @@ Validate(void)
 		Object(*this)
 	);
 	OGLPLUS_HANDLE_ERROR_IF(
+		!IsValid(),
+		GL_INVALID_OPERATION,
+		ValidationError::Message(),
+		ValidationError,
+		Log(GetInfoLog()).
+		Object(*this)
+	);
+	return *this;
+}
+
+OGLPLUS_LIB_FUNC
+Outcome<ObjectOps<tag::DirectState, tag::Program>&>
+ObjectOps<tag::DirectState, tag::Program>::
+Validate(std::nothrow_t)
+{
+	OGLPLUS_GLFUNC(ValidateProgram)(_obj_name());
+	OGLPLUS_DEFERRED_CHECK(
+		ValidateProgram,
+		ObjectError,
+		Object(*this)
+	);
+	OGLPLUS_RETURN_HANDLER_IF(
 		!IsValid(),
 		GL_INVALID_OPERATION,
 		ValidationError::Message(),
@@ -268,7 +323,7 @@ GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
 	if(size > 0)
 	{
 		GLsizei len = 0;
-		binary.resize(size);
+		binary.resize(std::size_t(size));
 		OGLPLUS_GLFUNC(GetProgramBinary)(
 			_obj_name(),
 			size,
@@ -341,7 +396,9 @@ ActiveResourceContext(ProgramInterface intf) const
 	// silently ignore it here
 	OGLPLUS_GLFUNC(GetError)();
 
-	return InterfaceContext(_obj_name(), length, GLenum(intf));
+	assert(!(length < 0));
+
+	return InterfaceContext(_obj_name(), GLuint(length), GLenum(intf));
 }
 
 OGLPLUS_LIB_FUNC
@@ -363,7 +420,10 @@ ActiveResources(ProgramInterface intf) const
 		Object(*this).
 		EnumParam(intf)
 	);
-	return ActiveResourceRange(ActiveResourceContext(intf), count);
+
+	assert(!(count < 0));
+
+	return ActiveResourceRange(ActiveResourceContext(intf), unsigned(count));
 }
 #endif
 
@@ -374,7 +434,7 @@ ActiveAttribContext(void) const
 {
 	return InterfaceContext(
 		_obj_name(),
-		GetIntParam(GL_ACTIVE_ATTRIBUTE_MAX_LENGTH)
+		GetUIntParam(GL_ACTIVE_ATTRIBUTE_MAX_LENGTH)
 	);
 }
 
@@ -385,7 +445,7 @@ ActiveAttribs(void) const
 {
 	return ActiveAttribRange(
 		ActiveAttribContext(),
-		GetIntParam(GL_ACTIVE_ATTRIBUTES)
+		GetUIntParam(GL_ACTIVE_ATTRIBUTES)
 	);
 }
 
@@ -396,7 +456,7 @@ ActiveUniformContext(void) const
 {
 	return InterfaceContext(
 		_obj_name(),
-		GetIntParam(GL_ACTIVE_UNIFORM_MAX_LENGTH)
+		GetUIntParam(GL_ACTIVE_UNIFORM_MAX_LENGTH)
 	);
 }
 
@@ -407,7 +467,7 @@ ActiveUniforms(void) const
 {
 	return ActiveUniformRange(
 		ActiveUniformContext(),
-		GetIntParam(GL_ACTIVE_UNIFORMS)
+		GetUIntParam(GL_ACTIVE_UNIFORMS)
 	);
 }
 
@@ -419,7 +479,7 @@ ActiveSubroutineContext(ShaderType stage) const
 {
 	return InterfaceContext(
 		_obj_name(),
-		GetStageIntParam(
+		GetStageUIntParam(
 			GLenum(stage),
 			GL_ACTIVE_SUBROUTINE_MAX_LENGTH
 		),
@@ -434,7 +494,7 @@ ActiveSubroutines(ShaderType stage) const
 {
 	return ActiveSubroutineRange(
 		ActiveSubroutineContext(stage),
-		GetStageIntParam(
+		GetStageUIntParam(
 			GLenum(stage),
 			GL_ACTIVE_SUBROUTINES
 		)
@@ -448,7 +508,7 @@ ActiveSubroutineUniformContext(ShaderType stage) const
 {
 	return InterfaceContext(
 		_obj_name(),
-		GetStageIntParam(
+		GetStageUIntParam(
 			GLenum(stage),
 			GL_ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH
 		),
@@ -463,7 +523,7 @@ ActiveSubroutineUniforms(ShaderType stage) const
 {
 	return ActiveSubroutineUniformRange(
 		ActiveSubroutineUniformContext(stage),
-		GetStageIntParam(
+		GetStageUIntParam(
 			GLenum(stage),
 			GL_ACTIVE_SUBROUTINE_UNIFORMS
 		)
@@ -478,7 +538,7 @@ TransformFeedbackVaryingContext(void) const
 {
 	return InterfaceContext(
 		_obj_name(),
-		GetIntParam(GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH)
+		GetUIntParam(GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH)
 	);
 }
 
@@ -489,7 +549,7 @@ TransformFeedbackVaryings(void) const
 {
 	return TransformFeedbackVaryingRange(
 		TransformFeedbackVaryingContext(),
-		GetIntParam(GL_TRANSFORM_FEEDBACK_VARYINGS)
+		GetUIntParam(GL_TRANSFORM_FEEDBACK_VARYINGS)
 	);
 }
 
@@ -498,7 +558,7 @@ ObjectOps<tag::DirectState, tag::Program>::ShaderRange
 ObjectOps<tag::DirectState, tag::Program>::
 AttachedShaders(void) const
 {
-	GLint count = GetIntParam(GL_ATTACHED_SHADERS);
+	GLuint count = GetUIntParam(GL_ATTACHED_SHADERS);
 	return ShaderRange(
 		ShaderIterationContext(_obj_name(), count),
 		0, count
@@ -511,12 +571,12 @@ ObjectOps<tag::DirectState, tag::Program>::
 ActiveUniformBlocks(void) const
 {
 	// get the count of active uniform blocks
-	GLint count = GetIntParam(GL_ACTIVE_UNIFORM_BLOCKS);
-	GLint length = 0;
-	if(count != 0)
+	GLuint count = GetUIntParam(GL_ACTIVE_UNIFORM_BLOCKS);
+	GLuint length = 0;
+	if(count > 0)
 	{
 		// get the string length of the first identifier
-		length = GetIntParam(GL_UNIFORM_BLOCK_NAME_LENGTH);
+		length = GetUIntParam(GL_UNIFORM_BLOCK_NAME_LENGTH);
 	}
 	return ActiveUniformBlockRange(
 		aux::ProgramInterfaceContext(_obj_name(), length),

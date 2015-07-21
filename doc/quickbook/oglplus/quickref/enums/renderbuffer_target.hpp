@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_renderbuffer_target
-namespace oglplus {
 
 enum class RenderbufferTarget : GLenum
 {
@@ -22,5 +21,4 @@ __Range<RenderbufferTarget> __EnumValueRange<RenderbufferTarget>(void);
 
 __StrCRef __EnumValueName(RenderbufferTarget);
 
-} // namespace oglplus
 //]

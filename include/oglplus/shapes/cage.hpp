@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -61,9 +61,9 @@ private:
 	template <typename Iter>
 	static Iter _write(Iter iter, const Vector<GLdouble, 3>& vec)
 	{
-		*iter++ = vec.x();
-		*iter++ = vec.y();
-		*iter++ = vec.z();
+		*iter++ = GLfloat(vec.x());
+		*iter++ = GLfloat(vec.y());
+		*iter++ = GLfloat(vec.z());
 		return iter;
 	}
 
@@ -209,7 +209,7 @@ public:
 			T(0),
 			T(0),
 			T(0),
-			Length(_size)
+			T(Length(_size))
 		);
 	}
 

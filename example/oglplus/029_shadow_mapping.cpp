@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{029_shadow_mapping}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -148,7 +148,7 @@ public:
 	 , light_proj_matrices(light_paths.size())
 	 , light_colors(
 		List
-			(Vec3f(1.0f, 0.1f, 0.01))
+			(Vec3f(1.0f, 0.1f, 0.01f))
 			(Vec3f(0.1f, 1.0f, 0.1f))
 			(Vec3f(0.1f, 0.1f, 1.0f))
 		.AsVector()
@@ -374,10 +374,10 @@ public:
 
 
 		std::vector<GLint> tex_units(light_paths.size());
-		for(GLint i=0, n=light_paths.size(); i!=n; ++i)
+		for(std::size_t i=0, n=light_paths.size(); i!=n; ++i)
 		{
-			Texture::Active(i);
-			tex_units[i] = i;
+			Texture::Active(GLint(i));
+			tex_units[i] = GLint(i);
 
 			gl.Bound(Texture::Target::_2D, smap[i])
 				.MinFilter(TextureMinFilter::Linear)
@@ -436,7 +436,7 @@ public:
 
 		ProgramUniform<Mat4f> camera_matrix(vert_prog, "CameraMatrix");
 		ProgramUniform<GLint> use_offset(vert_prog, "UseOffset");
-		for(GLint i=0, n=light_positions.size(); i!=n; ++i)
+		for(std::size_t i=0, n=light_positions.size(); i!=n; ++i)
 		{
 			light_positions[i] =
 				light_paths[i].Position((i+1)*time/12.0);
@@ -462,7 +462,7 @@ public:
 			gl.FrontFace(make_cube.FaceWinding());
 			use_offset.Set(1);
 			cube.Bind();
-			cube_instr.Draw(cube_indices, cube_offsets.size());
+			cube_instr.Draw(cube_indices, GLuint(cube_offsets.size()));
 
 			gl.FrontFace(FaceOrientation::CW);
 			use_offset.Set(0);
@@ -488,19 +488,19 @@ public:
 		ProgramUniform<GLint>(
 			vert_prog,
 			"LightCount"
-		).Set(light_positions.size());
+		).Set(GLint(light_positions.size()));
 
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(70),
-				double(width)/height,
+				float(width)/height,
 				1, 80
 			)
 		);
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				25.0 + SineWave(time / 20.0) * 10.0,
+				GLfloat(25.0 + SineWave(time / 20.0) * 10.0),
 				FullCircles(time / 8.0),
 				Degrees(50 + SineWave(time / 15.0) * 30)
 			)
@@ -517,7 +517,7 @@ public:
 		gl.FrontFace(make_cube.FaceWinding());
 		use_offset.Set(1);
 		cube.Bind();
-		cube_instr.Draw(cube_indices, cube_offsets.size());
+		cube_instr.Draw(cube_indices, GLuint(cube_offsets.size()));
 
 		draw_pp.Bind();
 
@@ -525,7 +525,7 @@ public:
 		gl.FrontFace(make_cube.FaceWinding());
 		use_offset.Set(1);
 		cube.Bind();
-		cube_instr.Draw(cube_indices, cube_offsets.size());
+		cube_instr.Draw(cube_indices, GLuint(cube_offsets.size()));
 
 		gl.FrontFace(FaceOrientation::CW);
 		use_offset.Set(0);

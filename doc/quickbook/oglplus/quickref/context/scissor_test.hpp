@@ -1,11 +1,10 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 //[oglplus_context_ScissorTest
-namespace oglplus {
 namespace context {
 
 struct ScissorRectangle
@@ -35,8 +34,8 @@ public:
 	static void Scissor(
 		GLint left,
 		GLint bottom,
-		GLsizei width,
-		GLsizei height
+		__SizeType width,
+		__SizeType height
 	); /*<
 	Defines the scissor rectangle for the first viewport.
 	See [glfunc Scissor].
@@ -47,15 +46,15 @@ public:
 		GLuint viewport,
 		GLint left,
 		GLint bottom,
-		GLsizei width,
-		GLsizei height
+		__SizeType width,
+		__SizeType height
 	); /*<
 	Defines the scissor rectangle for the specified [^viewport].
 	See [glfunc ScissorIndexed].
 	>*/
 	static void Scissor(GLuint viewport, GLint* v);
 
-	static void ScissorArray(GLuint first, GLsizei count, GLint* v); /*<
+	static void ScissorArray(GLuint first, __SizeType count, GLint* v); /*<
 	Defines scissor rectangles for viewports specified
 	by [^first] and [^count].
 	See [glfunc ScissorArray].
@@ -69,6 +68,5 @@ public:
 };
 
 } // namespace context
-} // namespace oglplus
 //]
 

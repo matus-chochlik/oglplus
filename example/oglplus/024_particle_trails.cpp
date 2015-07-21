@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{024_particle_trails}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -56,7 +56,7 @@ private:
 		float& age
 	)
 	{
-		float new_age = time - spawn_time - spawn_interval;
+		float new_age = float(time - spawn_time - spawn_interval);
 		if(new_age >= 0.0f)
 		{
 			spawn_time += spawn_interval;
@@ -94,7 +94,7 @@ public:
 		if(drag > 1.0) drag = 1.0;
 
 		// go through the existing particles
-		for(GLuint i=0, n=positions.size(); i!=n; ++i)
+		for(std::size_t i=0, n=positions.size(); i!=n; ++i)
 		{
 			// update the age
 			ages[i] += time_diff / lifetime;
@@ -112,8 +112,8 @@ public:
 			else
 			{
 				// otherwise just update its motion
-				directions[i] *= (1.0 - drag);
-				positions[i] += directions[i] * time_diff;
+				directions[i] *= float(1.0 - drag);
+				positions[i] += directions[i] * float(time_diff);
 			}
 		}
 		Vec3f position;
@@ -150,7 +150,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 CameraMatrix;"
 			"in vec4 Position;"
 			"in float Age;"
@@ -165,7 +165,7 @@ private:
 
 		GeometryShader gs;
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(points) in;"
 			"layout(triangle_strip, max_vertices = 4) out;"
 			"uniform mat4 ProjectionMatrix;"
@@ -198,7 +198,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in float geomAge;"
 			"out vec4 fragColor;"
 			"void main(void)"
@@ -307,7 +307,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
-				double(width)/height,
+				float(width)/height,
 				1, 100
 			)
 		);
@@ -329,7 +329,7 @@ public:
 		// make a camera matrix
 		auto cameraMatrix = CamMatrixf::Orbiting(
 			Vec3f(),
-			38.0 - SineWave(clock.Now().Seconds() / 6.0) * 17.0,
+			GLfloat(38.0 - SineWave(clock.Now().Seconds() / 6.0) * 17.0),
 			FullCircles(clock.Now().Seconds() * 0.1),
 			Degrees(SineWave(clock.Now().Seconds() / 20.0) * 60)
 		);
@@ -337,10 +337,10 @@ public:
 		std::vector<float> depths(positions.size());
 		std::vector<GLuint> indices(positions.size());
 		// calculate the depths of the particles
-		for(GLuint i=0, n=positions.size(); i!=n; ++i)
+		for(std::size_t i=0, n=positions.size(); i!=n; ++i)
 		{
 			depths[i] = (cameraMatrix * Vec4f(positions[i], 1.0)).z();
-			indices[i] = i;
+			indices[i] = GLuint(i);
 		}
 
 		// sort the indices by the depths

@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_precision_type
-namespace oglplus {
 
 enum class PrecisionType : GLenum
 {
@@ -27,5 +26,4 @@ __Range<PrecisionType> __EnumValueRange<PrecisionType>(void);
 
 __StrCRef __EnumValueName(PrecisionType);
 
-} // namespace oglplus
 //]

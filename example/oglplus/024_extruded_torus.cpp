@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{024_extruded_torus}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -36,7 +36,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ModelMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
@@ -57,7 +57,7 @@ private:
 
 		GeometryShader gs;
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 15) out;"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
@@ -158,7 +158,7 @@ private:
 	{
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec3 geomNormal;"
 			"in vec3 geomLight;"
 			"in float geomGlow;"
@@ -205,7 +205,7 @@ private:
 	{
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
@@ -307,7 +307,7 @@ public:
 		gl.Viewport(width, height);
 		projection_matrix = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			float(width)/height,
 			1, 30
 		);
 	}
@@ -329,7 +329,7 @@ public:
 
 		camera_matrix.Set(camera);
 		model_matrix.Set(model);
-		transf_time.Set(time);
+		transf_time.Set(GLfloat(time));
 
 		face_pp.Bind();
 		gl.PolygonMode(PolygonMode::Fill);

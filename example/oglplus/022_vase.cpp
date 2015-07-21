@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{022_vase}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -35,7 +35,7 @@ public:
 	VaseVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Vase vertex"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 140\n"
 		"uniform vec3 LightPosition;"
 		"uniform vec3 CameraPosition;"
 		"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -70,7 +70,7 @@ public:
 	VaseFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Vase fragment"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 140\n"
 		"uniform sampler2D VaseTex;"
 		"in vec3 vertNormal;"
 		"in vec3 vertLightDir;"
@@ -153,109 +153,109 @@ public:
 			36,
 			BezierCurves<Vec3f, GLfloat, 3>(
 				ListOf<Vec3f>
-					(Vec3f( 0.00, 0.00, 0.00))
+					(Vec3f( 0.00f, 0.00f, 0.00f))
 
-					(Vec3f( 0.20, 0.00, 0.00))
-					(Vec3f( 0.40, 0.00, 0.00))
-					(Vec3f( 0.80, 0.00, 0.00))
+					(Vec3f( 0.20f, 0.00f, 0.00f))
+					(Vec3f( 0.40f, 0.00f, 0.00f))
+					(Vec3f( 0.80f, 0.00f, 0.00f))
 
-					(Vec3f( 1.45, 0.00, 0.00))
-					(Vec3f( 1.45, 0.40, 0.00))
-					(Vec3f( 1.40, 0.80, 0.00))
+					(Vec3f( 1.45f, 0.00f, 0.00f))
+					(Vec3f( 1.45f, 0.40f, 0.00f))
+					(Vec3f( 1.40f, 0.80f, 0.00f))
 
-					(Vec3f( 1.35, 1.20, 0.00))
-					(Vec3f( 1.20, 1.30, 0.00))
-					(Vec3f( 1.00, 1.50, 0.00))
+					(Vec3f( 1.35f, 1.20f, 0.00f))
+					(Vec3f( 1.20f, 1.30f, 0.00f))
+					(Vec3f( 1.00f, 1.50f, 0.00f))
 
-					(Vec3f( 0.80, 1.70, 0.00))
-					(Vec3f( 0.80, 2.20, 0.00))
-					(Vec3f( 0.90, 2.50, 0.00))
+					(Vec3f( 0.80f, 1.70f, 0.00f))
+					(Vec3f( 0.80f, 2.20f, 0.00f))
+					(Vec3f( 0.90f, 2.50f, 0.00f))
 
-					(Vec3f( 1.00, 2.80, 0.00))
-					(Vec3f( 0.98, 2.88, 0.00))
-					(Vec3f( 1.05, 2.90, 0.00))
+					(Vec3f( 1.00f, 2.80f, 0.00f))
+					(Vec3f( 0.98f, 2.88f, 0.00f))
+					(Vec3f( 1.05f, 2.90f, 0.00f))
 
-					(Vec3f( 1.12, 2.92, 0.00))
-					(Vec3f( 1.09, 2.96, 0.00))
-					(Vec3f( 1.05, 2.99, 0.00))
+					(Vec3f( 1.12f, 2.92f, 0.00f))
+					(Vec3f( 1.09f, 2.96f, 0.00f))
+					(Vec3f( 1.05f, 2.99f, 0.00f))
 
-					(Vec3f( 1.01, 3.02, 0.00))
-					(Vec3f( 0.96, 2.99, 0.00))
-					(Vec3f( 0.93, 2.90, 0.00))
+					(Vec3f( 1.01f, 3.02f, 0.00f))
+					(Vec3f( 0.96f, 2.99f, 0.00f))
+					(Vec3f( 0.93f, 2.90f, 0.00f))
 
-					(Vec3f( 0.90, 2.81, 0.00))
-					(Vec3f( 0.88, 2.70, 0.00))
-					(Vec3f( 0.82, 2.50, 0.00))
+					(Vec3f( 0.90f, 2.81f, 0.00f))
+					(Vec3f( 0.88f, 2.70f, 0.00f))
+					(Vec3f( 0.82f, 2.50f, 0.00f))
 
-					(Vec3f( 0.74, 2.30, 0.00))
-					(Vec3f( 0.70, 1.70, 0.00))
-					(Vec3f( 0.88, 1.50, 0.00))
+					(Vec3f( 0.74f, 2.30f, 0.00f))
+					(Vec3f( 0.70f, 1.70f, 0.00f))
+					(Vec3f( 0.88f, 1.50f, 0.00f))
 
-					(Vec3f( 1.06, 1.30, 0.00))
-					(Vec3f( 1.25, 1.20, 0.00))
-					(Vec3f( 1.30, 0.80, 0.00))
+					(Vec3f( 1.06f, 1.30f, 0.00f))
+					(Vec3f( 1.25f, 1.20f, 0.00f))
+					(Vec3f( 1.30f, 0.80f, 0.00f))
 
-					(Vec3f( 1.35, 0.40, 0.00))
-					(Vec3f( 1.35, 0.10, 0.00))
-					(Vec3f( 0.80, 0.10, 0.00))
+					(Vec3f( 1.35f, 0.40f, 0.00f))
+					(Vec3f( 1.35f, 0.10f, 0.00f))
+					(Vec3f( 0.80f, 0.10f, 0.00f))
 
-					(Vec3f( 0.40, 0.10, 0.00))
-					(Vec3f( 0.25, 0.10, 0.00))
-					(Vec3f( 0.00, 0.10, 0.00))
+					(Vec3f( 0.40f, 0.10f, 0.00f))
+					(Vec3f( 0.25f, 0.10f, 0.00f))
+					(Vec3f( 0.00f, 0.10f, 0.00f))
 				.Get()
 			).Approximate(8),
 			std::vector<Vec3f>(),
 			BezierCurves<Vec3f, GLfloat, 3>(
 				ListOf<Vec3f>
-					(Vec3f( 5.00,-2.00, 1.00))
+					(Vec3f( 5.00f,-2.00f, 1.00f))
 
-					(Vec3f( 5.00,-1.67, 1.00))
-					(Vec3f( 5.00,-1.33, 1.00))
-					(Vec3f( 5.00,-1.00, 1.00))
+					(Vec3f( 5.00f,-1.67f, 1.00f))
+					(Vec3f( 5.00f,-1.33f, 1.00f))
+					(Vec3f( 5.00f,-1.00f, 1.00f))
 
-					(Vec3f( 5.00,-0.67, 1.00))
-					(Vec3f( 5.00,-0.33, 1.00))
-					(Vec3f( 5.00, 0.00, 1.00))
+					(Vec3f( 5.00f,-0.67f, 1.00f))
+					(Vec3f( 5.00f,-0.33f, 1.00f))
+					(Vec3f( 5.00f, 0.00f, 1.00f))
 
-					(Vec3f( 5.00, 0.20, 1.00))
-					(Vec3f( 5.00, 0.40, 1.00))
-					(Vec3f( 5.00, 0.60, 1.00))
+					(Vec3f( 5.00f, 0.20f, 1.00f))
+					(Vec3f( 5.00f, 0.40f, 1.00f))
+					(Vec3f( 5.00f, 0.60f, 1.00f))
 
-					(Vec3f( 5.00, 0.80, 1.00))
-					(Vec3f( 5.00, 1.00, 1.00))
-					(Vec3f( 5.00, 1.15, 1.00))
+					(Vec3f( 5.00f, 0.80f, 1.00f))
+					(Vec3f( 5.00f, 1.00f, 1.00f))
+					(Vec3f( 5.00f, 1.15f, 1.00f))
 
-					(Vec3f( 5.00, 1.30, 1.00))
-					(Vec3f( 5.00, 1.45, 0.40))
-					(Vec3f( 5.00, 1.60, 0.60))
+					(Vec3f( 5.00f, 1.30f, 1.00f))
+					(Vec3f( 5.00f, 1.45f, 0.40f))
+					(Vec3f( 5.00f, 1.60f, 0.60f))
 
-					(Vec3f( 5.00, 1.75, 1.00))
-					(Vec3f( 5.00, 1.90, 1.00))
-					(Vec3f( 5.00, 2.10, 1.00))
+					(Vec3f( 5.00f, 1.75f, 1.00f))
+					(Vec3f( 5.00f, 1.90f, 1.00f))
+					(Vec3f( 5.00f, 2.10f, 1.00f))
 
-					(Vec3f( 5.00, 2.20, 1.00))
-					(Vec3f( 5.00, 2.35, 1.00))
-					(Vec3f( 5.00, 2.50, 1.00))
+					(Vec3f( 5.00f, 2.20f, 1.00f))
+					(Vec3f( 5.00f, 2.35f, 1.00f))
+					(Vec3f( 5.00f, 2.50f, 1.00f))
 
-					(Vec3f( 5.00, 2.65, 1.00))
-					(Vec3f( 5.00, 2.80, 1.00))
-					(Vec3f( 5.00, 2.95, 1.00))
+					(Vec3f( 5.00f, 2.65f, 1.00f))
+					(Vec3f( 5.00f, 2.80f, 1.00f))
+					(Vec3f( 5.00f, 2.95f, 1.00f))
 
-					(Vec3f( 5.00, 3.10, 0.90))
-					(Vec3f( 5.00, 3.25, 0.50))
-					(Vec3f( 5.00, 3.40, 0.10))
+					(Vec3f( 5.00f, 3.10f, 0.90f))
+					(Vec3f( 5.00f, 3.25f, 0.50f))
+					(Vec3f( 5.00f, 3.40f, 0.10f))
 
-					(Vec3f( 5.00, 3.55, 0.00))
-					(Vec3f( 5.00, 3.70, 0.00))
-					(Vec3f( 5.00, 3.95, 0.00))
+					(Vec3f( 5.00f, 3.55f, 0.00f))
+					(Vec3f( 5.00f, 3.70f, 0.00f))
+					(Vec3f( 5.00f, 3.95f, 0.00f))
 
-					(Vec3f( 5.00, 4.10, 0.00))
-					(Vec3f( 5.00, 4.30, 0.00))
-					(Vec3f( 5.00, 4.50, 0.10))
+					(Vec3f( 5.00f, 4.10f, 0.00f))
+					(Vec3f( 5.00f, 4.30f, 0.00f))
+					(Vec3f( 5.00f, 4.50f, 0.10f))
 
-					(Vec3f( 5.00, 4.70, 0.15))
-					(Vec3f( 5.00, 4.90, 0.20))
-					(Vec3f( 5.00, 5.00, 0.30))
+					(Vec3f( 5.00f, 4.70f, 0.15f))
+					(Vec3f( 5.00f, 4.90f, 0.20f))
+					(Vec3f( 5.00f, 5.00f, 0.30f))
 				.Get()
 			).Approximate(8)
 		),
@@ -302,7 +302,7 @@ public:
 		gl.Viewport(width, height);
 		vase_prog.projection_matrix = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			width, height,
 			1, 30
 		);
 	}
@@ -313,7 +313,7 @@ public:
 		//
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0.0, 1.5, 0.0),
-			7.0 + SineWave(time / 11.0)*2.5,
+			GLfloat(7.0 + SineWave(time / 11.0)*2.5),
 			FullCircles(time / 19.0),
 			Degrees(SineWave(time / 20.0) * 30 + 35)
 		);

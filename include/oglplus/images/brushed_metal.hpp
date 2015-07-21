@@ -45,8 +45,8 @@ private:
 		GLsizei h,
 		GLint x,
 		GLint y,
-		GLdouble dx,
-		GLdouble dy
+		GLint dx,
+		GLint dy
 	);
 public:
 	BrushedMetalUByte(

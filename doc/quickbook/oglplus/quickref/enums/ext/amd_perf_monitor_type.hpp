@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_ext_amd_perf_monitor_type
-namespace oglplus {
 
 enum class PerfMonitorAMDType : GLenum
 {
@@ -25,5 +24,4 @@ __Range<PerfMonitorAMDType> __EnumValueRange<PerfMonitorAMDType>(void);
 
 __StrCRef __EnumValueName(PerfMonitorAMDType);
 
-} // namespace oglplus
 //]

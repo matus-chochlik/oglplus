@@ -1,15 +1,16 @@
-/*
- *  .file oglplus/lib/enum_value_name.ipp
- *
- *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/oglplus/.*.txt' instead.
- *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
- *  Software License, Version 1.0. (See accompanying file
- *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
- */
-
+//  File implement/oglplus/lib/enum_value_name.ipp
+//
+//  Automatically generated file, DO NOT modify manually.
+//  Edit the enumeration source files in 'source/enums/oglplus'
+//  or the 'source/enums/make_enum.py' script instead.
+//
+//  Copyright 2010-2015 Matus Chochlik.
+//  Distributed under the Boost Software License, Version 1.0.
+//  See accompanying file LICENSE_1_0.txt or copy at
+//  http://www.boost.org/LICENSE_1_0.txt
+//
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
+
 OGLPLUS_ENUM_CLASS_FWD(AccessSpecifier, GLenum)
 #include <oglplus/enums/access_specifier_names.ipp>
 
@@ -64,10 +65,10 @@ OGLPLUS_ENUM_CLASS_FWD(CompareFunction, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(ConditionalRenderMode, GLenum)
 #include <oglplus/enums/conditional_render_mode_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(ContextFlagBit, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(ContextFlagBit, GLbitfield)
 #include <oglplus/enums/context_flag_bit_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(ContextProfileBit, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(ContextProfileBit, GLbitfield)
 #include <oglplus/enums/context_profile_bit_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(ContextReleaseBehavior, GLenum)
@@ -295,7 +296,7 @@ OGLPLUS_ENUM_CLASS_FWD(PathNVColorFormat, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(PathNVColor, GLenum)
 #include <oglplus/enums/ext/nv_path_color_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(PathNVCommand, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(PathNVCommand, GLubyte)
 #include <oglplus/enums/ext/nv_path_command_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(PathNVDashOffsetReset, GLenum)
@@ -344,3 +345,4 @@ OGLPLUS_ENUM_CLASS_FWD(ResetNotificationStrategyARB, GLenum)
 #include <oglplus/enums/ext/reset_notif_strategy_names.ipp>
 
 #endif
+

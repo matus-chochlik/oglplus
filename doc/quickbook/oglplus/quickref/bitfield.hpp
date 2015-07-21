@@ -5,7 +5,6 @@
  */
 
 //[oglplus_bitfield
-namespace oglplus {
 
 template <typename Bits>
 class Bitfield
@@ -46,6 +45,5 @@ public:
 template <typename Bits>
 __Bitfield<Bits> operator | (Bits b1, Bits b2);
 
-} // namespace oglplus
 //]
 

@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{029_gpu_sort_tfb}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -454,7 +454,11 @@ public:
 		gl.Enable(Capability::Blend);
 		gl.Bind(vao);
 		gl.Use(prog);
-		gl.DrawElements(PrimitiveType::Points, particles.Count(), (GLuint*)0);
+		gl.DrawElements(
+			PrimitiveType::Points,
+			particles.Count(),
+			DataType::UnsignedInt
+		);
 		gl.Disable(Capability::Blend);
 	}
 };
@@ -489,7 +493,7 @@ public:
 
 		auto projection = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			float(width)/height,
 			1, 60
 		);
 		mesh_proc.prog.projection_matrix = projection;
@@ -501,7 +505,7 @@ public:
 	{
 		return CamMatrixf::Orbiting(
 			Vec3f(0, 0, 0),
-			5.0 - SineWave(time / 11.0),
+			GLfloat(5.0 - SineWave(time / 11.0)),
 			FullCircles(time / 23.0),
 			Degrees(SineWave(time / 17.0) * 80)
 		);

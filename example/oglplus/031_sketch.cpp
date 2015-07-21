@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{031_sketch}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -465,7 +465,7 @@ public:
 		{
 			auto bound_tex = gl.Bound(Texture::Target::_3D, sketch_texture);
 
-			for(GLuint i=0; i!=sketch_tex_layers; ++i)
+			for(GLuint i=0; i<sketch_tex_layers; ++i)
 			{
 				auto image = images::BrushedMetalUByte(
 					512, 512,
@@ -593,15 +593,15 @@ public:
 
 		Mat4f perspective = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			float(width)/height,
 			1, 60
 		);
 
 		// setup the camera
-		Vec3f camera_target(0.0, 0.8, 0.0);
+		Vec3f camera_target(0.0f, 0.8f, 0.0f);
 		auto camera = CamMatrixf::Orbiting(
 			camera_target,
-			7.0 - SineWave(time / 14.0)*3.0,
+			GLfloat(7.0 - SineWave(time / 14.0)*3.0),
 			FullCircles(time / 26.0),
 			Degrees(45 + SineWave(time / 17.0) * 40)
 		);

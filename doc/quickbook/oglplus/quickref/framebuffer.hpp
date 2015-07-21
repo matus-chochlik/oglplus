@@ -5,7 +5,6 @@
  */
 
 //[oglplus_framebuffer_common
-namespace oglplus {
 
 template <>
 class __ObjCommonOps<__tag_Framebuffer>
@@ -171,7 +170,7 @@ public:
 	>*/
 	static void Invalidate(
 		__FramebufferTarget target,
-		GLsizei count,
+		__SizeType count,
 		const Property::Buffer* buffers
 	);
 
@@ -180,8 +179,8 @@ public:
 		const __EnumArray<Property::Buffer>& buffers,
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height
+		__SizeType width,
+		__SizeType height
 	); /*<
 	Invalidates parts (specified by [^x], [^y], [^width] and [^height])
 	of attachments or [^buffers] of the framebuffer currently bound to
@@ -190,12 +189,12 @@ public:
 	>*/
 	static void Invalidate(
 		__FramebufferTarget target,
-		GLsizei count,
+		__SizeType count,
 		const Property::Buffer* buffers,
 		GLint x,
 		GLint y,
-		GLsizei width,
-		GLsizei height
+		__SizeType width,
+		__SizeType height
 	);
 #endif
 };
@@ -271,6 +270,5 @@ __FramebufferTarget operator << (
 Equivalent to [^FramebufferOps::Complete(target)].
 >*/
 
-} // namespace oglplus
 //]
 

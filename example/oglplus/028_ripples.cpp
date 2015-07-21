@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{028_ripples}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -303,7 +303,7 @@ protected:
 
 public:
 	Grid(const Program& prog, float quality)
-	 : make_grid(1.0, 16 + quality*quality*64)
+	 : make_grid(1.0, unsigned(16 + quality*quality*64))
 	 , grid_instr(make_grid.Instructions())
 	 , grid_indices(make_grid.Indices())
 	{
@@ -360,7 +360,7 @@ public:
 	LiquidExample(const ExampleParams& params)
 	 : liquid_prog()
 	 , grid(liquid_prog, params.quality)
-	 , grid_repeat(1 + params.quality*2)
+	 , grid_repeat(int(1 + params.quality*2))
 	{
 		Texture::Active(0);
 		{
@@ -405,7 +405,7 @@ public:
 		gl.Viewport(width, height);
 		perspective = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			float(width)/height,
 			1, 100
 		);
 	}
@@ -414,12 +414,12 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		liquid_prog.time = time;
+		liquid_prog.time = GLfloat(time);
 
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0, 0, 0),
-			4.5 - SineWave(time / 14.0),
+			GLfloat(4.5 - SineWave(time / 14.0)),
 			FullCircles(time / 26.0),
 			Degrees(55 + SineWave(time / 14.0) * 30)
 		);
@@ -431,7 +431,7 @@ public:
 		for(int z=-grid_repeat; z!=grid_repeat; ++z)
 		for(int x=-grid_repeat; x!=grid_repeat; ++x)
 		{
-			liquid_prog.grid_offset.Set(x, -0.5, z);
+			liquid_prog.grid_offset.Set(x, -0.5f, z);
 			grid.Draw();
 		}
 

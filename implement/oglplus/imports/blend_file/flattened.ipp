@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -50,7 +50,7 @@ BlendFileFlattenedStruct::Fields(void) const
 {
 	const BlendFileSDNA::_flat_struct_info* flat_fields =
 		(_struct_index == _sdna->_invalid_struct_index())?
-		(const BlendFileSDNA::_flat_struct_info*)nullptr:
+		static_cast<const BlendFileSDNA::_flat_struct_info*>(nullptr):
 		(_sdna->_struct_flatten_fields(_struct_index).get());
 
 	return BlendFileFlattenedStructFieldRange(

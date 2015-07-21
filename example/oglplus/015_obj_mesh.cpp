@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{015_obj_mesh}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -65,12 +65,12 @@ public:
 
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 120\n"
 			"uniform mat4 StretchMatrix, ProjectionMatrix, CameraMatrix;"
-			"in vec4 Position;"
-			"in vec3 Normal;"
+			"attribute vec4 Position;"
+			"attribute vec3 Normal;"
 
-			"out vec3 vertNormal;"
+			"varying vec3 vertNormal;"
 			"void main(void)"
 			"{"
 			"	vertNormal = Normal;"
@@ -84,13 +84,12 @@ public:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
-			"in vec3 vertNormal;"
-			"out vec3 fragColor;"
+			"#version 120\n"
+			"varying vec3 vertNormal;"
 			"void main(void)"
 			"{"
 			"	vec3 c = normalize(vec3(1, 1, 1) - vertNormal);"
-			"	fragColor = c;"
+			"	gl_FragColor = vec4(c, 1);"
 			"}"
 		).Compile();
 
@@ -131,7 +130,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(70),
-				double(width)/height,
+				GLfloat(width)/height,
 				1, 20
 			)
 		);
@@ -141,7 +140,7 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		int x=0, y=0, nx=1, ny=1;
+		unsigned x=0, y=0, nx=1, ny=1;
 		switch(int(time / 3.0) % 5)
 		{
 			case 1: x=1; y=1; nx=4; ny=4; break;
@@ -155,7 +154,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				mesh_bs.Center(),
-				mesh_bs.Radius()*1.4+1.0,
+				mesh_bs.Radius()*1.4f+1.0f,
 				FullCircles(-time / 13.0),
 				Degrees(SineWave(time / 17.0) * 80)
 			)

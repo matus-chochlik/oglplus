@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{020_cube_mapping}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -65,7 +65,7 @@ public:
 	{
 		// Set the vertex shader source
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
@@ -101,7 +101,7 @@ public:
 
 		// set the fragment shader source
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform samplerCube TexUnit;"
 			"in vec3 vertNormal;"
 			"in vec3 vertLightDir;"
@@ -209,7 +209,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
-				double(width)/height,
+				float(width)/height,
 				1, 100
 			)
 		);
@@ -223,7 +223,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				4.5 - SineWave(time / 16.0) * 2.0,
+				GLfloat(4.5 - SineWave(time / 16.0) * 2.0),
 				FullCircles(time / 12.0),
 				Degrees(SineWave(time / 30.0) * 90)
 			)

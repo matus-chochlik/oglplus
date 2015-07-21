@@ -66,6 +66,31 @@ public:
 
 	Error(const char* message);
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	Error(const Error&) = default;
+	Error(Error&&) = default;
+#else
+	Error(const Error& that)
+	 : _code(that._code)
+#if !EGLPLUS_ERROR_NO_FILE
+	 , _file(that._file)
+#endif
+#if !EGLPLUS_ERROR_NO_FUNC
+	 , _func(that._func)
+#endif
+#if !EGLPLUS_ERROR_NO_LINE
+	 , _line(that._line)
+#endif
+#if !EGLPLUS_ERROR_NO_EGL_FUNC
+	 , _eglfunc_name(that._eglfunc_name)
+#endif
+#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
+	 , _enumpar_name(that._enumpar_name)
+	 , _enumpar(that._enumpar)
+#endif
+	{ }
+#endif
+
 	~Error(void)
 	OGLPLUS_NOTHROW
 	{ }
@@ -206,6 +231,23 @@ inline void HandleError(ErrorType& error)
 {
 	throw error;
 }
+// Macro for generic error handling
+#define EGLPLUS_HANDLE_ERROR(\
+	ERROR_CODE,\
+	MESSAGE,\
+	ERROR,\
+	ERROR_INFO\
+)\
+{\
+	ERROR error(MESSAGE);\
+	(void)error\
+		.ERROR_INFO\
+		.SourceFile(__FILE__)\
+		.SourceFunc(__FUNCTION__)\
+		.SourceLine(__LINE__)\
+		.Code(error_code);\
+	HandleError(error);\
+}
 
 // Macro for generic error handling
 #define EGLPLUS_HANDLE_ERROR_IF(\
@@ -218,16 +260,12 @@ inline void HandleError(ErrorType& error)
 {\
 	EGLenum error_code = ERROR_CODE;\
 	if(CONDITION)\
-	{\
-		ERROR error(MESSAGE);\
-		(void)error\
-			.ERROR_INFO\
-			.SourceFile(__FILE__)\
-			.SourceFunc(__FUNCTION__)\
-			.SourceLine(__LINE__)\
-			.Code(error_code);\
-		HandleError(error);\
-	}\
+		EGLPLUS_HANDLE_ERROR(\
+			error_code,\
+			MESSAGE,\
+			ERROR,\
+			ERROR_INFO\
+		)\
 }
 
 #define EGLPLUS_GLFUNC_CHECK(FUNC_NAME, ERROR, ERROR_INFO)\

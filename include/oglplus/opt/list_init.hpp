@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_OPT_LIST_INIT_HPP
 #define OGLPLUS_OPT_LIST_INIT_HPP
 
+#include <oglplus/utils/type_tag.hpp>
 #include <type_traits>
 #include <utility>
 #include <array>
@@ -86,7 +87,7 @@ private:
 	friend class ListInitializer<T, I-1>;
 
 	template <typename X>
-	static decltype(X(), std::true_type()) _has_def_ctr(X*);
+	static decltype(X(), std::true_type()) _has_def_ctr(TypeTag<X>);
 
 	static std::false_type _has_def_ctr(...);
 
@@ -94,7 +95,7 @@ private:
 
 	static std::vector<T> _result_of_get(std::false_type);
 
-	typedef decltype(_result_of_get(_has_def_ctr((T*)0))) ResultOfGet;
+	typedef decltype(_result_of_get(_has_def_ctr(TypeTag<T>()))) ResultOfGet;
 
 	template <typename X>
 	void _do_get(std::array<X, I+1>& result) const
@@ -108,13 +109,13 @@ private:
 	}
 
 	template <typename StdContainer>
-	StdContainer _do_get_as(StdContainer*, std::true_type) const
+	StdContainer _do_get_as(TypeTag<StdContainer>, std::true_type) const
 	{
 		return StdContainer(Get());
 	}
 
 	template <typename StdContainer>
-	StdContainer _do_get_as(StdContainer*, std::false_type) const
+	StdContainer _do_get_as(TypeTag<StdContainer>, std::false_type) const
 	{
 		auto tmp = Get();
 		return StdContainer(tmp.begin(), tmp.end());
@@ -151,7 +152,7 @@ public:
 	StdContainer As(void) const
 	{
 		return this->_do_get_as(
-			(StdContainer*)nullptr,
+			TypeTag<StdContainer>(),
 			typename std::is_convertible<
 				ResultOfGet,
 				StdContainer

@@ -10,7 +10,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oalplus_enums_source_type
-namespace oalplus {
 
 enum class SourceType : ALenum
 {
@@ -24,5 +23,4 @@ __Range<SourceType> __EnumValueRange<SourceType>(void);
 
 __StrCRef __EnumValueName(SourceType);
 
-} // namespace oalplus
 //]

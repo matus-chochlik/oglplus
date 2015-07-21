@@ -5,7 +5,6 @@
  */
 
 //[eglplus_config_attribs
-namespace eglplus {
 
 typedef __AttributeList<__ConfigAttrib, ...> ConfigAttribs; /*<
 Attribute list type for config attributes.
@@ -172,6 +171,5 @@ public:
 	>*/
 };
 
-} // namespace eglplus
 //]
 

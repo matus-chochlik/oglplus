@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -232,7 +232,7 @@ public:
 	 */
 	DSAMatrixEXT& Scale(const Vector<GLdouble, 3>& amount)
 	{
-		OGLPLUS_GLFUNC(MatrixScalefEXT)(
+		OGLPLUS_GLFUNC(MatrixScaledEXT)(
 			GLenum(_mode),
 			At(amount, 0),
 			At(amount, 1),
@@ -282,7 +282,7 @@ public:
 	 */
 	DSAMatrixEXT& Translate(const Vector<GLdouble, 3>& amount)
 	{
-		OGLPLUS_GLFUNC(MatrixTranslatefEXT)(
+		OGLPLUS_GLFUNC(MatrixTranslatedEXT)(
 			GLenum(_mode),
 			At(amount, 0),
 			At(amount, 1),

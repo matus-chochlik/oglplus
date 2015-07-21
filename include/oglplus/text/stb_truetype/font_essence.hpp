@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -38,12 +38,12 @@ private:
 	const GLuint _tex_side;
 
 	void _do_make_page_bitmap_and_metric(
-		GLint page,
+		GLuint page,
 		unsigned char* bmp_data,
 		float* metric
 	) const;
 
-	oglplus::images::Image _make_page_bitmap(GLint page)
+	oglplus::images::Image _make_page_bitmap(GLuint page)
 	{
 		std::vector<unsigned char> bmp(_tex_side*_tex_side);
 		_do_make_page_bitmap_and_metric(page, bmp.data(), nullptr);
@@ -58,7 +58,7 @@ private:
 		);
 	}
 
-	std::vector<GLfloat> _make_page_metric(GLint page)
+	std::vector<GLfloat> _make_page_metric(GLuint page)
 	{
 		unsigned glyphs_per_page = BitmapGlyphGlyphsPerPage(_parent);
 		std::vector<GLfloat> metrics(glyphs_per_page*12);
@@ -84,11 +84,11 @@ private:
 	}
 
 	BitmapGlyphPager _pager;
-	const GLint _initial_frame;
+	const GLuint _initial_frame;
 	BitmapGlyphPageStorage _page_storage;
 
 	void _do_load_pages(
-		const GLint* elem,
+		const GLuint* elem,
 		GLsizei size
 	);
 public:
@@ -99,7 +99,7 @@ public:
 		TextureUnitSelector pg_map_tex_unit,
 		const std::string& font_name,
 		SizeType frames,
-		GLint default_page,
+		GLuint default_page,
 		GLuint pixel_height
 	);
 
@@ -124,7 +124,7 @@ public:
 		return _pager.PageMapTexUnit();
 	}
 
-	void LoadPages(const GLint* pages, SizeType size)
+	void LoadPages(const GLuint* pages, SizeType size)
 	{
 		assert(size < GLsizei(_pager.FrameCount()));
 		_do_load_pages(pages, size);

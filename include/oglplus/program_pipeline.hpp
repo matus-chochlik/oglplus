@@ -19,6 +19,7 @@
 #include <oglplus/program_pipeline_stage.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/error/program.hpp>
+#include <oglplus/error/outcome.hpp>
 #include <oglplus/detail/prog_pl_stages.hpp>
 
 #include <cassert>
@@ -89,7 +90,10 @@ protected:
 			Error,
 			EnumParam(GLenum(GL_PROGRAM_PIPELINE_BINDING))
 		);
-		return name;
+
+		assert(!(name < 0));
+
+		return GLuint(name);
 	}
 public:
 	/// Returns the currently bound ProgramPipeline
@@ -237,7 +241,7 @@ public:
 
 	GLint GetIntParam(GLenum query) const
 	{
-		GLint result;
+		GLint result = 0;
 		OGLPLUS_GLFUNC(GetProgramPipelineiv)(
 			_obj_name(),
 			query,
@@ -250,6 +254,13 @@ public:
 			EnumParam(query)
 		);
 		return result;
+	}
+
+	GLuint GetUIntParam(GLenum query) const
+	{
+		GLint res = GetIntParam(query);
+		assert(!(res < 0));
+		return GLuint(res);
 	}
 
 	/// Specifies program stages by calling functions of the returned object
@@ -359,7 +370,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ValidateProgramPipeline}
 	 */
-	void Validate(void) const;
+	ObjectOps& Validate(void);
+
+	Outcome<ObjectOps&> Validate(std::nothrow_t);
 
 	/// Make the @p program active for this program pipeline
 	/**
@@ -387,7 +400,7 @@ public:
 	 */
 	ProgramName ActiveShaderProgram(void) const
 	{
-		return ProgramName(GetIntParam(GL_ACTIVE_PROGRAM));
+		return ProgramName(GetUIntParam(GL_ACTIVE_PROGRAM));
 	}
 
 	/// Returns true if this pipeline contains a shader of a particular type
@@ -397,7 +410,7 @@ public:
 	 */
 	bool HasShader(ShaderType shader_type) const
 	{
-		return GetIntParam(GLenum(shader_type)) != 0;
+		return GetIntParam(GLenum(shader_type)) == GL_TRUE;
 	}
 
 	/// Returns the program from which the @p shader_type is used
@@ -407,7 +420,7 @@ public:
 	 */
 	ProgramName ShaderProgram(ShaderType shader_type) const
 	{
-		return ProgramName(GetIntParam(GLenum(shader_type)));
+		return ProgramName(GetUIntParam(GLenum(shader_type)));
 	}
 };
 

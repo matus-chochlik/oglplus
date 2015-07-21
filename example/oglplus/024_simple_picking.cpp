@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{024_simple_picking}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -66,7 +66,7 @@ public:
 	{
 		// Set the vertex shader source
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"in vec4 Position;"
 			"out vec3 vertColor;"
@@ -97,7 +97,7 @@ public:
 
 		// Set the geometry shader source
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(triangles) in;"
 			"layout(points, max_vertices = 1) out;"
 
@@ -168,7 +168,7 @@ public:
 
 		// set the fragment shader source
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"flat in int vertInstanceID;"
 			"in vec3 vertColor;"
 			"uniform int Picked;"
@@ -243,7 +243,7 @@ public:
 		gl.Viewport(width, height);
 		auto perspective = CamMatrixf::PerspectiveX(
 			Degrees(60),
-			double(width)/height,
+			float(width)/height,
 			1, 80
 		);
 		draw_prog.Use();

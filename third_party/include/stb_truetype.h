@@ -67,6 +67,11 @@
 ////
 ////   The following sections allow you to supply alternate definitions
 ////   of C library functions used by stb_truetype.
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wsign-conversion"
+#pragma clang diagnostic ignored "-Wold-style-cast"
+#endif
 
 #ifdef STB_TRUETYPE_IMPLEMENTATION
    // #define your own (u)stbtt_int8/16/32 before including to override this
@@ -1795,3 +1800,8 @@ int stbtt_FindMatchingFont(const unsigned char *font_collection, const char *nam
 }
 
 #endif // STB_TRUETYPE_IMPLEMENTATION
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+

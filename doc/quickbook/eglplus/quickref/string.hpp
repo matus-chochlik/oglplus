@@ -5,11 +5,9 @@
  */
 
 //[eglplus_string
-namespace eglplus {
 
 using __oglplus_String;
 using __oglplus_StrCRef;
 
-} // namespace eglplus
 //]
 

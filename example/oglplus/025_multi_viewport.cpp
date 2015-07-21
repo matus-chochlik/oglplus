@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{025_multi_viewport}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -46,7 +46,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ModelMatrix;"
 			"uniform vec3 LightPos;"
 
@@ -70,7 +70,7 @@ private:
 
 		GeometryShader gs;
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"#extension GL_ARB_viewport_array : enable\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 12) out;"
@@ -120,7 +120,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform samplerCube TexUnit;"
 			"in vec3 geomNormal;"
 			"in vec3 geomTexCoord;"
@@ -273,7 +273,7 @@ public:
 
 		projection = CamMatrixf::PerspectiveX(
 			Degrees(65),
-			double(width)/height,
+			float(width)/height,
 			1, 30
 		);
 
@@ -312,7 +312,7 @@ public:
 		//
 		CamMatrixf camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			4.5 - SineWave(time / 16.0) * 1.5,
+			4.5f - float(SineWave(time / 16.0)) * 1.5f,
 			FullCircles(time / 12.0),
 			Degrees(SineWave(time / 30.0) * 90)
 		);

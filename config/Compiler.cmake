@@ -9,6 +9,9 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 		-Wall
 		#-Weverything
 		#-Werror
+		#-Wno-float-equal
+		#-Wno-sign-conversion
+		#-Wno-old-style-cast
 		-Wno-c++98-compat
 		-Wno-c++98-compat-pedantic
 		-Wno-undef
@@ -19,6 +22,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 		-Wno-padded
 		-Wno-missing-prototypes
 		-Wno-documentation-unknown-command
+		-Wno-switch-enum
 	)
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 	add_definitions(

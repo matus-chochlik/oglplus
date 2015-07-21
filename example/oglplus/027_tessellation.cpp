@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{027_tessellation}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -300,7 +300,7 @@ public:
 		std::vector<GLfloat> ncp_data(pos_data.size());
 		std::vector<GLfloat> ptl_data(segments*4*2);
 
-		GLfloat kpa = (4.0f/segments)*(4.0f/3.0f)*(sqrt(2.0f)-1.0f)/sqrt(2.0f);
+		GLfloat kpa = GLfloat((4.0f/segments)*(4.0f/3.0f)*(sqrt(2.0f)-1.0f)/sqrt(2.0f));
 
 		GLuint k_pos=0, k_pcp=0, k_ncp=0, k_ptl=0;
 		for(GLuint s=0; s!=segments;++s)
@@ -339,8 +339,8 @@ public:
 			ncp_data[k_ncp++] = 0.0f;
 			ncp_data[k_ncp++] = (-r_max*Sin(a2)+r_max*Sin(a0))*kpa;
 
-			ptl_data[k_ptl++] = 20.0*r_max/r_min;
-			ptl_data[k_ptl++] = 10.0*r_max/r_min;
+			ptl_data[k_ptl++] = 20.0f*r_max/r_min;
+			ptl_data[k_ptl++] = 10.0f*r_max/r_min;
 
 			// 2
 			pos_data[k_pos++] = +r_max*Cos(a2);
@@ -413,7 +413,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(70),
-				double(width)/height,
+				float(width)/height,
 				1, 200
 			)
 		);
@@ -424,20 +424,20 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		GLfloat a = std::pow(SineWave(float(time) / 51.7f), 3.0f);
-		GLfloat b = SineWave(time / 31.1);
+		GLfloat a = GLfloat(std::pow(SineWave(time / 51.7f), 3.0f));
+		GLfloat b = GLfloat(SineWave(time / 31.1));
 
 		camera_matrix.Set(
 			CamMatrixf::LookingAt(
 				Vec3f(
-					0.55f*a*instances*step,
-					step*0.5+std::pow(b, 4)*80.0f,
-					SineWave(time / 7.1)*step*(1.0-std::pow(b, 2)*0.9)
+					GLfloat(0.55f*a*instances*step),
+					GLfloat(step*0.5f+std::pow(b, 4)*80.0f),
+					GLfloat(SineWave(time / 7.1)*step*(1.0-std::pow(b, 2)*0.9))
 				),
 				Vec3f(
-					0.45f*a*instances*step,
-					-step+std::pow(b, 2)*30.0f,
-					0.0f
+					GLfloat(0.45f*a*instances*step),
+					GLfloat(-step+std::pow(b, 2)*30.0f),
+					GLfloat(0.0f)
 				)
 			)
 		);

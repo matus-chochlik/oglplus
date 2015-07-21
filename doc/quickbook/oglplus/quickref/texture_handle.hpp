@@ -5,7 +5,6 @@
  */
 
 //[oglplus_texture_handle
-namespace oglplus {
 
 #if GL_ARB_bindless_texture
 
@@ -80,6 +79,5 @@ Returns the GL handle value from an __ImageHandle.
 
 #endif
 
-} // namespace oglplus
 //]
 

@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{016_metallic_torus}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -61,7 +61,7 @@ public:
 	{
 		// Set the vertex shader source and compile it
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
@@ -79,7 +79,7 @@ public:
 
 		// set the fragment shader source and compile it
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform int ColorCount;"
 			"uniform vec4 Color[8];"
 			"in vec3 vertNormal;"
@@ -176,7 +176,7 @@ public:
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(80),
-				double(width)/height,
+				float(width)/height,
 				1, 20
 			)
 		);

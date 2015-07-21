@@ -41,7 +41,7 @@ public:
 	TriangleExample(void)
 	 : buffs(2)
 	{
-		// Set the vertex shader source
+		// Set and compile the vertex shader source
 		vs.Source(" \
 			#version 330\n \
 			in vec3 Position; \
@@ -53,11 +53,20 @@ public:
 				gl_Position = Matrix * vec4(Position, 1.0); \
 				vertColor = vec4(Color, 1.0); \
 			} \
-		");
-		// compile it
-		vs.Compile();
+		").Compile(std::nothrow).DoneWithoutError() || vs.Source(" \
+			#version 120\n \
+			attribute vec3 Position; \
+			attribute vec3 Color; \
+			uniform mat4 Matrix; \
+			varying vec4 vertColor; \
+			void main(void) \
+			{ \
+				gl_Position = Matrix * vec4(Position, 1.0); \
+				vertColor = vec4(Color, 1.0); \
+			} \
+		").Compile(std::nothrow).Done();
 
-		// set the fragment shader source
+		// set and compile the fragment shader source
 		fs.Source(" \
 			#version 330\n \
 			in vec4 vertColor; \
@@ -66,9 +75,14 @@ public:
 			{ \
 				fragColor = vertColor; \
 			} \
-		");
-		// compile it
-		fs.Compile();
+		").Compile(std::nothrow).DoneWithoutError() || fs.Source(" \
+			#version 120\n \
+			varying vec4 vertColor; \
+			void main(void) \
+			{ \
+				gl_FragColor = vertColor; \
+			} \
+		").Compile(std::nothrow).Done();
 
 		// attach the shaders to the program
 		prog.AttachShader(vs);

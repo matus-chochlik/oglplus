@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -56,7 +56,7 @@ public:
 		bool active_only
 	)
 	{
-		GLint result = OGLPLUS_GLFUNC(GetSubroutineIndex)(
+		GLuint result = OGLPLUS_GLFUNC(GetSubroutineIndex)(
 			GetGLName(program),
 			GLenum(stage),
 			identifier.c_str()
@@ -69,7 +69,7 @@ public:
 			EnumParam(stage)
 		);
 		OGLPLUS_HANDLE_ERROR_IF(
-			active_only && (result < 0),
+			active_only && (result == GL_INVALID_INDEX),
 			GL_INVALID_OPERATION,
 			MsgGettingInactive(),
 			ProgVarError,
@@ -77,7 +77,12 @@ public:
 			Identifier(identifier).
 			EnumParam(stage)
 		);
-		return result;
+
+		if(result == GL_INVALID_INDEX)
+		{
+			return -1;
+		}
+		return GLint(result);
 	}
 
 	/// Finds the subroutine location, throws on failure if active_only
@@ -266,12 +271,12 @@ private:
 	ShaderType _stage;
 	std::vector<GLuint> _indices;
 
-	static GLsizei _get_location_count(
+	static std::size_t _get_location_count(
 		ProgramName program,
 		ShaderType stage
 	)
 	{
-		GLint result;
+		GLint result = 0;
 		OGLPLUS_GLFUNC(GetProgramStageiv)(
 			GetGLName(program),
 			GLenum(stage),
@@ -284,7 +289,9 @@ private:
 			Object(program).
 			EnumParam(stage)
 		);
-		return result;
+
+		assert(!(result < 0));
+		return std::size_t(result);
 	}
 
 	std::vector<GLuint>& _get_indices(void)
@@ -326,10 +333,14 @@ public:
 		assert(subroutine.Program() == _program);
 		assert(uniform.Stage() == ShaderType(_stage));
 		assert(subroutine.Stage() == ShaderType(_stage));
+		assert(subroutine.Location() >= 0);
 		assert(uniform.IsActive());
 		assert(uniform.Location() <= GLint(_get_indices().size()));
+		assert(uniform.Location() >= 0);
 
-		_get_indices()[uniform.Location()] = subroutine.Location();
+		_get_indices()[std::size_t(uniform.Location())] =
+			GLuint(subroutine.Location());
+
 		return *this;
 	}
 
