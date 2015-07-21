@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.63.0
+Release notes for version 0.64.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,18 +7,17 @@ Release notes for version 0.63.0
 Overview
 ========
 
-This release of `OGLplus`_ brings brings fixes to several bugs and compiler warnings, changes to internal implementation details and wrappers for shader storage buffer objects.
+This release of `OGLplus`_ brings new overloads of the GPU program build functions, which allow deferred handling of errors, updates in the examples and documentation.
 
 Changes
 -------
 
-- The ``ShaderStorageBlock`` class and related functionality was added.
+- The ``DeferredHandler`` and the ``Outcome<T>`` classes, which allow to defer and/or cancel calling of error handlers were added.
 
-- Bugs in the ``Cloud`` and ``BrushedMetal`` image generators were fixed.
+- New overloads of ``Shader::Compile``, ``Shader::CompileInclude``, ``Program::Link`` and ``Program::Validate`` and ``ProgramPipeline::Validate``, which return ``Outcome<T>`` instead of handling errors eagerly were added.
 
-- Some compiler warnings were silenced.
+- Some of the examples were changes to show the usage of the new features.
 
-- Several other minor changes were made to the internals.
+- Some of the examples were changed to use GLSL 120/130/140/150 in order to support GL implementations which don't implement higher GLSL versions.
 
-- A bug in the ``PathCommandNV`` enumeration was fixed.
 
