@@ -61,7 +61,7 @@ public:
 	{
 		// Set the vertex shader source and compile it
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
@@ -79,7 +79,7 @@ public:
 
 		// set the fragment shader source and compile it
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform int ColorCount;"
 			"uniform vec4 Color[8];"
 			"in vec3 vertNormal;"

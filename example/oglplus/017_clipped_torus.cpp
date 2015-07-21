@@ -39,12 +39,12 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 130\n"
 			"uniform mat4 ProjectionMatrix, ModelMatrix, CameraMatrix;"
 			"uniform vec4 ClipPlane;"
-			"in vec4 Position;"
-			"in vec2 TexCoord;"
-			"out vec2 vertTexCoord;"
+			"attribute vec4 Position;"
+			"attribute vec2 TexCoord;"
+			"varying vec2 vertTexCoord;"
 			"void main(void)"
 			"{"
 			"	vertTexCoord = TexCoord;"
@@ -62,9 +62,8 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
-			"in vec2 vertTexCoord;"
-			"out vec4 fragColor;"
+			"#version 130\n"
+			"varying vec2 vertTexCoord;"
 			"void main(void)"
 			"{"
 			"	float i = ("
@@ -72,8 +71,13 @@ private:
 			"		int(vertTexCoord.y*24) % 2"
 			"	) % 2;"
 			"	if(gl_FrontFacing)"
-			"		fragColor = vec4(1-i/2, 1-i/2, 1-i/2, 1.0);"
-			"	else fragColor = vec4(0+i/2, 0+i/2, 0+i/2, 1.0);"
+			"	{"
+			"		gl_FragColor = vec4(1-i/2, 1-i/2, 1-i/2, 1.0);"
+			"	}"
+			"	else"
+			"	{"
+			"		gl_FragColor = vec4(0+i/2, 0+i/2, 0+i/2, 1.0);"
+			"	}"
 			"}"
 		);
 		fs.Compile();

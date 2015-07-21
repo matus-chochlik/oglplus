@@ -47,7 +47,7 @@ public:
 
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"#define side 128\n"
 
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
@@ -71,7 +71,7 @@ public:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"void main(void) { }"
 		).Compile();
 
@@ -104,7 +104,7 @@ public:
 
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"#define side 128\n"
 
 			"uniform mat4 ProjectionMatrix, CameraMatrix, LightProjMatrix, LightMatrix;"
@@ -143,7 +143,7 @@ public:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler2DShadow Shadows;"
 
 			"const vec3 LightDir = normalize(vec3(1, 0.3, 1));"
@@ -214,7 +214,7 @@ private:
 
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"mat4 Matrix = ProjectionMatrix*CameraMatrix*ModelMatrix;"
 			"in vec4 Position;"
@@ -227,7 +227,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"void main(void){ }"
 		);
 

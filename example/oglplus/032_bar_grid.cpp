@@ -65,7 +65,7 @@ private:
 	{
 		Program prog;
 		prog.AttachShader(VertexShader(ObjectDesc("Metal vertex"),
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"uniform vec3 CameraPosition, LightPosition;"
 
@@ -90,7 +90,7 @@ private:
 		));
 
 		prog.AttachShader(FragmentShader(ObjectDesc("Metal fragment"),
-			"#version 330\n"
+			"#version 150\n"
 			"const vec3 Color1 = vec3(0.5, 0.5, 0.6);"
 			"const vec3 Color2 = vec3(0.7, 0.7, 0.8);"
 
@@ -463,7 +463,7 @@ private:
 	{
 		Program prog;
 		prog.AttachShader(VertexShader(ObjectDesc("Draw vertex"),
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"uniform vec3 LightPosition, CameraPosition;"
@@ -501,7 +501,7 @@ private:
 		));
 
 		prog.AttachShader(FragmentShader(ObjectDesc("Draw fragment"),
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform float LightMultiplier;"
 
@@ -569,7 +569,7 @@ private:
 	{
 		Program prog;
 		prog.AttachShader(VertexShader(ObjectDesc("Shadow vertex"),
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform vec3 LightPosition;"
 
@@ -597,7 +597,7 @@ private:
 		));
 
 		prog.AttachShader(GeometryShader(ObjectDesc("Shadow geometry"),
-			"#version 330\n"
+			"#version 150\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 12) out;"
 

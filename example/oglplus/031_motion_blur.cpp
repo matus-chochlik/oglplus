@@ -189,7 +189,7 @@ private:
 
 		VertexShader vs(ObjectDesc("Draw"));
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, SingleModelMatrix;"
 			"uniform uint SingleModel;"
 			"layout (std140) uniform ModelBlock {"
@@ -225,7 +225,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Draw"));
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"uniform sampler2D CheckerTex;"
 
@@ -292,7 +292,7 @@ private:
 
 		VertexShader vs(ObjectDesc("Blur"));
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"uniform vec2 ScreenSize;"
 
@@ -310,7 +310,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Blur"));
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"uniform sampler2DRect CurrentFrame;"
 			"uniform sampler2DRect PreviousFrames;"

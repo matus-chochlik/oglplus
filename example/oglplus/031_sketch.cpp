@@ -38,7 +38,7 @@ private:
 	static Program make(void)
 	{
 		const GLchar* shader_source =
-		"#version 330\n"
+		"#version 150\n"
 		"uniform mat4 CameraMatrix, ModelMatrix;"
 		"uniform mat4 LightProjMatrix;"
 		"uniform mat2 TextureMatrix;"
@@ -99,7 +99,7 @@ public:
 	ShadowFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Shadow fragment shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"in float vertNoise;"
 		"in vec3 vertNormal;"
 		"in vec3 vertLightDir, vertViewDir;"
@@ -134,7 +134,7 @@ public:
 	LineGeomShader(void)
 	 : GeometryShader(
 		ObjectDesc("Line geometry shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"layout(lines) in;"
 		"layout(line_strip, max_vertices=4) out;"
 
@@ -194,7 +194,7 @@ public:
 	LineFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Line fragment shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"in float geomOpacity;"
 
 		"out vec4 fragColor;"
@@ -231,7 +231,7 @@ public:
 	SketchFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Sketch fragment shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"uniform sampler3D SketchTex;"
 		"uniform sampler2DShadow ShadowTex;"
 

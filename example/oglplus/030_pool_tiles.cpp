@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{030_pool_tiles}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -107,7 +107,7 @@ public:
 		gl.RequireAtLeast(LimitQuery::MaxCombinedTextureImageUnits, 5);
 
 		plane_vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform vec3 LightPosition;"
 			"uniform vec3 CameraPosition;"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -130,7 +130,7 @@ public:
 		plane_vs.Compile();
 
 		plane_fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler2D RandTex, PictTex, TileTex, NormTex;"
 			"uniform sampler2D ReflectTex;"
 			"uniform uint TileCount;"
@@ -320,7 +320,7 @@ public:
 		);
 
 		shape_vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform vec3 LightPosition;"
 			"uniform mat4 ProjectionMatrix, ModelMatrix, CameraMatrix;"
 			"in vec4 Position;"
@@ -360,7 +360,7 @@ public:
 		shape_vs.Compile();
 
 		shape_fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler2D PictTex, TileTex;"
 			"uniform uint TileCount;"
 			"in vec3 vertNormal;"

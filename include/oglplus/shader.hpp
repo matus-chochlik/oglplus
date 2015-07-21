@@ -17,6 +17,7 @@
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/array.hpp>
 #include <oglplus/error/program.hpp>
+#include <oglplus/error/outcome.hpp>
 #include <oglplus/boolean.hpp>
 #include <oglplus/precision_type.hpp>
 #include <oglplus/shader_type.hpp>
@@ -289,6 +290,7 @@ public:
 	 */
 	ObjectOps& Compile(void);
 
+	Outcome<ObjectOps&> Compile(std::nothrow_t);
 
 #if OGLPLUS_DOCUMENTATION_ONLY || \
 	GL_ARB_shading_language_include
@@ -307,6 +309,13 @@ public:
 		const SizeType count,
 		const GLchar* const* paths,
 		const GLint* lengths
+	);
+
+	Outcome<ObjectOps&> CompileInclude(
+		const SizeType count,
+		const GLchar* const* paths,
+		const GLint* lengths,
+		std::nothrow_t
 	);
 
 	/// Compiles the shader using the specified include paths
@@ -328,6 +337,16 @@ public:
 		);
 	}
 
+	Outcome<ObjectOps&> CompileInclude(GLSLString&& incl, std::nothrow_t)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths(),
+			std::nothrow
+		);
+	}
+
 	ObjectOps& CompileInclude(GLSLStrings&& incl)
 	{
 		return CompileInclude(
@@ -337,12 +356,32 @@ public:
 		);
 	}
 
+	Outcome<ObjectOps&> CompileInclude(GLSLStrings&& incl, std::nothrow_t)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths(),
+			std::nothrow
+		);
+	}
+
 	ObjectOps& CompileInclude(const GLSLSource& incl)
 	{
 		return CompileInclude(
 			incl.Count(),
 			incl.Parts(),
 			incl.Lengths()
+		);
+	}
+
+	Outcome<ObjectOps&> CompileInclude(const GLSLSource& incl, std::nothrow_t)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths(),
+			std::nothrow
 		);
 	}
 #endif

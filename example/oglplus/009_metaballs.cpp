@@ -69,7 +69,7 @@ public:
 
 		// Set the vertex shader source
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec2 Position;"
 			"out vec3 vertPosition;"
 			"void main(void)"
@@ -83,7 +83,7 @@ public:
 
 		// set the fragment shader source
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler1D Metaballs;"
 			"in vec3 vertPosition;"
 			"out vec3 fragColor;"

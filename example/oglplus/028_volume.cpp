@@ -35,7 +35,7 @@ public:
 	VolumeVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Volume vertex shader"),
-		GLCStrRef("#version 330\n"
+		GLCStrRef("#version 150\n"
 		"uniform sampler3D VolumeTex;"
 		"uniform float Threshold;"
 		"uniform float GridStep;"
@@ -72,7 +72,7 @@ public:
 	VolumeGeomShader(void)
 	 : GeometryShader(
 		ObjectDesc("Volume geometry shader"),
-		GLCStrRef("#version 330\n"
+		GLCStrRef("#version 150\n"
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 4) out;"
 
@@ -213,7 +213,7 @@ public:
 	VolumeFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Volume fragment shader"),
-		GLCStrRef("#version 330\n"
+		GLCStrRef("#version 150\n"
 
 		"in vec3 geomNormal, geomLightDir, geomViewDir;"
 

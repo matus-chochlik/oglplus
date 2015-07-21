@@ -196,7 +196,7 @@ public:
 	{
 		// Set the vertex shader source
 		sphere_vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform float Time;"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"uniform vec4 LightPos;"
@@ -246,7 +246,7 @@ public:
 
 		// set the fragment shader source
 		sphere_fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 CameraMatrix;"
 			"uniform samplerCube CubeTex;"
 			"in vec3 vertNormal;"
@@ -344,7 +344,7 @@ public:
 
 		// Set the vertex shader source
 		cube_vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"uniform vec4 LightPos;"
 			"uniform vec3 Offset;"
@@ -371,7 +371,7 @@ public:
 
 		// set the fragment shader source
 		cube_fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec3 vertColor;"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"
@@ -402,7 +402,7 @@ public:
 
 		// Set the vertex shader source
 		cmap_vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform vec4 LightPos;"
 			"uniform vec3 Offset;"
 			"in vec4 Position;"
@@ -424,7 +424,7 @@ public:
 
 		// Set the geometry shader source
 		cmap_gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 18) out;"
 			"uniform mat4 ProjectionMatrix;"

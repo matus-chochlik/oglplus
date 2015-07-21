@@ -41,7 +41,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-		"#version 330\n"
+		"#version 150\n"
 		"uniform mat4 ModelMatrix;"
 		"uniform vec3 LightPosition;"
 		"uniform vec3 CameraPosition;"
@@ -61,7 +61,7 @@ private:
 
 		GeometryShader gs;
 		gs.Source(
-		"#version 330\n"
+		"#version 150\n"
 		"layout (triangles) in;"
 		"layout (triangle_strip, max_vertices=3) out;"
 
@@ -97,7 +97,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-		"#version 330\n"
+		"#version 150\n"
 
 		"in vec3 geomLightDir;"
 		"in vec3 geomViewDir;"
@@ -148,7 +148,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-		"#version 330\n"
+		"#version 150\n"
 		"in vec4 Position;"
 		"void main(void)"
 		"{"
@@ -158,7 +158,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-		"#version 330\n"
+		"#version 150\n"
 
 		"uniform sampler2DRect DataMap;"
 		"uniform float Slider;"

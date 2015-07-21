@@ -110,7 +110,7 @@ public:
 		ShaderInclude config_glsl("/config.glsl", config.str());
 
 		torus_vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"#extension GL_ARB_shading_language_include : enable\n"
 			"#include <config.glsl>\n"
 
@@ -140,7 +140,7 @@ public:
 		);
 
 		torus_fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec2 vertTexCoord;"
 			"out vec4 fragColor;"
 			"void main(void)"
@@ -188,7 +188,7 @@ public:
 		}
 
 		plane_vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"#extension GL_ARB_shading_language_include : enable\n"
 			"#include <config.glsl>\n"
 
@@ -219,7 +219,7 @@ public:
 		).CompileInclude("/");
 
 		plane_fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec3 vertColor;"
 			"out vec4 fragColor;"
 			"void main(void)"

@@ -72,7 +72,7 @@ public:
 	{
 		// Set the vertex shader source
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"uniform mat4 TexProjectionMatrix;"
 			"in vec4 Position;"
@@ -107,7 +107,7 @@ public:
 
 		// set the fragment shader source
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler2D TexUnit;"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"

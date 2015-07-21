@@ -27,7 +27,7 @@ public:
 	PointVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Vertex shader"),
-		"#version 330\n"
+		"#version 140\n"
 		"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 		"uniform vec3 Color1, Color2;"
 		"uniform float Status;"
@@ -66,7 +66,7 @@ public:
 	PointFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Fragment shader"),
-		"#version 330\n"
+		"#version 140\n"
 
 		"in vec3 vertColor;"
 		"out vec3 fragColor;"

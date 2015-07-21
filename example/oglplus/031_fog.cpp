@@ -197,7 +197,7 @@ private:
 
 		VertexShader vs(ObjectDesc("Sky"));
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 
 			"in vec4 Position;"
@@ -214,7 +214,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Sky"));
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"uniform sampler2D Noise;"
 
@@ -262,7 +262,7 @@ private:
 
 		VertexShader vs(ObjectDesc("Draw"));
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"layout (std140) uniform ModelBlock {"
 			"	mat4 ModelMatrices[128];"
@@ -291,7 +291,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Draw"));
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"in vec3 vertLightDir;"
 			"in vec3 vertNormal;"
@@ -333,7 +333,7 @@ private:
 
 		VertexShader vs(ObjectDesc("Fog"));
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"uniform vec2 ScreenSize;"
 
@@ -351,7 +351,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Fog"));
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"uniform sampler2DRect Noise;"
 			"uniform sampler2DRect Color;"

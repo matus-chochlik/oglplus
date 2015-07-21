@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{011_writing}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -40,7 +40,7 @@ public:
 		VertexShader vs;
 		// Set the vertex shader source
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec4 Position;"
 			"void main(void)"
 			"{"
@@ -53,7 +53,7 @@ public:
 		GeometryShader gs;
 		// Set the geometry shader source
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(lines) in;"
 			"layout(triangle_strip, max_vertices = 4) out;"
 			"void main(void)"
@@ -76,7 +76,7 @@ public:
 		FragmentShader fs;
 		// set the fragment shader source
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"

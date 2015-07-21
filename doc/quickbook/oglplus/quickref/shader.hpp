@@ -68,6 +68,9 @@ public:
 	Throws __CompileError if the shader cannot be compiled.
 	See [glfunc CompileShader].
 	>*/
+	__Outcome<ObjectOps&> Compile(std::nothrow_t); /*<
+	This overload of [^Compile] defers the error handling.
+	>*/
 
 	__String GetInfoLog(void) const; /*<
 	Returns the compiler output if the shader is compiled.
@@ -83,9 +86,21 @@ public:
 	Compiles the shader using the specified include paths.
 	See [glfunc CompileShaderIncludeARB].
 	>*/
+
 	ObjectOps& CompileInclude(__GLSLString&& incl);
 	ObjectOps& CompileInclude(__GLSLStrings&& incl);
 	ObjectOps& CompileInclude(const __GLSLSource& incl);
+
+	__Outcome<ObjectOps&> CompileInclude(
+		__SizeType count,
+		const GLchar* const* paths,
+		const GLint* lengths,
+		std::nothrow_t
+	);
+
+	__Outcome<ObjectOps&> CompileInclude(__GLSLString&& incl, std::nothrow_t);
+	Outcome<ObjectOps&> CompileInclude(__GLSLStrings&& incl, std::nothrow_t);
+	Outcome<ObjectOps&> CompileInclude(const __GLSLSource& incl, std::nothrow_t);
 #endif
 
 #if GL_ES_VERSION_3_0 || GL_VERSION_4_1 || GL_ARB_ES2_compatibility

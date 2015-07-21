@@ -214,7 +214,7 @@ public:
 	{
 		// Set the vertex shader source
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 CameraMatrix;"
 			"in vec4 Position;"
 			"in float Age;"
@@ -233,7 +233,7 @@ public:
 
 		// Set the geometry shader source
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(points) in;"
 			"layout(triangle_strip, max_vertices = 4) out;"
 			"uniform vec3 LightCamPos;"
@@ -284,7 +284,7 @@ public:
 
 		// set the fragment shader source
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform sampler2D SmokeTex;"
 			"in vec2 geomTexCoord;"
 			"in float geomAge;"

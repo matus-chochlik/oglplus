@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{007_voronoi}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -37,7 +37,7 @@ private:
 
 		Shader vs(ShaderType::Vertex);
 		vs.Source(
-		"#version 330\n"
+		"#version 140\n"
 
 		"uniform vec2 Offset;"
 		"uniform float Scale;"
@@ -55,7 +55,7 @@ private:
 
 		Shader fs(ShaderType::Fragment);
 		fs.Source(
-		"#version 330\n"
+		"#version 140\n"
 
 		"uniform float Scale;"
 		"uniform sampler2D Tex;"

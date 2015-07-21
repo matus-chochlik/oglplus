@@ -147,7 +147,7 @@ void run_example(
 		width,
 		height,
 		8, 8, 8, 8,
-		32, 8,
+		24, 8,
 		GLFW_WINDOW
 	)) throw std::runtime_error("Error creating GLFW window");
 	else

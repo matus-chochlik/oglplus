@@ -42,7 +42,7 @@ private:
 		Program prog;
 		VertexShader vs(ObjectDesc("Shadow vertex"));
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 LightProjMatrix,LightMatrix,ModelMatrix;"
 			"mat4 Matrix =LightProjMatrix*LightMatrix*ModelMatrix;"
 
@@ -58,7 +58,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Shadow fragment"));
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"void main(void) { }"
 		);
 		fs.Compile();
@@ -89,7 +89,7 @@ private:
 		Program prog;
 		VertexShader vs(ObjectDesc("Draw vertex"));
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform vec3 LightPosition, CameraPosition;"
 			"uniform mat4 ProjectionMatrix,CameraMatrix,ModelMatrix;"
 			"mat3 ModelRotMatrix = mat3(ModelMatrix);"
@@ -125,7 +125,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Draw fragment"));
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"uniform sampler2D NormalMap, LightingMap, ColorMap;"
 			"uniform sampler2DShadow ShadowMap;"

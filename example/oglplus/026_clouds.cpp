@@ -96,7 +96,7 @@ public:
 		std::srand(123456);
 
 		light_vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec3 Position;"
 			"uniform vec3 LightPos;"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
@@ -111,7 +111,7 @@ public:
 		).Compile();
 
 		light_fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"out vec4 fragLight;"
 			"void main(void)"
 			"{"
@@ -133,7 +133,7 @@ public:
 		}
 
 		cloud_vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec4 Position;"
 			"in float Size;"
 			"uniform int SampleCount;"
@@ -155,7 +155,7 @@ public:
 		).Compile();
 
 		cloud_gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(points) in;"
 			"layout(triangle_strip, max_vertices = 4) out;"
 			"in float vertZOffs[];"
@@ -194,7 +194,7 @@ public:
 		).Compile();
 
 		cloud_fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform sampler3D CloudTex;"
 			"in vec3 geomTexCoord;"
 			"in vec3 geomLightDir;"

@@ -46,7 +46,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ModelMatrix;"
 			"uniform vec3 LightPos;"
 
@@ -70,7 +70,7 @@ private:
 
 		GeometryShader gs;
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"#extension GL_ARB_viewport_array : enable\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 12) out;"
@@ -120,7 +120,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform samplerCube TexUnit;"
 			"in vec3 geomNormal;"
 			"in vec3 geomTexCoord;"

@@ -67,54 +67,90 @@ public:
 	 , model_matrix(prog)
 	{
 		namespace sv = oglplus::smart_values;
-		// Set the vertex shader source
-		vs.Source(
-			"#version 330\n"
-			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
-			"in vec4 Position;"
-			"in vec3 Normal;"
-			"in vec2 TexCoord;"
-			"out vec3 vertNormal;"
-			"out vec3 vertLight;"
-			"out vec2 vertTexCoord;"
-			"uniform vec3 LightPos;"
-			"void main(void)"
-			"{"
-			"	vertNormal = mat3(ModelMatrix)*Normal;"
-			"	gl_Position = ModelMatrix * Position;"
-			"	vertLight = LightPos - gl_Position.xyz;"
-			"	vertTexCoord = TexCoord;"
-			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
-			"}"
-		);
-		// compile it
-		vs.Compile();
+		try
+		{
+			vs.Source(
+				"#version 330\n"
+				"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+				"in vec4 Position;"
+				"in vec3 Normal;"
+				"in vec2 TexCoord;"
+				"out vec3 vertNormal;"
+				"out vec3 vertLight;"
+				"out vec2 vertTexCoord;"
+				"uniform vec3 LightPos;"
+				"void main(void)"
+				"{"
+				"	vertNormal = mat3(ModelMatrix)*Normal;"
+				"	gl_Position = ModelMatrix * Position;"
+				"	vertLight = LightPos - gl_Position.xyz;"
+				"	vertTexCoord = TexCoord;"
+				"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
+				"}"
+			).Compile();
+		}
+		catch(CompileError&)
+		{
+			vs.Source(
+				"#version 120\n"
+				"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+				"attribute vec4 Position;"
+				"attribute vec3 Normal;"
+				"attribute vec2 TexCoord;"
+				"varying vec3 vertNormal;"
+				"varying vec3 vertLight;"
+				"varying vec2 vertTexCoord;"
+				"uniform vec3 LightPos;"
+				"void main(void)"
+				"{"
+				"	vertNormal = mat3(ModelMatrix)*Normal;"
+				"	gl_Position = ModelMatrix * Position;"
+				"	vertLight = LightPos - gl_Position.xyz;"
+				"	vertTexCoord = TexCoord;"
+				"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
+				"}"
+			).Compile();
+		}
 
-		// set the fragment shader source
-		fs.Source(
-			"#version 330\n"
-			"uniform sampler2D TexUnit;"
-			"in vec3 vertNormal;"
-			"in vec3 vertLight;"
-			"in vec2 vertTexCoord;"
-			"out vec4 fragColor;"
-			"void main(void)"
-			"{"
-			"	float l = length(vertLight);"
-			"	float d = l > 0 ? dot(vertNormal, normalize(vertLight)) / l : 0.0;"
-			"	float i = 0.3 + 2.0*max(d, 0.0);"
-			"	vec4 t  = texture(TexUnit, vertTexCoord);"
-			"	fragColor = vec4(t.rgb*i, 1.0);"
-			"}"
-		);
-		// compile it
-		fs.Compile();
+		try
+		{
+			fs.Source(
+				"#version 330\n"
+				"uniform sampler2D TexUnit;"
+				"in vec3 vertNormal;"
+				"in vec3 vertLight;"
+				"in vec2 vertTexCoord;"
+				"out vec4 fragColor;"
+				"void main(void)"
+				"{"
+				"	float l = length(vertLight);"
+				"	float d = l > 0 ? dot(vertNormal, normalize(vertLight)) / l : 0.0;"
+				"	float i = 0.3 + 2.0*max(d, 0.0);"
+				"	vec4 t  = texture(TexUnit, vertTexCoord);"
+				"	fragColor = vec4(t.rgb*i, 1.0);"
+				"}"
+			).Compile();
+		}
+		catch(CompileError&)
+		{
+			fs.Source(
+				"#version 120\n"
+				"uniform sampler2D TexUnit;"
+				"varying vec3 vertNormal;"
+				"varying vec3 vertLight;"
+				"varying vec2 vertTexCoord;"
+				"void main(void)"
+				"{"
+				"	float l = length(vertLight);"
+				"	float d = l > 0 ? dot(vertNormal, normalize(vertLight)) / l : 0.0;"
+				"	float i = 0.3 + 2.0*max(d, 0.0);"
+				"	vec4 t = texture2D(TexUnit, vertTexCoord);"
+				"	gl_FragColor = vec4(t.rgb*i, 1.0);"
+				"}"
+			).Compile();
+		}
 
-		// attach the shaders to the program
-		prog.AttachShader(vs);
-		prog.AttachShader(fs);
-		// link and use it
-		prog.Link().Use();
+		prog.AttachShader(vs).AttachShader(fs).Link().Use();
 
 		projection_matrix.BindTo("ProjectionMatrix");
 		camera_matrix.BindTo("CameraMatrix");

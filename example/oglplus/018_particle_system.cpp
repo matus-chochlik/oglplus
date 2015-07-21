@@ -32,7 +32,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ModelMatrix, CameraMatrix;"
 			"in vec4 Position;"
 			"in float Age;"
@@ -50,7 +50,7 @@ private:
 
 		GeometryShader gs;
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(points) in;"
 			"layout(triangle_strip, max_vertices = 4) out;"
 			"uniform mat4 ProjectionMatrix;"
@@ -82,7 +82,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in float geomAge;"
 			"out vec4 fragColor;"
 			"void main(void)"

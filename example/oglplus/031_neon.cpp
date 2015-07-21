@@ -37,7 +37,7 @@ private:
 
 		VertexShader xfbs(ObjectDesc("XFB"));
 		xfbs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"#define ParticleCount 20\n"
 
 			"uniform float Time, Interval;"
@@ -339,7 +339,7 @@ private:
 
 		VertexShader vs(ObjectDesc("Particle vertex"));
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"uniform vec3 LightPosition;"
 
@@ -366,7 +366,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Particle fragment"));
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"
 			"in vec3 vertViewNormal;"
@@ -482,7 +482,7 @@ private:
 
 		VertexShader vs(ObjectDesc("Trail vertex"));
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"uniform float Time;"
 
@@ -501,7 +501,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Trail fragment"));
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"in float vertAge;"
 

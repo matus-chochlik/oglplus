@@ -45,7 +45,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
@@ -73,7 +73,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler2D ColorTex, NormalTex;"
 			"in mat3 NormalMatrix;"
 			"in vec3 vertLight;"

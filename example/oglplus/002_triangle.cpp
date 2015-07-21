@@ -41,33 +41,66 @@ private:
 public:
 	TriangleExample(void)
 	{
-		// Set the vertex shader source
-		vs.Source(" \
-			#version 330\n \
-			in vec3 Position; \
-			in vec3 Color; \
-			out vec4 vertColor; \
-			void main(void) \
-			{ \
-				gl_Position = vec4(Position, 1.0); \
-				vertColor = vec4(Color, 1.0); \
-			} \
-		");
-		// compile it
-		vs.Compile();
+		try
+		{
+			// Set the vertex shader source
+			vs.Source(" \
+				#version 330\n \
+				in vec3 Position; \
+				in vec3 Color; \
+				out vec4 vertColor; \
+				void main(void) \
+				{ \
+					gl_Position = vec4(Position, 1.0); \
+					vertColor = vec4(Color, 1.0); \
+				} \
+			");
+			// compile it
+			vs.Compile();
+		}
+		catch(CompileError&)
+		{
+			// Set the fallback vertex shader source
+			vs.Source(" \
+				#version 120\n \
+				attribute vec3 Position; \
+				attribute vec3 Color; \
+				varying vec4 vertColor; \
+				void main(void) \
+				{ \
+					gl_Position = vec4(Position, 1.0); \
+					vertColor = vec4(Color, 1.0); \
+				} \
+			");
+			// compile it
+			vs.Compile();
+		}
 
-		// set the fragment shader source
-		fs.Source(" \
-			#version 330\n \
-			in vec4 vertColor; \
-			out vec4 fragColor; \
-			void main(void) \
-			{ \
-				fragColor = vertColor; \
-			} \
-		");
-		// compile it
-		fs.Compile();
+		try
+		{
+			fs.Source(" \
+				#version 330\n \
+				in vec4 vertColor; \
+				out vec4 fragColor; \
+				void main(void) \
+				{ \
+					fragColor = vertColor; \
+				} \
+			");
+			fs.Compile();
+		}
+		catch(CompileError&)
+		{
+			fs.Source(" \
+				#version 120\n \
+				varying vec4 vertColor; \
+				void main(void) \
+				{ \
+					gl_FragColor = vertColor; \
+				} \
+			");
+			fs.Compile();
+		}
 
 		// attach the shaders to the program
 		prog.AttachShader(vs);

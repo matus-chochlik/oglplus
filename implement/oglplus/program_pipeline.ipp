@@ -30,8 +30,9 @@ GetInfoLog(void) const
 }
 
 OGLPLUS_LIB_FUNC
-void ObjectOps<tag::DirectState, tag::ProgramPipeline>::
-Validate(void) const
+ObjectOps<tag::DirectState, tag::ProgramPipeline>&
+ObjectOps<tag::DirectState, tag::ProgramPipeline>::
+Validate(void)
 {
 	OGLPLUS_GLFUNC(ValidateProgramPipeline)(_obj_name());
 	OGLPLUS_VERIFY(
@@ -47,6 +48,29 @@ Validate(void) const
 		Log(GetInfoLog()).
 		Object(*this)
 	);
+	return *this;
+}
+
+OGLPLUS_LIB_FUNC
+Outcome<ObjectOps<tag::DirectState, tag::ProgramPipeline>&>
+ObjectOps<tag::DirectState, tag::ProgramPipeline>::
+Validate(std::nothrow_t)
+{
+	OGLPLUS_GLFUNC(ValidateProgramPipeline)(_obj_name());
+	OGLPLUS_DEFERRED_CHECK(
+		ValidateProgramPipeline,
+		ObjectError,
+		Object(*this)
+	);
+	OGLPLUS_RETURN_HANDLER_IF(
+		!IsValid(),
+		GL_INVALID_OPERATION,
+		ValidationError::Message(),
+		ValidationError,
+		Log(GetInfoLog()).
+		Object(*this)
+	);
+	return *this;
 }
 
 #endif // program pipeline

@@ -55,8 +55,8 @@ public:
 	{
 		// Set the vertex shader source and compile it
 		vs.Source(
-			"#version 330\n"
-			"in vec4 Position;"
+			"#version 120\n"
+			"attribute vec4 Position;"
 			"void main(void)"
 			"{"
 			"	gl_Position = Position;"
@@ -65,18 +65,17 @@ public:
 
 		// set the fragment shader source and compile it
 		fs.Source(
-			"#version 330\n"
-			"out vec4 fragColor;"
+			"#version 120\n"
 			"uniform vec3 Color;"
 			"void main(void)"
 			"{"
-			"	fragColor = vec4(Color, 1.0);"
+			"	gl_FragColor = vec4(Color, 1.0);"
 			"}"
 		);
 
 		// attach the shaders to the program
 		// link and use it
-		prog.AttachShader(vs).AttachShader(fs).Build().Use();
+		prog.AttachShader(vs).AttachShader(fs).Build().Then().Use();
 
 		// the series of cubic bezier curves
 		Vec2f bezier_cps[] = {

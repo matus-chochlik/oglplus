@@ -35,7 +35,7 @@ public:
 	FurVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Fur vertex shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"uniform mat4 NewModelMatrix, OldModelMatrix;"
 		"uniform sampler2D FurTex;"
 
@@ -71,7 +71,7 @@ public:
 	FurGeomShader(void)
 	 : GeometryShader(
 		ObjectDesc("Fur geometry shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"#define PointCount 4\n"
 		"layout(points) in;"
 		"layout(line_strip, max_vertices = PointCount) out;"
@@ -126,7 +126,7 @@ public:
 	FurFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Fur fragment shader"),
-		"#version 330\n"
+		"#version 150\n"
 
 		"in vec3 geomNormal;"
 		"in vec3 geomFurDir;"
@@ -270,7 +270,7 @@ public:
 	TorusVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Torus vertex shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"uniform mat4 CameraMatrix, ModelMatrix;"
 
 		"in vec4 Position;"
@@ -290,7 +290,7 @@ public:
 	TorusFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Torus fragment shader"),
-		"#version 330\n"
+		"#version 150\n"
 
 		"out vec3 fragColor;"
 

@@ -41,7 +41,7 @@ private:
 
 		prog.AttachShader(VertexShader(
 			ObjectDesc("Draw vertex"),
-			GLCStrRef("#version 330\n"
+			GLCStrRef("#version 150\n"
 			"uniform vec3 LightPosition;"
 			"uniform mat4 ModelMatrix;"
 			"in vec4 Position;"
@@ -70,7 +70,7 @@ private:
 
 		prog.AttachShader(GeometryShader(
 			ObjectDesc("Draw geometry"),
-			GLCStrRef("#version 330\n"
+			GLCStrRef("#version 150\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 6) out;"
 
@@ -120,7 +120,7 @@ private:
 
 		prog.AttachShader(FragmentShader(
 			ObjectDesc("Draw fragment"),
-			GLCStrRef("#version 330\n"
+			GLCStrRef("#version 150\n"
 			"uniform sampler2D MetalTexture;"
 			"in vec3 geomNormal;"
 			"in vec3 geomTangent;"
@@ -289,7 +289,7 @@ private:
 
 		prog.AttachShader(VertexShader(
 			ObjectDesc("Clear vertex"),
-			GLCStrRef("#version 330\n"
+			GLCStrRef("#version 150\n"
 			"in vec4 Position;"
 			"void main(void)"
 			"{"
@@ -299,7 +299,7 @@ private:
 
 		prog.AttachShader(GeometryShader(
 			ObjectDesc("Clear geometry"),
-			GLCStrRef("#version 330\n"
+			GLCStrRef("#version 150\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 6) out;"
 
@@ -331,7 +331,7 @@ private:
 
 		prog.AttachShader(FragmentShader(
 			ObjectDesc("Clear fragment"),
-			GLCStrRef("#version 330\n"
+			GLCStrRef("#version 150\n"
 
 			"in vec3 geomColor1, geomColor2;"
 			"in vec2 geomPosition, geomOrigin;"

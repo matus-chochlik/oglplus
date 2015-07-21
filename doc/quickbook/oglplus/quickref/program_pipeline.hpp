@@ -86,11 +86,13 @@ public:
 	See [glfunc GetProgramPipeline], [glconst VALIDATE_STATUS].
 	>*/
 
-	void Validate(void) const; /*<
+	ObjectOps& Validate(void); /*<
 	Validates this program pipeline.
 	Throws __ValidationError on failure.
 	See [glfunc ValidateProgramPipeline].
 	>*/
+
+	__Outcome<ObjectOps&> Validate(std::nothrow_t);
 
 	void ActiveShaderProgram(__ProgramName program) const; /*<
 	Make the [^program] active for this program pipeline.

@@ -99,7 +99,7 @@ public:
 	 , height(tex_side)
 	{
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
@@ -120,7 +120,7 @@ public:
 		vs.Compile();
 
 		cube_fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler2D TexUnit;"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"
@@ -180,7 +180,7 @@ public:
 		Uniform<Vec3f>(cube_prog, "LightPos").Set(Vec3f(4.0f, 4.0f, -8.0f));
 
 		torus_fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"
 			"in vec2 vertTexCoord;"

@@ -1,10 +1,10 @@
 /**
- *  @example oglplus/001_triangle.cpp
- *  @brief Shows the basic usage of OGLplus by drawing a simple red triangle.
+ *  @example oglplus/001_triangle_glsl120.cpp
+ *  @brief Shows the basic usage of OGLplus by drawing a blue triangle (using GLSL 120).
  *
- *  @oglplus_screenshot{001_triangle}
+ *  @oglplus_screenshot{001_triangle_glsl120}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -39,36 +39,29 @@ private:
 public:
 	TriangleExample(void)
 	{
-		// Set the vertex shader source
-		vs.Source(" \
-			#version 330\n \
-			in vec3 Position; \
+		// Set the vertex shader source and compile it
+		vs.Source(StrCRef(" \
+			#version 120\n \
+			attribute vec3 Position; \
 			void main(void) \
 			{ \
 				gl_Position = vec4(Position, 1.0); \
 			} \
-		");
-		// compile it
-		vs.Compile();
+		")).Compile();
 
-		// set the fragment shader source
-		fs.Source(" \
-			#version 330\n \
-			out vec4 fragColor; \
+		// set the fragment shader source and compile it
+		fs.Source(StrCRef(" \
+			#version 120\n \
 			void main(void) \
 			{ \
-				fragColor = vec4(1.0, 0.0, 0.0, 1.0); \
+				gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0); \
 			} \
-		");
-		// compile it
-		fs.Compile();
+		")).Compile();
 
 		// attach the shaders to the program
-		prog.AttachShader(vs);
-		prog.AttachShader(fs);
+		prog.AttachShader(vs).AttachShader(fs);
 		// link and use it
-		prog.Link();
-		prog.Use();
+		prog.Link().Use();
 
 		// bind the VAO for the triangle
 		triangle.Bind();
@@ -76,18 +69,18 @@ public:
 		GLfloat triangle_verts[9] = {
 			0.0f, 0.0f, 0.0f,
 			1.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f
+			0.0f,-1.0f, 0.0f
 		};
 		// bind the VBO for the triangle vertices
 		verts.Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, 9, triangle_verts);
+		// since triangle_vertices is a static array
+		// it is not necessary to specify its element count
+		Buffer::Data(Buffer::Target::Array, triangle_verts);
 		// setup the vertex attribs array for the vertices
-		VertexArrayAttrib vert_attr(prog, "Position");
-		vert_attr.Setup<GLfloat>(3);
-		vert_attr.Enable();
+		(prog|"Position").Setup<Vec3f>().Enable();
 
-		gl.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		gl.ClearColor(0.5f, 0.5f, 0.5f, 0.0f);
 		gl.Disable(Capability::DepthTest);
 	}
 

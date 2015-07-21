@@ -42,7 +42,7 @@ private:
 
 		VertexShader vs;
 		vs.Source(
-		"#version 330\n"
+		"#version 150\n"
 
 		"in vec4 Coord;"
 
@@ -58,7 +58,7 @@ private:
 
 		GeometryShader gs;
 		gs.Source(
-		"#version 330\n"
+		"#version 150\n"
 		"layout (points) in;"
 		"layout (triangle_strip, max_vertices=4) out;"
 
@@ -157,7 +157,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-		"#version 330\n"
+		"#version 150\n"
 
 		"uniform vec3 CameraPosition;"
 		"uniform float CoordStep;"

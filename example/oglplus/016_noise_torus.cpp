@@ -66,14 +66,14 @@ public:
 	{
 		// Set the vertex shader source and compile it
 		vs.Source(
-			"#version 330\n"
+			"#version 120\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
-			"in vec4 Position;"
-			"in vec3 Normal;"
-			"in vec2 TexCoord;"
-			"out vec3 vertNormal;"
-			"out vec3 vertLight;"
-			"out vec2 vertTexCoord;"
+			"attribute vec4 Position;"
+			"attribute vec3 Normal;"
+			"attribute vec2 TexCoord;"
+			"varying vec3 vertNormal;"
+			"varying vec3 vertLight;"
+			"varying vec2 vertTexCoord;"
 			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
@@ -87,12 +87,11 @@ public:
 
 		// set the fragment shader source and compile it
 		fs.Source(
-			"#version 330\n"
+			"#version 120\n"
 			"uniform sampler2D TexUnit;"
-			"in vec3 vertNormal;"
-			"in vec3 vertLight;"
-			"in vec2 vertTexCoord;"
-			"out vec4 fragColor;"
+			"varying vec3 vertNormal;"
+			"varying vec3 vertLight;"
+			"varying vec2 vertTexCoord;"
 			"void main(void)"
 			"{"
 			"	float l = sqrt(length(vertLight));"
@@ -101,7 +100,7 @@ public:
 			"		normalize(vertLight)"
 			"	) / l : 0.0;"
 			"	float i = 0.2 + 3.2*max(d, 0.0);"
-			"	fragColor = texture(TexUnit, vertTexCoord)*i;"
+			"	gl_FragColor = texture2D(TexUnit, vertTexCoord)*i;"
 			"}"
 		).Compile();
 
