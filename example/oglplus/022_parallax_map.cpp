@@ -43,7 +43,7 @@ private:
 	{
 		Shader vs(ShaderType::Vertex);
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"uniform vec3 LightPos;"
 			"in vec4 Position;"
@@ -95,7 +95,7 @@ private:
 
 		Shader fs(ShaderType::Fragment);
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler2D BumpTex;"
 			"uniform int BumpTexWidth;"
 			"uniform int BumpTexHeight;"

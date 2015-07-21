@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{002_shader_lit}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -37,22 +37,21 @@ private:
 public:
 	RectangleExample(void)
 	{
-		prog <<	"#version 330\n"
-			"in vec2 Position;"
-			"in vec3 Color;"
-			"out vec3 vertColor;"
+		prog <<	"#version 120\n"
+			"attribute vec2 Position;"
+			"attribute vec3 Color;"
+			"varying vec3 vertColor;"
 			"void main(void)"
 			"{"
 			"	vertColor = Color;"
 			"	gl_Position = vec4(Position, 0.0, 1.0);"
 			"}"_glsl_vs;
 
-		prog <<	"#version 330\n"
-			"in vec3 vertColor;"
-			"out vec4 fragColor;"
+		prog <<	"#version 120\n"
+			"varying vec3 vertColor;"
 			"void main(void)"
 			"{"
-			"	fragColor = vec4(vertColor, 1.0);"
+			"	gl_FragColor = vec4(vertColor, 1.0);"
 			"}"_glsl_fs;
 
 		prog.Link();

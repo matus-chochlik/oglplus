@@ -89,6 +89,7 @@ statements are assumed, but omitted for the sake of brevity from this reference.
 [include quickref/uniform.qbk]
 [include quickref/dsa/uniform.qbk]
 [include quickref/uniform_block.qbk]
+[include quickref/shader_storage_block.qbk]
 [include quickref/uniform_subroutines.qbk]
 [include quickref/vertex_attrib.qbk]
 [include quickref/dsa/vertex_attrib.qbk]

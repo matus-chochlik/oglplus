@@ -47,10 +47,10 @@ public:
 	{
 		// this could be any istream
 		std::stringstream vs_source(
-			"#version 330\n"
-			"in vec2 Position;"
-			"in vec3 Color;"
-			"out vec3 vertColor;"
+			"#version 120\n"
+			"attribute vec2 Position;"
+			"attribute vec3 Color;"
+			"varying vec3 vertColor;"
 			"void main(void)"
 			"{"
 			"	vertColor = Color;"
@@ -63,12 +63,11 @@ public:
 		vs.Compile();
 
 		std::stringstream fs_source(
-			"#version 330\n"
-			"in vec3 vertColor;"
-			"out vec4 fragColor;"
+			"#version 120\n"
+			"varying vec3 vertColor;"
 			"void main(void)"
 			"{"
-			"	fragColor = vec4(vertColor, 1.0);"
+			"	gl_FragColor = vec4(vertColor, 1.0);"
 			"}"
 		);
 		// set the fragment shader source

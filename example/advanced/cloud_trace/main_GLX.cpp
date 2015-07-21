@@ -277,7 +277,7 @@ void pbuffer_loop(
 	AppData& app_data,
 	CommonData& common,
 	RaytracerTarget& rt_target,
-	unsigned n_threads
+	std::size_t n_threads
 )
 {
 	Context gl;
@@ -369,7 +369,7 @@ void window_loop(
 	AppData& app_data,
 	CommonData& common,
 	RaytracerTarget& rt_target,
-	unsigned n_threads
+	std::size_t n_threads
 )
 {
 	Context gl;

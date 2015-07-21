@@ -39,7 +39,7 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec4 Position;"
 			"in vec3 Normal;"
 			"out vec3 vertColor;"
@@ -60,7 +60,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec3 vertColor;"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"

@@ -66,14 +66,14 @@ public:
 
 	/// Makes the size of count instances of T
 	template <typename T>
-	static BufferSize Of(unsigned count, const T* data = nullptr)
+	static BufferSize Of(std::size_t count, const T* data = nullptr)
 	{
 		return BufferSize(count, data);
 	}
 
 	/// Add the size of count instances of T
 	template <typename T>
-	BufferSize Add(unsigned count, const T* = nullptr) const
+	BufferSize Add(std::size_t count, const T* = nullptr) const
 	{
 		return BufferSize(Get()+sizeof(T)*count);
 	}

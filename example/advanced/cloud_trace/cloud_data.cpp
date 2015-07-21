@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -207,7 +207,7 @@ void CloudData::Generate(const AppData& app_data)
 	Vec3f center(0,-radius, 0);
 	Mat4f cloud;
 
-	unsigned c = 0, count = app_data.cloud_count;
+	std::size_t c = 0, count = app_data.cloud_count;
 
 	if(radius > 0)
 	{
@@ -258,7 +258,7 @@ void CloudData::Generate(const AppData& app_data)
 
 			cloud.Set(3, 3, size);
 			cloud.Set(3, 0, r01(re)*0.5f);
-			cloud.Set(3, 1, 0.1+0.9*r01(re));
+			cloud.Set(3, 1, 0.1f+0.9f*r01(re));
 
 			storage.push_back(cloud);
 

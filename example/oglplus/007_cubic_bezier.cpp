@@ -76,7 +76,7 @@ public:
 
 		// attach the shaders to the program
 		// link and use it
-		prog.AttachShader(vs).AttachShader(fs).Build().Use();
+		prog.AttachShader(vs).AttachShader(fs).Build().Then().Use();
 
 		// the series of cubic bezier curves
 		Vec2f bezier_cps[] = {

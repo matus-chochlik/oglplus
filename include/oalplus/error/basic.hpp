@@ -278,6 +278,24 @@ inline void HandleError(ErrorType& error)
 }
 
 // Macro for generic error handling
+#define OALPLUS_HANDLE_ERROR(\
+	ERROR_CODE,\
+	MESSAGE,\
+	ERROR,\
+	ERROR_INFO\
+)\
+{\
+	ERROR error(MESSAGE);\
+	(void)error\
+		.ERROR_INFO\
+		.SourceFile(__FILE__)\
+		.SourceFunc(__FUNCTION__)\
+		.SourceLine(__LINE__)\
+		.Code(error_code);\
+	HandleError(error);\
+}
+
+// Macro for generic error handling
 #define OALPLUS_HANDLE_ERROR_IF(\
 	CONDITION,\
 	ERROR_CODE,\
@@ -288,16 +306,12 @@ inline void HandleError(ErrorType& error)
 {\
 	ALenum error_code = ERROR_CODE;\
 	if(CONDITION)\
-	{\
-		ERROR error(MESSAGE);\
-		(void)error\
-			.ERROR_INFO\
-			.SourceFile(__FILE__)\
-			.SourceFunc(__FUNCTION__)\
-			.SourceLine(__LINE__)\
-			.Code(error_code);\
-		HandleError(error);\
-	}\
+		OALPLUS_HANDLE_ERROR(\
+			error_code,\
+			MESSAGE,\
+			ERROR,\
+			ERROR_INFO\
+		)\
 }
 
 } // namespace oalplus

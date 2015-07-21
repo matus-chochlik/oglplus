@@ -63,6 +63,7 @@
 [def __tag_VertexAttrib [link oglplus.quickref.prog_var.tags tag::VertexAttrib]]
 [def __tag_Uniform [link oglplus.quickref.prog_var.tags tag::Uniform]]
 [def __tag_UniformBlock [link oglplus.quickref.prog_var.tags tag::UniformBlock]]
+[def __tag_ShaderStorageBlock [link oglplus.quickref.prog_var.tags tag::ShaderStorageBlock]]
 [def __tag_Subroutine [link oglplus.quickref.prog_var.tags tag::Subroutine]]
 [def __tag_SubroutineUniform [link oglplus.quickref.prog_var.tags tag::SubroutineUniform]]
 [def __tag_FragData [link oglplus.quickref.prog_var.tags tag::FragData]]
@@ -217,6 +218,11 @@
 [def __ValidationError [link oglplus.quickref.error.program ValidationError]]
 [def __IncompleteFramebuffer [link oglplus.quickref.error.framebuffer IncompleteFramebuffer]]
 
+[def __DeferredHandler [link oglplus.quickref.error.deferred_handler DeferredHandler]]
+[def __Outcome [link oglplus.quickref.error.outcome Outcome]]
+[def __PositiveOutcome [link oglplus.quickref.error.outcome.positive PositiveOutcome]]
+[def __NegativeOutcome [link oglplus.quickref.error.outcome.negative NegativeOutcome]]
+
 [def __Sync [link oglplus.quickref.sync Sync]]
 [def __SyncCondition [link oglplus.quickref.sync.condition SyncCondition]]
 [def __SyncType [link oglplus.quickref.sync.type SyncType]]
@@ -247,6 +253,7 @@
 [def __ProgramUniformSampler [link oglplus.quickref.dsa_uniform.def ProgramUniformSampler]]
 [def __UntypedUniform [link oglplus.quickref.uniform.untyped UntypedUniform]]
 [def __UniformBlock [link oglplus.quickref.uniform_block.def UniformBlock]]
+[def __ShaderStorageBlock [link oglplus.quickref.shader_storage_block.def ShaderStorageBlock]]
 [def __Subroutine [link oglplus.quickref.uniform_subroutines.def Subroutine]]
 [def __SubroutineUniform [link oglplus.quickref.uniform_subroutines.def SubroutineUniform]]
 [def __VertexAttrib [link oglplus.quickref.vertex_attrib.def VertexAttrib]]

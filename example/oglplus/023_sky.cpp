@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{023_sky}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -74,7 +74,7 @@ public:
 	{
 		VertexShader sky_box_vs;
 		sky_box_vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"mat4 Matrix = ProjectionMatrix*CameraMatrix;"
 
@@ -91,7 +91,7 @@ public:
 
 		VertexShader shape_vs;
 		shape_vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"uniform vec3 SunPosition;"
 			"uniform vec3 CameraPosition;"
@@ -119,7 +119,7 @@ public:
 
 		FragmentShader sky_box_fs;
 		sky_box_fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"in vec3 vertTexCoord;"
 
@@ -137,7 +137,7 @@ public:
 
 		FragmentShader shape_fs;
 		shape_fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"in vec3 vertNormal, vertViewRefl, vertLightDir;"
 
@@ -159,7 +159,7 @@ public:
 
 		FragmentShader sky_fs;
 		sky_fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"const float WorldRadius = 6371000;"
 			"const float AtmThickness = 50000;"

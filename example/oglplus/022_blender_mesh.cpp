@@ -47,7 +47,7 @@ public:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4  ProjectionMatrix,CameraMatrix,ModelMatrix;"
 
 			"in vec4 Position;"
@@ -62,7 +62,7 @@ public:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"void main(void) { }"
 		);
 		fs.Compile();
@@ -94,7 +94,7 @@ public:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4  ProjectionMatrix,CameraMatrix,ModelMatrix;"
 			"mat3 RotMatrix = mat3(ModelMatrix);"
 
@@ -121,7 +121,7 @@ public:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"uniform sampler2DRect DepthTex;"
 			"uniform vec3 Colors[3];"

@@ -88,26 +88,53 @@ Link(void)
 }
 
 OGLPLUS_LIB_FUNC
-ObjectOps<tag::DirectState, tag::Program>&
+Outcome<ObjectOps<tag::DirectState, tag::Program>&>
+ObjectOps<tag::DirectState, tag::Program>::
+Link(std::nothrow_t)
+{
+	OGLPLUS_GLFUNC(LinkProgram)(_obj_name());
+	OGLPLUS_DEFERRED_CHECK(
+		LinkProgram,
+		ObjectError,
+		Object(*this)
+	);
+	OGLPLUS_RETURN_HANDLER_IF(
+		!IsLinked(),
+		GL_INVALID_OPERATION,
+		LinkError::Message(),
+		LinkError,
+		Log(GetInfoLog()).
+		Object(*this)
+	);
+	return *this;
+}
+
+OGLPLUS_LIB_FUNC
+Outcome<ObjectOps<tag::DirectState, tag::Program>&>
 ObjectOps<tag::DirectState, tag::Program>::
 Build(void)
 {
+	typedef Outcome<ObjectOps<tag::DirectState, tag::Program>&> Res;
+
 	ShaderRange shaders = AttachedShaders();
 	while(!shaders.Empty())
 	{
 		Reference<ShaderOps> shader = shaders.Front();
 		if(!shader.IsCompiled())
 		{
-			shader.Compile();
+			if(auto outcome = Failed(shader.Compile(std::nothrow)))
+			{
+				return Res(outcome.ReleaseHandler(), *this);
+			}
 		}
 		shaders.Next();
 	}
-	return Link();
+	return Link(std::nothrow);
 }
 
 #if GL_ARB_shading_language_include
 OGLPLUS_LIB_FUNC
-ObjectOps<tag::DirectState, tag::Program>&
+Outcome<ObjectOps<tag::DirectState, tag::Program>&>
 ObjectOps<tag::DirectState, tag::Program>::
 BuildInclude(
 	SizeType count,
@@ -115,21 +142,27 @@ BuildInclude(
 	const GLint* lengths
 )
 {
+	typedef Outcome<ObjectOps<tag::DirectState, tag::Program>&> Res;
+
 	ShaderRange shaders = AttachedShaders();
 	while(!shaders.Empty())
 	{
 		Reference<ShaderOps> shader = shaders.Front();
 		if(!shader.IsCompiled())
 		{
-			shader.CompileInclude(
+			if(auto outcome = Failed(shader.CompileInclude(
 				count,
 				paths,
-				lengths
-			);
+				lengths,
+				std::nothrow
+			)))
+			{
+				return Res(outcome.ReleaseHandler(), *this);
+			}
 		}
 		shaders.Next();
 	}
-	return Link();
+	return Link(std::nothrow);
 }
 #endif
 
@@ -145,6 +178,28 @@ Validate(void)
 		Object(*this)
 	);
 	OGLPLUS_HANDLE_ERROR_IF(
+		!IsValid(),
+		GL_INVALID_OPERATION,
+		ValidationError::Message(),
+		ValidationError,
+		Log(GetInfoLog()).
+		Object(*this)
+	);
+	return *this;
+}
+
+OGLPLUS_LIB_FUNC
+Outcome<ObjectOps<tag::DirectState, tag::Program>&>
+ObjectOps<tag::DirectState, tag::Program>::
+Validate(std::nothrow_t)
+{
+	OGLPLUS_GLFUNC(ValidateProgram)(_obj_name());
+	OGLPLUS_DEFERRED_CHECK(
+		ValidateProgram,
+		ObjectError,
+		Object(*this)
+	);
+	OGLPLUS_RETURN_HANDLER_IF(
 		!IsValid(),
 		GL_INVALID_OPERATION,
 		ValidationError::Message(),

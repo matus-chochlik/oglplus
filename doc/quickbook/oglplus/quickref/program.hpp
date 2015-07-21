@@ -68,8 +68,9 @@ public:
 	Throws __LinkError if the program cannot be linked.
 	See [glfunc LinkProgram].
 	>*/
+	__Outcome<ObjectOps&> Link(std::nothrow_t);
 
-	ObjectOps& Build(void); /*<
+	__Outcome<ObjectOps&> Build(void); /*<
 	Checks if all attached shaders are compiled
 	and if they are not the it compiles them and then links
 	this __Program.
@@ -79,7 +80,7 @@ public:
 	>*/
 
 #if GL_ARB_shading_language_include
-	ObjectOps& BuildInclude(
+	__Outcome<ObjectOps&> BuildInclude(
 		__SizeType count,
 		const GLchar* const* paths,
 		const GLint* lengths
@@ -89,9 +90,9 @@ public:
 	include paths and then links [^this] __Program.
 	See [glfunc CompileShader], [glfunc LinkProgram].
 	>*/
-	ObjectOps& BuildInclude(__GLSLString&& incl);
-	ObjectOps& BuildInclude(__GLSLStrings&& incl);
-	ObjectOps& BuildInclude(const __GLSLSource&& incl);
+	__Outcome<ObjectOps&> BuildInclude(__GLSLString&& incl);
+	Outcome<ObjectOps&> BuildInclude(__GLSLStrings&& incl);
+	Outcome<ObjectOps&> BuildInclude(const __GLSLSource&& incl);
 #endif
 
 	__Boolean IsValid(void) const; /*<
@@ -104,6 +105,7 @@ public:
 	Throws __ValidationError if the program is not valid.
 	See [glfunc ValidateProgram].
 	>*/
+	__Outcome<ObjectOps&> Validate(std::nothrow_t);
 //]
 //[oglplus_program_2
 

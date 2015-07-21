@@ -39,7 +39,9 @@ public:
 	 : vs(ShaderType::Vertex)
 	 , fs(ShaderType::Fragment)
 	{
-		// Set the vertex shader source
+		// Try to set and compile the vertex shader source
+		// if that succeeded continue, otherwise compile
+		// the other shader source and require success
 		vs.Source(" \
 			#version 330\n \
 			in vec2 Position; \
@@ -49,11 +51,17 @@ public:
 				vertCoord = Position; \
 				gl_Position = vec4(Position, 0.0, 1.0); \
 			} \
-		");
-		// compile it
-		vs.Compile();
+		").Compile(std::nothrow).DoneWithoutError() || vs.Source(" \
+			#version 120\n \
+			attribute vec2 Position; \
+			varying vec2 vertCoord; \
+			void main(void) \
+			{ \
+				vertCoord = Position; \
+				gl_Position = vec4(Position, 0.0, 1.0); \
+			} \
+		").Compile(std::nothrow).Done();
 
-		// set the fragment shader source
 		fs.Source(" \
 			#version 330\n \
 			const float radius = 0.4; \
@@ -74,9 +82,26 @@ public:
 					1.0 \
 				); \
 			} \
-		");
-		// compile it
-		fs.Compile();
+		").Compile(std::nothrow).DoneWithoutError() || fs.Source("\
+			#version 120\n \
+			const float radius = 0.4; \
+			varying vec2 vertCoord; \
+			uniform vec2 RedCenter, GreenCenter, BlueCenter; \
+			void main(void) \
+			{ \
+				vec3 dist = vec3( \
+					distance(vertCoord, RedCenter), \
+					distance(vertCoord, GreenCenter), \
+					distance(vertCoord, BlueCenter) \
+				); \
+				gl_FragColor = vec4( \
+					dist.g < radius ? 1.0 : (2*radius - dist.g) / radius, \
+					dist.b < radius ? 1.0 : (2*radius - dist.b) / radius, \
+					dist.r < radius ? 1.0 : (2*radius - dist.r) / radius, \
+					1.0 \
+				); \
+			} \
+		").Compile(std::nothrow).Done();
 
 		// attach the shaders to the program
 		prog.AttachShader(vs);

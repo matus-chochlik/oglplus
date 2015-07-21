@@ -388,36 +388,121 @@ inline void HandleError(ErrorType& error)
 	using SOURCE::_errinf_glfn; \
 	using SOURCE::_errinf_cls;
 
+
 // Macro for generic error handling
-#define OGLPLUS_HANDLE_ERROR_IF(\
-	CONDITION,\
+#define OGLPLUS_HANDLE_ERROR(\
 	ERROR_CODE,\
 	MESSAGE,\
 	ERROR,\
 	ERROR_INFO\
 )\
 {\
-	GLenum error_code = ERROR_CODE;\
-	if(CONDITION)\
-	{\
-		ERROR error(MESSAGE);\
-		(void)error\
-			.ERROR_INFO\
-			.SourceFile(__FILE__)\
-			.SourceFunc(__FUNCTION__)\
-			.SourceLine(__LINE__)\
-			.Code(error_code);\
-		HandleError(error);\
-	}\
+	ERROR error(MESSAGE);\
+	(void)error\
+		.ERROR_INFO\
+		.SourceFile(__FILE__)\
+		.SourceFunc(__FUNCTION__)\
+		.SourceLine(__LINE__)\
+		.Code(error_code);\
+	HandleError(error);\
 }
 
-#define OGLPLUS_GLFUNC_CHECK(FUNC_NAME, ERROR, ERROR_INFO)\
-	OGLPLUS_HANDLE_ERROR_IF(\
+#define OGLPLUS_RETURN_HANDLER(\
+	ERROR_CODE,\
+	MESSAGE,\
+	ERROR,\
+	ERROR_INFO\
+)\
+{\
+	return DeferredHandler([=](void) -> void\
+	{\
+		OGLPLUS_HANDLE_ERROR(\
+			ERROR_CODE,\
+			MESSAGE,\
+			ERROR,\
+			ERROR_INFO\
+		);\
+	});\
+}
+
+// Macro for optional generic error handling
+#define OGLPLUS_HANDLE_ERROR_WITH_HANDLER_IF(\
+	CONDITION,\
+	ERROR_CODE,\
+	MESSAGE,\
+	ERROR,\
+	ERROR_INFO,\
+	HANDLER_MACRO\
+)\
+{\
+	GLenum error_code = ERROR_CODE;\
+	if(CONDITION)\
+		HANDLER_MACRO(\
+			error_code,\
+			MESSAGE,\
+			ERROR,\
+			ERROR_INFO\
+		)\
+}
+
+#define OGLPLUS_HANDLE_ERROR_IF(\
+	CONDITION,\
+	ERROR_CODE,\
+	MESSAGE,\
+	ERROR,\
+	ERROR_INFO\
+) OGLPLUS_HANDLE_ERROR_WITH_HANDLER_IF(\
+	CONDITION,\
+	ERROR_CODE,\
+	MESSAGE,\
+	ERROR,\
+	ERROR_INFO,\
+	OGLPLUS_HANDLE_ERROR\
+)
+
+#define OGLPLUS_RETURN_HANDLER_IF(\
+	CONDITION,\
+	ERROR_CODE,\
+	MESSAGE,\
+	ERROR,\
+	ERROR_INFO\
+) OGLPLUS_HANDLE_ERROR_WITH_HANDLER_IF(\
+	CONDITION,\
+	ERROR_CODE,\
+	MESSAGE,\
+	ERROR,\
+	ERROR_INFO,\
+	OGLPLUS_RETURN_HANDLER\
+)
+
+#define OGLPLUS_GLFUNC_CHECK_WITH_HANDLER(\
+	FUNC_NAME,\
+	ERROR,\
+	ERROR_INFO,\
+	HANDLER_MACRO\
+) OGLPLUS_HANDLE_ERROR_WITH_HANDLER_IF(\
 		error_code != GL_NO_ERROR,\
 		glGetError(),\
 		ERROR::Message(error_code),\
 		ERROR,\
-		ERROR_INFO.GLFunc(FUNC_NAME)\
+		ERROR_INFO.GLFunc(FUNC_NAME),\
+		HANDLER_MACRO\
+	)
+
+#define OGLPLUS_GLFUNC_CHECK(FUNC_NAME, ERROR, ERROR_INFO)\
+	OGLPLUS_GLFUNC_CHECK_WITH_HANDLER(\
+		FUNC_NAME,\
+		ERROR,\
+		ERROR_INFO,\
+		OGLPLUS_HANDLE_ERROR\
+	)
+
+#define OGLPLUS_RETURN_GLFUNC_CHECK_HANDLER(FUNC_NAME, ERROR, ERROR_INFO)\
+	OGLPLUS_GLFUNC_CHECK_WITH_HANDLER(\
+		FUNC_NAME,\
+		ERROR,\
+		ERROR_INFO,\
+		OGLPLUS_RETURN_HANDLER\
 	)
 
 #define OGLPLUS_CHECK(GLFUNC, ERROR, ERROR_INFO) \
@@ -440,6 +525,9 @@ inline void HandleError(ErrorType& error)
 	OGLPLUS_CHECK(GLFUNC, Error, NoInfo())
 
 #define OGLPLUS_IGNORE(PARAM) ::glGetError();
+
+#define OGLPLUS_DEFERRED_CHECK(GLFUNC, ERROR, ERROR_INFO) \
+	OGLPLUS_GLFUNC_CHECK(#GLFUNC, ERROR, ERROR_INFO)
 
 } // namespace oglplus
 

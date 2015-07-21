@@ -54,7 +54,7 @@ public:
 	 , samples(150)
 	{
 		volume_vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec4 Position;"
 			"out float vertZOffs;"
 			"uniform int SampleCount;"
@@ -75,7 +75,7 @@ public:
 		volume_vs.Compile();
 
 		volume_gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(points) in;"
 			"layout(triangle_strip, max_vertices = 4) out;"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
@@ -112,7 +112,7 @@ public:
 		volume_gs.Compile();
 
 		volume_fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform sampler2D LightTex;"
 			"uniform int SampleCount;"
 			"in vec4 geomTexCoord;"
@@ -161,7 +161,7 @@ public:
 		Uniform<Mat4f>(volume_prog, "TexProjectionMatrix").Set(texProjMat);
 
 		plane_vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec4 Position;"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"uniform mat4 TexProjectionMatrix;"
@@ -182,7 +182,7 @@ public:
 		plane_vs.Compile();
 
 		plane_fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform sampler2D LightTex;"
 			"in vec4 vertTexCoord;"
 			"in vec2 vertChecker;"

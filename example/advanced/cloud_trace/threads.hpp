@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,18 +20,18 @@ namespace cloud_trace {
 class Semaphore
 {
 private:
-	unsigned _value;
+	std::size_t _value;
 	std::mutex _mutex;
 	std::condition_variable _cv;
 
 	void _decr(void);
-	void _incr(unsigned n);
+	void _incr(std::size_t n);
 public:
-	Semaphore(unsigned initial = 0);
+	Semaphore(std::size_t initial = 0);
 
-	void Wait(unsigned n = 1);
-	void Signal(unsigned n = 1);
-	bool Signalled(unsigned n = 1);
+	void Wait(std::size_t n = 1);
+	void Signal(std::size_t n = 1);
+	bool Signalled(std::size_t n = 1);
 };
 
 } // namespace cloud_trace

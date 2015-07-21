@@ -19,6 +19,7 @@
 #include <oglplus/program_pipeline_stage.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/error/program.hpp>
+#include <oglplus/error/outcome.hpp>
 #include <oglplus/detail/prog_pl_stages.hpp>
 
 #include <cassert>
@@ -369,7 +370,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ValidateProgramPipeline}
 	 */
-	void Validate(void) const;
+	ObjectOps& Validate(void);
+
+	Outcome<ObjectOps&> Validate(std::nothrow_t);
 
 	/// Make the @p program active for this program pipeline
 	/**

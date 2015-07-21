@@ -82,7 +82,7 @@ public:
 		namespace sv = oglplus::smart_values;
 		// Set the normal object vertex shader source
 		vs_norm.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec4 Position;"
 			"in vec3 Normal;"
 			"out vec3 geomColor;"
@@ -105,7 +105,7 @@ public:
 		// Set the reflected object vertex shader source
 		// which just passes data to the geometry shader
 		vs_refl.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec4 Position;"
 			"in vec3 Normal;"
 			"out vec3 vertNormal;"
@@ -123,7 +123,7 @@ public:
 		// relies on the fact that the reflection is going
 		// to be done by the y-plane
 		gs_refl.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 6) out;"
 
@@ -168,7 +168,7 @@ public:
 
 		// set the fragment shader source
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec3 geomColor;"
 			"in vec3 geomNormal;"
 			"in vec3 geomLight;"
