@@ -77,6 +77,10 @@ if(GLUT_FOUND AND GLEW_FOUND)
 		endif()
 	endif()
 
+	if(HAS_GLEW_EXT_direct_state_access)
+		standalone_example_common(003_dsa_texture GLUT GLEW)
+	endif()
+
 	if(PNG_FOUND)
 		standalone_example_common(004_bitmap_text_hello GLUT GLEW PNG)
 		standalone_example_common(004_bitmap_text_rendering GLUT GLEW PNG)

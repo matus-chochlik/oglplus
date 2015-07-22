@@ -2,7 +2,7 @@
  *  @example standalone/029_mandelbrot_glfw3.cpp
  *  @brief Shows the usage of OGLplus with GLFW3
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -190,7 +190,7 @@ oglplus::Program Example::MakeProgram(void)
 
 	oglplus::VertexShader vs;
 	vs.Source(
-		"#version 330\n"
+		"#version 140\n"
 		"#define imag vec2\n"
 
 		"uniform mat3 ViewMatrix;"
@@ -207,7 +207,7 @@ oglplus::Program Example::MakeProgram(void)
 
 	oglplus::FragmentShader fs;
 	fs.Source(
-		"#version 330\n"
+		"#version 140\n"
 		"#define imag vec2\n"
 
 		"uniform sampler1D Palette;"
