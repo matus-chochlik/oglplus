@@ -24,7 +24,7 @@ private:
 	struct _handler_intf
 	{
 		virtual ~_handler_intf(void)
-		OGLPLUS_NOTHROW
+		noexcept
 		{ }
 
 		virtual void execute(bool) = 0;
@@ -65,19 +65,8 @@ private:
 
 	std::unique_ptr<_handler_intf> _release_handler(void);
 public:
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	DeferredHandler(void) = default;
 	DeferredHandler(DeferredHandler&&) = default;
-#else
-	DeferredHandler(void)
-	OGLPLUS_NOEXCEPT(true)
-	{ }
-
-	DeferredHandler(DeferredHandler&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	 : _handler(std::move(temp._handler))
-	{ }
-#endif
 
 	template <typename Func>
 	explicit
@@ -109,15 +98,15 @@ public:
 		return bool(_release_handler());
 	}
 
-	OGLPLUS_EXPLICIT
+	explicit
 	operator bool (void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return bool(_handler);
 	}
 
 	bool operator ! (void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return !_handler;
 	}

@@ -31,18 +31,10 @@ protected:
 	DeferredHandler _error;
 	T _value;
 public:
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	Outcome(Outcome&&) = default;
-#else
-	Outcome(Outcome&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	 : _error(std::move(temp._error))
-	 , _value(std::move(temp._value))
-	{ }
-#endif
 
 	Outcome(T&& value)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _value(std::move(value))
 	{ }
 
@@ -81,18 +73,10 @@ protected:
 	DeferredHandler _error;
 	T* _ptr;
 public:
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	Outcome(Outcome&&) = default;
-#else
-	Outcome(Outcome&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	 : _error(std::move(temp._error))
-	 , _ptr(std::move(temp._ptr))
-	{ }
-#endif
 
 	Outcome(T& ref)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _ptr(&ref)
 	{ }
 
@@ -102,13 +86,13 @@ public:
 	{ }
 
 	Outcome(DeferredHandler handler, T& ref)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : _error(std::move(handler))
 	 , _ptr(&ref)
 	{ }
 
 	DeferredHandler ReleaseHandler(void)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return std::move(_error);
 	}
@@ -123,7 +107,7 @@ public:
 
 	/// Return true if there was no error, false otherwise
 	bool Done(void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return !_error;
 	}
@@ -141,19 +125,19 @@ class PositiveOutcome
 {
 public:
 	PositiveOutcome(Outcome<T>&& base)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : Outcome<T>(std::move(base))
 	{ }
 
-	OGLPLUS_EXPLICIT
+	explicit
 	operator bool (void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return !this->_error;
 	}
 
 	bool operator ! (void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return bool(this->_error);
 	}
@@ -164,29 +148,22 @@ class NegativeOutcome
  : public Outcome<T>
 {
 public:
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	NegativeOutcome(NegativeOutcome&&) = default;
-#else
-	NegativeOutcome(NegativeOutcome&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	 : Outcome<T>(static_cast<Outcome<T>&&>(temp))
-	{ }
-#endif
 
 	NegativeOutcome(Outcome<T>&& base)
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	 : Outcome<T>(std::move(base))
 	{ }
 
-	OGLPLUS_EXPLICIT
+	explicit
 	operator bool (void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return bool(this->_error);
 	}
 
 	bool operator ! (void) const
-	OGLPLUS_NOEXCEPT(true)
+	noexcept
 	{
 		return !this->_error;
 	}
@@ -195,7 +172,7 @@ public:
 template <typename T>
 static inline
 PositiveOutcome<T> Succeeded(Outcome<T>&& outcome)
-OGLPLUS_NOEXCEPT(true)
+noexcept
 {
 	return std::move(outcome);
 }
@@ -203,7 +180,7 @@ OGLPLUS_NOEXCEPT(true)
 template <typename T>
 static inline
 NegativeOutcome<T> Failed(Outcome<T>&& outcome)
-OGLPLUS_NOEXCEPT(true)
+noexcept
 {
 	return std::move(outcome);
 }

@@ -40,7 +40,7 @@ public:
 	TriangleExample(void)
 	{
 		// Set the vertex shader source and compile it
-		vs.Source(StrCRef(" \
+		vs.Source(GLCStrRef(" \
 			#version 120\n \
 			attribute vec3 Position; \
 			void main(void) \
@@ -50,7 +50,7 @@ public:
 		")).Compile();
 
 		// set the fragment shader source and compile it
-		fs.Source(StrCRef(" \
+		fs.Source(GLCStrRef(" \
 			#version 120\n \
 			void main(void) \
 			{ \
