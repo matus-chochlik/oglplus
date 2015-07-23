@@ -65,7 +65,7 @@ public:
 			oglplus::GeometryShader(
 				oglplus::ObjectDesc("Layout transform"),
 				oglplus::StrCRef(
-				"#version 330\n"
+				"#version 150\n"
 				"uniform mat4  ProjectionMatrix,CameraMatrix,LayoutMatrix;"
 				"mat4 Matrix = ProjectionMatrix*CameraMatrix*LayoutMatrix;"
 
@@ -76,7 +76,7 @@ public:
 			),
 			oglplus::GeometryShader(
 				oglplus::ObjectDesc("Glyph transform"),
-				oglplus::StrCRef("#version 330\n"
+				oglplus::StrCRef("#version 150\n"
 				"uniform float Time;"
 				"uniform int Axis;"
 
@@ -128,7 +128,7 @@ public:
 			),
 			oglplus::FragmentShader(
 				oglplus::ObjectDesc("Pixel color"),
-				oglplus::StrCRef("#version 330\n"
+				oglplus::StrCRef("#version 150\n"
 				"vec4 PixelColor("
 				"	vec4 TexelColor,"
 				"	vec3 GlyphPosition,"

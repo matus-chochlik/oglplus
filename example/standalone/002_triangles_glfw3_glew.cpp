@@ -46,7 +46,7 @@ public:
 	Example(const Vec3f& color)
 	{
 		vs.Source(" \
-			#version 330\n \
+			#version 140\n \
 			in vec3 Position; \
 			void main(void) \
 			{ \
@@ -56,7 +56,7 @@ public:
 		vs.Compile();
 
 		fs.Source(" \
-			#version 330\n \
+			#version 140\n \
 			out vec3 fragColor; \
 			uniform vec3 Color; \
 			void main(void) \

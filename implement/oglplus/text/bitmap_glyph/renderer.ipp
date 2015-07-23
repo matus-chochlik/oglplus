@@ -28,7 +28,12 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 {
 	VertexShader vs(ObjectDesc("BitmapGlyphRenderer - Vertex"));
 	vs.Source(StrCRef(
+		"#if GL_ARB_explicit_attrib_location\n"
+		"#version 150\n"
+		"#extension GL_ARB_explicit_attrib_location : enable\n"
+		"#else\n"
 		"#version 330\n"
+		"#endif\n"
 
 		"uniform uint GlyphsPerPage;"
 
@@ -71,7 +76,7 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 
 	GeometryShader gs(ObjectDesc("BitmapGlyphRenderer - Geometry"));
 	gs.Source(StrCRef(
-		"#version 330\n"
+		"#version 150\n"
 		"layout (points) in;"
 		"layout (triangle_strip, max_vertices = 6) out;"
 
@@ -151,7 +156,7 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 
 	FragmentShader fs(ObjectDesc("BitmapGlyphRenderer - Fragment"));
 	fs.Source(StrCRef(
-		"#version 330\n"
+		"#version 150\n"
 		"uniform sampler2DArray oglpBitmap;"
 
 		"uniform float oglpLayoutWidth;"
@@ -227,7 +232,7 @@ BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
 		GeometryShader(
 			ObjectDesc("BitmapGlyphRenderer - Layout transform"),
 			StrCRef(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 "
 			"	oglpProjectionMatrix,"
 			"	oglpCameraMatrix,"
@@ -245,7 +250,7 @@ BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
 		GeometryShader(
 			ObjectDesc("BitmapGlyphRenderer - Glyph transform"),
 			StrCRef(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform float oglpAlignCoef;"
 			"uniform float oglpDirCoef;"
 
