@@ -461,6 +461,31 @@ public:
 		OGLPLUS_VERIFY_SIMPLE(MinSampleShading);
 	}
 #endif
+
+#if GL_NV_fragment_coverage_to_color
+	/// Specifies the fragment output to be updated with the coverage value
+	/**
+	 *  @glextreq{NV,fragment_coverage_to_color}
+	 *  @glsymbols
+	 *  @glfunref{FragmentCoverageColorNV}
+	 */
+	static void FragmentCoverageColor(FragDataSlot buffer)
+	{
+		OGLPLUS_GLFUNC(FragmentCoverageColorNV)(GLuint(buffer));
+		OGLPLUS_CHECK_SIMPLE(FragmentCoverageColorNV);
+	}
+
+	static FragDataSlot FragmentCoverageColor(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_FRAGMENT_COVERAGE_COLOR_NV,
+			&result
+		);
+		OGLPLUS_CHECK_SIMPLE(GetIntegerv);
+		return FragDataSlot(GLuint(result));
+	}
+#endif
 };
 
 class RasterizationOps
@@ -512,31 +537,6 @@ public:
 		);
 		OGLPLUS_VERIFY_SIMPLE(GetMultisamplefv);
 		return result;
-	}
-#endif
-
-#if GL_NV_fragment_coverage_to_color
-	/// Specifies the fragment output to be updated with the coverage value
-	/**
-	 *  @glextreq{NV,fragment_coverage_to_color}
-	 *  @glsymbols
-	 *  @glfunref{FragmentCoverageColorNV}
-	 */
-	static void FragmentCoverageColor(FragDataSlot buffer)
-	{
-		OGLPLUS_GLFUNC(FragmentCoverageColorNV)(GLuint(buffer));
-		OGLPLUS_CHECK_SIMPLE(FragmentCoverageColorNV);
-	}
-
-	static FragDataSlot FragmentCoverageColor(void)
-	{
-		GLint result;
-		OGLPLUS_GLFUNC(GetIntegerv)(
-			GL_FRAGMENT_COVERAGE_COLOR_NV,
-			&result
-		);
-		OGLPLUS_CHECK_SIMPLE(GetIntegerv);
-		return FragDataSlot(GLuint(result));
 	}
 #endif
 };
