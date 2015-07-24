@@ -1034,6 +1034,11 @@ template <typename Enum, Enum = Enum::FillMode> operator Enum (void) const{ retu
 template <typename Enum> friend bool operator==(Enum value, FillMode){ return value == Enum::FillMode; }
 template <typename Enum> friend bool operator!=(Enum value, FillMode){ return value != Enum::FillMode; }
 };
+struct FillRectangle {
+template <typename Enum, Enum = Enum::FillRectangle> operator Enum (void) const{ return Enum::FillRectangle; }
+template <typename Enum> friend bool operator==(Enum value, FillRectangle){ return value == Enum::FillRectangle; }
+template <typename Enum> friend bool operator!=(Enum value, FillRectangle){ return value != Enum::FillRectangle; }
+};
 struct FirstToRest {
 template <typename Enum, Enum = Enum::FirstToRest> operator Enum (void) const{ return Enum::FirstToRest; }
 template <typename Enum> friend bool operator==(Enum value, FirstToRest){ return value == Enum::FirstToRest; }

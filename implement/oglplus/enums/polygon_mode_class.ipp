@@ -48,6 +48,16 @@ public:
 	Transform<PolygonMode::Fill> Fill;
 # endif
 #endif
+#if defined GL_FILL_RECTANGLE_NV
+# if defined FillRectangle
+#  pragma push_macro("FillRectangle")
+#  undef FillRectangle
+	Transform<PolygonMode::FillRectangle> FillRectangle;
+#  pragma pop_macro("FillRectangle")
+# else
+	Transform<PolygonMode::FillRectangle> FillRectangle;
+# endif
+#endif
 
 	EnumToClass(void) { }
 	EnumToClass(Base&& base)
@@ -80,6 +90,16 @@ public:
 #  pragma pop_macro("Fill")
 # else
 	 , Fill(_base())
+# endif
+#endif
+#if defined GL_FILL_RECTANGLE_NV
+# if defined FillRectangle
+#  pragma push_macro("FillRectangle")
+#  undef FillRectangle
+	 , FillRectangle(_base())
+#  pragma pop_macro("FillRectangle")
+# else
+	 , FillRectangle(_base())
 # endif
 #endif
 	{ }

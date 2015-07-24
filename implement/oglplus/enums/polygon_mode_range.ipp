@@ -28,6 +28,9 @@ GL_LINE,
 #if defined GL_FILL
 GL_FILL,
 #endif
+#if defined GL_FILL_RECTANGLE_NV
+GL_FILL_RECTANGLE_NV,
+#endif
 0
 };
 return aux::CastIterRange<

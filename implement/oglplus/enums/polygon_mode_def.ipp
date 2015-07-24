@@ -61,6 +61,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_FILL_RECTANGLE_NV
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined FillRectangle
+#  pragma push_macro("FillRectangle")
+#  undef FillRectangle
+   OGLPLUS_ENUM_CLASS_VALUE(FillRectangle, GL_FILL_RECTANGLE_NV)
+#  pragma pop_macro("FillRectangle")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(FillRectangle, GL_FILL_RECTANGLE_NV)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif

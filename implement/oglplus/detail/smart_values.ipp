@@ -214,6 +214,7 @@ OGLPLUS_CONSTEXPR oglplus::smart_enums::FileName FileName = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Fill Fill = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FillCover FillCover = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FillMode FillMode = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::FillRectangle FillRectangle = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FirstToRest FirstToRest = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FirstVertexConvention FirstVertexConvention = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Fixed Fixed = {};

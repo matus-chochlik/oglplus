@@ -16,7 +16,9 @@ Point,
 /// LINE
 Line,
 /// FILL
-Fill
+Fill,
+/// FILL_RECTANGLE_NV
+FillRectangle
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
