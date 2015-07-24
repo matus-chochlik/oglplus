@@ -1229,6 +1229,11 @@ template <typename Enum, Enum = Enum::Fragment> operator Enum (void) const{ retu
 template <typename Enum> friend bool operator==(Enum value, Fragment){ return value == Enum::Fragment; }
 template <typename Enum> friend bool operator!=(Enum value, Fragment){ return value != Enum::Fragment; }
 };
+struct FragmentCoverageToColor {
+template <typename Enum, Enum = Enum::FragmentCoverageToColor> operator Enum (void) const{ return Enum::FragmentCoverageToColor; }
+template <typename Enum> friend bool operator==(Enum value, FragmentCoverageToColor){ return value == Enum::FragmentCoverageToColor; }
+template <typename Enum> friend bool operator!=(Enum value, FragmentCoverageToColor){ return value != Enum::FragmentCoverageToColor; }
+};
 struct FragmentShader {
 template <typename Enum, Enum = Enum::FragmentShader> operator Enum (void) const{ return Enum::FragmentShader; }
 template <typename Enum> friend bool operator==(Enum value, FragmentShader){ return value == Enum::FragmentShader; }

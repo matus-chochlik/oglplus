@@ -278,6 +278,16 @@ public:
 	Transform<Capability::BlendAdvancedCoherent> BlendAdvancedCoherent;
 # endif
 #endif
+#if defined GL_FRAGMENT_COVERAGE_TO_COLOR_NV
+# if defined FragmentCoverageToColor
+#  pragma push_macro("FragmentCoverageToColor")
+#  undef FragmentCoverageToColor
+	Transform<Capability::FragmentCoverageToColor> FragmentCoverageToColor;
+#  pragma pop_macro("FragmentCoverageToColor")
+# else
+	Transform<Capability::FragmentCoverageToColor> FragmentCoverageToColor;
+# endif
+#endif
 
 	EnumToClass(void) { }
 	EnumToClass(Base&& base)
@@ -540,6 +550,16 @@ public:
 #  pragma pop_macro("BlendAdvancedCoherent")
 # else
 	 , BlendAdvancedCoherent(_base())
+# endif
+#endif
+#if defined GL_FRAGMENT_COVERAGE_TO_COLOR_NV
+# if defined FragmentCoverageToColor
+#  pragma push_macro("FragmentCoverageToColor")
+#  undef FragmentCoverageToColor
+	 , FragmentCoverageToColor(_base())
+#  pragma pop_macro("FragmentCoverageToColor")
+# else
+	 , FragmentCoverageToColor(_base())
 # endif
 #endif
 	{ }

@@ -253,6 +253,7 @@ OGLPLUS_CONSTEXPR oglplus::smart_enums::ForwardCompatible ForwardCompatible = {}
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FractionalEven FractionalEven = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FractionalOdd FractionalOdd = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Fragment Fragment = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::FragmentCoverageToColor FragmentCoverageToColor = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FragmentShader FragmentShader = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FragmentShaderDerivative FragmentShaderDerivative = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FragmentShaderInvocations FragmentShaderInvocations = {};
