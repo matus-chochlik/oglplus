@@ -268,8 +268,9 @@ public:
 #endif
 
 #if GL_NV_fragment_coverage_to_color
-	// TODO
-	//aux::FragmentCoverageColor FragmentCoverageColor;
+#if defined OGLPLUS_DYN_LOADED_GL_FUNCTIONS
+	aux::FragmentCoverageColor FragmentCoverageColor;
+#endif
 #endif
 };
 

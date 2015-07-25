@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -75,6 +75,11 @@ inline auto _checked_glfunc(
 
 #endif
 
+#if defined(__GLEW_H__)
+#define OGLPLUS_DYN_LOADED_GL_FUNCTIONS 1
+#else
+#define OGLPLUS_DYN_LOADED_GL_FUNCTIONS 0
+#endif
 
 } // namespace oglplus
 
