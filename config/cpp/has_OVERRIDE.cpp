@@ -1,5 +1,5 @@
 /**
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -8,22 +8,19 @@
 struct intf
 {
 	virtual ~intf(void) { }
-	virtual int func(const char*) = 0;
+
+	virtual int func(void) = 0;
 };
 
-class impl
- : public intf
+class impl : public intf
 {
-public:
-	int func(const char*) override
-	{
-		return 0;
-	}
+	int func(void) override { return 0; }
 };
 
-int main(int argc, const char** argv)
+int main(void)
 {
-	impl x;
-	intf* pi = &x;
-	return pi->func(argv[0]);
+	impl i;
+	intf* pi = &i;
+
+	return pi->func();
 }

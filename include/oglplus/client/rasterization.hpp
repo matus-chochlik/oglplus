@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -217,6 +217,29 @@ public:
 };
 #endif
 
+#if GL_NV_fragment_coverage_to_color
+class FragmentCoverageColor
+ : public SettingStack<FragDataSlot, Nothing>
+{
+private:
+	static
+	FragDataSlot _do_get(Nothing)
+	{
+		return context::RasterizationState::FragmentCoverageColor();
+	}
+
+	static
+	void _do_set(FragDataSlot val, Nothing)
+	{
+		context::RasterizationState::FragmentCoverageColor(val);
+	}
+public:
+	FragmentCoverageColor(void)
+	 : SettingStack<FragDataSlot, Nothing>(&_do_get, &_do_set)
+	{ }
+};
+#endif
+
 } // namespace aux
 
 class RasterizationState
@@ -244,6 +267,11 @@ public:
 	aux::MinSampleShading MinSampleShading;
 #endif
 
+#if GL_NV_fragment_coverage_to_color
+#if OGLPLUS_DYN_LOADED_GL_FUNCTIONS
+	aux::FragmentCoverageColor FragmentCoverageColor;
+#endif
+#endif
 };
 
 using context::RasterizationOps;

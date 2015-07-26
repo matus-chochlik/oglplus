@@ -13,9 +13,10 @@
 
 enum class PolygonMode : GLenum
 {
-	Point = GL_POINT,
-	Line  = GL_LINE,
-	Fill  = GL_FILL
+	Point         = GL_POINT,
+	Line          = GL_LINE,
+	Fill          = GL_FILL,
+	FillRectangle = GL_FILL_RECTANGLE_NV
 };
 
 template <>

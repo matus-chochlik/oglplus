@@ -429,6 +429,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_FRAGMENT_COVERAGE_TO_COLOR_NV
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined FragmentCoverageToColor
+#  pragma push_macro("FragmentCoverageToColor")
+#  undef FragmentCoverageToColor
+   OGLPLUS_ENUM_CLASS_VALUE(FragmentCoverageToColor, GL_FRAGMENT_COVERAGE_TO_COLOR_NV)
+#  pragma pop_macro("FragmentCoverageToColor")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(FragmentCoverageToColor, GL_FRAGMENT_COVERAGE_TO_COLOR_NV)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif

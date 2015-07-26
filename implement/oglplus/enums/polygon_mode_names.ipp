@@ -29,6 +29,9 @@ switch(value)
 #if defined GL_FILL
 	case GL_FILL: return CStrRef("FILL");
 #endif
+#if defined GL_FILL_RECTANGLE_NV
+	case GL_FILL_RECTANGLE_NV: return CStrRef("FILL_RECTANGLE_NV");
+#endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);

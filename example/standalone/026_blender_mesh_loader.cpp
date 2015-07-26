@@ -47,7 +47,7 @@ public:
 
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"uniform vec3 LightPosition, CameraPosition;"
 
@@ -73,7 +73,7 @@ public:
 
 		GeometryShader gs;
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout (triangles) in;"
 			"layout (triangle_strip, max_vertices=3) out;"
 
@@ -115,7 +115,7 @@ public:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"in vec3 geomNormal;"
 			"in vec3 geomLightDir;"

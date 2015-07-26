@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -28,7 +28,12 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 {
 	VertexShader vs(ObjectDesc("BitmapGlyphRenderer - Vertex"));
 	vs.Source(GLCStrRef(
+		"#if GL_ARB_explicit_attrib_location\n"
+		"#version 150\n"
+		"#extension GL_ARB_explicit_attrib_location : enable\n"
+		"#else\n"
 		"#version 330\n"
+		"#endif\n"
 
 		"uniform uint GlyphsPerPage;"
 
@@ -71,7 +76,7 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 
 	GeometryShader gs(ObjectDesc("BitmapGlyphRenderer - Geometry"));
 	gs.Source(GLCStrRef(
-		"#version 330\n"
+		"#version 150\n"
 		"layout (points) in;"
 		"layout (triangle_strip, max_vertices = 6) out;"
 
@@ -151,7 +156,7 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 
 	FragmentShader fs(ObjectDesc("BitmapGlyphRenderer - Fragment"));
 	fs.Source(GLCStrRef(
-		"#version 330\n"
+		"#version 150\n"
 		"uniform sampler2DArray oglpBitmap;"
 
 		"uniform float oglpLayoutWidth;"
@@ -212,7 +217,7 @@ BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
 		GeometryShader(
 			ObjectDesc("BitmapGlyphRenderer - Layout transform"),
 			GLCStrRef(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 "
 			"	oglpProjectionMatrix,"
 			"	oglpCameraMatrix,"
@@ -230,7 +235,7 @@ BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
 		GeometryShader(
 			ObjectDesc("BitmapGlyphRenderer - Glyph transform"),
 			GLCStrRef(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform float oglpAlignCoef;"
 			"uniform float oglpDirCoef;"
 

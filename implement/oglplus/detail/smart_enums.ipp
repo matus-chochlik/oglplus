@@ -1034,6 +1034,11 @@ template <typename Enum, Enum = Enum::FillMode> constexpr operator Enum (void) c
 template <typename Enum> friend constexpr bool operator==(Enum value, FillMode) noexcept { return value == Enum::FillMode; }
 template <typename Enum> friend constexpr bool operator!=(Enum value, FillMode) noexcept { return value != Enum::FillMode; }
 };
+struct FillRectangle {
+template <typename Enum, Enum = Enum::FillRectangle> constexpr operator Enum (void) const noexcept { return Enum::FillRectangle; }
+template <typename Enum> friend constexpr bool operator==(Enum value, FillRectangle) noexcept { return value == Enum::FillRectangle; }
+template <typename Enum> friend constexpr bool operator!=(Enum value, FillRectangle) noexcept { return value != Enum::FillRectangle; }
+};
 struct FirstToRest {
 template <typename Enum, Enum = Enum::FirstToRest> constexpr operator Enum (void) const noexcept { return Enum::FirstToRest; }
 template <typename Enum> friend constexpr bool operator==(Enum value, FirstToRest) noexcept { return value == Enum::FirstToRest; }
@@ -1223,6 +1228,11 @@ struct Fragment {
 template <typename Enum, Enum = Enum::Fragment> constexpr operator Enum (void) const noexcept { return Enum::Fragment; }
 template <typename Enum> friend constexpr bool operator==(Enum value, Fragment) noexcept { return value == Enum::Fragment; }
 template <typename Enum> friend constexpr bool operator!=(Enum value, Fragment) noexcept { return value != Enum::Fragment; }
+};
+struct FragmentCoverageToColor {
+template <typename Enum, Enum = Enum::FragmentCoverageToColor> constexpr operator Enum (void) const noexcept { return Enum::FragmentCoverageToColor; }
+template <typename Enum> friend constexpr bool operator==(Enum value, FragmentCoverageToColor) noexcept { return value == Enum::FragmentCoverageToColor; }
+template <typename Enum> friend constexpr bool operator!=(Enum value, FragmentCoverageToColor) noexcept { return value != Enum::FragmentCoverageToColor; }
 };
 struct FragmentShader {
 template <typename Enum, Enum = Enum::FragmentShader> constexpr operator Enum (void) const noexcept { return Enum::FragmentShader; }

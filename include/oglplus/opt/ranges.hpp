@@ -117,26 +117,31 @@ private:
 		{ }
 
 		_intf* _clone(void) const
+		override
 		{
 			return new _impl(*this);
 		}
 
 		bool _empty(void) const
+		override
 		{
 			return _rng.Empty();
 		}
 
 		size_t _size(void) const
+		override
 		{
 			return _rng.Size();
 		}
 
 		void _next(void)
+		override
 		{
 			_rng.Next();
 		}
 
 		Element _front(void) const
+		override
 		{
 			return _rng.Front();
 		}
