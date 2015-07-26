@@ -32,7 +32,8 @@ private:
 
 	struct _abort_handler : _handler_intf
 	{
-		void execute(bool destroying);
+		void execute(bool destroying)
+		override;
 	};
 
 	template <typename Func>
@@ -45,6 +46,7 @@ private:
 		{ }
 
 		void execute(bool)
+		override
 		{
 			_func();
 		}

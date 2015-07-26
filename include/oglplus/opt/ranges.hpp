@@ -100,7 +100,7 @@ private:
 		virtual _intf* _clone(void) const = 0;
 
 		virtual bool _empty(void) const = 0;
-		virtual size_t _size(void) const = 0;
+		virtual std::size_t _size(void) const = 0;
 		virtual void _next(void) = 0;
 		virtual Element _front(void) const = 0;
 	};
@@ -128,7 +128,7 @@ private:
 			return _rng.Empty();
 		}
 
-		size_t _size(void) const
+		std::size_t _size(void) const
 		override
 		{
 			return _rng.Size();
