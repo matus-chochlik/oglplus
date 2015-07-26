@@ -117,11 +117,13 @@ private:
 		{ }
 
 		_intf* _clone(void) const
+		OGLPLUS_OVERRIDE
 		{
 			return new _impl(*this);
 		}
 
 		bool _empty(void) const
+		OGLPLUS_OVERRIDE
 		{
 			return _rng.Empty();
 		}
@@ -132,11 +134,13 @@ private:
 		}
 
 		void _next(void)
+		OGLPLUS_OVERRIDE
 		{
 			_rng.Next();
 		}
 
 		Element _front(void) const
+		OGLPLUS_OVERRIDE
 		{
 			return _rng.Front();
 		}
