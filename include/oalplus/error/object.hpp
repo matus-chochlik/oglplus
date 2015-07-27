@@ -34,7 +34,8 @@ public:
 	ObjectError(const char* message);
 
 	/// Returns the object type
-	ALenum ObjectType(void) const;
+	ALenum ObjectType(void) const
+	OALPLUS_OVERRIDE;
 
 	template <typename ObjTag>
 	ObjectError& Object(oalplus::ObjectName<ObjTag> object)
@@ -46,10 +47,12 @@ public:
 	}
 
 	/// Object AL name
-	ALint ObjectName(void) const;
+	ALint ObjectName(void) const
+	OALPLUS_OVERRIDE;
 
 	/// Object textual description
-	const String& ObjectDesc(void) const;
+	const String& ObjectDesc(void) const
+	OALPLUS_OVERRIDE;
 };
 
 } // namespace oalplus
