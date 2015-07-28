@@ -35,7 +35,7 @@ public:
 
 	/// Returns the object type
 	ALenum ObjectType(void) const
-	OALPLUS_OVERRIDE;
+	override;
 
 	template <typename ObjTag>
 	ObjectError& Object(oalplus::ObjectName<ObjTag> object)
@@ -48,10 +48,10 @@ public:
 
 	/// Object AL name
 	ALint ObjectName(void) const
-	OALPLUS_OVERRIDE;
+	override;
 
 	/// Object textual description
-	eagine::base::cstrref ObjectDesc(void) const;
+	eagine::base::cstrref ObjectDesc(void) const
 	override;
 };
 

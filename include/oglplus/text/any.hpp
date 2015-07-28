@@ -56,20 +56,20 @@ private:
 		{ }
 
 		_intf* _clone(void) const
-		OGLPLUS_OVERRIDE
+		override
 		{
 			return new _impl(_font);
 		}
 
 		const void* _addr(void)
-		OGLPLUS_OVERRIDE
+		override
 		{
 			return static_cast<void*>(&_font);
 		}
 
 		Rectangle GlyphLogicalMetrics(
 			CodePoint code_point
-		) OGLPLUS_OVERRIDE
+		) override
 		{
 			return _font.GlyphLogicalMetrics(code_point);
 		}
@@ -78,7 +78,7 @@ private:
 			const CodePoint* cps,
 			GLsizei size,
 			std::vector<GLfloat>& x_offsets
-		) OGLPLUS_OVERRIDE
+		) override
 		{
 			return _font.QueryXOffsets(cps, size, x_offsets);
 		}
@@ -193,19 +193,19 @@ private:
 		{ }
 
 		const void* _addr(void)
-		OGLPLUS_OVERRIDE
+		override
 		{
 			return static_cast<void*>(&_layout);
 		}
 
 		GLsizei Capacity(void) const
-		OGLPLUS_OVERRIDE
+		override
 		{
 			return _layout.Capacity();
 		}
 
 		GLfloat Width(void) const
-		OGLPLUS_OVERRIDE
+		override
 		{
 			return _layout.Width();
 		}
@@ -213,7 +213,7 @@ private:
 		void Set(
 			const CodePoint* code_points,
 			const GLsizei length
-		) OGLPLUS_OVERRIDE
+		) override
 		{
 			_layout.Set(code_points, length);
 		}
@@ -322,43 +322,43 @@ private:
 		{ }
 
 		void SetProjection(const Mat4f& projection_matrix)
-		OGLPLUS_OVERRIDE
+		override
 		{
 			_renderer.SetProjection(projection_matrix);
 		}
 
 		void SetCamera(const Mat4f& camera_matrix)
-		OGLPLUS_OVERRIDE
+		override
 		{
 			_renderer.SetCamera(camera_matrix);
 		}
 
 		void SetLayoutTransform(const Mat4f& layout_matrix)
-		OGLPLUS_OVERRIDE
+		override
 		{
 			_renderer.SetLayoutTransform(layout_matrix);
 		}
 
 		void SetAlignment(Alignment alignment)
-		OGLPLUS_OVERRIDE
+		override
 		{
 			_renderer.SetAlignment(alignment);
 		}
 
 		void SetDirection(Direction direction)
-		OGLPLUS_OVERRIDE
+		override
 		{
 			_renderer.SetDirection(direction);
 		}
 
 		void Use(void)
-		OGLPLUS_OVERRIDE
+		override
 		{
 			_renderer.Use();
 		}
 
 		void Render(const AnyLayout& layout)
-		OGLPLUS_OVERRIDE
+		override
 		{
 			_renderer.Render(layout.As<Layout>());
 		}
@@ -478,7 +478,7 @@ private:
 		{ }
 
 		AnyFont LoadFont(const char* font_name)
-		OGLPLUS_OVERRIDE
+		override
 		{
 			return AnyFont(_ru.LoadFont(font_name));
 		}
@@ -486,7 +486,7 @@ private:
 		AnyLayout MakeLayout(
 			const AnyFont& font,
 			GLsizei capacity
-		) OGLPLUS_OVERRIDE
+		) override
 		{
 			return AnyLayout(
 				_ru.MakeLayout(
@@ -510,7 +510,7 @@ private:
 		}
 
 		AnyRenderer GetRenderer(const FragmentShader& shader)
-		OGLPLUS_OVERRIDE
+		override
 		{
 			return AnyRenderer(
 				_ru.GetRenderer(shader),
