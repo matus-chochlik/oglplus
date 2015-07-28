@@ -56,7 +56,11 @@ public:
 	}
 
 	/// The value assigned to the limited-type variable
-	GLfloat Value(void) const { return _value; }
+	GLfloat Value(void) const
+	OGLPLUS_OVERRIDE
+	{
+		return _value;
+	}
 
 	LimitError& Limit(GLfloat limit)
 	{
@@ -70,7 +74,11 @@ public:
 		return *this;
 	}
 	/// The allowed limit of the limited-type
-	GLfloat Limit(void) const { return _limit; }
+	GLfloat Limit(void) const
+	OGLPLUS_OVERRIDE
+	{
+		return _limit;
+	}
 };
 
 } // namespace oglplus

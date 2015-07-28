@@ -49,10 +49,12 @@ public:
 	}
 
 	/// Returns the object type
-	GLenum ObjectType(void) const;
+	GLenum ObjectType(void) const
+	OGLPLUS_OVERRIDE;
 
 	/// Returns the class name
-	const char* ObjectTypeName(void) const;
+	const char* ObjectTypeName(void) const
+	OGLPLUS_OVERRIDE;
 
 	template <typename BindTarget_>
 	ObjectError& BindTarget(BindTarget_ bind_tgt)
@@ -68,10 +70,12 @@ public:
 	}
 
 	/// Returns the bind target
-	GLenum BindTarget(void) const;
+	GLenum BindTarget(void) const
+	OGLPLUS_OVERRIDE;
 
 	/// Returns the bind target name
-	const char* TargetName(void) const;
+	const char* TargetName(void) const
+	OGLPLUS_OVERRIDE;
 
 	template <typename ObjTag>
 	ObjectError& Object(oglplus::ObjectName<ObjTag> object)
@@ -85,10 +89,12 @@ public:
 	}
 
 	/// Object GL name
-	GLint ObjectName(void) const;
+	GLint ObjectName(void) const
+	OGLPLUS_OVERRIDE;
 
 	/// Object textual description
-	const String& ObjectDesc(void) const;
+	const String& ObjectDesc(void) const
+	OGLPLUS_OVERRIDE;
 
 	template <typename BindTarget_>
 	ObjectError& ObjectBinding(BindTarget_ bind_tgt)
@@ -129,10 +135,12 @@ public:
 	}
 
 	/// Returns the subject type
-	GLenum SubjectType(void) const;
+	GLenum SubjectType(void) const
+	OGLPLUS_OVERRIDE;
 
 	/// Returns the subject class name
-	const char* SubjectTypeName(void) const;
+	const char* SubjectTypeName(void) const
+	OGLPLUS_OVERRIDE;
 
 	template <typename ObjTag>
 	ObjectPairError& Subject(oglplus::ObjectName<ObjTag> subject)
@@ -143,10 +151,12 @@ public:
 	}
 
 	/// Subject GL name
-	GLint SubjectName(void) const;
+	GLint SubjectName(void) const
+	OGLPLUS_OVERRIDE;
 
 	/// Object textual description
-	const String& SubjectDesc(void) const;
+	const String& SubjectDesc(void) const
+	OGLPLUS_OVERRIDE;
 
 	template <typename BindTarget_>
 	ObjectPairError& SubjectBinding(BindTarget_ bind_tgt)
