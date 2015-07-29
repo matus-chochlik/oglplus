@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{027_flow}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -41,7 +41,7 @@ private:
 		prog.AttachShader(VertexShader(
 			ObjectDesc("Flow map vertex"),
 			StrCRef(
-			"#version 330\n"
+			"#version 140\n"
 
 			"in vec4 Position;"
 			"in vec2 TexCoord;"
@@ -57,7 +57,12 @@ private:
 		)).AttachShader(FragmentShader(
 			ObjectDesc("Flow map fragment"),
 			StrCRef(
+			"#if GL_ARB_explicit_attrib_location\n"
+			"#version 140\n"
+			"#extension GL_ARB_explicit_attrib_location : enable\n"
+			"#else\n"
 			"#version 330\n"
+			"#endif\n"
 
 			"uniform sampler2D HMap1, HMap2;"
 			"uniform sampler2D FlowMap;"
@@ -330,7 +335,7 @@ private:
 		prog.AttachShader(VertexShader(
 			ObjectDesc("Screen vertex"),
 			StrCRef(
-			"#version 330\n"
+			"#version 140\n"
 
 			"in vec4 Position;"
 			"in vec2 TexCoord;"
@@ -346,7 +351,7 @@ private:
 		)).AttachShader(FragmentShader(
 			ObjectDesc("Screen fragment"),
 			StrCRef(
-			"#version 330\n"
+			"#version 140\n"
 
 			"uniform sampler2D Background, NormalMap;"
 
