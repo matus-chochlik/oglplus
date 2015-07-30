@@ -49,7 +49,7 @@ public:
 	{
 		VertexShader vert(ObjectDesc("Vertex"));
 		vert.Source(StrCRef(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 CameraMatrix;"
 
 			"uniform float Step;"
@@ -79,7 +79,7 @@ public:
 
 		TessControlShader teco(ObjectDesc("TessControl"));
 		teco.Source(StrCRef(
-			"#version 330\n"
+			"#version 150\n"
 			"#extension ARB_tessellation_shader : enable\n"
 			"#define ID gl_InvocationID\n"
 			"layout(vertices = 4) in;"
@@ -126,7 +126,7 @@ public:
 
 		TessEvaluationShader teev(ObjectDesc("TessEvaluation"));
 		teev.Source(StrCRef(
-			"#version 330\n"
+			"#version 150\n"
 			"#extension ARB_tessellation_shader : enable\n"
 			"layout(quads, equal_spacing, ccw) in;"
 			"uniform mat4 ProjectionMatrix;"
@@ -204,7 +204,7 @@ public:
 
 		GeometryShader geom(ObjectDesc("Geometry"));
 		geom.Source(StrCRef(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 3) out;"
 
@@ -266,7 +266,7 @@ public:
 
 		FragmentShader frag(ObjectDesc("Fragment"));
 		frag.Source(StrCRef(
-			"#version 330\n"
+			"#version 150\n"
 
 			"in vec3 geomEdge;"
 			"in vec3 geomColor;"
