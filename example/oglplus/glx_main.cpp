@@ -417,12 +417,22 @@ void run_framedump_loop(
 	std::vector<char> pixels(width * height * 4);
 
 	GLuint border = 32;
+	bool done = false;
 
 	XEvent event;
 
-	while(true)
+	while(!done)
 	{
-		while(display.NextEvent(event));
+		while(display.NextEvent(event))
+		{
+			switch(event.type)
+			{
+				case ClientMessage:
+				case DestroyNotify:
+					done = true;
+					break;
+			}
+		}
 
 		Vec2f mouse_pos = Loop(mouse_path_pos).Position(t*0.2);
 
