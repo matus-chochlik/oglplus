@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/texgen/checker_node.hpp
+ *  @file oglplus/texgen/swizzle_node.hpp
  *
  *  @author Matus Chochlik
  *
@@ -9,29 +9,29 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_TEXGEN_CHECKER_NODE_HPP
-#define OGLPLUS_TEXGEN_CHECKER_NODE_HPP
+#ifndef OGLPLUS_TEXGEN_UNARY_NODE_HPP
+#define OGLPLUS_TEXGEN_UNARY_NODE_HPP
 
 #include <oglplus/texgen/base_node.hpp>
-#include <oglplus/texgen/sibling_input.hpp>
-#include <oglplus/texgen/constant_output.hpp>
-#include <oglplus/texgen/global_node.hpp>
+#include <oglplus/texgen/base_input.hpp>
+#include <oglplus/texgen/adaptive_output.hpp>
 
 namespace oglplus {
 namespace texgen {
 
-class CheckerNode;
+class SwizzleNode;
 
-class CheckerOutputSlot
+class SwizzleOutputSlot
  : public BaseOutputSlot
 {
 private:
-	friend class CheckerNode;
+	friend class SwizzleNode;
 
-	FallbackInputSlot<GlobalCoordinateSlot> _coord;
-	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _scale;
+	FallbackInputSlot<AdaptiveConstantOutputSlot> _input;
+
+	String _swizzle;
 public:
-	CheckerOutputSlot(Node& parent);
+	SwizzleOutputSlot(Node& parent, String swizzle);
 
 	const char* TypeName(void)
 	OGLPLUS_OVERRIDE;
@@ -43,15 +43,13 @@ public:
 	OGLPLUS_OVERRIDE;
 };
 
-class CheckerNode
+class SwizzleNode
  : public BaseNode
 {
 private:
-	CheckerOutputSlot _output;
+	SwizzleOutputSlot _output;
 public:
-	CheckerNode(void);
-
-	CheckerNode& SetScale(Vec3f scale);
+	SwizzleNode(String swizzle);
 
 	std::size_t InputCount(void)
 	OGLPLUS_OVERRIDE;
@@ -66,11 +64,12 @@ public:
 	OGLPLUS_OVERRIDE;
 };
 
+
 } // namespace texgen
 } // namespace oglplus
 
 //#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/texgen/checker_node.ipp>
+#include <oglplus/texgen/swizzle_node.ipp>
 //#endif
 
 #endif // include guard

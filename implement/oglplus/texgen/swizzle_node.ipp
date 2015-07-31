@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/texgen/checker_node.ipp
+ *  @file oglplus/texgen/swizzle_node.ipp
  *
  *  @author Matus Chochlik
  *
@@ -16,84 +16,83 @@ namespace oglplus {
 namespace texgen {
 
 OGLPLUS_LIB_FUNC
-CheckerOutputSlot::
-CheckerOutputSlot(Node& parent)
- : _coord(parent, "Coord")
- , _scale(parent, "Scale", Vec3f(8,8,8))
-{ }
+SwizzleOutputSlot::
+SwizzleOutputSlot(Node& parent, String swizzle)
+ : _input(parent, "Input", Vec4f(0))
+ , _swizzle(swizzle)
+{
+	assert(_swizzle.length() >= 1);
+	assert(_swizzle.length() <= 4);
+}
 
 OGLPLUS_LIB_FUNC
 const char*
-CheckerOutputSlot::
+SwizzleOutputSlot::
 TypeName(void)
 {
-	return "Checker";
+	return "Swizzle";
 }
 
 OGLPLUS_LIB_FUNC
 SlotDataType
-CheckerOutputSlot::
+SwizzleOutputSlot::
 ValueType(void)
 {
-	return SlotDataType::Float;
+	short n = _swizzle.length();
+
+	if(n == 4) return SlotDataType::FloatVec4;
+	if(n == 3) return SlotDataType::FloatVec3;
+	if(n == 2) return SlotDataType::FloatVec2;
+	if(n == 1) return SlotDataType::Float;
+
+	return _input.ValueType();
 }
 
 OGLPLUS_LIB_FUNC
 String
-CheckerOutputSlot::
+SwizzleOutputSlot::
 Definitions(unsigned version)
 {
 	std::stringstream result;
-	result << _coord.Definitions(version);
-	result << _scale.Definitions(version);
 
-	result << "float ";
+	result << _input.Definitions(version);
+
+	result << DataTypeName(ValueType()) << " ";
 	AppendId(result);
 	result << "(vec3 o)\n";
 	result << "{\n";
-	result << "	vec3 c = " << _coord.Expression(version) << "(o);\n";
-	result << "	c *= " << _scale.Expression(version) << "(o);\n";
-	result << "	return float((int(c.x)%2+int(c.y)%2+int(c.z)%2)%2);\n";
+	result << "	return " << _input.Expression(version);
+	result << "(o)." << _swizzle << ";\n";
 	result << "}\n";
 	return String(result.str());
 }
 
 OGLPLUS_LIB_FUNC
-CheckerNode::
-CheckerNode(void)
- : _output(*this)
+SwizzleNode::
+SwizzleNode(String swizzle)
+ : _output(*this, swizzle)
 { }
 
 OGLPLUS_LIB_FUNC
-CheckerNode&
-CheckerNode::
-SetScale(Vec3f scale)
-{
-	_output._scale.Fallback().SetValue(scale);
-	return *this;
-}
-
-OGLPLUS_LIB_FUNC
 std::size_t
-CheckerNode::
+SwizzleNode::
 InputCount(void)
 {
-	return 2;
+	return 1;
 }
 
 OGLPLUS_LIB_FUNC
 InputSlot&
-CheckerNode::
+SwizzleNode::
 Input(std::size_t i)
 {
 	assert(i < InputCount());
-	if(i == 0) return _output._coord;
-	return _output._scale;
+	return _output._input;
 }
 
 OGLPLUS_LIB_FUNC
 std::size_t
-CheckerNode::
+SwizzleNode::
 OutputCount(void)
 {
 	return 1;
@@ -101,7 +100,7 @@ OutputCount(void)
 
 OGLPLUS_LIB_FUNC
 OutputSlot&
-CheckerNode::
+SwizzleNode::
 Output(std::size_t i)
 {
 	assert(i < OutputCount());

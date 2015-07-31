@@ -1,0 +1,151 @@
+/**
+ *  @file oglplus/texgen/newton_node.ipp
+ *
+ *  @author Matus Chochlik
+ *
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#include <oglplus/config/basic.hpp>
+#include <sstream>
+#include <cassert>
+
+namespace oglplus {
+namespace texgen {
+
+OGLPLUS_LIB_FUNC
+NewtonOutputSlot::
+NewtonOutputSlot(Node& parent)
+ : _coord(parent, "Coord")
+ , _offset(parent, "Offset", Vec3f(-0.5f,-0.5f,0))
+ , _scale(parent, "Scale", Vec3f(4,4,1))
+{ }
+
+OGLPLUS_LIB_FUNC
+const char*
+NewtonOutputSlot::
+TypeName(void)
+{
+	return "Newton";
+}
+
+OGLPLUS_LIB_FUNC
+SlotDataType
+NewtonOutputSlot::
+ValueType(void)
+{
+	return SlotDataType::Float;
+}
+
+OGLPLUS_LIB_FUNC
+String
+NewtonOutputSlot::
+Definitions(unsigned version)
+{
+	std::stringstream result;
+	result << _coord.Definitions(version);
+	result << _offset.Definitions(version);
+	result << _scale.Definitions(version);
+
+	result << "#ifndef OGLPTG_COMPLEX_DIV\n";
+	result << "#define OGLPTG_COMPLEX_DIV\n";
+	result << "vec2 oglptgComplexDiv(vec2 a, vec2 b)\n";
+	result << "{\n";
+	result << "	float d = dot(b, b);\n";
+	result << "	return (d == 0.0)?a:vec2(\n";
+	result << "		(a.x*b.x + a.y*b.y) / d,\n";
+	result << "		(a.y*b.x - a.x*b.y) / d\n";
+	result << "	);\n";
+	result << "}\n";
+	result << "#endif\n";
+
+	result << "#ifndef OGLPTG_NEWTON\n";
+	result << "#define OGLPTG_NEWTON\n";
+	result << "vec2 oglptgNewton_f(vec2 n)\n";
+	result << "{\n";
+	result << "	return vec2(\n";
+	result << "		n.x*n.x*n.x - 3.0*n.x*n.y*n.y - 1.0,\n";
+	result << "		-n.y*n.y*n.y + 3.0*n.x*n.x*n.y\n";
+	result << "	);\n";
+	result << "}\n";
+
+	result << "vec2 oglptgNewton_df(vec2 n)\n";
+	result << "{\n";
+	result << "	return 3.0 * vec2(\n";
+	result << "		n.x*n.x - n.y*n.y,\n";
+	result << "		2.0 * n.x * n.y\n";
+	result << "	);\n";
+	result << "}\n";
+	result << "#endif\n";
+
+	result << "float ";
+	AppendId(result);
+	result << "(vec3 o)\n";
+	result << "{\n";
+	result << "	vec3 k = " << _coord.Expression(version) << "(o);\n";
+	result << "	k += " << _offset.Expression(version) << "(o);\n";
+	result << "	k *= " << _scale.Expression(version) << "(o);\n";
+	result << "	vec2 z = k.xy;\n";
+
+	result << "	int i, max = 48;\n";
+	result << "	for(i = 0; i < max; ++i)\n";
+	result << "	{\n";
+	result << "		vec2 zn = z - oglptgComplexDiv(\n";
+	result << "			oglptgNewton_f(z),\n";
+	result << "			oglptgNewton_df(z)\n";
+	result << "		);\n";
+	result << "		if(distance(zn, z) < 0.00001) break;\n";
+	result << "		z = zn;\n";
+	result << "	}\n";
+	result << "	return float(i)/float(max);\n";
+	result << "}\n";
+	return String(result.str());
+}
+
+OGLPLUS_LIB_FUNC
+NewtonNode::
+NewtonNode(void)
+ : _output(*this)
+{ }
+
+OGLPLUS_LIB_FUNC
+std::size_t
+NewtonNode::
+InputCount(void)
+{
+	return 3;
+}
+
+OGLPLUS_LIB_FUNC
+InputSlot&
+NewtonNode::
+Input(std::size_t i)
+{
+	assert(i < InputCount());
+	if(i == 0) return _output._coord;
+	if(i == 1) return _output._offset;
+	return _output._scale;
+}
+
+OGLPLUS_LIB_FUNC
+std::size_t
+NewtonNode::
+OutputCount(void)
+{
+	return 1;
+}
+
+OGLPLUS_LIB_FUNC
+OutputSlot&
+NewtonNode::
+Output(std::size_t i)
+{
+	assert(i < OutputCount());
+	return _output;
+}
+
+} // namespace texgen
+} // namespace oglplus
+

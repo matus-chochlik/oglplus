@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/texgen/checker_node.hpp
+ *  @file oglplus/texgen/newton_node.hpp
  *
  *  @author Matus Chochlik
  *
@@ -9,8 +9,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_TEXGEN_CHECKER_NODE_HPP
-#define OGLPLUS_TEXGEN_CHECKER_NODE_HPP
+#ifndef OGLPLUS_TEXGEN_NEWTON_NODE_HPP
+#define OGLPLUS_TEXGEN_NEWTON_NODE_HPP
 
 #include <oglplus/texgen/base_node.hpp>
 #include <oglplus/texgen/sibling_input.hpp>
@@ -20,18 +20,19 @@
 namespace oglplus {
 namespace texgen {
 
-class CheckerNode;
+class NewtonNode;
 
-class CheckerOutputSlot
+class NewtonOutputSlot
  : public BaseOutputSlot
 {
 private:
-	friend class CheckerNode;
+	friend class NewtonNode;
 
 	FallbackInputSlot<GlobalCoordinateSlot> _coord;
+	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _offset;
 	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _scale;
 public:
-	CheckerOutputSlot(Node& parent);
+	NewtonOutputSlot(Node& parent);
 
 	const char* TypeName(void)
 	OGLPLUS_OVERRIDE;
@@ -43,15 +44,13 @@ public:
 	OGLPLUS_OVERRIDE;
 };
 
-class CheckerNode
+class NewtonNode
  : public BaseNode
 {
 private:
-	CheckerOutputSlot _output;
+	NewtonOutputSlot _output;
 public:
-	CheckerNode(void);
-
-	CheckerNode& SetScale(Vec3f scale);
+	NewtonNode(void);
 
 	std::size_t InputCount(void)
 	OGLPLUS_OVERRIDE;
@@ -70,7 +69,7 @@ public:
 } // namespace oglplus
 
 //#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/texgen/checker_node.ipp>
+#include <oglplus/texgen/newton_node.ipp>
 //#endif
 
 #endif // include guard

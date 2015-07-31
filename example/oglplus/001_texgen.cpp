@@ -14,6 +14,9 @@
 
 #include <iostream>
 
+#include <oglplus/texgen/swizzle_node.hpp>
+#include <oglplus/texgen/newton_node.hpp>
+#include <oglplus/texgen/mandelbrot_node.hpp>
 #include <oglplus/texgen/normal_map_node.hpp>
 #include <oglplus/texgen/blur_node.hpp>
 #include <oglplus/texgen/checker_node.hpp>
@@ -36,27 +39,31 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
+	texgen::NewtonNode nt;
+	texgen::MandelbrotNode mb;
 	texgen::CheckerNode c0;
 	texgen::MixNode m1;
+	texgen::SwizzleNode s1, s2;
 	texgen::Blur2DNode b1, b2, b3;
 	texgen::NormalMapNode nm;
 	texgen::RenderNode rn;
 public:
 	TriangleExample(void)
 	 : gl()
+	 , s1("rrra")
+	 , s2("g")
 	{
-		m1.SetZero(0.0f);
-		m1.SetOne(1.0f);
-		Connect(c0.Output(0), m1.Input(2));
-		Connect(m1.Output(0), b1.Input(0));
-		Connect(b1.Output(0), b2.Input(0));
-		Connect(b2.Output(0), b3.Input(0));
-		Connect(b2.Output(0), nm.Input(0));
+		//m1.SetZero(0.0f);
+		//m1.SetOne(1.0f);
+		Connect(nt.Output(0), m1.Input(2));
+		Connect(m1.Output(0), s1.Input(0));
+		//Connect(sw.Output(0), nm.Input(0));
 
-std::cout << nm.Output(0).Definitions(150) << std::endl;
-std::cout << nm.Output(0).Expression(150) << std::endl;
+std::cout << s1.Output(0).Definitions(150) << std::endl;
+std::cout << s1.Output(0).Expression(150) << std::endl;
 
-		Connect(nm.Output(0), rn.Input(0));
+		Connect(s1.Output(0), rn.Input(0));
+
 		rn.Update();
 
 		gl.Disable(Capability::DepthTest);

@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/texgen/checker_node.hpp
+ *  @file oglplus/texgen/mandelbrot_node.hpp
  *
  *  @author Matus Chochlik
  *
@@ -9,8 +9,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_TEXGEN_CHECKER_NODE_HPP
-#define OGLPLUS_TEXGEN_CHECKER_NODE_HPP
+#ifndef OGLPLUS_TEXGEN_MANDELBROT_NODE_HPP
+#define OGLPLUS_TEXGEN_MANDELBROT_NODE_HPP
 
 #include <oglplus/texgen/base_node.hpp>
 #include <oglplus/texgen/sibling_input.hpp>
@@ -20,18 +20,19 @@
 namespace oglplus {
 namespace texgen {
 
-class CheckerNode;
+class MandelbrotNode;
 
-class CheckerOutputSlot
+class MandelbrotOutputSlot
  : public BaseOutputSlot
 {
 private:
-	friend class CheckerNode;
+	friend class MandelbrotNode;
 
 	FallbackInputSlot<GlobalCoordinateSlot> _coord;
+	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _offset;
 	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _scale;
 public:
-	CheckerOutputSlot(Node& parent);
+	MandelbrotOutputSlot(Node& parent);
 
 	const char* TypeName(void)
 	OGLPLUS_OVERRIDE;
@@ -43,15 +44,13 @@ public:
 	OGLPLUS_OVERRIDE;
 };
 
-class CheckerNode
+class MandelbrotNode
  : public BaseNode
 {
 private:
-	CheckerOutputSlot _output;
+	MandelbrotOutputSlot _output;
 public:
-	CheckerNode(void);
-
-	CheckerNode& SetScale(Vec3f scale);
+	MandelbrotNode(void);
 
 	std::size_t InputCount(void)
 	OGLPLUS_OVERRIDE;
@@ -70,7 +69,7 @@ public:
 } // namespace oglplus
 
 //#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/texgen/checker_node.ipp>
+#include <oglplus/texgen/mandelbrot_node.ipp>
 //#endif
 
 #endif // include guard

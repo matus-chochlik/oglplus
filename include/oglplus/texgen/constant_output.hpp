@@ -59,7 +59,7 @@ public:
 	 : _v(v)
 	{ }
 
-	void Set(T v)
+	void SetValue(T v)
 	{
 		_v = v;
 	}
