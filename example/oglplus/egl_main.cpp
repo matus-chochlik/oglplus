@@ -252,6 +252,8 @@ void run_framedump_loop(
 
 	GLuint border = 32;
 
+	glEnable(GL_MULTISAMPLE);
+
 	while(true)
 	{
 		Vec2f mouse_pos = Loop(mouse_path_pos).Position(t*0.2);
@@ -360,6 +362,8 @@ void make_screenshot(
 
 	clock.Update(s);
 
+	glEnable(GL_MULTISAMPLE);
+
 	// heat-up
 	while(s < t)
 	{
@@ -410,6 +414,8 @@ void run_example(
 			.Add(eglplus::ConfigAttrib::BlueSize, 8)
 			.Add(eglplus::ConfigAttrib::DepthSize, 24)
 			.Add(eglplus::ConfigAttrib::StencilSize, 8)
+			.Add(eglplus::ConfigAttrib::SampleBuffers, 1)
+			.Add(eglplus::ConfigAttrib::Samples, 8)
 			.Add(eglplus::ColorBufferType::RGBBuffer)
 			.Add(eglplus::RenderableTypeBit::OpenGL)
 			.Add(eglplus::SurfaceTypeBit::Pbuffer)
