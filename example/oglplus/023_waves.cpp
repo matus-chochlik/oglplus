@@ -61,7 +61,7 @@ public:
 	{
 		VertexShader vs(ObjectDesc("Vertex"));
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform vec3 CameraPosition;"
 
@@ -80,7 +80,7 @@ public:
 
 		TessControlShader cs(ObjectDesc("TessControl"));
 		cs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"#extension ARB_tessellation_shader : enable\n"
 
 			"layout(vertices = 3) out;"
@@ -126,7 +126,7 @@ public:
 
 		TessEvaluationShader es(ObjectDesc("TessEvaluation"));
 		es.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"#extension ARB_tessellation_shader : enable\n"
 			"#define MaxWaves 5\n"
 
@@ -191,7 +191,7 @@ public:
 
 		FragmentShader fs(ObjectDesc("Fragment"));
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform samplerCube EnvMap;"
 

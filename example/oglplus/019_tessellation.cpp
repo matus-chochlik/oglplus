@@ -69,7 +69,7 @@ public:
 	 , viewport_dimensions(prog, "ViewportDimensions")
 	{
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform vec3 ViewPosition;"
 
@@ -87,7 +87,7 @@ public:
 		vs.Compile();
 
 		cs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"#extension ARB_tessellation_shader : enable\n"
 
 			"layout(vertices = 3) out;"
@@ -132,7 +132,7 @@ public:
 		cs.Compile();
 
 		es.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"#extension ARB_tessellation_shader : enable\n"
 
 			"layout(triangles, equal_spacing, ccw) in;"
@@ -166,7 +166,7 @@ public:
 		es.Compile();
 
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout (triangles) in;"
 			"layout (triangle_strip, max_vertices = 3) out;"
 
@@ -235,7 +235,7 @@ public:
 		gs.Compile();
 
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"noperspective in vec3 geomDist;"
 			"flat in vec3 geomNormal;"

@@ -45,7 +45,7 @@ private:
 
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"layout (std140) uniform OffsetBlock {vec3 Offset[16*16*16];};"
 			"in vec3 Position;"
@@ -60,7 +60,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"out float fragValue;"
 			"void main(void)"
 			"{"
@@ -94,7 +94,7 @@ private:
 
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform vec2 ScreenSize;"
 			"in vec4 Position;"
 			"in vec2 TexCoord;"
@@ -108,7 +108,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler1D Palette;"
 			"uniform sampler2DRect Tex;"
 			"in vec2 vertTexCoord;"
