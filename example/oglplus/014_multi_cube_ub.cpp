@@ -54,7 +54,7 @@ public:
 		// Set the vertex shader source and compile it
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"layout (std140) uniform ModelBlock {"
 			"	mat4 ModelMatrices[36];"
@@ -76,7 +76,7 @@ public:
 		// set the fragment shader source and compile it
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec3 vertColor;"
 			"out vec4 fragColor;"
 			"void main(void)"

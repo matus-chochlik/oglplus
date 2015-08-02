@@ -41,7 +41,7 @@ private:
 		Program prog;
 		VertexShader vs;
 		vs.Source(StrCRef(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec3 Position;"
 			"in vec2 TexCoord;"
 			"out vec2 vertTexCoord;"
@@ -55,7 +55,7 @@ private:
 
 		GeometryShader gs;
 		gs.Source(StrCRef(
-			"#version 330\n"
+			"#version 150\n"
 			"#extension GL_ARB_gpu_shader5 : enable\n"
 			"layout(triangles, invocations = 7) in;"
 			"layout(triangle_strip, max_vertices = 21) out;"
@@ -229,7 +229,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(StrCRef(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform float Time;"
 			"uniform sampler2D ColorMap;"

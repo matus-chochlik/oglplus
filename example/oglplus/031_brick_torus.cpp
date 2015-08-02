@@ -38,7 +38,7 @@ private:
 	{
 		Program prog;
 		StrCRef vs_src(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform mat4 ModelMatrix;"
 
@@ -64,7 +64,7 @@ private:
 		prog.AttachShader(vs);
 
 		StrCRef gs_src(
-			"#version 330\n"
+			"#version 150\n"
 			"#extension GL_ARB_gpu_shader5 : enable\n"
 			"layout(triangles, invocations = 28) in;"
 			"layout(triangle_strip, max_vertices = 6) out;"
@@ -357,7 +357,7 @@ private:
 		prog.AttachShader(gs);
 
 		StrCRef fs_src(
-			"#version 330\n"
+			"#version 150\n"
 			"#extension GL_EXT_gpu_shader4_1 : enable\n"
 
 			"uniform float Time;"

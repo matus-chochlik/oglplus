@@ -4,6 +4,7 @@
 #
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
+if(HAS_GL_VERSION_3_2)
 if(
 	((GLX_FOUND) AND (HAS_CPP_THREADS) AND (HAS_CPP_CHRONO)) OR
 	(GLFW_FOUND)
@@ -75,3 +76,4 @@ if(
 	add_dependencies(oglplus-advanced-examples oglplus-advanced-example-cloud_trace)
 endif()
 add_subdirectory(tools)
+endif()

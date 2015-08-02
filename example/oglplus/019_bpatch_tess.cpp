@@ -38,7 +38,7 @@ public:
 	{
 		VertexShader vert(ObjectDesc("Vertex"));
 		vert.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 CameraMatrix;"
 
 			"in vec4 Position;"
@@ -54,7 +54,7 @@ public:
 
 		TessControlShader teco(ObjectDesc("TessControl"));
 		teco.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"#extension ARB_tessellation_shader: enable\n"
 			"layout(vertices = 16) out;"
 
@@ -82,7 +82,7 @@ public:
 
 		TessEvaluationShader teev(ObjectDesc("TessEvaluation"));
 		teev.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"#extension ARB_tessellation_shader: enable\n"
 			"layout(quads, equal_spacing, ccw) in;"
 			"uniform mat4 ProjectionMatrix;"
@@ -127,7 +127,7 @@ public:
 
 		FragmentShader frag(ObjectDesc("Fragment"));
 		frag.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"out vec3 fragColor;"
 			"void main(void)"
 			"{"

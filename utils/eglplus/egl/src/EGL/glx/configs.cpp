@@ -87,6 +87,13 @@ bool eglplus_egl_glx_TranslateAttribName(
 			glx_attrib_name = GLX_STENCIL_SIZE;
 			break;
 
+		case EGL_SAMPLES:
+			glx_attrib_name = GLX_SAMPLES;
+			break;
+		case EGL_SAMPLE_BUFFERS:
+			glx_attrib_name = GLX_SAMPLE_BUFFERS;
+			break;
+
 		case EGL_TRANSPARENT_TYPE:
 			glx_attrib_name = GLX_TRANSPARENT_TYPE;
 			break;
@@ -181,6 +188,20 @@ bool eglplus_egl_glx_TranslateAttrib(
 					glx_attrib_value = GLX_TRANSPARENT_RGB;
 					break;
 			}
+			break;
+		}
+		case EGL_SAMPLES:
+		{
+			if(egl_attrib_value == EGL_DONT_CARE)
+				glx_attrib_value = 0;
+			else glx_attrib_value = egl_attrib_value;
+			break;
+		}
+		case EGL_SAMPLE_BUFFERS:
+		{
+			if(egl_attrib_value == EGL_DONT_CARE)
+				glx_attrib_value = 0;
+			else glx_attrib_value = egl_attrib_value;
 			break;
 		}
 
@@ -382,20 +403,22 @@ eglChooseConfig(
 					// just skip this
 					break;
 				}
-				case EGL_SAMPLES:
-				case EGL_SAMPLE_BUFFERS:
 				case EGL_ALPHA_MASK_SIZE:
 				case EGL_LUMINANCE_SIZE:
 				{
 					// must be zero (or don't care)
 					if(egl_attrib_value != 0)
+					{
 						unsupported_attrib = true;
+					}
 					break;
 				}
 				case EGL_RENDERABLE_TYPE:
 				{
 					if(egl_attrib_value != EGL_OPENGL_BIT)
+					{
 						unsupported_attrib = true;
+					}
 					break;
 				}
 				case EGL_SURFACE_TYPE:

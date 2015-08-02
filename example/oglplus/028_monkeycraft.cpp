@@ -40,7 +40,7 @@ private:
 
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec4 Position;"
 			"in ivec3 TexCoord;"
 			"out ivec3 vertTexCoord;"
@@ -55,7 +55,7 @@ private:
 
 		GeometryShader gs;
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout (points) in;"
 			"layout (triangle_strip, max_vertices=24) out;"
 
@@ -179,7 +179,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform sampler2DArray AmbiOcclMaps;"
 
@@ -229,7 +229,8 @@ public:
 	{
 
 		ProgramUniformSampler(prog, "AmbiOcclMaps").Set(0);
-		this->BindMulti(0, Texture::Target::_2DArray);
+		this->target = Texture::Target::_2DArray;
+		this->BindMulti(0);
 		this->Image3D(smaps);
 		this->MinFilter(TextureMinFilter::Linear);
 		this->MagFilter(TextureMagFilter::Linear);
@@ -301,7 +302,8 @@ public:
 
 
 		ProgramUniformSampler(prog, "Pattern").Set(1);
-		pattern.BindMulti(1, Texture::Target::_3D);
+		pattern.target = Texture::Target::_3D;
+		pattern.BindMulti(1);
 		pattern.Image3D(map);
 		pattern.MinFilter(TextureMinFilter::Nearest);
 		pattern.MagFilter(TextureMagFilter::Nearest);
@@ -312,7 +314,8 @@ public:
 
 
 		ProgramUniformSampler(prog, "FadeMap").Set(2);
-		fademap.BindMulti(2, Texture::Target::_3D);
+		fademap.target = Texture::Target::_3D;
+		fademap.BindMulti(2);
 		fademap.Image3D(images::RandomRedUByte(
 			map.Width(),
 			map.Height(),
