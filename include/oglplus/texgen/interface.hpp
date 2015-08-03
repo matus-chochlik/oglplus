@@ -17,6 +17,7 @@
 #include <oglplus/string/def.hpp>
 
 #include <cstddef>
+#include <iosfwd>
 
 namespace oglplus {
 namespace texgen {
@@ -76,10 +77,10 @@ struct OutputSlot
 	SlotDataType ValueType(void) = 0;
 
 	virtual
-	String Definitions(unsigned glsl_version) = 0;
+	std::ostream& Definitions(std::ostream&, unsigned glsl_version) = 0;
 
 	virtual
-	String Expression(unsigned glsl_version) = 0;
+	std::ostream& Expression(std::ostream&, unsigned glsl_version) = 0;
 
 	virtual
 	bool IsConnected(InputSlot& input) = 0;

@@ -40,23 +40,25 @@ ValueType(void)
 }
 
 OGLPLUS_LIB_FUNC
-String
+std::ostream&
 MandelbrotOutputSlot::
-Definitions(unsigned version)
+Definitions(std::ostream& result, unsigned version)
 {
-	std::stringstream result;
-	result << _coord.Definitions(version);
-	result << _offset.Definitions(version);
-	result << _scale.Definitions(version);
+	_coord.Definitions(result, version);
+	_offset.Definitions(result, version);
+	_scale.Definitions(result, version);
 
 	result << "vec2 ";
 	AppendId(result);
 	result << "(vec3 o)\n";
 	result << "{\n";
 	result << "	vec2 z = vec2(0.0, 0.0);\n";
-	result << "	vec3 k = " << _coord.Expression(version) << "(o);\n";
-	result << "	k += " << _offset.Expression(version) << "(o);\n";
-	result << "	k *= " << _scale.Expression(version) << "(o);\n";
+	result << "	vec3 k = ";
+	_coord.Expression(result, version) << "(o);\n";
+	result << "	k += ";
+	_offset.Expression(result, version) << "(o);\n";
+	result << "	k *= ";
+	_scale.Expression(result, version) << "(o);\n";
 	result << "	vec2 c = k.xy;\n";
 	result << "	int i = 0;\n";
 	result << "	const int max = 128;\n"; // TODO variable max?
@@ -73,7 +75,7 @@ Definitions(unsigned version)
 	result << "		distance(z, c)*0.5\n";
 	result << "	);\n";
 	result << "}\n";
-	return String(result.str());
+	return result;
 }
 
 OGLPLUS_LIB_FUNC

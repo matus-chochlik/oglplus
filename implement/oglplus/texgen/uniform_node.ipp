@@ -54,11 +54,10 @@ ValueType(void)
 }
 
 OGLPLUS_LIB_FUNC
-String
+std::ostream&
 UniformOutputSlot::
-Definitions(unsigned)
+Definitions(std::ostream& result, unsigned)
 {
-	std::stringstream result;
 	result << "uniform ";
 	result << DataTypeName(_type);
 	result << " ";
@@ -71,7 +70,7 @@ Definitions(unsigned)
 	AppendId(result);
 	result << "u;";
 	result << "}\n";
-	return String(result.str());
+	return result;
 }
 
 OGLPLUS_LIB_FUNC

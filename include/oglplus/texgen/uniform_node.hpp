@@ -43,7 +43,7 @@ public:
 	SlotDataType ValueType(void)
 	OGLPLUS_OVERRIDE;
 
-	String Definitions(unsigned version)
+	std::ostream& Definitions(std::ostream&, unsigned version)
 	OGLPLUS_OVERRIDE;
 };
 

@@ -40,25 +40,27 @@ ValueType(void)
 }
 
 OGLPLUS_LIB_FUNC
-String
+std::ostream&
 StripesOutputSlot::
-Definitions(unsigned version)
+Definitions(std::ostream& result, unsigned version)
 {
-	std::stringstream result;
-	result << _coord.Definitions(version);
-	result << _coeff.Definitions(version);
-	result << _scale.Definitions(version);
+	_coord.Definitions(result, version);
+	_coeff.Definitions(result, version);
+	_scale.Definitions(result, version);
 
 	result << "float ";
 	AppendId(result);
 	result << "(vec3 o)\n";
 	result << "{\n";
-	result << "	vec3 c = " << _coord.Expression(version) << "(o);\n";
-	result << "	c *= " << _coeff.Expression(version) << "(o);\n";
-	result << "	c *= " << _scale.Expression(version) << "(o);\n";
+	result << "	vec3 c = ";
+	_coord.Expression(result, version) << "(o);\n";
+	result << "	c *= ";
+	_coeff.Expression(result, version) << "(o);\n";
+	result << "	c *= ";
+	_scale.Expression(result, version) << "(o);\n";
 	result << "	return float(int(abs(floor(c.x+c.y+c.z)))%2);\n";
 	result << "}\n";
-	return String(result.str());
+	return result;
 }
 
 OGLPLUS_LIB_FUNC

@@ -44,27 +44,26 @@ ValueType(void)
 }
 
 OGLPLUS_LIB_FUNC
-String
+std::ostream&
 MixOutputSlot::
-Definitions(unsigned version)
+Definitions(std::ostream& result, unsigned version)
 {
-	std::stringstream result;
-	result << _zero.Definitions(version);
-	result << _one.Definitions(version);
-	result << _value.Definitions(version);
+	_zero.Definitions(result, version);
+	_one.Definitions(result, version);
+	_value.Definitions(result, version);
 
 	result << DataTypeName(ValueType()) << " ";
 	AppendId(result);
 	result << "(vec3 o){\n\t";
 
 	result << "return mix(\n\t\t";
-	result << _zero.Expression(version) << "(o)";
+	_zero.Expression(result, version) << "(o)";
 	result << ",\n\t\t";
-	result << _one.Expression(version) << "(o)";
+	_one.Expression(result, version) << "(o)";
 	result << ",\n\t\t";
-	result << _value.Expression(version) << "(o)";
+	_value.Expression(result, version) << "(o)";
 	result << "\n\t);\n}\n";
-	return String(result.str());
+	return result;
 }
 
 OGLPLUS_LIB_FUNC

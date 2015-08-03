@@ -51,11 +51,11 @@ Name(void)
 }
 
 OGLPLUS_LIB_FUNC
-String
+std::ostream&
 BaseOutputSlot::
-Definitions(unsigned)
+Definitions(std::ostream& result, unsigned)
 {
-	return String();
+	return result;
 }
 
 OGLPLUS_LIB_FUNC
@@ -118,13 +118,12 @@ AppendId(std::ostream& out)
 }
 
 OGLPLUS_LIB_FUNC
-String
+std::ostream&
 BaseOutputSlot::
-Expression(unsigned)
+Expression(std::ostream& result, unsigned)
 {
-	std::stringstream result;
 	AppendId(result);
-	return String(result.str());
+	return result;
 }
 
 } // namespace texgen

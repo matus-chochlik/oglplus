@@ -38,32 +38,46 @@ ValueType(void)
 }
 
 OGLPLUS_LIB_FUNC
-String
+std::ostream&
 Blur2DOutputSlot::
-Definitions(unsigned version)
+Definitions(std::ostream& result, unsigned version)
 {
-	std::stringstream result;
-
-	String ie = _input.Expression(version);
-
-	result << _input.Definitions(version);
+	_input.Definitions(result, version);
 	result << DataTypeName(ValueType()) << " ";
 	AppendId(result);
 	result << "(vec3 o)\n";
 	result << "{\n";
 	result << "	" << DataTypeName(ValueType()) << "\n";
-	result << "	r  = " << ie << "(o+vec3( 0, 0, 0))*0.20;\n";
-	result << "	r += " << ie << "(o+vec3(-1, 0, 0))*0.15;\n";
-	result << "	r += " << ie << "(o+vec3( 1, 0, 0))*0.15;\n";
-	result << "	r += " << ie << "(o+vec3( 0,-1, 0))*0.15;\n";
-	result << "	r += " << ie << "(o+vec3( 0, 1, 0))*0.15;\n";
-	result << "	r += " << ie << "(o+vec3(-1,-1, 0))*0.05;\n";
-	result << "	r += " << ie << "(o+vec3(-1, 1, 0))*0.05;\n";
-	result << "	r += " << ie << "(o+vec3( 1,-1, 0))*0.05;\n";
-	result << "	r += " << ie << "(o+vec3( 1, 1, 0))*0.05;\n";
+	result << "	r  = ";
+	_input.Expression(result, version);
+	result << "(o+vec3( 0, 0, 0))*0.20;\n";
+	result << "	r += ";
+	_input.Expression(result, version);
+	result << "(o+vec3(-1, 0, 0))*0.15;\n";
+	result << "	r += ";
+	_input.Expression(result, version);
+	result << "(o+vec3( 1, 0, 0))*0.15;\n";
+	result << "	r += ";
+	_input.Expression(result, version);
+	result << "(o+vec3( 0,-1, 0))*0.15;\n";
+	result << "	r += ";
+	_input.Expression(result, version);
+	result << "(o+vec3( 0, 1, 0))*0.15;\n";
+	result << "	r += ";
+	_input.Expression(result, version);
+	result << "(o+vec3(-1,-1, 0))*0.05;\n";
+	result << "	r += ";
+	_input.Expression(result, version);
+	result << "(o+vec3(-1, 1, 0))*0.05;\n";
+	result << "	r += ";
+	_input.Expression(result, version);
+	result << "(o+vec3( 1,-1, 0))*0.05;\n";
+	result << "	r += ";
+	_input.Expression(result, version);
+	result << "(o+vec3( 1, 1, 0))*0.05;\n";
 	result << "	return r;\n";
 	result << "}\n";
-	return String(result.str());
+	return result;
 }
 
 OGLPLUS_LIB_FUNC

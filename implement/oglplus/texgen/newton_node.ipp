@@ -41,14 +41,13 @@ ValueType(void)
 }
 
 OGLPLUS_LIB_FUNC
-String
+std::ostream&
 NewtonOutputSlot::
-Definitions(unsigned version)
+Definitions(std::ostream& result, unsigned version)
 {
-	std::stringstream result;
-	result << _coord.Definitions(version);
-	result << _offset.Definitions(version);
-	result << _scale.Definitions(version);
+	_coord.Definitions(result, version);
+	_offset.Definitions(result, version);
+	_scale.Definitions(result, version);
 
 	result << "#ifndef OGLPTG_COMPLEX_DIV\n";
 	result << "#define OGLPTG_COMPLEX_DIV\n";
@@ -112,9 +111,12 @@ Definitions(unsigned version)
 	AppendId(result);
 	result << "(vec3 o)\n";
 	result << "{\n";
-	result << "	vec3 k = " << _coord.Expression(version) << "(o);\n";
-	result << "	k += " << _offset.Expression(version) << "(o);\n";
-	result << "	k *= " << _scale.Expression(version) << "(o);\n";
+	result << "	vec3 k = ";
+	_coord.Expression(result, version) << "(o);\n";
+	result << "	k += ";
+	_offset.Expression(result, version) << "(o);\n";
+	result << "	k *= ";
+	_scale.Expression(result, version) << "(o);\n";
 	result << "	vec2 z = k.xy;\n";
 
 	result << "	int i, max = 48;\n";
@@ -151,7 +153,7 @@ Definitions(unsigned version)
 	result << "	}\n";
 	result << "	return float(i)/float(max);\n";
 	result << "}\n";
-	return String(result.str());
+	return result;
 }
 
 OGLPLUS_LIB_FUNC

@@ -70,14 +70,13 @@ public:
 		return _t(TypeTag<T>());
 	}
 
-	String Definitions(unsigned)
+	std::ostream& Definitions(std::ostream& result, unsigned)
 	OGLPLUS_OVERRIDE
 	{
-		std::stringstream ss;
-		_format_head(ss, DataTypeName(ValueType()));
-		_format(ss, _v);
-		_format_tail(ss);
-		return ss.str();
+		_format_head(result, DataTypeName(ValueType()));
+		_format(result, _v);
+		_format_tail(result);
+		return result;
 	}
 };
 

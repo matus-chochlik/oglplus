@@ -38,19 +38,17 @@ ValueType(void)
 }
 
 OGLPLUS_LIB_FUNC
-String
+std::ostream&
 GlobalCoordinateSlot::
-Definitions(unsigned)
+Definitions(std::ostream& result, unsigned)
 {
-	std::stringstream result;
-
 	result << "vec3 ";
 	AppendId(result);
 	result << "(vec3 o){return ";
 	result << "oglptgCoordinate+o*oglptgCoordDelta";
 	result << ";}\n";
 
-	return String(result.str());
+	return result;
 }
 
 OGLPLUS_LIB_FUNC

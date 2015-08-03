@@ -36,7 +36,7 @@ public:
 	const char* Name(void)
 	OGLPLUS_OVERRIDE;
 
-	String Definitions(unsigned)
+	std::ostream& Definitions(std::ostream&, unsigned)
 	OGLPLUS_OVERRIDE;
 
 	bool IsConnected(InputSlot& slot)
@@ -56,7 +56,7 @@ public:
 	void AppendId(std::ostream&, const char*);
 	void AppendId(std::ostream&);
 
-	String Expression(unsigned)
+	std::ostream& Expression(std::ostream&, unsigned)
 	OGLPLUS_OVERRIDE;
 };
 

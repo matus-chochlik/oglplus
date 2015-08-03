@@ -71,8 +71,8 @@ public:
 
 		//Connect(st.Output(0), m1.Input(2));
 
-std::cout << m1.Output(0).Definitions(150) << std::endl;
-std::cout << m1.Output(0).Expression(150) << std::endl;
+m1.Output(0).Definitions(std::cout, 150) << std::endl;
+m1.Output(0).Expression(std::cout, 150) << std::endl;
 
 		Connect(m1.Output(0), rn.Input(0));
 
@@ -92,15 +92,15 @@ std::cout << m1.Output(0).Expression(150) << std::endl;
 	void Render(double time)
 	{
 		u1.SetValue(Vec4f(
-			SineWave01(time / 15.1),
-			SineWave01(time / 13.7),
-			SineWave01(time / 17.7),
+			SineWave01(time / 5.1),
+			SineWave01(time / 9.7),
+			SineWave01(time / 7.7),
 			1
 		));
 		u2.SetValue(Vec4f(
-			CosineWave01(time / 14.9),
-			CosineWave01(time / 12.9),
-			CosineWave01(time / 13.1),
+			CosineWave01(time / 7.9),
+			CosineWave01(time / 9.9),
+			CosineWave01(time / 8.1),
 			1
 		));
 

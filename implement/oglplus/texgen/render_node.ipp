@@ -53,11 +53,12 @@ _update_prog(void)
 	source << "#version " << glsl_version << "\n";
 	source << "in vec3 oglptgCoordinate;\n";
 	source << "uniform vec3 oglptgCoordDelta;\n";
-	source << _input.Definitions(glsl_version) << "\n";
+	_input.Definitions(source, glsl_version) << "\n";
 	source << "out vec4 fragColor;\n";
 	source << "void main(void)\n";
 	source << "{\n";
-	source << "	fragColor = " << _input.Expression(glsl_version) << "(vec3(0,0,0));\n";
+	source << "	fragColor = ";
+	_input.Expression(source, glsl_version) << "(vec3(0,0,0));\n";
 	source << "}\n";
 
 	_fs.Source(source.str()).Compile();

@@ -38,25 +38,26 @@ ValueType(void)
 }
 
 OGLPLUS_LIB_FUNC
-String
+std::ostream&
 NormalMapOutputSlot::
-Definitions(unsigned version)
+Definitions(std::ostream& result, unsigned version)
 {
-	std::stringstream result;
-
-	String ie = _input.Expression(version);
-
-	result << _input.Definitions(version);
+	_input.Definitions(result, version);
 	result << "vec4 ";
 	AppendId(result);
 	result << "(vec3 o)\n";
 	result << "{\n";
 	result << "	float se = 0.05;\n"; // TODO variable strength
-	result << "	float ce = " << ie << "(o+vec3( 0, 0, 0));\n";
-	result << "	float px = " << ie << "(o+vec3(+1, 0, 0));\n";
-	result << "	float py = " << ie << "(o+vec3( 0,+1, 0));\n";
-	result << "	float nx = " << ie << "(o+vec3(-1, 0, 0));\n";
-	result << "	float ny = " << ie << "(o+vec3( 0,-1, 0));\n";
+	result << "	float ce = ";
+ 	_input.Expression(result, version) << "(o+vec3( 0, 0, 0));\n";
+	result << "	float px = ";
+	_input.Expression(result, version) << "(o+vec3(+1, 0, 0));\n";
+	result << "	float py = ";
+	_input.Expression(result, version) << "(o+vec3( 0,+1, 0));\n";
+	result << "	float nx = ";
+	_input.Expression(result, version) << "(o+vec3(-1, 0, 0));\n";
+	result << "	float ny = ";
+	_input.Expression(result, version) << "(o+vec3( 0,-1, 0));\n";
 	result << "	vec3 vpx = vec3(+se,  0, px-ce);\n";
 	result << "	vec3 vpy = vec3(  0,+se, py-ce);\n";
 	result << "	vec3 vnx = vec3(-se,  0, nx-ce);\n";
@@ -70,7 +71,7 @@ Definitions(unsigned version)
 	result << "		), ce\n";
 	result << "	);\n";
 	result << "}\n";
-	return String(result.str());
+	return result;
 }
 
 OGLPLUS_LIB_FUNC

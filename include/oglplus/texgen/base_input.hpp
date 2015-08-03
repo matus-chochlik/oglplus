@@ -101,27 +101,27 @@ public:
 		}
 	}
 
-	String Definitions(unsigned version)
+	std::ostream& Definitions(std::ostream& out, unsigned version)
 	{
 		if(IsConnected())
 		{
-			return Output().Definitions(version);
+			return Output().Definitions(out, version);
 		}
 		else
 		{
-			return _fallback.Definitions(version);
+			return _fallback.Definitions(out, version);
 		}
 	}
 
-	String Expression(unsigned version)
+	std::ostream& Expression(std::ostream& out, unsigned version)
 	{
 		if(IsConnected())
 		{
-			return Output().Expression(version);
+			return Output().Expression(out, version);
 		}
 		else
 		{
-			return _fallback.Expression(version);
+			return _fallback.Expression(out, version);
 		}
 	}
 };
