@@ -31,10 +31,7 @@ BindLocation(void)
 	AppendId(identifier);
 	identifier << "u";
 
-	_location = ProgVarLoc<tag::Uniform>(
-		Program::Binding(),
-		identifier.str()
-	);
+	_location = UniformLoc(Program::Binding(), identifier.str());
 }
 
 OGLPLUS_LIB_FUNC

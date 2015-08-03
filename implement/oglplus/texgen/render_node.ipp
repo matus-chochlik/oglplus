@@ -53,6 +53,7 @@ _update_prog(void)
 	source << "#version " << glsl_version << "\n";
 	source << "in vec3 oglptgCoordinate;\n";
 	source << "uniform vec3 oglptgCoordDelta;\n";
+	source << "uniform vec3 oglptgOutputSize;\n";
 	_input.Definitions(source, glsl_version) << "\n";
 	source << "out vec4 fragColor;\n";
 	source << "void main(void)\n";
@@ -160,6 +161,10 @@ Render(void)
 
 	Optional<Uniform<Vec3f>>(_prog, "oglptgCoordDelta").TrySet(Vec3f(
 		1.0f/vpe.Width(), 1.0f/vpe.Height(), 1.f
+	));
+
+	Optional<Uniform<Vec3f>>(_prog, "oglptgOutputSize").TrySet(Vec3f(
+		vpe.Width(), vpe.Height(), 1.f
 	));
 
 	oglplus::Context::DrawArrays(PrimitiveType::TriangleStrip, 0, 4);

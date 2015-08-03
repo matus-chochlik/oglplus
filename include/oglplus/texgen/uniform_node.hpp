@@ -29,13 +29,13 @@ class UniformOutputSlot
 private:
 	friend class UniformNode;
 	SlotDataType _type;
-	ProgVarLoc<tag::Uniform> _location;
+	UniformLoc _location;
 public:
 	UniformOutputSlot(Node& parent, SlotDataType type);
 
 	void BindLocation(void);
 
-	ProgVarLoc<tag::Uniform> GetLocation(void) { return _location; }
+	UniformLoc GetLocation(void) { return _location; }
 
 	const char* TypeName(void)
 	OGLPLUS_OVERRIDE;
