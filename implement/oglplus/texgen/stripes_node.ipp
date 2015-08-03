@@ -1,0 +1,126 @@
+/**
+ *  @file oglplus/texgen/stripes_node.ipp
+ *
+ *  @author Matus Chochlik
+ *
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#include <oglplus/config/basic.hpp>
+#include <sstream>
+#include <cassert>
+
+namespace oglplus {
+namespace texgen {
+
+OGLPLUS_LIB_FUNC
+StripesOutputSlot::
+StripesOutputSlot(Node& parent)
+ : _coord(parent, "Coordinate")
+ , _coeff(parent, "Coefficients", Vec3f(1,1,1))
+ , _scale(parent, "Scale", Vec3f(8,8,8))
+{ }
+
+OGLPLUS_LIB_FUNC
+const char*
+StripesOutputSlot::
+TypeName(void)
+{
+	return "Stripes";
+}
+
+OGLPLUS_LIB_FUNC
+SlotDataType
+StripesOutputSlot::
+ValueType(void)
+{
+	return SlotDataType::Float;
+}
+
+OGLPLUS_LIB_FUNC
+String
+StripesOutputSlot::
+Definitions(unsigned version)
+{
+	std::stringstream result;
+	result << _coord.Definitions(version);
+	result << _coeff.Definitions(version);
+	result << _scale.Definitions(version);
+
+	result << "float ";
+	AppendId(result);
+	result << "(vec3 o)\n";
+	result << "{\n";
+	result << "	vec3 c = " << _coord.Expression(version) << "(o);\n";
+	result << "	c *= " << _coeff.Expression(version) << "(o);\n";
+	result << "	c *= " << _scale.Expression(version) << "(o);\n";
+	result << "	return float(int(abs(floor(c.x+c.y+c.z)))%2);\n";
+	result << "}\n";
+	return String(result.str());
+}
+
+OGLPLUS_LIB_FUNC
+StripesNode::
+StripesNode(void)
+ : _output(*this)
+{ }
+
+OGLPLUS_LIB_FUNC
+StripesNode&
+StripesNode::
+SetCoeff(Vec3f coeff)
+{
+	_output._coeff.Fallback().SetValue(coeff);
+	return *this;
+}
+
+OGLPLUS_LIB_FUNC
+StripesNode&
+StripesNode::
+SetScale(Vec3f scale)
+{
+	_output._scale.Fallback().SetValue(scale);
+	return *this;
+}
+
+OGLPLUS_LIB_FUNC
+std::size_t
+StripesNode::
+InputCount(void)
+{
+	return 3;
+}
+
+OGLPLUS_LIB_FUNC
+InputSlot&
+StripesNode::
+Input(std::size_t i)
+{
+	assert(i < InputCount());
+	if(i == 0) return _output._coord;
+	if(i == 1) return _output._coeff;
+	return _output._scale;
+}
+
+OGLPLUS_LIB_FUNC
+std::size_t
+StripesNode::
+OutputCount(void)
+{
+	return 1;
+}
+
+OGLPLUS_LIB_FUNC
+OutputSlot&
+StripesNode::
+Output(std::size_t i)
+{
+	assert(i < OutputCount());
+	return _output;
+}
+
+} // namespace texgen
+} // namespace oglplus
+

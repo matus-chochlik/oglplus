@@ -43,6 +43,9 @@ private:
 public:
 	RenderNode(void);
 
+	RenderNode& Activate(void);
+	RenderNode& Deactivate(void);
+
 	std::size_t InputCount(void)
 	OGLPLUS_OVERRIDE;
 

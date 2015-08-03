@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/texgen/newton_node.hpp
+ *  @file oglplus/texgen/stripes_node.hpp
  *
  *  @author Matus Chochlik
  *
@@ -9,39 +9,30 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_TEXGEN_NEWTON_NODE_HPP
-#define OGLPLUS_TEXGEN_NEWTON_NODE_HPP
+#ifndef OGLPLUS_TEXGEN_STRIPES_NODE_HPP
+#define OGLPLUS_TEXGEN_STRIPES_NODE_HPP
 
 #include <oglplus/texgen/base_node.hpp>
 #include <oglplus/texgen/sibling_input.hpp>
 #include <oglplus/texgen/constant_output.hpp>
 #include <oglplus/texgen/global_node.hpp>
-#include <iosfwd>
 
 namespace oglplus {
 namespace texgen {
 
-class NewtonNode;
+class StripesNode;
 
-enum class NewtonFunction
-{
-	Xe3minus1,
-	Xe4minus1
-};
-
-class NewtonOutputSlot
+class StripesOutputSlot
  : public BaseOutputSlot
 {
 private:
-	friend class NewtonNode;
+	friend class StripesNode;
 
 	FallbackInputSlot<GlobalCoordinateSlot> _coord;
-	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _offset;
+	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _coeff;
 	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _scale;
-
-	NewtonFunction _function;
 public:
-	NewtonOutputSlot(Node& parent, NewtonFunction function);
+	StripesOutputSlot(Node& parent);
 
 	const char* TypeName(void)
 	OGLPLUS_OVERRIDE;
@@ -53,14 +44,16 @@ public:
 	OGLPLUS_OVERRIDE;
 };
 
-class NewtonNode
+class StripesNode
  : public BaseNode
 {
 private:
-	NewtonOutputSlot _output;
-
+	StripesOutputSlot _output;
 public:
-	NewtonNode(NewtonFunction function);
+	StripesNode(void);
+
+	StripesNode& SetCoeff(Vec3f coeff);
+	StripesNode& SetScale(Vec3f scale);
 
 	std::size_t InputCount(void)
 	OGLPLUS_OVERRIDE;
@@ -79,7 +72,7 @@ public:
 } // namespace oglplus
 
 //#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/texgen/newton_node.ipp>
+#include <oglplus/texgen/stripes_node.ipp>
 //#endif
 
 #endif // include guard

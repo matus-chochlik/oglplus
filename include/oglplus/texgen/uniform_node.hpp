@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/texgen/newton_node.hpp
+ *  @file oglplus/texgen/uniform_node.hpp
  *
  *  @author Matus Chochlik
  *
@@ -9,39 +9,33 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_TEXGEN_NEWTON_NODE_HPP
-#define OGLPLUS_TEXGEN_NEWTON_NODE_HPP
+#ifndef OGLPLUS_TEXGEN_UNIFORM_NODE_HPP
+#define OGLPLUS_TEXGEN_UNIFORM_NODE_HPP
 
 #include <oglplus/texgen/base_node.hpp>
 #include <oglplus/texgen/sibling_input.hpp>
 #include <oglplus/texgen/constant_output.hpp>
 #include <oglplus/texgen/global_node.hpp>
-#include <iosfwd>
+#include <oglplus/uniform.hpp>
 
 namespace oglplus {
 namespace texgen {
 
-class NewtonNode;
+class UniformNode;
 
-enum class NewtonFunction
-{
-	Xe3minus1,
-	Xe4minus1
-};
-
-class NewtonOutputSlot
+class UniformOutputSlot
  : public BaseOutputSlot
 {
 private:
-	friend class NewtonNode;
-
-	FallbackInputSlot<GlobalCoordinateSlot> _coord;
-	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _offset;
-	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _scale;
-
-	NewtonFunction _function;
+	friend class UniformNode;
+	SlotDataType _type;
+	ProgVarLoc<tag::Uniform> _location;
 public:
-	NewtonOutputSlot(Node& parent, NewtonFunction function);
+	UniformOutputSlot(Node& parent, SlotDataType type);
+
+	void BindLocation(void);
+
+	ProgVarLoc<tag::Uniform> GetLocation(void) { return _location; }
 
 	const char* TypeName(void)
 	OGLPLUS_OVERRIDE;
@@ -53,20 +47,26 @@ public:
 	OGLPLUS_OVERRIDE;
 };
 
-class NewtonNode
+class UniformNode
  : public BaseNode
 {
 private:
-	NewtonOutputSlot _output;
-
+	UniformOutputSlot _output;
 public:
-	NewtonNode(NewtonFunction function);
+	UniformNode(SlotDataType type);
 
-	std::size_t InputCount(void)
-	OGLPLUS_OVERRIDE;
+	UniformNode& BindUniform(void)
+	{
+		_output.BindLocation();
+		return *this;
+	}
 
-	InputSlot& Input(std::size_t i)
-	OGLPLUS_OVERRIDE;
+	template <typename T>
+	UniformNode& SetValue(T value)
+	{
+		Typechecked<Uniform<T>>(_output.GetLocation()).Set(value);
+		return *this;
+	}
 
 	std::size_t OutputCount(void)
 	OGLPLUS_OVERRIDE;
@@ -79,7 +79,7 @@ public:
 } // namespace oglplus
 
 //#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/texgen/newton_node.ipp>
+#include <oglplus/texgen/uniform_node.ipp>
 //#endif
 
 #endif // include guard

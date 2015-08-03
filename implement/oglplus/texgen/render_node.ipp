@@ -114,6 +114,26 @@ RenderNode(void)
 }
 
 OGLPLUS_LIB_FUNC
+RenderNode&
+RenderNode::
+Activate(void)
+{
+	_prog.Use();
+	_vao.Bind();
+	return *this;
+}
+
+OGLPLUS_LIB_FUNC
+RenderNode&
+RenderNode::
+Deactivate(void)
+{
+	NoVertexArray().Bind();
+	NoProgram().Use();
+	return *this;
+}
+
+OGLPLUS_LIB_FUNC
 std::size_t
 RenderNode::
 InputCount(void)
@@ -135,9 +155,6 @@ void
 RenderNode::
 Render(void)
 {
-	_prog.Use();
-	_vao.Bind();
-
 	auto vpe = oglplus::Context::Viewport();
 
 	Optional<Uniform<Vec3f>>(_prog, "oglptgCoordDelta").TrySet(Vec3f(
@@ -145,9 +162,6 @@ Render(void)
 	));
 
 	oglplus::Context::DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
-
-	NoVertexArray().Bind();
-	NoProgram().Use();
 }
 
 
@@ -166,6 +180,7 @@ RenderNode::
 Update(void)
 {
 	_update_prog();
+	Activate();
 	Render();
 }
 

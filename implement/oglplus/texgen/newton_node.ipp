@@ -17,10 +17,11 @@ namespace texgen {
 
 OGLPLUS_LIB_FUNC
 NewtonOutputSlot::
-NewtonOutputSlot(Node& parent)
+NewtonOutputSlot(Node& parent, NewtonFunction function)
  : _coord(parent, "Coord")
  , _offset(parent, "Offset", Vec3f(-0.5f,-0.5f,0))
  , _scale(parent, "Scale", Vec3f(4,4,1))
+ , _function(function)
 { }
 
 OGLPLUS_LIB_FUNC
@@ -61,24 +62,51 @@ Definitions(unsigned version)
 	result << "}\n";
 	result << "#endif\n";
 
-	result << "#ifndef OGLPTG_NEWTON\n";
-	result << "#define OGLPTG_NEWTON\n";
-	result << "vec2 oglptgNewton_f(vec2 n)\n";
-	result << "{\n";
-	result << "	return vec2(\n";
-	result << "		n.x*n.x*n.x - 3.0*n.x*n.y*n.y - 1.0,\n";
-	result << "		-n.y*n.y*n.y + 3.0*n.x*n.x*n.y\n";
-	result << "	);\n";
-	result << "}\n";
+	if(_function == NewtonFunction::Xe3minus1)
+	{
+		result << "#ifndef OGLPTG_NEWTON_XE3MINUS1\n";
+		result << "#define OGLPTG_NEWTON_XE3MINUS1\n";
+		result << "vec2 oglptgNewton_fXe3Minus1(vec2 n)\n";
+		result << "{\n";
+		result << "	return vec2(\n";
+		result << "		n.x*n.x*n.x - 3.0*n.x*n.y*n.y - 1.0,\n";
+		result << "		-n.y*n.y*n.y + 3.0*n.x*n.x*n.y\n";
+		result << "	);\n";
+		result << "}\n";
 
-	result << "vec2 oglptgNewton_df(vec2 n)\n";
-	result << "{\n";
-	result << "	return 3.0 * vec2(\n";
-	result << "		n.x*n.x - n.y*n.y,\n";
-	result << "		2.0 * n.x * n.y\n";
-	result << "	);\n";
-	result << "}\n";
-	result << "#endif\n";
+		result << "vec2 oglptgNewton_dfXe3Minus1(vec2 n)\n";
+		result << "{\n";
+		result << "	return 3.0 * vec2(\n";
+		result << "		n.x*n.x - n.y*n.y,\n";
+		result << "		2.0 * n.x * n.y\n";
+		result << "	);\n";
+		result << "}\n";
+		result << "#endif\n";
+	}
+	else if(_function == NewtonFunction::Xe4minus1)
+	{
+		result << "#ifndef OGLPTG_NEWTON_XE4MINUS1\n";
+		result << "#define OGLPTG_NEWTON_XE4MINUS1\n";
+		result << "vec2 oglptgNewton_fXe4Minus1(vec2 n)\n";
+		result << "{\n";
+		result << "	return vec2(\n";
+		result << "		n.x*n.x*n.x*n.x +\n";
+		result << "		n.y*n.y*n.y*n.y -\n";
+		result << "		6.0*n.x*n.x*n.y*n.y - 1.0,\n";
+		result << "		4.0*n.x*n.x*n.x*n.y -\n";
+		result << "		4.0*n.x*n.y*n.y*n.y\n";
+		result << "	);\n";
+		result << "}\n";
+
+		result << "vec2 oglptgNewton_dfXe4Minus1(vec2 n)\n";
+		result << "{\n";
+		result << "	return 4.0 * vec2(\n";
+		result << "		 n.x*n.x*n.x - 3.0*n.x*n.y*n.y,\n";
+		result << "		-n.y*n.y*n.y + 3.0*n.x*n.x*n.y\n";
+		result << "	);\n";
+		result << "}\n";
+		result << "#endif\n";
+	}
 
 	result << "float ";
 	AppendId(result);
@@ -93,8 +121,30 @@ Definitions(unsigned version)
 	result << "	for(i = 0; i < max; ++i)\n";
 	result << "	{\n";
 	result << "		vec2 zn = z - oglptgComplexDiv(\n";
-	result << "			oglptgNewton_f(z),\n";
-	result << "			oglptgNewton_df(z)\n";
+	result << "			";
+
+	if(_function == NewtonFunction::Xe3minus1)
+	{
+		result << "oglptgNewton_fXe3Minus1";
+	}
+	else if(_function == NewtonFunction::Xe4minus1)
+	{
+		result << "oglptgNewton_fXe4Minus1";
+	}
+
+	result << "(z),\n";
+	result << "			";
+
+	if(_function == NewtonFunction::Xe3minus1)
+	{
+		result << "oglptgNewton_dfXe3Minus1";
+	}
+	else if(_function == NewtonFunction::Xe4minus1)
+	{
+		result << "oglptgNewton_dfXe4Minus1";
+	}
+
+	result << "(z)\n";
 	result << "		);\n";
 	result << "		if(distance(zn, z) < 0.00001) break;\n";
 	result << "		z = zn;\n";
@@ -106,8 +156,8 @@ Definitions(unsigned version)
 
 OGLPLUS_LIB_FUNC
 NewtonNode::
-NewtonNode(void)
- : _output(*this)
+NewtonNode(NewtonFunction function)
+ : _output(*this, function)
 { }
 
 OGLPLUS_LIB_FUNC

@@ -23,10 +23,8 @@ namespace texgen {
 
 enum class SlotDataType
 {
-	Float = 1,
-	FloatVec2 = 2,
-	FloatVec3 = 3,
-	FloatVec4 = 4
+	Float, FloatVec2, FloatVec3, FloatVec4,
+	Int, IntVec2, IntVec3, IntVec4
 };
 
 struct InputSlot;
