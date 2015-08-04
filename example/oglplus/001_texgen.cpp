@@ -14,6 +14,8 @@
 
 #include <iostream>
 
+#include <oglplus/texgen/random_node.hpp>
+#include <oglplus/texgen/texture_node.hpp>
 #include <oglplus/texgen/uniform_node.hpp>
 #include <oglplus/texgen/swizzle_node.hpp>
 #include <oglplus/texgen/newton_node.hpp>
@@ -51,6 +53,8 @@ private:
 	texgen::Blur2DNode b1, b2, b3;
 	texgen::NormalMapNode nm;
 	texgen::RenderNode rn;
+	texgen::Random2DRGBANode tx;
+
 public:
 	TriangleExample(void)
 	 : gl()
@@ -59,6 +63,7 @@ public:
 	 , nt(texgen::NewtonFunction::Xe4minus1)
 	 , s1("rrra")
 	 , s2("g")
+	 , tx(0, 256, 256)
 	{
 		//st.SetCoeff(Vec3f(-1,1,1));
 		//m1.SetZero(0.0f);
@@ -71,15 +76,14 @@ public:
 
 		//Connect(st.Output(0), m1.Input(2));
 
-m1.Output(0).Definitions(std::cout, 150) << std::endl;
-m1.Output(0).Expression(std::cout, 150) << std::endl;
+tx.Output(0).Definitions(std::cout, 150) << std::endl;
+tx.Output(0).Expression(std::cout, 150) << std::endl;
 
-		Connect(m1.Output(0), rn.Input(0));
+		Connect(tx.Output(0), rn.Input(0));
 
-		rn.Activate();
 		rn.Update();
-		u1.BindUniform();
-		u2.BindUniform();
+		//u1.BindUniform();
+		//u2.BindUniform();
 
 		gl.Disable(Capability::DepthTest);
 	}
@@ -89,8 +93,9 @@ m1.Output(0).Expression(std::cout, 150) << std::endl;
 		gl.Viewport(width, height);
 	}
 
-	void Render(double time)
+	void Render(double /*time*/)
 	{
+/*
 		u1.SetValue(Vec4f(
 			SineWave01(time / 5.1),
 			SineWave01(time / 9.7),
@@ -103,6 +108,7 @@ m1.Output(0).Expression(std::cout, 150) << std::endl;
 			CosineWave01(time / 8.1),
 			1
 		));
+*/
 
 		rn.Render();
 	}

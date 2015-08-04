@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/texgen/uniform_node.hpp
+ *  @file oglplus/texgen/texture_node.hpp
  *
  *  @author Matus Chochlik
  *
@@ -9,31 +9,38 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_TEXGEN_UNIFORM_NODE_HPP
-#define OGLPLUS_TEXGEN_UNIFORM_NODE_HPP
+#ifndef OGLPLUS_TEXGEN_TEXTURE_NODE_HPP
+#define OGLPLUS_TEXGEN_TEXTURE_NODE_HPP
 
 #include <oglplus/texgen/base_node.hpp>
+#include <oglplus/texgen/base_input.hpp>
 #include <oglplus/texgen/base_output.hpp>
-#include <oglplus/uniform.hpp>
+#include <oglplus/texgen/global_node.hpp>
+#include <oglplus/texture.hpp>
 
 namespace oglplus {
 namespace texgen {
 
-class UniformNode;
+class TextureNode;
 
-class UniformOutputSlot
+class TextureOutputSlot
  : public BaseOutputSlot
 {
 private:
-	friend class UniformNode;
-	SlotDataType _type;
-	UniformLoc _location;
+	friend class TextureNode;
+
+	FallbackInputSlot<GlobalCoordinateSlot> _coord;
+
+	Texture _texture;
+	TextureTarget _target;
+	PixelDataFormat _format;
 public:
-	UniformOutputSlot(Node& parent, SlotDataType type);
-
-	void BindLocation(void);
-
-	UniformLoc GetLocation(void) { return _location; }
+	TextureOutputSlot(
+		Node& parent,
+		Texture&&,
+		TextureTarget,
+		PixelDataFormat
+	);
 
 	const char* TypeName(void)
 	OGLPLUS_OVERRIDE;
@@ -45,26 +52,19 @@ public:
 	OGLPLUS_OVERRIDE;
 };
 
-class UniformNode
+class TextureNode
  : public BaseNode
 {
 private:
-	UniformOutputSlot _output;
+	TextureOutputSlot _output;
 public:
-	UniformNode(SlotDataType type);
+	TextureNode(Texture&&, TextureTarget, PixelDataFormat);
 
-	UniformNode& BindUniform(void)
-	{
-		_output.BindLocation();
-		return *this;
-	}
+	std::size_t InputCount(void)
+	OGLPLUS_OVERRIDE;
 
-	template <typename T>
-	UniformNode& SetValue(T value)
-	{
-		Typechecked<Uniform<T>>(_output.GetLocation()).Set(value);
-		return *this;
-	}
+	InputSlot& Input(std::size_t i)
+	OGLPLUS_OVERRIDE;
 
 	std::size_t OutputCount(void)
 	OGLPLUS_OVERRIDE;
@@ -77,7 +77,7 @@ public:
 } // namespace oglplus
 
 //#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/texgen/uniform_node.ipp>
+#include <oglplus/texgen/texture_node.ipp>
 //#endif
 
 #endif // include guard

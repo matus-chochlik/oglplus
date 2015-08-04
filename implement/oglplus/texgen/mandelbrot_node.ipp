@@ -18,7 +18,7 @@ namespace texgen {
 OGLPLUS_LIB_FUNC
 MandelbrotOutputSlot::
 MandelbrotOutputSlot(Node& parent)
- : _coord(parent, "Coord")
+ : _coord(parent, "Coordinate")
  , _offset(parent, "Offset", Vec3f(-0.75f,-0.5f,0))
  , _scale(parent, "Scale", Vec3f(2,2,1))
 { }

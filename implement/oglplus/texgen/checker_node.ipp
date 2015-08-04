@@ -18,7 +18,7 @@ namespace texgen {
 OGLPLUS_LIB_FUNC
 CheckerOutputSlot::
 CheckerOutputSlot(Node& parent)
- : _coord(parent, "Coord")
+ : _coord(parent, "Coordinate")
  , _scale(parent, "Scale", Vec3f(8,8,8))
 { }
 
