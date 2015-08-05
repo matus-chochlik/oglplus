@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
-# Copyright 2014 Matus Chochlik. Distributed under the Boost
+# Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -324,6 +324,24 @@ def parse_args(args):
 	)
 
 	argparser.add_argument(
+		"--full-hd",
+		help="""Sets the dimensions of the output to 1920x1080.""",
+		dest="frame_size",
+		action="store_const",
+		const=[1920,1080]
+		
+	)
+
+	argparser.add_argument(
+		"--samples",
+		help="""Number of multisampling samples""",
+		type=int,
+		default="0",
+		action="store",
+		dest="samples"
+	)
+
+	argparser.add_argument(
 		"examples",
 		help="""
 		List of examples to render.
@@ -382,6 +400,12 @@ def render_video(
 			'--width', str(options.width),
 			'--height', str(options.height)
 		]
+
+		if options.samples > 0:
+			cmd_line = cmd_line + [
+				'--samples', str(options.samples)
+			]
+
 		proc = subprocess.Popen(
 			cmd_line,
 			stdin=subprocess.PIPE,
