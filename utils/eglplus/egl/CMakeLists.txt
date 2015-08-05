@@ -1,4 +1,4 @@
-#  Copyright 2014 Matus Chochlik. Distributed under the Boost
+#  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -8,6 +8,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 project(EGLplus_EGL)
 
 find_package(X11 REQUIRED)
+find_library(GL_LIBRARIES NAMES GL)
 find_package(Threads REQUIRED)
 
 #add_definitions(-std=c++0x)
@@ -29,6 +30,7 @@ add_library(EGL SHARED
 	src/EGL/glx/ext/NV_native_query.cpp
 )
 target_link_libraries(EGL ${X11_LIBRARIES})
+target_link_libraries(EGL ${GL_LIBRARIES})
 target_link_libraries(EGL ${CMAKE_THREAD_LIBS_INIT})
 
 set(EGL_EXT_LIBRARIES "")
