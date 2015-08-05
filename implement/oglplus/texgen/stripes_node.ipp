@@ -9,7 +9,6 @@
  */
 
 #include <oglplus/config/basic.hpp>
-#include <sstream>
 #include <cassert>
 
 namespace oglplus {
@@ -20,7 +19,7 @@ StripesOutputSlot::
 StripesOutputSlot(Node& parent)
  : _coord(parent, "Coordinate")
  , _coeff(parent, "Coefficients", Vec3f(1,1,1))
- , _scale(parent, "Scale", Vec3f(8,8,8))
+ , _repeat(parent, "Repeat", Vec3f(8,8,8))
 { }
 
 OGLPLUS_LIB_FUNC
@@ -46,7 +45,7 @@ Definitions(std::ostream& result, unsigned version)
 {
 	_coord.Definitions(result, version);
 	_coeff.Definitions(result, version);
-	_scale.Definitions(result, version);
+	_repeat.Definitions(result, version);
 
 	result << "float ";
 	AppendId(result);
@@ -57,7 +56,7 @@ Definitions(std::ostream& result, unsigned version)
 	result << "	c *= ";
 	_coeff.Expression(result, version) << "(o);\n";
 	result << "	c *= ";
-	_scale.Expression(result, version) << "(o);\n";
+	_repeat.Expression(result, version) << "(o);\n";
 	result << "	return float(int(abs(floor(c.x+c.y+c.z)))%2);\n";
 	result << "}\n";
 	return result;
@@ -81,9 +80,9 @@ SetCoeff(Vec3f coeff)
 OGLPLUS_LIB_FUNC
 StripesNode&
 StripesNode::
-SetScale(Vec3f scale)
+SetRepeat(Vec3f scale)
 {
-	_output._scale.Fallback().SetValue(scale);
+	_output._repeat.Fallback().SetValue(scale);
 	return *this;
 }
 
@@ -103,7 +102,7 @@ Input(std::size_t i)
 	assert(i < InputCount());
 	if(i == 0) return _output._coord;
 	if(i == 1) return _output._coeff;
-	return _output._scale;
+	return _output._repeat;
 }
 
 OGLPLUS_LIB_FUNC

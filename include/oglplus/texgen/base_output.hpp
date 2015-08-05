@@ -13,7 +13,7 @@
 #define OGLPLUS_TEXGEN_BASE_OUTPUT_HPP
 
 #include <oglplus/texgen/interface.hpp>
-#include <iosfwd>
+#include <iostream>
 #include <set>
 
 namespace oglplus {

@@ -9,7 +9,6 @@
  */
 
 #include <oglplus/config/basic.hpp>
-#include <sstream>
 #include <cassert>
 
 namespace oglplus {
@@ -19,7 +18,7 @@ OGLPLUS_LIB_FUNC
 CheckerOutputSlot::
 CheckerOutputSlot(Node& parent)
  : _coord(parent, "Coordinate")
- , _scale(parent, "Scale", Vec3f(8,8,8))
+ , _repeat(parent, "Repeat", Vec3f(8,8,8))
 { }
 
 OGLPLUS_LIB_FUNC
@@ -44,7 +43,7 @@ CheckerOutputSlot::
 Definitions(std::ostream& result, unsigned version)
 {
 	_coord.Definitions(result, version);
-	_scale.Definitions(result, version);
+	_repeat.Definitions(result, version);
 
 	result << "float ";
 	AppendId(result);
@@ -53,7 +52,7 @@ Definitions(std::ostream& result, unsigned version)
 	result << "	vec3 c = ";
 	_coord.Expression(result, version) << "(o);\n";
 	result << "	c *= ";
-	_scale.Expression(result, version) << "(o);\n";
+	_repeat.Expression(result, version) << "(o);\n";
 	result << "	return float((int(c.x)%2+int(c.y)%2+int(c.z)%2)%2);\n";
 	result << "}\n";
 	return result;
@@ -68,9 +67,9 @@ CheckerNode(void)
 OGLPLUS_LIB_FUNC
 CheckerNode&
 CheckerNode::
-SetScale(Vec3f scale)
+SetRepeat(Vec3f scale)
 {
-	_output._scale.Fallback().SetValue(scale);
+	_output._repeat.Fallback().SetValue(scale);
 	return *this;
 }
 
@@ -89,7 +88,7 @@ Input(std::size_t i)
 {
 	assert(i < InputCount());
 	if(i == 0) return _output._coord;
-	return _output._scale;
+	return _output._repeat;
 }
 
 OGLPLUS_LIB_FUNC

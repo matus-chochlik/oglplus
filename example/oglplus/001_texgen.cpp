@@ -12,8 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 
-#include <iostream>
-
+#include <oglplus/texgen/arithmetic_node.hpp>
 #include <oglplus/texgen/random_node.hpp>
 #include <oglplus/texgen/texture_node.hpp>
 #include <oglplus/texgen/uniform_node.hpp>
@@ -27,6 +26,8 @@
 #include <oglplus/texgen/mix_node.hpp>
 #include <oglplus/texgen/global_node.hpp>
 #include <oglplus/texgen/render_node.hpp>
+
+#include <iostream>
 
 #include <oglplus/all.hpp>
 
@@ -43,12 +44,14 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
+	texgen::UnaryArithmeticNode ua;
+	texgen::BinaryArithmeticNode ba;
 	texgen::UniformNode u1, u2;
 	texgen::NewtonNode nt;
 	texgen::MandelbrotNode mb;
 	texgen::CheckerNode c0;
 	texgen::StripesNode st;
-	texgen::MixNode m1;
+	texgen::MixNode m1, m2;
 	texgen::SwizzleNode s1, s2;
 	texgen::Blur2DNode b1, b2, b3;
 	texgen::NormalMapNode nm;
@@ -58,6 +61,8 @@ private:
 public:
 	TriangleExample(void)
 	 : gl()
+	 , ua(texgen::UnaryArithmeticOp::Exp)
+	 , ba(texgen::BinaryArithmeticOp::Distance)
 	 , u1(texgen::SlotDataType::FloatVec4)
 	 , u2(texgen::SlotDataType::FloatVec4)
 	 , nt(texgen::NewtonFunction::Xe4minus1)
@@ -70,20 +75,27 @@ public:
 		//m1.SetOne(1.0f);
 		Connect(u1.Output(0), m1.Input(0));
 		Connect(u2.Output(0), m1.Input(1));
-		Connect(nt.Output(0), m1.Input(2));
+
+		Connect(nt.Output(0), ua.Input(0));
+		Connect(ua.Output(0), m1.Input(2));
 		Connect(m1.Output(0), s1.Input(0));
 		Connect(s1.Output(0), nm.Input(0));
 
+		Connect(tx.Output(0), ba.Input(0));
+		Connect(m1.Output(0), ba.Input(1));
+
+		Connect(ba.Output(0), m2.Input(2));
+
 		//Connect(st.Output(0), m1.Input(2));
 
-tx.Output(0).Definitions(std::cout, 150) << std::endl;
-tx.Output(0).Expression(std::cout, 150) << std::endl;
+m2.Output(0).Definitions(std::cout, 150) << std::endl;
+m2.Output(0).Expression(std::cout, 150) << std::endl;
 
-		Connect(tx.Output(0), rn.Input(0));
+		Connect(m2.Output(0), rn.Input(0));
 
 		rn.Update();
-		//u1.BindUniform();
-		//u2.BindUniform();
+		u1.BindUniform();
+		u2.BindUniform();
 
 		gl.Disable(Capability::DepthTest);
 	}
@@ -93,9 +105,8 @@ tx.Output(0).Expression(std::cout, 150) << std::endl;
 		gl.Viewport(width, height);
 	}
 
-	void Render(double /*time*/)
+	void Render(double time)
 	{
-/*
 		u1.SetValue(Vec4f(
 			SineWave01(time / 5.1),
 			SineWave01(time / 9.7),
@@ -108,7 +119,6 @@ tx.Output(0).Expression(std::cout, 150) << std::endl;
 			CosineWave01(time / 8.1),
 			1
 		));
-*/
 
 		rn.Render();
 	}

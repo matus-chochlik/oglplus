@@ -9,7 +9,6 @@
  */
 #include <oglplus/config/basic.hpp>
 #include <cassert>
-#include <sstream>
 
 namespace oglplus {
 namespace texgen {

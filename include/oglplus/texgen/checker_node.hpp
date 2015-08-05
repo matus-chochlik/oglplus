@@ -29,7 +29,7 @@ private:
 	friend class CheckerNode;
 
 	FallbackInputSlot<GlobalCoordinateSlot> _coord;
-	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _scale;
+	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _repeat;
 public:
 	CheckerOutputSlot(Node& parent);
 
@@ -51,7 +51,7 @@ private:
 public:
 	CheckerNode(void);
 
-	CheckerNode& SetScale(Vec3f scale);
+	CheckerNode& SetRepeat(Vec3f scale);
 
 	std::size_t InputCount(void)
 	OGLPLUS_OVERRIDE;

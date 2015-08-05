@@ -30,7 +30,7 @@ private:
 
 	FallbackInputSlot<GlobalCoordinateSlot> _coord;
 	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _coeff;
-	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _scale;
+	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _repeat;
 public:
 	StripesOutputSlot(Node& parent);
 
@@ -53,7 +53,7 @@ public:
 	StripesNode(void);
 
 	StripesNode& SetCoeff(Vec3f coeff);
-	StripesNode& SetScale(Vec3f scale);
+	StripesNode& SetRepeat(Vec3f scale);
 
 	std::size_t InputCount(void)
 	OGLPLUS_OVERRIDE;

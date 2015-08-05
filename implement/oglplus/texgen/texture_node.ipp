@@ -11,7 +11,6 @@
 #include <oglplus/config/basic.hpp>
 #include <oglplus/uniform.hpp>
 #include <oglplus/program.hpp>
-#include <sstream>
 #include <cassert>
 
 namespace oglplus {

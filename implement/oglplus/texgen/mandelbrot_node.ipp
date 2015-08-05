@@ -9,7 +9,6 @@
  */
 
 #include <oglplus/config/basic.hpp>
-#include <sstream>
 #include <cassert>
 
 namespace oglplus {
