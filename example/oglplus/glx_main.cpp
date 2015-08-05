@@ -114,6 +114,7 @@ struct ExampleOptions
 	const char* framedump_prefix;
 	GLuint width;
 	GLuint height;
+	GLint samples;
 };
 
 void example_thread_main(ExampleThreadData& data)
@@ -592,6 +593,8 @@ void run_example(
 		GLX_DEPTH_SIZE      , 24,
 		GLX_STENCIL_SIZE    , 8,
 		GLX_DOUBLEBUFFER    , True,
+		GLX_SAMPLE_BUFFERS  , (opts.samples>0)?1:0,
+		GLX_SAMPLES         , (opts.samples>0)?opts.samples:0,
 		None
 	};
 	glx::FBConfig fbc = glx::FBConfigs(
@@ -718,6 +721,12 @@ void run_example(
 		// rendering
 		master_ready.Signal(params.num_threads);
 
+		if(opts.samples>0)
+		{
+			// enable multisampling
+			glEnable(GL_MULTISAMPLE);
+		}
+
 		example->Reshape(opts.width, opts.height);
 		example->MouseMove(opts.width/2, opts.height/2, opts.width, opts.height);
 
@@ -798,6 +807,7 @@ int glx_example_main(int argc, char ** argv)
 	opts.framedump_prefix = nullptr;
 	opts.width = 800;
 	opts.height = 600;
+	opts.samples = 0;
 
 	int a=1;
 	while(a<argc)
@@ -822,6 +832,11 @@ int glx_example_main(int argc, char ** argv)
 		else if((std::strcmp(argv[a], "--height")) == 0 && (a+1<argc))
 		{
 			opts.height = GLuint(std::atoi(argv[a+1]));
+			parsed = 2;
+		}
+		else if((std::strcmp(argv[a], "--samples")) == 0 && (a+1<argc))
+		{
+			opts.samples = GLint(std::atoi(argv[a+1]));
 			parsed = 2;
 		}
 

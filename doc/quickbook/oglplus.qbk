@@ -238,6 +238,15 @@
 [def __GLSLStrings [link oglplus.quickref.glsl_string GLSLStrings]]
 
 [def __ProgVarLoc [link oglplus.quickref.prog_var.location ProgVarLoc]]
+[def __VertexAttribLoc [link oglplus.quickref.prog_var.location.typedefs VertexAttribLoc]]
+[def __UniformLoc [link oglplus.quickref.prog_var.location.typedefs UniformLoc]]
+[def __UniformBlockLoc [link oglplus.quickref.prog_var.location.typedefs UniformBlockLoc]]
+[def __SubroutineLoc [link oglplus.quickref.prog_var.location.typedefs SubroutineLoc]]
+[def __SubroutineUniformLoc [link oglplus.quickref.prog_var.location.typedefs SubroutineUniformLoc]]
+[def __FragDataLoc [link oglplus.quickref.prog_var.location.typedefs FragDataLoc]]
+[def __ShaderStorageLoc [link oglplus.quickref.prog_var.location.typedefs ShaderStorageLoc]]
+
+
 [def __ProgVarLocOps [link oglplus.quickref.prog_var.wrapper.loc_ops ProgVarLocOps]]
 [def __ProgVarCommonOps [link oglplus.quickref.prog_var.wrapper.common_ops ProgVarCommonOps]]
 [def __ProgVarGetSetOps [link oglplus.quickref.prog_var.wrapper.get_set_ops ProgVarGetSetOps]]

@@ -85,4 +85,13 @@ template <typename __VarTag>
 GLint GetGLLocation(__ProgVarLoc<__VarTag> variable);
 
 //]
+//[oglplus_prog_var_loc_typedefs
+typedef __ProgVarLoc<__tag_VertexAttrib> VertexAttribLoc;
+typedef ProgVarLoc<__tag_Uniform> UniformLoc;
+typedef ProgVarLoc<__tag_UniformBlock> UniformBlockLoc;
+typedef ProgVarLoc<__tag_Subroutine> SubroutineLoc;
+typedef ProgVarLoc<__tag_SubroutineUniform> SubroutineUniformLoc;
+typedef ProgVarLoc<__tag_FragData> FragDataLoc;
+typedef ProgVarLoc<__tag_ShaderStorageBlock> ShaderStorageBlockLoc;
+//]
 
