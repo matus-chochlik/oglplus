@@ -7,7 +7,7 @@
 //[oglplus_client_SettingHolder
 namespace client {
 
-template <typename T, typename P>
+template <typename T, ...>
 class SettingHolder
 {
 public:
@@ -42,7 +42,7 @@ public:
 //[oglplus_client_SettingStack
 namespace client {
 
-template <typename T, typename P>
+template <typename T, ...>
 class SettingStack
 {
 public:
@@ -53,7 +53,7 @@ public:
 	and pushes it on itself as the first element.
 	>*/
 
-	typedef __SettingHolder<T, P> Holder;
+	typedef __SettingHolder<T, ...> Holder;
 
 	Holder Push(T value); /*<
 	Pushes a new value on top of the setting stack. When the returned
@@ -71,7 +71,7 @@ public:
 	the specified arguments and pushes it on the stack.
 	>*/
 
-	const T& Get(void) const /*<
+	T Get(void) const /*<
 	Returns the value of the setting on the top of this setting stack.
 	>*/
 	noexcept;
@@ -96,26 +96,36 @@ template <typename Derived, typename T>
 class SettingStackIndexed
 {
 public:
-	// TODO
 	SettingStackIndexed(const SettingStackIndexed&) = delete;
 
-	SettingStackIndexed(void);
-
-	Derived& Indexed(std::size_t index);
+	SettingStackIndexed(void); /*<
+	Initialized the __SettingStack on index zero.
+	>*/
 
 	Derived& operator [] (std::size_t index);
+	Derived& Indexed(std::size_t index); /*<
+	Returns a reference to the setting stack at the specified index.
+	The value of index should not exceed the maximum value for the managed
+	indexed setting.
+	>*/
 
 	typedef __SettingHolder<T, GLuint> Holder;
 
-	Holder Push(T value);
+	Holder Push(T value); /*<
+	Pushes a new value on the stack at index zero.
+	>*/
 
 	template <typename ... A>
 	Holder Push(A&& ... a);
 
-	const T& Get(void) const
+	T Get(void) const /*<
+	Gets the value from the stack at index zero.
+	>*/
 	noexcept;
 
-	void Set(T value);
+	void Set(T value); /*<
+	Sets a new value on the stack at index zero.
+	>*/
 
 	template <typename ... A>
 	void Set(A&& ... a);

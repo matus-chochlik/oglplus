@@ -272,6 +272,7 @@
 [def __FragData [link oglplus.quickref.frag_data.def FragData]]
 
 [def __Context [link oglplus.quickref.context Context]]
+[def __ClientContext [link oglplus.quickref.client_context ClientContext]]
 
 [def __Capability [link oglplus.quickref.capability Capability]]
 [def __Functionality [link oglplus.quickref.capability.functionality Functionality]]
