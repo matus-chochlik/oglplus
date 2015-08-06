@@ -1,0 +1,34 @@
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
+[/ Software License, Version 1.0. (See accompanying file            ]
+[/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
+
+[/===========================================================]
+[section:client_context Client-side wrapper of the GL context]
+[/===========================================================]
+
+TODO
+
+[def __SettingHolder [link oglplus.quickref.client_context.setting.holder SettingHolder]]
+[def __SettingStack [link oglplus.quickref.client_context.setting.stack SettingStack]]
+[def __SettingStackIndexed [link oglplus.quickref.client_context.setting.stack_indexed SettingStackIndexed]]
+
+[def __client_SettingHolder [link oglplus.quickref.client_context.setting.holder client::SettingHolder]]
+[def __client_SettingStack [link oglplus.quickref.client_context.setting.stack client::SettingStack]]
+[def __client_SettingStackIndexed [link oglplus.quickref.client_context.setting.stack_indexed client::SettingStackIndexed]]
+
+[def __client_BlendingOps [link oglplus.quickref.client_context.blending.ops client::BlendingOps]]
+[def __client_BlendingState [link oglplus.quickref.client_context.blending.state client::BlendingState]]
+
+[heading [^ClientContext]]
+
+[header oglplus/client_context.hpp]
+
+TODO
+
+[import client_context.hpp]
+[oglplus_ClientContext]
+
+[include client/setting.qbk]
+[include client/blending.qbk]
+
+[endsect]

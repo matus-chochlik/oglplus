@@ -1,0 +1,25 @@
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
+[/ Software License, Version 1.0. (See accompanying file            ]
+[/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
+
+[/--------------------------------------]
+[section:setting Client context settings]
+[/--------------------------------------]
+
+[header oglplus/client/setting.hpp]
+
+[import setting.hpp]
+
+[heading:holder Setting holder]
+
+[oglplus_client_SettingHolder]
+
+[heading:stack Setting stack]
+
+[oglplus_client_SettingStack]
+
+[heading:stack_indexed Indexed setting stack]
+
+[oglplus_client_SettingStackIndexed]
+
+[endsect]
