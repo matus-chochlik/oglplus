@@ -23,23 +23,23 @@ namespace aux {
 #if GL_VERSION_4_1 || GL_ARB_viewport_array
 
 class ViewportIndexed
- : public SettingStack<context::ViewportExtents, GLuint>
+ : public SettingStack<context::ViewportExtents, ViewportIndex>
 {
 private:
 	static
-	context::ViewportExtents _do_get(GLuint index)
+	context::ViewportExtents _do_get(ViewportIndex index)
 	{
 		return context::ViewportState::Viewport(index);
 	}
 
 	static
-	void _do_set(context::ViewportExtents vp, GLuint index)
+	void _do_set(context::ViewportExtents vp, ViewportIndex index)
 	{
 		context::ViewportState::Viewport(index, vp);
 	}
 public:
-	ViewportIndexed(GLuint index)
-	 : SettingStack<context::ViewportExtents, GLuint>(
+	ViewportIndexed(ViewportIndex index)
+	 : SettingStack<context::ViewportExtents, ViewportIndex>(
 		&_do_get,
 		&_do_set,
 		index
@@ -48,27 +48,30 @@ public:
 };
 
 
-typedef SettingStackIndexed<ViewportIndexed, context::ViewportExtents>
-	Viewport;
+typedef SettingStackIndexed<
+	ViewportIndexed,
+	context::ViewportExtents,
+	ViewportIndex
+> Viewport;
 
 class DepthRangeIndexed
- : public SettingStack<context::ViewportDepthRange, GLuint>
+ : public SettingStack<context::ViewportDepthRange, ViewportIndex>
 {
 private:
 	static
-	context::ViewportDepthRange _do_get(GLuint index)
+	context::ViewportDepthRange _do_get(ViewportIndex index)
 	{
 		return context::ViewportState::DepthRange(index);
 	}
 
 	static
-	void _do_set(context::ViewportDepthRange vdr, GLuint index)
+	void _do_set(context::ViewportDepthRange vdr, ViewportIndex index)
 	{
 		context::ViewportState::DepthRange(index, vdr);
 	}
 public:
-	DepthRangeIndexed(GLuint index)
-	 : SettingStack<context::ViewportDepthRange, GLuint>(
+	DepthRangeIndexed(ViewportIndex index)
+	 : SettingStack<context::ViewportDepthRange, ViewportIndex>(
 		&_do_get,
 		&_do_set,
 		index
@@ -78,7 +81,8 @@ public:
 
 typedef SettingStackIndexed<
 	DepthRangeIndexed,
-	context::ViewportDepthRange
+	context::ViewportDepthRange,
+	ViewportIndex
 > DepthRange;
 
 #else

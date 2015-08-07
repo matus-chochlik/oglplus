@@ -15,6 +15,7 @@
 
 #include <oglplus/glfunc.hpp>
 #include <oglplus/size_type.hpp>
+#include <oglplus/viewport_index.hpp>
 
 namespace oglplus {
 namespace context {
@@ -322,18 +323,23 @@ public:
 	 *  @glfunref{ViewportIndexedf}
 	 */
 	static void Viewport(
-		GLuint viewport,
+		ViewportIndex viewport,
 		GLfloat x,
 		GLfloat y,
 		GLfloat width,
 		GLfloat height
 	)
 	{
-		OGLPLUS_GLFUNC(ViewportIndexedf)(viewport, x, y, width, height);
+		OGLPLUS_GLFUNC(ViewportIndexedf)(
+			GLuint(viewport),
+			x, y,
+			width,
+			height
+		);
 		OGLPLUS_CHECK(
 			ViewportIndexedf,
 			Error,
-			Index(viewport)
+			Index(GLuint(viewport))
 		);
 	}
 
@@ -344,13 +350,13 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ViewportIndexedfv}
 	 */
-	static void Viewport(GLuint viewport, const GLfloat* extents)
+	static void Viewport(ViewportIndex viewport, const GLfloat* extents)
 	{
-		OGLPLUS_GLFUNC(ViewportIndexedfv)(viewport, extents);
+		OGLPLUS_GLFUNC(ViewportIndexedfv)(GLuint(viewport), extents);
 		OGLPLUS_CHECK(
 			ViewportIndexedfv,
 			Error,
-			Index(viewport)
+			Index(GLuint(viewport))
 		);
 	}
 
@@ -379,12 +385,12 @@ public:
 	 *  @glfunref{ViewportIndexedf}
 	 */
 	static void Viewport(
-		GLuint viewport,
+		ViewportIndex viewport,
 		const ViewportExtents& vp
 	)
 	{
 		OGLPLUS_GLFUNC(ViewportIndexedf)(
-			viewport,
+			GLuint(viewport),
 			GLfloat(vp.X()),
 			GLfloat(vp.Y()),
 			GLfloat(vp.Width()),
@@ -393,7 +399,7 @@ public:
 		OGLPLUS_CHECK(
 			ViewportIndexedf,
 			Error,
-			Index(viewport)
+			Index(GLuint(viewport))
 		);
 	}
 
@@ -405,10 +411,14 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{VIEWPORT}
 	 */
-	static ViewportExtents Viewport(GLuint viewport)
+	static ViewportExtents Viewport(ViewportIndex viewport)
 	{
 		ViewportExtents result;
-		OGLPLUS_GLFUNC(GetIntegeri_v)(GL_VIEWPORT, viewport, result._v);
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_VIEWPORT,
+			GLuint(viewport),
+			result._v
+		);
 		OGLPLUS_CHECK_SIMPLE(GetIntegeri_v);
 		return result;
 	}
@@ -421,17 +431,28 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{DepthRangeIndexed}
 	 */
-	static void DepthRange(GLuint viewport, GLclampd near_val, GLclampd far_val)
+	static void DepthRange(
+		ViewportIndex viewport,
+		GLclampd near_val,
+		GLclampd far_val
+	)
 	{
-		OGLPLUS_GLFUNC(DepthRangeIndexed)(viewport, near_val, far_val);
+		OGLPLUS_GLFUNC(DepthRangeIndexed)(
+			GLuint(viewport),
+			near_val,
+			far_val
+		);
 		OGLPLUS_CHECK(
 			DepthRangeIndexed,
 			Error,
-			Index(viewport)
+			Index(GLuint(viewport))
 		);
 	}
 
-	static void DepthRange(GLuint viewport, const ViewportDepthRange& vdr)
+	static void DepthRange(
+		ViewportIndex viewport,
+		const ViewportDepthRange& vdr
+	)
 	{
 		DepthRange(viewport, vdr._v[0], vdr._v[1]);
 	}
@@ -461,14 +482,18 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{DEPTH_RANGE}
 	 */
-	static ViewportDepthRange DepthRange(GLuint viewport)
+	static ViewportDepthRange DepthRange(ViewportIndex viewport)
 	{
 		ViewportDepthRange result;
-		OGLPLUS_GLFUNC(GetFloati_v)(GL_DEPTH_RANGE, viewport,result._v);
+		OGLPLUS_GLFUNC(GetFloati_v)(
+			GL_DEPTH_RANGE,
+			GLuint(viewport),
+			result._v
+		);
 		OGLPLUS_CHECK(
 			GetFloati_v,
 			Error,
-			Index(viewport)
+			Index(GLuint(viewport))
 		);
 		return result;
 	}
