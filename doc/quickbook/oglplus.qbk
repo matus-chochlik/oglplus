@@ -233,6 +233,8 @@
 [def __FragmentDataSlot [link oglplus.quickref.frag_data_slot FragmentDataSlot]]
 [def __FragDataSlot [link oglplus.quickref.frag_data_slot FragDataSlot]]
 
+[def __ViewportIndex [link oglplus.quickref.viewport_index ViewportIndex]]
+
 [def __GLSLSource [link oglplus.quickref.glsl_source GLSLSource]]
 [def __GLSLString [link oglplus.quickref.glsl_string GLSLString]]
 [def __GLSLStrings [link oglplus.quickref.glsl_string GLSLStrings]]
