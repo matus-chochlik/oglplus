@@ -6,12 +6,12 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="oglplus.org">
 <link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
-<link rel="prev" href="frag_data.html" title="Fragment output data">
-<link rel="next" href="capability.html" title="Capabilities">
+<link rel="prev" href="viewport_index.html" title="Viewport index">
+<link rel="next" href="client_context.html" title="Client-side wrapper of the GL context">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="frag_data.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="capability.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="viewport_index.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="client_context.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
@@ -379,15 +379,21 @@
 	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportDepthRange</a> <span class="identifier">DepthRange</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c18" href="context.html#oglplus.quickref.context.viewport.c19"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_1</span> <span class="special">||</span> <span class="identifier">GL_ARB_viewport_array</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLfloat</span><span class="special">*</span> <span class="identifier">extents</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c20" href="context.html#oglplus.quickref.context.viewport.c21"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span>
-		<span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span>
+		<a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a> <span class="identifier">viewport</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="identifier">GLfloat</span><span class="special">*</span> <span class="identifier">extents</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c20" href="context.html#oglplus.quickref.context.viewport.c21"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span>
+		<a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a> <span class="identifier">viewport</span><span class="special">,</span>
 		<span class="identifier">GLfloat</span> <span class="identifier">x</span><span class="special">,</span>
 		<span class="identifier">GLfloat</span> <span class="identifier">y</span><span class="special">,</span>
 		<span class="identifier">GLfloat</span> <span class="identifier">width</span><span class="special">,</span>
 		<span class="identifier">GLfloat</span> <span class="identifier">height</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c22" href="context.html#oglplus.quickref.context.viewport.c23"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportExtents</a><span class="special">&amp;);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Viewport</span><span class="special">(</span>
+		<a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a> <span class="identifier">viewport</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportExtents</a><span class="special">&amp;</span>
+	<span class="special">);</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ViewportArray</span><span class="special">(</span>
 		<span class="identifier">GLuint</span> <span class="identifier">first</span><span class="special">,</span>
@@ -395,14 +401,21 @@
 		<span class="keyword">const</span> <span class="identifier">GLfloat</span><span class="special">*</span> <span class="identifier">extents</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c24" href="context.html#oglplus.quickref.context.viewport.c25"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
-	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportExtents</a> <span class="identifier">Viewport</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c26" href="context.html#oglplus.quickref.context.viewport.c27"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportExtents</a> <span class="identifier">Viewport</span><span class="special">(</span><a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c26" href="context.html#oglplus.quickref.context.viewport.c27"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRange</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="identifier">GLclampd</span> <span class="identifier">near</span><span class="special">,</span> <span class="identifier">GLclampd</span> <span class="identifier">far</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c28" href="context.html#oglplus.quickref.context.viewport.c29"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRange</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportDepthRange</a><span class="special">&amp;);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRange</span><span class="special">(</span>
+		<a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a> <span class="identifier">viewport</span><span class="special">,</span>
+		<span class="identifier">GLclampd</span> <span class="identifier">near</span><span class="special">,</span>
+		<span class="identifier">GLclampd</span> <span class="identifier">far</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c28" href="context.html#oglplus.quickref.context.viewport.c29"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRange</span><span class="special">(</span>
+		<a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a> <span class="identifier">viewport</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportDepthRange</a><span class="special">&amp;</span>
+	<span class="special">);</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthRangeArray</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">first</span><span class="special">,</span> <a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">GLclampd</span> <span class="special">*</span><span class="identifier">v</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c30" href="context.html#oglplus.quickref.context.viewport.c31"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
 
-	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportDepthRange</a> <span class="identifier">DepthRange</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c32" href="context.html#oglplus.quickref.context.viewport.c33"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportDepthRange</a> <span class="identifier">DepthRange</span><span class="special">(</span><a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.viewport.c32" href="context.html#oglplus.quickref.context.viewport.c33"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
 </pre>
@@ -1949,17 +1962,17 @@
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_1</span> <span class="special">||</span> <span class="identifier">GL_ARB_viewport_array</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Scissor</span><span class="special">(</span>
-		<span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span>
+		<a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a> <span class="identifier">viewport</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">left</span><span class="special">,</span>
 		<span class="identifier">GLint</span> <span class="identifier">bottom</span><span class="special">,</span>
 		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
 		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c2" href="context.html#oglplus.quickref.context.scissor_test.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Scissor</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">,</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">v</span><span class="special">);</span>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">Scissor</span><span class="special">(</span><a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a> <span class="identifier">viewport</span><span class="special">,</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">v</span><span class="special">);</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ScissorArray</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">first</span><span class="special">,</span> <a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">v</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c4" href="context.html#oglplus.quickref.context.scissor_test.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
-	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="ScissorTest">context::ScissorRectangle</a> <span class="identifier">ScissorBox</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c6" href="context.html#oglplus.quickref.context.scissor_test.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="ScissorTest">context::ScissorRectangle</a> <span class="identifier">ScissorBox</span><span class="special">(</span><a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c6" href="context.html#oglplus.quickref.context.scissor_test.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
 
@@ -2894,7 +2907,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="frag_data.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="capability.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="viewport_index.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="client_context.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

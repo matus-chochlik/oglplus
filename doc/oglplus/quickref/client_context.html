@@ -1,0 +1,365 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Client-side wrapper of the GL context</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="context.html" title="Current GL context">
+<link rel="next" href="capability.html" title="Capabilities">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="context.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="capability.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.client_context"></a><a class="link" href="client_context.html" title="Client-side wrapper of the GL context">Client-side wrapper
+        of the GL context</a>
+</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.setting">Client context
+          settings</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.blending">Blending
+          operations</a></span></dt>
+</dl></div>
+<p>
+          TODO
+        </p>
+<h4>
+<a name="oglplus.quickref.client_context.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.client_context.clientcontext"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.clientcontext"><code class="literal">ClientContext</code></a>
+        </h4>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client_context.hpp&gt;</code>
+        </p>
+<p>
+          TODO
+        </p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ClientContext</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.blending.ops">client::BlendingOps</a>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.blending.state">client::BlendingState</a>
+<span class="special">{</span> <span class="special">};</span>
+</pre>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.setting"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.setting" title="Client context settings">Client context
+          settings</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/setting.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.client_context.setting.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.setting.holder"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.setting.holder">Setting
+            holder</a>
+          </h5>
+<p>
+            Instances of <code class="literal">SettingHolder</code> are created by various
+            instantiations of <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a>
+            when a new value is pushed on top of the stack. The purpose of a setting
+            holder is to keep that value on top of the stack. While an instance of
+            <code class="literal">SettingHolder</code> is alive, then the associated value
+            is kept on the stack. Once the holder is destroyed, the associated value
+            is popped from the stack an the previous GL context setting is restored
+            (to the next value on the stack). The values can also be popped (once)
+            explicitly by calling the <code class="literal">Pop</code> member function.
+          </p>
+<p>
+            OGLplus library client applications should never need to instantiate
+            <code class="literal">SettingHolder</code> directly. Either use the <code class="literal">auto</code>
+            keyword or the typedefs in <code class="literal">SettingStack</code>.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="special">...&gt;</span>
+<span class="keyword">class</span> <span class="identifier">SettingHolder</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">SettingHolder</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">SettingHolder</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span>
+
+	<span class="identifier">SettingHolder</span><span class="special">(</span><span class="identifier">SettingHolder</span><span class="special">&amp;&amp;)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="special">~</span><span class="identifier">SettingHolder</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.client_context.setting.c0" href="client_context.html#oglplus.quickref.client_context.setting.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">void</span> <span class="identifier">Pop</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.client_context.setting.c2" href="client_context.html#oglplus.quickref.client_context.setting.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">explicit</span>
+	<span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.client_context.setting.c4" href="client_context.html#oglplus.quickref.client_context.setting.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c1"></a><a href="#oglplus.quickref.client_context.setting.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Implicitly pops the value which this holder keeps from the setting
+                stack which created <code class="literal">this</code> instance of <code class="literal">Holder</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c3"></a><a href="#oglplus.quickref.client_context.setting.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Explicitly pops the value which this holder keeps from the setting
+                stack which created <code class="literal">this</code> instance of <code class="literal">Holder</code>.
+                This function can be only called if the value has not been popped
+                yet.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c5"></a><a href="#oglplus.quickref.client_context.setting.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns <code class="literal">true</code> if the setting has not been popped
+                yet, returns <code class="literal">false</code> otherwise.
+              </p></td>
+</tr>
+</table></div>
+<h5>
+<a name="oglplus.quickref.client_context.setting.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.setting.stack"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">Setting
+            stack</a>
+          </h5>
+<p>
+            Instances of <code class="literal">SettingStack</code> are used to maintain and
+            manage the the values of a single particular GL context setting. In the
+            constructor they query the initial value of the managed setting and push
+            it on top of the stack. The user can then repeatedly query the values
+            (without actually querying GL state) by the <code class="literal">Set</code> member
+            functions, change the value of the setting (both locally and in the GL
+            context if necessary) by calling the <code class="literal">Set</code> member functions,
+            <code class="literal">Push</code> new values on top of the stack while keeping
+            the previous ones (and changing the GL context if necessary) and finally
+            to <code class="literal">Pop</code> the values from the stack either implicitly
+            or explicitly (and updating the GL context accordingly).
+          </p>
+<p>
+            OGLplus library client applications should never need to instantiate
+            <code class="literal">SettingStack</code> directly. The (direct or indirect) members
+            of <a class="link" href="client_context.html" title="Client-side wrapper of the GL context">ClientContext</a>
+            should be used.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="special">...&gt;</span>
+<span class="keyword">class</span> <span class="identifier">SettingStack</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">SettingStack</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">SettingStack</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span>
+
+	<span class="identifier">SettingStack</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c6" href="client_context.html#oglplus.quickref.client_context.setting.c7"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">typedef</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.holder">SettingHolder</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">Holder</span><span class="special">;</span>
+
+	<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c8" href="client_context.html#oglplus.quickref.client_context.setting.c9"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">A</span><span class="special">&gt;</span>
+	<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><span class="identifier">A</span><span class="special">&amp;&amp;</span> <span class="special">...</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c10" href="client_context.html#oglplus.quickref.client_context.setting.c11"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="identifier">T</span> <span class="identifier">Get</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.client_context.setting.c12" href="client_context.html#oglplus.quickref.client_context.setting.c13"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c14" href="client_context.html#oglplus.quickref.client_context.setting.c15"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">A</span><span class="special">&gt;</span>
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">A</span><span class="special">&amp;&amp;</span> <span class="special">...</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c16" href="client_context.html#oglplus.quickref.client_context.setting.c17"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c7"></a><a href="#oglplus.quickref.client_context.setting.c6"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Queries the current value of the setting that this stack manages
+                and pushes it on itself as the first element.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c9"></a><a href="#oglplus.quickref.client_context.setting.c8"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Pushes a new value on top of the setting stack. When the returned
+                instance of <code class="literal">Holder</code> gets destroyed (or its <code class="literal">Pop</code>
+                member function is called explicitly) then this value is popped from
+                the stack. Storing the returned instance keeps the value on the stack.
+                Care must be taken to destroy the instances of <code class="literal">Holder</code>
+                in the reverse of the order in which they were created. This can
+                be easily achieved by storing the holders in local variables.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c11"></a><a href="#oglplus.quickref.client_context.setting.c10"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This overload of <code class="literal">Push</code> constructs a new instance
+                of <code class="literal">T</code> from the specified arguments and pushes it
+                on the stack.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c13"></a><a href="#oglplus.quickref.client_context.setting.c12"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the value of the setting on the top of this setting stack.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c15"></a><a href="#oglplus.quickref.client_context.setting.c14"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Changes the current setting value without pushing on the stack.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c17"></a><a href="#oglplus.quickref.client_context.setting.c16"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This overload of <code class="literal">Set</code> changes the value by constructing
+                a new instance of <code class="literal">T</code> from the specified arguments.
+              </p></td>
+</tr>
+</table></div>
+<h5>
+<a name="oglplus.quickref.client_context.setting.h2"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.setting.stack_indexed"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack_indexed">Indexed
+            setting stack</a>
+          </h5>
+<p>
+            Instances of <code class="literal">SettingStackIndexed</code> are used to manage
+            the values of indexed GL context settings. They maintain a sequence of
+            <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a>
+            instances, each for a single setting at a particular <span class="emphasis"><em>index</em></span>.
+            The individual setting stacks are accessed via the <code class="literal">Indexed</code>
+            member function or the <code class="literal">operator[]</code>. The settings on
+            the zero-th index can be also manipulated directly be calling the <code class="literal">Push</code>,
+            <code class="literal">Get</code> and <code class="literal">Set</code> member functions which
+            have the same semantics as in <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a>.
+          </p>
+<p>
+            OGLplus library client applications should never need to instantiate
+            <code class="literal">SettingStack</code> directly. The (direct or indirect) members
+            of <a class="link" href="client_context.html" title="Client-side wrapper of the GL context">ClientContext</a>
+            should be used.
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Derived</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">SettingStackIndexed</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">SettingStackIndexed</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">SettingStackIndexed</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span>
+
+	<span class="identifier">SettingStackIndexed</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c18" href="client_context.html#oglplus.quickref.client_context.setting.c19"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="identifier">Derived</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">[]</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">index</span><span class="special">);</span>
+	<span class="identifier">Derived</span><span class="special">&amp;</span> <span class="identifier">Indexed</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c20" href="client_context.html#oglplus.quickref.client_context.setting.c21"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="keyword">typedef</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.holder">SettingHolder</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">GLuint</span><span class="special">&gt;</span> <span class="identifier">Holder</span><span class="special">;</span>
+
+	<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c22" href="client_context.html#oglplus.quickref.client_context.setting.c23"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">A</span><span class="special">&gt;</span>
+	<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><span class="identifier">A</span><span class="special">&amp;&amp;</span> <span class="special">...</span> <span class="identifier">a</span><span class="special">);</span>
+
+	<span class="identifier">T</span> <span class="identifier">Get</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.client_context.setting.c24" href="client_context.html#oglplus.quickref.client_context.setting.c25"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c26" href="client_context.html#oglplus.quickref.client_context.setting.c27"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">A</span><span class="special">&gt;</span>
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">A</span><span class="special">&amp;&amp;</span> <span class="special">...</span> <span class="identifier">a</span><span class="special">);</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c19"></a><a href="#oglplus.quickref.client_context.setting.c18"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Initialized the <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a>
+                on index zero.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c21"></a><a href="#oglplus.quickref.client_context.setting.c20"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns a reference to the setting stack at the specified index.
+                The value of index should not exceed the maximum value for the managed
+                indexed setting.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c23"></a><a href="#oglplus.quickref.client_context.setting.c22"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Pushes a new value on the stack at index zero.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c25"></a><a href="#oglplus.quickref.client_context.setting.c24"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Gets the value from the stack at index zero.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c27"></a><a href="#oglplus.quickref.client_context.setting.c26"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets a new value on the stack at index zero.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.blending"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.blending" title="Blending operations">Blending
+          operations</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/blending.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.client_context.blending.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.blending.ops"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.blending.ops">Operations</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">using</span> <span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="context.html#oglplus.quickref.context.blending.ops">context::BlendingOps</a><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.client_context.blending.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.blending.state"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.blending.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">BlendingState</span>
+<span class="special">{</span>
+	<span class="comment">// TODO</span>
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_value">context::RGBAValue</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">BlendColor</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.blending.c0" href="client_context.html#oglplus.quickref.client_context.blending.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.blending.c1"></a><a href="#oglplus.quickref.client_context.blending.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of blend color.
+              </p></td>
+</tr></table></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="context.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="capability.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
