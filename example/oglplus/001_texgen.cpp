@@ -62,7 +62,7 @@ public:
 	TriangleExample(void)
 	 : gl()
 	 , ua(texgen::UnaryArithmeticOp::Exp)
-	 , ba(texgen::BinaryArithmeticOp::Distance)
+	 , ba(texgen::BinaryArithmeticOp::Greater)
 	 , u1(texgen::SlotDataType::FloatVec4)
 	 , u2(texgen::SlotDataType::FloatVec4)
 	 , nt(texgen::NewtonFunction::Xe4minus1)

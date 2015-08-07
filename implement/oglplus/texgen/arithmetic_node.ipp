@@ -160,6 +160,18 @@ TypeName(void)
 {
 	switch(_op)
 	{
+		case BinaryArithmeticOp::Equal:
+			return "Equal";
+		case BinaryArithmeticOp::NotEqual:
+			return "NotEqual";
+		case BinaryArithmeticOp::Less:
+			return "Less";
+		case BinaryArithmeticOp::LessEqual:
+			return "LessEqual";
+		case BinaryArithmeticOp::Greater:
+			return "Greater";
+		case BinaryArithmeticOp::GreaterEqual:
+			return "GreaterEqual";
 		case BinaryArithmeticOp::Addition:
 			return "Addition";
 		case BinaryArithmeticOp::Subtraction:
@@ -214,6 +226,21 @@ Definitions(std::ostream& result, unsigned version)
 
 	switch(_op)
 	{
+		case BinaryArithmeticOp::Equal:
+			result << "(" << DataTypeName(_b.ValueType());
+			result << "(1)-abs(sign("; break;
+		case BinaryArithmeticOp::NotEqual:
+			result << "abs(sign("; break;
+		case BinaryArithmeticOp::Less:
+			result << "max(-sign("; break;
+		case BinaryArithmeticOp::LessEqual:
+			result << "(" << DataTypeName(_b.ValueType());
+			result << "(1)-max(sign("; break;
+		case BinaryArithmeticOp::Greater:
+			result << "max(sign("; break;
+		case BinaryArithmeticOp::GreaterEqual:
+			result << "(" << DataTypeName(_b.ValueType());
+			result << "(1)-max(-sign("; break;
 		case BinaryArithmeticOp::Modulo:
 			result << "mod("; break;
 		case BinaryArithmeticOp::Distance:
@@ -234,6 +261,18 @@ Definitions(std::ostream& result, unsigned version)
 	{
 		case BinaryArithmeticOp::Addition:
 			result << "+"; break;
+		case BinaryArithmeticOp::Equal:
+			OGLPLUS_FALLTHROUGH
+		case BinaryArithmeticOp::NotEqual:
+			OGLPLUS_FALLTHROUGH
+		case BinaryArithmeticOp::Less:
+			OGLPLUS_FALLTHROUGH
+		case BinaryArithmeticOp::LessEqual:
+			OGLPLUS_FALLTHROUGH
+		case BinaryArithmeticOp::Greater:
+			OGLPLUS_FALLTHROUGH
+		case BinaryArithmeticOp::GreaterEqual:
+			OGLPLUS_FALLTHROUGH
 		case BinaryArithmeticOp::Subtraction:
 			result << "-"; break;
 		case BinaryArithmeticOp::Multiplication:
@@ -246,7 +285,27 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << "\n\t\t";
 	_b.Expression(result, version) << "(o)";
-	result << "\n\t);\n}\n";
+	result << "\n\t";
+	switch(_op)
+	{
+		case BinaryArithmeticOp::Equal:
+			result << ")))"; break;
+		case BinaryArithmeticOp::NotEqual:
+			result << "))"; break;
+		case BinaryArithmeticOp::Less:
+			OGLPLUS_FALLTHROUGH
+		case BinaryArithmeticOp::Greater:
+			result << ")," << DataTypeName(_b.ValueType());
+			result << "(0))"; break;
+		case BinaryArithmeticOp::LessEqual:
+			OGLPLUS_FALLTHROUGH
+		case BinaryArithmeticOp::GreaterEqual:
+			result << ")," << DataTypeName(_b.ValueType());
+			result << "(0)))"; break;
+		default:
+			result << ")"; break;
+	};
+	result << ";\n}\n";
 	return result;
 }
 

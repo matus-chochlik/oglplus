@@ -101,6 +101,12 @@ public:
 
 enum class BinaryArithmeticOp
 {
+	Equal,
+	NotEqual,
+	Less,
+	LessEqual,
+	Greater,
+	GreaterEqual,
 	Addition,
 	Subtraction,
 	Multiplication,
@@ -190,6 +196,20 @@ public:
 	{ }
 };
 
+typedef FixedBinaryArithmeticNode<BinaryArithmeticOp::Equal>
+	EqualNode;
+typedef FixedBinaryArithmeticNode<BinaryArithmeticOp::NotEqual>
+	NotEqualNode;
+typedef FixedBinaryArithmeticNode<BinaryArithmeticOp::Less>
+	LessNode;
+typedef FixedBinaryArithmeticNode<BinaryArithmeticOp::LessEqual>
+	LessEqualNode;
+typedef FixedBinaryArithmeticNode<BinaryArithmeticOp::GreaterEqual>
+	GreaterEqualNode;
+typedef FixedBinaryArithmeticNode<BinaryArithmeticOp::Greater>
+	GreaterNode;
+typedef FixedBinaryArithmeticNode<BinaryArithmeticOp::Equal>
+	EqualNode;
 typedef FixedBinaryArithmeticNode<BinaryArithmeticOp::Addition>
 	AdditionNode;
 typedef FixedBinaryArithmeticNode<BinaryArithmeticOp::Subtraction>
