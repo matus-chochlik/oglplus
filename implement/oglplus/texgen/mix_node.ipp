@@ -9,6 +9,7 @@
  */
 
 #include <oglplus/config/basic.hpp>
+#include <oglplus/texgen/data_type.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -51,16 +52,34 @@ Definitions(std::ostream& result, unsigned version)
 	_one.Definitions(result, version);
 	_value.Definitions(result, version);
 
+	SlotDataType type = CommonDataType(_zero.ValueType(), _one.ValueType());
+
 	result << DataTypeName(ValueType()) << " ";
 	AppendId(result);
 	result << "(vec3 o){\n\t";
 
 	result << "return mix(\n\t\t";
+	ConversionPrefix(result, _zero.ValueType(), type);
 	_zero.Expression(result, version) << "(o)";
+	ConversionSuffix(result, _zero.ValueType(), type);
 	result << ",\n\t\t";
+	ConversionPrefix(result, _one.ValueType(), type);
 	_one.Expression(result, version) << "(o)";
+	ConversionSuffix(result, _one.ValueType(), type);
 	result << ",\n\t\t";
-	_value.Expression(result, version) << "(o)";
+
+	if(DataTypeDims(_value.ValueType()) == 1)
+	{
+		ConversionPrefix(result, _value.ValueType(), SlotDataType::Float);
+		_value.Expression(result, version) << "(o)";
+		ConversionSuffix(result, _value.ValueType(), SlotDataType::Float);
+	}
+	else
+	{
+		ConversionPrefix(result, _value.ValueType(), type);
+		_value.Expression(result, version) << "(o)";
+		ConversionSuffix(result, _value.ValueType(), type);
+	}
 	result << "\n\t);\n}\n";
 	return result;
 }

@@ -9,6 +9,7 @@
  */
 
 #include <oglplus/config/basic.hpp>
+#include <oglplus/texgen/data_type.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -106,16 +107,25 @@ Definitions(std::ostream& result, unsigned version)
 		result << "#endif\n";
 	}
 
+	const SlotDataType v3 = SlotDataType::FloatVec3;
+
 	result << "float ";
 	AppendId(result);
 	result << "(vec3 o)\n";
 	result << "{\n";
 	result << "	vec3 k = ";
-	_coord.Expression(result, version) << "(o);\n";
+	ConversionPrefix(result, _coord.ValueType(), v3);
+	_coord.Expression(result, version) << "(o)";
+	ConversionSuffix(result, _coord.ValueType(), v3) << ";\n";
 	result << "	k += ";
-	_offset.Expression(result, version) << "(o);\n";
+	ConversionPrefix(result, _offset.ValueType(), v3);
+	_offset.Expression(result, version) <<"(o)";
+	ConversionSuffix(result, _offset.ValueType(), v3) << ";\n";
 	result << "	k *= ";
-	_scale.Expression(result, version) << "(o);\n";
+	ConversionPrefix(result, _scale.ValueType(), v3);
+	_scale.Expression(result, version) << "(o)";
+	ConversionSuffix(result, _scale.ValueType(), v3) << ";\n";
+	result << ";\n";
 	result << "	vec2 z = k.xy;\n";
 
 	result << "	int i, max = 48;\n";

@@ -19,8 +19,6 @@
 namespace oglplus {
 namespace texgen {
 
-const char* DataTypeName(SlotDataType);
-
 class BaseOutputSlot
  : public OutputSlot
 {

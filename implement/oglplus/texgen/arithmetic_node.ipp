@@ -9,6 +9,7 @@
  */
 
 #include <oglplus/config/basic.hpp>
+#include <oglplus/texgen/data_type.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -68,7 +69,9 @@ Definitions(std::ostream& result, unsigned version)
 {
 	_a.Definitions(result, version);
 
-	result << DataTypeName(ValueType()) << " ";
+	SlotDataType type = ValueType();
+
+	result << DataTypeName(type) << " ";
 	AppendId(result);
 	result << "(vec3 o){\n\t";
 
@@ -97,7 +100,9 @@ Definitions(std::ostream& result, unsigned version)
 		case UnaryArithmeticOp::Log2:
 			result << "log2("; break;
 	}
+	ConversionPrefix(result, _a.ValueType(), type);
 	_a.Expression(result, version) << "(o)";
+	ConversionSuffix(result, _a.ValueType(), type);
 	result << ");\n}\n";
 	return result;
 }
@@ -188,6 +193,8 @@ TypeName(void)
 			return "Maximum";
 		case BinaryArithmeticOp::Minimum:
 			return "Minimum";
+		case BinaryArithmeticOp::Power:
+			return "Power";
 		case BinaryArithmeticOp::Dot:
 			return "Dot";
 		default:;
@@ -206,8 +213,7 @@ ValueType(void)
 			return SlotDataType::Float;
 		default:;
 	}
-	assert(_a.ValueType() == _b.ValueType());
-	return _b.ValueType();
+	return CommonDataType(_a.ValueType(), _b.ValueType());
 }
 
 OGLPLUS_LIB_FUNC
@@ -218,7 +224,9 @@ Definitions(std::ostream& result, unsigned version)
 	_a.Definitions(result, version);
 	_b.Definitions(result, version);
 
-	result << DataTypeName(ValueType()) << " ";
+	SlotDataType type = CommonDataType(_a.ValueType(), _b.ValueType());
+
+	result << DataTypeName(type) << " ";
 	AppendId(result);
 	result << "(vec3 o){\n\t";
 
@@ -227,19 +235,19 @@ Definitions(std::ostream& result, unsigned version)
 	switch(_op)
 	{
 		case BinaryArithmeticOp::Equal:
-			result << "(" << DataTypeName(_b.ValueType());
+			result << "(" << DataTypeName(type);
 			result << "(1)-abs(sign("; break;
 		case BinaryArithmeticOp::NotEqual:
 			result << "abs(sign("; break;
 		case BinaryArithmeticOp::Less:
 			result << "max(-sign("; break;
 		case BinaryArithmeticOp::LessEqual:
-			result << "(" << DataTypeName(_b.ValueType());
+			result << "(" << DataTypeName(type);
 			result << "(1)-max(sign("; break;
 		case BinaryArithmeticOp::Greater:
 			result << "max(sign("; break;
 		case BinaryArithmeticOp::GreaterEqual:
-			result << "(" << DataTypeName(_b.ValueType());
+			result << "(" << DataTypeName(type);
 			result << "(1)-max(-sign("; break;
 		case BinaryArithmeticOp::Modulo:
 			result << "mod("; break;
@@ -249,13 +257,17 @@ Definitions(std::ostream& result, unsigned version)
 			result << "max("; break;
 		case BinaryArithmeticOp::Minimum:
 			result << "min("; break;
+		case BinaryArithmeticOp::Power:
+			result << "pow("; break;
 		case BinaryArithmeticOp::Dot:
 			result << "dot("; break;
 		default:
 			result << "("; break;
 	}
 	result << "\n\t\t";
+	ConversionPrefix(result, _a.ValueType(), type);
 	_a.Expression(result, version) << "(o)";
+	ConversionSuffix(result, _a.ValueType(), type);
 
 	switch(_op)
 	{
@@ -284,7 +296,9 @@ Definitions(std::ostream& result, unsigned version)
 	}
 
 	result << "\n\t\t";
+	ConversionPrefix(result, _b.ValueType(), type);
 	_b.Expression(result, version) << "(o)";
+	ConversionSuffix(result, _b.ValueType(), type);
 	result << "\n\t";
 	switch(_op)
 	{
@@ -295,12 +309,12 @@ Definitions(std::ostream& result, unsigned version)
 		case BinaryArithmeticOp::Less:
 			OGLPLUS_FALLTHROUGH
 		case BinaryArithmeticOp::Greater:
-			result << ")," << DataTypeName(_b.ValueType());
+			result << ")," << DataTypeName(type);
 			result << "(0))"; break;
 		case BinaryArithmeticOp::LessEqual:
 			OGLPLUS_FALLTHROUGH
 		case BinaryArithmeticOp::GreaterEqual:
-			result << ")," << DataTypeName(_b.ValueType());
+			result << ")," << DataTypeName(type);
 			result << "(0)))"; break;
 		default:
 			result << ")"; break;

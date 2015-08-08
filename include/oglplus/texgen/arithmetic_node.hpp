@@ -115,6 +115,7 @@ enum class BinaryArithmeticOp
 	Maximum,
 	Minimum,
 	Distance,
+	Power,
 	Dot
 };
 
@@ -226,6 +227,8 @@ typedef FixedBinaryArithmeticNode<BinaryArithmeticOp::Maximum>
 	MaximumNode;
 typedef FixedBinaryArithmeticNode<BinaryArithmeticOp::Minimum>
 	MinimumNode;
+typedef FixedBinaryArithmeticNode<BinaryArithmeticOp::Power>
+	PowerNode;
 typedef FixedBinaryArithmeticNode<BinaryArithmeticOp::Dot>
 	DotNode;
 

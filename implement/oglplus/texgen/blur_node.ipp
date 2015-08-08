@@ -9,6 +9,7 @@
  */
 
 #include <oglplus/config/basic.hpp>
+#include <oglplus/texgen/data_type.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -49,31 +50,31 @@ Definitions(std::ostream& result, unsigned version)
 	result << "	" << DataTypeName(ValueType()) << "\n";
 	result << "	r  = ";
 	_input.Expression(result, version);
-	result << "(o+vec3( 0, 0, 0))*0.20;\n";
+	result << "(o+vec3( 0, 0, 0))";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3(-1, 0, 0))*0.15;\n";
+	result << "(o+vec3(-1, 0, 0))";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3( 1, 0, 0))*0.15;\n";
+	result << "(o+vec3( 1, 0, 0))";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3( 0,-1, 0))*0.15;\n";
+	result << "(o+vec3( 0,-1, 0))";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3( 0, 1, 0))*0.15;\n";
+	result << "(o+vec3( 0, 1, 0))";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3(-1,-1, 0))*0.05;\n";
+	result << "(o+vec3(-1,-1, 0))";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3(-1, 1, 0))*0.05;\n";
+	result << "(o+vec3(-1, 1, 0))";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3( 1,-1, 0))*0.05;\n";
+	result << "(o+vec3( 1,-1, 0))";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3( 1, 1, 0))*0.05;\n";
+	result << "(o+vec3( 1, 1, 0))";
 	result << "	return r;\n";
 	result << "}\n";
 	return result;

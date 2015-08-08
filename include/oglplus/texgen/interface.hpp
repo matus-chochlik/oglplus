@@ -25,7 +25,8 @@ namespace texgen {
 enum class SlotDataType
 {
 	Float, FloatVec2, FloatVec3, FloatVec4,
-	Int, IntVec2, IntVec3, IntVec4
+	Int, IntVec2, IntVec3, IntVec4,
+	Bool, BoolVec2, BoolVec3, BoolVec4
 };
 
 struct InputSlot;
@@ -121,7 +122,6 @@ struct Node
 	virtual
 	void Update(void) = 0;
 };
-
 
 } // namespace texgen
 } // namespace oglplus

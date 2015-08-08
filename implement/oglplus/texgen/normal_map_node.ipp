@@ -9,6 +9,7 @@
  */
 
 #include <oglplus/config/basic.hpp>
+#include <oglplus/texgen/data_type.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -41,6 +42,8 @@ std::ostream&
 NormalMapOutputSlot::
 Definitions(std::ostream& result, unsigned version)
 {
+	const SlotDataType ft = SlotDataType::Float;
+
 	_input.Definitions(result, version);
 	result << "vec4 ";
 	AppendId(result);
@@ -48,15 +51,25 @@ Definitions(std::ostream& result, unsigned version)
 	result << "{\n";
 	result << "	float se = 0.05;\n"; // TODO variable strength
 	result << "	float ce = ";
- 	_input.Expression(result, version) << "(o+vec3( 0, 0, 0));\n";
+	ConversionPrefix(result, _input.ValueType(), ft);
+ 	_input.Expression(result, version) << "(o+vec3( 0, 0, 0))";
+	ConversionSuffix(result, _input.ValueType(), ft) << ";\n";
 	result << "	float px = ";
-	_input.Expression(result, version) << "(o+vec3(+1, 0, 0));\n";
+	ConversionPrefix(result, _input.ValueType(), ft);
+	_input.Expression(result, version) << "(o+vec3(+1, 0, 0))";
+	ConversionSuffix(result, _input.ValueType(), ft) << ";\n";
 	result << "	float py = ";
-	_input.Expression(result, version) << "(o+vec3( 0,+1, 0));\n";
+	ConversionPrefix(result, _input.ValueType(), ft);
+	_input.Expression(result, version) << "(o+vec3( 0,+1, 0))";
+	ConversionSuffix(result, _input.ValueType(), ft) << ";\n";
 	result << "	float nx = ";
-	_input.Expression(result, version) << "(o+vec3(-1, 0, 0));\n";
+	ConversionPrefix(result, _input.ValueType(), ft);
+	_input.Expression(result, version) << "(o+vec3(-1, 0, 0))";
+	ConversionSuffix(result, _input.ValueType(), ft) << ";\n";
 	result << "	float ny = ";
-	_input.Expression(result, version) << "(o+vec3( 0,-1, 0));\n";
+	ConversionPrefix(result, _input.ValueType(), ft);
+	_input.Expression(result, version) << "(o+vec3( 0,-1, 0))";
+	ConversionSuffix(result, _input.ValueType(), ft) << ";\n";
 	result << "	vec3 vpx = vec3(+se,  0, px-ce);\n";
 	result << "	vec3 vpy = vec3(  0,+se, py-ce);\n";
 	result << "	vec3 vnx = vec3(-se,  0, nx-ce);\n";

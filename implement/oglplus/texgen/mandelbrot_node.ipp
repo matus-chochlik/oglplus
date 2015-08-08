@@ -9,6 +9,7 @@
  */
 
 #include <oglplus/config/basic.hpp>
+#include <oglplus/texgen/data_type.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -47,17 +48,25 @@ Definitions(std::ostream& result, unsigned version)
 	_offset.Definitions(result, version);
 	_scale.Definitions(result, version);
 
+	const SlotDataType v3 = SlotDataType::FloatVec3;
+
 	result << "vec2 ";
 	AppendId(result);
 	result << "(vec3 o)\n";
 	result << "{\n";
 	result << "	vec2 z = vec2(0.0, 0.0);\n";
 	result << "	vec3 k = ";
-	_coord.Expression(result, version) << "(o);\n";
+	ConversionPrefix(result, _coord.ValueType(), v3);
+	_coord.Expression(result, version) << "(o)";
+	ConversionSuffix(result, _coord.ValueType(), v3) << ";\n";
 	result << "	k += ";
-	_offset.Expression(result, version) << "(o);\n";
+	ConversionPrefix(result, _offset.ValueType(), v3);
+	_offset.Expression(result, version) <<"(o)";
+	ConversionSuffix(result, _offset.ValueType(), v3) << ";\n";
 	result << "	k *= ";
-	_scale.Expression(result, version) << "(o);\n";
+	ConversionPrefix(result, _scale.ValueType(), v3);
+	_scale.Expression(result, version) << "(o)";
+	ConversionSuffix(result, _scale.ValueType(), v3) << ";\n";
 	result << "	vec2 c = k.xy;\n";
 	result << "	int i = 0;\n";
 	result << "	const int max = 128;\n"; // TODO variable max?

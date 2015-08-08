@@ -59,7 +59,11 @@ _update_prog(void)
 	source << "void main(void)\n";
 	source << "{\n";
 	source << "	fragColor = ";
-	_input.Expression(source, glsl_version) << "(vec3(0,0,0));\n";
+	ConversionPrefix(source, _input.ValueType(), SlotDataType::FloatVec4);
+	_input.Expression(source, glsl_version);
+	source << "(vec3(0,0,0))";
+	ConversionSuffix(source, _input.ValueType(), SlotDataType::FloatVec4);
+	source << ";\n";
 	source << "}\n";
 
 	_fs.Source(source.str()).Compile();

@@ -14,22 +14,6 @@ namespace oglplus {
 namespace texgen {
 
 OGLPLUS_LIB_FUNC
-const char*
-DataTypeName(SlotDataType type)
-{
-	if(type == SlotDataType::Float) return "float";
-	if(type == SlotDataType::FloatVec2) return "vec2";
-	if(type == SlotDataType::FloatVec3) return "vec3";
-	if(type == SlotDataType::FloatVec4) return "vec4";
-	if(type == SlotDataType::Int) return "int";
-	if(type == SlotDataType::IntVec2) return "ivec2";
-	if(type == SlotDataType::IntVec3) return "ivec3";
-	if(type == SlotDataType::IntVec4) return "ivec4";
-
-	return "_unknown_type_";
-}
-
-OGLPLUS_LIB_FUNC
 BaseOutputSlot::
 ~BaseOutputSlot(void)
 OGLPLUS_NOEXCEPT(true)

@@ -9,6 +9,7 @@
  */
 
 #include <oglplus/config/basic.hpp>
+#include <oglplus/texgen/data_type.hpp>
 #include <oglplus/uniform.hpp>
 #include <oglplus/program.hpp>
 #include <cassert>
@@ -156,10 +157,16 @@ Definitions(std::ostream& result, unsigned version)
 
 	if(_target == TextureTarget::_2D)
 	{
+		static SlotDataType v2 = SlotDataType::FloatVec2;
+
 		result << "texture2D(\n\t\t";
 		AppendId(result);
 		result << "s,\n\t\t";
-		_coord.Expression(result, version) << "(o).st\n\t";
+		ConversionPrefix(result, _coord.ValueType(), v2);
+		_coord.Expression(result, version);
+		result << "(o)";
+		ConversionSuffix(result, _coord.ValueType(), v2);
+		result << "\n\t";
 		result << ")";
 
 		switch(_format)
