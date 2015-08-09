@@ -628,14 +628,14 @@
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_0</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ColorMask</span><span class="special">(</span>
-		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
+		<a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">,</span>
 		<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">r</span><span class="special">,</span>
 		<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">g</span><span class="special">,</span>
 		<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">b</span><span class="special">,</span>
 		<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">a</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c4" href="context.html#oglplus.quickref.context.buffer_masking.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ColorMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span> <span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_mask">context::RGBAMask</a><span class="special">&amp;);</span>
-	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_mask">context::RGBAMask</a> <span class="identifier">ColorWriteMask</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c6" href="context.html#oglplus.quickref.context.buffer_masking.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ColorMask</span><span class="special">(</span><a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">,</span> <span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_mask">context::RGBAMask</a><span class="special">&amp;);</span>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_mask">context::RGBAMask</a> <span class="identifier">ColorWriteMask</span><span class="special">(</span><a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c6" href="context.html#oglplus.quickref.context.buffer_masking.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">DepthMask</span><span class="special">(</span><a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">mask</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.buffer_masking.c8" href="context.html#oglplus.quickref.context.buffer_masking.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
@@ -2245,23 +2245,23 @@
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquation</span><span class="special">(</span>
-		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
+		<a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">,</span>
 		<a class="link" href="enums.html#oglplus.quickref.enums.one_of">OneOf</a><span class="special">&lt;</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquationAdvanced</a><span class="special">&gt;</span> <span class="identifier">eq</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c6" href="context.html#oglplus.quickref.context.blending.c7"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span>
-		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
+		<a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">eq_alpha</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c8" href="context.html#oglplus.quickref.context.blending.c9"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span>
-		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
+		<a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">,</span>
 		<span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendEquationSeparate</a><span class="special">&amp;</span>
 	<span class="special">);</span>
-	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendEquationSeparate</a> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendEquationSeparate</a> <span class="identifier">BlendEquationSeparate</span><span class="special">(</span><a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">);</span>
 
-	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">BlendEquationRGB</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
-	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">BlendEquationAlpha</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">BlendEquationRGB</span><span class="special">(</span><a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendEquation</a> <span class="identifier">BlendEquationAlpha</span><span class="special">(</span><a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">);</span>
 <span class="preprocessor">#endif</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFunc</span><span class="special">(</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src</span><span class="special">,</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c10" href="context.html#oglplus.quickref.context.blending.c11"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
@@ -2282,12 +2282,12 @@
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFunc</span><span class="special">(</span>
-		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
+		<a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst</span>
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c14" href="context.html#oglplus.quickref.context.blending.c15"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span>
-		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
+		<a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">dst_rgb</span><span class="special">,</span>
 		<a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">src_alpha</span><span class="special">,</span>
@@ -2295,15 +2295,15 @@
 	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.blending.c16" href="context.html#oglplus.quickref.context.blending.c17"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span>
-		<span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">,</span>
+		<a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">,</span>
 		<span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendFunctionSeparate</a><span class="special">&amp;</span>
 	<span class="special">);</span>
-	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendFunctionSeparate</a> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendFunctionSeparate</a> <span class="identifier">BlendFuncSeparate</span><span class="special">(</span><a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">);</span>
 
-	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncSrcRGB</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
-	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncSrcAlpha</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
-	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncDstRGB</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
-	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncDstAlpha</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">buffer</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncSrcRGB</span><span class="special">(</span><a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncSrcAlpha</span><span class="special">(</span><a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncDstRGB</span><span class="special">(</span><a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">);</span>
+	<span class="keyword">static</span> <a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a> <span class="identifier">BlendFuncDstAlpha</span><span class="special">(</span><a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a> <span class="identifier">buffer</span><span class="special">);</span>
 <span class="preprocessor">#endif</span>
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlendColor</span><span class="special">(</span><span class="identifier">GLclampf</span> <span class="identifier">r</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">g</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">b</span><span class="special">,</span> <span class="identifier">GLclampf</span> <span class="identifier">a</span><span class="special">);</span>

@@ -40,6 +40,7 @@ oglplus/quickref/uniform_subroutines.html
 oglplus/quickref/vertex_attrib.html
 oglplus/quickref/dsa_vertex_attrib.html
 oglplus/quickref/frag_data.html
+oglplus/quickref/draw_buffer_index.html
 oglplus/quickref/viewport_index.html
 oglplus/quickref/context.html
 oglplus/quickref/client_context.html
