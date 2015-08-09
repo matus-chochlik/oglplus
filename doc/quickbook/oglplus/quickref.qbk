@@ -134,6 +134,7 @@ statements are assumed, but omitted for the sake of brevity from this reference.
 [include quickref/dsa/vertex_attrib.qbk]
 [include quickref/frag_data.qbk]
 
+[include quickref/draw_buffer_index.qbk]
 [include quickref/viewport_index.qbk]
 
 [include quickref/context.qbk]
