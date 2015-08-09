@@ -13,6 +13,7 @@
 #define OGLPLUS_TEXGEN_BASE_INPUT_HPP
 
 #include <oglplus/texgen/interface.hpp>
+#include <oglplus/texgen/data_type.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -83,10 +84,10 @@ public:
 		return _fallback;
 	}
 
-	bool AcceptsValueType(SlotDataType /*type*/)
+	bool AcceptsValueType(SlotDataType type)
 	OGLPLUS_OVERRIDE
 	{
-		return true;
+		return DataTypeConvertible(type, _fallback.ValueType());
 	}
 
 	SlotDataType ValueType(void)

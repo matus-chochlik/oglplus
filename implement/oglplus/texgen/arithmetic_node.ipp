@@ -59,7 +59,10 @@ SlotDataType
 UnaryArithmeticOutputSlot::
 ValueType(void)
 {
-	return _a.ValueType();
+	return MakeDataType(
+		SlotDataType::Float,
+		DataTypeDims(_a.ValueType())
+	);
 }
 
 OGLPLUS_LIB_FUNC
@@ -69,9 +72,10 @@ Definitions(std::ostream& result, unsigned version)
 {
 	_a.Definitions(result, version);
 
-	SlotDataType type = ValueType();
+	const SlotDataType itype = _a.ValueType();
+	const SlotDataType otype = ValueType();
 
-	result << DataTypeName(type) << " ";
+	result << DataTypeName(otype) << " ";
 	AppendId(result);
 	result << "(vec3 o){\n\t";
 
@@ -100,9 +104,9 @@ Definitions(std::ostream& result, unsigned version)
 		case UnaryArithmeticOp::Log2:
 			result << "log2("; break;
 	}
-	ConversionPrefix(result, _a.ValueType(), type);
+	ConversionPrefix(result, itype, otype);
 	_a.Expression(result, version) << "(o)";
-	ConversionSuffix(result, _a.ValueType(), type);
+	ConversionSuffix(result, itype, otype);
 	result << ");\n}\n";
 	return result;
 }
@@ -224,9 +228,9 @@ Definitions(std::ostream& result, unsigned version)
 	_a.Definitions(result, version);
 	_b.Definitions(result, version);
 
-	SlotDataType type = CommonDataType(_a.ValueType(), _b.ValueType());
+	const SlotDataType otype = ValueType();
 
-	result << DataTypeName(type) << " ";
+	result << DataTypeName(otype) << " ";
 	AppendId(result);
 	result << "(vec3 o){\n\t";
 
@@ -235,19 +239,19 @@ Definitions(std::ostream& result, unsigned version)
 	switch(_op)
 	{
 		case BinaryArithmeticOp::Equal:
-			result << "(" << DataTypeName(type);
+			result << "(" << DataTypeName(otype);
 			result << "(1)-abs(sign("; break;
 		case BinaryArithmeticOp::NotEqual:
 			result << "abs(sign("; break;
 		case BinaryArithmeticOp::Less:
 			result << "max(-sign("; break;
 		case BinaryArithmeticOp::LessEqual:
-			result << "(" << DataTypeName(type);
+			result << "(" << DataTypeName(otype);
 			result << "(1)-max(sign("; break;
 		case BinaryArithmeticOp::Greater:
 			result << "max(sign("; break;
 		case BinaryArithmeticOp::GreaterEqual:
-			result << "(" << DataTypeName(type);
+			result << "(" << DataTypeName(otype);
 			result << "(1)-max(-sign("; break;
 		case BinaryArithmeticOp::Modulo:
 			result << "mod("; break;
@@ -265,9 +269,9 @@ Definitions(std::ostream& result, unsigned version)
 			result << "("; break;
 	}
 	result << "\n\t\t";
-	ConversionPrefix(result, _a.ValueType(), type);
+	ConversionPrefix(result, _a.ValueType(), otype);
 	_a.Expression(result, version) << "(o)";
-	ConversionSuffix(result, _a.ValueType(), type);
+	ConversionSuffix(result, _a.ValueType(), otype);
 
 	switch(_op)
 	{
@@ -296,9 +300,9 @@ Definitions(std::ostream& result, unsigned version)
 	}
 
 	result << "\n\t\t";
-	ConversionPrefix(result, _b.ValueType(), type);
+	ConversionPrefix(result, _b.ValueType(), otype);
 	_b.Expression(result, version) << "(o)";
-	ConversionSuffix(result, _b.ValueType(), type);
+	ConversionSuffix(result, _b.ValueType(), otype);
 	result << "\n\t";
 	switch(_op)
 	{
@@ -309,12 +313,12 @@ Definitions(std::ostream& result, unsigned version)
 		case BinaryArithmeticOp::Less:
 			OGLPLUS_FALLTHROUGH
 		case BinaryArithmeticOp::Greater:
-			result << ")," << DataTypeName(type);
+			result << ")," << DataTypeName(otype);
 			result << "(0))"; break;
 		case BinaryArithmeticOp::LessEqual:
 			OGLPLUS_FALLTHROUGH
 		case BinaryArithmeticOp::GreaterEqual:
-			result << ")," << DataTypeName(type);
+			result << ")," << DataTypeName(otype);
 			result << "(0)))"; break;
 		default:
 			result << ")"; break;

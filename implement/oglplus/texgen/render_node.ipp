@@ -48,6 +48,8 @@ _update_prog(void)
 
 	const unsigned glsl_version = 150; // TODO
 
+	const SlotDataType v4 = SlotDataType::FloatVec4;
+
 	std::stringstream source;
 
 	source << "#version " << glsl_version << "\n";
@@ -59,10 +61,10 @@ _update_prog(void)
 	source << "void main(void)\n";
 	source << "{\n";
 	source << "	fragColor = ";
-	ConversionPrefix(source, _input.ValueType(), SlotDataType::FloatVec4);
+	ConversionPrefix(source, _input.ValueType(), v4);
 	_input.Expression(source, glsl_version);
 	source << "(vec3(0,0,0))";
-	ConversionSuffix(source, _input.ValueType(), SlotDataType::FloatVec4);
+	ConversionSuffix(source, _input.ValueType(), v4, 0,0,0,1);
 	source << ";\n";
 	source << "}\n";
 

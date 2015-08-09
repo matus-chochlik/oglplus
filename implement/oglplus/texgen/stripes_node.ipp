@@ -36,7 +36,7 @@ SlotDataType
 StripesOutputSlot::
 ValueType(void)
 {
-	return SlotDataType::Float;
+	return SlotDataType::Int;
 }
 
 OGLPLUS_LIB_FUNC
@@ -50,7 +50,7 @@ Definitions(std::ostream& result, unsigned version)
 
 	const SlotDataType v3 = SlotDataType::FloatVec3;
 
-	result << "float ";
+	result << "int ";
 	AppendId(result);
 	result << "(vec3 o)\n";
 	result << "{\n";
@@ -66,7 +66,7 @@ Definitions(std::ostream& result, unsigned version)
 	ConversionPrefix(result, _repeat.ValueType(), v3);
 	_repeat.Expression(result, version) <<"(o);";
 	ConversionSuffix(result, _repeat.ValueType(), v3) << ";\n";
-	result << "	return float(int(abs(floor(c.x+c.y+c.z)))%2);\n";
+	result << "	return (int(abs(floor(c.x+c.y+c.z)))%2);\n";
 	result << "}\n";
 	return result;
 }

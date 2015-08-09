@@ -192,6 +192,45 @@ ConversionSuffix(std::ostream& result, SlotDataType from, SlotDataType to)
 	return result;
 }
 
+OGLPLUS_LIB_FUNC
+std::ostream&
+ConversionSuffix(
+	std::ostream& result,
+	SlotDataType from,
+	SlotDataType to,
+	GLfloat x, GLfloat y, GLfloat z, GLfloat w
+)
+{
+	if(from != to)
+	{
+		unsigned df = DataTypeDims(from);
+		unsigned dt = DataTypeDims(to);
+
+		if((df < 1) && (dt >= 1))
+		{
+			result << ",";
+			result << x;
+		}
+		if((df < 2) && (dt >= 2))
+		{
+			result << ",";
+			result << y;
+		}
+		if((df < 3) && (dt >= 3))
+		{
+			result << ",";
+			result << z;
+		}
+		if((df < 4) && (dt >= 4))
+		{
+			result << ",";
+			result << w;
+		}
+		result << ")";
+	}
+	return result;
+}
+
 } // namespace texgen
 } // namespace oglplus
 

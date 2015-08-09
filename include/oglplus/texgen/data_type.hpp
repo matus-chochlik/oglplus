@@ -30,6 +30,13 @@ bool DataTypeConvertible(SlotDataType from, SlotDataType to);
 std::ostream& ConversionPrefix(std::ostream&, SlotDataType, SlotDataType);
 std::ostream& ConversionSuffix(std::ostream&, SlotDataType, SlotDataType);
 
+std::ostream& ConversionSuffix(
+	std::ostream&,
+	SlotDataType,
+	SlotDataType,
+	GLfloat, GLfloat, GLfloat, GLfloat
+);
+
 } // namespace texgen
 } // namespace oglplus
 
