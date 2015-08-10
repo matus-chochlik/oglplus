@@ -19,6 +19,9 @@ TODO
 [def __client_BlendingOps [link oglplus.quickref.client_context.blending.ops client::BlendingOps]]
 [def __client_BlendingState [link oglplus.quickref.client_context.blending.state client::BlendingState]]
 
+[def __client_BufferClearingOps [link oglplus.quickref.client_context.buffer_clearing.ops client::BufferClearingOps]]
+[def __client_BufferClearingState [link oglplus.quickref.client_context.buffer_clearing.state client::BufferClearingState]]
+
 [heading [^ClientContext]]
 
 [header oglplus/client_context.hpp]
@@ -30,5 +33,6 @@ TODO
 
 [include client/setting.qbk]
 [include client/blending.qbk]
+[include client/buffer_clearing.qbk]
 
 [endsect]

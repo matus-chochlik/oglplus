@@ -11,7 +11,7 @@ template <typename T, ...>
 class SettingHolder
 {
 public:
-	SettingHolder(const SettingHolder&) = delete; 
+	SettingHolder(const SettingHolder&) = delete;
 
 	SettingHolder(SettingHolder&&)
 	noexcept;
@@ -92,7 +92,7 @@ public:
 //[oglplus_client_SettingStackIndexed
 namespace client {
 
-template <typename Derived, typename T>
+template <typename Derived, typename T, typename Index>
 class SettingStackIndexed
 {
 public:
@@ -102,8 +102,8 @@ public:
 	Initialized the __SettingStack on index zero.
 	>*/
 
-	Derived& operator [] (std::size_t index);
-	Derived& Indexed(std::size_t index); /*<
+	Derived& operator [] (Index index);
+	Derived& Indexed(Index index); /*<
 	Returns a reference to the setting stack at the specified index.
 	The value of index should not exceed the maximum value for the managed
 	indexed setting.

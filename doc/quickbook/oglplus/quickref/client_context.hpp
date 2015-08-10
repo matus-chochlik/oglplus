@@ -8,7 +8,9 @@
 
 class ClientContext
  : public __client_BlendingOps
- : public __client_BlendingState
+ , public __client_BlendingState
+ , public __client_BufferClearingOps
+ , public __client_BufferClearingState
 { };
 
 //]
