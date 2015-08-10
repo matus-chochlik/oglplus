@@ -108,6 +108,15 @@ struct ExampleThreadData
 	}
 };
 
+struct ExampleOptions
+{
+	const char* screenshot_path;
+	const char* framedump_prefix;
+	GLuint width;
+	GLuint height;
+	GLint samples;
+};
+
 void example_thread_main(ExampleThreadData& data)
 {
 	const ExampleThreadData::Common& common = data.common();
@@ -253,8 +262,7 @@ void do_run_example_loop(
 	std::unique_ptr<Example>& example,
 	ExampleThreadData::Common& common,
 	ExampleClock& clock,
-	GLuint width,
-	GLuint height
+	ExampleOptions& opts
 )
 {
 	win.SelectInput(
@@ -284,20 +292,20 @@ void do_run_example_loop(
 						done = true;
 						break;
 					case ConfigureNotify:
-						width = GLuint(event.xconfigure.width);
-						height = GLuint(event.xconfigure.height);
+						opts.width = GLuint(event.xconfigure.width);
+						opts.height = GLuint(event.xconfigure.height);
 						example->Reshape(
-							width,
-							height
+							opts.width,
+							opts.height
 						);
 						break;
 					case MotionNotify:
 						example->MouseMove(
 							GLuint(event.xmotion.x),
-							height-
+							opts.height-
 							GLuint(event.xmotion.y),
-							width,
-							height
+							opts.width,
+							opts.height
 						);
 						break;
 					case KeyPress:
@@ -323,8 +331,7 @@ void run_example_loop(
 	std::unique_ptr<Example>& example,
 	ExampleThreadData::Common& common,
 	ExampleClock& clock,
-	GLuint width,
-	GLuint height
+	ExampleOptions& opts
 )
 {
 #if GL_ARB_debug_output
@@ -356,8 +363,7 @@ void run_example_loop(
 			example,
 			common,
 			clock,
-			width,
-			height
+			opts
 		);
 	}
 	else
@@ -370,8 +376,7 @@ void run_example_loop(
 			example,
 			common,
 			clock,
-			width,
-			height
+			opts
 		);
 	}
 }
@@ -382,14 +387,12 @@ void run_framedump_loop(
 	const glx::Context& ctx,
 	std::unique_ptr<Example>& example,
 	ExampleClock& clock,
-	GLuint width,
-	GLuint height,
-	const char* framedump_prefix
+	const ExampleOptions& opts
 )
 {
 	std::vector<char> txtbuf(1024);
 	std::cin.getline(txtbuf.data(), std::streamsize(txtbuf.size()));
-	if(std::strcmp(framedump_prefix, txtbuf.data()) != 0) return;
+	if(std::strcmp(opts.framedump_prefix, txtbuf.data()) != 0) return;
 
 	const std::size_t mouse_path_pts = 7;
 	std::vector<Vec2f> mouse_path_pos(mouse_path_pts);
@@ -398,8 +401,8 @@ void run_framedump_loop(
 	for(std::size_t p=0; p!= mouse_path_pts; ++p)
 	{
 		mouse_path_pos[p] = Vec2f(
-			unsigned(std::rand()) % width,
-			unsigned(std::rand()) % height
+			unsigned(std::rand()) % opts.width,
+			unsigned(std::rand()) % opts.height
 		);
 		mouse_path_dir[p] = Vec2f(
 			(std::rand()%2?1:-1)*10.0f*
@@ -414,15 +417,25 @@ void run_framedump_loop(
 	double t = 0.0;
 	double period = 1.0 / 25.0;
 	GLuint frame_no = 0;
-	std::vector<char> pixels(width * height * 4);
+	std::vector<char> pixels(opts.width * opts.height * 4);
 
 	GLuint border = 32;
+	bool done = false;
 
 	XEvent event;
 
-	while(true)
+	while(!done)
 	{
-		while(display.NextEvent(event));
+		while(display.NextEvent(event))
+		{
+			switch(event.type)
+			{
+				case ClientMessage:
+				case DestroyNotify:
+					done = true;
+					break;
+			}
+		}
 
 		Vec2f mouse_pos = Loop(mouse_path_pos).Position(t*0.2);
 
@@ -435,9 +448,9 @@ void run_framedump_loop(
 				dir = Vec2f(-dir.x(), dir.y());
 			if((pos.y() < border) && (dir.y() < 0.0))
 				dir = Vec2f( dir.x(),-dir.y());
-			if((pos.x() > width-border) && (dir.x() > 0.0))
+			if((pos.x() > opts.width-border) && (dir.x() > 0.0))
 				dir = Vec2f(-dir.x(), dir.y());
-			if((pos.y() >height-border) && (dir.y() > 0.0))
+			if((pos.y() > opts.height-border) && (dir.y() > 0.0))
 				dir = Vec2f( dir.x(),-dir.y());
 
 			mouse_path_dir[p] = dir;
@@ -449,14 +462,14 @@ void run_framedump_loop(
 
 		if(mouse_x < 0.0f) mouse_x = 0.0f;
 		if(mouse_y < 0.0f) mouse_y = 0.0f;
-		if(mouse_x > width) mouse_x = width;
-		if(mouse_y > height) mouse_y = height;
+		if(mouse_x > opts.width) mouse_x = opts.width;
+		if(mouse_y > opts.height) mouse_y = opts.height;
 
 		example->MouseMove(
 			GLuint(mouse_x),
 			GLuint(mouse_y),
-			width,
-			height
+			opts.width,
+			opts.height
 		);
 
 		t += period;
@@ -474,8 +487,8 @@ void run_framedump_loop(
 		glFinish();
 		glReadPixels(
 			0, 0,
-			GLsizei(width),
-			GLsizei(height),
+			GLsizei(opts.width),
+			GLsizei(opts.height),
 			GL_RGBA,
 			GL_UNSIGNED_BYTE,
 			pixels.data()
@@ -484,7 +497,7 @@ void run_framedump_loop(
 		ctx.SwapBuffers(win);
 		std::stringstream filename;
 		filename <<
-			framedump_prefix <<
+			opts.framedump_prefix <<
 			std::setfill('0') << std::setw(6) <<
 			frame_no << ".rgba";
 		{
@@ -513,9 +526,7 @@ void make_screenshot(
 	const glx::Context& ctx,
 	std::unique_ptr<Example>& example,
 	ExampleClock& clock,
-	GLuint width,
-	GLuint height,
-	const char* screenshot_path
+	const ExampleOptions& opts
 )
 {
 	XEvent event;
@@ -545,26 +556,23 @@ void make_screenshot(
 	while(display.NextEvent(event));
 	glFinish();
 	//save it to a file
-	std::vector<char> pixels(width * height * 3);
+	std::vector<char> pixels(opts.width * opts.height * 3);
 	glReadPixels(
 		0, 0,
-		GLsizei(width),
-		GLsizei(height),
+		GLsizei(opts.width),
+		GLsizei(opts.height),
 		GL_RGB,
 		GL_UNSIGNED_BYTE,
 		pixels.data()
 	);
-	std::ofstream output(screenshot_path);
+	std::ofstream output(opts.screenshot_path);
 	output.write(pixels.data(), std::streamsize(pixels.size()));
 	ctx.SwapBuffers(win);
 }
 
 void run_example(
 	const x11::Display& display,
-	const char* screenshot_path,
-	const char* framedump_prefix,
-	const GLuint width,
-	const GLuint height,
+	ExampleOptions& opts,
 	int argc,
 	char ** argv
 )
@@ -585,6 +593,8 @@ void run_example(
 		GLX_DEPTH_SIZE      , 24,
 		GLX_STENCIL_SIZE    , 8,
 		GLX_DOUBLEBUFFER    , True,
+		GLX_SAMPLE_BUFFERS  , (opts.samples>0)?1:0,
+		GLX_SAMPLES         , (opts.samples>0)?opts.samples:0,
 		None
 	};
 	glx::FBConfig fbc = glx::FBConfigs(
@@ -600,13 +610,16 @@ void run_example(
 		vi,
 		x11::Colormap(display, vi),
 		"OGLplus example",
-		width, height
+		opts.width, opts.height
 	);
 
 	x11::ScreenNames screen_names;
 
 	ExampleParams params(argc, argv);
-	if(framedump_prefix) params.quality = 1.0;
+	if(opts.framedump_prefix)
+	{
+		params.quality = 1.0;
+	}
 	params.max_threads = 128;
 	params.num_gpus = unsigned(screen_names.size()); // TODO: something more reliable
 	setupExample(params);
@@ -708,10 +721,16 @@ void run_example(
 		// rendering
 		master_ready.Signal(params.num_threads);
 
-		example->Reshape(width, height);
-		example->MouseMove(width/2, height/2, width, height);
+		if(opts.samples>0)
+		{
+			// enable multisampling
+			glEnable(GL_MULTISAMPLE);
+		}
 
-		if(screenshot_path)
+		example->Reshape(opts.width, opts.height);
+		example->MouseMove(opts.width/2, opts.height/2, opts.width, opts.height);
+
+		if(opts.screenshot_path)
 		{
 			make_screenshot(
 				display,
@@ -719,12 +738,10 @@ void run_example(
 				ctx,
 				example,
 				clock,
-				width,
-				height,
-				screenshot_path
+				opts
 			);
 		}
-		else if(framedump_prefix)
+		else if(opts.framedump_prefix)
 		{
 			run_framedump_loop(
 				display,
@@ -732,9 +749,7 @@ void run_example(
 				ctx,
 				example,
 				clock,
-				width,
-				height,
-				framedump_prefix
+				opts
 			);
 		}
 		else
@@ -746,8 +761,7 @@ void run_example(
 				example,
 				example_thread_common_data,
 				clock,
-				width,
-				height
+				opts
 			);
 		}
 		example_thread_common_data.done = true;
@@ -786,58 +800,62 @@ void run_example(
 
 int glx_example_main(int argc, char ** argv)
 {
-	// check if we want to do a screenshot
-	// or run in the framedump mode
-	const char* screenshot_path = nullptr;
-	const char* framedump_prefix = nullptr;
-	if((argc >= 3) && (std::strcmp(argv[1], "--screenshot") == 0))
-		screenshot_path = argv[2];
-	if((argc >= 3) && (std::strcmp(argv[1], "--frame-dump") == 0))
-		framedump_prefix = argv[2];
+	oglplus::ExampleOptions opts;
 
-	GLuint width = 0;
-	GLuint height = 0;
 
-	if(screenshot_path || framedump_prefix)
+	opts.screenshot_path = nullptr;
+	opts.framedump_prefix = nullptr;
+	opts.width = 800;
+	opts.height = 600;
+	opts.samples = 0;
+
+	int a=1;
+	while(a<argc)
 	{
-		for(int a=3; a<argc; ++a)
-			argv[a-2] = argv[a];
-		argc -= 2;
+		short parsed = 0;
 
-		int a=1;
-		while(a<argc)
+		if((std::strcmp(argv[a], "--screenshot")) == 0 && (a+1<argc))
 		{
-			if((std::strcmp(argv[a], "--width")) == 0 && (a+1<argc))
+			opts.screenshot_path = argv[a+1];
+			parsed = 2;
+		}
+		else if((std::strcmp(argv[a], "--frame-dump")) == 0 && (a+1<argc))
+		{
+			opts.framedump_prefix = argv[a+1];
+			parsed = 2;
+		}
+		else if((std::strcmp(argv[a], "--width")) == 0 && (a+1<argc))
+		{
+			opts.width = GLuint(std::atoi(argv[a+1]));
+			parsed = 2;
+		}
+		else if((std::strcmp(argv[a], "--height")) == 0 && (a+1<argc))
+		{
+			opts.height = GLuint(std::atoi(argv[a+1]));
+			parsed = 2;
+		}
+		else if((std::strcmp(argv[a], "--samples")) == 0 && (a+1<argc))
+		{
+			opts.samples = GLint(std::atoi(argv[a+1]));
+			parsed = 2;
+		}
+
+		if(parsed == 2)
+		{
+			for(int b=a+1; b<argc; ++b)
 			{
-				width = GLuint(std::atoi(argv[a+1]));
-				for(int b=a+1; b<argc; ++b)
-					argv[b-2] = argv[b];
-				argc -= 2;
+				argv[b-2] = argv[b];
 			}
-			else if((std::strcmp(argv[a], "--height")) == 0 && (a+1<argc))
-			{
-				height = GLuint(std::atoi(argv[a+1]));
-				for(int b=a+1; b<argc; ++b)
-					argv[b-2] = argv[b];
-				argc -= 2;
-			}
-			else ++a;
+			argc -= 2;
+		}
+		else if(parsed == 0)
+		{
+			++a;
 		}
 	}
 
-	if(!width) width = 800;
-	if(!height) height = 600;
-	//
 	// run the main loop
-	oglplus::run_example(
-		oglplus::x11::Display(),
-		screenshot_path,
-		framedump_prefix,
-		width,
-		height,
-		argc,
-		argv
-	);
+	oglplus::run_example(oglplus::x11::Display(), opts, argc, argv);
 	return 0;
 }
 

@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{030_rain}
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -39,7 +39,7 @@ private:
 		Program prog;
 		prog.AttachShader(VertexShader(
 			ObjectDesc("Ripple texture vertex shader"),
-			"#version 330\n"
+			"#version 150\n"
 			"void main(void)"
 			"{"
 			"	gl_Position = vec4(0.0, 0.0, 0.0, 1.0);"
@@ -48,7 +48,7 @@ private:
 
 		prog.AttachShader(GeometryShader(
 			ObjectDesc("Ripple texture geometry shader"),
-			"#version 330\n"
+			"#version 150\n"
 			"layout (points) in;"
 			"layout (triangle_strip, max_vertices = 4) out;"
 
@@ -76,7 +76,12 @@ private:
 
 		prog.AttachShader(FragmentShader(
 			ObjectDesc("Ripple texture fragment shader"),
+			"#if GL_ARB_explicit_attrib_location\n"
+			"#version 150\n"
+			"#extension GL_ARB_explicit_attrib_location : enable\n"
+			"#else\n"
 			"#version 330\n"
+			"#endif\n"
 
 			"uniform ivec2 NewDrop;"
 			"uniform sampler2D Tex1, Tex2;"
@@ -360,7 +365,7 @@ private:
 		Program prog;
 		prog.AttachShader(VertexShader(
 			ObjectDesc("Water vertex shader"),
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"uniform vec3 LightPosition, CameraPosition;"
@@ -389,7 +394,12 @@ private:
 
 		prog.AttachShader(FragmentShader(
 			ObjectDesc("Water fragment shader"),
+			"#if GL_ARB_explicit_attrib_location\n"
+			"#version 150\n"
+			"#extension GL_ARB_explicit_attrib_location : enable\n"
+			"#else\n"
 			"#version 330\n"
+			"#endif\n"
 
 			"uniform sampler2D RippleTex;"
 			"uniform samplerCube EnvTex;"

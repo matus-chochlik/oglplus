@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -50,6 +50,8 @@
 
 #define OALPLUS_NOEXCEPT(...) OGLPLUS_NOEXCEPT(__VA_ARGS__)
 #define OALPLUS_NOEXCEPT_IF(...) OALPLUS_NOEXCEPT_IF(__VA_ARGS__)
+
+#define OALPLUS_OVERRIDE OGLPLUS_OVERRIDE
 
 #ifndef OALPLUS_NO_ENUM_VALUE_NAMES
 # define OALPLUS_NO_ENUM_VALUE_NAMES 0

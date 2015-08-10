@@ -1034,6 +1034,11 @@ template <typename Enum, Enum = Enum::FillMode> operator Enum (void) const{ retu
 template <typename Enum> friend bool operator==(Enum value, FillMode){ return value == Enum::FillMode; }
 template <typename Enum> friend bool operator!=(Enum value, FillMode){ return value != Enum::FillMode; }
 };
+struct FillRectangle {
+template <typename Enum, Enum = Enum::FillRectangle> operator Enum (void) const{ return Enum::FillRectangle; }
+template <typename Enum> friend bool operator==(Enum value, FillRectangle){ return value == Enum::FillRectangle; }
+template <typename Enum> friend bool operator!=(Enum value, FillRectangle){ return value != Enum::FillRectangle; }
+};
 struct FirstToRest {
 template <typename Enum, Enum = Enum::FirstToRest> operator Enum (void) const{ return Enum::FirstToRest; }
 template <typename Enum> friend bool operator==(Enum value, FirstToRest){ return value == Enum::FirstToRest; }
@@ -1223,6 +1228,11 @@ struct Fragment {
 template <typename Enum, Enum = Enum::Fragment> operator Enum (void) const{ return Enum::Fragment; }
 template <typename Enum> friend bool operator==(Enum value, Fragment){ return value == Enum::Fragment; }
 template <typename Enum> friend bool operator!=(Enum value, Fragment){ return value != Enum::Fragment; }
+};
+struct FragmentCoverageToColor {
+template <typename Enum, Enum = Enum::FragmentCoverageToColor> operator Enum (void) const{ return Enum::FragmentCoverageToColor; }
+template <typename Enum> friend bool operator==(Enum value, FragmentCoverageToColor){ return value == Enum::FragmentCoverageToColor; }
+template <typename Enum> friend bool operator!=(Enum value, FragmentCoverageToColor){ return value != Enum::FragmentCoverageToColor; }
 };
 struct FragmentShader {
 template <typename Enum, Enum = Enum::FragmentShader> operator Enum (void) const{ return Enum::FragmentShader; }

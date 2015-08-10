@@ -62,7 +62,9 @@ DebugOutputSynchronous,
 /// STREAM_RASTERIZATION_AMD
 StreamRasterization,
 /// BLEND_ADVANCED_COHERENT_KHR
-BlendAdvancedCoherent
+BlendAdvancedCoherent,
+/// FRAGMENT_COVERAGE_TO_COLOR_NV
+FragmentCoverageToColor
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 

@@ -76,7 +76,7 @@ public:
 	 , object_light_mult(object_prog)
 	{
 		vs_object.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec4 Position;"
 			"in vec3 Normal;"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -94,7 +94,7 @@ public:
 		vs_object.Compile();
 
 		fs_object.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"
 			"uniform vec3 Color;"
@@ -125,7 +125,7 @@ public:
 		object_light_mult.BindTo("LightMult");
 
 		vs_shadow.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec4 Position;"
 			"in vec3 Normal;"
 			"uniform mat4 ModelMatrix;"
@@ -142,7 +142,7 @@ public:
 		vs_shadow.Compile();
 
 		gs_shadow.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 12) out;"
 
@@ -206,7 +206,7 @@ public:
 		gs_shadow.Compile();
 
 		fs_shadow.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"

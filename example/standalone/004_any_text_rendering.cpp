@@ -56,7 +56,7 @@ public:
 			oglplus::FragmentShader(
 				oglplus::ObjectDesc("Pixel color"),
 				oglplus::StrCRef(
-				"#version 330\n"
+				"#version 140\n"
 				"vec4 PixelColor("
 				"	vec4 TexelColor,"
 				"	vec3 GlyphPosition,"

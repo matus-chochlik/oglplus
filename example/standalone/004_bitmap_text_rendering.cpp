@@ -61,7 +61,7 @@ public:
 	 , rndr(tr.GetRenderer(
 			oglplus::GeometryShader(
 				oglplus::ObjectDesc("Layout transform"),
-				"#version 330\n"
+				"#version 150\n"
 				"uniform mat4  ProjectionMatrix,CameraMatrix,LayoutMatrix;"
 				"mat4 Matrix = ProjectionMatrix*CameraMatrix*LayoutMatrix;"
 
@@ -72,7 +72,7 @@ public:
 			),
 			oglplus::GeometryShader(
 				oglplus::ObjectDesc("Glyph transform"),
-				"#version 330\n"
+				"#version 150\n"
 				"uniform float Time;"
 
 				"vec3 TransformGlyph("
@@ -94,7 +94,7 @@ public:
 			),
 			oglplus::FragmentShader(
 				oglplus::ObjectDesc("Pixel color"),
-				"#version 330\n"
+				"#version 150\n"
 				"vec4 PixelColor("
 				"	vec4 TexelColor,"
 				"	vec3 GlyphPosition,"

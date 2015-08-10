@@ -125,7 +125,7 @@ private:
 
 		VertexShader vs(ObjectDesc("Track"));
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"layout (std140) uniform ModelBlock {"
 			"	mat4 ModelMatrices[64];"
@@ -147,7 +147,7 @@ private:
 
 		GeometryShader gs(ObjectDesc("Track"));
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout(points) in;"
 			"layout(points, max_vertices = 1) out;"
 
@@ -206,7 +206,7 @@ private:
 
 		VertexShader vs(ObjectDesc("Draw"));
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"layout (std140) uniform ModelBlock {"
 			"	mat4 ModelMatrices[64];"
@@ -234,7 +234,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Draw"));
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"in vec3 vertLightDir;"
 			"in vec3 vertNormal;"
@@ -276,7 +276,7 @@ private:
 
 		VertexShader vs(ObjectDesc("Overlay"));
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform vec2 ScreenSize;"
 
@@ -294,7 +294,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Overlay"));
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 
 			"uniform sampler2DRect Overlay;"
 

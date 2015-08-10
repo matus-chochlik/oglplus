@@ -35,7 +35,7 @@ public:
 	BlobVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Blob vertex shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"uniform vec3 GridOffset;"
 		"uniform sampler1D Metaballs;"
 
@@ -83,7 +83,7 @@ public:
 	BlobGeomShader(void)
 	 : GeometryShader(
 		ObjectDesc("Blob geometry shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 4) out;"
 
@@ -207,7 +207,7 @@ public:
 	BlobFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Blob fragment shader"),
-		"#version 330\n"
+		"#version 150\n"
 
 		"in vec3 geomNormal, geomLightDir, geomViewDir;"
 
@@ -351,7 +351,7 @@ public:
 	MetalVertShader(void)
 	 : VertexShader(
 		ObjectDesc("Metal vertex shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"uniform mat4 CameraMatrix;"
 		"uniform vec3 CameraPosition, LightPosition;"
 		"in vec4 Position;"
@@ -383,7 +383,7 @@ public:
 	MetalFragShader(void)
 	 : FragmentShader(
 		ObjectDesc("Metal fragment shader"),
-		"#version 330\n"
+		"#version 150\n"
 		"const vec3 Color1 = vec3(0.7, 0.6, 0.5);"
 		"const vec3 Color2 = vec3(0.9, 0.8, 0.7);"
 

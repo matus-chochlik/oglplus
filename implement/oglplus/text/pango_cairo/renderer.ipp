@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -25,7 +25,13 @@ PangoCairoRenderer::PangoCairoRenderer(
 {
 	VertexShader vs(ObjectDesc("PangoCairoRenderer - Vertex"));
 	vs.Source(StrCRef(
+		"#if GL_ARB_explicit_attrib_location\n"
+		"#version 150\n"
+		"#extension GL_ARB_explicit_attrib_location : enable\n"
+		"#else\n"
 		"#version 330\n"
+		"#endif\n"
+		
 		"uniform vec4 oglpLogCoords;"
 		"uniform float oglpAlignCoef;"
 
@@ -42,7 +48,7 @@ PangoCairoRenderer::PangoCairoRenderer(
 
 	GeometryShader gs(ObjectDesc("PangoCairoRenderer - Geometry"));
 	gs.Source(StrCRef(
-		"#version 330\n"
+		"#version 150\n"
 		"layout (points) in;"
 		"layout (triangle_strip, max_vertices = 4) out;"
 
@@ -97,7 +103,7 @@ PangoCairoRenderer::PangoCairoRenderer(
 
 	FragmentShader fs(ObjectDesc("PangoCairoRenderer - Fragment"));
 	fs.Source(StrCRef(
-		"#version 330\n"
+		"#version 150\n"
 		"uniform sampler2DRect oglpBitmap;"
 
 		"uniform vec4 oglpLogCoords;"
@@ -154,7 +160,7 @@ PangoCairoDefaultRenderer::PangoCairoDefaultRenderer(
 		pixel_color_fs,
 		GeometryShader(
 		ObjectDesc("PangoCairoRenderer - Layout transform"),
-		StrCRef("#version 330\n"
+		StrCRef("#version 150\n"
 		"uniform mat4 "
 		"	oglpProjectionMatrix,"
 		"	oglpCameraMatrix,"

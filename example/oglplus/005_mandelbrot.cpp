@@ -39,10 +39,10 @@ public:
 		VertexShader vs;
 		// Set the vertex shader source
 		vs.Source(StrCRef(" \
-			#version 140\n \
-			in vec2 Position; \
-			in vec2 Coord; \
-			out vec2 vertCoord; \
+			#version 120\n \
+			attribute vec2 Position; \
+			attribute vec2 Coord; \
+			varying vec2 vertCoord; \
 			void main(void) \
 			{ \
 				vertCoord = Coord; \
@@ -54,9 +54,8 @@ public:
 		FragmentShader fs;
 		// set the fragment shader source
 		fs.Source(StrCRef(" \
-			#version 140\n \
-			in vec2 vertCoord; \
-			out vec4 fragColor; \
+			#version 120\n \
+			varying vec2 vertCoord; \
 			const int nclr = 5; \
 			uniform vec4 clrs[5]; \
 			void main(void) \
@@ -79,7 +78,7 @@ public:
 					if(a > clrs[i].a && a <= clrs[i+1].a) \
 					{ \
 						float m = (a - clrs[i].a) / (clrs[i+1].a - clrs[i].a); \
-						fragColor = vec4( \
+						gl_FragColor = vec4( \
 							mix(clrs[i].rgb, clrs[i+1].rgb, m), \
 							1.0 \
 						); \

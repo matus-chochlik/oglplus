@@ -42,10 +42,10 @@ public:
 		VertexShader vs;
 		// Set the vertex shader source and compile it
 		vs.Source(" \
-			#version 330\n \
+			#version 120\n \
 			uniform mat2 ZoomMatrix; \
-			in vec2 Position; \
-			out vec2 vertCoord; \
+			attribute vec2 Position; \
+			varying vec2 vertCoord; \
 			void main(void) \
 			{ \
 				vertCoord = ZoomMatrix * Position; \
@@ -57,10 +57,9 @@ public:
 		FragmentShader fs;
 		// set the fragment shader source and compile it
 		fs.Source(" \
-			#version 330\n \
-			in vec2 vertCoord; \
+			#version 120\n \
+			varying vec2 vertCoord; \
 			uniform vec3 Color1, Color2; \
-			out vec4 fragColor; \
 			\
 			vec2 f(vec2 n) \
 			{ \
@@ -97,7 +96,7 @@ public:
 					if(distance(zn, z) < 0.00001) break; \
 					z = zn; \
 				} \
-				fragColor = vec4( \
+				gl_FragColor = vec4( \
 					mix( \
 						Color1.rgb, \
 						Color2.rgb, \

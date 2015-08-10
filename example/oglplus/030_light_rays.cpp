@@ -41,7 +41,7 @@ public:
 	CommonVertexShader(void)
 	{
 		Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform vec3 LightPosition;"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix, LightMatrix;"
 
@@ -74,7 +74,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Shadow"));
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"void main(void) { }"
 		).Compile();
 
@@ -106,7 +106,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Mask"));
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 
 			"uniform sampler2DShadow ShadowMap;"
 
@@ -162,7 +162,7 @@ private:
 
 		FragmentShader fs(ObjectDesc("Draw"));
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"const vec3 LightColor = vec3(0.6, 0.6, 1.0);"
 			"const vec3 Up = normalize(vec3(0.1, 1.0, 0.1));"
 

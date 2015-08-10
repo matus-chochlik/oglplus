@@ -107,6 +107,15 @@ struct ExampleThreadData
 	}
 };
 
+struct ExampleOptions
+{
+	const char* screenshot_path;
+	const char* framedump_prefix;
+	GLuint width;
+	GLuint height;
+	GLint samples;
+};
+
 void example_thread_main(ExampleThreadData& data)
 {
 	const ExampleThreadData::Common& common = data.common();
@@ -216,14 +225,12 @@ void run_framedump_loop(
 	eglplus::Surface& surface,
 	std::unique_ptr<Example>& example,
 	ExampleClock& clock,
-	GLuint width,
-	GLuint height,
-	const char* framedump_prefix
+	const ExampleOptions& opts
 )
 {
 	std::vector<char> txtbuf(1024);
 	std::cin.getline(txtbuf.data(), txtbuf.size());
-	if(std::strcmp(framedump_prefix, txtbuf.data()) != 0) return;
+	if(std::strcmp(opts.framedump_prefix, txtbuf.data()) != 0) return;
 
 	const std::size_t mouse_path_pts = 7;
 	std::vector<Vec2f> mouse_path_pos(mouse_path_pts);
@@ -232,8 +239,8 @@ void run_framedump_loop(
 	for(std::size_t p=0; p!= mouse_path_pts; ++p)
 	{
 		mouse_path_pos[p] = Vec2f(
-			std::rand() % width,
-			std::rand() % height
+			std::rand() % opts.width,
+			std::rand() % opts.height
 		);
 		mouse_path_dir[p] = Vec2f(
 			(std::rand()%2?1.0:-1.0)*10.0f*
@@ -248,9 +255,11 @@ void run_framedump_loop(
 	double t = 0.0;
 	double period = 1.0 / 25.0;
 	GLuint frame_no = 0;
-	std::vector<char> pixels(width * height * 4);
+	std::vector<char> pixels(opts.width * opts.height * 4);
 
 	GLuint border = 32;
+
+	glEnable(GL_MULTISAMPLE);
 
 	while(true)
 	{
@@ -262,13 +271,21 @@ void run_framedump_loop(
 			Vec2f pos = mouse_path_pos[p];
 
 			if((pos.x() < border) && (dir.x() < 0.0))
+			{
 				dir = Vec2f(-dir.x(), dir.y());
+			}
 			if((pos.y() < border) && (dir.y() < 0.0))
+			{
 				dir = Vec2f( dir.x(),-dir.y());
-			if((pos.x() > width-border) && (dir.x() > 0.0))
+			}
+			if((pos.x() > opts.width-border) && (dir.x() > 0.0))
+			{
 				dir = Vec2f(-dir.x(), dir.y());
-			if((pos.y() >height-border) && (dir.y() > 0.0))
+			}
+			if((pos.y() >opts.height-border) && (dir.y() > 0.0))
+			{
 				dir = Vec2f( dir.x(),-dir.y());
+			}
 
 			mouse_path_dir[p] = dir;
 			mouse_path_pos[p] = pos + dir;
@@ -279,18 +296,19 @@ void run_framedump_loop(
 
 		if(mouse_x < 0.0f) mouse_x = 0.0f;
 		if(mouse_y < 0.0f) mouse_y = 0.0f;
-		if(mouse_x > width) mouse_x = width;
-		if(mouse_y > height) mouse_y = height;
+		if(mouse_x > opts.width) mouse_x = opts.width;
+		if(mouse_y > opts.height) mouse_y = opts.height;
 
 		example->MouseMove(
 			GLuint(mouse_x),
 			GLuint(mouse_y),
-			width,
-			height
+			opts.width,
+			opts.height
 		);
 
 		t += period;
 		clock.Update(t);
+
 		if(!example->Continue(clock)) break;
 
 		unsigned part_no = 0;
@@ -304,8 +322,8 @@ void run_framedump_loop(
 		glFinish();
 		glReadPixels(
 			0, 0,
-			width,
-			height,
+			opts.width,
+			opts.height,
 			GL_RGBA,
 			GL_UNSIGNED_BYTE,
 			pixels.data()
@@ -314,7 +332,7 @@ void run_framedump_loop(
 		surface.SwapBuffers();
 		std::stringstream filename;
 		filename <<
-			framedump_prefix <<
+			opts.framedump_prefix <<
 			std::setfill('0') << std::setw(6) <<
 			frame_no << ".rgba";
 		{
@@ -340,9 +358,7 @@ void make_screenshot(
 	eglplus::Surface& surface,
 	std::unique_ptr<Example>& example,
 	ExampleClock& clock,
-	GLuint width,
-	GLuint height,
-	const char* screenshot_path
+	const ExampleOptions& opts
 )
 {
 	double s = example->HeatUpTime();
@@ -350,6 +366,8 @@ void make_screenshot(
 	double dt = example->FrameTime();
 
 	clock.Update(s);
+
+	glEnable(GL_MULTISAMPLE);
 
 	// heat-up
 	while(s < t)
@@ -368,16 +386,16 @@ void make_screenshot(
 	}
 	glFinish();
 	//save it to a file
-	std::vector<char> pixels(width * height * 3);
+	std::vector<char> pixels(opts.width * opts.height * 3);
 	glReadPixels(
 		0, 0,
-		width,
-		height,
+		opts.width,
+		opts.height,
 		GL_RGB,
 		GL_UNSIGNED_BYTE,
 		pixels.data()
 	);
-	std::ofstream output(screenshot_path);
+	std::ofstream output(opts.screenshot_path);
 	output.write(pixels.data(), pixels.size());
 	surface.SwapBuffers();
 }
@@ -385,10 +403,7 @@ void make_screenshot(
 
 void run_example(
 	const eglplus::Display& display,
-	const char* screenshot_path,
-	const char* framedump_prefix,
-	const GLuint width,
-	const GLuint height,
+	ExampleOptions& opts,
 	int argc,
 	char ** argv
 )
@@ -401,6 +416,8 @@ void run_example(
 			.Add(eglplus::ConfigAttrib::BlueSize, 8)
 			.Add(eglplus::ConfigAttrib::DepthSize, 24)
 			.Add(eglplus::ConfigAttrib::StencilSize, 8)
+			.Add(eglplus::ConfigAttrib::SampleBuffers, opts.samples>0?1:0)
+			.Add(eglplus::ConfigAttrib::Samples, opts.samples>0?opts.samples:0)
 			.Add(eglplus::ColorBufferType::RGBBuffer)
 			.Add(eglplus::RenderableTypeBit::OpenGL)
 			.Add(eglplus::SurfaceTypeBit::Pbuffer)
@@ -411,8 +428,8 @@ void run_example(
 
 
 	eglplus::SurfaceAttribs surface_attribs = eglplus::SurfaceAttribs()
-			.Add(eglplus::SurfaceAttrib::Width, GLint(width))
-			.Add(eglplus::SurfaceAttrib::Height, GLint(height));
+			.Add(eglplus::SurfaceAttrib::Width, GLint(opts.width))
+			.Add(eglplus::SurfaceAttrib::Height, GLint(opts.height));
 
 	eglplus::Surface surface = eglplus::Surface::Pbuffer(
 		display,
@@ -536,30 +553,16 @@ void run_example(
 		// rendering
 		master_ready.Signal(params.num_threads);
 
-		example->Reshape(width, height);
-		example->MouseMove(width/2, height/2, width, height);
+		example->Reshape(opts.width, opts.height);
+		example->MouseMove(opts.width/2, opts.height/2, opts.width, opts.height);
 
-		if(screenshot_path)
+		if(opts.screenshot_path)
 		{
-			make_screenshot(
-				surface,
-				example,
-				clock,
-				width,
-				height,
-				screenshot_path
-			);
+			make_screenshot(surface, example, clock, opts);
 		}
-		else if(framedump_prefix)
+		else if(opts.framedump_prefix)
 		{
-			run_framedump_loop(
-				surface,
-				example,
-				clock,
-				width,
-				height,
-				framedump_prefix
-			);
+			run_framedump_loop(surface, example, clock, opts);
 		}
 		else assert(!"Never should get here!");
 
@@ -568,7 +571,9 @@ void run_example(
 		for(unsigned t=0; t!=params.num_threads; ++t)
 		{
 			if(thread_data[t].example_thread)
+			{
 				thread_data[t].example_thread->Cancel();
+			}
 		}
 		// join the example threads
 		for(unsigned t=0; t!=params.num_threads; ++t)
@@ -579,9 +584,11 @@ void run_example(
 		for(unsigned t=0; t!=params.num_threads; ++t)
 		{
 			if(!thread_data[t].error_message.empty())
+			{
 				throw std::runtime_error(
 					thread_data[t].error_message
 				);
+			}
 		}
 	}
 	catch(...)
@@ -598,42 +605,61 @@ void run_example(
 
 int egl_example_main(int argc, char ** argv)
 {
-	const char* screenshot_path = nullptr;
-	const char* framedump_prefix = nullptr;
-	if((argc >= 3) && (std::strcmp(argv[1], "--screenshot") == 0))
-		screenshot_path = argv[2];
-	if((argc >= 3) && (std::strcmp(argv[1], "--frame-dump") == 0))
-		framedump_prefix = argv[2];
+	oglplus::ExampleOptions opts;
 
-	GLuint width = 0, height = 0;
 
-	if(screenshot_path || framedump_prefix)
+	opts.screenshot_path = nullptr;
+	opts.framedump_prefix = nullptr;
+	opts.width = 800;
+	opts.height = 600;
+	opts.samples = 0;
+
+	int a=1;
+	while(a<argc)
 	{
-		for(int a=3; a<argc; ++a)
-			argv[a-2] = argv[a];
-		argc -= 2;
+		short parsed = 0;
 
-		int a=1;
-		while(a<argc)
+		if((std::strcmp(argv[a], "--screenshot")) == 0 && (a+1<argc))
 		{
-			if(std::strcmp(argv[a], "--width") == 0 && (a+1<argc))
+			opts.screenshot_path = argv[a+1];
+			parsed = 2;
+		}
+		else if((std::strcmp(argv[a], "--frame-dump")) == 0 && (a+1<argc))
+		{
+			opts.framedump_prefix = argv[a+1];
+			parsed = 2;
+		}
+		else if((std::strcmp(argv[a], "--width")) == 0 && (a+1<argc))
+		{
+			opts.width = GLuint(std::atoi(argv[a+1]));
+			parsed = 2;
+		}
+		else if((std::strcmp(argv[a], "--height")) == 0 && (a+1<argc))
+		{
+			opts.height = GLuint(std::atoi(argv[a+1]));
+			parsed = 2;
+		}
+		else if((std::strcmp(argv[a], "--samples")) == 0 && (a+1<argc))
+		{
+			opts.samples = GLint(std::atoi(argv[a+1]));
+			parsed = 2;
+		}
+
+		if(parsed == 2)
+		{
+			for(int b=a+1; b<argc; ++b)
 			{
-				width = std::atoi(argv[a+1]);
-				for(int b=a+1; b<argc; ++b)
-					argv[b-2] = argv[b];
-				argc -= 2;
+				argv[b-2] = argv[b];
 			}
-			else if(std::strcmp(argv[a], "--height") == 0 && (a+1<argc))
-			{
-				height = std::atoi(argv[a+1]);
-				for(int b=a+1; b<argc; ++b)
-					argv[b-2] = argv[b];
-				argc -= 2;
-			}
-			else ++a;
+			argc -= 2;
+		}
+		else if(parsed == 0)
+		{	
+			++a;
 		}
 	}
-	else
+
+	if(!(opts.screenshot_path || opts.framedump_prefix))
 	{
 		std::cout <<
 			"--screenshot or --framedump option "
@@ -642,21 +668,11 @@ int egl_example_main(int argc, char ** argv)
 		return 1;
 	}
 
-	if(!width) width = 800;
-	if(!height) height = 600;
-	//
+ 
 	eglplus::Display display;
 	eglplus::LibEGL egl(display);
 	// run the main loop
-	oglplus::run_example(
-		display,
-		screenshot_path,
-		framedump_prefix,
-		width,
-		height,
-		argc,
-		argv
-	);
+	oglplus::run_example(display, opts, argc, argv);
 	return 0;
 }
 

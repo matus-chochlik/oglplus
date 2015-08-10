@@ -29,7 +29,7 @@ private:
 
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"in vec4 PosAndSize;"
 			"void main(void)"
@@ -40,7 +40,7 @@ private:
 
 		GeometryShader gs;
 		gs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"layout (points) in;"
 			"layout (points, max_vertices=8) out;"
 
@@ -137,7 +137,7 @@ private:
 
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"mat4 Matrix = ProjectionMatrix*CameraMatrix;"
 			"in vec4 PosAndSize;"
@@ -152,7 +152,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 150\n"
 			"in vec3 vertColor;"
 			"out vec4 fragColor;"
 			"void main(void)"

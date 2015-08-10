@@ -2,7 +2,7 @@
  *  @example standalone/003_dsa_texture.cpp
  *  @brief Shows usage of the direct state access texture wrapper
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,7 +14,7 @@
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/opt/list_init.hpp>
-#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/ext/texture.hpp>
 
 #include <vector>
 
@@ -34,7 +34,7 @@ private:
 
 		VertexShader vs;
 		vs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"uniform vec3 LightPos;"
 			"in vec4 Position;"
@@ -55,7 +55,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 330\n"
+			"#version 140\n"
 			"uniform sampler2D Checker;"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"

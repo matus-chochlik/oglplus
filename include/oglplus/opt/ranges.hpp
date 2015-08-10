@@ -100,7 +100,7 @@ private:
 		virtual _intf* _clone(void) const = 0;
 
 		virtual bool _empty(void) const = 0;
-		virtual size_t _size(void) const = 0;
+		virtual std::size_t _size(void) const = 0;
 		virtual void _next(void) = 0;
 		virtual Element _front(void) const = 0;
 	};
@@ -117,26 +117,31 @@ private:
 		{ }
 
 		_intf* _clone(void) const
+		OGLPLUS_OVERRIDE
 		{
 			return new _impl(*this);
 		}
 
 		bool _empty(void) const
+		OGLPLUS_OVERRIDE
 		{
 			return _rng.Empty();
 		}
 
-		size_t _size(void) const
+		std::size_t _size(void) const
+		OGLPLUS_OVERRIDE
 		{
 			return _rng.Size();
 		}
 
 		void _next(void)
+		OGLPLUS_OVERRIDE
 		{
 			_rng.Next();
 		}
 
 		Element _front(void) const
+		OGLPLUS_OVERRIDE
 		{
 			return _rng.Front();
 		}
