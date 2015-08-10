@@ -28,7 +28,7 @@ class CheckerOutputSlot
 private:
 	friend class CheckerNode;
 
-	FallbackInputSlot<GlobalCoordinateSlot> _coord;
+	FallbackInputSlot<GlobalCoordinateSlot,true> _coord;
 	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _repeat;
 public:
 	CheckerOutputSlot(Node& parent);

@@ -40,7 +40,7 @@ class UnaryArithmeticOutputSlot
 private:
 	friend class UnaryArithmeticNode;
 
-	FallbackInputSlot<AdaptiveConstantOutputSlot> _a;
+	FallbackInputSlot<AdaptiveConstantOutputSlot,true> _a;
 	UnaryArithmeticOp _op;
 public:
 	UnaryArithmeticOutputSlot(Node& parent, UnaryArithmeticOp op);

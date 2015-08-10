@@ -28,7 +28,7 @@ class StripesOutputSlot
 private:
 	friend class StripesNode;
 
-	FallbackInputSlot<GlobalCoordinateSlot> _coord;
+	FallbackInputSlot<GlobalCoordinateSlot,true> _coord;
 	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _coeff;
 	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _repeat;
 public:

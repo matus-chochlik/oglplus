@@ -116,7 +116,7 @@ Definitions(std::ostream& result, unsigned version)
 	result << "	vec3 k = ";
 	ConversionPrefix(result, _coord.ValueType(), v3);
 	_coord.Expression(result, version) << "(o)";
-	ConversionSuffix(result, _coord.ValueType(), v3) << ";\n";
+	ConversionSuffix(result, _coord.ValueType(), v3,0,0,0,0) << ";\n";
 	result << "	k += ";
 	ConversionPrefix(result, _offset.ValueType(), v3);
 	_offset.Expression(result, version) <<"(o)";

@@ -35,7 +35,7 @@ class NewtonOutputSlot
 private:
 	friend class NewtonNode;
 
-	FallbackInputSlot<GlobalCoordinateSlot> _coord;
+	FallbackInputSlot<GlobalCoordinateSlot, true> _coord;
 	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _offset;
 	FallbackInputSlot<ConstantOutputSlot<Vec3f>> _scale;
 

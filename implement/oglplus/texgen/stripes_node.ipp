@@ -57,7 +57,7 @@ Definitions(std::ostream& result, unsigned version)
 	result << "	vec3 c = ";
 	ConversionPrefix(result, _coord.ValueType(), v3);
 	_coord.Expression(result, version) << "(o)";
-	ConversionSuffix(result, _coord.ValueType(), v3) << ";\n";
+	ConversionSuffix(result, _coord.ValueType(), v3,0,0,0,0) << ";\n";
 	result << "	c *= ";
 	ConversionPrefix(result, _coeff.ValueType(), v3);
 	_coeff.Expression(result, version) << "(o);";

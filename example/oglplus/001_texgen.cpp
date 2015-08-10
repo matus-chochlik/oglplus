@@ -76,7 +76,7 @@ public:
 		Connect(u1.Output(0), m1.Input(0));
 		Connect(u2.Output(0), m1.Input(1));
 
-		Connect(nt.Output(0), ua.Input(0));
+		Connect(mb.Output(0), ua.Input(0));
 		Connect(ua.Output(0), m1.Input(2));
 		Connect(m1.Output(0), s1.Input(0));
 		Connect(s1.Output(0), nm.Input(0));

@@ -165,7 +165,7 @@ Definitions(std::ostream& result, unsigned version)
 		ConversionPrefix(result, _coord.ValueType(), v2);
 		_coord.Expression(result, version);
 		result << "(o)";
-		ConversionSuffix(result, _coord.ValueType(), v2);
+		ConversionSuffix(result, _coord.ValueType(), v2,0,0,0,0);
 		result << "\n\t";
 		result << ")";
 

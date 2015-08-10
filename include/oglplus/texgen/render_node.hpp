@@ -39,7 +39,7 @@ private:
 
 	void _init_vao(void);
 
-	FallbackInputSlot<ConstantOutputSlot<Vec4f>> _input;
+	FallbackInputSlot<ConstantOutputSlot<Vec4f>,true> _input;
 public:
 	RenderNode(void);
 

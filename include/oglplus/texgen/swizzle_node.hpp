@@ -27,7 +27,7 @@ class SwizzleOutputSlot
 private:
 	friend class SwizzleNode;
 
-	FallbackInputSlot<AdaptiveConstantOutputSlot> _input;
+	FallbackInputSlot<AdaptiveConstantOutputSlot,true> _input;
 
 	String _swizzle;
 public:

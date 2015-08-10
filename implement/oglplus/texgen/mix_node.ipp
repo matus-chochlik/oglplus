@@ -68,7 +68,10 @@ Definitions(std::ostream& result, unsigned version)
 	ConversionSuffix(result, _one.ValueType(), type);
 	result << ",\n\t\t";
 
-	if(DataTypeDims(_value.ValueType()) == 1)
+	if(
+		(DataTypeDims(_value.ValueType()) == 1) ||
+		(!DataTypeConvertible(_value.ValueType(), type))
+	)
 	{
 		ConversionPrefix(result, _value.ValueType(), SlotDataType::Float);
 		_value.Expression(result, version) << "(o)";

@@ -35,14 +35,15 @@ bool
 SiblingInputSlot::
 AcceptsValueType(SlotDataType type)
 {
+	bool ok;
 	for(SiblingInputSlot* sibling: _siblings)
 	{
-		if(!sibling->Fallback().CanProvideValueType(type))
-		{
-			return false;
-		}
+		ok = sibling->Fallback().CanProvideValueType(type);
+		ok|= DataTypeConvertible(sibling->ValueType(), type);
+
+		if(!ok) return false;
 	}
-	return Fallback().CanProvideValueType(type);
+	return true;
 }
 
 OGLPLUS_LIB_FUNC
@@ -54,11 +55,14 @@ Connect(OutputSlot& output)
 
 	if(DoConnect(output))
 	{
+		bool ok;
 		for(SiblingInputSlot* sibling: _siblings)
 		{
 			if(sibling->IsConnected())
 			{
-				if(!sibling->DoesAcceptValueType(type))
+				ok = sibling->DoesAcceptValueType(type);
+				ok|= DataTypeConvertible(type, sibling->ValueType());
+				if(!ok)
 				{
 					sibling->Disconnect();
 				}

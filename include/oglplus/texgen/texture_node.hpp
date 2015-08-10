@@ -29,7 +29,7 @@ class TextureOutputSlot
 private:
 	friend class TextureNode;
 
-	FallbackInputSlot<GlobalCoordinateSlot> _coord;
+	FallbackInputSlot<GlobalCoordinateSlot, true> _coord;
 
 	Texture _texture;
 	TextureTarget _target;

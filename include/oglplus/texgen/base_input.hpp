@@ -61,7 +61,7 @@ public:
 };
 
 // FallbackInputSlot
-template <typename FallbackOutputSlot>
+template <typename FallbackOutputSlot, bool AcceptsAny = false>
 class FallbackInputSlot
  : public BaseInputSlot
 {
@@ -87,7 +87,8 @@ public:
 	bool AcceptsValueType(SlotDataType type)
 	OGLPLUS_OVERRIDE
 	{
-		return DataTypeConvertible(type, _fallback.ValueType());
+		return AcceptsAny ||
+			DataTypeConvertible(type, _fallback.ValueType());
 	}
 
 	SlotDataType ValueType(void)

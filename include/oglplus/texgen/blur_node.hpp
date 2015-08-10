@@ -27,7 +27,7 @@ class Blur2DOutputSlot
 private:
 	friend class Blur2DNode;
 
-	FallbackInputSlot<AdaptiveConstantOutputSlot> _input;
+	FallbackInputSlot<AdaptiveConstantOutputSlot,true> _input;
 public:
 	Blur2DOutputSlot(Node& parent);
 
