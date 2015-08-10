@@ -24,9 +24,7 @@ Changes
 
 - A wrapper for ``NV_fragment_coverage_to_color`` extension has been added.
 
-- The build system was updated to detect the availability of C++ the ``override`` specifier and it was added where appropriate.
+- The build system was updated to detect the availability of C++ the ``override`` specifier and it was added where appropriate to the source code.
 
 - The Quickbook documentation has been updated.
 
-
-- 
