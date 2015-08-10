@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.64.0
+Release notes for version 0.65.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,17 +7,24 @@ Release notes for version 0.64.0
 Overview
 ========
 
-This release of `OGLplus`_ brings new overloads of the GPU program build functions, which allow deferred handling of errors, updates in the examples and documentation.
+This release of `OGLplus`_ adds support for multisampling in the GLX and EGL example harnesses, brings minor changes to ``Context`` and ``ClientContext``, bugfixes, updates to the build system and updated Quickbook documentation.
 
 Changes
 -------
 
-- The ``DeferredHandler`` and the ``Outcome<T>`` classes, which allow to defer and/or cancel calling of error handlers were added.
+- The GLX and EGL-based example harnesses were refactored and updated to use multisampling with the specified number of samples when the ``--samples`` option is specified.
 
-- New overloads of ``Shader::Compile``, ``Shader::CompileInclude``, ``Program::Link`` and ``Program::Validate`` and ``ProgramPipeline::Validate``, which return ``Outcome<T>`` instead of handling errors eagerly were added.
+- The ``FillRectangle`` value has been added to the ``PolygonMode`` enumeration.
 
-- Some of the examples were changes to show the usage of the new features.
+- Most of the examples now use GLSL 120/130/140/150 where possible in order to support GL implementations which don't implement higher GLSL versions (for example Mesa3D).
 
-- Some of the examples were changed to use GLSL 120/130/140/150 in order to support GL implementations which don't implement higher GLSL versions.
+- The ``ViewportIndex`` and ``DrawBufferIndex`` types were added.
 
+- The ``Context`` and ``ClientContext`` classes were updated to use the new types, additional value checks were added to ``ClientContext``.
+
+- A wrapper for ``NV_fragment_coverage_to_color`` extension has been added.
+
+- The build system was updated to detect the availability of C++ the ``override`` specifier and it was added where appropriate to the source code.
+
+- The Quickbook documentation has been updated.
 
