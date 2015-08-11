@@ -53,6 +53,21 @@ public:
 };
 
 //]
+//[oglplus_enums_EnumToClass
+
+template <
+	typename Base,
+	typename Enumeration,
+	template <Enumeration> class Transform
+> class EnumToClass
+{
+public:
+	EnumToClass(void);
+	EnumToClass(const EnumToClass&);
+
+	/* ... */
+};
+//]
 //[oglplus_enums_EnumToClass_ex1
 
 enum class SomeEnum
@@ -89,17 +104,5 @@ public:
 	SomeEnumTransform<SomeEnum::ValueD> ValueD;
 };
 
-//]
-//[oglplus_enums_EnumToClass
-
-template <typename Base, typename Enum, template <Enum> class Transform>
-class EnumToClass
-{
-public:
-	EnumToClass(void);
-	EnumToClass(const EnumToClass&);
-
-	/* ... */
-};
 //]
 

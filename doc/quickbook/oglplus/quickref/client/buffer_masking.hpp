@@ -9,7 +9,12 @@ namespace client {
 
 class BufferMaskingState
 {
-	__SettingStack<__context_RGBAMask, ...> ColorMask; /*<
+public:
+	__SettingStackIndexed<
+		__SettingStack<__context_RGBAMask, ...>,
+		__context_RGBAMask,
+		__DrawBufferIndex
+	> ColorMask; /*<
 	Stack managing the setting of color channel mask.
 	>*/
 
@@ -17,10 +22,20 @@ class BufferMaskingState
 	Stack managing the setting of depth mask.
 	>*/
 
+private:
+	template <__SingleFace Value>
+	class StencilMaskStack /*<
+	This class template is here for documentation purposes only
+	and is [*not] part of the public interface.
+	>*/
+	 : __SettingStack<__Boolean, ...>
+	{ };
+public:
+
 	__EnumToClass<
 		__Nothing,
 		__SingleFace,
-		__SettingStack<__Boolean, ...> // TODO
+		StencilMaskStack
 	> StencilMask; /*<
 	Stacks managing the setting of stencil mask separatelly for the front
 	and the back face.

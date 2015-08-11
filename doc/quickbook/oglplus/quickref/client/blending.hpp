@@ -16,6 +16,7 @@ namespace client {
 
 class BlendingState
 {
+public:
 	__SettingStackIndexed<
 		__SettingStack<__context_BlendEquationSeparate, ...>,
 		__context_BlendEquationSeparate,

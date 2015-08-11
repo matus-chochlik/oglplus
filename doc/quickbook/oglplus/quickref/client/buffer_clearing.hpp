@@ -16,6 +16,7 @@ namespace client {
 
 class BufferClearingState
 {
+public:
 	__SettingStack<__context_RGBAValue, ...> ClearColor; /*<
 	Stack managing the setting of clear color.
 	>*/
