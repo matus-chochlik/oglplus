@@ -21,10 +21,12 @@
 <div class="toc"><dl class="toc">
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.setting">Client context
           settings</a></span></dt>
-<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.blending">Blending
-          operations</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.blending">Blending</a></span></dt>
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.buffer_clearing">Buffer
-          clearing operations</a></span></dt>
+          clearing</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.buffer_masking">Buffer
+          masking</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.capabilities">Capabilities</a></span></dt>
 </dl></div>
 <p>
           TODO
@@ -44,6 +46,8 @@
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.blending.state">client::BlendingState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_clearing.ops">client::BufferClearingOps</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_clearing.state">client::BufferClearingState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_masking.state">client::BufferMaskingState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_masking.state">client::CapabilityState</a>
 <span class="special">{</span> <span class="special">};</span>
 </pre>
 <div class="section">
@@ -315,8 +319,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oglplus.quickref.client_context.blending"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.blending" title="Blending operations">Blending
-          operations</a>
+<a name="oglplus.quickref.client_context.blending"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.blending" title="Blending">Blending</a>
 </h3></div></div></div>
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/blending.hpp&gt;</code>
@@ -339,6 +342,7 @@
 
 <span class="keyword">class</span> <span class="identifier">BlendingState</span>
 <span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
 	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack_indexed">SettingStackIndexed</a><span class="special">&lt;</span>
 		<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendEquationSeparate</a><span class="special">,</span> <span class="special">...&gt;,</span>
 		<a class="link" href="context.html#oglplus.quickref.context.blending.helpers">context::BlendEquationSeparate</a><span class="special">,</span>
@@ -381,8 +385,8 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oglplus.quickref.client_context.buffer_clearing"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_clearing" title="Buffer clearing operations">Buffer
-          clearing operations</a>
+<a name="oglplus.quickref.client_context.buffer_clearing"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_clearing" title="Buffer clearing">Buffer
+          clearing</a>
 </h3></div></div></div>
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/buffer_clearing.hpp&gt;</code>
@@ -405,6 +409,7 @@
 
 <span class="keyword">class</span> <span class="identifier">BufferClearingState</span>
 <span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
 	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_value">context::RGBAValue</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">ClearColor</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.buffer_clearing.c0" href="client_context.html#oglplus.quickref.client_context.buffer_clearing.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><span class="identifier">GLfloat</span><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">ClearDepth</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.buffer_clearing.c2" href="client_context.html#oglplus.quickref.client_context.buffer_clearing.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
@@ -431,6 +436,187 @@
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.buffer_clearing.c5"></a><a href="#oglplus.quickref.client_context.buffer_clearing.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Stack managing the setting of clear stencil value.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.buffer_masking"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_masking" title="Buffer masking">Buffer
+          masking</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/buffer_masking.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.client_context.buffer_masking.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.buffer_masking.state"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_masking.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">BufferMaskingState</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack_indexed">SettingStackIndexed</a><span class="special">&lt;</span>
+		<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_mask">context::RGBAMask</a><span class="special">,</span> <span class="special">...&gt;,</span>
+		<a class="link" href="context.html#oglplus.quickref.context.helpers.rgba_mask">context::RGBAMask</a><span class="special">,</span>
+		<a class="link" href="draw_buffer_index.html" title="Draw buffer index">DrawBufferIndex</a>
+	<span class="special">&gt;</span> <span class="identifier">ColorMask</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.buffer_masking.c0" href="client_context.html#oglplus.quickref.client_context.buffer_masking.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">DepthMask</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.buffer_masking.c2" href="client_context.html#oglplus.quickref.client_context.buffer_masking.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+<span class="keyword">private</span><span class="special">:</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a> <span class="identifier">Value</span><span class="special">&gt;</span>
+	<span class="keyword">class</span> <span class="identifier">StencilMaskStack</span> <a class="co" name="oglplus.quickref.client_context.buffer_masking.c4" href="client_context.html#oglplus.quickref.client_context.buffer_masking.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	 <span class="special">:</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a><span class="special">,</span> <span class="special">...&gt;</span>
+	<span class="special">{</span> <span class="special">};</span>
+<span class="keyword">public</span><span class="special">:</span>
+
+	<a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span>
+		<a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a><span class="special">,</span>
+		<a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a><span class="special">,</span>
+		<span class="identifier">StencilMaskStack</span>
+	<span class="special">&gt;</span> <span class="identifier">StencilMask</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.buffer_masking.c6" href="client_context.html#oglplus.quickref.client_context.buffer_masking.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.buffer_masking.c1"></a><a href="#oglplus.quickref.client_context.buffer_masking.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of color channel mask.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.buffer_masking.c3"></a><a href="#oglplus.quickref.client_context.buffer_masking.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of depth mask.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.buffer_masking.c5"></a><a href="#oglplus.quickref.client_context.buffer_masking.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This class template is here for documentation purposes only and is
+                <span class="bold"><strong>not</strong></span> part of the public interface.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.buffer_masking.c7"></a><a href="#oglplus.quickref.client_context.buffer_masking.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stacks managing the setting of stencil mask separatelly for the front
+                and the back face.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.capabilities"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.capabilities" title="Capabilities">Capabilities</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/capabilities.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.client_context.capabilities.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.capabilities.state"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.capabilities.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">CapabilityState</span>
+<span class="special">{</span>
+<span class="keyword">private</span><span class="special">:</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="capability.html" title="Capabilities">Capability</a> <span class="identifier">Value</span><span class="special">&gt;</span>
+	<span class="keyword">class</span> <span class="identifier">CurrentCapabilityIndexed</span> <a class="co" name="oglplus.quickref.client_context.capabilities.c0" href="client_context.html#oglplus.quickref.client_context.capabilities.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	 <span class="special">:</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a><span class="special">,</span> <span class="special">...&gt;</span>
+	<span class="special">{</span>
+	<span class="keyword">public</span><span class="special">:</span>
+		<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">IsEnabled</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.client_context.capabilities.c2" href="client_context.html#oglplus.quickref.client_context.capabilities.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+		<span class="keyword">noexcept</span><span class="special">;</span>
+
+		<span class="keyword">explicit</span>
+		<span class="keyword">operator</span> <a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.client_context.capabilities.c4" href="client_context.html#oglplus.quickref.client_context.capabilities.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+		<span class="keyword">noexcept</span><span class="special">;</span>
+
+		<span class="keyword">void</span> <span class="identifier">Enable</span><span class="special">(</span><a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">status</span> <span class="special">=</span> <span class="keyword">true</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.capabilities.c6" href="client_context.html#oglplus.quickref.client_context.capabilities.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+		<span class="keyword">void</span> <span class="identifier">Disable</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.capabilities.c8" href="client_context.html#oglplus.quickref.client_context.capabilities.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="special">};</span>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="capability.html" title="Capabilities">Capability</a> <span class="identifier">Value</span><span class="special">&gt;</span>
+	<span class="keyword">class</span> <span class="identifier">CurrentCapability</span> <a class="co" name="oglplus.quickref.client_context.capabilities.c10" href="client_context.html#oglplus.quickref.client_context.capabilities.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	 <span class="special">:</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack_indexed">SettingStackIndexed</a><span class="special">&lt;</span><span class="identifier">CurrentCapabilityIndexed</span><span class="special">&lt;</span><span class="identifier">Value</span><span class="special">&gt;,</span> <a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a><span class="special">&gt;</span>
+	<span class="special">{</span>
+	<span class="keyword">public</span><span class="special">:</span>
+		<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">IsEnabled</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+		<span class="keyword">noexcept</span><span class="special">;</span>
+
+		<span class="keyword">explicit</span>
+		<span class="keyword">operator</span> <a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+		<span class="keyword">noexcept</span><span class="special">;</span>
+
+		<span class="keyword">void</span> <span class="identifier">Enable</span><span class="special">(</span><a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">status</span> <span class="special">=</span> <span class="keyword">true</span><span class="special">);</span>
+
+		<span class="keyword">void</span> <span class="identifier">Disable</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="special">};</span>
+<span class="keyword">public</span><span class="special">:</span>
+
+	<a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span>
+		<a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a><span class="special">,</span>
+		<a class="link" href="capability.html" title="Capabilities">Capability</a><span class="special">,</span>
+		<span class="identifier">CurrentCapability</span>
+	<span class="special">&gt;</span> <span class="identifier">Caps</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.capabilities.c12" href="client_context.html#oglplus.quickref.client_context.capabilities.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.capabilities.c1"></a><a href="#oglplus.quickref.client_context.capabilities.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This class template is here for documentation purposes only and is
+                <span class="bold"><strong>not</strong></span> part of the public interface.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.capabilities.c3"></a><a href="#oglplus.quickref.client_context.capabilities.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Checks if the capability is currently enabled (<code class="literal">true</code>)
+                or disabled (<code class="literal">false</code>).
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.capabilities.c5"></a><a href="#oglplus.quickref.client_context.capabilities.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Checks if the capability is currently enabled (<code class="literal">true</code>)
+                or disabled (<code class="literal">false</code>).
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.capabilities.c7"></a><a href="#oglplus.quickref.client_context.capabilities.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Enables (by default) or sets the capability to the specified <code class="literal">status</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.capabilities.c9"></a><a href="#oglplus.quickref.client_context.capabilities.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Disables the capability.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.capabilities.c11"></a><a href="#oglplus.quickref.client_context.capabilities.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This class template is here for documentation purposes only and is
+                <span class="bold"><strong>not</strong></span> part of the public interface.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.capabilities.c13"></a><a href="#oglplus.quickref.client_context.capabilities.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stacks managing the state (enabled or disabled) individually for
+                each capability in the <a class="link" href="capability.html" title="Capabilities">Capability</a>
+                enumeration.
               </p></td>
 </tr>
 </table></div>

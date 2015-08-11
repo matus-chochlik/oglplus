@@ -149,6 +149,68 @@
               pack.
             </p></td>
 </tr></table></div>
+<h4>
+<a name="oglplus.quickref.enums.h4"></a>
+          <span class="phrase"><a name="oglplus.quickref.enums.enum_to_class"></a></span><a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a>
+        </h4>
+<p>
+          Specializations of the <code class="literal">EnumToClass</code> template for various
+          enumerations can be used to create classes which have member variables
+          with the same names as are the names of the values in the enumeration.
+          The type of the member variables is defined by the <code class="literal">Transform</code>
+          template which takes values of the specified <code class="literal">Enumeration</code>
+          as an argument.
+        </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
+	<span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">,</span>
+	<span class="keyword">typename</span> <span class="identifier">Enumeration</span><span class="special">,</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">Enumeration</span><span class="special">&gt;</span> <span class="keyword">class</span> <span class="identifier">Transform</span>
+<span class="special">&gt;</span> <span class="keyword">class</span> <span class="identifier">EnumToClass</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">EnumToClass</span><span class="special">&amp;);</span>
+
+	<span class="comment">/* ... */</span>
+<span class="special">};</span>
+</pre>
+<p>
+          For example for a <code class="literal">SomeEnum</code> enumeration:
+        </p>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">SomeEnum</span>
+<span class="special">{</span>
+	<span class="identifier">ValueA</span><span class="special">,</span>
+	<span class="identifier">ValueB</span><span class="special">,</span>
+	<span class="identifier">ValueC</span><span class="special">,</span>
+	<span class="identifier">ValueD</span>
+<span class="special">};</span>
+</pre>
+<p>
+          with the following transformation template:
+        </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">SomeEnum</span> <span class="identifier">Value</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">SomeEnumTransform</span>
+<span class="special">{</span>
+<span class="special">};</span>
+</pre>
+<p>
+          the following instantiation of <code class="literal">EnumToClass</code>
+        </p>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">EnumToClass</span><span class="special">&lt;</span><span class="identifier">Base</span><span class="special">,</span> <span class="identifier">SomeEnum</span><span class="special">,</span> <span class="identifier">SomeEnumTransform</span><span class="special">&gt;</span> <span class="identifier">EnumToClassSomeEnumTransform</span><span class="special">;</span>
+</pre>
+<p>
+          results in a class which is equivalent to:
+        </p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">EnumToClassSomeEnumTransform</span>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Base</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">SomeEnumTransform</span><span class="special">&lt;</span><span class="identifier">SomeEnum</span><span class="special">::</span><span class="identifier">ValueA</span><span class="special">&gt;</span> <span class="identifier">ValueA</span><span class="special">;</span>
+	<span class="identifier">SomeEnumTransform</span><span class="special">&lt;</span><span class="identifier">SomeEnum</span><span class="special">::</span><span class="identifier">ValueB</span><span class="special">&gt;</span> <span class="identifier">ValueB</span><span class="special">;</span>
+	<span class="identifier">SomeEnumTransform</span><span class="special">&lt;</span><span class="identifier">SomeEnum</span><span class="special">::</span><span class="identifier">ValueC</span><span class="special">&gt;</span> <span class="identifier">ValueC</span><span class="special">;</span>
+	<span class="identifier">SomeEnumTransform</span><span class="special">&lt;</span><span class="identifier">SomeEnum</span><span class="special">::</span><span class="identifier">ValueD</span><span class="special">&gt;</span> <span class="identifier">ValueD</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
