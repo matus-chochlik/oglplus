@@ -40,7 +40,7 @@
 namespace oglplus {
 
 class ClientContext
- : public client::CurrentCapabilities
+ : public client::CapabilityState
  , public client::ViewportState
  , public client::ClipControlState
  , public client::BufferMaskingState
