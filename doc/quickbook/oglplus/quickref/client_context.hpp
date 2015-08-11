@@ -11,6 +11,7 @@ class ClientContext
  , public __client_BlendingState
  , public __client_BufferClearingOps
  , public __client_BufferClearingState
+ , public __client_BufferMaskingState
 { };
 
 //]
