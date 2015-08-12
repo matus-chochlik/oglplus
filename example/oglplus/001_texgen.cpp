@@ -12,6 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 
+#include <oglplus/texgen/offset_node.hpp>
 #include <oglplus/texgen/arithmetic_node.hpp>
 #include <oglplus/texgen/random_node.hpp>
 #include <oglplus/texgen/texture_node.hpp>
@@ -44,6 +45,7 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
+	texgen::OffsetNode of;
 	texgen::UnaryArithmeticNode ua;
 	texgen::BinaryArithmeticNode ba;
 	texgen::UniformNode u1, u2;
@@ -73,10 +75,13 @@ public:
 		//st.SetCoeff(Vec3f(-1,1,1));
 		//m1.SetZero(0.0f);
 		//m1.SetOne(1.0f);
+		of.SetOffset(Vec3f(100,0,0));
+
 		Connect(u1.Output(0), m1.Input(0));
 		Connect(u2.Output(0), m1.Input(1));
 
-		Connect(mb.Output(0), ua.Input(0));
+		Connect(mb.Output(0), of.Input(0));
+		Connect(of.Output(0), ua.Input(0));
 		Connect(ua.Output(0), m1.Input(2));
 		Connect(m1.Output(0), s1.Input(0));
 		Connect(s1.Output(0), nm.Input(0));
