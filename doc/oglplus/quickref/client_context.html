@@ -27,6 +27,9 @@
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.buffer_masking">Buffer
           masking</a></span></dt>
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.capabilities">Capabilities</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.clip_control">Clip
+          control</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.computing">Computing</a></span></dt>
 </dl></div>
 <p>
           TODO
@@ -47,7 +50,9 @@
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_clearing.ops">client::BufferClearingOps</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_clearing.state">client::BufferClearingState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_masking.state">client::BufferMaskingState</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_masking.state">client::CapabilityState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.capabilities.state">client::CapabilityState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.clip_control.state">client::ClipControlState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.computing.ops">client::ComputingOps</a>
 <span class="special">{</span> <span class="special">};</span>
 </pre>
 <div class="section">
@@ -620,6 +625,53 @@
               </p></td>
 </tr>
 </table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.clip_control"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.clip_control" title="Clip control">Clip
+          control</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/clip_control.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.client_context.clip_control.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.clip_control.state"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.clip_control.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">ClipControlState</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.clip_control.params">context::ClipControlParams</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">ClipControl</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.clip_control.c0" href="client_context.html#oglplus.quickref.client_context.clip_control.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.clip_control.c1"></a><a href="#oglplus.quickref.client_context.clip_control.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of clipping control parameters
+              </p></td>
+</tr></table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.computing"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.computing" title="Computing">Computing</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/computing.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.client_context.computing.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.computing.ops"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.computing.ops">Operations</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">using</span> <span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="context.html#oglplus.quickref.context.computing" title="Computing">context::ComputingOps</a><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

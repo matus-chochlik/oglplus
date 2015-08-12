@@ -221,11 +221,30 @@
           </p>
 <h5>
 <a name="oglplus.quickref.context.clip_control.h0"></a>
-            <span class="phrase"><a name="oglplus.quickref.context.clip_control.state"></a></span><a class="link" href="context.html#oglplus.quickref.context.clip_control.state">State</a>
+            <span class="phrase"><a name="oglplus.quickref.context.clip_control.params"></a></span><a class="link" href="context.html#oglplus.quickref.context.clip_control.params">Parameters</a>
           </h5>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
-<span class="keyword">class</span> <span class="identifier">ClipControlState</span>
+<span class="keyword">struct</span> <span class="identifier">ClipControlParams</span>
+<span class="special">{</span>
+	<span class="identifier">ClipControlParams</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<span class="identifier">ClipControlParams</span><span class="special">(</span><a class="link" href="clip_control.html#oglplus.quickref.clip_control.origin">ClipOrigin</a> <span class="identifier">origin</span><span class="special">,</span> <a class="link" href="clip_control.html#oglplus.quickref.clip_control.depth_mode">ClipDepthMode</a> <span class="identifier">depth</span><span class="special">)</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="clip_control.html#oglplus.quickref.clip_control.origin">ClipOrigin</a> <span class="identifier">Origin</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+
+	<a class="link" href="clip_control.html#oglplus.quickref.clip_control.depth_mode">ClipDepthMode</a> <span class="identifier">DepthMode</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+	<span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.context.clip_control.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.clip_control.state"></a></span><a class="link" href="context.html#oglplus.quickref.context.clip_control.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ClipControlState</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_5</span> <span class="special">||</span> <span class="identifier">GL_ARB_clip_control</span>
@@ -234,6 +253,11 @@
 	<span class="keyword">static</span> <a class="link" href="clip_control.html#oglplus.quickref.clip_control.origin">ClipOrigin</a> <span class="identifier">ClipOrigin</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.clip_control.c2" href="context.html#oglplus.quickref.context.clip_control.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 	<span class="keyword">static</span> <a class="link" href="clip_control.html#oglplus.quickref.clip_control.depth_mode">ClipDepthMode</a> <span class="identifier">ClipDepthMode</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.clip_control.c4" href="context.html#oglplus.quickref.context.clip_control.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">static</span>
+	<span class="keyword">void</span> <span class="identifier">ClipControl</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="context.html#oglplus.quickref.context.clip_control.params">context::ClipControlParams</a><span class="special">&amp;</span> <span class="identifier">params</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.clip_control.c6" href="context.html#oglplus.quickref.context.clip_control.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.clip_control.params">context::ClipControlParams</a> <span class="identifier">ClipControl</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.clip_control.c8" href="context.html#oglplus.quickref.context.clip_control.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="preprocessor">#endif</span>
 
 <span class="special">};</span>
@@ -259,6 +283,18 @@
 <td valign="top" align="left"><p>
                 Queries the current clip depth mode setting. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>,
                 <span class="bold"><strong><code class="literal">GL_CLIP_DEPTH_MODE</code></strong></span>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.clip_control.c7"></a><a href="#oglplus.quickref.context.clip_control.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Sets the clipping control parameters.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.clip_control.c9"></a><a href="#oglplus.quickref.context.clip_control.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the clipping control parameters.
               </p></td>
 </tr>
 </table></div>
