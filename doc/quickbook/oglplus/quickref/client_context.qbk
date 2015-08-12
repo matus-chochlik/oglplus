@@ -24,7 +24,11 @@ TODO
 
 [def __client_BufferMaskingState [link oglplus.quickref.client_context.buffer_masking.state client::BufferMaskingState]]
 
-[def __client_CapabilityState [link oglplus.quickref.client_context.buffer_masking.state client::CapabilityState]]
+[def __client_CapabilityState [link oglplus.quickref.client_context.capabilities.state client::CapabilityState]]
+
+[def __client_ClipControlState [link oglplus.quickref.client_context.clip_control.state client::ClipControlState]]
+
+[def __client_ComputingOps [link oglplus.quickref.client_context.computing.ops client::ComputingOps]]
 
 [heading [^ClientContext]]
 
@@ -40,5 +44,7 @@ TODO
 [include client/buffer_clearing.qbk]
 [include client/buffer_masking.qbk]
 [include client/capabilities.qbk]
+[include client/clip_control.qbk]
+[include client/computing.qbk]
 
 [endsect]

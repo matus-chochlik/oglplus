@@ -91,6 +91,7 @@ statements are assumed, but omitted for the sake of brevity from this reference.
 [def __context_RGBAMask [link oglplus.quickref.context.helpers.rgba_mask context::RGBAMask]]
 [def __context_PolygonModes [link oglplus.quickref.context.rasterization.helpers context::PolygonModes]]
 [def __context_PolygonOffsPara [link oglplus.quickref.context.rasterization.helpers context::PolygonOffsPara]]
+[def __context_ClipControlParams [link oglplus.quickref.context.clip_control.params context::ClipControlParams]]
 
 [include quickref/concept.qbk]
 [include quickref/string.qbk]

@@ -6,14 +6,12 @@
 [section:clip_control Clip control]
 [/--------------------------------]
 
-[header oglplus/context/clip_control.hpp]
+[header oglplus/client/clip_control.hpp]
 
 [import clip_control.hpp]
 
-[heading:params Parameters]
-[oglplus_context_ClipControlParams]
-
 [heading:state State]
-[oglplus_context_ClipControlState]
+
+[oglplus_client_ClipControlState]
 
 [endsect]

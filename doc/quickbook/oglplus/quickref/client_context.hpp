@@ -13,6 +13,8 @@ class ClientContext
  , public __client_BufferClearingState
  , public __client_BufferMaskingState
  , public __client_CapabilityState
+ , public __client_ClipControlState
+ , public __client_ComputingOps
 { };
 
 //]
