@@ -51,9 +51,9 @@ class ClientContext
  , public client::DrawingState
  , public client::DrawingOps
  , public client::ComputingOps
- , public client::DepthTest
- , public client::StencilTest
- , public client::ScissorTest
+ , public client::DepthTestState
+ , public client::StencilTestState
+ , public client::ScissorTestState
  , public client::LogicalOps
  , public client::PixelState
  , public client::PixelOps
