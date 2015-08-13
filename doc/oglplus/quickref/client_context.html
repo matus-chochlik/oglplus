@@ -30,6 +30,12 @@
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.clip_control">Clip
           control</a></span></dt>
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.computing">Computing</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.depth_test">Depth
+          test</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.stencil_test">Stencil
+          test</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.scissor_test">Scissor
+          test</a></span></dt>
 </dl></div>
 <p>
           TODO
@@ -53,6 +59,9 @@
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.capabilities.state">client::CapabilityState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.clip_control.state">client::ClipControlState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.computing.ops">client::ComputingOps</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.depth_test.state">client::DepthTestState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.stencil_test.state">client::StencilTestState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.scissor_test.state">client::ScissorTestState</a>
 <span class="special">{</span> <span class="special">};</span>
 </pre>
 <div class="section">
@@ -169,18 +178,21 @@
 
 	<span class="keyword">typedef</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.holder">SettingHolder</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">Holder</span><span class="special">;</span>
 
-	<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c8" href="client_context.html#oglplus.quickref.client_context.setting.c9"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">SettingStack</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">[]</span> <span class="special">(</span><span class="identifier">Index</span> <span class="identifier">index</span><span class="special">);</span>
+	<span class="identifier">SettingStack</span><span class="special">&amp;</span> <span class="identifier">Indexed</span><span class="special">(</span><span class="identifier">Index</span> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c8" href="client_context.html#oglplus.quickref.client_context.setting.c9"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c10" href="client_context.html#oglplus.quickref.client_context.setting.c11"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">A</span><span class="special">&gt;</span>
-	<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><span class="identifier">A</span><span class="special">&amp;&amp;</span> <span class="special">...</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c10" href="client_context.html#oglplus.quickref.client_context.setting.c11"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><span class="identifier">A</span><span class="special">&amp;&amp;</span> <span class="special">...</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c12" href="client_context.html#oglplus.quickref.client_context.setting.c13"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
-	<span class="identifier">T</span> <span class="identifier">Get</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.client_context.setting.c12" href="client_context.html#oglplus.quickref.client_context.setting.c13"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="identifier">T</span> <span class="identifier">Get</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.client_context.setting.c14" href="client_context.html#oglplus.quickref.client_context.setting.c15"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 	<span class="keyword">noexcept</span><span class="special">;</span>
 
-	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c14" href="client_context.html#oglplus.quickref.client_context.setting.c15"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c16" href="client_context.html#oglplus.quickref.client_context.setting.c17"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">A</span><span class="special">&gt;</span>
-	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">A</span><span class="special">&amp;&amp;</span> <span class="special">...</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c16" href="client_context.html#oglplus.quickref.client_context.setting.c17"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">A</span><span class="special">&amp;&amp;</span> <span class="special">...</span> <span class="identifier">a</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c18" href="client_context.html#oglplus.quickref.client_context.setting.c19"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace client</span>
@@ -196,6 +208,15 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c9"></a><a href="#oglplus.quickref.client_context.setting.c8"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
+                Returns a reference to itself if <code class="literal">index</code> is zero,
+                otherwise the behavior is undefined. This function and the indexing
+                operator are here to make the interface of <code class="literal">SettingStack</code>
+                compatible with <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack_indexed">SettingStackIndexed</a>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c11"></a><a href="#oglplus.quickref.client_context.setting.c10"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
                 Pushes a new value on top of the setting stack. When the returned
                 instance of <code class="literal">Holder</code> gets destroyed (or its <code class="literal">Pop</code>
                 member function is called explicitly) then this value is popped from
@@ -206,7 +227,7 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c11"></a><a href="#oglplus.quickref.client_context.setting.c10"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c13"></a><a href="#oglplus.quickref.client_context.setting.c12"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 This overload of <code class="literal">Push</code> constructs a new instance
                 of <code class="literal">T</code> from the specified arguments and pushes it
@@ -214,19 +235,19 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c13"></a><a href="#oglplus.quickref.client_context.setting.c12"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c15"></a><a href="#oglplus.quickref.client_context.setting.c14"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the value of the setting on the top of this setting stack.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c15"></a><a href="#oglplus.quickref.client_context.setting.c14"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c17"></a><a href="#oglplus.quickref.client_context.setting.c16"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Changes the current setting value without pushing on the stack.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c17"></a><a href="#oglplus.quickref.client_context.setting.c16"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c19"></a><a href="#oglplus.quickref.client_context.setting.c18"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 This overload of <code class="literal">Set</code> changes the value by constructing
                 a new instance of <code class="literal">T</code> from the specified arguments.
@@ -257,28 +278,28 @@
           </p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
 
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Derived</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Index</span><span class="special">&gt;</span>
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Derived</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Index</span> <span class="special">=</span> <span class="identifier">GLuint</span><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">SettingStackIndexed</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">SettingStackIndexed</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">SettingStackIndexed</span><span class="special">&amp;)</span> <span class="special">=</span> <span class="keyword">delete</span><span class="special">;</span>
 
-	<span class="identifier">SettingStackIndexed</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c18" href="client_context.html#oglplus.quickref.client_context.setting.c19"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">SettingStackIndexed</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c20" href="client_context.html#oglplus.quickref.client_context.setting.c21"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 	<span class="identifier">Derived</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">[]</span> <span class="special">(</span><span class="identifier">Index</span> <span class="identifier">index</span><span class="special">);</span>
-	<span class="identifier">Derived</span><span class="special">&amp;</span> <span class="identifier">Indexed</span><span class="special">(</span><span class="identifier">Index</span> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c20" href="client_context.html#oglplus.quickref.client_context.setting.c21"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="identifier">Derived</span><span class="special">&amp;</span> <span class="identifier">Indexed</span><span class="special">(</span><span class="identifier">Index</span> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c22" href="client_context.html#oglplus.quickref.client_context.setting.c23"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 	<span class="keyword">typedef</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.holder">SettingHolder</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">GLuint</span><span class="special">&gt;</span> <span class="identifier">Holder</span><span class="special">;</span>
 
-	<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c22" href="client_context.html#oglplus.quickref.client_context.setting.c23"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c24" href="client_context.html#oglplus.quickref.client_context.setting.c25"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">A</span><span class="special">&gt;</span>
 	<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><span class="identifier">A</span><span class="special">&amp;&amp;</span> <span class="special">...</span> <span class="identifier">a</span><span class="special">);</span>
 
-	<span class="identifier">T</span> <span class="identifier">Get</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.client_context.setting.c24" href="client_context.html#oglplus.quickref.client_context.setting.c25"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="identifier">T</span> <span class="identifier">Get</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.client_context.setting.c26" href="client_context.html#oglplus.quickref.client_context.setting.c27"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 	<span class="keyword">noexcept</span><span class="special">;</span>
 
-	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c26" href="client_context.html#oglplus.quickref.client_context.setting.c27"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.setting.c28" href="client_context.html#oglplus.quickref.client_context.setting.c29"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">A</span><span class="special">&gt;</span>
 	<span class="keyword">void</span> <span class="identifier">Set</span><span class="special">(</span><span class="identifier">A</span><span class="special">&amp;&amp;</span> <span class="special">...</span> <span class="identifier">a</span><span class="special">);</span>
@@ -288,14 +309,14 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c19"></a><a href="#oglplus.quickref.client_context.setting.c18"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c21"></a><a href="#oglplus.quickref.client_context.setting.c20"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Initialized the <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a>
                 on index zero.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c21"></a><a href="#oglplus.quickref.client_context.setting.c20"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c23"></a><a href="#oglplus.quickref.client_context.setting.c22"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns a reference to the setting stack at the specified index.
                 The value of index should not exceed the maximum value for the managed
@@ -303,19 +324,19 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c23"></a><a href="#oglplus.quickref.client_context.setting.c22"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c25"></a><a href="#oglplus.quickref.client_context.setting.c24"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Pushes a new value on the stack at index zero.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c25"></a><a href="#oglplus.quickref.client_context.setting.c24"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c27"></a><a href="#oglplus.quickref.client_context.setting.c26"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Gets the value from the stack at index zero.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c27"></a><a href="#oglplus.quickref.client_context.setting.c26"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.setting.c29"></a><a href="#oglplus.quickref.client_context.setting.c28"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets a new value on the stack at index zero.
               </p></td>
@@ -672,6 +693,140 @@
 
 <span class="special">}</span> <span class="comment">// namespace client</span>
 </pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.depth_test"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.depth_test" title="Depth test">Depth
+          test</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/depth_test.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.client_context.depth_test.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.depth_test.state"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.depth_test.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">DepthTestState</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="compare_function.html" title="Compare function">CompareFunction</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">DepthFunc</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.depth_test.c0" href="client_context.html#oglplus.quickref.client_context.depth_test.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.depth_test.c1"></a><a href="#oglplus.quickref.client_context.depth_test.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of depth compare function.
+              </p></td>
+</tr></table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.stencil_test"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.stencil_test" title="Stencil test">Stencil
+          test</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/stencil_test.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.client_context.stencil_test.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.stencil_test.state"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.stencil_test.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">StencilTestState</span>
+<span class="special">{</span>
+<span class="keyword">private</span><span class="special">:</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a> <span class="identifier">Value</span><span class="special">&gt;</span>
+	<span class="keyword">class</span> <span class="identifier">StencilFuncStack</span> <a class="co" name="oglplus.quickref.client_context.stencil_test.c0" href="client_context.html#oglplus.quickref.client_context.stencil_test.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	 <span class="special">:</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.stencil_test.args">context::StencilFuncArgs</a><span class="special">,</span> <span class="special">...&gt;</span>
+	<span class="special">{</span> <span class="special">};</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span>
+		<a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a><span class="special">,</span>
+		<a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a><span class="special">,</span>
+		<span class="identifier">StencilFuncStack</span>
+	<span class="special">&gt;</span> <span class="identifier">StencilFunc</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.stencil_test.c2" href="client_context.html#oglplus.quickref.client_context.stencil_test.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+<span class="keyword">private</span><span class="special">:</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a> <span class="identifier">Value</span><span class="special">&gt;</span>
+	<span class="keyword">class</span> <span class="identifier">StencilOpStack</span> <a class="co" name="oglplus.quickref.client_context.stencil_test.c4" href="client_context.html#oglplus.quickref.client_context.stencil_test.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	 <span class="special">:</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.stencil_test.ops">context::StencilOperations</a><span class="special">,</span> <span class="special">...&gt;</span>
+	<span class="special">{</span> <span class="special">};</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span>
+		<a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a><span class="special">,</span>
+		<a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a><span class="special">,</span>
+		<span class="identifier">StencilOpStack</span>
+	<span class="special">&gt;</span> <span class="identifier">StencilOp</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.stencil_test.c6" href="client_context.html#oglplus.quickref.client_context.stencil_test.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.stencil_test.c1"></a><a href="#oglplus.quickref.client_context.stencil_test.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This class template is here for documentation purposes only and is
+                <span class="bold"><strong>not</strong></span> part of the public interface.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.stencil_test.c3"></a><a href="#oglplus.quickref.client_context.stencil_test.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of stencil function arguments.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.stencil_test.c5"></a><a href="#oglplus.quickref.client_context.stencil_test.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This class template is here for documentation purposes only and is
+                <span class="bold"><strong>not</strong></span> part of the public interface.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.stencil_test.c7"></a><a href="#oglplus.quickref.client_context.stencil_test.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of stencil operations.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.scissor_test"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.scissor_test" title="Scissor test">Scissor
+          test</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/scissor_test.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.client_context.scissor_test.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.scissor_test.state"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.scissor_test.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">ScissorTestState</span>
+<span class="special">{</span>
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack_indexed">SettingStackIndexed</a><span class="special">&lt;</span>
+		<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="ScissorTest">context::ScissorRectangle</a><span class="special">,</span> <span class="special">...&gt;,</span>
+		<a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="ScissorTest">context::ScissorRectangle</a><span class="special">,</span>
+		<a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a>
+	<span class="special">&gt;</span> <span class="identifier">Scissor</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.scissor_test.c0" href="client_context.html#oglplus.quickref.client_context.scissor_test.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.scissor_test.c1"></a><a href="#oglplus.quickref.client_context.scissor_test.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Indexed set of stacks managing the scissor rectangles for the individual
+                viewports.
+              </p></td>
+</tr></table></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
