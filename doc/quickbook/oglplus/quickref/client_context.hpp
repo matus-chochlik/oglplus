@@ -16,6 +16,8 @@ class ClientContext
  , public __client_ClipControlState
  , public __client_ComputingOps
  , public __client_DepthTestState
+ , public __client_StencilTestState
+ , public __client_ScissorTestState
 { };
 
 //]

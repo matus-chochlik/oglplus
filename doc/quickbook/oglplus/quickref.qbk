@@ -92,6 +92,8 @@ statements are assumed, but omitted for the sake of brevity from this reference.
 [def __context_PolygonModes [link oglplus.quickref.context.rasterization.helpers context::PolygonModes]]
 [def __context_PolygonOffsPara [link oglplus.quickref.context.rasterization.helpers context::PolygonOffsPara]]
 [def __context_ClipControlParams [link oglplus.quickref.context.clip_control.params context::ClipControlParams]]
+[def __context_StencilFuncArgs [link oglplus.quickref.context.stencil_test.args context::StencilFuncArgs]]
+[def __context_StencilOperations [link oglplus.quickref.context.stencil_test.ops context::StencilOperations]]
 
 [include quickref/concept.qbk]
 [include quickref/string.qbk]
