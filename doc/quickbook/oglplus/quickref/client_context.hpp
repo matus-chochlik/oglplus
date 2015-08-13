@@ -15,6 +15,7 @@ class ClientContext
  , public __client_CapabilityState
  , public __client_ClipControlState
  , public __client_ComputingOps
+ , public __client_DepthTestState
 { };
 
 //]

@@ -30,6 +30,8 @@ TODO
 
 [def __client_ComputingOps [link oglplus.quickref.client_context.computing.ops client::ComputingOps]]
 
+[def __client_DepthTestState [link oglplus.quickref.client_context.depth_test.state client::DepthTestState]]
+
 [heading [^ClientContext]]
 
 [header oglplus/client_context.hpp]
@@ -46,5 +48,6 @@ TODO
 [include client/capabilities.qbk]
 [include client/clip_control.qbk]
 [include client/computing.qbk]
+[include client/depth_test.qbk]
 
 [endsect]
