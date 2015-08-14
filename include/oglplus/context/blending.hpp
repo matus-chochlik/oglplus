@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,6 +15,7 @@
 
 #include <oglplus/glfunc.hpp>
 #include <oglplus/blend_function.hpp>
+#include <oglplus/draw_buffer_index.hpp>
 #include <oglplus/context/color.hpp>
 
 #ifdef RGB
@@ -270,7 +271,7 @@ public:
 	 *  @glfunref{BlendEquationi}
 	 */
 	static void BlendEquation(
-		GLuint buffer,
+		DrawBufferIndex buffer,
 		OneOf<
 			GLenum,
 			std::tuple<
@@ -280,11 +281,11 @@ public:
 		> eq
 	)
 	{
-		OGLPLUS_GLFUNC(BlendEquationi)(buffer, GLenum(eq));
+		OGLPLUS_GLFUNC(BlendEquationi)(GLuint(buffer), GLenum(eq));
 		OGLPLUS_VERIFY(
 			BlendEquationi,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 	}
 
@@ -295,95 +296,95 @@ public:
 	 *  @glfunref{BlendEquationSeparatei}
 	 */
 	static void BlendEquationSeparate(
-		GLuint buffer,
+		DrawBufferIndex buffer,
 		oglplus::BlendEquation eq_rgb,
 		oglplus::BlendEquation eq_alpha
 	)
 	{
 		OGLPLUS_GLFUNC(BlendEquationSeparatei)(
-			buffer,
+			GLuint(buffer),
 			GLenum(eq_rgb),
 			GLenum(eq_alpha)
 		);
 		OGLPLUS_VERIFY(
 			BlendEquationSeparatei,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 	}
 
 	static void BlendEquationSeparate(
-		GLuint buffer,
+		DrawBufferIndex buffer,
 		const oglplus::context::BlendEquationSeparate& eq
 	)
 	{
 		OGLPLUS_GLFUNC(BlendEquationSeparatei)(
-			buffer,
+			GLuint(buffer),
 			GLenum(eq._v[0]),
 			GLenum(eq._v[1])
 		);
 		OGLPLUS_VERIFY(
 			BlendEquationSeparatei,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 	}
 
 	static oglplus::context::BlendEquationSeparate
-	BlendEquationSeparate(GLuint buffer)
+	BlendEquationSeparate(DrawBufferIndex buffer)
 	{
 		oglplus::context::BlendEquationSeparate result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_BLEND_EQUATION_RGB,
-			buffer,
+			GLuint(buffer),
 			&result._v[0]
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_BLEND_EQUATION_ALPHA,
-			buffer,
+			GLuint(buffer),
 			&result._v[1]
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 		return result;
 	}
 
-	static oglplus::BlendEquation BlendEquationRGB(GLuint buffer)
+	static oglplus::BlendEquation BlendEquationRGB(DrawBufferIndex buffer)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_BLEND_EQUATION_RGB,
-			buffer,
+			GLuint(buffer),
 			&result
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 		return oglplus::BlendEquation(GLenum(result));
 	}
 
-	static oglplus::BlendEquation BlendEquationAlpha(GLuint buffer)
+	static oglplus::BlendEquation BlendEquationAlpha(DrawBufferIndex buffer)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_BLEND_EQUATION_ALPHA,
-			buffer,
+			GLuint(buffer),
 			&result
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 		return oglplus::BlendEquation(GLenum(result));
 	}
@@ -500,16 +501,20 @@ public:
 	 *  @glfunref{BlendFunci}
 	 */
 	static void BlendFunc(
-		GLuint buffer,
+		DrawBufferIndex buffer,
 		BlendFunction src,
 		BlendFunction dst
 	)
 	{
-		OGLPLUS_GLFUNC(BlendFunci)(buffer, GLenum(src), GLenum(dst));
+		OGLPLUS_GLFUNC(BlendFunci)(
+			GLuint(buffer),
+			GLenum(src),
+			GLenum(dst)
+		);
 		OGLPLUS_VERIFY(
 			BlendFunci,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 	}
 
@@ -520,7 +525,7 @@ public:
 	 *  @glfunref{BlendFuncSeparatei}
 	 */
 	static void BlendFuncSeparate(
-		GLuint buffer,
+		DrawBufferIndex buffer,
 		BlendFunction src_rgb,
 		BlendFunction dst_rgb,
 		BlendFunction src_alpha,
@@ -528,7 +533,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(BlendFuncSeparatei)(
-			buffer,
+			GLuint(buffer),
 			GLenum(src_rgb),
 			GLenum(dst_rgb),
 			GLenum(src_alpha),
@@ -537,17 +542,17 @@ public:
 		OGLPLUS_VERIFY(
 			BlendFuncSeparatei,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 	}
 
 	static void BlendFuncSeparate(
-		GLuint buffer,
+		DrawBufferIndex buffer,
 		const oglplus::context::BlendFunctionSeparate& eq
 	)
 	{
 		OGLPLUS_GLFUNC(BlendFuncSeparatei)(
-			buffer,
+			GLuint(buffer),
 			GLenum(eq._v[0]),
 			GLenum(eq._v[1]),
 			GLenum(eq._v[2]),
@@ -556,117 +561,117 @@ public:
 		OGLPLUS_VERIFY(
 			BlendFuncSeparatei,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 	}
 
 	static oglplus::context::BlendFunctionSeparate
-	BlendFuncSeparate(GLuint buffer)
+	BlendFuncSeparate(DrawBufferIndex buffer)
 	{
 		oglplus::context::BlendFunctionSeparate result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_BLEND_SRC_RGB,
-			buffer,
+			GLuint(buffer),
 			&result._v[0]
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_BLEND_SRC_ALPHA,
-			buffer,
+			GLuint(buffer),
 			&result._v[1]
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_BLEND_DST_RGB,
-			buffer,
+			GLuint(buffer),
 			&result._v[2]
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_BLEND_DST_ALPHA,
-			buffer,
+			GLuint(buffer),
 			&result._v[3]
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 		return result;
 	}
 
-	static oglplus::BlendFunction BlendFuncSrcRGB(GLuint buffer)
+	static oglplus::BlendFunction BlendFuncSrcRGB(DrawBufferIndex buffer)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_BLEND_SRC_RGB,
-			buffer,
+			GLuint(buffer),
 			&result
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 		return oglplus::BlendFunction(GLenum(result));
 	}
 
-	static oglplus::BlendFunction BlendFuncSrcAlpha(GLuint buffer)
+	static oglplus::BlendFunction BlendFuncSrcAlpha(DrawBufferIndex buffer)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_BLEND_SRC_ALPHA,
-			buffer,
+			GLuint(buffer),
 			&result
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 		return oglplus::BlendFunction(GLenum(result));
 	}
 
-	static oglplus::BlendFunction BlendFuncDstRGB(GLuint buffer)
+	static oglplus::BlendFunction BlendFuncDstRGB(DrawBufferIndex buffer)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_BLEND_DST_RGB,
-			buffer,
+			GLuint(buffer),
 			&result
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 		return oglplus::BlendFunction(GLenum(result));
 	}
 
-	static oglplus::BlendFunction BlendFuncDstAlpha(GLuint buffer)
+	static oglplus::BlendFunction BlendFuncDstAlpha(DrawBufferIndex buffer)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_BLEND_DST_ALPHA,
-			buffer,
+			GLuint(buffer),
 			&result
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 		return oglplus::BlendFunction(GLenum(result));
 	}

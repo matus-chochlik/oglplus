@@ -82,14 +82,14 @@ public:
 
 #if GL_VERSION_4_0
 	static void BlendEquation(
-		GLuint buffer,
+		__DrawBufferIndex buffer,
 		__OneOf<__BlendEquation, __BlendEquationAdvanced> eq
 	); /*<
 	Sets the blend equation for a particular draw [^buffer]
 	See [glfunc BlendEquationi].
 	>*/
 	static void BlendEquationSeparate(
-		GLuint buffer,
+		__DrawBufferIndex buffer,
 		__BlendEquation eq_rgb,
 		__BlendEquation eq_alpha
 	); /*<
@@ -99,13 +99,13 @@ public:
 	>*/
 
 	static void BlendEquationSeparate(
-		GLuint buffer,
+		__DrawBufferIndex buffer,
 		const __context_BlendEquationSeparate&
 	);
-	static __context_BlendEquationSeparate BlendEquationSeparate(GLuint buffer);
+	static __context_BlendEquationSeparate BlendEquationSeparate(__DrawBufferIndex buffer);
 
-	static __BlendEquation BlendEquationRGB(GLuint buffer);
-	static __BlendEquation BlendEquationAlpha(GLuint buffer);
+	static __BlendEquation BlendEquationRGB(__DrawBufferIndex buffer);
+	static __BlendEquation BlendEquationAlpha(__DrawBufferIndex buffer);
 #endif
 
 	static void BlendFunc(__BlendFunction src, __BlendFunction dst); /*<
@@ -131,7 +131,7 @@ public:
 
 #if GL_VERSION_4_0
 	static void BlendFunc(
-		GLuint buffer,
+		__DrawBufferIndex buffer,
 		__BlendFunction src,
 		__BlendFunction dst
 	); /*<
@@ -139,7 +139,7 @@ public:
 	See [glfunc BlendFunci].
 	>*/
 	static void BlendFuncSeparate(
-		GLuint buffer,
+		__DrawBufferIndex buffer,
 		__BlendFunction src_rgb,
 		__BlendFunction dst_rgb,
 		__BlendFunction src_alpha,
@@ -151,15 +151,15 @@ public:
 	>*/
 
 	static void BlendFuncSeparate(
-		GLuint buffer,
+		__DrawBufferIndex buffer,
 		const __context_BlendFunctionSeparate&
 	);
-	static __context_BlendFunctionSeparate BlendFuncSeparate(GLuint buffer);
+	static __context_BlendFunctionSeparate BlendFuncSeparate(__DrawBufferIndex buffer);
 
-	static __BlendFunction BlendFuncSrcRGB(GLuint buffer);
-	static __BlendFunction BlendFuncSrcAlpha(GLuint buffer);
-	static __BlendFunction BlendFuncDstRGB(GLuint buffer);
-	static __BlendFunction BlendFuncDstAlpha(GLuint buffer);
+	static __BlendFunction BlendFuncSrcRGB(__DrawBufferIndex buffer);
+	static __BlendFunction BlendFuncSrcAlpha(__DrawBufferIndex buffer);
+	static __BlendFunction BlendFuncDstRGB(__DrawBufferIndex buffer);
+	static __BlendFunction BlendFuncDstAlpha(__DrawBufferIndex buffer);
 #endif
 
 	static void BlendColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a);

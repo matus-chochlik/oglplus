@@ -87,7 +87,7 @@ public:
 	 *  @glfunref{ScissorIndexed}
 	 */
 	static void Scissor(
-		GLuint viewport,
+		ViewportIndex viewport,
 		GLint left,
 		GLint bottom,
 		SizeType width,
@@ -95,7 +95,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ScissorIndexed)(
-			viewport,
+			GLuint(viewport),
 			left,
 			bottom,
 			width,
@@ -104,17 +104,17 @@ public:
 		OGLPLUS_CHECK(
 			ScissorIndexed,
 			Error,
-			Index(viewport)
+			Index(GLuint(viewport))
 		);
 	}
 
 	static void Scissor(
-		GLuint viewport,
+		ViewportIndex viewport,
 		const ScissorRectangle& rect
 	)
 	{
 		OGLPLUS_GLFUNC(ScissorIndexed)(
-			viewport,
+			GLuint(viewport),
 			rect.Left(),
 			rect.Bottom(),
 			rect.Width(),
@@ -123,7 +123,7 @@ public:
 		OGLPLUS_CHECK(
 			ScissorIndexed,
 			Error,
-			Index(viewport)
+			Index(GLuint(viewport))
 		);
 	}
 
@@ -133,13 +133,13 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ScissorIndexedv}
 	 */
-	static void Scissor(GLuint viewport, GLint* v)
+	static void Scissor(ViewportIndex viewport, GLint* v)
 	{
-		OGLPLUS_GLFUNC(ScissorIndexedv)(viewport, v);
+		OGLPLUS_GLFUNC(ScissorIndexedv)(GLuint(viewport), v);
 		OGLPLUS_CHECK(
 			ScissorIndexedv,
 			Error,
-			Index(viewport)
+			Index(GLuint(viewport))
 		);
 	}
 
@@ -166,18 +166,18 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{SCISSOR_BOX}
 	 */
-	static ScissorRectangle ScissorBox(GLuint viewport)
+	static ScissorRectangle ScissorBox(ViewportIndex viewport)
 	{
 		ScissorRectangle result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_SCISSOR_BOX,
-			viewport,
+			GLuint(viewport),
 			result._v
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(viewport)
+			Index(GLuint(viewport))
 		);
 		return result;
 	}

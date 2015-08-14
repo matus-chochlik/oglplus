@@ -233,6 +233,9 @@
 [def __FragmentDataSlot [link oglplus.quickref.frag_data_slot FragmentDataSlot]]
 [def __FragDataSlot [link oglplus.quickref.frag_data_slot FragDataSlot]]
 
+[def __ViewportIndex [link oglplus.quickref.viewport_index ViewportIndex]]
+[def __DrawBufferIndex [link oglplus.quickref.draw_buffer_index DrawBufferIndex]]
+
 [def __GLSLSource [link oglplus.quickref.glsl_source GLSLSource]]
 [def __GLSLString [link oglplus.quickref.glsl_string GLSLString]]
 [def __GLSLStrings [link oglplus.quickref.glsl_string GLSLStrings]]
@@ -272,6 +275,7 @@
 [def __FragData [link oglplus.quickref.frag_data.def FragData]]
 
 [def __Context [link oglplus.quickref.context Context]]
+[def __ClientContext [link oglplus.quickref.client_context ClientContext]]
 
 [def __Capability [link oglplus.quickref.capability Capability]]
 [def __Functionality [link oglplus.quickref.capability.functionality Functionality]]

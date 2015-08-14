@@ -27,7 +27,7 @@ public:
 
 #if GL_VERSION_3_0
 	static void ColorMask(
-		GLuint buffer,
+		__DrawBufferIndex buffer,
 		__Boolean r,
 		__Boolean g,
 		__Boolean b,
@@ -36,8 +36,8 @@ public:
 	Sets the color mask for the specified color [^buffer].
 	See [glfunc ColorMaski].
 	>*/
-	static void ColorMask(GLuint buffer, const __context_RGBAMask&);
-	static __context_RGBAMask ColorWriteMask(GLuint buffer); /*<
+	static void ColorMask(__DrawBufferIndex buffer, const __context_RGBAMask&);
+	static __context_RGBAMask ColorWriteMask(__DrawBufferIndex buffer); /*<
 	Returns the value of color buffer write mask.
 	See [glfunc Get], [glconst COLOR_WRITEMASK].
 	>*/

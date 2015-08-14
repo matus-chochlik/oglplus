@@ -40,7 +40,7 @@
 namespace oglplus {
 
 class ClientContext
- : public client::CurrentCapabilities
+ : public client::CapabilityState
  , public client::ViewportState
  , public client::ClipControlState
  , public client::BufferMaskingState
@@ -51,16 +51,16 @@ class ClientContext
  , public client::DrawingState
  , public client::DrawingOps
  , public client::ComputingOps
- , public client::DepthTest
- , public client::StencilTest
- , public client::ScissorTest
+ , public client::DepthTestState
+ , public client::StencilTestState
+ , public client::ScissorTestState
  , public client::LogicalOps
  , public client::PixelState
  , public client::PixelOps
  , public client::BlendingOps
  , public client::BlendingState
  , public client::Synchronization
- , public client::CurrentHints
+ , public client::HintState
  , public client::LimitQueries
  , public client::NumericQueries
  , public client::StringQueries

@@ -23,13 +23,13 @@ namespace aux {
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 
 class ColorMaskIndexed
- : public SettingStack<context::RGBAMask, GLuint>
+ : public SettingStack<context::RGBAMask, DrawBufferIndex>
 {
 private:
 	static
-	context::RGBAMask _do_get(GLuint index)
+	context::RGBAMask _do_get(DrawBufferIndex index)
 	{
-		if(index == 0)
+		if(GLuint(index) == 0)
 		{
 			return context::BufferMaskingState::ColorWriteMask();
 		}
@@ -42,9 +42,9 @@ private:
 	}
 
 	static
-	void _do_set(context::RGBAMask value, GLuint index)
+	void _do_set(context::RGBAMask value, DrawBufferIndex index)
 	{
-		if(index == 0)
+		if(GLuint(index) == 0)
 		{
 			context::BufferMaskingState::ColorMask(value);
 		}
@@ -54,8 +54,8 @@ private:
 		}
 	}
 public:
-	ColorMaskIndexed(GLuint index = 0)
-	 : SettingStack<context::RGBAMask, GLuint>(
+	ColorMaskIndexed(DrawBufferIndex index = 0)
+	 : SettingStack<context::RGBAMask, DrawBufferIndex>(
 		&_do_get,
 		&_do_set,
 		index
@@ -66,7 +66,8 @@ public:
 class ColorMask
  : public SettingStackIndexed<
 	ColorMaskIndexed,
-	context::RGBAMask
+	context::RGBAMask,
+	DrawBufferIndex
 >
 { };
 

@@ -17,6 +17,7 @@
 #include <oglplus/boolean.hpp>
 #include <oglplus/face_mode.hpp>
 #include <oglplus/context/color.hpp>
+#include <oglplus/draw_buffer_index.hpp>
 
 namespace oglplus {
 namespace context {
@@ -62,7 +63,7 @@ public:
 	 *  @glfunref{ColorMaski}
 	 */
 	static void ColorMask(
-		GLuint buffer,
+		DrawBufferIndex buffer,
 		Boolean r,
 		Boolean g,
 		Boolean b,
@@ -70,7 +71,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ColorMaski)(
-			buffer,
+			GLuint(buffer),
 			r._get(),
 			g._get(),
 			b._get(),
@@ -79,14 +80,14 @@ public:
 		OGLPLUS_VERIFY(
 			ColorMaski,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 	}
 
-	static void ColorMask(GLuint buffer, const RGBAMask& m)
+	static void ColorMask(DrawBufferIndex buffer, const RGBAMask& m)
 	{
 		OGLPLUS_GLFUNC(ColorMaski)(
-			buffer,
+			GLuint(buffer),
 			GLboolean(m._v[0]),
 			GLboolean(m._v[1]),
 			GLboolean(m._v[2]),
@@ -95,7 +96,7 @@ public:
 		OGLPLUS_VERIFY(
 			ColorMaski,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 	}
 #endif
@@ -157,18 +158,18 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{COLOR_WRITEMASK}
 	 */
-	static oglplus::context::RGBAMask ColorWriteMask(GLuint buffer)
+	static oglplus::context::RGBAMask ColorWriteMask(DrawBufferIndex buffer)
 	{
 		oglplus::context::RGBAMask result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(
 			GL_COLOR_WRITEMASK,
-			buffer,
+			GLuint(buffer),
 			result._v
 		);
 		OGLPLUS_CHECK(
 			GetIntegeri_v,
 			Error,
-			Index(buffer)
+			Index(GLuint(buffer))
 		);
 		return result;
 	}
