@@ -34,6 +34,12 @@ TODO
 [def __client_StencilTestState [link oglplus.quickref.client_context.stencil_test.state client::StencilTestState]]
 [def __client_ScissorTestState [link oglplus.quickref.client_context.scissor_test.state client::ScissorTestState]]
 
+[def __client_DrawingOps [link oglplus.quickref.client_context.drawing.ops client::DrawingOps]]
+[def __client_DrawingState [link oglplus.quickref.client_context.drawing.state client::DrawingState]]
+
+[def __client_HintState [link oglplus.quickref.client_context.hints.state client::HintState]]
+[def __client_LimitQueries [link oglplus.quickref.client_context.limit_queries client::LimitQueries]]
+
 [heading [^ClientContext]]
 
 [header oglplus/client_context.hpp]
@@ -53,5 +59,8 @@ TODO
 [include client/depth_test.qbk]
 [include client/stencil_test.qbk]
 [include client/scissor_test.qbk]
+[include client/drawing.qbk]
+[include client/hints.qbk]
+[include client/limit_queries.qbk]
 
 [endsect]

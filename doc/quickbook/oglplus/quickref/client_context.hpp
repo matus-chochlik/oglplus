@@ -18,6 +18,11 @@ class ClientContext
  , public __client_DepthTestState
  , public __client_StencilTestState
  , public __client_ScissorTestState
+ , public __client_DrawingOps
+ , public __client_DrawingState
+ , public __client_HintState
+ , public __client_LimitQueries
+// TODO
 { };
 
 //]

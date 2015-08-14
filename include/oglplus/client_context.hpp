@@ -60,7 +60,7 @@ class ClientContext
  , public client::BlendingOps
  , public client::BlendingState
  , public client::Synchronization
- , public client::CurrentHints
+ , public client::HintState
  , public client::LimitQueries
  , public client::NumericQueries
  , public client::StringQueries
