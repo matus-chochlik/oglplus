@@ -12,6 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 
+#include <oglplus/texgen/invert_node.hpp>
 #include <oglplus/texgen/offset_node.hpp>
 #include <oglplus/texgen/arithmetic_node.hpp>
 #include <oglplus/texgen/random_node.hpp>
@@ -45,6 +46,7 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
+	texgen::InvertNode in;
 	texgen::OffsetNode of;
 	texgen::UnaryArithmeticNode ua;
 	texgen::BinaryArithmeticNode ba;
@@ -81,7 +83,8 @@ public:
 		Connect(u2.Output(0), m1.Input(1));
 
 		Connect(mb.Output(0), of.Input(0));
-		Connect(of.Output(0), ua.Input(0));
+		Connect(of.Output(0), in.Input(0));
+		Connect(in.Output(0), ua.Input(0));
 		Connect(ua.Output(0), m1.Input(2));
 		Connect(m1.Output(0), s1.Input(0));
 		Connect(s1.Output(0), nm.Input(0));
