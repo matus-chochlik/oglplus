@@ -40,6 +40,8 @@ TODO
 [def __client_HintState [link oglplus.quickref.client_context.hints.state client::HintState]]
 [def __client_LimitQueries [link oglplus.quickref.client_context.limit_queries client::LimitQueries]]
 
+[def __client_LogicOpState [link oglplus.quickref.client_context.logic_ops.state client::LogicOpState]]
+
 [heading [^ClientContext]]
 
 [header oglplus/client_context.hpp]
@@ -62,5 +64,6 @@ TODO
 [include client/drawing.qbk]
 [include client/hints.qbk]
 [include client/limit_queries.qbk]
+[include client/logic_ops.qbk]
 
 [endsect]

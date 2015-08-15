@@ -22,6 +22,7 @@ class ClientContext
  , public __client_DrawingState
  , public __client_HintState
  , public __client_LimitQueries
+ , public __client_LogicOpState
 // TODO
 { };
 

@@ -2,9 +2,9 @@
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
-[/---------------------------]
-[section:depth_test DepthTest]
-[/---------------------------]
+[/----------------------------]
+[section:depth_test Depth test]
+[/----------------------------]
 
 [header oglplus/context/depth_test.hpp]
 

@@ -36,7 +36,7 @@ but the library end-users should rarely need to use them directly.
 [include context/depth_test.qbk]
 [include context/stencil_test.qbk]
 [include context/scissor_test.qbk]
-[include context/logical_ops.qbk]
+[include context/logic_ops.qbk]
 [include context/pixel_ops.qbk]
 [include context/blending.qbk]
 [include context/synchronization.qbk]

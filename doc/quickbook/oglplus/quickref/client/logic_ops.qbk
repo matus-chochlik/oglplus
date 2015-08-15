@@ -2,14 +2,16 @@
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
-[/------------------------------------]
-[section:string_queries String queries]
-[/------------------------------------]
+[/---------------------------------]
+[section:logic_ops Logic operations]
+[/---------------------------------]
 
-[header oglplus/context/string_queries.hpp]
+[header oglplus/client/logic_ops.hpp]
 
-[import string_queries.hpp]
+[import logic_ops.hpp]
 
-[oglplus_context_StringQueries]
+[heading:state State]
+
+[oglplus_client_LogicOpState]
 
 [endsect]
