@@ -30,19 +30,20 @@
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.rasterization">Rasterization</a></span></dt>
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.drawing">Drawing</a></span></dt>
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.computing">Computing</a></span></dt>
-<dt><span class="section"><a href="context.html#oglplus.quickref.context.depth_test">DepthTest</a></span></dt>
-<dt><span class="section"><a href="context.html#oglplus.quickref.context.stencil_test">StencilTest</a></span></dt>
-<dt><span class="section"><a href="context.html#oglplus.quickref.context.scissor_test">ScissorTest</a></span></dt>
-<dt><span class="section"><a href="context.html#oglplus.quickref.context.logical_ops">LogicalOps</a></span></dt>
-<dt><span class="section"><a href="context.html#oglplus.quickref.context.pixel_ops">PixelOps</a></span></dt>
+<dt><span class="section"><a href="context.html#oglplus.quickref.context.depth_test">Depth test</a></span></dt>
+<dt><span class="section"><a href="context.html#oglplus.quickref.context.stencil_test">Stencil test</a></span></dt>
+<dt><span class="section"><a href="context.html#oglplus.quickref.context.scissor_test">Scissor test</a></span></dt>
+<dt><span class="section"><a href="context.html#oglplus.quickref.context.logic_ops">Logic operations</a></span></dt>
+<dt><span class="section"><a href="context.html#oglplus.quickref.context.pixel_ops">Pixel operations</a></span></dt>
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.blending">Blending operations</a></span></dt>
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.synchronization">Synchronization</a></span></dt>
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.hints">Hints</a></span></dt>
-<dt><span class="section"><a href="context.html#oglplus.quickref.context.limit_queries">LimitQueries</a></span></dt>
-<dt><span class="section"><a href="context.html#oglplus.quickref.context.numeric_queries">NumericQueries</a></span></dt>
-<dt><span class="section"><a href="context.html#oglplus.quickref.context.string_queries">StringQueries</a></span></dt>
-<dt><span class="section"><a href="context.html#oglplus.quickref.context.object_binding">ObjectBinding</a></span></dt>
-<dt><span class="section"><a href="context.html#oglplus.quickref.context.object_dsa">ObjectDSA</a></span></dt>
+<dt><span class="section"><a href="context.html#oglplus.quickref.context.limit_queries">Limit queries</a></span></dt>
+<dt><span class="section"><a href="context.html#oglplus.quickref.context.numeric_queries">Numeric
+          queries</a></span></dt>
+<dt><span class="section"><a href="context.html#oglplus.quickref.context.string_queries">String queries</a></span></dt>
+<dt><span class="section"><a href="context.html#oglplus.quickref.context.object_binding">Object binding</a></span></dt>
+<dt><span class="section"><a href="context.html#oglplus.quickref.context.object_dsa">Object DSA</a></span></dt>
 <dt><span class="section"><a href="context.html#oglplus.quickref.context.helpers">Helper classes</a></span></dt>
 </dl></div>
 <p>
@@ -79,20 +80,21 @@
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.drawing.state">context::DrawingState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.drawing.ops">context::DrawingOps</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.computing" title="Computing">context::ComputingOps</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.depth_test" title="DepthTest">context::DepthTest</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.stencil_test" title="StencilTest">context::StencilTest</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="ScissorTest">context::ScissorTest</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.logical_ops" title="LogicalOps">context::LogicalOps</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.pixel_ops" title="PixelOps">context::PixelOps</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.depth_test" title="Depth test">context::DepthTest</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.stencil_test" title="Stencil test">context::StencilTest</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="Scissor test">context::ScissorTest</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.logic_ops" title="Logic operations">context::LogicOpState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.pixel_ops.state">context::PixelState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.pixel_ops.ops">context::PixelOps</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.blending.ops">context::BlendingOps</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.blending.state">context::BlendingState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.synchronization" title="Synchronization">context::Synchronization</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.hints" title="Hints">context::Hints</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.limit_queries" title="LimitQueries">context::LimitQueries</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.numeric_queries" title="NumericQueries">context::NumericQueries</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.string_queries" title="StringQueries">context::StringQueries</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.object_binding" title="ObjectBinding">context::ObjectBinding</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.object_dsa" title="ObjectDSA">context::ObjectDSA</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.limit_queries" title="Limit queries">context::LimitQueries</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.numeric_queries" title="Numeric queries">context::NumericQueries</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.string_queries" title="String queries">context::StringQueries</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.object_binding" title="Object binding">context::ObjectBinding</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.object_dsa" title="Object DSA">context::ObjectDSA</a>
 <span class="special">{</span> <span class="special">};</span>
 </pre>
 <div class="section">
@@ -1679,7 +1681,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oglplus.quickref.context.depth_test"></a><a class="link" href="context.html#oglplus.quickref.context.depth_test" title="DepthTest">DepthTest</a>
+<a name="oglplus.quickref.context.depth_test"></a><a class="link" href="context.html#oglplus.quickref.context.depth_test" title="Depth test">Depth test</a>
 </h3></div></div></div>
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/depth_test.hpp&gt;</code>
@@ -1713,7 +1715,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oglplus.quickref.context.stencil_test"></a><a class="link" href="context.html#oglplus.quickref.context.stencil_test" title="StencilTest">StencilTest</a>
+<a name="oglplus.quickref.context.stencil_test"></a><a class="link" href="context.html#oglplus.quickref.context.stencil_test" title="Stencil test">Stencil test</a>
 </h3></div></div></div>
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/stencil_test.hpp&gt;</code>
@@ -1958,7 +1960,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oglplus.quickref.context.scissor_test"></a><a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="ScissorTest">ScissorTest</a>
+<a name="oglplus.quickref.context.scissor_test"></a><a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="Scissor test">Scissor test</a>
 </h3></div></div></div>
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/scissor_test.hpp&gt;</code>
@@ -2008,7 +2010,7 @@
 
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ScissorArray</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">first</span><span class="special">,</span> <a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">count</span><span class="special">,</span> <span class="identifier">GLint</span><span class="special">*</span> <span class="identifier">v</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c4" href="context.html#oglplus.quickref.context.scissor_test.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
-	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="ScissorTest">context::ScissorRectangle</a> <span class="identifier">ScissorBox</span><span class="special">(</span><a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c6" href="context.html#oglplus.quickref.context.scissor_test.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="context.html#oglplus.quickref.context.scissor_test" title="Scissor test">context::ScissorRectangle</a> <span class="identifier">ScissorBox</span><span class="special">(</span><a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a> <span class="identifier">viewport</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.scissor_test.c6" href="context.html#oglplus.quickref.context.scissor_test.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
 
@@ -2046,20 +2048,20 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oglplus.quickref.context.logical_ops"></a><a class="link" href="context.html#oglplus.quickref.context.logical_ops" title="LogicalOps">LogicalOps</a>
+<a name="oglplus.quickref.context.logic_ops"></a><a class="link" href="context.html#oglplus.quickref.context.logic_ops" title="Logic operations">Logic operations</a>
 </h3></div></div></div>
 <p>
-            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/logical_ops.hpp&gt;</code>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/logic_ops.hpp&gt;</code>
           </p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
-<span class="keyword">class</span> <span class="identifier">LogicalOps</span>
+<span class="keyword">class</span> <span class="identifier">LogicOpState</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_0</span>
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">LogicOp</span><span class="special">(</span><a class="link" href="color_logic_operation.html" title="Color logic operation">ColorLogicOperation</a> <span class="identifier">op</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.logical_ops.c0" href="context.html#oglplus.quickref.context.logical_ops.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">LogicOp</span><span class="special">(</span><a class="link" href="color_logic_operation.html" title="Color logic operation">ColorLogicOperation</a> <span class="identifier">op</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.logic_ops.c0" href="context.html#oglplus.quickref.context.logic_ops.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-	<span class="keyword">static</span> <a class="link" href="color_logic_operation.html" title="Color logic operation">ColorLogicOperation</a> <span class="identifier">LogicOpMode</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.logical_ops.c2" href="context.html#oglplus.quickref.context.logical_ops.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">static</span> <a class="link" href="color_logic_operation.html" title="Color logic operation">ColorLogicOperation</a> <span class="identifier">LogicOpMode</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.logic_ops.c2" href="context.html#oglplus.quickref.context.logic_ops.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
 
@@ -2067,13 +2069,13 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.logical_ops.c1"></a><a href="#oglplus.quickref.context.logical_ops.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.logic_ops.c1"></a><a href="#oglplus.quickref.context.logic_ops.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Sets the color logic operation. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glLogicOp.xml" target="_top">glLogicOp</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.logical_ops.c3"></a><a href="#oglplus.quickref.context.logical_ops.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.logic_ops.c3"></a><a href="#oglplus.quickref.context.logic_ops.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the current color logic operation. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glLogicOp.xml" target="_top">glLogicOp</a></code>,
                 <span class="bold"><strong><code class="literal">GL_LOGIC_OP_MODE</code></strong></span>.
@@ -2083,14 +2085,18 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oglplus.quickref.context.pixel_ops"></a><a class="link" href="context.html#oglplus.quickref.context.pixel_ops" title="PixelOps">PixelOps</a>
+<a name="oglplus.quickref.context.pixel_ops"></a><a class="link" href="context.html#oglplus.quickref.context.pixel_ops" title="Pixel operations">Pixel operations</a>
 </h3></div></div></div>
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/pixel_ops.hpp&gt;</code>
           </p>
+<h5>
+<a name="oglplus.quickref.context.pixel_ops.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.pixel_ops.state"></a></span><a class="link" href="context.html#oglplus.quickref.context.pixel_ops.state">State</a>
+          </h5>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">context</span> <span class="special">{</span>
 
-<span class="keyword">class</span> <span class="identifier">PixelOps</span>
+<span class="keyword">class</span> <span class="identifier">PixelState</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">PixelStore</span><span class="special">(</span><a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a> <span class="identifier">parameter</span><span class="special">,</span> <span class="identifier">GLfloat</span> <span class="identifier">value</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c0" href="context.html#oglplus.quickref.context.pixel_ops.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
@@ -2114,33 +2120,7 @@
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a> <span class="identifier">Parameter</span><span class="special">&gt;</span>
 	<span class="keyword">static</span> &lt;Unspecified&gt; <span class="identifier">PixelStoreValue</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c6" href="context.html#oglplus.quickref.context.pixel_ops.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
-
-
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ReadPixels</span><span class="special">(</span>
-		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
-		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
-		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
-		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
-		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
-		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">type</span><span class="special">,</span>
-		<span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c8" href="context.html#oglplus.quickref.context.pixel_ops.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
-
-	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlitFramebuffer</span><span class="special">(</span>
-		<span class="identifier">GLint</span> <span class="identifier">srcX0</span><span class="special">,</span>
-		<span class="identifier">GLint</span> <span class="identifier">srcY0</span><span class="special">,</span>
-		<span class="identifier">GLint</span> <span class="identifier">srcX1</span><span class="special">,</span>
-		<span class="identifier">GLint</span> <span class="identifier">srcY1</span><span class="special">,</span>
-		<span class="identifier">GLint</span> <span class="identifier">dstX0</span><span class="special">,</span>
-		<span class="identifier">GLint</span> <span class="identifier">dstY0</span><span class="special">,</span>
-		<span class="identifier">GLint</span> <span class="identifier">dstX1</span><span class="special">,</span>
-		<span class="identifier">GLint</span> <span class="identifier">dstY1</span><span class="special">,</span>
-		<a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="buffer_select_bit.html" title="Buffer selection bits">BufferSelectBit</a><span class="special">&gt;</span> <span class="identifier">mask</span><span class="special">,</span>
-		<a class="link" href="blit_filter.html" title="Blit filter">BlitFilter</a> <span class="identifier">filter</span>
-	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c10" href="context.html#oglplus.quickref.context.pixel_ops.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 <span class="special">};</span>
-
-<span class="special">}</span> <span class="comment">// namespace context</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -2173,14 +2153,50 @@
                 <code class="literal">Parameter</code> being retrieved. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glGet.xml" target="_top">glGet</a></code>.
               </p></td>
 </tr>
+</table></div>
+<h5>
+<a name="oglplus.quickref.context.pixel_ops.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.context.pixel_ops.ops"></a></span><a class="link" href="context.html#oglplus.quickref.context.pixel_ops.ops">Operations</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">PixelOps</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">ReadPixels</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">void</span><span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c8" href="context.html#oglplus.quickref.context.pixel_ops.c9"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">BlitFramebuffer</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">srcX0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">srcY0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">srcX1</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">srcY1</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">dstX0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">dstY0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">dstX1</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">dstY1</span><span class="special">,</span>
+		<a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="buffer_select_bit.html" title="Buffer selection bits">BufferSelectBit</a><span class="special">&gt;</span> <span class="identifier">mask</span><span class="special">,</span>
+		<a class="link" href="blit_filter.html" title="Blit filter">BlitFilter</a> <span class="identifier">filter</span>
+	<span class="special">);</span> <a class="co" name="oglplus.quickref.context.pixel_ops.c10" href="context.html#oglplus.quickref.context.pixel_ops.c11"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace context</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.pixel_ops.c9"></a><a href="#oglplus.quickref.context.pixel_ops.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.pixel_ops.c9"></a><a href="#oglplus.quickref.context.pixel_ops.c8"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Reads a block of pixels from the current framebuffer. See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glReadPixels.xml" target="_top">glReadPixels</a></code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.pixel_ops.c11"></a><a href="#oglplus.quickref.context.pixel_ops.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.pixel_ops.c11"></a><a href="#oglplus.quickref.context.pixel_ops.c10"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Transfers a rectangle of pixels from the read buffer the draw buffer.
                 See <code class="literal"><a href="http://www.opengl.org/sdk/docs/man4/xhtml/glblitFramebuffer.xml" target="_top">glblitFramebuffer</a></code>.
@@ -2486,7 +2502,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oglplus.quickref.context.limit_queries"></a><a class="link" href="context.html#oglplus.quickref.context.limit_queries" title="LimitQueries">LimitQueries</a>
+<a name="oglplus.quickref.context.limit_queries"></a><a class="link" href="context.html#oglplus.quickref.context.limit_queries" title="Limit queries">Limit queries</a>
 </h3></div></div></div>
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/limit_queries.hpp&gt;</code>
@@ -2569,7 +2585,8 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oglplus.quickref.context.numeric_queries"></a><a class="link" href="context.html#oglplus.quickref.context.numeric_queries" title="NumericQueries">NumericQueries</a>
+<a name="oglplus.quickref.context.numeric_queries"></a><a class="link" href="context.html#oglplus.quickref.context.numeric_queries" title="Numeric queries">Numeric
+          queries</a>
 </h3></div></div></div>
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/numeric_queries.hpp&gt;</code>
@@ -2661,7 +2678,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oglplus.quickref.context.string_queries"></a><a class="link" href="context.html#oglplus.quickref.context.string_queries" title="StringQueries">StringQueries</a>
+<a name="oglplus.quickref.context.string_queries"></a><a class="link" href="context.html#oglplus.quickref.context.string_queries" title="String queries">String queries</a>
 </h3></div></div></div>
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/string_queries.hpp&gt;</code>
@@ -2772,7 +2789,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oglplus.quickref.context.object_binding"></a><a class="link" href="context.html#oglplus.quickref.context.object_binding" title="ObjectBinding">ObjectBinding</a>
+<a name="oglplus.quickref.context.object_binding"></a><a class="link" href="context.html#oglplus.quickref.context.object_binding" title="Object binding">Object binding</a>
 </h3></div></div></div>
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/object_binding.hpp&gt;</code>
@@ -2843,7 +2860,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oglplus.quickref.context.object_dsa"></a><a class="link" href="context.html#oglplus.quickref.context.object_dsa" title="ObjectDSA">ObjectDSA</a>
+<a name="oglplus.quickref.context.object_dsa"></a><a class="link" href="context.html#oglplus.quickref.context.object_dsa" title="Object DSA">Object DSA</a>
 </h3></div></div></div>
 <p>
             <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/context/object_dsa.hpp&gt;</code>
