@@ -12,6 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 
+#include <oglplus/texgen/circles_node.hpp>
 #include <oglplus/texgen/border_node.hpp>
 #include <oglplus/texgen/invert_node.hpp>
 #include <oglplus/texgen/offset_node.hpp>
@@ -47,6 +48,7 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
+	texgen::CirclesNode ci;
 	texgen::InvertNode in;
 	texgen::OffsetNode of;
 	texgen::UnaryArithmeticNode ua;
@@ -85,7 +87,7 @@ public:
 		Connect(u1.Output(0), m1.Input(0));
 		Connect(u2.Output(0), m1.Input(1));
 
-		Connect(nt.Output(0), gr.Input(0));
+		Connect(ci.Output(0), gr.Input(0));
 		Connect(gr.Output(0), of.Input(0));
 		Connect(of.Output(0), in.Input(0));
 		Connect(in.Output(0), ua.Input(0));
