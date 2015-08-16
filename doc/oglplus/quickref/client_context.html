@@ -40,7 +40,13 @@
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.hints">Hints</a></span></dt>
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.limit_queries">Limit
           queries</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.numeric_queries">Numeric
+          queries</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.string_queries">String
+          queries</a></span></dt>
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.logic_ops">Logic
+          operations</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.pixel_ops">Pixel
           operations</a></span></dt>
 </dl></div>
 <p>
@@ -72,7 +78,11 @@
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.drawing.state">client::DrawingState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.hints.state">client::HintState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.limit_queries" title="Limit queries">client::LimitQueries</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.numeric_queries" title="Numeric queries">client::NumericQueries</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.string_queries" title="String queries">client::StringQueries</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.logic_ops.state">client::LogicOpState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.pixel_ops.ops">client::PixelOps</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.pixel_ops.state">client::PixelState</a>
 <span class="comment">// TODO</span>
 <span class="special">{</span> <span class="special">};</span>
 </pre>
@@ -904,7 +914,7 @@
 		<a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a><span class="special">,</span>
 		<a class="link" href="hint.html#oglplus.quickref.hint.target">HintTarget</a><span class="special">,</span>
 		<span class="identifier">Hint</span>
-	<span class="special">&gt;</span> <span class="identifier">Hints</span> <span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.hints.c2" href="client_context.html#oglplus.quickref.client_context.hints.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">&gt;</span> <span class="identifier">Hints</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.hints.c2" href="client_context.html#oglplus.quickref.client_context.hints.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace client</span>
@@ -1007,6 +1017,36 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.numeric_queries"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.numeric_queries" title="Numeric queries">Numeric
+          queries</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/numeric_queries.hpp&gt;</code>
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">using</span> <span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="context.html#oglplus.quickref.context.numeric_queries" title="Numeric queries">context::NumericQueries</a><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.string_queries"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.string_queries" title="String queries">String
+          queries</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/string_queries.hpp&gt;</code>
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">using</span> <span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="context.html#oglplus.quickref.context.string_queries" title="String queries">context::StringQueries</a><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="oglplus.quickref.client_context.logic_ops"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.logic_ops" title="Logic operations">Logic
           operations</a>
 </h3></div></div></div>
@@ -1033,6 +1073,72 @@
                 Stack managing the setting of color logic operation.
               </p></td>
 </tr></table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.pixel_ops"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.pixel_ops" title="Pixel operations">Pixel
+          operations</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/pixel_ops.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.client_context.pixel_ops.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.pixel_ops.ops"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.pixel_ops.ops">Operations</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">using</span> <span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="context.html#oglplus.quickref.context.pixel_ops.ops">context::PixelOps</a><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.client_context.pixel_ops.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.pixel_ops.state"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.pixel_ops.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">PixelState</span>
+<span class="special">{</span>
+<span class="keyword">private</span><span class="special">:</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a> <span class="identifier">Parameter</span><span class="special">&gt;</span>
+	<span class="keyword">class</span> <span class="identifier">PixelParams</span> <a class="co" name="oglplus.quickref.client_context.pixel_ops.c0" href="client_context.html#oglplus.quickref.client_context.pixel_ops.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	 <span class="special">:</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span>&lt;Unspecified&gt;<span class="special">,</span> <span class="special">...&gt;</span> <a class="co" name="oglplus.quickref.client_context.pixel_ops.c2" href="client_context.html#oglplus.quickref.client_context.pixel_ops.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="special">{</span> <span class="special">};</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span>
+		<a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a><span class="special">,</span>
+		<a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a><span class="special">,</span>
+		<span class="identifier">PixelParams</span>
+	<span class="special">&gt;</span> <span class="identifier">PixelStore</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.pixel_ops.c4" href="client_context.html#oglplus.quickref.client_context.pixel_ops.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.pixel_ops.c1"></a><a href="#oglplus.quickref.client_context.pixel_ops.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This class template is here for documentation purposes only and is
+                <span class="bold"><strong>not</strong></span> part of the public interface.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.pixel_ops.c3"></a><a href="#oglplus.quickref.client_context.pixel_ops.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack of numeric values (booleans, integers, floats) appropriate
+                for the pixel <code class="literal">Parameter</code> type.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.pixel_ops.c5"></a><a href="#oglplus.quickref.client_context.pixel_ops.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Set of stacks managing the setting of numeric pixel parameters individually
+                for each value in the <a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a>
+                enumeration.
+              </p></td>
+</tr>
+</table></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
