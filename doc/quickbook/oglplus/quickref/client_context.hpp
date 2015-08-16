@@ -22,7 +22,11 @@ class ClientContext
  , public __client_DrawingState
  , public __client_HintState
  , public __client_LimitQueries
+ , public __client_NumericQueries
+ , public __client_StringQueries
  , public __client_LogicOpState
+ , public __client_PixelOps
+ , public __client_PixelState
 // TODO
 { };
 
