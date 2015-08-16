@@ -18,7 +18,8 @@ namespace texgen {
 OGLPLUS_LIB_FUNC
 SwizzleOutputSlot::
 SwizzleOutputSlot(Node& parent, String swizzle)
- : _input(parent, "Input", Vec4f(0))
+ : BaseOutputSlot(parent)
+ , _input(parent, "Input", Vec4f(0))
  , _swizzle(swizzle)
 {
 	assert(_swizzle.length() >= 1);

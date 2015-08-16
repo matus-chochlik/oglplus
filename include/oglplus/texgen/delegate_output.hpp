@@ -22,9 +22,12 @@ class DelegateOutputSlot
  : public OutputSlot
 {
 private:
+	Node* _parent;
 	std::unique_ptr<OutputSlot> _output;
 public:
-	DelegateOutputSlot(std::unique_ptr<OutputSlot>&& output);
+	DelegateOutputSlot(Node& ,std::unique_ptr<OutputSlot>&&);
+
+	Node& Parent(void);
 
 	void Assign(std::unique_ptr<OutputSlot>&& output);
 
@@ -52,6 +55,9 @@ public:
 	OGLPLUS_OVERRIDE;
 
 	void UpdateConnected(void)
+	OGLPLUS_OVERRIDE;
+
+	bool Render(const RenderParams&)
 	OGLPLUS_OVERRIDE;
 };
 

@@ -33,6 +33,13 @@ struct InputSlot;
 struct OutputSlot;
 struct Node;
 
+struct RenderParams
+{
+	std::size_t version;
+	unsigned width;
+	unsigned height;
+};
+
 // InputSlot
 struct InputSlot
 {
@@ -61,6 +68,9 @@ struct InputSlot
 
 	virtual
 	void Update(void) = 0;
+
+	virtual
+	bool Render(const RenderParams&) = 0;
 };
 
 // OutputSlot
@@ -94,6 +104,9 @@ struct OutputSlot
 
 	virtual
 	void UpdateConnected(void) = 0;
+
+	virtual
+	bool Render(const RenderParams&) = 0;
 };
 
 // Node
@@ -121,6 +134,9 @@ struct Node
 
 	virtual
 	void Update(void) = 0;
+
+	virtual
+	bool Render(const RenderParams&) = 0;
 };
 
 } // namespace texgen

@@ -18,7 +18,8 @@ namespace texgen {
 OGLPLUS_LIB_FUNC
 Blur2DOutputSlot::
 Blur2DOutputSlot(Node& parent)
- : _input(parent, "Input", Vec4f(0))
+ : BaseOutputSlot(parent)
+ , _input(parent, "Input", Vec4f(0))
 { }
 
 OGLPLUS_LIB_FUNC
@@ -50,31 +51,31 @@ Definitions(std::ostream& result, unsigned version)
 	result << "	" << DataTypeName(ValueType()) << "\n";
 	result << "	r  = ";
 	_input.Expression(result, version);
-	result << "(o+vec3( 0, 0, 0))";
+	result << "(o+vec3( 0, 0, 0))*0.20;\n";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3(-1, 0, 0))";
+	result << "(o+vec3(-1, 0, 0))*0.10;\n";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3( 1, 0, 0))";
+	result << "(o+vec3( 1, 0, 0))*0.10;\n";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3( 0,-1, 0))";
+	result << "(o+vec3( 0,-1, 0))*0.10;\n";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3( 0, 1, 0))";
+	result << "(o+vec3( 0, 1, 0))*0.10;\n";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3(-1,-1, 0))";
+	result << "(o+vec3(-1,-1, 0))*0.05;\n";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3(-1, 1, 0))";
+	result << "(o+vec3(-1, 1, 0))*0.05;\n";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3( 1,-1, 0))";
+	result << "(o+vec3( 1,-1, 0))*0.05;\n";
 	result << "	r += ";
 	_input.Expression(result, version);
-	result << "(o+vec3( 1, 1, 0))";
+	result << "(o+vec3( 1, 1, 0))*0.05;\n";
 	result << "	return r;\n";
 	result << "}\n";
 	return result;

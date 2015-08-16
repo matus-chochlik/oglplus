@@ -18,8 +18,9 @@ namespace texgen {
 
 OGLPLUS_LIB_FUNC
 UniformOutputSlot::
-UniformOutputSlot(Node&, SlotDataType type)
- : _type(type)
+UniformOutputSlot(Node& parent, SlotDataType type)
+ : BaseOutputSlot(parent)
+ , _type(type)
 { }
 
 OGLPLUS_LIB_FUNC

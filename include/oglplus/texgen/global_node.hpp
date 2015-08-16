@@ -22,6 +22,8 @@ class BaseGlobalOutputSlot
  : public BaseOutputSlot
 {
 public:
+	BaseGlobalOutputSlot(Node& parent);
+
 	const char* TypeName(void)
 	OGLPLUS_OVERRIDE;
 };
@@ -30,6 +32,8 @@ class GlobalCoordinateSlot
  : public BaseGlobalOutputSlot
 {
 public:
+	GlobalCoordinateSlot(Node& parent);
+
 	const char* Name(void)
 	OGLPLUS_OVERRIDE;
 

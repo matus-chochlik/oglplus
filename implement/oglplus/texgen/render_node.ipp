@@ -113,9 +113,16 @@ _init_vao(void)
 
 OGLPLUS_LIB_FUNC
 RenderNode::
-RenderNode(void)
+RenderNode(unsigned xdiv, unsigned ydiv)
  : _input(*this, "Input", Vec4f(0.5f))
+ , _xdiv(xdiv)
+ , _ydiv(ydiv)
+ , _tile(0)
+ , _render_version(0)
 {
+	_render_params.version = 1;
+	assert(_xdiv > 0);
+	assert(_ydiv > 0);
 	_init_vao();
 	_init_prog();
 	_update_prog();
@@ -158,24 +165,6 @@ Input(std::size_t i)
 	return _input;
 }
 
-OGLPLUS_LIB_FUNC
-void
-RenderNode::
-Render(void)
-{
-	auto vpe = oglplus::Context::Viewport();
-
-	Optional<Uniform<Vec3f>>(_prog, "oglptgCoordDelta").TrySet(Vec3f(
-		1.0f/vpe.Width(), 1.0f/vpe.Height(), 1.f
-	));
-
-	Optional<Uniform<Vec3f>>(_prog, "oglptgOutputSize").TrySet(Vec3f(
-		vpe.Width(), vpe.Height(), 1.f
-	));
-
-	oglplus::Context::DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
-}
-
 
 OGLPLUS_LIB_FUNC
 void
@@ -192,8 +181,68 @@ RenderNode::
 Update(void)
 {
 	_update_prog();
-	Activate();
-	Render();
+}
+
+OGLPLUS_LIB_FUNC
+bool
+RenderNode::
+Render(const RenderParams& params)
+{
+	if(_render_version < params.version)
+	{
+		if(_tile == 0)
+		{
+			if(!_input.Render(params))
+			{
+				return false;
+			}
+
+			Optional<Uniform<Vec3f>>(_prog, "oglptgCoordDelta").TrySet(
+				Vec3f(1.0f/params.width, 1.0f/params.height, 1.0f)
+			);
+
+			Optional<Uniform<Vec3f>>(_prog, "oglptgOutputSize").TrySet(
+				Vec3f(params.width, params.height, 1.0f)
+			);
+		}
+
+		unsigned xtile = _tile%_xdiv;
+		unsigned ytile = _tile/_xdiv;
+
+		GLint w = params.width/_xdiv;
+		GLint h = params.height/_ydiv;
+
+		oglplus::Context::Enable(Capability::ScissorTest);
+		oglplus::Context::Scissor(xtile*w, ytile*h, w+1, h+1);
+		oglplus::Context::DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
+		oglplus::Context::Disable(Capability::ScissorTest);
+
+		if(++_tile < _xdiv*_ydiv)
+		{
+			return false;
+		}
+
+		_tile = 0;
+		_render_version = params.version;
+	}
+	return true;
+}
+
+OGLPLUS_LIB_FUNC
+bool
+RenderNode::
+Render(void)
+{
+	auto vpe = oglplus::Context::Viewport();
+	_render_params.width = vpe.Width();
+	_render_params.height = vpe.Height();
+
+	if(Render(_render_params))
+	{
+		++_render_params.version;
+		return true;
+	}
+	return false;
 }
 
 } // namespace texgen

@@ -14,6 +14,12 @@ namespace oglplus {
 namespace texgen {
 
 OGLPLUS_LIB_FUNC
+BaseNode::
+BaseNode(void)
+ : _render_input(0)
+{ }
+
+OGLPLUS_LIB_FUNC
 std::size_t
 BaseNode::
 InputCount(void)
@@ -68,6 +74,33 @@ Update(void)
 	{
 		Output(i).UpdateConnected();
 	}
+}
+
+OGLPLUS_LIB_FUNC
+bool
+BaseNode::
+Render(const RenderParams& params)
+{
+	if(InputCount() > 0)
+	{
+		next:
+		{
+			if(_render_input >= InputCount())
+			{
+				_render_input = 0;
+				return true;
+			}
+
+			if(Input(_render_input).Render(params))
+			{
+				++_render_input;
+				goto next;
+			}
+		}
+
+		return false;
+	}
+	return true;
 }
 
 OGLPLUS_LIB_FUNC

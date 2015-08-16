@@ -18,7 +18,8 @@ namespace texgen {
 OGLPLUS_LIB_FUNC
 NormalMapOutputSlot::
 NormalMapOutputSlot(Node& parent)
- : _input(parent, "Height", 0.0f)
+ : BaseOutputSlot(parent)
+ , _input(parent, "Height", 0.0f)
 { }
 
 OGLPLUS_LIB_FUNC

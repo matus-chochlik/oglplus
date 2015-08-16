@@ -18,7 +18,8 @@ namespace texgen {
 OGLPLUS_LIB_FUNC
 OffsetOutputSlot::
 OffsetOutputSlot(Node& parent)
- : _input(parent, "Input", Vec4f(0))
+ : BaseOutputSlot(parent)
+ , _input(parent, "Input", Vec4f(0))
  , _offset(parent, "Offset", Vec3f(0))
 { }
 

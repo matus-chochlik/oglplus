@@ -58,6 +58,9 @@ public:
 
 	void Update(void)
 	OGLPLUS_OVERRIDE;
+
+	bool Render(const RenderParams&)
+	OGLPLUS_OVERRIDE;
 };
 
 // FallbackInputSlot
@@ -70,13 +73,13 @@ private:
 public:
 	FallbackInputSlot(Node& parent, const char* name)
 	 : BaseInputSlot(parent, name)
-	 , _fallback()
+	 , _fallback(parent)
 	{ }
 
 	template <typename ... P>
 	FallbackInputSlot(Node& parent, const char* name, P&& ... p)
 	 : BaseInputSlot(parent, name)
-	 , _fallback(std::forward<P>(p)...)
+	 , _fallback(parent, std::forward<P>(p)...)
 	{ }
 
 	FallbackOutputSlot& Fallback(void)

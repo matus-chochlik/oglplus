@@ -23,9 +23,15 @@ class BaseOutputSlot
  : public OutputSlot
 {
 private:
+	Node* _parent;
 	std::set<InputSlot*> _slots;
 public:
+	BaseOutputSlot(Node& parent);
+
 	~BaseOutputSlot(void)
+	OGLPLUS_NOEXCEPT(true);
+
+	Node& Parent(void)
 	OGLPLUS_NOEXCEPT(true);
 
 	virtual
@@ -49,6 +55,9 @@ public:
 	void DisconnectIncompatible(void);
 
 	void UpdateConnected(void)
+	OGLPLUS_OVERRIDE;
+
+	bool Render(const RenderParams&)
 	OGLPLUS_OVERRIDE;
 
 	void AppendId(std::ostream&, const char*);

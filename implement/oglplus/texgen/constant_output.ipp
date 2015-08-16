@@ -14,6 +14,12 @@ namespace oglplus {
 namespace texgen {
 
 OGLPLUS_LIB_FUNC
+BaseConstantOutputSlot::
+BaseConstantOutputSlot(Node& parent)
+ : BaseOutputSlot(parent)
+{ }
+
+OGLPLUS_LIB_FUNC
 SlotDataType
 BaseConstantOutputSlot::
 _t(TypeTag<GLfloat>)
@@ -121,33 +127,33 @@ SupportsValueType(SlotDataType type)
 OGLPLUS_LIB_FUNC
 std::unique_ptr<OutputSlot>
 BaseConstantOutputSlot::
-MakeNew(SlotDataType type)
+MakeNew(Node& parent, SlotDataType type)
 {
 	if(SlotDataType::FloatVec4 == type)
 	{
 		return std::unique_ptr<OutputSlot>(
-			new ConstantOutputSlot<Vec4f>(Vec4f(0))
+			new ConstantOutputSlot<Vec4f>(parent, Vec4f(0))
 		);
 	}
 
 	if(SlotDataType::FloatVec3 == type)
 	{
 		return std::unique_ptr<OutputSlot>(
-			new ConstantOutputSlot<Vec3f>(Vec3f(0))
+			new ConstantOutputSlot<Vec3f>(parent, Vec3f(0))
 		);
 	}
 
 	if(SlotDataType::FloatVec2 == type)
 	{
 		return std::unique_ptr<OutputSlot>(
-			new ConstantOutputSlot<Vec2f>(Vec2f(0))
+			new ConstantOutputSlot<Vec2f>(parent, Vec2f(0))
 		);
 	}
 
 	if(SlotDataType::Float == type)
 	{
 		return std::unique_ptr<OutputSlot>(
-			new ConstantOutputSlot<GLfloat>(0)
+			new ConstantOutputSlot<GLfloat>(parent, 0)
 		);
 	}
 

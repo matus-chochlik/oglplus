@@ -15,6 +15,12 @@ namespace texgen {
 
 OGLPLUS_LIB_FUNC
 BaseOutputSlot::
+BaseOutputSlot(Node& parent)
+ : _parent(&parent)
+{ }
+
+OGLPLUS_LIB_FUNC
+BaseOutputSlot::
 ~BaseOutputSlot(void)
 OGLPLUS_NOEXCEPT(true)
 {
@@ -23,6 +29,16 @@ OGLPLUS_NOEXCEPT(true)
 		assert(slot);
 		slot->Disconnect(*this);
 	}
+}
+
+OGLPLUS_LIB_FUNC
+Node&
+BaseOutputSlot::
+Parent(void)
+OGLPLUS_NOEXCEPT(true)
+{
+	assert(_parent != nullptr);
+	return *_parent;
 }
 
 OGLPLUS_LIB_FUNC
@@ -82,6 +98,15 @@ UpdateConnected(void)
 		assert(slot);
 		slot->Update();
 	}
+}
+
+OGLPLUS_LIB_FUNC
+bool
+BaseOutputSlot::
+Render(const RenderParams& params)
+{
+	assert(_parent != nullptr);
+	return _parent->Render(params);
 }
 
 OGLPLUS_LIB_FUNC

@@ -18,7 +18,8 @@ namespace texgen {
 OGLPLUS_LIB_FUNC
 NewtonOutputSlot::
 NewtonOutputSlot(Node& parent, NewtonFunction function)
- : _coord(parent, "Coordinate")
+ : BaseOutputSlot(parent)
+ , _coord(parent, "Coordinate")
  , _offset(parent, "Offset", Vec3f(-0.5f,-0.5f,0))
  , _scale(parent, "Scale", Vec3f(4,4,1))
  , _function(function)

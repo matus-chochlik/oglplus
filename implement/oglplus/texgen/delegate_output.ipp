@@ -15,9 +15,19 @@ namespace texgen {
 
 OGLPLUS_LIB_FUNC
 DelegateOutputSlot::
-DelegateOutputSlot(std::unique_ptr<OutputSlot>&& output)
- : _output(std::move(output))
+DelegateOutputSlot(Node& parent, std::unique_ptr<OutputSlot>&& output)
+ : _parent(&parent)
+ , _output(std::move(output))
 { }
+
+OGLPLUS_LIB_FUNC
+Node&
+DelegateOutputSlot::
+Parent(void)
+{
+	assert(_parent != nullptr);
+	return *_parent;
+}
 
 OGLPLUS_LIB_FUNC
 void
@@ -98,6 +108,14 @@ DelegateOutputSlot::
 UpdateConnected(void)
 {
 	Output().UpdateConnected();
+}
+
+OGLPLUS_LIB_FUNC
+bool
+DelegateOutputSlot::
+Render(const RenderParams& params)
+{
+	return Output().Render(params);
 }
 
 } // namespace texgen

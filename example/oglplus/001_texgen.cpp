@@ -59,8 +59,8 @@ private:
 	texgen::SwizzleNode s1, s2;
 	texgen::Blur2DNode b1, b2, b3;
 	texgen::NormalMapNode nm;
-	texgen::RenderNode rn;
 	texgen::Random2DRGBANode tx;
+	texgen::RenderNode rn;
 
 public:
 	TriangleExample(void)
@@ -73,6 +73,7 @@ public:
 	 , s1("rrra")
 	 , s2("g")
 	 , tx(0, 256, 256)
+	 , rn(16,16)
 	{
 		//st.SetCoeff(Vec3f(-1,1,1));
 		//m1.SetZero(0.0f);
@@ -96,16 +97,23 @@ public:
 
 		//Connect(st.Output(0), m1.Input(2));
 
-m2.Output(0).Definitions(std::cout, 150) << std::endl;
-m2.Output(0).Expression(std::cout, 150) << std::endl;
+		Connect(m2.Output(0), b1.Input(0));
+		Connect(b1.Output(0), b2.Input(0));
+		Connect(b2.Output(0), b3.Input(0));
 
-		Connect(m2.Output(0), rn.Input(0));
+b1.Output(0).Definitions(std::cout, 150) << std::endl;
+b1.Output(0).Expression(std::cout, 150) << std::endl;
+
+
+		Connect(b2.Output(0), rn.Input(0));
 
 		rn.Update();
+		rn.Activate();
 		u1.BindUniform();
 		u2.BindUniform();
 
 		gl.Disable(Capability::DepthTest);
+
 	}
 
 	void Reshape(GLuint width, GLuint height)
@@ -115,25 +123,26 @@ m2.Output(0).Expression(std::cout, 150) << std::endl;
 
 	void Render(double time)
 	{
-		u1.SetValue(Vec4f(
-			SineWave01(time / 5.1),
-			SineWave01(time / 9.7),
-			SineWave01(time / 7.7),
-			1
-		));
-		u2.SetValue(Vec4f(
-			CosineWave01(time / 7.9),
-			CosineWave01(time / 9.9),
-			CosineWave01(time / 8.1),
-			1
-		));
-
-		rn.Render();
+		if(rn.Render())
+		{
+			u1.SetValue(Vec4f(
+				SineWave01(time / 5.1),
+				SineWave01(time / 9.7),
+				SineWave01(time / 7.7),
+				1
+			));
+			u2.SetValue(Vec4f(
+				CosineWave01(time / 7.9),
+				CosineWave01(time / 9.9),
+				CosineWave01(time / 8.1),
+				1
+			));
+		}
 	}
 
 	bool Continue(double duration)
 	{
-		return duration < 30;
+		return duration < 180;
 	}
 };
 

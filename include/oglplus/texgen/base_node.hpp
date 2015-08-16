@@ -22,7 +22,11 @@ namespace texgen {
 class BaseNode
  : public Node
 {
+private:
+	std::size_t _render_input;	
 public:
+	BaseNode(void);
+
 	std::size_t InputCount(void)
 	OGLPLUS_OVERRIDE;
 
@@ -39,6 +43,9 @@ public:
 	OGLPLUS_OVERRIDE;
 
 	void Update(void)
+	OGLPLUS_OVERRIDE;
+
+	bool Render(const RenderParams&)
 	OGLPLUS_OVERRIDE;
 };
 

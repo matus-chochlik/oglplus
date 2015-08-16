@@ -38,6 +38,8 @@ protected:
 	static void _format(std::ostream& os, const Vec3f& v);
 	static void _format(std::ostream& os, const Vec4f& v);
 public:
+	BaseConstantOutputSlot(Node& parent);
+
 	const char* TypeName(void)
 	OGLPLUS_OVERRIDE;
 
@@ -45,7 +47,7 @@ public:
 	bool SupportsValueType(SlotDataType type);
 
 	static
-	std::unique_ptr<OutputSlot> MakeNew(SlotDataType type);
+	std::unique_ptr<OutputSlot> MakeNew(Node&, SlotDataType type);
 };
 
 template <typename T>
@@ -55,8 +57,9 @@ class ConstantOutputSlot
 private:
 	T _v;
 public:
-	ConstantOutputSlot(T v)
-	 : _v(v)
+	ConstantOutputSlot(Node& parent, T v)
+	 : BaseConstantOutputSlot(parent)
+	 , _v(v)
 	{ }
 
 	void SetValue(T v)

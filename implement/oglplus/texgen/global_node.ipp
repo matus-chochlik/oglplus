@@ -14,12 +14,24 @@ namespace oglplus {
 namespace texgen {
 
 OGLPLUS_LIB_FUNC
+BaseGlobalOutputSlot::
+BaseGlobalOutputSlot(Node& parent)
+ : BaseOutputSlot(parent)
+{ }
+
+OGLPLUS_LIB_FUNC
 const char*
 BaseGlobalOutputSlot::
 TypeName(void)
 {
 	return "Global";
 }
+
+OGLPLUS_LIB_FUNC
+GlobalCoordinateSlot::
+GlobalCoordinateSlot(Node& parent)
+ : BaseGlobalOutputSlot(parent)
+{ }
 
 OGLPLUS_LIB_FUNC
 const char*

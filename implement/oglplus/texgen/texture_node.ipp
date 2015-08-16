@@ -24,7 +24,8 @@ TextureOutputSlot(
 	Texture&& texture,
 	TextureTarget target,
 	PixelDataFormat format
-): _coord(parent, "Coordinate")
+): BaseOutputSlot(parent)
+ , _coord(parent, "Coordinate")
  , _texture(std::move(texture))
  , _target(target)
  , _format(format)

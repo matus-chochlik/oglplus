@@ -18,7 +18,8 @@ namespace texgen {
 OGLPLUS_LIB_FUNC
 MixOutputSlot::
 MixOutputSlot(Node& parent)
- : _zero(parent, "Zero", Vec4f(0.0f))
+ : BaseOutputSlot(parent)
+ , _zero(parent, "Zero", Vec4f(0.0f))
  , _one(parent, "One", Vec4f(1.0f))
  , _value(parent, "Value", 0.5f)
 {

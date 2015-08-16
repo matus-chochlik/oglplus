@@ -18,7 +18,8 @@ namespace texgen {
 OGLPLUS_LIB_FUNC
 StripesOutputSlot::
 StripesOutputSlot(Node& parent)
- : _coord(parent, "Coordinate")
+ : BaseOutputSlot(parent)
+ , _coord(parent, "Coordinate")
  , _coeff(parent, "Coefficients", Vec3f(1,1,1))
  , _repeat(parent, "Repeat", Vec3f(8,8,8))
 { }

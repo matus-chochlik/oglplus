@@ -18,7 +18,8 @@ namespace texgen {
 OGLPLUS_LIB_FUNC
 UnaryArithmeticOutputSlot::
 UnaryArithmeticOutputSlot(Node& parent, UnaryArithmeticOp op)
- : _a(parent, "A", Vec4f(0.0f))
+ : BaseOutputSlot(parent)
+ , _a(parent, "A", Vec4f(0.0f))
  , _op(op)
 { }
 
@@ -154,7 +155,8 @@ Output(std::size_t i)
 OGLPLUS_LIB_FUNC
 BinaryArithmeticOutputSlot::
 BinaryArithmeticOutputSlot(Node& parent, BinaryArithmeticOp op)
- : _a(parent, "A", Vec4f(0.0f))
+ : BaseOutputSlot(parent)
+ , _a(parent, "A", Vec4f(0.0f))
  , _b(parent, "B", Vec4f(1.0f))
  , _op(op)
 {

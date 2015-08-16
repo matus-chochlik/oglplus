@@ -23,9 +23,10 @@ class AdaptiveConstantOutputSlot
 {
 public:
 	template <typename T>
-	AdaptiveConstantOutputSlot(T v)
+	AdaptiveConstantOutputSlot(Node& parent, T v)
 	 : DelegateOutputSlot(
-		std::unique_ptr<OutputSlot>(new ConstantOutputSlot<T>(v))
+		parent,
+		std::unique_ptr<OutputSlot>(new ConstantOutputSlot<T>(parent,v))
 	)
 	{ }
 
@@ -33,7 +34,9 @@ public:
 	void SetValue(T v)
 	{
 		DelegateOutputSlot::Assign(
-			std::unique_ptr<OutputSlot>(new ConstantOutputSlot<T>(v))
+			std::unique_ptr<OutputSlot>(
+				new ConstantOutputSlot<T>(Parent(),v)
+			)
 		);
 	}
 

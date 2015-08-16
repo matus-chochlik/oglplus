@@ -18,7 +18,8 @@ namespace texgen {
 OGLPLUS_LIB_FUNC
 InvertOutputSlot::
 InvertOutputSlot(Node& parent)
- : _input(parent, "Input", Vec4f(0))
+ : BaseOutputSlot(parent)
+ , _input(parent, "Input", Vec4f(0))
 { }
 
 OGLPLUS_LIB_FUNC

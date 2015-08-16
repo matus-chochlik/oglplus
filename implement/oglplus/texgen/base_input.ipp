@@ -139,6 +139,18 @@ Update(void)
 	_parent->Update();
 }
 
+OGLPLUS_LIB_FUNC
+bool
+BaseInputSlot::
+Render(const RenderParams& params)
+{
+	if(IsConnected())
+	{
+		return Output().Render(params);
+	}
+	return true;
+}
+
 } // namespace texgen
 } // namespace oglplus
 

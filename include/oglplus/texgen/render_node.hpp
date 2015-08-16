@@ -40,8 +40,13 @@ private:
 	void _init_vao(void);
 
 	FallbackInputSlot<ConstantOutputSlot<Vec4f>,true> _input;
+
+	unsigned _xdiv, _ydiv, _tile;
+
+	std::size_t _render_version;
+	RenderParams _render_params;
 public:
-	RenderNode(void);
+	RenderNode(unsigned xdiv = 1, unsigned ydiv = 1);
 
 	RenderNode& Activate(void);
 	RenderNode& Deactivate(void);
@@ -52,13 +57,16 @@ public:
 	InputSlot& Input(std::size_t)
 	OGLPLUS_OVERRIDE;
 
-	void Render(void);
-
 	void Validate(InputSlot& input)
 	OGLPLUS_OVERRIDE;
 
 	void Update(void)
 	OGLPLUS_OVERRIDE;
+
+	bool Render(const RenderParams&)
+	OGLPLUS_OVERRIDE;
+
+	bool Render(void);
 };
 
 } // namespace texgen
