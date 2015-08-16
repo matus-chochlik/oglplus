@@ -12,6 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 
+#include <oglplus/texgen/border_node.hpp>
 #include <oglplus/texgen/invert_node.hpp>
 #include <oglplus/texgen/offset_node.hpp>
 #include <oglplus/texgen/arithmetic_node.hpp>
@@ -57,7 +58,8 @@ private:
 	texgen::StripesNode st;
 	texgen::MixNode m1, m2;
 	texgen::SwizzleNode s1, s2;
-	texgen::Blur2DNode b1, b2, b3;
+	texgen::Blur2DNode b1;
+	texgen::Grow2DNode gr;
 	texgen::NormalMapNode nm;
 	texgen::Random2DRGBANode tx;
 	texgen::RenderNode rn;
@@ -83,7 +85,8 @@ public:
 		Connect(u1.Output(0), m1.Input(0));
 		Connect(u2.Output(0), m1.Input(1));
 
-		Connect(mb.Output(0), of.Input(0));
+		Connect(nt.Output(0), gr.Input(0));
+		Connect(gr.Output(0), of.Input(0));
 		Connect(of.Output(0), in.Input(0));
 		Connect(in.Output(0), ua.Input(0));
 		Connect(ua.Output(0), m1.Input(2));
@@ -95,17 +98,13 @@ public:
 
 		Connect(ba.Output(0), m2.Input(2));
 
-		//Connect(st.Output(0), m1.Input(2));
-
 		Connect(m2.Output(0), b1.Input(0));
-		Connect(b1.Output(0), b2.Input(0));
-		Connect(b2.Output(0), b3.Input(0));
 
 b1.Output(0).Definitions(std::cout, 150) << std::endl;
 b1.Output(0).Expression(std::cout, 150) << std::endl;
 
 
-		Connect(b2.Output(0), rn.Input(0));
+		Connect(b1.Output(0), rn.Input(0));
 
 		rn.Update();
 		rn.Activate();
