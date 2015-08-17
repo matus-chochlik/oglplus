@@ -36,6 +36,7 @@
           test</a></span></dt>
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.scissor_test">Scissor
           test</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.viewport">Viewport</a></span></dt>
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.drawing">Drawing</a></span></dt>
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.hints">Hints</a></span></dt>
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.limit_queries">Limit
@@ -48,6 +49,8 @@
           operations</a></span></dt>
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.pixel_ops">Pixel
           operations</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.synchronization">Synchronization</a></span></dt>
+<dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.rasterization">Rasterization</a></span></dt>
 </dl></div>
 <p>
           TODO
@@ -63,26 +66,30 @@
           TODO
         </p>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ClientContext</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.blending.ops">client::BlendingOps</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.blending.state">client::BlendingState</a>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.capabilities.state">client::CapabilityState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.viewport.state">client::ViewportState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.clip_control.state">client::ClipControlState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_masking.state">client::BufferMaskingState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_clearing.ops">client::BufferClearingOps</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_clearing.state">client::BufferClearingState</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.buffer_masking.state">client::BufferMaskingState</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.capabilities.state">client::CapabilityState</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.clip_control.state">client::ClipControlState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <span class="identifier">__client_RasterizationState</span>
+ <span class="special">,</span> <span class="keyword">public</span> <span class="identifier">__client_RasterizationOps</span>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.drawing.state">client::DrawingState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.drawing.ops">client::DrawingOps</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.computing.ops">client::ComputingOps</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.depth_test.state">client::DepthTestState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.stencil_test.state">client::StencilTestState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.scissor_test.state">client::ScissorTestState</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.drawing.ops">client::DrawingOps</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.drawing.state">client::DrawingState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.logic_ops.state">client::LogicOpState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.pixel_ops.state">client::PixelState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.pixel_ops.ops">client::PixelOps</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.blending.ops">client::BlendingOps</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.blending.state">client::BlendingState</a>
+ <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.synchronization" title="Synchronization">client::Synchronization</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.hints.state">client::HintState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.limit_queries" title="Limit queries">client::LimitQueries</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.numeric_queries" title="Numeric queries">client::NumericQueries</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.string_queries" title="String queries">client::StringQueries</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.logic_ops.state">client::LogicOpState</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.pixel_ops.ops">client::PixelOps</a>
- <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.pixel_ops.state">client::PixelState</a>
 <span class="comment">// TODO</span>
 <span class="special">{</span> <span class="special">};</span>
 </pre>
@@ -852,6 +859,51 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.viewport"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.viewport" title="Viewport">Viewport</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/viewport.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.client_context.viewport.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.viewport.state"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.viewport.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">ViewportState</span>
+<span class="special">{</span>
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack_indexed">SettingStackIndexed</a><span class="special">&lt;</span>
+		<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportExtents</a><span class="special">,</span> <span class="special">...&gt;,</span>
+		<a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportExtents</a><span class="special">,</span>
+		<a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a>
+	<span class="special">&gt;</span> <span class="identifier">Viewport</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.viewport.c0" href="client_context.html#oglplus.quickref.client_context.viewport.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack_indexed">SettingStackIndexed</a><span class="special">&lt;</span>
+		<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportDepthRange</a><span class="special">,</span> <span class="special">...&gt;,</span>
+		<a class="link" href="context.html#oglplus.quickref.context.viewport.helpers">context::ViewportDepthRange</a><span class="special">,</span>
+		<a class="link" href="viewport_index.html" title="Viewport index">ViewportIndex</a>
+	<span class="special">&gt;</span> <span class="identifier">DepthRange</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.viewport.c2" href="client_context.html#oglplus.quickref.client_context.viewport.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.viewport.c1"></a><a href="#oglplus.quickref.client_context.viewport.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Indexed set of stacks managing the extents for individual viewports.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.viewport.c3"></a><a href="#oglplus.quickref.client_context.viewport.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Indexed set of stacks managing the depth ranges for individual viewports.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="oglplus.quickref.client_context.drawing"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.drawing" title="Drawing">Drawing</a>
 </h3></div></div></div>
 <p>
@@ -1136,6 +1188,128 @@
                 Set of stacks managing the setting of numeric pixel parameters individually
                 for each value in the <a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a>
                 enumeration.
+              </p></td>
+</tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.synchronization"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.synchronization" title="Synchronization">Synchronization</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/synchronization.hpp&gt;</code>
+          </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">using</span> <span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="context.html#oglplus.quickref.context.synchronization" title="Synchronization">context::Synchronization</a><span class="special">;</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oglplus.quickref.client_context.rasterization"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.rasterization" title="Rasterization">Rasterization</a>
+</h3></div></div></div>
+<p>
+            <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client/rasterization.hpp&gt;</code>
+          </p>
+<h5>
+<a name="oglplus.quickref.client_context.rasterization.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.client_context.rasterization.state"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.rasterization.state">State</a>
+          </h5>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">client</span> <span class="special">{</span>
+
+<span class="keyword">class</span> <span class="identifier">RasterizationState</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.orientation">FaceOrientation</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">FrontFace</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.rasterization.c0" href="client_context.html#oglplus.quickref.client_context.rasterization.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">CullFace</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.rasterization.c2" href="client_context.html#oglplus.quickref.client_context.rasterization.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="polygon_mode.html" title="Polygon mode">PolygonMode</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">PolygonMode</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.rasterization.c4" href="client_context.html#oglplus.quickref.client_context.rasterization.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="context.html#oglplus.quickref.context.rasterization.helpers">context::PolygonOffsPara</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">PolygonOffset</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.rasterization.c6" href="client_context.html#oglplus.quickref.client_context.rasterization.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_provoking_vertex</span>
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="provoke_mode.html" title="Provoke mode">ProvokeMode</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">ProvokingVertex</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.rasterization.c8" href="client_context.html#oglplus.quickref.client_context.rasterization.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+<span class="preprocessor">#endif</span>
+
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><span class="identifier">GLfloat</span><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">LineWidth</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.rasterization.c10" href="client_context.html#oglplus.quickref.client_context.rasterization.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><span class="identifier">GLfloat</span><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">PointSize</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.rasterization.c12" href="client_context.html#oglplus.quickref.client_context.rasterization.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><span class="identifier">GLfloat</span><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">PointFadeThresholdSize</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.rasterization.c14" href="client_context.html#oglplus.quickref.client_context.rasterization.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span>
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><span class="identifier">GLfloat</span><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">MinSampleShading</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.rasterization.c16" href="client_context.html#oglplus.quickref.client_context.rasterization.c17"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_NV_fragment_coverage_to_color</span>
+	<a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><a class="link" href="frag_data_slot.html" title="Fragment data slot">FragDataSlot</a><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">FragmentCoverageColor</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.rasterization.c18" href="client_context.html#oglplus.quickref.client_context.rasterization.c19"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+<span class="preprocessor">#endif</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace client</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.rasterization.c1"></a><a href="#oglplus.quickref.client_context.rasterization.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of the front face orientation.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.rasterization.c3"></a><a href="#oglplus.quickref.client_context.rasterization.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of cull face.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.rasterization.c5"></a><a href="#oglplus.quickref.client_context.rasterization.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of polygon rasterization mode.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.rasterization.c7"></a><a href="#oglplus.quickref.client_context.rasterization.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of polygon offset parameters.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.rasterization.c9"></a><a href="#oglplus.quickref.client_context.rasterization.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of provoking vertex mode.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.rasterization.c11"></a><a href="#oglplus.quickref.client_context.rasterization.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of line width value.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.rasterization.c13"></a><a href="#oglplus.quickref.client_context.rasterization.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of point size value.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.rasterization.c15"></a><a href="#oglplus.quickref.client_context.rasterization.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of point fade threshold size value.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.rasterization.c17"></a><a href="#oglplus.quickref.client_context.rasterization.c16"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of the minimal sample shading value.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.rasterization.c19"></a><a href="#oglplus.quickref.client_context.rasterization.c18"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack managing the setting of the draw buffer used for fragment coverage
+                to color.
               </p></td>
 </tr>
 </table></div>
