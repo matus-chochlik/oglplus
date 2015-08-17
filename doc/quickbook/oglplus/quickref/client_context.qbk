@@ -30,9 +30,12 @@ TODO
 
 [def __client_ComputingOps [link oglplus.quickref.client_context.computing.ops client::ComputingOps]]
 
+[def __client_Rasterization [link oglplus.quickref.client_context.rasterization.state client::Rasterization]]
+
 [def __client_DepthTestState [link oglplus.quickref.client_context.depth_test.state client::DepthTestState]]
 [def __client_StencilTestState [link oglplus.quickref.client_context.stencil_test.state client::StencilTestState]]
 [def __client_ScissorTestState [link oglplus.quickref.client_context.scissor_test.state client::ScissorTestState]]
+[def __client_ViewportState [link oglplus.quickref.client_context.viewport.state client::ViewportState]]
 
 [def __client_DrawingOps [link oglplus.quickref.client_context.drawing.ops client::DrawingOps]]
 [def __client_DrawingState [link oglplus.quickref.client_context.drawing.state client::DrawingState]]
@@ -45,6 +48,8 @@ TODO
 [def __client_LogicOpState [link oglplus.quickref.client_context.logic_ops.state client::LogicOpState]]
 [def __client_PixelOps [link oglplus.quickref.client_context.pixel_ops.ops client::PixelOps]]
 [def __client_PixelState [link oglplus.quickref.client_context.pixel_ops.state client::PixelState]]
+
+[def __client_Synchronization [link oglplus.quickref.client_context.synchronization client::Synchronization]]
 
 [heading [^ClientContext]]
 
@@ -65,6 +70,7 @@ TODO
 [include client/depth_test.qbk]
 [include client/stencil_test.qbk]
 [include client/scissor_test.qbk]
+[include client/viewport.qbk]
 [include client/drawing.qbk]
 [include client/hints.qbk]
 [include client/limit_queries.qbk]
@@ -72,5 +78,7 @@ TODO
 [include client/string_queries.qbk]
 [include client/logic_ops.qbk]
 [include client/pixel_ops.qbk]
+[include client/synchronization.qbk]
+[include client/rasterization.qbk]
 
 [endsect]
