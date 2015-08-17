@@ -45,7 +45,7 @@ public:
 };
 
 class MandelbrotNode
- : public BaseNode
+ : public SingleBaseOutputNode
 {
 private:
 	MandelbrotOutputSlot _output;
@@ -58,10 +58,7 @@ public:
 	InputSlot& Input(std::size_t i)
 	OGLPLUS_OVERRIDE;
 
-	std::size_t OutputCount(void)
-	OGLPLUS_OVERRIDE;
-
-	OutputSlot& Output(std::size_t i)
+	BaseOutputSlot& SingleOutput(void)
 	OGLPLUS_OVERRIDE;
 };
 

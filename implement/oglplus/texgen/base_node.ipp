@@ -8,6 +8,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #include <oglplus/config/basic.hpp>
+#include <oglplus/texgen/base_output.hpp>
 #include <oglplus/assert.hpp>
 
 namespace oglplus {
@@ -101,6 +102,32 @@ Render(const RenderParams& params)
 		return false;
 	}
 	return true;
+}
+
+OGLPLUS_LIB_FUNC
+const char*
+SingleBaseOutputNode::
+TypeName(void)
+{
+	return SingleOutput().TypeName();
+}
+
+OGLPLUS_LIB_FUNC
+std::size_t
+SingleBaseOutputNode::
+OutputCount(void)
+{
+	return 1;
+}
+
+OGLPLUS_LIB_FUNC
+OutputSlot&
+SingleBaseOutputNode::
+Output(std::size_t index)
+{
+	assert(index == 0);
+	(void)index;
+	return SingleOutput();
 }
 
 OGLPLUS_LIB_FUNC

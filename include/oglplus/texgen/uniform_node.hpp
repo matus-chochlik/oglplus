@@ -46,7 +46,7 @@ public:
 };
 
 class UniformNode
- : public BaseNode
+ : public SingleBaseOutputNode
 {
 private:
 	UniformOutputSlot _output;
@@ -66,10 +66,7 @@ public:
 		return *this;
 	}
 
-	std::size_t OutputCount(void)
-	OGLPLUS_OVERRIDE;
-
-	OutputSlot& Output(std::size_t i)
+	BaseOutputSlot& SingleOutput(void)
 	OGLPLUS_OVERRIDE;
 };
 

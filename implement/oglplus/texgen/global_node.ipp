@@ -70,6 +70,14 @@ GlobalNode(void)
 { }
 
 OGLPLUS_LIB_FUNC
+const char*
+GlobalNode::
+TypeName(void)
+{
+	return "Global";
+}
+
+OGLPLUS_LIB_FUNC
 std::size_t
 GlobalNode::
 OutputCount(void)

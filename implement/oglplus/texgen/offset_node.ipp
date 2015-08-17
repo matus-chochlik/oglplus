@@ -98,19 +98,10 @@ Input(std::size_t i)
 }
 
 OGLPLUS_LIB_FUNC
-std::size_t
+BaseOutputSlot&
 OffsetNode::
-OutputCount(void)
+SingleOutput(void)
 {
-	return 1;
-}
-
-OGLPLUS_LIB_FUNC
-OutputSlot&
-OffsetNode::
-Output(std::size_t i)
-{
-	assert(i < OutputCount());
 	return _output;
 }
 

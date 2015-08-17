@@ -56,7 +56,7 @@ public:
 };
 
 class UnaryArithmeticNode
- : public BaseNode
+ : public SingleBaseOutputNode
 {
 private:
 	UnaryArithmeticOutputSlot _output;
@@ -82,10 +82,7 @@ public:
 	InputSlot& Input(std::size_t i)
 	OGLPLUS_OVERRIDE;
 
-	std::size_t OutputCount(void)
-	OGLPLUS_OVERRIDE;
-
-	OutputSlot& Output(std::size_t i)
+	BaseOutputSlot& SingleOutput(void)
 	OGLPLUS_OVERRIDE;
 };
 
@@ -144,7 +141,7 @@ public:
 };
 
 class BinaryArithmeticNode
- : public BaseNode
+ : public SingleBaseOutputNode
 {
 private:
 	BinaryArithmeticOutputSlot _output;
@@ -177,10 +174,7 @@ public:
 	InputSlot& Input(std::size_t i)
 	OGLPLUS_OVERRIDE;
 
-	std::size_t OutputCount(void)
-	OGLPLUS_OVERRIDE;
-
-	OutputSlot& Output(std::size_t i)
+	BaseOutputSlot& SingleOutput(void)
 	OGLPLUS_OVERRIDE;
 
 	void Validate(InputSlot&)

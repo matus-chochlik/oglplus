@@ -118,16 +118,23 @@ struct Node
 	{ }
 
 	virtual
+	const char* TypeName(void) = 0;
+
+	virtual
 	std::size_t InputCount(void) = 0;
 
 	virtual
 	InputSlot& Input(std::size_t index = 0) = 0;
+
+	InputSlot& InputByName(const char* name);
 
 	virtual
 	std::size_t OutputCount(void) = 0;
 
 	virtual
 	OutputSlot& Output(std::size_t index = 0) = 0;
+
+	OutputSlot& OutputByName(const char* name);
 
 	virtual
 	void Validate(InputSlot& input) = 0;
@@ -139,7 +146,47 @@ struct Node
 	bool Render(const RenderParams&) = 0;
 };
 
+static inline
+InputSlot& operator < (Node& node, const char* input_name)
+{
+	return node.InputByName(input_name);
+}
+
+static inline
+InputSlot& operator > (const char* input_name, Node& node)
+{
+	return node.InputByName(input_name);
+}
+
+static inline
+InputSlot& operator / (const char* input_name, Node& node)
+{
+	return node.InputByName(input_name);
+}
+
+static inline
+OutputSlot& operator > (Node& node, const char* output_name)
+{
+	return node.OutputByName(output_name);
+}
+
+static inline
+OutputSlot& operator < (const char* output_name, Node& node)
+{
+	return node.OutputByName(output_name);
+}
+
+static inline
+OutputSlot& operator / (Node& node, const char* output_name)
+{
+	return node.OutputByName(output_name);
+}
+
 } // namespace texgen
 } // namespace oglplus
+
+//#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/texgen/interface.ipp>
+//#endif
 
 #endif // include guard

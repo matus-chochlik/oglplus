@@ -51,6 +51,9 @@ public:
 	RenderNode& Activate(void);
 	RenderNode& Deactivate(void);
 
+	const char* TypeName(void)
+	OGLPLUS_OVERRIDE;
+
 	std::size_t InputCount(void)
 	OGLPLUS_OVERRIDE;
 

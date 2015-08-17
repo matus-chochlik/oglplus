@@ -52,6 +52,9 @@ private:
 public:
 	GlobalNode(void);
 
+	const char* TypeName(void)
+	OGLPLUS_OVERRIDE;
+
 	std::size_t OutputCount(void)
 	OGLPLUS_OVERRIDE;
 

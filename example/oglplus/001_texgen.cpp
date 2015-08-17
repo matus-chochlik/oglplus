@@ -88,31 +88,32 @@ public:
 		of.SetOffset(Vec3f(100,0,0));
 		
 
-		Connect(u1.Output(0), m1.Input(0));
-		Connect(u2.Output(0), m1.Input(1));
+		Connect(u1>"Output", m1<"Zero");
+		Connect(u2>"Output", m1<"One");
 
-		Connect(gn.Output(0), ad.Input(0));
+		Connect(gn/"Coordinate", "A">ad);
 		ad.SetB(Vec3f(-0.5,-0.5,0));
-		Connect(ad.Output(0), ci.Input(0));
-		Connect(ci.Output(0), gr.Input(0));
-		Connect(gr.Output(0), in.Input(0));
-		Connect(in.Output(0), ua.Input(0));
-		Connect(ua.Output(0), m1.Input(2));
-		Connect(m1.Output(0), s1.Input(0));
-		Connect(s1.Output(0), nm.Input(0));
 
-		Connect(tx.Output(0), ba.Input(0));
-		Connect(m1.Output(0), ba.Input(1));
+		Connect(ad/"Output", ci<"Coordinate");
+		Connect(ci/"Output", gr<"Input");
+		Connect(gr/"Output", in<"Input");
+		Connect(in/"Output", ua<"A");
+		Connect(ua/"Output", "Value"/m1);
+		Connect(m1/"Output", "Input"/s1);
+		Connect(s1/"Output", "Height"/nm);
 
-		Connect(ba.Output(0), m2.Input(2));
+		Connect(tx/"Output", ba.Input(0));
+		Connect(m1/"Output", ba.Input(1));
 
-		Connect(m2.Output(0), b1.Input(0));
+		Connect(ba/"Output", m2.Input(2));
+
+		Connect(m2/"Output", b1.Input(0));
 
 b1.Output(0).Definitions(std::cout, 150) << std::endl;
 b1.Output(0).Expression(std::cout, 150) << std::endl;
 
 
-		Connect(b1.Output(0), rn.Input(0));
+		Connect("Output"<b1, rn.Input(0));
 
 		rn.Update();
 		rn.Activate();

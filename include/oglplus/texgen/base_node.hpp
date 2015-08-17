@@ -49,6 +49,25 @@ public:
 	OGLPLUS_OVERRIDE;
 };
 
+class BaseOutputSlot;
+
+class SingleBaseOutputNode
+ : public BaseNode
+{
+public:
+	virtual
+	BaseOutputSlot& SingleOutput(void) = 0;
+
+	const char* TypeName(void)
+	OGLPLUS_OVERRIDE;
+
+	std::size_t OutputCount(void)
+	OGLPLUS_OVERRIDE;
+
+	OutputSlot& Output(std::size_t index)
+	OGLPLUS_OVERRIDE;
+};
+
 bool Connect(OutputSlot& output, InputSlot& input);
 void Disconnect(OutputSlot& output, InputSlot& input);
 

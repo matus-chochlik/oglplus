@@ -105,19 +105,10 @@ Input(std::size_t i)
 }
 
 OGLPLUS_LIB_FUNC
-std::size_t
+BaseOutputSlot&
 Blur2DNode::
-OutputCount(void)
+SingleOutput(void)
 {
-	return 1;
-}
-
-OGLPLUS_LIB_FUNC
-OutputSlot&
-Blur2DNode::
-Output(std::size_t i)
-{
-	assert(i < OutputCount());
 	return _output;
 }
 

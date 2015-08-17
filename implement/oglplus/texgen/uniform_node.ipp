@@ -78,19 +78,10 @@ UniformNode(SlotDataType type)
 { }
 
 OGLPLUS_LIB_FUNC
-std::size_t
+BaseOutputSlot&
 UniformNode::
-OutputCount(void)
+SingleOutput(void)
 {
-	return 1;
-}
-
-OGLPLUS_LIB_FUNC
-OutputSlot&
-UniformNode::
-Output(std::size_t i)
-{
-	assert(i < OutputCount());
 	return _output;
 }
 

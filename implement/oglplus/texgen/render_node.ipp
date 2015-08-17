@@ -149,6 +149,14 @@ Deactivate(void)
 }
 
 OGLPLUS_LIB_FUNC
+const char*
+RenderNode::
+TypeName(void)
+{
+	return "Render";
+}
+
+OGLPLUS_LIB_FUNC
 std::size_t
 RenderNode::
 InputCount(void)

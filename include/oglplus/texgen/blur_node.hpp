@@ -42,7 +42,7 @@ public:
 };
 
 class Blur2DNode
- : public BaseNode
+ : public SingleBaseOutputNode
 {
 private:
 	Blur2DOutputSlot _output;
@@ -55,10 +55,7 @@ public:
 	InputSlot& Input(std::size_t i)
 	OGLPLUS_OVERRIDE;
 
-	std::size_t OutputCount(void)
-	OGLPLUS_OVERRIDE;
-
-	OutputSlot& Output(std::size_t i)
+	BaseOutputSlot& SingleOutput(void)
 	OGLPLUS_OVERRIDE;
 };
 

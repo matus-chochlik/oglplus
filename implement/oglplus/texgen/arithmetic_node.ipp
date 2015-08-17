@@ -136,19 +136,10 @@ Input(std::size_t i)
 }
 
 OGLPLUS_LIB_FUNC
-std::size_t
+BaseOutputSlot&
 UnaryArithmeticNode::
-OutputCount(void)
+SingleOutput(void)
 {
-	return 1;
-}
-
-OGLPLUS_LIB_FUNC
-OutputSlot&
-UnaryArithmeticNode::
-Output(std::size_t i)
-{
-	assert(i < OutputCount());
 	return _output;
 }
 
@@ -354,19 +345,10 @@ Input(std::size_t i)
 }
 
 OGLPLUS_LIB_FUNC
-std::size_t
+BaseOutputSlot&
 BinaryArithmeticNode::
-OutputCount(void)
+SingleOutput(void)
 {
-	return 1;
-}
-
-OGLPLUS_LIB_FUNC
-OutputSlot&
-BinaryArithmeticNode::
-Output(std::size_t i)
-{
-	assert(i < OutputCount());
 	return _output;
 }
 
