@@ -48,11 +48,13 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
+	texgen::GlobalNode gn;
 	texgen::CirclesNode ci;
 	texgen::InvertNode in;
 	texgen::OffsetNode of;
 	texgen::UnaryArithmeticNode ua;
 	texgen::BinaryArithmeticNode ba;
+	texgen::BinaryArithmeticNode ad;
 	texgen::UniformNode u1, u2;
 	texgen::NewtonNode nt;
 	texgen::MandelbrotNode mb;
@@ -71,6 +73,7 @@ public:
 	 : gl()
 	 , ua(texgen::UnaryArithmeticOp::Exp)
 	 , ba(texgen::BinaryArithmeticOp::Greater)
+	 , ad(texgen::BinaryArithmeticOp::Addition)
 	 , u1(texgen::SlotDataType::FloatVec4)
 	 , u2(texgen::SlotDataType::FloatVec4)
 	 , nt(texgen::NewtonFunction::Xe4minus1)
@@ -83,13 +86,16 @@ public:
 		//m1.SetZero(0.0f);
 		//m1.SetOne(1.0f);
 		of.SetOffset(Vec3f(100,0,0));
+		
 
 		Connect(u1.Output(0), m1.Input(0));
 		Connect(u2.Output(0), m1.Input(1));
 
+		Connect(gn.Output(0), ad.Input(0));
+		ad.SetB(Vec3f(-0.5,-0.5,0));
+		Connect(ad.Output(0), ci.Input(0));
 		Connect(ci.Output(0), gr.Input(0));
-		Connect(gr.Output(0), of.Input(0));
-		Connect(of.Output(0), in.Input(0));
+		Connect(gr.Output(0), in.Input(0));
 		Connect(in.Output(0), ua.Input(0));
 		Connect(ua.Output(0), m1.Input(2));
 		Connect(m1.Output(0), s1.Input(0));

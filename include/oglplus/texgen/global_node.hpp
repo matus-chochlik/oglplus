@@ -50,6 +50,8 @@ class GlobalNode
 private:
 	GlobalCoordinateSlot _coordinate;
 public:
+	GlobalNode(void);
+
 	std::size_t OutputCount(void)
 	OGLPLUS_OVERRIDE;
 

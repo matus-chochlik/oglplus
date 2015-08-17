@@ -64,6 +64,12 @@ Definitions(std::ostream& result, unsigned)
 }
 
 OGLPLUS_LIB_FUNC
+GlobalNode::
+GlobalNode(void)
+ : _coordinate(*this)
+{ }
+
+OGLPLUS_LIB_FUNC
 std::size_t
 GlobalNode::
 OutputCount(void)
