@@ -68,9 +68,6 @@ public:
 	OGLPLUS_OVERRIDE;
 };
 
-bool Connect(OutputSlot& output, InputSlot& input);
-void Disconnect(OutputSlot& output, InputSlot& input);
-
 } // namespace texgen
 } // namespace oglplus
 

@@ -27,13 +27,32 @@ InputByName(const char* name)
 			return Input(i);
 		}
 	}
-	throw std::runtime_error(
-		std::string("No input slot with name '")+
-		name+
-		std::string("' in '")+
-		TypeName()+
-		std::string("' node")
-	);
+
+	std::string message("No input slot with name '");
+	message.append(name);
+	message.append("' in '");
+	message.append(TypeName());
+	message.append("' node.");
+
+	if(InputCount() > 0)
+	{
+		message.append(" Use one of {'");
+		message.append(Input(0).Name());
+		for(std::size_t i=1,n=InputCount(); i<n; ++i)
+		{
+			message.append("', '");
+			message.append(Input(i).Name());
+		}
+		message.append("'}");
+	}
+	else
+	{
+		message.append(" This node type has no inputs");
+	}
+
+	message.append(".");
+
+	throw std::runtime_error(message);
 	return Input(0);
 }
 
@@ -49,14 +68,51 @@ OutputByName(const char* name)
 			return Output(i);
 		}
 	}
-	throw std::runtime_error(
-		std::string("Invalid out slot name '")+
-		name+
-		std::string("' in '")+
-		TypeName()+
-		std::string("' node")
-	);
+
+	std::string message("No output slot with name '");
+	message.append(name);
+	message.append("' in '");
+	message.append(TypeName());
+	message.append("' node.");
+
+	if(OutputCount() > 0)
+	{
+		message.append(" Use one of {'");
+		message.append(Output(0).Name());
+		for(std::size_t i=1,n=OutputCount(); i<n; ++i)
+		{
+			message.append("', '");
+			message.append(Output(i).Name());
+		}
+		message.append("'}");
+	}
+	else
+	{
+		message.append(" This node type has no outputs");
+	}
+
+	message.append(".");
+
+	throw std::runtime_error(message);
+
 	return Output(0);
+}
+
+OGLPLUS_LIB_FUNC
+bool
+Connect(OutputSlot& output, InputSlot& input)
+{
+	return
+		input.Connect(output)&&
+		output.Connect(input);
+}
+
+OGLPLUS_LIB_FUNC
+void
+Disconnect(OutputSlot& output, InputSlot& input)
+{
+	input.Disconnect(output);
+	output.Disconnect(input);
 }
 
 } // namespace texgen

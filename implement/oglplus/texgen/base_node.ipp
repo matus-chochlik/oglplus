@@ -130,23 +130,6 @@ Output(std::size_t index)
 	return SingleOutput();
 }
 
-OGLPLUS_LIB_FUNC
-bool
-Connect(OutputSlot& output, InputSlot& input)
-{
-	return
-		input.Connect(output)&&
-		output.Connect(input);
-}
-
-OGLPLUS_LIB_FUNC
-void
-Disconnect(OutputSlot& output, InputSlot& input)
-{
-	input.Disconnect(output);
-	output.Disconnect(input);
-}
-
 } // namespace texgen
 } // namespace oglplus
 

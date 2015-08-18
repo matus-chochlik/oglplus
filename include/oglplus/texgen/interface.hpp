@@ -147,15 +147,9 @@ struct Node
 };
 
 static inline
-InputSlot& operator < (Node& node, const char* input_name)
+InputSlot& operator > (std::size_t index, Node& node)
 {
-	return node.InputByName(input_name);
-}
-
-static inline
-InputSlot& operator > (const char* input_name, Node& node)
-{
-	return node.InputByName(input_name);
+	return node.Input(index);
 }
 
 static inline
@@ -165,21 +159,24 @@ InputSlot& operator / (const char* input_name, Node& node)
 }
 
 static inline
-OutputSlot& operator > (Node& node, const char* output_name)
-{
-	return node.OutputByName(output_name);
-}
-
-static inline
-OutputSlot& operator < (const char* output_name, Node& node)
-{
-	return node.OutputByName(output_name);
-}
-
-static inline
 OutputSlot& operator / (Node& node, const char* output_name)
 {
 	return node.OutputByName(output_name);
+}
+
+static inline
+OutputSlot& operator > (Node& node, std::size_t index)
+{
+	return node.Output(index);
+}
+
+bool Connect(OutputSlot& output, InputSlot& input);
+void Disconnect(OutputSlot& output, InputSlot& input);
+
+static inline
+bool operator + (OutputSlot& output, InputSlot& input)
+{
+	return Connect(output, input);
 }
 
 } // namespace texgen

@@ -12,6 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 
+#include <oglplus/texgen/voronoi_node.hpp>
 #include <oglplus/texgen/circles_node.hpp>
 #include <oglplus/texgen/border_node.hpp>
 #include <oglplus/texgen/invert_node.hpp>
@@ -48,6 +49,7 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
+	texgen::Voronoi2DNode vi;
 	texgen::GlobalNode gn;
 	texgen::CirclesNode ci;
 	texgen::InvertNode in;
@@ -86,39 +88,44 @@ public:
 		//m1.SetZero(0.0f);
 		//m1.SetOne(1.0f);
 		of.SetOffset(Vec3f(100,0,0));
+		ad.SetB(Vec3f(-0.5,-0.5,0));
 		
 
-		Connect(u1>"Output", m1<"Zero");
-		Connect(u2>"Output", m1<"One");
+		Connect(u1>0, "Zero"/m1);
+		Connect(u2>0, "One"/m1);
 
-		Connect(gn/"Coordinate", "A">ad);
-		ad.SetB(Vec3f(-0.5,-0.5,0));
+		Connect(gn/"Coordinate", "A"/ad);
 
-		Connect(ad/"Output", ci<"Coordinate");
-		Connect(ci/"Output", gr<"Input");
-		Connect(gr/"Output", in<"Input");
-		Connect(in/"Output", ua<"A");
+		Connect(ad/"Output", "Coordinate"/ci);
+		Connect(ci/"Output", "Input"/gr);
+		Connect(gr/"Output", "Input"/in);
+		Connect(in/"Output", "A"/ua);
 		Connect(ua/"Output", "Value"/m1);
 		Connect(m1/"Output", "Input"/s1);
 		Connect(s1/"Output", "Height"/nm);
 
-		Connect(tx/"Output", ba.Input(0));
-		Connect(m1/"Output", ba.Input(1));
+		Connect(tx/"Output", 0>ba);
+		Connect(m1/"Output", 1>ba);
 
-		Connect(ba/"Output", m2.Input(2));
+		Connect(ba/"Output", 2>m2);
 
-		Connect(m2/"Output", b1.Input(0));
-
-b1.Output(0).Definitions(std::cout, 150) << std::endl;
-b1.Output(0).Expression(std::cout, 150) << std::endl;
+		Connect(m2/"Output", 0>b1);
 
 
-		Connect("Output"<b1, rn.Input(0));
+		Connect(c0/"Output", "CellOffset"/vi);
+		Connect(vi/"Coordinate", "Coordinate"/c0);
+
+vi.Output(0).Definitions(std::cout, 150) << std::endl;
+vi.Output(0).Expression(std::cout, 150) << std::endl;
+		
+		Connect(vi.Output(0), rn.Input(0));
 
 		rn.Update();
 		rn.Activate();
+/*
 		u1.BindUniform();
 		u2.BindUniform();
+*/
 
 		gl.Disable(Capability::DepthTest);
 
@@ -133,6 +140,7 @@ b1.Output(0).Expression(std::cout, 150) << std::endl;
 	{
 		if(rn.Render())
 		{
+/*
 			u1.SetValue(Vec4f(
 				SineWave01(time / 5.1),
 				SineWave01(time / 9.7),
@@ -145,6 +153,7 @@ b1.Output(0).Expression(std::cout, 150) << std::endl;
 				CosineWave01(time / 8.1),
 				1
 			));
+*/
 		}
 	}
 

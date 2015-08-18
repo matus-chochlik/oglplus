@@ -26,7 +26,10 @@ void
 AdaptiveConstantOutputSlot::
 RequireValueType(SlotDataType type)
 {
-	Assign(BaseConstantOutputSlot::MakeNew(Parent(), type));
+	if(ValueType() != type)
+	{
+		Assign(BaseConstantOutputSlot::MakeNew(Parent(), type));
+	}
 }
 
 } // namespace texgen
