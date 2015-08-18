@@ -63,7 +63,7 @@ _update_prog(void)
 	source << "	fragColor = ";
 	ConversionPrefix(source, _input.ValueType(), v4);
 	_input.Expression(source, glsl_version);
-	source << "(vec3(0,0,0))";
+	source << "(vec3(0), vec3(0))";
 	ConversionSuffix(source, _input.ValueType(), v4, 0,0,0,1);
 	source << ";\n";
 	source << "}\n";

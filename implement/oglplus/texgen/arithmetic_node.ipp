@@ -78,7 +78,7 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << DataTypeName(otype) << " ";
 	AppendId(result);
-	result << "(vec3 o){\n\t";
+	result << "(vec3 po, vec3 so){\n\t";
 
 	result << "return ";
 
@@ -106,7 +106,7 @@ Definitions(std::ostream& result, unsigned version)
 			result << "log2("; break;
 	}
 	ConversionPrefix(result, itype, otype);
-	_a.Expression(result, version) << "(o)";
+	_a.Expression(result, version) << "(po, so)";
 	ConversionSuffix(result, itype, otype);
 	result << ");\n}\n";
 	return result;
@@ -225,7 +225,7 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << DataTypeName(otype) << " ";
 	AppendId(result);
-	result << "(vec3 o){\n\t";
+	result << "(vec3 po, vec3 so){\n\t";
 
 	result << "return ";
 
@@ -263,7 +263,7 @@ Definitions(std::ostream& result, unsigned version)
 	}
 	result << "\n\t\t";
 	ConversionPrefix(result, _a.ValueType(), otype);
-	_a.Expression(result, version) << "(o)";
+	_a.Expression(result, version) << "(po, so)";
 	ConversionSuffix(result, _a.ValueType(), otype);
 
 	switch(_op)
@@ -294,7 +294,7 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << "\n\t\t";
 	ConversionPrefix(result, _b.ValueType(), otype);
-	_b.Expression(result, version) << "(o)";
+	_b.Expression(result, version) << "(po, so)";
 	ConversionSuffix(result, _b.ValueType(), otype);
 	result << "\n\t";
 	switch(_op)

@@ -64,7 +64,7 @@ Definitions(std::ostream& result, unsigned)
 
 	result << DataTypeName(_type) << " ";
 	AppendId(result);
-	result << "(vec3 o){return ";
+	result << "(vec3 po, vec3 so){return ";
 	AppendId(result);
 	result << "u;";
 	result << "}\n";

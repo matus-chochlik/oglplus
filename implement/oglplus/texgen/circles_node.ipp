@@ -50,15 +50,15 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << "int ";
 	AppendId(result);
-	result << "(vec3 o)\n";
+	result << "(vec3 po, vec3 so)\n";
 	result << "{\n";
 	result << "	vec3 c = ";
 	ConversionPrefix(result, _coord.ValueType(), v3);
-	_coord.Expression(result, version) << "(o)";
+	_coord.Expression(result, version) << "(po, so)";
 	ConversionSuffix(result, _coord.ValueType(), v3,0,0,0,0) << ";\n";
 	result << "	c *= ";
 	ConversionPrefix(result, _repeat.ValueType(), v3);
-	_repeat.Expression(result, version) <<"(o)";
+	_repeat.Expression(result, version) <<"(po, so)";
 	ConversionSuffix(result, _repeat.ValueType(), v3) << ";\n";
 	result << "	return int(length(c))%2;\n";
 	result << "}\n";

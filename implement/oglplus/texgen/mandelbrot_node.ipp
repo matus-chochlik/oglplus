@@ -53,20 +53,20 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << "vec2 ";
 	AppendId(result);
-	result << "(vec3 o)\n";
+	result << "(vec3 po, vec3 so)\n";
 	result << "{\n";
 	result << "	vec2 z = vec2(0.0, 0.0);\n";
 	result << "	vec3 k = ";
 	ConversionPrefix(result, _coord.ValueType(), v3);
-	_coord.Expression(result, version) << "(o)";
+	_coord.Expression(result, version) << "(po, so)";
 	ConversionSuffix(result, _coord.ValueType(), v3,0,0,0,0) << ";\n";
 	result << "	k += ";
 	ConversionPrefix(result, _offset.ValueType(), v3);
-	_offset.Expression(result, version) <<"(o)";
+	_offset.Expression(result, version) <<"(po, so)";
 	ConversionSuffix(result, _offset.ValueType(), v3) << ";\n";
 	result << "	k *= ";
 	ConversionPrefix(result, _scale.ValueType(), v3);
-	_scale.Expression(result, version) << "(o)";
+	_scale.Expression(result, version) << "(po, so)";
 	ConversionSuffix(result, _scale.ValueType(), v3) << ";\n";
 	result << "	vec2 c = k.xy;\n";
 	result << "	int i = 0;\n";

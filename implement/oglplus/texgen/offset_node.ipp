@@ -51,13 +51,13 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << DataTypeName(ValueType()) << " ";
 	AppendId(result);
-	result << "(vec3 o)\n";
+	result << "(vec3 po, vec3 so)\n";
 	result << "{\n";
 	result << "	return ";
 	_input.Expression(result, version);
-	result << "(o+";
+	result << "(po+";
 	ConversionPrefix(result, _offset.ValueType(), v3);
-	_offset.Expression(result, version) <<"(o)";
+	_offset.Expression(result, version) <<"(po, so)";
 	ConversionSuffix(result, _offset.ValueType(), v3,0,0,0,0);
 	result << ");\n";
 	result << "}\n";

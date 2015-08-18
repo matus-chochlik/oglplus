@@ -57,15 +57,15 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << DataTypeName(ValueType()) << " ";
 	AppendId(result);
-	result << "(vec3 o){\n\t";
+	result << "(vec3 po, vec3 so){\n\t";
 
 	result << "return mix(\n\t\t";
 	ConversionPrefix(result, _zero.ValueType(), type);
-	_zero.Expression(result, version) << "(o)";
+	_zero.Expression(result, version) << "(po, so)";
 	ConversionSuffix(result, _zero.ValueType(), type);
 	result << ",\n\t\t";
 	ConversionPrefix(result, _one.ValueType(), type);
-	_one.Expression(result, version) << "(o)";
+	_one.Expression(result, version) << "(po, so)";
 	ConversionSuffix(result, _one.ValueType(), type);
 	result << ",\n\t\t";
 
@@ -75,13 +75,13 @@ Definitions(std::ostream& result, unsigned version)
 	)
 	{
 		ConversionPrefix(result, _value.ValueType(), SlotDataType::Float);
-		_value.Expression(result, version) << "(o)";
+		_value.Expression(result, version) << "(po, so)";
 		ConversionSuffix(result, _value.ValueType(), SlotDataType::Float);
 	}
 	else
 	{
 		ConversionPrefix(result, _value.ValueType(), type);
-		_value.Expression(result, version) << "(o)";
+		_value.Expression(result, version) << "(po, so)";
 		ConversionSuffix(result, _value.ValueType(), type);
 	}
 	result << "\n\t);\n}\n";

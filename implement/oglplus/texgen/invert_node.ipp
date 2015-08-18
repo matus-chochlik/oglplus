@@ -47,11 +47,11 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << DataTypeName(ValueType()) << " ";
 	AppendId(result);
-	result << "(vec3 o)\n";
+	result << "(vec3 po, vec3 so)\n";
 	result << "{\n";
 	result << "	return ";
 	result << DataTypeName(ValueType()) << "(1)-";
-	_input.Expression(result, version) << "(o);\n";
+	_input.Expression(result, version) << "(po, so);\n";
 	result << "}\n";
 	return result;
 }

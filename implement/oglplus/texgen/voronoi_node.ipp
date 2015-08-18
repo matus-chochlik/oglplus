@@ -64,19 +64,20 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << "vec3 ";
 	AppendId(result);
-	result << "(vec3 o)\n";
+	result << "(vec3 po, vec3 so)\n";
 	result << "{\n";
+
 	result << "	vec3 tc = ";
 	ConversionPrefix(result, _coord.ValueType(), v3);
-	_coord.Expression(result, version) << "(o)";
+	_coord.Expression(result, version) << "(po, so)";
 	ConversionSuffix(result, _coord.ValueType(), v3,0,0,0,0) << ";\n";
 
-	result << "	vec2 cc = ";
+	result << "	vec2 nc = ";
 	ConversionPrefix(result, _cells.ValueType(), v2);
-	_cells.Expression(result, version) << "(o)";
+	_cells.Expression(result, version) << "(po, so)";
 	ConversionSuffix(result, _cells.ValueType(), v2,1,1,1,1) << ";\n";
 
-	result << "	return vec3(floor(tc.xy*cc)/cc,tc.z);\n";
+	result << "	return vec3(floor(tc.xy*nc+so.xy)/nc,tc.z);\n";
 
 	result << "}\n";
 
@@ -118,7 +119,7 @@ SlotDataType
 Voronoi2DOutputSlot::
 ValueType(void)
 {
-	return SlotDataType::FloatVec2;
+	return SlotDataType::FloatVec3;
 }
 
 OGLPLUS_LIB_FUNC
@@ -129,42 +130,59 @@ Definitions(std::ostream& result, unsigned version)
 	_cell_offs.Definitions(result, version);
 
 	const SlotDataType v2 = SlotDataType::FloatVec2;
+	const SlotDataType v3 = SlotDataType::FloatVec3;
 
-	result << "vec2 ";
+	result << "vec3 ";
 	AppendId(result);
-	result << "(vec3 o)\n";
+	result << "(vec3 po, vec3 so)\n";
 	result << "{\n";
 
-	result << "	vec2 co = ";
+	result << "	vec3 tc = ";
+	ConversionPrefix(result, _coord._coord.ValueType(), v3);
+	_coord._coord.Expression(result, version) << "(po, so)";
+	ConversionSuffix(result, _coord._coord.ValueType(), v3,0,0,0,0) << ";\n";
+
+	result << "	vec2 nc = ";
+	ConversionPrefix(result, _coord._cells.ValueType(), v2);
+	_coord._cells.Expression(result, version) << "(po, so)";
+	ConversionSuffix(result, _coord._cells.ValueType(), v2,1,1,1,1) << ";\n";
+
+	result << "	vec2 inc = vec2(1)/nc;\n";
+
+	result << "	const vec2 of[9] = vec2[9](\n";
+	result << "		vec2(-1,-1),\n";
+	result << "		vec2(-1, 0),\n";
+	result << "		vec2(-1, 1),\n";
+	result << "		vec2( 0,-1),\n";
+	result << "		vec2( 0, 0),\n";
+	result << "		vec2( 0, 1),\n";
+	result << "		vec2( 1,-1),\n";
+	result << "		vec2( 1, 0),\n";
+	result << "		vec2( 1, 1)\n";
+	result << "	);\n";
+
+	result << "	float md = 2.0;\n";
+	result << "	int mc = 4;\n";
+	result << "	for(int c=0; c<9; ++c)\n";
+	result << "	{\n";
+	result << "		vec2 cc = floor(tc.xy*nc+so.xy+of[c])*inc;\n";
+	result << "		vec2 co = ";
 	ConversionPrefix(result, _cell_offs.ValueType(), v2);
-	_cell_offs.Expression(result, version) << "(o)";
+	_cell_offs.Expression(result, version) << "(po, so+vec3(of[c],0))";
 	ConversionSuffix(result, _cell_offs.ValueType(), v2,0.5,0.5,0,0) << ";\n";
-	result << "	return co;\n";
+
+	result << "		float d = distance(tc.xy, cc+co*inc);\n";
+	result << "		if(md > d)\n";
+	result << "		{\n";
+	result << "			md = d;\n";
+	result << "			mc = c;\n";
+	result << "		}\n";
+	result << "	}\n";
+
+	result << "	vec2 cc = floor(tc.xy*nc+so.xy+of[mc])*inc;\n";
+
+	result << "	return vec3(cc, md*min(nc.x,nc.y));\n";
 	result << "}\n";
-
-/*
-                "float dist(vec2 tc, vec2 ofs)"
-                "{"
-                "       vec2 cc = floor(tc+ofs);"
-                "       vec2 cp = texture(Tex, cc/textureSize(Tex, 0)).xy;"
-                "       return distance(tc, cc+cp);"
-                "}"
-                "vec3 voronoi(vec2 tc)"
-                "{"
-                "       float md = 2.0;"
-                "       int mc = 9;"
-                "       for(int c=0; c<9; ++c)"
-                "       {"
-                "               float d = dist(tc, offs[c]);"
-                "               if(md > d)"
-                "               {"
-                "                       md = d;"
-                "                       mc = c;"
-                "               }"
-                "       }"
-                "}"
-
-*/
 
 	return result;
 }

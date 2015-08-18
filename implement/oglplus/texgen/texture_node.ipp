@@ -154,7 +154,7 @@ Definitions(std::ostream& result, unsigned version)
 	result << DataTypeName(ValueType());
 	result << " ";
 	AppendId(result);
-	result << "(vec3 o){\n\treturn ";
+	result << "(vec3 po, vec3 so){\n\treturn ";
 
 	if(_target == TextureTarget::_2D)
 	{
@@ -165,7 +165,7 @@ Definitions(std::ostream& result, unsigned version)
 		result << "s,\n\t\t";
 		ConversionPrefix(result, _coord.ValueType(), v2);
 		_coord.Expression(result, version);
-		result << "(o)";
+		result << "(po, so)";
 		ConversionSuffix(result, _coord.ValueType(), v2,0,0,0,0);
 		result << "\n\t";
 		result << ")";

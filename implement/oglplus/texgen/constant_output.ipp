@@ -50,7 +50,7 @@ _format_head(std::ostream& os, const char* type_name)
 {
 	os	<< type_name << " ";
 	AppendId(os);
-	os	<< "(vec3 o)";
+	os	<< "(vec3 po, vec3 so)";
 	os	<< "{";
 }
 

@@ -56,8 +56,8 @@ Definitions(std::ostream& result, unsigned)
 {
 	result << "vec3 ";
 	AppendId(result);
-	result << "(vec3 o){return ";
-	result << "oglptgCoordinate+o*oglptgCoordDelta";
+	result << "(vec3 po, vec3 so){return ";
+	result << "oglptgCoordinate+po*oglptgCoordDelta";
 	result << ";}\n";
 
 	return result;
