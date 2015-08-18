@@ -76,6 +76,7 @@
 [def __ObjectSubtype [link oglplus.quickref.object.subtype ObjectSubtype]]
 [def __ObjTypeOps [link oglplus.quickref.object.type.ops ObjTypeOps]]
 [def __ObjGenDelOps [link oglplus.quickref.object.gendelops ObjGenDelOps]]
+[def __ObjBindingOps [link oglplus.quickref.object.ops ObjBindingOps]]
 [def __ObjCommonOps [link oglplus.quickref.object.ops ObjCommonOps]]
 [def __ObjZeroOps [link oglplus.quickref.object.ops ObjZeroOps]]
 [def __ObjectOps [link oglplus.quickref.object.ops ObjectOps]]
@@ -197,6 +198,8 @@
 [def __DSATransformFeedback [link oglplus.quickref.dsa_transform_feedback.def DSATransformFeedback]]
 
 [def __Optional_Object [link oglplus.quickref.object.optional Optional]]
+
+[def __BoundObjOps [link oglplus.quickref.object.bound.ops BoundObjOps]]
 
 [def __Reference [link oglplus.quickref.object.reference Reference]]
 [def __Sequence [link oglplus.quickref.object.sequence Sequence]]

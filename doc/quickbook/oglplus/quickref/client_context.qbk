@@ -51,6 +51,8 @@ TODO
 
 [def __client_Synchronization [link oglplus.quickref.client_context.synchronization client::Synchronization]]
 
+[def __client_CurrentObjects [link oglplus.quickref.client_context.object_binding client::CurrentObjects]]
+
 [heading [^ClientContext]]
 
 [header oglplus/client_context.hpp]
@@ -80,5 +82,6 @@ TODO
 [include client/pixel_ops.qbk]
 [include client/synchronization.qbk]
 [include client/rasterization.qbk]
+[include client/object_binding.qbk]
 
 [endsect]
