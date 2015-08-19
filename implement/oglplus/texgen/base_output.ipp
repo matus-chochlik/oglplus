@@ -52,7 +52,7 @@ Name(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 BaseOutputSlot::
-Definitions(std::ostream& result, unsigned)
+Definitions(std::ostream& result, CompileContext&)
 {
 	return result;
 }
@@ -110,11 +110,19 @@ Render(const RenderParams& params)
 }
 
 OGLPLUS_LIB_FUNC
+std::intptr_t
+BaseOutputSlot::
+GetId(void)
+{
+	return reinterpret_cast<std::intptr_t>(this);
+}
+
+OGLPLUS_LIB_FUNC
 void
 BaseOutputSlot::
 AppendId(std::ostream& out, const char* name)
 {
-	out << "oglptg" << name << reinterpret_cast<std::intptr_t>(this);
+	out << "oglptg" << name << GetId();
 }
 
 OGLPLUS_LIB_FUNC
@@ -128,7 +136,7 @@ AppendId(std::ostream& out)
 OGLPLUS_LIB_FUNC
 std::ostream&
 BaseOutputSlot::
-Expression(std::ostream& result, unsigned)
+Expression(std::ostream& result, CompileContext&)
 {
 	AppendId(result);
 	return result;

@@ -41,11 +41,11 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 NormalMapOutputSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
 	const SlotDataType ft = SlotDataType::Float;
 
-	_input.Definitions(result, version);
+	_input.Definitions(result, context);
 	result << "vec4 ";
 	AppendId(result);
 	result << "(vec3 po, vec3 so)\n";
@@ -53,23 +53,23 @@ Definitions(std::ostream& result, unsigned version)
 	result << "	float se = 0.05;\n"; // TODO variable strength
 	result << "	float ce = ";
 	ConversionPrefix(result, _input.ValueType(), ft);
- 	_input.Expression(result, version) << "(po+vec3( 0, 0, 0), so)";
+ 	_input.Expression(result, context) << "(po+vec3( 0, 0, 0), so)";
 	ConversionSuffix(result, _input.ValueType(), ft) << ";\n";
 	result << "	float px = ";
 	ConversionPrefix(result, _input.ValueType(), ft);
-	_input.Expression(result, version) << "(po+vec3(+1, 0, 0), so)";
+	_input.Expression(result, context) << "(po+vec3(+1, 0, 0), so)";
 	ConversionSuffix(result, _input.ValueType(), ft) << ";\n";
 	result << "	float py = ";
 	ConversionPrefix(result, _input.ValueType(), ft);
-	_input.Expression(result, version) << "(po+vec3( 0,+1, 0), so)";
+	_input.Expression(result, context) << "(po+vec3( 0,+1, 0), so)";
 	ConversionSuffix(result, _input.ValueType(), ft) << ";\n";
 	result << "	float nx = ";
 	ConversionPrefix(result, _input.ValueType(), ft);
-	_input.Expression(result, version) << "(po+vec3(-1, 0, 0), so)";
+	_input.Expression(result, context) << "(po+vec3(-1, 0, 0), so)";
 	ConversionSuffix(result, _input.ValueType(), ft) << ";\n";
 	result << "	float ny = ";
 	ConversionPrefix(result, _input.ValueType(), ft);
-	_input.Expression(result, version) << "(po+vec3( 0,-1, 0), so)";
+	_input.Expression(result, context) << "(po+vec3( 0,-1, 0), so)";
 	ConversionSuffix(result, _input.ValueType(), ft) << ";\n";
 	result << "	vec3 vpx = vec3(+se,  0, px-ce);\n";
 	result << "	vec3 vpy = vec3(  0,+se, py-ce);\n";

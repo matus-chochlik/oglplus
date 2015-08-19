@@ -44,11 +44,11 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 NewtonOutputSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	_coord.Definitions(result, version);
-	_offset.Definitions(result, version);
-	_scale.Definitions(result, version);
+	_coord.Definitions(result, context);
+	_offset.Definitions(result, context);
+	_scale.Definitions(result, context);
 
 	result << "#ifndef OGLPTG_COMPLEX_DIV\n";
 	result << "#define OGLPTG_COMPLEX_DIV\n";
@@ -116,15 +116,15 @@ Definitions(std::ostream& result, unsigned version)
 	result << "{\n";
 	result << "	vec3 k = ";
 	ConversionPrefix(result, _coord.ValueType(), v3);
-	_coord.Expression(result, version) << "(po, so)";
+	_coord.Expression(result, context) << "(po, so)";
 	ConversionSuffix(result, _coord.ValueType(), v3,0,0,0,0) << ";\n";
 	result << "	k += ";
 	ConversionPrefix(result, _offset.ValueType(), v3);
-	_offset.Expression(result, version) <<"(po, so)";
+	_offset.Expression(result, context) <<"(po, so)";
 	ConversionSuffix(result, _offset.ValueType(), v3) << ";\n";
 	result << "	k *= ";
 	ConversionPrefix(result, _scale.ValueType(), v3);
-	_scale.Expression(result, version) << "(po, so)";
+	_scale.Expression(result, context) << "(po, so)";
 	ConversionSuffix(result, _scale.ValueType(), v3) << ";\n";
 	result << ";\n";
 	result << "	vec2 z = k.xy;\n";

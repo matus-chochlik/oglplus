@@ -42,40 +42,40 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 Border2DOutputSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	_input.Definitions(result, version);
+	_input.Definitions(result, context);
 	result << DataTypeName(ValueType()) << " ";
 	AppendId(result);
 	result << "(vec3 po, vec3 so)\n";
 	result << "{\n";
 	result << "	" << DataTypeName(ValueType()) << "\n";
 	result << "	r = ";
-	_input.Expression(result, version);
+	_input.Expression(result, context);
 	result << "(po+vec3( 0, 0, 0), so);\n";
 	result << "	r = " << _sl_func << "(r,";
-	_input.Expression(result, version);
+	_input.Expression(result, context);
 	result << "(po+vec3(-1, 0, 0), so));\n";
 	result << "	r = " << _sl_func << "(r,";
-	_input.Expression(result, version);
+	_input.Expression(result, context);
 	result << "(po+vec3( 1, 0, 0), so));\n";
 	result << "	r = " << _sl_func << "(r,";
-	_input.Expression(result, version);
+	_input.Expression(result, context);
 	result << "(po+vec3( 0,-1, 0), so));\n";
 	result << "	r = " << _sl_func << "(r,";
-	_input.Expression(result, version);
+	_input.Expression(result, context);
 	result << "(po+vec3( 0, 1, 0), so));\n";
 	result << "	r = " << _sl_func << "(r,";
-	_input.Expression(result, version);
+	_input.Expression(result, context);
 	result << "(po+vec3(-1,-1, 0), so));\n";
 	result << "	r = " << _sl_func << "(r,";
-	_input.Expression(result, version);
+	_input.Expression(result, context);
 	result << "(po+vec3(-1, 1, 0), so));\n";
 	result << "	r = " << _sl_func << "(r,";
-	_input.Expression(result, version);
+	_input.Expression(result, context);
 	result << "(po+vec3( 1,-1, 0), so));\n";
 	result << "	r = " << _sl_func << "(r,";
-	_input.Expression(result, version);
+	_input.Expression(result, context);
 	result << "(po+vec3( 1, 1, 0), so));\n";
 	result << "	return r;\n";
 	result << "}\n";

@@ -42,10 +42,10 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 OffsetOutputSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	_input.Definitions(result, version);
-	_offset.Definitions(result, version);
+	_input.Definitions(result, context);
+	_offset.Definitions(result, context);
 
 	const SlotDataType v3 = SlotDataType::FloatVec3;
 
@@ -54,10 +54,10 @@ Definitions(std::ostream& result, unsigned version)
 	result << "(vec3 po, vec3 so)\n";
 	result << "{\n";
 	result << "	return ";
-	_input.Expression(result, version);
+	_input.Expression(result, context);
 	result << "(po+";
 	ConversionPrefix(result, _offset.ValueType(), v3);
-	_offset.Expression(result, version) <<"(po, so)";
+	_offset.Expression(result, context) <<"(po, so)";
 	ConversionSuffix(result, _offset.ValueType(), v3,0,0,0,0);
 	result << ");\n";
 	result << "}\n";

@@ -134,9 +134,9 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 TextureOutputSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	_coord.Definitions(result, version);
+	_coord.Definitions(result, context);
 
 	result << "uniform ";
 	if(_target == TextureTarget::_2D)
@@ -164,7 +164,7 @@ Definitions(std::ostream& result, unsigned version)
 		AppendId(result);
 		result << "s,\n\t\t";
 		ConversionPrefix(result, _coord.ValueType(), v2);
-		_coord.Expression(result, version);
+		_coord.Expression(result, context);
 		result << "(po, so)";
 		ConversionSuffix(result, _coord.ValueType(), v2,0,0,0,0);
 		result << "\n\t";

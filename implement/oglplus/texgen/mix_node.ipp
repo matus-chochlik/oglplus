@@ -47,11 +47,11 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 MixOutputSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	_zero.Definitions(result, version);
-	_one.Definitions(result, version);
-	_value.Definitions(result, version);
+	_zero.Definitions(result, context);
+	_one.Definitions(result, context);
+	_value.Definitions(result, context);
 
 	SlotDataType type = CommonDataType(_zero.ValueType(), _one.ValueType());
 
@@ -61,11 +61,11 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << "return mix(\n\t\t";
 	ConversionPrefix(result, _zero.ValueType(), type);
-	_zero.Expression(result, version) << "(po, so)";
+	_zero.Expression(result, context) << "(po, so)";
 	ConversionSuffix(result, _zero.ValueType(), type);
 	result << ",\n\t\t";
 	ConversionPrefix(result, _one.ValueType(), type);
-	_one.Expression(result, version) << "(po, so)";
+	_one.Expression(result, context) << "(po, so)";
 	ConversionSuffix(result, _one.ValueType(), type);
 	result << ",\n\t\t";
 
@@ -75,13 +75,13 @@ Definitions(std::ostream& result, unsigned version)
 	)
 	{
 		ConversionPrefix(result, _value.ValueType(), SlotDataType::Float);
-		_value.Expression(result, version) << "(po, so)";
+		_value.Expression(result, context) << "(po, so)";
 		ConversionSuffix(result, _value.ValueType(), SlotDataType::Float);
 	}
 	else
 	{
 		ConversionPrefix(result, _value.ValueType(), type);
-		_value.Expression(result, version) << "(po, so)";
+		_value.Expression(result, context) << "(po, so)";
 		ConversionSuffix(result, _value.ValueType(), type);
 	}
 	result << "\n\t);\n}\n";

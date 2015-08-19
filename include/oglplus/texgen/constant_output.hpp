@@ -73,7 +73,7 @@ public:
 		return _t(TypeTag<T>());
 	}
 
-	std::ostream& Definitions(std::ostream& result, unsigned)
+	std::ostream& Definitions(std::ostream& result, CompileContext&)
 	OGLPLUS_OVERRIDE
 	{
 		_format_head(result, DataTypeName(ValueType()));

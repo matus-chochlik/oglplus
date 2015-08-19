@@ -54,7 +54,7 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 UniformOutputSlot::
-Definitions(std::ostream& result, unsigned)
+Definitions(std::ostream& result, CompileContext&)
 {
 	result << "uniform ";
 	result << DataTypeName(_type);

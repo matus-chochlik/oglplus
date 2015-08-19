@@ -39,10 +39,10 @@ public:
 	SlotDataType ValueType(void)
 	OGLPLUS_OVERRIDE;
 
-	std::ostream& Definitions(std::ostream&, unsigned glsl_version)
+	std::ostream& Definitions(std::ostream&, CompileContext&)
 	OGLPLUS_OVERRIDE;
 
-	std::ostream& Expression(std::ostream&, unsigned glsl_version)
+	std::ostream& Expression(std::ostream&, CompileContext&)
 	OGLPLUS_OVERRIDE;
 
 	bool IsConnected(InputSlot& input)

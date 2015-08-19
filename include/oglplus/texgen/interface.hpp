@@ -40,6 +40,11 @@ struct RenderParams
 	unsigned height;
 };
 
+struct CompileContext
+{
+	const unsigned version;
+};
+
 // InputSlot
 struct InputSlot
 {
@@ -88,10 +93,10 @@ struct OutputSlot
 	SlotDataType ValueType(void) = 0;
 
 	virtual
-	std::ostream& Definitions(std::ostream&, unsigned glsl_version) = 0;
+	std::ostream& Definitions(std::ostream&, CompileContext&) = 0;
 
 	virtual
-	std::ostream& Expression(std::ostream&, unsigned glsl_version) = 0;
+	std::ostream& Expression(std::ostream&, CompileContext&) = 0;
 
 	virtual
 	bool IsConnected(InputSlot& input) = 0;

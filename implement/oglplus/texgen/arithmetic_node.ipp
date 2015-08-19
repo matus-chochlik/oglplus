@@ -69,9 +69,9 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 UnaryArithmeticOutputSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	_a.Definitions(result, version);
+	_a.Definitions(result, context);
 
 	const SlotDataType itype = _a.ValueType();
 	const SlotDataType otype = ValueType();
@@ -106,7 +106,7 @@ Definitions(std::ostream& result, unsigned version)
 			result << "log2("; break;
 	}
 	ConversionPrefix(result, itype, otype);
-	_a.Expression(result, version) << "(po, so)";
+	_a.Expression(result, context) << "(po, so)";
 	ConversionSuffix(result, itype, otype);
 	result << ");\n}\n";
 	return result;
@@ -216,10 +216,10 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 BinaryArithmeticOutputSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	_a.Definitions(result, version);
-	_b.Definitions(result, version);
+	_a.Definitions(result, context);
+	_b.Definitions(result, context);
 
 	const SlotDataType otype = ValueType();
 
@@ -263,7 +263,7 @@ Definitions(std::ostream& result, unsigned version)
 	}
 	result << "\n\t\t";
 	ConversionPrefix(result, _a.ValueType(), otype);
-	_a.Expression(result, version) << "(po, so)";
+	_a.Expression(result, context) << "(po, so)";
 	ConversionSuffix(result, _a.ValueType(), otype);
 
 	switch(_op)
@@ -294,7 +294,7 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << "\n\t\t";
 	ConversionPrefix(result, _b.ValueType(), otype);
-	_b.Expression(result, version) << "(po, so)";
+	_b.Expression(result, context) << "(po, so)";
 	ConversionSuffix(result, _b.ValueType(), otype);
 	result << "\n\t";
 	switch(_op)

@@ -54,10 +54,10 @@ OGLPLUS_LIB_FUNC
 std::ostream&
 Voronoi2DOutputSlot::
 CoordSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	_coord.Definitions(result, version);
-	_cells.Definitions(result, version);
+	_coord.Definitions(result, context);
+	_cells.Definitions(result, context);
 
 	const SlotDataType v2 = SlotDataType::FloatVec2;
 	const SlotDataType v3 = SlotDataType::FloatVec3;
@@ -69,12 +69,12 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << "	vec3 tc = ";
 	ConversionPrefix(result, _coord.ValueType(), v3);
-	_coord.Expression(result, version) << "(po, so)";
+	_coord.Expression(result, context) << "(po, so)";
 	ConversionSuffix(result, _coord.ValueType(), v3,0,0,0,0) << ";\n";
 
 	result << "	vec2 nc = ";
 	ConversionPrefix(result, _cells.ValueType(), v2);
-	_cells.Expression(result, version) << "(po, so)";
+	_cells.Expression(result, context) << "(po, so)";
 	ConversionSuffix(result, _cells.ValueType(), v2,1,1,1,1) << ";\n";
 
 	result << "	return vec3(floor(tc.xy*nc+so.xy)/nc,tc.z);\n";
@@ -125,9 +125,9 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 Voronoi2DOutputSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	_cell_offs.Definitions(result, version);
+	_cell_offs.Definitions(result, context);
 
 	const SlotDataType v2 = SlotDataType::FloatVec2;
 	const SlotDataType v3 = SlotDataType::FloatVec3;
@@ -139,12 +139,12 @@ Definitions(std::ostream& result, unsigned version)
 
 	result << "	vec3 tc = ";
 	ConversionPrefix(result, _coord._coord.ValueType(), v3);
-	_coord._coord.Expression(result, version) << "(po, so)";
+	_coord._coord.Expression(result, context) << "(po, so)";
 	ConversionSuffix(result, _coord._coord.ValueType(), v3,0,0,0,0) << ";\n";
 
 	result << "	vec2 nc = ";
 	ConversionPrefix(result, _coord._cells.ValueType(), v2);
-	_coord._cells.Expression(result, version) << "(po, so)";
+	_coord._cells.Expression(result, context) << "(po, so)";
 	ConversionSuffix(result, _coord._cells.ValueType(), v2,1,1,1,1) << ";\n";
 
 	result << "	vec2 inc = vec2(1)/nc;\n";
@@ -168,7 +168,7 @@ Definitions(std::ostream& result, unsigned version)
 	result << "		vec2 cc = floor(tc.xy*nc+so.xy+of[c])*inc;\n";
 	result << "		vec2 co = ";
 	ConversionPrefix(result, _cell_offs.ValueType(), v2);
-	_cell_offs.Expression(result, version) << "(po, so+vec3(of[c],0))";
+	_cell_offs.Expression(result, context) << "(po, so+vec3(of[c],0))";
 	ConversionSuffix(result, _cell_offs.ValueType(), v2,0.5,0.5,0,0) << ";\n";
 
 	result << "		float d = distance(tc.xy, cc+co*inc);\n";

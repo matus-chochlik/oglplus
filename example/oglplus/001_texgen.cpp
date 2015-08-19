@@ -12,6 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 
+#include <oglplus/texgen/components_node.hpp>
 #include <oglplus/texgen/posterize_node.hpp>
 #include <oglplus/texgen/worley_node.hpp>
 #include <oglplus/texgen/voronoi_node.hpp>
@@ -51,6 +52,7 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
+	texgen::ComponentsNode co;
 	texgen::PosterizeNode po;
 	texgen::Worley2DNode wy;
 	texgen::Voronoi2DNode vi;
@@ -123,11 +125,13 @@ public:
 		Connect(wy/"Coordinate", "Coordinate"/tx);
 		Connect(wy/"Output", "Input"/s2);
 		Connect(s2/"Output", "Input"/po);
+		Connect(po/"Output", "Input"/co);
 
-po.Output(0).Definitions(std::cout, 150) << std::endl;
-po.Output(0).Expression(std::cout, 150) << std::endl;
+texgen::CompileContext ctxt = {150};
+co.Output(0).Definitions(std::cout, ctxt) << std::endl;
+co.Output(0).Expression(std::cout, ctxt) << std::endl;
 
-		Connect(po.Output(0), rn.Input(0));
+		Connect(co.Output(0), rn.Input(0));
 
 		rn.Update();
 		rn.Activate();

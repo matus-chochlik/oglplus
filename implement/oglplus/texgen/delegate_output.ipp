@@ -65,17 +65,17 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 DelegateOutputSlot::
-Definitions(std::ostream& result, unsigned glsl_version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	return Output().Definitions(result, glsl_version);
+	return Output().Definitions(result, context);
 }
 
 OGLPLUS_LIB_FUNC
 std::ostream&
 DelegateOutputSlot::
-Expression(std::ostream& result, unsigned glsl_version)
+Expression(std::ostream& result, CompileContext& context)
 {
-	return Output().Expression(result, glsl_version);
+	return Output().Expression(result, context);
 }
 
 OGLPLUS_LIB_FUNC

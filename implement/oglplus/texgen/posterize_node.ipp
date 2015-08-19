@@ -42,10 +42,10 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 PosterizeOutputSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	_input.Definitions(result, version);
-	_levels.Definitions(result, version);
+	_input.Definitions(result, context);
+	_levels.Definitions(result, context);
 
 	result << DataTypeName(ValueType()) << " ";
 	AppendId(result);
@@ -53,12 +53,12 @@ Definitions(std::ostream& result, unsigned version)
 	result << "{\n";
 	result << "	" << DataTypeName(ValueType()) << " lvls = ";
 	ConversionPrefix(result, _levels.ValueType(), ValueType());
-	_levels.Expression(result, version) <<"(po, so)";
+	_levels.Expression(result, context) <<"(po, so)";
 	ConversionSuffix(result, _levels.ValueType(), ValueType(),4,4,4,4) << ";\n";
 	result << "	lvls = max(lvls, ";
 	result << DataTypeName(ValueType()) << "(1));\n";
 	result << "	return floor(";
-	_input.Expression(result, version);
+	_input.Expression(result, context);
 	result << "(po, so)*lvls)/lvls;\n";
 	result << "}\n";
 	return result;

@@ -46,23 +46,25 @@ _update_prog(void)
 {
 	_prog.DetachShader(_fs).Link();
 
-	const unsigned glsl_version = 150; // TODO
+	CompileContext context = {
+		150
+	};
 
 	const SlotDataType v4 = SlotDataType::FloatVec4;
 
 	std::stringstream source;
 
-	source << "#version " << glsl_version << "\n";
+	source << "#version " << context.version << "\n";
 	source << "in vec3 oglptgCoordinate;\n";
 	source << "uniform vec3 oglptgCoordDelta;\n";
 	source << "uniform vec3 oglptgOutputSize;\n";
-	_input.Definitions(source, glsl_version) << "\n";
+	_input.Definitions(source, context) << "\n";
 	source << "out vec4 fragColor;\n";
 	source << "void main(void)\n";
 	source << "{\n";
 	source << "	fragColor = ";
 	ConversionPrefix(source, _input.ValueType(), v4);
-	_input.Expression(source, glsl_version);
+	_input.Expression(source, context);
 	source << "(vec3(0), vec3(0))";
 	ConversionSuffix(source, _input.ValueType(), v4, 0,0,0,1);
 	source << ";\n";

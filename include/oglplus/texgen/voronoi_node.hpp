@@ -44,7 +44,7 @@ private:
 		SlotDataType ValueType(void)
 		OGLPLUS_OVERRIDE;
 
-		std::ostream& Definitions(std::ostream&, unsigned version)
+		std::ostream& Definitions(std::ostream&, CompileContext&)
 		OGLPLUS_OVERRIDE;
 
 		bool Render(const RenderParams&)
@@ -62,7 +62,7 @@ public:
 	SlotDataType ValueType(void)
 	OGLPLUS_OVERRIDE;
 
-	std::ostream& Definitions(std::ostream&, unsigned version)
+	std::ostream& Definitions(std::ostream&, CompileContext&)
 	OGLPLUS_OVERRIDE;
 };
 

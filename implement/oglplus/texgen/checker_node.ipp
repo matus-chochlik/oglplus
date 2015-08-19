@@ -41,10 +41,10 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 CheckerOutputSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	_coord.Definitions(result, version);
-	_repeat.Definitions(result, version);
+	_coord.Definitions(result, context);
+	_repeat.Definitions(result, context);
 
 	const SlotDataType v3 = SlotDataType::FloatVec3;
 
@@ -54,11 +54,11 @@ Definitions(std::ostream& result, unsigned version)
 	result << "{\n";
 	result << "	vec3 c = ";
 	ConversionPrefix(result, _coord.ValueType(), v3);
-	_coord.Expression(result, version) << "(po, so)";
+	_coord.Expression(result, context) << "(po, so)";
 	ConversionSuffix(result, _coord.ValueType(), v3,0,0,0,0) << ";\n";
 	result << "	c *= ";
 	ConversionPrefix(result, _repeat.ValueType(), v3);
-	_repeat.Expression(result, version) <<"(po, so)";
+	_repeat.Expression(result, context) <<"(po, so)";
 	ConversionSuffix(result, _repeat.ValueType(), v3) << ";\n";
 	result << "	return ((int(c.x)%2+int(c.y)%2+int(c.z)%2)%2);\n";
 	result << "}\n";

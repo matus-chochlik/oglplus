@@ -40,7 +40,7 @@ public:
 	const char* Name(void)
 	OGLPLUS_OVERRIDE;
 
-	std::ostream& Definitions(std::ostream&, unsigned)
+	std::ostream& Definitions(std::ostream&, CompileContext&)
 	OGLPLUS_OVERRIDE;
 
 	bool IsConnected(InputSlot& slot)
@@ -60,10 +60,12 @@ public:
 	bool Render(const RenderParams&)
 	OGLPLUS_OVERRIDE;
 
+	std::intptr_t GetId(void);
+
 	void AppendId(std::ostream&, const char*);
 	void AppendId(std::ostream&);
 
-	std::ostream& Expression(std::ostream&, unsigned)
+	std::ostream& Expression(std::ostream&, CompileContext&)
 	OGLPLUS_OVERRIDE;
 };
 

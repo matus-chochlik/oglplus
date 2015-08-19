@@ -106,27 +106,27 @@ public:
 		}
 	}
 
-	std::ostream& Definitions(std::ostream& out, unsigned version)
+	std::ostream& Definitions(std::ostream& out, CompileContext& context)
 	{
 		if(IsConnected())
 		{
-			return Output().Definitions(out, version);
+			return Output().Definitions(out, context);
 		}
 		else
 		{
-			return _fallback.Definitions(out, version);
+			return _fallback.Definitions(out, context);
 		}
 	}
 
-	std::ostream& Expression(std::ostream& out, unsigned version)
+	std::ostream& Expression(std::ostream& out, CompileContext& context)
 	{
 		if(IsConnected())
 		{
-			return Output().Expression(out, version);
+			return Output().Expression(out, context);
 		}
 		else
 		{
-			return _fallback.Expression(out, version);
+			return _fallback.Expression(out, context);
 		}
 	}
 };

@@ -41,9 +41,9 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 InvertOutputSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	_input.Definitions(result, version);
+	_input.Definitions(result, context);
 
 	result << DataTypeName(ValueType()) << " ";
 	AppendId(result);
@@ -51,7 +51,7 @@ Definitions(std::ostream& result, unsigned version)
 	result << "{\n";
 	result << "	return ";
 	result << DataTypeName(ValueType()) << "(1)-";
-	_input.Expression(result, version) << "(po, so);\n";
+	_input.Expression(result, context) << "(po, so);\n";
 	result << "}\n";
 	return result;
 }

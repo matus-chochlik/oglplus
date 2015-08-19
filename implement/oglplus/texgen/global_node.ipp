@@ -52,7 +52,7 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 GlobalCoordinateSlot::
-Definitions(std::ostream& result, unsigned)
+Definitions(std::ostream& result, CompileContext&)
 {
 	result << "vec3 ";
 	AppendId(result);

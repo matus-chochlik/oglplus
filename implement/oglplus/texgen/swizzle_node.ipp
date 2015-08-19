@@ -52,16 +52,16 @@ ValueType(void)
 OGLPLUS_LIB_FUNC
 std::ostream&
 SwizzleOutputSlot::
-Definitions(std::ostream& result, unsigned version)
+Definitions(std::ostream& result, CompileContext& context)
 {
-	_input.Definitions(result, version);
+	_input.Definitions(result, context);
 
 	result << DataTypeName(ValueType()) << " ";
 	AppendId(result);
 	result << "(vec3 po, vec3 so)\n";
 	result << "{\n";
 	result << "	return ";
-	_input.Expression(result, version);
+	_input.Expression(result, context);
 	result << "(po, so)." << _swizzle << ";\n";
 	result << "}\n";
 	return result;
