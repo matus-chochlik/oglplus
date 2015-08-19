@@ -362,6 +362,7 @@
 [def __OGLPLUS_ERROR_NO_GL_SYMBOL [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_GL_SYMBOL]]]
 [def __OGLPLUS_NO_GLFUNC_CHECKS [link oglplus.quickref.config.gl [^OGLPLUS_NO_GLFUNC_CHECKS]]]
 
+[def __OGLPLUS_NO_ENUM_VALUE_CLASSES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_CLASSES]]]
 [def __OGLPLUS_NO_ENUM_VALUE_RANGES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_RANGES]]]
 [def __OGLPLUS_NO_ENUM_VALUE_NAMES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_NAMES]]]
 

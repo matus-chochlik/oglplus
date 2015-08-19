@@ -19,7 +19,8 @@ all: \
 	_smart_values_ipp \
 	_lib_enum_value_name_ipp \
 	_lib_enum_value_range_ipp \
-	_qbk_qref_hpp
+	_qbk_qref_hpp \
+	_qbk_class_hpp
 
 .PHONY: _incl_enum_hpp
 _incl_enum_hpp: $(addprefix $(ROOT)/include/$(LIBRARY)/enums/,$(patsubst %.txt,%.hpp,$(SOURCES)))
@@ -172,6 +173,19 @@ $(ROOT)/doc/quickbook/$(LIBRARY)/quickref/enums/%.hpp: %.txt $(MAKE_ENUM)
 		--library $(LIBRARY) \
 		--base-lib-prefix $(LIB_PREFIX)\
 		--action qbk_hpp \
+		--input "$<" \
+		--output "$@" \
+		--output-id "$(subst /,_,$*)"
+	git add "$@"
+
+.PHONY: _qbk_class_hpp
+_qbk_class_hpp: $(addprefix $(ROOT)/doc/quickbook/$(LIBRARY)/quickref/enums/,$(patsubst %.txt,%_class.hpp,$(SOURCES)))
+
+$(ROOT)/doc/quickbook/$(LIBRARY)/quickref/enums/%_class.hpp: %.txt $(MAKE_ENUM)
+	$(MAKE_ENUM) \
+		--library $(LIBRARY) \
+		--base-lib-prefix $(LIB_PREFIX)\
+		--action qbk_class_hpp \
 		--input "$<" \
 		--output "$@" \
 		--output-id "$(subst /,_,$*)"
