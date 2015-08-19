@@ -127,7 +127,7 @@ public:
 		Connect(s2/"Output", "Input"/po);
 		Connect(po/"Output", "Input"/co);
 
-texgen::CompileContext ctxt = {150};
+texgen::CompileContext ctxt;
 co.Output(0).Definitions(std::cout, ctxt) << std::endl;
 co.Output(0).Expression(std::cout, ctxt) << std::endl;
 

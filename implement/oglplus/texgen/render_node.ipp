@@ -46,15 +46,13 @@ _update_prog(void)
 {
 	_prog.DetachShader(_fs).Link();
 
-	CompileContext context = {
-		150
-	};
+	CompileContext context;
 
 	const SlotDataType v4 = SlotDataType::FloatVec4;
 
 	std::stringstream source;
 
-	source << "#version " << context.version << "\n";
+	source << "#version " << context.GLSLVersion() << "\n";
 	source << "in vec3 oglptgCoordinate;\n";
 	source << "uniform vec3 oglptgCoordDelta;\n";
 	source << "uniform vec3 oglptgOutputSize;\n";

@@ -16,6 +16,7 @@
 #include <oglplus/config/compiler.hpp>
 #include <oglplus/string/def.hpp>
 
+#include <memory>
 #include <cstddef>
 #include <iosfwd>
 
@@ -40,9 +41,22 @@ struct RenderParams
 	unsigned height;
 };
 
-struct CompileContext
+class CompileContextImpl;
+
+class CompileContext
 {
-	const unsigned version;
+private:
+	std::unique_ptr<CompileContextImpl> _impl;
+
+	const CompileContextImpl& Impl(void) const;
+	CompileContextImpl& Impl(void);
+public:
+	CompileContext(void);
+
+	unsigned GLSLVersion(void) const;
+
+	void AddTag(const std::string& tag);
+	bool HasTag(const std::string& tag);
 };
 
 // InputSlot

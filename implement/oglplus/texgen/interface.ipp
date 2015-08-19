@@ -11,9 +11,85 @@
 #include <stdexcept>
 #include <cassert>
 #include <cstring>
+#include <set>
 
 namespace oglplus {
 namespace texgen {
+
+class CompileContextImpl
+{
+private:
+	unsigned _glsl_version;
+
+	std::set<std::string> _tags;
+public:
+	CompileContextImpl(unsigned glsl_version)
+	 : _glsl_version(glsl_version)
+	{ }
+
+	unsigned GLSLVersion(void) const
+	{
+		return _glsl_version;
+	}
+
+	void AddTag(const std::string& tag)
+	{
+		_tags.insert(tag);
+	}
+
+	bool
+	HasTag(const std::string& tag)
+	{
+		return _tags.find(tag) != _tags.end();
+	}
+};
+
+const CompileContextImpl&
+CompileContext::
+Impl(void) const
+{
+	assert(_impl != nullptr);
+	return *_impl;
+}
+
+CompileContextImpl&
+CompileContext::
+Impl(void)
+{
+	assert(_impl != nullptr);
+	return *_impl;
+}
+
+
+OGLPLUS_LIB_FUNC
+CompileContext::
+CompileContext(void)
+ : _impl(new CompileContextImpl(150))
+{ }
+
+OGLPLUS_LIB_FUNC
+unsigned
+CompileContext::
+GLSLVersion(void) const
+{
+	return Impl().GLSLVersion();
+}
+
+OGLPLUS_LIB_FUNC
+void
+CompileContext::
+AddTag(const std::string& tag)
+{
+	Impl().AddTag(tag);
+}
+
+OGLPLUS_LIB_FUNC
+bool
+CompileContext::
+HasTag(const std::string& tag)
+{
+	return Impl().HasTag(tag);
+}
 
 OGLPLUS_LIB_FUNC
 InputSlot&

@@ -9,6 +9,7 @@
  */
 #include <oglplus/config/basic.hpp>
 #include <oglplus/assert.hpp>
+#include <sstream>
 
 namespace oglplus {
 namespace texgen {
@@ -57,10 +58,15 @@ std::ostream&
 ComponentsOutputSlot::
 Definitions(std::ostream& result, CompileContext& context)
 {
-	result << "#ifndef OGLPTG_CMPNTS_" << GetId() << "\n";
-	result << "#define OGLPTG_CMPNTS_" << GetId() << "\n";
-	_input.Definitions(result, context);
-	result << "#endif\n";
+	std::stringstream tag;
+	tag << "Components" << GetId();
+
+	if(!context.HasTag(tag.str()))
+	{
+		_input.Definitions(result, context);
+
+		context.AddTag(tag.str());
+	}
 
 	result << DataTypeName(ValueType()) << " ";
 	AppendId(result);

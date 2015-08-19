@@ -50,62 +50,70 @@ Definitions(std::ostream& result, CompileContext& context)
 	_offset.Definitions(result, context);
 	_scale.Definitions(result, context);
 
-	result << "#ifndef OGLPTG_COMPLEX_DIV\n";
-	result << "#define OGLPTG_COMPLEX_DIV\n";
-	result << "vec2 oglptgComplexDiv(vec2 a, vec2 b)\n";
-	result << "{\n";
-	result << "	float d = dot(b, b);\n";
-	result << "	return (d == 0.0)?a:vec2(\n";
-	result << "		(a.x*b.x + a.y*b.y) / d,\n";
-	result << "		(a.y*b.x - a.x*b.y) / d\n";
-	result << "	);\n";
-	result << "}\n";
-	result << "#endif\n";
+	if(!context.HasTag("ComplexDiv"))
+	{
+		result << "vec2 oglptgComplexDiv(vec2 a, vec2 b)\n";
+		result << "{\n";
+		result << "	float d = dot(b, b);\n";
+		result << "	return (d == 0.0)?a:vec2(\n";
+		result << "		(a.x*b.x + a.y*b.y) / d,\n";
+		result << "		(a.y*b.x - a.x*b.y) / d\n";
+		result << "	);\n";
+		result << "}\n";
+
+		context.AddTag("ComplexDiv");
+	}
 
 	if(_function == NewtonFunction::Xe3minus1)
 	{
-		result << "#ifndef OGLPTG_NEWTON_XE3MINUS1\n";
-		result << "#define OGLPTG_NEWTON_XE3MINUS1\n";
-		result << "vec2 oglptgNewton_fXe3Minus1(vec2 n)\n";
-		result << "{\n";
-		result << "	return vec2(\n";
-		result << "		n.x*n.x*n.x - 3.0*n.x*n.y*n.y - 1.0,\n";
-		result << "		-n.y*n.y*n.y + 3.0*n.x*n.x*n.y\n";
-		result << "	);\n";
-		result << "}\n";
+		std::string tag("ComplexXe3minus1");
+		if(!context.HasTag(tag))
+		{
+			result << "vec2 oglptgNewton_fXe3Minus1(vec2 n)\n";
+			result << "{\n";
+			result << "	return vec2(\n";
+			result << "		n.x*n.x*n.x - 3.0*n.x*n.y*n.y - 1.0,\n";
+			result << "		-n.y*n.y*n.y + 3.0*n.x*n.x*n.y\n";
+			result << "	);\n";
+			result << "}\n";
 
-		result << "vec2 oglptgNewton_dfXe3Minus1(vec2 n)\n";
-		result << "{\n";
-		result << "	return 3.0 * vec2(\n";
-		result << "		n.x*n.x - n.y*n.y,\n";
-		result << "		2.0 * n.x * n.y\n";
-		result << "	);\n";
-		result << "}\n";
-		result << "#endif\n";
+			result << "vec2 oglptgNewton_dfXe3Minus1(vec2 n)\n";
+			result << "{\n";
+			result << "	return 3.0 * vec2(\n";
+			result << "		n.x*n.x - n.y*n.y,\n";
+			result << "		2.0 * n.x * n.y\n";
+			result << "	);\n";
+			result << "}\n";
+
+			context.AddTag(tag);
+		}
 	}
 	else if(_function == NewtonFunction::Xe4minus1)
 	{
-		result << "#ifndef OGLPTG_NEWTON_XE4MINUS1\n";
-		result << "#define OGLPTG_NEWTON_XE4MINUS1\n";
-		result << "vec2 oglptgNewton_fXe4Minus1(vec2 n)\n";
-		result << "{\n";
-		result << "	return vec2(\n";
-		result << "		n.x*n.x*n.x*n.x +\n";
-		result << "		n.y*n.y*n.y*n.y -\n";
-		result << "		6.0*n.x*n.x*n.y*n.y - 1.0,\n";
-		result << "		4.0*n.x*n.x*n.x*n.y -\n";
-		result << "		4.0*n.x*n.y*n.y*n.y\n";
-		result << "	);\n";
-		result << "}\n";
+		std::string tag("ComplexXe4minus1");
+		if(!context.HasTag(tag))
+		{
+			result << "vec2 oglptgNewton_fXe4Minus1(vec2 n)\n";
+			result << "{\n";
+			result << "	return vec2(\n";
+			result << "		n.x*n.x*n.x*n.x +\n";
+			result << "		n.y*n.y*n.y*n.y -\n";
+			result << "		6.0*n.x*n.x*n.y*n.y - 1.0,\n";
+			result << "		4.0*n.x*n.x*n.x*n.y -\n";
+			result << "		4.0*n.x*n.y*n.y*n.y\n";
+			result << "	);\n";
+			result << "}\n";
 
-		result << "vec2 oglptgNewton_dfXe4Minus1(vec2 n)\n";
-		result << "{\n";
-		result << "	return 4.0 * vec2(\n";
-		result << "		 n.x*n.x*n.x - 3.0*n.x*n.y*n.y,\n";
-		result << "		-n.y*n.y*n.y + 3.0*n.x*n.x*n.y\n";
-		result << "	);\n";
-		result << "}\n";
-		result << "#endif\n";
+			result << "vec2 oglptgNewton_dfXe4Minus1(vec2 n)\n";
+			result << "{\n";
+			result << "	return 4.0 * vec2(\n";
+			result << "		 n.x*n.x*n.x - 3.0*n.x*n.y*n.y,\n";
+			result << "		-n.y*n.y*n.y + 3.0*n.x*n.x*n.y\n";
+			result << "	);\n";
+			result << "}\n";
+
+			context.AddTag(tag);
+		}
 	}
 
 	const SlotDataType v3 = SlotDataType::FloatVec3;
