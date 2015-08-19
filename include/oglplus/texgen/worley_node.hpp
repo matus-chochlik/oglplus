@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/texgen/voronoi_node.hpp
+ *  @file oglplus/texgen/worley_node.hpp
  *
  *  @author Matus Chochlik
  *
@@ -9,8 +9,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_TEXGEN_VORONOI_NODE_HPP
-#define OGLPLUS_TEXGEN_VORONOI_NODE_HPP
+#ifndef OGLPLUS_TEXGEN_WORLEY_NODE_HPP
+#define OGLPLUS_TEXGEN_WORLEY_NODE_HPP
 
 #include <oglplus/texgen/base_node.hpp>
 #include <oglplus/texgen/base_input.hpp>
@@ -21,7 +21,7 @@
 namespace oglplus {
 namespace texgen {
 
-class Voronoi2DOutputSlot
+class Worley2DOutputSlot
  : public BaseOutputSlot
 {
 private:
@@ -53,8 +53,9 @@ private:
 public:
 	FallbackInputSlot<AdaptiveConstantOutputSlot,true> _cell_offs;
 	CoordSlot _coord;
+	unsigned _order;
 
-	Voronoi2DOutputSlot(Node& parent);
+	Worley2DOutputSlot(Node& parent, unsigned order);
 
 	const char* TypeName(void)
 	OGLPLUS_OVERRIDE;
@@ -66,15 +67,15 @@ public:
 	OGLPLUS_OVERRIDE;
 };
 
-class Voronoi2DNode
+class Worley2DNode
  : public BaseNode
 {
 private:
-	Voronoi2DOutputSlot _output;
+	Worley2DOutputSlot _output;
 public:
-	Voronoi2DNode(void);
+	Worley2DNode(unsigned order = 2);
 
-	Voronoi2DNode& SetCellCount(const Vec2f& cc);
+	Worley2DNode& SetCellCount(const Vec2f& cc);
 
 	const char* TypeName(void)
 	OGLPLUS_OVERRIDE;
@@ -97,7 +98,7 @@ public:
 } // namespace oglplus
 
 //#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/texgen/voronoi_node.ipp>
+#include <oglplus/texgen/worley_node.ipp>
 //#endif
 
 #endif // include guard

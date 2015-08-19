@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/texgen/voronoi_node.ipp
+ *  @file oglplus/texgen/worley_node.ipp
  *
  *  @author Matus Chochlik
  *
@@ -14,7 +14,7 @@ namespace oglplus {
 namespace texgen {
 
 OGLPLUS_LIB_FUNC
-Voronoi2DOutputSlot::
+Worley2DOutputSlot::
 CoordSlot::
 CoordSlot(Node& parent)
  : BaseOutputSlot(parent)
@@ -25,7 +25,7 @@ CoordSlot(Node& parent)
 
 OGLPLUS_LIB_FUNC
 const char*
-Voronoi2DOutputSlot::
+Worley2DOutputSlot::
 CoordSlot::
 Name(void)
 {
@@ -34,16 +34,16 @@ Name(void)
 
 OGLPLUS_LIB_FUNC
 const char*
-Voronoi2DOutputSlot::
+Worley2DOutputSlot::
 CoordSlot::
 TypeName(void)
 {
-	return "Vrni2DCoord";
+	return "Wrly2DCoord";
 }
 
 OGLPLUS_LIB_FUNC
 SlotDataType
-Voronoi2DOutputSlot::
+Worley2DOutputSlot::
 CoordSlot::
 ValueType(void)
 {
@@ -52,7 +52,7 @@ ValueType(void)
 
 OGLPLUS_LIB_FUNC
 std::ostream&
-Voronoi2DOutputSlot::
+Worley2DOutputSlot::
 CoordSlot::
 Definitions(std::ostream& result, unsigned version)
 {
@@ -86,7 +86,7 @@ Definitions(std::ostream& result, unsigned version)
 
 OGLPLUS_LIB_FUNC
 bool
-Voronoi2DOutputSlot::
+Worley2DOutputSlot::
 CoordSlot::
 Render(const RenderParams& params)
 {
@@ -99,24 +99,27 @@ Render(const RenderParams& params)
 }
 
 OGLPLUS_LIB_FUNC
-Voronoi2DOutputSlot::
-Voronoi2DOutputSlot(Node& parent)
+Worley2DOutputSlot::
+Worley2DOutputSlot(Node& parent, unsigned order)
  : BaseOutputSlot(parent)
  , _cell_offs(parent, "CellOffset", Vec2f(0.5,0.5))
  , _coord(parent)
-{ }
+ , _order(order)
+{
+	assert(order > 0);
+}
 
 OGLPLUS_LIB_FUNC
 const char*
-Voronoi2DOutputSlot::
+Worley2DOutputSlot::
 TypeName(void)
 {
-	return "Voronoi2D";
+	return "Worley2D";
 }
 
 OGLPLUS_LIB_FUNC
 SlotDataType
-Voronoi2DOutputSlot::
+Worley2DOutputSlot::
 ValueType(void)
 {
 	return SlotDataType::FloatVec4;
@@ -124,7 +127,7 @@ ValueType(void)
 
 OGLPLUS_LIB_FUNC
 std::ostream&
-Voronoi2DOutputSlot::
+Worley2DOutputSlot::
 Definitions(std::ostream& result, unsigned version)
 {
 	_cell_offs.Definitions(result, version);
@@ -161,8 +164,20 @@ Definitions(std::ostream& result, unsigned version)
 	result << "		vec2( 1, 1)\n";
 	result << "	);\n";
 
-	result << "	float md = 2.0;\n";
-	result << "	int mc = 4;\n";
+	result << "	float md[" << _order << "] = float[" << _order << "](";
+	for(unsigned i=1; i<_order; ++i)
+	{
+		result << "2.0,";
+	}
+	result << "2.0);\n";
+
+	result << "	int mc[" << _order << "] = int[" << _order << "](";
+	for(unsigned i=1; i<_order; ++i)
+	{
+		result << "4,";
+	}
+	result << "4);\n";
+
 	result << "	for(int c=0; c<9; ++c)\n";
 	result << "	{\n";
 	result << "		vec2 cc = floor(tc.xy*nc+so.xy+of[c])*inc;\n";
@@ -172,30 +187,39 @@ Definitions(std::ostream& result, unsigned version)
 	ConversionSuffix(result, _cell_offs.ValueType(), v2,0.5,0.5,0,0) << ";\n";
 
 	result << "		float d = distance(tc.xy, cc+co*inc);\n";
-	result << "		if(md > d)\n";
+	result << "		for(int i=0; i<" << _order << "; ++i)\n";
 	result << "		{\n";
-	result << "			md = d;\n";
-	result << "			mc = c;\n";
+	result << "			if(md[i] > d)\n";
+	result << "			{\n";
+	result << "				for(int j="<<_order-1<<"; j>i; --j)\n";
+	result << "				{\n";
+	result << "					md[j] = md[j-1];\n";
+	result << "					mc[j] = mc[j-1];\n";
+	result << "				}\n";
+	result << "				md[i] = d;\n";
+	result << "				mc[i] = c;\n";
+	result << "				break;\n";
+	result << "			}\n";
 	result << "		}\n";
 	result << "	}\n";
 
-	result << "	vec2 cc = floor(tc.xy*nc+so.xy+of[mc])*inc;\n";
+	result << "	vec2 cc = floor(tc.xy*nc+so.xy+of[mc["<<_order-1<<"]])*inc;\n";
 
-	result << "	return vec4(cc, 0, md*min(nc.x,nc.y)/sqrt(2.0));\n";
+	result << "	return vec4(cc, 0, md["<<_order-1<<"]*min(nc.x,nc.y)/sqrt(2.0));\n";
 	result << "}\n";
 
 	return result;
 }
 
 OGLPLUS_LIB_FUNC
-Voronoi2DNode::
-Voronoi2DNode(void)
- : _output(*this)
+Worley2DNode::
+Worley2DNode(unsigned order)
+ : _output(*this, order)
 { }
 
 OGLPLUS_LIB_FUNC
-Voronoi2DNode&
-Voronoi2DNode::
+Worley2DNode&
+Worley2DNode::
 SetCellCount(const Vec2f& cc)
 {
 	_output._coord._cells.Fallback().SetValue(cc);
@@ -204,7 +228,7 @@ SetCellCount(const Vec2f& cc)
 
 OGLPLUS_LIB_FUNC
 const char*
-Voronoi2DNode::
+Worley2DNode::
 TypeName(void)
 {
 	return _output.TypeName();
@@ -212,7 +236,7 @@ TypeName(void)
 
 OGLPLUS_LIB_FUNC
 std::size_t
-Voronoi2DNode::
+Worley2DNode::
 InputCount(void)
 {
 	return 2;
@@ -220,7 +244,7 @@ InputCount(void)
 
 OGLPLUS_LIB_FUNC
 InputSlot&
-Voronoi2DNode::
+Worley2DNode::
 Input(std::size_t i)
 {
 	assert(i < InputCount());
@@ -230,7 +254,7 @@ Input(std::size_t i)
 
 OGLPLUS_LIB_FUNC
 std::size_t
-Voronoi2DNode::
+Worley2DNode::
 OutputCount(void)
 {
 	return 2;
@@ -238,7 +262,7 @@ OutputCount(void)
 
 OGLPLUS_LIB_FUNC
 OutputSlot&
-Voronoi2DNode::
+Worley2DNode::
 Output(std::size_t i)
 {
 	assert(i < OutputCount());

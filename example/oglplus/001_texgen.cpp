@@ -12,6 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 
+#include <oglplus/texgen/worley_node.hpp>
 #include <oglplus/texgen/voronoi_node.hpp>
 #include <oglplus/texgen/circles_node.hpp>
 #include <oglplus/texgen/border_node.hpp>
@@ -49,6 +50,7 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
+	texgen::Worley2DNode wy;
 	texgen::Voronoi2DNode vi;
 	texgen::GlobalNode gn;
 	texgen::CirclesNode ci;
@@ -73,6 +75,7 @@ private:
 public:
 	TriangleExample(void)
 	 : gl()
+	 , wy(3)
 	 , ua(texgen::UnaryArithmeticOp::Exp)
 	 , ba(texgen::BinaryArithmeticOp::Greater)
 	 , ad(texgen::BinaryArithmeticOp::Addition)
@@ -80,7 +83,7 @@ public:
 	 , u2(texgen::SlotDataType::FloatVec4)
 	 , nt(texgen::NewtonFunction::Xe4minus1)
 	 , s1("rrra")
-	 , s2("g")
+	 , s2("aaa")
 	 , tx(0, 16, 16)
 	 , rn(16,16)
 	{
@@ -89,6 +92,8 @@ public:
 		//m1.SetOne(1.0f);
 		of.SetOffset(Vec3f(100,0,0));
 		ad.SetB(Vec3f(-0.5,-0.5,0));
+		vi.SetCellCount(Vec2f(16, 16));
+		wy.SetCellCount(Vec2f(16, 16));
 
 
 		Connect(u1>0, "Zero"/m1);
@@ -112,13 +117,14 @@ public:
 		Connect(m2/"Output", 0>b1);
 
 
-		Connect(tx/"Output", "CellOffset"/vi);
-		Connect(vi/"Coordinate", "Coordinate"/tx);
+		Connect(tx/"Output", "CellOffset"/wy);
+		Connect(wy/"Coordinate", "Coordinate"/tx);
+		Connect(wy/"Output", "Input"/s2);
 
-vi.Output(0).Definitions(std::cout, 150) << std::endl;
-vi.Output(0).Expression(std::cout, 150) << std::endl;
+s2.Output(0).Definitions(std::cout, 150) << std::endl;
+s2.Output(0).Expression(std::cout, 150) << std::endl;
 
-		Connect(vi.Output(0), rn.Input(0));
+		Connect(s2.Output(0), rn.Input(0));
 
 		rn.Update();
 		rn.Activate();
