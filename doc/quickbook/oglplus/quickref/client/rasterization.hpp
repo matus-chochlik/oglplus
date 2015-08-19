@@ -4,6 +4,13 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+//[oglplus_client_RasterizationOps
+namespace client {
+
+using oglplus::__context_RasterizationOps;
+
+} // namespace client
+//]
 //[oglplus_client_RasterizationState
 namespace client {
 

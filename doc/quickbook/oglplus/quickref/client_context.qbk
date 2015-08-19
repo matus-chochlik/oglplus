@@ -30,7 +30,8 @@ TODO
 
 [def __client_ComputingOps [link oglplus.quickref.client_context.computing.ops client::ComputingOps]]
 
-[def __client_Rasterization [link oglplus.quickref.client_context.rasterization.state client::Rasterization]]
+[def __client_RasterizationState [link oglplus.quickref.client_context.rasterization.state client::RasterizationState]]
+[def __client_RasterizationOps [link oglplus.quickref.client_context.rasterization.ops client::RasterizationOps]]
 
 [def __client_DepthTestState [link oglplus.quickref.client_context.depth_test.state client::DepthTestState]]
 [def __client_StencilTestState [link oglplus.quickref.client_context.stencil_test.state client::StencilTestState]]

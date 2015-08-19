@@ -10,6 +10,10 @@
 
 [import rasterization.hpp]
 
+[heading:ops Operations]
+
+[oglplus_client_RasterizationOps]
+
 [heading:state State]
 
 [oglplus_client_RasterizationState]
