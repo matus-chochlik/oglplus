@@ -12,6 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 
+#include <oglplus/texgen/posterize_node.hpp>
 #include <oglplus/texgen/worley_node.hpp>
 #include <oglplus/texgen/voronoi_node.hpp>
 #include <oglplus/texgen/circles_node.hpp>
@@ -50,6 +51,7 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
+	texgen::PosterizeNode po;
 	texgen::Worley2DNode wy;
 	texgen::Voronoi2DNode vi;
 	texgen::GlobalNode gn;
@@ -75,7 +77,7 @@ private:
 public:
 	TriangleExample(void)
 	 : gl()
-	 , wy(3)
+	 , wy(2)
 	 , ua(texgen::UnaryArithmeticOp::Exp)
 	 , ba(texgen::BinaryArithmeticOp::Greater)
 	 , ad(texgen::BinaryArithmeticOp::Addition)
@@ -120,11 +122,12 @@ public:
 		Connect(tx/"Output", "CellOffset"/wy);
 		Connect(wy/"Coordinate", "Coordinate"/tx);
 		Connect(wy/"Output", "Input"/s2);
+		Connect(s2/"Output", "Input"/po);
 
-s2.Output(0).Definitions(std::cout, 150) << std::endl;
-s2.Output(0).Expression(std::cout, 150) << std::endl;
+po.Output(0).Definitions(std::cout, 150) << std::endl;
+po.Output(0).Expression(std::cout, 150) << std::endl;
 
-		Connect(s2.Output(0), rn.Input(0));
+		Connect(po.Output(0), rn.Input(0));
 
 		rn.Update();
 		rn.Activate();
