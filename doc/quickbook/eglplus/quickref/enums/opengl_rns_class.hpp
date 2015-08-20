@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__OpenGLResetNotificationStrategy> class Transform>
-class __EnumToClass<Base, __OpenGLResetNotificationStrategy, Transform>
+class __EnumToClass<Base, __OpenGLResetNotificationStrategy, Transform> /*<
+Specialization of __EnumToClass for the __OpenGLResetNotificationStrategy enumeration.
+>*/
  : public Base
 {
 public:

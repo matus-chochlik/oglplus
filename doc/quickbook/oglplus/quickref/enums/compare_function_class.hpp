@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__CompareFunction> class Transform>
-class __EnumToClass<Base, __CompareFunction, Transform>
+class __EnumToClass<Base, __CompareFunction, Transform> /*<
+Specialization of __EnumToClass for the __CompareFunction enumeration.
+>*/
  : public Base
 {
 public:

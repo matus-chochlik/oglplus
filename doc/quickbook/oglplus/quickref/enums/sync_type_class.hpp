@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__SyncType> class Transform>
-class __EnumToClass<Base, __SyncType, Transform>
+class __EnumToClass<Base, __SyncType, Transform> /*<
+Specialization of __EnumToClass for the __SyncType enumeration.
+>*/
  : public Base
 {
 public:

@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__MultisampleResolve> class Transform>
-class __EnumToClass<Base, __MultisampleResolve, Transform>
+class __EnumToClass<Base, __MultisampleResolve, Transform> /*<
+Specialization of __EnumToClass for the __MultisampleResolve enumeration.
+>*/
  : public Base
 {
 public:

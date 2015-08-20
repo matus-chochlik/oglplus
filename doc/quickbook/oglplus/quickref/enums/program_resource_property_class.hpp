@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ProgramResourceProperty> class Transform>
-class __EnumToClass<Base, __ProgramResourceProperty, Transform>
+class __EnumToClass<Base, __ProgramResourceProperty, Transform> /*<
+Specialization of __EnumToClass for the __ProgramResourceProperty enumeration.
+>*/
  : public Base
 {
 public:

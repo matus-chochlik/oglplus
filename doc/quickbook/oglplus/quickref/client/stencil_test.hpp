@@ -18,7 +18,7 @@ private:
 	 : __SettingStack<__context_StencilFuncArgs, ...>
 	{ };
 public:
-	__EnumToClass<
+	__enums_EnumToClass_SingleFace<
 		__Nothing,
 		__SingleFace,
 		StencilFuncStack
@@ -35,7 +35,7 @@ private:
 	 : __SettingStack<__context_StencilOperations, ...>
 	{ };
 public:
-	__EnumToClass<
+	__enums_EnumToClass_SingleFace<
 		__Nothing,
 		__SingleFace,
 		StencilOpStack

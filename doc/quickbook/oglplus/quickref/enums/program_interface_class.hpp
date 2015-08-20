@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ProgramInterface> class Transform>
-class __EnumToClass<Base, __ProgramInterface, Transform>
+class __EnumToClass<Base, __ProgramInterface, Transform> /*<
+Specialization of __EnumToClass for the __ProgramInterface enumeration.
+>*/
  : public Base
 {
 public:

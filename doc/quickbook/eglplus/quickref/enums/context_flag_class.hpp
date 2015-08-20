@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ContextFlag> class Transform>
-class __EnumToClass<Base, __ContextFlag, Transform>
+class __EnumToClass<Base, __ContextFlag, Transform> /*<
+Specialization of __EnumToClass for the __ContextFlag enumeration.
+>*/
  : public Base
 {
 public:

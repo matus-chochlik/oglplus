@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ColorBufferType> class Transform>
-class __EnumToClass<Base, __ColorBufferType, Transform>
+class __EnumToClass<Base, __ColorBufferType, Transform> /*<
+Specialization of __EnumToClass for the __ColorBufferType enumeration.
+>*/
  : public Base
 {
 public:

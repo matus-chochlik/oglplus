@@ -19,7 +19,7 @@ private:
 	{ };
 public:
 
-	__EnumToClass<
+	__enums_EnumToClass_HintTarget<
 		__Nothing,
 		__HintTarget,
 		Hint

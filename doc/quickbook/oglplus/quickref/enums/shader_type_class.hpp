@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ShaderType> class Transform>
-class __EnumToClass<Base, __ShaderType, Transform>
+class __EnumToClass<Base, __ShaderType, Transform> /*<
+Specialization of __EnumToClass for the __ShaderType enumeration.
+>*/
  : public Base
 {
 public:

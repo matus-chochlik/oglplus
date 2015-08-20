@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__StencilOperation> class Transform>
-class __EnumToClass<Base, __StencilOperation, Transform>
+class __EnumToClass<Base, __StencilOperation, Transform> /*<
+Specialization of __EnumToClass for the __StencilOperation enumeration.
+>*/
  : public Base
 {
 public:

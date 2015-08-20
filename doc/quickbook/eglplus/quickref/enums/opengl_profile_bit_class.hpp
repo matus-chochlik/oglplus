@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__OpenGLProfileBit> class Transform>
-class __EnumToClass<Base, __OpenGLProfileBit, Transform>
+class __EnumToClass<Base, __OpenGLProfileBit, Transform> /*<
+Specialization of __EnumToClass for the __OpenGLProfileBit enumeration.
+>*/
  : public Base
 {
 public:

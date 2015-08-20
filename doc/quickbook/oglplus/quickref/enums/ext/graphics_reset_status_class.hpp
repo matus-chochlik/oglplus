@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__GraphicsResetStatusARB> class Transform>
-class __EnumToClass<Base, __GraphicsResetStatusARB, Transform>
+class __EnumToClass<Base, __GraphicsResetStatusARB, Transform> /*<
+Specialization of __EnumToClass for the __GraphicsResetStatusARB enumeration.
+>*/
  : public Base
 {
 public:

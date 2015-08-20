@@ -32,7 +32,7 @@ private:
 	{ };
 public:
 
-	__EnumToClass<
+	__enums_EnumToClass_SingleFace<
 		__Nothing,
 		__SingleFace,
 		StencilMaskStack

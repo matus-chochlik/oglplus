@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__CompatibilityMatrixMode> class Transform>
-class __EnumToClass<Base, __CompatibilityMatrixMode, Transform>
+class __EnumToClass<Base, __CompatibilityMatrixMode, Transform> /*<
+Specialization of __EnumToClass for the __CompatibilityMatrixMode enumeration.
+>*/
  : public Base
 {
 public:

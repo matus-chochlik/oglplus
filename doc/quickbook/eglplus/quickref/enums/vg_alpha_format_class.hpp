@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__VGAlphaFormat> class Transform>
-class __EnumToClass<Base, __VGAlphaFormat, Transform>
+class __EnumToClass<Base, __VGAlphaFormat, Transform> /*<
+Specialization of __EnumToClass for the __VGAlphaFormat enumeration.
+>*/
  : public Base
 {
 public:

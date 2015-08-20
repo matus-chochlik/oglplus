@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__VGColorspace> class Transform>
-class __EnumToClass<Base, __VGColorspace, Transform>
+class __EnumToClass<Base, __VGColorspace, Transform> /*<
+Specialization of __EnumToClass for the __VGColorspace enumeration.
+>*/
  : public Base
 {
 public:

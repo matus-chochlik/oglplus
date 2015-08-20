@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__TransparentType> class Transform>
-class __EnumToClass<Base, __TransparentType, Transform>
+class __EnumToClass<Base, __TransparentType, Transform> /*<
+Specialization of __EnumToClass for the __TransparentType enumeration.
+>*/
  : public Base
 {
 public:

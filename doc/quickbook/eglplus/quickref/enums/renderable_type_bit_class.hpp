@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__RenderableTypeBit> class Transform>
-class __EnumToClass<Base, __RenderableTypeBit, Transform>
+class __EnumToClass<Base, __RenderableTypeBit, Transform> /*<
+Specialization of __EnumToClass for the __RenderableTypeBit enumeration.
+>*/
  : public Base
 {
 public:

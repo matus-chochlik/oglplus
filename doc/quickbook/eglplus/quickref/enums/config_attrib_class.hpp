@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ConfigAttrib> class Transform>
-class __EnumToClass<Base, __ConfigAttrib, Transform>
+class __EnumToClass<Base, __ConfigAttrib, Transform> /*<
+Specialization of __EnumToClass for the __ConfigAttrib enumeration.
+>*/
  : public Base
 {
 public:

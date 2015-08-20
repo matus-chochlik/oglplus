@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__StringQuery> class Transform>
-class __EnumToClass<Base, __StringQuery, Transform>
+class __EnumToClass<Base, __StringQuery, Transform> /*<
+Specialization of __EnumToClass for the __StringQuery enumeration.
+>*/
  : public Base
 {
 public:

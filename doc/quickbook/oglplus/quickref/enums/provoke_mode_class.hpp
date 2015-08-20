@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ProvokeMode> class Transform>
-class __EnumToClass<Base, __ProvokeMode, Transform>
+class __EnumToClass<Base, __ProvokeMode, Transform> /*<
+Specialization of __EnumToClass for the __ProvokeMode enumeration.
+>*/
  : public Base
 {
 public:

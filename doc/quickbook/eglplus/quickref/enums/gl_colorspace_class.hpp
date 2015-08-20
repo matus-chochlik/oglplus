@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__GLColorspace> class Transform>
-class __EnumToClass<Base, __GLColorspace, Transform>
+class __EnumToClass<Base, __GLColorspace, Transform> /*<
+Specialization of __EnumToClass for the __GLColorspace enumeration.
+>*/
  : public Base
 {
 public:

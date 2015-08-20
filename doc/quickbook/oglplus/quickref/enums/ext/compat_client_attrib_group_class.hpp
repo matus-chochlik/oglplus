@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__CompatibilityClientAttributeGroup> class Transform>
-class __EnumToClass<Base, __CompatibilityClientAttributeGroup, Transform>
+class __EnumToClass<Base, __CompatibilityClientAttributeGroup, Transform> /*<
+Specialization of __EnumToClass for the __CompatibilityClientAttributeGroup enumeration.
+>*/
  : public Base
 {
 public:

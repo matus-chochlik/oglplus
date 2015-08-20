@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__MemoryBarrierBit> class Transform>
-class __EnumToClass<Base, __MemoryBarrierBit, Transform>
+class __EnumToClass<Base, __MemoryBarrierBit, Transform> /*<
+Specialization of __EnumToClass for the __MemoryBarrierBit enumeration.
+>*/
  : public Base
 {
 public:

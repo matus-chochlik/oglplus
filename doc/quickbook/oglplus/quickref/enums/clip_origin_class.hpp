@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ClipOrigin> class Transform>
-class __EnumToClass<Base, __ClipOrigin, Transform>
+class __EnumToClass<Base, __ClipOrigin, Transform> /*<
+Specialization of __EnumToClass for the __ClipOrigin enumeration.
+>*/
  : public Base
 {
 public:

@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__DebugSeverity> class Transform>
-class __EnumToClass<Base, __DebugSeverity, Transform>
+class __EnumToClass<Base, __DebugSeverity, Transform> /*<
+Specialization of __EnumToClass for the __DebugSeverity enumeration.
+>*/
  : public Base
 {
 public:

@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ResetNotificationStrategyARB> class Transform>
-class __EnumToClass<Base, __ResetNotificationStrategyARB, Transform>
+class __EnumToClass<Base, __ResetNotificationStrategyARB, Transform> /*<
+Specialization of __EnumToClass for the __ResetNotificationStrategyARB enumeration.
+>*/
  : public Base
 {
 public:

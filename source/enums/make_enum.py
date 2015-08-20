@@ -284,7 +284,9 @@ def action_qbk_class_hpp(options):
 	print_newline(options)
 
 	print_line(options, "template <typename Base, template<__%s> class Transform>" % options.enum_name)
-	print_line(options, "class __EnumToClass<Base, __%s, Transform>" %options.enum_name)
+	print_line(options, "class __EnumToClass<Base, __%s, Transform> /*<" %options.enum_name)
+	print_line(options, "Specialization of __EnumToClass for the __%s enumeration." %options.enum_name)
+	print_line(options, ">*/")
 	print_line(options, " : public Base")
 	print_line(options, "{")
 	print_line(options, "public:")

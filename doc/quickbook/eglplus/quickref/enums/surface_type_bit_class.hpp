@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__SurfaceTypeBit> class Transform>
-class __EnumToClass<Base, __SurfaceTypeBit, Transform>
+class __EnumToClass<Base, __SurfaceTypeBit, Transform> /*<
+Specialization of __EnumToClass for the __SurfaceTypeBit enumeration.
+>*/
  : public Base
 {
 public:

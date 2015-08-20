@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__LimitQuery> class Transform>
-class __EnumToClass<Base, __LimitQuery, Transform>
+class __EnumToClass<Base, __LimitQuery, Transform> /*<
+Specialization of __EnumToClass for the __LimitQuery enumeration.
+>*/
  : public Base
 {
 public:

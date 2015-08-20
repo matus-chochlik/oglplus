@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ContextFlagBit> class Transform>
-class __EnumToClass<Base, __ContextFlagBit, Transform>
+class __EnumToClass<Base, __ContextFlagBit, Transform> /*<
+Specialization of __EnumToClass for the __ContextFlagBit enumeration.
+>*/
  : public Base
 {
 public:

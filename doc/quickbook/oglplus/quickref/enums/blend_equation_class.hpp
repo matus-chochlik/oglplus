@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__BlendEquation> class Transform>
-class __EnumToClass<Base, __BlendEquation, Transform>
+class __EnumToClass<Base, __BlendEquation, Transform> /*<
+Specialization of __EnumToClass for the __BlendEquation enumeration.
+>*/
  : public Base
 {
 public:

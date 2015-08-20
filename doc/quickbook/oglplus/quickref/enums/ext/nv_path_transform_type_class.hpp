@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__PathNVTransformType> class Transform>
-class __EnumToClass<Base, __PathNVTransformType, Transform>
+class __EnumToClass<Base, __PathNVTransformType, Transform> /*<
+Specialization of __EnumToClass for the __PathNVTransformType enumeration.
+>*/
  : public Base
 {
 public:

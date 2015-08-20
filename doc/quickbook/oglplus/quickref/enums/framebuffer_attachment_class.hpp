@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__FramebufferAttachment> class Transform>
-class __EnumToClass<Base, __FramebufferAttachment, Transform>
+class __EnumToClass<Base, __FramebufferAttachment, Transform> /*<
+Specialization of __EnumToClass for the __FramebufferAttachment enumeration.
+>*/
  : public Base
 {
 public:

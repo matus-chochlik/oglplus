@@ -96,6 +96,13 @@ statements are assumed, but omitted for the sake of brevity from this reference.
 [def __context_StencilFuncArgs [link oglplus.quickref.context.stencil_test.args context::StencilFuncArgs]]
 [def __context_StencilOperations [link oglplus.quickref.context.stencil_test.ops context::StencilOperations]]
 
+[def __enums_EnumToClass_SingleFace [link oglplus.quickref.face_mode.single_face_class enums::EnumToClass]]
+[def __enums_EnumToClass_LimitQuery [link oglplus.quickref.limit_query.class enums::EnumToClass]]
+[def __enums_EnumToClass_HintTarget [link oglplus.quickref.hint.target_class enums::EnumToClass]]
+[def __enums_EnumToClass_Capability [link oglplus.quickref.capability.capability_class enums::EnumToClass]]
+[def __enums_EnumToClass_PixelParameter [link oglplus.quickref.pixel_parameter.class enums::EnumToClass]]
+[def __enums_EnumToClass_TextureTarget [link oglplus.quickref.texture.target_class enums::EnumToClass]]
+
 [include quickref/concept.qbk]
 [include quickref/string.qbk]
 [include quickref/error.qbk]

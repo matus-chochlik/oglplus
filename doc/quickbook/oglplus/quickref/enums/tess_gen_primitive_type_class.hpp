@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__TessGenPrimitiveType> class Transform>
-class __EnumToClass<Base, __TessGenPrimitiveType, Transform>
+class __EnumToClass<Base, __TessGenPrimitiveType, Transform> /*<
+Specialization of __EnumToClass for the __TessGenPrimitiveType enumeration.
+>*/
  : public Base
 {
 public:

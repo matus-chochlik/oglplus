@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__BufferSelectBit> class Transform>
-class __EnumToClass<Base, __BufferSelectBit, Transform>
+class __EnumToClass<Base, __BufferSelectBit, Transform> /*<
+Specialization of __EnumToClass for the __BufferSelectBit enumeration.
+>*/
  : public Base
 {
 public:

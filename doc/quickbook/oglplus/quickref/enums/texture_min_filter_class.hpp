@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__TextureMinFilter> class Transform>
-class __EnumToClass<Base, __TextureMinFilter, Transform>
+class __EnumToClass<Base, __TextureMinFilter, Transform> /*<
+Specialization of __EnumToClass for the __TextureMinFilter enumeration.
+>*/
  : public Base
 {
 public:

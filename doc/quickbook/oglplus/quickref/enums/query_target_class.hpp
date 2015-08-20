@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__QueryTarget> class Transform>
-class __EnumToClass<Base, __QueryTarget, Transform>
+class __EnumToClass<Base, __QueryTarget, Transform> /*<
+Specialization of __EnumToClass for the __QueryTarget enumeration.
+>*/
  : public Base
 {
 public:

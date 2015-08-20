@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ConditionalRenderMode> class Transform>
-class __EnumToClass<Base, __ConditionalRenderMode, Transform>
+class __EnumToClass<Base, __ConditionalRenderMode, Transform> /*<
+Specialization of __EnumToClass for the __ConditionalRenderMode enumeration.
+>*/
  : public Base
 {
 public:

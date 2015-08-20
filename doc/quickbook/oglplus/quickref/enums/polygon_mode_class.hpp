@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__PolygonMode> class Transform>
-class __EnumToClass<Base, __PolygonMode, Transform>
+class __EnumToClass<Base, __PolygonMode, Transform> /*<
+Specialization of __EnumToClass for the __PolygonMode enumeration.
+>*/
  : public Base
 {
 public:

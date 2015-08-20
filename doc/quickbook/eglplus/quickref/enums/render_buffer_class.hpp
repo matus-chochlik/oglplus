@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__RenderBuffer> class Transform>
-class __EnumToClass<Base, __RenderBuffer, Transform>
+class __EnumToClass<Base, __RenderBuffer, Transform> /*<
+Specialization of __EnumToClass for the __RenderBuffer enumeration.
+>*/
  : public Base
 {
 public:

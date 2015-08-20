@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ColorLogicOperation> class Transform>
-class __EnumToClass<Base, __ColorLogicOperation, Transform>
+class __EnumToClass<Base, __ColorLogicOperation, Transform> /*<
+Specialization of __EnumToClass for the __ColorLogicOperation enumeration.
+>*/
  : public Base
 {
 public:

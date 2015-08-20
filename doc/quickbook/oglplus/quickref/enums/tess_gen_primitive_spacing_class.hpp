@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__TessGenPrimitiveSpacing> class Transform>
-class __EnumToClass<Base, __TessGenPrimitiveSpacing, Transform>
+class __EnumToClass<Base, __TessGenPrimitiveSpacing, Transform> /*<
+Specialization of __EnumToClass for the __TessGenPrimitiveSpacing enumeration.
+>*/
  : public Base
 {
 public:

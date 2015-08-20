@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__PerfMonitorAMDType> class Transform>
-class __EnumToClass<Base, __PerfMonitorAMDType, Transform>
+class __EnumToClass<Base, __PerfMonitorAMDType, Transform> /*<
+Specialization of __EnumToClass for the __PerfMonitorAMDType enumeration.
+>*/
  : public Base
 {
 public:

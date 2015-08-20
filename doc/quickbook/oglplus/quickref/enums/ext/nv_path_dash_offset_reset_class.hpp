@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__PathNVDashOffsetReset> class Transform>
-class __EnumToClass<Base, __PathNVDashOffsetReset, Transform>
+class __EnumToClass<Base, __PathNVDashOffsetReset, Transform> /*<
+Specialization of __EnumToClass for the __PathNVDashOffsetReset enumeration.
+>*/
  : public Base
 {
 public:

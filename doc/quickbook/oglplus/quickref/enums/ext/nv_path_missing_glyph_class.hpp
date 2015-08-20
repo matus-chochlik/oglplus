@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__PathNVMissingGlyph> class Transform>
-class __EnumToClass<Base, __PathNVMissingGlyph, Transform>
+class __EnumToClass<Base, __PathNVMissingGlyph, Transform> /*<
+Specialization of __EnumToClass for the __PathNVMissingGlyph enumeration.
+>*/
  : public Base
 {
 public:

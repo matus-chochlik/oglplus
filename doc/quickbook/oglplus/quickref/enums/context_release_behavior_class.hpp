@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ContextReleaseBehavior> class Transform>
-class __EnumToClass<Base, __ContextReleaseBehavior, Transform>
+class __EnumToClass<Base, __ContextReleaseBehavior, Transform> /*<
+Specialization of __EnumToClass for the __ContextReleaseBehavior enumeration.
+>*/
  : public Base
 {
 public:

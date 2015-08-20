@@ -50,7 +50,7 @@ private:
 	Set of stacks of objects names the top of which is currently bound
 	to a named binding point.
 	>*/
-	 : public __EnumToClass<
+	 : public __enums_EnumToClass<
 		__Nothing,
 		typename __ObjBindingOps<__ObjTag>::Target,
 		CurrentObject<__ObjTag>::template WithTarget
@@ -135,7 +135,7 @@ private:
 	>*/
 	{
 	private:
-		typedef __EnumToClass<
+		typedef __enums_EnumToClass_TextureTarget<
 			__TextureUnitSelector,
 			__TextureTarget,
 			CurrentUnitTexture

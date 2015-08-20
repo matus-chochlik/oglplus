@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__TextureCompareMode> class Transform>
-class __EnumToClass<Base, __TextureCompareMode, Transform>
+class __EnumToClass<Base, __TextureCompareMode, Transform> /*<
+Specialization of __EnumToClass for the __TextureCompareMode enumeration.
+>*/
  : public Base
 {
 public:

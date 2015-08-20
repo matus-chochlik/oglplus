@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__DistanceModel> class Transform>
-class __EnumToClass<Base, __DistanceModel, Transform>
+class __EnumToClass<Base, __DistanceModel, Transform> /*<
+Specialization of __EnumToClass for the __DistanceModel enumeration.
+>*/
  : public Base
 {
 public:

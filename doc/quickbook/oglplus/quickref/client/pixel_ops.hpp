@@ -29,7 +29,7 @@ private:
 	>*/
 	{ };
 public:
-	__EnumToClass<
+	__enums_EnumToClass_PixelParameter<
 		__Nothing,
 		__PixelParameter,
 		PixelParams

@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__HintTarget> class Transform>
-class __EnumToClass<Base, __HintTarget, Transform>
+class __EnumToClass<Base, __HintTarget, Transform> /*<
+Specialization of __EnumToClass for the __HintTarget enumeration.
+>*/
  : public Base
 {
 public:

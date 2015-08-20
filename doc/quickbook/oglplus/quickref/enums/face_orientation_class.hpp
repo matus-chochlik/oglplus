@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__FaceOrientation> class Transform>
-class __EnumToClass<Base, __FaceOrientation, Transform>
+class __EnumToClass<Base, __FaceOrientation, Transform> /*<
+Specialization of __EnumToClass for the __FaceOrientation enumeration.
+>*/
  : public Base
 {
 public:

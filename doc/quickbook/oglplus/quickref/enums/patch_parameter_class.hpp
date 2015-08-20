@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__PatchParameter> class Transform>
-class __EnumToClass<Base, __PatchParameter, Transform>
+class __EnumToClass<Base, __PatchParameter, Transform> /*<
+Specialization of __EnumToClass for the __PatchParameter enumeration.
+>*/
  : public Base
 {
 public:

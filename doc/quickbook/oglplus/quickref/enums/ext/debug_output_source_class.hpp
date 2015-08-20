@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__DebugOutputARBSource> class Transform>
-class __EnumToClass<Base, __DebugOutputARBSource, Transform>
+class __EnumToClass<Base, __DebugOutputARBSource, Transform> /*<
+Specialization of __EnumToClass for the __DebugOutputARBSource enumeration.
+>*/
  : public Base
 {
 public:

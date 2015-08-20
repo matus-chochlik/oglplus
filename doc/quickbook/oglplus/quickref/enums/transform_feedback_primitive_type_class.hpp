@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__TransformFeedbackPrimitiveType> class Transform>
-class __EnumToClass<Base, __TransformFeedbackPrimitiveType, Transform>
+class __EnumToClass<Base, __TransformFeedbackPrimitiveType, Transform> /*<
+Specialization of __EnumToClass for the __TransformFeedbackPrimitiveType enumeration.
+>*/
  : public Base
 {
 public:

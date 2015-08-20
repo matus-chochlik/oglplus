@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ContextProfileBit> class Transform>
-class __EnumToClass<Base, __ContextProfileBit, Transform>
+class __EnumToClass<Base, __ContextProfileBit, Transform> /*<
+Specialization of __EnumToClass for the __ContextProfileBit enumeration.
+>*/
  : public Base
 {
 public:

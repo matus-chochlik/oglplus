@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ALErrorCode> class Transform>
-class __EnumToClass<Base, __ALErrorCode, Transform>
+class __EnumToClass<Base, __ALErrorCode, Transform> /*<
+Specialization of __EnumToClass for the __ALErrorCode enumeration.
+>*/
  : public Base
 {
 public:

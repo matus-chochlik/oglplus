@@ -35,9 +35,9 @@ and disabled otherwise.
 #endif
 
 #ifndef OGLPLUS_NO_ENUM_VALUE_CLASSES /*<
-Compile-time switch disabling the specializations of __EnumToClass.
+Compile-time switch disabling the specializations of __enums_EnumToClass.
 Setting this preprocessor symbol to a nonzero value causes that
-the __EnumToClass templates to be unspecialized for the individual enums.
+the __enums_EnumToClass templates to be unspecialized for the individual enums.
 
 By default this option is set to zero (except on compilers where template
 specializations for enum-class is not implemented properly).

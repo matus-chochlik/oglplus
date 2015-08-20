@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__ClipDepthMode> class Transform>
-class __EnumToClass<Base, __ClipDepthMode, Transform>
+class __EnumToClass<Base, __ClipDepthMode, Transform> /*<
+Specialization of __EnumToClass for the __ClipDepthMode enumeration.
+>*/
  : public Base
 {
 public:

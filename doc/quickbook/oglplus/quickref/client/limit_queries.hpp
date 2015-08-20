@@ -35,7 +35,7 @@ private:
 		>*/
 	};
 public:
-	__EnumToClass<
+	__enums_EnumToClass_LimitQuery<
 		__Nothing,
 		__LimitQuery,
 		LimitGetter

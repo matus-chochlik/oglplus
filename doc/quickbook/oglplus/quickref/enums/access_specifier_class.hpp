@@ -14,7 +14,9 @@
 namespace enums {
 
 template <typename Base, template<__AccessSpecifier> class Transform>
-class __EnumToClass<Base, __AccessSpecifier, Transform>
+class __EnumToClass<Base, __AccessSpecifier, Transform> /*<
+Specialization of __EnumToClass for the __AccessSpecifier enumeration.
+>*/
  : public Base
 {
 public:
