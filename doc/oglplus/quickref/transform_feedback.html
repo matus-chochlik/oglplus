@@ -275,6 +275,37 @@
 </pre>
 <h4>
 <a name="oglplus.quickref.transform_feedback.h5"></a>
+          <span class="phrase"><a name="oglplus.quickref.transform_feedback.target_class"></a></span><a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.target_class">Target
+          to class</a>
+        </h4>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="special">!</span><a class="link" href="config.html#oglplus.quickref.config.enums" title="Enumerations"><code class="literal">OGLPLUS_NO_ENUM_VALUE_CLASSES</code></a>
+<span class="keyword">namespace</span> <span class="identifier">enums</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.target">TransformFeedbackTarget</a><span class="special">&gt;</span> <span class="keyword">class</span> <span class="identifier">Transform</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span><span class="identifier">Base</span><span class="special">,</span> <a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.target">TransformFeedbackTarget</a><span class="special">,</span> <span class="identifier">Transform</span><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.transform_feedback.c38" href="transform_feedback.html#oglplus.quickref.transform_feedback.c39"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Base</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="identifier">Base</span><span class="special">&amp;&amp;</span> <span class="identifier">base</span><span class="special">);</span>
+
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">TransformFeedbackTarget</span><span class="special">::</span><span class="identifier">TransformFeedback</span><span class="special">&gt;</span>
+		<span class="identifier">TransformFeedback</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace enums</span>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.transform_feedback.c39"></a><a href="#oglplus.quickref.transform_feedback.c38"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Specialization of <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a>
+              for the <a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.target">TransformFeedbackTarget</a>
+              enumeration.
+            </p></td>
+</tr></table></div>
+<h4>
+<a name="oglplus.quickref.transform_feedback.h6"></a>
           <span class="phrase"><a name="oglplus.quickref.transform_feedback.mode"></a></span><a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.mode">Mode</a>
         </h4>
 <p>
@@ -292,7 +323,7 @@
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">TransformFeedbackMode</span><span class="special">);</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.transform_feedback.h6"></a>
+<a name="oglplus.quickref.transform_feedback.h7"></a>
           <span class="phrase"><a name="oglplus.quickref.transform_feedback.primitive_type"></a></span><a class="link" href="transform_feedback.html#oglplus.quickref.transform_feedback.primitive_type">Primitive
           type</a>
         </h4>

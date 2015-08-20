@@ -39,6 +39,43 @@
 </pre>
 <h4>
 <a name="oglplus.quickref.hint.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.hint.target_class"></a></span><a class="link" href="hint.html#oglplus.quickref.hint.target_class">Target
+          to class</a>
+        </h4>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="special">!</span><a class="link" href="config.html#oglplus.quickref.config.enums" title="Enumerations"><code class="literal">OGLPLUS_NO_ENUM_VALUE_CLASSES</code></a>
+<span class="keyword">namespace</span> <span class="identifier">enums</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><a class="link" href="hint.html#oglplus.quickref.hint.target">HintTarget</a><span class="special">&gt;</span> <span class="keyword">class</span> <span class="identifier">Transform</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span><span class="identifier">Base</span><span class="special">,</span> <a class="link" href="hint.html#oglplus.quickref.hint.target">HintTarget</a><span class="special">,</span> <span class="identifier">Transform</span><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.hint.c0" href="hint.html#oglplus.quickref.hint.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Base</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="identifier">Base</span><span class="special">&amp;&amp;</span> <span class="identifier">base</span><span class="special">);</span>
+
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">HintTarget</span><span class="special">::</span><span class="identifier">LineSmooth</span><span class="special">&gt;</span>
+		<span class="identifier">LineSmooth</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">HintTarget</span><span class="special">::</span><span class="identifier">PolygonSmooth</span><span class="special">&gt;</span>
+		<span class="identifier">PolygonSmooth</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">HintTarget</span><span class="special">::</span><span class="identifier">TextureCompression</span><span class="special">&gt;</span>
+		<span class="identifier">TextureCompression</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">HintTarget</span><span class="special">::</span><span class="identifier">FragmentShaderDerivative</span><span class="special">&gt;</span>
+		<span class="identifier">FragmentShaderDerivative</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace enums</span>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.hint.c1"></a><a href="#oglplus.quickref.hint.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Specialization of <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a>
+              for the <a class="link" href="hint.html#oglplus.quickref.hint.target">HintTarget</a>
+              enumeration.
+            </p></td>
+</tr></table></div>
+<h4>
+<a name="oglplus.quickref.hint.h2"></a>
           <span class="phrase"><a name="oglplus.quickref.hint.option"></a></span><a class="link" href="hint.html#oglplus.quickref.hint.option">Option</a>
         </h4>
 <pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">HintOption</span> <span class="special">:</span> <span class="identifier">GLenum</span>

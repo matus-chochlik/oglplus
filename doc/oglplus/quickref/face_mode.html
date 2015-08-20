@@ -38,6 +38,41 @@
 </pre>
 <h4>
 <a name="oglplus.quickref.face_mode.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.face_mode.face_class"></a></span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face_class"><code class="literal">Face</code>
+          to class</a>
+        </h4>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="special">!</span><a class="link" href="config.html#oglplus.quickref.config.enums" title="Enumerations"><code class="literal">OGLPLUS_NO_ENUM_VALUE_CLASSES</code></a>
+<span class="keyword">namespace</span> <span class="identifier">enums</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a><span class="special">&gt;</span> <span class="keyword">class</span> <span class="identifier">Transform</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span><span class="identifier">Base</span><span class="special">,</span> <a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a><span class="special">,</span> <span class="identifier">Transform</span><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.face_mode.c0" href="face_mode.html#oglplus.quickref.face_mode.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Base</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="identifier">Base</span><span class="special">&amp;&amp;</span> <span class="identifier">base</span><span class="special">);</span>
+
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Face</span><span class="special">::</span><span class="identifier">Front</span><span class="special">&gt;</span>
+		<span class="identifier">Front</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Face</span><span class="special">::</span><span class="identifier">Back</span><span class="special">&gt;</span>
+		<span class="identifier">Back</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Face</span><span class="special">::</span><span class="identifier">FrontAndBack</span><span class="special">&gt;</span>
+		<span class="identifier">FrontAndBack</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace enums</span>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.face_mode.c1"></a><a href="#oglplus.quickref.face_mode.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Specialization of <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a>
+              for the <a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a>
+              enumeration.
+            </p></td>
+</tr></table></div>
+<h4>
+<a name="oglplus.quickref.face_mode.h2"></a>
           <span class="phrase"><a name="oglplus.quickref.face_mode.single_face"></a></span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">Single
           face</a>
         </h4>
@@ -53,7 +88,40 @@
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">SingleFace</span><span class="special">);</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.face_mode.h2"></a>
+<a name="oglplus.quickref.face_mode.h3"></a>
+          <span class="phrase"><a name="oglplus.quickref.face_mode.single_face_class"></a></span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face_class"><code class="literal">SingleFace</code>
+          to class</a>
+        </h4>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="special">!</span><a class="link" href="config.html#oglplus.quickref.config.enums" title="Enumerations"><code class="literal">OGLPLUS_NO_ENUM_VALUE_CLASSES</code></a>
+<span class="keyword">namespace</span> <span class="identifier">enums</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a><span class="special">&gt;</span> <span class="keyword">class</span> <span class="identifier">Transform</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span><span class="identifier">Base</span><span class="special">,</span> <a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a><span class="special">,</span> <span class="identifier">Transform</span><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.face_mode.c2" href="face_mode.html#oglplus.quickref.face_mode.c3"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Base</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="identifier">Base</span><span class="special">&amp;&amp;</span> <span class="identifier">base</span><span class="special">);</span>
+
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">SingleFace</span><span class="special">::</span><span class="identifier">Front</span><span class="special">&gt;</span>
+		<span class="identifier">Front</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">SingleFace</span><span class="special">::</span><span class="identifier">Back</span><span class="special">&gt;</span>
+		<span class="identifier">Back</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace enums</span>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.face_mode.c3"></a><a href="#oglplus.quickref.face_mode.c2"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Specialization of <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a>
+              for the <a class="link" href="face_mode.html#oglplus.quickref.face_mode.single_face">SingleFace</a>
+              enumeration.
+            </p></td>
+</tr></table></div>
+<h4>
+<a name="oglplus.quickref.face_mode.h4"></a>
           <span class="phrase"><a name="oglplus.quickref.face_mode.orientation"></a></span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.orientation">Orientation</a>
         </h4>
 <pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FaceOrientation</span> <span class="special">:</span> <span class="identifier">GLenum</span>
@@ -68,22 +136,22 @@
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FaceOrientation</span><span class="special">);</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.face_mode.h3"></a>
+<a name="oglplus.quickref.face_mode.h5"></a>
           <span class="phrase"><a name="oglplus.quickref.face_mode.fns"></a></span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.fns">Functions</a>
         </h4>
-<pre class="programlisting"><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">Opposite</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">facing</span><span class="special">);</span> <a class="co" name="oglplus.quickref.face_mode.c0" href="face_mode.html#oglplus.quickref.face_mode.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<pre class="programlisting"><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">Opposite</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.face">Face</a> <span class="identifier">facing</span><span class="special">);</span> <a class="co" name="oglplus.quickref.face_mode.c4" href="face_mode.html#oglplus.quickref.face_mode.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
-<a class="link" href="face_mode.html#oglplus.quickref.face_mode.orientation">FaceOrientation</a> <span class="identifier">Inverted</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.orientation">FaceOrientation</a> <span class="identifier">winding</span><span class="special">);</span> <a class="co" name="oglplus.quickref.face_mode.c2" href="face_mode.html#oglplus.quickref.face_mode.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<a class="link" href="face_mode.html#oglplus.quickref.face_mode.orientation">FaceOrientation</a> <span class="identifier">Inverted</span><span class="special">(</span><a class="link" href="face_mode.html#oglplus.quickref.face_mode.orientation">FaceOrientation</a> <span class="identifier">winding</span><span class="special">);</span> <a class="co" name="oglplus.quickref.face_mode.c6" href="face_mode.html#oglplus.quickref.face_mode.c7"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.face_mode.c1"></a><a href="#oglplus.quickref.face_mode.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.face_mode.c5"></a><a href="#oglplus.quickref.face_mode.c4"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Returns the opposite facing direction (Front if Back and Back if Front).
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.face_mode.c3"></a><a href="#oglplus.quickref.face_mode.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.face_mode.c7"></a><a href="#oglplus.quickref.face_mode.c6"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Inverts the face orientation (CW to CCW and CCW to CW).
             </p></td>

@@ -161,7 +161,9 @@
           template which takes values of the specified <code class="literal">Enumeration</code>
           as an argument.
         </p>
-<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">enums</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span>
 	<span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">,</span>
 	<span class="keyword">typename</span> <span class="identifier">Enumeration</span><span class="special">,</span>
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">Enumeration</span><span class="special">&gt;</span> <span class="keyword">class</span> <span class="identifier">Transform</span>
@@ -173,6 +175,8 @@
 
 	<span class="comment">/* ... */</span>
 <span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace enums</span>
 </pre>
 <p>
           For example for a <code class="literal">SomeEnum</code> enumeration:
@@ -191,8 +195,17 @@
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">SomeEnum</span> <span class="identifier">Value</span><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">SomeEnumTransform</span>
 <span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">SomeEnumTransform</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c6" href="enums.html#oglplus.quickref.enums.c7"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">SomeEnumTransform</span><span class="special">(</span><span class="identifier">Base</span><span class="special">&amp;);</span>
 <span class="special">};</span>
 </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c7"></a><a href="#oglplus.quickref.enums.c6"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              One of these constructors must be implemented.
+            </p></td>
+</tr></table></div>
 <p>
           the following instantiation of <code class="literal">EnumToClass</code>
         </p>

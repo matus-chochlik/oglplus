@@ -70,6 +70,89 @@
 </pre>
 <h4>
 <a name="oglplus.quickref.capability.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.capability.capability_class"></a></span><a class="link" href="capability.html#oglplus.quickref.capability.capability_class"><code class="literal">Capability</code>
+          to class</a>
+        </h4>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="special">!</span><a class="link" href="config.html#oglplus.quickref.config.enums" title="Enumerations"><code class="literal">OGLPLUS_NO_ENUM_VALUE_CLASSES</code></a>
+<span class="keyword">namespace</span> <span class="identifier">enums</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><a class="link" href="capability.html" title="Capabilities">Capability</a><span class="special">&gt;</span> <span class="keyword">class</span> <span class="identifier">Transform</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span><span class="identifier">Base</span><span class="special">,</span> <a class="link" href="capability.html" title="Capabilities">Capability</a><span class="special">,</span> <span class="identifier">Transform</span><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.capability.c0" href="capability.html#oglplus.quickref.capability.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Base</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="identifier">Base</span><span class="special">&amp;&amp;</span> <span class="identifier">base</span><span class="special">);</span>
+
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">PrimitiveRestart</span><span class="special">&gt;</span>
+		<span class="identifier">PrimitiveRestart</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">DepthTest</span><span class="special">&gt;</span>
+		<span class="identifier">DepthTest</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">StencilTest</span><span class="special">&gt;</span>
+		<span class="identifier">StencilTest</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">ScissorTest</span><span class="special">&gt;</span>
+		<span class="identifier">ScissorTest</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">CullFace</span><span class="special">&gt;</span>
+		<span class="identifier">CullFace</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">RasterizerDiscard</span><span class="special">&gt;</span>
+		<span class="identifier">RasterizerDiscard</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">PolygonOffsetPoint</span><span class="special">&gt;</span>
+		<span class="identifier">PolygonOffsetPoint</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">PolygonOffsetLine</span><span class="special">&gt;</span>
+		<span class="identifier">PolygonOffsetLine</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">PolygonOffsetFill</span><span class="special">&gt;</span>
+		<span class="identifier">PolygonOffsetFill</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">Blend</span><span class="special">&gt;</span>
+		<span class="identifier">Blend</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">ColorLogicOp</span><span class="special">&gt;</span>
+		<span class="identifier">ColorLogicOp</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">Dither</span><span class="special">&gt;</span>
+		<span class="identifier">Dither</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">Multisample</span><span class="special">&gt;</span>
+		<span class="identifier">Multisample</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">SampleShading</span><span class="special">&gt;</span>
+		<span class="identifier">SampleShading</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">LineSmooth</span><span class="special">&gt;</span>
+		<span class="identifier">LineSmooth</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">PolygonSmooth</span><span class="special">&gt;</span>
+		<span class="identifier">PolygonSmooth</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">ProgramPointSize</span><span class="special">&gt;</span>
+		<span class="identifier">ProgramPointSize</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">TextureCubeMapSeamless</span><span class="special">&gt;</span>
+		<span class="identifier">TextureCubeMapSeamless</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">SampleAlphaToCoverage</span><span class="special">&gt;</span>
+		<span class="identifier">SampleAlphaToCoverage</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">SampleAlphaToOne</span><span class="special">&gt;</span>
+		<span class="identifier">SampleAlphaToOne</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">SampleCoverage</span><span class="special">&gt;</span>
+		<span class="identifier">SampleCoverage</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">SampleMask</span><span class="special">&gt;</span>
+		<span class="identifier">SampleMask</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">FramebufferSRGB</span><span class="special">&gt;</span>
+		<span class="identifier">FramebufferSRGB</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">DebugOutputSynchronous</span><span class="special">&gt;</span>
+		<span class="identifier">DebugOutputSynchronous</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">StreamRasterization</span><span class="special">&gt;</span>
+		<span class="identifier">StreamRasterization</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">BlendAdvancedCoherent</span><span class="special">&gt;</span>
+		<span class="identifier">BlendAdvancedCoherent</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">FragmentCoverageToColor</span><span class="special">&gt;</span>
+		<span class="identifier">FragmentCoverageToColor</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace enums</span>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c1"></a><a href="#oglplus.quickref.capability.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Specialization of <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a>
+              for the <a class="link" href="capability.html" title="Capabilities">Capability</a>
+              enumeration.
+            </p></td>
+</tr></table></div>
+<h4>
+<a name="oglplus.quickref.capability.h2"></a>
           <span class="phrase"><a name="oglplus.quickref.capability.functionality"></a></span><a class="link" href="capability.html#oglplus.quickref.capability.functionality"><code class="literal">Functionality</code></a>
         </h4>
 <p>
@@ -97,7 +180,7 @@
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">Functionality</span><span class="special">);</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.capability.h2"></a>
+<a name="oglplus.quickref.capability.h3"></a>
           <span class="phrase"><a name="oglplus.quickref.capability.syntax_sugar"></a></span><a class="link" href="capability.html#oglplus.quickref.capability.syntax_sugar">Syntax
           sugar</a>
         </h4>
@@ -106,64 +189,64 @@
           enumerations have several syntax-sugar operators allowing less verbose
           use.
         </p>
-<pre class="programlisting"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><a class="link" href="capability.html" title="Capabilities">Capability</a> <span class="identifier">capability</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">enable</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c0" href="capability.html#oglplus.quickref.capability.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-<span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">+</span> <span class="special">(</span><span class="identifier">Capability</span> <span class="identifier">capability</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c2" href="capability.html#oglplus.quickref.capability.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
-<span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">-</span> <span class="special">(</span><span class="identifier">Capability</span> <span class="identifier">capability</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c4" href="capability.html#oglplus.quickref.capability.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<pre class="programlisting"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><a class="link" href="capability.html" title="Capabilities">Capability</a> <span class="identifier">capability</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">enable</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c2" href="capability.html#oglplus.quickref.capability.c3"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">+</span> <span class="special">(</span><span class="identifier">Capability</span> <span class="identifier">capability</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c4" href="capability.html#oglplus.quickref.capability.c5"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">-</span> <span class="special">(</span><span class="identifier">Capability</span> <span class="identifier">capability</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c6" href="capability.html#oglplus.quickref.capability.c7"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
-<span class="keyword">struct</span> <span class="identifier">FunctionalityAndNumber</span> <span class="special">{</span> <span class="special">};</span> <a class="co" name="oglplus.quickref.capability.c6" href="capability.html#oglplus.quickref.capability.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="keyword">struct</span> <span class="identifier">FunctionalityAndNumber</span> <span class="special">{</span> <span class="special">};</span> <a class="co" name="oglplus.quickref.capability.c8" href="capability.html#oglplus.quickref.capability.c9"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
-<span class="identifier">FunctionalityAndNumber</span> <span class="keyword">operator</span> <span class="special">|</span> <span class="special">(</span><a class="link" href="capability.html#oglplus.quickref.capability.functionality">Functionality</a> <span class="identifier">func</span><span class="special">,</span> <span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c8" href="capability.html#oglplus.quickref.capability.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+<span class="identifier">FunctionalityAndNumber</span> <span class="keyword">operator</span> <span class="special">|</span> <span class="special">(</span><a class="link" href="capability.html#oglplus.quickref.capability.functionality">Functionality</a> <span class="identifier">func</span><span class="special">,</span> <span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c10" href="capability.html#oglplus.quickref.capability.c11"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
-<span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">FunctionalityAndNumber</span> <span class="identifier">func_and_num</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">enable</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c10" href="capability.html#oglplus.quickref.capability.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
-<span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">+</span> <span class="special">(</span><span class="identifier">FunctionalityAndNumber</span> <span class="identifier">func_and_num</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c12" href="capability.html#oglplus.quickref.capability.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
-<span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">-</span> <span class="special">(</span><span class="identifier">FunctionalityAndNumber</span> <span class="identifier">func_and_num</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c14" href="capability.html#oglplus.quickref.capability.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+<span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">FunctionalityAndNumber</span> <span class="identifier">func_and_num</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">enable</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c12" href="capability.html#oglplus.quickref.capability.c13"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">+</span> <span class="special">(</span><span class="identifier">FunctionalityAndNumber</span> <span class="identifier">func_and_num</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c14" href="capability.html#oglplus.quickref.capability.c15"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+<span class="keyword">void</span> <span class="keyword">operator</span> <span class="special">-</span> <span class="special">(</span><span class="identifier">FunctionalityAndNumber</span> <span class="identifier">func_and_num</span><span class="special">);</span> <a class="co" name="oglplus.quickref.capability.c16" href="capability.html#oglplus.quickref.capability.c17"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c1"></a><a href="#oglplus.quickref.capability.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c3"></a><a href="#oglplus.quickref.capability.c2"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Enables or disables the specified <code class="literal">capability</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c3"></a><a href="#oglplus.quickref.capability.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c5"></a><a href="#oglplus.quickref.capability.c4"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Enables the specified <code class="literal">capability</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c5"></a><a href="#oglplus.quickref.capability.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c7"></a><a href="#oglplus.quickref.capability.c6"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Disables the specified <code class="literal">capability</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c7"></a><a href="#oglplus.quickref.capability.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c9"></a><a href="#oglplus.quickref.capability.c8"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               An opaque helper type used by the <code class="literal">Functionality</code>
               operators below.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c9"></a><a href="#oglplus.quickref.capability.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c11"></a><a href="#oglplus.quickref.capability.c10"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Creates an instance of <code class="literal">FunctionalityAndNumber</code>.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c11"></a><a href="#oglplus.quickref.capability.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c13"></a><a href="#oglplus.quickref.capability.c12"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Enables or disables the specified functionality.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c13"></a><a href="#oglplus.quickref.capability.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c15"></a><a href="#oglplus.quickref.capability.c14"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Enables the specified functionality.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c15"></a><a href="#oglplus.quickref.capability.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c17"></a><a href="#oglplus.quickref.capability.c16"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Disables the specified functionality.
             </p></td>
@@ -172,44 +255,44 @@
 <p>
           For example:
         </p>
-<pre class="programlisting"><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">DepthTest</span> <span class="special">&lt;&lt;</span> <span class="keyword">true</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c16" href="capability.html#oglplus.quickref.capability.c17"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-<span class="identifier">Capability</span><span class="special">::</span><span class="identifier">StencilTest</span> <span class="special">&lt;&lt;</span> <span class="keyword">false</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c18" href="capability.html#oglplus.quickref.capability.c19"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<pre class="programlisting"><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">DepthTest</span> <span class="special">&lt;&lt;</span> <span class="keyword">true</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c18" href="capability.html#oglplus.quickref.capability.c19"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="identifier">Capability</span><span class="special">::</span><span class="identifier">StencilTest</span> <span class="special">&lt;&lt;</span> <span class="keyword">false</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c20" href="capability.html#oglplus.quickref.capability.c21"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
-<span class="special">+</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">CullFace</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c20" href="capability.html#oglplus.quickref.capability.c21"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-<span class="special">-</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">Blend</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c22" href="capability.html#oglplus.quickref.capability.c23"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="special">+</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">CullFace</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c22" href="capability.html#oglplus.quickref.capability.c23"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="special">-</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">Blend</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c24" href="capability.html#oglplus.quickref.capability.c25"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
 <span class="keyword">for</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">i</span><span class="special">=</span><span class="number">0</span><span class="special">;</span> <span class="identifier">i</span><span class="special">&lt;</span><span class="number">4</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
 <span class="special">{</span>
-	<span class="special">(</span><span class="identifier">Functionality</span><span class="special">::</span><span class="identifier">ClipDistance</span> <span class="special">|</span> <span class="identifier">i</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="keyword">true</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c24" href="capability.html#oglplus.quickref.capability.c25"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="special">(</span><span class="identifier">Functionality</span><span class="special">::</span><span class="identifier">ClipDistance</span> <span class="special">|</span> <span class="identifier">i</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="keyword">true</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c26" href="capability.html#oglplus.quickref.capability.c27"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="special">}</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c17"></a><a href="#oglplus.quickref.capability.c16"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c19"></a><a href="#oglplus.quickref.capability.c18"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Enables depth test.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c19"></a><a href="#oglplus.quickref.capability.c18"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c21"></a><a href="#oglplus.quickref.capability.c20"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Disables stencil test.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c21"></a><a href="#oglplus.quickref.capability.c20"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c23"></a><a href="#oglplus.quickref.capability.c22"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Enables face culling.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c23"></a><a href="#oglplus.quickref.capability.c22"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c25"></a><a href="#oglplus.quickref.capability.c24"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Disables blending.
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c25"></a><a href="#oglplus.quickref.capability.c24"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.capability.c27"></a><a href="#oglplus.quickref.capability.c26"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Enables the <code class="literal">i</code>th clipping plane.
             </p></td>

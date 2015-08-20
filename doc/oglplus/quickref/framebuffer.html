@@ -423,6 +423,39 @@
 </pre>
 <h4>
 <a name="oglplus.quickref.framebuffer.h5"></a>
+          <span class="phrase"><a name="oglplus.quickref.framebuffer.target_class"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.target_class">Target
+          to class</a>
+        </h4>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="special">!</span><a class="link" href="config.html#oglplus.quickref.config.enums" title="Enumerations"><code class="literal">OGLPLUS_NO_ENUM_VALUE_CLASSES</code></a>
+<span class="keyword">namespace</span> <span class="identifier">enums</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.target">FramebufferTarget</a><span class="special">&gt;</span> <span class="keyword">class</span> <span class="identifier">Transform</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span><span class="identifier">Base</span><span class="special">,</span> <a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.target">FramebufferTarget</a><span class="special">,</span> <span class="identifier">Transform</span><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.framebuffer.c50" href="framebuffer.html#oglplus.quickref.framebuffer.c51"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Base</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="identifier">Base</span><span class="special">&amp;&amp;</span> <span class="identifier">base</span><span class="special">);</span>
+
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">FramebufferTarget</span><span class="special">::</span><span class="identifier">Draw</span><span class="special">&gt;</span>
+		<span class="identifier">Draw</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">FramebufferTarget</span><span class="special">::</span><span class="identifier">Read</span><span class="special">&gt;</span>
+		<span class="identifier">Read</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace enums</span>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c51"></a><a href="#oglplus.quickref.framebuffer.c50"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Specialization of <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a>
+              for the <a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.target">FramebufferTarget</a>
+              enumeration.
+            </p></td>
+</tr></table></div>
+<h4>
+<a name="oglplus.quickref.framebuffer.h6"></a>
           <span class="phrase"><a name="oglplus.quickref.framebuffer.buffer"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.buffer">Buffer</a>
         </h4>
 <p>
@@ -442,7 +475,7 @@
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FramebufferBuffer</span><span class="special">);</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.framebuffer.h6"></a>
+<a name="oglplus.quickref.framebuffer.h7"></a>
           <span class="phrase"><a name="oglplus.quickref.framebuffer.attachment"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.attachment">Attachment</a>
         </h4>
 <p>
@@ -477,7 +510,7 @@
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FramebufferAttachment</span><span class="special">);</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.framebuffer.h7"></a>
+<a name="oglplus.quickref.framebuffer.h8"></a>
           <span class="phrase"><a name="oglplus.quickref.framebuffer.color_attachment"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment">Color
           attachment</a>
         </h4>
@@ -510,7 +543,7 @@
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">FramebufferColorAttachment</span><span class="special">);</span>
 </pre>
 <h4>
-<a name="oglplus.quickref.framebuffer.h8"></a>
+<a name="oglplus.quickref.framebuffer.h9"></a>
           <span class="phrase"><a name="oglplus.quickref.framebuffer.color_attachment_number"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment_number">Color attachment
           number</a>
         </h4>
@@ -521,11 +554,11 @@
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">FramebufferColorAttachmentNumber</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c50" href="framebuffer.html#oglplus.quickref.framebuffer.c51"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">FramebufferColorAttachmentNumber</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.framebuffer.c52" href="framebuffer.html#oglplus.quickref.framebuffer.c53"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">};</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c51"></a><a href="#oglplus.quickref.framebuffer.c50"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.framebuffer.c53"></a><a href="#oglplus.quickref.framebuffer.c52"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Throws <a class="link" href="error.html#oglplus.quickref.error.limit" title="Limit errors">LimitError</a>
               if <code class="literal">number</code> is greater than the implementation-dependent
@@ -533,7 +566,7 @@
             </p></td>
 </tr></table></div>
 <h4>
-<a name="oglplus.quickref.framebuffer.h9"></a>
+<a name="oglplus.quickref.framebuffer.h10"></a>
           <span class="phrase"><a name="oglplus.quickref.framebuffer.status"></a></span><a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.status">Status</a>
         </h4>
 <p>

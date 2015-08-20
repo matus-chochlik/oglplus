@@ -53,6 +53,83 @@
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">PixelParameter</span><span class="special">);</span>
 </pre>
+<h4>
+<a name="oglplus.quickref.pixel_parameter.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.pixel_parameter.class"></a></span><a class="link" href="pixel_parameter.html#oglplus.quickref.pixel_parameter.class"><code class="literal">PixelParameter</code>
+          to class</a>
+        </h4>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="special">!</span><a class="link" href="config.html#oglplus.quickref.config.enums" title="Enumerations"><code class="literal">OGLPLUS_NO_ENUM_VALUE_CLASSES</code></a>
+<span class="keyword">namespace</span> <span class="identifier">enums</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a><span class="special">&gt;</span> <span class="keyword">class</span> <span class="identifier">Transform</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span><span class="identifier">Base</span><span class="special">,</span> <a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a><span class="special">,</span> <span class="identifier">Transform</span><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.pixel_parameter.c0" href="pixel_parameter.html#oglplus.quickref.pixel_parameter.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Base</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="identifier">Base</span><span class="special">&amp;&amp;</span> <span class="identifier">base</span><span class="special">);</span>
+
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">PackSwapBytes</span><span class="special">&gt;</span>
+		<span class="identifier">PackSwapBytes</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">PackLSBFirst</span><span class="special">&gt;</span>
+		<span class="identifier">PackLSBFirst</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">PackRowLength</span><span class="special">&gt;</span>
+		<span class="identifier">PackRowLength</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">PackSkipRows</span><span class="special">&gt;</span>
+		<span class="identifier">PackSkipRows</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">PackSkipPixels</span><span class="special">&gt;</span>
+		<span class="identifier">PackSkipPixels</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">PackAlignment</span><span class="special">&gt;</span>
+		<span class="identifier">PackAlignment</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">PackImageHeight</span><span class="special">&gt;</span>
+		<span class="identifier">PackImageHeight</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">PackSkipImages</span><span class="special">&gt;</span>
+		<span class="identifier">PackSkipImages</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">PackCompressedBlockWidth</span><span class="special">&gt;</span>
+		<span class="identifier">PackCompressedBlockWidth</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">PackCompressedBlockHeight</span><span class="special">&gt;</span>
+		<span class="identifier">PackCompressedBlockHeight</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">PackCompressedBlockDepth</span><span class="special">&gt;</span>
+		<span class="identifier">PackCompressedBlockDepth</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">PackCompressedBlockSize</span><span class="special">&gt;</span>
+		<span class="identifier">PackCompressedBlockSize</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">UnpackSwapBytes</span><span class="special">&gt;</span>
+		<span class="identifier">UnpackSwapBytes</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">UnpackLSBFirst</span><span class="special">&gt;</span>
+		<span class="identifier">UnpackLSBFirst</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">UnpackRowLength</span><span class="special">&gt;</span>
+		<span class="identifier">UnpackRowLength</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">UnpackSkipRows</span><span class="special">&gt;</span>
+		<span class="identifier">UnpackSkipRows</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">UnpackSkipPixels</span><span class="special">&gt;</span>
+		<span class="identifier">UnpackSkipPixels</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">UnpackAlignment</span><span class="special">&gt;</span>
+		<span class="identifier">UnpackAlignment</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">UnpackImageHeight</span><span class="special">&gt;</span>
+		<span class="identifier">UnpackImageHeight</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">UnpackSkipImages</span><span class="special">&gt;</span>
+		<span class="identifier">UnpackSkipImages</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">UnpackCompressedBlockWidth</span><span class="special">&gt;</span>
+		<span class="identifier">UnpackCompressedBlockWidth</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">UnpackCompressedBlockHeight</span><span class="special">&gt;</span>
+		<span class="identifier">UnpackCompressedBlockHeight</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">UnpackCompressedBlockDepth</span><span class="special">&gt;</span>
+		<span class="identifier">UnpackCompressedBlockDepth</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">PixelParameter</span><span class="special">::</span><span class="identifier">UnpackCompressedBlockSize</span><span class="special">&gt;</span>
+		<span class="identifier">UnpackCompressedBlockSize</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace enums</span>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.pixel_parameter.c1"></a><a href="#oglplus.quickref.pixel_parameter.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Specialization of <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a>
+              for the <a class="link" href="pixel_parameter.html" title="Pixel storage mode">PixelParameter</a>
+              enumeration.
+            </p></td>
+</tr></table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>

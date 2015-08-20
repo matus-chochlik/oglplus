@@ -138,6 +138,253 @@
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">LimitQuery</span><span class="special">);</span>
 </pre>
+<h4>
+<a name="oglplus.quickref.limit_query.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.limit_query.class"></a></span><a class="link" href="limit_query.html#oglplus.quickref.limit_query.class"><code class="literal">LimitQuery</code>
+          to class</a>
+        </h4>
+<pre class="programlisting"><span class="preprocessor">#if</span> <span class="special">!</span><a class="link" href="config.html#oglplus.quickref.config.enums" title="Enumerations"><code class="literal">OGLPLUS_NO_ENUM_VALUE_CLASSES</code></a>
+<span class="keyword">namespace</span> <span class="identifier">enums</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><a class="link" href="limit_query.html" title="Limit queries">LimitQuery</a><span class="special">&gt;</span> <span class="keyword">class</span> <span class="identifier">Transform</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span><span class="identifier">Base</span><span class="special">,</span> <a class="link" href="limit_query.html" title="Limit queries">LimitQuery</a><span class="special">,</span> <span class="identifier">Transform</span><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.limit_query.c0" href="limit_query.html#oglplus.quickref.limit_query.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+ <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Base</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+	<span class="identifier">EnumToClass</span><span class="special">(</span><span class="identifier">Base</span><span class="special">&amp;&amp;</span> <span class="identifier">base</span><span class="special">);</span>
+
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">Max3DTextureSize</span><span class="special">&gt;</span>
+		<span class="identifier">Max3DTextureSize</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxArrayTextureLayers</span><span class="special">&gt;</span>
+		<span class="identifier">MaxArrayTextureLayers</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxAtomicCounterBufferBindings</span><span class="special">&gt;</span>
+		<span class="identifier">MaxAtomicCounterBufferBindings</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxAtomicCounterBufferSize</span><span class="special">&gt;</span>
+		<span class="identifier">MaxAtomicCounterBufferSize</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxClipDistances</span><span class="special">&gt;</span>
+		<span class="identifier">MaxClipDistances</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCullDistances</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCullDistances</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCombinedClipAndCullDistances</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCombinedClipAndCullDistances</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxColorAttachments</span><span class="special">&gt;</span>
+		<span class="identifier">MaxColorAttachments</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxColorTextureSamples</span><span class="special">&gt;</span>
+		<span class="identifier">MaxColorTextureSamples</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCombinedAtomicCounterBuffers</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCombinedAtomicCounterBuffers</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCombinedAtomicCounters</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCombinedAtomicCounters</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCombinedFragmentUniformComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCombinedFragmentUniformComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCombinedGeometryUniformComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCombinedGeometryUniformComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCombinedImageUniforms</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCombinedImageUniforms</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCombinedImageUnitsAndFragmentOutputs</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCombinedImageUnitsAndFragmentOutputs</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCombinedTessControlUniformComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCombinedTessControlUniformComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCombinedTessEvaluationUniformComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCombinedTessEvaluationUniformComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCombinedTextureImageUnits</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCombinedTextureImageUnits</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCombinedUniformBlocks</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCombinedUniformBlocks</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCombinedVertexUniformComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCombinedVertexUniformComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCubeMapTextureSize</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCubeMapTextureSize</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxDepthTextureSamples</span><span class="special">&gt;</span>
+		<span class="identifier">MaxDepthTextureSamples</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxDrawBuffers</span><span class="special">&gt;</span>
+		<span class="identifier">MaxDrawBuffers</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxDualSourceDrawBuffers</span><span class="special">&gt;</span>
+		<span class="identifier">MaxDualSourceDrawBuffers</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxElementsIndices</span><span class="special">&gt;</span>
+		<span class="identifier">MaxElementsIndices</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxElementsVertices</span><span class="special">&gt;</span>
+		<span class="identifier">MaxElementsVertices</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxFragmentAtomicCounterBuffers</span><span class="special">&gt;</span>
+		<span class="identifier">MaxFragmentAtomicCounterBuffers</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxFragmentAtomicCounters</span><span class="special">&gt;</span>
+		<span class="identifier">MaxFragmentAtomicCounters</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxFragmentImageUniforms</span><span class="special">&gt;</span>
+		<span class="identifier">MaxFragmentImageUniforms</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxFragmentInputComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxFragmentInputComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxFragmentInterpolationOffset</span><span class="special">&gt;</span>
+		<span class="identifier">MaxFragmentInterpolationOffset</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxFragmentUniformBlocks</span><span class="special">&gt;</span>
+		<span class="identifier">MaxFragmentUniformBlocks</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxFragmentUniformComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxFragmentUniformComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxFragmentUniformVectors</span><span class="special">&gt;</span>
+		<span class="identifier">MaxFragmentUniformVectors</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxGeometryAtomicCounterBuffers</span><span class="special">&gt;</span>
+		<span class="identifier">MaxGeometryAtomicCounterBuffers</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxGeometryAtomicCounters</span><span class="special">&gt;</span>
+		<span class="identifier">MaxGeometryAtomicCounters</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxGeometryImageUniforms</span><span class="special">&gt;</span>
+		<span class="identifier">MaxGeometryImageUniforms</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxGeometryInputComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxGeometryInputComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxGeometryOutputComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxGeometryOutputComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxGeometryOutputVertices</span><span class="special">&gt;</span>
+		<span class="identifier">MaxGeometryOutputVertices</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxGeometryShaderInvocations</span><span class="special">&gt;</span>
+		<span class="identifier">MaxGeometryShaderInvocations</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxGeometryTextureImageUnits</span><span class="special">&gt;</span>
+		<span class="identifier">MaxGeometryTextureImageUnits</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxGeometryTotalOutputComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxGeometryTotalOutputComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxGeometryUniformBlocks</span><span class="special">&gt;</span>
+		<span class="identifier">MaxGeometryUniformBlocks</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxGeometryUniformComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxGeometryUniformComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxImageSamples</span><span class="special">&gt;</span>
+		<span class="identifier">MaxImageSamples</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxImageUnits</span><span class="special">&gt;</span>
+		<span class="identifier">MaxImageUnits</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxIntegerSamples</span><span class="special">&gt;</span>
+		<span class="identifier">MaxIntegerSamples</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxPatchVertices</span><span class="special">&gt;</span>
+		<span class="identifier">MaxPatchVertices</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxProgramTexelOffset</span><span class="special">&gt;</span>
+		<span class="identifier">MaxProgramTexelOffset</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxProgramTextureGatherOffset</span><span class="special">&gt;</span>
+		<span class="identifier">MaxProgramTextureGatherOffset</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxRectangleTextureSize</span><span class="special">&gt;</span>
+		<span class="identifier">MaxRectangleTextureSize</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxRenderbufferSize</span><span class="special">&gt;</span>
+		<span class="identifier">MaxRenderbufferSize</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxSampleMaskWords</span><span class="special">&gt;</span>
+		<span class="identifier">MaxSampleMaskWords</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxSamples</span><span class="special">&gt;</span>
+		<span class="identifier">MaxSamples</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxServerWaitTimeout</span><span class="special">&gt;</span>
+		<span class="identifier">MaxServerWaitTimeout</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxSubroutines</span><span class="special">&gt;</span>
+		<span class="identifier">MaxSubroutines</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxSubroutineUniformLocations</span><span class="special">&gt;</span>
+		<span class="identifier">MaxSubroutineUniformLocations</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessControlAtomicCounterBuffers</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessControlAtomicCounterBuffers</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessControlAtomicCounters</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessControlAtomicCounters</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessControlImageUniforms</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessControlImageUniforms</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessControlInputComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessControlInputComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessControlOutputComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessControlOutputComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessControlTextureImageUnits</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessControlTextureImageUnits</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessControlTotalOutputComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessControlTotalOutputComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessControlUniformBlocks</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessControlUniformBlocks</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessControlUniformComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessControlUniformComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessEvaluationAtomicCounterBuffers</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessEvaluationAtomicCounterBuffers</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessEvaluationAtomicCounters</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessEvaluationAtomicCounters</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessEvaluationImageUniforms</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessEvaluationImageUniforms</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessEvaluationInputComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessEvaluationInputComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessEvaluationOutputComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessEvaluationOutputComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessEvaluationTextureImageUnits</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessEvaluationTextureImageUnits</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessEvaluationUniformBlocks</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessEvaluationUniformBlocks</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessEvaluationUniformComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessEvaluationUniformComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessGenLevel</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessGenLevel</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTessPatchComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTessPatchComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTextureBufferSize</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTextureBufferSize</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTextureImageUnits</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTextureImageUnits</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTextureLodBias</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTextureLodBias</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTextureSize</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTextureSize</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTransformFeedbackBuffers</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTransformFeedbackBuffers</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTransformFeedbackInterleavedComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTransformFeedbackInterleavedComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTransformFeedbackSeparateAttribs</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTransformFeedbackSeparateAttribs</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxTransformFeedbackSeparateComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxTransformFeedbackSeparateComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxUniformBlockSize</span><span class="special">&gt;</span>
+		<span class="identifier">MaxUniformBlockSize</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxUniformBufferBindings</span><span class="special">&gt;</span>
+		<span class="identifier">MaxUniformBufferBindings</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxVaryingComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxVaryingComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxVaryingVectors</span><span class="special">&gt;</span>
+		<span class="identifier">MaxVaryingVectors</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxVertexAtomicCounterBuffers</span><span class="special">&gt;</span>
+		<span class="identifier">MaxVertexAtomicCounterBuffers</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxVertexAtomicCounters</span><span class="special">&gt;</span>
+		<span class="identifier">MaxVertexAtomicCounters</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxVertexAttribs</span><span class="special">&gt;</span>
+		<span class="identifier">MaxVertexAttribs</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxVertexImageUniforms</span><span class="special">&gt;</span>
+		<span class="identifier">MaxVertexImageUniforms</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxVertexOutputComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxVertexOutputComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxVertexStreams</span><span class="special">&gt;</span>
+		<span class="identifier">MaxVertexStreams</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxVertexTextureImageUnits</span><span class="special">&gt;</span>
+		<span class="identifier">MaxVertexTextureImageUnits</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxVertexUniformBlocks</span><span class="special">&gt;</span>
+		<span class="identifier">MaxVertexUniformBlocks</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxVertexUniformComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxVertexUniformComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxVertexUniformVectors</span><span class="special">&gt;</span>
+		<span class="identifier">MaxVertexUniformVectors</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxViewportDims</span><span class="special">&gt;</span>
+		<span class="identifier">MaxViewportDims</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxViewports</span><span class="special">&gt;</span>
+		<span class="identifier">MaxViewports</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxComputeWorkGroupCount</span><span class="special">&gt;</span>
+		<span class="identifier">MaxComputeWorkGroupCount</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxComputeWorkGroupSize</span><span class="special">&gt;</span>
+		<span class="identifier">MaxComputeWorkGroupSize</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxComputeWorkGroupInvocations</span><span class="special">&gt;</span>
+		<span class="identifier">MaxComputeWorkGroupInvocations</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxComputeSharedMemorySize</span><span class="special">&gt;</span>
+		<span class="identifier">MaxComputeSharedMemorySize</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MinFragmentInterpolationOffset</span><span class="special">&gt;</span>
+		<span class="identifier">MinFragmentInterpolationOffset</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MinMapBufferAlignment</span><span class="special">&gt;</span>
+		<span class="identifier">MinMapBufferAlignment</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MinProgramTexelOffset</span><span class="special">&gt;</span>
+		<span class="identifier">MinProgramTexelOffset</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MinProgramTextureGatherOffset</span><span class="special">&gt;</span>
+		<span class="identifier">MinProgramTextureGatherOffset</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// namespace enums</span>
+<span class="preprocessor">#endif</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.limit_query.c1"></a><a href="#oglplus.quickref.limit_query.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Specialization of <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a>
+              for the <a class="link" href="limit_query.html" title="Limit queries">LimitQuery</a>
+              enumeration.
+            </p></td>
+</tr></table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
