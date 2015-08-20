@@ -25,6 +25,11 @@ object types specified by the __ObjTag template parameter.
 
 [header oglplus/object/wrapper.hpp]
 
+[^ObjBindingOps] implements operations related to binding objects to
+an explicit or implicit binding point.
+
+[oglplus_object_ObjBindingOps]
+
 [^ObjCommonOps] implements operations applicable to any object of the type
 specified by __ObjTag independent of the [link oglplus.quickref.ops_tags operation kind].
 

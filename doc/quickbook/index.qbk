@@ -54,6 +54,7 @@
 [def __EnumArray [link oglplus.quickref.enums.array EnumArray]]
 [def __OneOf [link oglplus.quickref.enums.one_of OneOf]]
 [def __EnumToClass [link oglplus.quickref.enums.enum_to_class EnumToClass]]
+[def __enums_EnumToClass [link oglplus.quickref.enums.enum_to_class enums::EnumToClass]]
 
 
 [def __oglplus_String [link oglplus.quickref.string.def oglplus::String]]

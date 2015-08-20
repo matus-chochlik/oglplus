@@ -62,7 +62,7 @@ private:
 	};
 public:
 
-	__EnumToClass<
+	__enums_EnumToClass_Capability<
 		__Nothing,
 		__Capability,
 		CurrentCapability

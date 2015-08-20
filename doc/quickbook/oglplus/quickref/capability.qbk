@@ -20,6 +20,11 @@ member functions of the __Context class.
 [import enums/capability.hpp]
 [oglplus_enums_capability]
 
+[heading:capability_class [^Capability] to class]
+
+[import enums/capability_class.hpp]
+[oglplus_enums_capability_class]
+
 [heading:functionality [^Functionality]]
 
 Functionalities are similar to capabilities in that they can be

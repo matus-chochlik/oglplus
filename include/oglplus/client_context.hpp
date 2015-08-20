@@ -18,7 +18,7 @@
 #include <oglplus/client/hints.hpp>
 
 #include <oglplus/client/depth_test.hpp>
-#include <oglplus/client/logical_ops.hpp>
+#include <oglplus/client/logic_ops.hpp>
 #include <oglplus/client/viewport.hpp>
 #include <oglplus/client/clip_control.hpp>
 #include <oglplus/client/stencil_test.hpp>
@@ -54,7 +54,7 @@ class ClientContext
  , public client::DepthTestState
  , public client::StencilTestState
  , public client::ScissorTestState
- , public client::LogicalOps
+ , public client::LogicOpState
  , public client::PixelState
  , public client::PixelOps
  , public client::BlendingOps

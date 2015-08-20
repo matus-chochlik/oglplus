@@ -42,6 +42,11 @@
 [import enums/texture_target.hpp]
 [oglplus_enums_texture_target]
 
+[heading:target_class Target to class]
+
+[import enums/texture_target_class.hpp]
+[oglplus_enums_texture_target_class]
+
 [heading:compare_mode Compare mode]
 
 [header oglplus/texture_compare.hpp]

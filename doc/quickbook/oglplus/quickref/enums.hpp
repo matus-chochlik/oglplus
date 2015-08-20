@@ -54,6 +54,7 @@ public:
 
 //]
 //[oglplus_enums_EnumToClass
+namespace enums {
 
 template <
 	typename Base,
@@ -67,6 +68,8 @@ public:
 
 	/* ... */
 };
+
+} // namespace enums
 //]
 //[oglplus_enums_EnumToClass_ex1
 
@@ -84,6 +87,11 @@ enum class SomeEnum
 template <SomeEnum Value>
 class SomeEnumTransform
 {
+public:
+	SomeEnumTransform(void); /*<
+	One of these constructors must be implemented.
+	>*/
+	SomeEnumTransform(Base&);
 };
 
 //]

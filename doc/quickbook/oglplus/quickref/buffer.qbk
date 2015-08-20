@@ -35,6 +35,11 @@
 [import enums/buffer_target.hpp]
 [oglplus_enums_buffer_target]
 
+[heading:target_class Target to class]
+
+[import enums/buffer_target_class.hpp]
+[oglplus_enums_buffer_target_class]
+
 [heading:indexed_target IndexedTarget]
 
 [header oglplus/buffer_target.hpp]

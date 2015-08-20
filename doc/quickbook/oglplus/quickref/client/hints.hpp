@@ -19,11 +19,11 @@ private:
 	{ };
 public:
 
-	__EnumToClass<
+	__enums_EnumToClass_HintTarget<
 		__Nothing,
 		__HintTarget,
 		Hint
-	> Hints ; /*<
+	> Hints; /*<
 	Set of stacks managing the setting of __HintOption settings
 	individually for each value in the __HintTarget enumeration.
 	>*/

@@ -32,6 +32,11 @@
 [import enums/transform_feedback_target.hpp]
 [oglplus_enums_transform_feedback_target]
 
+[heading:target_class Target to class]
+
+[import enums/transform_feedback_target_class.hpp]
+[oglplus_enums_transform_feedback_target_class]
+
 [heading:mode Mode]
 
 [header oglplus/transform_feedback_mode.hpp]

@@ -2,9 +2,9 @@
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
-[/---------------------------------]
-[section:limit_queries LimitQueries]
-[/---------------------------------]
+[/----------------------------------]
+[section:limit_queries Limit queries]
+[/----------------------------------]
 
 [header oglplus/context/limit_queries.hpp]
 
