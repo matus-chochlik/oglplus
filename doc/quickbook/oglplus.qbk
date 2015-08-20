@@ -76,6 +76,7 @@
 [def __ObjectSubtype [link oglplus.quickref.object.subtype ObjectSubtype]]
 [def __ObjTypeOps [link oglplus.quickref.object.type.ops ObjTypeOps]]
 [def __ObjGenDelOps [link oglplus.quickref.object.gendelops ObjGenDelOps]]
+[def __ObjBindingOps [link oglplus.quickref.object.ops ObjBindingOps]]
 [def __ObjCommonOps [link oglplus.quickref.object.ops ObjCommonOps]]
 [def __ObjZeroOps [link oglplus.quickref.object.ops ObjZeroOps]]
 [def __ObjectOps [link oglplus.quickref.object.ops ObjectOps]]
@@ -198,6 +199,8 @@
 
 [def __Optional_Object [link oglplus.quickref.object.optional Optional]]
 
+[def __BoundObjOps [link oglplus.quickref.object.bound.ops BoundObjOps]]
+
 [def __Reference [link oglplus.quickref.object.reference Reference]]
 [def __Sequence [link oglplus.quickref.object.sequence Sequence]]
 [def __SeqIterator [link oglplus.quickref.object.sequence.iter SeqIterator]]
@@ -232,6 +235,9 @@
 [def __VertexAttribSlot [link oglplus.quickref.vertex_attrib_slot VertexAttribSlot]]
 [def __FragmentDataSlot [link oglplus.quickref.frag_data_slot FragmentDataSlot]]
 [def __FragDataSlot [link oglplus.quickref.frag_data_slot FragDataSlot]]
+
+[def __ViewportIndex [link oglplus.quickref.viewport_index ViewportIndex]]
+[def __DrawBufferIndex [link oglplus.quickref.draw_buffer_index DrawBufferIndex]]
 
 [def __GLSLSource [link oglplus.quickref.glsl_source GLSLSource]]
 [def __GLSLString [link oglplus.quickref.glsl_string GLSLString]]
@@ -272,6 +278,7 @@
 [def __FragData [link oglplus.quickref.frag_data.def FragData]]
 
 [def __Context [link oglplus.quickref.context Context]]
+[def __ClientContext [link oglplus.quickref.client_context ClientContext]]
 
 [def __Capability [link oglplus.quickref.capability Capability]]
 [def __Functionality [link oglplus.quickref.capability.functionality Functionality]]
@@ -355,6 +362,7 @@
 [def __OGLPLUS_ERROR_NO_GL_SYMBOL [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_GL_SYMBOL]]]
 [def __OGLPLUS_NO_GLFUNC_CHECKS [link oglplus.quickref.config.gl [^OGLPLUS_NO_GLFUNC_CHECKS]]]
 
+[def __OGLPLUS_NO_ENUM_VALUE_CLASSES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_CLASSES]]]
 [def __OGLPLUS_NO_ENUM_VALUE_RANGES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_RANGES]]]
 [def __OGLPLUS_NO_ENUM_VALUE_NAMES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_NAMES]]]
 

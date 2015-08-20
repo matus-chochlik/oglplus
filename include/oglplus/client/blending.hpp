@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -23,13 +23,13 @@ namespace aux {
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
 
 class BlendEquationIndexed
- : public SettingStack<context::BlendEquationSeparate, GLuint>
+ : public SettingStack<context::BlendEquationSeparate, DrawBufferIndex>
 {
 private:
 	static
-	context::BlendEquationSeparate _do_get(GLuint index)
+	context::BlendEquationSeparate _do_get(DrawBufferIndex index)
 	{
-		if(index == 0)
+		if(GLuint(index) == 0)
 		{
 			return context::BlendingState::BlendEquationSeparate();
 		}
@@ -42,9 +42,9 @@ private:
 	}
 
 	static
-	void _do_set(context::BlendEquationSeparate value, GLuint index)
+	void _do_set(context::BlendEquationSeparate value, DrawBufferIndex index)
 	{
-		if(index == 0)
+		if(GLuint(index) == 0)
 		{
 			if(value.Separate())
 			{
@@ -78,8 +78,8 @@ private:
 		}
 	}
 public:
-	BlendEquationIndexed(GLuint index = 0)
-	 : SettingStack<context::BlendEquationSeparate, GLuint>(
+	BlendEquationIndexed(DrawBufferIndex index = 0)
+	 : SettingStack<context::BlendEquationSeparate, DrawBufferIndex>(
 		&_do_get,
 		&_do_set,
 		index
@@ -90,18 +90,19 @@ public:
 class BlendEquation
  : public SettingStackIndexed<
 	BlendEquationIndexed,
-	context::BlendEquationSeparate
+	context::BlendEquationSeparate,
+	DrawBufferIndex
 >
 { };
 
 class BlendFunctionIndexed
- : public SettingStack<context::BlendFunctionSeparate, GLuint>
+ : public SettingStack<context::BlendFunctionSeparate, DrawBufferIndex>
 {
 private:
 	static
-	context::BlendFunctionSeparate _do_get(GLuint index)
+	context::BlendFunctionSeparate _do_get(DrawBufferIndex index)
 	{
-		if(index == 0)
+		if(GLuint(index) == 0)
 		{
 			return context::BlendingState::BlendFuncSeparate();
 		}
@@ -114,9 +115,9 @@ private:
 	}
 
 	static
-	void _do_set(context::BlendFunctionSeparate value, GLuint index)
+	void _do_set(context::BlendFunctionSeparate value, DrawBufferIndex index)
 	{
-		if(index == 0)
+		if(GLuint(index) == 0)
 		{
 			if(value.Separate())
 			{
@@ -152,8 +153,8 @@ private:
 		}
 	}
 public:
-	BlendFunctionIndexed(GLuint index = 0)
-	 : SettingStack<context::BlendFunctionSeparate, GLuint>(
+	BlendFunctionIndexed(DrawBufferIndex index = 0)
+	 : SettingStack<context::BlendFunctionSeparate, DrawBufferIndex>(
 		&_do_get,
 		&_do_set,
 		index
@@ -164,7 +165,8 @@ public:
 class BlendFunction
  : public SettingStackIndexed<
 	BlendFunctionIndexed,
-	context::BlendFunctionSeparate
+	context::BlendFunctionSeparate,
+	DrawBufferIndex
 >
 { };
 

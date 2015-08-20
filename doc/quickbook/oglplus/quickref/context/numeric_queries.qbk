@@ -2,9 +2,9 @@
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
-[/-------------------------------------]
-[section:numeric_queries NumericQueries]
-[/-------------------------------------]
+[/--------------------------------------]
+[section:numeric_queries Numeric queries]
+[/--------------------------------------]
 
 [header oglplus/context/numeric_queries.hpp]
 

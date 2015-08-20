@@ -273,6 +273,47 @@ def action_qbk_hpp(options):
 		print_newline(options)
 	print_line(options, "//]")
 
+def action_qbk_class_hpp(options):
+
+	items = parse_source(options)
+
+	print_cpp_header(options)
+	print_line(options, "//[%s_enums_%s_class" % (options.library, options.output_id))
+	print_line(options, "#if !__OGLPLUS_NO_ENUM_VALUE_CLASSES")
+	print_line(options, "namespace enums {")
+	print_newline(options)
+
+	print_line(options, "template <typename Base, template<__%s> class Transform>" % options.enum_name)
+	print_line(options, "class __EnumToClass<Base, __%s, Transform> /*<" %options.enum_name)
+	print_line(options, "Specialization of __EnumToClass for the __%s enumeration." %options.enum_name)
+	print_line(options, ">*/")
+	print_line(options, " : public Base")
+	print_line(options, "{")
+	print_line(options, "public:")
+
+	print_line(options, "	EnumToClass(void);")
+	print_line(options, "	EnumToClass(Base&& base);")
+
+	print_newline(options)
+
+	for item in items:
+
+		print_line(options, "	Transform<%s::%s>" % (
+			options.enum_name,
+			item.dst_name
+		))
+		print_line(options, "		%s;" % (
+			item.dst_name
+		))
+
+	print_line(options, "};")
+	print_newline(options)
+
+	print_line(options, "} // namespace enums")
+	print_line(options, "#endif")
+	print_line(options, "//]")
+	print_newline(options)
+
 def action_incl_enum_hpp(options):
 
 	items = parse_source(options)
@@ -730,6 +771,7 @@ actions = {
 	"info":    action_info,
 	"specific_mk":  action_specific_mk,
 	"qbk_hpp": action_qbk_hpp,
+	"qbk_class_hpp": action_qbk_class_hpp,
 	"incl_enum_hpp": action_incl_enum_hpp,
 	"incl_enum_ipp": action_incl_enum_ipp,
 	"impl_enum_def_ipp": action_impl_enum_def_ipp,

@@ -33,6 +33,11 @@
 [import enums/framebuffer_target.hpp]
 [oglplus_enums_framebuffer_target]
 
+[heading:target_class Target to class]
+
+[import enums/framebuffer_target_class.hpp]
+[oglplus_enums_framebuffer_target_class]
+
 [heading:buffer Buffer]
 
 [header oglplus/framebuffer_attachment.hpp]

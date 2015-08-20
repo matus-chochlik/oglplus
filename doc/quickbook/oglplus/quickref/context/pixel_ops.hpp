@@ -4,10 +4,10 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_context_PixelOps
+//[oglplus_context_PixelState
 namespace context {
 
-class PixelOps
+class PixelState
 {
 public:
 	static void PixelStore(__PixelParameter parameter, GLfloat value); /*<
@@ -47,7 +47,13 @@ public:
 	of the [^Parameter] being retrieved.
 	See [glfunc Get].
 	>*/
+};
 
+//]
+//[oglplus_context_PixelOps
+class PixelOps
+{
+public:
 
 	static void ReadPixels(
 		GLint x,

@@ -31,4 +31,9 @@
 [import enums/renderbuffer_target.hpp]
 [oglplus_enums_renderbuffer_target]
 
+[heading:target_class Target to class]
+
+[import enums/renderbuffer_target_class.hpp]
+[oglplus_enums_renderbuffer_target_class]
+
 [endsect]

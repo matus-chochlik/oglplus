@@ -43,7 +43,7 @@ public:
 
 #if GL_VERSION_4_1 || GL_ARB_viewport_array
 	static void Scissor(
-		GLuint viewport,
+		__ViewportIndex viewport,
 		GLint left,
 		GLint bottom,
 		__SizeType width,
@@ -52,7 +52,7 @@ public:
 	Defines the scissor rectangle for the specified [^viewport].
 	See [glfunc ScissorIndexed].
 	>*/
-	static void Scissor(GLuint viewport, GLint* v);
+	static void Scissor(__ViewportIndex viewport, GLint* v);
 
 	static void ScissorArray(GLuint first, __SizeType count, GLint* v); /*<
 	Defines scissor rectangles for viewports specified
@@ -60,7 +60,7 @@ public:
 	See [glfunc ScissorArray].
 	>*/
 
-	static __context_ScissorRectangle ScissorBox(GLuint viewport); /*<
+	static __context_ScissorRectangle ScissorBox(__ViewportIndex viewport); /*<
 	Returns the extents of scissor box of the specified [^viewport].
 	See [glfunc Get], [glconst SCISSOR_BOX].
 	>*/

@@ -4,10 +4,10 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_context_LogicalOps
+//[oglplus_context_LogicOpState
 namespace context {
 
-class LogicalOps
+class LogicOpState
 {
 public:
 #if GL_VERSION_3_0

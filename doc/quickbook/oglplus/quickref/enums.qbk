@@ -54,4 +54,30 @@ the only supported operation is construction from an enumeration value.
 
 [oglplus_enums_OneOf]
 
+[heading:enum_to_class EnumToClass]
+
+Specializations of the [^EnumToClass] template for various enumerations
+can be used to create classes which have member variables with the same names
+as are the names of the values in the enumeration. The type of the member variables
+is defined by the [^Transform] template which takes values of the specified [^Enumeration]
+as an argument.
+
+[oglplus_enums_EnumToClass]
+
+For example for a [^SomeEnum] enumeration:
+
+[oglplus_enums_EnumToClass_ex1]
+
+with the following transformation template:
+
+[oglplus_enums_EnumToClass_ex2]
+
+the following instantiation of [^EnumToClass]
+
+[oglplus_enums_EnumToClass_ex3]
+
+results in a class which is equivalent to:
+
+[oglplus_enums_EnumToClass_ex4]
+
 [endsect]

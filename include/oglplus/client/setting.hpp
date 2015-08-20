@@ -136,6 +136,20 @@ protected:
 public:
 	typedef SettingHolder<T, P> Holder;
 
+	SettingStack& Indexed(GLuint index)
+	{
+		assert(index == 0);
+		(void)index;
+		return *this;
+	}
+
+	inline
+	SettingStack&
+	operator [] (GLuint index)
+	{
+		return Indexed(index);
+	}
+
 	inline
 	Holder Push(T value)
 	{
@@ -172,7 +186,7 @@ public:
 };
 
 
-template <typename Derived, typename T>
+template <typename Derived, typename T, typename Index = GLuint>
 class SettingStackIndexed
 {
 private:
@@ -195,18 +209,18 @@ public:
 		_indexed.emplace_back(0);
 	}
 
-	Derived& Indexed(std::size_t index)
+	Derived& Indexed(Index index)
 	{
-		for(std::size_t i=_indexed.size(); i<=index; ++i)
+		for(GLuint i=GLuint(_indexed.size()); i<=GLuint(index); ++i)
 		{
-			_indexed.emplace_back(GLuint(i));
+			_indexed.emplace_back(i);
 		}
-		return _indexed[index];
+		return _indexed[GLuint(index)];
 	}
 
 	inline
 	Derived&
-	operator [] (std::size_t index)
+	operator [] (Index index)
 	{
 		return Indexed(index);
 	}

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -23,23 +23,23 @@ namespace aux {
 #if GL_VERSION_4_1 || GL_ARB_viewport_array
 
 class ScissorIndexed
- : public SettingStack<context::ScissorRectangle, GLuint>
+ : public SettingStack<context::ScissorRectangle, ViewportIndex>
 {
 private:
 	static
-	context::ScissorRectangle _do_get(GLuint index)
+	context::ScissorRectangle _do_get(ViewportIndex index)
 	{
 		return context::ScissorTest::ScissorBox(index);
 	}
 
 	static
-	void _do_set(context::ScissorRectangle vp, GLuint index)
+	void _do_set(context::ScissorRectangle vp, ViewportIndex index)
 	{
 		context::ScissorTest::Scissor(index, vp);
 	}
 public:
-	ScissorIndexed(GLuint index)
-	 : SettingStack<context::ScissorRectangle, GLuint>(
+	ScissorIndexed(ViewportIndex index)
+	 : SettingStack<context::ScissorRectangle, ViewportIndex>(
 		&_do_get,
 		&_do_set,
 		index
@@ -48,7 +48,11 @@ public:
 };
 
 class Scissor
- : public SettingStackIndexed<ScissorIndexed, context::ScissorRectangle>
+ : public SettingStackIndexed<
+	ScissorIndexed,
+	context::ScissorRectangle,
+	ViewportIndex
+>
 { };
 
 #else
@@ -81,7 +85,7 @@ public:
 
 } // namespace aux
 
-class ScissorTest
+class ScissorTestState
 {
 public:
 	aux::Scissor Scissor;

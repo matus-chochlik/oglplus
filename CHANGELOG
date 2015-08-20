@@ -1,3 +1,18 @@
+Version 0.65.0
+
+- The devel/testing implementation of EGL was updated to support multisampling.
+- The GLX and EGL example harnesses were refactored and updated
+  to use multisampling when the --samples option is specified.
+- The ViewportIndex and DrawBufferIndex types were added.
+- Context and ClientContext were updated to use the new types.
+- A wrapper for NV_fragment_coverage_to_color was added.
+- The PolygonMode enumeration was updated.
+- Most of the examples were changed to use GLSL 120/130/140/150.
+- Several bugs and problems were fixed.
+- The build system was updated to detect the availability of C++ override.
+- The Quickbook documentation was updated.
+
+
 Version 0.64.0
 
 - The DeferredHandler and the Outcome<T> classes which allow
@@ -5,7 +20,7 @@ Version 0.64.0
 - New overloads of Shader::Compile, Shader::CompileInclude,
   Program::Link and Program::Validate and ProgramPipeline::Validate,
   which return Outcome<T> instead of handling errors eagerly were added.
-- Some of the examples were changes to show the usage of the new features.
+- Some of the examples were changed to show the usage of the new features.
 - Some of the examples were changed to use GLSL 120/130/140/150.
 - Some of the older examples were removed.
 - The Quickbook documentation was updated.
