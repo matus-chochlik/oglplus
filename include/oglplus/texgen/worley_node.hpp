@@ -15,8 +15,8 @@
 #include <oglplus/texgen/base_node.hpp>
 #include <oglplus/texgen/base_input.hpp>
 #include <oglplus/texgen/base_output.hpp>
-#include <oglplus/texgen/global_node.hpp>
 #include <oglplus/texgen/adaptive_output.hpp>
+#include <oglplus/texgen/cell_coord_output.hpp>
 
 namespace oglplus {
 namespace texgen {
@@ -24,35 +24,9 @@ namespace texgen {
 class Worley2DOutputSlot
  : public BaseOutputSlot
 {
-private:
-	class CoordSlot
-	 : public BaseOutputSlot
-	{
-	public:
-		FallbackInputSlot<GlobalCoordinateSlot,true> _coord;
-		FallbackInputSlot<ConstantOutputSlot<Vec2f>> _cells;
-		std::size_t _version;
-
-		CoordSlot(Node& parent);
-
-		const char* Name(void)
-		OGLPLUS_OVERRIDE;
-
-		const char* TypeName(void)
-		OGLPLUS_OVERRIDE;
-
-		SlotDataType ValueType(void)
-		OGLPLUS_OVERRIDE;
-
-		std::ostream& Definitions(std::ostream&, CompileContext&)
-		OGLPLUS_OVERRIDE;
-
-		bool Render(const RenderParams&)
-		OGLPLUS_OVERRIDE;
-	};
 public:
 	FallbackInputSlot<AdaptiveConstantOutputSlot,true> _cell_offs;
-	CoordSlot _coord;
+	CellCoordOutputSlot _coord;
 	unsigned _order;
 
 	Worley2DOutputSlot(Node& parent, unsigned order);
