@@ -90,7 +90,7 @@ private:
 	friend class SettingHolder<T, P>;
 protected:
 	inline
-	T _get(void) const
+	const T& _get(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _curr;
@@ -168,7 +168,7 @@ public:
 	Get(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return _curr;
+		return _get();
 	}
 
 	inline

@@ -102,6 +102,10 @@ statements are assumed, but omitted for the sake of brevity from this reference.
 [def __enums_EnumToClass_Capability [link oglplus.quickref.capability.capability_class enums::EnumToClass]]
 [def __enums_EnumToClass_PixelParameter [link oglplus.quickref.pixel_parameter.class enums::EnumToClass]]
 [def __enums_EnumToClass_TextureTarget [link oglplus.quickref.texture.target_class enums::EnumToClass]]
+[def __enums_EnumToClass_BufferTarget [link oglplus.quickref.buffer.target_class enums::EnumToClass]]
+[def __enums_EnumToClass_BufferIndexedTarget [link oglplus.quickref.buffer.indexed_target_class enums::EnumToClass]]
+[def __enums_EnumToClass_FramebufferTarget [link oglplus.quickref.framebuffer.target_class enums::EnumToClass]]
+[def __enums_EnumToClass_RenderbufferTarget [link oglplus.quickref.renderbuffer.target_class enums::EnumToClass]]
 
 [include quickref/concept.qbk]
 [include quickref/string.qbk]

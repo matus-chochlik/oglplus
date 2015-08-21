@@ -141,11 +141,11 @@ private:
 			CurrentUnitTexture
 		> CurrentUnitTextures;
 	public:
-		CurrentUnitTextures& Unit(std::size_t index); /*<
+		CurrentUnitTextures& Unit(__TextureUnitSelector index); /*<
 		Returns a reference to the stack of texture bindings
 		on the texture unit at the specified [^index].
 		>*/
-		CurrentUnitTextures& operator [] (std::size_t index);
+		CurrentUnitTextures& operator [] (__TextureUnitSelector index);
 	};
 public:
 	CurrentTextures Texture;
@@ -184,11 +184,11 @@ private:
 	class CurrentSamplers
 	{
 	public:
-		CurrentUnitSampler& Unit(std::size_t index); /*<
+		CurrentUnitSampler& Unit(__TextureUnitSelector index); /*<
 		Returns a reference to the stack of sampler bindings
 		on the texture unit at the specified [^index].
 		>*/
-		CurrentUnitSampler& operator [] (std::size_t index);
+		CurrentUnitSampler& operator [] (__TextureUnitSelector index);
 	};
 public:
 	CurrentSamplers Sampler;
