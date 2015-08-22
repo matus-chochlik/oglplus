@@ -30,7 +30,7 @@ private:
 	friend class TextureNode;
 
 	FallbackInputSlot<GlobalCoordinateSlot, true> _coord;
-
+protected:
 	Texture _texture;
 	TextureTarget _target;
 	PixelDataFormat _format;
@@ -57,6 +57,8 @@ class TextureNode
 {
 private:
 	TextureOutputSlot _output;
+protected:
+	Texture& _tex(void) { return _output._texture; }
 public:
 	TextureNode(Texture&&, TextureTarget, PixelDataFormat);
 

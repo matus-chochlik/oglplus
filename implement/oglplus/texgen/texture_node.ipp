@@ -143,6 +143,10 @@ Definitions(std::ostream& result, CompileContext& context)
 	{
 		result << "sampler2D ";
 	}
+	else if(_target == TextureTarget::Rectangle)
+	{
+		result << "sampler2DRect ";
+	}
 	else
 	{
 		OGLPLUS_ABORT("Unsuported texture target in texgen node");
@@ -156,17 +160,29 @@ Definitions(std::ostream& result, CompileContext& context)
 	AppendId(result);
 	result << "(vec3 po, vec3 so){\n\treturn ";
 
-	if(_target == TextureTarget::_2D)
+	if(
+		(_target == TextureTarget::_2D) ||
+		(_target == TextureTarget::Rectangle)
+	)
 	{
 		static SlotDataType v2 = SlotDataType::FloatVec2;
 
-		result << "texture2D(\n\t\t";
+		result << "texture(\n\t\t";
 		AppendId(result);
 		result << "s,\n\t\t";
 		ConversionPrefix(result, _coord.ValueType(), v2);
 		_coord.Expression(result, context);
 		result << "(po, so)";
 		ConversionSuffix(result, _coord.ValueType(), v2,0,0,0,0);
+
+		if(_target == TextureTarget::Rectangle)
+		{
+			result << "*\n\t\t";
+			result << "vec2(textureSize(";
+			AppendId(result);
+			result << "s, 0))";
+		}
+
 		result << "\n\t";
 		result << ")";
 

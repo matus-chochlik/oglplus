@@ -40,8 +40,7 @@ SlotDataType
 MixOutputSlot::
 ValueType(void)
 {
-	assert(_zero.ValueType() == _one.ValueType());
-	return _one.ValueType();
+	return CommonDataType(_zero.ValueType(), _one.ValueType());
 }
 
 OGLPLUS_LIB_FUNC
@@ -53,9 +52,9 @@ Definitions(std::ostream& result, CompileContext& context)
 	_one.Definitions(result, context);
 	_value.Definitions(result, context);
 
-	SlotDataType type = CommonDataType(_zero.ValueType(), _one.ValueType());
+	SlotDataType type = ValueType();
 
-	result << DataTypeName(ValueType()) << " ";
+	result << DataTypeName(type) << " ";
 	AppendId(result);
 	result << "(vec3 po, vec3 so){\n\t";
 

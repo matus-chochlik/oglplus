@@ -18,7 +18,7 @@ namespace texgen {
 OGLPLUS_LIB_FUNC
 Texture
 Random2DRedNode::
-_make(TextureUnitSelector texunit, GLsizei width, GLsizei height)
+_make(TextureUnitSelector texunit, TextureTarget target, GLsizei width, GLsizei height)
 {
 	assert(width > 0);
 	assert(height> 0);
@@ -36,12 +36,12 @@ _make(TextureUnitSelector texunit, GLsizei width, GLsizei height)
 
 	Texture tex;
 	Texture::Active(texunit);
-	tex.Bind(TextureTarget::_2D);
-	Texture::Filter(TextureTarget::_2D, TextureFilter::Nearest);
-	Texture::WrapS(TextureTarget::_2D, TextureWrap::Repeat);
-	Texture::WrapT(TextureTarget::_2D, TextureWrap::Repeat);
+	tex.Bind(target);
+	Texture::Filter(target, TextureFilter::Nearest);
+	Texture::WrapS(target, TextureWrap::Repeat);
+	Texture::WrapT(target, TextureWrap::Repeat);
 	Texture::Image2D(
-		TextureTarget::_2D, 0,
+		target, 0,
 		PixelDataInternalFormat::Red,
 		width, height, 0,
 		PixelDataFormat::Red,
@@ -55,7 +55,7 @@ OGLPLUS_LIB_FUNC
 Random2DRedNode::
 Random2DRedNode(TextureUnitSelector texunit, GLsizei width, GLsizei height)
  : TextureNode(
-	_make(texunit, width, height),
+	_make(texunit, TextureTarget::_2D, width, height),
 	TextureTarget::_2D,
 	PixelDataFormat::Red
 )
@@ -64,7 +64,7 @@ Random2DRedNode(TextureUnitSelector texunit, GLsizei width, GLsizei height)
 OGLPLUS_LIB_FUNC
 Texture
 Random2DRGNode::
-_make(TextureUnitSelector texunit, GLsizei width, GLsizei height)
+_make(TextureUnitSelector texunit, TextureTarget target, GLsizei width, GLsizei height)
 {
 	assert(width > 0);
 	assert(height> 0);
@@ -84,12 +84,12 @@ _make(TextureUnitSelector texunit, GLsizei width, GLsizei height)
 
 	Texture tex;
 	Texture::Active(texunit);
-	tex.Bind(TextureTarget::_2D);
-	Texture::Filter(TextureTarget::_2D, TextureFilter::Nearest);
-	Texture::WrapS(TextureTarget::_2D, TextureWrap::Repeat);
-	Texture::WrapT(TextureTarget::_2D, TextureWrap::Repeat);
+	tex.Bind(target);
+	Texture::Filter(target, TextureFilter::Nearest);
+	Texture::WrapS(target, TextureWrap::Repeat);
+	Texture::WrapT(target, TextureWrap::Repeat);
 	Texture::Image2D(
-		TextureTarget::_2D, 0,
+		target, 0,
 		PixelDataInternalFormat::RG,
 		width, height, 0,
 		PixelDataFormat::RG,
@@ -103,7 +103,7 @@ OGLPLUS_LIB_FUNC
 Random2DRGNode::
 Random2DRGNode(TextureUnitSelector texunit, GLsizei width, GLsizei height)
  : TextureNode(
-	_make(texunit, width, height),
+	_make(texunit, TextureTarget::_2D, width, height),
 	TextureTarget::_2D,
 	PixelDataFormat::RG
 )
@@ -112,7 +112,7 @@ Random2DRGNode(TextureUnitSelector texunit, GLsizei width, GLsizei height)
 OGLPLUS_LIB_FUNC
 Texture
 Random2DRGBNode::
-_make(TextureUnitSelector texunit, GLsizei width, GLsizei height)
+_make(TextureUnitSelector texunit, TextureTarget target, GLsizei width, GLsizei height)
 {
 	assert(width > 0);
 	assert(height> 0);
@@ -134,12 +134,12 @@ _make(TextureUnitSelector texunit, GLsizei width, GLsizei height)
 
 	Texture tex;
 	Texture::Active(texunit);
-	tex.Bind(TextureTarget::_2D);
-	Texture::Filter(TextureTarget::_2D, TextureFilter::Nearest);
-	Texture::WrapS(TextureTarget::_2D, TextureWrap::Repeat);
-	Texture::WrapT(TextureTarget::_2D, TextureWrap::Repeat);
+	tex.Bind(target);
+	Texture::Filter(target, TextureFilter::Nearest);
+	Texture::WrapS(target, TextureWrap::Repeat);
+	Texture::WrapT(target, TextureWrap::Repeat);
 	Texture::Image2D(
-		TextureTarget::_2D, 0,
+		target, 0,
 		PixelDataInternalFormat::RGB,
 		width, height, 0,
 		PixelDataFormat::RGB,
@@ -153,7 +153,7 @@ OGLPLUS_LIB_FUNC
 Random2DRGBNode::
 Random2DRGBNode(TextureUnitSelector texunit, GLsizei width, GLsizei height)
  : TextureNode(
-	_make(texunit, width, height),
+	_make(texunit, TextureTarget::_2D, width, height),
 	TextureTarget::_2D,
 	PixelDataFormat::RGB
 )
@@ -162,7 +162,7 @@ Random2DRGBNode(TextureUnitSelector texunit, GLsizei width, GLsizei height)
 OGLPLUS_LIB_FUNC
 Texture
 Random2DRGBANode::
-_make(TextureUnitSelector texunit, GLsizei width, GLsizei height)
+_make(TextureUnitSelector texunit, TextureTarget target, GLsizei width, GLsizei height)
 {
 	assert(width > 0);
 	assert(height> 0);
@@ -186,12 +186,12 @@ _make(TextureUnitSelector texunit, GLsizei width, GLsizei height)
 
 	Texture tex;
 	Texture::Active(texunit);
-	tex.Bind(TextureTarget::_2D);
-	Texture::Filter(TextureTarget::_2D, TextureFilter::Nearest);
-	Texture::WrapS(TextureTarget::_2D, TextureWrap::Repeat);
-	Texture::WrapT(TextureTarget::_2D, TextureWrap::Repeat);
+	tex.Bind(target);
+	Texture::Filter(target, TextureFilter::Nearest);
+	Texture::WrapS(target, TextureWrap::Repeat);
+	Texture::WrapT(target, TextureWrap::Repeat);
 	Texture::Image2D(
-		TextureTarget::_2D, 0,
+		target, 0,
 		PixelDataInternalFormat::RGBA,
 		width, height, 0,
 		PixelDataFormat::RGBA,
@@ -205,7 +205,7 @@ OGLPLUS_LIB_FUNC
 Random2DRGBANode::
 Random2DRGBANode(TextureUnitSelector texunit, GLsizei width, GLsizei height)
  : TextureNode(
-	_make(texunit, width, height),
+	_make(texunit, TextureTarget::_2D, width, height),
 	TextureTarget::_2D,
 	PixelDataFormat::RGBA
 )

@@ -12,6 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 
+#include <oglplus/texgen/text_node.hpp>
 #include <oglplus/texgen/components_node.hpp>
 #include <oglplus/texgen/posterize_node.hpp>
 #include <oglplus/texgen/worley_node.hpp>
@@ -38,6 +39,7 @@
 #include <iostream>
 
 #include <oglplus/all.hpp>
+#include <oglplus/opt/resources.hpp>
 
 #include "example.hpp"
 
@@ -52,6 +54,7 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
+	texgen::Text2DNode tt;
 	texgen::ComponentsNode co;
 	texgen::PosterizeNode po;
 	texgen::Worley2DNode wy;
@@ -79,6 +82,7 @@ private:
 public:
 	TriangleExample(void)
 	 : gl()
+	 , tt(1, 256, 256)
 	 , wy(2)
 	 , ua(texgen::UnaryArithmeticOp::Exp)
 	 , ba(texgen::BinaryArithmeticOp::Greater)
@@ -91,6 +95,12 @@ public:
 	 , tx(0, 16, 16)
 	 , rn(16,16)
 	{
+		ResourceFile font_file("fonts", "FreeSans", ".ttf");
+		auto font = tt.OpenFont(font_file);
+		tt.Begin();
+		tt.RenderText(font, 48, "BLAH", 10, 150);
+		tt.Finish(1);
+
 		//st.SetCoeff(Vec3f(-1,1,1));
 		//m1.SetZero(0.0f);
 		//m1.SetOne(1.0f);
@@ -126,12 +136,16 @@ public:
 		Connect(wy/"Output", "Input"/s2);
 		Connect(s2/"Output", "Input"/po);
 		Connect(po/"Output", "Input"/co);
+		Connect(nt/"Output", "One"/m2);
+		Connect(co/"X", "Zero"/m2);
+		Connect(tt/"Output", "Value"/m2);
 
 texgen::CompileContext ctxt;
-co.Output(0).Definitions(std::cout, ctxt) << std::endl;
-co.Output(0).Expression(std::cout, ctxt) << std::endl;
+m2.Output(0).Definitions(std::cout, ctxt) << std::endl;
+m2.Output(0).Expression(std::cout, ctxt) << std::endl;
 
-		Connect(co.Output(0), rn.Input(0));
+		//Connect(m2.Output(0), rn.Input(0));
+		Connect(tt.Output(0), rn.Input(0));
 
 		rn.Update();
 		rn.Activate();

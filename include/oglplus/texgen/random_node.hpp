@@ -21,7 +21,8 @@ class Random2DRedNode
  : public TextureNode
 {
 private:
-	static Texture _make(TextureUnitSelector, GLsizei, GLsizei);
+	static
+	Texture _make(TextureUnitSelector, TextureTarget, GLsizei, GLsizei);
 public:
 	Random2DRedNode(TextureUnitSelector, GLsizei width, GLsizei height);
 };
@@ -30,7 +31,8 @@ class Random2DRGNode
  : public TextureNode
 {
 private:
-	static Texture _make(TextureUnitSelector, GLsizei, GLsizei);
+	static
+	Texture _make(TextureUnitSelector, TextureTarget, GLsizei, GLsizei);
 public:
 	Random2DRGNode(TextureUnitSelector, GLsizei width, GLsizei height);
 };
@@ -39,7 +41,8 @@ class Random2DRGBNode
  : public TextureNode
 {
 private:
-	static Texture _make(TextureUnitSelector, GLsizei, GLsizei);
+	static
+	Texture _make(TextureUnitSelector, TextureTarget, GLsizei, GLsizei);
 public:
 	Random2DRGBNode(TextureUnitSelector, GLsizei width, GLsizei height);
 };
@@ -48,7 +51,8 @@ class Random2DRGBANode
  : public TextureNode
 {
 private:
-	static Texture _make(TextureUnitSelector, GLsizei, GLsizei);
+	static
+	Texture _make(TextureUnitSelector, TextureTarget, GLsizei, GLsizei);
 public:
 	Random2DRGBANode(TextureUnitSelector, GLsizei width, GLsizei height);
 };
