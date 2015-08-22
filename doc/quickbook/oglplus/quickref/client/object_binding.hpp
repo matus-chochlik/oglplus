@@ -25,7 +25,9 @@ private:
 		{
 			WithTarget(void);
 
-			ObjectName<ObjTag> Get(void) const
+			ObjectName<ObjTag> Get(void) const /*<
+			Returns the current object binding.
+			>*/
 			noexcept;
 
 			operator ObjectName<ObjTag> (void) const
@@ -57,13 +59,67 @@ private:
 	>
 	{ };
 public:
-	CurrentObjectsWithTarget<__tag_Buffer> Buffer;
 	CurrentObjectsWithTarget<__tag_Framebuffer> Framebuffer;
 	CurrentObjectsWithTarget<__tag_Renderbuffer> Renderbuffer;
 	CurrentObjectsWithTarget<__tag_TransformFeedback> TransformFeedback;
+	CurrentObjectsWithTarget<__tag_Buffer> Buffer;
 
 //]
 //[oglplus_client_CurrentObjects2
+private:
+	template <__BufferIndexedTarget BufTarget>
+	class CurrentIndexBuffers /*<
+	Stack of buffer names the top of which is currently bound
+	to the specified __BufferIndexedTarget with a particular index.
+	>*/
+	 : public __SettingStack<GLuint, ...>
+	{
+	public:
+		CurrentIndexBuffers(GLuint index);
+
+		__BufferName Get(void) const; /*<
+		Returns the current indexed buffer binding.
+		>*/
+		noexcept;
+
+		operator BufferName (void) const
+		noexcept;
+
+		typedef __SettingHolder<GLuint, ...> Holder;
+
+		Holder Push(__BufferName obj); /*<
+		Unwraps the buffer name, binds it to indexed [^BufTarget]
+		and pushes it onto the stack.
+		>*/
+
+		void BindBase(__BufferName obj); /*<
+		Unwraps the buffer name, binds it to indexed [^BufTarget]
+		and calls __SettingStack::Set.
+		>*/
+
+	};
+
+	template <__BufferIndexedTarget BufTarget>
+	class CurrentIndexedTargetBuffers /*<
+	Set of stacks managing the buffers bound to the indvidual indices
+	of the specified __BufferIndexedTarget.
+	>*/
+	{
+	public:
+		CurrentIndexBuffers<BufTarget>& Index(GLuint index); /*<
+		Returns the stack managing objects bound to the specified
+		[^index] of a __BufferIndexedTarget.
+		>*/
+		CurrentIndexBuffers<BufTarget>& operator [] (GLuint index);
+	};
+public:
+	typedef __enums_EnumToClass_BufferIndexedTarget<
+		__Nothing,
+		__BufferIndexedTarget,
+		CurrentIndexedTargetBuffers
+	> BufferIndexed;
+//]
+//[oglplus_client_CurrentObjects3
 private:
 	template <typename __ObjTag>
 	class CurrentObjectWithoutTarget /*<
@@ -99,7 +155,7 @@ public:
 	CurrentObjectWithoutTarget<__tag_ProgramPipeline> ProgramPipeline;
 	CurrentObjectWithoutTarget<__tag_VertexArray> VertexArray;
 //]
-//[oglplus_client_CurrentObjects3
+//[oglplus_client_CurrentObjects4
 private:
 	template <TextureTarget TexTarget>
 	class CurrentUnitTexture /*<
@@ -150,7 +206,7 @@ private:
 public:
 	CurrentTextures Texture;
 //]
-//[oglplus_client_CurrentObjects4
+//[oglplus_client_CurrentObjects5
 private:
 	class CurrentUnitSampler /*<
 	Stack of sampler names, the top of which is currently bound.
