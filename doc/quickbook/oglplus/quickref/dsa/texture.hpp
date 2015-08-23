@@ -11,7 +11,7 @@
 template <>
 class __ObjectOps<__tag_DirectState, __tag_Texture>
  : public __ObjZeroOps<__tag_DirectState, __tag_Texture> /*<
-Indirectly inherits from __ObjCommonOps_Texture.
+Indirectly inherits from __ObjCommonOps_Texture<__tag_Texture>.
 >*/
 {
 public:

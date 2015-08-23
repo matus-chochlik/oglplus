@@ -9,7 +9,7 @@
 template <>
 class __ObjectOps<__tag_DirectState, __tag_VertexArray>
  : public __ObjZeroOps<__tag_DirectState, __tag_VertexArray> /*<
-Indirectly inherits from __ObjCommonOps_VertexArray.
+Indirectly inherits from __ObjCommonOps_VertexArray<__tag_VertexArray>.
 >*/
 {
 public:

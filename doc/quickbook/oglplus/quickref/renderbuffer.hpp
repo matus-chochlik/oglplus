@@ -34,7 +34,7 @@ public:
 template <>
 class __ObjectOps<__tag_ExplicitSel, __tag_Renderbuffer>
  : public __ObjZeroOps<__tag_ExplicitSel, __tag_Renderbuffer> /*<
-Indirectly inherits from __ObjCommonOps_Renderbuffer.
+Indirectly inherits from __ObjCommonOps_Renderbuffer<__tag_Renderbuffer>.
 >*/
 {
 public:

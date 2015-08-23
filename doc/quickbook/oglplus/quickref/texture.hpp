@@ -163,7 +163,7 @@ public:
 template <>
 class __ObjectOps<__tag_ExplicitSel, __tag_Texture>
  : public __ObjZeroOps<__tag_ExplicitSel, __tag_Texture> /*<
-Indirectly inherits from __ObjCommonOps_Texture.
+Indirectly inherits from __ObjCommonOps_Texture<__tag_Texture>.
 >*/
 {
 public:
@@ -1061,7 +1061,7 @@ typedef ObjectOps<__tag_ExplicitSel, __tag_Texture>
 typedef __Object<TextureOps> Texture;
 
 typedef __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Texture>> /*<
-Indirectly inherits from __ObjCommonOps_Texture.
+Indirectly inherits from __ObjCommonOps_Texture<__tag_Texture>.
 >*/
 	DefaultTexture;
 //]

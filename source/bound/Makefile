@@ -4,20 +4,32 @@
 #
 HERE := $(PWD)
 ROOT = $(shell readlink -f $(HERE)/../..)
+INCDIR = $(ROOT)/include/oglplus
+QRFDIR = $(ROOT)/doc/quickbook/oglplus/quickref
+
 XSLTPROC ?= xsltproc
 DOXYGEN ?= doxygen
 
 OBJECTS = texture framebuffer renderbuffer buffer
 
-all: bound_hpp clean
+all: bound_inc_hpp bound_doc_hpp
 
-bound_hpp: $(addprefix $(ROOT)/include/oglplus/bound/,$(addsuffix .hpp,$(OBJECTS)))
+bound_inc_hpp: $(addprefix $(INCDIR)/bound/,$(addsuffix .hpp,$(OBJECTS)))
 
-$(ROOT)/include/oglplus/bound/%.hpp: tmp/xml/oglplus.xml bound_hpp.xsl | $(ROOT)/include/oglplus/bound
+$(INCDIR)/bound/%.hpp: tmp/xml/oglplus.xml bound_inc_hpp.xsl | $(INCDIR)/bound
 	$(XSLTPROC) --output $@ \
 		--stringparam object $* \
 		--stringparam year "$(shell date +%Y)" \
-		bound_hpp.xsl \
+		bound_inc_hpp.xsl \
+		tmp/xml/oglplus.xml
+
+bound_doc_hpp: $(addprefix $(QRFDIR)/bound/,$(addsuffix .hpp,$(OBJECTS)))
+
+$(QRFDIR)/bound/%.hpp: tmp/xml/oglplus.xml bound_doc_hpp.xsl | $(QRFDIR)/bound
+	$(XSLTPROC) --output $@ \
+		--stringparam object $* \
+		--stringparam year "$(shell date +%Y)" \
+		bound_doc_hpp.xsl \
 		tmp/xml/oglplus.xml
 
 tmp/xml/oglplus.xml: tmp/xml/index.xml
@@ -34,7 +46,7 @@ tmp/Doxyfile: Makefile | tmp
 	@echo "OUTPUT_DIRECTORY = $(HERE)/tmp" >> $@
 	@echo "QUIET = YES" >> $@
 
-tmp $(ROOT)/include/oglplus/bound:
+tmp $(INCDIR)/bound $(QRFDIR)/bound:
 	mkdir -p $@
 
 clean:
