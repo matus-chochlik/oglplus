@@ -146,9 +146,29 @@ public:
 
 struct BufferNameAndRange
 {
-	GLuint buffer;
-	GLintptr offset;
-	GLsizei size;
+	GLuint _buffer;
+	GLintptr _offset;
+	GLsizei _size;
+
+	BufferName Buffer(void) const
+	{
+		return BufferName(_buffer);
+	}
+
+	bool BoundRange(void) const
+	{
+		return _size != 0;
+	}
+
+	BufferSize Offset(void) const
+	{
+		return BufferSize(_offset);
+	}
+
+	BufferSize Size(void) const
+	{
+		return BufferSize(_size);
+	}
 };
 
 template <BufferIndexedTarget BufTgt>
@@ -160,30 +180,30 @@ private:
 	BufferNameAndRange _do_get(GLuint index)
 	{
 		BufferNameAndRange result;
-		result.buffer =
+		result._buffer =
 			GetGLName(ObjBindingOps<tag::Buffer>::Binding(BufTgt, index));
-		result.offset = 0;
-		result.size = 0;
+		result._offset = 0;
+		result._size = 0;
 		return result;
 	}
 
 	static
 	void _do_bind(BufferNameAndRange bnr, GLuint index)
 	{
-		if(bnr.size == 0)
+		if(bnr._size == 0)
 		{
 			ObjBindingOps<tag::Buffer>::BindBase(
 				BufTgt, index,
-				BufferName(bnr.buffer)
+				bnr.Buffer()
 			);
 		}
 		else
 		{
 			ObjBindingOps<tag::Buffer>::BindRange(
 				BufTgt, index,
-				BufferName(bnr.buffer),
-				BufferSize(bnr.offset),
-				BufferSize(bnr.size)
+				bnr.Buffer(),
+				bnr.Offset(),
+				bnr.Size()
 			);
 		}
 	}
@@ -192,13 +212,13 @@ public:
 	 : SettingStack<BufferNameAndRange, GLuint>(&_do_get, &_do_bind, index)
 	{ }
 
-	BufferName Get(void) const
+	BufferNameAndRange Get(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return BufferName(this->_get().buffer);
+		return this->_get();
 	}
 
-	operator BufferName (void) const
+	operator BufferNameAndRange (void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return Get();
@@ -220,6 +240,12 @@ public:
 			GLsizei(size)
 		};
 		return this->_push(bnr);
+	}
+
+	void BindBase(BufferName obj)
+	{
+		BufferNameAndRange bnr = {GetName(obj), 0, 0};
+		this->_set(bnr);
 	}
 
 	void BindRange(BufferName obj, BufferSize offset, BufferSize size)
