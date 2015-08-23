@@ -144,34 +144,58 @@ public:
 	}
 };
 
+struct BufferNameAndRange
+{
+	GLuint buffer;
+	GLintptr offset;
+	GLsizei size;
+};
+
 template <BufferIndexedTarget BufTgt>
 class CurrentIndexBuffers
- : public SettingStack<GLuint, GLuint>
+ : public SettingStack<BufferNameAndRange, GLuint>
 {
 private:
 	static
-	GLuint _do_get(GLuint index)
+	BufferNameAndRange _do_get(GLuint index)
 	{
-		return GetGLName(ObjBindingOps<tag::Buffer>::Binding(BufTgt, index));
+		BufferNameAndRange result;
+		result.buffer =
+			GetGLName(ObjBindingOps<tag::Buffer>::Binding(BufTgt, index));
+		result.offset = 0;
+		result.size = 0;
+		return result;
 	}
 
 	static
-	void _do_bind(GLuint obj, GLuint index)
+	void _do_bind(BufferNameAndRange bnr, GLuint index)
 	{
-		ObjBindingOps<tag::Buffer>::BindBase(
-			BufTgt, index,
-			BufferName(obj)
-		);
+		if(bnr.size == 0)
+		{
+			ObjBindingOps<tag::Buffer>::BindBase(
+				BufTgt, index,
+				BufferName(bnr.buffer)
+			);
+		}
+		else
+		{
+			ObjBindingOps<tag::Buffer>::BindRange(
+				BufTgt, index,
+				BufferName(bnr.buffer),
+				BufferSize(bnr.offset),
+				BufferSize(bnr.size)
+			);
+		}
 	}
 public:
 	CurrentIndexBuffers(GLuint index)
-	 : SettingStack<GLuint, GLuint>(&_do_get, &_do_bind, index)
+	 : SettingStack<BufferNameAndRange, GLuint>(&_do_get, &_do_bind, index)
 	{ }
 
 	BufferName Get(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return BufferName(this->_get());
+		return BufferName(this->_get().buffer);
 	}
 
 	operator BufferName (void) const
@@ -184,15 +208,29 @@ public:
 
 	Holder Push(BufferName obj)
 	{
-		return this->_push(GetName(obj));
+		BufferNameAndRange bnr = {GetName(obj), 0, 0};
+		return this->_push(bnr);
 	}
 
-	void BindBase(BufferName obj)
+	Holder Push(BufferName obj, BufferSize offset, BufferSize size)
 	{
-		this->_set(GetName(obj));
+		BufferNameAndRange bnr = {
+			GetName(obj),
+			GLintptr(offset),
+			GLsizei(size)
+		};
+		return this->_push(bnr);
 	}
 
-	// TODO: Bind range ?
+	void BindRange(BufferName obj, BufferSize offset, BufferSize size)
+	{
+		BufferNameAndRange bnr = {
+			GetName(obj),
+			GLintptr(offset),
+			GLsizei(size)
+		};
+		this->_set(bnr);
+	}
 };
 
 template <BufferIndexedTarget BufTgt>
