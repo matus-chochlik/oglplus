@@ -1339,18 +1339,19 @@
 
 <span class="keyword">class</span> <span class="identifier">CurrentObjects</span>
 <span class="special">{</span>
-<span class="keyword">private</span><span class="special">:</span>
+<span class="keyword">private</span><span class="special">:</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c0" href="client_context.html#oglplus.quickref.client_context.object_binding.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
 	<span class="keyword">struct</span> <span class="identifier">CurrentObject</span>
 	<span class="special">{</span>
 		<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjBindingOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;::</span><span class="identifier">Target</span> <span class="identifier">ObjTarget</span><span class="special">&gt;</span>
 		<span class="keyword">class</span> <span class="identifier">WithTarget</span>
-		 <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><span class="identifier">GLuint</span><span class="special">,</span> <span class="special">...&gt;</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c0" href="client_context.html#oglplus.quickref.client_context.object_binding.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-		 <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.bound.ops">BoundObjOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c2" href="client_context.html#oglplus.quickref.client_context.object_binding.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+		 <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><span class="identifier">GLuint</span><span class="special">,</span> <span class="special">...&gt;</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c2" href="client_context.html#oglplus.quickref.client_context.object_binding.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+		 <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.bound.ops">BoundObjOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c4" href="client_context.html#oglplus.quickref.client_context.object_binding.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 		<span class="special">{</span>
+		<span class="keyword">public</span><span class="special">:</span>
 			<span class="identifier">WithTarget</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
 
-			<span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">ObjTag</span><span class="special">&gt;</span> <span class="identifier">Get</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c4" href="client_context.html#oglplus.quickref.client_context.object_binding.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+			<span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">ObjTag</span><span class="special">&gt;</span> <span class="identifier">Get</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c6" href="client_context.html#oglplus.quickref.client_context.object_binding.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 			<span class="keyword">noexcept</span><span class="special">;</span>
 
 			<span class="keyword">operator</span> <span class="identifier">ObjectName</span><span class="special">&lt;</span><span class="identifier">ObjTag</span><span class="special">&gt;</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
@@ -1358,14 +1359,14 @@
 
 			<span class="keyword">typedef</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.holder">SettingHolder</a><span class="special">&lt;</span><span class="identifier">GLuint</span><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">Holder</span><span class="special">;</span>
 
-			<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">obj</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c6" href="client_context.html#oglplus.quickref.client_context.object_binding.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+			<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">obj</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c8" href="client_context.html#oglplus.quickref.client_context.object_binding.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
-			<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">obj</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c8" href="client_context.html#oglplus.quickref.client_context.object_binding.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+			<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">obj</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c10" href="client_context.html#oglplus.quickref.client_context.object_binding.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 		<span class="special">};</span>
 	<span class="special">};</span>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
-	<span class="keyword">class</span> <span class="identifier">CurrentObjectsWithTarget</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c10" href="client_context.html#oglplus.quickref.client_context.object_binding.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="keyword">class</span> <span class="identifier">CurrentObjectsWithTarget</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c12" href="client_context.html#oglplus.quickref.client_context.object_binding.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 	 <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">enums::EnumToClass</a><span class="special">&lt;</span>
 		<a class="link" href="utils.html#oglplus.quickref.utils.nothing" title="Nothing">Nothing</a><span class="special">,</span>
 		<span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjBindingOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;::</span><span class="identifier">Target</span><span class="special">,</span>
@@ -1382,71 +1383,94 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c1"></a><a href="#oglplus.quickref.client_context.object_binding.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Stack of unwrapped object names.
+                These private classes are here for documentation purposes only. Their
+                public interface can be used in library client code, but the class
+                names (as documented here) are not part of the public interface.
               </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c3"></a><a href="#oglplus.quickref.client_context.object_binding.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Stack of unwrapped object names.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c5"></a><a href="#oglplus.quickref.client_context.object_binding.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 This class has the same interface as <code class="literal">BoundObjOps</code>
                 for the objecgt type specified by <code class="literal">ObjTag</code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c5"></a><a href="#oglplus.quickref.client_context.object_binding.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-                Returns the current object binding.
-              </p></td>
-</tr>
-<tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c7"></a><a href="#oglplus.quickref.client_context.object_binding.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                Unwraps the object name, binds it to <code class="literal">ObjTarget</code>
-                and pushes it onto the stack.
+                Returns the current object binding.
               </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c9"></a><a href="#oglplus.quickref.client_context.object_binding.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Unwraps the object name, binds it to <code class="literal">ObjTarget</code>
-                and calls <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a>::Set.
+                and pushes it onto the stack.
               </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c11"></a><a href="#oglplus.quickref.client_context.object_binding.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Unwraps the object name, binds it to <code class="literal">ObjTarget</code>
+                and calls <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a>::Set.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c13"></a><a href="#oglplus.quickref.client_context.object_binding.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Set of stacks of objects names the top of which is currently bound
                 to a named binding point.
               </p></td>
 </tr>
 </table></div>
-<pre class="programlisting"><span class="keyword">private</span><span class="special">:</span>
+<pre class="programlisting"><span class="keyword">private</span><span class="special">:</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c14" href="client_context.html#oglplus.quickref.client_context.object_binding.c15"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">class</span> <span class="identifier">BufferNameAndRange</span>
+	<span class="special">{</span>
+	<span class="keyword">public</span><span class="special">:</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">Buffer</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+		<span class="keyword">bool</span> <span class="identifier">BoundRange</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c16" href="client_context.html#oglplus.quickref.client_context.object_binding.c17"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">Offset</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c18" href="client_context.html#oglplus.quickref.client_context.object_binding.c19"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+		<a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">Size</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+	<span class="special">};</span>
+
 	<span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="buffer.html#oglplus.quickref.buffer.indexed_target">BufferIndexedTarget</a> <span class="identifier">BufTarget</span><span class="special">&gt;</span>
-	<span class="keyword">class</span> <span class="identifier">CurrentIndexBuffers</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c12" href="client_context.html#oglplus.quickref.client_context.object_binding.c13"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
-	 <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><span class="identifier">GLuint</span><span class="special">,</span> <span class="special">...&gt;</span>
+	<span class="keyword">class</span> <span class="identifier">CurrentIndexBuffers</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c20" href="client_context.html#oglplus.quickref.client_context.object_binding.c21"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	 <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><span class="identifier">BufferNameAndRange</span><span class="special">,</span> <span class="special">...&gt;</span>
 	<span class="special">{</span>
 	<span class="keyword">public</span><span class="special">:</span>
 		<span class="identifier">CurrentIndexBuffers</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">index</span><span class="special">);</span>
 
-		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">Get</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c14" href="client_context.html#oglplus.quickref.client_context.object_binding.c15"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+		<span class="identifier">BufferNameAndRange</span> <span class="identifier">Get</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c22" href="client_context.html#oglplus.quickref.client_context.object_binding.c23"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 		<span class="keyword">noexcept</span><span class="special">;</span>
 
-		<span class="keyword">operator</span> <span class="identifier">BufferName</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
+		<span class="keyword">operator</span> <span class="identifier">BufferNameAndRange</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span>
 		<span class="keyword">noexcept</span><span class="special">;</span>
 
-		<span class="keyword">typedef</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.holder">SettingHolder</a><span class="special">&lt;</span><span class="identifier">GLuint</span><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">Holder</span><span class="special">;</span>
+		<span class="keyword">typedef</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.holder">SettingHolder</a><span class="special">&lt;</span><span class="identifier">BufferNameAndRange</span><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">Holder</span><span class="special">;</span>
 
-		<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">obj</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c16" href="client_context.html#oglplus.quickref.client_context.object_binding.c17"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+		<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">obj</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c24" href="client_context.html#oglplus.quickref.client_context.object_binding.c25"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 
-		<span class="keyword">void</span> <span class="identifier">BindBase</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">obj</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c18" href="client_context.html#oglplus.quickref.client_context.object_binding.c19"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+		<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">obj</span><span class="special">,</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">offset</span><span class="special">,</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">size</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c26" href="client_context.html#oglplus.quickref.client_context.object_binding.c27"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+		<span class="keyword">void</span> <span class="identifier">BindBase</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">obj</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c28" href="client_context.html#oglplus.quickref.client_context.object_binding.c29"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+		<span class="keyword">void</span> <span class="identifier">BindRange</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">obj</span><span class="special">,</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">offset</span><span class="special">,</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.size">BufferSize</a> <span class="identifier">size</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c30" href="client_context.html#oglplus.quickref.client_context.object_binding.c31"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
 
 	<span class="special">};</span>
 
 	<span class="keyword">template</span> <span class="special">&lt;</span><a class="link" href="buffer.html#oglplus.quickref.buffer.indexed_target">BufferIndexedTarget</a> <span class="identifier">BufTarget</span><span class="special">&gt;</span>
-	<span class="keyword">class</span> <span class="identifier">CurrentIndexedTargetBuffers</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c20" href="client_context.html#oglplus.quickref.client_context.object_binding.c21"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="keyword">class</span> <span class="identifier">CurrentIndexedTargetBuffers</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c32" href="client_context.html#oglplus.quickref.client_context.object_binding.c33"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
 	<span class="special">{</span>
 	<span class="keyword">public</span><span class="special">:</span>
-		<span class="identifier">CurrentIndexBuffers</span><span class="special">&lt;</span><span class="identifier">BufTarget</span><span class="special">&gt;&amp;</span> <span class="identifier">Index</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c22" href="client_context.html#oglplus.quickref.client_context.object_binding.c23"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+		<span class="identifier">CurrentIndexBuffers</span><span class="special">&lt;</span><span class="identifier">BufTarget</span><span class="special">&gt;&amp;</span> <span class="identifier">Index</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c34" href="client_context.html#oglplus.quickref.client_context.object_binding.c35"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
 		<span class="identifier">CurrentIndexBuffers</span><span class="special">&lt;</span><span class="identifier">BufTarget</span><span class="special">&gt;&amp;</span> <span class="keyword">operator</span> <span class="special">[]</span> <span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">index</span><span class="special">);</span>
 	<span class="special">};</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -1458,7 +1482,29 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c13"></a><a href="#oglplus.quickref.client_context.object_binding.c12"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c15"></a><a href="#oglplus.quickref.client_context.object_binding.c14"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                These private classes are here for documentation purposes only. Their
+                public interface can be used in library client code, but the class
+                names (as documented here) are not part of the public interface.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c17"></a><a href="#oglplus.quickref.client_context.object_binding.c16"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Indicates whether just a subrange of the buffer (<code class="literal">true</code>),
+                or the whole buffer (<code class="literal">false</code>) is bound.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c19"></a><a href="#oglplus.quickref.client_context.object_binding.c18"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                These functions return meaningful values only if <code class="literal">BoundRange</code>
+                returns <code class="literal">true</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c21"></a><a href="#oglplus.quickref.client_context.object_binding.c20"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Stack of buffer names the top of which is currently bound to the
                 specified <a class="link" href="buffer.html#oglplus.quickref.buffer.indexed_target">BufferIndexedTarget</a>
@@ -1466,43 +1512,57 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c15"></a><a href="#oglplus.quickref.client_context.object_binding.c14"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c23"></a><a href="#oglplus.quickref.client_context.object_binding.c22"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the current indexed buffer binding.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c17"></a><a href="#oglplus.quickref.client_context.object_binding.c16"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c25"></a><a href="#oglplus.quickref.client_context.object_binding.c24"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Unwraps the buffer name, binds it to indexed <code class="literal">BufTarget</code>
                 and pushes it onto the stack.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c19"></a><a href="#oglplus.quickref.client_context.object_binding.c18"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c27"></a><a href="#oglplus.quickref.client_context.object_binding.c26"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Unwraps the buffer name, binds the specified range to indexed <code class="literal">BufTarget</code>
+                and pushes it onto the stack.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c29"></a><a href="#oglplus.quickref.client_context.object_binding.c28"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Unwraps the buffer name, binds it to indexed <code class="literal">BufTarget</code>
                 and calls <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a>::Set.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c21"></a><a href="#oglplus.quickref.client_context.object_binding.c20"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c31"></a><a href="#oglplus.quickref.client_context.object_binding.c30"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Unwraps the buffer name, binds the specified range to indexed <code class="literal">BufTarget</code>
+                and calls <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a>::Set.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c33"></a><a href="#oglplus.quickref.client_context.object_binding.c32"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Set of stacks managing the buffers bound to the indvidual indices
                 of the specified <a class="link" href="buffer.html#oglplus.quickref.buffer.indexed_target">BufferIndexedTarget</a>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c23"></a><a href="#oglplus.quickref.client_context.object_binding.c22"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c35"></a><a href="#oglplus.quickref.client_context.object_binding.c34"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns the stack managing objects bound to the specified <code class="literal">index</code>
                 of a <a class="link" href="buffer.html#oglplus.quickref.buffer.indexed_target">BufferIndexedTarget</a>.
               </p></td>
 </tr>
 </table></div>
-<pre class="programlisting"><span class="keyword">private</span><span class="special">:</span>
+<pre class="programlisting"><span class="keyword">private</span><span class="special">:</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c36" href="client_context.html#oglplus.quickref.client_context.object_binding.c37"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
-	<span class="keyword">class</span> <span class="identifier">CurrentObjectWithoutTarget</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c24" href="client_context.html#oglplus.quickref.client_context.object_binding.c25"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">class</span> <span class="identifier">CurrentObjectWithoutTarget</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c38" href="client_context.html#oglplus.quickref.client_context.object_binding.c39"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	 <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><span class="identifier">GLuint</span><span class="special">,</span> <span class="special">...&gt;</span>
 	<span class="special">{</span>
 	<span class="keyword">public</span><span class="special">:</span>
@@ -1516,9 +1576,9 @@
 
 		<span class="keyword">typedef</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.holder">SettingHolder</a><span class="special">&lt;</span><span class="identifier">GLuint</span><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">Holder</span><span class="special">;</span>
 
-		<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">obj</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c26" href="client_context.html#oglplus.quickref.client_context.object_binding.c27"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+		<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">obj</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c40" href="client_context.html#oglplus.quickref.client_context.object_binding.c41"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
-		<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">obj</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c28" href="client_context.html#oglplus.quickref.client_context.object_binding.c29"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+		<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="identifier">obj</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c42" href="client_context.html#oglplus.quickref.client_context.object_binding.c43"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
 	<span class="special">};</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -1528,30 +1588,38 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c25"></a><a href="#oglplus.quickref.client_context.object_binding.c24"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c37"></a><a href="#oglplus.quickref.client_context.object_binding.c36"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                These private classes are here for documentation purposes only. Their
+                public interface can be used in library client code, but the class
+                names (as documented here) are not part of the public interface.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c39"></a><a href="#oglplus.quickref.client_context.object_binding.c38"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Stack of objects the top of which is currently bound to an implicit
                 binding point.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c27"></a><a href="#oglplus.quickref.client_context.object_binding.c26"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c41"></a><a href="#oglplus.quickref.client_context.object_binding.c40"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Unwraps the object name, binds it to the implicit binding point and
                 pushes it onto the stack.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c29"></a><a href="#oglplus.quickref.client_context.object_binding.c28"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c43"></a><a href="#oglplus.quickref.client_context.object_binding.c42"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Unwraps the object name, binds it to the implicit binding point and
                 calls <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a>::Set.
               </p></td>
 </tr>
 </table></div>
-<pre class="programlisting"><span class="keyword">private</span><span class="special">:</span>
+<pre class="programlisting"><span class="keyword">private</span><span class="special">:</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c44" href="client_context.html#oglplus.quickref.client_context.object_binding.c45"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">TextureTarget</span> <span class="identifier">TexTarget</span><span class="special">&gt;</span>
-	<span class="keyword">class</span> <span class="identifier">CurrentUnitTexture</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c30" href="client_context.html#oglplus.quickref.client_context.object_binding.c31"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">class</span> <span class="identifier">CurrentUnitTexture</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c46" href="client_context.html#oglplus.quickref.client_context.object_binding.c47"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	 <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a><span class="special">&lt;</span><span class="identifier">GLuint</span><span class="special">,</span> <span class="special">...&gt;</span>
 	<span class="special">{</span>
 		<span class="identifier">CurrentUnitTexture</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.unit_selector">TextureUnitSelector</a> <span class="identifier">tex_unit</span><span class="special">);</span>
@@ -1564,12 +1632,12 @@
 
 		<span class="keyword">typedef</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.holder">SettingHolder</a><span class="special">&lt;</span><span class="identifier">GLuint</span><span class="special">,</span> <span class="special">...&gt;</span> <span class="identifier">Holder</span><span class="special">;</span>
 
-		<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">tex</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c32" href="client_context.html#oglplus.quickref.client_context.object_binding.c33"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+		<span class="identifier">Holder</span> <span class="identifier">Push</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">tex</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c48" href="client_context.html#oglplus.quickref.client_context.object_binding.c49"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 
-		<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">tex</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c34" href="client_context.html#oglplus.quickref.client_context.object_binding.c35"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+		<span class="keyword">void</span> <span class="identifier">Bind</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name.typedefs">TextureName</a> <span class="identifier">tex</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c50" href="client_context.html#oglplus.quickref.client_context.object_binding.c51"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 	<span class="special">};</span>
 
-	<span class="keyword">class</span> <span class="identifier">CurrentTextures</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c36" href="client_context.html#oglplus.quickref.client_context.object_binding.c37"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">class</span> <span class="identifier">CurrentTextures</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c52" href="client_context.html#oglplus.quickref.client_context.object_binding.c53"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 	<span class="special">{</span>
 	<span class="keyword">private</span><span class="special">:</span>
 		<span class="keyword">typedef</span> <a class="link" href="texture.html#oglplus.quickref.texture.target_class">enums::EnumToClass</a><span class="special">&lt;</span>
@@ -1578,7 +1646,7 @@
 			<span class="identifier">CurrentUnitTexture</span>
 		<span class="special">&gt;</span> <span class="identifier">CurrentUnitTextures</span><span class="special">;</span>
 	<span class="keyword">public</span><span class="special">:</span>
-		<span class="identifier">CurrentUnitTextures</span><span class="special">&amp;</span> <span class="identifier">Unit</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.unit_selector">TextureUnitSelector</a> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c38" href="client_context.html#oglplus.quickref.client_context.object_binding.c39"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+		<span class="identifier">CurrentUnitTextures</span><span class="special">&amp;</span> <span class="identifier">Unit</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.unit_selector">TextureUnitSelector</a> <span class="identifier">index</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.object_binding.c54" href="client_context.html#oglplus.quickref.client_context.object_binding.c55"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
 		<span class="identifier">CurrentUnitTextures</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">[]</span> <span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.unit_selector">TextureUnitSelector</a> <span class="identifier">index</span><span class="special">);</span>
 	<span class="special">};</span>
 <span class="keyword">public</span><span class="special">:</span>
@@ -1586,35 +1654,43 @@
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c31"></a><a href="#oglplus.quickref.client_context.object_binding.c30"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c45"></a><a href="#oglplus.quickref.client_context.object_binding.c44"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                These private classes are here for documentation purposes only. Their
+                public interface can be used in library client code, but the class
+                names (as documented here) are not part of the public interface.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c47"></a><a href="#oglplus.quickref.client_context.object_binding.c46"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Stack of texture names the top of which is currently bound to the
                 specified <code class="literal">TexTarget</code>.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c33"></a><a href="#oglplus.quickref.client_context.object_binding.c32"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c49"></a><a href="#oglplus.quickref.client_context.object_binding.c48"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Unwraps the texture name, binds it to <code class="literal">TexTarget</code>
                 and pushes it onto the stack.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c35"></a><a href="#oglplus.quickref.client_context.object_binding.c34"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c51"></a><a href="#oglplus.quickref.client_context.object_binding.c50"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Unwraps the texture name, binds it to <code class="literal">TexTarget</code>
                 and calls <a class="link" href="client_context.html#oglplus.quickref.client_context.setting.stack">SettingStack</a>::Set.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c37"></a><a href="#oglplus.quickref.client_context.object_binding.c36"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c53"></a><a href="#oglplus.quickref.client_context.object_binding.c52"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Set of stacks (each for a particular texture unit) managing the binding
                 of textures to binding points.
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c39"></a><a href="#oglplus.quickref.client_context.object_binding.c38"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.object_binding.c55"></a><a href="#oglplus.quickref.client_context.object_binding.c54"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns a reference to the stack of texture bindings on the texture
                 unit at the specified <code class="literal">index</code>.
