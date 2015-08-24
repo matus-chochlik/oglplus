@@ -39,96 +39,96 @@ public:
 		GLenum query
 	) const;
 
-	SizeType Width(
+	__SizeType Width(
 		GLint level = 0
 	) const;
 
-	SizeType Height(
+	__SizeType Height(
 		GLint level = 0
 	) const;
 
-	SizeType Depth(
+	__SizeType Depth(
 		GLint level = 0
 	) const;
 
-	PixelDataType RedType(
+	__PixelDataType RedType(
 		GLint level = 0
 	) const;
 
-	PixelDataType GreenType(
+	__PixelDataType GreenType(
 		GLint level = 0
 	) const;
 
-	PixelDataType BlueType(
+	__PixelDataType BlueType(
 		GLint level = 0
 	) const;
 
-	PixelDataType AlphaType(
+	__PixelDataType AlphaType(
 		GLint level = 0
 	) const;
 
-	PixelDataType DepthType(
+	__PixelDataType DepthType(
 		GLint level = 0
 	) const;
 
-	SizeType RedSize(
+	__SizeType RedSize(
 		GLint level = 0
 	) const;
 
-	SizeType GreenSize(
+	__SizeType GreenSize(
 		GLint level = 0
 	) const;
 
-	SizeType BlueSize(
+	__SizeType BlueSize(
 		GLint level = 0
 	) const;
 
-	SizeType AlphaSize(
+	__SizeType AlphaSize(
 		GLint level = 0
 	) const;
 
-	SizeType DepthSize(
+	__SizeType DepthSize(
 		GLint level = 0
 	) const;
 
-	SizeType StencilSize(
+	__SizeType StencilSize(
 		GLint level = 0
 	) const;
 
-	SizeType SharedSize(
+	__SizeType SharedSize(
 		GLint level = 0
 	) const;
 
-	SizeType CompressedImageSize(
+	__SizeType CompressedImageSize(
 		GLint level = 0
 	) const;
 
-	PixelDataInternalFormat InternalFormat(
+	__PixelDataInternalFormat InternalFormat(
 		GLint level = 0
 	) const;
 
 	const BoundObjOps& GetImage(
 		GLint level,
-		PixelDataFormat format,
-		const OutputData & dest
+		__PixelDataFormat format,
+		const __OutputData & dest
 	) const;
 
 	const BoundObjOps& GetImage(
 		GLint level,
-		PixelDataFormat format,
+		__PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
-		SizeType size,
+		__SizeType size,
 		GLvoid * buffer
 	) const;
 
 	const BoundObjOps& GetCompressedImage(
 		GLint level,
-		const OutputData & dest
+		const __OutputData & dest
 	) const;
 
 	const BoundObjOps& GetCompressedImage(
 		GLint level,
-		SizeType size,
+		__SizeType size,
 		GLubyte * buffer
 	) const;
 
@@ -139,18 +139,18 @@ public:
 
 	const BoundObjOps& Image3D(
 		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height,
-		SizeType depth,
+		__PixelDataInternalFormat internal_format,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
 		GLint border,
-		PixelDataFormat format,
+		__PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
 		const void * data
 	) const;
 
 	const BoundObjOps& Image3D(
-		const images::Image & image,
+		const __images_Image & image,
 		GLint level = 0,
 		GLint border = 0
 	) const;
@@ -160,16 +160,16 @@ public:
 		GLint xoffs,
 		GLint yoffs,
 		GLint zoffs,
-		SizeType width,
-		SizeType height,
-		SizeType depth,
-		PixelDataFormat format,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
+		__PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
 		const void * data
 	) const;
 
 	const BoundObjOps& SubImage3D(
-		const images::Image & image,
+		const __images_Image & image,
 		GLint xoffs,
 		GLint yoffs,
 		GLint zoffs,
@@ -178,17 +178,17 @@ public:
 
 	const BoundObjOps& Image2D(
 		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height,
+		__PixelDataInternalFormat internal_format,
+		__SizeType width,
+		__SizeType height,
 		GLint border,
-		PixelDataFormat format,
+		__PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
 		const void * data
 	) const;
 
 	const BoundObjOps& Image2D(
-		const images::Image & image,
+		const __images_Image & image,
 		GLint level = 0,
 		GLint border = 0
 	) const;
@@ -197,15 +197,15 @@ public:
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
-		SizeType width,
-		SizeType height,
-		PixelDataFormat format,
+		__SizeType width,
+		__SizeType height,
+		__PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
 		const void * data
 	) const;
 
 	const BoundObjOps& SubImage2D(
-		const images::Image & image,
+		const __images_Image & image,
 		GLint xoffs,
 		GLint yoffs,
 		GLint level = 0
@@ -213,16 +213,16 @@ public:
 
 	const BoundObjOps& Image1D(
 		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
+		__PixelDataInternalFormat internal_format,
+		__SizeType width,
 		GLint border,
-		PixelDataFormat format,
+		__PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
 		const void * data
 	) const;
 
 	const BoundObjOps& Image1D(
-		const images::Image & image,
+		const __images_Image & image,
 		GLint level = 0,
 		GLint border = 0
 	) const;
@@ -230,46 +230,46 @@ public:
 	const BoundObjOps& SubImage1D(
 		GLint level,
 		GLint xoffs,
-		SizeType width,
-		PixelDataFormat format,
+		__SizeType width,
+		__PixelDataFormat format,
 		ExplicitOps::Property::PixDataType type,
 		const void * data
 	) const;
 
 	const BoundObjOps& SubImage1D(
-		const images::Image & image,
+		const __images_Image & image,
 		GLint xoffs,
 		GLint level = 0
 	) const;
 
 	const BoundObjOps& Image(
-		const images::Image & image,
+		const __images_Image & image,
 		GLint level = 0,
 		GLint border = 0
 	) const;
 
 	const BoundObjOps& Image(
-		const images::ImageSpec & image_spec,
+		const __images_ImageSpec & image_spec,
 		GLint level = 0,
 		GLint border = 0
 	) const;
 
 	const BoundObjOps& CopyImage2D(
 		GLint level,
-		PixelDataInternalFormat internal_format,
+		__PixelDataInternalFormat internal_format,
 		GLint x,
 		GLint y,
-		SizeType width,
-		SizeType height,
+		__SizeType width,
+		__SizeType height,
 		GLint border
 	) const;
 
 	const BoundObjOps& CopyImage1D(
 		GLint level,
-		PixelDataInternalFormat internal_format,
+		__PixelDataInternalFormat internal_format,
 		GLint x,
 		GLint y,
-		SizeType width,
+		__SizeType width,
 		GLint border
 	) const;
 
@@ -280,8 +280,8 @@ public:
 		GLint zoffs,
 		GLint x,
 		GLint y,
-		SizeType width,
-		SizeType height
+		__SizeType width,
+		__SizeType height
 	) const;
 
 	const BoundObjOps& CopySubImage2D(
@@ -290,8 +290,8 @@ public:
 		GLint yoffs,
 		GLint x,
 		GLint y,
-		SizeType width,
-		SizeType height
+		__SizeType width,
+		__SizeType height
 	) const;
 
 	const BoundObjOps& CopySubImage1D(
@@ -299,36 +299,36 @@ public:
 		GLint xoffs,
 		GLint x,
 		GLint y,
-		SizeType width
+		__SizeType width
 	) const;
 
 	const BoundObjOps& CompressedImage3D(
 		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height,
-		SizeType depth,
+		__PixelDataInternalFormat internal_format,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
 		GLint border,
-		SizeType image_size,
+		__SizeType image_size,
 		const void * data
 	) const;
 
 	const BoundObjOps& CompressedImage2D(
 		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height,
+		__PixelDataInternalFormat internal_format,
+		__SizeType width,
+		__SizeType height,
 		GLint border,
-		SizeType image_size,
+		__SizeType image_size,
 		const void * data
 	) const;
 
 	const BoundObjOps& CompressedImage1D(
 		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
+		__PixelDataInternalFormat internal_format,
+		__SizeType width,
 		GLint border,
-		SizeType image_size,
+		__SizeType image_size,
 		const void * data
 	) const;
 
@@ -337,11 +337,11 @@ public:
 		GLint xoffs,
 		GLint yoffs,
 		GLint zoffs,
-		SizeType width,
-		SizeType height,
-		SizeType depth,
-		PixelDataFormat format,
-		SizeType image_size,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
+		__PixelDataFormat format,
+		__SizeType image_size,
 		const void * data
 	) const;
 
@@ -349,83 +349,83 @@ public:
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
-		SizeType width,
-		SizeType height,
-		PixelDataFormat format,
-		SizeType image_size,
+		__SizeType width,
+		__SizeType height,
+		__PixelDataFormat format,
+		__SizeType image_size,
 		const void * data
 	) const;
 
 	const BoundObjOps& CompressedSubImage1D(
 		GLint level,
 		GLint xoffs,
-		SizeType width,
-		PixelDataFormat format,
-		SizeType image_size,
+		__SizeType width,
+		__PixelDataFormat format,
+		__SizeType image_size,
 		const void * data
 	) const;
 
 #if GL_VERSION_3_2 || GL_ARB_texture_multisample
 	const BoundObjOps& Image3DMultisample(
-		SizeType samples,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height,
-		SizeType depth,
-		Boolean fixed_sample_locations
+		__SizeType samples,
+		__PixelDataInternalFormat internal_format,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth,
+		__Boolean fixed_sample_locations
 	) const;
 #endif
 
 #if GL_VERSION_3_2 || GL_ARB_texture_multisample
 	const BoundObjOps& Image2DMultisample(
-		SizeType samples,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height,
-		Boolean fixed_sample_locations
+		__SizeType samples,
+		__PixelDataInternalFormat internal_format,
+		__SizeType width,
+		__SizeType height,
+		__Boolean fixed_sample_locations
 	) const;
 #endif
 
 #if GL_VERSION_3_1
-	const BoundObjOps& Buffer(
-		PixelDataInternalFormat internal_format,
-		BufferName buffer
+	const BoundObjOps& __Buffer(
+		__PixelDataInternalFormat internal_format,
+		__BufferName buffer
 	) const;
 #endif
 
 #if GL_VERSION_4_3
 	const BoundObjOps& BufferRange(
-		PixelDataInternalFormat internal_format,
-		BufferName buffer,
+		__PixelDataInternalFormat internal_format,
+		__BufferName buffer,
 		GLintptr offset,
-		BigSizeType size
+		__BigSizeType size
 	) const;
 #endif
 
 #if GL_VERSION_4_2 || GL_ARB_texture_storage
 	const BoundObjOps& Storage1D(
-		SizeType levels,
-		PixelDataInternalFormat internal_format,
-		SizeType width
+		__SizeType levels,
+		__PixelDataInternalFormat internal_format,
+		__SizeType width
 	) const;
 #endif
 
 #if GL_VERSION_4_2 || GL_ARB_texture_storage
 	const BoundObjOps& Storage2D(
-		SizeType levels,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height
+		__SizeType levels,
+		__PixelDataInternalFormat internal_format,
+		__SizeType width,
+		__SizeType height
 	) const;
 #endif
 
 #if GL_VERSION_4_2 || GL_ARB_texture_storage
 	const BoundObjOps& Storage3D(
-		SizeType levels,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height,
-		SizeType depth
+		__SizeType levels,
+		__PixelDataInternalFormat internal_format,
+		__SizeType width,
+		__SizeType height,
+		__SizeType depth
 	) const;
 #endif
 
@@ -435,40 +435,40 @@ public:
 		GLint level
 	) const;
 
-	Vector< GLfloat, 4 > BorderColor(
-		TypeTag< GLfloat > 
+	__Vector< GLfloat, 4 > BorderColor(
+		__TypeTag< GLfloat > 
 	) const;
 
 	const BoundObjOps& BorderColor(
-		Vector< GLfloat, 4 > color
+		__Vector< GLfloat, 4 > color
 	) const;
 
-	Vector< GLint, 4 > BorderColor(
-		TypeTag< GLint > 
-	) const;
-
-	const BoundObjOps& BorderColor(
-		Vector< GLint, 4 > color
-	) const;
-
-	Vector< GLuint, 4 > BorderColor(
-		TypeTag< GLuint > 
+	__Vector< GLint, 4 > BorderColor(
+		__TypeTag< GLint > 
 	) const;
 
 	const BoundObjOps& BorderColor(
-		Vector< GLuint, 4 > color
+		__Vector< GLint, 4 > color
 	) const;
 
-	TextureCompareMode CompareMode(void) const;
+	__Vector< GLuint, 4 > BorderColor(
+		__TypeTag< GLuint > 
+	) const;
+
+	const BoundObjOps& BorderColor(
+		__Vector< GLuint, 4 > color
+	) const;
+
+	__TextureCompareMode CompareMode(void) const;
 
 	const BoundObjOps& CompareMode(
-		TextureCompareMode mode
+		__TextureCompareMode mode
 	) const;
 
-	CompareFunction CompareFunc(void) const;
+	__CompareFunction CompareFunc(void) const;
 
 	const BoundObjOps& CompareFunc(
-		CompareFunction func
+		__CompareFunction func
 	) const;
 
 	GLfloat LODBias(void) const;
@@ -478,19 +478,19 @@ public:
 	) const;
 
 	const BoundObjOps& Filter(
-		TextureFilter filter
+		__TextureFilter filter
 	) const;
 
-	TextureMagFilter MagFilter(void) const;
+	__TextureMagFilter MagFilter(void) const;
 
 	const BoundObjOps& MagFilter(
-		TextureMagFilter filter
+		__TextureMagFilter filter
 	) const;
 
-	TextureMinFilter MinFilter(void) const;
+	__TextureMinFilter MinFilter(void) const;
 
 	const BoundObjOps& MinFilter(
-		TextureMinFilter filter
+		__TextureMinFilter filter
 	) const;
 
 	GLfloat MinLOD(void) const;
@@ -520,127 +520,127 @@ public:
 	) const;
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
-	TextureSwizzle Swizzle(
-		TextureSwizzleCoord coord
+	__TextureSwizzle Swizzle(
+		__TextureSwizzleCoord coord
 	) const;
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
 	const BoundObjOps& Swizzle(
-		TextureSwizzleCoord coord,
-		TextureSwizzle mode
+		__TextureSwizzleCoord coord,
+		__TextureSwizzle mode
 	) const;
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
-	TextureSwizzle SwizzleR(void) const;
+	__TextureSwizzle SwizzleR(void) const;
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
 	const BoundObjOps& SwizzleR(
-		TextureSwizzle mode
+		__TextureSwizzle mode
 	) const;
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
-	TextureSwizzle SwizzleG(void) const;
+	__TextureSwizzle SwizzleG(void) const;
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
 	const BoundObjOps& SwizzleG(
-		TextureSwizzle mode
+		__TextureSwizzle mode
 	) const;
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
-	TextureSwizzle SwizzleB(void) const;
+	__TextureSwizzle SwizzleB(void) const;
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
 	const BoundObjOps& SwizzleB(
-		TextureSwizzle mode
+		__TextureSwizzle mode
 	) const;
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
-	TextureSwizzle SwizzleA(void) const;
+	__TextureSwizzle SwizzleA(void) const;
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
 	const BoundObjOps& SwizzleA(
-		TextureSwizzle mode
+		__TextureSwizzle mode
 	) const;
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
-	TextureSwizzleTuple SwizzleRGBA(void) const;
+	__TextureSwizzleTuple SwizzleRGBA(void) const;
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
 	const BoundObjOps& SwizzleRGBA(
-		TextureSwizzle mode
-	) const;
-#endif
-
-#if GL_VERSION_3_3 || GL_ARB_texture_swizzle
-	const BoundObjOps& SwizzleRGBA(
-		TextureSwizzle mode_r,
-		TextureSwizzle mode_g,
-		TextureSwizzle mode_b,
-		TextureSwizzle mode_a
+		__TextureSwizzle mode
 	) const;
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
 	const BoundObjOps& SwizzleRGBA(
-		const TextureSwizzleTuple & modes
+		__TextureSwizzle mode_r,
+		__TextureSwizzle mode_g,
+		__TextureSwizzle mode_b,
+		__TextureSwizzle mode_a
 	) const;
 #endif
 
-	TextureWrap Wrap(
-		TextureWrapCoord coord
+#if GL_VERSION_3_3 || GL_ARB_texture_swizzle
+	const BoundObjOps& SwizzleRGBA(
+		const __TextureSwizzleTuple & modes
+	) const;
+#endif
+
+	__TextureWrap Wrap(
+		__TextureWrapCoord coord
 	) const;
 
 	const BoundObjOps& Wrap(
-		TextureWrapCoord coord,
-		TextureWrap mode
+		__TextureWrapCoord coord,
+		__TextureWrap mode
 	) const;
 
-	TextureWrap WrapS(void) const;
+	__TextureWrap WrapS(void) const;
 
 	const BoundObjOps& WrapS(
-		TextureWrap mode
+		__TextureWrap mode
 	) const;
 
-	TextureWrap WrapT(void) const;
+	__TextureWrap WrapT(void) const;
 
 	const BoundObjOps& WrapT(
-		TextureWrap mode
+		__TextureWrap mode
 	) const;
 
-	TextureWrap WrapR(void) const;
+	__TextureWrap WrapR(void) const;
 
 	const BoundObjOps& WrapR(
-		TextureWrap mode
+		__TextureWrap mode
 	) const;
 
 #if GL_VERSION_4_3
-	PixelDataFormat DepthStencilMode(void) const;
+	__PixelDataFormat DepthStencilMode(void) const;
 #endif
 
 #if GL_VERSION_4_3
 	const BoundObjOps& DepthStencilMode(
-		PixelDataFormat mode
+		__PixelDataFormat mode
 	) const;
 #endif
 
 #if GL_ARB_seamless_cubemap_per_texture
-	Boolean Seamless(void) const;
+	__Boolean Seamless(void) const;
 #endif
 
 #if GL_ARB_seamless_cubemap_per_texture
 	const BoundObjOps& Seamless(
-		Boolean enable
+		__Boolean enable
 	) const;
 #endif
 

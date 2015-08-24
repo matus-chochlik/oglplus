@@ -5,7 +5,8 @@
 HERE := $(PWD)
 ROOT = $(shell readlink -f $(HERE)/../..)
 INCDIR = $(ROOT)/include/oglplus
-QRFDIR = $(ROOT)/doc/quickbook/oglplus/quickref
+DOCDIR = $(ROOT)/doc/quickbook
+QRFDIR = $(DOCDIR)/oglplus/quickref
 
 XSLTPROC ?= xsltproc
 DOXYGEN ?= doxygen
@@ -25,7 +26,21 @@ $(INCDIR)/bound/%.hpp: tmp/xml/oglplus.xml bound_inc_hpp.xsl | $(INCDIR)/bound
 
 bound_doc_hpp: $(addprefix $(QRFDIR)/bound/,$(addsuffix .hpp,$(OBJECTS)))
 
-$(QRFDIR)/bound/%.hpp: tmp/xml/oglplus.xml bound_doc_hpp.xsl | $(QRFDIR)/bound
+$(QRFDIR)/bound/%.hpp: tmp/bound/%.hpp tmp/anchors.sed | $(QRFDIR)/bound
+	sed -f tmp/anchors.sed < $< > $@
+
+tmp/anchors.sed: tmp/anchors.txt
+	sed 's/\([^|]\+\)|\(.*\)/s\/\\<\1\\>\/__\2\//' < $^ > $@
+
+tmp/anchors.txt: Makefile
+	@find $(DOCDIR) \
+		-maxdepth 1 \
+		-type f \
+		-name '*.qbk' \
+		-exec sed -n 's/^.*\[def __\(\w\+\)\s.*\s\[\?\([^]]\+\)\]\?\].*/\2|\1/p' {} \; |\
+	grep -e '\(BoundObjOps\|Target\)' -v > $@
+
+tmp/bound/%.hpp: tmp/xml/oglplus.xml bound_doc_hpp.xsl | tmp/bound
 	$(XSLTPROC) --output $@ \
 		--stringparam object $* \
 		--stringparam year "$(shell date +%Y)" \
@@ -46,7 +61,7 @@ tmp/Doxyfile: Makefile | tmp
 	@echo "OUTPUT_DIRECTORY = $(HERE)/tmp" >> $@
 	@echo "QUIET = YES" >> $@
 
-tmp $(INCDIR)/bound $(QRFDIR)/bound:
+tmp tmp/bound $(INCDIR)/bound $(QRFDIR)/bound:
 	mkdir -p $@
 
 clean:

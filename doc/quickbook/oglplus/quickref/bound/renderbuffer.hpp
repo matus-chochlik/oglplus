@@ -26,41 +26,41 @@ public:
 	) const;
 
 	const BoundObjOps& Storage(
-		PixelDataInternalFormat internalformat,
-		SizeType width,
-		SizeType height
+		__PixelDataInternalFormat internalformat,
+		__SizeType width,
+		__SizeType height
 	) const;
 
 	const BoundObjOps& Storage(
-		const images::ImageSpec & image_spec
+		const __images_ImageSpec & image_spec
 	) const;
 
 	const BoundObjOps& StorageMultisample(
-		SizeType samples,
-		PixelDataInternalFormat internalformat,
-		SizeType width,
-		SizeType height
+		__SizeType samples,
+		__PixelDataInternalFormat internalformat,
+		__SizeType width,
+		__SizeType height
 	) const;
 
-	SizeType Width(void) const;
+	__SizeType Width(void) const;
 
-	SizeType Height(void) const;
+	__SizeType Height(void) const;
 
-	SizeType RedSize(void) const;
+	__SizeType RedSize(void) const;
 
-	SizeType GreenSize(void) const;
+	__SizeType GreenSize(void) const;
 
-	SizeType BlueSize(void) const;
+	__SizeType BlueSize(void) const;
 
-	SizeType AlphaSize(void) const;
+	__SizeType AlphaSize(void) const;
 
-	SizeType DepthSize(void) const;
+	__SizeType DepthSize(void) const;
 
-	SizeType StencilSize(void) const;
+	__SizeType StencilSize(void) const;
 
-	SizeType Samples(void) const;
+	__SizeType Samples(void) const;
 
-	PixelDataInternalFormat InternalFormat(void) const;
+	__PixelDataInternalFormat InternalFormat(void) const;
 
 
 };

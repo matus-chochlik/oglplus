@@ -25,48 +25,48 @@ public:
 		GLenum query
 	) const;
 
-	Boolean Mapped(void) const;
+	__Boolean Mapped(void) const;
 
 	const BoundObjOps& Resize(
-		BufferSize size,
-		BufferUsage usage = BufferUsage::StaticDraw
+		__BufferSize size,
+		__BufferUsage usage = BufferUsage::StaticDraw
 	) const;
 
 	const BoundObjOps& Data(
-		const BufferData & data,
-		BufferUsage usage = BufferUsage::StaticDraw
+		const __BufferData & data,
+		__BufferUsage usage = BufferUsage::StaticDraw
 	) const;
 
 	const BoundObjOps& RawData(
-		BufferSize size,
+		__BufferSize size,
 		const GLvoid * data,
-		BufferUsage usage = BufferUsage::StaticDraw
+		__BufferUsage usage = BufferUsage::StaticDraw
 	) const;
 
 	template <typename GLtype>
 	const BoundObjOps& Data(
-		SizeType count,
+		__SizeType count,
 		const GLtype * data,
-		BufferUsage usage = BufferUsage::StaticDraw
+		__BufferUsage usage = BufferUsage::StaticDraw
 	) const;
 
 	const BoundObjOps& SubData(
-		BufferSize offset,
-		const BufferData & data
+		__BufferSize offset,
+		const __BufferData & data
 	) const;
 
 	template <typename GLtype>
 	const BoundObjOps& SubData(
-		BufferSize offset,
-		SizeType count,
+		__BufferSize offset,
+		__SizeType count,
 		const GLtype * data
 	) const;
 
 #if GL_VERSION_4_3
 	template <typename GLtype>
 	const BoundObjOps& ClearData(
-		PixelDataInternalFormat internal_format,
-		PixelDataFormat format,
+		__PixelDataInternalFormat internal_format,
+		__PixelDataFormat format,
 		const GLtype * data
 	) const;
 #endif
@@ -74,52 +74,52 @@ public:
 #if GL_VERSION_4_3
 	template <typename GLtype>
 	const BoundObjOps& ClearSubData(
-		PixelDataInternalFormat internal_format,
-		BufferSize offset,
-		BufferSize size,
-		PixelDataFormat format,
+		__PixelDataInternalFormat internal_format,
+		__BufferSize offset,
+		__BufferSize size,
+		__PixelDataFormat format,
 		const GLtype * data
 	) const;
 #endif
 
 	const BoundObjOps& Storage(
-		const BufferData & data,
-		Bitfield< BufferStorageBit > flags
+		const __BufferData & data,
+		__Bitfield< __BufferStorageBit > flags
 	) const;
 
 #if GL_VERSION_4_4 || GL_ARB_buffer_storage
 	const BoundObjOps& Storage(
-		BufferSize size,
+		__BufferSize size,
 		const void * data,
-		Bitfield< BufferStorageBit > flags
+		__Bitfield< __BufferStorageBit > flags
 	) const;
 #endif
 
 #if GL_VERSION_4_4 || GL_ARB_buffer_storage
-	Boolean ImmutableStorage(void) const;
+	__Boolean ImmutableStorage(void) const;
 #endif
 
 #if GL_VERSION_4_4 || GL_ARB_buffer_storage
-	Bitfield< BufferStorageBit > StorageFlags(void) const;
+	__Bitfield< __BufferStorageBit > StorageFlags(void) const;
 #endif
 
 #if GL_ARB_sparse_buffer
 	const BoundObjOps& PageCommitment(
-		BufferSize offset,
-		BufferSize size,
-		Boolean commit
+		__BufferSize offset,
+		__BufferSize size,
+		__Boolean commit
 	) const;
 #endif
 
-	SizeType Size(void) const;
+	__SizeType Size(void) const;
 
-	BufferUsage Usage(void) const;
+	__BufferUsage Usage(void) const;
 
-	Bitfield< BufferMapAccess > Access(void) const;
+	__Bitfield< __BufferMapAccess > __Access(void) const;
 
 #if GL_NV_shader_buffer_load
 	const BoundObjOps& MakeResident(
-		AccessSpecifier access
+		__AccessSpecifier access
 	) const;
 #endif
 
@@ -128,7 +128,7 @@ public:
 #endif
 
 #if GL_NV_shader_buffer_load
-	BufferGPUAddress GPUAddress(void) const;
+	__BufferGPUAddress GPUAddress(void) const;
 #endif
 
 
