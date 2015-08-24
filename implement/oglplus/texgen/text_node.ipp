@@ -11,6 +11,7 @@
 #include <oglplus/config/basic.hpp>
 #include <fstream>
 #include <cstring>
+#include <algorithm>
 
 namespace oglplus {
 namespace texgen {
@@ -90,6 +91,27 @@ void
 Text2DNode::
 Finish(TextureUnitSelector unit)
 {
+	std::vector<GLubyte> row(_width);
+
+	for(std::size_t i=9,h=_height/2; i<h; ++i)
+	{
+		std::copy_n(
+			_buffer.data()+i*_width,
+			_width,
+			row.begin()
+		);
+		std::copy_n(
+			_buffer.data()+(_height-i-1)*_width,
+			_width,
+			_buffer.begin()+i*_width
+		);
+		std::copy_n(
+			row.data(),
+			_width,
+			_buffer.begin()+(_height-i-1)*_width
+		);
+	}
+
 	Texture::Active(unit);
 	_tex().Bind(TextureTarget::Rectangle);
 	Texture::Image2D(

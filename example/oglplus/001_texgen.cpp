@@ -98,7 +98,7 @@ public:
 		ResourceFile font_file("fonts", "FreeSans", ".ttf");
 		auto font = tt.OpenFont(font_file);
 		tt.Begin();
-		tt.RenderText(font, 48, "BLAH", 10, 150);
+		tt.RenderText(font, 120, "BLAH", 2, 50);
 		tt.Finish(1);
 
 		//st.SetCoeff(Vec3f(-1,1,1));
@@ -149,6 +149,9 @@ m2.Output(0).Expression(std::cout, ctxt) << std::endl;
 
 		rn.Update();
 		rn.Activate();
+
+		tt.BindUniform();
+		tt.SetSampler(1);
 /*
 		u1.BindUniform();
 		u2.BindUniform();

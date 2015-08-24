@@ -13,6 +13,7 @@
 #include <oglplus/uniform.hpp>
 #include <oglplus/program.hpp>
 #include <cassert>
+#include <sstream>
 
 namespace oglplus {
 namespace texgen {
@@ -30,6 +31,18 @@ TextureOutputSlot(
  , _target(target)
  , _format(format)
 { }
+
+OGLPLUS_LIB_FUNC
+void
+TextureOutputSlot::
+BindLocation(void)
+{
+	std::stringstream identifier;
+	AppendId(identifier);
+	identifier << "s";
+
+	_location = UniformLoc(Program::Binding(), identifier.str());
+}
 
 OGLPLUS_LIB_FUNC
 const char*
@@ -141,17 +154,18 @@ Definitions(std::ostream& result, CompileContext& context)
 	result << "uniform ";
 	if(_target == TextureTarget::_2D)
 	{
-		result << "sampler2D ";
+		result << "sampler2D";
 	}
 	else if(_target == TextureTarget::Rectangle)
 	{
-		result << "sampler2DRect ";
+		result << "sampler2DRect";
 	}
 	else
 	{
 		OGLPLUS_ABORT("Unsuported texture target in texgen node");
 	}
 
+	result << " ";
 	AppendId(result);
 	result << "s;\n";
 

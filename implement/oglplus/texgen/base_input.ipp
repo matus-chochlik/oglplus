@@ -84,6 +84,10 @@ DoConnect(OutputSlot& output)
 {
 	if(AcceptsValueType(output.ValueType()))
 	{
+		if(IsConnected())
+		{
+			texgen::Disconnect(*_output, *this);
+		}
 		_output = &output;
 		return true;
 	}

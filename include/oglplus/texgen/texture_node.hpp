@@ -17,6 +17,7 @@
 #include <oglplus/texgen/base_output.hpp>
 #include <oglplus/texgen/global_node.hpp>
 #include <oglplus/texture.hpp>
+#include <oglplus/uniform.hpp>
 
 namespace oglplus {
 namespace texgen {
@@ -34,6 +35,7 @@ protected:
 	Texture _texture;
 	TextureTarget _target;
 	PixelDataFormat _format;
+	UniformLoc _location;
 public:
 	TextureOutputSlot(
 		Node& parent,
@@ -41,6 +43,10 @@ public:
 		TextureTarget,
 		PixelDataFormat
 	);
+
+	void BindLocation(void);
+
+	UniformLoc GetLocation(void) { return _location; }
 
 	const char* TypeName(void)
 	OGLPLUS_OVERRIDE;
@@ -61,6 +67,18 @@ protected:
 	Texture& _tex(void) { return _output._texture; }
 public:
 	TextureNode(Texture&&, TextureTarget, PixelDataFormat);
+
+	TextureNode& BindUniform(void)
+	{
+		_output.BindLocation();
+		return *this;
+	}
+
+	TextureNode& SetSampler(TextureUnitSelector unit)
+	{
+		UniformSampler(_output.GetLocation()).Set(GLint(unit));
+		return *this;
+	}
 
 	std::size_t InputCount(void)
 	OGLPLUS_OVERRIDE;
