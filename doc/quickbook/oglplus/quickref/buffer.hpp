@@ -132,7 +132,7 @@ public:
 template <>
 class __ObjectOps<__tag_ExplicitSel, __tag_Buffer>
  : public __ObjZeroOps<__tag_ExplicitSel, __tag_Buffer> /*<
-Indirectly inherits from __ObjCommonOps_Buffer.
+Indirectly inherits from __ObjCommonOps_Buffer<__tag_Buffer>.
 >*/
 {
 public:

@@ -32,7 +32,7 @@ public:
 template <>
 class __ObjectOps<__tag_DirectState, __tag_Shader>
  : public __ObjZeroOps<__tag_DirectState, __tag_Shader> /*<
-Indirectly inherits from __ObjCommonOps_Shader.
+Indirectly inherits from __ObjCommonOps_Shader<__tag_Shader>.
 >*/
 {
 public:

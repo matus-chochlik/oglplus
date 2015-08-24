@@ -73,7 +73,7 @@ public:
 	Boolean IsEnabled(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return this->_top();
+		return this->_get();
 	}
 
 	OGLPLUS_EXPLICIT
@@ -158,7 +158,7 @@ public:
 	Boolean IsEnabled(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return this->_top();
+		return this->_get();
 	}
 
 	OGLPLUS_EXPLICIT

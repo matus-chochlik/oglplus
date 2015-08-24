@@ -8,16 +8,8 @@
 
 [header oglplus/object/bound.hpp]
 
-[header oglplus/bound/buffer.hpp]
-
-[header oglplus/bound/framebuffer.hpp]
-
-[header oglplus/bound/renderbuffer.hpp]
-
-[header oglplus/bound/texture.hpp]
-
 Specializations of [^BoundObjOps] for various object tags
-(currently for __tag_Buffer, __tag_Framebuffer, __tag_Renderbuffer and __tag_Texture)
+(currently for __tag_Buffer, __tag_Framebuffer, __tag_Renderbuffer and __tag_Texture. See below)
 have the same set of functions as __ObjectOps<__tag_ExplicitSel, __ObjTag> with
 the difference, that the static functions with a [^Target] parameter from __ObjectOps
 are turned into member functions of [^BoundObjOps] without the Target argument.
@@ -29,6 +21,26 @@ implicitly when calling one of the member functions.
 [heading:ops Operations]
 
 [oglplus_object_BoundObjOps]
+
+[heading:buffer Specialization for Buffer]
+[header oglplus/bound/buffer.hpp]
+[import ../bound/buffer.hpp]
+[oglplus_object_BoundObjOps_Buffer]
+
+[heading:framebuffer Specialization for Framebuffer]
+[header oglplus/bound/framebuffer.hpp]
+[import ../bound/framebuffer.hpp]
+[oglplus_object_BoundObjOps_Framebuffer]
+
+[heading:renderbuffer Specialization for Renderbuffer]
+[header oglplus/bound/renderbuffer.hpp]
+[import ../bound/renderbuffer.hpp]
+[oglplus_object_BoundObjOps_Renderbuffer]
+
+[heading:texture Specialization for Texture]
+[header oglplus/bound/texture.hpp]
+[import ../bound/texture.hpp]
+[oglplus_object_BoundObjOps_Texture]
 
 [heading:ops Specialization of [^ObjectOps]]
 

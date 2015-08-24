@@ -73,7 +73,7 @@ public:
 
 #if GL_VERSION_4_0 || GL_ARB_transform_feedback2
 typedef ObjectOps<__tag_ImplicitSel, __tag_TransformFeedback> /*<
-Indirectly inherits from __ObjCommonOps_TransformFeedback
+Indirectly inherits from __ObjCommonOps_TransformFeedback<__tag_TransformFeedback>
 >*/
 	TransformFeedbackOps;
 
@@ -81,7 +81,7 @@ typedef __Object<TransformFeedbackOps> TransformFeedback;
 #endif
 
 typedef __ObjectZero<__ObjZeroOps<__tag_ImplicitSel, __tag_TransformFeedback>> /*<
-Indirectly inherits from __ObjCommonOps_TransformFeedback
+Indirectly inherits from __ObjCommonOps_TransformFeedback<__tag_TransformFeedback>
 >*/
 	DefaultTransformFeedback;
 
