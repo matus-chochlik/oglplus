@@ -309,18 +309,15 @@ public:
 				.GenerateMipmap()
 				.MinFilter(TextureMinFilter::LinearMipmapLinear)
 				.MagFilter(TextureMagFilter::Linear)
-				.WrapS(TextureWrap::Repeat)
-				.WrapT(TextureWrap::Repeat);
+				.Wrap(TextureWrap::Repeat);
 		}
 		{
 			Texture::Active(ntex);
 			ProgramUniformSampler(draw_prog, "ShadowMap").Set(ntex);
 
 			gl.Bound(Texture::Target::_2D, smap)
-				.MinFilter(TextureMinFilter::Linear)
-				.MagFilter(TextureMagFilter::Linear)
-				.WrapS(TextureWrap::ClampToEdge)
-				.WrapT(TextureWrap::ClampToEdge)
+				.Filter(TextureFilter::Linear)
+				.Wrap(TextureWrap::ClampToEdge)
 				.CompareMode(TextureCompareMode::CompareRefToTexture)
 				.Image2D(
 					0,

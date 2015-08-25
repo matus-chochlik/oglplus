@@ -305,11 +305,8 @@ public:
 		pattern.target = Texture::Target::_3D;
 		pattern.BindMulti(1);
 		pattern.Image3D(map);
-		pattern.MinFilter(TextureMinFilter::Nearest);
-		pattern.MagFilter(TextureMagFilter::Nearest);
-		pattern.WrapS(TextureWrap::ClampToBorder);
-		pattern.WrapT(TextureWrap::ClampToBorder);
-		pattern.WrapR(TextureWrap::ClampToBorder);
+		pattern.Filter(TextureFilter::Nearest);
+		pattern.Wrap(TextureWrap::ClampToBorder);
 		pattern.BorderColor(Vec4f(0,0,0,1));
 
 
@@ -321,11 +318,8 @@ public:
 			map.Height(),
 			map.Depth()
 		));
-		fademap.MinFilter(TextureMinFilter::Nearest);
-		fademap.MagFilter(TextureMagFilter::Nearest);
-		fademap.WrapS(TextureWrap::ClampToBorder);
-		fademap.WrapT(TextureWrap::ClampToBorder);
-		fademap.WrapR(TextureWrap::ClampToBorder);
+		fademap.Filter(TextureFilter::Nearest);
+		fademap.Wrap(TextureWrap::ClampToBorder);
 		fademap.BorderColor(Vec4f(0,0,0,1));
 	}
 
