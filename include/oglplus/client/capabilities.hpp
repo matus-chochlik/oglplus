@@ -73,7 +73,7 @@ public:
 	Boolean IsEnabled(void) const
 	noexcept
 	{
-		return this->_top();
+		return this->_get();
 	}
 
 	explicit
@@ -158,7 +158,7 @@ public:
 	Boolean IsEnabled(void) const
 	noexcept
 	{
-		return this->_top();
+		return this->_get();
 	}
 
 	explicit

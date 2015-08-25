@@ -34,7 +34,7 @@ public:
 template <>
 class __ObjectOps<__tag_DirectState, __tag_Sampler>
  : public __ObjZeroOps<__tag_DirectState, __tag_Sampler> /*<
-Indirectly inherits from __ObjCommonOps_Sampler.
+Indirectly inherits from __ObjCommonOps_Sampler<__tag_Sampler>.
 >*/
 {
 public:

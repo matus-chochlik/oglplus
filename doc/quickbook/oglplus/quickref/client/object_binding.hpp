@@ -9,7 +9,11 @@ namespace client {
 
 class CurrentObjects
 {
-private:
+private: /*<
+These private classes are here for documentation purposes only.
+Their public interface can be used in library client code, but
+the class names (as documented here) are not part of the public interface.
+>*/
 	template <typename __ObjTag>
 	struct CurrentObject
 	{
@@ -23,9 +27,12 @@ private:
 		type specified by [^ObjTag].
 		>*/
 		{
+		public:
 			WithTarget(void);
 
-			ObjectName<ObjTag> Get(void) const
+			ObjectName<ObjTag> Get(void) const /*<
+			Returns the current object binding.
+			>*/
 			noexcept;
 
 			operator ObjectName<ObjTag> (void) const
@@ -57,14 +64,103 @@ private:
 	>
 	{ };
 public:
-	CurrentObjectsWithTarget<__tag_Buffer> Buffer;
 	CurrentObjectsWithTarget<__tag_Framebuffer> Framebuffer;
 	CurrentObjectsWithTarget<__tag_Renderbuffer> Renderbuffer;
 	CurrentObjectsWithTarget<__tag_TransformFeedback> TransformFeedback;
+	CurrentObjectsWithTarget<__tag_Buffer> Buffer;
 
 //]
 //[oglplus_client_CurrentObjects2
-private:
+private: /*<
+These private classes are here for documentation purposes only.
+Their public interface can be used in library client code, but
+the class names (as documented here) are not part of the public interface.
+>*/
+	class BufferNameAndRange
+	{
+	public:
+		__BufferName Buffer(void) const;
+
+		bool BoundRange(void) const; /*<
+		Indicates whether just a subrange of the buffer ([^true]),
+		or the whole buffer ([^false]) is bound.
+		>*/
+
+		__BufferSize Offset(void) const; /*<
+		These functions return meaningful values only if
+		[^BoundRange] returns [^true].
+		>*/
+		__BufferSize Size(void) const;
+	};
+
+	template <__BufferIndexedTarget BufTarget>
+	class CurrentIndexBuffers /*<
+	Stack of buffer names the top of which is currently bound
+	to the specified __BufferIndexedTarget with a particular index.
+	>*/
+	 : public __SettingStack<BufferNameAndRange, ...>
+	{
+	public:
+		CurrentIndexBuffers(GLuint index);
+
+		BufferNameAndRange Get(void) const; /*<
+		Returns the current indexed buffer binding.
+		>*/
+		noexcept;
+
+		operator BufferNameAndRange (void) const
+		noexcept;
+
+		typedef __SettingHolder<BufferNameAndRange, ...> Holder;
+
+		Holder Push(__BufferName obj); /*<
+		Unwraps the buffer name, binds it to indexed [^BufTarget]
+		and pushes it onto the stack.
+		>*/
+
+		Holder Push(__BufferName obj, __BufferSize offset, __BufferSize size); /*<
+		Unwraps the buffer name, binds the specified range to indexed [^BufTarget]
+		and pushes it onto the stack.
+		>*/
+
+		void BindBase(__BufferName obj); /*<
+		Unwraps the buffer name, binds it to indexed [^BufTarget]
+		and calls __SettingStack::Set.
+		>*/
+
+		void BindRange(__BufferName obj, __BufferSize offset, __BufferSize size); /*<
+		Unwraps the buffer name, binds the specified range to indexed [^BufTarget]
+		and calls __SettingStack::Set.
+		>*/
+
+	};
+
+	template <__BufferIndexedTarget BufTarget>
+	class CurrentIndexedTargetBuffers /*<
+	Set of stacks managing the buffers bound to the indvidual indices
+	of the specified __BufferIndexedTarget.
+	>*/
+	{
+	public:
+		CurrentIndexBuffers<BufTarget>& Index(GLuint index); /*<
+		Returns the stack managing objects bound to the specified
+		[^index] of a __BufferIndexedTarget.
+		>*/
+		CurrentIndexBuffers<BufTarget>& operator [] (GLuint index);
+	};
+public:
+	typedef __enums_EnumToClass_BufferIndexedTarget<
+		__Nothing,
+		__BufferIndexedTarget,
+		CurrentIndexedTargetBuffers
+	> BufferIndexed;
+//]
+//[oglplus_client_CurrentObjects3
+private: /*<
+These private classes are here for documentation purposes only.
+Their public interface can be used in library client code, but
+the class names (as documented here) are not part of the public interface.
+>*/
 	template <typename __ObjTag>
 	class CurrentObjectWithoutTarget /*<
 	Stack of objects the top of which is currently bound
@@ -99,8 +195,12 @@ public:
 	CurrentObjectWithoutTarget<__tag_ProgramPipeline> ProgramPipeline;
 	CurrentObjectWithoutTarget<__tag_VertexArray> VertexArray;
 //]
-//[oglplus_client_CurrentObjects3
-private:
+//[oglplus_client_CurrentObjects4
+private: /*<
+These private classes are here for documentation purposes only.
+Their public interface can be used in library client code, but
+the class names (as documented here) are not part of the public interface.
+>*/
 	template <TextureTarget TexTarget>
 	class CurrentUnitTexture /*<
 	Stack of texture names the top of which is currently bound
@@ -141,17 +241,21 @@ private:
 			CurrentUnitTexture
 		> CurrentUnitTextures;
 	public:
-		CurrentUnitTextures& Unit(std::size_t index); /*<
+		CurrentUnitTextures& Unit(__TextureUnitSelector index); /*<
 		Returns a reference to the stack of texture bindings
 		on the texture unit at the specified [^index].
 		>*/
-		CurrentUnitTextures& operator [] (std::size_t index);
+		CurrentUnitTextures& operator [] (__TextureUnitSelector index);
 	};
 public:
 	CurrentTextures Texture;
 //]
-//[oglplus_client_CurrentObjects4
-private:
+//[oglplus_client_CurrentObjects5
+private: /*<
+These private classes are here for documentation purposes only.
+Their public interface can be used in library client code, but
+the class names (as documented here) are not part of the public interface.
+>*/
 	class CurrentUnitSampler /*<
 	Stack of sampler names, the top of which is currently bound.
 	>*/
@@ -184,11 +288,11 @@ private:
 	class CurrentSamplers
 	{
 	public:
-		CurrentUnitSampler& Unit(std::size_t index); /*<
+		CurrentUnitSampler& Unit(__TextureUnitSelector index); /*<
 		Returns a reference to the stack of sampler bindings
 		on the texture unit at the specified [^index].
 		>*/
-		CurrentUnitSampler& operator [] (std::size_t index);
+		CurrentUnitSampler& operator [] (__TextureUnitSelector index);
 	};
 public:
 	CurrentSamplers Sampler;

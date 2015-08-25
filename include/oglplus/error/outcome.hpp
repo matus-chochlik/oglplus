@@ -24,30 +24,19 @@ class PositiveOutcome;
 template <typename T>
 class NegativeOutcome;
 
-template <typename T>
-class Outcome
+class BaseOutcome
 {
 protected:
 	DeferredHandler _error;
-	T _value;
-public:
-	Outcome(Outcome&&) = default;
 
-	Outcome(T&& value)
-	noexcept
-	 : _value(std::move(value))
-	{ }
+	BaseOutcome(void) = default;
 
-	Outcome(DeferredHandler&& handler)
+	BaseOutcome(BaseOutcome&&) = default;
+
+	BaseOutcome(DeferredHandler&& handler)
 	 : _error(std::move(handler))
 	{ }
-
-	/// Returns stored value or cancels the error and returns the parameter
-	const T& ValueOr(const T& value)
-	{
-		return _error.cancel()?value:_value;
-	}
-
+public:
 	/// Return true if there was no error, false otherwise
 	bool Done(void) const
 	{
@@ -59,6 +48,49 @@ public:
 	{
 		return !_error.cancel();
 	}
+
+	DeferredHandler ReleaseHandler(void)
+	noexcept
+	{
+		return std::move(_error);
+	}
+};
+
+template <typename T>
+class Outcome
+ : public BaseOutcome
+{
+protected:
+	T _value;
+public:
+	Outcome(Outcome&&) = default;
+
+	Outcome(T&& value)
+	noexcept
+	 : _value(std::move(value))
+	{ }
+
+	Outcome(DeferredHandler&& handler)
+	 : BaseOutcome(std::move(handler))
+	{ }
+
+	/// Returns stored value or cancels the error and returns the parameter
+	const T& ValueOr(const T& value)
+	{
+		return _error.cancel()?value:_value;
+	}
+};
+
+template <>
+class Outcome<void>
+ : public BaseOutcome
+{
+public:
+	Outcome(Outcome&&) = default;
+
+	Outcome(DeferredHandler&& handler)
+	 : BaseOutcome(std::move(handler))
+	{ }
 };
 
 /// Stores a reference to T or a deferred error handler
@@ -68,9 +100,9 @@ public:
  */
 template <typename T>
 class Outcome<T&>
+ : public BaseOutcome
 {
 protected:
-	DeferredHandler _error;
 	T* _ptr;
 public:
 	Outcome(Outcome&&) = default;
@@ -81,13 +113,13 @@ public:
 	{ }
 
 	Outcome(DeferredHandler handler)
-	 : _error(std::move(handler))
+	 : BaseOutcome(std::move(handler))
 	 , _ptr(nullptr)
 	{ }
 
 	Outcome(DeferredHandler handler, T& ref)
 	noexcept
-	 : _error(std::move(handler))
+	 : BaseOutcome(std::move(handler))
 	 , _ptr(&ref)
 	{ }
 
@@ -103,19 +135,6 @@ public:
 		_error.trigger();
 		assert(_ptr != nullptr);
 		return *_ptr;
-	}
-
-	/// Return true if there was no error, false otherwise
-	bool Done(void) const
-	noexcept
-	{
-		return !_error;
-	}
-
-	// Dismisses the error handler and returns true if there was no error
-	bool DoneWithoutError(void)
-	{
-		return !_error.cancel();
 	}
 };
 
