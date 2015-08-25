@@ -436,7 +436,7 @@ public:
 	) const;
 
 	__Vector< GLfloat, 4 > BorderColor(
-		__TypeTag< GLfloat > 
+		__TypeTag< GLfloat >
 	) const;
 
 	const BoundObjOps& BorderColor(
@@ -444,7 +444,7 @@ public:
 	) const;
 
 	__Vector< GLint, 4 > BorderColor(
-		__TypeTag< GLint > 
+		__TypeTag< GLint >
 	) const;
 
 	const BoundObjOps& BorderColor(
@@ -452,7 +452,7 @@ public:
 	) const;
 
 	__Vector< GLuint, 4 > BorderColor(
-		__TypeTag< GLuint > 
+		__TypeTag< GLuint >
 	) const;
 
 	const BoundObjOps& BorderColor(
@@ -621,6 +621,10 @@ public:
 	__TextureWrap WrapR(void) const;
 
 	const BoundObjOps& WrapR(
+		__TextureWrap mode
+	) const;
+
+	const BoundObjOps& Wrap(
 		__TextureWrap mode
 	) const;
 
