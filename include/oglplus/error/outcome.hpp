@@ -52,12 +52,14 @@ protected:
 public:
 	/// Return true if there was no error, false otherwise
 	bool Done(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return !_error;
 	}
 
 	// Dismisses the error handler and returns true if there was no error
 	bool DoneWithoutError(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return !_error.cancel();
 	}
