@@ -59,3 +59,39 @@ Setup the texture image data.
 );
 //]
 
+//[oglplus_texture_example_setup_2
+__Texture tex; /*<
+Create a texture object.
+>*/
+
+__TextureUnitSelector tex_unit = /* ... */; /*<
+Choose a texture unit for the texture and make it current.
+>*/
+Texture::Active(tex_unit);
+
+std::vector<GLubyte> image = /* ... */;
+GLsizei width = /* ... */, height = /* ... */;
+
+tex	<< __TextureTarget::_2D /*<
+	This expression creates a pair of a texture object and a texture
+	target which allows to chain the other operands which in turn
+	call various __Texture's functions.
+	>*/
+	<< __TextureMinFilter::Linear /*<
+	[^__Texture::MinFilter(...)]
+	>*/
+	<< __TextureMagFilter::Nearest /*<
+	[^Texture::MagFilter(...)]
+	>*/
+	<< __TextureWrap::ClampToEdge /*<
+	[^Texture::Wrap(...)]
+	>*/
+	<< __images_ImageSpec( /*<
+	[^Texture::Image(...)]
+	>*/
+		width, height,
+		__PixelDataFormat::RGBA,
+		image.data()
+	);
+//]
+
