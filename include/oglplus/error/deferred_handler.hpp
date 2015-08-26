@@ -23,16 +23,18 @@ class DeferredHandler
 private:
 	struct _handler_intf
 	{
-		virtual ~_handler_intf(void)
+		virtual
+		~_handler_intf(void)
 		noexcept
 		{ }
 
-		virtual void execute(bool) = 0;
+		virtual
+		void execute(bool destroying) = 0;
 	};
 
 	struct _abort_handler : _handler_intf
 	{
-		void execute(bool destroying)
+		void execute(bool)
 		override;
 	};
 
@@ -52,22 +54,38 @@ private:
 		}
 	};
 
-	std::unique_ptr<_handler_intf> _handler;
+	typedef void(*_intf_deleter)(_handler_intf*);
+
+	static
+	void _impl_delete(_handler_intf* x) { delete x; }
+
+	static
+	void _fake_delete(_handler_intf*) { }
+
+	typedef std::unique_ptr<_handler_intf, _intf_deleter>
+		_unique_handler_ptr;
+
+	_unique_handler_ptr _handler;
 
 	template <typename Func>
 	static
-	std::unique_ptr<_handler_intf> _wrap_func(Func func)
+	_unique_handler_ptr _wrap_func(Func func)
 	{
-		return std::unique_ptr<_handler_intf>(
+		return _unique_handler_ptr(
 			new _handler_impl<Func>(
 				std::move(func)
-			)
+			), &_impl_delete
 		);
 	}
 
-	std::unique_ptr<_handler_intf> _release_handler(void);
+	_unique_handler_ptr _release_handler(void)
+	noexcept;
 public:
-	DeferredHandler(void) = default;
+	DeferredHandler(void)
+	noexcept
+	 : _handler(nullptr, &_fake_delete)
+	{ }
+
 	DeferredHandler(DeferredHandler&&) = default;
 
 	template <typename Func>
@@ -96,6 +114,7 @@ public:
 	}
 
 	bool cancel(void)
+	noexcept
 	{
 		return bool(_release_handler());
 	}

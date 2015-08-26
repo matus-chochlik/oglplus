@@ -185,9 +185,8 @@ public:
 			x, x, x, x,   x, x, x, x
 		};
 		Context::Bound(Texture::Target::_1D, _configurations)
-			.MinFilter(TextureMinFilter::Nearest)
-			.MagFilter(TextureMagFilter::Nearest)
-			.WrapS(TextureWrap::ClampToEdge)
+			.Filter(TextureFilter::Nearest)
+			.Wrap(TextureWrap::ClampToEdge)
 			.Image1D(
 				0,
 				PixelDataInternalFormat::RGBA8UI,
@@ -538,9 +537,8 @@ public:
 		Texture::Active(1);
 		blob_prog.metaballs.Set(1);
 		gl.Bound(Texture::Target::_1D, metaballs_tex)
-			.MinFilter(TextureMinFilter::Nearest)
-			.MagFilter(TextureMagFilter::Nearest)
-			.WrapS(TextureWrap::ClampToEdge)
+			.Filter(TextureFilter::Nearest)
+			.Wrap(TextureWrap::ClampToEdge)
 			.Image1D(
 				0,
 				PixelDataInternalFormat::RGBA32F,
@@ -556,8 +554,7 @@ public:
 		gl.Bound(Texture::Target::_2D, metal_tex)
 			.MinFilter(TextureMinFilter::LinearMipmapLinear)
 			.MagFilter(TextureMagFilter::Linear)
-			.WrapS(TextureWrap::Repeat)
-			.WrapT(TextureWrap::Repeat)
+			.Wrap(TextureWrap::Repeat)
 			.Image2D(
 				images::BrushedMetalUByte(
 					512, 512,

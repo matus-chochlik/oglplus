@@ -186,11 +186,9 @@ public:
 		// setup the texture
 		gl.Bound(sv::_2D, tex)
 			.Image2D(images::LoadTexture("concrete_block"))
-			.MinFilter(sv::Linear)
-			.MagFilter(sv::Linear)
+			.Filter(sv::Linear)
 			.Anisotropy(2.0f)
-			.WrapS(sv::Repeat)
-			.WrapT(sv::Repeat);
+			.Wrap(sv::Repeat);
 		// set the uniform values
 		(prog/"TexUnit") = 0;
 		(prog/"LightPos") = Vec3f(1.0f, 2.0f, 3.0f);

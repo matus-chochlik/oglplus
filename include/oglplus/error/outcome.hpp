@@ -39,12 +39,14 @@ protected:
 public:
 	/// Return true if there was no error, false otherwise
 	bool Done(void) const
+	noexcept
 	{
 		return !_error;
 	}
 
 	// Dismisses the error handler and returns true if there was no error
 	bool DoneWithoutError(void)
+	noexcept
 	{
 		return !_error.cancel();
 	}

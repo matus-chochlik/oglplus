@@ -199,8 +199,7 @@ public:
 			.GenerateMipmap()
 			.MinFilter(TextureMinFilter::LinearMipmapLinear)
 			.MagFilter(TextureMagFilter::Linear)
-			.WrapS(TextureWrap::Repeat)
-			.WrapT(TextureWrap::Repeat);
+			.Wrap(TextureWrap::Repeat);
 	}
 };
 
@@ -213,10 +212,8 @@ public:
 		Texture::Active(unit);
 		oglplus::Context::Bound<Texture>(Texture::Target::_2D, *this)
 			.Image2D(images::RandomRedUByte(512, 512))
-			.MinFilter(TextureMinFilter::Linear)
-			.MagFilter(TextureMagFilter::Linear)
-			.WrapS(TextureWrap::Repeat)
-			.WrapT(TextureWrap::Repeat);
+			.Filter(TextureFilter::Linear)
+			.Wrap(TextureWrap::Repeat);
 	}
 };
 
@@ -231,19 +228,13 @@ public:
 	{
 		Texture::Active(depth_unit);
 		oglplus::Context::Bound(Texture::Target::_2DArray, depth_tex)
-			.MinFilter(TextureMinFilter::Linear)
-			.MagFilter(TextureMagFilter::Linear)
-			.WrapS(TextureWrap::ClampToEdge)
-			.WrapT(TextureWrap::ClampToEdge)
-			.WrapR(TextureWrap::ClampToEdge);
+			.Filter(TextureFilter::Linear)
+			.Wrap(TextureWrap::ClampToEdge);
 
 		Texture::Active(color_unit);
 		oglplus::Context::Bound(Texture::Target::_2DArray, color_tex)
-			.MinFilter(TextureMinFilter::Linear)
-			.MagFilter(TextureMagFilter::Linear)
-			.WrapS(TextureWrap::ClampToEdge)
-			.WrapT(TextureWrap::ClampToEdge)
-			.WrapR(TextureWrap::ClampToEdge);
+			.Filter(TextureFilter::Linear)
+			.Wrap(TextureWrap::ClampToEdge);
 
 		Resize(256, 256);
 	}

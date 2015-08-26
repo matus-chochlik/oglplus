@@ -761,9 +761,7 @@ public:
 				.BorderColor(Vec4f(0,0,0,0))
 				.MinFilter(TextureMinFilter::LinearMipmapLinear)
 				.MagFilter(TextureMagFilter::Linear)
-				.WrapS(TextureWrap::ClampToBorder)
-				.WrapT(TextureWrap::ClampToBorder)
-				.WrapR(TextureWrap::ClampToBorder);
+				.Wrap(TextureWrap::ClampToBorder);
 
 			for(GLuint i=0; i!=ball_count; ++i)
 			{
@@ -835,11 +833,8 @@ public:
 		for(GLuint b=0; b!=ball_count; ++b)
 		{
 			gl.Bound(Texture::Target::CubeMap, cubemaps[b])
-				.MinFilter(TextureMinFilter::Linear)
-				.MagFilter(TextureMagFilter::Linear)
-				.WrapS(TextureWrap::ClampToEdge)
-				.WrapT(TextureWrap::ClampToEdge)
-				.WrapR(TextureWrap::ClampToEdge);
+				.Filter(TextureFilter::Linear)
+				.Wrap(TextureWrap::ClampToEdge);
 
 			for(int f=0; f!=6; ++f)
 			{
@@ -909,11 +904,8 @@ public:
 		Texture::Active(4);
 		Texture z_buffer;
 		gl.Bound(Texture::Target::CubeMap, z_buffer)
-			.MinFilter(TextureMinFilter::Nearest)
-			.MagFilter(TextureMagFilter::Nearest)
-			.WrapS(TextureWrap::ClampToEdge)
-			.WrapT(TextureWrap::ClampToEdge)
-			.WrapR(TextureWrap::ClampToEdge);
+			.Filter(TextureFilter::Nearest)
+			.Wrap(TextureWrap::ClampToEdge);
 
 		for(int i=0; i!=6; ++i)
 		{

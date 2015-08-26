@@ -232,10 +232,8 @@ public:
 				tile_tex_side
 			)
 		);
-		rand_tex.MinFilter(TextureMinFilter::Nearest);
-		rand_tex.MagFilter(TextureMagFilter::Nearest);
-		rand_tex.WrapS(TextureWrap::Repeat);
-		rand_tex.WrapT(TextureWrap::Repeat);
+		rand_tex.Filter(TextureFilter::Nearest);
+		rand_tex.Wrap(TextureWrap::Repeat);
 		Texture::Active(0);
 		UniformSampler(plane_prog, "RandTex").Set(0);
 		rand_tex.Bind();
@@ -243,10 +241,8 @@ public:
 		//
 		pict_tex.target = Texture::Target::_2D;
 		pict_tex.Image2D(images::LoadTexture("pool_pictogram"));
-		pict_tex.MinFilter(TextureMinFilter::Linear);
-		pict_tex.MagFilter(TextureMagFilter::Linear);
-		pict_tex.WrapS(TextureWrap::Repeat);
-		pict_tex.WrapT(TextureWrap::Repeat);
+		pict_tex.Filter(TextureFilter::Linear);
+		pict_tex.Wrap(TextureWrap::Repeat);
 		Texture::Active(1);
 		UniformSampler(plane_prog, "PictTex").Set(1);
 		pict_tex.Bind();
@@ -257,8 +253,7 @@ public:
 		tile_tex.Image2D(tile_image);
 		tile_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 		tile_tex.MagFilter(TextureMagFilter::Linear);
-		tile_tex.WrapS(TextureWrap::Repeat);
-		tile_tex.WrapT(TextureWrap::Repeat);
+		tile_tex.Wrap(TextureWrap::Repeat);
 		tile_tex.GenerateMipmap();
 		Texture::Active(2);
 		UniformSampler(plane_prog, "TileTex").Set(2);
@@ -278,8 +273,7 @@ public:
 		);
 		norm_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 		norm_tex.MagFilter(TextureMagFilter::Linear);
-		norm_tex.WrapS(TextureWrap::Repeat);
-		norm_tex.WrapT(TextureWrap::Repeat);
+		norm_tex.Wrap(TextureWrap::Repeat);
 		norm_tex.GenerateMipmap();
 		Texture::Active(3);
 		UniformSampler(plane_prog, "NormTex").Set(3);
@@ -295,10 +289,8 @@ public:
 			PixelDataType::UnsignedByte,
 			nullptr
 		);
-		reflect_tex.MinFilter(TextureMinFilter::Linear);
-		reflect_tex.MagFilter(TextureMagFilter::Linear);
-		reflect_tex.WrapS(TextureWrap::ClampToEdge);
-		reflect_tex.WrapT(TextureWrap::ClampToEdge);
+		reflect_tex.Filter(TextureFilter::Linear);
+		reflect_tex.Wrap(TextureWrap::ClampToEdge);
 		Texture::Active(4);
 		UniformSampler(plane_prog, "ReflectTex").Set(4);
 		reflect_tex.Bind();

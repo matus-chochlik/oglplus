@@ -1383,7 +1383,7 @@ public:
 	/// Returns the texture base level (TEXTURE_BASE_LEVEL)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_BASE_LEVEL}
 	 */
 	GLuint BaseLevel(void) const
@@ -1394,7 +1394,7 @@ public:
 	/// Sets the texture base level (TEXTURE_BASE_LEVEL)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_BASE_LEVEL}
 	 */
 	ObjZeroOps& BaseLevel(GLuint level)
@@ -1417,7 +1417,7 @@ public:
 	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
 	Vector<GLfloat, 4> BorderColor(TypeTag<GLfloat>) const
@@ -1440,7 +1440,7 @@ public:
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
 	ObjZeroOps& BorderColor(Vector<GLfloat, 4> color)
@@ -1462,7 +1462,7 @@ public:
 	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
 	Vector<GLint, 4> BorderColor(TypeTag<GLint>) const
@@ -1485,7 +1485,7 @@ public:
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
 	ObjZeroOps& BorderColor(Vector<GLint, 4> color)
@@ -1507,7 +1507,7 @@ public:
 	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
 	Vector<GLuint, 4> BorderColor(TypeTag<GLuint>) const
@@ -1530,7 +1530,7 @@ public:
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
 	ObjZeroOps& BorderColor(Vector<GLuint, 4> color)
@@ -1552,7 +1552,7 @@ public:
 	/// Gets the compare mode (TEXTURE_COMPARE_MODE)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_COMPARE_MODE}
 	 */
 	TextureCompareMode CompareMode(void) const
@@ -1565,7 +1565,7 @@ public:
 	/// Sets the compare mode (TEXTURE_COMPARE_MODE)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_COMPARE_MODE}
 	 */
 	ObjZeroOps& CompareMode(TextureCompareMode mode)
@@ -1588,7 +1588,7 @@ public:
 	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_COMPARE_FUNC}
 	 */
 	CompareFunction CompareFunc(void) const
@@ -1601,7 +1601,7 @@ public:
 	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_COMPARE_FUNC}
 	 */
 	ObjZeroOps& CompareFunc(CompareFunction func)
@@ -1624,7 +1624,7 @@ public:
 	/// Gets the LOD bias value (TEXTURE_LOD_BIAS)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_LOD_BIAS}
 	 */
 	GLfloat LODBias(void) const
@@ -1635,7 +1635,7 @@ public:
 	/// Sets the LOD bias value (TEXTURE_LOD_BIAS)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_LOD_BIAS}
 	 */
 	ObjZeroOps& LODBias(GLfloat value)
@@ -1657,7 +1657,7 @@ public:
 	/// Sets both the minification and maginification filter
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
@@ -1693,7 +1693,7 @@ public:
 	/// Gets the magnification filter (TEXTURE_MAG_FILTER)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
 	TextureMagFilter MagFilter(void) const
@@ -1706,7 +1706,7 @@ public:
 	/// Sets the magnification filter (TEXTURE_MAG_FILTER)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
 	ObjZeroOps& MagFilter(TextureMagFilter filter)
@@ -1729,7 +1729,7 @@ public:
 	/// Gets the minification filter (TEXTURE_MIN_FILTER)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 */
 	TextureMinFilter MinFilter(void) const
@@ -1742,7 +1742,7 @@ public:
 	/// Sets the minification filter (TEXTURE_MIN_FILTER)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 */
 	ObjZeroOps& MinFilter(TextureMinFilter filter)
@@ -1765,7 +1765,7 @@ public:
 	/// Gets minimal LOD value (TEXTURE_MIN_LOD)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_MIN_LOD}
 	 */
 	GLfloat MinLOD(void) const
@@ -1776,7 +1776,7 @@ public:
 	/// Sets minimal LOD value (TEXTURE_MIN_LOD)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_MIN_LOD}
 	 */
 	ObjZeroOps& MinLOD(GLfloat value)
@@ -1798,7 +1798,7 @@ public:
 	/// Gets maximum LOD value (TEXTURE_MAX_LOD)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_MAX_LOD}
 	 */
 	GLfloat MaxLOD(void) const
@@ -1809,7 +1809,7 @@ public:
 	/// Sets maximum LOD value (TEXTURE_MAX_LOD)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_MAX_LOD}
 	 */
 	ObjZeroOps& MaxLOD(GLfloat value)
@@ -1831,7 +1831,7 @@ public:
 	/// Gets maximum level value (TEXTURE_MAX_LEVEL)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_MAX_LEVEL}
 	 */
 	GLint MaxLevel(void) const
@@ -1842,7 +1842,7 @@ public:
 	/// Sets maximum level value (TEXTURE_MAX_LEVEL)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_MAX_LEVEL}
 	 */
 	ObjZeroOps& MaxLevel(GLint value)
@@ -1864,7 +1864,7 @@ public:
 	/// Gets the maximum anisotropy level
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{MAX_TEXTURE_MAX_ANISOTROPY_EXT}
 	 */
 	GLfloat MaxAnisotropy(void) const
@@ -1879,7 +1879,7 @@ public:
 	/// Gets the current anisotropy level
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
 	 */
 	GLfloat Anisotropy(void) const
@@ -1894,7 +1894,7 @@ public:
 	/// Sets the anisotropy level
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
 	 */
 	ObjZeroOps& Anisotropy(GLfloat value)
@@ -1922,7 +1922,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 */
 	TextureSwizzle Swizzle(TextureSwizzleCoord coord) const
 	{
@@ -1935,7 +1935,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 */
 	ObjZeroOps& Swizzle(
 		TextureSwizzleCoord coord,
@@ -1961,7 +1961,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_R}
 	 */
 	TextureSwizzle SwizzleR(void) const
@@ -1973,7 +1973,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_R}
 	 */
 	ObjZeroOps& SwizzleR(TextureSwizzle mode)
@@ -1985,7 +1985,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_G}
 	 */
 	TextureSwizzle SwizzleG(void) const
@@ -1997,7 +1997,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_G}
 	 */
 	ObjZeroOps& SwizzleG(TextureSwizzle mode)
@@ -2009,7 +2009,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_B}
 	 */
 	TextureSwizzle SwizzleB(void) const
@@ -2021,7 +2021,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_B}
 	 */
 	ObjZeroOps& SwizzleB(TextureSwizzle mode)
@@ -2033,7 +2033,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_A}
 	 */
 	TextureSwizzle SwizzleA(void) const
@@ -2045,7 +2045,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_A}
 	 */
 	ObjZeroOps& SwizzleA(TextureSwizzle mode)
@@ -2057,7 +2057,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
 	TextureSwizzleTuple SwizzleRGBA(void) const
@@ -2081,7 +2081,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
 	ObjZeroOps& SwizzleRGBA(TextureSwizzle mode)
@@ -2107,7 +2107,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
 	ObjZeroOps& SwizzleRGBA(
@@ -2141,7 +2141,7 @@ public:
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
 	ObjZeroOps& SwizzleRGBA(const TextureSwizzleTuple& modes)
@@ -2164,7 +2164,7 @@ public:
 	/// Gets the wrap parameter (TEXTURE_WRAP_*)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 */
 	TextureWrap Wrap(TextureWrapCoord coord) const
 	{
@@ -2174,7 +2174,7 @@ public:
 	/// Sets the wrap parameter (TEXTURE_WRAP_*)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 */
 	ObjZeroOps& Wrap(
 		TextureWrapCoord coord,
@@ -2199,7 +2199,7 @@ public:
 	/// Gets the wrap parameter (TEXTURE_WRAP_S)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_WRAP_S}
 	 */
 	TextureWrap WrapS(void) const
@@ -2210,7 +2210,7 @@ public:
 	/// Sets the wrap parameter (TEXTURE_WRAP_S)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_WRAP_S}
 	 */
 	ObjZeroOps& WrapS(TextureWrap mode)
@@ -2221,7 +2221,7 @@ public:
 	/// Gets the wrap parameter (TEXTURE_WRAP_T)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_WRAP_T}
 	 */
 	TextureWrap WrapT(void) const
@@ -2232,7 +2232,7 @@ public:
 	/// Sets the wrap parameter (TEXTURE_WRAP_T)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_WRAP_T}
 	 */
 	ObjZeroOps& WrapT(TextureWrap mode)
@@ -2243,7 +2243,7 @@ public:
 	/// Gets the wrap parameter (TEXTURE_WRAP_R)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_WRAP_R}
 	 */
 	TextureWrap WrapR(void) const
@@ -2254,7 +2254,7 @@ public:
 	/// Sets the wrap parameter (TEXTURE_WRAP_R)
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_WRAP_R}
 	 */
 	ObjZeroOps& WrapR(TextureWrap mode)
@@ -2262,12 +2262,36 @@ public:
 		return Wrap(TextureWrapCoord::R, mode);
 	}
 
+	/// Sets the wrap parameter (TEXTURE_WRAP_*)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TextureParameter}
+	 *  @gldefref{TEXTURE_WRAP_R}
+	 *  @gldefref{TEXTURE_WRAP_T}
+	 *  @gldefref{TEXTURE_WRAP_S}
+	 */
+	ObjZeroOps& Wrap(TextureWrap mode)
+	{
+		switch(TextureTargetDimensions(target))
+		{
+			case 3: WrapR(mode);
+				OGLPLUS_FALLTHROUGH
+			case 2: WrapT(mode);
+				OGLPLUS_FALLTHROUGH
+			case 1: WrapS(mode);
+				OGLPLUS_FALLTHROUGH
+			case 0: break;
+			default: OGLPLUS_ABORT("Invalid texture wrap dimension");
+		}
+		return *this;
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
 	/// Gets the depth stencil mode parameter (DEPTH_STENCIL_TEXTURE_MODE)
 	/**
 	 *  @glverreq{4,3}
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{DEPTH_STENCIL_TEXTURE_MODE}
 	 */
 	PixelDataFormat DepthStencilMode(void) const
@@ -2281,7 +2305,7 @@ public:
 	/**
 	 *  @glverreq{4,3}
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{DEPTH_STENCIL_TEXTURE_MODE}
 	 */
 	ObjZeroOps& DepthStencilMode(PixelDataFormat mode)
@@ -2306,7 +2330,7 @@ public:
 	/// Gets the seamless cubemap setting value
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
+	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
 	Boolean Seamless(void) const
@@ -2320,7 +2344,7 @@ public:
 	/// Sets the seamless cubemap setting
 	/**
 	 *  @glsymbols
-	 *  @glfunref{TexParameter}
+	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
 	ObjZeroOps& Seamless(Boolean enable)
