@@ -54,9 +54,6 @@
 <dt><span class="section"><a href="client_context.html#oglplus.quickref.client_context.object_binding">Object
           binding</a></span></dt>
 </dl></div>
-<p>
-          TODO
-        </p>
 <h4>
 <a name="oglplus.quickref.client_context.h0"></a>
           <span class="phrase"><a name="oglplus.quickref.client_context.clientcontext"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.clientcontext"><code class="literal">ClientContext</code></a>
@@ -65,8 +62,34 @@
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/client_context.hpp&gt;</code>
         </p>
 <p>
-          TODO
+          The <code class="literal">ClientContext</code> class keeps local copies of most of
+          the GL context state variable values and allows to query and manipulate
+          them more efficiently. During construction an instance of <code class="literal">ClientContext</code>
+          queries the values of all GL state variables, which are managed by it.
+          When successfully constructed the members of this instance can be used
+          to obtain the cached value without actually querying GL. Furthermore the
+          values can also be modified and pushed and subsequently popped from a stack.
+          The modification operations compare the new value with the current and
+          call to the functions from the GL API which change the GL state are made
+          only if they are different. The stack functionality allows to temporarily
+          change the value of a GL context setting and restore the previous value
+          later.
         </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            In order to function properly, the use of <code class="literal">ClientContext</code>
+            should not be mixed with direct or indirect (through <a class="link" href="context.html" title="Current GL context">Context</a>)
+            calls to the GL API changing the GL state, because this would cause the
+            internal state of <code class="literal">ClientContext</code> to go out of sync.
+            This also means that in order to manage the state of a single GL context
+            only a single instance of <code class="literal">ClientContext</code> should be
+            used.
+          </p></td></tr>
+</table></div>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ClientContext</span>
  <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.capabilities.state">client::CapabilityState</a>
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="client_context.html#oglplus.quickref.client_context.viewport.state">client::ViewportState</a>

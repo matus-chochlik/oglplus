@@ -1,0 +1,792 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Currently bound textures</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../index.html" title="oglplus.org">
+<link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
+<link rel="prev" href="texture.html" title="Textures">
+<link rel="next" href="dsa_texture.html" title="DSA textures">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="texture.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="dsa_texture.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oglplus.quickref.bound_texture"></a><a class="link" href="bound_texture.html" title="Currently bound textures">Currently bound textures</a>
+</h2></div></div></div>
+<p>
+          A specialization of <a class="link" href="object.html#oglplus.quickref.object.bound.ops">BoundObjOps</a>
+          allows to operate on the currently bound texture without the need to explicitly
+          specify the texture target in every function call.
+        </p>
+<p>
+          <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/bound/texture.hpp&gt;</code>
+        </p>
+<h4>
+<a name="oglplus.quickref.bound_texture.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.bound_texture.ops"></a></span><a class="link" href="bound_texture.html#oglplus.quickref.bound_texture.ops">Operations
+          on currently bound texture</a>
+        </h4>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;&gt;</span>
+<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.bound.ops">BoundObjOps</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Texture</a><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">private</span><span class="special">:</span>
+	<span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="link" href="texture.html#oglplus.quickref.texture.ops">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::ExplicitSel</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">tag::Texture</a><span class="special">&gt;</span> <span class="identifier">ExplicitOps</span><span class="special">;</span>
+<span class="keyword">public</span><span class="special">:</span>
+	<span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">ExplicitOps</span><span class="special">::</span><span class="identifier">Target</span> <span class="identifier">Target</span><span class="special">;</span>
+
+	<span class="identifier">Target</span> <span class="identifier">target</span><span class="special">;</span>
+
+	<span class="identifier">BoundObjOps</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
+
+	<span class="identifier">BoundObjOps</span><span class="special">(</span><span class="identifier">Target</span> <span class="identifier">init_tgt</span><span class="special">);</span>
+	<span class="identifier">GLint</span> <span class="identifier">GetIntParam</span><span class="special">(</span>
+		<span class="identifier">GLenum</span> <span class="identifier">query</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">GetFloatParam</span><span class="special">(</span>
+		<span class="identifier">GLenum</span> <span class="identifier">query</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">GLint</span> <span class="identifier">GetIntParam</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLenum</span> <span class="identifier">query</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">GetFloatParam</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLenum</span> <span class="identifier">query</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">Width</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">Height</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">Depth</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">RedType</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">GreenType</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">BlueType</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">AlphaType</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a> <span class="identifier">DepthType</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">RedSize</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">GreenSize</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">BlueSize</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">AlphaSize</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">DepthSize</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">StencilSize</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">SharedSize</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">CompressedImageSize</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">InternalFormat</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">GetImage</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="output_data.html" title="Output data wrapper">OutputData</a> <span class="special">&amp;</span> <span class="identifier">dest</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">GetImage</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">ExplicitOps</span><span class="special">::</span><span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">size</span><span class="special">,</span>
+		<span class="identifier">GLvoid</span> <span class="special">*</span> <span class="identifier">buffer</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">GetCompressedImage</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="keyword">const</span> <a class="link" href="output_data.html" title="Output data wrapper">OutputData</a> <span class="special">&amp;</span> <span class="identifier">dest</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">GetCompressedImage</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">size</span><span class="special">,</span>
+		<span class="identifier">GLubyte</span> <span class="special">*</span> <span class="identifier">buffer</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">GetCompressedImage</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">GLubyte</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <span class="identifier">dest</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Image3D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">depth</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">ExplicitOps</span><span class="special">::</span><span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span> <span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Image3D</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a> <span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">SubImage3D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">depth</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">ExplicitOps</span><span class="special">::</span><span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span> <span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">SubImage3D</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a> <span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Image2D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">ExplicitOps</span><span class="special">::</span><span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span> <span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Image2D</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a> <span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">SubImage2D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">ExplicitOps</span><span class="special">::</span><span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span> <span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">SubImage2D</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a> <span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Image1D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">ExplicitOps</span><span class="special">::</span><span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span> <span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Image1D</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a> <span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">SubImage1D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<span class="identifier">ExplicitOps</span><span class="special">::</span><span class="identifier">Property</span><span class="special">::</span><span class="identifier">PixDataType</span> <span class="identifier">type</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span> <span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">SubImage1D</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a> <span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Image</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image" title="Image">images::Image</a> <span class="special">&amp;</span> <span class="identifier">image</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Image</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="images.html#oglplus.quickref.images.image_spec" title="Image specification">images::ImageSpec</a> <span class="special">&amp;</span> <span class="identifier">image_spec</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span> <span class="special">=</span> <span class="number">0</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">CopyImage2D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">CopyImage1D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">CopySubImage3D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">CopySubImage2D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">CopySubImage1D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">x</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">y</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">CompressedImage3D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">depth</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">image_size</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span> <span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">CompressedImage2D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">image_size</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span> <span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">CompressedImage1D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">border</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">image_size</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span> <span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">CompressedSubImage3D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">zoffs</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">depth</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">image_size</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span> <span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">CompressedSubImage2D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">yoffs</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">image_size</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span> <span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">CompressedSubImage1D</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span><span class="special">,</span>
+		<span class="identifier">GLint</span> <span class="identifier">xoffs</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">image_size</span><span class="special">,</span>
+		<span class="keyword">const</span> <span class="keyword">void</span> <span class="special">*</span> <span class="identifier">data</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_multisample</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Image3DMultisample</span><span class="special">(</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">samples</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">depth</span><span class="special">,</span>
+		<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">fixed_sample_locations</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_multisample</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Image2DMultisample</span><span class="special">(</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">samples</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">fixed_sample_locations</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_1</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <a class="link" href="buffer.html#oglplus.quickref.buffer.def">Buffer</a><span class="special">(</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">buffer</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">BufferRange</span><span class="special">(</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.name.typedefs">BufferName</a> <span class="identifier">buffer</span><span class="special">,</span>
+		<span class="identifier">GLintptr</span> <span class="identifier">offset</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">BigSizeType</a> <span class="identifier">size</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_storage</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Storage1D</span><span class="special">(</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">levels</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_storage</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Storage2D</span><span class="special">(</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">levels</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_storage</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Storage3D</span><span class="special">(</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">levels</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a> <span class="identifier">internal_format</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">width</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="size_type.html#oglplus.quickref.size_type.def">SizeType</a> <span class="identifier">depth</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+	<span class="identifier">GLuint</span> <span class="identifier">BaseLevel</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">BaseLevel</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">level</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="math.html#oglplus.quickref.math.vector" title="Vectors">Vector</a><span class="special">&lt;</span> <span class="identifier">GLfloat</span><span class="special">,</span> <span class="number">4</span> <span class="special">&gt;</span> <span class="identifier">BorderColor</span><span class="special">(</span>
+		<a class="link" href="data_type.html#oglplus.quickref.data_type.utils">TypeTag</a><span class="special">&lt;</span> <span class="identifier">GLfloat</span> <span class="special">&gt;</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">BorderColor</span><span class="special">(</span>
+		<a class="link" href="math.html#oglplus.quickref.math.vector" title="Vectors">Vector</a><span class="special">&lt;</span> <span class="identifier">GLfloat</span><span class="special">,</span> <span class="number">4</span> <span class="special">&gt;</span> <span class="identifier">color</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="math.html#oglplus.quickref.math.vector" title="Vectors">Vector</a><span class="special">&lt;</span> <span class="identifier">GLint</span><span class="special">,</span> <span class="number">4</span> <span class="special">&gt;</span> <span class="identifier">BorderColor</span><span class="special">(</span>
+		<a class="link" href="data_type.html#oglplus.quickref.data_type.utils">TypeTag</a><span class="special">&lt;</span> <span class="identifier">GLint</span> <span class="special">&gt;</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">BorderColor</span><span class="special">(</span>
+		<a class="link" href="math.html#oglplus.quickref.math.vector" title="Vectors">Vector</a><span class="special">&lt;</span> <span class="identifier">GLint</span><span class="special">,</span> <span class="number">4</span> <span class="special">&gt;</span> <span class="identifier">color</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="math.html#oglplus.quickref.math.vector" title="Vectors">Vector</a><span class="special">&lt;</span> <span class="identifier">GLuint</span><span class="special">,</span> <span class="number">4</span> <span class="special">&gt;</span> <span class="identifier">BorderColor</span><span class="special">(</span>
+		<a class="link" href="data_type.html#oglplus.quickref.data_type.utils">TypeTag</a><span class="special">&lt;</span> <span class="identifier">GLuint</span> <span class="special">&gt;</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">BorderColor</span><span class="special">(</span>
+		<a class="link" href="math.html#oglplus.quickref.math.vector" title="Vectors">Vector</a><span class="special">&lt;</span> <span class="identifier">GLuint</span><span class="special">,</span> <span class="number">4</span> <span class="special">&gt;</span> <span class="identifier">color</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="texture.html#oglplus.quickref.texture.compare_mode">TextureCompareMode</a> <span class="identifier">CompareMode</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">CompareMode</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.compare_mode">TextureCompareMode</a> <span class="identifier">mode</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="compare_function.html" title="Compare function">CompareFunction</a> <span class="identifier">CompareFunc</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">CompareFunc</span><span class="special">(</span>
+		<a class="link" href="compare_function.html" title="Compare function">CompareFunction</a> <span class="identifier">func</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">LODBias</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">LODBias</span><span class="special">(</span>
+		<span class="identifier">GLfloat</span> <span class="identifier">value</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Filter</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureFilter</a> <span class="identifier">filter</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMagFilter</a> <span class="identifier">MagFilter</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">MagFilter</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMagFilter</a> <span class="identifier">filter</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMinFilter</a> <span class="identifier">MinFilter</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">MinFilter</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMinFilter</a> <span class="identifier">filter</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">MinLOD</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">MinLOD</span><span class="special">(</span>
+		<span class="identifier">GLfloat</span> <span class="identifier">value</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">MaxLOD</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">MaxLOD</span><span class="special">(</span>
+		<span class="identifier">GLfloat</span> <span class="identifier">value</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">GLint</span> <span class="identifier">MaxLevel</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">MaxLevel</span><span class="special">(</span>
+		<span class="identifier">GLint</span> <span class="identifier">value</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">MaxAnisotropy</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="identifier">GLfloat</span> <span class="identifier">Anisotropy</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Anisotropy</span><span class="special">(</span>
+		<span class="identifier">GLfloat</span> <span class="identifier">value</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">Swizzle</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle_coord">TextureSwizzleCoord</a> <span class="identifier">coord</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Swizzle</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle_coord">TextureSwizzleCoord</a> <span class="identifier">coord</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">SwizzleR</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">SwizzleR</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">SwizzleG</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">SwizzleG</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">SwizzleB</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">SwizzleB</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">SwizzleA</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">SwizzleA</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<a class="link" href="texture.html#oglplus.quickref.texture.swizzle_tuple">TextureSwizzleTuple</a> <span class="identifier">SwizzleRGBA</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">SwizzleRGBA</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">SwizzleRGBA</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode_r</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode_g</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode_b</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.swizzle">TextureSwizzle</a> <span class="identifier">mode_a</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_3_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_texture_swizzle</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">SwizzleRGBA</span><span class="special">(</span>
+		<span class="keyword">const</span> <a class="link" href="texture.html#oglplus.quickref.texture.swizzle_tuple">TextureSwizzleTuple</a> <span class="special">&amp;</span> <span class="identifier">modes</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+	<a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a> <span class="identifier">Wrap</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.wrap_coord">TextureWrapCoord</a> <span class="identifier">coord</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Wrap</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.wrap_coord">TextureWrapCoord</a> <span class="identifier">coord</span><span class="special">,</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a> <span class="identifier">mode</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a> <span class="identifier">WrapS</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">WrapS</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a> <span class="identifier">mode</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a> <span class="identifier">WrapT</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">WrapT</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a> <span class="identifier">mode</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a> <span class="identifier">WrapR</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">WrapR</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a> <span class="identifier">mode</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Wrap</span><span class="special">(</span>
+		<a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a> <span class="identifier">mode</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span>
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">DepthStencilMode</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">DepthStencilMode</span><span class="special">(</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a> <span class="identifier">mode</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_ARB_seamless_cubemap_per_texture</span>
+	<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">Seamless</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#if</span> <span class="identifier">GL_ARB_seamless_cubemap_per_texture</span>
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">Seamless</span><span class="special">(</span>
+		<a class="link" href="boolean.html#oglplus.quickref.boolean.def">Boolean</a> <span class="identifier">enable</span>
+	<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+
+	<span class="keyword">const</span> <span class="identifier">BoundObjOps</span><span class="special">&amp;</span> <span class="identifier">GenerateMipmap</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+
+<span class="special">};</span>
+</pre>
+<h4>
+<a name="oglplus.quickref.bound_texture.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.bound_texture.examples"></a></span><a class="link" href="bound_texture.html#oglplus.quickref.bound_texture.examples">Examples
+          of usage</a>
+        </h4>
+<h4>
+<a name="oglplus.quickref.bound_texture.h2"></a>
+          <span class="phrase"><a name="oglplus.quickref.bound_texture.example_setup_1"></a></span><a class="link" href="bound_texture.html#oglplus.quickref.bound_texture.example_setup_1">Typical
+          setup of a 2D texture</a>
+        </h4>
+<p>
+          This code snippet shows a typical setup for a 2D texture using the <a class="link" href="object.html#oglplus.quickref.object.bound.ops">BoundObjOps</a> wrapper.
+          See also the <a class="link" href="texture.html#oglplus.quickref.texture.example_setup_1">traditional
+          way to setup textures</a>.
+        </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">oglplus</span><span class="special">;</span>
+
+<a class="link" href="texture.html#oglplus.quickref.texture.def">Texture</a> <span class="identifier">tex</span><span class="special">;</span> <a class="co" name="oglplus.quickref.bound_texture.c0" href="bound_texture.html#oglplus.quickref.bound_texture.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<a class="link" href="texture.html#oglplus.quickref.texture.unit_selector">TextureUnitSelector</a> <span class="identifier">tex_unit</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span> <a class="co" name="oglplus.quickref.bound_texture.c2" href="bound_texture.html#oglplus.quickref.bound_texture.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="identifier">Texture</span><span class="special">::</span><span class="identifier">Active</span><span class="special">(</span><span class="identifier">tex_unit</span><span class="special">);</span> <a class="co" name="oglplus.quickref.bound_texture.c4" href="bound_texture.html#oglplus.quickref.bound_texture.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">tex_tgt</span> <span class="special">=</span> <span class="identifier">Texture</span><span class="special">::</span><span class="identifier">Target</span><span class="special">::</span><span class="identifier">_2D</span><span class="special">;</span> <a class="co" name="oglplus.quickref.bound_texture.c6" href="bound_texture.html#oglplus.quickref.bound_texture.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="identifier">tex</span><span class="special">.</span><span class="identifier">Bind</span><span class="special">(</span><span class="identifier">tex_tgt</span><span class="special">);</span> <a class="co" name="oglplus.quickref.bound_texture.c8" href="bound_texture.html#oglplus.quickref.bound_texture.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">GLubyte</span><span class="special">&gt;</span> <span class="identifier">image</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span> <a class="co" name="oglplus.quickref.bound_texture.c10" href="bound_texture.html#oglplus.quickref.bound_texture.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="identifier">GLsizei</span> <span class="identifier">width</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">,</span> <span class="identifier">height</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span>
+
+<a class="link" href="context.html" title="Current GL context">Context</a> <span class="identifier">gl</span><span class="special">;</span>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Bound</span><span class="special">&lt;</span><a class="link" href="texture.html#oglplus.quickref.texture.def">Texture</a><span class="special">&gt;(</span><span class="identifier">tex_tgt</span><span class="special">,</span> <span class="identifier">tex</span><span class="special">)</span> <a class="co" name="oglplus.quickref.bound_texture.c12" href="bound_texture.html#oglplus.quickref.bound_texture.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+	<span class="special">.</span><span class="identifier">MinFilter</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMinFilter</a><span class="special">::</span><span class="identifier">Linear</span><span class="special">)</span>
+	<span class="special">.</span><span class="identifier">MagFilter</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMagFilter</a><span class="special">::</span><span class="identifier">Nearest</span><span class="special">)</span>
+	<span class="special">.</span><span class="identifier">WrapS</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a><span class="special">::</span><span class="identifier">Repeat</span><span class="special">)</span>
+	<span class="special">.</span><span class="identifier">WrapT</span><span class="special">(</span><a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a><span class="special">::</span><span class="identifier">ClampToEdge</span><span class="special">)</span>
+	<span class="special">.</span><span class="identifier">Image2D</span><span class="special">(</span>
+		<span class="number">0</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a><span class="special">::</span><span class="identifier">RGBA</span><span class="special">,</span>
+		<span class="identifier">width</span><span class="special">,</span> <span class="identifier">height</span><span class="special">,</span>
+		<span class="number">0</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a><span class="special">::</span><span class="identifier">RGBA</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a><span class="special">::</span><span class="identifier">UnsignedByte</span><span class="special">,</span>
+		<span class="identifier">image</span><span class="special">.</span><span class="identifier">data</span><span class="special">()</span> <a class="co" name="oglplus.quickref.bound_texture.c14" href="bound_texture.html#oglplus.quickref.bound_texture.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="special">);</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bound_texture.c1"></a><a href="#oglplus.quickref.bound_texture.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Create a texture object.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bound_texture.c3"></a><a href="#oglplus.quickref.bound_texture.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Choose a texture unit for the texture.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bound_texture.c5"></a><a href="#oglplus.quickref.bound_texture.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Make the texture unit current (active).
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bound_texture.c7"></a><a href="#oglplus.quickref.bound_texture.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Choose binding point for the texture.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bound_texture.c9"></a><a href="#oglplus.quickref.bound_texture.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Bind the texture object to the texture target.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bound_texture.c11"></a><a href="#oglplus.quickref.bound_texture.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Obtain the texture image data.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bound_texture.c13"></a><a href="#oglplus.quickref.bound_texture.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Use the wrapper for GL context to create a reference to <a class="link" href="bound_texture.html#oglplus.quickref.bound_texture.ops">BoundObjOps</a>&lt;<a class="link" href="texture.html#oglplus.quickref.texture.def">Texture</a>&gt; and use it
+              to setup the texture parameters and image. Many member functions of
+              the returned class return a reference to itself which allows to conveniently
+              chain the calls to several functions, as seen here.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bound_texture.c15"></a><a href="#oglplus.quickref.bound_texture.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              The buffer pointed-to by this parameter must hold enough data to be
+              consumed, depending on the width, height, data type and other parameters.
+              Optionally this pointer can be null, which causes a texture with blank
+              image to be created.
+            </p></td>
+</tr>
+</table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008-2015 Mat&#250;&#353; Chochl&#237;k<p>
+        Distributed under the Boost Software License, Version 1.0. See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="texture.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="dsa_texture.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

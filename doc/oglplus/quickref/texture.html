@@ -7,11 +7,11 @@
 <link rel="home" href="../../index.html" title="oglplus.org">
 <link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
 <link rel="prev" href="dsa_vertex_array.html" title="DSA vertex arrays">
-<link rel="next" href="dsa_texture.html" title="DSA textures">
+<link rel="next" href="bound_texture.html" title="Currently bound textures">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="dsa_vertex_array.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="dsa_texture.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="dsa_vertex_array.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="bound_texture.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
@@ -2134,6 +2134,180 @@
             </p></td>
 </tr>
 </table></div>
+<h4>
+<a name="oglplus.quickref.texture.h15"></a>
+          <span class="phrase"><a name="oglplus.quickref.texture.examples"></a></span><a class="link" href="texture.html#oglplus.quickref.texture.examples">Examples
+          of usage</a>
+        </h4>
+<h4>
+<a name="oglplus.quickref.texture.h16"></a>
+          <span class="phrase"><a name="oglplus.quickref.texture.example_setup_1"></a></span><a class="link" href="texture.html#oglplus.quickref.texture.example_setup_1">Typical
+          setup of a 2D texture</a>
+        </h4>
+<p>
+          This code snippet shows a typical setup for a 2D texture. See also <a class="link" href="bound_texture.html#oglplus.quickref.bound_texture.example_setup_1">a more convenient
+          way how to setup textures</a> by using the <a class="link" href="object.html#oglplus.quickref.object.bound" title="Currently bound objects">currently
+          bound objects</a>.
+        </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">oglplus</span><span class="special">;</span>
+
+<a class="link" href="texture.html#oglplus.quickref.texture.def">Texture</a> <span class="identifier">tex</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c258" href="texture.html#oglplus.quickref.texture.c259"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<a class="link" href="texture.html#oglplus.quickref.texture.unit_selector">TextureUnitSelector</a> <span class="identifier">tex_unit</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c260" href="texture.html#oglplus.quickref.texture.c261"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="identifier">Texture</span><span class="special">::</span><span class="identifier">Active</span><span class="special">(</span><span class="identifier">tex_unit</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c262" href="texture.html#oglplus.quickref.texture.c263"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+<a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a> <span class="identifier">tex_tgt</span> <span class="special">=</span> <span class="identifier">Texture</span><span class="special">::</span><span class="identifier">Target</span><span class="special">::</span><span class="identifier">_2D</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c264" href="texture.html#oglplus.quickref.texture.c265"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="identifier">tex</span><span class="special">.</span><span class="identifier">Bind</span><span class="special">(</span><span class="identifier">tex_tgt</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c266" href="texture.html#oglplus.quickref.texture.c267"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+<span class="identifier">Texture</span><span class="special">::</span><span class="identifier">MinFilter</span><span class="special">(</span><span class="identifier">tex_tgt</span><span class="special">,</span> <a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMinFilter</a><span class="special">::</span><span class="identifier">Linear</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c268" href="texture.html#oglplus.quickref.texture.c269"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="identifier">Texture</span><span class="special">::</span><span class="identifier">MagFilter</span><span class="special">(</span><span class="identifier">tex_tgt</span><span class="special">,</span> <a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMagFilter</a><span class="special">::</span><span class="identifier">Nearest</span><span class="special">);</span>
+<span class="identifier">Texture</span><span class="special">::</span><span class="identifier">WrapS</span><span class="special">(</span><span class="identifier">tex_tgt</span><span class="special">,</span> <a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a><span class="special">::</span><span class="identifier">ClampToEdge</span><span class="special">);</span>
+<span class="identifier">Texture</span><span class="special">::</span><span class="identifier">WrapT</span><span class="special">(</span><span class="identifier">tex_tgt</span><span class="special">,</span> <a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a><span class="special">::</span><span class="identifier">ClampToEdge</span><span class="special">);</span>
+<span class="identifier">Texture</span><span class="special">::</span><span class="identifier">CompareMode</span><span class="special">(</span><span class="identifier">tex_tgt</span><span class="special">,</span> <a class="link" href="texture.html#oglplus.quickref.texture.compare_mode">TextureCompareMode</a><span class="special">::</span><span class="identifier">CompareRefToTexture</span><span class="special">);</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">GLfloat</span><span class="special">&gt;</span> <span class="identifier">image</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c270" href="texture.html#oglplus.quickref.texture.c271"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+<span class="identifier">GLsizei</span> <span class="identifier">width</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">,</span> <span class="identifier">height</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span>
+
+<span class="identifier">Texture</span><span class="special">::</span><span class="identifier">Image2D</span><span class="special">(</span> <a class="co" name="oglplus.quickref.texture.c272" href="texture.html#oglplus.quickref.texture.c273"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="identifier">tex_tgt</span><span class="special">,</span>
+	<span class="number">0</span><span class="special">,</span>
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.internal_fmt">PixelDataInternalFormat</a><span class="special">::</span><span class="identifier">DepthComponent32</span><span class="special">,</span>
+	<span class="identifier">width</span><span class="special">,</span> <span class="identifier">height</span><span class="special">,</span>
+	<span class="number">0</span><span class="special">,</span>
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a><span class="special">::</span><span class="identifier">DepthComponent</span><span class="special">,</span>
+	<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.type">PixelDataType</a><span class="special">::</span><span class="identifier">Float</span><span class="special">,</span>
+	<span class="identifier">image</span><span class="special">.</span><span class="identifier">data</span><span class="special">()</span> <a class="co" name="oglplus.quickref.texture.c274" href="texture.html#oglplus.quickref.texture.c275"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+<span class="special">);</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c259"></a><a href="#oglplus.quickref.texture.c258"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Create a texture object.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c261"></a><a href="#oglplus.quickref.texture.c260"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Choose a texture unit for the texture.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c263"></a><a href="#oglplus.quickref.texture.c262"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Make the texture unit current (active).
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c265"></a><a href="#oglplus.quickref.texture.c264"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Choose binding point for the texture.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c267"></a><a href="#oglplus.quickref.texture.c266"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Bind the texture object to the texture target.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c269"></a><a href="#oglplus.quickref.texture.c268"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Setup various texture parameters for the texture currently bound to
+              the specified texture target on the currenly active texture unit.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c271"></a><a href="#oglplus.quickref.texture.c270"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Obtain the texture image data.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c273"></a><a href="#oglplus.quickref.texture.c272"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Setup the texture image data.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c275"></a><a href="#oglplus.quickref.texture.c274"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              The buffer pointed-to by this parameter must hold enough data to be
+              consumed, depending on the width, height, data type and other parameters.
+              Optionally this pointer can be null, which causes a blank texture to
+              be created.
+            </p></td>
+</tr>
+</table></div>
+<p>
+          The <a class="link" href="texture.html#oglplus.quickref.texture.sugar">syntax sugar operators</a>
+          provide another convenient alternative for setting up texture parameters
+          and image data.
+        </p>
+<pre class="programlisting"><a class="link" href="texture.html#oglplus.quickref.texture.def">Texture</a> <span class="identifier">tex</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c276" href="texture.html#oglplus.quickref.texture.c277"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<a class="link" href="texture.html#oglplus.quickref.texture.unit_selector">TextureUnitSelector</a> <span class="identifier">tex_unit</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span> <a class="co" name="oglplus.quickref.texture.c278" href="texture.html#oglplus.quickref.texture.c279"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="identifier">Texture</span><span class="special">::</span><span class="identifier">Active</span><span class="special">(</span><span class="identifier">tex_unit</span><span class="special">);</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">GLubyte</span><span class="special">&gt;</span> <span class="identifier">image</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span>
+<span class="identifier">GLsizei</span> <span class="identifier">width</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">,</span> <span class="identifier">height</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span>
+
+<span class="identifier">tex</span>	<span class="special">&lt;&lt;</span> <a class="link" href="texture.html#oglplus.quickref.texture.target">TextureTarget</a><span class="special">::</span><span class="identifier">_2D</span> <a class="co" name="oglplus.quickref.texture.c280" href="texture.html#oglplus.quickref.texture.c281"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="special">&lt;&lt;</span> <a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMinFilter</a><span class="special">::</span><span class="identifier">Linear</span> <a class="co" name="oglplus.quickref.texture.c282" href="texture.html#oglplus.quickref.texture.c283"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="special">&lt;&lt;</span> <a class="link" href="texture.html#oglplus.quickref.texture.filter">TextureMagFilter</a><span class="special">::</span><span class="identifier">Nearest</span> <a class="co" name="oglplus.quickref.texture.c284" href="texture.html#oglplus.quickref.texture.c285"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="special">&lt;&lt;</span> <a class="link" href="texture.html#oglplus.quickref.texture.wrap">TextureWrap</a><span class="special">::</span><span class="identifier">ClampToEdge</span> <a class="co" name="oglplus.quickref.texture.c286" href="texture.html#oglplus.quickref.texture.c287"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="special">&lt;&lt;</span> <a class="link" href="images.html#oglplus.quickref.images.image_spec" title="Image specification">images::ImageSpec</a><span class="special">(</span> <a class="co" name="oglplus.quickref.texture.c288" href="texture.html#oglplus.quickref.texture.c289"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+		<span class="identifier">width</span><span class="special">,</span> <span class="identifier">height</span><span class="special">,</span>
+		<a class="link" href="pixel_data.html#oglplus.quickref.pixel_data.format">PixelDataFormat</a><span class="special">::</span><span class="identifier">RGBA</span><span class="special">,</span>
+		<span class="identifier">image</span><span class="special">.</span><span class="identifier">data</span><span class="special">()</span>
+	<span class="special">);</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c277"></a><a href="#oglplus.quickref.texture.c276"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Create a texture object.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c279"></a><a href="#oglplus.quickref.texture.c278"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Choose a texture unit for the texture and make it current.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c281"></a><a href="#oglplus.quickref.texture.c280"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              This expression creates a pair of a texture object and a texture target
+              which allows to chain the other operands which in turn call various
+              <a class="link" href="texture.html#oglplus.quickref.texture.def">Texture</a>'s functions.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c283"></a><a href="#oglplus.quickref.texture.c282"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              <code class="literal"><a class="link" href="texture.html#oglplus.quickref.texture.def">Texture</a>::MinFilter(...)</code>
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c285"></a><a href="#oglplus.quickref.texture.c284"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              <code class="literal">Texture::MagFilter(...)</code>
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c287"></a><a href="#oglplus.quickref.texture.c286"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              <code class="literal">Texture::Wrap(...)</code>
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.texture.c289"></a><a href="#oglplus.quickref.texture.c288"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              <code class="literal">Texture::Image(...)</code>
+            </p></td>
+</tr>
+</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
@@ -2145,7 +2319,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="dsa_vertex_array.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="dsa_texture.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="dsa_vertex_array.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="bound_texture.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>
