@@ -38,25 +38,40 @@
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">cassert</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">GL</span><span class="special">/</span><span class="identifier">glew</span><span class="special">.</span><span class="identifier">h</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">GL</span><span class="special">/</span><span class="identifier">glew</span><span class="special">.</span><span class="identifier">h</span><span class="special">&gt;</span> <a class="co" name="oglplus.intro.hello_world.c0" href="intro.html#oglplus.intro.hello_world.c1"><img src="../images/callouts/1.png" alt="1" border="0"></a>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">GL</span><span class="special">/</span><span class="identifier">glut</span><span class="special">.</span><span class="identifier">h</span><span class="special">&gt;</span>
 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">oglplus</span><span class="special">/</span><span class="identifier">all</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">oglplus</span><span class="special">/</span><span class="identifier">all</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span> <a class="co" name="oglplus.intro.hello_world.c2" href="intro.html#oglplus.intro.hello_world.c3"><img src="../images/callouts/2.png" alt="2" border="0"></a>
 </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.intro.hello_world.c1"></a><a href="#oglplus.intro.hello_world.c0"><img src="../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Before including OGLplus a header declaring the GL API must be included.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.intro.hello_world.c3"></a><a href="#oglplus.intro.hello_world.c2"><img src="../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Includes <span class="bold"><strong>most</strong></span> of OGLplus excluding
+              geometry and image data generators and optional utilities.
+            </p></td>
+</tr>
+</table></div>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Example</span>
 <span class="special">{</span>
 <span class="keyword">private</span><span class="special">:</span>
-	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/context.html" title="Current GL context">Context</a> <span class="identifier">gl</span><span class="special">;</span>
+	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/context.html" title="Current GL context">Context</a> <span class="identifier">gl</span><span class="special">;</span> <a class="co" name="oglplus.intro.hello_world.c4" href="intro.html#oglplus.intro.hello_world.c5"><img src="../images/callouts/1.png" alt="1" border="0"></a>
 
-	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/shader.html#oglplus.quickref.shader.specialized">VertexShader</a> <span class="identifier">vs</span><span class="special">;</span>
+	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/shader.html#oglplus.quickref.shader.specialized">VertexShader</a> <span class="identifier">vs</span><span class="special">;</span> <a class="co" name="oglplus.intro.hello_world.c6" href="intro.html#oglplus.intro.hello_world.c7"><img src="../images/callouts/2.png" alt="2" border="0"></a>
 
-	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/shader.html#oglplus.quickref.shader.specialized">FragmentShader</a> <span class="identifier">fs</span><span class="special">;</span>
+	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/shader.html#oglplus.quickref.shader.specialized">FragmentShader</a> <span class="identifier">fs</span><span class="special">;</span> <a class="co" name="oglplus.intro.hello_world.c8" href="intro.html#oglplus.intro.hello_world.c9"><img src="../images/callouts/3.png" alt="3" border="0"></a>
 
-	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/program.html#oglplus.quickref.program.def">Program</a> <span class="identifier">prog</span><span class="special">;</span>
+	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/program.html#oglplus.quickref.program.def">Program</a> <span class="identifier">prog</span><span class="special">;</span> <a class="co" name="oglplus.intro.hello_world.c10" href="intro.html#oglplus.intro.hello_world.c11"><img src="../images/callouts/4.png" alt="4" border="0"></a>
 
-	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/vertex_array.html#oglplus.quickref.vertex_array.def">VertexArray</a> <span class="identifier">triangle</span><span class="special">;</span>
+	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/buffer.html#oglplus.quickref.buffer.def">Buffer</a> <span class="identifier">positions</span><span class="special">;</span> <a class="co" name="oglplus.intro.hello_world.c12" href="intro.html#oglplus.intro.hello_world.c13"><img src="../images/callouts/5.png" alt="5" border="0"></a>
 
-	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/buffer.html#oglplus.quickref.buffer.def">Buffer</a> <span class="identifier">verts</span><span class="special">;</span>
+	<span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/vertex_array.html#oglplus.quickref.vertex_array.def">VertexArray</a> <span class="identifier">triangle</span><span class="special">;</span> <a class="co" name="oglplus.intro.hello_world.c14" href="intro.html#oglplus.intro.hello_world.c15"><img src="../images/callouts/6.png" alt="6" border="0"></a>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">Example</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
 	<span class="special">{</span>
@@ -96,7 +111,7 @@
 			<span class="number">0.0f</span><span class="special">,</span> <span class="number">1.0f</span><span class="special">,</span> <span class="number">0.0f</span>
 		<span class="special">};</span>
 
-		<span class="identifier">verts</span><span class="special">.</span><span class="identifier">Bind</span><span class="special">(</span><a class="link" href="quickref/buffer.html#oglplus.quickref.buffer.target">BufferTarget</a><span class="special">::</span><span class="identifier">Array</span><span class="special">);</span>
+		<span class="identifier">positions</span><span class="special">.</span><span class="identifier">Bind</span><span class="special">(</span><a class="link" href="quickref/buffer.html#oglplus.quickref.buffer.target">BufferTarget</a><span class="special">::</span><span class="identifier">Array</span><span class="special">);</span>
 		<a class="link" href="quickref/buffer.html#oglplus.quickref.buffer.def">Buffer</a><span class="special">::</span><span class="identifier">Data</span><span class="special">(</span>
 			<a class="link" href="quickref/buffer.html#oglplus.quickref.buffer.target">BufferTarget</a><span class="special">::</span><span class="identifier">Array</span><span class="special">,</span>
 			<span class="number">9</span><span class="special">,</span>
@@ -121,6 +136,44 @@
 	<span class="special">}</span>
 <span class="special">};</span>
 </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.intro.hello_world.c5"></a><a href="#oglplus.intro.hello_world.c4"><img src="../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Stateless wrapper for GL context functions.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.intro.hello_world.c7"></a><a href="#oglplus.intro.hello_world.c6"><img src="../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Vertex shader object.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.intro.hello_world.c9"></a><a href="#oglplus.intro.hello_world.c8"><img src="../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Fragment shader object.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.intro.hello_world.c11"></a><a href="#oglplus.intro.hello_world.c10"><img src="../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              GPU rendering program object,
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.intro.hello_world.c13"></a><a href="#oglplus.intro.hello_world.c12"><img src="../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              (Vertex) buffer object.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.intro.hello_world.c15"></a><a href="#oglplus.intro.hello_world.c14"><img src="../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Vertex array object.
+            </p></td>
+</tr>
+</table></div>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">SingleExample</span>
 <span class="special">{</span>
 <span class="keyword">private</span><span class="special">:</span>
@@ -130,7 +183,7 @@
 		<span class="keyword">return</span> <span class="identifier">test</span><span class="special">;</span>
 	<span class="special">}</span>
 
-	<span class="identifier">SingleExample</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">SingleExample</span><span class="special">&amp;);</span>
+	<span class="identifier">SingleExample</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">SingleExample</span><span class="special">&amp;)/*</span> <span class="special">=</span> <span class="keyword">delete</span> <span class="special">*/;</span>
 <span class="keyword">public</span><span class="special">:</span>
 
 	<span class="identifier">SingleExample</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span>
@@ -169,6 +222,22 @@
 		<span class="identifier">glutDisplayFunc</span><span class="special">(&amp;</span><span class="identifier">SingleExample</span><span class="special">::</span><span class="identifier">Display</span><span class="special">);</span>
 		<span class="identifier">glutMainLoop</span><span class="special">();</span>
 		<span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
+	<span class="special">}</span>
+	<span class="keyword">catch</span><span class="special">(</span><span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/error.html#oglplus.quickref.error.program" title="Program build errors">ProgramBuildError</a><span class="special">&amp;</span> <span class="identifier">pbe</span><span class="special">)</span>
+	<span class="special">{</span>
+		<span class="identifier">std</span><span class="special">::</span><span class="identifier">cerr</span>
+			<span class="special">&lt;&lt;</span> <span class="string">"Program build error (in "</span>
+			<span class="special">&lt;&lt;</span> <span class="identifier">pbe</span><span class="special">.</span><span class="identifier">GLFunc</span><span class="special">()</span>
+			<span class="special">&lt;&lt;</span> <span class="string">"'): "</span>
+			<span class="special">&lt;&lt;</span> <span class="identifier">pbe</span><span class="special">.</span><span class="identifier">what</span><span class="special">()</span>
+			<span class="special">&lt;&lt;</span> <span class="string">" ["</span>
+			<span class="special">&lt;&lt;</span> <span class="identifier">pbe</span><span class="special">.</span><span class="identifier">SourceFile</span><span class="special">()</span>
+			<span class="special">&lt;&lt;</span> <span class="string">":"</span>
+			<span class="special">&lt;&lt;</span> <span class="identifier">pbe</span><span class="special">.</span><span class="identifier">SourceLine</span><span class="special">()</span>
+			<span class="special">&lt;&lt;</span> <span class="string">"] "</span>
+			<span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span>
+			<span class="special">&lt;&lt;</span> <span class="identifier">pbe</span><span class="special">.</span><span class="identifier">Log</span><span class="special">()</span>
+			<span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
 	<span class="special">}</span>
 	<span class="keyword">catch</span><span class="special">(</span><span class="identifier">oglplus</span><span class="special">::</span><a class="link" href="quickref/error.html#oglplus.quickref.error.basic" title="Basic exception class">Error</a><span class="special">&amp;</span> <span class="identifier">err</span><span class="special">)</span>
 	<span class="special">{</span>

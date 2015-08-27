@@ -722,7 +722,8 @@
 	<span class="special">~</span><span class="identifier">DeferredHandler</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.error.deferred_handler.c0" href="error.html#oglplus.quickref.error.deferred_handler.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 
 	<span class="keyword">void</span> <span class="identifier">trigger</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.error.deferred_handler.c2" href="error.html#oglplus.quickref.error.deferred_handler.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
-	<span class="keyword">bool</span> <span class="identifier">cancel</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.error.deferred_handler.c4" href="error.html#oglplus.quickref.error.deferred_handler.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">cancel</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <a class="co" name="oglplus.quickref.error.deferred_handler.c4" href="error.html#oglplus.quickref.error.deferred_handler.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+	<span class="keyword">noexcept</span><span class="special">;</span>
 
 	<span class="keyword">explicit</span>
 	<span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.error.deferred_handler.c6" href="error.html#oglplus.quickref.error.deferred_handler.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
@@ -750,9 +751,9 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.deferred_handler.c5"></a><a href="#oglplus.quickref.error.deferred_handler.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-                If <code class="literal">this</code> instance wraps an error handler, cancels
-                its invocation and returns <code class="literal">true</code>, otherwise returns
-                <code class="literal">false</code>.
+                If <code class="literal">this</code> instance wraps an error handler, this
+                function cancels its invocation and returns <code class="literal">true</code>,
+                otherwise returns <code class="literal">false</code>.
               </p></td>
 </tr>
 <tr>
@@ -836,12 +837,47 @@
 </table></div>
 <h5>
 <a name="oglplus.quickref.error.outcome.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.error.outcome.example_1"></a></span><a class="link" href="error.html#oglplus.quickref.error.outcome.example_1">Example
+            of usage</a>
+          </h5>
+<p>
+            The following snippet shows the usage of <code class="literal">Outcome</code> returned
+            by <code class="literal"><a class="link" href="shader.html" title="Shaders">Shader</a>::Compile(std::noexcept_t)</code>.
+            The logical operator short circuiting together with the <code class="literal">DoneWithoutError</code>
+            and <code class="literal">Done</code> member function allows to find the first
+            shader source which can be compiled in the current GL context. Note that
+            the last line uses the <code class="literal">Done</code> function which throws
+            in case that even the last shader source fails to compile.
+          </p>
+<pre class="programlisting"><a class="link" href="shader.html#oglplus.quickref.shader.specialized">VertexShader</a> <span class="identifier">shader</span><span class="special">;</span>
+
+<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">source_glsl_430</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span>
+<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">source_glsl_330</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span>
+<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">source_glsl_150</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span>
+<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">fallback_source</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span>
+
+<span class="identifier">shader</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(</span><span class="identifier">source_glsl_430</span><span class="special">).</span><span class="identifier">Compile</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">nothrow</span><span class="special">).</span><span class="identifier">DoneWithoutError</span><span class="special">()</span> <span class="special">||</span>
+<span class="identifier">shader</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(</span><span class="identifier">source_glsl_330</span><span class="special">).</span><span class="identifier">Compile</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">nothrow</span><span class="special">).</span><span class="identifier">DoneWithoutError</span><span class="special">()</span> <span class="special">||</span>
+<span class="identifier">shader</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(</span><span class="identifier">source_glsl_150</span><span class="special">).</span><span class="identifier">Compile</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">nothrow</span><span class="special">).</span><span class="identifier">DoneWithoutError</span><span class="special">()</span> <span class="special">||</span>
+<span class="comment">/* ... */</span>
+<span class="identifier">shader</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(</span><span class="identifier">fallback_source</span><span class="special">).</span><span class="identifier">Compile</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">nothrow</span><span class="special">).</span><span class="identifier">Done</span><span class="special">();</span>
+</pre>
+<h5>
+<a name="oglplus.quickref.error.outcome.h1"></a>
             <span class="phrase"><a name="oglplus.quickref.error.outcome.positive"></a></span><a class="link" href="error.html#oglplus.quickref.error.outcome.positive">Positive
             outcome</a>
           </h5>
+<p>
+            <code class="literal">PositiveOutcome</code> adds two boolean operators to <code class="literal">Outcome</code>:
+            explicit conversion to <code class="literal">bool</code> which returns <code class="literal">true</code>
+            if the instance of <code class="literal">Outcome</code> does not hold an error
+            handler (i.e. if the function call which returned it finished successfully)
+            or <code class="literal">false</code> otherwise, and <code class="literal">operator !</code>
+            which does the opposite.
+          </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">PositiveOutcome</span>
- <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Outcome</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.outcome" title="Function outcome">Outcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">explicit</span>
@@ -853,7 +889,7 @@
 <span class="special">};</span>
 
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-<a class="link" href="error.html#oglplus.quickref.error.outcome.positive">PositiveOutcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="identifier">Succeeded</span><span class="special">(</span><a class="link" href="error.html#oglplus.quickref.error.outcome" title="Function outcome">Outcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;&amp;</span> <span class="identifier">outcome</span><span class="special">)</span>
+<a class="link" href="error.html#oglplus.quickref.error.outcome.positive">PositiveOutcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="identifier">Succeeded</span><span class="special">(</span><a class="link" href="error.html#oglplus.quickref.error.outcome" title="Function outcome">Outcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;&amp;</span> <span class="identifier">outcome</span><span class="special">)</span> <a class="co" name="oglplus.quickref.error.outcome.c12" href="error.html#oglplus.quickref.error.outcome.c13"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="keyword">noexcept</span><span class="special">;</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
@@ -873,32 +909,61 @@
                 <code class="literal">true</code> otherwise.
               </p></td>
 </tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c13"></a><a href="#oglplus.quickref.error.outcome.c12"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Converts <a class="link" href="error.html#oglplus.quickref.error.outcome" title="Function outcome">Outcome</a>
+                to <a class="link" href="error.html#oglplus.quickref.error.outcome.positive">PositiveOutcome</a>.
+              </p></td>
+</tr>
 </table></div>
+<p>
+            The following code shows the usage of <code class="literal">PositiveOutcome</code>
+            and the <code class="literal">Succeeded</code> function.
+          </p>
+<pre class="programlisting"><a class="link" href="shader.html#oglplus.quickref.shader.specialized">VertexShader</a> <span class="identifier">shader</span><span class="special">;</span>
+
+<span class="keyword">if</span><span class="special">(</span><span class="keyword">auto</span> <span class="identifier">compiled_shader</span> <span class="special">=</span> <a class="link" href="error.html#oglplus.quickref.error.outcome.positive">Succeeded</a><span class="special">(</span><span class="identifier">shader</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(</span><span class="identifier">source</span><span class="special">).</span><span class="identifier">Compile</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">nothrow</span><span class="special">)))</span>
+<span class="special">{</span>
+	<span class="comment">/* Shader compiled successfully */</span>
+<span class="special">}</span>
+<span class="keyword">else</span>
+<span class="special">{</span>
+	<span class="comment">/* Shader compilation failed */</span>
+<span class="special">}</span>
+</pre>
 <h5>
-<a name="oglplus.quickref.error.outcome.h1"></a>
+<a name="oglplus.quickref.error.outcome.h2"></a>
             <span class="phrase"><a name="oglplus.quickref.error.outcome.negative"></a></span><a class="link" href="error.html#oglplus.quickref.error.outcome.negative">Negative
             outcome</a>
           </h5>
+<p>
+            Similar to <a class="link" href="error.html#oglplus.quickref.error.outcome.positive">PositiveOutcome</a>,
+            <code class="literal">NegativeOutcome</code> also adds two boolean operators to
+            <code class="literal">Outcome</code>, however the logic is inverted. Explicit conversion
+            to <code class="literal">bool</code> returns <code class="literal">true</code> in case of
+            an error and <code class="literal">false</code> otherwise.
+          </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">NegativeOutcome</span>
- <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Outcome</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="error.html#oglplus.quickref.error.outcome" title="Function outcome">Outcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="keyword">explicit</span>
-	<span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.error.outcome.c12" href="error.html#oglplus.quickref.error.outcome.c13"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="keyword">operator</span> <span class="keyword">bool</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.error.outcome.c14" href="error.html#oglplus.quickref.error.outcome.c15"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 	<span class="keyword">noexcept</span><span class="special">;</span>
 
-	<span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.error.outcome.c14" href="error.html#oglplus.quickref.error.outcome.c15"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+	<span class="keyword">bool</span> <span class="keyword">operator</span> <span class="special">!</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span> <a class="co" name="oglplus.quickref.error.outcome.c16" href="error.html#oglplus.quickref.error.outcome.c17"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 	<span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">};</span>
 
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-<a class="link" href="error.html#oglplus.quickref.error.outcome.negative">NegativeOutcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="identifier">Failed</span><span class="special">(</span><a class="link" href="error.html#oglplus.quickref.error.outcome" title="Function outcome">Outcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;&amp;</span> <span class="identifier">outcome</span><span class="special">)</span>
+<a class="link" href="error.html#oglplus.quickref.error.outcome.negative">NegativeOutcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="identifier">Failed</span><span class="special">(</span><a class="link" href="error.html#oglplus.quickref.error.outcome" title="Function outcome">Outcome</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;&amp;</span> <span class="identifier">outcome</span><span class="special">)</span> <a class="co" name="oglplus.quickref.error.outcome.c18" href="error.html#oglplus.quickref.error.outcome.c19"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="keyword">noexcept</span><span class="special">;</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c13"></a><a href="#oglplus.quickref.error.outcome.c12"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c15"></a><a href="#oglplus.quickref.error.outcome.c14"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns <code class="literal">false</code> if the operation that produced
                 <code class="literal">this</code> instance completed without an error, returns
@@ -906,14 +971,36 @@
               </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c15"></a><a href="#oglplus.quickref.error.outcome.c14"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c17"></a><a href="#oglplus.quickref.error.outcome.c16"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                 Returns <code class="literal">true</code> if the operation that produced <code class="literal">this</code>
                 instance completed without an error, returns <code class="literal">false</code>
                 otherwise.
               </p></td>
 </tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.error.outcome.c19"></a><a href="#oglplus.quickref.error.outcome.c18"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Converts <a class="link" href="error.html#oglplus.quickref.error.outcome" title="Function outcome">Outcome</a>
+                to <a class="link" href="error.html#oglplus.quickref.error.outcome.negative">NegativeOutcome</a>.
+              </p></td>
+</tr>
 </table></div>
+<p>
+            The following code shows the usage of <code class="literal">NegativeOutcome</code>
+            and the <code class="literal">Failed</code> function.
+          </p>
+<pre class="programlisting"><a class="link" href="shader.html#oglplus.quickref.shader.specialized">VertexShader</a> <span class="identifier">shader</span><span class="special">;</span>
+
+<span class="keyword">if</span><span class="special">(</span><span class="keyword">auto</span> <span class="identifier">compilation_failed</span> <span class="special">=</span> <a class="link" href="error.html#oglplus.quickref.error.outcome.negative">Failed</a><span class="special">(</span><span class="identifier">shader</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(</span><span class="identifier">source</span><span class="special">).</span><span class="identifier">Compile</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">nothrow</span><span class="special">)))</span>
+<span class="special">{</span>
+	<span class="comment">/* Shader compilation failed */</span>
+<span class="special">}</span>
+<span class="keyword">else</span>
+<span class="special">{</span>
+	<span class="comment">/* Shader compiled successfully */</span>
+<span class="special">}</span>
+</pre>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
