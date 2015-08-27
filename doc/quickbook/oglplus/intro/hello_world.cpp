@@ -7,26 +7,43 @@
 #include <cassert>
 #include <iostream>
 
-#include <GL/glew.h>
+#include <GL/glew.h> /*<
+Before including OGLplus a header declaring the GL API must be included.
+>*/
 #include <GL/glut.h>
 
-#include <oglplus/all.hpp>
+#include <oglplus/all.hpp> /*<
+Includes [*most] of OGLplus excluding geometry and image data generators
+and optional utilities.
+>*/
 //]
 //[oglplus_example_hello_world_2
 class Example
 {
 private:
-	oglplus::__Context gl;
+	oglplus::__Context gl; /*<
+	Stateless wrapper for GL context functions.
+	>*/
 
-	oglplus::__VertexShader vs;
+	oglplus::__VertexShader vs; /*<
+	Vertex shader object.
+	>*/
 
-	oglplus::__FragmentShader fs;
+	oglplus::__FragmentShader fs; /*<
+	Fragment shader object.
+	>*/
 
-	oglplus::__Program prog;
+	oglplus::__Program prog; /*<
+	GPU rendering program object,
+	>*/
 
-	oglplus::__VertexArray triangle;
+	oglplus::__Buffer positions; /*<
+	(Vertex) buffer object.
+	>*/
 
-	oglplus::__Buffer verts;
+	oglplus::__VertexArray triangle; /*<
+	Vertex array object.
+	>*/
 public:
 	Example(void)
 	{
@@ -66,7 +83,7 @@ public:
 			0.0f, 1.0f, 0.0f
 		};
 
-		verts.Bind(__BufferTarget::Array);
+		positions.Bind(__BufferTarget::Array);
 		__Buffer::Data(
 			__BufferTarget::Array,
 			9,
@@ -101,7 +118,7 @@ private:
 		return test;
 	}
 
-	SingleExample(const SingleExample&);
+	SingleExample(const SingleExample&)/* = delete */;
 public:
 
 	SingleExample(void)
@@ -141,6 +158,22 @@ int main(int argc, char* argv[])
 		glutDisplayFunc(&SingleExample::Display);
 		glutMainLoop();
 		return 0;
+	}
+	catch(oglplus::__ProgramBuildError& pbe)
+	{
+		std::cerr
+			<< "Program build error (in "
+			<< pbe.GLFunc()
+			<< "'): "
+			<< pbe.what()
+			<< " ["
+			<< pbe.SourceFile()
+			<< ":"
+			<< pbe.SourceLine()
+			<< "] "
+			<< std::endl
+			<< pbe.Log()
+			<< std::endl;
 	}
 	catch(oglplus::__Error& err)
 	{
