@@ -38,13 +38,13 @@ public:
 
 //[oglplus_object_Reference_CurrentBound
 template <typename __ObjTag>
-class __Reference<__ObjectOps<__tag_CurrentBound, ObjTag>>
- : public __ObjectOps<__tag_CurrentBound, ObjTag>
+class __Reference<__ObjectOps_Bound<__tag_CurrentBound, ObjTag>>
+ : public __ObjectOps_Bound<__tag_CurrentBound, ObjTag>
 {
 public:
 	Reference(void);
 
-	Reference(typename __ObjectOps<__tag_CurrentBound, __ObjTag>::Target);
+	Reference(typename __ObjectOps_Bound<__tag_CurrentBound, __ObjTag>::Target);
 };
 //]
 

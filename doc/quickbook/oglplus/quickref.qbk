@@ -58,6 +58,9 @@ statements are assumed, but omitted for the sake of brevity from this reference.
 [def __ObjectOps_Explicit_Renderbuffer [link oglplus.quickref.renderbuffer.ops ObjectOps]]
 [def __ObjectOps_Explicit_Texture [link oglplus.quickref.texture.ops ObjectOps]]
 
+[def __ObjectOps_Bound [link oglplus.quickref.object.bound.obj_ops ObjectOps]]
+[def __Reference_ObjectOps_Bound [link oglplus.quickref.object.bound.ref_spec Reference]]
+
 [def __BoundObjOps_Buffer [link oglplus.quickref.bound_buffer.ops BoundObjOps]]
 [def __BoundObjOps_Framebuffer [link oglplus.quickref.bound_framebuffer.ops BoundObjOps]]
 [def __BoundObjOps_Renderbuffer [link oglplus.quickref.bound_renderbuffer.ops BoundObjOps]]

@@ -22,11 +22,11 @@ implicitly when calling one of the member functions.
 
 [oglplus_object_BoundObjOps]
 
-[heading:ops Specialization of [^ObjectOps]]
+[heading:obj_ops Specialization of [^ObjectOps]]
 
 [oglplus_object_ObjectOps_CurrentBound]
 
-[heading:ops Specialization of [^Reference]]
+[heading:ref_spec Specialization of [^Reference]]
 
 [oglplus_object_Reference_CurrentBound]
 

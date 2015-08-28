@@ -42,8 +42,31 @@ public:
 	Equivalent to [^object.Use()].
 	>*/
 
+	template <typename __Object>
+	static __Reference_ObjectOps_Bound<__ObjectOps_Bound<
+		__tag_CurrentBound,
+		__ObjTag
+	>> Current(void); /*<
+	Returns the currently bound (active) instance of the specified
+	[^Object] type.
+	>*/
 
-	// TODO
+	template <typename ObjectTarget>
+	static __Reference_ObjectOps_Bound<__ObjectOps_Bound<
+		__tag_CurrentBound,
+		__ObjTag
+	>> Current(ObjectTarget target); /*<
+	Returns the object currently bound to the specified object [^target].
+	>*/
+
+	template <typename __Object>
+	static __Reference_ObjectOps_Bound<__ObjectOps_Bound<
+		__tag_CurrentBound,
+		__ObjTag
+	>> Bound(typename __Object::Target target, const __Object& object); /*<
+	Binds an [^object] to a binding point specified by [^target] and returns
+	a reference to that object.
+	>*/
 };
 
 } // namespace context
