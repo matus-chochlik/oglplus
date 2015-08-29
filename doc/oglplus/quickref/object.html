@@ -806,7 +806,7 @@
 </pre>
 <h5>
 <a name="oglplus.quickref.object.bound.h1"></a>
-            <span class="phrase"><a name="oglplus.quickref.object.bound.ops0"></a></span><a class="link" href="object.html#oglplus.quickref.object.bound.ops0">Specialization
+            <span class="phrase"><a name="oglplus.quickref.object.bound.obj_ops"></a></span><a class="link" href="object.html#oglplus.quickref.object.bound.obj_ops">Specialization
             of <code class="literal">ObjectOps</code></a>
           </h5>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
@@ -825,17 +825,17 @@
 </pre>
 <h5>
 <a name="oglplus.quickref.object.bound.h2"></a>
-            <span class="phrase"><a name="oglplus.quickref.object.bound.ops1"></a></span><a class="link" href="object.html#oglplus.quickref.object.bound.ops1">Specialization
+            <span class="phrase"><a name="oglplus.quickref.object.bound.ref_spec"></a></span><a class="link" href="object.html#oglplus.quickref.object.bound.ref_spec">Specialization
             of <code class="literal">Reference</code></a>
           </h5>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span>
-<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.reference" title="Reference">Reference</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::CurrentBound</a><span class="special">,</span> <span class="identifier">ObjTag</span><span class="special">&gt;&gt;</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::CurrentBound</a><span class="special">,</span> <span class="identifier">ObjTag</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <a class="link" href="object.html#oglplus.quickref.object.reference" title="Reference">Reference</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.bound.obj_ops">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::CurrentBound</a><span class="special">,</span> <span class="identifier">ObjTag</span><span class="special">&gt;&gt;</span>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="object.html#oglplus.quickref.object.bound.obj_ops">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::CurrentBound</a><span class="special">,</span> <span class="identifier">ObjTag</span><span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">Reference</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span>
 
-	<span class="identifier">Reference</span><span class="special">(</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.ops" title="Type specific operations">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::CurrentBound</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;::</span><span class="identifier">Target</span><span class="special">);</span>
+	<span class="identifier">Reference</span><span class="special">(</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.bound.obj_ops">ObjectOps</a><span class="special">&lt;</span><a class="link" href="ops_tags.html" title="Operation kinds">tag::CurrentBound</a><span class="special">,</span> <a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;::</span><span class="identifier">Target</span><span class="special">);</span>
 <span class="special">};</span>
 </pre>
 </div>

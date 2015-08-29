@@ -50,6 +50,7 @@
 	<span class="identifier">Bitfield</span><span class="special">&amp;</span> <span class="keyword">operator</span> <span class="special">|=</span> <span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">b</span><span class="special">);</span> <a class="co" name="oglplus.quickref.bitfield.c12" href="bitfield.html#oglplus.quickref.bitfield.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 
 	<span class="keyword">bool</span> <span class="identifier">Test</span><span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">b</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span> <a class="co" name="oglplus.quickref.bitfield.c14" href="bitfield.html#oglplus.quickref.bitfield.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+	<span class="keyword">bool</span> <span class="identifier">Has</span><span class="special">(</span><span class="identifier">Bits</span> <span class="identifier">b</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">};</span>
 
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Bits</span><span class="special">&gt;</span>
@@ -101,7 +102,61 @@
 <tr>
 <td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bitfield.c15"></a><a href="#oglplus.quickref.bitfield.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
-              Tests if a specified bit is set.
+              These functions test if a specified bit is set.
+            </p></td>
+</tr>
+</table></div>
+<h4>
+<a name="oglplus.quickref.bitfield.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.bitfield.examples"></a></span><a class="link" href="bitfield.html#oglplus.quickref.bitfield.examples">Examples
+          of usage</a>
+        </h4>
+<pre class="programlisting"><a class="link" href="context.html" title="Current GL context">Context</a> <span class="identifier">gl</span><span class="special">;</span>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Clear</span><span class="special">(</span><a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">ClearBit</a><span class="special">::</span><span class="identifier">ColorBuffer</span><span class="special">);</span> <a class="co" name="oglplus.quickref.bitfield.c16" href="bitfield.html#oglplus.quickref.bitfield.c17"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Clear</span><span class="special">(</span>
+	<a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">ClearBit</a><span class="special">::</span><span class="identifier">ColorBuffer</span><span class="special">|</span>
+	<a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">ClearBit</a><span class="special">::</span><span class="identifier">DepthBuffer</span><span class="special">|</span>
+	<a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">ClearBit</a><span class="special">::</span><span class="identifier">StencilBuffer</span>
+<span class="special">);</span> <a class="co" name="oglplus.quickref.bitfield.c18" href="bitfield.html#oglplus.quickref.bitfield.c19"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Clear</span><span class="special">({</span>
+	<a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">ClearBit</a><span class="special">::</span><span class="identifier">ColorBuffer</span><span class="special">,</span>
+	<a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">ClearBit</a><span class="special">::</span><span class="identifier">DepthBuffer</span><span class="special">,</span>
+	<a class="link" href="context.html#oglplus.quickref.context.buffer_clearing" title="Buffer clearing">ClearBit</a><span class="special">::</span><span class="identifier">StencilBuffer</span>
+<span class="special">});</span> <a class="co" name="oglplus.quickref.bitfield.c20" href="bitfield.html#oglplus.quickref.bitfield.c21"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+<span class="keyword">if</span><span class="special">(</span><span class="identifier">gl</span><span class="special">.</span><span class="identifier">ProfileMask</span><span class="special">().</span><span class="identifier">Has</span><span class="special">(</span><a class="link" href="context_profile_bit.html" title="Context profile bits">ContextProfileBit</a><span class="special">::</span><span class="identifier">Compatibility</span><span class="special">))</span> <a class="co" name="oglplus.quickref.bitfield.c22" href="bitfield.html#oglplus.quickref.bitfield.c23"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="special">{</span>
+	<span class="comment">/* ... */</span>
+<span class="special">}</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bitfield.c17"></a><a href="#oglplus.quickref.bitfield.c16"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Initialization of a <a class="link" href="bitfield.html" title="Bitfield">Bitfield</a>
+              from a single enumeration value.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bitfield.c19"></a><a href="#oglplus.quickref.bitfield.c18"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Initialization from a set of enumeration values.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bitfield.c21"></a><a href="#oglplus.quickref.bitfield.c20"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Initialization from an <code class="literal">std::initializer_list</code> of
+              enumeration values.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.bitfield.c23"></a><a href="#oglplus.quickref.bitfield.c22"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Testing if a particular bit is set
             </p></td>
 </tr>
 </table></div>

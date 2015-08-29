@@ -2819,8 +2819,23 @@
 	<span class="keyword">static</span>
 	<span class="keyword">void</span> <span class="identifier">Use</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Object</span><span class="special">&amp;</span> <span class="identifier">object</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.object_binding.c6" href="context.html#oglplus.quickref.context.object_binding.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&gt;</span>
+	<span class="keyword">static</span> <a class="link" href="object.html#oglplus.quickref.object.bound.ref_spec">Reference</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.bound.obj_ops">ObjectOps</a><span class="special">&lt;</span>
+		<a class="link" href="ops_tags.html" title="Operation kinds">tag::CurrentBound</a><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a>
+	<span class="special">&gt;&gt;</span> <span class="identifier">Current</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.object_binding.c8" href="context.html#oglplus.quickref.context.object_binding.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 
-	<span class="comment">// TODO</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ObjectTarget</span><span class="special">&gt;</span>
+	<span class="keyword">static</span> <a class="link" href="object.html#oglplus.quickref.object.bound.ref_spec">Reference</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.bound.obj_ops">ObjectOps</a><span class="special">&lt;</span>
+		<a class="link" href="ops_tags.html" title="Operation kinds">tag::CurrentBound</a><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a>
+	<span class="special">&gt;&gt;</span> <span class="identifier">Current</span><span class="special">(</span><span class="identifier">ObjectTarget</span> <span class="identifier">target</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.object_binding.c10" href="context.html#oglplus.quickref.context.object_binding.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&gt;</span>
+	<span class="keyword">static</span> <a class="link" href="object.html#oglplus.quickref.object.bound.ref_spec">Reference</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.bound.obj_ops">ObjectOps</a><span class="special">&lt;</span>
+		<a class="link" href="ops_tags.html" title="Operation kinds">tag::CurrentBound</a><span class="special">,</span>
+		<a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a>
+	<span class="special">&gt;&gt;</span> <span class="identifier">Bound</span><span class="special">(</span><span class="keyword">typename</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">::</span><span class="identifier">Target</span> <span class="identifier">target</span><span class="special">,</span> <span class="keyword">const</span> <a class="link" href="object.html#oglplus.quickref.object.wrapper" title="Object">Object</a><span class="special">&amp;</span> <span class="identifier">object</span><span class="special">);</span> <a class="co" name="oglplus.quickref.context.object_binding.c12" href="context.html#oglplus.quickref.context.object_binding.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace context</span>
@@ -2854,6 +2869,26 @@
                 Uses (makes current) the specified <code class="literal">object</code> (for
                 example a <a class="link" href="program.html#oglplus.quickref.program.def">Program</a>).
                 Equivalent to <code class="literal">object.Use()</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.object_binding.c9"></a><a href="#oglplus.quickref.context.object_binding.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the currently bound (active) instance of the specified <code class="literal">Object</code>
+                type.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.object_binding.c11"></a><a href="#oglplus.quickref.context.object_binding.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Returns the object currently bound to the specified object <code class="literal">target</code>.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.object_binding.c13"></a><a href="#oglplus.quickref.context.object_binding.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Binds an <code class="literal">object</code> to a binding point specified by
+                <code class="literal">target</code> and returns a reference to that object.
               </p></td>
 </tr>
 </table></div>
