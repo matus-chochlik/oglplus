@@ -38,8 +38,9 @@ public:
 	>*/
 
 	bool Test(Bits b) const; /*<
-	Tests if a specified bit is set.
+	These functions test if a specified bit is set.
 	>*/
+	bool Has(Bits b) const;
 };
 
 template <typename Bits>

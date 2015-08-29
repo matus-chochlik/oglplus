@@ -20,4 +20,8 @@ values using the bitwise-or operator or initializer list.
 [import bitfield.hpp]
 [oglplus_bitfield]
 
+[heading:examples Examples of usage]
+[import bitfield.cpp]
+[oglplus_bitfield_example_1]
+
 [endsect]

@@ -269,9 +269,6 @@ the class names (as documented here) are not part of the public interface.
 
 		operator SamplerName (void) const
 		noexcept;
-		{
-			return Get();
-		}
 
 		typedef __SettingHolder<GLuint, ...> Holder;
 
