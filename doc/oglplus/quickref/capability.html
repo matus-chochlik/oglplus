@@ -68,6 +68,17 @@
 
 <a class="link" href="string.html#oglplus.quickref.string.ref" title="String constant reference">StrCRef</a> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">Capability</span><span class="special">);</span>
 </pre>
+<p>
+          For example:
+        </p>
+<pre class="programlisting"><a class="link" href="context.html" title="Current GL context">Context</a> <span class="identifier">gl</span><span class="special">;</span>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Enable</span><span class="special">(</span><a class="link" href="capability.html" title="Capabilities">Capability</a><span class="special">::</span><span class="identifier">DepthTest</span><span class="special">);</span>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Disable</span><span class="special">(</span><a class="link" href="capability.html" title="Capabilities">Capability</a><span class="special">::</span><span class="identifier">CullFace</span><span class="special">);</span>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Enable</span><span class="special">(</span><a class="link" href="capability.html#oglplus.quickref.capability.functionality">Functionality</a><span class="special">::</span><span class="identifier">ClipDistance</span><span class="special">,</span> <span class="number">0</span><span class="special">);</span>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Disable</span><span class="special">(</span><a class="link" href="capability.html#oglplus.quickref.capability.functionality">Functionality</a><span class="special">::</span><span class="identifier">ClipDistance</span><span class="special">,</span> <span class="number">1</span><span class="special">);</span>
+</pre>
 <h4>
 <a name="oglplus.quickref.capability.h1"></a>
           <span class="phrase"><a name="oglplus.quickref.capability.capability_class"></a></span><a class="link" href="capability.html#oglplus.quickref.capability.capability_class"><code class="literal">Capability</code>
@@ -255,7 +266,7 @@
 <p>
           For example:
         </p>
-<pre class="programlisting"><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">DepthTest</span> <span class="special">&lt;&lt;</span> <span class="keyword">true</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c18" href="capability.html#oglplus.quickref.capability.c19"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<pre class="programlisting"><a class="link" href="capability.html" title="Capabilities">Capability</a><span class="special">::</span><span class="identifier">DepthTest</span> <span class="special">&lt;&lt;</span> <span class="keyword">true</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c18" href="capability.html#oglplus.quickref.capability.c19"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="identifier">Capability</span><span class="special">::</span><span class="identifier">StencilTest</span> <span class="special">&lt;&lt;</span> <span class="keyword">false</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c20" href="capability.html#oglplus.quickref.capability.c21"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 
 <span class="special">+</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">CullFace</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c22" href="capability.html#oglplus.quickref.capability.c23"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
@@ -263,7 +274,7 @@
 
 <span class="keyword">for</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">i</span><span class="special">=</span><span class="number">0</span><span class="special">;</span> <span class="identifier">i</span><span class="special">&lt;</span><span class="number">4</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
 <span class="special">{</span>
-	<span class="special">(</span><span class="identifier">Functionality</span><span class="special">::</span><span class="identifier">ClipDistance</span> <span class="special">|</span> <span class="identifier">i</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="keyword">true</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c26" href="capability.html#oglplus.quickref.capability.c27"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="special">(</span><a class="link" href="capability.html#oglplus.quickref.capability.functionality">Functionality</a><span class="special">::</span><span class="identifier">ClipDistance</span> <span class="special">|</span> <span class="identifier">i</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="keyword">true</span><span class="special">;</span> <a class="co" name="oglplus.quickref.capability.c26" href="capability.html#oglplus.quickref.capability.c27"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
 <span class="special">}</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">

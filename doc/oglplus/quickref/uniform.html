@@ -152,6 +152,178 @@
               and <a class="link" href="uniform.html#oglplus.quickref.uniform.get_set_ops">ProgVarGetSetOps</a>.
             </p></td>
 </tr></table></div>
+<h4>
+<a name="oglplus.quickref.uniform.h4"></a>
+          <span class="phrase"><a name="oglplus.quickref.uniform.examples"></a></span><a class="link" href="uniform.html#oglplus.quickref.uniform.examples">Examples
+          of usage</a>
+        </h4>
+<pre class="programlisting"><a class="link" href="context.html" title="Current GL context">Context</a> <span class="identifier">gl</span><span class="special">;</span>
+
+<a class="link" href="shader.html#oglplus.quickref.shader.specialized">VertexShader</a> <span class="identifier">vs</span><span class="special">;</span>
+
+<span class="identifier">vs</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(</span>
+	<span class="string">"#version 150\n"</span>
+	<span class="string">"in vec3 Position;\n"</span>
+	<span class="string">"void main(void)\n"</span>
+	<span class="string">"{\n"</span>
+	<span class="string">"	gl_Position = Position;\n"</span>
+	<span class="string">"}\n"</span>
+<span class="special">).</span><span class="identifier">Compile</span><span class="special">();</span>
+
+<a class="link" href="shader.html#oglplus.quickref.shader.specialized">FragmentShader</a> <span class="identifier">fs</span><span class="special">;</span>
+
+<span class="identifier">fs</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(</span>
+	<span class="string">"#version 130\n"</span>
+	<span class="string">"uniform vec4 Color;\n"</span>
+	<span class="string">"void main(void)\n"</span>
+	<span class="string">"{\n"</span>
+	<span class="string">"	gl_FragColor = Color;\n"</span>
+	<span class="string">"}\n"</span>
+<span class="special">).</span><span class="identifier">Compile</span><span class="special">();</span>
+
+<a class="link" href="program.html#oglplus.quickref.program.def">Program</a> <span class="identifier">prog</span><span class="special">;</span>
+
+<span class="identifier">prog</span><span class="special">.</span><span class="identifier">AttachShader</span><span class="special">(</span><span class="identifier">vs</span><span class="special">).</span><span class="identifier">AttachShader</span><span class="special">(</span><span class="identifier">fs</span><span class="special">).</span><span class="identifier">Link</span><span class="special">();</span>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Use</span><span class="special">(</span><span class="identifier">prog</span><span class="special">);</span>
+
+<a class="link" href="prog_var.html#oglplus.quickref.prog_var.location.typedefs">UniformLoc</a> <span class="identifier">color_loc1</span><span class="special">(</span><span class="identifier">prog</span><span class="special">,</span> <span class="string">"Color"</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform.c16" href="uniform.html#oglplus.quickref.uniform.c17"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">color_loc1</span><span class="special">.</span><span class="identifier">IsActive</span><span class="special">());</span> <a class="co" name="oglplus.quickref.uniform.c18" href="uniform.html#oglplus.quickref.uniform.c19"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">color_loc1</span><span class="special">);</span>
+
+<a class="link" href="prog_var.html#oglplus.quickref.prog_var.location.typedefs">UniformLoc</a> <span class="identifier">color_loc2</span><span class="special">(</span><span class="identifier">prog</span><span class="special">,</span> <span class="string">"Color"</span><span class="special">,</span> <span class="keyword">false</span> <a class="co" name="oglplus.quickref.uniform.c20" href="uniform.html#oglplus.quickref.uniform.c21"><img src="../../images/callouts/3.png" alt="3" border="0"></a><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform.c22" href="uniform.html#oglplus.quickref.uniform.c23"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">color_loc1</span> <span class="special">==</span> <span class="identifier">color_loc2</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform.c24" href="uniform.html#oglplus.quickref.uniform.c25"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">color_loc1</span><span class="special">.</span><span class="identifier">Location</span><span class="special">()</span> <span class="special">==</span> <span class="identifier">GetGLLocation</span><span class="special">(</span><span class="identifier">color_loc1</span><span class="special">));</span> <a class="co" name="oglplus.quickref.uniform.c26" href="uniform.html#oglplus.quickref.uniform.c27"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+
+<a class="link" href="prog_var.html#oglplus.quickref.prog_var.location.typedefs">UniformLoc</a> <span class="identifier">color_loc3</span><span class="special">(</span><span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform.c28" href="uniform.html#oglplus.quickref.uniform.c29"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+<a class="link" href="uniform.html#oglplus.quickref.uniform.def">Uniform</a><span class="special">&lt;</span><a class="link" href="math.html#oglplus.quickref.math.vector.typedefs">Vec4f</a><span class="special">&gt;</span> <span class="identifier">color1</span><span class="special">(</span><span class="identifier">prog</span><span class="special">,</span> <span class="string">"Color"</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform.c30" href="uniform.html#oglplus.quickref.uniform.c31"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+<a class="link" href="uniform.html#oglplus.quickref.uniform.def">Uniform</a><span class="special">&lt;</span><a class="link" href="math.html#oglplus.quickref.math.vector.typedefs">Vec4f</a><span class="special">&gt;</span> <span class="identifier">color2</span><span class="special">(</span><span class="identifier">color_loc2</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform.c32" href="uniform.html#oglplus.quickref.uniform.c33"><img src="../../images/callouts/9.png" alt="9" border="0"></a>
+
+<a class="link" href="uniform.html#oglplus.quickref.uniform.def">Uniform</a><span class="special">&lt;</span><a class="link" href="math.html#oglplus.quickref.math.vector.typedefs">Vec4f</a><span class="special">&gt;</span> <span class="identifier">color3</span><span class="special">(</span><span class="identifier">prog</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform.c34" href="uniform.html#oglplus.quickref.uniform.c35"><img src="../../images/callouts/10.png" alt="10" border="0"></a>
+
+<span class="identifier">color3</span><span class="special">.</span><span class="identifier">BindTo</span><span class="special">(</span><span class="string">"Color"</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform.c36" href="uniform.html#oglplus.quickref.uniform.c37"><img src="../../images/callouts/11.png" alt="11" border="0"></a>
+
+<span class="identifier">color1</span><span class="special">.</span><span class="identifier">Set</span><span class="special">(</span><a class="link" href="math.html#oglplus.quickref.math.vector.typedefs">Vec4f</a><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="number">0</span><span class="special">,</span> <span class="number">0</span><span class="special">,</span> <span class="number">1</span><span class="special">));</span> <a class="co" name="oglplus.quickref.uniform.c38" href="uniform.html#oglplus.quickref.uniform.c39"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
+
+<a class="link" href="prog_var.html#oglplus.quickref.prog_var.typechecked" title="Typechecking modifier">Typechecked</a><span class="special">&lt;</span><a class="link" href="uniform.html#oglplus.quickref.uniform.def">Uniform</a><span class="special">&lt;</span><a class="link" href="math.html#oglplus.quickref.math.vector.typedefs">Vec2f</a><span class="special">&gt;&gt;</span> <span class="identifier">color4</span><span class="special">(</span><span class="identifier">prog</span><span class="special">,</span> <span class="string">"Color"</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform.c40" href="uniform.html#oglplus.quickref.uniform.c41"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
+
+<a class="link" href="prog_var.html#oglplus.quickref.prog_var.optional" title="Optional modifier">Optional</a><span class="special">&lt;</span><a class="link" href="uniform.html#oglplus.quickref.uniform.def">Uniform</a><span class="special">&lt;</span><a class="link" href="math.html#oglplus.quickref.math.vector.typedefs">Vec4f</a><span class="special">&gt;&gt;</span> <span class="identifier">color5</span><span class="special">(</span><span class="identifier">prog</span><span class="special">,</span> <span class="string">"Blah"</span><span class="special">);</span> <a class="co" name="oglplus.quickref.uniform.c42" href="uniform.html#oglplus.quickref.uniform.c43"><img src="../../images/callouts/14.png" alt="14" border="0"></a>
+
+<span class="identifier">color5</span><span class="special">.</span><span class="identifier">TrySet</span><span class="special">(</span><a class="link" href="math.html#oglplus.quickref.math.vector.typedefs">Vec4f</a><span class="special">(</span><span class="number">0</span><span class="special">,</span><span class="number">1</span><span class="special">,</span><span class="number">0</span><span class="special">,</span><span class="number">1</span><span class="special">));</span> <a class="co" name="oglplus.quickref.uniform.c44" href="uniform.html#oglplus.quickref.uniform.c45"><img src="../../images/callouts/15.png" alt="15" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c17"></a><a href="#oglplus.quickref.uniform.c16"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Getting the location of a uniform in a GPU program, by its name. Throws
+              if no such uniform is active in the <span class="bold"><strong>current</strong></span>
+              program. To get the location of a program which is not currently active,
+              <a class="link" href="dsa_uniform.html#oglplus.quickref.dsa_uniform.def">ProgramUniform</a>
+              must be used.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c19"></a><a href="#oglplus.quickref.uniform.c18"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Check if the uniform is active.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c21"></a><a href="#oglplus.quickref.uniform.c20"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Don't throw if inactive.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c23"></a><a href="#oglplus.quickref.uniform.c22"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Getting the location of a uniform in a GPU program, by its name. Does
+              not throw if the uniform is not active.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c25"></a><a href="#oglplus.quickref.uniform.c24"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Compare two uniform locations for equality (in both the program name
+              and the location index).
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c27"></a><a href="#oglplus.quickref.uniform.c26"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Two ways to get the location index.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c29"></a><a href="#oglplus.quickref.uniform.c28"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Explicitly initializing a uniform location.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c31"></a><a href="#oglplus.quickref.uniform.c30"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Initialize a typed reference to a uniform variable, from a program
+              name and identifier.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c33"></a><a href="#oglplus.quickref.uniform.c32"><img src="../../images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Initialize a typed reference to a uniform variable, from a uniform
+              location.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c35"></a><a href="#oglplus.quickref.uniform.c34"><img src="../../images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Initialize a uniform from a program name, the location is not obtained
+              in this case and must be bound later.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c37"></a><a href="#oglplus.quickref.uniform.c36"><img src="../../images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Late binding of a uniform to an identifier.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c39"></a><a href="#oglplus.quickref.uniform.c38"><img src="../../images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Setting the value of a GPU program uniform variable. This would throw
+              if the uniform is not active.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c41"></a><a href="#oglplus.quickref.uniform.c40"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              The <code class="literal">Typechecked</code> modifier enables uniform typechecking,
+              which compares the C++ template parameter type to the GLSL data type.
+              In this case the constructor would throw because <code class="literal"><a class="link" href="math.html#oglplus.quickref.math.vector.typedefs">Vec2f</a></code>
+              does not match <code class="literal">vec4</code> declared in the fragment shader.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c43"></a><a href="#oglplus.quickref.uniform.c42"><img src="../../images/callouts/14.png" alt="14" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              The <code class="literal">Optional</code> modifier allows to construct instances
+              of <code class="literal">Uniform</code> without throwing even if the specified
+              identifier does not refer to an active uniform in the GPU program.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.uniform.c45"></a><a href="#oglplus.quickref.uniform.c44"><img src="../../images/callouts/15.png" alt="15" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              If the referenced uniform is active, then this sets its value, but
+              unlike <code class="literal">Set</code>, <code class="literal">TrySet</code> does not throw
+              if the uniform is inactive.
+            </p></td>
+</tr>
+</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>

@@ -69,6 +69,34 @@
             </p></td>
 </tr>
 </table></div>
+<h4>
+<a name="oglplus.quickref.limited_value.h0"></a>
+          <span class="phrase"><a name="oglplus.quickref.limited_value.examples"></a></span><a class="link" href="limited_value.html#oglplus.quickref.limited_value.examples">Examples
+          of usage</a>
+        </h4>
+<pre class="programlisting"><a class="link" href="texture.html#oglplus.quickref.texture.def">Texture</a><span class="special">::</span><span class="identifier">Active</span><span class="special">(</span><span class="number">0</span><span class="special">);</span> <a class="co" name="oglplus.quickref.limited_value.c4" href="limited_value.html#oglplus.quickref.limited_value.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<a class="link" href="texture.html#oglplus.quickref.texture.unit_selector">TextureUnitSelector</a> <span class="identifier">tex_unit</span> <span class="special">=</span> <span class="number">2</span><span class="special">;</span>
+
+<a class="link" href="texture.html#oglplus.quickref.texture.def">Texture</a><span class="special">::</span><span class="identifier">Active</span><span class="special">(</span><span class="identifier">tex_unit</span><span class="special">);</span>
+
+<a class="link" href="texture.html#oglplus.quickref.texture.def">Texture</a><span class="special">::</span><span class="identifier">Active</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">GLuint</span><span class="special">&gt;::</span><span class="identifier">max</span><span class="special">());</span> <a class="co" name="oglplus.quickref.limited_value.c6" href="limited_value.html#oglplus.quickref.limited_value.c7"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.limited_value.c5"></a><a href="#oglplus.quickref.limited_value.c4"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Implicit conversion of numeric value to <a class="link" href="texture.html#oglplus.quickref.texture.unit_selector">TextureUnitSelector</a>
+              (derived from <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>).
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.limited_value.c7"></a><a href="#oglplus.quickref.limited_value.c6"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Very probably will throw <a class="link" href="error.html#oglplus.quickref.error.limit" title="Limit errors">LimitError</a>.
+            </p></td>
+</tr>
+</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
