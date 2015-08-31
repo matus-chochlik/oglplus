@@ -21,7 +21,7 @@
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/viewport_index.hpp&gt;</code>
         </p>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ViewportIndex</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a><span class="special">&lt;</span><span class="identifier">GL_MAX_VIEWPORTS</span><span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">ViewportIndex</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.viewport_index.c0" href="viewport_index.html#oglplus.quickref.viewport_index.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>

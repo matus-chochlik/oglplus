@@ -2101,7 +2101,7 @@
           <span class="bold"><strong><code class="literal">#include</code></strong></span> <code class="literal">&lt;oglplus/texture_unit.hpp&gt;</code>
         </p>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">TextureUnitSelector</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a><span class="special">&lt;</span><span class="identifier">GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS</span><span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">TextureUnitSelector</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c254" href="texture.html#oglplus.quickref.texture.c255"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
@@ -2109,7 +2109,7 @@
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_shader_image_load_store</span>
 <span class="keyword">class</span> <span class="identifier">ImageUnitSelector</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a><span class="special">&lt;</span><span class="identifier">GL_MAX_IMAGE_UNITS</span><span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">ImageUnitSelector</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.texture.c256" href="texture.html#oglplus.quickref.texture.c257"><img src="../../images/callouts/2.png" alt="2" border="0"></a>

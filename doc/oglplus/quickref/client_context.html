@@ -119,6 +119,115 @@
 <span class="comment">// TODO</span>
 <span class="special">{</span> <span class="special">};</span>
 </pre>
+<h4>
+<a name="oglplus.quickref.client_context.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.client_context.examples"></a></span><a class="link" href="client_context.html#oglplus.quickref.client_context.examples">Examples
+          of usage</a>
+        </h4>
+<pre class="programlisting"><span class="identifier">ClientContext</span> <span class="identifier">gl</span><span class="special">;</span> <a class="co" name="oglplus.quickref.client_context.c0" href="client_context.html#oglplus.quickref.client_context.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">ClearColor</span><span class="special">.</span><span class="identifier">Set</span><span class="special">(</span><span class="number">0.3f</span><span class="special">,</span> <span class="number">0.3f</span><span class="special">,</span> <span class="number">0.3f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">);</span>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">ClearDepth</span><span class="special">.</span><span class="identifier">Set</span><span class="special">(</span><span class="number">1.0f</span><span class="special">);</span>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Caps</span><span class="special">.</span><span class="identifier">DepthTest</span><span class="special">.</span><span class="identifier">Disable</span><span class="special">();</span>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Caps</span><span class="special">.</span><span class="identifier">Blend</span><span class="special">.</span><span class="identifier">Enable</span><span class="special">();</span>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">BlendFunc</span><span class="special">.</span><span class="identifier">Set</span><span class="special">(</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a><span class="special">::</span><span class="identifier">SrcAlpha</span><span class="special">,</span> <span class="identifier">BlendFunction</span><span class="special">::</span><span class="identifier">OneMinusSrcAlpha</span><span class="special">);</span>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">LineWidth</span><span class="special">.</span><span class="identifier">Set</span><span class="special">(</span><span class="number">1.5f</span><span class="special">);</span>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Viewport</span><span class="special">.</span><span class="identifier">Set</span><span class="special">(</span><span class="number">800</span><span class="special">,</span> <span class="number">600</span><span class="special">);</span>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Clear</span><span class="special">().</span><span class="identifier">ColorBuffer</span><span class="special">().</span><span class="identifier">DepthBuffer</span><span class="special">().</span><span class="identifier">StencilBuffer</span><span class="special">();</span>
+
+<a class="link" href="program.html#oglplus.quickref.program.def">Program</a> <span class="identifier">prog</span><span class="special">;</span>
+<a class="link" href="vertex_array.html#oglplus.quickref.vertex_array.def">VertexArray</a> <span class="identifier">vao</span><span class="special">;</span>
+
+<span class="comment">/* ... */</span>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Program</span><span class="special">.</span><span class="identifier">Bind</span><span class="special">(</span><span class="identifier">prog</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.c2" href="client_context.html#oglplus.quickref.client_context.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">VertexArray</span><span class="special">.</span><span class="identifier">Bind</span><span class="special">(</span><span class="identifier">vao</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.c4" href="client_context.html#oglplus.quickref.client_context.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+<span class="special">{</span>
+	<span class="keyword">auto</span> <span class="identifier">no_blend</span> <span class="special">=</span> <span class="identifier">gl</span><span class="special">.</span><span class="identifier">Caps</span><span class="special">.</span><span class="identifier">Blend</span><span class="special">.</span><span class="identifier">Push</span><span class="special">(</span><span class="keyword">false</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.c6" href="client_context.html#oglplus.quickref.client_context.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+	<span class="keyword">auto</span> <span class="identifier">no_depth</span> <span class="special">=</span> <span class="identifier">gl</span><span class="special">.</span><span class="identifier">Caps</span><span class="special">.</span><span class="identifier">DepthTest</span><span class="special">.</span><span class="identifier">Push</span><span class="special">(</span><span class="keyword">false</span><span class="special">);</span>
+
+	<span class="identifier">gl</span><span class="special">.</span><span class="identifier">DrawArrays</span><span class="special">(</span><a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a><span class="special">::</span><span class="identifier">TriangleStrip</span><span class="special">,</span> <span class="number">0</span><span class="special">,</span> <span class="identifier">n</span><span class="special">);</span>
+
+	<span class="identifier">assert</span><span class="special">(</span><span class="identifier">no_depth</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.c8" href="client_context.html#oglplus.quickref.client_context.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+	<span class="identifier">no_depth</span><span class="special">.</span><span class="identifier">Pop</span><span class="special">();</span> <a class="co" name="oglplus.quickref.client_context.c10" href="client_context.html#oglplus.quickref.client_context.c11"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+	<span class="identifier">assert</span><span class="special">(!</span><span class="identifier">no_depth</span><span class="special">);</span> <a class="co" name="oglplus.quickref.client_context.c12" href="client_context.html#oglplus.quickref.client_context.c13"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+
+	<span class="identifier">gl</span><span class="special">.</span><span class="identifier">DrawArrays</span><span class="special">(</span><a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a><span class="special">::</span><span class="identifier">TriangleStrip</span><span class="special">,</span> <span class="number">0</span><span class="special">,</span> <span class="identifier">n</span><span class="special">);</span>
+<span class="special">}</span> <a class="co" name="oglplus.quickref.client_context.c14" href="client_context.html#oglplus.quickref.client_context.c15"><img src="../../images/callouts/8.png" alt="8" border="0"></a>
+
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">DrawElements</span><span class="special">(</span><a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a><span class="special">::</span><span class="identifier">TriangleStrip</span><span class="special">,</span> <span class="identifier">m</span><span class="special">,</span> <a class="link" href="data_type.html" title="Data types">DataType</a><span class="special">::</span><span class="identifier">UnsignedInt</span><span class="special">);</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.c1"></a><a href="#oglplus.quickref.client_context.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Stateful (caching) wrapper for a GL context. During the construction
+              of this instance the values of current GL context variables are queried
+              and stored internally.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.c3"></a><a href="#oglplus.quickref.client_context.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              When using <a class="link" href="client_context.html" title="Client-side wrapper of the GL context">ClientContext</a>,
+              then <code class="literal"><a class="link" href="program.html#oglplus.quickref.program.def">Program</a>::Use</code>
+              must not be used and programs must be made current this way, in order
+              to keep the client context in a consistent state.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.c5"></a><a href="#oglplus.quickref.client_context.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Likewise, other objects bound to their binding points, must be bound
+              through the client context wrapper, not by <code class="literal">Object::Bind</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.c7"></a><a href="#oglplus.quickref.client_context.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Push a new value <code class="literal">false</code> (= <span class="emphasis"><em>disabled</em></span>)
+              for <code class="literal"><a class="link" href="capability.html" title="Capabilities">Capability</a>::Blend</code>.
+              The previous setting (whatever it was) remains stored on the stack
+              and GL is updated only if the new setting is different from the currently
+              specified. Note that for this to work, the result of <code class="literal">Push</code>
+              <span class="bold"><strong>must</strong></span> be stored in a named variable.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.c9"></a><a href="#oglplus.quickref.client_context.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              The setting holders returned by <code class="literal">Push</code>, can be tested
+              if they still hold the pushed value.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.c11"></a><a href="#oglplus.quickref.client_context.c10"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Explicitly pop the pushed setting of <code class="literal">Capability::DepthTest</code>
+              and restored the previous one (actually call GL only if they differ).
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.c13"></a><a href="#oglplus.quickref.client_context.c12"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              After the value in the holder has been popped conversion to <code class="literal">bool</code>
+              returns <code class="literal">false</code> and must not be popped again.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.client_context.c15"></a><a href="#oglplus.quickref.client_context.c14"><img src="../../images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              When the <code class="literal">no_blend</code> instance goes out of scope and
+              is destroyed, then the setting is automatically popped from the stack.
+            </p></td>
+</tr>
+</table></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oglplus.quickref.client_context.setting"></a><a class="link" href="client_context.html#oglplus.quickref.client_context.setting" title="Client context settings">Client context

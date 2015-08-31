@@ -97,6 +97,43 @@
  <span class="special">,</span> <span class="keyword">public</span> <a class="link" href="context.html#oglplus.quickref.context.object_dsa" title="Object DSA">context::ObjectDSA</a>
 <span class="special">{</span> <span class="special">};</span>
 </pre>
+<h4>
+<a name="oglplus.quickref.context.h1"></a>
+          <span class="phrase"><a name="oglplus.quickref.context.examples"></a></span><a class="link" href="context.html#oglplus.quickref.context.examples">Examples
+          of usage</a>
+        </h4>
+<pre class="programlisting"><a class="link" href="context.html" title="Current GL context">Context</a> <span class="identifier">gl</span><span class="special">;</span> <a class="co" name="oglplus.quickref.context.c0" href="context.html#oglplus.quickref.context.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">ClearColor</span><span class="special">(</span><span class="number">0.3f</span><span class="special">,</span> <span class="number">0.3f</span><span class="special">,</span> <span class="number">0.3f</span><span class="special">,</span> <span class="number">0.0f</span><span class="special">);</span>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">ClearDepth</span><span class="special">(</span><span class="number">1.0f</span><span class="special">);</span>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Disable</span><span class="special">(</span><a class="link" href="capability.html" title="Capabilities">Capability</a><span class="special">::</span><span class="identifier">DepthTest</span><span class="special">);</span>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Enable</span><span class="special">(</span><span class="identifier">Capability</span><span class="special">::</span><span class="identifier">Blend</span><span class="special">);</span>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">BlendFunc</span><span class="special">(</span><a class="link" href="blend_function.html" title="Blend function and equation">BlendFunction</a><span class="special">::</span><span class="identifier">SrcAlpha</span><span class="special">,</span> <span class="identifier">BlendFunction</span><span class="special">::</span><span class="identifier">OneMinusSrcAlpha</span><span class="special">);</span>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">LineWidth</span><span class="special">(</span><span class="number">1.5f</span><span class="special">);</span>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Viewport</span><span class="special">(</span><span class="number">800</span><span class="special">,</span> <span class="number">600</span><span class="special">);</span>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Clear</span><span class="special">().</span><span class="identifier">ColorBuffer</span><span class="special">().</span><span class="identifier">DepthBuffer</span><span class="special">().</span><span class="identifier">StencilBuffer</span><span class="special">();</span>
+
+<a class="link" href="program.html#oglplus.quickref.program.def">Program</a> <span class="identifier">prog</span><span class="special">;</span>
+<a class="link" href="vertex_array.html#oglplus.quickref.vertex_array.def">VertexArray</a> <span class="identifier">vao</span><span class="special">;</span>
+
+<span class="comment">/* ... */</span>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Use</span><span class="special">(</span><span class="identifier">prog</span><span class="special">);</span>
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">Bind</span><span class="special">(</span><span class="identifier">vao</span><span class="special">);</span>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">DrawArrays</span><span class="special">(</span><a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a><span class="special">::</span><span class="identifier">TriangleStrip</span><span class="special">,</span> <span class="number">0</span><span class="special">,</span> <span class="identifier">n</span><span class="special">);</span>
+
+<span class="identifier">gl</span><span class="special">.</span><span class="identifier">DrawElements</span><span class="special">(</span><a class="link" href="primitive_type.html" title="Primitive type">PrimitiveType</a><span class="special">::</span><span class="identifier">TriangleStrip</span><span class="special">,</span> <span class="identifier">m</span><span class="special">,</span> <a class="link" href="data_type.html" title="Data types">DataType</a><span class="special">::</span><span class="identifier">UnsignedInt</span><span class="special">);</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.context.c1"></a><a href="#oglplus.quickref.context.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Stateless wrapper for the current GL context operations.
+            </p></td>
+</tr></table></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oglplus.quickref.context.errors"></a><a class="link" href="context.html#oglplus.quickref.context.errors" title="Errors">Errors</a>

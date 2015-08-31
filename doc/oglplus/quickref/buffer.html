@@ -814,7 +814,7 @@
         </p>
 <pre class="programlisting"><span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span> <span class="special">||</span> <span class="identifier">GL_ARB_transform_feedback3</span>
 <span class="keyword">class</span> <span class="identifier">UniformBufferBindingPoint</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a><span class="special">&lt;</span><span class="identifier">GL_MAX_UNIFORM_BUFFER_BINDINGS</span><span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">UniformBufferBindingPoint</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c102" href="buffer.html#oglplus.quickref.buffer.c103"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
@@ -823,7 +823,7 @@
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_0</span> <span class="special">||</span> <span class="identifier">GL_ARB_transform_feedback3</span>
 <span class="keyword">class</span> <span class="identifier">TransformFeedbackBufferBindingPoint</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a><span class="special">&lt;</span><span class="identifier">GL_MAX_TRANSFORM_FEEDBACK_BUFFERS</span><span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">TransformFeedbackBufferBindingPoint</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c104" href="buffer.html#oglplus.quickref.buffer.c105"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
@@ -832,7 +832,7 @@
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_2</span> <span class="special">||</span> <span class="identifier">GL_ARB_shader_atomic_counters</span>
 <span class="keyword">class</span> <span class="identifier">AtomicCounterBufferBindingPoint</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a><span class="special">&lt;</span><span class="identifier">GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS</span><span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">AtomicCounterBufferBindingPoint</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c106" href="buffer.html#oglplus.quickref.buffer.c107"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
@@ -841,7 +841,7 @@
 
 <span class="preprocessor">#if</span> <span class="identifier">GL_VERSION_4_3</span> <span class="special">||</span> <span class="identifier">GL_ARB_shader_storage_buffer_object</span>
 <span class="keyword">class</span> <span class="identifier">ShaderStorageBufferBindingPoint</span>
- <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a>
+ <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="limited_value.html" title="Limited values">LimitedCount</a><span class="special">&lt;</span><span class="identifier">GL_MAX_SHADER_STORAGE_BUFFER_BINDINGS</span><span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 	<span class="identifier">ShaderStorageBufferBindingPoint</span><span class="special">(</span><span class="identifier">GLuint</span> <span class="identifier">number</span><span class="special">);</span> <a class="co" name="oglplus.quickref.buffer.c108" href="buffer.html#oglplus.quickref.buffer.c109"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
