@@ -85,7 +85,7 @@ Late binding of a uniform to an identifier.
 
 color1.Set(__Vec4f(1, 0, 0, 1)); /*<
 Setting the value of a GPU program uniform variable.
-This would throw if the uniform is not active.
+This will throw if the uniform is not active.
 >*/
 
 __Typechecked_ProgVar<__Uniform<__Vec2f>> color4(prog, "Color"); /*<
@@ -95,15 +95,54 @@ In this case the constructor would throw because [^__Vec2f] does not
 match [^vec4] declared in the fragment shader.
 >*/
 
-__Optional_ProgVar<__Uniform<__Vec4f>> color5(prog, "Blah"); /*<
+//]
+//[oglplus_uniform_example_2
+
+__UntypedUniform color5(prog, "Color"); /*<
+Untyped uniforms do not carry the type information on the C++ side 
+and cannot be typechecked during construction.
+>*/
+
+color5.Set(__Vec4f(0,0,1,1));
+
+(prog/"Color").Set(__Vec4f(0,0,1,1)); /*<
+Syntax sugar operator for constructing untyped uniforms, equivalent
+to [^__UntypedUniform(prog,"Color").Set(...)].
+>*/
+
+__Optional_ProgVar<__Uniform<__Vec4f>> color6(prog, "Blah"); /*<
 The [^Optional] modifier allows to construct instances of [^Uniform]
 without throwing even if the specified identifier does not refer to
 an active uniform in the GPU program.
 >*/
 
-color5.TrySet(__Vec4f(0,1,0,1)); /*<
+color6.TrySet(__Vec4f(0,1,0,1)); /*<
 If the referenced uniform is active, then this sets its value,
 but unlike [^Set], [^TrySet] does not throw if the uniform is inactive.
+>*/
+
+__Lazy_ProgVar<__Uniform<__Vec4f>> color7(prog, "Color"); /*<
+The [^Lazy] modifier allows to postpone the querying of uniform location
+until it is actually needed at the cost of having to store the identifier
+of the shader unifom variable in the [^Lazy<Uniform>] instance.
+This means that the referenced program does not have to be linked and current
+when the [^Uniform] is constructed.
+>*/
+
+try { color7.Init(); /*<
+The uniform location can be explicitly queried by calling the [^Init]
+member function which throws in case of failure.
+>*/ }
+catch(...) { /* ... */ }
+
+color7.TryInit(); /*<
+The [^TryInit] function also queries the uniform location, but does not throw,
+the instance just remains not active.
+>*/
+
+color7.Set(__Vec4f(0,0,0,1)); /*<
+If the location is still not initialized yet, then it is queried before
+setting the uniform value.
 >*/
 
 //]

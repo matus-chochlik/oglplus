@@ -77,6 +77,11 @@ a single instance of [^ClientContext] should be used.]
 [import client_context.hpp]
 [oglplus_ClientContext]
 
+[heading:examples Examples of usage]
+
+[import client_context.cpp]
+[oglplus_ClientContext_example_1]
+
 [include client/setting.qbk]
 [include client/blending.qbk]
 [include client/buffer_clearing.qbk]

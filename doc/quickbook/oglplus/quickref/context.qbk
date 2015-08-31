@@ -23,6 +23,11 @@ but the library end-users should rarely need to use them directly.
 [import context.hpp]
 [oglplus_Context]
 
+[heading:examples Examples of usage]
+
+[import context.cpp]
+[oglplus_Context_example_1]
+
 [include context/errors.qbk]
 [include context/capabilities.qbk]
 [include context/clip_control.qbk]

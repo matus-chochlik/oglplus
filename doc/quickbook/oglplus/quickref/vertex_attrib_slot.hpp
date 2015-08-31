@@ -7,7 +7,7 @@
 //[oglplus_vertex_attrib_slot
 
 class VertexAttribSlot
- : public __LimitedCount
+ : public __LimitedCount<GL_MAX_VERTEX_ATTRIBS>
 {
 public:
 	VertexAttribSlot(GLuint number); /*<
