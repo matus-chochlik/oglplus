@@ -79,6 +79,55 @@
             </p></td>
 </tr>
 </table></div>
+<p>
+          For example:
+        </p>
+<pre class="programlisting"><a class="link" href="context.html" title="Current GL context">Context</a> <span class="identifier">gl</span><span class="special">;</span>
+
+<a class="link" href="bitfield.html" title="Bitfield">Bitfield</a><span class="special">&lt;</span><a class="link" href="context_profile_bit.html" title="Context profile bits">ContextProfileBit</a><span class="special">&gt;</span> <span class="identifier">cpm</span> <span class="special">=</span> <span class="identifier">gl</span><span class="special">.</span><span class="identifier">ProfileMask</span><span class="special">();</span> <a class="co" name="oglplus.quickref.enums.c4" href="enums.html#oglplus.quickref.enums.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<span class="keyword">for</span><span class="special">(</span><span class="keyword">auto</span> <span class="identifier">r</span><span class="special">=</span><a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueRange</a><span class="special">&lt;</span><a class="link" href="context_profile_bit.html" title="Context profile bits">ContextProfileBit</a><span class="special">&gt;();</span> <span class="special">!</span><span class="identifier">r</span><span class="special">.</span><span class="identifier">Empty</span><span class="special">();</span> <span class="identifier">r</span><span class="special">.</span><span class="identifier">Next</span><span class="special">())</span> <a class="co" name="oglplus.quickref.enums.c6" href="enums.html#oglplus.quickref.enums.c7"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="special">{</span>
+	<span class="keyword">auto</span> <span class="identifier">bit</span> <span class="special">=</span> <span class="identifier">r</span><span class="special">.</span><span class="identifier">Front</span><span class="special">();</span> <a class="co" name="oglplus.quickref.enums.c8" href="enums.html#oglplus.quickref.enums.c9"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <a class="link" href="enums.html#oglplus.quickref.enums.functions">EnumValueName</a><span class="special">(</span><span class="identifier">bit</span><span class="special">).</span><span class="identifier">c_str</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="string">": "</span><span class="special">;</span> <a class="co" name="oglplus.quickref.enums.c10" href="enums.html#oglplus.quickref.enums.c11"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+	<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">cpm</span><span class="special">.</span><span class="identifier">Has</span><span class="special">(</span><span class="identifier">bit</span><span class="special">)?</span><span class="string">"true"</span><span class="special">:</span><span class="string">"false"</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span> <a class="co" name="oglplus.quickref.enums.c12" href="enums.html#oglplus.quickref.enums.c13"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+<span class="special">}</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c5"></a><a href="#oglplus.quickref.enums.c4"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Query the profile mask for the current GL context.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c7"></a><a href="#oglplus.quickref.enums.c6"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Get a range enumerating all individual bits in the <a class="link" href="context_profile_bit.html" title="Context profile bits">ContextProfileBit</a>
+              enumeration.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c9"></a><a href="#oglplus.quickref.enums.c8"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              For each individual bit in the enumeration.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c11"></a><a href="#oglplus.quickref.enums.c10"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Prints the bit's name.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c13"></a><a href="#oglplus.quickref.enums.c12"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Print whether the bit is set in the mask.
+            </p></td>
+</tr>
+</table></div>
 <h4>
 <a name="oglplus.quickref.enums.h2"></a>
           <span class="phrase"><a name="oglplus.quickref.enums.array"></a></span><a class="link" href="enums.html#oglplus.quickref.enums.array">Enum
@@ -138,17 +187,28 @@
 <span class="keyword">class</span> <span class="identifier">OneOf</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">OneOf</span><span class="special">(</span><span class="identifier">Enum</span><span class="special">)...;</span> <a class="co" name="oglplus.quickref.enums.c4" href="enums.html#oglplus.quickref.enums.c5"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">OneOf</span><span class="special">(</span><span class="identifier">Enum</span><span class="special">)...;</span> <a class="co" name="oglplus.quickref.enums.c14" href="enums.html#oglplus.quickref.enums.c15"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">};</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c5"></a><a href="#oglplus.quickref.enums.c4"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c15"></a><a href="#oglplus.quickref.enums.c14"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               (<span class="emphasis"><em>Pseudocode</em></span>) - <code class="literal">OneOf</code> has a
               constructor for each enumeration type passed in the template argument
               pack.
             </p></td>
 </tr></table></div>
+<p>
+          For example:
+        </p>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="enums.html#oglplus.quickref.enums.one_of">OneOf</a><span class="special">&lt;</span>
+	<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.attachment">FramebufferAttachment</a><span class="special">,</span>
+	<a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment">FramebufferColorAttachment</a>
+<span class="special">&gt;</span> <span class="identifier">Attachment</span><span class="special">;</span>
+
+<span class="identifier">Attachment</span> <span class="identifier">a1</span> <span class="special">=</span> <a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.attachment">FramebufferAttachment</a><span class="special">::</span><span class="identifier">Depth</span><span class="special">;</span>
+<span class="identifier">Attachment</span> <span class="identifier">a2</span> <span class="special">=</span> <a class="link" href="framebuffer.html#oglplus.quickref.framebuffer.color_attachment">FramebufferColorAttachment</a><span class="special">::</span><span class="identifier">_0</span><span class="special">;</span>
+</pre>
 <h4>
 <a name="oglplus.quickref.enums.h4"></a>
           <span class="phrase"><a name="oglplus.quickref.enums.enum_to_class"></a></span><a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a>
@@ -196,12 +256,12 @@
 <span class="keyword">class</span> <span class="identifier">SomeEnumTransform</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-	<span class="identifier">SomeEnumTransform</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c6" href="enums.html#oglplus.quickref.enums.c7"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+	<span class="identifier">SomeEnumTransform</span><span class="special">(</span><span class="keyword">void</span><span class="special">);</span> <a class="co" name="oglplus.quickref.enums.c16" href="enums.html#oglplus.quickref.enums.c17"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 	<span class="identifier">SomeEnumTransform</span><span class="special">(</span><span class="identifier">Base</span><span class="special">&amp;);</span>
 <span class="special">};</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c7"></a><a href="#oglplus.quickref.enums.c6"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.enums.c17"></a><a href="#oglplus.quickref.enums.c16"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               One of these constructors must be implemented.
             </p></td>
@@ -209,7 +269,7 @@
 <p>
           the following instantiation of <code class="literal">EnumToClass</code>
         </p>
-<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">EnumToClass</span><span class="special">&lt;</span><span class="identifier">Base</span><span class="special">,</span> <span class="identifier">SomeEnum</span><span class="special">,</span> <span class="identifier">SomeEnumTransform</span><span class="special">&gt;</span> <span class="identifier">EnumToClassSomeEnumTransform</span><span class="special">;</span>
+<pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="enums.html#oglplus.quickref.enums.enum_to_class">EnumToClass</a><span class="special">&lt;</span><span class="identifier">Base</span><span class="special">,</span> <span class="identifier">SomeEnum</span><span class="special">,</span> <span class="identifier">SomeEnumTransform</span><span class="special">&gt;</span> <span class="identifier">EnumToClassSomeEnumTransform</span><span class="special">;</span>
 </pre>
 <p>
           results in a class which is equivalent to:
