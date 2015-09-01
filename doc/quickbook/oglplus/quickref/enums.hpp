@@ -71,46 +71,4 @@ public:
 
 } // namespace enums
 //]
-//[oglplus_enums_EnumToClass_ex1
-
-enum class SomeEnum
-{
-	ValueA,
-	ValueB,
-	ValueC,
-	ValueD
-};
-
-//]
-//[oglplus_enums_EnumToClass_ex2
-
-template <SomeEnum Value>
-class SomeEnumTransform
-{
-public:
-	SomeEnumTransform(void); /*<
-	One of these constructors must be implemented.
-	>*/
-	SomeEnumTransform(Base&);
-};
-
-//]
-//[oglplus_enums_EnumToClass_ex3
-
-typedef EnumToClass<Base, SomeEnum, SomeEnumTransform> EnumToClassSomeEnumTransform;
-
-//]
-//[oglplus_enums_EnumToClass_ex4
-
-class EnumToClassSomeEnumTransform
- : public Base
-{
-public:
-	SomeEnumTransform<SomeEnum::ValueA> ValueA;
-	SomeEnumTransform<SomeEnum::ValueB> ValueB;
-	SomeEnumTransform<SomeEnum::ValueC> ValueC;
-	SomeEnumTransform<SomeEnum::ValueD> ValueD;
-};
-
-//]
 
