@@ -13,7 +13,9 @@ DOXYGEN ?= doxygen
 
 OBJECTS = texture framebuffer renderbuffer buffer
 
-all: bound_inc_hpp bound_doc_hpp
+all: bound_hpp clean
+
+bound_hpp: bound_inc_hpp bound_doc_hpp
 
 bound_inc_hpp: $(addprefix $(INCDIR)/bound/,$(addsuffix .hpp,$(OBJECTS)))
 

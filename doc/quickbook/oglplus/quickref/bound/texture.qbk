@@ -15,7 +15,7 @@ texture without the need to explicitly specify the texture target in every funct
 
 [heading:ops Operations on currently bound texture]
 
-[oglplus_BoundObjOps_Texture]
+[oglplus_object_BoundObjOps_Texture]
 
 [heading:examples Examples of usage]
 

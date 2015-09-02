@@ -6,7 +6,7 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
-//[oglplus_BoundObjOps_Buffer
+//[oglplus_object_BoundObjOps_Buffer
 
 template <>
 class __BoundObjOps<__tag_Buffer>

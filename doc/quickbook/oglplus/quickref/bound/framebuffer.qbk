@@ -15,6 +15,6 @@ framebuffer without the need to explicitly specify the framebuffer target in eve
 
 [heading:ops Operations on currently bound framebuffer]
 
-[oglplus_BoundObjOps_Framebuffer]
+[oglplus_object_BoundObjOps_Framebuffer]
 
 [endsect]

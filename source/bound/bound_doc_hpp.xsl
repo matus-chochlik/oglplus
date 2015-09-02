@@ -192,8 +192,8 @@
 			<xsl:if test="type/descendant-or-self::text() != 'Target'">
 				<xsl:text>		</xsl:text>
 				<xsl:apply-templates mode="ParamTypeExpr" select="type"/>
-				<xsl:text> </xsl:text>
-				<xsl:if test="declname/text()">
+				<xsl:if test="declname/text() != ''">
+					<xsl:text> </xsl:text>
 					<xsl:apply-templates mode="ParamNameExpr" select="declname"/>
 				</xsl:if>
 				<xsl:if test="array">

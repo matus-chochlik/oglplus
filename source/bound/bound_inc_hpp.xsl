@@ -198,13 +198,13 @@
 			<xsl:if test="type/descendant-or-self::text() != 'Target'">
 				<xsl:text>		</xsl:text>
 				<xsl:apply-templates mode="ParamTypeExpr" select="type"/>
-				<xsl:text> </xsl:text>
 				<xsl:choose>
-					<xsl:when test="declname/text()">
+					<xsl:when test="declname/text() != ''">
+						<xsl:text> </xsl:text>
 						<xsl:apply-templates mode="ParamNameExpr" select="declname"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:text>_auto_param_</xsl:text>
+						<xsl:text> _auto_param_</xsl:text>
 						<xsl:value-of select="position()"/>
 					</xsl:otherwise>
 				</xsl:choose>

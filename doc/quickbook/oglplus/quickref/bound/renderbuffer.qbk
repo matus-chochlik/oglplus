@@ -15,6 +15,6 @@ renderbuffer without the need to explicitly specify the renderbuffer target in e
 
 [heading:ops Operations on currently bound renderbuffer]
 
-[oglplus_BoundObjOps_Renderbuffer]
+[oglplus_object_BoundObjOps_Renderbuffer]
 
 [endsect]

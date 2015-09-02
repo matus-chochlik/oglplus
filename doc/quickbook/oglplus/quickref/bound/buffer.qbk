@@ -15,6 +15,6 @@ buffer without the need to explicitly specify the buffer target in every functio
 
 [heading:ops Operations on currently bound buffer]
 
-[oglplus_BoundObjOps_Buffer]
+[oglplus_object_BoundObjOps_Buffer]
 
 [endsect]
