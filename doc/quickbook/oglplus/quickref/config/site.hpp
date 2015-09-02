@@ -130,11 +130,19 @@ Indicates that C++11 template aliases are not supported.
 >*/
 # define OGLPLUS_NO_TEMPLATE_ALIASES __UNSPECIFIED
 #endif
+//]
+//[oglplus_config_site_5
 
 #ifndef OGLPLUS_NO_CONSTEXPR /*<
 Indicates that C++11 generalized constant expressions are not supported.
 >*/
 # define OGLPLUS_NO_CONSTEXPR __UNSPECIFIED
+#endif
+
+#ifndef OGLPLUS_NO_OVERRIDE /*<
+Indicates that C++11 explicit virtual override is not supported.
+>*/
+# define OGLPLUS_NO_OVERRIDE __UNSPECIFIED
 #endif
 
 #ifndef OGLPLUS_NO_NOEXCEPT /*<
@@ -151,7 +159,7 @@ Indicates that C++11 lambdas are not supported.
 
 #endif //!OGLPLUS_USE_BOOST_CONFIG
 //]
-//[oglplus_config_site_5
+//[oglplus_config_site_6
 
 #ifndef OGLPLUS_NO_INHERITED_CONSTRUCTORS /*<
 Indicates that C++11 inherited constructors are not supported.
@@ -169,6 +177,13 @@ Indicates that the standard [^chrono] header is not available.
 Indicates that the C++11 threads implementation is not available.
 >*/
 # define OGLPLUS_NO_THREADS __UNSPECIFIED
+#endif
+
+#ifndef OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS /*<
+Indicates that using C++11 scoped enumerations as template parameters
+is not supported or not implemented correctly.
+>*/
+#define OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS __UNSPECIFIED
 #endif
 
 //]

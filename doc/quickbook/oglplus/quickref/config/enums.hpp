@@ -42,7 +42,7 @@ the __enums_EnumToClass templates to be unspecialized for the individual enums.
 By default this option is set to zero (except on compilers where template
 specializations for enum-class is not implemented properly).
 >*/
-# define OGLPLUS_NO_ENUM_VALUE_CLASSES 0
+# define OGLPLUS_NO_ENUM_VALUE_CLASSES __OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS
 #endif
 
 //]

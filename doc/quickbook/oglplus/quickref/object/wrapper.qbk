@@ -77,7 +77,7 @@ to distinguish the individual subtypes.
 The main purpose of [^Object] is to do lifetime management of the underlying
 GL objects and managing textual description assigned to them. It uses the __ObjGenDelOps
 template to create new instance of an OpenGL object in the constructor and to delete
-it in the destructor [^Object] unlike an __ObjectHandle also inherits from a specialization
+it in the destructor [^Object] unlike an __ObjHandle also inherits from a specialization
 of __ObjectOps which implements wrappers for GL functions related to the underlying
 GL object.
 

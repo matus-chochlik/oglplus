@@ -63,10 +63,11 @@ by Boost.Config (when __OGLPLUS_USE_BOOST_CONFIG is set to a non-zero value),
 if they are not defined before including this header by other means.
 
 [oglplus_config_site_4]
+[oglplus_config_site_5]
 
 The next options are not influenced by Boost.Config.
 
-[oglplus_config_site_5]
+[oglplus_config_site_6]
 
 [endsect]
 
