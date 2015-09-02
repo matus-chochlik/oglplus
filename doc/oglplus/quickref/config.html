@@ -257,20 +257,6 @@
 <span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_TEMPLATE_ALIASES</span> <a class="co" name="oglplus.quickref.config.site.compiler.c22" href="config.html#oglplus.quickref.config.site.compiler.c23"><img src="../../images/callouts/12.png" alt="12" border="0"></a>
 <span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_TEMPLATE_ALIASES</span> &lt;UNSPECIFIED&gt;
 <span class="preprocessor">#endif</span>
-
-<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_CONSTEXPR</span> <a class="co" name="oglplus.quickref.config.site.compiler.c24" href="config.html#oglplus.quickref.config.site.compiler.c25"><img src="../../images/callouts/13.png" alt="13" border="0"></a>
-<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_CONSTEXPR</span> &lt;UNSPECIFIED&gt;
-<span class="preprocessor">#endif</span>
-
-<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_NOEXCEPT</span> <a class="co" name="oglplus.quickref.config.site.compiler.c26" href="config.html#oglplus.quickref.config.site.compiler.c27"><img src="../../images/callouts/14.png" alt="14" border="0"></a>
-<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_NOEXCEPT</span> &lt;UNSPECIFIED&gt;
-<span class="preprocessor">#endif</span>
-
-<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_LAMBDAS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c28" href="config.html#oglplus.quickref.config.site.compiler.c29"><img src="../../images/callouts/15.png" alt="15" border="0"></a>
-<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_LAMBDAS</span> &lt;UNSPECIFIED&gt;
-<span class="preprocessor">#endif</span>
-
-<span class="preprocessor">#endif</span> <span class="comment">//!OGLPLUS_USE_BOOST_CONFIG</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
@@ -347,21 +333,47 @@
                   Indicates that C++11 template aliases are not supported.
                 </p></td>
 </tr>
+</table></div>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_CONSTEXPR</span> <a class="co" name="oglplus.quickref.config.site.compiler.c24" href="config.html#oglplus.quickref.config.site.compiler.c25"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_CONSTEXPR</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_OVERRIDE</span> <a class="co" name="oglplus.quickref.config.site.compiler.c26" href="config.html#oglplus.quickref.config.site.compiler.c27"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_OVERRIDE</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_NOEXCEPT</span> <a class="co" name="oglplus.quickref.config.site.compiler.c28" href="config.html#oglplus.quickref.config.site.compiler.c29"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_NOEXCEPT</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_LAMBDAS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c30" href="config.html#oglplus.quickref.config.site.compiler.c31"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_LAMBDAS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#endif</span> <span class="comment">//!OGLPLUS_USE_BOOST_CONFIG</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c25"></a><a href="#oglplus.quickref.config.site.compiler.c24"><img src="../../images/callouts/13.png" alt="13" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c25"></a><a href="#oglplus.quickref.config.site.compiler.c24"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                   Indicates that C++11 generalized constant expressions are not supported.
                 </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c27"></a><a href="#oglplus.quickref.config.site.compiler.c26"><img src="../../images/callouts/14.png" alt="14" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c27"></a><a href="#oglplus.quickref.config.site.compiler.c26"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that C++11 explicit virtual override is not supported.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c29"></a><a href="#oglplus.quickref.config.site.compiler.c28"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                   Indicates that C++11 <code class="literal">noexcept</code> specifier is not
                   supported.
                 </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c29"></a><a href="#oglplus.quickref.config.site.compiler.c28"><img src="../../images/callouts/15.png" alt="15" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c31"></a><a href="#oglplus.quickref.config.site.compiler.c30"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                   Indicates that C++11 lambdas are not supported.
                 </p></td>
@@ -370,36 +382,47 @@
 <p>
               The next options are not influenced by Boost.Config.
             </p>
-<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_INHERITED_CONSTRUCTORS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c30" href="config.html#oglplus.quickref.config.site.compiler.c31"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_INHERITED_CONSTRUCTORS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c32" href="config.html#oglplus.quickref.config.site.compiler.c33"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
 <span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_INHERITED_CONSTRUCTORS</span> &lt;UNSPECIFIED&gt;
 <span class="preprocessor">#endif</span>
 
-<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_CHRONO</span> <a class="co" name="oglplus.quickref.config.site.compiler.c32" href="config.html#oglplus.quickref.config.site.compiler.c33"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_CHRONO</span> <a class="co" name="oglplus.quickref.config.site.compiler.c34" href="config.html#oglplus.quickref.config.site.compiler.c35"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
 <span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_CHRONO</span> &lt;UNSPECIFIED&gt;
 <span class="preprocessor">#endif</span>
 
-<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_THREADS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c34" href="config.html#oglplus.quickref.config.site.compiler.c35"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_THREADS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c36" href="config.html#oglplus.quickref.config.site.compiler.c37"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
 <span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_THREADS</span> &lt;UNSPECIFIED&gt;
+<span class="preprocessor">#endif</span>
+
+<span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS</span> <a class="co" name="oglplus.quickref.config.site.compiler.c38" href="config.html#oglplus.quickref.config.site.compiler.c39"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="preprocessor">#define</span> <span class="identifier">OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS</span> &lt;UNSPECIFIED&gt;
 <span class="preprocessor">#endif</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c31"></a><a href="#oglplus.quickref.config.site.compiler.c30"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c33"></a><a href="#oglplus.quickref.config.site.compiler.c32"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                   Indicates that C++11 inherited constructors are not supported.
                 </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c33"></a><a href="#oglplus.quickref.config.site.compiler.c32"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c35"></a><a href="#oglplus.quickref.config.site.compiler.c34"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                   Indicates that the standard <code class="literal">chrono</code> header is
                   not available.
                 </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c35"></a><a href="#oglplus.quickref.config.site.compiler.c34"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c37"></a><a href="#oglplus.quickref.config.site.compiler.c36"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
                   Indicates that the C++11 threads implementation is not available.
+                </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.config.site.compiler.c39"></a><a href="#oglplus.quickref.config.site.compiler.c38"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                  Indicates that using C++11 scoped enumerations as template parameters
+                  is not supported or not implemented correctly.
                 </p></td>
 </tr>
 </table></div>
@@ -610,9 +633,9 @@
 <td valign="top" align="left"><p>
                 Compile-time switch disabling UTF-8 validity checks in various functions.
                 Setting this preprocessor symbol to a nonzero value causes that the
-                __StrLit and <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a>
-                constructors skip their UTF-8 validity checks. By default this option
-                is set to the same value as <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>,
+                <a class="link" href="string.html#oglplus.quickref.string.def" title="String container">String</a> constructors
+                skip their UTF-8 validity checks. By default this option is set to
+                the same value as <a class="link" href="config.html#oglplus.quickref.config.basic" title="General configuration"><code class="literal">OGLPLUS_LOW_PROFILE</code></a>,
                 i.e. the UTF-8 validity checks are enabled, when not in low-profile
                 mode and disabled otherwise.
               </p></td>
@@ -740,7 +763,7 @@
 <span class="preprocessor">#endif</span>
 
 <span class="preprocessor">#ifndef</span> <span class="identifier">OGLPLUS_NO_ENUM_VALUE_CLASSES</span> <a class="co" name="oglplus.quickref.config.enums.c4" href="config.html#oglplus.quickref.config.enums.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
-<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_ENUM_VALUE_CLASSES</span> <span class="number">0</span>
+<span class="preprocessor"># define</span> <span class="identifier">OGLPLUS_NO_ENUM_VALUE_CLASSES</span> <a class="link" href="config.html#oglplus.quickref.config.site.compiler" title="Compiler"><code class="literal">OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS</code></a>
 <span class="preprocessor">#endif</span>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
