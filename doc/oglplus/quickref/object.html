@@ -239,6 +239,79 @@
 	<span class="identifier">ObjectDesc</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;&amp;</span> <span class="identifier">str</span><span class="special">);</span>
 <span class="special">};</span>
 </pre>
+<h5>
+<a name="oglplus.quickref.object.desc.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.object.desc.example"></a></span><a class="link" href="object.html#oglplus.quickref.object.desc.example">Examples
+            of usage</a>
+          </h5>
+<p>
+            The following snippet shows how to attach textual descriptions to objects
+            like <a class="link" href="shader.html" title="Shaders">Shader</a> or <a class="link" href="program.html#oglplus.quickref.program.def">Program</a>
+            and how to get it back from an exception thrown by one of the described
+            objects.
+          </p>
+<pre class="programlisting"><span class="keyword">try</span>
+<span class="special">{</span>
+	<a class="link" href="shader.html#oglplus.quickref.shader.specialized">VertexShader</a> <span class="identifier">vxs</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">(</span><span class="string">"Vertex shader 1"</span><span class="special">));</span>
+	<span class="identifier">vxs</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(/*</span> <span class="special">...</span> <span class="special">*/).</span><span class="identifier">Compile</span><span class="special">();</span> <a class="co" name="oglplus.quickref.object.desc.c0" href="object.html#oglplus.quickref.object.desc.c1"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+	<a class="link" href="shader.html#oglplus.quickref.shader.specialized">TessControlShader</a> <span class="identifier">tcs</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">(</span><span class="string">"Tessellation control shader 1"</span><span class="special">));</span>
+	<span class="identifier">tcs</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(/*</span> <span class="special">...</span> <span class="special">*/).</span><span class="identifier">Compile</span><span class="special">();</span>
+
+	<a class="link" href="shader.html#oglplus.quickref.shader.specialized">TessEvaluationShader</a> <span class="identifier">tes</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">(</span><span class="string">"Tessellation evaluation shader 1"</span><span class="special">));</span>
+	<span class="identifier">tes</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(/*</span> <span class="special">...</span> <span class="special">*/).</span><span class="identifier">Compile</span><span class="special">();</span>
+
+	<a class="link" href="shader.html#oglplus.quickref.shader.specialized">GeometryShader</a> <span class="identifier">gys</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">(</span><span class="string">"Geometry shader 1"</span><span class="special">));</span>
+	<span class="identifier">gys</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(/*</span> <span class="special">...</span> <span class="special">*/).</span><span class="identifier">Compile</span><span class="special">();</span>
+
+	<a class="link" href="shader.html#oglplus.quickref.shader.specialized">FragmentShader</a> <span class="identifier">fgs</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">(</span><span class="string">"Fragment shader 1"</span><span class="special">));</span>
+	<span class="identifier">fgs</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(/*</span> <span class="special">...</span> <span class="special">*/).</span><span class="identifier">Compile</span><span class="special">();</span>
+
+	<a class="link" href="program.html#oglplus.quickref.program.def">Program</a> <span class="identifier">prog</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.desc" title="Textual descriptions">ObjectDesc</a><span class="special">(</span><span class="string">"Program 1"</span><span class="special">));</span>
+
+	<span class="identifier">prog</span> <span class="special">&lt;&lt;</span> <span class="identifier">vxs</span> <span class="special">&lt;&lt;</span> <span class="identifier">tcs</span> <span class="special">&lt;&lt;</span> <span class="identifier">tes</span> <span class="special">&lt;&lt;</span> <span class="identifier">gys</span> <span class="special">&lt;&lt;</span> <span class="identifier">fgs</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.desc.c2" href="object.html#oglplus.quickref.object.desc.c3"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+
+	<span class="identifier">prog</span><span class="special">.</span><span class="identifier">Link</span><span class="special">();</span> <a class="co" name="oglplus.quickref.object.desc.c4" href="object.html#oglplus.quickref.object.desc.c5"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+
+	<span class="keyword">return</span> <span class="identifier">prog</span><span class="special">;</span>
+<span class="special">}</span>
+<span class="keyword">catch</span><span class="special">(</span><a class="link" href="error.html#oglplus.quickref.error.program" title="Program build errors">ProgramBuildError</a><span class="special">&amp;</span> <span class="identifier">error</span><span class="special">)</span> <a class="co" name="oglplus.quickref.object.desc.c6" href="object.html#oglplus.quickref.object.desc.c7"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="special">{</span>
+	<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">error</span><span class="special">.</span><span class="identifier">ObjectDesc</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span><span class="special">;</span> <a class="co" name="oglplus.quickref.object.desc.c8" href="object.html#oglplus.quickref.object.desc.c9"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+<span class="special">}</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.desc.c1"></a><a href="#oglplus.quickref.object.desc.c0"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Compilation of any of these five shaders may fail.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.desc.c3"></a><a href="#oglplus.quickref.object.desc.c2"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Attach the shaders.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.desc.c5"></a><a href="#oglplus.quickref.object.desc.c4"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Linking may fail too.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.desc.c7"></a><a href="#oglplus.quickref.object.desc.c6"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                This catches both compilation and linking errors.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.desc.c9"></a><a href="#oglplus.quickref.object.desc.c8"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Print the description of the object which caused the error.
+              </p></td>
+</tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
