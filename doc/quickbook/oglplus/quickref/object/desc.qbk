@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -19,5 +19,14 @@ The descriptions are assigned to objects by using the __ObjectDesc class.
 
 [import desc.hpp]
 [oglplus_object_desc]
+
+[heading:example Examples of usage]
+
+The following snippet shows how to attach textual descriptions to objects
+like __Shader or __Program and how to get it back from an exception
+thrown by one of the described objects.
+
+[import desc.cpp]
+[oglplus_object_desc_example_1]
 
 [endsect]

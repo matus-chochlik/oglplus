@@ -246,8 +246,7 @@ public:
 	This instance of [^Program] must be kept alive during the whole
 	lifetime of the returned range, i.e. the returned range must not
 	be used after the [^Program] goes out of scope and is destroyed.
-	>*/
-
+>*/
 //]
 //[oglplus_program_4
 
