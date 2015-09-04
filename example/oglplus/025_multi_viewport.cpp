@@ -152,9 +152,7 @@ private:
 		);
 
 		Program prog;
-		prog.AttachShader(vs);
-		prog.AttachShader(gs);
-		prog.AttachShader(fs);
+		prog.AttachShaders(MakeGroup(vs,gs,fs));
 		prog.Build();
 		prog.Use();
 		return prog;

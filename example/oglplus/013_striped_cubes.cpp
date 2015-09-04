@@ -97,7 +97,7 @@ public:
 		).Compile();
 
 		// attach the shaders to the program
-		prog.AttachShader(vs).AttachShader(fs);
+		prog.AttachShaders(MakeGroup(vs, fs));
 		// link and use it
 		prog.Link().Use();
 
