@@ -1210,6 +1210,92 @@
               </p></td>
 </tr>
 </table></div>
+<h5>
+<a name="oglplus.quickref.object.array.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.object.array.examples"></a></span><a class="link" href="object.html#oglplus.quickref.object.array.examples">Examples
+            of usage</a>
+          </h5>
+<pre class="programlisting"><a class="link" href="object.html#oglplus.quickref.object.array" title="Array">Array</a><span class="special">&lt;</span><a class="link" href="buffer.html#oglplus.quickref.buffer.def">Buffer</a><span class="special">&gt;</span> <span class="identifier">vbos</span><span class="special">(</span><span class="number">3</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.array.c18" href="object.html#oglplus.quickref.object.array.c19"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">n</span> <span class="special">=</span> <span class="comment">/* ... */</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">GLfloat</span><span class="special">&gt;</span> <span class="identifier">pos</span><span class="special">(</span><span class="identifier">n</span> <span class="special">*</span> <span class="number">3</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.array.c20" href="object.html#oglplus.quickref.object.array.c21"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">GLfloat</span><span class="special">&gt;</span> <span class="identifier">nms</span><span class="special">(</span><span class="identifier">n</span> <span class="special">*</span> <span class="number">3</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.array.c22" href="object.html#oglplus.quickref.object.array.c23"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">GLfloat</span><span class="special">&gt;</span> <span class="identifier">tcs</span><span class="special">(</span><span class="identifier">n</span> <span class="special">*</span> <span class="number">2</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.array.c24" href="object.html#oglplus.quickref.object.array.c25"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+
+<span class="comment">/* ... */</span>
+
+<span class="identifier">vbos</span><span class="special">[</span><span class="number">0</span><span class="special">].</span><span class="identifier">Bind</span><span class="special">(</span><a class="link" href="buffer.html#oglplus.quickref.buffer.target">BufferTarget</a><span class="special">::</span><span class="identifier">Array</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.array.c26" href="object.html#oglplus.quickref.object.array.c27"><img src="../../images/callouts/5.png" alt="5" border="0"></a>
+<span class="special">{</span>
+	<a class="link" href="buffer.html#oglplus.quickref.buffer.def">Buffer</a><span class="special">::</span><span class="identifier">Data</span><span class="special">(</span><a class="link" href="buffer.html#oglplus.quickref.buffer.target">BufferTarget</a><span class="special">::</span><span class="identifier">Array</span><span class="special">,</span> <span class="identifier">pos</span><span class="special">);</span>
+
+	<a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.array">VertexArrayAttrib</a> <span class="identifier">attr</span><span class="special">(</span><span class="identifier">prog</span><span class="special">,</span> <span class="string">"Position"</span><span class="special">);</span>
+	<span class="identifier">attr</span><span class="special">.</span><span class="identifier">Setup</span><span class="special">&lt;</span><a class="link" href="math.html#oglplus.quickref.math.vector.typedefs">Vec3f</a><span class="special">&gt;();</span>
+	<span class="identifier">attr</span><span class="special">.</span><span class="identifier">Enable</span><span class="special">();</span>
+<span class="special">}</span>
+
+<span class="identifier">vbos</span><span class="special">[</span><span class="number">1</span><span class="special">].</span><span class="identifier">Bind</span><span class="special">(</span><a class="link" href="buffer.html#oglplus.quickref.buffer.target">BufferTarget</a><span class="special">::</span><span class="identifier">Array</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.array.c28" href="object.html#oglplus.quickref.object.array.c29"><img src="../../images/callouts/6.png" alt="6" border="0"></a>
+<span class="special">{</span>
+	<a class="link" href="buffer.html#oglplus.quickref.buffer.def">Buffer</a><span class="special">::</span><span class="identifier">Data</span><span class="special">(</span><a class="link" href="buffer.html#oglplus.quickref.buffer.target">BufferTarget</a><span class="special">::</span><span class="identifier">Array</span><span class="special">,</span> <span class="identifier">nms</span><span class="special">);</span>
+
+	<a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.array">VertexArrayAttrib</a> <span class="identifier">attr</span><span class="special">(</span><span class="identifier">prog</span><span class="special">,</span> <span class="string">"Normal"</span><span class="special">);</span>
+	<span class="identifier">attr</span><span class="special">.</span><span class="identifier">Setup</span><span class="special">&lt;</span><a class="link" href="math.html#oglplus.quickref.math.vector.typedefs">Vec3f</a><span class="special">&gt;();</span>
+	<span class="identifier">attr</span><span class="special">.</span><span class="identifier">Enable</span><span class="special">();</span>
+<span class="special">}</span>
+
+<span class="identifier">vbos</span><span class="special">[</span><span class="number">2</span><span class="special">].</span><span class="identifier">Bind</span><span class="special">(</span><a class="link" href="buffer.html#oglplus.quickref.buffer.target">BufferTarget</a><span class="special">::</span><span class="identifier">Array</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.array.c30" href="object.html#oglplus.quickref.object.array.c31"><img src="../../images/callouts/7.png" alt="7" border="0"></a>
+<span class="special">{</span>
+	<a class="link" href="buffer.html#oglplus.quickref.buffer.def">Buffer</a><span class="special">::</span><span class="identifier">Data</span><span class="special">(</span><a class="link" href="buffer.html#oglplus.quickref.buffer.target">BufferTarget</a><span class="special">::</span><span class="identifier">Array</span><span class="special">,</span> <span class="identifier">tcs</span><span class="special">);</span>
+
+	<a class="link" href="vertex_attrib.html#oglplus.quickref.vertex_attrib.array">VertexArrayAttrib</a> <span class="identifier">attr</span><span class="special">(</span><span class="identifier">prog</span><span class="special">,</span> <span class="string">"TexCoord"</span><span class="special">);</span>
+	<span class="identifier">attr</span><span class="special">.</span><span class="identifier">Setup</span><span class="special">&lt;</span><a class="link" href="math.html#oglplus.quickref.math.vector.typedefs">Vec2f</a><span class="special">&gt;();</span>
+	<span class="identifier">attr</span><span class="special">.</span><span class="identifier">Enable</span><span class="special">();</span>
+<span class="special">}</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c19"></a><a href="#oglplus.quickref.object.array.c18"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Array of three buffer objects.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c21"></a><a href="#oglplus.quickref.object.array.c20"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Position data.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c23"></a><a href="#oglplus.quickref.object.array.c22"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Normal vector data.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c25"></a><a href="#oglplus.quickref.object.array.c24"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Texture coordinate data.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c27"></a><a href="#oglplus.quickref.object.array.c26"><img src="../../images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Bind and setup the buffer object on index 0.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c29"></a><a href="#oglplus.quickref.object.array.c28"><img src="../../images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Bind and setup the buffer object on index 1.
+              </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.array.c31"></a><a href="#oglplus.quickref.object.array.c30"><img src="../../images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                Bind and setup the buffer object on index 2.
+              </p></td>
+</tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -1302,6 +1388,10 @@
               </p></td>
 </tr>
 </table></div>
+<h5>
+<a name="oglplus.quickref.object.group.h0"></a>
+            <span class="phrase"><a name="oglplus.quickref.object.group.static"></a></span><a class="link" href="object.html#oglplus.quickref.object.group.static"><code class="literal">StaticGroup</code></a>
+          </h5>
 <p>
             The <code class="literal">StaticGroup</code> class is a static container storing
             <a class="link" href="object.html#oglplus.quickref.object.name" title="Name">object names</a>, which
@@ -1327,7 +1417,7 @@
 <span class="special">};</span>
 
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span> <span class="identifier">ObjTag</span><span class="special">&gt;</span>
-<a class="link" href="object.html#oglplus.quickref.object.group" title="Group">StaticGroup</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;,</span> <span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">ObjTag</span><span class="special">)&gt;</span>
+<a class="link" href="object.html#oglplus.quickref.object.group.static">StaticGroup</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;,</span> <span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">ObjTag</span><span class="special">)&gt;</span>
 <span class="identifier">MakeGroup</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.name" title="Name">ObjectName</a><span class="special">&lt;</span><a class="link" href="object.html#oglplus.quickref.object.tags" title="Tags">ObjTag</a><span class="special">&gt;</span> <span class="special">...</span> <span class="identifier">names</span><span class="special">);</span> <a class="co" name="oglplus.quickref.object.group.c20" href="object.html#oglplus.quickref.object.group.c21"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
 </pre>
 <div class="calloutlist"><table border="0" summary="Callout list">
@@ -1360,6 +1450,39 @@
               </p></td>
 </tr>
 </table></div>
+<h5>
+<a name="oglplus.quickref.object.group.h1"></a>
+            <span class="phrase"><a name="oglplus.quickref.object.group.examples"></a></span><a class="link" href="object.html#oglplus.quickref.object.group.examples">Examples</a>
+          </h5>
+<pre class="programlisting"><a class="link" href="shader.html#oglplus.quickref.shader.specialized">VertexShader</a> <span class="identifier">vxs</span><span class="special">;</span>
+<span class="identifier">vxs</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(/*</span> <span class="special">...</span> <span class="special">*/).</span><span class="identifier">Compile</span><span class="special">();</span>
+
+<a class="link" href="shader.html#oglplus.quickref.shader.specialized">TessControlShader</a> <span class="identifier">tcs</span><span class="special">;</span>
+<span class="identifier">tcs</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(/*</span> <span class="special">...</span> <span class="special">*/).</span><span class="identifier">Compile</span><span class="special">();</span>
+
+<a class="link" href="shader.html#oglplus.quickref.shader.specialized">TessEvaluationShader</a> <span class="identifier">tes</span><span class="special">;</span>
+<span class="identifier">tes</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(/*</span> <span class="special">...</span> <span class="special">*/).</span><span class="identifier">Compile</span><span class="special">();</span>
+
+<a class="link" href="shader.html#oglplus.quickref.shader.specialized">GeometryShader</a> <span class="identifier">gys</span><span class="special">;</span>
+<span class="identifier">gys</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(/*</span> <span class="special">...</span> <span class="special">*/).</span><span class="identifier">Compile</span><span class="special">();</span>
+
+<a class="link" href="shader.html#oglplus.quickref.shader.specialized">FragmentShader</a> <span class="identifier">fgs</span><span class="special">;</span>
+<span class="identifier">fgs</span><span class="special">.</span><span class="identifier">Source</span><span class="special">(/*</span> <span class="special">...</span> <span class="special">*/).</span><span class="identifier">Compile</span><span class="special">();</span>
+
+<a class="link" href="program.html#oglplus.quickref.program.def">Program</a> <span class="identifier">prog</span><span class="special">;</span>
+
+<span class="identifier">prog</span><span class="special">.</span><span class="identifier">AttachShaders</span><span class="special">(</span><a class="link" href="object.html#oglplus.quickref.object.group.static">MakeGroup</a><span class="special">(</span><span class="identifier">vxs</span><span class="special">,</span> <span class="identifier">tcs</span><span class="special">,</span> <span class="identifier">tes</span><span class="special">,</span> <span class="identifier">gys</span><span class="special">,</span> <span class="identifier">fgs</span><span class="special">));</span> <a class="co" name="oglplus.quickref.object.group.c22" href="object.html#oglplus.quickref.object.group.c23"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="identifier">prog</span><span class="special">.</span><span class="identifier">Link</span><span class="special">();</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.object.group.c23"></a><a href="#oglplus.quickref.object.group.c22"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+                <a class="link" href="object.html#oglplus.quickref.object.group.static">MakeGroup</a>
+                creates a <a class="link" href="object.html#oglplus.quickref.object.group.static">StaticGroup</a>&lt;<a class="link" href="shader.html" title="Shaders">Shader</a>&gt; which is implicitly
+                convertible to <a class="link" href="object.html#oglplus.quickref.object.sequence" title="Sequence">Sequence</a>&lt;Shader&gt;
+                accepted by <code class="literal"><a class="link" href="program.html#oglplus.quickref.program.def">Program</a>::AttachShaders</code>.
+              </p></td>
+</tr></table></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
