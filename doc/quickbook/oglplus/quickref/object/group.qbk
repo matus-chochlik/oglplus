@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -9,6 +9,7 @@
 [header oglplus/object/group.hpp]
 
 [import group.hpp]
+[import group.cpp]
 
 The [^Group] class is a dynamic container storing
 [link oglplus.quickref.object.name object names], which is
@@ -17,11 +18,17 @@ New object names can be added to [^Group] after it has been constructed.
 
 [oglplus_object_Group]
 
+[heading:static [^StaticGroup]]
+
 The [^StaticGroup] class is a static container storing
 [link oglplus.quickref.object.name object names], which is
 implicitly convertible into a __Sequence.
 New object names cannot be added to [^StaticGroup] after it has been constructed.
 
 [oglplus_object_StaticGroup]
+
+[heading Examples]
+
+[oglplus_object_StaticGroup_example_1]
 
 [endsect]
