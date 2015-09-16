@@ -151,6 +151,14 @@ elseif(${OGLPLUS_USE_GLEW})
 	set(OGLPLUS_GL_FOUND 1)
 
 	message(STATUS "Using GLEW as GL API library")
+elseif(${OGLPLUS_USE_GL3W})
+
+  set(OGLPLUS_GL_INCLUDE_DIRS ${GL3W_INCLUDE_DIRS})
+	include_directories(BEFORE SYSTEM ${GL3W_INCLUDE_DIRS})
+	set(OGLPLUS_GL_LIBRARIES ${GL3W_LIBRARIES} ${OPENGL_LIBRARIES})
+	set(OGLPLUS_GL_FOUND 1)
+
+	message(STATUS "Using GL3W as GL API library")
 else()
 	message(FATAL_ERROR "A library including OpenGL symbols is required for OGLplus")
 	return()
