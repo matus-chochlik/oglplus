@@ -42,7 +42,7 @@ public:
 
 template <typename T>
 class PositiveOutcome
- : public Outcome<T>
+ : public __Outcome<T>
 {
 public:
 	explicit
@@ -60,7 +60,9 @@ public:
 };
 
 template <typename T>
-__PositiveOutcome<T> Succeeded(__Outcome<T>&& outcome)
+__PositiveOutcome<T> Succeeded(__Outcome<T>&& outcome) /*<
+Converts __Outcome to __PositiveOutcome.
+>*/
 noexcept;
 
 //]
@@ -68,7 +70,7 @@ noexcept;
 
 template <typename T>
 class NegativeOutcome
- : public Outcome<T>
+ : public __Outcome<T>
 {
 public:
 	explicit
@@ -86,7 +88,9 @@ public:
 };
 
 template <typename T>
-__NegativeOutcome<T> Failed(__Outcome<T>&& outcome)
+__NegativeOutcome<T> Failed(__Outcome<T>&& outcome) /*<
+Converts __Outcome to __NegativeOutcome.
+>*/
 noexcept;
 
 //]

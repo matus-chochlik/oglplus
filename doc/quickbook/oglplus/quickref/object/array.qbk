@@ -9,7 +9,12 @@
 [header oglplus/object/array.hpp]
 
 [import array.hpp]
+[import array.cpp]
 
 [oglplus_object_Array]
+
+[heading:examples Examples of usage]
+
+[oglplus_object_Array_example_1]
 
 [endsect]

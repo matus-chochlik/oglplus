@@ -29,6 +29,9 @@
 [def __Angle [link oglplus.quickref.math.angle Angle]]
 [def __Plane [link oglplus.quickref.math.plane Plane]]
 [def __Vector [link oglplus.quickref.math.vector Vector]]
+[def __Vec2f [link oglplus.quickref.math.vector.typedefs Vec2f]]
+[def __Vec3f [link oglplus.quickref.math.vector.typedefs Vec3f]]
+[def __Vec4f [link oglplus.quickref.math.vector.typedefs Vec4f]]
 [def __Matrix [link oglplus.quickref.math.matrix.basic Matrix]]
 [def __ModelMatrix [link oglplus.quickref.math.matrix.model ModelMatrix]]
 [def __CameraMatrix [link oglplus.quickref.math.matrix.camera CameraMatrix]]
@@ -76,6 +79,7 @@
 [def __ObjectSubtype [link oglplus.quickref.object.subtype ObjectSubtype]]
 [def __ObjTypeOps [link oglplus.quickref.object.type.ops ObjTypeOps]]
 [def __ObjGenDelOps [link oglplus.quickref.object.gendelops ObjGenDelOps]]
+[def __ObjBindingOps [link oglplus.quickref.object.ops ObjBindingOps]]
 [def __ObjCommonOps [link oglplus.quickref.object.ops ObjCommonOps]]
 [def __ObjZeroOps [link oglplus.quickref.object.ops ObjZeroOps]]
 [def __ObjectOps [link oglplus.quickref.object.ops ObjectOps]]
@@ -198,12 +202,15 @@
 
 [def __Optional_Object [link oglplus.quickref.object.optional Optional]]
 
+[def __BoundObjOps [link oglplus.quickref.object.bound.ops BoundObjOps]]
+
 [def __Reference [link oglplus.quickref.object.reference Reference]]
 [def __Sequence [link oglplus.quickref.object.sequence Sequence]]
 [def __SeqIterator [link oglplus.quickref.object.sequence.iter SeqIterator]]
 [def __Array [link oglplus.quickref.object.array Array]]
 [def __Group [link oglplus.quickref.object.group Group]]
-[def __StaticGroup [link oglplus.quickref.object.group StaticGroup]]
+[def __StaticGroup [link oglplus.quickref.object.group.static StaticGroup]]
+[def __MakeGroup [link oglplus.quickref.object.group.static MakeGroup]]
 
 [def __ErrorCode [link oglplus.quickref.error.code ErrorCode]]
 [def __Error [link oglplus.quickref.error.basic Error]]
@@ -221,7 +228,9 @@
 [def __DeferredHandler [link oglplus.quickref.error.deferred_handler DeferredHandler]]
 [def __Outcome [link oglplus.quickref.error.outcome Outcome]]
 [def __PositiveOutcome [link oglplus.quickref.error.outcome.positive PositiveOutcome]]
+[def __Succeeded [link oglplus.quickref.error.outcome.positive Succeeded]]
 [def __NegativeOutcome [link oglplus.quickref.error.outcome.negative NegativeOutcome]]
+[def __Failed [link oglplus.quickref.error.outcome.negative Failed]]
 
 [def __Sync [link oglplus.quickref.sync Sync]]
 [def __SyncCondition [link oglplus.quickref.sync.condition SyncCondition]]
@@ -359,11 +368,12 @@
 [def __OGLPLUS_ERROR_NO_GL_SYMBOL [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_GL_SYMBOL]]]
 [def __OGLPLUS_NO_GLFUNC_CHECKS [link oglplus.quickref.config.gl [^OGLPLUS_NO_GLFUNC_CHECKS]]]
 
+[def __OGLPLUS_NO_ENUM_VALUE_CLASSES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_CLASSES]]]
 [def __OGLPLUS_NO_ENUM_VALUE_RANGES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_RANGES]]]
 [def __OGLPLUS_NO_ENUM_VALUE_NAMES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_NAMES]]]
 
 [def __OGLPLUS_NO_INITIALIZER_LISTS [link oglplus.quickref.config.site.compiler [^OGLPLUS_NO_INITIALIZER_LISTS]]]
-
+[def __OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS [link oglplus.quickref.config.site.compiler [^OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS]]]
 [/---------]
 [/Templates]
 [/---------]

@@ -7,7 +7,7 @@
 //[oglplus_frag_data_slot
 
 class FragDataSlot
- : public __LimitedCount
+ : public __LimitedCount<GL_MAX_DRAW_BUFFERS>
 {
 public:
 	FragDataSlot(GLuint number); /*<

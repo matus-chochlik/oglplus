@@ -14,7 +14,7 @@
 
 [oglplus_framebuffer_common]
 
-[heading Operations with explicit selector]
+[heading:ops Operations with explicit selector]
 
 [oglplus_framebuffer_1]
 [oglplus_framebuffer_2]
@@ -32,6 +32,11 @@
 [header oglplus/framebuffer_target.hpp]
 [import enums/framebuffer_target.hpp]
 [oglplus_enums_framebuffer_target]
+
+[heading:target_class Target to class]
+
+[import enums/framebuffer_target_class.hpp]
+[oglplus_enums_framebuffer_target_class]
 
 [heading:buffer Buffer]
 

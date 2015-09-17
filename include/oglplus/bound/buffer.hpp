@@ -232,6 +232,7 @@ public:
 
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_buffer_storage
+
 	/** Wrapper for Buffer::Storage()
 	 *  @see Buffer::Storage()
 	 */
@@ -247,6 +248,9 @@ public:
 		);
 		return *this;
 	}
+#endif // GL_VERSION_4_4 GL_ARB_buffer_storage
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_buffer_storage
 
 	/** Wrapper for Buffer::Storage()
 	 *  @see Buffer::Storage()

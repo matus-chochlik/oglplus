@@ -24,4 +24,10 @@
 [heading:untyped Untyped]
 [oglplus_untyped_uniform]
 
+[heading:examples Examples of usage]
+
+[import uniform.cpp]
+[oglplus_uniform_example_1]
+[oglplus_uniform_example_2]
+
 [endsect]

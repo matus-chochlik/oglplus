@@ -163,7 +163,7 @@ public:
 template <>
 class __ObjectOps<__tag_ExplicitSel, __tag_Texture>
  : public __ObjZeroOps<__tag_ExplicitSel, __tag_Texture> /*<
-Indirectly inherits from __ObjCommonOps_Texture.
+Indirectly inherits from __ObjCommonOps_Texture<__tag_Texture>.
 >*/
 {
 public:
@@ -991,7 +991,7 @@ public:
 		__TextureTarget target,
 		__TextureWrapCoord coord
 	); /*<
-	Gets the swizzle parameter.
+	Gets the texture wrap parameter.
 	See [glfunc GetTexParameter], [glconst TEXTURE_WRAP_S],
 	[glconst TEXTURE_WRAP_T], [glconst TEXTURE_WRAP_R].
 	>*/
@@ -1005,13 +1005,18 @@ public:
 		__TextureWrapCoord coord,
 		__TextureWrap mode
 	); /*<
-	Sets the swizzle parameter.
+	Sets the texture wrap [^mode] on the specified coordinate.
 	See [glfunc TexParameter], [glconst TEXTURE_WRAP_S],
 	[glconst TEXTURE_WRAP_T], [glconst TEXTURE_WRAP_R].
 	>*/
 	static void WrapS(__TextureTarget target, __TextureWrap mode);
 	static void WrapT(__TextureTarget target, __TextureWrap mode);
 	static void WrapR(__TextureTarget target, __TextureWrap mode);
+
+	static void Wrap(__TextureTarget target, __TextureWrap mode); /*<
+	Sets the texture wrap [^mode] on all coordinates meaningful for
+	the specified texture [^target].
+	>*/
 
 #if GL_VERSION_4_3
 	static __PixelDataFormat DepthStencilMode(__TextureTarget target); /*<
@@ -1061,7 +1066,7 @@ typedef ObjectOps<__tag_ExplicitSel, __tag_Texture>
 typedef __Object<TextureOps> Texture;
 
 typedef __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Texture>> /*<
-Indirectly inherits from __ObjCommonOps_Texture.
+Indirectly inherits from __ObjCommonOps_Texture<__tag_Texture>.
 >*/
 	DefaultTexture;
 //]

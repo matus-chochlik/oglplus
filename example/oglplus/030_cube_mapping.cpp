@@ -546,11 +546,8 @@ public:
 
 		Texture::Active(1);
 		gl.Bound(Texture::Target::CubeMap, dtex)
-			.MinFilter(TextureMinFilter::Nearest)
-			.MagFilter(TextureMagFilter::Nearest)
-			.WrapS(TextureWrap::ClampToEdge)
-			.WrapT(TextureWrap::ClampToEdge)
-			.WrapR(TextureWrap::ClampToEdge);
+			.Filter(TextureFilter::Nearest)
+			.Wrap(TextureWrap::ClampToEdge);
 
 		for(int i=0; i!=6; ++i)
 		{
@@ -568,11 +565,8 @@ public:
 
 		Texture::Active(0);
 		gl.Bound(Texture::Target::CubeMap, ctex)
-			.MinFilter(TextureMinFilter::Linear)
-			.MagFilter(TextureMagFilter::Linear)
-			.WrapS(TextureWrap::ClampToEdge)
-			.WrapT(TextureWrap::ClampToEdge)
-			.WrapR(TextureWrap::ClampToEdge);
+			.Filter(TextureFilter::Linear)
+			.Wrap(TextureWrap::ClampToEdge);
 
 		for(int i=0; i!=6; ++i)
 		{

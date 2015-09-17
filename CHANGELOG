@@ -1,3 +1,13 @@
+Version 0.66.0
+
+- The DeferredHandler class and the Outcome<T> template have been refactored.
+- New overload of Texture::Wrap has been added.
+- The ClientContext and its SettingStack helper classes have been updated.
+- Libpng allocation checks have been added to the PNG image loader.
+- The GL3W include path has been fixed.
+- Minor fixes in the build system have been made.
+- The Quickbook documentation has been updated.
+
 Version 0.65.0
 
 - The devel/testing implementation of EGL was updated to support multisampling.

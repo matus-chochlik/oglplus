@@ -53,4 +53,22 @@ public:
 };
 
 //]
+//[oglplus_enums_EnumToClass
+namespace enums {
+
+template <
+	typename Base,
+	typename Enumeration,
+	template <Enumeration> class Transform
+> class EnumToClass
+{
+public:
+	EnumToClass(void);
+	EnumToClass(const EnumToClass&);
+
+	/* ... */
+};
+
+} // namespace enums
+//]
 

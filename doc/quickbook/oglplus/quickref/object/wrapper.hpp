@@ -27,6 +27,49 @@ protected:
 };
 
 //]
+//[oglplus_object_ObjBindingOps
+
+template <typename __ObjTag>
+class ObjBindingOps
+{
+public:
+	typedef __Unspecified Target; /*<
+	Strongly typed enumeration specifying binding points for object
+	type associated with __ObjTag.
+	This typedef is available only if the object type has named,
+	explicit binding points.
+	>*/
+
+	static __ObjectName<__ObjTag> Binding(void); /*<
+	Returns the object currently bound to the implicit binding point
+	for the object type specified by __ObjTag.
+	This overload is available only if the object type has only one
+	implicit binding point.
+	>*/
+
+	static __ObjectName<__ObjTag> Binding(Target target); /*<
+	Returns the object currently bound to the explicit binding point
+	[^target] for the object type specified by __ObjTag.
+	This overload is available only if the object type has named,
+	explicit binding points.
+	>*/
+
+	static void Bind(__ObjectName<__ObjTag> object) /*<
+	Binds the specified [^object] to the implicit binding point
+	for the object type specified by __ObjTag.
+	This overload is available only if the object type has only one
+	implicit binding point.
+	>*/
+
+	static void Bind(Target target, __ObjectName<__ObjTag> object) /*<
+	Binds the specified [^object] to the explicit binding point
+	[^target] for the object type specified by __ObjTag.
+	This overload is available only if the object type has named,
+	explicit binding points.
+	>*/
+};
+
+//]
 //[oglplus_object_ObjCommonOps
 
 template <typename __ObjTag>

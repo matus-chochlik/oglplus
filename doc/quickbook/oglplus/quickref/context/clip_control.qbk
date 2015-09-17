@@ -10,6 +10,9 @@
 
 [import clip_control.hpp]
 
+[heading:params Parameters]
+[oglplus_context_ClipControlParams]
+
 [heading:state State]
 [oglplus_context_ClipControlState]
 

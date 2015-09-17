@@ -16,7 +16,7 @@
 [oglplus_buffer_common_2]
 [oglplus_buffer_common_3]
 
-[heading Operations with explicit selector]
+[heading:ops Operations with explicit selector]
 
 [oglplus_buffer_1]
 [oglplus_buffer_2]
@@ -35,11 +35,21 @@
 [import enums/buffer_target.hpp]
 [oglplus_enums_buffer_target]
 
+[heading:target_class Target to class]
+
+[import enums/buffer_target_class.hpp]
+[oglplus_enums_buffer_target_class]
+
 [heading:indexed_target IndexedTarget]
 
 [header oglplus/buffer_target.hpp]
 [import enums/buffer_indexed_target.hpp]
 [oglplus_enums_buffer_indexed_target]
+
+[heading:indexed_target_class Indexed target to class]
+
+[import enums/buffer_indexed_target_class.hpp]
+[oglplus_enums_buffer_indexed_target_class]
 
 [heading:binding Indexed binding point numbers]
 

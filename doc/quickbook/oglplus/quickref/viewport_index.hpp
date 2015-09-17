@@ -7,7 +7,7 @@
 //[oglplus_viewport_index
 
 class ViewportIndex
- : public __LimitedCount
+ : public __LimitedCount<GL_MAX_VIEWPORTS>
 {
 public:
 	ViewportIndex(GLuint number); /*<

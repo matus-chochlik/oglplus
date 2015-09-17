@@ -7,7 +7,7 @@
 //[oglplus_draw_buffer_index
 
 class DrawBufferIndex
- : public __LimitedCount
+ : public __LimitedCount<GL_MAX_DRAW_BUFFERS>
 {
 public:
 	DrawBufferIndex(GLuint number); /*<

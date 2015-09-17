@@ -104,8 +104,7 @@ public:
 		").Compile(std::nothrow).Done();
 
 		// attach the shaders to the program
-		prog.AttachShader(vs);
-		prog.AttachShader(fs);
+		prog.AttachShaders(MakeGroup(vs, fs));
 		// link and use it
 		prog.Link();
 		prog.Use();

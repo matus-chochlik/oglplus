@@ -362,12 +362,9 @@ public:
 		Texture::Active(0);
 		volume_prog.volume_tex = 0;
 		gl.Bound(Texture::Target::_3D, volume_tex)
-			.MinFilter(TextureMinFilter::Linear)
-			.MagFilter(TextureMagFilter::Linear)
+			.Filter(TextureFilter::Linear)
 			.BorderColor(Vec4f(0.0f, 0.0f, 0.0f, 0.0f))
-			.WrapS(TextureWrap::ClampToBorder)
-			.WrapT(TextureWrap::ClampToBorder)
-			.WrapR(TextureWrap::ClampToBorder)
+			.Wrap(TextureWrap::ClampToBorder)
 			.Image3D(
 				images::Cloud(
 					128, 128, 128,

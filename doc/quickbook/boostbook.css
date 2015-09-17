@@ -100,6 +100,8 @@ pre.programlisting
 	border: solid #E0E0E0 1px;
 	background-color: #E8E8E4;
 	padding-right: 1em;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
 	float: left;
 	width: 60%;
 	overflow: hidden;

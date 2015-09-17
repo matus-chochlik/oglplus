@@ -11,7 +11,7 @@ template <typename T, ...>
 class SettingHolder
 {
 public:
-	SettingHolder(const SettingHolder&) = delete; 
+	SettingHolder(const SettingHolder&) = delete;
 
 	SettingHolder(SettingHolder&&)
 	noexcept;
@@ -55,6 +55,14 @@ public:
 
 	typedef __SettingHolder<T, ...> Holder;
 
+	SettingStack& operator [] (Index index);
+	SettingStack& Indexed(Index index); /*<
+	Returns a reference to itself if [^index] is zero, otherwise the behavior
+	is undefined.
+	This function and the indexing operator are here to make the interface
+	of [^SettingStack] compatible with __SettingStackIndexed.
+	>*/
+
 	Holder Push(T value); /*<
 	Pushes a new value on top of the setting stack. When the returned
 	instance of [^Holder] gets destroyed (or its [^Pop] member function is
@@ -92,7 +100,7 @@ public:
 //[oglplus_client_SettingStackIndexed
 namespace client {
 
-template <typename Derived, typename T>
+template <typename Derived, typename T, typename Index = GLuint>
 class SettingStackIndexed
 {
 public:
@@ -102,8 +110,8 @@ public:
 	Initialized the __SettingStack on index zero.
 	>*/
 
-	Derived& operator [] (std::size_t index);
-	Derived& Indexed(std::size_t index); /*<
+	Derived& operator [] (Index index);
+	Derived& Indexed(Index index); /*<
 	Returns a reference to the setting stack at the specified index.
 	The value of index should not exceed the maximum value for the managed
 	indexed setting.

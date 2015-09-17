@@ -2951,6 +2951,29 @@ public:
 		Wrap(target, TextureWrapCoord::R, mode);
 	}
 
+	/// Sets the wrap parameter (TEXTURE_WRAP_*)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_WRAP_R}
+	 *  @gldefref{TEXTURE_WRAP_T}
+	 *  @gldefref{TEXTURE_WRAP_S}
+	 */
+	static void Wrap(Target target, TextureWrap mode)
+	{
+		switch(TextureTargetDimensions(target))
+		{
+			case 3: WrapR(target, mode);
+				OGLPLUS_FALLTHROUGH
+			case 2: WrapT(target, mode);
+				OGLPLUS_FALLTHROUGH
+			case 1: WrapS(target, mode);
+				OGLPLUS_FALLTHROUGH
+			case 0: break;
+			default: OGLPLUS_ABORT("Invalid texture wrap dimension");
+		}
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
 	/// Gets the depth stencil mode parameter (DEPTH_STENCIL_TEXTURE_MODE)
 	/**
@@ -3168,19 +3191,9 @@ inline TextureTarget operator << (TextureTarget target, CompareFunction func)
 }
 
 // Wrap
-inline TextureTarget operator << (TextureTarget target, TextureWrap wrap)
+inline TextureTarget operator << (TextureTarget target, TextureWrap mode)
 {
-	switch(TextureTargetDimensions(target))
-	{
-		case 3: DefaultTextureOps::WrapR(target, wrap);
-			OGLPLUS_FALLTHROUGH
-		case 2: DefaultTextureOps::WrapT(target, wrap);
-			OGLPLUS_FALLTHROUGH
-		case 1: DefaultTextureOps::WrapS(target, wrap);
-			OGLPLUS_FALLTHROUGH
-		case 0: break;
-		default: OGLPLUS_ABORT("Invalid texture wrap dimension");
-	}
+	DefaultTextureOps::Wrap(target, mode);
 	return target;
 }
 

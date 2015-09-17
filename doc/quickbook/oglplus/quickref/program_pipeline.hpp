@@ -31,7 +31,7 @@ public:
 template <>
 class __ObjectOps<__tag_DirectState, __tag_ProgramPipeline>
  : public __ObjZeroOps<__tag_DirectState, __tag_ProgramPipeline> /*<
-Indirectly inherits from __ObjCommonOps_ProgramPipeline.
+Indirectly inherits from __ObjCommonOps_ProgramPipeline<__tag_ProgramPipeline>.
 >*/
 {
 public:
@@ -122,7 +122,7 @@ typedef ObjectOps<__tag_DirectState, __tag_ProgramPipeline>
 typedef __Object<ProgramPipelineOps> ProgramPipeline;
 
 typedef __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_ProgramPipeline>> /*<
-Indirectly inherits from __ObjCommonOps_ProgramPipeline.
+Indirectly inherits from __ObjCommonOps_ProgramPipeline<__tag_ProgramPipeline>.
 >*/
 	NoProgramPipeline;
 

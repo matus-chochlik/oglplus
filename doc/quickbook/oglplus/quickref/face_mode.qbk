@@ -13,10 +13,20 @@
 [import enums/face.hpp]
 [oglplus_enums_face]
 
+[heading:face_class [^Face] to class]
+
+[import enums/face_class.hpp]
+[oglplus_enums_face_class]
+
 [heading:single_face Single face]
 
 [import enums/single_face.hpp]
 [oglplus_enums_single_face]
+
+[heading:single_face_class [^SingleFace] to class]
+
+[import enums/single_face_class.hpp]
+[oglplus_enums_single_face_class]
 
 [heading:orientation Orientation]
 

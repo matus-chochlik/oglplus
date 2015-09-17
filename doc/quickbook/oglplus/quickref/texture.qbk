@@ -18,7 +18,7 @@
 
 [oglplus_texture_common]
 
-[heading Operations with explicit selector]
+[heading:ops Operations with explicit selector]
 
 [oglplus_texture_1]
 [oglplus_texture_2]
@@ -41,6 +41,11 @@
 [header oglplus/texture_target.hpp]
 [import enums/texture_target.hpp]
 [oglplus_enums_texture_target]
+
+[heading:target_class Target to class]
+
+[import enums/texture_target_class.hpp]
+[oglplus_enums_texture_target_class]
 
 [heading:compare_mode Compare mode]
 
@@ -90,5 +95,22 @@
 [header oglplus/texture_unit.hpp]
 [import texture_unit.hpp]
 [oglplus_texture_unit_selector]
+
+[heading:examples Examples of usage]
+
+[import texture.cpp]
+
+[heading:example_setup_1 Typical setup of a 2D texture]
+
+This code snippet shows a typical setup for a 2D texture.
+See also [link oglplus.quickref.bound_texture.example_setup_1 a more convenient way how
+to setup textures] by using the [link oglplus.quickref.object.bound currently bound objects].
+
+[oglplus_texture_example_setup_1]
+
+The [link oglplus.quickref.texture.sugar syntax sugar operators] provide another
+convenient alternative for setting up texture parameters and image data.
+
+[oglplus_texture_example_setup_2]
 
 [endsect]

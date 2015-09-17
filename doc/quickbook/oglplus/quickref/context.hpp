@@ -24,7 +24,8 @@ class Context
  , public __context_DepthTest
  , public __context_StencilTest
  , public __context_ScissorTest
- , public __context_LogicalOps
+ , public __context_LogicOpState
+ , public __context_PixelState
  , public __context_PixelOps
  , public __context_BlendingOps
  , public __context_BlendingState

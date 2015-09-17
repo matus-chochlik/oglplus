@@ -13,7 +13,7 @@
 
 [oglplus_renderbuffer_common]
 
-[heading Operations with explicit selector]
+[heading:ops Operations with explicit selector]
 
 [oglplus_renderbuffer_1]
 
@@ -30,5 +30,10 @@
 [header oglplus/renderbuffer_target.hpp]
 [import enums/renderbuffer_target.hpp]
 [oglplus_enums_renderbuffer_target]
+
+[heading:target_class Target to class]
+
+[import enums/renderbuffer_target_class.hpp]
+[oglplus_enums_renderbuffer_target_class]
 
 [endsect]
