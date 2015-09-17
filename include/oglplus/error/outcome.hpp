@@ -33,7 +33,7 @@ protected:
 	BaseOutcome(void) = default;
 #else
 	BaseOutcome(void)
-	OGLPLUS_NOEXCEPT(true);
+	OGLPLUS_NOEXCEPT(true)
 	{ }
 #endif
 

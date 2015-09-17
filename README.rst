@@ -330,6 +330,10 @@ Acknowledgements
 - *Konstantin Gainullin* for porting to Marmalade and fixing several warnings.
 - *Peter Laufenberg* for several patches.
 - *Jan P Springer (regnirpsj)* for contributing SSBO wrappers and example.
+- *Mikołaj Siedlarek* for libpng-related fixes.
+- *Jason Francis* for several bugfixes.
+
+
 License
 =======
 

@@ -787,6 +787,12 @@ public:
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_buffer_storage
+	/// Sets-up the buffer storage
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,buffer_storage}
+	 */
 	static void Storage(
 		Target target,
 		const BufferData& data,
