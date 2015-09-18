@@ -11,11 +11,6 @@
 
 bool do_query_gl(void)
 {
-#if !defined GL_KHR_debug
-	return false;
-#elif !GL_KHR_debug
-	return false;
-#else
 	if(!does_have_KHR_debug())
 	{
 		return false;
@@ -25,5 +20,4 @@ bool do_query_gl(void)
 	OGLPLUS_CONFIG_ASSERT_GL_FUNC(glPushDebugGroup);
 	OGLPLUS_CONFIG_ASSERT_GL_FUNC(glPopDebugGroup);
 	return missing_gl_symbols == 0;
-#endif
 }
