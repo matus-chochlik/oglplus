@@ -1,4 +1,4 @@
-#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -13,6 +13,10 @@ macro(gl_lib_ext_detection GL_LIB EXTENSION_VENDOR EXTENSION_NAME)
 
 	if(HAS_${GL_LIB}_${EXTENSION_VENDOR}_${EXTENSION_NAME})
 		message(STATUS "Found ${GL_LIB} extension: ${EXTENSION_VENDOR}_${EXTENSION_NAME}")
+	else()
+		file(APPEND ${OGLPLUS_FIX_GL_EXTENSION_HPP} "#ifdef GL_${EXTENSION_VENDOR}_${EXTENSION_NAME}\n")
+		file(APPEND ${OGLPLUS_FIX_GL_EXTENSION_HPP} "#undef GL_${EXTENSION_VENDOR}_${EXTENSION_NAME}\n")
+		file(APPEND ${OGLPLUS_FIX_GL_EXTENSION_HPP} "#endif //GL_${EXTENSION_VENDOR}_${EXTENSION_NAME}\n")
 	endif()
 
 	unset(OGLPLUS_CONFIG_QUERY_GL_EXT)
@@ -21,6 +25,15 @@ macro(gl_lib_ext_detection GL_LIB EXTENSION_VENDOR EXTENSION_NAME)
 
 endmacro()
 
+set(
+	OGLPLUS_FIX_GL_EXTENSION_HPP
+	${PROJECT_BINARY_DIR}/include/oglplus/config/fix_gl_extension.hpp
+)
+
+configure_file(
+	${PROJECT_SOURCE_DIR}/config/oglplus/config/fix_gl_extension.hpp.in
+	${OGLPLUS_FIX_GL_EXTENSION_HPP}
+)
 
 gl_lib_ext_detection(GL ARB shader_subroutine)
 gl_lib_ext_detection(GL ARB shader_atomic_counters)
@@ -36,6 +49,8 @@ gl_lib_ext_detection(GL KHR debug)
 gl_lib_ext_detection(GL NV path_rendering)
 gl_lib_ext_detection(GL NV copy_image)
 
+file(APPEND ${OGLPLUS_FIX_GL_EXTENSION_HPP} "#endif //include guard\n")
+install(FILES ${OGLPLUS_FIX_GL_EXTENSION_HPP} DESTINATION include/oglplus)
 
 macro(glew_ext_detection EXTENSION_VENDOR EXTENSION_NAME)
 	if(GLEW_FOUND)

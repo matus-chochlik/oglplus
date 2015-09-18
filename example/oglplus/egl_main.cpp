@@ -3,13 +3,14 @@
  *  Implements EGL-based program main function for running examples
  *  .note This harness does only off-screen rendering into an EGL Pbuffer
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #include <oglplus/gl.hpp>
 #include <oglplus/config/fix_gl_version.hpp>
+#include <oglplus/config/fix_gl_extension.hpp>
 #include <eglplus/egl.hpp>
 
 #define EGL_CONTEXT_MAJOR_VERSION       0x3098
@@ -654,7 +655,7 @@ int egl_example_main(int argc, char ** argv)
 			argc -= 2;
 		}
 		else if(parsed == 0)
-		{	
+		{
 			++a;
 		}
 	}
@@ -668,7 +669,7 @@ int egl_example_main(int argc, char ** argv)
 		return 1;
 	}
 
- 
+
 	eglplus::Display display;
 	eglplus::LibEGL egl(display);
 	// run the main loop

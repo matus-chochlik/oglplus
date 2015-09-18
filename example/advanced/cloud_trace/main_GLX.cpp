@@ -18,6 +18,7 @@
 
 #include <oglplus/gl.hpp>
 #include <oglplus/config/fix_gl_version.hpp>
+#include <oglplus/config/fix_gl_extension.hpp>
 
 #include <oglplus/glx/context.hpp>
 #include <oglplus/glx/fb_configs.hpp>
