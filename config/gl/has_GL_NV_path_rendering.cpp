@@ -1,5 +1,5 @@
 /**
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -7,6 +7,7 @@
 #define OGLPLUS_CONFIG_QUERY_GL_VER_MINOR 2
 
 #include "init_GL.ipp"
+#include "has_GL_NV_path_rendering.ipp"
 
 bool do_query_gl(void)
 {
@@ -33,6 +34,6 @@ bool do_query_gl(void)
 	// GL_NV_path_rendering extension broken
 	return false;
 #else
-	return true;
+	return does_have_NV_path_rendering();
 #endif
 }
