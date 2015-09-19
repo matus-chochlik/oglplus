@@ -1,10 +1,11 @@
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 if((wxWidgets_FOUND) AND (OPENAL_FOUND))
+if((HAS_GL_VERSION_4_1) OR (HAS_GL_EXT_direct_state_access) OR (HAS_GL_ARB_separate_shader_objects))
 	add_definitions(-DOGLPLUS_LINK_LIBRARY=${OGLPLUS_LINK_LIBRARY})
 	add_definitions(-DOALPLUS_LINK_LIBRARY=1)
 
@@ -54,4 +55,5 @@ if((wxWidgets_FOUND) AND (OPENAL_FOUND))
 	target_link_libraries(spectra ${OPENAL_LIBRARIES})
 	add_dependencies(oglplus-advanced-example-spectra spectra)
 	add_dependencies(oglplus-advanced-examples oglplus-advanced-example-spectra)
+endif()
 endif()
