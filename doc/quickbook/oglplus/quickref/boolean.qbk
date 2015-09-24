@@ -28,4 +28,9 @@ instances).
 
 [oglplus_boolean]
 
+[heading:examples Examples]
+
+[import boolean.cpp]
+[oglplus_boolean_example_1]
+
 [endsect]
