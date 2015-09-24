@@ -134,6 +134,58 @@
         </h4>
 <pre class="programlisting"><span class="keyword">typedef</span> <a class="link" href="boolean.html#oglplus.quickref.boolean.impl">BoolImpl</a><span class="special">&lt;</span><span class="identifier">GLboolean</span><span class="special">,</span> <span class="identifier">GLint</span><span class="special">,</span> <span class="identifier">GL_TRUE</span><span class="special">,</span> <span class="identifier">GL_FALSE</span><span class="special">&gt;</span> <span class="identifier">Boolean</span><span class="special">;</span>
 </pre>
+<h4>
+<a name="oglplus.quickref.boolean.h3"></a>
+          <span class="phrase"><a name="oglplus.quickref.boolean.examples"></a></span><a class="link" href="boolean.html#oglplus.quickref.boolean.examples">Examples</a>
+        </h4>
+<pre class="programlisting"><a class="link" href="context.html" title="Current GL context">Context</a> <span class="identifier">gl</span><span class="special">;</span>
+
+<span class="keyword">if</span><span class="special">(</span><span class="identifier">gl</span><span class="special">.</span><span class="identifier">IsEnabled</span><span class="special">(</span><a class="link" href="capability.html" title="Capabilities">Capability</a><span class="special">::</span><span class="identifier">DepthTest</span><span class="special">))</span> <a class="co" name="oglplus.quickref.boolean.c14" href="boolean.html#oglplus.quickref.boolean.c15"><img src="../../images/callouts/1.png" alt="1" border="0"></a>
+<span class="special">{</span>
+	<span class="comment">/* ... */</span>
+<span class="special">}</span>
+
+<span class="keyword">if</span><span class="special">(!</span><span class="identifier">gl</span><span class="special">.</span><span class="identifier">IsEnabled</span><span class="special">(</span><a class="link" href="capability.html" title="Capabilities">Capability</a><span class="special">::</span><span class="identifier">StencilTest</span><span class="special">))</span> <a class="co" name="oglplus.quickref.boolean.c16" href="boolean.html#oglplus.quickref.boolean.c17"><img src="../../images/callouts/2.png" alt="2" border="0"></a>
+<span class="special">{</span>
+	<span class="comment">/* ... */</span>
+<span class="special">}</span>
+
+<span class="keyword">if</span><span class="special">(~</span><span class="identifier">gl</span><span class="special">.</span><span class="identifier">IsEnabled</span><span class="special">(</span><a class="link" href="capability.html" title="Capabilities">Capability</a><span class="special">::</span><span class="identifier">DepthTest</span><span class="special">))</span> <a class="co" name="oglplus.quickref.boolean.c18" href="boolean.html#oglplus.quickref.boolean.c19"><img src="../../images/callouts/3.png" alt="3" border="0"></a>
+<span class="special">{</span>
+	<span class="comment">/* ... */</span>
+<span class="special">}</span>
+
+<span class="keyword">if</span><span class="special">(!~</span><span class="identifier">gl</span><span class="special">.</span><span class="identifier">IsEnabled</span><span class="special">(</span><a class="link" href="capability.html" title="Capabilities">Capability</a><span class="special">::</span><span class="identifier">StencilTest</span><span class="special">))</span> <a class="co" name="oglplus.quickref.boolean.c20" href="boolean.html#oglplus.quickref.boolean.c21"><img src="../../images/callouts/4.png" alt="4" border="0"></a>
+<span class="special">{</span>
+	<span class="comment">/* ... */</span>
+<span class="special">}</span>
+</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c15"></a><a href="#oglplus.quickref.boolean.c14"><img src="../../images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Equal to <code class="literal">GL_TRUE</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c17"></a><a href="#oglplus.quickref.boolean.c16"><img src="../../images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Equal to <code class="literal">GL_FALSE</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c19"></a><a href="#oglplus.quickref.boolean.c18"><img src="../../images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Not equal to <code class="literal">GL_FALSE</code>.
+            </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a name="oglplus.quickref.boolean.c21"></a><a href="#oglplus.quickref.boolean.c20"><img src="../../images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left"><p>
+              Not equal to <code class="literal">GL_TRUE</code>.
+            </p></td>
+</tr>
+</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
