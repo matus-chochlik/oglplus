@@ -6,10 +6,22 @@
 
 //[oglplus_size_impl
 
+#if __OGLPLUS_LOW_PROFILE
+
+template <typename T>
+struct SizeImpl
+{
+	typedef T Type;
+};
+
+#else // !OGLPLUS_LOW_PROFILE
+
 template <typename T>
 struct SizeImpl
 {
 public:
+	typedef SizeImpl Type;
+
 	SizeImpl(void) /*<
 	Constructs a zero size instance.
 	>*/
@@ -20,16 +32,6 @@ public:
 	Conversion from other signed or unsigned integral types.
 	Throws if the passed value is negative or out of range of [^T].
 	>*/
-
-	template <typename X, typename = typename is_integral<X>::type>
-	SizeImpl(X v, std::nothrow_t)
-	noexcept; /*<
-	Conversion from other signed or unsigned integral types.
-	Does not throw.
-	>*/
-
-	T get(void) const
-	noexcept;
 
 	explicit
 	operator bool (void) const
@@ -44,9 +46,10 @@ public:
 	out of range of [^T] when initialized.
 	>*/
 
-	operator T (void) const; /*<
+	operator T (void) const /*<
 	Implicit conversion to [^T].
 	>*/
+	noexcept;
 
 	template <typename X>
 	explicit
@@ -82,8 +85,16 @@ public:
 //]
 //[oglplus_size_type_def
 
-typedef __SizeImpl<GLsizei> SizeType;
-typedef __SizeImpl<GLsizeiptr> BigSizeType;
+typedef typename __SizeImpl<GLsizei>::Type SizeType;
+typedef typename __SizeImpl<GLsizeiptr>::Type BigSizeType;
+
+template <typename X, typename = typename is_integral<X>::type>
+SizeImpl MakeSizeImpl(X v, std::nothrow_t)
+noexcept; /*<
+Constructs a [^SizeImpl] from other signed or unsigned integral types.
+Does not throw.
+>*/
+
 
 //]
 
