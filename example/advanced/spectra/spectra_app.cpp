@@ -14,6 +14,7 @@
 #include <oglplus/config/fix_gl_extension.hpp>
 #include <oglplus/opt/application.hpp>
 #include <oglplus/lib/oglplus.hpp>
+#include <oglplus/error/glfunc.hpp>
 
 #include <oalplus/al.hpp>
 #include <oalplus/lib.hpp>
