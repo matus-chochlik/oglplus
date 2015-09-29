@@ -17,8 +17,8 @@
 
 namespace oglplus {
 
-typedef typename SizeImpl<GLsizei>::Type SizeType;
-typedef typename SizeImpl<GLsizeiptr>::Type BigSizeType;
+typedef SizeImpl<GLsizei>::Type SizeType;
+typedef SizeImpl<GLsizeiptr>::Type BigSizeType;
 
 #if OGLPLUS_LOW_PROFILE
 static inline
