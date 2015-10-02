@@ -469,6 +469,16 @@ def get_argument_parser():
 		"""
 	)
 	argparser.add_argument(
+		"--debug-gl-ext-error",
+		dest="debug_gl_ext_error",
+		type=str,
+		default="",
+		action="store",
+		help="""
+			Enable debugging of problems with GL extension detetion.
+		"""
+	)
+	argparser.add_argument(
 		"--debug-lib-error",
 		dest="debug_lib_error",
 		default=False,
@@ -965,6 +975,8 @@ def main(argv):
 		cmake_options += ["--debug-output", "--debug-trycompile"]
 	if(options.debug_gl_ver_error):
 		cmake_options += ["-DOGLPLUS_DEBUG_GL_VER_ERROR=1"]
+	if(options.debug_gl_ext_error):
+		cmake_options += ["-DOGLPLUS_DEBUG_GL_EXT_ERROR="+options.debug_gl_ext_error]
 	if(options.debug_lib_error):
 		cmake_options += ["-DOGLPLUS_DEBUG_LIB_ERROR=1"]
 

@@ -7,7 +7,6 @@
 //[oglplus_buffer_size
 
 class BufferSize
- : __BigSizeType
 {
 public:
 	BufferSize(void); /*< Constructs a zero size. >*/
@@ -34,6 +33,11 @@ public:
 	BufferSize(const std::vector<T>& vector); /*<
 	Constructs a [^BufferSize] required to store elements in [^vector].
 	>*/
+
+	operator __BigSizeType (void) const /*<
+	Implicit conversion to the underlying __BigSizeType.
+	>*/
+	noexcept;
 
 	template <typename T>
 	static BufferSize Of(unsigned count, const T* data = nullptr); /*<

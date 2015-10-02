@@ -115,18 +115,23 @@ def main():
 		# process the configurations
 		for gl_api_lib in oglplus_config_info['GL_API_LIBS']:
 			for gl_init_lib in oglplus_config_info['GL_INIT_LIBS']:
-				conf_msg = "Building with %(api)s+%(init)s\n" % {
-					'api': gl_api_lib,
-					'init': gl_init_lib
-				}
-				sys.stdout.write(conf_msg)
-				sys.stderr.write(conf_msg)
-				execute_configure(options.config_options+[
-					"--from-scratch",
-					"--use-gl-api-lib="+gl_api_lib,
-					"--use-gl-init-lib="+gl_init_lib,
-					"--build"
-				], dry_run)
+				for additional_opts in [
+					['--low-profile', 'True'],
+					['--low-profile', 'False']
+				]:
+					conf_msg = "Building with %(api)s+%(init)s %(opts)s\n" % {
+						'api': gl_api_lib,
+						'init': gl_init_lib,
+						'opts': ' '.join(additional_opts)
+					}
+					sys.stdout.write(conf_msg)
+					sys.stderr.write(conf_msg)
+					execute_configure(options.config_options+[
+						"--from-scratch",
+						"--use-gl-api-lib="+gl_api_lib,
+						"--use-gl-init-lib="+gl_init_lib,
+						"--build"
+					]+additional_opts, dry_run)
 	except RuntimeError as rte:
 		print("Runtime error: " + str(rte))
 

@@ -1,4 +1,4 @@
-#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -24,6 +24,13 @@ function(gl_feature_detection GL_LIB QUERY QUERY_KIND)
 		configure_file(
 			${PROJECT_SOURCE_DIR}/config/gl/has_${GL_LIB}_${QUERY_KIND}.cpp.in
 			${PROJECT_BINARY_DIR}/gl/has_${GL_LIB}_${QUERY}.cpp
+		)
+	endif()
+
+	if(EXISTS ${PROJECT_SOURCE_DIR}/config/gl/has_${GL_LIB}_${QUERY_KIND}.ipp.in)
+		configure_file(
+			${PROJECT_SOURCE_DIR}/config/gl/has_${GL_LIB}_${QUERY_KIND}.ipp.in
+			${PROJECT_BINARY_DIR}/gl/has_${GL_LIB}_${QUERY}.ipp
 		)
 	endif()
 
@@ -79,6 +86,8 @@ function(gl_feature_detection GL_LIB QUERY QUERY_KIND)
 		else()
 			set(OGLPLUS_NO_${GL_LIB}_${QUERY} TRUE PARENT_SCOPE)
 		endif()
+	else()
+		set(OGLPLUS_NO_${GL_LIB}_${QUERY} TRUE PARENT_SCOPE)
 	endif()
 	unset(RUNS_WITH_${GL_LIB}_${QUERY})
 	unset(COMPILED_WITH_${GL_LIB}_${QUERY})

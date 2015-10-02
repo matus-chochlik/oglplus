@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.66.0
+Release notes for version 0.67.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,5 +7,5 @@ Release notes for version 0.66.0
 Overview
 ========
 
-This release of `OGLplus`_ brings several changes to ``ClientContext`` and its helper classes, refactoring of the ``DeferredHandler`` and ``Outcome<T>`` classes, minor bugfixes, updates to the build system and updated Quickbook documentation.
+This release of `OGLplus`_ brings improvements to the GL version and extension detection in the build system, fixes problems with compiling in the ``LOW_PROFILE`` mode, low-profile versions of the ``SizeType`` and ``BigSizeType`` helper types, updated documentation and other minor fixes and updates.
 

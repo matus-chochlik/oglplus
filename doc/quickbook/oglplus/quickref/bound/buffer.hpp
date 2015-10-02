@@ -82,10 +82,12 @@ public:
 	) const;
 #endif
 
+#if GL_VERSION_4_4 || GL_ARB_buffer_storage
 	const BoundObjOps& Storage(
 		const __BufferData & data,
 		__Bitfield< __BufferStorageBit > flags
 	) const;
+#endif
 
 #if GL_VERSION_4_4 || GL_ARB_buffer_storage
 	const BoundObjOps& Storage(

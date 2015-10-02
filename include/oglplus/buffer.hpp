@@ -916,7 +916,7 @@ public:
 			&value
 		);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
-		return SizeType(value, std::nothrow);
+		return MakeSizeType(value, std::nothrow);
 	}
 #endif
 
@@ -930,7 +930,7 @@ public:
 	 */
 	static SizeType Size(Target target)
 	{
-		return SizeType(
+		return MakeSizeType(
 			GetIntParam(target, GL_BUFFER_SIZE),
 			std::nothrow
 		);

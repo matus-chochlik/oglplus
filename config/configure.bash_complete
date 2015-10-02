@@ -1,4 +1,4 @@
-#  Copyright 2010-2014 Matus Chochlik.
+#  Copyright 2010-2015 Matus Chochlik.
 #  Distributed under the Boost Software License, Version 1.0.
 #  (See accompanying file LICENSE_1_0.txt or copy at
 #  http://www.boost.org/LICENSE_1_0.txt)
@@ -31,10 +31,13 @@ function _oglplus_config()
 			))
 			IFS=${OLDIFS}
 			return 0;;
-		--prefix|--build-dir|--include-dir|-I|--library-dir|-L)
+		--prefix|--build-dir|--include-dir|-I|--library-dir|-L|--search-dir|-S)
 			COMPREPLY=($(compgen -f "${curr}"))
 			return 0;;
 		--low-profile)
+			COMPREPLY=($(compgen -W "True False" -- "${curr}"))
+			return 0;;
+		--use-boost-config)
 			COMPREPLY=($(compgen -W "True False" -- "${curr}"))
 			return 0;;
 		--build-examples)
@@ -65,6 +68,8 @@ function _oglplus_config()
 		--use-ldflags \
 		--low-profile \
 		--info-only \
+		--use-boost-config \
+		--no-boost-config \
 		--build-examples \
 		--no-examples \
 		--build-docs \
@@ -97,26 +102,32 @@ function _oglplus_config()
 		--generator \
 		--debug-config \
 		--debug-gl-ver-error \
+		--debug-gl-ext-error \
 		--debug-lib-error \
 		--cmake \
 	"
 
 	local muog_0=" \
+		--use-boost-config \
+		--no-boost-config \
+	"
+
+	local muog_1=" \
 		--build-examples \
 		--no-examples \
 	"
 
-	local muog_1=" \
+	local muog_2=" \
 		--build-docs \
 		--no-docs \
 	"
 
-	local muog_2=" \
+	local muog_3=" \
 		--make-screenshots \
 		--screenshots \
 	"
 
-	local muog_3=" \
+	local muog_4=" \
 		--use-gl-api-lib \
 		--use-glew \
 		--use-gl3w \
@@ -124,7 +135,7 @@ function _oglplus_config()
 		--use-gl3-h \
 	"
 
-	local muog_4=" \
+	local muog_5=" \
 		--use-gl-init-lib \
 		--use-glut \
 		--use-glfw3 \
@@ -140,6 +151,7 @@ function _oglplus_config()
 	local repeated_opts=" \
 		--include-dir -I \
 		--library-dir -L \
+		--search-dir -S \
 	"
 
 	local opts="${repeated_opts}"
@@ -155,7 +167,7 @@ function _oglplus_config()
 		done
 		if [ "${opt_used}" == "false" ]
 		then
-			for muog in "${muog_0}" "${muog_1}" "${muog_2}" "${muog_3}" "${muog_4}"
+			for muog in "${muog_0}" "${muog_1}" "${muog_2}" "${muog_3}" "${muog_4}" "${muog_5}"
 			do
 				local is_muo=false
 				for muo in ${muog}
