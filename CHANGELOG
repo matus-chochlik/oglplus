@@ -1,3 +1,11 @@
+Version 0.67.0
+
+- LOW_PROFILE versions of the SizeType and BigSizeType types have been added.
+- Some problems with building in the LOW_PROFILE mode have been fixed.
+- The GL version and extension detection in the build system has been improved.
+- Other minor changes have been made to the build system.
+- The Quickbook documentation has been updated.
+
 Version 0.66.0
 
 - The DeferredHandler class and the Outcome<T> template have been refactored.
