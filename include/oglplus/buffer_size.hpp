@@ -50,6 +50,13 @@ public:
 	}
 
 	template <typename T>
+	OGLPLUS_EXPLICIT
+	operator T (void) const
+	{
+		return T(_v);
+	}
+
+	template <typename T>
 	BufferSize(std::size_t count, const T*)
 	OGLPLUS_NOEXCEPT(true)
 	 : _v(GLsizeiptr(sizeof(T)*count))
