@@ -60,7 +60,7 @@ function MakeSwizzle()
 		for I in $(seq 1 ${N})
 		do
 			echo "	T ${Coords:$[I-1]:1}(void) const " \
-				"{ return this->template At($[I-1]); }"
+				"{ return this->At($[I-1]); }"
 		done
 
 		for I in $(seq 2 ${N})
