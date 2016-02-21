@@ -90,7 +90,7 @@
 						<li id="download"><a href="http://sourceforge.net/projects/oglplus/files/">All releases</a></li>
 						<li id="assets"><a href="http://sourceforge.net/projects/oglplus/files/assets/">Assets (models, textures) used in examples</a></li>
 
-						<li id="git-repo"><a href="https://github.com/matus-chochlik/oglplus">GIT repository</a></li>
+						<li id="git-repo"><a href="https://github.com/matus-chochlik/oglplus">GIT repository</a>, <a href="https://github.com/matus-chochlik/oglplu2">GIT repository (oglplu2)</a></li>
 					</ul>
 					<h3>Documentation</h3>
 					<ul>
@@ -194,6 +194,7 @@
 				</ul>
 				<h3>Related projects</h3>
 				<ul>
+					<li id="oglplu2"><a href="https://github.com/matus-chochlik/eagine">OGLplus 2</a></li>
 					<li id="eagine"><a href="https://github.com/matus-chochlik/eagine">EAGine</a></li>
 					<li id="angles"><a href="https://github.com/matus-chochlik/angle">Angles</a></li>
 				</ul>
