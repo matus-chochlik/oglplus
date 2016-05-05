@@ -18,14 +18,14 @@ GetIntParam(GLenum query) const
 {
 	GLint value = 0;
 	OGLPLUS_GLFUNC(GetNamedBufferParameteriv)(
-		_name,
+		_obj_name(),
 		query,
 		&value
 	);
 	OGLPLUS_VERIFY(
 		GetNamedBufferParameteriv,
 		ObjectError,
-		Object(BufferName(_name)).
+		Object(BufferName(_obj_name())).
 		EnumParam(query)
 	);
 	return value;
