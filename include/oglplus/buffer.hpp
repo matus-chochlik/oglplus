@@ -56,8 +56,8 @@ protected:
 	static void Gen(tag::Create, GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
-		OGLPLUS_GLFUNC(GenBuffers)(count, names);
-		OGLPLUS_CHECK_SIMPLE(GenBuffers);
+		OGLPLUS_GLFUNC(CreateBuffers)(count, names);
+		OGLPLUS_CHECK_SIMPLE(CreateBuffers);
 	}
 #endif
 
