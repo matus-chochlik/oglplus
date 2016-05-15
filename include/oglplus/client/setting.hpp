@@ -225,7 +225,7 @@ public:
 		return Indexed(index);
 	}
 
-	typedef SettingHolder<T, GLuint> Holder;
+	typedef SettingHolder<T, Index> Holder;
 
 	inline
 	Holder Push(T value)
@@ -237,7 +237,7 @@ public:
 	inline
 	Holder Push(A&& ... a)
 	{
-		_zero().Push(std::forward<A>(a)...);
+		return _zero().Push(std::forward<A>(a)...);
 	}
 
 	inline
