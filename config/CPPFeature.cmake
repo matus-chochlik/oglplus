@@ -19,6 +19,9 @@ function(cpp_feature_detection FEATURE_NAME)
 			${PROJECT_SOURCE_DIR}/config/cpp/has_${FEATURE_NAME}.cpp
 			${PROJECT_BINARY_DIR}/cpp/has_${FEATURE_NAME}.cpp
 		)
+		if(${${FEATURE_NAME}_FOUND})
+			do_use_single_dependency(${FEATURE_NAME})
+		endif()
 
 		try_compile(
 			OGLPLUS_HAS_${FEATURE_NAME}

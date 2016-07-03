@@ -78,13 +78,13 @@ include(config/FindPangoCairo.cmake)
 
 # compiler options
 include(config/Compiler.cmake)
+# macro for checking executable requirements
+include(config/ExeRequirements.cmake)
 # c++ compiler options / supported feature detection
 include(config/CPPFeature.cmake)
 # check if Boost.Config is available
 include(config/FindBoost.cmake)
 
-# macro for checking executable requirements
-include(config/ExeRequirements.cmake)
 
 # We'll need OpenGL API and context initialization/window-system library
 foreach(KIND API INIT)
