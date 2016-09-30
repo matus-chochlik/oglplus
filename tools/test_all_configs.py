@@ -19,6 +19,16 @@ def get_root_dir():
 		)
 	)
 
+def build_dir():
+	import os
+
+	try:
+		p = open(os.path.join(get_root_dir(), "BINARY_DIR"), "rt").read()
+		if os.path.isdir(p):
+			return p
+	except: pass
+	return os.path.join(get_root_dir(), "_build")
+
 # returns the path of the config script
 def configure_script(root_dir = get_root_dir()):
 	import os
@@ -108,7 +118,7 @@ def main():
 			"--info-only"
 		])
 		# load configuration info
-		info_py_path=os.path.join(get_root_dir(), '_build', 'config', 'info.py')
+		info_py_path=os.path.join(build_dir(), 'config', 'info.py')
 		info_py=open(info_py_path).read()
 		exec(info_py) in locals()
 
