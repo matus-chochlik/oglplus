@@ -150,6 +150,7 @@ def action_finish_release():
 	git_command(["pull", "origin", "master"], root_dir)
 	git_command(["merge", "--no-ff", release_branch], root_dir)
 	git_command(["tag", "-a", release_version, "-m", "Tagged release "+release_version], root_dir)
+	git_command(["push", "origin", release_version], root_dir)
 	git_command(["push", "origin", "master"], root_dir)
 	git_command(["checkout", "develop"], root_dir)
 	git_command(["pull", "origin", "develop"], root_dir)
