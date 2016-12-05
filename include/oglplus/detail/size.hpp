@@ -13,6 +13,10 @@
 #ifndef OGLPLUS_DETAIL_SIZE_1501311633_HPP
 #define OGLPLUS_DETAIL_SIZE_1501311633_HPP
 
+#ifdef max
+#undef max
+#endif
+
 #include <oglplus/config/compiler.hpp>
 #include <oglplus/config/basic.hpp>
 #include <type_traits>
