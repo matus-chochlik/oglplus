@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta name="author" content="Matus Chochlik"/>
-<meta name="copyright" content="Copyright 2010-2015 Matus Chochlik"/>
+<meta name="copyright" content="Copyright 2010-2016 Matus Chochlik"/>
 <meta name="keywords" content="C++ OpenGL Graphics Library"/>
 <meta name="description" content="C++ wrapper for the OpenGL&reg; C API"/>
 
@@ -224,7 +224,7 @@
 		</div>
 	</div>
 	<div id="footer">
-		<em>Copyright &copy; 2008-2015</em> <strong>Matúš Chochlík</strong>, Žilina, Slovakia.<br/>
+		<em>Copyright &copy; 2008-2016</em> <strong>Matúš Chochlík</strong>, Žilina, Slovakia.<br/>
 		&lt;<a href="mailto:chochlik@gmail.com">chochlik -at -gmail.com</a>&gt;
 		&lt;<a href="mailto:matus.chochlik@fri.uniza.sk">matus.chochlik -at- fri.uniza.sk</a>&gt;<br/>
 
