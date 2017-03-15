@@ -25,6 +25,18 @@
 #define OGLPLUS_USE_GL3_H 0
 #endif
 
+#ifndef OGLPLUS_USE_GLES3_GL32_H
+#define OGLPLUS_USE_GLES3_GL32_H 0
+#endif
+
+#ifndef OGLPLUS_USE_GLES3_GL31_H
+#define OGLPLUS_USE_GLES3_GL31_H 0
+#endif
+
+#ifndef OGLPLUS_USE_GLES3_GL3_H
+#define OGLPLUS_USE_GLES3_GL3_H 0
+#endif
+
 #ifndef OGLPLUS_USE_GLEW
 #define OGLPLUS_USE_GLEW 0
 #endif
@@ -65,12 +77,38 @@ struct GLAPIInitializer
 #  define __glext_h__
 
 namespace oglplus {
-struct GLAPIInitializer
-{
-	GLAPIInitializer(
-		int /*gl_ver_major*/ = 3,
-		int /*gl_ver_minor*/ = 3
-	){ }
+struct GLAPIInitializer {
+	GLAPIInitializer(int = 3, int = 3){ }
+};
+} // namespace oglplus
+
+# elif OGLPLUS_USE_GLES3_GL32_H
+#  define GL3_PROTOTYPES
+#   include <GLES3/gl32.h>
+
+namespace oglplus {
+struct GLAPIInitializer {
+	GLAPIInitializer(int = 3, int = 3){ }
+};
+} // namespace oglplus
+
+# elif OGLPLUS_USE_GLES3_GL31_H
+#  define GL3_PROTOTYPES
+#   include <GLES3/gl31.h>
+
+namespace oglplus {
+struct GLAPIInitializer {
+	GLAPIInitializer(int = 3, int = 3){ }
+};
+} // namespace oglplus
+
+# elif OGLPLUS_USE_GLES3_GL3_H
+#  define GL3_PROTOTYPES
+#   include <GLES3/gl3.h>
+
+namespace oglplus {
+struct GLAPIInitializer {
+	GLAPIInitializer(int = 3, int = 3){ }
 };
 } // namespace oglplus
 
