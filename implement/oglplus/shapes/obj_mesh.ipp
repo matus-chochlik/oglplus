@@ -464,14 +464,14 @@ GLuint ObjMesh::GetMeshIndex(const std::string& name) const
 OGLPLUS_LIB_FUNC
 Spheref ObjMesh::MakeBoundingSphere(void) const
 {
-	GLdouble min_x = _pos_data[3], max_x = _pos_data[3];
-	GLdouble min_y = _pos_data[4], max_y = _pos_data[4];
-	GLdouble min_z = _pos_data[5], max_z = _pos_data[5];
+	double min_x = _pos_data[3], max_x = _pos_data[3];
+	double min_y = _pos_data[4], max_y = _pos_data[4];
+	double min_z = _pos_data[5], max_z = _pos_data[5];
 	for(std::size_t v=0, vn=_pos_data.size()/3; v!=vn; ++v)
 	{
-		GLdouble x = _pos_data[v*3+0];
-		GLdouble y = _pos_data[v*3+1];
-		GLdouble z = _pos_data[v*3+2];
+		double x = _pos_data[v*3+0];
+		double y = _pos_data[v*3+1];
+		double z = _pos_data[v*3+2];
 
 		if(min_x > x) min_x = x;
 		if(min_y > y) min_y = y;

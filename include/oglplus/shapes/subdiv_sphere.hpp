@@ -40,7 +40,7 @@ class SimpleSubdivSphere
 {
 private:
 	GLuint _subdivs;
-	std::vector<GLdouble> _positions;
+	std::vector<double> _positions;
 	std::vector<GLuint> _indices;
 
 	typedef std::pair<GLuint, GLuint> _edge;

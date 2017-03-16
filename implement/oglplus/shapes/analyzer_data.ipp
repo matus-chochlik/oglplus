@@ -548,7 +548,7 @@ bool ShapeAnalyzerGraphData::_same_va_values(
 	GLuint fb,
 	GLuint eb,
 	GLuint attr_vpv,
-	const std::vector<GLdouble>& vert_attr
+	const std::vector<double>& vert_attr
 )
 {
 	GLuint va0 = _face_verts[_face_index[fa]+ea];

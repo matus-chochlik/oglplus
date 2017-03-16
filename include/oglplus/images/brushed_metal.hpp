@@ -33,7 +33,7 @@ private:
 		GLsizei h,
 		GLint x,
 		GLint y,
-		GLdouble /*c*/,
+		double /*c*/,
 		GLubyte r,
 		GLubyte g
 	);

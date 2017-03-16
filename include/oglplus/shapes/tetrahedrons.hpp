@@ -31,7 +31,7 @@ class Tetrahedrons
  , public DrawMode
 {
 private:
-	GLdouble _side;
+	double _side;
 	unsigned _divisions;
 public:
 	/// Makes a unit sized tetrahedra filled cube with 10 divisions
@@ -41,7 +41,7 @@ public:
 	{ }
 
 	/// Makes a cube with the specified @p side and number of @p divisions
-	Tetrahedrons(GLdouble side, unsigned divisions)
+	Tetrahedrons(double side, unsigned divisions)
 	 : _side(side)
 	 , _divisions(divisions)
 	{
@@ -67,7 +67,7 @@ public:
 		dest[k++] = T(0);
 		dest[k++] = T(0);
 
-		GLdouble step = _side / _divisions;
+		double step = _side / _divisions;
 		//
 		for(unsigned z=0; z!=n; ++z)
 		for(unsigned y=0; y!=n; ++y)
@@ -93,7 +93,7 @@ public:
 		dest[k++] = T(0);
 		dest[k++] = T(0);
 
-		GLdouble step = 1.0 / _divisions;
+		double step = 1.0 / _divisions;
 		//
 		for(unsigned z=0; z!=n; ++z)
 		for(unsigned y=0; y!=n; ++y)

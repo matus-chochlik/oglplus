@@ -30,7 +30,7 @@ class PointAndVector
  , public DrawMode
 {
 private:
-	GLdouble _x, _y, _z;
+	double _x, _y, _z;
 public:
 	/// Constructs an unit vector pointing in the x-axis direction
 	PointAndVector(void)
@@ -40,7 +40,7 @@ public:
 	{ }
 
 	/// Constructs a vector with x,y,z coordinates
-	PointAndVector(GLdouble x, GLdouble y, GLdouble z)
+	PointAndVector(double x, double y, double z)
 	 : _x(x)
 	 , _y(y)
 	 , _z(z)

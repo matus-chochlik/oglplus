@@ -24,7 +24,7 @@ struct NormalMap_filter
 		GLfloat one
 	) const
 	{
-		typedef GLdouble number;
+		typedef double number;
 		number s = 0.05;
 
 		number sc  = extractor(sampler( 0, 0, 0));

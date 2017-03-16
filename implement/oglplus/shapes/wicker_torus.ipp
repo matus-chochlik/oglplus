@@ -22,49 +22,49 @@ std::vector<GLfloat> WickerTorus::_positions(void) const
 	);
 	unsigned k = 0;
 	//
-	const GLdouble t = _thickness / _radius_in;
-	const GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
-	const GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
-	const GLdouble r_slip = r_step * _r_slip_coef;
-	const GLdouble s_slip = s_step * _s_slip_coef;
-	const GLdouble r1 = _radius_in;
-	const GLdouble r2 = _radius_out - _radius_in;
+	const double t = _thickness / _radius_in;
+	const double r_step = (math::TwoPi()) / double(_rings);
+	const double s_step = (math::TwoPi()) / double(_sections);
+	const double r_slip = r_step * _r_slip_coef;
+	const double s_slip = s_step * _s_slip_coef;
+	const double r1 = _radius_in;
+	const double r2 = _radius_out - _radius_in;
 
 	for(unsigned f=0; f!=2; ++f)
 	{
-		const GLdouble f_sign = (f == 0)? 1.0: -1.0;
-		const GLdouble fdt = t*f_sign*0.5;
-		const GLdouble rfs = f_sign * r_slip;
+		const double f_sign = (f == 0)? 1.0: -1.0;
+		const double fdt = t*f_sign*0.5;
+		const double rfs = f_sign * r_slip;
 		for(unsigned r=0; r!=_rings; ++r)
 		{
-			const GLdouble r_angle = r*r_step;
-			const GLdouble r_sign = (r % 2 == 0)? 1.0: -1.0;
+			const double r_angle = r*r_step;
+			const double r_sign = (r % 2 == 0)? 1.0: -1.0;
 			const double rdt = t*r_sign*2.0;
 			for(unsigned s=0; s!=_sections; ++s)
 			{
-				const GLdouble sa[3] = {
+				const double sa[3] = {
 					s*s_step,
 					(s + t)*s_step,
 					(s + 1.0 - 2.0*t)*s_step
 				};
-				const GLdouble rd[3] = {
+				const double rd[3] = {
 					fdt,
 					fdt+((s % 2 == 0)? -rdt : rdt),
 					fdt+((s % 2 == 0)? -rdt : rdt)
 				};
 				for(unsigned p=0; p!=3; ++p)
 				{
-					GLdouble vr = std::cos(sa[p]);
-					GLdouble vy = std::sin(sa[p]);
-					GLdouble vs = 0.5 + vr*0.5;
+					double vr = std::cos(sa[p]);
+					double vy = std::sin(sa[p]);
+					double vs = 0.5 + vr*0.5;
 					for(unsigned d=0; d!=2; ++d)
 					{
-						const GLdouble d_sign = (d == 0)?-1.0: 1.0;
+						const double d_sign = (d == 0)?-1.0: 1.0;
 
-						GLdouble rs_angle = r_angle + d_sign*rfs*(1.0 - 0.25*vs);
+						double rs_angle = r_angle + d_sign*rfs*(1.0 - 0.25*vs);
 
-						GLdouble vx = std::cos(rs_angle);
-						GLdouble vz = std::sin(rs_angle);
+						double vx = std::cos(rs_angle);
+						double vz = std::sin(rs_angle);
 
 						dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + rd[p]*vr));
 						dest[k++] = T(vy*(r2 + rd[p]));
@@ -75,11 +75,11 @@ std::vector<GLfloat> WickerTorus::_positions(void) const
 
 			for(unsigned d=0; d!=2; ++d)
 			{
-				const GLdouble d_sign = (d == 0)?-1.0: 1.0;
-				GLdouble rs_angle = r_angle + d_sign*rfs*0.75;
+				const double d_sign = (d == 0)?-1.0: 1.0;
+				double rs_angle = r_angle + d_sign*rfs*0.75;
 
-				GLdouble vx = std::cos(rs_angle);
-				GLdouble vz = std::sin(rs_angle);
+				double vx = std::cos(rs_angle);
+				double vz = std::sin(rs_angle);
 				dest[k++] = T(vx*(r1 + r2*(2.0) + fdt));
 				dest[k++] = T(0.0);
 				dest[k++] = T(vz*(r1 + r2*(2.0) + fdt));
@@ -89,54 +89,54 @@ std::vector<GLfloat> WickerTorus::_positions(void) const
 
 	for(unsigned d=0; d!=2; ++d)
 	{
-		const GLdouble d_sign = (d == 0)? 1.0: -1.0;
-		const GLdouble rds = d_sign * r_slip;
+		const double d_sign = (d == 0)? 1.0: -1.0;
+		const double rds = d_sign * r_slip;
 		for(unsigned r=0; r!=_rings; ++r)
 		{
-			const GLdouble r_angle = r*r_step;
-			const GLdouble r_sign = (r % 2 == 0)? 1.0: -1.0;
+			const double r_angle = r*r_step;
+			const double r_sign = (r % 2 == 0)? 1.0: -1.0;
 			const double rdt = t*r_sign*2.0;
 			for(unsigned s=0; s!=_sections; ++s)
 			{
-				const GLdouble sa[3] = {
+				const double sa[3] = {
 					s*s_step,
 					(s + t)*s_step,
 					(s + 1.0 - 2*t)*s_step
 				};
-				const GLdouble rd[3] = {
+				const double rd[3] = {
 					0.0,
 					0.0+((s % 2 == 0)? -rdt : rdt),
 					0.0+((s % 2 == 0)? -rdt : rdt)
 				};
 				for(unsigned p=0; p!=3; ++p)
 				{
-					GLdouble vr = std::cos(sa[p]);
-					GLdouble vy = std::sin(sa[p]);
-					GLdouble vs = 0.5 + vr*0.5;
+					double vr = std::cos(sa[p]);
+					double vy = std::sin(sa[p]);
+					double vs = 0.5 + vr*0.5;
 
-					GLdouble rs_angle = r_angle + rds*(1.0 - 0.25*vs);
+					double rs_angle = r_angle + rds*(1.0 - 0.25*vs);
 
-					GLdouble vx = std::cos(rs_angle);
-					GLdouble vz = std::sin(rs_angle);
+					double vx = std::cos(rs_angle);
+					double vz = std::sin(rs_angle);
 
 					for(unsigned f=0; f!=2; ++f)
 					{
-						const GLdouble f_sign = (f == 0)? 1.0: -1.0;
-						const GLdouble fdt = 0.5*t*f_sign*d_sign;
+						const double f_sign = (f == 0)? 1.0: -1.0;
+						const double fdt = 0.5*t*f_sign*d_sign;
 						dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + (fdt+rd[p])*vr));
 						dest[k++] = T(vy*(r2 + (fdt+rd[p])));
 						dest[k++] = T(vz*(r1 + r2*(1.0 + vr) + (fdt+rd[p])*vr));
 					}
 				}
 			}
-			GLdouble rs_angle = r_angle + rds*0.75;
+			double rs_angle = r_angle + rds*0.75;
 
-			GLdouble vx = std::cos(rs_angle);
-			GLdouble vz = std::sin(rs_angle);
+			double vx = std::cos(rs_angle);
+			double vz = std::sin(rs_angle);
 			for(unsigned f=0; f!=2; ++f)
 			{
-				const GLdouble f_sign = (f == 0)? 1.0: -1.0;
-				const GLdouble fdt = 0.5*t*f_sign*d_sign;
+				const double f_sign = (f == 0)? 1.0: -1.0;
+				const double fdt = 0.5*t*f_sign*d_sign;
 				dest[k++] = T(vx*(r1 + r2*(2.0) + fdt));
 				dest[k++] = T(0.0);
 				dest[k++] = T(vz*(r1 + r2*(2.0) + fdt));
@@ -146,31 +146,31 @@ std::vector<GLfloat> WickerTorus::_positions(void) const
 
 	for(unsigned f=0; f!=2; ++f)
 	{
-		const GLdouble f_sign = (f == 0)? 1.0: -1.0;
-		const GLdouble fdt = t*f_sign*0.95;
+		const double f_sign = (f == 0)? 1.0: -1.0;
+		const double fdt = t*f_sign*0.95;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
-			const GLdouble s_angle = s_step*0.5 + s*s_step;
-			const GLdouble sa[2] = {
+			const double s_angle = s_step*0.5 + s*s_step;
+			const double sa[2] = {
 				s_angle + s_slip*f_sign,
 				s_angle - s_slip*f_sign
 			};
 			for(unsigned r=0; r!=_rings; ++r)
 			{
-				const GLdouble r_angle = r*r_step;
-				const GLdouble ra[2] = {
+				const double r_angle = r*r_step;
+				const double ra[2] = {
 					r_angle + r_slip,
 					r_angle + r_step - r_slip
 				};
 				for(unsigned p=0; p!=2; ++p)
 				{
-					GLdouble vx = std::cos(ra[p]);
-					GLdouble vz = std::sin(ra[p]);
+					double vx = std::cos(ra[p]);
+					double vz = std::sin(ra[p]);
 
 					for(unsigned d=0; d!=2; ++d)
 					{
-						GLdouble vr = std::cos(sa[d]);
-						GLdouble vy = std::sin(sa[d]);
+						double vr = std::cos(sa[d]);
+						double vy = std::sin(sa[d]);
 
 						dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr));
 						dest[k++] = T(vy*(r2 + fdt));
@@ -178,13 +178,13 @@ std::vector<GLfloat> WickerTorus::_positions(void) const
 					}
 				}
 			}
-			GLdouble vx = std::cos(r_slip);
-			GLdouble vz = std::sin(r_slip);
+			double vx = std::cos(r_slip);
+			double vz = std::sin(r_slip);
 
 			for(unsigned d=0; d!=2; ++d)
 			{
-				GLdouble vr = std::cos(sa[d]);
-				GLdouble vy = std::sin(sa[d]);
+				double vr = std::cos(sa[d]);
+				double vy = std::sin(sa[d]);
 
 				dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr));
 				dest[k++] = T(vy*(r2 + fdt));
@@ -195,29 +195,29 @@ std::vector<GLfloat> WickerTorus::_positions(void) const
 
 	for(unsigned d=0; d!=2; ++d)
 	{
-		const GLdouble d_sign = (d == 0)? 1.0: -1.0;
+		const double d_sign = (d == 0)? 1.0: -1.0;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
-			const GLdouble s_angle = s_step*0.5 + s*s_step;
-			const GLdouble sa = s_angle + s_slip*d_sign;
-			const GLdouble vr = std::cos(sa);
-			const GLdouble vy = std::sin(sa);
+			const double s_angle = s_step*0.5 + s*s_step;
+			const double sa = s_angle + s_slip*d_sign;
+			const double vr = std::cos(sa);
+			const double vy = std::sin(sa);
 			for(unsigned r=0; r!=_rings; ++r)
 			{
-				const GLdouble r_angle = r*r_step;
-				const GLdouble ra[2] = {
+				const double r_angle = r*r_step;
+				const double ra[2] = {
 					r_angle + r_slip,
 					r_angle + r_step - r_slip
 				};
 				for(unsigned p=0; p!=2; ++p)
 				{
-					GLdouble vx = std::cos(ra[p]);
-					GLdouble vz = std::sin(ra[p]);
+					double vx = std::cos(ra[p]);
+					double vz = std::sin(ra[p]);
 
 					for(unsigned f=0; f!=2; ++f)
 					{
-						const GLdouble f_sign = (f == 0)? 1.0: -1.0;
-						const GLdouble fdt = -t*d_sign*f_sign*0.95;
+						const double f_sign = (f == 0)? 1.0: -1.0;
+						const double fdt = -t*d_sign*f_sign*0.95;
 
 						dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr));
 						dest[k++] = T(vy*(r2 + fdt));
@@ -225,13 +225,13 @@ std::vector<GLfloat> WickerTorus::_positions(void) const
 					}
 				}
 			}
-			GLdouble vx = std::cos(r_slip);
-			GLdouble vz = std::sin(r_slip);
+			double vx = std::cos(r_slip);
+			double vz = std::sin(r_slip);
 
 			for(unsigned f=0; f!=2; ++f)
 			{
-				const GLdouble f_sign = (f == 0)? 1.0: -1.0;
-				const GLdouble fdt = -t*d_sign*f_sign*0.5;
+				const double f_sign = (f == 0)? 1.0: -1.0;
+				const double fdt = -t*d_sign*f_sign*0.5;
 
 				dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr));
 				dest[k++] = T(vy*(r2 + fdt));
@@ -254,31 +254,31 @@ std::vector<GLfloat> WickerTorus::_normals(void) const
 	);
 	unsigned k = 0;
 	//
-	const GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
-	const GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
-	const GLdouble r_slip = r_step * _r_slip_coef;
-	const GLdouble s_slip = s_step * _s_slip_coef;
-	const GLdouble s_slop = (math::Pi()) / 4.0;
+	const double r_step = (math::TwoPi()) / double(_rings);
+	const double s_step = (math::TwoPi()) / double(_sections);
+	const double r_slip = r_step * _r_slip_coef;
+	const double s_slip = s_step * _s_slip_coef;
+	const double s_slop = (math::Pi()) / 4.0;
 
 	for(unsigned f=0; f!=2; ++f)
 	{
-		const GLdouble f_sign = (f == 0)? 1.0: -1.0;
+		const double f_sign = (f == 0)? 1.0: -1.0;
 		for(unsigned r=0; r!=_rings; ++r)
 		{
-			GLdouble vx = std::cos(r*r_step);
-			GLdouble vz = std::sin(r*r_step);
-			const GLdouble rslp = s_slop*f_sign;
+			double vx = std::cos(r*r_step);
+			double vz = std::sin(r*r_step);
+			const double rslp = s_slop*f_sign;
 			for(unsigned s=0; s!=_sections; ++s)
 			{
-				const GLdouble sa[3] = {
+				const double sa[3] = {
 					s*s_step+((s % 2 == 0)?-rslp:rslp),
 					s*s_step,
 					s*s_step
 				};
 				for(unsigned p=0; p!=3; ++p)
 				{
-					GLdouble vr = std::cos(sa[p]);
-					GLdouble vy = std::sin(sa[p]);
+					double vr = std::cos(sa[p]);
+					double vy = std::sin(sa[p]);
 					for(unsigned d=0; d!=2; ++d)
 					{
 						dest[k++] = T(f_sign*vx*vr);
@@ -298,11 +298,11 @@ std::vector<GLfloat> WickerTorus::_normals(void) const
 
 	for(unsigned d=0; d!=2; ++d)
 	{
-		const GLdouble d_sign = (d == 0)?-1.0: 1.0;
+		const double d_sign = (d == 0)?-1.0: 1.0;
 		for(unsigned r=0; r!=_rings; ++r)
 		{
-			GLdouble vx = std::cos(r*r_step);
-			GLdouble vz = std::sin(r*r_step);
+			double vx = std::cos(r*r_step);
+			double vz = std::sin(r*r_step);
 			for(unsigned s=0; s!=_sections; ++s)
 			{
 				for(unsigned p=0; p!=3; ++p)
@@ -326,30 +326,30 @@ std::vector<GLfloat> WickerTorus::_normals(void) const
 
 	for(unsigned f=0; f!=2; ++f)
 	{
-		const GLdouble f_sign = (f == 0)? 1.0: -1.0;
+		const double f_sign = (f == 0)? 1.0: -1.0;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
-			const GLdouble s_angle = s_step*0.5 + s*s_step;
-			const GLdouble sa[2] = {
+			const double s_angle = s_step*0.5 + s*s_step;
+			const double sa[2] = {
 				s_angle + s_slip*f_sign,
 				s_angle - s_slip*f_sign
 			};
 			for(unsigned r=0; r!=_rings; ++r)
 			{
-				const GLdouble r_angle = r*r_step;
-				const GLdouble ra[2] = {
+				const double r_angle = r*r_step;
+				const double ra[2] = {
 					r_angle + r_slip,
 					r_angle + r_step - r_slip
 				};
 				for(unsigned p=0; p!=2; ++p)
 				{
-					GLdouble vx = std::cos(ra[p]);
-					GLdouble vz = std::sin(ra[p]);
+					double vx = std::cos(ra[p]);
+					double vz = std::sin(ra[p]);
 
 					for(unsigned d=0; d!=2; ++d)
 					{
-						GLdouble vr = std::cos(sa[d]);
-						GLdouble vy = std::sin(sa[d]);
+						double vr = std::cos(sa[d]);
+						double vy = std::sin(sa[d]);
 
 						dest[k++] = T(f_sign*vx*vr);
 						dest[k++] = T(f_sign*vy);
@@ -357,13 +357,13 @@ std::vector<GLfloat> WickerTorus::_normals(void) const
 					}
 				}
 			}
-			GLdouble vx = std::cos(r_slip);
-			GLdouble vz = std::sin(r_slip);
+			double vx = std::cos(r_slip);
+			double vz = std::sin(r_slip);
 
 			for(unsigned d=0; d!=2; ++d)
 			{
-				GLdouble vr = std::cos(sa[d]);
-				GLdouble vy = std::sin(sa[d]);
+				double vr = std::cos(sa[d]);
+				double vy = std::sin(sa[d]);
 
 				dest[k++] = T(f_sign*vx*vr);
 				dest[k++] = T(f_sign*vy);
@@ -374,24 +374,24 @@ std::vector<GLfloat> WickerTorus::_normals(void) const
 
 	for(unsigned d=0; d!=2; ++d)
 	{
-		const GLdouble d_sign = (d == 0)? 1.0: -1.0;
+		const double d_sign = (d == 0)? 1.0: -1.0;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
-			const GLdouble s_angle = s_step*0.5 + s*s_step;
-			const GLdouble sa = s_angle + s_slip*d_sign;
-			const GLdouble vr = std::sin(sa);
-			const GLdouble vy = std::cos(sa);
+			const double s_angle = s_step*0.5 + s*s_step;
+			const double sa = s_angle + s_slip*d_sign;
+			const double vr = std::sin(sa);
+			const double vy = std::cos(sa);
 			for(unsigned r=0; r!=_rings; ++r)
 			{
-				const GLdouble r_angle = r*r_step;
-				const GLdouble ra[2] = {
+				const double r_angle = r*r_step;
+				const double ra[2] = {
 					r_angle + r_slip,
 					r_angle + r_step - r_slip
 				};
 				for(unsigned p=0; p!=2; ++p)
 				{
-					GLdouble vx = std::cos(ra[p]);
-					GLdouble vz = std::sin(ra[p]);
+					double vx = std::cos(ra[p]);
+					double vz = std::sin(ra[p]);
 
 					for(unsigned f=0; f!=2; ++f)
 					{
@@ -401,8 +401,8 @@ std::vector<GLfloat> WickerTorus::_normals(void) const
 					}
 				}
 			}
-			GLdouble vx = std::cos(r_slip);
-			GLdouble vz = std::sin(r_slip);
+			double vx = std::cos(r_slip);
+			double vz = std::sin(r_slip);
 
 			for(unsigned f=0; f!=2; ++f)
 			{
@@ -427,18 +427,18 @@ std::vector<GLfloat> WickerTorus::_tangents(void) const
 	);
 	unsigned k = 0;
 	//
-	const GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
-	const GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
-	const GLdouble r_slip = r_step * _r_slip_coef;
-	const GLdouble s_slop = (math::Pi()) / 4.0;
+	const double r_step = (math::TwoPi()) / double(_rings);
+	const double s_step = (math::TwoPi()) / double(_sections);
+	const double r_slip = r_step * _r_slip_coef;
+	const double s_slop = (math::Pi()) / 4.0;
 
 	for(unsigned f=0; f!=2; ++f)
 	{
-		const GLdouble f_sign = (f == 0)? 1.0: -1.0;
+		const double f_sign = (f == 0)? 1.0: -1.0;
 		for(unsigned r=0; r!=_rings; ++r)
 		{
-			GLdouble vx = std::cos(r*r_step);
-			GLdouble vz = std::sin(r*r_step);
+			double vx = std::cos(r*r_step);
+			double vz = std::sin(r*r_step);
 			for(unsigned s=0; s!=_sections; ++s)
 			{
 				for(unsigned p=0; p!=3; ++p)
@@ -462,24 +462,24 @@ std::vector<GLfloat> WickerTorus::_tangents(void) const
 
 	for(unsigned d=0; d!=2; ++d)
 	{
-		const GLdouble d_sign = (d == 0)? 1.0: -1.0;
+		const double d_sign = (d == 0)? 1.0: -1.0;
 		for(unsigned r=0; r!=_rings; ++r)
 		{
-			GLdouble r_sign = r % 2 == 0 ? 1.0: -1.0;
-			GLdouble vx = std::cos(r*r_step);
-			GLdouble vz = std::sin(r*r_step);
-			const GLdouble rslp = s_slop*r_sign;
+			double r_sign = r % 2 == 0 ? 1.0: -1.0;
+			double vx = std::cos(r*r_step);
+			double vz = std::sin(r*r_step);
+			const double rslp = s_slop*r_sign;
 			for(unsigned s=0; s!=_sections; ++s)
 			{
-				const GLdouble sa[3] = {
+				const double sa[3] = {
 					s*s_step+((s % 2 == 0)?rslp:-rslp),
 					s*s_step,
 					s*s_step
 				};
 				for(unsigned p=0; p!=3; ++p)
 				{
-					GLdouble vr = std::cos(sa[p]);
-					GLdouble vy = std::sin(sa[p]);
+					double vr = std::cos(sa[p]);
+					double vy = std::sin(sa[p]);
 					for(unsigned f=0; f!=2; ++f)
 					{
 						dest[k++] = T(d_sign*vx*vr);
@@ -499,20 +499,20 @@ std::vector<GLfloat> WickerTorus::_tangents(void) const
 
 	for(unsigned f=0; f!=2; ++f)
 	{
-		const GLdouble f_sign = (f == 0)? 1.0: -1.0;
+		const double f_sign = (f == 0)? 1.0: -1.0;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
 			for(unsigned r=0; r!=_rings; ++r)
 			{
-				const GLdouble r_angle = r*r_step;
-				const GLdouble ra[2] = {
+				const double r_angle = r*r_step;
+				const double ra[2] = {
 					r_angle + r_slip,
 					r_angle + r_step - r_slip
 				};
 				for(unsigned p=0; p!=2; ++p)
 				{
-					GLdouble vx = std::cos(ra[p]);
-					GLdouble vz = std::sin(ra[p]);
+					double vx = std::cos(ra[p]);
+					double vz = std::sin(ra[p]);
 
 					for(unsigned d=0; d!=2; ++d)
 					{
@@ -522,8 +522,8 @@ std::vector<GLfloat> WickerTorus::_tangents(void) const
 					}
 				}
 			}
-			GLdouble vx = std::cos(r_slip);
-			GLdouble vz = std::sin(r_slip);
+			double vx = std::cos(r_slip);
+			double vz = std::sin(r_slip);
 
 			for(unsigned d=0; d!=2; ++d)
 			{
@@ -536,20 +536,20 @@ std::vector<GLfloat> WickerTorus::_tangents(void) const
 
 	for(unsigned d=0; d!=2; ++d)
 	{
-		const GLdouble d_sign = (d == 0)? 1.0: -1.0;
+		const double d_sign = (d == 0)? 1.0: -1.0;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
 			for(unsigned r=0; r!=_rings; ++r)
 			{
-				const GLdouble r_angle = r*r_step;
-				const GLdouble ra[2] = {
+				const double r_angle = r*r_step;
+				const double ra[2] = {
 					r_angle + r_slip,
 					r_angle + r_step - r_slip
 				};
 				for(unsigned p=0; p!=2; ++p)
 				{
-					GLdouble vx = std::cos(ra[p]);
-					GLdouble vz = std::sin(ra[p]);
+					double vx = std::cos(ra[p]);
+					double vz = std::sin(ra[p]);
 
 					for(unsigned f=0; f!=2; ++f)
 					{
@@ -559,8 +559,8 @@ std::vector<GLfloat> WickerTorus::_tangents(void) const
 					}
 				}
 			}
-			GLdouble vx = std::cos(r_slip);
-			GLdouble vz = std::sin(r_slip);
+			double vx = std::cos(r_slip);
+			double vz = std::sin(r_slip);
 
 			for(unsigned f=0; f!=2; ++f)
 			{
@@ -618,30 +618,30 @@ std::vector<GLfloat> WickerTorus::_tex_coords(void) const
 	);
 	unsigned k = 0;
 	//
-	GLdouble t = _thickness / _radius_in;
-	GLdouble r_step = 0.5 / GLdouble(_rings);
-	GLdouble s_step = 1.0 / GLdouble(_sections);
-	GLdouble r_slip = r_step * _r_slip_coef;
-	GLdouble s_slip = s_step * t;
+	double t = _thickness / _radius_in;
+	double r_step = 0.5 / double(_rings);
+	double s_step = 1.0 / double(_sections);
+	double r_slip = r_step * _r_slip_coef;
+	double s_slip = s_step * t;
 
 	for(unsigned f=0; f!=2; ++f)
 	{
 		for(unsigned r=0; r!=_rings; ++r)
 		{
-			GLdouble rv = 2*r*r_step;
+			double rv = 2*r*r_step;
 			for(unsigned s=0; s!=_sections; ++s)
 			{
-				const GLdouble sa[3] = {
+				const double sa[3] = {
 					s*s_step,
 					(s + t)*s_step,
 					(s + 1.0 - 2*t)*s_step
 				};
 				for(unsigned p=0; p!=3; ++p)
 				{
-					GLdouble v = sa[p];
+					double v = sa[p];
 					for(unsigned d=0; d!=2; ++d)
 					{
-						GLdouble u = rv + ((d+f)%2)*r_step;
+						double u = rv + ((d+f)%2)*r_step;
 						dest[k++] = T(u);
 						dest[k++] = T(v);
 					}
@@ -649,7 +649,7 @@ std::vector<GLfloat> WickerTorus::_tex_coords(void) const
 			}
 			for(unsigned d=0; d!=2; ++d)
 			{
-				GLdouble u = rv + ((d+f)%2)*r_step;
+				double u = rv + ((d+f)%2)*r_step;
 				dest[k++] = T(u);
 				dest[k++] = T(1.0);
 			}
@@ -660,20 +660,20 @@ std::vector<GLfloat> WickerTorus::_tex_coords(void) const
 	{
 		for(unsigned r=0; r!=_rings; ++r)
 		{
-			GLdouble rv = 2*r*r_step;
+			double rv = 2*r*r_step;
 			for(unsigned s=0; s!=_sections; ++s)
 			{
-				const GLdouble sa[3] = {
+				const double sa[3] = {
 					s*s_step,
 					(s + t)*s_step,
 					(s + 1.0 - 2*t)*s_step
 				};
 				for(unsigned p=0; p!=3; ++p)
 				{
-					GLdouble v = sa[p];
+					double v = sa[p];
 					for(unsigned f=0; f!=2; ++f)
 					{
-						GLdouble u = rv + ((d+f)%2)*r_step;
+						double u = rv + ((d+f)%2)*r_step;
 						dest[k++] = T(u);
 						dest[k++] = T(v);
 					}
@@ -681,7 +681,7 @@ std::vector<GLfloat> WickerTorus::_tex_coords(void) const
 			}
 			for(unsigned f=0; f!=2; ++f)
 			{
-				GLdouble u = rv + ((d+f)%2)*r_step;
+				double u = rv + ((d+f)%2)*r_step;
 				dest[k++] = T(u);
 				dest[k++] = T(1.0);
 			}
@@ -692,37 +692,37 @@ std::vector<GLfloat> WickerTorus::_tex_coords(void) const
 
 	for(unsigned f=0; f!=2; ++f)
 	{
-		const GLdouble f_sign = (f == 0)? 1.0: -1.0;
+		const double f_sign = (f == 0)? 1.0: -1.0;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
-			const GLdouble s_angle = s_step*0.5 + s*s_step;
-			const GLdouble sa[2] = {
+			const double s_angle = s_step*0.5 + s*s_step;
+			const double sa[2] = {
 				s_angle + s_slip*f_sign,
 				s_angle - s_slip*f_sign
 			};
 			for(unsigned r=0; r!=_rings; ++r)
 			{
-				const GLdouble r_angle = 2*r*r_step;
-				const GLdouble ra[2] = {
+				const double r_angle = 2*r*r_step;
+				const double ra[2] = {
 					r_angle + r_slip,
 					r_angle + r_step - r_slip
 				};
 				for(unsigned p=0; p!=2; ++p)
 				{
-					GLdouble u = ra[p];
+					double u = ra[p];
 					for(unsigned d=0; d!=2; ++d)
 					{
-						GLdouble v = sa[d];
+						double v = sa[d];
 						dest[k++] = T(u);
 						dest[k++] = T(v);
 					}
 				}
 			}
 
-			GLdouble u = 1.0 + r_slip;
+			double u = 1.0 + r_slip;
 			for(unsigned d=0; d!=2; ++d)
 			{
-				GLdouble v = sa[d];
+				double v = sa[d];
 				dest[k++] = T(u);
 				dest[k++] = T(v);
 			}
@@ -731,21 +731,21 @@ std::vector<GLfloat> WickerTorus::_tex_coords(void) const
 
 	for(unsigned d=0; d!=2; ++d)
 	{
-		const GLdouble d_sign = (d == 0)? 1.0: -1.0;
+		const double d_sign = (d == 0)? 1.0: -1.0;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
-			const GLdouble s_angle = s_step*0.5 + s*s_step;
-			const GLdouble v = s_angle + s_slip*d_sign;
+			const double s_angle = s_step*0.5 + s*s_step;
+			const double v = s_angle + s_slip*d_sign;
 			for(unsigned r=0; r!=_rings; ++r)
 			{
-				const GLdouble r_angle = 2*r*r_step;
-				const GLdouble ra[2] = {
+				const double r_angle = 2*r*r_step;
+				const double ra[2] = {
 					r_angle + r_slip,
 					r_angle + r_step - r_slip
 				};
 				for(unsigned p=0; p!=2; ++p)
 				{
-					GLdouble u = ra[p];
+					double u = ra[p];
 					for(unsigned f=0; f!=2; ++f)
 					{
 						dest[k++] = T(u);
@@ -754,7 +754,7 @@ std::vector<GLfloat> WickerTorus::_tex_coords(void) const
 				}
 			}
 
-			GLdouble u = 1.0 + r_slip;
+			double u = 1.0 + r_slip;
 			for(unsigned f=0; f!=2; ++f)
 			{
 				dest[k++] = T(u);

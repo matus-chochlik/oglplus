@@ -30,8 +30,8 @@ class TwistedTorus
  , public DrawMode
 {
 private:
-	const GLdouble _radius_out, _radius_in, _thickness;
-	const GLdouble _s_slip_coef;
+	const double _radius_out, _radius_in, _thickness;
+	const double _s_slip_coef;
 	const unsigned _sections, _rings, _twist;
 public:
 	/// Creates a torus with unit radius centered at the origin
@@ -47,9 +47,9 @@ public:
 
 	/// Creates a torus with unit radius centered at the origin
 	TwistedTorus(
-		GLdouble rad_out,
-		GLdouble rad_in,
-		GLdouble thickness,
+		double rad_out,
+		double rad_in,
+		double thickness,
 		unsigned sects,
 		unsigned rings,
 		unsigned twist

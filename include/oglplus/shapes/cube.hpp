@@ -31,8 +31,8 @@ class Cube
  , public DrawMode
 {
 private:
-	GLdouble _sx, _sy, _sz;
-	GLdouble _ox, _oy, _oz;
+	double _sx, _sy, _sz;
+	double _ox, _oy, _oz;
 public:
 	/// Constructs a unit cube centered at the origin
 	Cube(void)
@@ -45,7 +45,7 @@ public:
 	{ }
 
 	/// Constructs a cube with width, height, depth
-	Cube(GLdouble w, GLdouble h, GLdouble d)
+	Cube(double w, double h, double d)
 	 : _sx(w)
 	 , _sy(h)
 	 , _sz(d)
@@ -56,12 +56,12 @@ public:
 
 	/// Constructs a cube with width, height, depth and x,y and z offsets
 	Cube(
-		GLdouble w,
-		GLdouble h,
-		GLdouble d,
-		GLdouble x,
-		GLdouble y,
-		GLdouble z
+		double w,
+		double h,
+		double d,
+		double x,
+		double y,
+		double z
 	): _sx(w)
 	 , _sy(h)
 	 , _sz(d)

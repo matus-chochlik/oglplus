@@ -11,6 +11,8 @@
 
 namespace oglplus {
 
+#if GL_VERSION_3_3 || GL_ARB_sampler_objects
+
 OGLPLUS_LIB_FUNC
 GLuint ObjBindingOps<tag::Sampler>::
 _binding(TextureUnitSelector tex_unit)
@@ -33,6 +35,8 @@ _binding(TextureUnitSelector tex_unit)
 	assert(!(name < 0));
 	return GLuint(name);
 }
+
+#endif
 
 } // namespace oglplus
 

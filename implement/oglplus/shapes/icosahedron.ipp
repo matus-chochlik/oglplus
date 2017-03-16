@@ -69,9 +69,9 @@ const GLushort* IcosahedronBase::_indices(void)
 }
 
 OGLPLUS_LIB_FUNC
-const GLdouble* IcosahedronBase::_positions(void)
+const double* IcosahedronBase::_positions(void)
 {
-	static const GLdouble positions[12*3] = {
+	static const double positions[12*3] = {
 		 0.000,  1.000,  0.000,
 		 0.894,  0.447,  0.000,
 		 0.276,  0.447,  0.851,

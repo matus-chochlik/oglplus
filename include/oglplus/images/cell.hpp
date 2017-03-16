@@ -57,18 +57,18 @@ private:
 public:
 	struct EulerDistance
 	{
-		GLdouble operator()(
+		double operator()(
 			std::size_t dims,
-			const Vec3d& tc,
-			const Vec3d& cc,
-			const Vec3d& co,
-			const Vec3d& is
+			const Vector<double, 3>& tc,
+			const Vector<double, 3>& cc,
+			const Vector<double, 3>& co,
+			const Vector<double, 3>& is
 		) const
 		{
-			GLdouble result = 0.0;
+			double result = 0.0;
 			for(std::size_t d=0; d!=dims; ++d)
 			{
-				GLdouble dist = (tc[d]-(cc[d]+co[d]/is[d]))*is[d];
+				double dist = (tc[d]-(cc[d]+co[d]/is[d]))*is[d];
 				result += dist*dist;
 			}
 			return std::sqrt(result);
@@ -93,9 +93,9 @@ public:
 	{
 		const T one = this->_one(TypeTag<T>());
 
-		const GLdouble i_w = 1.0/GLsizei(Width());
-		const GLdouble i_h = 1.0/GLsizei(Height());
-		const GLdouble i_d = 1.0/GLsizei(Depth());
+		const double i_w = 1.0/GLsizei(Width());
+		const double i_h = 1.0/GLsizei(Height());
+		const double i_d = 1.0/GLsizei(Depth());
 
 		const GLsizei iw = input.Width();
 		const GLsizei ih = input.Height();
@@ -112,10 +112,10 @@ public:
 		const GLsizei imin = -1;
 		const GLsizei imax = +2;
 
-		Vec3d colors[27];
-		GLdouble dists[27];
+		Vector<double, 3> colors[27];
+		double dists[27];
 
-		const Vec3d is(iw, ih, id);
+		const Vector<double, 3> is(iw, ih, id);
 
 		auto pos = this->_begin<T>();
 
@@ -131,7 +131,7 @@ public:
 				{
 					GLsizei cx = x/cell_w;
 
-					Vec3d tc = Vec3d(x*i_w, y*i_h, z*i_d);
+					Vector<double, 3> tc = Vector<double, 3>(x*i_w, y*i_h, z*i_d);
 
 					GLsizei l=0;
 
@@ -143,7 +143,7 @@ public:
 						GLsizei ccy = cy+j;
 						GLsizei ccx = cx+i;
 
-						Vec3d cc(
+						Vector<double, 3> cc(
 							ccx*cell_w*i_w,
 							ccy*cell_h*i_h,
 							ccz*cell_d*i_d
@@ -154,19 +154,19 @@ public:
 						ccx = (ccx+iw)%iw;
 
 						colors[l] = input.Pixel(ccx, ccy, ccz).xyz();
-						Vec3d co = colors[l];
+						Vector<double, 3> co = colors[l];
 
 						dists[l] = get_distance(dims, tc, cc, co, is);
 
 						++l;
 					}
 
-					Vector<GLdouble, CH> value = get_value(dists, colors, l);
+					Vector<double, CH> value = get_value(dists, colors, l);
 
 					for(std::size_t c=0; c!=CH; ++c)
 					{
 						assert(pos != this->_end<T>());
-						GLdouble vc = value.At(c);
+						double vc = value.At(c);
 						*pos++ = T(one*vc);
 					}
 				}
@@ -187,7 +187,7 @@ private:
 	{
 		ValueCalc _calc_value;
 		const unsigned _order;
-		std::vector<GLdouble> _d;
+		std::vector<double> _d;
 
 		DistanceValue(ValueCalc calc_value, unsigned order)
 		 : _calc_value(calc_value)
@@ -195,9 +195,9 @@ private:
 		 , _d(order)
 		{ }
 
-		Vec1d operator()(
-			const GLdouble* dists,
-			const Vec3d*,
+		Vector<double, 1> operator()(
+			const double* dists,
+			const Vector<double, 3>*,
 			SizeType count
 		)
 		{
@@ -222,7 +222,7 @@ private:
 			GLfloat result = GLfloat(_calc_value(_d));
 			if(result > 1) result = 1;
 			if(result < 0) result = 0;
-			return Vec1d(result);
+			return Vector<double, 1>(result);
 		}
 	};
 public:
