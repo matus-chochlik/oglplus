@@ -25,7 +25,7 @@ class ViewportIndex
 public:
 	ViewportIndex(GLuint count);
 };
-#else
+#elif defined GL_VERSION_3_0
 OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 	ViewportIndex,
 	MAX_VIEWPORTS

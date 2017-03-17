@@ -239,10 +239,10 @@ public:
 	Boolean ResultAvailable(void) const
 	{
 		Boolean result;
-		OGLPLUS_GLFUNC(GetQueryObjectiv)(
+		OGLPLUS_GLFUNC(GetQueryObjectuiv)(
 			_obj_name(),
 			GL_QUERY_RESULT_AVAILABLE,
-			result._ptr()
+			reinterpret_cast<GLuint*>(result._ptr())
 		);
 		OGLPLUS_VERIFY(
 			GetQueryObjectiv,
@@ -293,6 +293,7 @@ public:
 			Object(*this)
 		);
 	}
+
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_timer_query
 	/// Get the query result

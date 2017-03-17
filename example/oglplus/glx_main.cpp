@@ -2,14 +2,12 @@
  *  .file example/oglplus/glx_main.cpp
  *  Implements GLX-based program main function for running examples
  *
- *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2017 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #include <oglplus/gl.hpp>
-#include <oglplus/config/fix_gl_version.hpp>
-#include <oglplus/config/fix_gl_extension.hpp>
 
 #include <oglplus/glx/context.hpp>
 #include <oglplus/glx/fb_configs.hpp>
@@ -19,6 +17,9 @@
 #include <oglplus/x11/color_map.hpp>
 #include <oglplus/x11/visual_info.hpp>
 #include <oglplus/x11/display.hpp>
+
+#include <oglplus/config/fix_gl_version.hpp>
+#include <oglplus/config/fix_gl_extension.hpp>
 
 #include <oglplus/os/steady_clock.hpp>
 

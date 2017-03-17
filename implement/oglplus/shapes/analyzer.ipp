@@ -19,11 +19,11 @@ ShapeAnalyzerFace ShapeAnalyzerVert::Face(void) const
 }
 
 OGLPLUS_LIB_FUNC
-Vec4d ShapeAnalyzerVert::MainAttrib(void) const
+Vector<double, 4> ShapeAnalyzerVert::MainAttrib(void) const
 {
 	GLuint fi = _data._face_index[_face_index];
 	GLuint vi = _data._face_verts[fi+_vert_index];
-	return Vec4d(
+	return Vector<double, 4>(
 		_data._main_va.data()+vi*_data._main_vpv,
 		_data._main_vpv,
 		0.0
@@ -31,11 +31,11 @@ Vec4d ShapeAnalyzerVert::MainAttrib(void) const
 }
 
 OGLPLUS_LIB_FUNC
-Vec4d ShapeAnalyzerVert::SmoothAttrib(void) const
+Vector<double, 4> ShapeAnalyzerVert::SmoothAttrib(void) const
 {
 	GLuint fi = _data._face_index[_face_index];
 	GLuint vi = _data._face_verts[fi+_vert_index];
-	return Vec4d(
+	return Vector<double, 4>(
 		_data._smooth_va.data()+vi*_data._smooth_vpv,
 		_data._smooth_vpv,
 		0.0
