@@ -114,7 +114,7 @@ public:
 
 	struct RepeatSample
 	{
-		Vector<GLdouble, 4> operator()(
+		Vector<double, 4> operator()(
 			const Image& image,
 			unsigned width,
 			unsigned height,
@@ -189,7 +189,7 @@ public:
 			);
 		}
 
-		Vector<GLdouble, 4> operator()(
+		Vector<double, 4> operator()(
 			int xoffs,
 			int yoffs,
 			int zoffs

@@ -29,18 +29,18 @@ class Cage
  , public DrawMode
 {
 private:
-	Vector<GLdouble, 3> _size;
-	Vector<GLdouble, 3> _barw;
-	Vector<GLdouble, 3> _divs;
+	Vector<double, 3> _size;
+	Vector<double, 3> _barw;
+	Vector<double, 3> _divs;
 
-	static const Matrix<GLdouble, 3, 3>& _face_mat(GLuint face);
+	static const Matrix<double, 3, 3>& _face_mat(GLuint face);
 
-	GLdouble _face_size(GLuint face, GLuint axis) const
+	double _face_size(GLuint face, GLuint axis) const
 	{
 		return std::fabs(Dot(_face_mat(face).Row(axis), _size));
 	}
 
-	GLdouble _face_barw(GLuint face, GLuint axis) const
+	double _face_barw(GLuint face, GLuint axis) const
 	{
 		return std::fabs(Dot(_face_mat(face).Row(axis), _barw));
 	}
@@ -50,16 +50,16 @@ private:
 		return GLuint(std::fabs(Dot(_face_mat(face).Row(axis), _divs)));
 	}
 
-	static const Vector<GLdouble, 3> _face_vec(
+	static const Vector<double, 3> _face_vec(
 		GLuint face,
-		const Vector<GLdouble, 3> vec
+		const Vector<double, 3> vec
 	)
 	{
 		return _face_mat(face)*vec;
 	}
 
 	template <typename Iter>
-	static Iter _write(Iter iter, const Vector<GLdouble, 3>& vec)
+	static Iter _write(Iter iter, const Vector<double, 3>& vec)
 	{
 		*iter++ = GLfloat(vec.x());
 		*iter++ = GLfloat(vec.y());
@@ -83,8 +83,8 @@ public:
 
 	/// Constructs a cage with width, height, depth
 	Cage(
-		GLdouble xs, GLdouble ys, GLdouble zs,
-		GLdouble xb, GLdouble yb, GLdouble zb,
+		double xs, double ys, double zs,
+		double xb, double yb, double zb,
 		GLuint xd, GLuint yd, GLuint zd
 	): _size(xs, ys, zs)
 	 , _barw(xb, yb, zb)

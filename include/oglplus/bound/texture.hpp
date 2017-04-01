@@ -5,7 +5,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2017 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,8 @@
 
 #ifndef OGLPLUS_BOUND_TEXTURE_1107121519_HPP
 #define OGLPLUS_BOUND_TEXTURE_1107121519_HPP
+
+#if GL_VERSION_3_0
 
 #include <oglplus/object/bound.hpp>
 #include <oglplus/texture.hpp>
@@ -2032,5 +2034,9 @@ public:
 }; // class BoundObjOps
 
 } // namespace oglplus
+
+#else
+#error "GL 3.0 required for Bound objects!"
+#endif // GL_VERSION_3_0
 
 #endif // include guard

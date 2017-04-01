@@ -1,5 +1,5 @@
 <!--
-   - Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+   - Copyright 2010-2017 Matus Chochlik. Distributed under the Boost
    - Software License, Version 1.0. (See accompanying file
    - LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
    -
@@ -304,6 +304,8 @@
 #ifndef OGLPLUS_BOUND_</xsl:text><xsl:value-of select="$OBJECT"/><xsl:text>_1107121519_HPP
 #define OGLPLUS_BOUND_</xsl:text><xsl:value-of select="$OBJECT"/><xsl:text>_1107121519_HPP
 
+#if GL_VERSION_3_0
+
 #include &lt;oglplus/object/bound.hpp&gt;
 #include &lt;oglplus/</xsl:text><xsl:value-of select="$object"/><xsl:text>.hpp&gt;
 #include &lt;utility&gt;
@@ -362,6 +364,10 @@ public:
 }; // class BoundObjOps
 
 } // namespace oglplus
+
+#else
+#error "GL 3.0 required for Bound objects!"
+#endif // GL_VERSION_3_0
 
 #endif // include guard
 </xsl:text>

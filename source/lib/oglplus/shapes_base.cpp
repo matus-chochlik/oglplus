@@ -31,7 +31,11 @@
 #include <oglplus/shapes/sphere.hpp>
 #include <oglplus/shapes/subdiv_sphere.hpp>
 #include <oglplus/shapes/spiral_sphere.hpp>
-#include <oglplus/shapes/tetrahedrons.hpp>
 #include <oglplus/shapes/twisted_torus.hpp>
 #include <oglplus/shapes/wicker_torus.hpp>
+
+#ifdef GL_VERSION_3_0
+#include <oglplus/shapes/tetrahedrons.hpp>
+#endif
+
 #include "epilogue.ipp"

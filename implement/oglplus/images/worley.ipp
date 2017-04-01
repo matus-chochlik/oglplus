@@ -18,7 +18,7 @@ namespace images {
 
 struct WorleyCellDistance
 {
-	GLdouble operator()(const std::vector<GLdouble>& d) const
+	double operator()(const std::vector<double>& d) const
 	{
 		assert(d.size() >= 2);
 		return d[1]*0.7;
@@ -46,7 +46,7 @@ WorleyCells::WorleyCells(
 	SizeType cell_h,
 	SizeType cell_d,
 	const Image& input,
-	std::function<GLdouble(const std::vector<GLdouble>&)> calc_value,
+	std::function<double(const std::vector<double>&)> calc_value,
 	unsigned order
 ): Image(static_cast<Image&&>(
 	WorleyCellGen(

@@ -62,7 +62,7 @@ private:
 		GLuint fb,
 		GLuint eb,
 		GLuint attr_vpv,
-		const std::vector<GLdouble>& vert_attr
+		const std::vector<double>& vert_attr
 	);
 	bool _adjacent_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb);
 	bool _smooth_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb);
@@ -72,22 +72,22 @@ public:
 	std::vector<GLuint> _index;
 
 	// main vertex attribute (usually position)
-	std::vector<GLdouble> _main_va;
+	std::vector<double> _main_va;
 	// number of values per vertex for the main attribute
 	GLuint _main_vpv;
 
 	// vertex attribute used to detect smoothing (usually normal)
-	std::vector<GLdouble> _smooth_va;
+	std::vector<double> _smooth_va;
 	// number of values per vertex for the smooting attribute
 	GLuint _smooth_vpv;
 
 	// other vertex attributes
-	std::vector<std::vector<GLdouble> > _other_vas;
+	std::vector<std::vector<double> > _other_vas;
 	// number of values per vertex for the other attributes
 	std::vector<GLuint> _other_vpvs;
 
 	// epsilon value for comparisons
-	GLdouble _eps;
+	double _eps;
 
 	// index pointing to the start of face vertices
 	std::vector<GLuint> _face_index;

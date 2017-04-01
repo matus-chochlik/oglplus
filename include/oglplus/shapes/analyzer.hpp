@@ -73,14 +73,14 @@ public:
 	 *  for some analyses it may be something else, the UV coordinate
 	 *  for example.
 	 */
-	Vec4d MainAttrib(void) const;
+	Vector<double, 4> MainAttrib(void) const;
 
 	/// Returns the value of the 'smooth' vertex attribute at the vertex
 	/** This vertex attribute is used to detect if edges are 'smooth'
 	 *  it is usually the vertex normal, but for some analyses it may be
 	 *  something else.
 	 */
-	Vec4d SmoothAttrib(void) const;
+	Vector<double, 4> SmoothAttrib(void) const;
 };
 
 /// Class storing information about a single edge of a generated/loaded mesh

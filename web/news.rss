@@ -6,8 +6,29 @@
 	<link>http://oglplus.org/</link>
 	<language>en-us</language>
 	<ttl>1440</ttl>
-	<lastBuildDate>Fri, 08 Jan 2016 15:34:17 GMT</lastBuildDate>
+	<lastBuildDate>Thu, 15 Dec 2016 20:19:35 GMT</lastBuildDate>
 
+	<item>
+		<title>OGLplu2 0.6.0 released.</title>
+		<link>https://github.com/matus-chochlik/oglplu2/archive/master.zip</link>
+		<description>
+			Check out version 0.6.0 of our new experimental wrapper
+			for OpenGL written in C++14.
+		</description>
+		<guid>http://oglplus.org/news.rss#item-2016-12-15-20:19:35</guid>
+		<pubDate>Thu, 15 Dec 2016 20:19:35 GMT</pubDate>
+		<source url="http://oglplus.org/news.rss">OGLplus news</source>
+	</item>
+	<item>
+		<title>OGLplus 0.69.0 released.</title>
+		<link>https://github.com/matus-chochlik/oglplus</link>
+		<description>
+			New release version of OGLplus is available from github.
+		</description>
+		<guid>http://oglplus.org/news.rss#item-2016-12-05-20:50:22</guid>
+		<pubDate>Mon, 05 Dec 2016 20:50:22 GMT</pubDate>
+		<source url="http://oglplus.org/news.rss">OGLplus news</source>
+	</item>
 	<item>
 		<title>OGLplu2 0.3.0 released.</title>
 		<link>https://github.com/matus-chochlik/oglplu2/archive/master.zip</link>
@@ -79,27 +100,6 @@
 		</description>
 		<guid>http://oglplus.org/news.rss#item-2015-08-06-05:37:03</guid>
 		<pubDate>Thu, 06 Aug 2015 05:37:03 GMT</pubDate>
-		<source url="http://oglplus.org/news.rss">OGLplus news</source>
-	</item>
-	<item>
-		<title>OGLplus 0.64.0 released.</title>
-		<link>http://kifri.fri.uniza.sk/~chochlik/oglplus/release/</link>
-		<description>
-			New release packages are available for download.
-			The packages will be also uploaded to Sourceforge, when the service is fully restored.
-		</description>
-		<guid>http://oglplus.org/news.rss#item-2015-07-21-06:06:05</guid>
-		<pubDate>Tue, 21 Jul 2015 06:06:05 GMT</pubDate>
-		<source url="http://oglplus.org/news.rss">OGLplus news</source>
-	</item>
-	<item>
-		<title>OGLplus 0.63.0 released.</title>
-		<link>http://sourceforge.net/projects/oglplus/files/oglplus-0.63.x/</link>
-		<description>
-			New release packages are available for download from SourceForge.
-		</description>
-		<guid>http://oglplus.org/news.rss#item-2015-06-26-18:33:45</guid>
-		<pubDate>Fri, 26 Jun 2015 18:33:45 GMT</pubDate>
 		<source url="http://oglplus.org/news.rss">OGLplus news</source>
 	</item>
 </channel>

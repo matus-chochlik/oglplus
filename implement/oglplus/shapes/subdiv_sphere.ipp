@@ -24,9 +24,9 @@ GLuint SimpleSubdivSphere::_midpoint(GLuint ia, GLuint ib)
 	auto p = _midpoints.find(e);
 	if(p == _midpoints.end())
 	{
-		Vec3d va(_positions.data()+ea*3, 3);
-		Vec3d vb(_positions.data()+eb*3, 3);
-		Vec3f mp = Normalized((va+vb)*0.5);
+		Vector<double, 3> va(_positions.data()+ea*3, 3);
+		Vector<double, 3> vb(_positions.data()+eb*3, 3);
+		Vector<float, 3> mp = Normalized((va+vb)*0.5);
 		GLuint result = GLuint(_positions.size());
 
 		_positions.insert(_positions.end(), mp.Data(), mp.Data()+3);
@@ -85,7 +85,7 @@ void SimpleSubdivSphere::_make_face(
 OGLPLUS_LIB_FUNC
 void SimpleSubdivSphere::_init_icosah(void)
 {
-	static const GLdouble init_pos[12*3] = {
+	static const double init_pos[12*3] = {
 		 0.000,  1.000,  0.000,
 		 0.894,  0.447,  0.000,
 		 0.276,  0.447,  0.851,
@@ -131,7 +131,7 @@ void SimpleSubdivSphere::_init_icosah(void)
 OGLPLUS_LIB_FUNC
 void SimpleSubdivSphere::_init_tetrah(void)
 {
-	static const GLdouble init_pos[4*3] = {
+	static const double init_pos[4*3] = {
 		 0.0, 1.0, 0.0,
 		-1.0*std::sqrt(2.0)/3.0, -1.0/3.0, -std::sqrt(2.0/3.0),
 		-1.0*std::sqrt(2.0)/3.0, -1.0/3.0,  std::sqrt(2.0/3.0),

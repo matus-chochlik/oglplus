@@ -35,7 +35,7 @@ public:
 		SizeType cell_h,
 		SizeType cell_d,
 		const Image& input,
-		std::function<GLdouble(const std::vector<GLdouble>&)> calc_val,
+		std::function<double(const std::vector<double>&)> calc_val,
 		unsigned order
 	);
 };

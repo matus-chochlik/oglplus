@@ -4,7 +4,7 @@
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
-import os, sys, getopt, shutil, subprocess
+import os, sys, string, getopt, shutil, subprocess
 
 # initial values for the configuration options
 
@@ -308,11 +308,16 @@ def get_argument_parser():
 		"""
 	)
 
+	path2idus = string.maketrans("/.","__")
+	path2idmi = string.maketrans("/.","--")
 	gl_api_libs = {
-		"glcorearb.h" : "GL/glcorearb.h header",
-		"gl3.h" : "GL3/gl3.h header",
-		"GLEW" : "GLEW library",
-		"GL3W" : "GL3W library"
+		"glcorearb.h"  : "GL/glcorearb.h header",
+		"gl3.h"        : "GL3/gl3.h header",
+		"GLES3/gl32.h" : "GLES3/gl32.h header",
+		"GLES3/gl31.h" : "GLES3/gl31.h header",
+		"GLES3/gl3.h"  : "GLES3/gl3.h header",
+		"GLEW"         : "GLEW library",
+		"GL3W"         : "GL3W library"
 	}
 
 	argparser_gl_api_lib_group = argparser.add_mutually_exclusive_group()
@@ -320,7 +325,7 @@ def get_argument_parser():
 		"--use-gl-api-lib",
 		dest="gl_api_lib",
 		type=str,
-		choices=[lib.upper().replace('.', '_') for lib in gl_api_libs.keys() ],
+		choices=[lib.upper().translate(path2idus) for lib in gl_api_libs.keys() ],
 		action="store",
 		default=None,
 		help="""
@@ -334,8 +339,8 @@ def get_argument_parser():
 		"""
 	)
 	for gl_api_lib, gl_api_lib_name in gl_api_libs.items():
-		lib_lc = gl_api_lib.lower().replace('.', '-')
-		lib_uc = gl_api_lib.upper().replace('.', '_')
+		lib_lc = gl_api_lib.lower().translate(path2idmi)
+		lib_uc = gl_api_lib.upper().translate(path2idus)
 		argparser_gl_api_lib_group.add_argument(
 			"--use-%(lib_lc)s" % { "lib_lc" : lib_lc },
 			dest="gl_api_lib",

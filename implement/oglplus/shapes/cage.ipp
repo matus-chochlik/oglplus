@@ -13,10 +13,10 @@ namespace oglplus {
 namespace shapes {
 
 OGLPLUS_LIB_FUNC
-const Matrix<GLdouble, 3, 3>& Cage::_face_mat(GLuint face)
+const Matrix<double, 3, 3>& Cage::_face_mat(GLuint face)
 {
 	assert(face < 6);
-	typedef Matrix<GLdouble, 3, 3> M;
+	typedef Matrix<double, 3, 3> M;
 	static M m[6] = {
 		M( 0, 0, 1,  0,-1, 0,  1, 0, 0),//[0]+x
 		M( 0, 0,-1,  0,-1, 0, -1, 0, 0),//[1]-x
@@ -86,18 +86,18 @@ std::vector<GLfloat> Cage::_positions(void) const
 	std::vector<GLfloat> dest(_vert_count()*3);
 	auto p=dest.begin();
 
-	typedef Vector<GLdouble, 3> V;
+	typedef Vector<double, 3> V;
 
 	// for each face
 	for(GLuint f=0; f!=6; ++f)
 	{
-		GLdouble sx = _face_size(f, 0);
-		GLdouble sy = _face_size(f, 1);
-		GLdouble sz = _face_size(f, 2);
+		double sx = _face_size(f, 0);
+		double sy = _face_size(f, 1);
+		double sz = _face_size(f, 2);
 
-		GLdouble bx = _face_barw(f, 0);
-		GLdouble by = _face_barw(f, 1);
-		GLdouble bz = _face_barw(f, 1);
+		double bx = _face_barw(f, 0);
+		double by = _face_barw(f, 1);
+		double bz = _face_barw(f, 1);
 
 		p = _write(p, _face_vec(f, V(+bx-sx,+by-sy, sz)));
 		p = _write(p, _face_vec(f, V(   -sx,   -sy, sz)));
@@ -111,10 +111,10 @@ std::vector<GLfloat> Cage::_positions(void) const
 		GLuint dx = _face_divs(f, 0);
 		GLuint dy = _face_divs(f, 1);
 
-		GLdouble hx = (2*sx - bx*(dx+1))/dx;
-		GLdouble hy = (2*sy - by*(dy+1))/dy;
+		double hx = (2*sx - bx*(dx+1))/dx;
+		double hy = (2*sy - by*(dy+1))/dy;
 
-		GLdouble xo = -sx+bx;
+		double xo = -sx+bx;
 		for(GLuint x=1; x!=dx; ++x)
 		{
 			xo += hx;
@@ -136,7 +136,7 @@ std::vector<GLfloat> Cage::_positions(void) const
 			xo += bx;
 		}
 
-		GLdouble yo = -sy+by;
+		double yo = -sy+by;
 		for(GLuint y=1; y!=dy; ++y)
 		{
 			yo += hy;
@@ -210,7 +210,7 @@ std::vector<GLfloat> Cage::_normals(void) const
 	std::vector<GLfloat> dest(_vert_count()*3);
 	auto p=dest.begin();
 
-	typedef Vector<GLdouble, 3> V;
+	typedef Vector<double, 3> V;
 
 	// for each face
 	for(GLuint f=0; f!=6; ++f)
@@ -225,7 +225,7 @@ std::vector<GLfloat> Cage::_normals(void) const
 		GLuint dx = _face_divs(f, 0);
 		for(GLuint s=0; s!=2; ++s)
 		{
-			GLdouble sig = s?-1:1;
+			double sig = s?-1:1;
 			for(GLuint x=1; x!=dx; ++x)
 			{
 				for(GLuint v=0; v!=4; ++v)
@@ -236,7 +236,7 @@ std::vector<GLfloat> Cage::_normals(void) const
 		GLuint dy = _face_divs(f, 1);
 		for(GLuint s=0; s!=2; ++s)
 		{
-			GLdouble sig = s?-1:1;
+			double sig = s?-1:1;
 			for(GLuint y=1; y!=dy; ++y)
 			{
 				for(GLuint x=0; x!=dx; ++x)
@@ -272,7 +272,7 @@ std::vector<GLfloat> Cage::_tangents(void) const
 	std::vector<GLfloat> dest(_vert_count()*3);
 	auto p=dest.begin();
 
-	typedef Vector<GLdouble, 3> V;
+	typedef Vector<double, 3> V;
 
 	// for each face
 	for(GLuint f=0; f!=6; ++f)
@@ -286,7 +286,7 @@ std::vector<GLfloat> Cage::_tangents(void) const
 		GLuint dx = _face_divs(f, 0);
 		for(GLuint s=0; s!=2; ++s)
 		{
-			GLdouble sig = s?-1:1;
+			double sig = s?-1:1;
 			for(GLuint x=1; x!=dx; ++x)
 			{
 				for(GLuint v=0; v!=4; ++v)
@@ -297,7 +297,7 @@ std::vector<GLfloat> Cage::_tangents(void) const
 		GLuint dy = _face_divs(f, 1);
 		for(GLuint s=0; s!=2; ++s)
 		{
-			GLdouble sig = s?-1:1;
+			double sig = s?-1:1;
 			for(GLuint y=1; y!=dy; ++y)
 			{
 				for(GLuint x=0; x!=dx; ++x)
@@ -327,16 +327,16 @@ std::vector<GLfloat> Cage::_tex_coords(void) const
 	std::vector<GLfloat> dest(_vert_count()*3);
 	auto p=dest.begin();
 
-	typedef Vector<GLdouble, 3> V;
+	typedef Vector<double, 3> V;
 
 	// for each face
 	for(GLuint f=0; f!=6; ++f)
 	{
-		GLdouble z = 0.0;
-		GLdouble o = 1.0;
+		double z = 0.0;
+		double o = 1.0;
 
-		GLdouble bx = 0.5*_face_barw(f, 0)/_face_size(f, 0);
-		GLdouble by = 0.5*_face_barw(f, 1)/_face_size(f, 1);
+		double bx = 0.5*_face_barw(f, 0)/_face_size(f, 0);
+		double by = 0.5*_face_barw(f, 1)/_face_size(f, 1);
 
 		p = _write(p, _face_vec(f, V(+bx+z,+by+z, f)));
 		p = _write(p, _face_vec(f, V(   +z,   +z, f)));
@@ -350,10 +350,10 @@ std::vector<GLfloat> Cage::_tex_coords(void) const
 		GLuint dx = _face_divs(f, 0);
 		GLuint dy = _face_divs(f, 1);
 
-		GLdouble hx = (1.0 - bx*(dx+1))/dx;
-		GLdouble hy = (1.0 - by*(dy+1))/dy;
+		double hx = (1.0 - bx*(dx+1))/dx;
+		double hy = (1.0 - by*(dy+1))/dy;
 
-		GLdouble xo = bx;
+		double xo = bx;
 		for(GLuint x=1; x!=dx; ++x)
 		{
 			xo += hx;
@@ -375,7 +375,7 @@ std::vector<GLfloat> Cage::_tex_coords(void) const
 			xo += bx;
 		}
 
-		GLdouble yo = by;
+		double yo = by;
 		for(GLuint y=1; y!=dy; ++y)
 		{
 			yo += hy;

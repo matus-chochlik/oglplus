@@ -27,7 +27,7 @@ class IcosahedronBase
 {
 protected:
 	static const GLushort* _indices(void);
-	static const GLdouble* _positions(void);
+	static const double* _positions(void);
 };
 
 /// Class providing vertex attributes and instructions for drawing of a icosahedron
@@ -49,7 +49,7 @@ public:
 	template <typename T>
 	GLuint Positions(std::vector<T>& dest) const
 	{
-		const GLdouble* p = _positions();
+		const double* p = _positions();
 		dest.assign(p, p+12*3);
 		return 3;
 	}
@@ -115,7 +115,7 @@ public:
 	{
 		dest.resize(20*3*3);
 
-		const GLdouble* p = _positions();
+		const double* p = _positions();
 		const GLushort* i = _indices();
 
 		for(GLuint f=0; f!=20; ++f)
@@ -137,7 +137,7 @@ public:
 	{
 		dest.resize(20*3*3);
 
-		const GLdouble* p = _positions();
+		const double* p = _positions();
 		const GLushort* i = _indices();
 
 		for(GLuint f=0; f!=20; ++f)

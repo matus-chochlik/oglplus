@@ -368,26 +368,26 @@ void ObjMesh::_load_meshes(
 					(v+2)%3
 				};
 
-				Vec3d p[3];
-				Vec2d uv[3];
+				Vector<double, 3> p[3];
+				Vector<double, 2> uv[3];
 				for(std::size_t k=0; k<3; ++k)
 				{
-					p[k] = Vec3d(
+					p[k] = Vector<double, 3>(
 						_pos_data[f*9+j[k]*3+0],
 						_pos_data[f*9+j[k]*3+1],
 						_pos_data[f*9+j[k]*3+2]
 					);
-					uv[k] = Vec2d(
+					uv[k] = Vector<double, 2>(
 						_tex_data[f*9+j[k]*3+0],
 						_tex_data[f*9+j[k]*3+1]
 					);
 				}
 
-				Vec3d v0 = p[1] - p[0];
-				Vec3d v1 = p[2] - p[0];
+				Vector<double, 3> v0 = p[1] - p[0];
+				Vector<double, 3> v1 = p[2] - p[0];
 
-				Vec2d duv0 = uv[1] - uv[0];
-				Vec2d duv1 = uv[2] - uv[0];
+				Vector<double, 2> duv0 = uv[1] - uv[0];
+				Vector<double, 2> duv1 = uv[2] - uv[0];
 
 				double d = duv0.x()*duv1.y()-duv0.y()*duv1.x();
 				if(d != 0.0f) d = 1.0f/d;
@@ -464,14 +464,14 @@ GLuint ObjMesh::GetMeshIndex(const std::string& name) const
 OGLPLUS_LIB_FUNC
 Spheref ObjMesh::MakeBoundingSphere(void) const
 {
-	GLdouble min_x = _pos_data[3], max_x = _pos_data[3];
-	GLdouble min_y = _pos_data[4], max_y = _pos_data[4];
-	GLdouble min_z = _pos_data[5], max_z = _pos_data[5];
+	double min_x = _pos_data[3], max_x = _pos_data[3];
+	double min_y = _pos_data[4], max_y = _pos_data[4];
+	double min_z = _pos_data[5], max_z = _pos_data[5];
 	for(std::size_t v=0, vn=_pos_data.size()/3; v!=vn; ++v)
 	{
-		GLdouble x = _pos_data[v*3+0];
-		GLdouble y = _pos_data[v*3+1];
-		GLdouble z = _pos_data[v*3+2];
+		double x = _pos_data[v*3+0];
+		double y = _pos_data[v*3+1];
+		double z = _pos_data[v*3+2];
 
 		if(min_x > x) min_x = x;
 		if(min_y > y) min_y = y;
@@ -481,7 +481,7 @@ Spheref ObjMesh::MakeBoundingSphere(void) const
 		if(max_z < z) max_z = z;
 	}
 
-	Vec3d c(
+	Vector<double, 3> c(
 		(min_x + max_x) * 0.5,
 		(min_y + max_y) * 0.5,
 		(min_z + max_z) * 0.5
@@ -491,7 +491,7 @@ Spheref ObjMesh::MakeBoundingSphere(void) const
 		GLfloat(c.x()),
 		GLfloat(c.y()),
 		GLfloat(c.z()),
-		GLfloat(Distance(c, Vec3d(min_x, min_y, min_z)))
+		GLfloat(Distance(c, Vector<double, 3>(min_x, min_y, min_z)))
 	);
 }
 

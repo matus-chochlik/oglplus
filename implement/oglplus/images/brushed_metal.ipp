@@ -24,7 +24,7 @@ void BrushedMetalUByte::_make_pixel(
 	GLsizei h,
 	GLint x,
 	GLint y,
-	GLdouble /*c*/,
+	double /*c*/,
 	GLubyte r,
 	GLubyte g
 )
@@ -60,7 +60,7 @@ void BrushedMetalUByte::_make_scratch(
 {
 	if((dx == 0) && (dy == 0)) return;
 
-	GLdouble dd = std::sqrt(GLdouble(dx*dx + dy*dy));
+	double dd = std::sqrt(double(dx*dx + dy*dy));
 
 	GLubyte r = GLubyte((dy/dd)*0xFF);
 	GLubyte g = GLubyte((dx/dd)*0xFF);
@@ -71,7 +71,7 @@ void BrushedMetalUByte::_make_scratch(
 		{
 			for(GLint i=0; i<dx; ++i)
 			{
-				GLdouble c = GLdouble(i)/dx;
+				double c = double(i)/dx;
 				GLint j = GLint(dy*c);
 				_make_pixel(b,e,w,h,x+i,y+j,c,r,g);
 			}
@@ -80,7 +80,7 @@ void BrushedMetalUByte::_make_scratch(
 		{
 			for(GLint i=0; i>dx; --i)
 			{
-				GLdouble c = GLdouble(i)/dx;
+				double c = double(i)/dx;
 				GLint j = GLint(dy*c);
 				_make_pixel(b,e,w,h,x+i,y+j,c,r,g);
 			}
@@ -92,7 +92,7 @@ void BrushedMetalUByte::_make_scratch(
 		{
 			for(GLint j=0; j<dy; ++j)
 			{
-				GLdouble c = GLdouble(j)/dy;
+				double c = double(j)/dy;
 				GLint i = GLint(dx*c);
 				_make_pixel(b,e,w,h,x+i,y+j,c,r,g);
 			}
@@ -101,7 +101,7 @@ void BrushedMetalUByte::_make_scratch(
 		{
 			for(GLint j=0; j>dy; --j)
 			{
-				GLdouble c = GLdouble(j)/dy;
+				double c = double(j)/dy;
 				GLint i = GLint(dx*c);
 				_make_pixel(b,e,w,h,x+i,y+j,c,r,g);
 			}

@@ -19,37 +19,37 @@ std::vector<GLfloat> TwistedTorus::_positions(void) const
 	std::vector<GLfloat> dest(2*2*2*_sections*(_rings + 1)*3);
 	unsigned k = 0;
 	//
-	const GLdouble t = _thickness / _radius_in;
-	const GLdouble r_twist = GLdouble(_twist) / GLdouble(_rings);
-	const GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
-	const GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
-	const GLdouble s_slip = s_step * _s_slip_coef;
-	const GLdouble r1 = _radius_in;
-	const GLdouble r2 = _radius_out - _radius_in;
+	const double t = _thickness / _radius_in;
+	const double r_twist = double(_twist) / double(_rings);
+	const double r_step = (math::TwoPi()) / double(_rings);
+	const double s_step = (math::TwoPi()) / double(_sections);
+	const double s_slip = s_step * _s_slip_coef;
+	const double r1 = _radius_in;
+	const double r2 = _radius_out - _radius_in;
 
 	for(unsigned f=0; f!=2; ++f)
 	{
-		const GLdouble f_sign = (f == 0)? 1.0: -1.0;
-		const GLdouble fdt = t*f_sign*0.95;
+		const double f_sign = (f == 0)? 1.0: -1.0;
+		const double fdt = t*f_sign*0.95;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
-			const GLdouble s_angle = s_step*0.5 + s*s_step;
-			const GLdouble sa[2] = {
+			const double s_angle = s_step*0.5 + s*s_step;
+			const double sa[2] = {
 				s_angle + s_slip*f_sign,
 				s_angle - s_slip*f_sign
 			};
 			for(unsigned r=0; r!=_rings+1; ++r)
 			{
-				const GLdouble r_angle = r*r_step;
-				GLdouble vx = std::cos(r_angle);
-				GLdouble vz = std::sin(r_angle);
+				const double r_angle = r*r_step;
+				double vx = std::cos(r_angle);
+				double vz = std::sin(r_angle);
 
-				const GLdouble ta = s_step*r*r_twist;
+				const double ta = s_step*r*r_twist;
 
 				for(unsigned d=0; d!=2; ++d)
 				{
-					GLdouble vr = std::cos(sa[d]+ta);
-					GLdouble vy = std::sin(sa[d]+ta);
+					double vr = std::cos(sa[d]+ta);
+					double vy = std::sin(sa[d]+ta);
 
 					dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr));
 					dest[k++] = T(vy*(r2 + fdt));
@@ -61,25 +61,25 @@ std::vector<GLfloat> TwistedTorus::_positions(void) const
 
 	for(unsigned d=0; d!=2; ++d)
 	{
-		const GLdouble d_sign = (d == 0)? 1.0: -1.0;
+		const double d_sign = (d == 0)? 1.0: -1.0;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
-			const GLdouble s_angle = s_step*0.5 + s*s_step;
-			const GLdouble sa = s_angle + s_slip*d_sign;
+			const double s_angle = s_step*0.5 + s*s_step;
+			const double sa = s_angle + s_slip*d_sign;
 			for(unsigned r=0; r!=_rings+1; ++r)
 			{
-				const GLdouble r_angle = r*r_step;
-				const GLdouble ta = s_step*r*r_twist;
-				const GLdouble vr = std::cos(sa+ta);
-				const GLdouble vy = std::sin(sa+ta);
+				const double r_angle = r*r_step;
+				const double ta = s_step*r*r_twist;
+				const double vr = std::cos(sa+ta);
+				const double vy = std::sin(sa+ta);
 
-				GLdouble vx = std::cos(r_angle);
-				GLdouble vz = std::sin(r_angle);
+				double vx = std::cos(r_angle);
+				double vz = std::sin(r_angle);
 
 				for(unsigned f=0; f!=2; ++f)
 				{
-					const GLdouble f_sign = (f == 0)? 1.0: -1.0;
-					const GLdouble fdt = -t*d_sign*f_sign*0.95;
+					const double f_sign = (f == 0)? 1.0: -1.0;
+					const double fdt = -t*d_sign*f_sign*0.95;
 
 					dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr));
 					dest[k++] = T(vy*(r2 + fdt));
@@ -99,33 +99,33 @@ std::vector<GLfloat> TwistedTorus::_normals(void) const
 	std::vector<GLfloat> dest(2*2*2*_sections*(_rings + 1)*3);
 	unsigned k = 0;
 	//
-	const GLdouble r_twist= GLdouble(_twist) / GLdouble(_rings);
-	const GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
-	const GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
-	const GLdouble s_slip = s_step * _s_slip_coef;
+	const double r_twist= double(_twist) / double(_rings);
+	const double r_step = (math::TwoPi()) / double(_rings);
+	const double s_step = (math::TwoPi()) / double(_sections);
+	const double s_slip = s_step * _s_slip_coef;
 
 	for(unsigned f=0; f!=2; ++f)
 	{
-		const GLdouble f_sign = (f == 0)? 1.0: -1.0;
+		const double f_sign = (f == 0)? 1.0: -1.0;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
-			const GLdouble s_angle = s_step*0.5 + s*s_step;
-			const GLdouble sa[2] = {
+			const double s_angle = s_step*0.5 + s*s_step;
+			const double sa[2] = {
 				s_angle + s_slip*f_sign,
 				s_angle - s_slip*f_sign
 			};
 			for(unsigned r=0; r!=_rings+1; ++r)
 			{
-				const GLdouble r_angle = r*r_step;
-				GLdouble vx = std::cos(r_angle);
-				GLdouble vz = std::sin(r_angle);
+				const double r_angle = r*r_step;
+				double vx = std::cos(r_angle);
+				double vz = std::sin(r_angle);
 
-				const GLdouble ta = s_step*r*r_twist;
+				const double ta = s_step*r*r_twist;
 
 				for(unsigned d=0; d!=2; ++d)
 				{
-					GLdouble vr = std::cos(sa[d]+ta);
-					GLdouble vy = std::sin(sa[d]+ta);
+					double vr = std::cos(sa[d]+ta);
+					double vy = std::sin(sa[d]+ta);
 
 					dest[k++] = T(f_sign*vx*vr);
 					dest[k++] = T(f_sign*vy);
@@ -137,19 +137,19 @@ std::vector<GLfloat> TwistedTorus::_normals(void) const
 
 	for(unsigned d=0; d!=2; ++d)
 	{
-		const GLdouble d_sign = (d == 0)? 1.0: -1.0;
+		const double d_sign = (d == 0)? 1.0: -1.0;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
-			const GLdouble s_angle = s_step*0.5 + s*s_step;
-			const GLdouble sa = s_angle + s_slip*d_sign;
+			const double s_angle = s_step*0.5 + s*s_step;
+			const double sa = s_angle + s_slip*d_sign;
 			for(unsigned r=0; r!=_rings+1; ++r)
 			{
-				const GLdouble ta = s_step*r*r_twist;
-				const GLdouble vr = std::sin(sa+ta);
-				const GLdouble vy = std::cos(sa+ta);
-				const GLdouble r_angle = r*r_step;
-				GLdouble vx = std::cos(r_angle);
-				GLdouble vz = std::sin(r_angle);
+				const double ta = s_step*r*r_twist;
+				const double vr = std::sin(sa+ta);
+				const double vy = std::cos(sa+ta);
+				const double r_angle = r*r_step;
+				double vx = std::cos(r_angle);
+				double vz = std::sin(r_angle);
 
 				for(unsigned f=0; f!=2; ++f)
 				{
@@ -297,30 +297,30 @@ std::vector<GLfloat> TwistedTorus::_tex_coords(void) const
 	std::vector<GLfloat> dest(2*2*2*_sections*(_rings + 1)*2);
 	unsigned k = 0;
 	//
-	GLdouble t = _thickness / _radius_in;
-	GLdouble r_step = 0.5 / GLdouble(_rings);
-	GLdouble s_step = 1.0 / GLdouble(_sections);
-	GLdouble s_slip = s_step * t;
+	double t = _thickness / _radius_in;
+	double r_step = 0.5 / double(_rings);
+	double s_step = 1.0 / double(_sections);
+	double s_slip = s_step * t;
 
 	s_slip = s_step * _s_slip_coef;
 
 	for(unsigned f=0; f!=2; ++f)
 	{
-		const GLdouble f_sign = (f == 0)? 1.0: -1.0;
+		const double f_sign = (f == 0)? 1.0: -1.0;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
-			const GLdouble s_angle = s_step*0.5 + s*s_step;
-			const GLdouble sa[2] = {
+			const double s_angle = s_step*0.5 + s*s_step;
+			const double sa[2] = {
 				s_angle + s_slip*f_sign,
 				s_angle - s_slip*f_sign
 			};
 			for(unsigned r=0; r!=_rings+1; ++r)
 			{
-				const GLdouble r_angle = 2*r*r_step;
-				GLdouble u = r_angle;
+				const double r_angle = 2*r*r_step;
+				double u = r_angle;
 				for(unsigned d=0; d!=2; ++d)
 				{
-					GLdouble v = sa[d];
+					double v = sa[d];
 					dest[k++] = T(u);
 					dest[k++] = T(v);
 				}
@@ -330,15 +330,15 @@ std::vector<GLfloat> TwistedTorus::_tex_coords(void) const
 
 	for(unsigned d=0; d!=2; ++d)
 	{
-		const GLdouble d_sign = (d == 0)? 1.0: -1.0;
+		const double d_sign = (d == 0)? 1.0: -1.0;
 		for(unsigned s=0; s!=_sections; ++s)
 		{
-			const GLdouble s_angle = s_step*0.5 + s*s_step;
-			const GLdouble v = s_angle + s_slip*d_sign;
+			const double s_angle = s_step*0.5 + s*s_step;
+			const double v = s_angle + s_slip*d_sign;
 			for(unsigned r=0; r!=_rings+1; ++r)
 			{
-				const GLdouble r_angle = 2*r*r_step;
-				GLdouble u = r_angle;
+				const double r_angle = 2*r*r_step;
+				double u = r_angle;
 				for(unsigned f=0; f!=2; ++f)
 				{
 					dest[k++] = T(u);

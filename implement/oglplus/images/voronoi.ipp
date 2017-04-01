@@ -18,9 +18,9 @@ namespace images {
 
 struct VoronoiNearestPointColor
 {
-	Vec3d operator()(
-		const GLdouble* dists,
-		const Vec3d* colors,
+	Vector<double, 3> operator()(
+		const double* dists,
+		const Vector<double, 3>* colors,
 		GLsizei count
 	) const
 	{
@@ -57,7 +57,7 @@ VoronoiDiagram::VoronoiDiagram(
 
 struct VoronoiCellDistance
 {
-	GLdouble operator()(const std::vector<GLdouble>& d) const
+	double operator()(const std::vector<double>& d) const
 	{
 		assert(!d.empty());
 		return d.front();
