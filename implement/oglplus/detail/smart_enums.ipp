@@ -479,11 +479,6 @@ template <typename Enum, Enum = Enum::Complete> operator Enum (void) const{ retu
 template <typename Enum> friend bool operator==(Enum value, Complete){ return value == Enum::Complete; }
 template <typename Enum> friend bool operator!=(Enum value, Complete){ return value != Enum::Complete; }
 };
-struct CompressedETC2EAC {
-template <typename Enum, Enum = Enum::CompressedETC2EAC> operator Enum (void) const{ return Enum::CompressedETC2EAC; }
-template <typename Enum> friend bool operator==(Enum value, CompressedETC2EAC){ return value == Enum::CompressedETC2EAC; }
-template <typename Enum> friend bool operator!=(Enum value, CompressedETC2EAC){ return value != Enum::CompressedETC2EAC; }
-};
 struct CompressedR11EAC {
 template <typename Enum, Enum = Enum::CompressedR11EAC> operator Enum (void) const{ return Enum::CompressedR11EAC; }
 template <typename Enum> friend bool operator==(Enum value, CompressedR11EAC){ return value == Enum::CompressedR11EAC; }
@@ -519,10 +514,20 @@ template <typename Enum, Enum = Enum::CompressedRGBA> operator Enum (void) const
 template <typename Enum> friend bool operator==(Enum value, CompressedRGBA){ return value == Enum::CompressedRGBA; }
 template <typename Enum> friend bool operator!=(Enum value, CompressedRGBA){ return value != Enum::CompressedRGBA; }
 };
+struct CompressedRGBA8ETC2EAC {
+template <typename Enum, Enum = Enum::CompressedRGBA8ETC2EAC> operator Enum (void) const{ return Enum::CompressedRGBA8ETC2EAC; }
+template <typename Enum> friend bool operator==(Enum value, CompressedRGBA8ETC2EAC){ return value == Enum::CompressedRGBA8ETC2EAC; }
+template <typename Enum> friend bool operator!=(Enum value, CompressedRGBA8ETC2EAC){ return value != Enum::CompressedRGBA8ETC2EAC; }
+};
 struct CompressedRGBABPTCUNorm {
 template <typename Enum, Enum = Enum::CompressedRGBABPTCUNorm> operator Enum (void) const{ return Enum::CompressedRGBABPTCUNorm; }
 template <typename Enum> friend bool operator==(Enum value, CompressedRGBABPTCUNorm){ return value == Enum::CompressedRGBABPTCUNorm; }
 template <typename Enum> friend bool operator!=(Enum value, CompressedRGBABPTCUNorm){ return value != Enum::CompressedRGBABPTCUNorm; }
+};
+struct CompressedRGBAS3TCDXT3 {
+template <typename Enum, Enum = Enum::CompressedRGBAS3TCDXT3> operator Enum (void) const{ return Enum::CompressedRGBAS3TCDXT3; }
+template <typename Enum> friend bool operator==(Enum value, CompressedRGBAS3TCDXT3){ return value == Enum::CompressedRGBAS3TCDXT3; }
+template <typename Enum> friend bool operator!=(Enum value, CompressedRGBAS3TCDXT3){ return value != Enum::CompressedRGBAS3TCDXT3; }
 };
 struct CompressedRGBBPTCSignedFloat {
 template <typename Enum, Enum = Enum::CompressedRGBBPTCSignedFloat> operator Enum (void) const{ return Enum::CompressedRGBBPTCSignedFloat; }

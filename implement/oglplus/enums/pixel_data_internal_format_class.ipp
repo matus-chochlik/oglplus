@@ -959,13 +959,13 @@ public:
 # endif
 #endif
 #if defined GL_COMPRESSED_RGBA8_ETC2_EAC
-# if defined CompressedETC2EAC
-#  pragma push_macro("CompressedETC2EAC")
-#  undef CompressedETC2EAC
-	Transform<PixelDataInternalFormat::CompressedETC2EAC> CompressedETC2EAC;
-#  pragma pop_macro("CompressedETC2EAC")
+# if defined CompressedRGBA8ETC2EAC
+#  pragma push_macro("CompressedRGBA8ETC2EAC")
+#  undef CompressedRGBA8ETC2EAC
+	Transform<PixelDataInternalFormat::CompressedRGBA8ETC2EAC> CompressedRGBA8ETC2EAC;
+#  pragma pop_macro("CompressedRGBA8ETC2EAC")
 # else
-	Transform<PixelDataInternalFormat::CompressedETC2EAC> CompressedETC2EAC;
+	Transform<PixelDataInternalFormat::CompressedRGBA8ETC2EAC> CompressedRGBA8ETC2EAC;
 # endif
 #endif
 #if defined GL_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC
@@ -1016,6 +1016,16 @@ public:
 #  pragma pop_macro("CompressedSignedRG11EAC")
 # else
 	Transform<PixelDataInternalFormat::CompressedSignedRG11EAC> CompressedSignedRG11EAC;
+# endif
+#endif
+#if defined GL_COMPRESSED_RGBA_S3TC_DXT3_EXT
+# if defined CompressedRGBAS3TCDXT3
+#  pragma push_macro("CompressedRGBAS3TCDXT3")
+#  undef CompressedRGBAS3TCDXT3
+	Transform<PixelDataInternalFormat::CompressedRGBAS3TCDXT3> CompressedRGBAS3TCDXT3;
+#  pragma pop_macro("CompressedRGBAS3TCDXT3")
+# else
+	Transform<PixelDataInternalFormat::CompressedRGBAS3TCDXT3> CompressedRGBAS3TCDXT3;
 # endif
 #endif
 
@@ -1963,13 +1973,13 @@ public:
 # endif
 #endif
 #if defined GL_COMPRESSED_RGBA8_ETC2_EAC
-# if defined CompressedETC2EAC
-#  pragma push_macro("CompressedETC2EAC")
-#  undef CompressedETC2EAC
-	 , CompressedETC2EAC(_base())
-#  pragma pop_macro("CompressedETC2EAC")
+# if defined CompressedRGBA8ETC2EAC
+#  pragma push_macro("CompressedRGBA8ETC2EAC")
+#  undef CompressedRGBA8ETC2EAC
+	 , CompressedRGBA8ETC2EAC(_base())
+#  pragma pop_macro("CompressedRGBA8ETC2EAC")
 # else
-	 , CompressedETC2EAC(_base())
+	 , CompressedRGBA8ETC2EAC(_base())
 # endif
 #endif
 #if defined GL_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC
@@ -2020,6 +2030,16 @@ public:
 #  pragma pop_macro("CompressedSignedRG11EAC")
 # else
 	 , CompressedSignedRG11EAC(_base())
+# endif
+#endif
+#if defined GL_COMPRESSED_RGBA_S3TC_DXT3_EXT
+# if defined CompressedRGBAS3TCDXT3
+#  pragma push_macro("CompressedRGBAS3TCDXT3")
+#  undef CompressedRGBAS3TCDXT3
+	 , CompressedRGBAS3TCDXT3(_base())
+#  pragma pop_macro("CompressedRGBAS3TCDXT3")
+# else
+	 , CompressedRGBAS3TCDXT3(_base())
 # endif
 #endif
 	{ }

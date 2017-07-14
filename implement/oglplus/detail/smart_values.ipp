@@ -103,7 +103,6 @@ OGLPLUS_CONSTEXPR oglplus::smart_enums::CompareRefToTexture CompareRefToTexture 
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Compatibility Compatibility = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::CompatibleSubroutines CompatibleSubroutines = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Complete Complete = {};
-OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedETC2EAC CompressedETC2EAC = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedR11EAC CompressedR11EAC = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedRG CompressedRG = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedRG11EAC CompressedRG11EAC = {};
@@ -111,7 +110,9 @@ OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedRGB CompressedRGB = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedRGB8ETC2 CompressedRGB8ETC2 = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedRGB8PunchthroughAlpha1ETC2 CompressedRGB8PunchthroughAlpha1ETC2 = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedRGBA CompressedRGBA = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedRGBA8ETC2EAC CompressedRGBA8ETC2EAC = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedRGBABPTCUNorm CompressedRGBABPTCUNorm = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedRGBAS3TCDXT3 CompressedRGBAS3TCDXT3 = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedRGBBPTCSignedFloat CompressedRGBBPTCSignedFloat = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedRGBBPTCUnsignedFloat CompressedRGBBPTCUnsignedFloat = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::CompressedRGRGTC2 CompressedRGRGTC2 = {};

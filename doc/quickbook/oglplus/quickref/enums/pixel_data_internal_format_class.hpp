@@ -211,8 +211,8 @@ public:
 		CompressedRGB8PunchthroughAlpha1ETC2;
 	Transform<PixelDataInternalFormat::CompressedSRGB8PunchthroughAlpha1ETC2>
 		CompressedSRGB8PunchthroughAlpha1ETC2;
-	Transform<PixelDataInternalFormat::CompressedETC2EAC>
-		CompressedETC2EAC;
+	Transform<PixelDataInternalFormat::CompressedRGBA8ETC2EAC>
+		CompressedRGBA8ETC2EAC;
 	Transform<PixelDataInternalFormat::CompressedSRGB8Alpha8ETC2EAC>
 		CompressedSRGB8Alpha8ETC2EAC;
 	Transform<PixelDataInternalFormat::CompressedR11EAC>
@@ -223,6 +223,8 @@ public:
 		CompressedRG11EAC;
 	Transform<PixelDataInternalFormat::CompressedSignedRG11EAC>
 		CompressedSignedRG11EAC;
+	Transform<PixelDataInternalFormat::CompressedRGBAS3TCDXT3>
+		CompressedRGBAS3TCDXT3;
 };
 
 } // namespace enums

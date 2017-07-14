@@ -4,7 +4,7 @@
 #  Edit the enumeration source files in 'source/enums/oglplus'
 #  or the 'source/enums/make_enum.py' script instead.
 #
-#  Copyright 2010-2015 Matus Chochlik.
+#  Copyright 2010-2017 Matus Chochlik.
 #  Distributed under the Boost Software License, Version 1.0.
 #  See accompanying file LICENSE_1_0.txt or copy at
 #  http://www.boost.org/LICENSE_1_0.txt
@@ -86,18 +86,25 @@ $(ROOT)/implement/oglplus/enums/transform_feedback_target_bq.ipp: transform_feed
 	git add "$@"
 
 .PHONY: _impl_enum_type_ipp
-_impl_enum_type_ipp: \
-	$(ROOT)/implement/oglplus/enums/limit_query_type.ipp \
-	$(ROOT)/implement/oglplus/enums/buffer_indexed_target_type.ipp \
-	$(ROOT)/implement/oglplus/enums/pixel_parameter_type.ipp
+_impl_enum_type_ipp:$(ROOT)/implement/oglplus/enums/limit_query_type.ipp $(ROOT)/implement/oglplus/enums/pixel_parameter_type.ipp
 
-$(ROOT)/implement/oglplus/enums/%_type.ipp: %.txt $(MAKE_ENUM)
+$(ROOT)/implement/oglplus/enums/limit_query_type.ipp: limit_query.txt $(MAKE_ENUM)
 	$(MAKE_ENUM) \
 		--library $(LIBRARY) \
 		--base-lib-prefix $(LIB_PREFIX)\
 		--action impl_enum_type_ipp \
 		--input "$<" \
 		--output "$@" \
-		--output-id "$*_type"
+		--output-id "limit_query_type"
+	git add "$@"
+
+$(ROOT)/implement/oglplus/enums/pixel_parameter_type.ipp: pixel_parameter.txt $(MAKE_ENUM)
+	$(MAKE_ENUM) \
+		--library $(LIBRARY) \
+		--base-lib-prefix $(LIB_PREFIX)\
+		--action impl_enum_type_ipp \
+		--input "$<" \
+		--output "$@" \
+		--output-id "pixel_parameter_type"
 	git add "$@"
 

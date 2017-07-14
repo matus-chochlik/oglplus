@@ -1521,13 +1521,13 @@
 # ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined CompressedETC2EAC
-#  pragma push_macro("CompressedETC2EAC")
-#  undef CompressedETC2EAC
-   OGLPLUS_ENUM_CLASS_VALUE(CompressedETC2EAC, GL_COMPRESSED_RGBA8_ETC2_EAC)
-#  pragma pop_macro("CompressedETC2EAC")
+# if defined CompressedRGBA8ETC2EAC
+#  pragma push_macro("CompressedRGBA8ETC2EAC")
+#  undef CompressedRGBA8ETC2EAC
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGBA8ETC2EAC, GL_COMPRESSED_RGBA8_ETC2_EAC)
+#  pragma pop_macro("CompressedRGBA8ETC2EAC")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(CompressedETC2EAC, GL_COMPRESSED_RGBA8_ETC2_EAC)
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGBA8ETC2EAC, GL_COMPRESSED_RGBA8_ETC2_EAC)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
@@ -1608,6 +1608,22 @@
 #  pragma pop_macro("CompressedSignedRG11EAC")
 # else
    OGLPLUS_ENUM_CLASS_VALUE(CompressedSignedRG11EAC, GL_COMPRESSED_SIGNED_RG11_EAC)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COMPRESSED_RGBA_S3TC_DXT3_EXT
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined CompressedRGBAS3TCDXT3
+#  pragma push_macro("CompressedRGBAS3TCDXT3")
+#  undef CompressedRGBAS3TCDXT3
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGBAS3TCDXT3, GL_COMPRESSED_RGBA_S3TC_DXT3_EXT)
+#  pragma pop_macro("CompressedRGBAS3TCDXT3")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGBAS3TCDXT3, GL_COMPRESSED_RGBA_S3TC_DXT3_EXT)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
