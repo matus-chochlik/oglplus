@@ -45,6 +45,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_FRAMEBUFFER
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined Both
+#  pragma push_macro("Both")
+#  undef Both
+   OGLPLUS_ENUM_CLASS_VALUE(Both, GL_FRAMEBUFFER)
+#  pragma pop_macro("Both")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Both, GL_FRAMEBUFFER)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif

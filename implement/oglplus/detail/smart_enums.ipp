@@ -239,6 +239,11 @@ template <typename Enum, Enum = Enum::BoolVec4> operator Enum (void) const{ retu
 template <typename Enum> friend bool operator==(Enum value, BoolVec4){ return value == Enum::BoolVec4; }
 template <typename Enum> friend bool operator!=(Enum value, BoolVec4){ return value != Enum::BoolVec4; }
 };
+struct Both {
+template <typename Enum, Enum = Enum::Both> operator Enum (void) const{ return Enum::Both; }
+template <typename Enum> friend bool operator==(Enum value, Both){ return value == Enum::Both; }
+template <typename Enum> friend bool operator!=(Enum value, Both){ return value != Enum::Both; }
+};
 struct BoundingBox {
 template <typename Enum, Enum = Enum::BoundingBox> operator Enum (void) const{ return Enum::BoundingBox; }
 template <typename Enum> friend bool operator==(Enum value, BoundingBox){ return value == Enum::BoundingBox; }

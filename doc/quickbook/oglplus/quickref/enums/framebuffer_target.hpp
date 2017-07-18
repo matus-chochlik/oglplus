@@ -14,7 +14,8 @@
 enum class FramebufferTarget : GLenum
 {
 	Draw = GL_DRAW_FRAMEBUFFER,
-	Read = GL_READ_FRAMEBUFFER
+	Read = GL_READ_FRAMEBUFFER,
+	Both = GL_FRAMEBUFFER
 };
 
 template <>

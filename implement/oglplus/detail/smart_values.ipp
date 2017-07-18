@@ -55,6 +55,7 @@ OGLPLUS_CONSTEXPR oglplus::smart_enums::Bool Bool = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::BoolVec2 BoolVec2 = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::BoolVec3 BoolVec3 = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::BoolVec4 BoolVec4 = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::Both Both = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::BoundingBox BoundingBox = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::BoundingBoxOfBoundingBoxes BoundingBoxOfBoundingBoxes = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Buffer Buffer = {};
