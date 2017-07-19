@@ -11,9 +11,6 @@
 //
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 
-OGLPLUS_ENUM_CLASS_FWD(FramebufferAttachment, GLenum)
-#include <oglplus/enums/framebuffer_attachment_names.ipp>
-
 OGLPLUS_ENUM_CLASS_FWD(BufferMapAccess, GLbitfield)
 #include <oglplus/enums/buffer_map_access_names.ipp>
 
@@ -197,6 +194,9 @@ OGLPLUS_ENUM_CLASS_FWD(Face, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(CompareFunction, GLenum)
 #include <oglplus/enums/compare_function_names.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(FramebufferParameter, GLenum)
+#include <oglplus/enums/framebuffer_parameter_names.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(ClipDepthMode, GLenum)
 #include <oglplus/enums/clip_depth_mode_names.ipp>
 
@@ -250,6 +250,9 @@ OGLPLUS_ENUM_CLASS_FWD(BlendFunction, GLenum)
 
 OGLPLUS_ENUM_CLASS_FWD(ImageUnitFormat, GLenum)
 #include <oglplus/enums/image_unit_format_names.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(FramebufferAttachment, GLenum)
+#include <oglplus/enums/framebuffer_attachment_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(PathNVMissingGlyph, GLenum)
 #include <oglplus/enums/ext/nv_path_missing_glyph_names.ipp>

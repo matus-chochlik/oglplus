@@ -1274,6 +1274,31 @@ template <typename Enum, Enum = Enum::Framebuffer> operator Enum (void) const{ r
 template <typename Enum> friend bool operator==(Enum value, Framebuffer){ return value == Enum::Framebuffer; }
 template <typename Enum> friend bool operator!=(Enum value, Framebuffer){ return value != Enum::Framebuffer; }
 };
+struct FramebufferDefaultFixedSampleLocations {
+template <typename Enum, Enum = Enum::FramebufferDefaultFixedSampleLocations> operator Enum (void) const{ return Enum::FramebufferDefaultFixedSampleLocations; }
+template <typename Enum> friend bool operator==(Enum value, FramebufferDefaultFixedSampleLocations){ return value == Enum::FramebufferDefaultFixedSampleLocations; }
+template <typename Enum> friend bool operator!=(Enum value, FramebufferDefaultFixedSampleLocations){ return value != Enum::FramebufferDefaultFixedSampleLocations; }
+};
+struct FramebufferDefaultHeight {
+template <typename Enum, Enum = Enum::FramebufferDefaultHeight> operator Enum (void) const{ return Enum::FramebufferDefaultHeight; }
+template <typename Enum> friend bool operator==(Enum value, FramebufferDefaultHeight){ return value == Enum::FramebufferDefaultHeight; }
+template <typename Enum> friend bool operator!=(Enum value, FramebufferDefaultHeight){ return value != Enum::FramebufferDefaultHeight; }
+};
+struct FramebufferDefaultLayers {
+template <typename Enum, Enum = Enum::FramebufferDefaultLayers> operator Enum (void) const{ return Enum::FramebufferDefaultLayers; }
+template <typename Enum> friend bool operator==(Enum value, FramebufferDefaultLayers){ return value == Enum::FramebufferDefaultLayers; }
+template <typename Enum> friend bool operator!=(Enum value, FramebufferDefaultLayers){ return value != Enum::FramebufferDefaultLayers; }
+};
+struct FramebufferDefaultSamples {
+template <typename Enum, Enum = Enum::FramebufferDefaultSamples> operator Enum (void) const{ return Enum::FramebufferDefaultSamples; }
+template <typename Enum> friend bool operator==(Enum value, FramebufferDefaultSamples){ return value == Enum::FramebufferDefaultSamples; }
+template <typename Enum> friend bool operator!=(Enum value, FramebufferDefaultSamples){ return value != Enum::FramebufferDefaultSamples; }
+};
+struct FramebufferDefaultWidth {
+template <typename Enum, Enum = Enum::FramebufferDefaultWidth> operator Enum (void) const{ return Enum::FramebufferDefaultWidth; }
+template <typename Enum> friend bool operator==(Enum value, FramebufferDefaultWidth){ return value == Enum::FramebufferDefaultWidth; }
+template <typename Enum> friend bool operator!=(Enum value, FramebufferDefaultWidth){ return value != Enum::FramebufferDefaultWidth; }
+};
 struct FramebufferSRGB {
 template <typename Enum, Enum = Enum::FramebufferSRGB> operator Enum (void) const{ return Enum::FramebufferSRGB; }
 template <typename Enum> friend bool operator==(Enum value, FramebufferSRGB){ return value == Enum::FramebufferSRGB; }

@@ -1,0 +1,9 @@
+# Copyright 2010-2017 Matus Chochlik. Distributed under the Boost
+# Software License, Version 1.0. (See accompanying file
+# LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+FRAMEBUFFER_DEFAULT_WIDTH
+FRAMEBUFFER_DEFAULT_HEIGHT
+FRAMEBUFFER_DEFAULT_LAYERS
+FRAMEBUFFER_DEFAULT_SAMPLES
+FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS
+

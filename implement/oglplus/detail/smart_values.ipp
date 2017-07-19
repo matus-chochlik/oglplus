@@ -262,6 +262,11 @@ OGLPLUS_CONSTEXPR oglplus::smart_enums::FragmentShaderInvocations FragmentShader
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FragmentSubroutine FragmentSubroutine = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FragmentSubroutineUniform FragmentSubroutineUniform = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Framebuffer Framebuffer = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::FramebufferDefaultFixedSampleLocations FramebufferDefaultFixedSampleLocations = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::FramebufferDefaultHeight FramebufferDefaultHeight = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::FramebufferDefaultLayers FramebufferDefaultLayers = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::FramebufferDefaultSamples FramebufferDefaultSamples = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::FramebufferDefaultWidth FramebufferDefaultWidth = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FramebufferSRGB FramebufferSRGB = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::Front Front = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::FrontAndBack FrontAndBack = {};
