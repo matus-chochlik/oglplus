@@ -18,7 +18,7 @@
 #include <oglplus/framebuffer_target.hpp>
 #include <oglplus/framebuffer_attachment.hpp>
 #include <oglplus/framebuffer_status.hpp>
-#include <oglplus/framebuffer_parameter.hpp>
+//#include <oglplus/framebuffer_parameter.hpp>
 #include <oglplus/texture_target.hpp>
 #include <oglplus/one_of.hpp>
 #include <oglplus/object/wrapper.hpp>
@@ -853,7 +853,6 @@ public:
 	/**
 	 *  @glsymbols
 	 *  @glfunref{FramebufferParameter}
-	 */
 	static void Parameter(
 		Target target,
 		FramebufferParameter parameter,
@@ -871,6 +870,7 @@ public:
 			ObjectBinding(target)
 		);
 	}
+	 */
 
 	/// Sets the default framebuffer width
 	/**
