@@ -597,7 +597,7 @@ public:
 		);
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
+#if GLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
 	/// Invalidates the specified attachments or buffers of the Framebuffer
 	/**
 	 *  @glvoereq{4,3,ARB,invalidate_subdata}
@@ -696,6 +696,155 @@ public:
 				buffers
 			),
 			x, y, width, height
+		);
+	}
+#endif
+
+#if GLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+	static GLint GetIntParam(Target target, GLenum query);
+
+	/// Returns the default width of framebuffer bound to @p target
+	/**
+	 *  @see DefaultHeight
+	 *  @see DefaultLayers
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetFramebufferParameter}
+	 *  @gldefref{FRAMEBUFFER_DEFAULT_WIDTH}
+	 */
+	static SizeType DefaultWidth(Target target)
+	{
+		return MakeSizeType(
+			GetIntParam(target, GL_FRAMEBUFFER_DEFAULT_WIDTH),
+			std::nothrow
+		);
+	}
+
+	/// Returns the default height of framebuffer bound to @p target
+	/**
+	 *  @see DefaultWidth
+	 *  @see DefaultLayers
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetFramebufferParameter}
+	 *  @gldefref{FRAMEBUFFER_DEFAULT_HEIGHT}
+	 */
+	static SizeType DefaultHeight(Target target)
+	{
+		return MakeSizeType(
+			GetIntParam(target, GL_FRAMEBUFFER_DEFAULT_HEIGHT),
+			std::nothrow
+		);
+	}
+
+	/// Returns the default number of layers of FB bound to @p target
+	/**
+	 *  @see DefaultWidth
+	 *  @see DefaultHeight
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetFramebufferParameter}
+	 *  @gldefref{FRAMEBUFFER_DEFAULT_LAYERS}
+	 */
+	static SizeType DefaultLayers(Target target)
+	{
+		return MakeSizeType(
+			GetIntParam(target, GL_FRAMEBUFFER_DEFAULT_LAYERS),
+			std::nothrow
+		);
+	}
+
+	/// Returns the number default samples of FB bound to @p target
+	/**
+	 *  @see DefaultLayers
+	 *  @see DefaultFixedSampleLocations
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetFramebufferParameter}
+	 *  @gldefref{FRAMEBUFFER_DEFAULT_SAMPLES}
+	 */
+	static SizeType DefaultSamples(Target target)
+	{
+		return MakeSizeType(
+			GetIntParam(target, GL_FRAMEBUFFER_DEFAULT_SAMPLES),
+			std::nothrow
+		);
+	}
+
+	/// Returns the number default samples of FB bound to @p target
+	/**
+	 *  @see DefaultSamples
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetFramebufferParameter}
+	 *  @gldefref{FRAMEBUFFER_DEFAULT_SAMPLES}
+	 */
+	static SizeType DefaultFixedSampleLocations(Target target)
+	{
+		return MakeSizeType(
+			GetIntParam(
+				target,
+				GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS
+			),
+			std::nothrow
+		);
+	}
+
+	/// Returns the number samples of FB bound to @p target
+	/**
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetFramebufferParameter}
+	 *  @gldefref{SAMPLES}
+	 */
+	static SizeType Samples(Target target)
+	{
+		return MakeSizeType(
+			GetIntParam(target, GL_SAMPLES),
+			std::nothrow
+		);
+	}
+
+	/// Returns the number sample buffers of FB bound to @p target
+	/**
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetFramebufferParameter}
+	 *  @gldefref{SAMPLES}
+	 */
+	static SizeType SampleBuffers(Target target)
+	{
+		return MakeSizeType(
+			GetIntParam(target, GL_SAMPLE_BUFFERS),
+			std::nothrow
+		);
+	}
+
+	/// Indicates if doublebuffering is enabled
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetFramebufferParameter}
+	 *  @gldefref{DOUBLEBUFFER}
+	 */
+	static Boolean Doublebuffer(Target target)
+	{
+		return Boolean(
+			GetIntParam(target, GL_DOUBLEBUFFER),
+			std::nothrow
+		);
+	}
+
+	/// Indicates if stereo mode is enabled
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetFramebufferParameter}
+	 *  @gldefref{STEREO}
+	 */
+	static Boolean Stereo(Target target)
+	{
+		return Boolean(
+			GetIntParam(target, GL_STEREO),
+			std::nothrow
 		);
 	}
 #endif

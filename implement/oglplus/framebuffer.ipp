@@ -54,5 +54,24 @@ HandleIncompleteError(Target target, FramebufferStatus status)
 	);
 }
 
+OGLPLUS_LIB_FUNC
+GLint ObjectOps<tag::ExplicitSel, tag::Framebuffer>::
+GetIntParam(Target target, GLenum query)
+{
+	GLint result = 0;
+	OGLPLUS_GLFUNC(GetFramebufferParameteriv)(
+		GLenum(target),
+		query,
+		&result
+	);
+	OGLPLUS_CHECK(
+		GetFramebufferParameteriv,
+		ObjectError,
+		ObjectBinding(target).
+		EnumParam(query)
+	);
+	return result;
+}
+
 } // namespace oglplus
 
