@@ -18,7 +18,7 @@
 #include <oglplus/framebuffer_target.hpp>
 #include <oglplus/framebuffer_attachment.hpp>
 #include <oglplus/framebuffer_status.hpp>
-//#include <oglplus/framebuffer_parameter.hpp> TODO
+#include <oglplus/framebuffer_parameter.hpp>
 #include <oglplus/texture_target.hpp>
 #include <oglplus/one_of.hpp>
 #include <oglplus/object/wrapper.hpp>
@@ -598,7 +598,7 @@ public:
 		);
 	}
 
-#if GLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
 	/// Invalidates the specified attachments or buffers of the Framebuffer
 	/**
 	 *  @glvoereq{4,3,ARB,invalidate_subdata}
@@ -701,7 +701,7 @@ public:
 	}
 #endif
 
-#if GLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
 	static GLint GetIntParam(Target target, GLenum query);
 
 	/// Returns the default width of framebuffer bound to @p target
@@ -853,7 +853,7 @@ public:
 	/**
 	 *  @glsymbols
 	 *  @glfunref{FramebufferParameter}
-	 *  TODO
+	 */
 	static void Parameter(
 		Target target,
 		FramebufferParameter parameter,
@@ -868,11 +868,9 @@ public:
 		OGLPLUS_CHECK(
 			FramebufferParameteri,
 			ObjectError,
-			ObjectBinding(target).
-			EnumParam(parameter)
+			ObjectBinding(target)
 		);
 	}
-	 */
 
 	/// Sets the default framebuffer width
 	/**
