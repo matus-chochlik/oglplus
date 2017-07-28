@@ -12,15 +12,15 @@
 #if OGLPLUS_DOCUMENTATION_ONLY
 
 /// FRAMEBUFFER_DEFAULT_WIDTH
-FramebufferDefaultWidth,
+DefaultWidth,
 /// FRAMEBUFFER_DEFAULT_HEIGHT
-FramebufferDefaultHeight,
+DefaultHeight,
 /// FRAMEBUFFER_DEFAULT_LAYERS
-FramebufferDefaultLayers,
+Layers,
 /// FRAMEBUFFER_DEFAULT_SAMPLES
-FramebufferDefaultSamples,
+Samples,
 /// FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS
-FramebufferDefaultFixedSampleLocations
+FixedSampleLocations
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 

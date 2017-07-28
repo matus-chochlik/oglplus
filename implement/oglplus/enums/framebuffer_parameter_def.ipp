@@ -17,13 +17,13 @@
 # ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined FramebufferDefaultWidth
-#  pragma push_macro("FramebufferDefaultWidth")
-#  undef FramebufferDefaultWidth
-   OGLPLUS_ENUM_CLASS_VALUE(FramebufferDefaultWidth, GL_FRAMEBUFFER_DEFAULT_WIDTH)
-#  pragma pop_macro("FramebufferDefaultWidth")
+# if defined DefaultWidth
+#  pragma push_macro("DefaultWidth")
+#  undef DefaultWidth
+   OGLPLUS_ENUM_CLASS_VALUE(DefaultWidth, GL_FRAMEBUFFER_DEFAULT_WIDTH)
+#  pragma pop_macro("DefaultWidth")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FramebufferDefaultWidth, GL_FRAMEBUFFER_DEFAULT_WIDTH)
+   OGLPLUS_ENUM_CLASS_VALUE(DefaultWidth, GL_FRAMEBUFFER_DEFAULT_WIDTH)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
@@ -33,13 +33,13 @@
 # ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined FramebufferDefaultHeight
-#  pragma push_macro("FramebufferDefaultHeight")
-#  undef FramebufferDefaultHeight
-   OGLPLUS_ENUM_CLASS_VALUE(FramebufferDefaultHeight, GL_FRAMEBUFFER_DEFAULT_HEIGHT)
-#  pragma pop_macro("FramebufferDefaultHeight")
+# if defined DefaultHeight
+#  pragma push_macro("DefaultHeight")
+#  undef DefaultHeight
+   OGLPLUS_ENUM_CLASS_VALUE(DefaultHeight, GL_FRAMEBUFFER_DEFAULT_HEIGHT)
+#  pragma pop_macro("DefaultHeight")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FramebufferDefaultHeight, GL_FRAMEBUFFER_DEFAULT_HEIGHT)
+   OGLPLUS_ENUM_CLASS_VALUE(DefaultHeight, GL_FRAMEBUFFER_DEFAULT_HEIGHT)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
@@ -49,13 +49,13 @@
 # ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined FramebufferDefaultLayers
-#  pragma push_macro("FramebufferDefaultLayers")
-#  undef FramebufferDefaultLayers
-   OGLPLUS_ENUM_CLASS_VALUE(FramebufferDefaultLayers, GL_FRAMEBUFFER_DEFAULT_LAYERS)
-#  pragma pop_macro("FramebufferDefaultLayers")
+# if defined Layers
+#  pragma push_macro("Layers")
+#  undef Layers
+   OGLPLUS_ENUM_CLASS_VALUE(Layers, GL_FRAMEBUFFER_DEFAULT_LAYERS)
+#  pragma pop_macro("Layers")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FramebufferDefaultLayers, GL_FRAMEBUFFER_DEFAULT_LAYERS)
+   OGLPLUS_ENUM_CLASS_VALUE(Layers, GL_FRAMEBUFFER_DEFAULT_LAYERS)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
@@ -65,13 +65,13 @@
 # ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined FramebufferDefaultSamples
-#  pragma push_macro("FramebufferDefaultSamples")
-#  undef FramebufferDefaultSamples
-   OGLPLUS_ENUM_CLASS_VALUE(FramebufferDefaultSamples, GL_FRAMEBUFFER_DEFAULT_SAMPLES)
-#  pragma pop_macro("FramebufferDefaultSamples")
+# if defined Samples
+#  pragma push_macro("Samples")
+#  undef Samples
+   OGLPLUS_ENUM_CLASS_VALUE(Samples, GL_FRAMEBUFFER_DEFAULT_SAMPLES)
+#  pragma pop_macro("Samples")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FramebufferDefaultSamples, GL_FRAMEBUFFER_DEFAULT_SAMPLES)
+   OGLPLUS_ENUM_CLASS_VALUE(Samples, GL_FRAMEBUFFER_DEFAULT_SAMPLES)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
@@ -81,13 +81,13 @@
 # ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined FramebufferDefaultFixedSampleLocations
-#  pragma push_macro("FramebufferDefaultFixedSampleLocations")
-#  undef FramebufferDefaultFixedSampleLocations
-   OGLPLUS_ENUM_CLASS_VALUE(FramebufferDefaultFixedSampleLocations, GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS)
-#  pragma pop_macro("FramebufferDefaultFixedSampleLocations")
+# if defined FixedSampleLocations
+#  pragma push_macro("FixedSampleLocations")
+#  undef FixedSampleLocations
+   OGLPLUS_ENUM_CLASS_VALUE(FixedSampleLocations, GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS)
+#  pragma pop_macro("FixedSampleLocations")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FramebufferDefaultFixedSampleLocations, GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS)
+   OGLPLUS_ENUM_CLASS_VALUE(FixedSampleLocations, GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1

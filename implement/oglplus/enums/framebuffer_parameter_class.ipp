@@ -19,53 +19,53 @@ private:
 public:
 
 #if defined GL_FRAMEBUFFER_DEFAULT_WIDTH
-# if defined FramebufferDefaultWidth
-#  pragma push_macro("FramebufferDefaultWidth")
-#  undef FramebufferDefaultWidth
-	Transform<FramebufferParameter::FramebufferDefaultWidth> FramebufferDefaultWidth;
-#  pragma pop_macro("FramebufferDefaultWidth")
+# if defined DefaultWidth
+#  pragma push_macro("DefaultWidth")
+#  undef DefaultWidth
+	Transform<FramebufferParameter::DefaultWidth> DefaultWidth;
+#  pragma pop_macro("DefaultWidth")
 # else
-	Transform<FramebufferParameter::FramebufferDefaultWidth> FramebufferDefaultWidth;
+	Transform<FramebufferParameter::DefaultWidth> DefaultWidth;
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_DEFAULT_HEIGHT
-# if defined FramebufferDefaultHeight
-#  pragma push_macro("FramebufferDefaultHeight")
-#  undef FramebufferDefaultHeight
-	Transform<FramebufferParameter::FramebufferDefaultHeight> FramebufferDefaultHeight;
-#  pragma pop_macro("FramebufferDefaultHeight")
+# if defined DefaultHeight
+#  pragma push_macro("DefaultHeight")
+#  undef DefaultHeight
+	Transform<FramebufferParameter::DefaultHeight> DefaultHeight;
+#  pragma pop_macro("DefaultHeight")
 # else
-	Transform<FramebufferParameter::FramebufferDefaultHeight> FramebufferDefaultHeight;
+	Transform<FramebufferParameter::DefaultHeight> DefaultHeight;
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_DEFAULT_LAYERS
-# if defined FramebufferDefaultLayers
-#  pragma push_macro("FramebufferDefaultLayers")
-#  undef FramebufferDefaultLayers
-	Transform<FramebufferParameter::FramebufferDefaultLayers> FramebufferDefaultLayers;
-#  pragma pop_macro("FramebufferDefaultLayers")
+# if defined Layers
+#  pragma push_macro("Layers")
+#  undef Layers
+	Transform<FramebufferParameter::Layers> Layers;
+#  pragma pop_macro("Layers")
 # else
-	Transform<FramebufferParameter::FramebufferDefaultLayers> FramebufferDefaultLayers;
+	Transform<FramebufferParameter::Layers> Layers;
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_DEFAULT_SAMPLES
-# if defined FramebufferDefaultSamples
-#  pragma push_macro("FramebufferDefaultSamples")
-#  undef FramebufferDefaultSamples
-	Transform<FramebufferParameter::FramebufferDefaultSamples> FramebufferDefaultSamples;
-#  pragma pop_macro("FramebufferDefaultSamples")
+# if defined Samples
+#  pragma push_macro("Samples")
+#  undef Samples
+	Transform<FramebufferParameter::Samples> Samples;
+#  pragma pop_macro("Samples")
 # else
-	Transform<FramebufferParameter::FramebufferDefaultSamples> FramebufferDefaultSamples;
+	Transform<FramebufferParameter::Samples> Samples;
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS
-# if defined FramebufferDefaultFixedSampleLocations
-#  pragma push_macro("FramebufferDefaultFixedSampleLocations")
-#  undef FramebufferDefaultFixedSampleLocations
-	Transform<FramebufferParameter::FramebufferDefaultFixedSampleLocations> FramebufferDefaultFixedSampleLocations;
-#  pragma pop_macro("FramebufferDefaultFixedSampleLocations")
+# if defined FixedSampleLocations
+#  pragma push_macro("FixedSampleLocations")
+#  undef FixedSampleLocations
+	Transform<FramebufferParameter::FixedSampleLocations> FixedSampleLocations;
+#  pragma pop_macro("FixedSampleLocations")
 # else
-	Transform<FramebufferParameter::FramebufferDefaultFixedSampleLocations> FramebufferDefaultFixedSampleLocations;
+	Transform<FramebufferParameter::FixedSampleLocations> FixedSampleLocations;
 # endif
 #endif
 
@@ -73,53 +73,53 @@ public:
 	EnumToClass(Base&& base)
 	 : Base(std::move(base))
 #if defined GL_FRAMEBUFFER_DEFAULT_WIDTH
-# if defined FramebufferDefaultWidth
-#  pragma push_macro("FramebufferDefaultWidth")
-#  undef FramebufferDefaultWidth
-	 , FramebufferDefaultWidth(_base())
-#  pragma pop_macro("FramebufferDefaultWidth")
+# if defined DefaultWidth
+#  pragma push_macro("DefaultWidth")
+#  undef DefaultWidth
+	 , DefaultWidth(_base())
+#  pragma pop_macro("DefaultWidth")
 # else
-	 , FramebufferDefaultWidth(_base())
+	 , DefaultWidth(_base())
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_DEFAULT_HEIGHT
-# if defined FramebufferDefaultHeight
-#  pragma push_macro("FramebufferDefaultHeight")
-#  undef FramebufferDefaultHeight
-	 , FramebufferDefaultHeight(_base())
-#  pragma pop_macro("FramebufferDefaultHeight")
+# if defined DefaultHeight
+#  pragma push_macro("DefaultHeight")
+#  undef DefaultHeight
+	 , DefaultHeight(_base())
+#  pragma pop_macro("DefaultHeight")
 # else
-	 , FramebufferDefaultHeight(_base())
+	 , DefaultHeight(_base())
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_DEFAULT_LAYERS
-# if defined FramebufferDefaultLayers
-#  pragma push_macro("FramebufferDefaultLayers")
-#  undef FramebufferDefaultLayers
-	 , FramebufferDefaultLayers(_base())
-#  pragma pop_macro("FramebufferDefaultLayers")
+# if defined Layers
+#  pragma push_macro("Layers")
+#  undef Layers
+	 , Layers(_base())
+#  pragma pop_macro("Layers")
 # else
-	 , FramebufferDefaultLayers(_base())
+	 , Layers(_base())
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_DEFAULT_SAMPLES
-# if defined FramebufferDefaultSamples
-#  pragma push_macro("FramebufferDefaultSamples")
-#  undef FramebufferDefaultSamples
-	 , FramebufferDefaultSamples(_base())
-#  pragma pop_macro("FramebufferDefaultSamples")
+# if defined Samples
+#  pragma push_macro("Samples")
+#  undef Samples
+	 , Samples(_base())
+#  pragma pop_macro("Samples")
 # else
-	 , FramebufferDefaultSamples(_base())
+	 , Samples(_base())
 # endif
 #endif
 #if defined GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS
-# if defined FramebufferDefaultFixedSampleLocations
-#  pragma push_macro("FramebufferDefaultFixedSampleLocations")
-#  undef FramebufferDefaultFixedSampleLocations
-	 , FramebufferDefaultFixedSampleLocations(_base())
-#  pragma pop_macro("FramebufferDefaultFixedSampleLocations")
+# if defined FixedSampleLocations
+#  pragma push_macro("FixedSampleLocations")
+#  undef FixedSampleLocations
+	 , FixedSampleLocations(_base())
+#  pragma pop_macro("FixedSampleLocations")
 # else
-	 , FramebufferDefaultFixedSampleLocations(_base())
+	 , FixedSampleLocations(_base())
 # endif
 #endif
 	{ }

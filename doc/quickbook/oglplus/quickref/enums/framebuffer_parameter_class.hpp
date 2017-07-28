@@ -23,16 +23,16 @@ public:
 	EnumToClass(void);
 	EnumToClass(Base&& base);
 
-	Transform<FramebufferParameter::FramebufferDefaultWidth>
-		FramebufferDefaultWidth;
-	Transform<FramebufferParameter::FramebufferDefaultHeight>
-		FramebufferDefaultHeight;
-	Transform<FramebufferParameter::FramebufferDefaultLayers>
-		FramebufferDefaultLayers;
-	Transform<FramebufferParameter::FramebufferDefaultSamples>
-		FramebufferDefaultSamples;
-	Transform<FramebufferParameter::FramebufferDefaultFixedSampleLocations>
-		FramebufferDefaultFixedSampleLocations;
+	Transform<FramebufferParameter::DefaultWidth>
+		DefaultWidth;
+	Transform<FramebufferParameter::DefaultHeight>
+		DefaultHeight;
+	Transform<FramebufferParameter::Layers>
+		Layers;
+	Transform<FramebufferParameter::Samples>
+		Samples;
+	Transform<FramebufferParameter::FixedSampleLocations>
+		FixedSampleLocations;
 };
 
 } // namespace enums

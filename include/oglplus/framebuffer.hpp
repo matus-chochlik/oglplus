@@ -18,6 +18,7 @@
 #include <oglplus/framebuffer_target.hpp>
 #include <oglplus/framebuffer_attachment.hpp>
 #include <oglplus/framebuffer_status.hpp>
+//#include <oglplus/framebuffer_parameter.hpp> TODO
 #include <oglplus/texture_target.hpp>
 #include <oglplus/one_of.hpp>
 #include <oglplus/object/wrapper.hpp>
@@ -845,6 +846,131 @@ public:
 		return Boolean(
 			GetIntParam(target, GL_STEREO),
 			std::nothrow
+		);
+	}
+
+	/// Sets the value of a framebuffer parameter
+	/**
+	 *  @glsymbols
+	 *  @glfunref{FramebufferParameter}
+	 *  TODO
+	static void Parameter(
+		Target target,
+		FramebufferParameter parameter,
+		GLint value
+	)
+	{
+		OGLPLUS_GLFUNC(FramebufferParameteri)(
+			GLenum(target),
+			GLenum(parameter),
+			value
+		);
+		OGLPLUS_CHECK(
+			FramebufferParameteri,
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(parameter)
+		);
+	}
+	 */
+
+	/// Sets the default framebuffer width
+	/**
+	 *  @glsymbols
+	 *  @glfunref{FramebufferParameter}
+	 *  @gldefref{FRAMEBUFFER_DEFAULT_WIDTH}
+	 */
+	static void DefaultWidth(Target target, GLint width)
+	{
+		OGLPLUS_GLFUNC(FramebufferParameteri)(
+			GLenum(target),
+			GL_FRAMEBUFFER_DEFAULT_WIDTH,
+			width
+		);
+		OGLPLUS_CHECK(
+			FramebufferParameteri,
+			ObjectError,
+			ObjectBinding(target)
+		);
+	}
+
+	/// Sets the default framebuffer height
+	/**
+	 *  @glsymbols
+	 *  @glfunref{FramebufferParameter}
+	 *  @gldefref{FRAMEBUFFER_DEFAULT_HEIGHT}
+	 */
+	static void DefaultHeight(Target target, GLint height)
+	{
+		OGLPLUS_GLFUNC(FramebufferParameteri)(
+			GLenum(target),
+			GL_FRAMEBUFFER_DEFAULT_HEIGHT,
+			height
+		);
+		OGLPLUS_CHECK(
+			FramebufferParameteri,
+			ObjectError,
+			ObjectBinding(target)
+		);
+	}
+
+	/// Sets the default framebuffer layers
+	/**
+	 *  @glsymbols
+	 *  @glfunref{FramebufferParameter}
+	 *  @gldefref{FRAMEBUFFER_DEFAULT_LAYERS}
+	 */
+	static void DefaultLayers(Target target, GLint layers)
+	{
+		OGLPLUS_GLFUNC(FramebufferParameteri)(
+			GLenum(target),
+			GL_FRAMEBUFFER_DEFAULT_LAYERS,
+			layers
+		);
+		OGLPLUS_CHECK(
+			FramebufferParameteri,
+			ObjectError,
+			ObjectBinding(target)
+		);
+	}
+
+	/// Sets the default framebuffer samples
+	/**
+	 *  @glsymbols
+	 *  @glfunref{FramebufferParameter}
+	 *  @gldefref{FRAMEBUFFER_DEFAULT_SAMPLES}
+	 */
+	static void DefaultSamples(Target target, GLint samples)
+	{
+		OGLPLUS_GLFUNC(FramebufferParameteri)(
+			GLenum(target),
+			GL_FRAMEBUFFER_DEFAULT_SAMPLES,
+			samples
+		);
+		OGLPLUS_CHECK(
+			FramebufferParameteri,
+			ObjectError,
+			ObjectBinding(target)
+		);
+	}
+
+	/// Sets the default framebuffer fixed sample locations
+	/**
+	 *  @glsymbols
+	 *  @glfunref{FramebufferParameter}
+	 *  @gldefref{FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS}
+	 */
+	static void DefaultFixedSampleLocations(Target target, GLint locations)
+	{
+		OGLPLUS_GLFUNC(FramebufferParameteri)(
+			GLenum(target),
+			GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS,
+			locations
+		);
+		OGLPLUS_CHECK(
+			FramebufferParameteri,
+			ObjectError,
+			ObjectBinding(target)
 		);
 	}
 #endif

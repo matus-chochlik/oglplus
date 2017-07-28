@@ -13,11 +13,11 @@
 
 enum class FramebufferParameter : GLenum
 {
-	FramebufferDefaultWidth                = GL_FRAMEBUFFER_DEFAULT_WIDTH,
-	FramebufferDefaultHeight               = GL_FRAMEBUFFER_DEFAULT_HEIGHT,
-	FramebufferDefaultLayers               = GL_FRAMEBUFFER_DEFAULT_LAYERS,
-	FramebufferDefaultSamples              = GL_FRAMEBUFFER_DEFAULT_SAMPLES,
-	FramebufferDefaultFixedSampleLocations = GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS
+	DefaultWidth         = GL_FRAMEBUFFER_DEFAULT_WIDTH,
+	DefaultHeight        = GL_FRAMEBUFFER_DEFAULT_HEIGHT,
+	Layers               = GL_FRAMEBUFFER_DEFAULT_LAYERS,
+	Samples              = GL_FRAMEBUFFER_DEFAULT_SAMPLES,
+	FixedSampleLocations = GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS
 };
 
 template <>
