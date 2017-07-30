@@ -338,6 +338,37 @@ public:
 		);
 	}
 
+	/// Detach a @p renderbuffer from @p attachment point of @p target
+	/**
+	 *  @see DetachColorRenderbuffer
+	 *  @see DetachTexture
+	 *  @see DetachTextureLayer
+	 *  @see DetachTexture1D
+	 *  @see DetachTexture2D
+	 *  @see DetachTexture3D
+	 *  @see DetachColorTexture
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferRenderbuffer}
+	 */
+	static void DetachRenderbuffer(
+		Target target,
+		Property::Attachment attachment
+	)
+	{
+		OGLPLUS_GLFUNC(FramebufferRenderbuffer)(
+			GLenum(target),
+			GLenum(attachment),
+			GL_RENDERBUFFER,
+			0
+		);
+		OGLPLUS_CHECK(
+			FramebufferRenderbuffer,
+			ObjectError,
+			ObjectBinding(target)
+		);
+	}
+
 	/// Attach a @p renderbuffer to the color @p attachment_no of @p target
 	/**
 	 *  @see AttachRenderbuffer
@@ -367,6 +398,37 @@ public:
 			FramebufferRenderbuffer,
 			ObjectPairError,
 			Subject(renderbuffer).
+			ObjectBinding(target)
+		);
+	}
+
+	/// Detach a @p renderbuffer from color @p attachment_no of @p target
+	/**
+	 *  @see DetachRenderbuffer
+	 *  @see DetachTexture
+	 *  @see DetachTextureLayer
+	 *  @see DetachTexture1D
+	 *  @see DetachTexture2D
+	 *  @see DetachTexture3D
+	 *  @see DetachColorTexture
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferRenderbuffer}
+	 */
+	static void DetachColorRenderbuffer(
+		Target target,
+		FramebufferColorAttachmentNumber attachment_no
+	)
+	{
+		OGLPLUS_GLFUNC(FramebufferRenderbuffer)(
+			GLenum(target),
+			GL_COLOR_ATTACHMENT0 + GLuint(attachment_no),
+			GL_RENDERBUFFER,
+			0
+		);
+		OGLPLUS_CHECK(
+			FramebufferRenderbuffer,
+			ObjectPairError,
 			ObjectBinding(target)
 		);
 	}
@@ -408,6 +470,37 @@ public:
 		);
 	}
 
+	/// Detach a @p texture from @p attachment point of @p target
+	/**
+	 *  @see DetachRenderbuffer
+	 *  @see DetachColorRenderbuffer
+	 *  @see DetachTextureLayer
+	 *  @see DetachTexture1D
+	 *  @see DetachTexture2D
+	 *  @see DetachTexture3D
+	 *  @see DetachColorTexture
+	 *
+	 *  @glverreq{3,2}
+	 *  @glsymbols
+	 *  @glfunref{FramebufferTexture}
+	 */
+	static void DetachTexture(
+		Target target,
+		Property::Attachment attachment
+	)
+	{
+		OGLPLUS_GLFUNC(FramebufferTexture)(
+			GLenum(target),
+			GLenum(attachment),
+			0, 0
+		);
+		OGLPLUS_CHECK(
+			FramebufferTexture,
+			ObjectError,
+			ObjectBinding(target)
+		);
+	}
+
 	/// Attach a @p texture to the color @p attachment point of @p target
 	/**
 	 *  @see AttachRenderbuffer
@@ -440,6 +533,36 @@ public:
 			Subject(texture).
 			ObjectBinding(target).
 			Index(level)
+		);
+	}
+
+	/// Detach a @p texture from color @p attachment point of @p target
+	/**
+	 *  @see DetachRenderbuffer
+	 *  @see DetachColorRenderbuffer
+	 *  @see DetachTexture1D
+	 *  @see DetachTexture2D
+	 *  @see DetachTexture3D
+	 *  @see DetachTexture
+	 *  @see DetachTextureLayer
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferTexture}
+	 */
+	static void DetachColorTexture(
+		Target target,
+		FramebufferColorAttachmentNumber attachment_no
+	)
+	{
+		OGLPLUS_GLFUNC(FramebufferTexture)(
+			GLenum(target),
+			GL_COLOR_ATTACHMENT0 + GLenum(attachment_no),
+			0, 0
+		);
+		OGLPLUS_CHECK(
+			FramebufferTexture,
+			ObjectError,
+			ObjectBinding(target)
 		);
 	}
 #endif
@@ -483,6 +606,36 @@ public:
 	}
 #endif
 
+	/// Detach a 1D @p texture from @p attachment point of @p target
+	/**
+	 *  @see DetachRenderbuffer
+	 *  @see DetachColorRenderbuffer
+	 *  @see DetachTexture2D
+	 *  @see DetachTexture3D
+	 *  @see DetachColorTexture
+	 *  @see DetachTexture
+	 *  @see DetachTextureLayer
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferTexture1D}
+	 */
+	static void DetachTexture1D(
+		Target target,
+		Property::Attachment attachment
+	)
+	{
+		OGLPLUS_GLFUNC(FramebufferTexture1D)(
+			GLenum(target),
+			GLenum(attachment),
+			0, 0, 0
+		);
+		OGLPLUS_CHECK(
+			FramebufferTexture1D,
+			ObjectError,
+			ObjectBinding(target)
+		);
+	}
+
 	/// Attach a 2D @p texture to the @p attachment point of @p target
 	/**
 	 *  @see AttachRenderbuffer
@@ -517,6 +670,36 @@ public:
 			Subject(texture).
 			ObjectBinding(target).
 			Index(level)
+		);
+	}
+
+	/// Detach a 2D @p texture from @p attachment point of @p target
+	/**
+	 *  @see DetachRenderbuffer
+	 *  @see DetachColorRenderbuffer
+	 *  @see DetachTexture1D
+	 *  @see DetachTexture3D
+	 *  @see DetachColorTexture
+	 *  @see DetachTexture
+	 *  @see DetachTextureLayer
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferTexture2D}
+	 */
+	static void DetachTexture2D(
+		Target target,
+		Property::Attachment attachment
+	)
+	{
+		OGLPLUS_GLFUNC(FramebufferTexture2D)(
+			GLenum(target),
+			GLenum(attachment),
+			0, 0, 0
+		);
+		OGLPLUS_CHECK(
+			FramebufferTexture2D,
+			ObjectError,
+			ObjectBinding(target)
 		);
 	}
 
@@ -557,6 +740,36 @@ public:
 			Subject(texture).
 			ObjectBinding(target).
 			Index(level)
+		);
+	}
+
+	/// Detach a 3D @p texture from @p attachment point of @p target
+	/**
+	 *  @see DetachRenderbuffer
+	 *  @see DetachColorRenderbuffer
+	 *  @see DetachTexture1D
+	 *  @see DetachTexture2D
+	 *  @see DetachColorTexture
+	 *  @see DetachTexture
+	 *  @see DetachTextureLayer
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferTexture3D}
+	 */
+	static void DetachTexture3D(
+		Target target,
+		Property::Attachment attachment
+	)
+	{
+		OGLPLUS_GLFUNC(FramebufferTexture3D)(
+			GLenum(target),
+			GLenum(attachment),
+			0, 0, 0, 0
+		);
+		OGLPLUS_CHECK(
+			FramebufferTexture3D,
+			ObjectError,
+			ObjectBinding(target)
 		);
 	}
 #endif
