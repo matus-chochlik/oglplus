@@ -6,8 +6,19 @@
 	<link>http://oglplus.org/</link>
 	<language>en-us</language>
 	<ttl>1440</ttl>
-	<lastBuildDate>Sat, 01 Apr 2017 06:22:03 GMT</lastBuildDate>
+	<lastBuildDate>Sun, 13 Aug 2017 09:56:13 GMT</lastBuildDate>
 
+	<item>
+		<title>OGLplu2 0.12.0 released.</title>
+		<link>https://github.com/matus-chochlik/oglplu2/archive/master.zip</link>
+		<description>
+			Check out version 0.12.0 of our new experimental wrapper
+			for OpenGL written in C++14.
+		</description>
+		<guid>http://oglplus.org/news.rss#item-2016-08-13-09:56:13</guid>
+		<pubDate>Sun, 13 Aug 2017 09:56:13 GMT</pubDate>
+		<source url="http://oglplus.org/news.rss">OGLplus news</source>
+	</item>
 	<item>
 		<title>OGLplus 0.70.0 released.</title>
 		<link>https://github.com/matus-chochlik/oglplus</link>
@@ -100,16 +111,6 @@
 		</description>
 		<guid>http://oglplus.org/news.rss#item-2015-08-10-12:54:54</guid>
 		<pubDate>Mon, 10 Aug 2015 12:54:54 GMT</pubDate>
-		<source url="http://oglplus.org/news.rss">OGLplus news</source>
-	</item>
-	<item>
-		<title>OGLplus 0.64.0 available on SF.</title>
-		<link>http://sourceforge.net/projects/oglplus/files/oglplus-0.63.x/</link>
-		<description>
-			The OGLplus 0.64.0 packages are now available for download from SourceForge.
-		</description>
-		<guid>http://oglplus.org/news.rss#item-2015-08-06-05:37:03</guid>
-		<pubDate>Thu, 06 Aug 2015 05:37:03 GMT</pubDate>
 		<source url="http://oglplus.org/news.rss">OGLplus news</source>
 	</item>
 </channel>
