@@ -260,7 +260,9 @@ void run_framedump_loop(
 
 	GLuint border = 32;
 
+#if defined(GL_MULTISAMPLE)
 	glEnable(GL_MULTISAMPLE);
+#endif
 
 	while(true)
 	{
@@ -368,7 +370,9 @@ void make_screenshot(
 
 	clock.Update(s);
 
+#if defined(GL_MULTISAMPLE)
 	glEnable(GL_MULTISAMPLE);
+#endif
 
 	// heat-up
 	while(s < t)
