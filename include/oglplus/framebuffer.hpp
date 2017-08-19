@@ -604,7 +604,6 @@ public:
 			Index(level)
 		);
 	}
-#endif
 
 	/// Detach a 1D @p texture from @p attachment point of @p target
 	/**
@@ -635,6 +634,7 @@ public:
 			ObjectBinding(target)
 		);
 	}
+#endif
 
 	/// Attach a 2D @p texture to the @p attachment point of @p target
 	/**
