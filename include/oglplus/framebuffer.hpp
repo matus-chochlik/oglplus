@@ -18,7 +18,7 @@
 #include <oglplus/framebuffer_target.hpp>
 #include <oglplus/framebuffer_attachment.hpp>
 #include <oglplus/framebuffer_status.hpp>
-//#include <oglplus/framebuffer_parameter.hpp>
+#include <oglplus/framebuffer_parameter.hpp>
 #include <oglplus/texture_target.hpp>
 #include <oglplus/one_of.hpp>
 #include <oglplus/object/wrapper.hpp>
@@ -915,7 +915,7 @@ public:
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
-	static GLint GetIntParam(Target target, GLenum query);
+	static GLint GetIntParam(Target target, FramebufferParameter query);
 
 	/// Returns the default width of framebuffer bound to @p target
 	/**
@@ -929,8 +929,10 @@ public:
 	static SizeType DefaultWidth(Target target)
 	{
 		return MakeSizeType(
-			GetIntParam(target, GL_FRAMEBUFFER_DEFAULT_WIDTH),
-			std::nothrow
+			GetIntParam(
+				target,
+				FramebufferParameter(GL_FRAMEBUFFER_DEFAULT_WIDTH)
+			), std::nothrow
 		);
 	}
 
@@ -946,8 +948,10 @@ public:
 	static SizeType DefaultHeight(Target target)
 	{
 		return MakeSizeType(
-			GetIntParam(target, GL_FRAMEBUFFER_DEFAULT_HEIGHT),
-			std::nothrow
+			GetIntParam(
+				target,
+				FramebufferParameter(GL_FRAMEBUFFER_DEFAULT_HEIGHT)
+			), std::nothrow
 		);
 	}
 
@@ -963,8 +967,10 @@ public:
 	static SizeType DefaultLayers(Target target)
 	{
 		return MakeSizeType(
-			GetIntParam(target, GL_FRAMEBUFFER_DEFAULT_LAYERS),
-			std::nothrow
+			GetIntParam(
+				target,
+				FramebufferParameter(GL_FRAMEBUFFER_DEFAULT_LAYERS)
+			), std::nothrow
 		);
 	}
 
@@ -980,8 +986,10 @@ public:
 	static SizeType DefaultSamples(Target target)
 	{
 		return MakeSizeType(
-			GetIntParam(target, GL_FRAMEBUFFER_DEFAULT_SAMPLES),
-			std::nothrow
+			GetIntParam(
+				target,
+				FramebufferParameter(GL_FRAMEBUFFER_DEFAULT_SAMPLES)
+			), std::nothrow
 		);
 	}
 
@@ -998,9 +1006,10 @@ public:
 		return MakeSizeType(
 			GetIntParam(
 				target,
-				GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS
-			),
-			std::nothrow
+				FramebufferParameter(
+					GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS
+				)
+			), std::nothrow
 		);
 	}
 
@@ -1014,7 +1023,7 @@ public:
 	static SizeType Samples(Target target)
 	{
 		return MakeSizeType(
-			GetIntParam(target, GL_SAMPLES),
+			GetIntParam(target, FramebufferParameter(GL_SAMPLES)),
 			std::nothrow
 		);
 	}
@@ -1029,7 +1038,7 @@ public:
 	static SizeType SampleBuffers(Target target)
 	{
 		return MakeSizeType(
-			GetIntParam(target, GL_SAMPLE_BUFFERS),
+			GetIntParam(target, FramebufferParameter(GL_SAMPLE_BUFFERS)),
 			std::nothrow
 		);
 	}
@@ -1043,7 +1052,7 @@ public:
 	static Boolean Doublebuffer(Target target)
 	{
 		return Boolean(
-			GetIntParam(target, GL_DOUBLEBUFFER),
+			GetIntParam(target, FramebufferParameter(GL_DOUBLEBUFFER)),
 			std::nothrow
 		);
 	}
@@ -1057,7 +1066,7 @@ public:
 	static Boolean Stereo(Target target)
 	{
 		return Boolean(
-			GetIntParam(target, GL_STEREO),
+			GetIntParam(target, FramebufferParameter(GL_STEREO)),
 			std::nothrow
 		);
 	}

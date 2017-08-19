@@ -57,12 +57,12 @@ HandleIncompleteError(Target target, FramebufferStatus status)
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
 OGLPLUS_LIB_FUNC
 GLint ObjectOps<tag::ExplicitSel, tag::Framebuffer>::
-GetIntParam(Target target, GLenum query)
+GetIntParam(Target target, FramebufferParameter query)
 {
 	GLint result = 0;
 	OGLPLUS_GLFUNC(GetFramebufferParameteriv)(
 		GLenum(target),
-		query,
+		GLenum(query),
 		&result
 	);
 	OGLPLUS_CHECK(
