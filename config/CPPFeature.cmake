@@ -7,6 +7,11 @@
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_CXX_STANDARD_REQUIRED True)
 
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+	set (CMAKE_CXX_EXTENSIONS --std=c++11)
+	list(APPEND CMAKE_CXX_FLAGS --std=c++11)
+endif()
+
 function(cpp_feature_detection FEATURE_NAME)
 	if(NOT DEFINED OGLPLUS_NO_${FEATURE_NAME})
 		configure_file(
