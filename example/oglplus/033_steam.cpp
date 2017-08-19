@@ -142,7 +142,7 @@ private:
 
 		prog.AttachShader(vs).AttachShader(fs).Link().Use();
 
-		return std::move(prog);
+		return prog;
 	}
 
 	Program& self(void){ return *this; }
@@ -235,7 +235,7 @@ private:
 
 		prog.Link().Use();
 
-		return std::move(prog);
+		return prog;
 	}
 
 	Program& self(void){ return *this; }
@@ -366,7 +366,7 @@ private:
 
 		prog.AttachShader(vs).AttachShader(gs).AttachShader(fs).Link().Use();
 
-		return std::move(prog);
+		return prog;
 	}
 
 	Program& self(void){ return *this; }
@@ -430,7 +430,7 @@ private:
 
 		prog.AttachShader(vs).AttachShader(fs).Link().Use();
 
-		return std::move(prog);
+		return prog;
 	}
 
 	Program& self(void) { return *this; }

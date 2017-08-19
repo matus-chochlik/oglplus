@@ -318,7 +318,7 @@ public:
 
 		Layout layout(MakeLayout(font, cps.size()));
 		layout.Set(cps);
-		return std::move(layout);
+		return layout;
 	}
 };
 

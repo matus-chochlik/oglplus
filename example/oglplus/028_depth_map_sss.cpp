@@ -63,7 +63,7 @@ private:
 		prog << vs << fs;
 		prog.Link().Use();
 
-		return std::move(prog);
+		return prog;
 	}
 public:
 	Uniform<Mat4f> camera_matrix, model_matrix;
@@ -212,7 +212,7 @@ private:
 			depth_offs[i].Set(x, y);
 		}
 
-		return std::move(prog);
+		return prog;
 	}
 public:
 	Uniform<Mat4f> camera_matrix, light_matrix, model_matrix;

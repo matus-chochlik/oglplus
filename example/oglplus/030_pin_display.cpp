@@ -77,7 +77,7 @@ public:
 
 		result.AttachShader(vs).AttachShader(fs);
 		result.Link().Validate().Use();
-		return std::move(result);
+		return result;
 	}
 
 	Program& self(void) { return *this; }
@@ -178,7 +178,7 @@ public:
 
 		result.AttachShader(vs).AttachShader(fs);
 		result.Link().Validate().Use();
-		return std::move(result);
+		return result;
 	}
 
 	Program& self(void) { return *this; }
@@ -234,7 +234,7 @@ private:
 		prog.AttachShader(vs).AttachShader(fs);
 		prog.Link().Validate().Use();
 
-		return std::move(prog);
+		return prog;
 	}
 
 	ProgramUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;

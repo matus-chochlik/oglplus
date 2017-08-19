@@ -70,7 +70,7 @@ public:
 			&result.front()
 		);
 		OGLPLUS_CHECK_SIMPLE(GetNamedStringARB);
-		return std::move(result);
+		return result;
 
 	}
 

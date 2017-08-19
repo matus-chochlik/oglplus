@@ -90,7 +90,7 @@ std::vector<GLfloat> Cube::_positions(void) const
 
 	assert(p == dest.end());
 
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -120,7 +120,7 @@ std::vector<GLfloat> Cube::_normals(void) const
 		}
 	}
 	assert(vi == dest.end());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -149,7 +149,7 @@ std::vector<GLfloat> Cube::_tangents(void) const
 		}
 	}
 	assert(vi == dest.end());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -179,7 +179,7 @@ std::vector<GLfloat> Cube::_tex_coords(void) const
 		}
 	}
 	assert(vi == dest.end());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC

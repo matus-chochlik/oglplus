@@ -103,7 +103,7 @@ std::vector<GLfloat> RandomMetaballs::_make_balls(
 		result[3*i+2] = rad_min+std::rand()*rdirm;
 	}
 
-	return std::move(result);
+	return result;
 }
 
 OGLPLUS_LIB_FUNC
@@ -149,7 +149,7 @@ std::vector<GLfloat> RandomMetastars::_make_stars(
 		result[5*i+4] = dif_min+std::rand()*ddirm;
 	}
 
-	return std::move(result);
+	return result;
 }
 
 OGLPLUS_LIB_FUNC

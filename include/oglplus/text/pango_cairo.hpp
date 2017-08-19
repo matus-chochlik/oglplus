@@ -81,7 +81,7 @@ public:
 
 		Layout layout(MakeLayout(font, str.size()));
 		layout.Set(cps.data(), cps.size());
-		return std::move(layout);
+		return layout;
 	}
 
 	typedef PangoCairoDefaultRenderer Renderer;

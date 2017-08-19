@@ -138,7 +138,7 @@ private:
 			)
 		)).Link().Use();
 
-		return std::move(prog);
+		return prog;
 	}
 
 	Program& prog(void) { return *this; }
@@ -370,7 +370,7 @@ private:
 			)
 		)).Link().Use();
 
-		return std::move(prog);
+		return prog;
 	}
 
 	Program& prog(void) { return *this; }

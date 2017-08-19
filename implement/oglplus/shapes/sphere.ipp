@@ -44,7 +44,7 @@ Sphere::Indices(Sphere::Default) const
 	assert(k == indices.size());
 	//
 	// return the indices
-	return std::move(indices);
+	return indices;
 }
 
 OGLPLUS_LIB_FUNC
@@ -72,7 +72,7 @@ Sphere::Instructions(Sphere::Default) const
 	operation.phase = 0;
 	this->AddInstruction(instructions, operation);
 
-	return std::move(instructions);
+	return instructions;
 }
 
 } // shapes

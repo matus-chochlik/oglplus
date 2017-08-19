@@ -510,7 +510,7 @@ DrawingInstructions ObjMesh::Instructions(PrimitiveType primitive) const
 		operation.phase = GLuint(m);
 		this->AddInstruction(instr, operation);
 	}
-	return std::move(instr);
+	return instr;
 }
 
 } // shapes
