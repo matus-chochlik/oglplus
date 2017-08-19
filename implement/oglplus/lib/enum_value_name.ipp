@@ -11,9 +11,6 @@
 //
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 
-OGLPLUS_ENUM_CLASS_FWD(BufferMapAccess, GLbitfield)
-#include <oglplus/enums/buffer_map_access_names.ipp>
-
 OGLPLUS_ENUM_CLASS_FWD(TextureSwizzle, GLenum)
 #include <oglplus/enums/texture_swizzle_names.ipp>
 
@@ -79,6 +76,9 @@ OGLPLUS_ENUM_CLASS_FWD(FramebufferTarget, GLenum)
 
 OGLPLUS_ENUM_CLASS_FWD(ConditionalRenderMode, GLenum)
 #include <oglplus/enums/conditional_render_mode_names.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(ProgramParameter, GLenum)
+#include <oglplus/enums/program_parameter_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(FaceOrientation, GLenum)
 #include <oglplus/enums/face_orientation_names.ipp>
@@ -253,6 +253,9 @@ OGLPLUS_ENUM_CLASS_FWD(ImageUnitFormat, GLenum)
 
 OGLPLUS_ENUM_CLASS_FWD(FramebufferAttachment, GLenum)
 #include <oglplus/enums/framebuffer_attachment_names.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(BufferMapAccess, GLbitfield)
+#include <oglplus/enums/buffer_map_access_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(PathNVMissingGlyph, GLenum)
 #include <oglplus/enums/ext/nv_path_missing_glyph_names.ipp>
