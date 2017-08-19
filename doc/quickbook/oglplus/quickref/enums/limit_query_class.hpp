@@ -221,6 +221,14 @@ public:
 		MaxVertexUniformComponents;
 	Transform<LimitQuery::MaxVertexUniformVectors>
 		MaxVertexUniformVectors;
+	Transform<LimitQuery::MaxComputeUniformBlocks>
+		MaxComputeUniformBlocks;
+	Transform<LimitQuery::MaxComputeUniformComponents>
+		MaxComputeUniformComponents;
+	Transform<LimitQuery::MaxCombinedComputeUniformComponents>
+		MaxCombinedComputeUniformComponents;
+	Transform<LimitQuery::MaxComputeTextureImageUnits>
+		MaxComputeTextureImageUnits;
 	Transform<LimitQuery::MaxViewportDims>
 		MaxViewportDims;
 	Transform<LimitQuery::MaxViewports>

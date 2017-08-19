@@ -407,6 +407,7 @@ OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxColorTextureSamples MaxColorTextureSa
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedAtomicCounterBuffers MaxCombinedAtomicCounterBuffers = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedAtomicCounters MaxCombinedAtomicCounters = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedClipAndCullDistances MaxCombinedClipAndCullDistances = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedComputeUniformComponents MaxCombinedComputeUniformComponents = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedFragmentUniformComponents MaxCombinedFragmentUniformComponents = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedGeometryUniformComponents MaxCombinedGeometryUniformComponents = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedImageUniforms MaxCombinedImageUniforms = {};
@@ -417,6 +418,9 @@ OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedTextureImageUnits MaxCombined
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedUniformBlocks MaxCombinedUniformBlocks = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxCombinedVertexUniformComponents MaxCombinedVertexUniformComponents = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxComputeSharedMemorySize MaxComputeSharedMemorySize = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxComputeTextureImageUnits MaxComputeTextureImageUnits = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxComputeUniformBlocks MaxComputeUniformBlocks = {};
+OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxComputeUniformComponents MaxComputeUniformComponents = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxComputeWorkGroupCount MaxComputeWorkGroupCount = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxComputeWorkGroupInvocations MaxComputeWorkGroupInvocations = {};
 OGLPLUS_CONSTEXPR oglplus::smart_enums::MaxComputeWorkGroupSize MaxComputeWorkGroupSize = {};

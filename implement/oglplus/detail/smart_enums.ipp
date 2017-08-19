@@ -1999,6 +1999,11 @@ template <typename Enum, Enum = Enum::MaxCombinedClipAndCullDistances> operator 
 template <typename Enum> friend bool operator==(Enum value, MaxCombinedClipAndCullDistances){ return value == Enum::MaxCombinedClipAndCullDistances; }
 template <typename Enum> friend bool operator!=(Enum value, MaxCombinedClipAndCullDistances){ return value != Enum::MaxCombinedClipAndCullDistances; }
 };
+struct MaxCombinedComputeUniformComponents {
+template <typename Enum, Enum = Enum::MaxCombinedComputeUniformComponents> operator Enum (void) const{ return Enum::MaxCombinedComputeUniformComponents; }
+template <typename Enum> friend bool operator==(Enum value, MaxCombinedComputeUniformComponents){ return value == Enum::MaxCombinedComputeUniformComponents; }
+template <typename Enum> friend bool operator!=(Enum value, MaxCombinedComputeUniformComponents){ return value != Enum::MaxCombinedComputeUniformComponents; }
+};
 struct MaxCombinedFragmentUniformComponents {
 template <typename Enum, Enum = Enum::MaxCombinedFragmentUniformComponents> operator Enum (void) const{ return Enum::MaxCombinedFragmentUniformComponents; }
 template <typename Enum> friend bool operator==(Enum value, MaxCombinedFragmentUniformComponents){ return value == Enum::MaxCombinedFragmentUniformComponents; }
@@ -2048,6 +2053,21 @@ struct MaxComputeSharedMemorySize {
 template <typename Enum, Enum = Enum::MaxComputeSharedMemorySize> operator Enum (void) const{ return Enum::MaxComputeSharedMemorySize; }
 template <typename Enum> friend bool operator==(Enum value, MaxComputeSharedMemorySize){ return value == Enum::MaxComputeSharedMemorySize; }
 template <typename Enum> friend bool operator!=(Enum value, MaxComputeSharedMemorySize){ return value != Enum::MaxComputeSharedMemorySize; }
+};
+struct MaxComputeTextureImageUnits {
+template <typename Enum, Enum = Enum::MaxComputeTextureImageUnits> operator Enum (void) const{ return Enum::MaxComputeTextureImageUnits; }
+template <typename Enum> friend bool operator==(Enum value, MaxComputeTextureImageUnits){ return value == Enum::MaxComputeTextureImageUnits; }
+template <typename Enum> friend bool operator!=(Enum value, MaxComputeTextureImageUnits){ return value != Enum::MaxComputeTextureImageUnits; }
+};
+struct MaxComputeUniformBlocks {
+template <typename Enum, Enum = Enum::MaxComputeUniformBlocks> operator Enum (void) const{ return Enum::MaxComputeUniformBlocks; }
+template <typename Enum> friend bool operator==(Enum value, MaxComputeUniformBlocks){ return value == Enum::MaxComputeUniformBlocks; }
+template <typename Enum> friend bool operator!=(Enum value, MaxComputeUniformBlocks){ return value != Enum::MaxComputeUniformBlocks; }
+};
+struct MaxComputeUniformComponents {
+template <typename Enum, Enum = Enum::MaxComputeUniformComponents> operator Enum (void) const{ return Enum::MaxComputeUniformComponents; }
+template <typename Enum> friend bool operator==(Enum value, MaxComputeUniformComponents){ return value == Enum::MaxComputeUniformComponents; }
+template <typename Enum> friend bool operator!=(Enum value, MaxComputeUniformComponents){ return value != Enum::MaxComputeUniformComponents; }
 };
 struct MaxComputeWorkGroupCount {
 template <typename Enum, Enum = Enum::MaxComputeWorkGroupCount> operator Enum (void) const{ return Enum::MaxComputeWorkGroupCount; }

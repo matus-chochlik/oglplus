@@ -1008,6 +1008,46 @@ public:
 	Transform<LimitQuery::MaxVertexUniformVectors> MaxVertexUniformVectors;
 # endif
 #endif
+#if defined GL_MAX_COMPUTE_UNIFORM_BLOCKS
+# if defined MaxComputeUniformBlocks
+#  pragma push_macro("MaxComputeUniformBlocks")
+#  undef MaxComputeUniformBlocks
+	Transform<LimitQuery::MaxComputeUniformBlocks> MaxComputeUniformBlocks;
+#  pragma pop_macro("MaxComputeUniformBlocks")
+# else
+	Transform<LimitQuery::MaxComputeUniformBlocks> MaxComputeUniformBlocks;
+# endif
+#endif
+#if defined GL_MAX_COMPUTE_UNIFORM_COMPONENTS
+# if defined MaxComputeUniformComponents
+#  pragma push_macro("MaxComputeUniformComponents")
+#  undef MaxComputeUniformComponents
+	Transform<LimitQuery::MaxComputeUniformComponents> MaxComputeUniformComponents;
+#  pragma pop_macro("MaxComputeUniformComponents")
+# else
+	Transform<LimitQuery::MaxComputeUniformComponents> MaxComputeUniformComponents;
+# endif
+#endif
+#if defined GL_MAX_COMBINED_COMPUTE_UNIFORM_COMPONENTS
+# if defined MaxCombinedComputeUniformComponents
+#  pragma push_macro("MaxCombinedComputeUniformComponents")
+#  undef MaxCombinedComputeUniformComponents
+	Transform<LimitQuery::MaxCombinedComputeUniformComponents> MaxCombinedComputeUniformComponents;
+#  pragma pop_macro("MaxCombinedComputeUniformComponents")
+# else
+	Transform<LimitQuery::MaxCombinedComputeUniformComponents> MaxCombinedComputeUniformComponents;
+# endif
+#endif
+#if defined GL_MAX_COMPUTE_TEXTURE_IMAGE_UNITS
+# if defined MaxComputeTextureImageUnits
+#  pragma push_macro("MaxComputeTextureImageUnits")
+#  undef MaxComputeTextureImageUnits
+	Transform<LimitQuery::MaxComputeTextureImageUnits> MaxComputeTextureImageUnits;
+#  pragma pop_macro("MaxComputeTextureImageUnits")
+# else
+	Transform<LimitQuery::MaxComputeTextureImageUnits> MaxComputeTextureImageUnits;
+# endif
+#endif
 #if defined GL_MAX_VIEWPORT_DIMS
 # if defined MaxViewportDims
 #  pragma push_macro("MaxViewportDims")
@@ -2100,6 +2140,46 @@ public:
 #  pragma pop_macro("MaxVertexUniformVectors")
 # else
 	 , MaxVertexUniformVectors(_base())
+# endif
+#endif
+#if defined GL_MAX_COMPUTE_UNIFORM_BLOCKS
+# if defined MaxComputeUniformBlocks
+#  pragma push_macro("MaxComputeUniformBlocks")
+#  undef MaxComputeUniformBlocks
+	 , MaxComputeUniformBlocks(_base())
+#  pragma pop_macro("MaxComputeUniformBlocks")
+# else
+	 , MaxComputeUniformBlocks(_base())
+# endif
+#endif
+#if defined GL_MAX_COMPUTE_UNIFORM_COMPONENTS
+# if defined MaxComputeUniformComponents
+#  pragma push_macro("MaxComputeUniformComponents")
+#  undef MaxComputeUniformComponents
+	 , MaxComputeUniformComponents(_base())
+#  pragma pop_macro("MaxComputeUniformComponents")
+# else
+	 , MaxComputeUniformComponents(_base())
+# endif
+#endif
+#if defined GL_MAX_COMBINED_COMPUTE_UNIFORM_COMPONENTS
+# if defined MaxCombinedComputeUniformComponents
+#  pragma push_macro("MaxCombinedComputeUniformComponents")
+#  undef MaxCombinedComputeUniformComponents
+	 , MaxCombinedComputeUniformComponents(_base())
+#  pragma pop_macro("MaxCombinedComputeUniformComponents")
+# else
+	 , MaxCombinedComputeUniformComponents(_base())
+# endif
+#endif
+#if defined GL_MAX_COMPUTE_TEXTURE_IMAGE_UNITS
+# if defined MaxComputeTextureImageUnits
+#  pragma push_macro("MaxComputeTextureImageUnits")
+#  undef MaxComputeTextureImageUnits
+	 , MaxComputeTextureImageUnits(_base())
+#  pragma pop_macro("MaxComputeTextureImageUnits")
+# else
+	 , MaxComputeTextureImageUnits(_base())
 # endif
 #endif
 #if defined GL_MAX_VIEWPORT_DIMS
