@@ -22,7 +22,7 @@ String MissingExtensionMessage(const GLchar* name)
 	String message("Missing extension '");
 	message.append(name);
 	message.append("'");
-	return std::move(message);
+	return message;
 }
 
 OGLPLUS_LIB_FUNC

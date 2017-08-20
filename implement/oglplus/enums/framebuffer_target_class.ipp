@@ -38,6 +38,16 @@ public:
 	Transform<FramebufferTarget::Read> Read;
 # endif
 #endif
+#if defined GL_FRAMEBUFFER
+# if defined Both
+#  pragma push_macro("Both")
+#  undef Both
+	Transform<FramebufferTarget::Both> Both;
+#  pragma pop_macro("Both")
+# else
+	Transform<FramebufferTarget::Both> Both;
+# endif
+#endif
 
 	EnumToClass(void) { }
 	EnumToClass(Base&& base)
@@ -60,6 +70,16 @@ public:
 #  pragma pop_macro("Read")
 # else
 	 , Read(_base())
+# endif
+#endif
+#if defined GL_FRAMEBUFFER
+# if defined Both
+#  pragma push_macro("Both")
+#  undef Both
+	 , Both(_base())
+#  pragma pop_macro("Both")
+# else
+	 , Both(_base())
 # endif
 #endif
 	{ }

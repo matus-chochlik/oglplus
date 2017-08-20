@@ -27,6 +27,8 @@ public:
 		Draw;
 	Transform<FramebufferTarget::Read>
 		Read;
+	Transform<FramebufferTarget::Both>
+		Both;
 };
 
 } // namespace enums

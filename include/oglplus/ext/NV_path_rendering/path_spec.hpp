@@ -372,7 +372,9 @@ public:
 	{
 		if(!_commands.empty())
 		{
-			_commands.back() |= GL_SHARED_EDGE_NV;
+			auto temp(GLenum(_commands.back()));
+			temp |= GL_SHARED_EDGE_NV;
+			_commands.back() = PathNVCommand(temp);
 		}
 		return *this;
 	}

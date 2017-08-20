@@ -48,7 +48,7 @@ std::vector<unsigned char> STBTTFont2D::_load_ttf(std::istream& input)
 	{
 		throw std::runtime_error("Error reading TTF input");
 	}
-	return std::move(result);
+	return result;
 }
 
 OGLPLUS_LIB_FUNC

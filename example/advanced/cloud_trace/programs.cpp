@@ -40,7 +40,7 @@ Program RaytraceProg::make(void)
 
 	prog.Link().Use();
 
-	return std::move(prog);
+	return prog;
 }
 
 Program& RaytraceProg::self(void)
@@ -117,7 +117,7 @@ Program RenderProg::make(const AppData& app_data)
 	Optional<Uniform<GLfloat>>(prog, "PlanetRadius").TrySet(app_data.planet_radius);
 	Optional<Uniform<GLfloat>>(prog, "AtmThickness").TrySet(app_data.atm_thickness);
 
-	return std::move(prog);
+	return prog;
 }
 
 Program& RenderProg::self(void)

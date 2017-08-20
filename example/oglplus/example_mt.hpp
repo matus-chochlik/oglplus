@@ -82,7 +82,7 @@ public:
 		while(sync_queue.empty() && !cancelled) sync_cv.wait(l);
 		Sync tmp(cancelled?Sync():std::move(sync_queue.front()));
 		if(!cancelled) sync_queue.pop();
-		return std::move(tmp);
+		return tmp;
 	}
 
 	void Wait(void)

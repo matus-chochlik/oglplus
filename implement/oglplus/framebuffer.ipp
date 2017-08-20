@@ -54,5 +54,26 @@ HandleIncompleteError(Target target, FramebufferStatus status)
 	);
 }
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+OGLPLUS_LIB_FUNC
+GLint ObjectOps<tag::ExplicitSel, tag::Framebuffer>::
+GetIntParam(Target target, FramebufferParameter query)
+{
+	GLint result = 0;
+	OGLPLUS_GLFUNC(GetFramebufferParameteriv)(
+		GLenum(target),
+		GLenum(query),
+		&result
+	);
+	OGLPLUS_CHECK(
+		GetFramebufferParameteriv,
+		ObjectError,
+		ObjectBinding(target).
+		EnumParam(query)
+	);
+	return result;
+}
+#endif
+
 } // namespace oglplus
 

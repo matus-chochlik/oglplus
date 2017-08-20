@@ -26,6 +26,9 @@ switch(value)
 #if defined GL_READ_FRAMEBUFFER
 	case GL_READ_FRAMEBUFFER: return StrCRef("READ_FRAMEBUFFER");
 #endif
+#if defined GL_FRAMEBUFFER
+	case GL_FRAMEBUFFER: return StrCRef("FRAMEBUFFER");
+#endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);

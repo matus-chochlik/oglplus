@@ -123,7 +123,7 @@ private:
 		Program prog(ObjectDesc("Data"));
 		prog << vs << gs << fs;
 		prog.Link().Use();
-		return std::move(prog);
+		return prog;
 	}
 public:
 	Uniform<Mat4f> camera_matrix, model_matrix;
@@ -211,7 +211,7 @@ private:
 		Program prog(ObjectDesc("Draw"));
 		prog << vs << fs;
 		prog.Link().Use();
-		return std::move(prog);
+		return prog;
 	}
 public:
 	Uniform<GLfloat> slider;

@@ -1597,6 +1597,70 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_MAX_COMPUTE_UNIFORM_BLOCKS
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined MaxComputeUniformBlocks
+#  pragma push_macro("MaxComputeUniformBlocks")
+#  undef MaxComputeUniformBlocks
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeUniformBlocks, GL_MAX_COMPUTE_UNIFORM_BLOCKS)
+#  pragma pop_macro("MaxComputeUniformBlocks")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeUniformBlocks, GL_MAX_COMPUTE_UNIFORM_BLOCKS)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMPUTE_UNIFORM_COMPONENTS
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined MaxComputeUniformComponents
+#  pragma push_macro("MaxComputeUniformComponents")
+#  undef MaxComputeUniformComponents
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeUniformComponents, GL_MAX_COMPUTE_UNIFORM_COMPONENTS)
+#  pragma pop_macro("MaxComputeUniformComponents")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeUniformComponents, GL_MAX_COMPUTE_UNIFORM_COMPONENTS)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_COMPUTE_UNIFORM_COMPONENTS
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined MaxCombinedComputeUniformComponents
+#  pragma push_macro("MaxCombinedComputeUniformComponents")
+#  undef MaxCombinedComputeUniformComponents
+   OGLPLUS_ENUM_CLASS_VALUE(MaxCombinedComputeUniformComponents, GL_MAX_COMBINED_COMPUTE_UNIFORM_COMPONENTS)
+#  pragma pop_macro("MaxCombinedComputeUniformComponents")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(MaxCombinedComputeUniformComponents, GL_MAX_COMBINED_COMPUTE_UNIFORM_COMPONENTS)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMPUTE_TEXTURE_IMAGE_UNITS
+# ifdef OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined MaxComputeTextureImageUnits
+#  pragma push_macro("MaxComputeTextureImageUnits")
+#  undef MaxComputeTextureImageUnits
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeTextureImageUnits, GL_MAX_COMPUTE_TEXTURE_IMAGE_UNITS)
+#  pragma pop_macro("MaxComputeTextureImageUnits")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeTextureImageUnits, GL_MAX_COMPUTE_TEXTURE_IMAGE_UNITS)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #if defined GL_MAX_VIEWPORT_DIMS
 # ifdef OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA

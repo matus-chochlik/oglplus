@@ -319,7 +319,7 @@ OGLPLUS_LIB_FUNC
 void ObjectOps<tag::DirectState, tag::Program>::
 GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
 {
-	GLint size = GetIntParam(GL_PROGRAM_BINARY_LENGTH);
+	GLint size = GetIntParam(ProgramParameter(GL_PROGRAM_BINARY_LENGTH));
 	if(size > 0)
 	{
 		GLsizei len = 0;
@@ -434,7 +434,7 @@ ActiveAttribContext(void) const
 {
 	return InterfaceContext(
 		_obj_name(),
-		GetUIntParam(GL_ACTIVE_ATTRIBUTE_MAX_LENGTH)
+		GetUIntParam(ProgramParameter(GL_ACTIVE_ATTRIBUTE_MAX_LENGTH))
 	);
 }
 
@@ -445,7 +445,7 @@ ActiveAttribs(void) const
 {
 	return ActiveAttribRange(
 		ActiveAttribContext(),
-		GetUIntParam(GL_ACTIVE_ATTRIBUTES)
+		GetUIntParam(ProgramParameter(GL_ACTIVE_ATTRIBUTES))
 	);
 }
 
@@ -456,7 +456,7 @@ ActiveUniformContext(void) const
 {
 	return InterfaceContext(
 		_obj_name(),
-		GetUIntParam(GL_ACTIVE_UNIFORM_MAX_LENGTH)
+		GetUIntParam(ProgramParameter(GL_ACTIVE_UNIFORM_MAX_LENGTH))
 	);
 }
 
@@ -467,7 +467,7 @@ ActiveUniforms(void) const
 {
 	return ActiveUniformRange(
 		ActiveUniformContext(),
-		GetUIntParam(GL_ACTIVE_UNIFORMS)
+		GetUIntParam(ProgramParameter(GL_ACTIVE_UNIFORMS))
 	);
 }
 
@@ -538,7 +538,7 @@ TransformFeedbackVaryingContext(void) const
 {
 	return InterfaceContext(
 		_obj_name(),
-		GetUIntParam(GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH)
+		GetUIntParam(ProgramParameter(GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH))
 	);
 }
 
@@ -549,7 +549,7 @@ TransformFeedbackVaryings(void) const
 {
 	return TransformFeedbackVaryingRange(
 		TransformFeedbackVaryingContext(),
-		GetUIntParam(GL_TRANSFORM_FEEDBACK_VARYINGS)
+		GetUIntParam(ProgramParameter(GL_TRANSFORM_FEEDBACK_VARYINGS))
 	);
 }
 
@@ -558,7 +558,7 @@ ObjectOps<tag::DirectState, tag::Program>::ShaderRange
 ObjectOps<tag::DirectState, tag::Program>::
 AttachedShaders(void) const
 {
-	GLuint count = GetUIntParam(GL_ATTACHED_SHADERS);
+	GLuint count = GetUIntParam(ProgramParameter(GL_ATTACHED_SHADERS));
 	return ShaderRange(
 		ShaderIterationContext(_obj_name(), count),
 		0, count
@@ -571,12 +571,12 @@ ObjectOps<tag::DirectState, tag::Program>::
 ActiveUniformBlocks(void) const
 {
 	// get the count of active uniform blocks
-	GLuint count = GetUIntParam(GL_ACTIVE_UNIFORM_BLOCKS);
+	GLuint count = GetUIntParam(ProgramParameter(GL_ACTIVE_UNIFORM_BLOCKS));
 	GLuint length = 0;
 	if(count > 0)
 	{
 		// get the string length of the first identifier
-		length = GetUIntParam(GL_UNIFORM_BLOCK_NAME_LENGTH);
+		length = GetUIntParam(ProgramParameter(GL_UNIFORM_BLOCK_NAME_LENGTH));
 	}
 	return ActiveUniformBlockRange(
 		aux::ProgramInterfaceContext(_obj_name(), length),

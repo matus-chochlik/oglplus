@@ -41,7 +41,7 @@ private:
 	{
 		Program prog;
 		prog.AttachShader(vs).AttachShader(fs).Link().Use();
-		return std::move(prog);
+		return prog;
 	}
 
 	// Uniform variables

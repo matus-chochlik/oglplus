@@ -25,6 +25,9 @@ GL_DRAW_FRAMEBUFFER,
 #if defined GL_READ_FRAMEBUFFER
 GL_READ_FRAMEBUFFER,
 #endif
+#if defined GL_FRAMEBUFFER
+GL_FRAMEBUFFER,
+#endif
 0
 };
 return aux::CastIterRange<

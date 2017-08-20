@@ -203,7 +203,7 @@ private:
 
 		prog.Link().Use();
 
-		return std::move(prog);
+		return prog;
 	}
 
 	Program& self(void) { return *this; }

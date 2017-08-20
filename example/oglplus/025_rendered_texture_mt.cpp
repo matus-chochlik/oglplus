@@ -88,7 +88,7 @@ private:
 
 		result.Link().Use();
 
-		return std::move(result);
+		return result;
 	}
 
 	// Handle for matrix uniforms
@@ -238,7 +238,7 @@ private:
 
 		prog.Link().Use();
 
-		return std::move(prog);
+		return prog;
 	}
 
 	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;

@@ -89,7 +89,7 @@ std::vector<GLfloat> TwistedTorus::_positions(void) const
 		}
 	}
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -162,7 +162,7 @@ std::vector<GLfloat> TwistedTorus::_normals(void) const
 	}
 
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -254,7 +254,7 @@ std::vector<GLfloat> TwistedTorus::_tangents(void) const
 	}
 
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -287,7 +287,7 @@ std::vector<GLfloat> TwistedTorus::_bitangents(void) const
 	}
 
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -349,7 +349,7 @@ std::vector<GLfloat> TwistedTorus::_tex_coords(void) const
 	}
 
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC

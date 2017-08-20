@@ -56,7 +56,7 @@ private:
 		Program prog;
 		prog.AttachShader(vs).AttachShader(fs).Link().Use();
 
-		return std::move(prog);
+		return prog;
 	}
 public:
 	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
@@ -147,7 +147,7 @@ private:
 
 		Program prog;
 		prog.AttachShader(vs).AttachShader(fs).Link().Use();
-		return std::move(prog);
+		return prog;
 	}
 public:
 	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;

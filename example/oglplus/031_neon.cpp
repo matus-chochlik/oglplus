@@ -130,7 +130,7 @@ private:
 
 		prog.Link().Use();
 
-		return std::move(prog);
+		return prog;
 	}
 
 	const Program& self(void) { return *this; }
@@ -440,7 +440,7 @@ private:
 
 		prog.Link().Use();
 
-		return std::move(prog);
+		return prog;
 	}
 
 	const Program& self(void) { return *this; }
@@ -516,7 +516,7 @@ private:
 		prog.AttachShader(fs);
 
 		prog.Link().Use();
-		return std::move(prog);
+		return prog;
 	}
 
 	const Program& self(void) { return *this; }

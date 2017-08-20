@@ -18,7 +18,7 @@ VertexArray ShapeWrapperBase::VAOForProgram(const ProgramOps& prog) const
 	VertexArray vao;
 	vao.Bind();
 	SetupForProgram(prog);
-	return std::move(vao);
+	return vao;
 }
 
 OGLPLUS_LIB_FUNC

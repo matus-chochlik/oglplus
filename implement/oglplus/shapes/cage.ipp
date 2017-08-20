@@ -201,7 +201,7 @@ std::vector<GLfloat> Cage::_positions(void) const
 		}
 	}
 	assert(p == dest.end());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -263,7 +263,7 @@ std::vector<GLfloat> Cage::_normals(void) const
 		}
 	}
 	assert(p == dest.end());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -318,7 +318,7 @@ std::vector<GLfloat> Cage::_tangents(void) const
 		}
 	}
 	assert(p == dest.end());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -440,7 +440,7 @@ std::vector<GLfloat> Cage::_tex_coords(void) const
 		}
 	}
 	assert(p == dest.end());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC

@@ -334,7 +334,7 @@ std::vector<GLfloat> SpiralSphere::_positions(void) const
 	_make_side_verts(dest, k);
 	//
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -348,7 +348,7 @@ std::vector<GLfloat> SpiralSphere::_normals(void) const
 	_make_side_norms(dest, k);
 	//
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -362,7 +362,7 @@ std::vector<GLfloat> SpiralSphere::_tangents(void) const
 	_make_side_tgts(dest, k);
 	//
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -376,7 +376,7 @@ std::vector<GLfloat> SpiralSphere::_bitangents(void) const
 	_make_side_btgs(dest, k);
 	//
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 std::vector<GLfloat> SpiralSphere::_tex_coords(void) const
@@ -389,7 +389,7 @@ std::vector<GLfloat> SpiralSphere::_tex_coords(void) const
 	_make_side_uvs(dest, k);
 	//
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC

@@ -22,6 +22,7 @@
 #include <oglplus/precision_type.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/program_pipeline_stage.hpp>
+#include <oglplus/program_parameter.hpp>
 #include <oglplus/face_mode.hpp>
 #include <oglplus/program_interface.hpp>
 #include <oglplus/primitive_type.hpp>

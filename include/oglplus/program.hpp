@@ -22,6 +22,7 @@
 #include <oglplus/boolean.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/transform_feedback_mode.hpp>
+#include <oglplus/program_parameter.hpp>
 #include <oglplus/program_resource.hpp>
 #include <oglplus/primitive_type.hpp>
 #include <oglplus/face_mode.hpp>
@@ -259,10 +260,10 @@ public:
 		return *this;
 	}
 #endif
-	GLint GetIntParam(GLenum query) const
+	GLint GetIntParam(ProgramParameter query) const
 	{
 		GLint result = 0;
-		OGLPLUS_GLFUNC(GetProgramiv)(_obj_name(), query, &result);
+		OGLPLUS_GLFUNC(GetProgramiv)(_obj_name(), GLenum(query), &result);
 		OGLPLUS_VERIFY(
 			GetProgramiv,
 			ObjectError,
@@ -272,7 +273,7 @@ public:
 		return result;
 	}
 
-	GLuint GetUIntParam(GLenum query) const
+	GLuint GetUIntParam(ProgramParameter query) const
 	{
 		GLint res = GetIntParam(query);
 		assert(!(res < 0));
@@ -330,7 +331,7 @@ public:
 	Boolean IsLinked(void) const
 	{
 		return Boolean(
-			GetIntParam(GL_LINK_STATUS),
+			GetIntParam(ProgramParameter(GL_LINK_STATUS)),
 			std::nothrow
 		);
 	}
@@ -441,7 +442,7 @@ public:
 	Boolean IsValid(void) const
 	{
 		return Boolean(
-			GetIntParam(GL_VALIDATE_STATUS),
+			GetIntParam(ProgramParameter(GL_VALIDATE_STATUS)),
 			std::nothrow
 		);
 	}
@@ -818,7 +819,7 @@ public:
 	TransformFeedbackMode TransformFeedbackBufferMode(void) const
 	{
 		return TransformFeedbackMode(
-			GetIntParam(GL_TRANSFORM_FEEDBACK_BUFFER_MODE)
+			GetIntParam(ProgramParameter(GL_TRANSFORM_FEEDBACK_BUFFER_MODE))
 		);
 	}
 
@@ -831,7 +832,7 @@ public:
 	 */
 	GLint GeometryVerticesOut(void) const
 	{
-		return GetIntParam(GL_GEOMETRY_VERTICES_OUT);
+		return GetIntParam(ProgramParameter(GL_GEOMETRY_VERTICES_OUT));
 	}
 #endif
 
@@ -846,7 +847,7 @@ public:
 	 */
 	GLint GeometryShaderInvocations(void) const
 	{
-		return GetIntParam(GL_GEOMETRY_SHADER_INVOCATIONS);
+		return GetIntParam(ProgramParameter(GL_GEOMETRY_SHADER_INVOCATIONS));
 	}
 #endif // gpu shader 5
 
@@ -861,7 +862,9 @@ public:
 	 */
 	PrimitiveType GeometryInputType(void) const
 	{
-		return PrimitiveType(GetIntParam(GL_GEOMETRY_INPUT_TYPE));
+		return PrimitiveType(
+			GetIntParam(ProgramParameter(GL_GEOMETRY_INPUT_TYPE))
+		);
 	}
 
 	/// Returns the geometry shader output primitive type
@@ -873,7 +876,9 @@ public:
 	 */
 	PrimitiveType GeometryOutputType(void) const
 	{
-		return PrimitiveType(GetIntParam(GL_GEOMETRY_OUTPUT_TYPE));
+		return PrimitiveType(
+			GetIntParam(ProgramParameter(GL_GEOMETRY_OUTPUT_TYPE))
+		);
 	}
 #endif
 
@@ -888,7 +893,9 @@ public:
 	 */
 	FaceOrientation TessGenVertexOrder(void) const
 	{
-		return FaceOrientation(GetIntParam(GL_TESS_GEN_VERTEX_ORDER));
+		return FaceOrientation(
+			GetIntParam(ProgramParameter(GL_TESS_GEN_VERTEX_ORDER))
+		);
 	}
 
 	/// Returns the tesselation generator output primitive type
@@ -900,7 +907,9 @@ public:
 	 */
 	TessGenPrimitiveType TessGenMode(void) const
 	{
-		return TessGenPrimitiveType(GetIntParam(GL_TESS_GEN_MODE));
+		return TessGenPrimitiveType(
+			GetIntParam(ProgramParameter(GL_TESS_GEN_MODE))
+		);
 	}
 
 	/// Returns the tesselation generator primitive spacing mode
@@ -912,7 +921,9 @@ public:
 	 */
 	TessGenPrimitiveSpacing TessGenSpacing(void) const
 	{
-		return TessGenPrimitiveSpacing(GetIntParam(GL_TESS_GEN_SPACING));
+		return TessGenPrimitiveSpacing(
+			GetIntParam(ProgramParameter(GL_TESS_GEN_SPACING))
+		);
 	}
 
 	/// Returns true if point mode is enabled in tesslation eval. shader
@@ -925,7 +936,7 @@ public:
 	Boolean TessGenPointMode(void) const
 	{
 		return Boolean(
-			GetIntParam(GL_TESS_GEN_POINT_MODE),
+			GetIntParam(ProgramParameter(GL_TESS_GEN_POINT_MODE)),
 			std::nothrow
 		);
 	}

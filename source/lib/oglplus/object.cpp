@@ -32,6 +32,7 @@
 #include <oglplus/buffer_usage.hpp>
 #include <oglplus/buffer_map_access.hpp>
 #include <oglplus/buffer_storage_bit.hpp>
+#include <oglplus/framebuffer_parameter.hpp>
 #include <oglplus/framebuffer_target.hpp>
 #include <oglplus/framebuffer_attachment.hpp>
 #include <oglplus/renderbuffer_target.hpp>

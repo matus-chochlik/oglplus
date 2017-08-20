@@ -16,19 +16,46 @@
 #include <oglplus/all.hpp>
 
 #include <eglplus/egl.hpp>
+#ifndef EGL_CONTEXT_MAJOR_VERSION 
 #define EGL_CONTEXT_MAJOR_VERSION 0x3098
+#endif
+#ifndef EGL_CONTEXT_MINOR_VERSION 
 #define EGL_CONTEXT_MINOR_VERSION 0x30FB
+#endif
+#ifndef EGL_CONTEXT_FLAGS                   
 #define EGL_CONTEXT_FLAGS                   0x30FC
+#endif
+#ifndef EGL_CONTEXT_OPENGL_PROFILE_MASK     
 #define EGL_CONTEXT_OPENGL_PROFILE_MASK     0x30FD
+#endif
+#ifndef EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY  
 #define EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY  0x31BD
+#endif
+#ifndef EGL_OPENGL_ES3_BIT                  
 #define EGL_OPENGL_ES3_BIT                  0x0040
+#endif
+#ifndef EGL_NO_RESET_NOTIFICATION           
 #define EGL_NO_RESET_NOTIFICATION           0x31BE
+#endif
+#ifndef EGL_LOSE_CONTEXT_ON_RESET           
 #define EGL_LOSE_CONTEXT_ON_RESET           0x31BF
+#endif
+#ifndef EGL_CONTEXT_OPENGL_DEBUG_BIT               
 #define EGL_CONTEXT_OPENGL_DEBUG_BIT               0x00000001
+#endif
+#ifndef EGL_CONTEXT_OPENGL_FORWARD_COMPATIBLE_BIT  
 #define EGL_CONTEXT_OPENGL_FORWARD_COMPATIBLE_BIT  0x00000002
+#endif
+#ifndef EGL_CONTEXT_OPENGL_ROBUST_ACCESS_BIT       
 #define EGL_CONTEXT_OPENGL_ROBUST_ACCESS_BIT       0x00000004
+#endif
+#ifndef EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT          
 #define EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT          0x00000001
+#endif
+#ifndef EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT 
 #define EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT 0x00000002
+#endif
+
 
 #include <eglplus/all.hpp>
 

@@ -107,12 +107,13 @@ enum class PixelDataInternalFormat : GLenum
 	CompressedSRGB8ETC2                   = GL_COMPRESSED_SRGB8_ETC2,
 	CompressedRGB8PunchthroughAlpha1ETC2  = GL_COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2,
 	CompressedSRGB8PunchthroughAlpha1ETC2 = GL_COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2,
-	CompressedETC2EAC                     = GL_COMPRESSED_RGBA8_ETC2_EAC,
+	CompressedRGBA8ETC2EAC                = GL_COMPRESSED_RGBA8_ETC2_EAC,
 	CompressedSRGB8Alpha8ETC2EAC          = GL_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC,
 	CompressedR11EAC                      = GL_COMPRESSED_R11_EAC,
 	CompressedSignedR11EAC                = GL_COMPRESSED_SIGNED_R11_EAC,
 	CompressedRG11EAC                     = GL_COMPRESSED_RG11_EAC,
-	CompressedSignedRG11EAC               = GL_COMPRESSED_SIGNED_RG11_EAC
+	CompressedSignedRG11EAC               = GL_COMPRESSED_SIGNED_RG11_EAC,
+	CompressedRGBAS3TCDXT3                = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT
 };
 
 template <>

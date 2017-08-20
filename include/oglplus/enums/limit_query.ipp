@@ -209,6 +209,14 @@ MaxVertexUniformBlocks,
 MaxVertexUniformComponents,
 /// MAX_VERTEX_UNIFORM_VECTORS
 MaxVertexUniformVectors,
+/// MAX_COMPUTE_UNIFORM_BLOCKS
+MaxComputeUniformBlocks,
+/// MAX_COMPUTE_UNIFORM_COMPONENTS
+MaxComputeUniformComponents,
+/// MAX_COMBINED_COMPUTE_UNIFORM_COMPONENTS
+MaxCombinedComputeUniformComponents,
+/// MAX_COMPUTE_TEXTURE_IMAGE_UNITS
+MaxComputeTextureImageUnits,
 /// MAX_VIEWPORT_DIMS
 MaxViewportDims,
 /// MAX_VIEWPORTS

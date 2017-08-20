@@ -284,7 +284,8 @@ public:
 		// primitive restart index
 		GLshort pri = GLshort(vertex_count);
 		// sides
-		for(GLushort i=0; i!=18; ++i) *ii++ = i % 16; *ii++ = pri;
+		for(GLushort i=0; i!=18; ++i) *ii++ = i % 16;
+		*ii++ = pri;
 		// chamfer
 		*ii++ =  1; *ii++ = 16; *ii++ =  3; *ii++ = 17; *ii++ = pri;
 		*ii++ =  3; *ii++ = 17; *ii++ =  5;             *ii++ = pri;

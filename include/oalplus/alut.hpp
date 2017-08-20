@@ -180,7 +180,7 @@ private:
 			);
 		}
 
-		return std::move(result);
+		return result;
 	}
 
 	std::vector<ALubyte> _load_memory(

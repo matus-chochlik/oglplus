@@ -465,7 +465,7 @@ Program SurfacePolygonizerCommon::MakeProg(void)
 
 	prog.Link().Use();
 
-	return std::move(prog);
+	return prog;
 }
 
 void SurfacePolygonizerCommon::InitGridOffsets(void)
@@ -1061,7 +1061,7 @@ Program SurfaceExample::MakeDepthProg(void)
 
 	prog.Link().Use();
 
-	return std::move(prog);
+	return prog;
 }
 
 Program SurfaceExample::MakeColorProg(void)
@@ -1161,7 +1161,7 @@ Program SurfaceExample::MakeColorProg(void)
 
 	prog.Link().Use();
 
-	return std::move(prog);
+	return prog;
 }
 
 Program SurfaceExample::MakeLightMapProg(void)
@@ -1221,7 +1221,7 @@ Program SurfaceExample::MakeLightMapProg(void)
 
 	prog.Link().Use();
 
-	return std::move(prog);
+	return prog;
 }
 
 
@@ -1283,7 +1283,7 @@ Program SurfaceExample::MakeScreenProg(void)
 
 	prog.Link().Use();
 
-	return std::move(prog);
+	return prog;
 }
 
 SurfaceExample::SurfaceExample(const ExampleParams& /*params*/)

@@ -1,17 +1,16 @@
-#  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2017 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 
 # we need C++11
-if(${CMAKE_COMPILER_IS_GNUCXX})
-	set(OGLPLUS_CPP_STD_COMPILER_SWITCH -std=c++11)
-elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	set(OGLPLUS_CPP_STD_COMPILER_SWITCH -std=c++11)
-endif()
-# TODO add support for other compilers
+set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_definitions(${OGLPLUS_CPP_STD_COMPILER_SWITCH})
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+	set (CMAKE_CXX_EXTENSIONS --std=c++11)
+	list(APPEND CMAKE_CXX_FLAGS --std=c++11)
+endif()
 
 function(cpp_feature_detection FEATURE_NAME)
 	if(NOT DEFINED OGLPLUS_NO_${FEATURE_NAME})
@@ -27,7 +26,7 @@ function(cpp_feature_detection FEATURE_NAME)
 			OGLPLUS_HAS_${FEATURE_NAME}
 			${PROJECT_BINARY_DIR}/cpp
 			${PROJECT_BINARY_DIR}/cpp/has_${FEATURE_NAME}.cpp
-			COMPILE_DEFINITIONS ${OGLPLUS_CPP_STD_COMPILER_SWITCH}
+			LINK_LIBRARIES ${THREADS_LIBRARIES}
 		)
 		message(STATUS
 			"Detecting support for c++ feature '${FEATURE_NAME}': "
@@ -79,4 +78,3 @@ cpp_feature_detection(OVERRIDE)
 cpp_feature_detection(LAMBDAS)
 cpp_feature_detection(CHRONO)
 cpp_feature_detection(THREADS)
-

@@ -241,7 +241,7 @@ std::vector<GLfloat> WickerTorus::_positions(void) const
 	}
 
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -414,7 +414,7 @@ std::vector<GLfloat> WickerTorus::_normals(void) const
 	}
 
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -572,7 +572,7 @@ std::vector<GLfloat> WickerTorus::_tangents(void) const
 	}
 
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -605,7 +605,7 @@ std::vector<GLfloat> WickerTorus::_bitangents(void) const
 	}
 
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC
@@ -764,7 +764,7 @@ std::vector<GLfloat> WickerTorus::_tex_coords(void) const
 	}
 
 	assert(k == dest.size());
-	return std::move(dest);
+	return dest;
 }
 
 OGLPLUS_LIB_FUNC

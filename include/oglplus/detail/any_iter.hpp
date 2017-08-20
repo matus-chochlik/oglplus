@@ -185,7 +185,7 @@ public:
 		AnyInputIter copy(_clone());
 		assert(_pimpl != nullptr);
 		_pimpl->incr();
-		return std::move(copy);
+		return copy;
 	}
 
 	friend bool operator == (const AnyInputIter& a, const AnyInputIter& b)
