@@ -151,7 +151,7 @@ int main(int argc, char* argv[])
 	{
 		std::cerr
 			<< "Error (in "
-			<< err.GLFunc()
+			<< (err.GLFunc()?err.GLFunc():"N/A")
 			<< "'): "
 			<< err.what()
 			<< " ["

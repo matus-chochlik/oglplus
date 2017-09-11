@@ -208,7 +208,7 @@ int main(int argc, char* argv[])
 	{
 		std::cerr
 			<< "OGLplus error (in "
-			<< oe.GLFunc()
+			<< (oe.GLFunc()?oe.GLFunc():"N/A")
 			<< "'): "
 			<< oe.what()
 			<< " ["
@@ -222,6 +222,7 @@ int main(int argc, char* argv[])
 	{
 		std::cerr
 			<< "EGLplus error (in "
+			<< (ee.EGLFunc()?ee.EGLFunc():"N/A")
 			<< ee.EGLFunc()
 			<< ") "
 			<< ee.what()

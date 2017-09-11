@@ -94,7 +94,7 @@ int main(void)
 	{
 		std::cerr
 			<< "Error (in "
-			<< err.GLFunc()
+			<< (err.GLFunc()?err.GLFunc():"N/A")
 			<< "'): "
 			<< err.what()
 			<< " ["
