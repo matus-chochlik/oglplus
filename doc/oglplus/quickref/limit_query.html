@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Limit queries</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../../index.html" title="oglplus.org">
 <link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
 <link rel="prev" href="hint.html" title="Hint">
@@ -121,6 +121,10 @@
 	<span class="identifier">MaxVertexUniformBlocks</span>                     <span class="special">=</span> <span class="identifier">GL_MAX_VERTEX_UNIFORM_BLOCKS</span><span class="special">,</span>
 	<span class="identifier">MaxVertexUniformComponents</span>                 <span class="special">=</span> <span class="identifier">GL_MAX_VERTEX_UNIFORM_COMPONENTS</span><span class="special">,</span>
 	<span class="identifier">MaxVertexUniformVectors</span>                    <span class="special">=</span> <span class="identifier">GL_MAX_VERTEX_UNIFORM_VECTORS</span><span class="special">,</span>
+	<span class="identifier">MaxComputeUniformBlocks</span>                    <span class="special">=</span> <span class="identifier">GL_MAX_COMPUTE_UNIFORM_BLOCKS</span><span class="special">,</span>
+	<span class="identifier">MaxComputeUniformComponents</span>                <span class="special">=</span> <span class="identifier">GL_MAX_COMPUTE_UNIFORM_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxCombinedComputeUniformComponents</span>        <span class="special">=</span> <span class="identifier">GL_MAX_COMBINED_COMPUTE_UNIFORM_COMPONENTS</span><span class="special">,</span>
+	<span class="identifier">MaxComputeTextureImageUnits</span>                <span class="special">=</span> <span class="identifier">GL_MAX_COMPUTE_TEXTURE_IMAGE_UNITS</span><span class="special">,</span>
 	<span class="identifier">MaxViewportDims</span>                            <span class="special">=</span> <span class="identifier">GL_MAX_VIEWPORT_DIMS</span><span class="special">,</span>
 	<span class="identifier">MaxViewports</span>                               <span class="special">=</span> <span class="identifier">GL_MAX_VIEWPORTS</span><span class="special">,</span>
 	<span class="identifier">MaxComputeWorkGroupCount</span>                   <span class="special">=</span> <span class="identifier">GL_MAX_COMPUTE_WORK_GROUP_COUNT</span><span class="special">,</span>
@@ -352,6 +356,14 @@
 		<span class="identifier">MaxVertexUniformComponents</span><span class="special">;</span>
 	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxVertexUniformVectors</span><span class="special">&gt;</span>
 		<span class="identifier">MaxVertexUniformVectors</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxComputeUniformBlocks</span><span class="special">&gt;</span>
+		<span class="identifier">MaxComputeUniformBlocks</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxComputeUniformComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxComputeUniformComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxCombinedComputeUniformComponents</span><span class="special">&gt;</span>
+		<span class="identifier">MaxCombinedComputeUniformComponents</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxComputeTextureImageUnits</span><span class="special">&gt;</span>
+		<span class="identifier">MaxComputeTextureImageUnits</span><span class="special">;</span>
 	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxViewportDims</span><span class="special">&gt;</span>
 		<span class="identifier">MaxViewportDims</span><span class="special">;</span>
 	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">LimitQuery</span><span class="special">::</span><span class="identifier">MaxViewports</span><span class="special">&gt;</span>

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Framebuffers</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../../index.html" title="oglplus.org">
 <link rel="up" href="../quickref.html" title="Chapter&#160;2.&#160;Quick reference">
 <link rel="prev" href="sampler.html" title="Samplers">
@@ -413,7 +413,8 @@
 <pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">FramebufferTarget</span> <span class="special">:</span> <span class="identifier">GLenum</span>
 <span class="special">{</span>
 	<span class="identifier">Draw</span> <span class="special">=</span> <span class="identifier">GL_DRAW_FRAMEBUFFER</span><span class="special">,</span>
-	<span class="identifier">Read</span> <span class="special">=</span> <span class="identifier">GL_READ_FRAMEBUFFER</span>
+	<span class="identifier">Read</span> <span class="special">=</span> <span class="identifier">GL_READ_FRAMEBUFFER</span><span class="special">,</span>
+	<span class="identifier">Both</span> <span class="special">=</span> <span class="identifier">GL_FRAMEBUFFER</span>
 <span class="special">};</span>
 
 <span class="keyword">template</span> <span class="special">&lt;&gt;</span>
@@ -441,6 +442,8 @@
 		<span class="identifier">Draw</span><span class="special">;</span>
 	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">FramebufferTarget</span><span class="special">::</span><span class="identifier">Read</span><span class="special">&gt;</span>
 		<span class="identifier">Read</span><span class="special">;</span>
+	<span class="identifier">Transform</span><span class="special">&lt;</span><span class="identifier">FramebufferTarget</span><span class="special">::</span><span class="identifier">Both</span><span class="special">&gt;</span>
+		<span class="identifier">Both</span><span class="special">;</span>
 <span class="special">};</span>
 
 <span class="special">}</span> <span class="comment">// namespace enums</span>
