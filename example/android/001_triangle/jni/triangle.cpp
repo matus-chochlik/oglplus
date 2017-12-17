@@ -106,7 +106,7 @@ void ExampleFormatErrorMessage(
 {
 	output	<< "'" << error.what()
 		<< "' in '"
-		<< error.GLFunc()
+		<< (error.GLFunc()?error.GLFunc():"N/A")
 		<< "' at ["
 		<< error.SourceFile()
 		<< ":"

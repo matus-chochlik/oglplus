@@ -942,6 +942,24 @@ public:
 	}
 #endif // tessellation shader
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_COMPUTE_WORK_GROUP_SIZE
+	GLint* ComputeWorkGroupSize(GLint (&result)[3]) const
+	{
+		OGLPLUS_GLFUNC(GetProgramiv)(
+			_obj_name(),
+			GL_COMPUTE_WORK_GROUP_SIZE,
+			result
+		);
+		OGLPLUS_VERIFY(
+			GetProgramiv,
+			ObjectError,
+			Object(*this).
+			EnumParam(ProgramParameter(GL_COMPUTE_WORK_GROUP_SIZE))
+		);
+		return result;
+	}
+#endif
+
 	/// Binds the location of a SL variable to the vertex_attrib
 	/** This function binds the location of the vertex attribute
 	 *  @c vertex_attrib to the shader variable identified by
