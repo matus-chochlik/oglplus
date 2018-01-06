@@ -348,9 +348,9 @@ public:
 		octree.Draw();
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 30.0;
+		return ExampleTimePeriod::Minutes(0.5);
 	}
 };
 

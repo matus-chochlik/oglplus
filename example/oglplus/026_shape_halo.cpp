@@ -445,9 +445,9 @@ public:
 		gl.DepthMask(true);
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 60.0;
+		return ExampleTimePeriod::Minutes(1.0);
 	}
 };
 

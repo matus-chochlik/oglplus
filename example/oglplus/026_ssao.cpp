@@ -409,9 +409,9 @@ public:
 		screen.Draw();
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 90.0;
+		return ExampleTimePeriod::Seconds(90.0);
 	}
 
 	double ScreenshotTime(void) const

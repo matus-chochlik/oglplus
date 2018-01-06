@@ -590,9 +590,9 @@ public:
 		gl.Disable(Capability::Blend);
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 90.0;
+		return ExampleTimePeriod::Seconds(90.0);
 	}
 };
 

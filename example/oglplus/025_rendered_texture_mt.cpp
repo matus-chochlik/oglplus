@@ -186,9 +186,9 @@ public:
 		parent_ready.Signal();
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 30.0;
+		return ExampleTimePeriod::Seconds(30.0);
 	}
 
 	double ScreenshotTime(void) const

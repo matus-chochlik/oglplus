@@ -417,9 +417,9 @@ public:
 
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 60.0;
+		return ExampleTimePeriod::Seconds(60.0);
 	}
 };
 

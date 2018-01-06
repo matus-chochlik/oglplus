@@ -565,9 +565,9 @@ public:
 		bar_display.Draw(time, fade);
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 120.0;
+		return ExampleTimePeriod::Minutes(2.0);
 	}
 };
 

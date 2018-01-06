@@ -189,9 +189,9 @@ public:
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 15.0;
+		return ExampleTimePeriod::Seconds(15.0);
 	}
 };
 

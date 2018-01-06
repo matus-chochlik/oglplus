@@ -319,9 +319,9 @@ public:
 		cube_instr.Draw(cube_indices, 36);
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 30.0;
+		return ExampleTimePeriod::Seconds(30.0);
 	}
 };
 

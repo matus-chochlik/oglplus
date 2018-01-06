@@ -362,9 +362,9 @@ public:
 		gl.DrawArraysInstanced(PrimitiveType::Points, 0, 1, 6);
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 90.0;
+		return ExampleTimePeriod::Seconds(90.0);
 	}
 };
 

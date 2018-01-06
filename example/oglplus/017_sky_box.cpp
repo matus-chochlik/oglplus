@@ -179,9 +179,9 @@ public:
 		gl.DrawElements(PrimitiveType::TriangleStrip, 6*5, DataType::UnsignedInt);
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 45.0;
+		return ExampleTimePeriod::Seconds(45.0);
 	}
 
 	double ScreenshotTime(void) const

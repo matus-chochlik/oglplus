@@ -657,9 +657,9 @@ public:
 		RenderImage(time);
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 90.0;
+		return ExampleTimePeriod::Minutes(1.5);
 	}
 };
 

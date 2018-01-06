@@ -583,9 +583,9 @@ public:
 		water.Draw();
 	}
 
-	bool Continue(const ExampleClock& clock)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return clock.RealTime().Minutes() < 2.0;
+		return ExampleTimePeriod::Minutes(2.0);
 	}
 
 	double HeatUpTime(void) const

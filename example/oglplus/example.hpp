@@ -74,18 +74,38 @@ void setupExample(ExampleParams& params);
 class ExampleTimePeriod
 {
 private:
-	double _time;
+	double _seconds;
 public:
-	ExampleTimePeriod(double time)
-	 : _time(time)
+	explicit
+	ExampleTimePeriod(double seconds)
+	 : _seconds(seconds)
+	{ }
+
+	/// Creates a time period with the specified number of seconds
+	static
+	ExampleTimePeriod Seconds(double number)
 	{
-		assert(_time >= 0.0);
+		return ExampleTimePeriod(number);
+	}
+
+	/// Creates a time period with the specified number of minutes
+	static
+	ExampleTimePeriod Minutes(double number)
+	{
+		return ExampleTimePeriod(number*60.0);
+	}
+
+	/// Creates a time period with the specified number of hours
+	static
+	ExampleTimePeriod Hours(double number)
+	{
+		return ExampleTimePeriod(number*3600.0);
 	}
 
 	/// The length of the periods in seconds
 	double Seconds(void) const
 	{
-		return _time;
+		return _seconds;
 	}
 
 	/// The current second of the period <0-60)
@@ -97,7 +117,7 @@ public:
 	/// The length of the periods in minutes
 	double Minutes(void) const
 	{
-		return _time / 60.0;
+		return _seconds / 60.0;
 	}
 
 	/// The current minute of the period <0-60)
@@ -109,7 +129,7 @@ public:
 	/// The length of the periods in hours
 	double Hours(void) const
 	{
-		return _time / 3600.0;
+		return _seconds / 3600.0;
 	}
 
 	/// The current minute of the period <0-24)
@@ -121,13 +141,34 @@ public:
 	/// The length of the period in days
 	double Days(void) const
 	{
-		return _time / (24*3600.0);
+		return _seconds / (24*3600.0);
 	}
 
 	/// The current day of the period
 	int Day(void) const
 	{
 		return int(Days());
+	}
+
+	/// Time period addition
+	friend
+	ExampleTimePeriod operator + (ExampleTimePeriod a, ExampleTimePeriod b)
+	{
+		return ExampleTimePeriod(a._seconds + b._seconds);
+	}
+
+	/// Less than comparison
+	friend
+	bool operator < (ExampleTimePeriod a, ExampleTimePeriod b)
+	{
+		return a._seconds < b._seconds;
+	}
+
+	/// Greater than comparison
+	friend
+	bool operator > (ExampleTimePeriod a, ExampleTimePeriod b)
+	{
+		return a._seconds > b._seconds;
 	}
 };
 
@@ -259,14 +300,10 @@ public:
 	{
 	}
 
-	/// Hint for the main function whether to continue rendering
-	/** Implementations of the main function may choose to ignore
-	 *  the result of this function or not call it at all.
-	 *  This is the overload for simple timing.
-	 */
-	virtual bool Continue(double duration)
+	/// Returns the timeout period for the example.
+	virtual ExampleTimePeriod DefaultTimeout(void)
 	{
-		return duration < 3.0; // [seconds]
+		return ExampleTimePeriod::Seconds(5.0);
 	}
 
 	/// Hint for the main function whether to continue rendering
@@ -276,7 +313,7 @@ public:
 	 */
 	virtual bool Continue(const ExampleClock& clock)
 	{
-		return this->Continue(clock.Now().Seconds());
+		return clock.Now() < DefaultTimeout(); // [seconds]
 	}
 
 	/// Reshape event handler

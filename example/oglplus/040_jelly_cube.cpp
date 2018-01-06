@@ -1597,9 +1597,14 @@ public:
 		UpdateImpulse(clock.Now().Seconds(), camera.Target());
 	}
 
+	ExampleTimePeriod DefaultTimeout(void)
+	{
+		return ExampleTimePeriod::Minutes(2.0);
+	}
+
 	bool Continue(const ExampleClock& clock)
 	{
-		return clock.RealTime().Minutes() < 2.0;
+		return clock.RealTime() < DefaultTimeout();
 	}
 
 	double HeatUpTime(void) const

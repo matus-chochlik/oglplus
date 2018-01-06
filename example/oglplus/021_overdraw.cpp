@@ -308,14 +308,14 @@ public:
 		RenderOnscreen(time);
 	}
 
+	ExampleTimePeriod DefaultTimeout(void)
+	{
+		return ExampleTimePeriod::Seconds(30.0);
+	}
+
 	double ScreenshotTime(void) const
 	{
 		return 8.1;
-	}
-
-	bool Continue(double time)
-	{
-		return time < 30.0;
 	}
 };
 

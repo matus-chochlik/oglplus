@@ -293,9 +293,9 @@ public:
 		shape.Draw();
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 180.0;
+		return ExampleTimePeriod::Minutes(3.0);
 	}
 };
 

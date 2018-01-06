@@ -323,9 +323,9 @@ public:
 		}
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 60.0;
+		return ExampleTimePeriod::Minutes(1.0);
 	}
 
 	double ScreenshotTime(void) const

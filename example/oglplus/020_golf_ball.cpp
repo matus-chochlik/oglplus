@@ -341,9 +341,9 @@ public:
 		sphere_instr.Draw(sphere_indices);
 	}
 
-	bool Continue(double time)
+	ExampleTimePeriod DefaultTimeout(void)
 	{
-		return time < 30.0;
+		return ExampleTimePeriod::Seconds(30.0);
 	}
 };
 

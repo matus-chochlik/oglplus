@@ -274,7 +274,10 @@ public:
 	void Render(ExampleClock& clock);
 	double ScreenshotTime(void) const { return 50.8; }
 
-	bool Continue(double time) { return time < 120.0; }
+	ExampleTimePeriod DefaultTimeout(void)
+	{
+		return ExampleTimePeriod::Minutes(2.0);
+	}
 
 	GLuint CellConfigTexUnit(void) const { return 0; }
 	GLuint MetaballPosTexUnit(void) const { return 1; }
