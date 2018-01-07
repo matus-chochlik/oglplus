@@ -80,6 +80,13 @@ public:
 	ExampleTimePeriod(double seconds)
 	 : _seconds(seconds)
 	{ }
+	//
+	/// Creates a zero-length time period
+	static
+	ExampleTimePeriod Zero(void)
+	{
+		return ExampleTimePeriod(0.0);
+	}
 
 	/// Creates a time period with the specified number of seconds
 	static
@@ -157,6 +164,27 @@ public:
 		return ExampleTimePeriod(a._seconds + b._seconds);
 	}
 
+	/// Time period addition
+	ExampleTimePeriod& operator += (ExampleTimePeriod p)
+	{
+		_seconds += p._seconds;
+		return *this;
+	}
+
+	/// Time period subtraction
+	friend
+	ExampleTimePeriod operator - (ExampleTimePeriod a, ExampleTimePeriod b)
+	{
+		return ExampleTimePeriod(a._seconds - b._seconds);
+	}
+
+	/// Time period multiplication
+	friend
+	ExampleTimePeriod operator * (int a, ExampleTimePeriod b)
+	{
+		return ExampleTimePeriod(a * b._seconds);
+	}
+
 	/// Less than comparison
 	friend
 	bool operator < (ExampleTimePeriod a, ExampleTimePeriod b)
@@ -170,6 +198,13 @@ public:
 	{
 		return a._seconds > b._seconds;
 	}
+
+	/// Greater than or equal comparison
+	friend
+	bool operator >= (ExampleTimePeriod a, ExampleTimePeriod b)
+	{
+		return a._seconds >= b._seconds;
+	}
 };
 
 /// Class measuring the simulation time of an Example
@@ -178,28 +213,28 @@ class ExampleClock
 private:
 	double _start, _past, _real_time, _curr_time, _prev_time, _pace; //[s]
 public:
-	ExampleClock(double start = 0.0)
-	 : _start(start)
-	 , _past(start)
-	 , _real_time(start)
-	 , _curr_time(start)
-	 , _prev_time(start)
+	ExampleClock(ExampleTimePeriod start = ExampleTimePeriod::Zero())
+	 : _start(start.Seconds())
+	 , _past(start.Seconds())
+	 , _real_time(start.Seconds())
+	 , _curr_time(start.Seconds())
+	 , _prev_time(start.Seconds())
 	 , _pace(1.0)
 	{ }
 
 	/// Update the clock by providing real time
-	void Update(double real_time)
+	void Update(ExampleTimePeriod real_time)
 	{
 		_prev_time = _curr_time;
-		_real_time = real_time;
+		_real_time = real_time.Seconds();
 		_curr_time = _past + (_real_time - _start) * _pace;
 	}
 
 	/// Advances the clock
-	void Advance(double seconds)
+	void Advance(ExampleTimePeriod offs)
 	{
 		_prev_time = _curr_time;
-		_real_time += seconds;
+		_real_time += offs.Seconds();
 		_curr_time = _past + (_real_time - _start) * _pace;
 	}
 
@@ -354,28 +389,28 @@ public:
 		return 1.0;
 	}
 
-	/// The time of the default screenshot
-	virtual double ScreenshotTime(void) const
-	{
-		return 1.0; // [s]
-	}
-
-	/// Single frame time in the screenshot capture sequence
-	virtual double FrameTime(void) const
-	{
-		return 1.0/25.0;
-	}
-
 	/// The number of heat-up sequence frames
-	virtual GLuint HeatUpFrames(void) const
+	virtual int HeatUpFrames(void) const
 	{
 		return 5;
 	}
 
 	/// The screenshot capture heat-up sequence start time
-	virtual double HeatUpTime(void) const
+	virtual ExampleTimePeriod HeatUpTime(void) const
 	{
 		return ScreenshotTime()-HeatUpFrames()*FrameTime();
+	}
+
+	/// The time of the default screenshot
+	virtual ExampleTimePeriod ScreenshotTime(void) const
+	{
+		return ExampleTimePeriod::Seconds(1.0);
+	}
+
+	/// Single frame time in the screenshot capture sequence
+	virtual ExampleTimePeriod FrameTime(void) const
+	{
+		return ExampleTimePeriod::Seconds(1.0/25.0);
 	}
 };
 

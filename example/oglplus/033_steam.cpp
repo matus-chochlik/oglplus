@@ -851,14 +851,14 @@ public:
 		return ExampleTimePeriod::Minutes(1.0);
 	}
 
-	double ScreenshotTime(void) const
+	ExampleTimePeriod ScreenshotTime(void) const
 	{
-		return 10.0;
+		return ExampleTimePeriod::Seconds(10.0);
 	}
 
-	double HeatUpTime(void) const
+	ExampleTimePeriod HeatUpTime(void) const
 	{
-		return 0.0;
+		return ExampleTimePeriod::Seconds(0.0);
 	}
 };
 

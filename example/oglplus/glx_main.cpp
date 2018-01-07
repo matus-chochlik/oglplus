@@ -278,7 +278,7 @@ void do_run_example_loop(
 	bool done = false;
 	while(!done && !common.failure)
 	{
-		clock.Update(os_clock.seconds());
+		clock.Update(ExampleTimePeriod::Seconds(os_clock.seconds()));
 		if(!example->Continue(clock)) break;
 
 		unsigned part_no = 0;
@@ -416,8 +416,8 @@ void run_framedump_loop(
 
 	typedef CubicBezierLoop<Vec2f, double> Loop;
 
-	double t = 0.0;
-	double period = 1.0 / 25.0;
+	ExampleTimePeriod t = ExampleTimePeriod::Zero();
+	ExampleTimePeriod period = ExampleTimePeriod::Seconds(1.0/25.0);
 	GLuint frame_no = 0;
 	std::vector<char> pixels(opts.width * opts.height * 4);
 
@@ -439,7 +439,7 @@ void run_framedump_loop(
 			}
 		}
 
-		Vec2f mouse_pos = Loop(mouse_path_pos).Position(t*0.2);
+		Vec2f mouse_pos = Loop(mouse_path_pos).Position(0.2*t.Seconds());
 
 		for(std::size_t p=0; p!= mouse_path_pts; ++p)
 		{
@@ -533,9 +533,9 @@ void make_screenshot(
 {
 	XEvent event;
 
-	double s = example->HeatUpTime();
-	double t = example->ScreenshotTime();
-	double dt = example->FrameTime();
+	ExampleTimePeriod s = example->HeatUpTime();
+	ExampleTimePeriod t = example->ScreenshotTime();
+	ExampleTimePeriod dt = example->FrameTime();
 
 	clock.Update(s);
 

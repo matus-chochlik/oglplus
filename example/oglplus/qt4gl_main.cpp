@@ -88,7 +88,7 @@ void OGLplusExampleGLWidget::paintGL(void)
 		clock.Advance(example->FrameTime());
 
 		example->Render(clock);
-		if(clock.Time() >= example->ScreenshotTime())
+		if(clock.Now() >= example->ScreenshotTime())
 		{
 			glFinish();
 			std::vector<char> pixels(width() * height() * 3);
@@ -109,7 +109,9 @@ void OGLplusExampleGLWidget::paintGL(void)
 	{
 		// TODO: this gets fscked by system clock changes
 		// going to/from DST for example
-		clock.Update(double(qt_clock.elapsed())/1000.0);
+		clock.Update(oglplus::ExampleTimePeriod::Seconds(
+			double(qt_clock.elapsed())/1000.0
+		));
 
 		if(!example->Continue(clock))
 			emit exampleFinished();

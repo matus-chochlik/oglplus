@@ -1607,19 +1607,19 @@ public:
 		return clock.RealTime() < DefaultTimeout();
 	}
 
-	double HeatUpTime(void) const
+	ExampleTimePeriod HeatUpTime(void) const
 	{
-		return 0.0;
+		return ExampleTimePeriod::Seconds(0.0);
 	}
 
-	double ScreenshotTime(void) const
+	ExampleTimePeriod ScreenshotTime(void) const
 	{
-		return 2.0;
+		return ExampleTimePeriod::Seconds(2.0);
 	}
 
-	double FrameTime(void) const
+	ExampleTimePeriod FrameTime(void) const
 	{
-		return 1.0/60.0;
+		return ExampleTimePeriod::Seconds(1.0/60.0);
 	}
 };
 

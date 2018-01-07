@@ -121,7 +121,7 @@ public:
 
 	void Display(void)
 	{
-		_clock.Update(_os_clock.seconds());
+		_clock.Update(ExampleTimePeriod::Seconds(_os_clock.seconds()));
 		double frame_time = _clock.Now().Seconds();
 		_frame_no++;
 
@@ -181,7 +181,7 @@ public:
 	void Screenshot(void)
 	{
 		_example->Render(_clock);
-		if(_clock.Now().Seconds() >= _example->ScreenshotTime())
+		if(_clock.Now() >= _example->ScreenshotTime())
 		{
 			glFinish();
 			std::vector<char> pixels(_width * _height * 3);

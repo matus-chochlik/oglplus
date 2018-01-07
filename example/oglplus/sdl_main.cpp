@@ -62,9 +62,9 @@ void make_screenshot(
 	const char* screenshot_path
 )
 {
-	double s = example->HeatUpTime();
-	double t = example->ScreenshotTime();
-	double dt = example->FrameTime();
+	ExampleTimePeriod s = example->HeatUpTime();
+	ExampleTimePeriod t = example->ScreenshotTime();
+	ExampleTimePeriod dt = example->FrameTime();
 
 	ExampleClock clock(s);
 
@@ -104,7 +104,7 @@ void run_loop(
 
 	while(!done)
 	{
-		clock.Update(os_clock.seconds());
+		clock.Update(ExampleTimePeriod::Seconds(os_clock.seconds()));
 		if(!example->Continue(clock)) break;
 		example->Render(clock);
 

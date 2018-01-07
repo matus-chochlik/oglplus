@@ -272,7 +272,11 @@ public:
 
 	void Reshape(GLuint width, GLuint height);
 	void Render(ExampleClock& clock);
-	double ScreenshotTime(void) const { return 50.8; }
+
+	ExampleTimePeriod ScreenshotTime(void) const
+	{
+		return ExampleTimePeriod::Seconds(50.8);
+	}
 
 	ExampleTimePeriod DefaultTimeout(void)
 	{

@@ -256,14 +256,14 @@ public:
 		return ExampleTimePeriod::Seconds(30.0);
 	}
 
-	double ScreenshotTime(void) const
+	ExampleTimePeriod ScreenshotTime(void) const
 	{
-		return 5.0;
+		return ExampleTimePeriod::Seconds(5.0);
 	}
 
-	double HeatUpTime(void) const
+	ExampleTimePeriod HeatUpTime(void) const
 	{
-		return 0.0;
+		return ExampleTimePeriod::Seconds(0.0);
 	}
 };
 

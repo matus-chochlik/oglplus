@@ -451,19 +451,19 @@ public:
 		return ExampleTimePeriod::Minutes(1.0);
 	}
 
-	double HeatUpTime(void) const
+	ExampleTimePeriod HeatUpTime(void) const
 	{
-		return 0.0;
+		return ExampleTimePeriod::Seconds(0.0);
 	}
 
-	double ScreenshotTime(void) const
+	ExampleTimePeriod ScreenshotTime(void) const
 	{
-		return 3.0;
+		return ExampleTimePeriod::Seconds(3.0);
 	}
 
-	double FrameTime(void) const
+	ExampleTimePeriod FrameTime(void) const
 	{
-		return 1.0/30.0;
+		return ExampleTimePeriod::Seconds(1.0/30.0);
 	}
 };
 

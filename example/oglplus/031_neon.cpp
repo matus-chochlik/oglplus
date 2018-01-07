@@ -711,14 +711,14 @@ public:
 		return ExampleTimePeriod::Minutes(1.5);
 	}
 
-	double HeatUpTime(void) const
+	ExampleTimePeriod HeatUpTime(void) const
 	{
-		return 0.0;
+		return ExampleTimePeriod::Seconds(0.0);
 	}
 
-	double ScreenshotTime(void) const
+	ExampleTimePeriod ScreenshotTime(void) const
 	{
-		return 14.0;
+		return ExampleTimePeriod::Seconds(14.0);
 	}
 };
 

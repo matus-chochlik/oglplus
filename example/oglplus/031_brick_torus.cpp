@@ -565,9 +565,9 @@ public:
 		return ExampleTimePeriod::Seconds(60.0);
 	}
 
-	double ScreenshotTime(void) const
+	ExampleTimePeriod ScreenshotTime(void) const
 	{
-		return 9.0;
+		return ExampleTimePeriod::Seconds(9.0);
 	}
 };
 
