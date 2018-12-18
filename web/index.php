@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta name="author" content="Matus Chochlik"/>
-<meta name="copyright" content="Copyright 2010-2017 Matus Chochlik"/>
+<meta name="copyright" content="Copyright 2010-2018 Matus Chochlik"/>
 <meta name="keywords" content="C++ OpenGL Graphics Library"/>
 <meta name="description" content="C++ wrapper for the OpenGL&reg; C API"/>
 
@@ -47,6 +47,12 @@
 					<img src="http://github.com/favicon.ico"
 						style="border: 0;"
 						alt="OGLplus on GitHub"
+					/>
+				</a>
+				<a href="https://github.com/matus-chochlik/oglplu2" style="text-decoration: none;">
+					<img src="http://github.com/favicon.ico"
+						style="border: 0;"
+						alt="OGLplus 2 on GitHub"
 					/>
 				</a>
 				<a href="http://www.linkedin.com/groups/OGLplus-4592626" style="text-decoration: none;">
@@ -224,9 +230,8 @@
 		</div>
 	</div>
 	<div id="footer">
-		<em>Copyright &copy; 2008-2017</em> <strong>Matúš Chochlík</strong>, Žilina, Slovakia.<br/>
-		&lt;<a href="mailto:chochlik@gmail.com">chochlik -at -gmail.com</a>&gt;
-		&lt;<a href="mailto:matus.chochlik@fri.uniza.sk">matus.chochlik -at- fri.uniza.sk</a>&gt;<br/>
+		<em>Copyright &copy; 2008-2018</em> <strong>Matúš Chochlík</strong><br/>
+		&lt;<a href="mailto:chochlik@gmail.com">chochlik -at -gmail.com</a>&gt;<br/>
 
 		<p>Distributed under the Boost Software License, Version 1.0. (See a copy at
 		<a href="http://www.boost.org/LICENSE_1_0.txt">http://www.boost.org/LICENSE_1_0.txt</a>)</p>
