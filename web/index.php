@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta name="author" content="Matus Chochlik"/>
-<meta name="copyright" content="Copyright 2010-2018 Matus Chochlik"/>
+<meta name="copyright" content="Copyright 2010-2019 Matus Chochlik"/>
 <meta name="keywords" content="C++ OpenGL Graphics Library"/>
 <meta name="description" content="C++ wrapper for the OpenGL&reg; C API"/>
 
@@ -230,7 +230,7 @@
 		</div>
 	</div>
 	<div id="footer">
-		<em>Copyright &copy; 2008-2018</em> <strong>Matúš Chochlík</strong><br/>
+		<em>Copyright &copy; 2008-2019</em> <strong>Matúš Chochlík</strong><br/>
 		&lt;<a href="mailto:chochlik@gmail.com">chochlik -at -gmail.com</a>&gt;<br/>
 
 		<p>Distributed under the Boost Software License, Version 1.0. (See a copy at
