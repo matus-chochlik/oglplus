@@ -35,15 +35,15 @@
 		<div id="top">
 			<div id="oglplus-top-content">
 			<div id="oglplus-caption">
-		   		<div id="oglplus-brief"><span id="oglplus-name">OGLplus&#160;</span> a C++ wrapper for <a href="http://www.opengl.org/">OpenGL</a></div>
+		   		<div id="oglplus-brief"><span id="oglplus-name">OGLplus&#160;</span> a C++ wrapper for <a href="https://www.opengl.org/">OpenGL</a></div>
 			</div>
 			<hr/>
 			<div class="twitter">
-				<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://oglplus.org/html/" data-text="OGLplus documentation">Tweet</a>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://oglplus.org/html/" data-text="OGLplus documentation">Tweet</a>
 				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 			</div>
 			<a href="https://plus.google.com/111370363075881134099/?prsrc=3" style="text-decoration: none;"><img src="https://ssl.gstatic.com/images/icons/gplus-32.png" width="32" height="32" style="border: 0;"/></a>
-			<div class="g-plusone" data-annotation="inline" data-href="http://kifri.fri.uniza.sk/~chochlik/oglplus/html/"></div>
+			<div class="g-plusone" data-annotation="inline" data-href="https://kifri.fri.uniza.sk/~chochlik/oglplus/html/"></div>
 			</div>
 		</div>
 		<div id="logo">
@@ -62,7 +62,7 @@
 		&lt;<a href="mailto:chochlik@gmail.com">chochlik -at -gmail.com</a>&gt;<br/>
 
 		<p>Distributed under the Boost Software License, Version 1.0. (See a copy at
-		<a href="http://www.boost.org/LICENSE_1_0.txt">http://www.boost.org/LICENSE_1_0.txt</a>)</p>
+		<a href="https://www.boost.org/LICENSE_1_0.txt">www.boost.org/LICENSE_1_0.txt</a>)</p>
 	</div>
 </div>
 </body>

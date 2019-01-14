@@ -17,7 +17,7 @@
 <script src="less.js" type="text/javascript"></script>
 
 
-<link href="http://oglplus.org/news.rss" rel="alternate" type="application/rss+xml" title="OGLplus news feed" />
+<link href="https://oglplus.org/news.rss" rel="alternate" type="application/rss+xml" title="OGLplus news feed" />
 
 <script type="text/javascript">
 (function() {
@@ -44,19 +44,19 @@
 					/>
 				</a>
 				<a href="https://github.com/matus-chochlik/oglplus" style="text-decoration: none;">
-					<img src="http://github.com/favicon.ico"
+					<img src="https://github.com/favicon.ico"
 						style="border: 0;"
 						alt="OGLplus on GitHub"
 					/>
 				</a>
 				<a href="https://github.com/matus-chochlik/oglplu2" style="text-decoration: none;">
-					<img src="http://github.com/favicon.ico"
+					<img src="https://github.com/favicon.ico"
 						style="border: 0;"
 						alt="OGLplus 2 on GitHub"
 					/>
 				</a>
-				<a href="http://www.linkedin.com/groups/OGLplus-4592626" style="text-decoration: none;">
-					<img src="http://www.linkedin.com/img/webpromo/btn_in_20x15.png"
+				<a href="https://www.linkedin.com/groups/OGLplus-4592626" style="text-decoration: none;">
+					<img src="https://www.linkedin.com/img/webpromo/btn_in_20x15.png"
 						width="20" height="15"
 						style="border: 0;"
 						alt="OGLplus group on LinkedIn"
@@ -72,7 +72,7 @@
 				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
 				<a class="addthis_counter addthis_pill_style"></a>
 				</div>
-				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f35537052d88ff3"></script>
+				<script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f35537052d88ff3"></script>
 				<!-- AddThis Button END -->
 		</div>
 		<div id="logo">
@@ -91,17 +91,16 @@
 				<div id="quick-links" class="content-column-1">
 					<h3>Download</h3>
 					<ul>
-						<li id="direct-download-stable"><a href="http://sourceforge.net/projects/oglplus/files/latest/download"><b>Direct download</b></a> (latest stable)</li>
-						<li id="direct-download-devel"><a href="http://github.com/matus-chochlik/oglplus/archive/develop.zip">Direct download</a> (development)</li>
-						<li id="download"><a href="http://sourceforge.net/projects/oglplus/files/">All releases</a></li>
-						<li id="assets"><a href="http://sourceforge.net/projects/oglplus/files/assets/">Assets (models, textures) used in examples</a></li>
+						<li id="direct-download-devel"><a href="https://github.com/matus-chochlik/oglplus/archive/develop.zip">Direct download</a> (development)</li>
+						<li id="download"><a href="https://sourceforge.net/projects/oglplus/files/">All releases</a></li>
+						<li id="assets"><a href="https://sourceforge.net/projects/oglplus/files/assets/">Assets (models, textures) used in examples</a></li>
 
 						<li id="git-repo"><a href="https://github.com/matus-chochlik/oglplus">GIT repository</a>, <a href="https://github.com/matus-chochlik/oglplu2">GIT repository (oglplu2)</a></li>
 					</ul>
 					<h3>Documentation</h3>
 					<ul>
-						<li id="readme"><a href="http://github.com/matus-chochlik/oglplus#oglplus-readme">README</a></li>
-						<li id="quickbook-doc"><a href="http://matus-chochlik.github.io/oglplus/doc/">Quickbook</a></li>
+						<li id="readme"><a href="https://github.com/matus-chochlik/oglplus#oglplus-readme">README</a></li>
+						<li id="quickbook-doc"><a href="https://matus-chochlik.github.io/oglplus/doc/">Quickbook</a></li>
 						<li id="doxygen-doc">Doxygen: <a href="oglplus/html/index.html">OGLplus</a>, <a href="oalplus/html/index.html">OALplus</a>, <a href="eglplus/html/index.html">EGLplus</a></li>
 					</ul>
 					<h3>Components</h3>
@@ -147,17 +146,16 @@
 					<h3>Follow OGLplus</h3>
 					<ul>
 						<li id="github"><a href="https://github.com/matus-chochlik/oglplus">GitHub</a></li>
-						<li id="sourceforge"><a href="http://sourceforge.net/projects/oglplus/">Sourceforge</a></li>
+						<li id="sourceforge"><a href="https://sourceforge.net/projects/oglplus/">Sourceforge</a></li>
 						<li id="g-plus"><a href="https://plus.google.com/+OglplusOrg/?prsrc=3">Google+ news page</a></li>
-						<li id="linkedin"><a href="http://www.linkedin.com/groups/OGLplus-4592626">LinkedIn group</a></li>
-						<li id="openhub"><a href="http://www.openhub.net/p/oglplus">OpenHub</a></li>
+						<li id="linkedin"><a href="https://www.linkedin.com/groups/OGLplus-4592626">LinkedIn group</a></li>
 					</ul>
 				</div>
 			</div>
 
 			<div class="content-section">
 			<div id="screenshot-gallery" class="content-column-3">
-				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 				<script src="galleria/galleria-1.2.5.min.js"></script>
 				<div id="gallery">
 					<img src="oglplus/html/007_voronoi.png"/>
@@ -207,7 +205,7 @@
 				<h3>Other resources</h3>
 				<ul>
 					<li><a href="https://github.com/jjzazuet/jgl" title="Java wrapper for OpenGL 3 and higher by Jesús Zazueta">JGL</a> by Jesús Zazueta</li>
-					<li><a href="http://onlygraphix.com/2014/01/18/oglplus-tutorialdeferred-renderer/" title="by Michael Ivanov at http://onlygraphix.com/">Tutorial: Deferred renderer</a> by Michael Ivanov</li>
+					<li><a href="https://onlygraphix.com/2014/01/18/oglplus-tutorialdeferred-renderer/" title="by Michael Ivanov at https://onlygraphix.com/">Tutorial: Deferred renderer</a> by Michael Ivanov</li>
 				</ul>
 			</div>
 			</div>
@@ -234,7 +232,7 @@
 		&lt;<a href="mailto:chochlik@gmail.com">chochlik -at -gmail.com</a>&gt;<br/>
 
 		<p>Distributed under the Boost Software License, Version 1.0. (See a copy at
-		<a href="http://www.boost.org/LICENSE_1_0.txt">http://www.boost.org/LICENSE_1_0.txt</a>)</p>
+		<a href="https://www.boost.org/LICENSE_1_0.txt">www.boost.org/LICENSE_1_0.txt</a>)</p>
 	</div>
 </div>
 </body>
