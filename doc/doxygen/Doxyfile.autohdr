@@ -1,4 +1,4 @@
-#  Copyright 2009-2014 Matus Chochlik. Distributed under the Boost
+#  Copyright 2009-2019 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -52,8 +52,6 @@ PREDEFINED             = \
 		"OGLPLUS_ERROR_NO_PROPERTIES=0" \
 		"OGLPLUS_DOXYGEN_PARSE=1" \
 		"OGLPLUS_DOCUMENTATION_ONLY=1" \
-		"OGLPLUS_NOEXCEPT()=" \
-		"OGLPLUS_NOEXCEPT_IF()=" \
 		"OGLPLUS_CONSTEXPR=const" \
 		"OGLPLUS_ENUM_CLASS_BEGIN(NAME,TYPE)=enum class NAME : TYPE {" \
 		"OGLPLUS_ENUM_CLASS_END=};"

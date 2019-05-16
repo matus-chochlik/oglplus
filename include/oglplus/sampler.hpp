@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,19 +13,19 @@
 #ifndef OGLPLUS_SAMPLER_1107121519_HPP
 #define OGLPLUS_SAMPLER_1107121519_HPP
 
+#include <oglplus/assert.hpp>
+#include <oglplus/boolean.hpp>
+#include <oglplus/compare_function.hpp>
+#include <oglplus/data_type.hpp>
+#include <oglplus/error/object.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/math/vector.hpp>
-#include <oglplus/error/object.hpp>
-#include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/sequence.hpp>
-#include <oglplus/boolean.hpp>
-#include <oglplus/data_type.hpp>
-#include <oglplus/compare_function.hpp>
-#include <oglplus/texture_wrap.hpp>
+#include <oglplus/object/wrapper.hpp>
 #include <oglplus/texture_compare.hpp>
 #include <oglplus/texture_filter.hpp>
 #include <oglplus/texture_unit.hpp>
-#include <oglplus/assert.hpp>
+#include <oglplus/texture_wrap.hpp>
 
 namespace oglplus {
 
@@ -42,37 +42,29 @@ namespace oglplus {
  *  @glfunref{IsSampler}
  */
 template <>
-class ObjGenDelOps<tag::Sampler>
-{
+class ObjGenDelOps<tag::Sampler> {
 protected:
-	static void Gen(tag::Generate, GLsizei count, GLuint* names)
-	{
+	static void Gen(tag::Generate, GLsizei count, GLuint* names) {
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenSamplers)(count, names);
 		OGLPLUS_CHECK_SIMPLE(GenSamplers);
 	}
 #if GL_VERSION_4_5 || GL_ARB_direct_state_access
-	static void Gen(tag::Create, GLsizei count, GLuint* names)
-	{
+	static void Gen(tag::Create, GLsizei count, GLuint* names) {
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(CreateSamplers)(count, names);
 		OGLPLUS_CHECK_SIMPLE(CreateSamplers);
 	}
 #endif
 
-	static void Delete(GLsizei count, GLuint* names)
-	{
+	static void Delete(GLsizei count, GLuint* names) {
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteSamplers)(count, names);
 		OGLPLUS_VERIFY_SIMPLE(DeleteSamplers);
 	}
 
-	static Boolean IsA(GLuint name)
-	{
-		Boolean result(
-			OGLPLUS_GLFUNC(IsSampler)(name),
-			std::nothrow
-		);
+	static Boolean IsA(GLuint name) {
+		Boolean result(OGLPLUS_GLFUNC(IsSampler)(name), std::nothrow);
 		OGLPLUS_VERIFY_SIMPLE(IsSampler);
 		return result;
 	}
@@ -80,10 +72,10 @@ protected:
 
 /// Sampler binding operations
 template <>
-class ObjBindingOps<tag::Sampler>
-{
+class ObjBindingOps<tag::Sampler> {
 protected:
 	static GLuint _binding(TextureUnitSelector target);
+
 public:
 	/// Sampler bind targets
 	typedef TextureUnitSelector Target;
@@ -93,8 +85,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetIntegerv}
 	 */
-	static SamplerName Binding(Target target)
-	{
+	static SamplerName Binding(Target target) {
 		return SamplerName(_binding(target));
 	}
 
@@ -103,35 +94,15 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{BindSampler}
 	 */
-	static void Bind(
-		Target target,
-		SamplerName sampler
-	)
-	{
-		OGLPLUS_GLFUNC(BindSampler)(
-			GLuint(target),
-			GetGLName(sampler)
-		);
+	static void Bind(Target target, SamplerName sampler) {
+		OGLPLUS_GLFUNC(BindSampler)(GLuint(target), GetGLName(sampler));
 		OGLPLUS_VERIFY(
-			BindSampler,
-			ObjectError,
-			Object(sampler).
-			Index(GLuint(target))
-		);
+		  BindSampler, ObjectError, Object(sampler).Index(GLuint(target)));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
-	static void Bind(
-		GLuint first,
-		GLsizei count,
-		const GLuint* names
-	)
-	{
-		OGLPLUS_GLFUNC(BindSamplers)(
-			first,
-			count,
-			names
-		);
+	static void Bind(GLuint first, GLsizei count, const GLuint* names) {
+		OGLPLUS_GLFUNC(BindSamplers)(first, count, names);
 		OGLPLUS_VERIFY_SIMPLE(BindSamplers);
 	}
 
@@ -143,11 +114,7 @@ public:
 	 *  @glfunref{BindSamplers}
 	 *  @glvoereq{4,4,ARB,multi_bind}
 	 */
-	static void Bind(
-		GLuint first,
-		const Sequence<SamplerName>& samplers
-	)
-	{
+	static void Bind(GLuint first, const Sequence<SamplerName>& samplers) {
 		Bind(first, GLsizei(samplers.size()), GetGLNames(samplers));
 	}
 #endif
@@ -159,49 +126,42 @@ public:
  */
 template <>
 class ObjCommonOps<tag::Sampler>
- : public SamplerName
- , public ObjBindingOps<tag::Sampler>
-{
+  : public SamplerName
+  , public ObjBindingOps<tag::Sampler> {
 protected:
-	ObjCommonOps(SamplerName name)
-	OGLPLUS_NOEXCEPT(true)
-	 : SamplerName(name)
-	{ }
+	ObjCommonOps(SamplerName name) noexcept
+	  : SamplerName(name) {
+	}
+
 public:
 #if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	ObjCommonOps(ObjCommonOps&&) = default;
 	ObjCommonOps(const ObjCommonOps&) = default;
-	ObjCommonOps& operator = (ObjCommonOps&&) = default;
-	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+	ObjCommonOps& operator=(ObjCommonOps&&) = default;
+	ObjCommonOps& operator=(const ObjCommonOps&) = default;
 #else
 	typedef SamplerName _base1;
 	typedef ObjBindingOps<tag::Sampler> _base2;
 
-	ObjCommonOps(ObjCommonOps&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	 : _base1(static_cast<_base1&&>(temp))
-	 , _base2(static_cast<_base2&&>(temp))
-	{ }
+	ObjCommonOps(ObjCommonOps&& temp) noexcept
+	  : _base1(static_cast<_base1&&>(temp))
+	  , _base2(static_cast<_base2&&>(temp)) {
+	}
 
-	ObjCommonOps(const ObjCommonOps& that)
-	OGLPLUS_NOEXCEPT(true)
-	 : _base1(static_cast<const _base1&>(that))
-	 , _base2(static_cast<const _base2&>(that))
-	{ }
+	ObjCommonOps(const ObjCommonOps& that) noexcept
+	  : _base1(static_cast<const _base1&>(that))
+	  , _base2(static_cast<const _base2&>(that)) {
+	}
 
-	ObjCommonOps& operator = (ObjCommonOps&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_base1::operator = (static_cast<_base1&&>(temp));
-		_base2::operator = (static_cast<_base2&&>(temp));
+	ObjCommonOps& operator=(ObjCommonOps&& temp) noexcept {
+		_base1::operator=(static_cast<_base1&&>(temp));
+		_base2::operator=(static_cast<_base2&&>(temp));
 		return *this;
 	}
 
-	ObjCommonOps& operator = (const ObjCommonOps& that)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_base1::operator = (static_cast<const _base1&>(that));
-		_base2::operator = (static_cast<const _base2&>(that));
+	ObjCommonOps& operator=(const ObjCommonOps& that) noexcept {
+		_base1::operator=(static_cast<const _base1&>(that));
+		_base2::operator=(static_cast<const _base2&>(that));
 		return *this;
 	}
 #endif
@@ -212,8 +172,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{BindSampler}
 	 */
-	void Bind(Target target) const
-	{
+	void Bind(Target target) const {
 		Bind(target, *this);
 	}
 };
@@ -223,77 +182,52 @@ public:
  */
 template <>
 class ObjectOps<tag::DirectState, tag::Sampler>
- : public ObjZeroOps<tag::DirectState, tag::Sampler>
-{
+  : public ObjZeroOps<tag::DirectState, tag::Sampler> {
 protected:
-	ObjectOps(SamplerName name)
-	OGLPLUS_NOEXCEPT(true)
-	 : ObjZeroOps<tag::DirectState, tag::Sampler>(name)
-	{ }
+	ObjectOps(SamplerName name) noexcept
+	  : ObjZeroOps<tag::DirectState, tag::Sampler>(name) {
+	}
+
 public:
 #if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	ObjectOps(ObjectOps&&) = default;
 	ObjectOps(const ObjectOps&) = default;
-	ObjectOps& operator = (ObjectOps&&) = default;
-	ObjectOps& operator = (const ObjectOps&) = default;
+	ObjectOps& operator=(ObjectOps&&) = default;
+	ObjectOps& operator=(const ObjectOps&) = default;
 #else
 	typedef ObjZeroOps<tag::DirectState, tag::Sampler> _base;
 
-	ObjectOps(ObjectOps&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	 : _base(static_cast<_base&&>(temp))
-	{ }
+	ObjectOps(ObjectOps&& temp) noexcept
+	  : _base(static_cast<_base&&>(temp)) {
+	}
 
-	ObjectOps(const ObjectOps& that)
-	OGLPLUS_NOEXCEPT(true)
-	 : _base(static_cast<const _base&>(that))
-	{ }
+	ObjectOps(const ObjectOps& that) noexcept
+	  : _base(static_cast<const _base&>(that)) {
+	}
 
-	ObjectOps& operator = (ObjectOps&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_base::operator = (static_cast<_base&&>(temp));
+	ObjectOps& operator=(ObjectOps&& temp) noexcept {
+		_base::operator=(static_cast<_base&&>(temp));
 		return *this;
 	}
 
-	ObjectOps& operator = (const ObjectOps& that)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_base::operator = (static_cast<const _base&>(that));
+	ObjectOps& operator=(const ObjectOps& that) noexcept {
+		_base::operator=(static_cast<const _base&>(that));
 		return *this;
 	}
 #endif
-	GLint GetIntParam(GLenum query) const
-	{
+	GLint GetIntParam(GLenum query) const {
 		GLint result = 0;
-		OGLPLUS_GLFUNC(GetSamplerParameteriv)(
-			_obj_name(),
-			query,
-			&result
-		);
+		OGLPLUS_GLFUNC(GetSamplerParameteriv)(_obj_name(), query, &result);
 		OGLPLUS_CHECK(
-			GetSamplerParameteriv,
-			ObjectError,
-			Object(*this).
-			EnumParam(query)
-		);
+		  GetSamplerParameteriv, ObjectError, Object(*this).EnumParam(query));
 		return result;
 	}
 
-	GLfloat GetFloatParam(GLenum query) const
-	{
+	GLfloat GetFloatParam(GLenum query) const {
 		GLfloat result = 0;
-		OGLPLUS_GLFUNC(GetSamplerParameterfv)(
-			_obj_name(),
-			query,
-			&result
-		);
+		OGLPLUS_GLFUNC(GetSamplerParameterfv)(_obj_name(), query, &result);
 		OGLPLUS_CHECK(
-			GetSamplerParameterfv,
-			ObjectError,
-			Object(*this).
-			EnumParam(query)
-		);
+		  GetSamplerParameterfv, ObjectError, Object(*this).EnumParam(query));
 		return result;
 	}
 
@@ -303,19 +237,11 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	Vector<GLfloat, 4> BorderColor(TypeTag<GLfloat>) const
-	{
+	Vector<GLfloat, 4> BorderColor(TypeTag<GLfloat>) const {
 		GLfloat result[4];
-		OGLPLUS_GLFUNC(GetSamplerParameterfv)(
-			_obj_name(),
-			GL_TEXTURE_BORDER_COLOR,
-			result
-		);
-		OGLPLUS_CHECK(
-			GetSamplerParameterfv,
-			ObjectError,
-			Object(*this)
-		);
+		OGLPLUS_GLFUNC(GetSamplerParameterfv)
+		(_obj_name(), GL_TEXTURE_BORDER_COLOR, result);
+		OGLPLUS_CHECK(GetSamplerParameterfv, ObjectError, Object(*this));
 		return Vector<GLfloat, 4>(result, 4);
 	}
 
@@ -325,18 +251,10 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	void BorderColor(Vector<GLfloat, 4> color)
-	{
-		OGLPLUS_GLFUNC(SamplerParameterfv)(
-			_obj_name(),
-			GL_TEXTURE_BORDER_COLOR,
-			Data(color)
-		);
-		OGLPLUS_CHECK(
-			SamplerParameterfv,
-			ObjectError,
-			Object(*this)
-		);
+	void BorderColor(Vector<GLfloat, 4> color) {
+		OGLPLUS_GLFUNC(SamplerParameterfv)
+		(_obj_name(), GL_TEXTURE_BORDER_COLOR, Data(color));
+		OGLPLUS_CHECK(SamplerParameterfv, ObjectError, Object(*this));
 	}
 
 	/// Gets the texture border color
@@ -345,19 +263,11 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	Vector<GLint, 4> BorderColor(TypeTag<GLint>) const
-	{
+	Vector<GLint, 4> BorderColor(TypeTag<GLint>) const {
 		GLint result[4];
-		OGLPLUS_GLFUNC(GetSamplerParameterIiv)(
-			_obj_name(),
-			GL_TEXTURE_BORDER_COLOR,
-			result
-		);
-		OGLPLUS_CHECK(
-			GetSamplerParameterIiv,
-			ObjectError,
-			Object(*this)
-		);
+		OGLPLUS_GLFUNC(GetSamplerParameterIiv)
+		(_obj_name(), GL_TEXTURE_BORDER_COLOR, result);
+		OGLPLUS_CHECK(GetSamplerParameterIiv, ObjectError, Object(*this));
 		return Vector<GLint, 4>(result, 4);
 	}
 
@@ -367,18 +277,10 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	void BorderColor(Vector<GLint, 4> color)
-	{
-		OGLPLUS_GLFUNC(SamplerParameterIiv)(
-			_obj_name(),
-			GL_TEXTURE_BORDER_COLOR,
-			Data(color)
-		);
-		OGLPLUS_CHECK(
-			SamplerParameterIiv,
-			ObjectError,
-			Object(*this)
-		);
+	void BorderColor(Vector<GLint, 4> color) {
+		OGLPLUS_GLFUNC(SamplerParameterIiv)
+		(_obj_name(), GL_TEXTURE_BORDER_COLOR, Data(color));
+		OGLPLUS_CHECK(SamplerParameterIiv, ObjectError, Object(*this));
 	}
 
 	/// Gets the texture border color
@@ -387,19 +289,11 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	Vector<GLuint, 4> BorderColor(TypeTag<GLuint>) const
-	{
+	Vector<GLuint, 4> BorderColor(TypeTag<GLuint>) const {
 		GLuint result[4];
-		OGLPLUS_GLFUNC(GetSamplerParameterIuiv)(
-			_obj_name(),
-			GL_TEXTURE_BORDER_COLOR,
-			result
-		);
-		OGLPLUS_CHECK(
-			GetSamplerParameterIuiv,
-			ObjectError,
-			Object(*this)
-		);
+		OGLPLUS_GLFUNC(GetSamplerParameterIuiv)
+		(_obj_name(), GL_TEXTURE_BORDER_COLOR, result);
+		OGLPLUS_CHECK(GetSamplerParameterIuiv, ObjectError, Object(*this));
 		return Vector<GLuint, 4>(result, 4);
 	}
 
@@ -409,18 +303,10 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	void BorderColor(Vector<GLuint, 4> color)
-	{
-		OGLPLUS_GLFUNC(SamplerParameterIuiv)(
-			_obj_name(),
-			GL_TEXTURE_BORDER_COLOR,
-			Data(color)
-		);
-		OGLPLUS_CHECK(
-			SamplerParameterIuiv,
-			ObjectError,
-			Object(*this)
-		);
+	void BorderColor(Vector<GLuint, 4> color) {
+		OGLPLUS_GLFUNC(SamplerParameterIuiv)
+		(_obj_name(), GL_TEXTURE_BORDER_COLOR, Data(color));
+		OGLPLUS_CHECK(SamplerParameterIuiv, ObjectError, Object(*this));
 	}
 
 	/// Gets the compare mode
@@ -429,11 +315,8 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_COMPARE_MODE}
 	 */
-	TextureCompareMode CompareMode(void) const
-	{
-		return TextureCompareMode(GetIntParam(
-			GL_TEXTURE_COMPARE_MODE
-		));
+	TextureCompareMode CompareMode(void) const {
+		return TextureCompareMode(GetIntParam(GL_TEXTURE_COMPARE_MODE));
 	}
 
 	/// Sets the compare mode
@@ -442,19 +325,11 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_COMPARE_MODE}
 	 */
-	void CompareMode(TextureCompareMode mode)
-	{
-		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_obj_name(),
-			GL_TEXTURE_COMPARE_MODE,
-			GLint(mode)
-		);
+	void CompareMode(TextureCompareMode mode) {
+		OGLPLUS_GLFUNC(SamplerParameteri)
+		(_obj_name(), GL_TEXTURE_COMPARE_MODE, GLint(mode));
 		OGLPLUS_CHECK(
-			SamplerParameteri,
-			ObjectError,
-			Object(*this).
-			EnumParam(mode)
-		);
+		  SamplerParameteri, ObjectError, Object(*this).EnumParam(mode));
 	}
 
 	/// Gets the compare function
@@ -463,11 +338,8 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_COMPARE_FUNC}
 	 */
-	CompareFunction CompareFunc(void) const
-	{
-		return CompareFunction(GetIntParam(
-			GL_TEXTURE_COMPARE_FUNC
-		));
+	CompareFunction CompareFunc(void) const {
+		return CompareFunction(GetIntParam(GL_TEXTURE_COMPARE_FUNC));
 	}
 
 	/// Sets the compare function
@@ -476,19 +348,11 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_COMPARE_FUNC}
 	 */
-	void CompareFunc(CompareFunction func)
-	{
-		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_obj_name(),
-			GL_TEXTURE_COMPARE_FUNC,
-			GLint(func)
-		);
+	void CompareFunc(CompareFunction func) {
+		OGLPLUS_GLFUNC(SamplerParameteri)
+		(_obj_name(), GL_TEXTURE_COMPARE_FUNC, GLint(func));
 		OGLPLUS_CHECK(
-			SamplerParameteri,
-			ObjectError,
-			Object(*this).
-			EnumParam(func)
-		);
+		  SamplerParameteri, ObjectError, Object(*this).EnumParam(func));
 	}
 
 	/// Gets the LOD bias value
@@ -497,8 +361,7 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_LOD_BIAS}
 	 */
-	GLfloat LODBias(void) const
-	{
+	GLfloat LODBias(void) const {
 		return GetFloatParam(GL_TEXTURE_LOD_BIAS);
 	}
 
@@ -508,18 +371,10 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_LOD_BIAS}
 	 */
-	void LODBias(GLfloat value)
-	{
-		OGLPLUS_GLFUNC(SamplerParameterf)(
-			_obj_name(),
-			GL_TEXTURE_LOD_BIAS,
-			value
-		);
-		OGLPLUS_CHECK(
-			SamplerParameterf,
-			ObjectError,
-			Object(*this)
-		);
+	void LODBias(GLfloat value) {
+		OGLPLUS_GLFUNC(SamplerParameterf)
+		(_obj_name(), GL_TEXTURE_LOD_BIAS, value);
+		OGLPLUS_CHECK(SamplerParameterf, ObjectError, Object(*this));
 	}
 
 	/// Sets both the minification and magnification filter
@@ -529,30 +384,15 @@ public:
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
-	void Filter(TextureFilter filter) const
-	{
-		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_obj_name(),
-			GL_TEXTURE_MIN_FILTER,
-			GLint(filter)
-		);
+	void Filter(TextureFilter filter) const {
+		OGLPLUS_GLFUNC(SamplerParameteri)
+		(_obj_name(), GL_TEXTURE_MIN_FILTER, GLint(filter));
 		OGLPLUS_CHECK(
-			SamplerParameteri,
-			ObjectError,
-			Object(*this).
-			EnumParam(filter)
-		);
-		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_obj_name(),
-			GL_TEXTURE_MAG_FILTER,
-			GLint(filter)
-		);
+		  SamplerParameteri, ObjectError, Object(*this).EnumParam(filter));
+		OGLPLUS_GLFUNC(SamplerParameteri)
+		(_obj_name(), GL_TEXTURE_MAG_FILTER, GLint(filter));
 		OGLPLUS_CHECK(
-			SamplerParameteri,
-			ObjectError,
-			Object(*this).
-			EnumParam(filter)
-		);
+		  SamplerParameteri, ObjectError, Object(*this).EnumParam(filter));
 	}
 
 	/// Gets the magnification filter
@@ -561,11 +401,8 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
-	TextureMagFilter MagFilter(void) const
-	{
-		return TextureMagFilter(GetIntParam(
-			GL_TEXTURE_MAG_FILTER
-		));
+	TextureMagFilter MagFilter(void) const {
+		return TextureMagFilter(GetIntParam(GL_TEXTURE_MAG_FILTER));
 	}
 
 	/// Sets the magnification filter
@@ -574,19 +411,11 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
-	void MagFilter(TextureMagFilter filter)
-	{
-		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_obj_name(),
-			GL_TEXTURE_MAG_FILTER,
-			GLint(filter)
-		);
+	void MagFilter(TextureMagFilter filter) {
+		OGLPLUS_GLFUNC(SamplerParameteri)
+		(_obj_name(), GL_TEXTURE_MAG_FILTER, GLint(filter));
 		OGLPLUS_CHECK(
-			SamplerParameteri,
-			ObjectError,
-			Object(*this).
-			EnumParam(filter)
-		);
+		  SamplerParameteri, ObjectError, Object(*this).EnumParam(filter));
 	}
 
 	/// Gets the minification filter
@@ -595,11 +424,8 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 */
-	TextureMinFilter MinFilter(void) const
-	{
-		return TextureMinFilter(GetIntParam(
-			GL_TEXTURE_MIN_FILTER
-		));
+	TextureMinFilter MinFilter(void) const {
+		return TextureMinFilter(GetIntParam(GL_TEXTURE_MIN_FILTER));
 	}
 
 	/// Sets the minification filter
@@ -608,19 +434,11 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 */
-	void MinFilter(TextureMinFilter filter)
-	{
-		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_obj_name(),
-			GL_TEXTURE_MIN_FILTER,
-			GLint(filter)
-		);
+	void MinFilter(TextureMinFilter filter) {
+		OGLPLUS_GLFUNC(SamplerParameteri)
+		(_obj_name(), GL_TEXTURE_MIN_FILTER, GLint(filter));
 		OGLPLUS_CHECK(
-			SamplerParameteri,
-			ObjectError,
-			Object(*this).
-			EnumParam(filter)
-		);
+		  SamplerParameteri, ObjectError, Object(*this).EnumParam(filter));
 	}
 
 	/// Gets minimal LOD value
@@ -629,8 +447,7 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_MIN_LOD}
 	 */
-	GLfloat MinLOD(void) const
-	{
+	GLfloat MinLOD(void) const {
 		return GetFloatParam(GL_TEXTURE_MIN_LOD);
 	}
 
@@ -640,18 +457,10 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_MIN_LOD}
 	 */
-	void MinLOD(GLfloat value)
-	{
-		OGLPLUS_GLFUNC(SamplerParameterf)(
-			_obj_name(),
-			GL_TEXTURE_MIN_LOD,
-			value
-		);
-		OGLPLUS_CHECK(
-			SamplerParameterf,
-			ObjectError,
-			Object(*this)
-		);
+	void MinLOD(GLfloat value) {
+		OGLPLUS_GLFUNC(SamplerParameterf)
+		(_obj_name(), GL_TEXTURE_MIN_LOD, value);
+		OGLPLUS_CHECK(SamplerParameterf, ObjectError, Object(*this));
 	}
 
 	/// Gets maximal LOD value
@@ -660,8 +469,7 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_MAX_LOD}
 	 */
-	GLfloat MaxLOD(void) const
-	{
+	GLfloat MaxLOD(void) const {
 		return GetFloatParam(GL_TEXTURE_MAX_LOD);
 	}
 
@@ -671,18 +479,10 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_MAX_LOD}
 	 */
-	void MaxLOD(GLfloat value)
-	{
-		OGLPLUS_GLFUNC(SamplerParameterf)(
-			_obj_name(),
-			GL_TEXTURE_MAX_LOD,
-			value
-		);
-		OGLPLUS_CHECK(
-			SamplerParameterf,
-			ObjectError,
-			Object(*this)
-		);
+	void MaxLOD(GLfloat value) {
+		OGLPLUS_GLFUNC(SamplerParameterf)
+		(_obj_name(), GL_TEXTURE_MAX_LOD, value);
+		OGLPLUS_CHECK(SamplerParameterf, ObjectError, Object(*this));
 	}
 
 	/// Gets the wrap parameter (TEXTURE_WRAP_*)
@@ -690,8 +490,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetSamplerParameter}
 	 */
-	TextureWrap Wrap(TextureWrapCoord coord) const
-	{
+	TextureWrap Wrap(TextureWrapCoord coord) const {
 		return TextureWrap(GetIntParam(GLenum(coord)));
 	}
 
@@ -700,19 +499,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{SamplerParameter}
 	 */
-	void Wrap(TextureWrapCoord coord, TextureWrap mode)
-	{
-		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_obj_name(),
-			GLenum(coord),
-			GLint(mode)
-		);
+	void Wrap(TextureWrapCoord coord, TextureWrap mode) {
+		OGLPLUS_GLFUNC(SamplerParameteri)
+		(_obj_name(), GLenum(coord), GLint(mode));
 		OGLPLUS_CHECK(
-			SamplerParameteri,
-			ObjectError,
-			Object(*this).
-			EnumParam(mode)
-		);
+		  SamplerParameteri, ObjectError, Object(*this).EnumParam(mode));
 	}
 
 	/// Gets the wrap parameter for the S coordinate
@@ -721,8 +512,7 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_WRAP_S}
 	 */
-	TextureWrap WrapS(void) const
-	{
+	TextureWrap WrapS(void) const {
 		return Wrap(TextureWrapCoord::S);
 	}
 
@@ -732,8 +522,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_WRAP_S}
 	 */
-	void WrapS(TextureWrap mode)
-	{
+	void WrapS(TextureWrap mode) {
 		Wrap(TextureWrapCoord::S, mode);
 	}
 
@@ -743,8 +532,7 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_WRAP_T}
 	 */
-	TextureWrap WrapT(void) const
-	{
+	TextureWrap WrapT(void) const {
 		return Wrap(TextureWrapCoord::T);
 	}
 
@@ -754,8 +542,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_WRAP_T}
 	 */
-	void WrapT(TextureWrap mode)
-	{
+	void WrapT(TextureWrap mode) {
 		Wrap(TextureWrapCoord::T, mode);
 	}
 
@@ -765,8 +552,7 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_WRAP_R}
 	 */
-	TextureWrap WrapR(void) const
-	{
+	TextureWrap WrapR(void) const {
 		return Wrap(TextureWrapCoord::R);
 	}
 
@@ -776,8 +562,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_WRAP_R}
 	 */
-	void WrapR(TextureWrap mode)
-	{
+	void WrapR(TextureWrap mode) {
 		Wrap(TextureWrapCoord::R, mode);
 	}
 
@@ -788,12 +573,8 @@ public:
 	 *  @glfunref{GetSamplerParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	Boolean Seamless(void) const
-	{
-		return Boolean(
-			GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS),
-			std::nothrow
-		);
+	Boolean Seamless(void) const {
+		return Boolean(GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS), std::nothrow);
 	}
 
 	/// Sets the seamless cubemap setting
@@ -802,113 +583,71 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	void Seamless(Boolean enable)
-	{
-		OGLPLUS_GLFUNC(SamplerParameteri)(
-			_obj_name(),
-			GL_TEXTURE_CUBE_MAP_SEAMLESS,
-			enable._get()
-		);
-		OGLPLUS_CHECK(
-			SamplerParameteri,
-			ObjectError,
-			Object(*this)
-		);
+	void Seamless(Boolean enable) {
+		OGLPLUS_GLFUNC(SamplerParameteri)
+		(_obj_name(), GL_TEXTURE_CUBE_MAP_SEAMLESS, enable._get());
+		OGLPLUS_CHECK(SamplerParameteri, ObjectError, Object(*this));
 	}
 #endif
 };
 
 /// Sampler operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::Sampler>
-	SamplerOps;
+typedef ObjectOps<tag::DirectState, tag::Sampler> SamplerOps;
 
 // Helper class for syntax-sugar operators
-struct SamplerOpsAndSlot
-{
+struct SamplerOpsAndSlot {
 	SamplerOps& sam;
 	GLint slot;
 
 	SamplerOpsAndSlot(SamplerOps& sa, GLint sl)
-	 : sam(sa)
-	 , slot(sl)
-	{ }
+	  : sam(sa)
+	  , slot(sl) {
+	}
 };
 
 // syntax sugar operators
-inline SamplerOpsAndSlot operator | (
-	SamplerOps& sam,
-	GLint slot
-)
-{
+inline SamplerOpsAndSlot operator|(SamplerOps& sam, GLint slot) {
 	return SamplerOpsAndSlot(sam, slot);
 }
 
 // Bind
-inline SamplerOps& operator << (
-	SamplerOps& sam,
-	TextureUnitSelector tus
-)
-{
+inline SamplerOps& operator<<(SamplerOps& sam, TextureUnitSelector tus) {
 	sam.Bind(tus);
 	return sam;
 }
 
 // Filter
-inline SamplerOps& operator << (
-	SamplerOps& sam,
-	TextureFilter filter
-)
-{
+inline SamplerOps& operator<<(SamplerOps& sam, TextureFilter filter) {
 	sam.Filter(filter);
 	return sam;
 }
 
 // MinFilter
-inline SamplerOps& operator << (
-	SamplerOps& sam,
-	TextureMinFilter filter
-)
-{
+inline SamplerOps& operator<<(SamplerOps& sam, TextureMinFilter filter) {
 	sam.MinFilter(filter);
 	return sam;
 }
 
 // MagFilter
-inline SamplerOps& operator << (
-	SamplerOps& sam,
-	TextureMagFilter filter
-)
-{
+inline SamplerOps& operator<<(SamplerOps& sam, TextureMagFilter filter) {
 	sam.MagFilter(filter);
 	return sam;
 }
 
 // CompareMode
-inline SamplerOps& operator << (
-	SamplerOps& sam,
-	TextureCompareMode mode
-)
-{
+inline SamplerOps& operator<<(SamplerOps& sam, TextureCompareMode mode) {
 	sam.CompareMode(mode);
 	return sam;
 }
 
 // CompareFunc
-inline SamplerOps& operator << (
-	SamplerOps& sam,
-	CompareFunction func
-)
-{
+inline SamplerOps& operator<<(SamplerOps& sam, CompareFunction func) {
 	sam.CompareFunc(func);
 	return sam;
 }
 
 // Wrap
-inline SamplerOps& operator << (
-	SamplerOps& sam,
-	TextureWrap wrap
-)
-{
+inline SamplerOps& operator<<(SamplerOps& sam, TextureWrap wrap) {
 	sam.WrapR(wrap);
 	sam.WrapT(wrap);
 	sam.WrapS(wrap);
@@ -916,28 +655,26 @@ inline SamplerOps& operator << (
 }
 
 // Wrap
-inline SamplerOps& operator << (
-	SamplerOpsAndSlot sas,
-	TextureWrap wrap
-)
-{
-	switch(sas.slot)
-	{
-		case 0: sas.sam.WrapS(wrap); break;
-		case 1: sas.sam.WrapT(wrap); break;
-		case 2: sas.sam.WrapR(wrap); break;
-		default: OGLPLUS_ABORT("Invalid texture wrap slot");
+inline SamplerOps& operator<<(SamplerOpsAndSlot sas, TextureWrap wrap) {
+	switch(sas.slot) {
+		case 0:
+			sas.sam.WrapS(wrap);
+			break;
+		case 1:
+			sas.sam.WrapT(wrap);
+			break;
+		case 2:
+			sas.sam.WrapR(wrap);
+			break;
+		default:
+			OGLPLUS_ABORT("Invalid texture wrap slot");
 	}
 	return sas.sam;
 }
 
 // BorderColor
 template <typename T>
-inline SamplerOps& operator << (
-	SamplerOps& sam,
-	const Vector<T, 4>& col
-)
-{
+inline SamplerOps& operator<<(SamplerOps& sam, const Vector<T, 4>& col) {
 	sam.BorderColor(col);
 	return sam;
 }
@@ -946,8 +683,7 @@ inline SamplerOps& operator << (
 /**
  *  @ingroup oglplus_objects
  */
-typedef ObjectZero<ObjZeroOps<tag::DirectState, tag::Sampler>>
-	NoSampler;
+typedef ObjectZero<ObjZeroOps<tag::DirectState, tag::Sampler>> NoSampler;
 
 /// An @ref oglplus_object encapsulating the OpenGL sampler functionality
 /**

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,54 +13,50 @@
 #ifndef EGLPLUS_CONFIGS_1303292057_HPP
 #define EGLPLUS_CONFIGS_1303292057_HPP
 
+#include <eglplus/attrib_list.hpp>
 #include <eglplus/bitfield.hpp>
-#include <eglplus/config_attrib.hpp>
+#include <eglplus/boolean.hpp>
 #include <eglplus/color_buffer_type.hpp>
-#include <eglplus/transparent_type.hpp>
+#include <eglplus/config_attrib.hpp>
 #include <eglplus/config_caveat.hpp>
+#include <eglplus/display.hpp>
 #include <eglplus/renderable_type_bit.hpp>
 #include <eglplus/surface_type_bit.hpp>
-#include <eglplus/attrib_list.hpp>
-#include <eglplus/boolean.hpp>
-#include <eglplus/display.hpp>
+#include <eglplus/transparent_type.hpp>
 
 #include <cassert>
 
 namespace eglplus {
 
 class Config;
-::EGLConfig GetEGLHandle(const Config&)
-OGLPLUS_NOEXCEPT(true);
+::EGLConfig GetEGLHandle(const Config&) noexcept;
 
 /// A wrapper for EGL configuration
-class Config
-{
+class Config {
 private:
 	Display _display;
 	::EGLConfig _handle;
 
-	friend ::EGLConfig GetEGLHandle(const Config&)
-	OGLPLUS_NOEXCEPT(true);
+	friend ::EGLConfig GetEGLHandle(const Config&) noexcept;
+
 public:
 	Config(const Display& display, ::EGLConfig handle)
-	 : _display(display)
-	 , _handle(handle)
-	{ }
+	  : _display(display)
+	  , _handle(handle) {
+	}
 
 	/// Get the value of a specified attribute
 	/**
 	 *  @eglsymbols
 	 *  @eglfunref{GetConfigAttrib}
 	 */
-	EGLint GetAttrib(ConfigAttrib attrib) const
-	{
+	EGLint GetAttrib(ConfigAttrib attrib) const {
 		EGLint result = 0;
-		EGLPLUS_EGLFUNC(GetConfigAttrib)(
-			GetEGLHandle(_display),
-			this->_handle,
-			EGLint(EGLenum(attrib)),
-			&result
-		);
+		EGLPLUS_EGLFUNC(GetConfigAttrib)
+		(GetEGLHandle(_display),
+		  this->_handle,
+		  EGLint(EGLenum(attrib)),
+		  &result);
 		EGLPLUS_VERIFY_SIMPLE(GetConfigAttrib);
 		return result;
 	}
@@ -71,8 +67,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{CONFIG_ID}
 	 */
-	EGLint ConfigId(void) const
-	{
+	EGLint ConfigId(void) const {
 		return GetAttrib(ConfigAttrib::ConfigId);
 	}
 
@@ -83,8 +78,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{CONFIG_ID}
 	 */
-	EGLint Id(void) const
-	{
+	EGLint Id(void) const {
 		return ConfigId();
 	}
 
@@ -94,8 +88,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{BUFFER_SIZE}
 	 */
-	EGLint BufferSize(void) const
-	{
+	EGLint BufferSize(void) const {
 		return GetAttrib(ConfigAttrib::BufferSize);
 	}
 
@@ -105,8 +98,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{RED_SIZE}
 	 */
-	EGLint RedSize(void) const
-	{
+	EGLint RedSize(void) const {
 		return GetAttrib(ConfigAttrib::RedSize);
 	}
 
@@ -116,8 +108,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{GREEN_SIZE}
 	 */
-	EGLint GreenSize(void) const
-	{
+	EGLint GreenSize(void) const {
 		return GetAttrib(ConfigAttrib::GreenSize);
 	}
 
@@ -127,8 +118,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{BLUE_SIZE}
 	 */
-	EGLint BlueSize(void) const
-	{
+	EGLint BlueSize(void) const {
 		return GetAttrib(ConfigAttrib::BlueSize);
 	}
 
@@ -138,8 +128,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{LUMINANCE_SIZE}
 	 */
-	EGLint LuminanceSize(void) const
-	{
+	EGLint LuminanceSize(void) const {
 		return GetAttrib(ConfigAttrib::LuminanceSize);
 	}
 
@@ -149,8 +138,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{ALPHA_SIZE}
 	 */
-	EGLint AlphaSize(void) const
-	{
+	EGLint AlphaSize(void) const {
 		return GetAttrib(ConfigAttrib::AlphaSize);
 	}
 
@@ -160,8 +148,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{DEPTH_SIZE}
 	 */
-	EGLint DepthSize(void) const
-	{
+	EGLint DepthSize(void) const {
 		return GetAttrib(ConfigAttrib::DepthSize);
 	}
 
@@ -171,8 +158,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{STENCIL_SIZE}
 	 */
-	EGLint StencilSize(void) const
-	{
+	EGLint StencilSize(void) const {
 		return GetAttrib(ConfigAttrib::StencilSize);
 	}
 
@@ -182,8 +168,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{MAX_PBUFFER_WIDTH}
 	 */
-	EGLint MaxPbufferWidth(void) const
-	{
+	EGLint MaxPbufferWidth(void) const {
 		return GetAttrib(ConfigAttrib::MaxPbufferWidth);
 	}
 
@@ -193,8 +178,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{MAX_PBUFFER_HEIGHT}
 	 */
-	EGLint MaxPbufferHeight(void) const
-	{
+	EGLint MaxPbufferHeight(void) const {
 		return GetAttrib(ConfigAttrib::MaxPbufferHeight);
 	}
 
@@ -204,8 +188,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{MAX_PBUFFER_PIXELS}
 	 */
-	EGLint MaxPbufferPixels(void) const
-	{
+	EGLint MaxPbufferPixels(void) const {
 		return GetAttrib(ConfigAttrib::MaxPbufferPixels);
 	}
 
@@ -215,8 +198,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{MIN_SWAP_INTERVAL}
 	 */
-	EGLint MinSwapInterval(void) const
-	{
+	EGLint MinSwapInterval(void) const {
 		return GetAttrib(ConfigAttrib::MinSwapInterval);
 	}
 
@@ -226,8 +208,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{MAX_SWAP_INTERVAL}
 	 */
-	EGLint MaxSwapInterval(void) const
-	{
+	EGLint MaxSwapInterval(void) const {
 		return GetAttrib(ConfigAttrib::MaxSwapInterval);
 	}
 
@@ -237,12 +218,9 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{NATIVE_RENDERABLE}
 	 */
-	Boolean NativeRenderable(void) const
-	{
+	Boolean NativeRenderable(void) const {
 		return Boolean(
-			EGLBoolean(GetAttrib(ConfigAttrib::NativeRenderable)),
-			std::nothrow
-		);
+		  EGLBoolean(GetAttrib(ConfigAttrib::NativeRenderable)), std::nothrow);
 	}
 
 	/// Returns the caveat for this config
@@ -251,11 +229,9 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{CONFIG_CAVEAT}
 	 */
-	eglplus::ConfigCaveat ConfigCaveat(void) const
-	{
+	eglplus::ConfigCaveat ConfigCaveat(void) const {
 		return eglplus::ConfigCaveat(
-			EGLenum(GetAttrib(ConfigAttrib::ConfigCaveat))
-		);
+		  EGLenum(GetAttrib(ConfigAttrib::ConfigCaveat)));
 	}
 
 	/// Returns the caveat for this config
@@ -265,8 +241,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{CONFIG_CAVEAT}
 	 */
-	eglplus::ConfigCaveat Caveat(void) const
-	{
+	eglplus::ConfigCaveat Caveat(void) const {
 		return this->ConfigCaveat();
 	}
 
@@ -276,11 +251,9 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{COLOR_BUFFER_TYPE}
 	 */
-	eglplus::ColorBufferType ColorBufferType(void) const
-	{
+	eglplus::ColorBufferType ColorBufferType(void) const {
 		return eglplus::ColorBufferType(
-			EGLenum(GetAttrib(ConfigAttrib::ColorBufferType))
-		);
+		  EGLenum(GetAttrib(ConfigAttrib::ColorBufferType)));
 	}
 
 	/// Returns the transparency type
@@ -289,11 +262,9 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{TRANSPARENT_TYPE}
 	 */
-	eglplus::TransparentType TransparentType(void) const
-	{
+	eglplus::TransparentType TransparentType(void) const {
 		return eglplus::TransparentType(
-			EGLenum(GetAttrib(ConfigAttrib::TransparentType))
-		);
+		  EGLenum(GetAttrib(ConfigAttrib::TransparentType)));
 	}
 
 	/// Returns the renderable type bits
@@ -302,11 +273,9 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{RENDERABLE_TYPE}
 	 */
-	Bitfield<eglplus::RenderableTypeBit> RenderableTypes(void) const
-	{
+	Bitfield<eglplus::RenderableTypeBit> RenderableTypes(void) const {
 		return Bitfield<eglplus::RenderableTypeBit>(
-			EGLenum(GetAttrib(ConfigAttrib::RenderableType))
-		);
+		  EGLenum(GetAttrib(ConfigAttrib::RenderableType)));
 	}
 
 	/// Returns true if a specified renderable type is supported
@@ -315,8 +284,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{RENDERABLE_TYPE}
 	 */
-	bool HasRenderableType(eglplus::RenderableTypeBit type) const
-	{
+	bool HasRenderableType(eglplus::RenderableTypeBit type) const {
 		EGLenum a = GetAttrib(ConfigAttrib::RenderableType);
 		EGLenum b = EGLenum(type);
 		return (a & b) == b;
@@ -328,11 +296,9 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{SURFACE_TYPE}
 	 */
-	Bitfield<eglplus::SurfaceTypeBit> SurfaceTypes(void) const
-	{
+	Bitfield<eglplus::SurfaceTypeBit> SurfaceTypes(void) const {
 		return Bitfield<eglplus::SurfaceTypeBit>(
-			EGLenum(GetAttrib(ConfigAttrib::SurfaceType))
-		);
+		  EGLenum(GetAttrib(ConfigAttrib::SurfaceType)));
 	}
 
 	/// Returns true if a specified surface type is supported
@@ -341,8 +307,7 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{SURFACE_TYPE}
 	 */
-	bool HasSurfaceType(eglplus::SurfaceTypeBit type) const
-	{
+	bool HasSurfaceType(eglplus::SurfaceTypeBit type) const {
 		EGLenum a = GetAttrib(ConfigAttrib::SurfaceType);
 		EGLenum b = EGLenum(type);
 		return (a & b) == b;
@@ -354,11 +319,9 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{CONFORMANT}
 	 */
-	Bitfield<eglplus::RenderableTypeBit> Conformant(void) const
-	{
+	Bitfield<eglplus::RenderableTypeBit> Conformant(void) const {
 		return Bitfield<eglplus::RenderableTypeBit>(
-			GetAttrib(ConfigAttrib::Conformant)
-		);
+		  GetAttrib(ConfigAttrib::Conformant));
 	}
 
 	/// Returns true if the config is conformant to a renderable type
@@ -367,55 +330,40 @@ public:
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{CONFORMANT}
 	 */
-	bool IsConformantTo(eglplus::RenderableTypeBit type) const
-	{
+	bool IsConformantTo(eglplus::RenderableTypeBit type) const {
 		EGLenum a = GetAttrib(ConfigAttrib::Conformant);
 		EGLenum b = EGLenum(type);
 		return (a & b) == b;
 	}
 };
 
-inline
-::EGLConfig GetEGLHandle(const Config& config)
-OGLPLUS_NOEXCEPT(true)
-{
+inline ::EGLConfig GetEGLHandle(const Config& config) noexcept {
 	return config._handle;
 }
 
-struct ConfigValueTypeToConfigAttrib
-{
-	static ColorBufferType
-	ValueType(std::integral_constant<int, 0>);
-	ConfigAttrib operator()(ColorBufferType) const
-	{
+struct ConfigValueTypeToConfigAttrib {
+	static ColorBufferType ValueType(std::integral_constant<int, 0>);
+	ConfigAttrib operator()(ColorBufferType) const {
 		return ConfigAttrib::ColorBufferType;
 	}
 
-	static ConfigCaveat
-	ValueType(std::integral_constant<int, 1>);
-	ConfigAttrib operator()(ConfigCaveat) const
-	{
+	static ConfigCaveat ValueType(std::integral_constant<int, 1>);
+	ConfigAttrib operator()(ConfigCaveat) const {
 		return ConfigAttrib::ConfigCaveat;
 	}
 
-	static RenderableTypeBit
-	ValueType(std::integral_constant<int, 2>);
-	ConfigAttrib operator()(RenderableTypeBit) const
-	{
+	static RenderableTypeBit ValueType(std::integral_constant<int, 2>);
+	ConfigAttrib operator()(RenderableTypeBit) const {
 		return ConfigAttrib::RenderableType;
 	}
 
-	static SurfaceTypeBit
-	ValueType(std::integral_constant<int, 3>);
-	ConfigAttrib operator()(SurfaceTypeBit) const
-	{
+	static SurfaceTypeBit ValueType(std::integral_constant<int, 3>);
+	ConfigAttrib operator()(SurfaceTypeBit) const {
 		return ConfigAttrib::SurfaceType;
 	}
 
-	static TransparentType
-	ValueType(std::integral_constant<int, 4>);
-	ConfigAttrib operator()(TransparentType) const
-	{
+	static TransparentType ValueType(std::integral_constant<int, 4>);
+	ConfigAttrib operator()(TransparentType) const {
 		return ConfigAttrib::TransparentType;
 	}
 
@@ -423,75 +371,62 @@ struct ConfigValueTypeToConfigAttrib
 };
 
 /// Attribute list for configuration attributes
-typedef AttributeList<
-	ConfigAttrib,
-	ConfigValueTypeToConfigAttrib,
-	AttributeListTraits
-> ConfigAttribs;
+typedef AttributeList<ConfigAttrib,
+  ConfigValueTypeToConfigAttrib,
+  AttributeListTraits>
+  ConfigAttribs;
 
 /// Finished list of configuration attribute values
-typedef FinishedAttributeList<
-	ConfigAttrib,
-	AttributeListTraits
-> FinishedConfigAttribs;
+typedef FinishedAttributeList<ConfigAttrib, AttributeListTraits>
+  FinishedConfigAttribs;
 
 /// A provides access to all configurations of a Display
-class Configs
-{
+class Configs {
 private:
 	Display _display;
 	std::vector<EGLConfig> _configs;
 
-	struct _config_range_conv
-	{
+	struct _config_range_conv {
 		Display _display;
 
 		_config_range_conv(const Display& display)
-		 : _display(display)
-		{ }
+		  : _display(display) {
+		}
 
-		Config operator()(EGLConfig handle) const
-		{
+		Config operator()(EGLConfig handle) const {
 			return Config(_display, handle);
 		}
 	};
 
 	void _get_all(void);
 	void _choose(const FinishedConfigAttribs& attribs);
+
 public:
 	/// Gets the configurations for the specified display
 	Configs(const Display& display)
-	 : _display(display)
-	{
+	  : _display(display) {
 		_get_all();
 	}
 
 	/// Gets configurations matching the specified attribute values
 	Configs(const Display& display, const FinishedConfigAttribs& attribs)
-	 : _display(display)
-	{
+	  : _display(display) {
 		_choose(attribs);
 	}
 
-	typedef aux::ConvIterRange<
-		std::vector<EGLConfig>::const_iterator,
-		Config,
-		_config_range_conv
-	> ConfigRange;
+	typedef aux::ConvIterRange<std::vector<EGLConfig>::const_iterator,
+	  Config,
+	  _config_range_conv>
+	  ConfigRange;
 
 	/// Returns a range of all supported configurations
-	ConfigRange All(void) const
-	{
+	ConfigRange All(void) const {
 		return ConfigRange(
-			_config_range_conv(_display),
-			_configs.begin(),
-			_configs.end()
-		);
+		  _config_range_conv(_display), _configs.begin(), _configs.end());
 	}
 
 	/// Returns true if there are no matching configs
-	bool Empty(void) const
-	{
+	bool Empty(void) const {
 		return _configs.empty();
 	}
 
@@ -499,8 +434,7 @@ public:
 	/**
 	 *  @pre !Empty()
 	 */
-	Config First(void) const
-	{
+	Config First(void) const {
 		assert(!Empty());
 		return Config(_display, _configs.front());
 	}

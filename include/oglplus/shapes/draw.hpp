@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,12 +14,12 @@
 #define OGLPLUS_SHAPES_DRAW_1107121519_HPP
 
 #include <oglplus/config/basic.hpp>
-#include <oglplus/primitive_type.hpp>
 #include <oglplus/data_type.hpp>
+#include <oglplus/primitive_type.hpp>
 #include <oglplus/utils/type_tag.hpp>
 
-#include <vector>
 #include <cassert>
+#include <vector>
 
 namespace oglplus {
 namespace shapes {
@@ -28,63 +28,47 @@ namespace shapes {
 /**
  *  @note Do not use this class directly.
  */
-class ElementIndexInfo
-{
+class ElementIndexInfo {
 private:
 	const std::size_t _sizeof_index;
 	const oglplus::DataType _index_data_type;
 
 	template <typename IT>
-	static
-	std::size_t _do_get_sizeof_index(TypeTag<std::vector<IT>>)
-	OGLPLUS_NOEXCEPT(true)
-	{
+	static std::size_t _do_get_sizeof_index(TypeTag<std::vector<IT>>) noexcept {
 		return sizeof(IT);
 	}
 
 	template <class ShapeBuilder>
-	static
-	std::size_t _get_sizeof_index(const ShapeBuilder&)
-	OGLPLUS_NOEXCEPT(true)
-	{
+	static std::size_t _get_sizeof_index(const ShapeBuilder&) noexcept {
 		return _do_get_sizeof_index(
-			TypeTag<typename ShapeBuilder::IndexArray>()
-		);
+		  TypeTag<typename ShapeBuilder::IndexArray>());
 	}
 
 	template <typename IT>
-	static
-	oglplus::DataType _do_get_index_data_type(TypeTag<std::vector<IT>>)
-	{
+	static oglplus::DataType _do_get_index_data_type(TypeTag<std::vector<IT>>) {
 		return oglplus::GetDataType<IT>();
 	}
 
 	template <class ShapeBuilder>
-	static
-	oglplus::DataType _get_index_data_type(const ShapeBuilder&)
-	{
+	static oglplus::DataType _get_index_data_type(const ShapeBuilder&) {
 		return _do_get_index_data_type(
-			TypeTag<typename ShapeBuilder::IndexArray>()
-		);
+		  TypeTag<typename ShapeBuilder::IndexArray>());
 	}
+
 public:
 	template <class ShapeBuilder>
 	ElementIndexInfo(const ShapeBuilder& builder)
-	 : _sizeof_index(_get_sizeof_index(builder))
-	 , _index_data_type(_get_index_data_type(builder))
-	{ }
+	  : _sizeof_index(_get_sizeof_index(builder))
+	  , _index_data_type(_get_index_data_type(builder)) {
+	}
 
 	/// Returns the size (in bytes) of index type used by ShapeBuilder
-	size_t Size(void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
+	size_t Size(void) const noexcept {
 		return _sizeof_index;
 	}
 
 	/// Returns the GL datatype of index type used by ShapeBuilder
-	oglplus::DataType DataType(void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
+	oglplus::DataType DataType(void) const noexcept {
 		return _index_data_type;
 	}
 };
@@ -93,10 +77,10 @@ public:
 
 /// Enumeration of drawing methods
 OGLPLUS_ENUM_CLASS_BEGIN(ShapeDrawOperationMethod, GLuint)
-	OGLPLUS_ENUM_CLASS_VALUE(DrawArrays, 0)
-	OGLPLUS_ENUM_CLASS_COMMA
-	OGLPLUS_ENUM_CLASS_VALUE(DrawElements, 1)
-	// TODO
+OGLPLUS_ENUM_CLASS_VALUE(DrawArrays, 0)
+OGLPLUS_ENUM_CLASS_COMMA
+OGLPLUS_ENUM_CLASS_VALUE(DrawElements, 1)
+// TODO
 OGLPLUS_ENUM_CLASS_END(ShapeDrawOperationMethod)
 
 namespace shapes {
@@ -106,8 +90,7 @@ namespace shapes {
  *  @note Do not use this class directly, use DrawingInstructions returned
  *  by the various shape builder classes instead.
  */
-struct DrawOperation
-{
+struct DrawOperation {
 	/// Enumeration of drawing methods
 	typedef oglplus::ShapeDrawOperationMethod Method;
 
@@ -123,8 +106,7 @@ struct DrawOperation
 	GLuint count;
 
 	/// Special constant for disabling primitive restart
-	static GLuint NoRestartIndex(void)
-	{
+	static GLuint NoRestartIndex(void) {
 		return ~GLuint(0);
 	}
 
@@ -143,73 +125,52 @@ struct DrawOperation
 	 */
 	GLuint phase;
 
-	void Draw(
-		const ElementIndexInfo& index_info,
-		GLuint inst_count = 1,
-		GLuint base_inst = 0
-	) const
-	{
+	void Draw(const ElementIndexInfo& index_info,
+	  GLuint inst_count = 1,
+	  GLuint base_inst = 0) const {
 		this->Draw_(
-			IndexPtr_(index_info),
-			index_info.DataType(),
-			inst_count,
-			base_inst
-		);
+		  IndexPtr_(index_info), index_info.DataType(), inst_count, base_inst);
 	}
 
 	/// Draw the part of a shape
 	template <typename IT>
-	void Draw(
-		const std::vector<IT>& indices,
-		GLuint inst_count = 1,
-		GLuint base_inst = 0
-	) const
-	{
+	void Draw(const std::vector<IT>& indices,
+	  GLuint inst_count = 1,
+	  GLuint base_inst = 0) const {
 		this->Draw_(
-			IndexPtr_(indices),
-			IndexDataType_(indices),
-			inst_count,
-			base_inst
-		);
+		  IndexPtr_(indices), IndexDataType_(indices), inst_count, base_inst);
 	}
-private:
 
+private:
 	template <typename IT>
-	static DataType IndexDataType_(const std::vector<IT>&)
-	{
+	static DataType IndexDataType_(const std::vector<IT>&) {
 		return GetDataType<IT>();
 	}
 
 	template <typename IT>
-	const void* IndexPtr_(const std::vector<IT>& indices) const
-	{
+	const void* IndexPtr_(const std::vector<IT>& indices) const {
 		const IT* base = indices.empty() ? nullptr : &indices.front();
 		return reinterpret_cast<const void*>(base + first);
 	}
 
-	const void* IndexPtr_(const ElementIndexInfo& index_info) const
-	{
+	const void* IndexPtr_(const ElementIndexInfo& index_info) const {
 		return reinterpret_cast<const void*>(first * index_info.Size());
 	}
 
 	void SetupPrimitiveRestart_(void) const;
 	void CleanupPrimitiveRestart_(void) const;
 
-	void Draw_(
-		const void* indices,
-		DataType index_data_type,
-		GLuint inst_count,
-		GLuint base_inst
-	) const;
+	void Draw_(const void* indices,
+	  DataType index_data_type,
+	  GLuint inst_count,
+	  GLuint base_inst) const;
 
 	void DrawArrays_(GLuint inst_count, GLuint base_inst) const;
 
-	void DrawElements_(
-		const void* indices,
-		DataType index_data_type,
-		GLuint inst_count,
-		GLuint base_inst
-	) const;
+	void DrawElements_(const void* indices,
+	  DataType index_data_type,
+	  GLuint inst_count,
+	  GLuint base_inst) const;
 };
 
 class DrawingInstructionWriter;
@@ -225,225 +186,174 @@ class DrawingInstructionWriter;
  *
  *  @see Cube
  */
-class DrawingInstructions
-{
+class DrawingInstructions {
 private:
-
 	typedef std::vector<DrawOperation> DrawOperationSeq;
 	DrawOperationSeq _ops;
 
-	DrawingInstructions(void)
-	{ }
+	DrawingInstructions(void) {
+	}
 
 	DrawingInstructions(DrawOperationSeq&& ops)
-	 : _ops(std::move(ops))
-	{ }
+	  : _ops(std::move(ops)) {
+	}
 
 	friend class DrawingInstructionWriter;
 
 	// helper functor used as DrawFun in Draw_
 	template <class IndexArray>
-	struct DrawFromIndices_
-	{
+	struct DrawFromIndices_ {
 		const IndexArray& _indices;
 
 		DrawFromIndices_(const IndexArray& indices)
-		 : _indices(indices)
-		{ }
+		  : _indices(indices) {
+		}
 
 		void operator()(
-			const DrawOperation& op,
-			GLuint inst_count,
-			GLuint base_inst
-		) const
-		{
+		  const DrawOperation& op, GLuint inst_count, GLuint base_inst) const {
 			op.Draw(_indices, inst_count, base_inst);
 		}
 	};
 
 	// helper functor used as DrawFun in Draw_
-	struct DrawFromIndexInfo_
-	{
+	struct DrawFromIndexInfo_ {
 		ElementIndexInfo _index_info;
 
 		DrawFromIndexInfo_(const ElementIndexInfo& index_info)
-		 : _index_info(index_info)
-		{ }
+		  : _index_info(index_info) {
+		}
 
 		void operator()(
-			const DrawOperation& op,
-			GLuint inst_count,
-			GLuint base_inst
-		) const
-		{
+		  const DrawOperation& op, GLuint inst_count, GLuint base_inst) const {
 			op.Draw(_index_info, inst_count, base_inst);
 		}
 	};
 
 	/// Draw the shape from data in currently bound VBOs indexed by indices
 	template <typename DrawFun, typename Driver>
-	void Draw_(
-		const DrawFun& draw_fun,
-		const GLuint inst_count,
-		const GLuint base_inst,
-		const Driver& driver
-	) const
-	{
-		auto i=_ops.begin(),e=_ops.end();
-		if(i != e)
-		{
+	void Draw_(const DrawFun& draw_fun,
+	  const GLuint inst_count,
+	  const GLuint base_inst,
+	  const Driver& driver) const {
+		auto i = _ops.begin(), e = _ops.end();
+		if(i != e) {
 			bool do_draw;
-			if(driver(i->phase))
-			{
+			if(driver(i->phase)) {
 				do_draw = true;
 				draw_fun(*i, inst_count, base_inst);
-			}
-			else do_draw = false;
+			} else
+				do_draw = false;
 			GLuint prev_phase = i->phase;
 			++i;
 
-			while(i!=e)
-			{
-				if(prev_phase != i->phase)
-				{
+			while(i != e) {
+				if(prev_phase != i->phase) {
 					do_draw = driver(i->phase);
 					prev_phase = i->phase;
 				}
-				if(do_draw) draw_fun(*i, inst_count, base_inst);
+				if(do_draw)
+					draw_fun(*i, inst_count, base_inst);
 				++i;
 			}
 		}
 	}
+
 public:
 	DrawingInstructions(DrawingInstructions&& temp)
-	 : _ops(std::move(temp._ops))
-	{ }
+	  : _ops(std::move(temp._ops)) {
+	}
 
 	DrawingInstructions(const DrawingInstructions& other)
-	 : _ops(other._ops)
-	{ }
+	  : _ops(other._ops) {
+	}
 
-	const std::vector<DrawOperation>& Operations(void) const
-	{
+	const std::vector<DrawOperation>& Operations(void) const {
 		return _ops;
 	}
 
-	struct DefaultDriver
-	{
-		inline bool operator()(GLuint /*phase*/) const
-		{
+	struct DefaultDriver {
+		inline bool operator()(GLuint /*phase*/) const {
 			return true;
 		}
 	};
 
 	template <typename IT, typename Driver>
-	void Draw(
-		const std::vector<IT>& indices,
-		GLuint inst_count,
-		GLuint base_inst,
-		Driver driver
-	) const
-	{
-		this->Draw_(
-			DrawFromIndices_<std::vector<IT>>(indices),
-			inst_count,
-			base_inst,
-			driver
-		);
+	void Draw(const std::vector<IT>& indices,
+	  GLuint inst_count,
+	  GLuint base_inst,
+	  Driver driver) const {
+		this->Draw_(DrawFromIndices_<std::vector<IT>>(indices),
+		  inst_count,
+		  base_inst,
+		  driver);
 	}
 
 	template <typename IT>
-	void Draw(
-		const std::vector<IT>& indices,
-		GLuint inst_count = 1,
-		GLuint base_inst = 0
-	) const
-	{
-		this->Draw_(
-			DrawFromIndices_<std::vector<IT>>(indices),
-			inst_count,
-			base_inst,
-			DefaultDriver()
-		);
+	void Draw(const std::vector<IT>& indices,
+	  GLuint inst_count = 1,
+	  GLuint base_inst = 0) const {
+		this->Draw_(DrawFromIndices_<std::vector<IT>>(indices),
+		  inst_count,
+		  base_inst,
+		  DefaultDriver());
 	}
 
 	template <typename Driver>
-	void Draw(
-		const ElementIndexInfo& index_info,
-		GLuint inst_count,
-		GLuint base_inst,
-		Driver driver
-	) const
-	{
+	void Draw(const ElementIndexInfo& index_info,
+	  GLuint inst_count,
+	  GLuint base_inst,
+	  Driver driver) const {
 		this->Draw_(
-			DrawFromIndexInfo_(index_info),
-			inst_count,
-			base_inst,
-			driver
-		);
+		  DrawFromIndexInfo_(index_info), inst_count, base_inst, driver);
 	}
 
-	void Draw(
-		const ElementIndexInfo& index_info,
-		GLuint inst_count = 1,
-		GLuint base_inst = 0
-	) const
-	{
-		this->Draw_(
-			DrawFromIndexInfo_(index_info),
-			inst_count,
-			base_inst,
-			DefaultDriver()
-		);
+	void Draw(const ElementIndexInfo& index_info,
+	  GLuint inst_count = 1,
+	  GLuint base_inst = 0) const {
+		this->Draw_(DrawFromIndexInfo_(index_info),
+		  inst_count,
+		  base_inst,
+		  DefaultDriver());
 	}
-
-
 };
 
 // Helper base class for shape builder classes making the drawing instructions
-class DrawingInstructionWriter
-{
+class DrawingInstructionWriter {
 private:
 	typedef DrawingInstructions::DrawOperationSeq Operations;
+
 protected:
-	static DrawingInstructions MakeInstructions(void)
-	{
+	static DrawingInstructions MakeInstructions(void) {
 		return DrawingInstructions();
 	}
 
 	static void AddInstruction(
-		DrawingInstructions& instr,
-		const DrawOperation& operation
-	)
-	{
+	  DrawingInstructions& instr, const DrawOperation& operation) {
 		instr._ops.push_back(operation);
 	}
 
-	static DrawingInstructions MakeInstructions(const DrawOperation& operation)
-	{
+	static DrawingInstructions MakeInstructions(
+	  const DrawOperation& operation) {
 		DrawingInstructions instr;
 		instr._ops.push_back(operation);
 		return instr;
 	}
 
-	static DrawingInstructions MakeInstructions(Operations&& ops)
-	{
+	static DrawingInstructions MakeInstructions(Operations&& ops) {
 		return DrawingInstructions(std::forward<Operations>(ops));
 	}
 };
 
-struct DrawMode
-{
-	struct Default { };
-	struct WithAdjacency { };
-	struct Quads { };
-	struct Patches { };
-	struct Edges { };
+struct DrawMode {
+	struct Default {};
+	struct WithAdjacency {};
+	struct Quads {};
+	struct Patches {};
+	struct Edges {};
 };
 
-
-} // shapes
-} // oglplus
+} // namespace shapes
+} // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 #include <oglplus/shapes/draw.ipp>

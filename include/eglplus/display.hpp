@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,8 +13,8 @@
 #ifndef EGLPLUS_DISPLAY_1305291005_HPP
 #define EGLPLUS_DISPLAY_1305291005_HPP
 
-#include <eglplus/eglfunc.hpp>
 #include <eglplus/boolean.hpp>
+#include <eglplus/eglfunc.hpp>
 #include <eglplus/error/basic.hpp>
 
 namespace eglplus {
@@ -22,17 +22,15 @@ namespace eglplus {
 class EGLInitializer;
 
 class Display;
-::EGLDisplay GetEGLHandle(const Display&)
-OGLPLUS_NOEXCEPT(true);
+::EGLDisplay GetEGLHandle(const Display&) noexcept;
 
 /// Wrapper around EGLDisplay
-class Display
-{
+class Display {
 private:
 	::EGLDisplay _handle;
 
-	friend ::EGLDisplay GetEGLHandle(const Display&)
-	OGLPLUS_NOEXCEPT(true);
+	friend ::EGLDisplay GetEGLHandle(const Display&) noexcept;
+
 public:
 	/// Opens the default display
 	/**
@@ -41,8 +39,7 @@ public:
 	 *  @egldefref{DEFAULT_DISPLAY}
 	 */
 	Display(void)
-	 : _handle(EGLPLUS_EGLFUNC(GetDisplay)(EGL_DEFAULT_DISPLAY))
-	{
+	  : _handle(EGLPLUS_EGLFUNC(GetDisplay)(EGL_DEFAULT_DISPLAY)) {
 		EGLPLUS_CHECK_SIMPLE(GetDisplay);
 	}
 
@@ -52,8 +49,7 @@ public:
 	 *  @eglfunref{GetDisplay}
 	 */
 	Display(::EGLNativeDisplayType display_id)
-	 : _handle(EGLPLUS_EGLFUNC(GetDisplay)(display_id))
-	{
+	  : _handle(EGLPLUS_EGLFUNC(GetDisplay)(display_id)) {
 		EGLPLUS_CHECK_SIMPLE(GetDisplay);
 	}
 
@@ -62,14 +58,9 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{SwapInterval}
 	 */
-	Boolean SwapInterval(EGLint interval)
-	{
+	Boolean SwapInterval(EGLint interval) {
 		Boolean result(
-			EGLPLUS_EGLFUNC(SwapInterval)(
-				_handle,
-				interval
-			), std::nothrow
-		);
+		  EGLPLUS_EGLFUNC(SwapInterval)(_handle, interval), std::nothrow);
 		EGLPLUS_CHECK_SIMPLE(SwapInterval);
 		return result;
 	}
@@ -79,25 +70,17 @@ public:
 	 *  @eglsymbols
 	 *  @eglfunref{MakeCurrent}
 	 */
-	Boolean ReleaseContext(void)
-	{
+	Boolean ReleaseContext(void) {
 		Boolean result(
-			EGLPLUS_EGLFUNC(MakeCurrent)(
-				_handle,
-				EGL_NO_SURFACE,
-				EGL_NO_SURFACE,
-				EGL_NO_CONTEXT
-			), std::nothrow
-		);
+		  EGLPLUS_EGLFUNC(MakeCurrent)(
+			_handle, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT),
+		  std::nothrow);
 		EGLPLUS_CHECK_SIMPLE(MakeCurrent);
 		return result;
 	}
 };
 
-inline
-::EGLDisplay GetEGLHandle(const Display& display)
-OGLPLUS_NOEXCEPT(true)
-{
+inline ::EGLDisplay GetEGLHandle(const Display& display) noexcept {
 	return display._handle;
 }
 

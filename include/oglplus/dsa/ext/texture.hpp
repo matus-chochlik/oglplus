@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -25,46 +25,39 @@ namespace oglplus {
  */
 template <>
 class ObjZeroOps<tag::DirectStateEXT, tag::Texture>
- : public ObjCommonOps<tag::Texture>
-{
+  : public ObjCommonOps<tag::Texture> {
 protected:
-	ObjZeroOps(TextureName name)
-	OGLPLUS_NOEXCEPT(true)
-	 : ObjCommonOps<tag::Texture>(name)
-	{ }
+	ObjZeroOps(TextureName name) noexcept
+	  : ObjCommonOps<tag::Texture>(name) {
+	}
+
 public:
 #if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	ObjZeroOps(ObjZeroOps&&) = default;
 	ObjZeroOps(const ObjZeroOps&) = default;
-	ObjZeroOps& operator = (ObjZeroOps&&) = default;
-	ObjZeroOps& operator = (const ObjZeroOps&) = default;
+	ObjZeroOps& operator=(ObjZeroOps&&) = default;
+	ObjZeroOps& operator=(const ObjZeroOps&) = default;
 #else
 	typedef ObjCommonOps<tag::Texture> _base;
 
-	ObjZeroOps(ObjZeroOps&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	 : _base(static_cast<_base&&>(temp))
-	 , target(temp.target)
-	{ }
+	ObjZeroOps(ObjZeroOps&& temp) noexcept
+	  : _base(static_cast<_base&&>(temp))
+	  , target(temp.target) {
+	}
 
-	ObjZeroOps(const ObjZeroOps& that)
-	OGLPLUS_NOEXCEPT(true)
-	 : _base(static_cast<const _base&>(that))
-	 , target(that.target)
-	{ }
+	ObjZeroOps(const ObjZeroOps& that) noexcept
+	  : _base(static_cast<const _base&>(that))
+	  , target(that.target) {
+	}
 
-	ObjZeroOps& operator = (ObjZeroOps&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_base::operator = (static_cast<_base&&>(temp));
+	ObjZeroOps& operator=(ObjZeroOps&& temp) noexcept {
+		_base::operator=(static_cast<_base&&>(temp));
 		target = temp.target;
 		return *this;
 	}
 
-	ObjZeroOps& operator = (const ObjZeroOps& that)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_base::operator = (static_cast<const _base&>(that));
+	ObjZeroOps& operator=(const ObjZeroOps& that) noexcept {
+		_base::operator=(static_cast<const _base&>(that));
 		target = that.target;
 		return *this;
 	}
@@ -75,30 +68,20 @@ public:
 	typedef TextureOps::Property Property;
 
 	using ObjCommonOps<tag::Texture>::Bind;
-	void Bind(void)
-	{
+	void Bind(void) {
 		ObjCommonOps<tag::Texture>::Bind(target);
 	}
 
 	/// Bind this texture to target on the specified texture unit
-	void BindMulti(TextureUnitSelector index, Target tex_target)
-	{
-		OGLPLUS_GLFUNC(BindMultiTextureEXT)(
-			GLenum(GL_TEXTURE0 + GLuint(index)),
-			GLenum(tex_target),
-			_obj_name()
-		);
-		OGLPLUS_VERIFY(
-			BindMultiTextureEXT,
-			ObjectError,
-			Object(*this).
-			BindTarget(tex_target).
-			Index(GLuint(index))
-		);
+	void BindMulti(TextureUnitSelector index, Target tex_target) {
+		OGLPLUS_GLFUNC(BindMultiTextureEXT)
+		(GLenum(GL_TEXTURE0 + GLuint(index)), GLenum(tex_target), _obj_name());
+		OGLPLUS_VERIFY(BindMultiTextureEXT,
+		  ObjectError,
+		  Object(*this).BindTarget(tex_target).Index(GLuint(index)));
 	}
 
-	void BindMulti(TextureUnitSelector index)
-	{
+	void BindMulti(TextureUnitSelector index) {
 		BindMulti(index, target);
 	}
 
@@ -117,12 +100,8 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_WIDTH}
 	 */
-	SizeType Width(GLint level = 0) const
-	{
-		return MakeSizeType(
-			GetIntParam(level, GL_TEXTURE_WIDTH),
-			std::nothrow
-		);
+	SizeType Width(GLint level = 0) const {
+		return MakeSizeType(GetIntParam(level, GL_TEXTURE_WIDTH), std::nothrow);
 	}
 
 	/// Returns the height of the texture as it was specified by *Image*D
@@ -134,12 +113,9 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_HEIGHT}
 	 */
-	SizeType Height(GLint level = 0) const
-	{
+	SizeType Height(GLint level = 0) const {
 		return MakeSizeType(
-			GetIntParam(level, GL_TEXTURE_HEIGHT),
-			std::nothrow
-		);
+		  GetIntParam(level, GL_TEXTURE_HEIGHT), std::nothrow);
 	}
 
 	/// Returns the depth of the texture as it was specified by *Image*D
@@ -151,12 +127,8 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_DEPTH}
 	 */
-	SizeType Depth(GLint level = 0) const
-	{
-		return MakeSizeType(
-			GetIntParam(level, GL_TEXTURE_DEPTH),
-			std::nothrow
-		);
+	SizeType Depth(GLint level = 0) const {
+		return MakeSizeType(GetIntParam(level, GL_TEXTURE_DEPTH), std::nothrow);
 	}
 
 	/// Returns the data type used to store the RED component
@@ -170,12 +142,8 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_RED_TYPE}
 	 */
-	PixelDataType RedType(GLint level = 0) const
-	{
-		return PixelDataType(GetIntParam(
-			level,
-			GL_TEXTURE_RED_TYPE
-		));
+	PixelDataType RedType(GLint level = 0) const {
+		return PixelDataType(GetIntParam(level, GL_TEXTURE_RED_TYPE));
 	}
 
 	/// Returns the data type used to store the GREEN component
@@ -189,12 +157,8 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_GREEN_TYPE}
 	 */
-	PixelDataType GreenType(GLint level = 0) const
-	{
-		return PixelDataType(GetIntParam(
-			level,
-			GL_TEXTURE_GREEN_TYPE
-		));
+	PixelDataType GreenType(GLint level = 0) const {
+		return PixelDataType(GetIntParam(level, GL_TEXTURE_GREEN_TYPE));
 	}
 
 	/// Returns the data type used to store the BLUE component
@@ -208,12 +172,8 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_BLUE_TYPE}
 	 */
-	PixelDataType BlueType(GLint level = 0) const
-	{
-		return PixelDataType(GetIntParam(
-			level,
-			GL_TEXTURE_BLUE_TYPE
-		));
+	PixelDataType BlueType(GLint level = 0) const {
+		return PixelDataType(GetIntParam(level, GL_TEXTURE_BLUE_TYPE));
 	}
 
 	/// Returns the data type used to store the ALPHA component
@@ -227,12 +187,8 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_ALPHA_TYPE}
 	 */
-	PixelDataType AlphaType(GLint level = 0) const
-	{
-		return PixelDataType(GetIntParam(
-			level,
-			GL_TEXTURE_ALPHA_TYPE
-		));
+	PixelDataType AlphaType(GLint level = 0) const {
+		return PixelDataType(GetIntParam(level, GL_TEXTURE_ALPHA_TYPE));
 	}
 
 	/// Returns the data type used to store the DEPTH component
@@ -246,12 +202,8 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_DEPTH_TYPE}
 	 */
-	PixelDataType DepthType(GLint level = 0) const
-	{
-		return PixelDataType(GetIntParam(
-			level,
-			GL_TEXTURE_DEPTH_TYPE
-		));
+	PixelDataType DepthType(GLint level = 0) const {
+		return PixelDataType(GetIntParam(level, GL_TEXTURE_DEPTH_TYPE));
 	}
 
 	/// Returns the actual resolution of the RED component
@@ -266,12 +218,9 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_RED_SIZE}
 	 */
-	SizeType RedSize(GLint level = 0) const
-	{
+	SizeType RedSize(GLint level = 0) const {
 		return MakeSizeType(
-			GetIntParam(level, GL_TEXTURE_RED_SIZE),
-			std::nothrow
-		);
+		  GetIntParam(level, GL_TEXTURE_RED_SIZE), std::nothrow);
 	}
 
 	/// Returns the actual resolution of the GREEN component
@@ -286,12 +235,9 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_GREEN_SIZE}
 	 */
-	SizeType GreenSize(GLint level = 0) const
-	{
+	SizeType GreenSize(GLint level = 0) const {
 		return MakeSizeType(
-			GetIntParam(level, GL_TEXTURE_GREEN_SIZE),
-			std::nothrow
-		);
+		  GetIntParam(level, GL_TEXTURE_GREEN_SIZE), std::nothrow);
 	}
 
 	/// Returns the actual resolution of the BLUE component
@@ -306,12 +252,9 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_BLUE_SIZE}
 	 */
-	SizeType BlueSize(GLint level = 0) const
-	{
+	SizeType BlueSize(GLint level = 0) const {
 		return MakeSizeType(
-			GetIntParam(level, GL_TEXTURE_BLUE_SIZE),
-			std::nothrow
-		);
+		  GetIntParam(level, GL_TEXTURE_BLUE_SIZE), std::nothrow);
 	}
 
 	/// Returns the actual resolution of the ALPHA component
@@ -326,12 +269,9 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_ALPHA_SIZE}
 	 */
-	SizeType AlphaSize(GLint level = 0) const
-	{
+	SizeType AlphaSize(GLint level = 0) const {
 		return MakeSizeType(
-			GetIntParam(level, GL_TEXTURE_ALPHA_SIZE),
-			std::nothrow
-		);
+		  GetIntParam(level, GL_TEXTURE_ALPHA_SIZE), std::nothrow);
 	}
 
 	/// Returns the actual resolution of the DEPTH component
@@ -346,12 +286,9 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_DEPTH_SIZE}
 	 */
-	SizeType DepthSize(GLint level = 0) const
-	{
+	SizeType DepthSize(GLint level = 0) const {
 		return MakeSizeType(
-			GetIntParam(level, GL_TEXTURE_DEPTH_SIZE),
-			std::nothrow
-		);
+		  GetIntParam(level, GL_TEXTURE_DEPTH_SIZE), std::nothrow);
 	}
 
 	/// Returns the actual resolution of the STENCIL component
@@ -366,12 +303,9 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_STENCIL_SIZE}
 	 */
-	SizeType StencilSize(GLint level = 0) const
-	{
+	SizeType StencilSize(GLint level = 0) const {
 		return MakeSizeType(
-			GetIntParam(level, GL_TEXTURE_STENCIL_SIZE),
-			std::nothrow
-		);
+		  GetIntParam(level, GL_TEXTURE_STENCIL_SIZE), std::nothrow);
 	}
 
 	/// Returns the size of all texture components
@@ -387,12 +321,9 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_SHARED_SIZE}
 	 */
-	SizeType SharedSize(GLint level = 0) const
-	{
+	SizeType SharedSize(GLint level = 0) const {
 		return MakeSizeType(
-			GetIntParam(level, GL_TEXTURE_SHARED_SIZE),
-			std::nothrow
-		);
+		  GetIntParam(level, GL_TEXTURE_SHARED_SIZE), std::nothrow);
 	}
 
 	/// Returns the size (in bytes) of the image array if it is compressed
@@ -401,12 +332,9 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_COMPRESSED_IMAGE_SIZE}
 	 */
-	SizeType CompressedImageSize(GLint level = 0) const
-	{
+	SizeType CompressedImageSize(GLint level = 0) const {
 		return MakeSizeType(
-			GetIntParam(level, GL_TEXTURE_COMPRESSED_IMAGE_SIZE),
-			std::nothrow
-		);
+		  GetIntParam(level, GL_TEXTURE_COMPRESSED_IMAGE_SIZE), std::nothrow);
 	}
 
 	/// Returns the internal data format of the image array
@@ -415,12 +343,9 @@ public:
 	 *  @glfunref{GetTexLevelParameter}
 	 *  @gldefref{TEXTURE_INTERNAL_FORMAT}
 	 */
-	PixelDataInternalFormat InternalFormat(GLint level = 0) const
-	{
-		return PixelDataInternalFormat(GetIntParam(
-			level,
-			GL_TEXTURE_INTERNAL_FORMAT
-		));
+	PixelDataInternalFormat InternalFormat(GLint level = 0) const {
+		return PixelDataInternalFormat(
+		  GetIntParam(level, GL_TEXTURE_INTERNAL_FORMAT));
 	}
 
 	/// Allows to obtain the texture image in uncompressed form
@@ -439,10 +364,7 @@ public:
 	 *  @glfunref{GetTexImage}
 	 */
 	void GetImage(
-		GLint level,
-		PixelDataFormat format,
-		const OutputData& dest
-	) const;
+	  GLint level, PixelDataFormat format, const OutputData& dest) const;
 
 	/// Allows to obtain the texture image in uncompressed form
 	/** This function stores the image of the texture bound to
@@ -459,21 +381,15 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetTexImage}
 	 */
-	void GetImage(
-		GLint level,
-		PixelDataFormat format,
-		Property::PixDataType type,
-		SizeType size,
-		GLvoid* buffer
-	) const
-	{
+	void GetImage(GLint level,
+	  PixelDataFormat format,
+	  Property::PixDataType type,
+	  SizeType size,
+	  GLvoid* buffer) const {
 		GetImage(level, format, OutputData(type, size, buffer));
 	}
 
-	void GetCompressedImage(
-		GLint level,
-		const OutputData& dest
-	) const;
+	void GetCompressedImage(GLint level, const OutputData& dest) const;
 
 	/// Allows to obtain the texture image in compressed form
 	/** This function stores the image of the texture bound to
@@ -485,12 +401,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetCompressedTexImage}
 	 */
-	void GetCompressedImage(
-		GLint level,
-		SizeType size,
-		GLubyte* buffer
-	) const
-	{
+	void GetCompressedImage(GLint level, SizeType size, GLubyte* buffer) const {
 		GetCompressedImage(level, OutputData(size, buffer));
 	}
 
@@ -504,48 +415,37 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetCompressedTexImage}
 	 */
-	void GetCompressedImage(
-		GLint level,
-		std::vector<GLubyte>& dest
-	) const;
+	void GetCompressedImage(GLint level, std::vector<GLubyte>& dest) const;
 
 	/// Specifies a three dimensional texture image
 	/**
 	 *  @glsymbols
 	 *  @glfunref{TexImage3D}
 	 */
-	ObjZeroOps& Image3D(
-		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height,
-		SizeType depth,
-		GLint border,
-		PixelDataFormat format,
-		Property::PixDataType type,
-		const void* data
-	)
-	{
-		OGLPLUS_GLFUNC(TextureImage3DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			GLint(internal_format),
-			width,
-			height,
-			depth,
-			border,
-			GLenum(format),
-			GLenum(type),
-			data
-		);
-		OGLPLUS_CHECK(
-			TextureImage3DEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(internal_format).
-			Index(level)
-		);
+	ObjZeroOps& Image3D(GLint level,
+	  PixelDataInternalFormat internal_format,
+	  SizeType width,
+	  SizeType height,
+	  SizeType depth,
+	  GLint border,
+	  PixelDataFormat format,
+	  Property::PixDataType type,
+	  const void* data) {
+		OGLPLUS_GLFUNC(TextureImage3DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  GLint(internal_format),
+		  width,
+		  height,
+		  depth,
+		  border,
+		  GLenum(format),
+		  GLenum(type),
+		  data);
+		OGLPLUS_CHECK(TextureImage3DEXT,
+		  ObjectError,
+		  Object(*this).EnumParam(internal_format).Index(level));
 		return *this;
 	}
 
@@ -555,50 +455,39 @@ public:
 	 *  @glfunref{TexImage3D}
 	 */
 	ObjZeroOps& Image3D(
-		const images::Image& image,
-		GLint level = 0,
-		GLint border = 0
-	);
+	  const images::Image& image, GLint level = 0, GLint border = 0);
 
 	/// Specifies a three dimensional texture sub image
 	/**
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage3D}
 	 */
-	ObjZeroOps& SubImage3D(
-		GLint level,
-		GLint xoffs,
-		GLint yoffs,
-		GLint zoffs,
-		SizeType width,
-		SizeType height,
-		SizeType depth,
-		PixelDataFormat format,
-		Property::PixDataType type,
-		const void* data
-	)
-	{
-		OGLPLUS_GLFUNC(TextureSubImage3DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			xoffs,
-			yoffs,
-			zoffs,
-			width,
-			height,
-			depth,
-			GLenum(format),
-			GLenum(type),
-			data
-		);
-		OGLPLUS_CHECK(
-			TextureSubImage3DEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(format).
-			Index(level)
-		);
+	ObjZeroOps& SubImage3D(GLint level,
+	  GLint xoffs,
+	  GLint yoffs,
+	  GLint zoffs,
+	  SizeType width,
+	  SizeType height,
+	  SizeType depth,
+	  PixelDataFormat format,
+	  Property::PixDataType type,
+	  const void* data) {
+		OGLPLUS_GLFUNC(TextureSubImage3DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  xoffs,
+		  yoffs,
+		  zoffs,
+		  width,
+		  height,
+		  depth,
+		  GLenum(format),
+		  GLenum(type),
+		  data);
+		OGLPLUS_CHECK(TextureSubImage3DEXT,
+		  ObjectError,
+		  Object(*this).EnumParam(format).Index(level));
 		return *this;
 	}
 
@@ -607,76 +496,63 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage3D}
 	 */
-	ObjZeroOps& SubImage3D(
-		const images::Image& image,
-		GLint xoffs,
-		GLint yoffs,
-		GLint zoffs,
-		GLint level = 0
-	);
+	ObjZeroOps& SubImage3D(const images::Image& image,
+	  GLint xoffs,
+	  GLint yoffs,
+	  GLint zoffs,
+	  GLint level = 0);
 
 	/// Specifies a two dimensional texture image
 	/**
 	 *  @glsymbols
 	 *  @glfunref{TexImage2D}
 	 */
-	ObjZeroOps& Image2D(
-		TextureTarget tex_target,
-		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height,
-		GLint border,
-		PixelDataFormat format,
-		Property::PixDataType type,
-		const void* data
-	)
-	{
-		OGLPLUS_GLFUNC(TextureImage2DEXT)(
-			_obj_name(),
-			GLenum(tex_target),
-			level,
-			GLint(internal_format),
-			width,
-			height,
-			border,
-			GLenum(format),
-			GLenum(type),
-			data
-		);
-		OGLPLUS_CHECK(
-			TextureImage2DEXT,
-			ObjectError,
-			Object(*this).
-			BindTarget(tex_target).
-			EnumParam(internal_format).
-			Index(level)
-		);
+	ObjZeroOps& Image2D(TextureTarget tex_target,
+	  GLint level,
+	  PixelDataInternalFormat internal_format,
+	  SizeType width,
+	  SizeType height,
+	  GLint border,
+	  PixelDataFormat format,
+	  Property::PixDataType type,
+	  const void* data) {
+		OGLPLUS_GLFUNC(TextureImage2DEXT)
+		(_obj_name(),
+		  GLenum(tex_target),
+		  level,
+		  GLint(internal_format),
+		  width,
+		  height,
+		  border,
+		  GLenum(format),
+		  GLenum(type),
+		  data);
+		OGLPLUS_CHECK(TextureImage2DEXT,
+		  ObjectError,
+		  Object(*this)
+			.BindTarget(tex_target)
+			.EnumParam(internal_format)
+			.Index(level));
 		return *this;
 	}
 
-	ObjZeroOps& Image2D(
-		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height,
-		GLint border,
-		PixelDataFormat format,
-		Property::PixDataType type,
-		const void* data
-	)
-	{
-		return Image2D(
-			target,
-			level,
-			internal_format,
-			width,
-			height,
-			border,
-			format,
-			type,
-			data
-		);
+	ObjZeroOps& Image2D(GLint level,
+	  PixelDataInternalFormat internal_format,
+	  SizeType width,
+	  SizeType height,
+	  GLint border,
+	  PixelDataFormat format,
+	  Property::PixDataType type,
+	  const void* data) {
+		return Image2D(target,
+		  level,
+		  internal_format,
+		  width,
+		  height,
+		  border,
+		  format,
+		  type,
+		  data);
 	}
 
 	/// Specifies a two dimensional texture image
@@ -684,12 +560,10 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage2D}
 	 */
-	ObjZeroOps& Image2D(
-		TextureTarget tex_target,
-		const images::Image& image,
-		GLint level = 0,
-		GLint border = 0
-	);
+	ObjZeroOps& Image2D(TextureTarget tex_target,
+	  const images::Image& image,
+	  GLint level = 0,
+	  GLint border = 0);
 
 	/// Specifies a two dimensional texture image
 	/**
@@ -697,11 +571,7 @@ public:
 	 *  @glfunref{TexImage2D}
 	 */
 	ObjZeroOps& Image2D(
-		const images::Image& image,
-		GLint level = 0,
-		GLint border = 0
-	)
-	{
+	  const images::Image& image, GLint level = 0, GLint border = 0) {
 		return Image2D(target, image, level, border);
 	}
 
@@ -718,39 +588,33 @@ public:
 	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Z}
 	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Z}
 	 */
-	ObjZeroOps& ImageCM(
-		GLuint face,
-		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height,
-		GLint border,
-		PixelDataFormat format,
-		Property::PixDataType type,
-		const void* data
-	)
-	{
+	ObjZeroOps& ImageCM(GLuint face,
+	  GLint level,
+	  PixelDataInternalFormat internal_format,
+	  SizeType width,
+	  SizeType height,
+	  GLint border,
+	  PixelDataFormat format,
+	  Property::PixDataType type,
+	  const void* data) {
 		assert(face <= 5);
-		OGLPLUS_GLFUNC(TextureImage2DEXT)(
-			_obj_name(),
-			GLenum(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face),
-			level,
-			GLint(internal_format),
-			width,
-			height,
-			border,
-			GLenum(format),
-			GLenum(type),
-			data
-		);
-		OGLPLUS_CHECK(
-			TextureImage2DEXT,
-			ObjectError,
-			Object(*this).
-			BindTarget(TextureTarget(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face)).
-			EnumParam(internal_format).
-			Index(level)
-		);
+		OGLPLUS_GLFUNC(TextureImage2DEXT)
+		(_obj_name(),
+		  GLenum(GL_TEXTURE_CUBE_MAP_POSITIVE_X + face),
+		  level,
+		  GLint(internal_format),
+		  width,
+		  height,
+		  border,
+		  GLenum(format),
+		  GLenum(type),
+		  data);
+		OGLPLUS_CHECK(TextureImage2DEXT,
+		  ObjectError,
+		  Object(*this)
+			.BindTarget(TextureTarget(GL_TEXTURE_CUBE_MAP_POSITIVE_X + face))
+			.EnumParam(internal_format)
+			.Index(level));
 		return *this;
 	}
 
@@ -767,20 +631,13 @@ public:
 	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Z}
 	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Z}
 	 */
-	ObjZeroOps& ImageCM(
-		GLuint face,
-		const images::Image& image,
-		GLint level = 0,
-		GLint border = 0
-	)
-	{
+	ObjZeroOps& ImageCM(GLuint face,
+	  const images::Image& image,
+	  GLint level = 0,
+	  GLint border = 0) {
 		assert(face <= 5);
 		return Image2D(
-			Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face),
-			image,
-			level,
-			border
-		);
+		  Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X + face), image, level, border);
 	}
 
 	/// Specifies a two dimensional texture sub image
@@ -788,36 +645,28 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage2D}
 	 */
-	ObjZeroOps& SubImage2D(
-		GLint level,
-		GLint xoffs,
-		GLint yoffs,
-		SizeType width,
-		SizeType height,
-		PixelDataFormat format,
-		Property::PixDataType type,
-		const void* data
-	)
-	{
-		OGLPLUS_GLFUNC(TextureSubImage2DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			xoffs,
-			yoffs,
-			width,
-			height,
-			GLenum(format),
-			GLenum(type),
-			data
-		);
-		OGLPLUS_CHECK(
-			TextureSubImage2DEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(format).
-			Index(level)
-		);
+	ObjZeroOps& SubImage2D(GLint level,
+	  GLint xoffs,
+	  GLint yoffs,
+	  SizeType width,
+	  SizeType height,
+	  PixelDataFormat format,
+	  Property::PixDataType type,
+	  const void* data) {
+		OGLPLUS_GLFUNC(TextureSubImage2DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  xoffs,
+		  yoffs,
+		  width,
+		  height,
+		  GLenum(format),
+		  GLenum(type),
+		  data);
+		OGLPLUS_CHECK(TextureSubImage2DEXT,
+		  ObjectError,
+		  Object(*this).EnumParam(format).Index(level));
 		return *this;
 	}
 
@@ -827,45 +676,33 @@ public:
 	 *  @glfunref{TexSubImage2D}
 	 */
 	ObjZeroOps& SubImage2D(
-		const images::Image& image,
-		GLint xoffs,
-		GLint yoffs,
-		GLint level = 0
-	);
+	  const images::Image& image, GLint xoffs, GLint yoffs, GLint level = 0);
 
 	/// Specifies a one dimensional texture image
 	/**
 	 *  @glsymbols
 	 *  @glfunref{TexImage1D}
 	 */
-	ObjZeroOps& Image1D(
-		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		GLint border,
-		PixelDataFormat format,
-		Property::PixDataType type,
-		const void* data
-	)
-	{
-		OGLPLUS_GLFUNC(TextureImage1DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			GLint(internal_format),
-			width,
-			border,
-			GLenum(format),
-			GLenum(type),
-			data
-		);
-		OGLPLUS_CHECK(
-			TextureImage1DEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(internal_format).
-			Index(level)
-		);
+	ObjZeroOps& Image1D(GLint level,
+	  PixelDataInternalFormat internal_format,
+	  SizeType width,
+	  GLint border,
+	  PixelDataFormat format,
+	  Property::PixDataType type,
+	  const void* data) {
+		OGLPLUS_GLFUNC(TextureImage1DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  GLint(internal_format),
+		  width,
+		  border,
+		  GLenum(format),
+		  GLenum(type),
+		  data);
+		OGLPLUS_CHECK(TextureImage1DEXT,
+		  ObjectError,
+		  Object(*this).EnumParam(internal_format).Index(level));
 		return *this;
 	}
 
@@ -875,42 +712,31 @@ public:
 	 *  @glfunref{TexImage1D}
 	 */
 	ObjZeroOps& Image1D(
-		const images::Image& image,
-		GLint level = 0,
-		GLint border = 0
-	);
+	  const images::Image& image, GLint level = 0, GLint border = 0);
 
 	/// Specifies a one dimensional texture sub image
 	/**
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage1D}
 	 */
-	ObjZeroOps& SubImage1D(
-		GLint level,
-		GLint xoffs,
-		SizeType width,
-		PixelDataFormat format,
-		Property::PixDataType type,
-		const void* data
-	)
-	{
-		OGLPLUS_GLFUNC(TextureSubImage1DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			xoffs,
-			width,
-			GLenum(format),
-			GLenum(type),
-			data
-		);
-		OGLPLUS_CHECK(
-			TextureSubImage1DEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(format).
-			Index(level)
-		);
+	ObjZeroOps& SubImage1D(GLint level,
+	  GLint xoffs,
+	  SizeType width,
+	  PixelDataFormat format,
+	  Property::PixDataType type,
+	  const void* data) {
+		OGLPLUS_GLFUNC(TextureSubImage1DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  xoffs,
+		  width,
+		  GLenum(format),
+		  GLenum(type),
+		  data);
+		OGLPLUS_CHECK(TextureSubImage1DEXT,
+		  ObjectError,
+		  Object(*this).EnumParam(format).Index(level));
 		return *this;
 	}
 
@@ -920,10 +746,19 @@ public:
 	 *  @glfunref{TexSubImage1D}
 	 */
 	ObjZeroOps& SubImage1D(
-		const images::Image& image,
-		GLint xoffs,
-		GLint level = 0
-	);
+	  const images::Image& image, GLint xoffs, GLint level = 0);
+
+	/// Specifies a texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage3D}
+	 *  @glfunref{TexImage2D}
+	 *  @glfunref{TexImage1D}
+	 */
+	ObjZeroOps& Image(Target tex_target,
+	  const images::Image& image,
+	  GLint level = 0,
+	  GLint border = 0);
 
 	/// Specifies a texture image
 	/**
@@ -933,25 +768,7 @@ public:
 	 *  @glfunref{TexImage1D}
 	 */
 	ObjZeroOps& Image(
-		Target tex_target,
-		const images::Image& image,
-		GLint level = 0,
-		GLint border = 0
-	);
-
-	/// Specifies a texture image
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexImage3D}
-	 *  @glfunref{TexImage2D}
-	 *  @glfunref{TexImage1D}
-	 */
-	ObjZeroOps& Image(
-		const images::Image& image,
-		GLint level = 0,
-		GLint border = 0
-	)
-	{
+	  const images::Image& image, GLint level = 0, GLint border = 0) {
 		return Image(target, image, level, border);
 	}
 
@@ -962,12 +779,10 @@ public:
 	 *  @glfunref{TexImage2D}
 	 *  @glfunref{TexImage1D}
 	 */
-	ObjZeroOps& Image(
-		Target tex_target,
-		const images::ImageSpec& image_spec,
-		GLint level = 0,
-		GLint border = 0
-	);
+	ObjZeroOps& Image(Target tex_target,
+	  const images::ImageSpec& image_spec,
+	  GLint level = 0,
+	  GLint border = 0);
 
 	/// Specifies a texture image
 	/**
@@ -977,11 +792,7 @@ public:
 	 *  @glfunref{TexImage1D}
 	 */
 	ObjZeroOps& Image(
-		const images::ImageSpec& image_spec,
-		GLint level = 0,
-		GLint border = 0
-	)
-	{
+	  const images::ImageSpec& image_spec, GLint level = 0, GLint border = 0) {
 		return Image(target, image_spec, level, border);
 	}
 
@@ -990,34 +801,26 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexImage2D}
 	 */
-	ObjZeroOps& CopyImage2D(
-		GLint level,
-		PixelDataInternalFormat internal_format,
-		GLint x,
-		GLint y,
-		SizeType width,
-		SizeType height,
-		GLint border
-	)
-	{
-		OGLPLUS_GLFUNC(CopyTextureImage2DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			GLenum(internal_format),
-			x,
-			y,
-			width,
-			height,
-			border
-		);
-		OGLPLUS_CHECK(
-			CopyTextureImage2DEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(internal_format).
-			Index(level)
-		);
+	ObjZeroOps& CopyImage2D(GLint level,
+	  PixelDataInternalFormat internal_format,
+	  GLint x,
+	  GLint y,
+	  SizeType width,
+	  SizeType height,
+	  GLint border) {
+		OGLPLUS_GLFUNC(CopyTextureImage2DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  GLenum(internal_format),
+		  x,
+		  y,
+		  width,
+		  height,
+		  border);
+		OGLPLUS_CHECK(CopyTextureImage2DEXT,
+		  ObjectError,
+		  Object(*this).EnumParam(internal_format).Index(level));
 		return *this;
 	}
 
@@ -1026,32 +829,24 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexImage1D}
 	 */
-	ObjZeroOps& CopyImage1D(
-		GLint level,
-		PixelDataInternalFormat internal_format,
-		GLint x,
-		GLint y,
-		SizeType width,
-		GLint border
-	)
-	{
-		OGLPLUS_GLFUNC(CopyTextureImage1DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			GLenum(internal_format),
-			x,
-			y,
-			width,
-			border
-		);
-		OGLPLUS_CHECK(
-			CopyTextureImage1DEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(internal_format).
-			Index(level)
-		);
+	ObjZeroOps& CopyImage1D(GLint level,
+	  PixelDataInternalFormat internal_format,
+	  GLint x,
+	  GLint y,
+	  SizeType width,
+	  GLint border) {
+		OGLPLUS_GLFUNC(CopyTextureImage1DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  GLenum(internal_format),
+		  x,
+		  y,
+		  width,
+		  border);
+		OGLPLUS_CHECK(CopyTextureImage1DEXT,
+		  ObjectError,
+		  Object(*this).EnumParam(internal_format).Index(level));
 		return *this;
 	}
 
@@ -1060,35 +855,27 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexSubImage3D}
 	 */
-	ObjZeroOps& CopySubImage3D(
-		GLint level,
-		GLint xoffs,
-		GLint yoffs,
-		GLint zoffs,
-		GLint x,
-		GLint y,
-		SizeType width,
-		SizeType height
-	)
-	{
-		OGLPLUS_GLFUNC(CopyTextureSubImage3DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			xoffs,
-			yoffs,
-			zoffs,
-			x,
-			y,
-			width,
-			height
-		);
+	ObjZeroOps& CopySubImage3D(GLint level,
+	  GLint xoffs,
+	  GLint yoffs,
+	  GLint zoffs,
+	  GLint x,
+	  GLint y,
+	  SizeType width,
+	  SizeType height) {
+		OGLPLUS_GLFUNC(CopyTextureSubImage3DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  xoffs,
+		  yoffs,
+		  zoffs,
+		  x,
+		  y,
+		  width,
+		  height);
 		OGLPLUS_CHECK(
-			CopyTextureSubImage3DEXT,
-			ObjectError,
-			Object(*this).
-			Index(level)
-		);
+		  CopyTextureSubImage3DEXT, ObjectError, Object(*this).Index(level));
 		return *this;
 	}
 
@@ -1097,33 +884,17 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexSubImage2D}
 	 */
-	ObjZeroOps& CopySubImage2D(
-		GLint level,
-		GLint xoffs,
-		GLint yoffs,
-		GLint x,
-		GLint y,
-		SizeType width,
-		SizeType height
-	)
-	{
-		OGLPLUS_GLFUNC(CopyTextureSubImage2DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			xoffs,
-			yoffs,
-			x,
-			y,
-			width,
-			height
-		);
+	ObjZeroOps& CopySubImage2D(GLint level,
+	  GLint xoffs,
+	  GLint yoffs,
+	  GLint x,
+	  GLint y,
+	  SizeType width,
+	  SizeType height) {
+		OGLPLUS_GLFUNC(CopyTextureSubImage2DEXT)
+		(_obj_name(), GLenum(target), level, xoffs, yoffs, x, y, width, height);
 		OGLPLUS_CHECK(
-			CopyTextureSubImage2DEXT,
-			ObjectError,
-			Object(*this).
-			Index(level)
-		);
+		  CopyTextureSubImage2DEXT, ObjectError, Object(*this).Index(level));
 		return *this;
 	}
 
@@ -1133,28 +904,11 @@ public:
 	 *  @glfunref{CopyTexSubImage1D}
 	 */
 	ObjZeroOps& CopySubImage1D(
-		GLint level,
-		GLint xoffs,
-		GLint x,
-		GLint y,
-		SizeType width
-	)
-	{
-		OGLPLUS_GLFUNC(CopyTextureSubImage1DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			xoffs,
-			x,
-			y,
-			width
-		);
+	  GLint level, GLint xoffs, GLint x, GLint y, SizeType width) {
+		OGLPLUS_GLFUNC(CopyTextureSubImage1DEXT)
+		(_obj_name(), GLenum(target), level, xoffs, x, y, width);
 		OGLPLUS_CHECK(
-			CopyTextureSubImage1DEXT,
-			ObjectError,
-			Object(*this).
-			Index(level)
-		);
+		  CopyTextureSubImage1DEXT, ObjectError, Object(*this).Index(level));
 		return *this;
 	}
 
@@ -1163,36 +917,28 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexImage3D}
 	 */
-	ObjZeroOps& CompressedImage3D(
-		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height,
-		SizeType depth,
-		GLint border,
-		SizeType image_size,
-		const void* data
-	)
-	{
-		OGLPLUS_GLFUNC(CompressedTextureImage3DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			GLenum(internal_format),
-			width,
-			height,
-			depth,
-			border,
-			image_size,
-			data
-		);
-		OGLPLUS_CHECK(
-			CompressedTextureImage3DEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(internal_format).
-			Index(level)
-		);
+	ObjZeroOps& CompressedImage3D(GLint level,
+	  PixelDataInternalFormat internal_format,
+	  SizeType width,
+	  SizeType height,
+	  SizeType depth,
+	  GLint border,
+	  SizeType image_size,
+	  const void* data) {
+		OGLPLUS_GLFUNC(CompressedTextureImage3DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  GLenum(internal_format),
+		  width,
+		  height,
+		  depth,
+		  border,
+		  image_size,
+		  data);
+		OGLPLUS_CHECK(CompressedTextureImage3DEXT,
+		  ObjectError,
+		  Object(*this).EnumParam(internal_format).Index(level));
 		return *this;
 	}
 
@@ -1201,34 +947,26 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexImage2D}
 	 */
-	ObjZeroOps& CompressedImage2D(
-		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		SizeType height,
-		GLint border,
-		SizeType image_size,
-		const void* data
-	)
-	{
-		OGLPLUS_GLFUNC(CompressedTextureImage2DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			GLenum(internal_format),
-			width,
-			height,
-			border,
-			image_size,
-			data
-		);
-		OGLPLUS_CHECK(
-			CompressedTextureImage2DEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(internal_format).
-			Index(level)
-		);
+	ObjZeroOps& CompressedImage2D(GLint level,
+	  PixelDataInternalFormat internal_format,
+	  SizeType width,
+	  SizeType height,
+	  GLint border,
+	  SizeType image_size,
+	  const void* data) {
+		OGLPLUS_GLFUNC(CompressedTextureImage2DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  GLenum(internal_format),
+		  width,
+		  height,
+		  border,
+		  image_size,
+		  data);
+		OGLPLUS_CHECK(CompressedTextureImage2DEXT,
+		  ObjectError,
+		  Object(*this).EnumParam(internal_format).Index(level));
 		return *this;
 	}
 
@@ -1237,32 +975,24 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexImage1D}
 	 */
-	ObjZeroOps& CompressedImage1D(
-		GLint level,
-		PixelDataInternalFormat internal_format,
-		SizeType width,
-		GLint border,
-		SizeType image_size,
-		const void* data
-	)
-	{
-		OGLPLUS_GLFUNC(CompressedTextureImage1DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			GLenum(internal_format),
-			width,
-			border,
-			image_size,
-			data
-		);
-		OGLPLUS_CHECK(
-			CompressedTextureImage1DEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(internal_format).
-			Index(level)
-		);
+	ObjZeroOps& CompressedImage1D(GLint level,
+	  PixelDataInternalFormat internal_format,
+	  SizeType width,
+	  GLint border,
+	  SizeType image_size,
+	  const void* data) {
+		OGLPLUS_GLFUNC(CompressedTextureImage1DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  GLenum(internal_format),
+		  width,
+		  border,
+		  image_size,
+		  data);
+		OGLPLUS_CHECK(CompressedTextureImage1DEXT,
+		  ObjectError,
+		  Object(*this).EnumParam(internal_format).Index(level));
 		return *this;
 	}
 
@@ -1271,40 +1001,32 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexSubImage3D}
 	 */
-	ObjZeroOps& CompressedSubImage3D(
-		GLint level,
-		GLint xoffs,
-		GLint yoffs,
-		GLint zoffs,
-		SizeType width,
-		SizeType height,
-		SizeType depth,
-		PixelDataFormat format,
-		SizeType image_size,
-		const void* data
-	)
-	{
-		OGLPLUS_GLFUNC(CompressedTextureSubImage3DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			xoffs,
-			yoffs,
-			zoffs,
-			width,
-			height,
-			depth,
-			GLenum(format),
-			image_size,
-			data
-		);
-		OGLPLUS_CHECK(
-			CompressedTextureSubImage3DEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(format).
-			Index(level)
-		);
+	ObjZeroOps& CompressedSubImage3D(GLint level,
+	  GLint xoffs,
+	  GLint yoffs,
+	  GLint zoffs,
+	  SizeType width,
+	  SizeType height,
+	  SizeType depth,
+	  PixelDataFormat format,
+	  SizeType image_size,
+	  const void* data) {
+		OGLPLUS_GLFUNC(CompressedTextureSubImage3DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  xoffs,
+		  yoffs,
+		  zoffs,
+		  width,
+		  height,
+		  depth,
+		  GLenum(format),
+		  image_size,
+		  data);
+		OGLPLUS_CHECK(CompressedTextureSubImage3DEXT,
+		  ObjectError,
+		  Object(*this).EnumParam(format).Index(level));
 		return *this;
 	}
 
@@ -1313,36 +1035,28 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexSubImage2D}
 	 */
-	ObjZeroOps& CompressedSubImage2D(
-		GLint level,
-		GLint xoffs,
-		GLint yoffs,
-		SizeType width,
-		SizeType height,
-		PixelDataFormat format,
-		SizeType image_size,
-		const void* data
-	)
-	{
-		OGLPLUS_GLFUNC(CompressedTextureSubImage2DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			xoffs,
-			yoffs,
-			width,
-			height,
-			GLenum(format),
-			image_size,
-			data
-		);
-		OGLPLUS_CHECK(
-			CompressedTextureSubImage2DEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(format).
-			Index(level)
-		);
+	ObjZeroOps& CompressedSubImage2D(GLint level,
+	  GLint xoffs,
+	  GLint yoffs,
+	  SizeType width,
+	  SizeType height,
+	  PixelDataFormat format,
+	  SizeType image_size,
+	  const void* data) {
+		OGLPLUS_GLFUNC(CompressedTextureSubImage2DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  xoffs,
+		  yoffs,
+		  width,
+		  height,
+		  GLenum(format),
+		  image_size,
+		  data);
+		OGLPLUS_CHECK(CompressedTextureSubImage2DEXT,
+		  ObjectError,
+		  Object(*this).EnumParam(format).Index(level));
 		return *this;
 	}
 
@@ -1351,32 +1065,24 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexSubImage1D}
 	 */
-	ObjZeroOps& CompressedSubImage1D(
-		GLint level,
-		GLint xoffs,
-		SizeType width,
-		PixelDataFormat format,
-		SizeType image_size,
-		const void* data
-	)
-	{
-		OGLPLUS_GLFUNC(CompressedTextureSubImage1DEXT)(
-			_obj_name(),
-			GLenum(target),
-			level,
-			xoffs,
-			width,
-			GLenum(format),
-			image_size,
-			data
-		);
-		OGLPLUS_CHECK(
-			CompressedTextureSubImage1DEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(format).
-			Index(level)
-		);
+	ObjZeroOps& CompressedSubImage1D(GLint level,
+	  GLint xoffs,
+	  SizeType width,
+	  PixelDataFormat format,
+	  SizeType image_size,
+	  const void* data) {
+		OGLPLUS_GLFUNC(CompressedTextureSubImage1DEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  level,
+		  xoffs,
+		  width,
+		  GLenum(format),
+		  image_size,
+		  data);
+		OGLPLUS_CHECK(CompressedTextureSubImage1DEXT,
+		  ObjectError,
+		  Object(*this).EnumParam(format).Index(level));
 		return *this;
 	}
 
@@ -1388,23 +1094,15 @@ public:
 	 *  @glfunref{TexBuffer}
 	 */
 	ObjZeroOps& Buffer(
-		PixelDataInternalFormat internal_format,
-		BufferName buffer
-	)
-	{
-		OGLPLUS_GLFUNC(TextureBufferEXT)(
-			_obj_name(),
-			GLenum(target),
-			GLenum(internal_format),
-			GetGLName(buffer)
-		);
-		OGLPLUS_CHECK(
-			TextureBufferEXT,
-			ObjectPairError,
-			Subject(buffer).
-			Object(*this).
-			EnumParam(internal_format)
-		);
+	  PixelDataInternalFormat internal_format, BufferName buffer) {
+		OGLPLUS_GLFUNC(TextureBufferEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  GLenum(internal_format),
+		  GetGLName(buffer));
+		OGLPLUS_CHECK(TextureBufferEXT,
+		  ObjectPairError,
+		  Subject(buffer).Object(*this).EnumParam(internal_format));
 		return *this;
 	}
 #endif
@@ -1415,8 +1113,7 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_BASE_LEVEL}
 	 */
-	GLuint BaseLevel(void) const
-	{
+	GLuint BaseLevel(void) const {
 		return GLuint(GetIntParam(GL_TEXTURE_BASE_LEVEL));
 	}
 
@@ -1426,20 +1123,11 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_BASE_LEVEL}
 	 */
-	ObjZeroOps& BaseLevel(GLuint level)
-	{
-		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_BASE_LEVEL,
-			GLint(level)
-		);
+	ObjZeroOps& BaseLevel(GLuint level) {
+		OGLPLUS_GLFUNC(TextureParameteriEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_BASE_LEVEL, GLint(level));
 		OGLPLUS_CHECK(
-			TextureParameteriEXT,
-			ObjectError,
-			Object(*this).
-			Index(level)
-		);
+		  TextureParameteriEXT, ObjectError, Object(*this).Index(level));
 		return *this;
 	}
 
@@ -1449,20 +1137,11 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	Vector<GLfloat, 4> BorderColor(TypeTag<GLfloat>) const
-	{
+	Vector<GLfloat, 4> BorderColor(TypeTag<GLfloat>) const {
 		GLfloat result[4];
-		OGLPLUS_GLFUNC(GetTextureParameterfvEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_BORDER_COLOR,
-			result
-		);
-		OGLPLUS_CHECK(
-			GetTextureParameterfvEXT,
-			ObjectError,
-			Object(*this)
-		);
+		OGLPLUS_GLFUNC(GetTextureParameterfvEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_BORDER_COLOR, result);
+		OGLPLUS_CHECK(GetTextureParameterfvEXT, ObjectError, Object(*this));
 		return Vector<GLfloat, 4>(result, 4);
 	}
 
@@ -1472,19 +1151,10 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	ObjZeroOps& BorderColor(Vector<GLfloat, 4> color)
-	{
-		OGLPLUS_GLFUNC(TextureParameterfvEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_BORDER_COLOR,
-			Data(color)
-		);
-		OGLPLUS_CHECK(
-			TextureParameterfvEXT,
-			ObjectError,
-			Object(*this)
-		);
+	ObjZeroOps& BorderColor(Vector<GLfloat, 4> color) {
+		OGLPLUS_GLFUNC(TextureParameterfvEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_BORDER_COLOR, Data(color));
+		OGLPLUS_CHECK(TextureParameterfvEXT, ObjectError, Object(*this));
 		return *this;
 	}
 
@@ -1494,20 +1164,11 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	Vector<GLint, 4> BorderColor(TypeTag<GLint>) const
-	{
+	Vector<GLint, 4> BorderColor(TypeTag<GLint>) const {
 		GLint result[4];
-		OGLPLUS_GLFUNC(GetTextureParameterIivEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_BORDER_COLOR,
-			result
-		);
-		OGLPLUS_CHECK(
-			GetTextureParameterIivEXT,
-			ObjectError,
-			Object(*this)
-		);
+		OGLPLUS_GLFUNC(GetTextureParameterIivEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_BORDER_COLOR, result);
+		OGLPLUS_CHECK(GetTextureParameterIivEXT, ObjectError, Object(*this));
 		return Vector<GLint, 4>(result, 4);
 	}
 
@@ -1517,19 +1178,10 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	ObjZeroOps& BorderColor(Vector<GLint, 4> color)
-	{
-		OGLPLUS_GLFUNC(TextureParameterIivEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_BORDER_COLOR,
-			Data(color)
-		);
-		OGLPLUS_CHECK(
-			TextureParameterIivEXT,
-			ObjectError,
-			Object(*this)
-		);
+	ObjZeroOps& BorderColor(Vector<GLint, 4> color) {
+		OGLPLUS_GLFUNC(TextureParameterIivEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_BORDER_COLOR, Data(color));
+		OGLPLUS_CHECK(TextureParameterIivEXT, ObjectError, Object(*this));
 		return *this;
 	}
 
@@ -1539,20 +1191,11 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	Vector<GLuint, 4> BorderColor(TypeTag<GLuint>) const
-	{
+	Vector<GLuint, 4> BorderColor(TypeTag<GLuint>) const {
 		GLuint result[4];
-		OGLPLUS_GLFUNC(GetTextureParameterIuivEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_BORDER_COLOR,
-			result
-		);
-		OGLPLUS_CHECK(
-			GetTextureParameterIuivEXT,
-			ObjectError,
-			Object(*this)
-		);
+		OGLPLUS_GLFUNC(GetTextureParameterIuivEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_BORDER_COLOR, result);
+		OGLPLUS_CHECK(GetTextureParameterIuivEXT, ObjectError, Object(*this));
 		return Vector<GLuint, 4>(result, 4);
 	}
 
@@ -1562,19 +1205,10 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	ObjZeroOps& BorderColor(Vector<GLuint, 4> color)
-	{
-		OGLPLUS_GLFUNC(TextureParameterIuivEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_BORDER_COLOR,
-			Data(color)
-		);
-		OGLPLUS_CHECK(
-			TextureParameterIuivEXT,
-			ObjectError,
-			Object(*this)
-		);
+	ObjZeroOps& BorderColor(Vector<GLuint, 4> color) {
+		OGLPLUS_GLFUNC(TextureParameterIuivEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_BORDER_COLOR, Data(color));
+		OGLPLUS_CHECK(TextureParameterIuivEXT, ObjectError, Object(*this));
 		return *this;
 	}
 
@@ -1584,11 +1218,8 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_COMPARE_MODE}
 	 */
-	TextureCompareMode CompareMode(void) const
-	{
-		return TextureCompareMode(GetIntParam(
-			GL_TEXTURE_COMPARE_MODE
-		));
+	TextureCompareMode CompareMode(void) const {
+		return TextureCompareMode(GetIntParam(GL_TEXTURE_COMPARE_MODE));
 	}
 
 	/// Sets the compare mode (TEXTURE_COMPARE_MODE)
@@ -1597,20 +1228,11 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_COMPARE_MODE}
 	 */
-	ObjZeroOps& CompareMode(TextureCompareMode mode)
-	{
-		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_COMPARE_MODE,
-			GLint(mode)
-		);
+	ObjZeroOps& CompareMode(TextureCompareMode mode) {
+		OGLPLUS_GLFUNC(TextureParameteriEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_COMPARE_MODE, GLint(mode));
 		OGLPLUS_CHECK(
-			TextureParameteriEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(mode)
-		);
+		  TextureParameteriEXT, ObjectError, Object(*this).EnumParam(mode));
 		return *this;
 	}
 
@@ -1620,11 +1242,8 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_COMPARE_FUNC}
 	 */
-	CompareFunction CompareFunc(void) const
-	{
-		return CompareFunction(GetIntParam(
-			GL_TEXTURE_COMPARE_FUNC
-		));
+	CompareFunction CompareFunc(void) const {
+		return CompareFunction(GetIntParam(GL_TEXTURE_COMPARE_FUNC));
 	}
 
 	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
@@ -1633,20 +1252,11 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_COMPARE_FUNC}
 	 */
-	ObjZeroOps& CompareFunc(CompareFunction func)
-	{
-		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_COMPARE_FUNC,
-			GLint(func)
-		);
+	ObjZeroOps& CompareFunc(CompareFunction func) {
+		OGLPLUS_GLFUNC(TextureParameteriEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_COMPARE_FUNC, GLint(func));
 		OGLPLUS_CHECK(
-			TextureParameteriEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(func)
-		);
+		  TextureParameteriEXT, ObjectError, Object(*this).EnumParam(func));
 		return *this;
 	}
 
@@ -1656,8 +1266,7 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_LOD_BIAS}
 	 */
-	GLfloat LODBias(void) const
-	{
+	GLfloat LODBias(void) const {
 		return GetFloatParam(GL_TEXTURE_LOD_BIAS);
 	}
 
@@ -1667,19 +1276,10 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_LOD_BIAS}
 	 */
-	ObjZeroOps& LODBias(GLfloat value)
-	{
-		OGLPLUS_GLFUNC(TextureParameterfEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_LOD_BIAS,
-			value
-		);
-		OGLPLUS_CHECK(
-			TextureParameterfEXT,
-			ObjectError,
-			Object(*this)
-		);
+	ObjZeroOps& LODBias(GLfloat value) {
+		OGLPLUS_GLFUNC(TextureParameterfEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_LOD_BIAS, value);
+		OGLPLUS_CHECK(TextureParameterfEXT, ObjectError, Object(*this));
 		return *this;
 	}
 
@@ -1690,32 +1290,15 @@ public:
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
-	ObjZeroOps& Filter(TextureFilter filter)
-	{
-		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_MIN_FILTER,
-			GLint(filter)
-		);
+	ObjZeroOps& Filter(TextureFilter filter) {
+		OGLPLUS_GLFUNC(TextureParameteriEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_MIN_FILTER, GLint(filter));
 		OGLPLUS_CHECK(
-			TextureParameteriEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(filter)
-		);
-		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_MAG_FILTER,
-			GLint(filter)
-		);
+		  TextureParameteriEXT, ObjectError, Object(*this).EnumParam(filter));
+		OGLPLUS_GLFUNC(TextureParameteriEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_MAG_FILTER, GLint(filter));
 		OGLPLUS_CHECK(
-			TextureParameteriEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(filter)
-		);
+		  TextureParameteriEXT, ObjectError, Object(*this).EnumParam(filter));
 		return *this;
 	}
 
@@ -1725,11 +1308,8 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
-	TextureMagFilter MagFilter(void) const
-	{
-		return TextureMagFilter(GetIntParam(
-			GL_TEXTURE_MAG_FILTER
-		));
+	TextureMagFilter MagFilter(void) const {
+		return TextureMagFilter(GetIntParam(GL_TEXTURE_MAG_FILTER));
 	}
 
 	/// Sets the magnification filter (TEXTURE_MAG_FILTER)
@@ -1738,20 +1318,11 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
-	ObjZeroOps& MagFilter(TextureMagFilter filter)
-	{
-		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_MAG_FILTER,
-			GLint(filter)
-		);
+	ObjZeroOps& MagFilter(TextureMagFilter filter) {
+		OGLPLUS_GLFUNC(TextureParameteriEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_MAG_FILTER, GLint(filter));
 		OGLPLUS_CHECK(
-			TextureParameteriEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(filter)
-		);
+		  TextureParameteriEXT, ObjectError, Object(*this).EnumParam(filter));
 		return *this;
 	}
 
@@ -1761,11 +1332,8 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 */
-	TextureMinFilter MinFilter(void) const
-	{
-		return TextureMinFilter(GetIntParam(
-			GL_TEXTURE_MIN_FILTER
-		));
+	TextureMinFilter MinFilter(void) const {
+		return TextureMinFilter(GetIntParam(GL_TEXTURE_MIN_FILTER));
 	}
 
 	/// Sets the minification filter (TEXTURE_MIN_FILTER)
@@ -1774,20 +1342,11 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 */
-	ObjZeroOps& MinFilter(TextureMinFilter filter)
-	{
-		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_MIN_FILTER,
-			GLint(filter)
-		);
+	ObjZeroOps& MinFilter(TextureMinFilter filter) {
+		OGLPLUS_GLFUNC(TextureParameteriEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_MIN_FILTER, GLint(filter));
 		OGLPLUS_CHECK(
-			TextureParameteriEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(filter)
-		);
+		  TextureParameteriEXT, ObjectError, Object(*this).EnumParam(filter));
 		return *this;
 	}
 
@@ -1797,8 +1356,7 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_MIN_LOD}
 	 */
-	GLfloat MinLOD(void) const
-	{
+	GLfloat MinLOD(void) const {
 		return GetFloatParam(GL_TEXTURE_MIN_LOD);
 	}
 
@@ -1808,19 +1366,10 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_MIN_LOD}
 	 */
-	ObjZeroOps& MinLOD(GLfloat value)
-	{
-		OGLPLUS_GLFUNC(TextureParameterfEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_MIN_LOD,
-			value
-		);
-		OGLPLUS_CHECK(
-			TextureParameterfEXT,
-			ObjectError,
-			Object(*this)
-		);
+	ObjZeroOps& MinLOD(GLfloat value) {
+		OGLPLUS_GLFUNC(TextureParameterfEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_MIN_LOD, value);
+		OGLPLUS_CHECK(TextureParameterfEXT, ObjectError, Object(*this));
 		return *this;
 	}
 
@@ -1830,8 +1379,7 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_MAX_LOD}
 	 */
-	GLfloat MaxLOD(void) const
-	{
+	GLfloat MaxLOD(void) const {
 		return GetFloatParam(GL_TEXTURE_MAX_LOD);
 	}
 
@@ -1841,19 +1389,10 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_MAX_LOD}
 	 */
-	ObjZeroOps& MaxLOD(GLfloat value)
-	{
-		OGLPLUS_GLFUNC(TextureParameterfEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_MAX_LOD,
-			value
-		);
-		OGLPLUS_CHECK(
-			TextureParameterfEXT,
-			ObjectError,
-			Object(*this)
-		);
+	ObjZeroOps& MaxLOD(GLfloat value) {
+		OGLPLUS_GLFUNC(TextureParameterfEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_MAX_LOD, value);
+		OGLPLUS_CHECK(TextureParameterfEXT, ObjectError, Object(*this));
 		return *this;
 	}
 
@@ -1863,8 +1402,7 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_MAX_LEVEL}
 	 */
-	GLint MaxLevel(void) const
-	{
+	GLint MaxLevel(void) const {
 		return GetIntParam(GL_TEXTURE_MAX_LEVEL);
 	}
 
@@ -1874,19 +1412,10 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_MAX_LEVEL}
 	 */
-	ObjZeroOps& MaxLevel(GLint value)
-	{
-		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_MAX_LEVEL,
-			value
-		);
-		OGLPLUS_CHECK(
-			TextureParameteriEXT,
-			ObjectError,
-			Object(*this)
-		);
+	ObjZeroOps& MaxLevel(GLint value) {
+		OGLPLUS_GLFUNC(TextureParameteriEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_MAX_LEVEL, value);
+		OGLPLUS_CHECK(TextureParameteriEXT, ObjectError, Object(*this));
 		return *this;
 	}
 
@@ -1896,9 +1425,8 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{MAX_TEXTURE_MAX_ANISOTROPY_EXT}
 	 */
-	GLfloat MaxAnisotropy(void) const
-	{
-#ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+	GLfloat MaxAnisotropy(void) const {
+#ifdef GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
 		return GetFloatParam(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
 #else
 		return GLfloat(1);
@@ -1911,9 +1439,8 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
 	 */
-	GLfloat Anisotropy(void) const
-	{
-#ifdef  GL_TEXTURE_MAX_ANISOTROPY_EXT
+	GLfloat Anisotropy(void) const {
+#ifdef GL_TEXTURE_MAX_ANISOTROPY_EXT
 		return GetFloatParam(GL_TEXTURE_MAX_ANISOTROPY_EXT);
 #else
 		return GLfloat(1);
@@ -1926,20 +1453,11 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
 	 */
-	ObjZeroOps& Anisotropy(GLfloat value)
-	{
-#ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
-		OGLPLUS_GLFUNC(TextureParameterfEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_MAX_ANISOTROPY_EXT,
-			value
-		);
-		OGLPLUS_CHECK(
-			TextureParameterfEXT,
-			ObjectError,
-			Object(*this)
-		);
+	ObjZeroOps& Anisotropy(GLfloat value) {
+#ifdef GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+		OGLPLUS_GLFUNC(TextureParameterfEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_MAX_ANISOTROPY_EXT, value);
+		OGLPLUS_CHECK(TextureParameterfEXT, ObjectError, Object(*this));
 #else
 		OGLPLUS_FAKE_USE(value);
 #endif
@@ -1953,11 +1471,8 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetTextureParameter}
 	 */
-	TextureSwizzle Swizzle(TextureSwizzleCoord coord) const
-	{
-		return TextureSwizzle(GetIntParam(
-			GLenum(coord)
-		));
+	TextureSwizzle Swizzle(TextureSwizzleCoord coord) const {
+		return TextureSwizzle(GetIntParam(GLenum(coord)));
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_*)
@@ -1966,23 +1481,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TextureParameter}
 	 */
-	ObjZeroOps& Swizzle(
-		TextureSwizzleCoord coord,
-		TextureSwizzle mode
-	)
-	{
-		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_obj_name(),
-			GLenum(target),
-			GLenum(coord),
-			GLint(mode)
-		);
+	ObjZeroOps& Swizzle(TextureSwizzleCoord coord, TextureSwizzle mode) {
+		OGLPLUS_GLFUNC(TextureParameteriEXT)
+		(_obj_name(), GLenum(target), GLenum(coord), GLint(mode));
 		OGLPLUS_CHECK(
-			TextureParameteriEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(mode)
-		);
+		  TextureParameteriEXT, ObjectError, Object(*this).EnumParam(mode));
 		return *this;
 	}
 
@@ -1993,8 +1496,7 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_R}
 	 */
-	TextureSwizzle SwizzleR(void) const
-	{
+	TextureSwizzle SwizzleR(void) const {
 		return Swizzle(TextureSwizzleCoord::R);
 	}
 
@@ -2005,8 +1507,7 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_R}
 	 */
-	ObjZeroOps& SwizzleR(TextureSwizzle mode)
-	{
+	ObjZeroOps& SwizzleR(TextureSwizzle mode) {
 		return Swizzle(TextureSwizzleCoord::R, mode);
 	}
 
@@ -2017,8 +1518,7 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_G}
 	 */
-	TextureSwizzle SwizzleG(void) const
-	{
+	TextureSwizzle SwizzleG(void) const {
 		return Swizzle(TextureSwizzleCoord::G);
 	}
 
@@ -2029,8 +1529,7 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_G}
 	 */
-	ObjZeroOps& SwizzleG(TextureSwizzle mode)
-	{
+	ObjZeroOps& SwizzleG(TextureSwizzle mode) {
 		return Swizzle(TextureSwizzleCoord::G, mode);
 	}
 
@@ -2041,8 +1540,7 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_B}
 	 */
-	TextureSwizzle SwizzleB(void) const
-	{
+	TextureSwizzle SwizzleB(void) const {
 		return Swizzle(TextureSwizzleCoord::B);
 	}
 
@@ -2053,8 +1551,7 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_B}
 	 */
-	ObjZeroOps& SwizzleB(TextureSwizzle mode)
-	{
+	ObjZeroOps& SwizzleB(TextureSwizzle mode) {
 		return Swizzle(TextureSwizzleCoord::B, mode);
 	}
 
@@ -2065,8 +1562,7 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_A}
 	 */
-	TextureSwizzle SwizzleA(void) const
-	{
+	TextureSwizzle SwizzleA(void) const {
 		return Swizzle(TextureSwizzleCoord::A);
 	}
 
@@ -2077,8 +1573,7 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_A}
 	 */
-	ObjZeroOps& SwizzleA(TextureSwizzle mode)
-	{
+	ObjZeroOps& SwizzleA(TextureSwizzle mode) {
 		return Swizzle(TextureSwizzleCoord::A, mode);
 	}
 
@@ -2089,20 +1584,11 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
-	TextureSwizzleTuple SwizzleRGBA(void) const
-	{
+	TextureSwizzleTuple SwizzleRGBA(void) const {
 		TextureSwizzleTuple result;
-		OGLPLUS_GLFUNC(GetTextureParameterivEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_SWIZZLE_RGBA,
-			result.Values()
-		);
-		OGLPLUS_CHECK(
-			GetTextureParameterivEXT,
-			ObjectError,
-			Object(*this)
-		);
+		OGLPLUS_GLFUNC(GetTextureParameterivEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_SWIZZLE_RGBA, result.Values());
+		OGLPLUS_CHECK(GetTextureParameterivEXT, ObjectError, Object(*this));
 		return result;
 	}
 
@@ -2113,22 +1599,13 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
-	ObjZeroOps& SwizzleRGBA(TextureSwizzle mode)
-	{
+	ObjZeroOps& SwizzleRGBA(TextureSwizzle mode) {
 		GLint m = GLint(GLenum(mode));
 		GLint params[4] = {m, m, m, m};
-		OGLPLUS_GLFUNC(TextureParameterivEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_SWIZZLE_RGBA,
-			params
-		);
+		OGLPLUS_GLFUNC(TextureParameterivEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_SWIZZLE_RGBA, params);
 		OGLPLUS_CHECK(
-			TextureParameterivEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(mode)
-		);
+		  TextureParameterivEXT, ObjectError, Object(*this).EnumParam(mode));
 		return *this;
 	}
 
@@ -2139,30 +1616,17 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
-	ObjZeroOps& SwizzleRGBA(
-		TextureSwizzle mode_r,
-		TextureSwizzle mode_g,
-		TextureSwizzle mode_b,
-		TextureSwizzle mode_a
-	)
-	{
-		GLint params[4] = {
-			GLint(GLenum(mode_r)),
-			GLint(GLenum(mode_g)),
-			GLint(GLenum(mode_b)),
-			GLint(GLenum(mode_a))
-		};
-		OGLPLUS_GLFUNC(TextureParameterivEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_SWIZZLE_RGBA,
-			params
-		);
-		OGLPLUS_CHECK(
-			TextureParameterivEXT,
-			ObjectError,
-			Object(*this)
-		);
+	ObjZeroOps& SwizzleRGBA(TextureSwizzle mode_r,
+	  TextureSwizzle mode_g,
+	  TextureSwizzle mode_b,
+	  TextureSwizzle mode_a) {
+		GLint params[4] = {GLint(GLenum(mode_r)),
+		  GLint(GLenum(mode_g)),
+		  GLint(GLenum(mode_b)),
+		  GLint(GLenum(mode_a))};
+		OGLPLUS_GLFUNC(TextureParameterivEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_SWIZZLE_RGBA, params);
+		OGLPLUS_CHECK(TextureParameterivEXT, ObjectError, Object(*this));
 		return *this;
 	}
 
@@ -2173,19 +1637,10 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
-	ObjZeroOps& SwizzleRGBA(const TextureSwizzleTuple& modes)
-	{
-		OGLPLUS_GLFUNC(TextureParameterivEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_TEXTURE_SWIZZLE_RGBA,
-			modes.Values()
-		);
-		OGLPLUS_CHECK(
-			TextureParameterivEXT,
-			ObjectError,
-			Object(*this)
-		);
+	ObjZeroOps& SwizzleRGBA(const TextureSwizzleTuple& modes) {
+		OGLPLUS_GLFUNC(TextureParameterivEXT)
+		(_obj_name(), GLenum(target), GL_TEXTURE_SWIZZLE_RGBA, modes.Values());
+		OGLPLUS_CHECK(TextureParameterivEXT, ObjectError, Object(*this));
 		return *this;
 	}
 #endif // texture swizzle
@@ -2195,8 +1650,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetTextureParameter}
 	 */
-	TextureWrap Wrap(TextureWrapCoord coord) const
-	{
+	TextureWrap Wrap(TextureWrapCoord coord) const {
 		return TextureWrap(GetIntParam(GLenum(coord)));
 	}
 
@@ -2205,23 +1659,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TextureParameter}
 	 */
-	ObjZeroOps& Wrap(
-		TextureWrapCoord coord,
-		TextureWrap mode
-	)
-	{
-		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_obj_name(),
-			GLenum(target),
-			GLenum(coord),
-			GLint(mode)
-		);
+	ObjZeroOps& Wrap(TextureWrapCoord coord, TextureWrap mode) {
+		OGLPLUS_GLFUNC(TextureParameteriEXT)
+		(_obj_name(), GLenum(target), GLenum(coord), GLint(mode));
 		OGLPLUS_CHECK(
-			TextureParameteriEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(mode)
-		);
+		  TextureParameteriEXT, ObjectError, Object(*this).EnumParam(mode));
 		return *this;
 	}
 
@@ -2231,8 +1673,7 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_WRAP_S}
 	 */
-	TextureWrap WrapS(void) const
-	{
+	TextureWrap WrapS(void) const {
 		return Wrap(TextureWrapCoord::S);
 	}
 
@@ -2242,8 +1683,7 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_WRAP_S}
 	 */
-	ObjZeroOps& WrapS(TextureWrap mode)
-	{
+	ObjZeroOps& WrapS(TextureWrap mode) {
 		return Wrap(TextureWrapCoord::S, mode);
 	}
 
@@ -2253,8 +1693,7 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_WRAP_T}
 	 */
-	TextureWrap WrapT(void) const
-	{
+	TextureWrap WrapT(void) const {
 		return Wrap(TextureWrapCoord::T);
 	}
 
@@ -2264,8 +1703,7 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_WRAP_T}
 	 */
-	ObjZeroOps& WrapT(TextureWrap mode)
-	{
+	ObjZeroOps& WrapT(TextureWrap mode) {
 		return Wrap(TextureWrapCoord::T, mode);
 	}
 
@@ -2275,8 +1713,7 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_WRAP_R}
 	 */
-	TextureWrap WrapR(void) const
-	{
+	TextureWrap WrapR(void) const {
 		return Wrap(TextureWrapCoord::R);
 	}
 
@@ -2286,8 +1723,7 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_WRAP_R}
 	 */
-	ObjZeroOps& WrapR(TextureWrap mode)
-	{
+	ObjZeroOps& WrapR(TextureWrap mode) {
 		return Wrap(TextureWrapCoord::R, mode);
 	}
 
@@ -2299,18 +1735,21 @@ public:
 	 *  @gldefref{TEXTURE_WRAP_T}
 	 *  @gldefref{TEXTURE_WRAP_S}
 	 */
-	ObjZeroOps& Wrap(TextureWrap mode)
-	{
-		switch(TextureTargetDimensions(target))
-		{
-			case 3: WrapR(mode);
+	ObjZeroOps& Wrap(TextureWrap mode) {
+		switch(TextureTargetDimensions(target)) {
+			case 3:
+				WrapR(mode);
 				OGLPLUS_FALLTHROUGH
-			case 2: WrapT(mode);
+			case 2:
+				WrapT(mode);
 				OGLPLUS_FALLTHROUGH
-			case 1: WrapS(mode);
+			case 1:
+				WrapS(mode);
 				OGLPLUS_FALLTHROUGH
-			case 0: break;
-			default: OGLPLUS_ABORT("Invalid texture wrap dimension");
+			case 0:
+				break;
+			default:
+				OGLPLUS_ABORT("Invalid texture wrap dimension");
 		}
 		return *this;
 	}
@@ -2323,11 +1762,8 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{DEPTH_STENCIL_TEXTURE_MODE}
 	 */
-	PixelDataFormat DepthStencilMode(void) const
-	{
-		return PixelDataFormat(GetIntParam(
-			GL_DEPTH_STENCIL_TEXTURE_MODE
-		));
+	PixelDataFormat DepthStencilMode(void) const {
+		return PixelDataFormat(GetIntParam(GL_DEPTH_STENCIL_TEXTURE_MODE));
 	}
 
 	/// Sets the swizzle parameter (DEPTH_STENCIL_TEXTURE_MODE)
@@ -2337,20 +1773,14 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{DEPTH_STENCIL_TEXTURE_MODE}
 	 */
-	ObjZeroOps& DepthStencilMode(PixelDataFormat mode)
-	{
-		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			_obj_name(),
-			GLenum(target),
-			GL_DEPTH_STENCIL_TEXTURE_MODE,
-			GLint(mode)
-		);
+	ObjZeroOps& DepthStencilMode(PixelDataFormat mode) {
+		OGLPLUS_GLFUNC(TextureParameteriEXT)
+		(_obj_name(),
+		  GLenum(target),
+		  GL_DEPTH_STENCIL_TEXTURE_MODE,
+		  GLint(mode));
 		OGLPLUS_CHECK(
-			TextureParameteriEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(mode)
-		);
+		  TextureParameteriEXT, ObjectError, Object(*this).EnumParam(mode));
 		return *this;
 	}
 #endif
@@ -2362,12 +1792,8 @@ public:
 	 *  @glfunref{GetTextureParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	Boolean Seamless(void) const
-	{
-		return Boolean(
-			GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS),
-			std::nothrow
-		);
+	Boolean Seamless(void) const {
+		return Boolean(GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS), std::nothrow);
 	}
 
 	/// Sets the seamless cubemap setting
@@ -2376,19 +1802,13 @@ public:
 	 *  @glfunref{TextureParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	ObjZeroOps& Seamless(Boolean enable)
-	{
-		OGLPLUS_GLFUNC(TextureParameteriEXT)(
-			GLenum(target),
-			_obj_name(),
-			GL_TEXTURE_CUBE_MAP_SEAMLESS,
-			enable._get()
-		);
-		OGLPLUS_CHECK(
-			TextureParameteriEXT,
-			ObjectError,
-			Object(*this)
-		);
+	ObjZeroOps& Seamless(Boolean enable) {
+		OGLPLUS_GLFUNC(TextureParameteriEXT)
+		(GLenum(target),
+		  _obj_name(),
+		  GL_TEXTURE_CUBE_MAP_SEAMLESS,
+		  enable._get());
+		OGLPLUS_CHECK(TextureParameteriEXT, ObjectError, Object(*this));
 		return *this;
 	}
 #endif
@@ -2398,240 +1818,192 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GenerateMipmap}
 	 */
-	ObjZeroOps& GenerateMipmap(void)
-	{
-		OGLPLUS_GLFUNC(GenerateTextureMipmapEXT)(
-			_obj_name(),
-			GLenum(target)
-		);
-		OGLPLUS_CHECK(
-			GenerateTextureMipmapEXT,
-			ObjectError,
-			Object(*this)
-		);
+	ObjZeroOps& GenerateMipmap(void) {
+		OGLPLUS_GLFUNC(GenerateTextureMipmapEXT)(_obj_name(), GLenum(target));
+		OGLPLUS_CHECK(GenerateTextureMipmapEXT, ObjectError, Object(*this));
 		return *this;
 	}
-
 };
 
 /// Default Texture operations with direct state access
-typedef ObjZeroOps<tag::DirectStateEXT, tag::Texture>
-	DSADefaultTextureOpsEXT;
+typedef ObjZeroOps<tag::DirectStateEXT, tag::Texture> DSADefaultTextureOpsEXT;
 
 /// Texture operations with direct state access
-typedef ObjectOps<tag::DirectStateEXT, tag::Texture>
-	DSATextureOpsEXT;
+typedef ObjectOps<tag::DirectStateEXT, tag::Texture> DSATextureOpsEXT;
 
 // Helper class for syntax-sugar operators
-struct DSATextureOpsAndSlotEXT
-{
+struct DSATextureOpsAndSlotEXT {
 	DSATextureOpsEXT& tex;
 	GLint slot;
 
 	DSATextureOpsAndSlotEXT(DSATextureOpsEXT& t, GLint s)
-	 : tex(t)
-	 , slot(s)
-	{ }
+	  : tex(t)
+	  , slot(s) {
+	}
 };
 
 // syntax sugar operators
-inline DSATextureOpsAndSlotEXT operator | (
-	DSATextureOpsEXT& tex,
-	GLint slot
-)
-{
+inline DSATextureOpsAndSlotEXT operator|(DSATextureOpsEXT& tex, GLint slot) {
 	return DSATextureOpsAndSlotEXT(tex, slot);
 }
 
 // Bind
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsEXT& tex,
-	TextureTarget target
-)
-{
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsEXT& tex, TextureTarget target) {
 	tex.target = target;
 	tex.Bind();
 	return tex;
 }
 
 // BindMulti
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsEXT& tex,
-	TextureUnitAndTarget uat
-)
-{
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsEXT& tex, TextureUnitAndTarget uat) {
 	tex.target = uat.tgt;
 	tex.BindMulti(uat.unit);
 	return tex;
 }
 
 // Filter
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsEXT& tex,
-	TextureFilter filter
-)
-{
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsEXT& tex, TextureFilter filter) {
 	tex.Filter(filter);
 	return tex;
 }
 
 // MinFilter
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsEXT& tex,
-	TextureMinFilter filter
-)
-{
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsEXT& tex, TextureMinFilter filter) {
 	tex.MinFilter(filter);
 	return tex;
 }
 
 // MagFilter
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsEXT& tex,
-	TextureMagFilter filter
-)
-{
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsEXT& tex, TextureMagFilter filter) {
 	tex.MagFilter(filter);
 	return tex;
 }
 
 // CompareMode
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsEXT& tex,
-	TextureCompareMode mode
-)
-{
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsEXT& tex, TextureCompareMode mode) {
 	tex.CompareMode(mode);
 	return tex;
 }
 
 // CompareFunc
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsEXT& tex,
-	CompareFunction func
-)
-{
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsEXT& tex, CompareFunction func) {
 	tex.CompareFunc(func);
 	return tex;
 }
 
 // Wrap
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsEXT& tex,
-	TextureWrap wrap
-)
-{
-	switch(TextureTargetDimensions(tex.target))
-	{
-		case 3: tex.WrapR(wrap); OGLPLUS_FALLTHROUGH
-		case 2: tex.WrapT(wrap); OGLPLUS_FALLTHROUGH
-		case 1: tex.WrapS(wrap); OGLPLUS_FALLTHROUGH
-		case 0: break;
-		default: OGLPLUS_ABORT("Invalid texture wrap dimension");
+inline DSATextureOpsEXT& operator<<(DSATextureOpsEXT& tex, TextureWrap wrap) {
+	switch(TextureTargetDimensions(tex.target)) {
+		case 3:
+			tex.WrapR(wrap);
+			OGLPLUS_FALLTHROUGH
+		case 2:
+			tex.WrapT(wrap);
+			OGLPLUS_FALLTHROUGH
+		case 1:
+			tex.WrapS(wrap);
+			OGLPLUS_FALLTHROUGH
+		case 0:
+			break;
+		default:
+			OGLPLUS_ABORT("Invalid texture wrap dimension");
 	}
 	return tex;
 }
 
 // Wrap
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsAndSlotEXT tas,
-	TextureWrap wrap
-)
-{
-	switch(tas.slot)
-	{
-		case 0: tas.tex.WrapS(wrap); break;
-		case 1: tas.tex.WrapT(wrap); break;
-		case 2: tas.tex.WrapR(wrap); break;
-		default: OGLPLUS_ABORT("Invalid texture wrap slot");
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsAndSlotEXT tas, TextureWrap wrap) {
+	switch(tas.slot) {
+		case 0:
+			tas.tex.WrapS(wrap);
+			break;
+		case 1:
+			tas.tex.WrapT(wrap);
+			break;
+		case 2:
+			tas.tex.WrapR(wrap);
+			break;
+		default:
+			OGLPLUS_ABORT("Invalid texture wrap slot");
 	}
 	return tas.tex;
 }
 
 // Swizzle
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsEXT& tex,
-	TextureSwizzle swizzle
-)
-{
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsEXT& tex, TextureSwizzle swizzle) {
 	tex.SwizzleRGBA(swizzle);
 	return tex;
 }
 
 // Swizzle
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsAndSlotEXT tas,
-	TextureSwizzle swizzle
-)
-{
-	switch(tas.slot)
-	{
-		case 0: tas.tex.SwizzleR(swizzle); break;
-		case 1: tas.tex.SwizzleG(swizzle); break;
-		case 2: tas.tex.SwizzleB(swizzle); break;
-		case 3: tas.tex.SwizzleA(swizzle); break;
-		default: OGLPLUS_ABORT("Invalid texture swizzle slot");
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsAndSlotEXT tas, TextureSwizzle swizzle) {
+	switch(tas.slot) {
+		case 0:
+			tas.tex.SwizzleR(swizzle);
+			break;
+		case 1:
+			tas.tex.SwizzleG(swizzle);
+			break;
+		case 2:
+			tas.tex.SwizzleB(swizzle);
+			break;
+		case 3:
+			tas.tex.SwizzleA(swizzle);
+			break;
+		default:
+			OGLPLUS_ABORT("Invalid texture swizzle slot");
 	}
 	return tas.tex;
 }
 
 // BorderColor
 template <typename T>
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsEXT& tex,
-	const Vector<T, 4>& col
-)
-{
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsEXT& tex, const Vector<T, 4>& col) {
 	tex.BorderColor(col);
 	return tex;
 }
 
 // Image
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsEXT& tex,
-	const images::Image& image
-)
-{
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsEXT& tex, const images::Image& image) {
 	tex.Image(image);
 	return tex;
 }
 
 // Image
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsEXT& tex,
-	const images::ImageSpec& image_spec
-)
-{
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsEXT& tex, const images::ImageSpec& image_spec) {
 	tex.Image(image_spec);
 	return tex;
 }
 
 // Image + Level
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsAndSlotEXT tas,
-	const images::Image& image
-)
-{
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsAndSlotEXT tas, const images::Image& image) {
 	tas.tex.Image(image, tas.slot);
 	return tas.tex;
 }
 
 // Image + Level
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsAndSlotEXT tas,
-	const images::ImageSpec& image_spec
-)
-{
+inline DSATextureOpsEXT& operator<<(
+  DSATextureOpsAndSlotEXT tas, const images::ImageSpec& image_spec) {
 	tas.tex.Image(image_spec, tas.slot);
 	return tas.tex;
 }
 
 // GenerateMipmaps
-inline DSATextureOpsEXT& operator << (
-	DSATextureOpsEXT& tex,
-	TextureMipmap
-)
-{
+inline DSATextureOpsEXT& operator<<(DSATextureOpsEXT& tex, TextureMipmap) {
 	tex.GenerateMipmap();
 	return tex;
 }

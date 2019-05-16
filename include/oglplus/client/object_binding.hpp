@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -48,11 +48,11 @@ struct CurrentObject {
 		  , BoundObjOps<ObjTag>(ObjTgt) {
 		}
 
-		ObjectName<ObjTag> Get(void) const OGLPLUS_NOEXCEPT(true) {
+		ObjectName<ObjTag> Get(void) const noexcept {
 			return ObjectName<ObjTag>(this->_get());
 		}
 
-		operator ObjectName<ObjTag>(void) const OGLPLUS_NOEXCEPT(true) {
+		operator ObjectName<ObjTag>(void) const noexcept {
 			return Get();
 		}
 
@@ -96,11 +96,11 @@ public:
 	  : SettingStack<GLuint, Nothing>(&_do_get, &_do_bind) {
 	}
 
-	ObjectName<ObjTag> Get(void) const OGLPLUS_NOEXCEPT(true) {
+	ObjectName<ObjTag> Get(void) const noexcept {
 		return ObjectName<ObjTag>(this->_get());
 	}
 
-	operator ObjectName<ObjTag>(void) const OGLPLUS_NOEXCEPT(true) {
+	operator ObjectName<ObjTag>(void) const noexcept {
 		return Get();
 	}
 
@@ -163,11 +163,11 @@ public:
 	  : SettingStack<BufferNameAndRange, GLuint>(&_do_get, &_do_bind, index) {
 	}
 
-	BufferNameAndRange Get(void) const OGLPLUS_NOEXCEPT(true) {
+	BufferNameAndRange Get(void) const noexcept {
 		return this->_get();
 	}
 
-	operator BufferNameAndRange(void) const OGLPLUS_NOEXCEPT(true) {
+	operator BufferNameAndRange(void) const noexcept {
 		return Get();
 	}
 
@@ -248,11 +248,11 @@ public:
 	  : SettingStack<GLuint, GLuint>(&_do_get, &_do_bind, GLuint(tex_unit)) {
 	}
 
-	ObjectName<ObjTag> Get(void) const OGLPLUS_NOEXCEPT(true) {
+	ObjectName<ObjTag> Get(void) const noexcept {
 		return ObjectName<ObjTag>(this->_get());
 	}
 
-	operator ObjectName<ObjTag>(void) const OGLPLUS_NOEXCEPT(true) {
+	operator ObjectName<ObjTag>(void) const noexcept {
 		return Get();
 	}
 
@@ -311,11 +311,11 @@ public:
 	  : SettingStack<GLuint, GLuint>(&_do_get, &_do_bind, GLuint(tex_unit)) {
 	}
 
-	ObjectName<ObjTag> Get(void) const OGLPLUS_NOEXCEPT(true) {
+	ObjectName<ObjTag> Get(void) const noexcept {
 		return ObjectName<ObjTag>(this->_get());
 	}
 
-	operator ObjectName<ObjTag>(void) const OGLPLUS_NOEXCEPT(true) {
+	operator ObjectName<ObjTag>(void) const noexcept {
 		return Get();
 	}
 

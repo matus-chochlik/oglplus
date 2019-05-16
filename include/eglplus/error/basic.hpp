@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,12 +13,12 @@
 #ifndef EGLPLUS_ERROR_BASIC_1107121317_HPP
 #define EGLPLUS_ERROR_BASIC_1107121317_HPP
 
+#include <cassert>
 #include <eglplus/config.hpp>
 #include <eglplus/enumerations.hpp>
 #include <eglplus/string.hpp>
-#include <stdexcept>
-#include <cassert>
 #include <map>
+#include <stdexcept>
 
 namespace eglplus {
 
@@ -31,17 +31,15 @@ namespace eglplus {
 
 /// Exception class for general OpenGL errors
 /** Instances of this exception class are thrown whenever an error is detected
- *  during the execution of OpenGL API calls in the @EGLplus code. There are several
- *  other classes derived for more specific error types, like EGL shading language
- *  compilation and linking errors, limit errors , etc.
- *  This class is derived from the standard runtime_error exception and thus
- *  the basic error message can be obtained by calling its @c what() member function.
+ *  during the execution of OpenGL API calls in the @EGLplus code. There are
+ * several other classes derived for more specific error types, like EGL shading
+ * language compilation and linking errors, limit errors , etc. This class is
+ * derived from the standard runtime_error exception and thus the basic error
+ * message can be obtained by calling its @c what() member function.
  *
  *  @ingroup error_handling
  */
-class Error
- : public std::runtime_error
-{
+class Error : public std::runtime_error {
 private:
 	EGLenum _code;
 #if !EGLPLUS_ERROR_NO_FILE
@@ -71,43 +69,45 @@ public:
 	Error(Error&&) = default;
 #else
 	Error(const Error& that)
-	 : _code(that._code)
+	  : _code(that._code)
 #if !EGLPLUS_ERROR_NO_FILE
-	 , _file(that._file)
+	  , _file(that._file)
 #endif
 #if !EGLPLUS_ERROR_NO_FUNC
-	 , _func(that._func)
+	  , _func(that._func)
 #endif
 #if !EGLPLUS_ERROR_NO_LINE
-	 , _line(that._line)
+	  , _line(that._line)
 #endif
 #if !EGLPLUS_ERROR_NO_EGL_FUNC
-	 , _eglfunc_name(that._eglfunc_name)
+	  , _eglfunc_name(that._eglfunc_name)
 #endif
 #if !EGLPLUS_ERROR_NO_EGL_SYMBOL
-	 , _enumpar_name(that._enumpar_name)
-	 , _enumpar(that._enumpar)
+	  , _enumpar_name(that._enumpar_name)
+	  , _enumpar(that._enumpar)
 #endif
-	{ }
-#endif
-
-	~Error(void)
-	OGLPLUS_NOTHROW
-	{ }
-
-	Error& NoInfo(void) { return *this; }
-
-	Error& Code(EGLenum code)
 	{
+	}
+#endif
+
+	~Error(void) noexcept {
+	}
+
+	Error& NoInfo(void) {
+		return *this;
+	}
+
+	Error& Code(EGLenum code) {
 		_code = code;
 		return *this;
 	}
 
 	/// Returns the EGL error code related to the error
-	EGLenum Code(void) const { return _code; }
+	EGLenum Code(void) const {
+		return _code;
+	}
 
-	Error& SourceFile(const char* file)
-	{
+	Error& SourceFile(const char* file) {
 #if !EGLPLUS_ERROR_NO_FILE
 		_file = file;
 #endif
@@ -124,8 +124,7 @@ public:
 	 */
 	const char* SourceFile(void) const;
 
-	Error& SourceFunc(const char* func)
-	{
+	Error& SourceFunc(const char* func) {
 #if !EGLPLUS_ERROR_NO_FUNC
 		_func = func;
 #endif
@@ -142,8 +141,7 @@ public:
 	 */
 	const char* SourceFunc(void) const;
 
-	Error& SourceLine(unsigned line)
-	{
+	Error& SourceLine(unsigned line) {
 #if !EGLPLUS_ERROR_NO_LINE
 		_line = line;
 #endif
@@ -160,8 +158,7 @@ public:
 	 */
 	unsigned SourceLine(void) const;
 
-	Error& EGLFunc(const char* func_name)
-	{
+	Error& EGLFunc(const char* func_name) {
 #if !EGLPLUS_ERROR_NO_EGL_FUNC
 		_eglfunc_name = func_name;
 #endif
@@ -181,8 +178,7 @@ public:
 	const char* EGLFunc(void) const;
 
 	template <typename Enum_>
-	Error& EnumParam(Enum_ param)
-	{
+	Error& EnumParam(Enum_ param) {
 #if !EGLPLUS_ERROR_NO_EGL_SYMBOL
 		_enumpar = EGLenum(param);
 		_enumpar_name = EnumValueName(param).c_str();
@@ -191,8 +187,7 @@ public:
 		return *this;
 	}
 
-	Error& EnumParam(EGLenum param, const char* param_name)
-	{
+	Error& EnumParam(EGLenum param, const char* param_name) {
 #if !EGLPLUS_ERROR_NO_EGL_SYMBOL
 		_enumpar = param;
 		_enumpar_name = param_name;
@@ -227,55 +222,35 @@ public:
 
 /// Generic error handling function
 template <typename ErrorType>
-inline void HandleError(ErrorType& error)
-{
+inline void HandleError(ErrorType& error) {
 	throw error;
 }
 // Macro for generic error handling
-#define EGLPLUS_HANDLE_ERROR(\
-	ERROR_CODE,\
-	MESSAGE,\
-	ERROR,\
-	ERROR_INFO\
-)\
-{\
-	ERROR error(MESSAGE);\
-	(void)error\
-		.ERROR_INFO\
-		.SourceFile(__FILE__)\
-		.SourceFunc(__FUNCTION__)\
-		.SourceLine(__LINE__)\
-		.Code(error_code);\
-	HandleError(error);\
-}
+#define EGLPLUS_HANDLE_ERROR(ERROR_CODE, MESSAGE, ERROR, ERROR_INFO) \
+	{                                                                \
+		ERROR error(MESSAGE);                                        \
+		(void)error.ERROR_INFO.SourceFile(__FILE__)                  \
+		  .SourceFunc(__FUNCTION__)                                  \
+		  .SourceLine(__LINE__)                                      \
+		  .Code(error_code);                                         \
+		HandleError(error);                                          \
+	}
 
 // Macro for generic error handling
-#define EGLPLUS_HANDLE_ERROR_IF(\
-	CONDITION,\
-	ERROR_CODE,\
-	MESSAGE,\
-	ERROR,\
-	ERROR_INFO\
-)\
-{\
-	EGLenum error_code = ERROR_CODE;\
-	if(CONDITION)\
-		EGLPLUS_HANDLE_ERROR(\
-			error_code,\
-			MESSAGE,\
-			ERROR,\
-			ERROR_INFO\
-		)\
-}
+#define EGLPLUS_HANDLE_ERROR_IF(                                         \
+  CONDITION, ERROR_CODE, MESSAGE, ERROR, ERROR_INFO)                     \
+	{                                                                    \
+		EGLenum error_code = ERROR_CODE;                                 \
+		if(CONDITION)                                                    \
+			EGLPLUS_HANDLE_ERROR(error_code, MESSAGE, ERROR, ERROR_INFO) \
+	}
 
-#define EGLPLUS_GLFUNC_CHECK(FUNC_NAME, ERROR, ERROR_INFO)\
-	EGLPLUS_HANDLE_ERROR_IF(\
-		error_code != EGL_SUCCESS,\
-		eglGetError(),\
-		ERROR::Message(error_code),\
-		ERROR,\
-		ERROR_INFO.EGLFunc(FUNC_NAME)\
-	)
+#define EGLPLUS_GLFUNC_CHECK(FUNC_NAME, ERROR, ERROR_INFO) \
+	EGLPLUS_HANDLE_ERROR_IF(error_code != EGL_SUCCESS,     \
+	  eglGetError(),                                       \
+	  ERROR::Message(error_code),                          \
+	  ERROR,                                               \
+	  ERROR_INFO.EGLFunc(FUNC_NAME))
 
 #define EGLPLUS_CHECK(EGLFUNC, ERROR, ERROR_INFO) \
 	EGLPLUS_GLFUNC_CHECK(#EGLFUNC, ERROR, ERROR_INFO)
@@ -283,8 +258,7 @@ inline void HandleError(ErrorType& error)
 #define EGLPLUS_CHECK_CTXT(ERROR, ERROR_INFO) \
 	EGLPLUS_GLFUNC_CHECK(_errinf_glfn(), ERROR, ERROR_INFO)
 
-#define EGLPLUS_CHECK_SIMPLE(EGLFUNC) \
-	EGLPLUS_CHECK(EGLFUNC, Error, NoInfo())
+#define EGLPLUS_CHECK_SIMPLE(EGLFUNC) EGLPLUS_CHECK(EGLFUNC, Error, NoInfo())
 
 #if !OGPLUS_LOW_PROFILE
 #define EGLPLUS_VERIFY(EGLFUNC, ERROR, ERROR_INFO) \
@@ -293,8 +267,7 @@ inline void HandleError(ErrorType& error)
 #define EGLPLUS_VERIFY(PARAM)
 #endif
 
-#define EGLPLUS_VERIFY_SIMPLE(EGLFUNC) \
-	EGLPLUS_CHECK(EGLFUNC, Error, NoInfo())
+#define EGLPLUS_VERIFY_SIMPLE(EGLFUNC) EGLPLUS_CHECK(EGLFUNC, Error, NoInfo())
 
 #define EGLPLUS_IGNORE(PARAM) ::eglGetError();
 

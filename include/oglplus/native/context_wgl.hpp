@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -21,41 +21,32 @@ namespace oglplus {
 namespace native {
 
 /// Wrapper for a valid WGL context handle
-class ContextWGL
-{
+class ContextWGL {
 private:
 	::HGLRC _context;
 
 	friend ::HGLRC GetHGLRC(const ContextWGL&);
 
 protected:
-	struct Current_ { };
+	struct Current_ {};
 
 	ContextWGL(Current_)
-	 : _context(::wglGetCurrentContext())
-	{
-		if(!_context) HandleNoWGLRC();
+	  : _context(::wglGetCurrentContext()) {
+		if(!_context)
+			HandleNoWGLRC();
 	}
+
 public:
-	friend
-	bool operator == (const ContextWGL& a, const ContextWGL& b)
-	OGLPLUS_NOEXCEPT(true)
-	{
+	friend bool operator==(const ContextWGL& a, const ContextWGL& b) noexcept {
 		return a._context == b._context;
 	}
 
-	friend
-	bool operator != (const ContextWGL& a, const ContextWGL& b)
-	OGLPLUS_NOEXCEPT(true)
-	{
+	friend bool operator!=(const ContextWGL& a, const ContextWGL& b) noexcept {
 		return a._context != b._context;
 	}
 
-	friend
-	bool operator <  (const ContextWGL& a, const ContextWGL& b)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return a._context <  b._context;
+	friend bool operator<(const ContextWGL& a, const ContextWGL& b) noexcept {
+		return a._context < b._context;
 	}
 
 	/// Returns a wrapper for the currently bound WGL context
@@ -64,40 +55,32 @@ public:
 	 *
 	 *  @throws std::runtime_error
 	 */
-	static ContextWGL Current(void)
-	{
+	static ContextWGL Current(void) {
 		return ContextWGL(Current_());
 	}
 
 	/// Makes the context current on this thread
-	void MakeCurrent(const SurfaceWGL& surface)
-	{
+	void MakeCurrent(const SurfaceWGL& surface) {
 		::wglMakeCurrent(surface._hdc, _context);
 	}
 
 	/// Releases the current context without binding a new one
-	void Release(void)
-	{
+	void Release(void) {
 		::wglMakeCurrent(::HDC(0), ::HGLRC(0));
 	}
 };
 
-inline
-::HGLRC GetHGLRC(const ContextWGL& cwgl)
-OGLPLUS_NOEXCEPT(true)
-{
+inline ::HGLRC GetHGLRC(const ContextWGL& cwgl) noexcept {
 	return cwgl._context;
 }
 
 typedef ContextWGL Context;
 
-class CurrentContextWGL
- : public ContextWGL
-{
+class CurrentContextWGL : public ContextWGL {
 public:
 	CurrentContextWGL(void)
-	 : ContextWGL(ContextWGL::Current_())
-	{ }
+	  : ContextWGL(ContextWGL::Current_()) {
+	}
 };
 
 typedef CurrentContextWGL CurrentContext;

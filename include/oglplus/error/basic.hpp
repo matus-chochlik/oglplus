@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,15 +13,15 @@
 #ifndef OGLPLUS_ERROR_BASIC_1107121317_HPP
 #define OGLPLUS_ERROR_BASIC_1107121317_HPP
 
-#include <oglplus/config/error.hpp>
-#include <oglplus/config/compiler.hpp>
-#include <oglplus/error/code.hpp>
-#include <oglplus/string/def.hpp>
-#include <oglplus/string/ref.hpp>
-#include <oglplus/string/empty.hpp>
-#include <oglplus/size_type.hpp>
-#include <stdexcept>
 #include <cassert>
+#include <oglplus/config/compiler.hpp>
+#include <oglplus/config/error.hpp>
+#include <oglplus/error/code.hpp>
+#include <oglplus/size_type.hpp>
+#include <oglplus/string/def.hpp>
+#include <oglplus/string/empty.hpp>
+#include <oglplus/string/ref.hpp>
+#include <stdexcept>
 
 namespace oglplus {
 
@@ -34,17 +34,15 @@ namespace oglplus {
 
 /// Exception class for general OpenGL errors
 /** Instances of this exception class are thrown whenever an error is detected
- *  during the execution of OpenGL API calls in the @OGLplus code. There are several
- *  other classes derived for more specific error types, like GL shading language
- *  compilation and linking errors, limit errors , etc.
- *  This class is derived from the standard runtime_error exception and thus
- *  the basic error message can be obtained by calling its @c what() member function.
+ *  during the execution of OpenGL API calls in the @OGLplus code. There are
+ * several other classes derived for more specific error types, like GL shading
+ * language compilation and linking errors, limit errors , etc. This class is
+ * derived from the standard runtime_error exception and thus the basic error
+ * message can be obtained by calling its @c what() member function.
  *
  *  @ingroup error_handling
  */
-class Error
- : public std::runtime_error
-{
+class Error : public std::runtime_error {
 private:
 	GLenum _code;
 #if !OGLPLUS_ERROR_NO_FILE
@@ -78,56 +76,58 @@ public:
 
 #if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	Error(const Error& that)
-	 : std::runtime_error(that)
-	 , _code(that._code)
+	  : std::runtime_error(that)
+	  , _code(that._code)
 #if !OGLPLUS_ERROR_NO_FILE
-	 , _file(that._file)
+	  , _file(that._file)
 #endif
 #if !OGLPLUS_ERROR_NO_FUNC
-	 , _func(that._func)
+	  , _func(that._func)
 #endif
 #if !OGLPLUS_ERROR_NO_LINE
-	 , _line(that._line)
+	  , _line(that._line)
 #endif
 
 #if !OGLPLUS_ERROR_NO_GL_LIB
-	 , _gllib_name(that._gllib_name)
+	  , _gllib_name(that._gllib_name)
 #endif
 
 #if !OGLPLUS_ERROR_NO_GL_FUNC
-	 , _glfunc_name(that._glfunc_name)
+	  , _glfunc_name(that._glfunc_name)
 #endif
 
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
-	 , _enumpar_name(that._enumpar_name)
-	 , _enumpar(that._enumpar)
-	 , _index(that._index)
+	  , _enumpar_name(that._enumpar_name)
+	  , _enumpar(that._enumpar)
+	  , _index(that._index)
 #endif
-	{ }
+	{
+	}
 #else
 #if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	Error(const Error&) = default;
-	Error& operator = (const Error&) = default;
+	Error& operator=(const Error&) = default;
 #endif
 #endif
 
-	~Error(void)
-	OGLPLUS_NOTHROW
-	{ }
+	~Error(void) noexcept {
+	}
 
-	Error& NoInfo(void) { return *this; }
+	Error& NoInfo(void) {
+		return *this;
+	}
 
-	Error& Code(GLenum code)
-	{
+	Error& Code(GLenum code) {
 		_code = code;
 		return *this;
 	}
 
 	/// Returns the GL error code related to the error
-	ErrorCode Code(void) const { return ErrorCode(_code); }
+	ErrorCode Code(void) const {
+		return ErrorCode(_code);
+	}
 
-	Error& SourceFile(const char* file)
-	{
+	Error& SourceFile(const char* file) {
 #if !OGLPLUS_ERROR_NO_FILE
 		_file = file;
 #endif
@@ -144,8 +144,7 @@ public:
 	 */
 	const char* SourceFile(void) const;
 
-	Error& SourceFunc(const char* func)
-	{
+	Error& SourceFunc(const char* func) {
 #if !OGLPLUS_ERROR_NO_FUNC
 		_func = func;
 #endif
@@ -162,8 +161,7 @@ public:
 	 */
 	const char* SourceFunc(void) const;
 
-	Error& SourceLine(unsigned line)
-	{
+	Error& SourceLine(unsigned line) {
 #if !OGLPLUS_ERROR_NO_LINE
 		_line = line;
 #endif
@@ -180,8 +178,7 @@ public:
 	 */
 	unsigned SourceLine(void) const;
 
-	Error& GLLib(const char* lib_name)
-	{
+	Error& GLLib(const char* lib_name) {
 #if !OGLPLUS_ERROR_NO_GL_LIB
 		_gllib_name = lib_name;
 #endif
@@ -191,8 +188,7 @@ public:
 
 	const char* GLLib(void) const;
 
-	Error& GLFunc(const char* func_name)
-	{
+	Error& GLFunc(const char* func_name) {
 #if !OGLPLUS_ERROR_NO_GL_FUNC
 		_glfunc_name = func_name;
 #endif
@@ -212,8 +208,7 @@ public:
 	const char* GLFunc(void) const;
 
 	template <typename Enum_>
-	Error& EnumParam(Enum_ param)
-	{
+	Error& EnumParam(Enum_ param) {
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
 		_enumpar = GLenum(param);
 		_enumpar_name = EnumValueName(param).c_str();
@@ -222,8 +217,7 @@ public:
 		return *this;
 	}
 
-	Error& EnumParam(GLenum param, const char* param_name)
-	{
+	Error& EnumParam(GLenum param, const char* param_name) {
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
 		_enumpar = param;
 		_enumpar_name = param_name;
@@ -255,8 +249,7 @@ public:
 	 */
 	const char* EnumParamName(void) const;
 
-	Error& Index(SizeType index)
-	{
+	Error& Index(SizeType index) {
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
 		_index = GLint(index);
 #endif
@@ -278,44 +271,57 @@ public:
 	GLint Index(void) const;
 
 	/// Returns the value parameter related to the error
-	virtual GLfloat Value(void) const { return GLfloat(0); }
+	virtual GLfloat Value(void) const {
+		return GLfloat(0);
+	}
 
 	/// Returns the limit value related to the error
-	virtual GLfloat Limit(void) const { return GLfloat(0); }
+	virtual GLfloat Limit(void) const {
+		return GLfloat(0);
+	}
 
 	/// Returns the bind target
-	virtual GLenum BindTarget(void) const { return GLenum(0); }
+	virtual GLenum BindTarget(void) const {
+		return GLenum(0);
+	}
 
 	/// Returns the bind target name
-	virtual const char* TargetName(void) const { return nullptr; }
+	virtual const char* TargetName(void) const {
+		return nullptr;
+	}
 
 	/// Returns the object type
 	/** If the error is related to a GL object, then an object
 	 *  type enumeration value is returned. Otherwise the result is zero.
 	 */
-	virtual GLenum ObjectType(void) const { return GLenum(0); }
+	virtual GLenum ObjectType(void) const {
+		return GLenum(0);
+	}
 
 	/// Returns the object type name
 	/** If the error is related to a GL object, then a C string
 	 *  storing object type name is returned. Otherwise the result
 	 *  is nullptr.
 	 */
-	virtual const char* ObjectTypeName(void) const { return nullptr; }
+	virtual const char* ObjectTypeName(void) const {
+		return nullptr;
+	}
 
 	/// Returns the object instance GL name
 	/** If the error is related to a GL object, then the numeric
 	 *  GL name of the object is returned. Otherwise the result
 	 *  is a negative integer.
 	 */
-	virtual GLint ObjectName(void) const { return -1; }
+	virtual GLint ObjectName(void) const {
+		return -1;
+	}
 
 	/// Returns the object instance description
 	/** If the error is related to a GL object, then a std::string
 	 *  storing object description is returned. Otherwise the result
 	 *  is an empty std::string.
 	 */
-	virtual const std::string& ObjectDesc(void) const
-	{
+	virtual const std::string& ObjectDesc(void) const {
 		return EmptyStdString();
 	}
 
@@ -324,29 +330,34 @@ public:
 	 *  an object type enumeration value is returned. Otherwise
 	 *  the result is zero.
 	 */
-	virtual GLenum SubjectType(void) const { return GLenum(0); }
+	virtual GLenum SubjectType(void) const {
+		return GLenum(0);
+	}
 
 	/// Returns the subject class name
 	/** If the error is related a pair of GL objects, then a C string
 	 *  storing secondary object type name is returned. Otherwise the result
 	 *  is nullptr.
 	 */
-	virtual const char* SubjectTypeName(void) const { return nullptr; }
+	virtual const char* SubjectTypeName(void) const {
+		return nullptr;
+	}
 
 	/// Returns the subject GL name
 	/** If the error is related to a pair of GL objects, then
 	 *  the numeric GL name of the secondary object is returned.
 	 *  Otherwise the result is a negative integer.
 	 */
-	virtual GLint SubjectName(void) const { return -1; }
+	virtual GLint SubjectName(void) const {
+		return -1;
+	}
 
 	/// Returns the subject textual description
 	/** If the error is related to a pair of GL objects, then a std::string
 	 *  storing the secondary object description is returned. Otherwise
 	 *  the result is an empty std::string.
 	 */
-	virtual const std::string& SubjectDesc(void) const
-	{
+	virtual const std::string& SubjectDesc(void) const {
 		return EmptyStdString();
 	}
 
@@ -356,7 +367,9 @@ public:
 	 *  storing the identifier of the variable. Otherwise the result
 	 *  is nullptr.
 	 */
-	virtual const char* Identifier(void) const { return nullptr; }
+	virtual const char* Identifier(void) const {
+		return nullptr;
+	}
 
 	/// Returns a log string associated with the error
 	/** If the error was caused by a process (like shader compilation,
@@ -364,146 +377,86 @@ public:
 	 *  log and it is available then it is returned by this function.
 	 *  Otherwise the result is an empty String.
 	 */
-	virtual const String& Log(void) const { return EmptyString(); }
+	virtual const String& Log(void) const {
+		return EmptyString();
+	}
 };
 
 /// Generic error handling function
 template <typename ErrorType>
-inline void HandleError(ErrorType& error)
-{
+inline void HandleError(ErrorType& error) {
 	throw error;
 }
 
 #define OGLPLUS_ERROR_CONTEXT(GLFUNC, CLASS) \
-	static const char* _errinf_glfn(void) \
-	{ \
-		return #GLFUNC; \
-	} \
-	static const char* _errinf_cls(void) \
-	{ \
-		return #CLASS; \
+	static const char* _errinf_glfn(void) {  \
+		return #GLFUNC;                      \
+	}                                        \
+	static const char* _errinf_cls(void) {   \
+		return #CLASS;                       \
 	}
 
 #define OGLPLUS_ERROR_REUSE_CONTEXT(SOURCE) \
-	using SOURCE::_errinf_glfn; \
+	using SOURCE::_errinf_glfn;             \
 	using SOURCE::_errinf_cls;
 
-
 // Macro for generic error handling
-#define OGLPLUS_HANDLE_ERROR(\
-	ERROR_CODE,\
-	MESSAGE,\
-	ERROR,\
-	ERROR_INFO\
-)\
-{\
-	ERROR error(MESSAGE);\
-	(void)error\
-		.ERROR_INFO\
-		.SourceFile(__FILE__)\
-		.SourceFunc(__FUNCTION__)\
-		.SourceLine(__LINE__)\
-		.Code(error_code);\
-	HandleError(error);\
-}
+#define OGLPLUS_HANDLE_ERROR(ERROR_CODE, MESSAGE, ERROR, ERROR_INFO) \
+	{                                                                \
+		ERROR error(MESSAGE);                                        \
+		(void)error.ERROR_INFO.SourceFile(__FILE__)                  \
+		  .SourceFunc(__FUNCTION__)                                  \
+		  .SourceLine(__LINE__)                                      \
+		  .Code(error_code);                                         \
+		HandleError(error);                                          \
+	}
 
-#define OGLPLUS_RETURN_HANDLER(\
-	ERROR_CODE,\
-	MESSAGE,\
-	ERROR,\
-	ERROR_INFO\
-)\
-{\
-	return DeferredHandler([=](void) -> void\
-	{\
-		OGLPLUS_HANDLE_ERROR(\
-			ERROR_CODE,\
-			MESSAGE,\
-			ERROR,\
-			ERROR_INFO\
-		);\
-	});\
-}
+#define OGLPLUS_RETURN_HANDLER(ERROR_CODE, MESSAGE, ERROR, ERROR_INFO)    \
+	{                                                                     \
+		return DeferredHandler([=](void) -> void {                        \
+			OGLPLUS_HANDLE_ERROR(ERROR_CODE, MESSAGE, ERROR, ERROR_INFO); \
+		});                                                               \
+	}
 
 // Macro for optional generic error handling
-#define OGLPLUS_HANDLE_ERROR_WITH_HANDLER_IF(\
-	CONDITION,\
-	ERROR_CODE,\
-	MESSAGE,\
-	ERROR,\
-	ERROR_INFO,\
-	HANDLER_MACRO\
-)\
-{\
-	GLenum error_code = ERROR_CODE;\
-	if(CONDITION)\
-		HANDLER_MACRO(\
-			error_code,\
-			MESSAGE,\
-			ERROR,\
-			ERROR_INFO\
-		)\
-}
+#define OGLPLUS_HANDLE_ERROR_WITH_HANDLER_IF(                       \
+  CONDITION, ERROR_CODE, MESSAGE, ERROR, ERROR_INFO, HANDLER_MACRO) \
+	{                                                               \
+		GLenum error_code = ERROR_CODE;                             \
+		if(CONDITION)                                               \
+			HANDLER_MACRO(error_code, MESSAGE, ERROR, ERROR_INFO)   \
+	}
 
-#define OGLPLUS_HANDLE_ERROR_IF(\
-	CONDITION,\
-	ERROR_CODE,\
-	MESSAGE,\
-	ERROR,\
-	ERROR_INFO\
-) OGLPLUS_HANDLE_ERROR_WITH_HANDLER_IF(\
-	CONDITION,\
-	ERROR_CODE,\
-	MESSAGE,\
-	ERROR,\
-	ERROR_INFO,\
-	OGLPLUS_HANDLE_ERROR\
-)
+#define OGLPLUS_HANDLE_ERROR_IF(                     \
+  CONDITION, ERROR_CODE, MESSAGE, ERROR, ERROR_INFO) \
+	OGLPLUS_HANDLE_ERROR_WITH_HANDLER_IF(            \
+	  CONDITION, ERROR_CODE, MESSAGE, ERROR, ERROR_INFO, OGLPLUS_HANDLE_ERROR)
 
-#define OGLPLUS_RETURN_HANDLER_IF(\
-	CONDITION,\
-	ERROR_CODE,\
-	MESSAGE,\
-	ERROR,\
-	ERROR_INFO\
-) OGLPLUS_HANDLE_ERROR_WITH_HANDLER_IF(\
-	CONDITION,\
-	ERROR_CODE,\
-	MESSAGE,\
-	ERROR,\
-	ERROR_INFO,\
-	OGLPLUS_RETURN_HANDLER\
-)
+#define OGLPLUS_RETURN_HANDLER_IF(                   \
+  CONDITION, ERROR_CODE, MESSAGE, ERROR, ERROR_INFO) \
+	OGLPLUS_HANDLE_ERROR_WITH_HANDLER_IF(CONDITION,  \
+	  ERROR_CODE,                                    \
+	  MESSAGE,                                       \
+	  ERROR,                                         \
+	  ERROR_INFO,                                    \
+	  OGLPLUS_RETURN_HANDLER)
 
-#define OGLPLUS_GLFUNC_CHECK_WITH_HANDLER(\
-	FUNC_NAME,\
-	ERROR,\
-	ERROR_INFO,\
-	HANDLER_MACRO\
-) OGLPLUS_HANDLE_ERROR_WITH_HANDLER_IF(\
-		error_code != GL_NO_ERROR,\
-		glGetError(),\
-		ERROR::Message(error_code),\
-		ERROR,\
-		ERROR_INFO.GLFunc(FUNC_NAME),\
-		HANDLER_MACRO\
-	)
+#define OGLPLUS_GLFUNC_CHECK_WITH_HANDLER(                          \
+  FUNC_NAME, ERROR, ERROR_INFO, HANDLER_MACRO)                      \
+	OGLPLUS_HANDLE_ERROR_WITH_HANDLER_IF(error_code != GL_NO_ERROR, \
+	  glGetError(),                                                 \
+	  ERROR::Message(error_code),                                   \
+	  ERROR,                                                        \
+	  ERROR_INFO.GLFunc(FUNC_NAME),                                 \
+	  HANDLER_MACRO)
 
-#define OGLPLUS_GLFUNC_CHECK(FUNC_NAME, ERROR, ERROR_INFO)\
-	OGLPLUS_GLFUNC_CHECK_WITH_HANDLER(\
-		FUNC_NAME,\
-		ERROR,\
-		ERROR_INFO,\
-		OGLPLUS_HANDLE_ERROR\
-	)
+#define OGLPLUS_GLFUNC_CHECK(FUNC_NAME, ERROR, ERROR_INFO) \
+	OGLPLUS_GLFUNC_CHECK_WITH_HANDLER(                     \
+	  FUNC_NAME, ERROR, ERROR_INFO, OGLPLUS_HANDLE_ERROR)
 
-#define OGLPLUS_RETURN_GLFUNC_CHECK_HANDLER(FUNC_NAME, ERROR, ERROR_INFO)\
-	OGLPLUS_GLFUNC_CHECK_WITH_HANDLER(\
-		FUNC_NAME,\
-		ERROR,\
-		ERROR_INFO,\
-		OGLPLUS_RETURN_HANDLER\
-	)
+#define OGLPLUS_RETURN_GLFUNC_CHECK_HANDLER(FUNC_NAME, ERROR, ERROR_INFO) \
+	OGLPLUS_GLFUNC_CHECK_WITH_HANDLER(                                    \
+	  FUNC_NAME, ERROR, ERROR_INFO, OGLPLUS_RETURN_HANDLER)
 
 #define OGLPLUS_CHECK(GLFUNC, ERROR, ERROR_INFO) \
 	OGLPLUS_GLFUNC_CHECK(#GLFUNC, ERROR, ERROR_INFO)
@@ -511,18 +464,16 @@ inline void HandleError(ErrorType& error)
 #define OGLPLUS_CHECK_CTXT(ERROR, ERROR_INFO) \
 	OGLPLUS_GLFUNC_CHECK(_errinf_glfn(), ERROR, ERROR_INFO)
 
-#define OGLPLUS_CHECK_SIMPLE(GLFUNC) \
-	OGLPLUS_CHECK(GLFUNC, Error, NoInfo())
+#define OGLPLUS_CHECK_SIMPLE(GLFUNC) OGLPLUS_CHECK(GLFUNC, Error, NoInfo())
 
 #if !OGLPLUS_LOW_PROFILE
-# define OGLPLUS_VERIFY(GLFUNC, ERROR, ERROR_INFO) \
+#define OGLPLUS_VERIFY(GLFUNC, ERROR, ERROR_INFO) \
 	OGLPLUS_CHECK(GLFUNC, ERROR, ERROR_INFO)
 #else
-# define OGLPLUS_VERIFY(GLFUNC, ERROR, ERROR_INFO)
+#define OGLPLUS_VERIFY(GLFUNC, ERROR, ERROR_INFO)
 #endif
 
-#define OGLPLUS_VERIFY_SIMPLE(GLFUNC) \
-	OGLPLUS_CHECK(GLFUNC, Error, NoInfo())
+#define OGLPLUS_VERIFY_SIMPLE(GLFUNC) OGLPLUS_CHECK(GLFUNC, Error, NoInfo())
 
 #define OGLPLUS_IGNORE(PARAM) ::glGetError();
 

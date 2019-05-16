@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -18,8 +18,8 @@
 #endif
 
 #include <oglplus/enums/face.hpp>
-#include <oglplus/enums/single_face.hpp>
 #include <oglplus/enums/face_orientation.hpp>
+#include <oglplus/enums/single_face.hpp>
 
 namespace oglplus {
 
@@ -28,15 +28,13 @@ namespace oglplus {
 #include <oglplus/enums/single_face_class.ipp>
 #endif
 
-inline
-Face Opposite(Face facing)
-OGLPLUS_NOEXCEPT(true)
-{
+inline Face Opposite(Face facing) noexcept {
 	if(facing == Face::Front)
 		return Face::Back;
 	else if(facing == Face::Back)
 		return Face::Front;
-	else return facing;
+	else
+		return facing;
 }
 
 /// Inverts the face orientation (CW to CCW and CCW to CW)
@@ -46,13 +44,11 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glfunref{FrontFace}
  */
-inline
-FaceOrientation Inverted(FaceOrientation winding)
-OGLPLUS_NOEXCEPT(true)
-{
+inline FaceOrientation Inverted(FaceOrientation winding) noexcept {
 	if(winding == FaceOrientation::CW)
 		return FaceOrientation::CCW;
-	else return FaceOrientation::CW;
+	else
+		return FaceOrientation::CW;
 }
 
 } // namespace oglplus

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -29,43 +29,37 @@ namespace oglplus {
 /**
  *  @ingroup error_handling
  */
-class IncompleteFramebuffer
- : public ObjectError
-{
+class IncompleteFramebuffer : public ObjectError {
 private:
 	FramebufferStatus _status;
+
 public:
 	static const char* Message(void);
 
 	IncompleteFramebuffer(const char* message)
-	 : ObjectError(message)
-	{ }
+	  : ObjectError(message) {
+	}
 
 #if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	IncompleteFramebuffer(const IncompleteFramebuffer&)
-		= default;
-	IncompleteFramebuffer& operator = (const IncompleteFramebuffer&)
-		= default;
+	IncompleteFramebuffer(const IncompleteFramebuffer&) = default;
+	IncompleteFramebuffer& operator=(const IncompleteFramebuffer&) = default;
 #else
 	IncompleteFramebuffer(const IncompleteFramebuffer& that)
-	 : ObjectError(that)
-	 , _status(that._status)
-	{ }
+	  : ObjectError(that)
+	  , _status(that._status) {
+	}
 #endif
 
-	~IncompleteFramebuffer(void)
-	OGLPLUS_NOTHROW
-	{ }
+	~IncompleteFramebuffer(void) noexcept {
+	}
 
-	IncompleteFramebuffer& Status(FramebufferStatus status)
-	{
+	IncompleteFramebuffer& Status(FramebufferStatus status) {
 		_status = status;
 		EnumParam(status);
 		return *this;
 	}
 
-	FramebufferStatus Status(void) const
-	{
+	FramebufferStatus Status(void) const {
 		return _status;
 	}
 };

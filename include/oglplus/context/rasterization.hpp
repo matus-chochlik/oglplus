@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,107 +13,82 @@
 #ifndef OGLPLUS_CONTEXT_RASTERIZATION_1201040722_HPP
 #define OGLPLUS_CONTEXT_RASTERIZATION_1201040722_HPP
 
-#include <oglplus/glfunc.hpp>
 #include <oglplus/face_mode.hpp>
+#include <oglplus/frag_data_slot.hpp>
+#include <oglplus/glfunc.hpp>
+#include <oglplus/math/vector.hpp>
 #include <oglplus/polygon_mode.hpp>
 #include <oglplus/provoke_mode.hpp>
-#include <oglplus/frag_data_slot.hpp>
-#include <oglplus/math/vector.hpp>
 
 namespace oglplus {
 namespace context {
 
 /// Helper structure storing front and back polygon modes
-struct PolygonModes
-{
+struct PolygonModes {
 	// private implementation detail, do not use
 	GLint _v[2];
 
-	PolygonModes(void)
-	OGLPLUS_NOEXCEPT(true)
-	{ }
+	PolygonModes(void) noexcept {
+	}
 
-	PolygonModes(PolygonMode mode)
-	OGLPLUS_NOEXCEPT(true)
-	{
+	PolygonModes(PolygonMode mode) noexcept {
 		_v[0] = GLint(mode);
 		_v[1] = GLint(mode);
 	}
 
-	PolygonModes(PolygonMode front, PolygonMode back)
-	OGLPLUS_NOEXCEPT(true)
-	{
+	PolygonModes(PolygonMode front, PolygonMode back) noexcept {
 		_v[0] = GLint(front);
 		_v[1] = GLint(back);
 	}
 
 	/// The front polygon mode
-	PolygonMode Front(void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
+	PolygonMode Front(void) const noexcept {
 		return PolygonMode(GLenum(_v[0]));
 	}
 
 	/// The back polygon mode
-	PolygonMode Back(void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
+	PolygonMode Back(void) const noexcept {
 		return PolygonMode(GLenum(_v[1]));
 	}
 
-	friend
-	bool operator == (const PolygonModes& a, const PolygonModes& b)
-	OGLPLUS_NOEXCEPT(true)
-	{
+	friend bool operator==(
+	  const PolygonModes& a, const PolygonModes& b) noexcept {
 		return (a._v[0] == b._v[0]) && (a._v[1] == b._v[1]);
 	}
 
-	friend
-	bool operator != (const PolygonModes& a, const PolygonModes& b)
-	OGLPLUS_NOEXCEPT(true)
-	{
+	friend bool operator!=(
+	  const PolygonModes& a, const PolygonModes& b) noexcept {
 		return (a._v[0] != b._v[0]) || (a._v[1] != b._v[1]);
 	}
 };
 
-struct PolygonOffsPara
-{
+struct PolygonOffsPara {
 	GLfloat _factor;
 	GLfloat _units;
 
-	PolygonOffsPara(void)
-	OGLPLUS_NOEXCEPT(true)
-	{ }
+	PolygonOffsPara(void) noexcept {
+	}
 
-	PolygonOffsPara(GLfloat factor, GLfloat units)
-	OGLPLUS_NOEXCEPT(true)
-	 : _factor(factor)
-	 , _units(units)
-	{ }
+	PolygonOffsPara(GLfloat factor, GLfloat units) noexcept
+	  : _factor(factor)
+	  , _units(units) {
+	}
 
-	GLfloat Factor(void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
+	GLfloat Factor(void) const noexcept {
 		return _factor;
 	}
 
-	GLfloat Units(void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
+	GLfloat Units(void) const noexcept {
 		return _units;
 	}
 
-	friend
-	bool operator == (const PolygonOffsPara& a, const PolygonOffsPara& b)
-	OGLPLUS_NOEXCEPT(true)
-	{
+	friend bool operator==(
+	  const PolygonOffsPara& a, const PolygonOffsPara& b) noexcept {
 		return (a._factor == b._factor) && (a._units == b._units);
 	}
 
-	friend
-	bool operator != (const PolygonOffsPara& a, const PolygonOffsPara& b)
-	OGLPLUS_NOEXCEPT(true)
-	{
+	friend bool operator!=(
+	  const PolygonOffsPara& a, const PolygonOffsPara& b) noexcept {
 		return (a._factor != b._factor) || (a._units != b._units);
 	}
 };
@@ -122,26 +97,19 @@ struct PolygonOffsPara
 /**
  *  @ingroup ogl_context
  */
-class RasterizationState
-{
+class RasterizationState {
 public:
 	/// Sets the polygon facing mode
 	/**
 	 *  @glsymbols
 	 *  @glfunref{FrontFace}
 	 */
-	static void FrontFace(FaceOrientation orientation)
-	{
+	static void FrontFace(FaceOrientation orientation) {
 		OGLPLUS_GLFUNC(FrontFace)(GLenum(orientation));
-		OGLPLUS_VERIFY(
-			FrontFace,
-			Error,
-			EnumParam(orientation)
-		);
+		OGLPLUS_VERIFY(FrontFace, Error, EnumParam(orientation));
 	}
 
-	static FaceOrientation FrontFace(void)
-	{
+	static FaceOrientation FrontFace(void) {
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_FRONT_FACE, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
@@ -153,14 +121,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CullFace}
 	 */
-	static void CullFace(Face mode)
-	{
+	static void CullFace(Face mode) {
 		OGLPLUS_GLFUNC(CullFace)(GLenum(mode));
-		OGLPLUS_VERIFY(
-			CullFace,
-			Error,
-			EnumParam(mode)
-		);
+		OGLPLUS_VERIFY(CullFace, Error, EnumParam(mode));
 	}
 
 	/// Returns the face culling mode
@@ -169,8 +132,7 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{CULL_FACE_MODE}
 	 */
-	static Face CullFaceMode(void)
-	{
+	static Face CullFaceMode(void) {
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_CULL_FACE_MODE, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
@@ -183,14 +145,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PolygonMode}
 	 */
-	static void PolygonMode(Face face, oglplus::PolygonMode mode)
-	{
+	static void PolygonMode(Face face, oglplus::PolygonMode mode) {
 		OGLPLUS_GLFUNC(PolygonMode)(GLenum(face), GLenum(mode));
-		OGLPLUS_VERIFY(
-			PolygonMode,
-			Error,
-			EnumParam(mode)
-		);
+		OGLPLUS_VERIFY(PolygonMode, Error, EnumParam(mode));
 	}
 
 	/// Sets the polygon rasterization mode
@@ -198,14 +155,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PolygonMode}
 	 */
-	static void PolygonMode(oglplus::PolygonMode mode)
-	{
+	static void PolygonMode(oglplus::PolygonMode mode) {
 		OGLPLUS_GLFUNC(PolygonMode)(GL_FRONT_AND_BACK, GLenum(mode));
-		OGLPLUS_VERIFY(
-			PolygonMode,
-			Error,
-			EnumParam(mode)
-		);
+		OGLPLUS_VERIFY(PolygonMode, Error, EnumParam(mode));
 	}
 
 	/// Returns the front face rasterization mode
@@ -214,8 +166,7 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{POLYGON_MODE}
 	 */
-	static oglplus::PolygonMode PolygonModeFront(void)
-	{
+	static oglplus::PolygonMode PolygonModeFront(void) {
 		GLint result[2];
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_POLYGON_MODE, result);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
@@ -228,41 +179,26 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{POLYGON_MODE}
 	 */
-	static oglplus::PolygonMode PolygonModeBack(void)
-	{
+	static oglplus::PolygonMode PolygonModeBack(void) {
 		GLint result[2];
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_POLYGON_MODE, result);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return oglplus::PolygonMode(result[1]);
 	}
 
-	static void PolygonMode(const PolygonModes& modes)
-	{
-		if(modes._v[0] == modes._v[1])
-		{
-			OGLPLUS_GLFUNC(PolygonMode)(
-				GL_FRONT_AND_BACK,
-				GLenum(modes._v[0])
-			);
+	static void PolygonMode(const PolygonModes& modes) {
+		if(modes._v[0] == modes._v[1]) {
+			OGLPLUS_GLFUNC(PolygonMode)(GL_FRONT_AND_BACK, GLenum(modes._v[0]));
 			OGLPLUS_VERIFY_SIMPLE(PolygonMode);
-		}
-		else
-		{
-			OGLPLUS_GLFUNC(PolygonMode)(
-				GL_FRONT,
-				GLenum(modes._v[0])
-			);
+		} else {
+			OGLPLUS_GLFUNC(PolygonMode)(GL_FRONT, GLenum(modes._v[0]));
 			OGLPLUS_VERIFY_SIMPLE(PolygonMode);
-			OGLPLUS_GLFUNC(PolygonMode)(
-				GL_BACK,
-				GLenum(modes._v[1])
-			);
+			OGLPLUS_GLFUNC(PolygonMode)(GL_BACK, GLenum(modes._v[1]));
 			OGLPLUS_VERIFY_SIMPLE(PolygonMode);
 		}
 	}
 
-	static PolygonModes PolygonMode(void)
-	{
+	static PolygonModes PolygonMode(void) {
 		PolygonModes result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_POLYGON_MODE, result._v);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
@@ -275,8 +211,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PolygonOffset}
 	 */
-	static void PolygonOffset(GLfloat factor, GLfloat units)
-	{
+	static void PolygonOffset(GLfloat factor, GLfloat units) {
 		OGLPLUS_GLFUNC(PolygonOffset)(factor, units);
 		OGLPLUS_VERIFY_SIMPLE(PolygonOffset);
 	}
@@ -287,8 +222,7 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{POLYGON_OFFSET_FACTOR}
 	 */
-	static GLfloat PolygonOffsetFactor(void)
-	{
+	static GLfloat PolygonOffsetFactor(void) {
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_POLYGON_OFFSET_FACTOR, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
@@ -301,26 +235,20 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{POLYGON_OFFSET_UNITS}
 	 */
-	static GLfloat PolygonOffsetUnits(void)
-	{
+	static GLfloat PolygonOffsetUnits(void) {
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_POLYGON_OFFSET_UNITS, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
 	}
 
-	static void PolygonOffset(const PolygonOffsPara& para)
-	{
+	static void PolygonOffset(const PolygonOffsPara& para) {
 		OGLPLUS_GLFUNC(PolygonOffset)(para.Factor(), para.Units());
 		OGLPLUS_VERIFY_SIMPLE(PolygonOffset);
 	}
 
-	static PolygonOffsPara PolygonOffset(void)
-	{
-		return PolygonOffsPara(
-			PolygonOffsetFactor(),
-			PolygonOffsetUnits()
-		);
+	static PolygonOffsPara PolygonOffset(void) {
+		return PolygonOffsPara(PolygonOffsetFactor(), PolygonOffsetUnits());
 	}
 
 	/// Sets the line width
@@ -328,8 +256,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{LineWidth}
 	 */
-	static void LineWidth(GLfloat width)
-	{
+	static void LineWidth(GLfloat width) {
 		OGLPLUS_GLFUNC(LineWidth)(width);
 		OGLPLUS_VERIFY_SIMPLE(LineWidth);
 	}
@@ -340,8 +267,7 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{LINE_WIDTH}
 	 */
-	static GLfloat LineWidth(void)
-	{
+	static GLfloat LineWidth(void) {
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_LINE_WIDTH, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
@@ -354,8 +280,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PointSize}
 	 */
-	static void PointSize(GLfloat size)
-	{
+	static void PointSize(GLfloat size) {
 		OGLPLUS_GLFUNC(PointSize)(size);
 		OGLPLUS_VERIFY_SIMPLE(PointSize);
 	}
@@ -366,8 +291,7 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{POINT_SIZE}
 	 */
-	static GLfloat PointSize(void)
-	{
+	static GLfloat PointSize(void) {
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_POINT_SIZE, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
@@ -380,12 +304,8 @@ public:
 	 *  @glfunref{PointParameter}
 	 *  @gldefref{POINT_FADE_THRESHOLD_SIZE}
 	 */
-	static void PointFadeThresholdSize(GLfloat size)
-	{
-		OGLPLUS_GLFUNC(PointParameterf)(
-			GL_POINT_FADE_THRESHOLD_SIZE,
-			size
-		);
+	static void PointFadeThresholdSize(GLfloat size) {
+		OGLPLUS_GLFUNC(PointParameterf)(GL_POINT_FADE_THRESHOLD_SIZE, size);
 		OGLPLUS_VERIFY_SIMPLE(PointParameterf);
 	}
 
@@ -395,10 +315,9 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{POINT_FADE_THRESHOLD_SIZE}
 	 */
-	static GLfloat PointFadeThresholdSize(void)
-	{
+	static GLfloat PointFadeThresholdSize(void) {
 		GLfloat result;
-		OGLPLUS_GLFUNC(GetFloatv)(GL_POINT_FADE_THRESHOLD_SIZE,&result);
+		OGLPLUS_GLFUNC(GetFloatv)(GL_POINT_FADE_THRESHOLD_SIZE, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
 	}
@@ -411,8 +330,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProvokingVertex}
 	 */
-	static void ProvokingVertex(ProvokeMode mode)
-	{
+	static void ProvokingVertex(ProvokeMode mode) {
 		OGLPLUS_GLFUNC(ProvokingVertex)(GLenum(mode));
 		OGLPLUS_VERIFY_SIMPLE(ProvokingVertex);
 	}
@@ -424,8 +342,7 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{PROVOKING_VERTEX}
 	 */
-	static ProvokeMode ProvokingVertex(void)
-	{
+	static ProvokeMode ProvokingVertex(void) {
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_PROVOKING_VERTEX, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
@@ -441,8 +358,7 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{MIN_SAMPLE_SHADING_VALUE}
 	 */
-	static GLfloat MinSampleShading(void)
-	{
+	static GLfloat MinSampleShading(void) {
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_MIN_SAMPLE_SHADING_VALUE, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
@@ -455,8 +371,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MinSampleShading}
 	 */
-	static void MinSampleShading(GLfloat value)
-	{
+	static void MinSampleShading(GLfloat value) {
 		OGLPLUS_GLFUNC(MinSampleShading)(value);
 		OGLPLUS_VERIFY_SIMPLE(MinSampleShading);
 	}
@@ -469,27 +384,21 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{FragmentCoverageColorNV}
 	 */
-	static void FragmentCoverageColor(FragDataSlot buffer)
-	{
+	static void FragmentCoverageColor(FragDataSlot buffer) {
 		OGLPLUS_GLFUNC(FragmentCoverageColorNV)(GLuint(buffer));
 		OGLPLUS_CHECK_SIMPLE(FragmentCoverageColorNV);
 	}
 
-	static FragDataSlot FragmentCoverageColor(void)
-	{
+	static FragDataSlot FragmentCoverageColor(void) {
 		GLint result;
-		OGLPLUS_GLFUNC(GetIntegerv)(
-			GL_FRAGMENT_COVERAGE_COLOR_NV,
-			&result
-		);
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_FRAGMENT_COVERAGE_COLOR_NV, &result);
 		OGLPLUS_CHECK_SIMPLE(GetIntegerv);
 		return FragDataSlot(GLuint(result));
 	}
 #endif
 };
 
-class RasterizationOps
-{
+class RasterizationOps {
 public:
 	/// Returns the value of sample buffers
 	/**
@@ -497,8 +406,7 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{SAMPLE_BUFFERS}
 	 */
-	static GLint SampleBuffers(void)
-	{
+	static GLint SampleBuffers(void) {
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_SAMPLE_BUFFERS, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
@@ -511,8 +419,7 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{SAMPLES}
 	 */
-	static GLint Samples(void)
-	{
+	static GLint Samples(void) {
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_SAMPLES, &result);
 		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
@@ -527,14 +434,10 @@ public:
 	 *  @glfunref{GetMultisample}
 	 *  @gldefref{SAMPLE_POSITION}
 	 */
-	static Vec2f SamplePosition(GLuint index)
-	{
+	static Vec2f SamplePosition(GLuint index) {
 		Vec2f result;
-		OGLPLUS_GLFUNC(GetMultisamplefv)(
-			GL_SAMPLE_POSITION,
-			index,
-			result.Data()
-		);
+		OGLPLUS_GLFUNC(GetMultisamplefv)
+		(GL_SAMPLE_POSITION, index, result.Data());
 		OGLPLUS_VERIFY_SIMPLE(GetMultisamplefv);
 		return result;
 	}

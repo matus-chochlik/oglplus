@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,26 +13,26 @@
 #ifndef OGLPLUS_PROGRAM_1107121519_HPP
 #define OGLPLUS_PROGRAM_1107121519_HPP
 
-#include <oglplus/config/compiler.hpp>
-#include <oglplus/object/wrapper.hpp>
-#include <oglplus/object/sequence.hpp>
-#include <oglplus/error/program.hpp>
-#include <oglplus/error/prog_var.hpp>
-#include <oglplus/error/outcome.hpp>
 #include <oglplus/boolean.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/data_type.hpp>
-#include <oglplus/transform_feedback_mode.hpp>
-#include <oglplus/program_parameter.hpp>
-#include <oglplus/program_resource.hpp>
-#include <oglplus/primitive_type.hpp>
+#include <oglplus/detail/base_range.hpp>
+#include <oglplus/error/outcome.hpp>
+#include <oglplus/error/prog_var.hpp>
+#include <oglplus/error/program.hpp>
 #include <oglplus/face_mode.hpp>
 #include <oglplus/glsl_source.hpp>
+#include <oglplus/object/sequence.hpp>
+#include <oglplus/object/wrapper.hpp>
+#include <oglplus/primitive_type.hpp>
+#include <oglplus/program_parameter.hpp>
+#include <oglplus/program_resource.hpp>
+#include <oglplus/transform_feedback_mode.hpp>
 #include <oglplus/vertex_attrib_slot.hpp>
-#include <oglplus/detail/base_range.hpp>
 
-#include <vector>
 #include <cassert>
 #include <tuple>
+#include <vector>
 
 namespace oglplus {
 
@@ -47,71 +47,56 @@ class VertexAttribOps;
  *  @glfunref{IsProgram}
  */
 template <>
-class ObjGenDelOps<tag::Program>
-{
+class ObjGenDelOps<tag::Program> {
 protected:
-	static void Gen(tag::Create, GLsizei count, GLuint* names)
-	{
+	static void Gen(tag::Create, GLsizei count, GLuint* names) {
 		assert(names != nullptr);
-		for(GLsizei i=0; i<count; ++i)
-		{
+		for(GLsizei i = 0; i < count; ++i) {
 			names[i] = OGLPLUS_GLFUNC(CreateProgram)();
 			OGLPLUS_CHECK_SIMPLE(CreateProgram);
 		}
 	}
 
-	static void Delete(GLsizei count, GLuint* names)
-	{
+	static void Delete(GLsizei count, GLuint* names) {
 		assert(names != nullptr);
-		for(GLsizei i=0; i<count; ++i)
-		{
+		for(GLsizei i = 0; i < count; ++i) {
 			OGLPLUS_GLFUNC(DeleteProgram)(names[i]);
 			OGLPLUS_VERIFY_SIMPLE(DeleteProgram);
 		}
 	}
 
-	static Boolean IsA(GLuint name)
-	{
-		Boolean result(
-			OGLPLUS_GLFUNC(IsProgram)(name),
-			std::nothrow
-		);
+	static Boolean IsA(GLuint name) {
+		Boolean result(OGLPLUS_GLFUNC(IsProgram)(name), std::nothrow);
 		OGLPLUS_VERIFY_SIMPLE(IsProgram);
 		return result;
 	}
 };
 
 template <>
-struct ObjGenTag<tag::DirectState, tag::Program>
-{
+struct ObjGenTag<tag::DirectState, tag::Program> {
 	typedef tag::Create Type;
 };
 
 /// Program binding operations
 template <>
-class ObjBindingOps<tag::Program>
-{
+class ObjBindingOps<tag::Program> {
 protected:
-	static GLuint _binding(void)
-	{
+	static GLuint _binding(void) {
 		GLint name = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_CURRENT_PROGRAM, &name);
 		OGLPLUS_VERIFY(
-			GetIntegerv,
-			Error,
-			EnumParam(GLenum(GL_CURRENT_PROGRAM))
-		);
+		  GetIntegerv, Error, EnumParam(GLenum(GL_CURRENT_PROGRAM)));
 		assert(!(name < 0));
 		return GLuint(name);
 	}
+
 public:
 	/// Returns the currently bound (active) Program
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetIntegerv}
 	 */
-	static ProgramName Binding(void)
-	{
+	static ProgramName Binding(void) {
 		return ProgramName(_binding());
 	}
 
@@ -120,14 +105,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{UseProgram}
 	 */
-	static void Bind(ProgramName program)
-	{
+	static void Bind(ProgramName program) {
 		OGLPLUS_GLFUNC(UseProgram)(GetGLName(program));
-		OGLPLUS_VERIFY(
-			UseProgram,
-			ObjectError,
-			Object(program)
-		);
+		OGLPLUS_VERIFY(UseProgram, ObjectError, Object(program));
 	}
 };
 
@@ -137,49 +117,42 @@ public:
  */
 template <>
 class ObjCommonOps<tag::Program>
- : public ProgramName
- , public ObjBindingOps<tag::Program>
-{
+  : public ProgramName
+  , public ObjBindingOps<tag::Program> {
 protected:
-	ObjCommonOps(ProgramName name)
-	OGLPLUS_NOEXCEPT(true)
-	 : ProgramName(name)
-	{ }
+	ObjCommonOps(ProgramName name) noexcept
+	  : ProgramName(name) {
+	}
+
 public:
 #if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	ObjCommonOps(ObjCommonOps&&) = default;
 	ObjCommonOps(const ObjCommonOps&) = default;
-	ObjCommonOps& operator = (ObjCommonOps&&) = default;
-	ObjCommonOps& operator = (const ObjCommonOps&) = default;
+	ObjCommonOps& operator=(ObjCommonOps&&) = default;
+	ObjCommonOps& operator=(const ObjCommonOps&) = default;
 #else
 	typedef ProgramName _base1;
 	typedef ObjBindingOps<tag::Program> _base2;
 
-	ObjCommonOps(ObjCommonOps&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	 : _base1(static_cast<_base1&&>(temp))
-	 , _base2(static_cast<_base2&&>(temp))
-	{ }
+	ObjCommonOps(ObjCommonOps&& temp) noexcept
+	  : _base1(static_cast<_base1&&>(temp))
+	  , _base2(static_cast<_base2&&>(temp)) {
+	}
 
-	ObjCommonOps(const ObjCommonOps& that)
-	OGLPLUS_NOEXCEPT(true)
-	 : _base1(static_cast<const _base1&>(that))
-	 , _base2(static_cast<const _base2&>(that))
-	{ }
+	ObjCommonOps(const ObjCommonOps& that) noexcept
+	  : _base1(static_cast<const _base1&>(that))
+	  , _base2(static_cast<const _base2&>(that)) {
+	}
 
-	ObjCommonOps& operator = (ObjCommonOps&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_base1::operator = (static_cast<_base1&&>(temp));
-		_base2::operator = (static_cast<_base2&&>(temp));
+	ObjCommonOps& operator=(ObjCommonOps&& temp) noexcept {
+		_base1::operator=(static_cast<_base1&&>(temp));
+		_base2::operator=(static_cast<_base2&&>(temp));
 		return *this;
 	}
 
-	ObjCommonOps& operator = (const ObjCommonOps& that)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_base1::operator = (static_cast<const _base1&>(that));
-		_base2::operator = (static_cast<const _base2&>(that));
+	ObjCommonOps& operator=(const ObjCommonOps& that) noexcept {
+		_base1::operator=(static_cast<const _base1&>(that));
+		_base2::operator=(static_cast<const _base2&>(that));
 		return *this;
 	}
 #endif
@@ -194,8 +167,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{UseProgram}
 	 */
-	void Bind(void) const
-	{
+	void Bind(void) const {
 		Bind(*this);
 	}
 
@@ -208,94 +180,73 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{UseProgram}
 	 */
-	void Use(void) const
-	{
+	void Use(void) const {
 		Bind(*this);
 	}
 };
-
 
 /// Class wrapping program functions (with direct state access)
 /** @note Do not use this class directly, use Program instead.
  */
 template <>
 class ObjectOps<tag::DirectState, tag::Program>
- : public ObjZeroOps<tag::DirectState, tag::Program>
-{
+  : public ObjZeroOps<tag::DirectState, tag::Program> {
 protected:
-	ObjectOps(ProgramName name)
-	OGLPLUS_NOEXCEPT(true)
-	 : ObjZeroOps<tag::DirectState, tag::Program>(name)
-	{ }
+	ObjectOps(ProgramName name) noexcept
+	  : ObjZeroOps<tag::DirectState, tag::Program>(name) {
+	}
+
 public:
 #if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	ObjectOps(ObjectOps&&) = default;
 	ObjectOps(const ObjectOps&) = default;
-	ObjectOps& operator = (ObjectOps&&) = default;
-	ObjectOps& operator = (const ObjectOps&) = default;
+	ObjectOps& operator=(ObjectOps&&) = default;
+	ObjectOps& operator=(const ObjectOps&) = default;
 #else
 	typedef ObjZeroOps<tag::DirectState, tag::Program> _base;
 
-	ObjectOps(ObjectOps&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	 : _base(static_cast<_base&&>(temp))
-	{ }
+	ObjectOps(ObjectOps&& temp) noexcept
+	  : _base(static_cast<_base&&>(temp)) {
+	}
 
-	ObjectOps(const ObjectOps& that)
-	OGLPLUS_NOEXCEPT(true)
-	 : _base(static_cast<const _base&>(that))
-	{ }
+	ObjectOps(const ObjectOps& that) noexcept
+	  : _base(static_cast<const _base&>(that)) {
+	}
 
-	ObjectOps& operator = (ObjectOps&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_base::operator = (static_cast<_base&&>(temp));
+	ObjectOps& operator=(ObjectOps&& temp) noexcept {
+		_base::operator=(static_cast<_base&&>(temp));
 		return *this;
 	}
 
-	ObjectOps& operator = (const ObjectOps& that)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_base::operator = (static_cast<const _base&>(that));
+	ObjectOps& operator=(const ObjectOps& that) noexcept {
+		_base::operator=(static_cast<const _base&>(that));
 		return *this;
 	}
 #endif
-	GLint GetIntParam(ProgramParameter query) const
-	{
+	GLint GetIntParam(ProgramParameter query) const {
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetProgramiv)(_obj_name(), GLenum(query), &result);
 		OGLPLUS_VERIFY(
-			GetProgramiv,
-			ObjectError,
-			Object(*this).
-			EnumParam(query)
-		);
+		  GetProgramiv, ObjectError, Object(*this).EnumParam(query));
 		return result;
 	}
 
-	GLuint GetUIntParam(ProgramParameter query) const
-	{
+	GLuint GetUIntParam(ProgramParameter query) const {
 		GLint res = GetIntParam(query);
 		assert(!(res < 0));
 		return GLuint(res);
 	}
 
 #if GL_VERSION_4_0 || GL_ARB_shader_subroutine
-	GLint GetStageIntParam(GLenum stage, GLenum query) const
-	{
+	GLint GetStageIntParam(GLenum stage, GLenum query) const {
 		GLint result;
 		OGLPLUS_GLFUNC(GetProgramStageiv)(_obj_name(), stage, query, &result);
 		OGLPLUS_VERIFY(
-			GetProgramStageiv,
-			ObjectError,
-			Object(*this).
-			EnumParam(query)
-		);
+		  GetProgramStageiv, ObjectError, Object(*this).EnumParam(query));
 		return result;
 	}
 
-	GLuint GetStageUIntParam(GLenum stage, GLenum query) const
-	{
+	GLuint GetStageUIntParam(GLenum stage, GLenum query) const {
 		GLint res = GetStageIntParam(stage, query);
 		assert(!(res < 0));
 		return GLuint(res);
@@ -328,12 +279,9 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{LINK_STATUS}
 	 */
-	Boolean IsLinked(void) const
-	{
+	Boolean IsLinked(void) const {
 		return Boolean(
-			GetIntParam(ProgramParameter(GL_LINK_STATUS)),
-			std::nothrow
-		);
+		  GetIntParam(ProgramParameter(GL_LINK_STATUS)), std::nothrow);
 	}
 
 	/// Returns the linker output if the program is linked
@@ -379,8 +327,7 @@ public:
 	 */
 	Outcome<ObjectOps&> Build(void);
 
-#if OGLPLUS_DOCUMENTATION_ONLY ||\
-	GL_ARB_shading_language_include
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_shading_language_include
 
 	/// builds this shading language program using specified include paths
 	/** This function checks if all attached shaders are compiled
@@ -398,36 +345,18 @@ public:
 	 *  @glfunref{GetProgramInfoLog}
 	 */
 	Outcome<ObjectOps&> BuildInclude(
-		SizeType count,
-		const GLchar* const* paths,
-		const GLint* lengths
-	);
+	  SizeType count, const GLchar* const* paths, const GLint* lengths);
 
-	Outcome<ObjectOps&> BuildInclude(GLSLString&& incl)
-	{
-		return BuildInclude(
-			incl.Count(),
-			incl.Parts(),
-			incl.Lengths()
-		);
+	Outcome<ObjectOps&> BuildInclude(GLSLString&& incl) {
+		return BuildInclude(incl.Count(), incl.Parts(), incl.Lengths());
 	}
 
-	Outcome<ObjectOps&> BuildInclude(GLSLStrings&& incl)
-	{
-		return BuildInclude(
-			incl.Count(),
-			incl.Parts(),
-			incl.Lengths()
-		);
+	Outcome<ObjectOps&> BuildInclude(GLSLStrings&& incl) {
+		return BuildInclude(incl.Count(), incl.Parts(), incl.Lengths());
 	}
 
-	Outcome<ObjectOps&> BuildInclude(const GLSLSource&& incl)
-	{
-		return BuildInclude(
-			incl.Count(),
-			incl.Parts(),
-			incl.Lengths()
-		);
+	Outcome<ObjectOps&> BuildInclude(const GLSLSource&& incl) {
+		return BuildInclude(incl.Count(), incl.Parts(), incl.Lengths());
 	}
 #endif
 
@@ -439,12 +368,9 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{VALIDATE_STATUS}
 	 */
-	Boolean IsValid(void) const
-	{
+	Boolean IsValid(void) const {
 		return Boolean(
-			GetIntParam(ProgramParameter(GL_VALIDATE_STATUS)),
-			std::nothrow
-		);
+		  GetIntParam(ProgramParameter(GL_VALIDATE_STATUS)), std::nothrow);
 	}
 
 	/// Validates this shading language program
@@ -470,10 +396,7 @@ public:
 	 *  @glfunref{TransformFeedbackVaryings}
 	 */
 	void TransformFeedbackVaryings(
-		SizeType count,
-		const GLchar** varyings,
-		TransformFeedbackMode mode
-	);
+	  SizeType count, const GLchar** varyings, TransformFeedbackMode mode);
 
 	/// Sets the variable that will be captured during transform feedback
 	/**
@@ -482,20 +405,14 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TransformFeedbackVaryings}
 	 */
-	void TransformFeedbackVarying(const GLchar* varying)
-	{
+	void TransformFeedbackVarying(const GLchar* varying) {
 		TransformFeedbackVaryings(
-			1, &varying,
-			TransformFeedbackMode::SeparateAttribs
-		);
+		  1, &varying, TransformFeedbackMode::SeparateAttribs);
 	}
 
 	template <typename std::size_t N>
 	void TransformFeedbackVaryings(
-		const GLchar* (&varyings)[N],
-		TransformFeedbackMode mode
-	)
-	{
+	  const GLchar* (&varyings)[N], TransformFeedbackMode mode) {
 		TransformFeedbackVaryings(N, varyings, mode);
 	}
 
@@ -507,9 +424,7 @@ public:
 	 *  @glfunref{TransformFeedbackVaryings}
 	 */
 	void TransformFeedbackVaryings(
-		const std::vector<String>& varyings,
-		TransformFeedbackMode mode
-	) const;
+	  const std::vector<String>& varyings, TransformFeedbackMode mode) const;
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Information about a single active vertex attribute or uniform
@@ -517,8 +432,7 @@ public:
 	 *  of ActiveVariableInfo actually return types convertible to
 	 *  ActiveVariableInfo.
 	 */
-	class ActiveVariableInfo
-	{
+	class ActiveVariableInfo {
 	public:
 		/// Returns the index of the attribute or uniform
 		GLuint Index(void) const;
@@ -558,69 +472,57 @@ public:
 	/// The type of the range for traversing transform feedback varyings
 	typedef Range<ActiveVariableInfo> TransformFeedbackVaryingRange;
 	/// The type of the range for traversing program's shaders
-	typedef Range<Managed<Shader> > ShaderRange;
+	typedef Range<Managed<Shader>> ShaderRange;
 #else
 	typedef aux::ActiveVariableInfo ActiveVariableInfo;
 	typedef aux::ProgramInterfaceContext InterfaceContext;
 
 #if GL_VERSION_4_3
-	typedef aux::ContextElementRange<
-		aux::ProgramInterfaceContext,
-		ProgramResource
-	> ActiveResourceRange;
+	typedef aux::ContextElementRange<aux::ProgramInterfaceContext,
+	  ProgramResource>
+	  ActiveResourceRange;
 #endif
 
-	typedef aux::ContextElementRange<
-		aux::ProgramInterfaceContext,
-		aux::ActiveAttribInfo
-	> ActiveAttribRange;
+	typedef aux::ContextElementRange<aux::ProgramInterfaceContext,
+	  aux::ActiveAttribInfo>
+	  ActiveAttribRange;
 
-	typedef aux::ContextElementRange<
-		aux::ProgramInterfaceContext,
-		aux::ActiveUniformInfo
-	> ActiveUniformRange;
+	typedef aux::ContextElementRange<aux::ProgramInterfaceContext,
+	  aux::ActiveUniformInfo>
+	  ActiveUniformRange;
 
 #if GL_VERSION_4_0 || GL_ARB_shader_subroutine
-	typedef aux::ContextElementRange<
-		aux::ProgramInterfaceContext,
-		aux::ActiveSubroutineInfo
-	> ActiveSubroutineRange;
+	typedef aux::ContextElementRange<aux::ProgramInterfaceContext,
+	  aux::ActiveSubroutineInfo>
+	  ActiveSubroutineRange;
 
-	typedef aux::ContextElementRange<
-		aux::ProgramInterfaceContext,
-		aux::ActiveSubroutineUniformInfo
-	> ActiveSubroutineUniformRange;
+	typedef aux::ContextElementRange<aux::ProgramInterfaceContext,
+	  aux::ActiveSubroutineUniformInfo>
+	  ActiveSubroutineUniformRange;
 #endif
-	typedef aux::ContextElementRange<
-		aux::ProgramInterfaceContext,
-		aux::TransformFeedbackVaryingInfo
-	> TransformFeedbackVaryingRange;
+	typedef aux::ContextElementRange<aux::ProgramInterfaceContext,
+	  aux::TransformFeedbackVaryingInfo>
+	  TransformFeedbackVaryingRange;
 
-	struct ShaderIterationContext
-	{
+	struct ShaderIterationContext {
 		std::vector<GLuint> _shader_names;
 
 		ShaderIterationContext(GLuint name, GLuint count);
 
 		ShaderIterationContext(ShaderIterationContext&& temp)
-		 : _shader_names(std::move(temp._shader_names))
-		{ }
+		  : _shader_names(std::move(temp._shader_names)) {
+		}
 	};
 
-	struct IteratedShaderName
-	 : ShaderName
-	{
+	struct IteratedShaderName : ShaderName {
 		IteratedShaderName(
-			const ShaderIterationContext& context,
-			unsigned index
-		): ShaderName(context._shader_names.at(index))
-		{ }
+		  const ShaderIterationContext& context, unsigned index)
+		  : ShaderName(context._shader_names.at(index)) {
+		}
 	};
 
-	typedef aux::ContextElementRange<
-			ShaderIterationContext,
-			IteratedShaderName
-	> ShaderRange;
+	typedef aux::ContextElementRange<ShaderIterationContext, IteratedShaderName>
+	  ShaderRange;
 #endif // !OGLPLUS_DOCUMENTATION_ONLY
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
@@ -707,7 +609,8 @@ public:
 	 *
 	 *  @glvoereq{4,0,ARB,shader_subroutine}
 	 */
-	ActiveSubroutineUniformRange ActiveSubroutineUniforms(ShaderType stage) const;
+	ActiveSubroutineUniformRange ActiveSubroutineUniforms(
+	  ShaderType stage) const;
 #endif
 
 	/// Returns the context for traversal of Program's active TFB varyings
@@ -735,8 +638,7 @@ public:
 	 *
 	 *  @see ActiveUniformBlocks
 	 */
-	class ActiveUniformBlockInfo
-	{
+	class ActiveUniformBlockInfo {
 		/// Returns the index of the attribute or uniform
 		GLuint Index(void) const;
 
@@ -749,10 +651,9 @@ public:
 	/// The type of the range for traversing active uniform blocks
 	typedef Range<ActiveUniformBlockInfo> ActiveUniformRange;
 #else
-	typedef aux::ContextElementRange<
-		aux::ProgramInterfaceContext,
-		aux::ActiveUniformBlockInfo
-	> ActiveUniformBlockRange;
+	typedef aux::ContextElementRange<aux::ProgramInterfaceContext,
+	  aux::ActiveUniformBlockInfo>
+	  ActiveUniformBlockRange;
 #endif
 
 	/// Returns a range allowing to do the traversal of active attributes
@@ -764,7 +665,8 @@ public:
 	 */
 	ActiveUniformBlockRange ActiveUniformBlocks(void) const;
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 \
+  || GL_ARB_separate_shader_objects
 	/// Makes this program separable
 	/**
 	 *  @glvoereq{4,1,ARB,separate_shader_objects}
@@ -816,11 +718,9 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{TRANSFORM_FEEDBACK_BUFFER_MODE}
 	 */
-	TransformFeedbackMode TransformFeedbackBufferMode(void) const
-	{
+	TransformFeedbackMode TransformFeedbackBufferMode(void) const {
 		return TransformFeedbackMode(
-			GetIntParam(ProgramParameter(GL_TRANSFORM_FEEDBACK_BUFFER_MODE))
-		);
+		  GetIntParam(ProgramParameter(GL_TRANSFORM_FEEDBACK_BUFFER_MODE)));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
@@ -830,8 +730,7 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{GEOMETRY_VERTICES_OUT}
 	 */
-	GLint GeometryVerticesOut(void) const
-	{
+	GLint GeometryVerticesOut(void) const {
 		return GetIntParam(ProgramParameter(GL_GEOMETRY_VERTICES_OUT));
 	}
 #endif
@@ -845,8 +744,7 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{GEOMETRY_SHADER_INVOCATIONS}
 	 */
-	GLint GeometryShaderInvocations(void) const
-	{
+	GLint GeometryShaderInvocations(void) const {
 		return GetIntParam(ProgramParameter(GL_GEOMETRY_SHADER_INVOCATIONS));
 	}
 #endif // gpu shader 5
@@ -860,11 +758,9 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{GEOMETRY_INPUT_TYPE}
 	 */
-	PrimitiveType GeometryInputType(void) const
-	{
+	PrimitiveType GeometryInputType(void) const {
 		return PrimitiveType(
-			GetIntParam(ProgramParameter(GL_GEOMETRY_INPUT_TYPE))
-		);
+		  GetIntParam(ProgramParameter(GL_GEOMETRY_INPUT_TYPE)));
 	}
 
 	/// Returns the geometry shader output primitive type
@@ -874,11 +770,9 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{GEOMETRY_OUTPUT_TYPE}
 	 */
-	PrimitiveType GeometryOutputType(void) const
-	{
+	PrimitiveType GeometryOutputType(void) const {
 		return PrimitiveType(
-			GetIntParam(ProgramParameter(GL_GEOMETRY_OUTPUT_TYPE))
-		);
+		  GetIntParam(ProgramParameter(GL_GEOMETRY_OUTPUT_TYPE)));
 	}
 #endif
 
@@ -891,11 +785,9 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{TESS_GEN_VERTEX_ORDER}
 	 */
-	FaceOrientation TessGenVertexOrder(void) const
-	{
+	FaceOrientation TessGenVertexOrder(void) const {
 		return FaceOrientation(
-			GetIntParam(ProgramParameter(GL_TESS_GEN_VERTEX_ORDER))
-		);
+		  GetIntParam(ProgramParameter(GL_TESS_GEN_VERTEX_ORDER)));
 	}
 
 	/// Returns the tesselation generator output primitive type
@@ -905,11 +797,9 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{TESS_GEN_MODE}
 	 */
-	TessGenPrimitiveType TessGenMode(void) const
-	{
+	TessGenPrimitiveType TessGenMode(void) const {
 		return TessGenPrimitiveType(
-			GetIntParam(ProgramParameter(GL_TESS_GEN_MODE))
-		);
+		  GetIntParam(ProgramParameter(GL_TESS_GEN_MODE)));
 	}
 
 	/// Returns the tesselation generator primitive spacing mode
@@ -919,11 +809,9 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{TESS_GEN_SPACING}
 	 */
-	TessGenPrimitiveSpacing TessGenSpacing(void) const
-	{
+	TessGenPrimitiveSpacing TessGenSpacing(void) const {
 		return TessGenPrimitiveSpacing(
-			GetIntParam(ProgramParameter(GL_TESS_GEN_SPACING))
-		);
+		  GetIntParam(ProgramParameter(GL_TESS_GEN_SPACING)));
 	}
 
 	/// Returns true if point mode is enabled in tesslation eval. shader
@@ -933,29 +821,20 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{TESS_GEN_POINT_MODE}
 	 */
-	Boolean TessGenPointMode(void) const
-	{
+	Boolean TessGenPointMode(void) const {
 		return Boolean(
-			GetIntParam(ProgramParameter(GL_TESS_GEN_POINT_MODE)),
-			std::nothrow
-		);
+		  GetIntParam(ProgramParameter(GL_TESS_GEN_POINT_MODE)), std::nothrow);
 	}
 #endif // tessellation shader
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_COMPUTE_WORK_GROUP_SIZE
-	GLint* ComputeWorkGroupSize(GLint (&result)[3]) const
-	{
-		OGLPLUS_GLFUNC(GetProgramiv)(
-			_obj_name(),
-			GL_COMPUTE_WORK_GROUP_SIZE,
-			result
-		);
-		OGLPLUS_VERIFY(
-			GetProgramiv,
-			ObjectError,
-			Object(*this).
-			EnumParam(ProgramParameter(GL_COMPUTE_WORK_GROUP_SIZE))
-		);
+	GLint* ComputeWorkGroupSize(GLint (&result)[3]) const {
+		OGLPLUS_GLFUNC(GetProgramiv)
+		(_obj_name(), GL_COMPUTE_WORK_GROUP_SIZE, result);
+		OGLPLUS_VERIFY(GetProgramiv,
+		  ObjectError,
+		  Object(*this).EnumParam(
+			ProgramParameter(GL_COMPUTE_WORK_GROUP_SIZE)));
 		return result;
 	}
 #endif
@@ -965,36 +844,25 @@ public:
 	 *  @c vertex_attrib to the shader variable identified by
 	 *  @c identifier.
 	 */
-	void BindLocation(
-		VertexAttribSlot vertex_attrib_slot,
-		StrCRef identifier
-	)
-	{
-		OGLPLUS_GLFUNC(BindAttribLocation)(
-			_obj_name(),
-			GLuint(vertex_attrib_slot),
-			identifier.c_str()
-		);
-		OGLPLUS_CHECK(
-			BindAttribLocation,
-			ProgVarError,
-			Program(*this).
-			Identifier(identifier).
-			Index(GLuint(vertex_attrib_slot))
-		);
+	void BindLocation(VertexAttribSlot vertex_attrib_slot, StrCRef identifier) {
+		OGLPLUS_GLFUNC(BindAttribLocation)
+		(_obj_name(), GLuint(vertex_attrib_slot), identifier.c_str());
+		OGLPLUS_CHECK(BindAttribLocation,
+		  ProgVarError,
+		  Program(*this)
+			.Identifier(identifier)
+			.Index(GLuint(vertex_attrib_slot)));
 	}
 };
 
 /// Program operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::Program>
-	ProgramOps;
+typedef ObjectOps<tag::DirectState, tag::Program> ProgramOps;
 
 /// Class that can be used to unbind the currently active program
 /**
  *  @ingroup oglplus_objects
  */
-typedef ObjectZero<ObjZeroOps<tag::DirectState, tag::Program>>
-	NoProgram;
+typedef ObjectZero<ObjZeroOps<tag::DirectState, tag::Program>> NoProgram;
 
 /// An @ref oglplus_object encapsulating the program object functionality
 /**
@@ -1004,202 +872,163 @@ typedef Object<ProgramOps> Program;
 
 // syntax-sugar operators
 
-inline ProgramOps& operator << (
-	ProgramOps& program,
-	ShaderName shader
-)
-{
+inline ProgramOps& operator<<(ProgramOps& program, ShaderName shader) {
 	program.AttachShader(shader);
 	return program;
 }
 
-struct ProgAndXFBMode
-{
+struct ProgAndXFBMode {
 	ProgramOps& prog;
 	TransformFeedbackMode mode;
 
 	ProgAndXFBMode(ProgramOps& p, TransformFeedbackMode m)
-	 : prog(p)
-	 , mode(m)
-	{ }
+	  : prog(p)
+	  , mode(m) {
+	}
 };
 
-inline ProgAndXFBMode operator << (
-	ProgramOps& prog,
-	TransformFeedbackMode mode
-)
-{
+inline ProgAndXFBMode operator<<(ProgramOps& prog, TransformFeedbackMode mode) {
 	return ProgAndXFBMode(prog, mode);
 }
 
 template <std::size_t N>
-inline ProgramOps& operator << (
-	ProgAndXFBMode pam,
-	const GLchar* (&varyings)[N]
-)
-{
+inline ProgramOps& operator<<(
+  ProgAndXFBMode pam, const GLchar* (&varyings)[N]) {
 	pam.prog.TransformFeedbackVaryings(varyings, pam.mode);
 	return pam.prog;
 }
 
-struct ProgXFBModeAndNames
-{
+struct ProgXFBModeAndNames {
 	ProgramOps& prog;
 	TransformFeedbackMode mode;
 	std::vector<const GLchar*> names;
 
 	ProgXFBModeAndNames(ProgAndXFBMode pam, const GLchar* name)
-	 : prog(pam.prog)
-	 , mode(pam.mode)
-	{
+	  : prog(pam.prog)
+	  , mode(pam.mode) {
 		names.reserve(8);
 		names.push_back(name);
 	}
 
 	ProgXFBModeAndNames(ProgXFBModeAndNames&& pman, const GLchar* name)
-	 : prog(pman.prog)
-	 , mode(pman.mode)
-	 , names(std::move(pman.names))
-	{
+	  : prog(pman.prog)
+	  , mode(pman.mode)
+	  , names(std::move(pman.names)) {
 		names.push_back(name);
 	}
 
 	ProgXFBModeAndNames(ProgXFBModeAndNames&& tmp)
-	 : prog(tmp.prog)
-	 , mode(tmp.mode)
-	 , names(std::move(tmp.names))
-	{ }
-
+	  : prog(tmp.prog)
+	  , mode(tmp.mode)
+	  , names(std::move(tmp.names)) {
+	}
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
 	ProgXFBModeAndNames(const ProgXFBModeAndNames&) = delete;
 #else
 private:
 	ProgXFBModeAndNames(const ProgXFBModeAndNames&);
+
 public:
 #endif
 
-	~ProgXFBModeAndNames(void)
-	{
-		if(!names.empty())
-		{
-			prog.TransformFeedbackVaryings(
-				names.size(),
-				names.data(),
-				mode
-			);
+	~ProgXFBModeAndNames(void) {
+		if(!names.empty()) {
+			prog.TransformFeedbackVaryings(names.size(), names.data(), mode);
 		}
 	}
 };
 
-inline ProgXFBModeAndNames operator << (
-	ProgAndXFBMode pam,
-	const GLchar* name
-)
-{
+inline ProgXFBModeAndNames operator<<(ProgAndXFBMode pam, const GLchar* name) {
 	return ProgXFBModeAndNames(pam, name);
 }
 
-inline ProgXFBModeAndNames operator << (
-	ProgXFBModeAndNames&& pman,
-	const GLchar* name
-)
-{
+inline ProgXFBModeAndNames operator<<(
+  ProgXFBModeAndNames&& pman, const GLchar* name) {
 	return ProgXFBModeAndNames(std::move(pman), name);
 }
 
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
-/// A standalone program with a single shader of a specified type from GLSL source
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 \
+  || GL_ARB_separate_shader_objects
+/// A standalone program with a single shader of a specified type from GLSL
+/// source
 /**
  *  @glsymbols
  *  @glfunref{CreateShaderProgram}
  *
  *  @see Program
  */
-class ShaderProgram
- : public Program
-{
+class ShaderProgram : public Program {
 private:
 	static ProgramName _make(
-		ShaderType shader_type,
-		GLsizei count,
-		const GLchar* const* strings
-	);
+	  ShaderType shader_type, GLsizei count, const GLchar* const* strings);
 
 	template <typename Src>
-	static ProgramName _make(ShaderType shader_type, const Src& source)
-	{
+	static ProgramName _make(ShaderType shader_type, const Src& source) {
 		return _make(shader_type, source.Count(), source.Parts());
 	}
 
 	void _check(void);
+
 public:
 	/// Creates a program with a single shader with specified type and source
 	/**
 	 *  @throws ValidationError
 	 */
-	ShaderProgram(
-		ShaderType shader_type,
-		GLSLString&& source
-	): Program(_make(shader_type, source))
-	{ _check(); }
+	ShaderProgram(ShaderType shader_type, GLSLString&& source)
+	  : Program(_make(shader_type, source)) {
+		_check();
+	}
 
 	/// Creates a program with a single shader with specified type and source
 	/**
 	 *  @throws ValidationError
 	 */
 	ShaderProgram(
-		ShaderType shader_type,
-		GLSLString&& source,
-		ObjectDesc&& object_desc
-	): Program(_make(shader_type, source), std::move(object_desc))
-	{ _check(); }
+	  ShaderType shader_type, GLSLString&& source, ObjectDesc&& object_desc)
+	  : Program(_make(shader_type, source), std::move(object_desc)) {
+		_check();
+	}
+
+	/// Creates a program with a single shader with specified type and source
+	/**
+	 *  @throws ValidationError
+	 */
+	ShaderProgram(ShaderType shader_type, GLSLStrings&& source)
+	  : Program(_make(shader_type, source)) {
+		_check();
+	}
 
 	/// Creates a program with a single shader with specified type and source
 	/**
 	 *  @throws ValidationError
 	 */
 	ShaderProgram(
-		ShaderType shader_type,
-		GLSLStrings&& source
-	): Program(_make(shader_type, source))
-	{ _check(); }
+	  ShaderType shader_type, GLSLStrings&& source, ObjectDesc&& object_desc)
+	  : Program(_make(shader_type, source), std::move(object_desc)) {
+		_check();
+	}
 
 	/// Creates a program with a single shader with specified type and source
 	/**
 	 *  @throws ValidationError
 	 */
-	ShaderProgram(
-		ShaderType shader_type,
-		GLSLStrings&& source,
-		ObjectDesc&& object_desc
-	): Program(_make(shader_type, source), std::move(object_desc))
-	{ _check(); }
-
-	/// Creates a program with a single shader with specified type and source
-	/**
-	 *  @throws ValidationError
-	 */
-	ShaderProgram(
-		ShaderType shader_type,
-		const GLSLSource& glsl_source
-	): Program(_make(shader_type, glsl_source.Count(), glsl_source.Parts()))
-	{ _check(); }
+	ShaderProgram(ShaderType shader_type, const GLSLSource& glsl_source)
+	  : Program(_make(shader_type, glsl_source.Count(), glsl_source.Parts())) {
+		_check();
+	}
 
 	/// Creates a single shader program with specified type, source and desc.
 	/**
 	 *  @throws ValidationError
 	 */
-	ShaderProgram(
-		ShaderType shader_type,
-		const GLSLSource& glsl_source,
-		ObjectDesc&& object_desc
-	): Program(
-		_make(shader_type, glsl_source.Count(), glsl_source.Parts()),
-		std::move(object_desc)
-	)
-	{ _check(); }
+	ShaderProgram(ShaderType shader_type,
+	  const GLSLSource& glsl_source,
+	  ObjectDesc&& object_desc)
+	  : Program(_make(shader_type, glsl_source.Count(), glsl_source.Parts()),
+		  std::move(object_desc)) {
+		_check();
+	}
 };
 #endif
 
@@ -1209,38 +1038,33 @@ public:
  *  and it is linked and made active. Optionally the program can also
  *  be made separable.
  */
-class QuickProgram
- : public Program
-{
+class QuickProgram : public Program {
 public:
 	/// Attaches @p shaders, links and uses the program
-	QuickProgram(const Sequence<ShaderName>& shaders)
-	{
+	QuickProgram(const Sequence<ShaderName>& shaders) {
 		AttachShaders(shaders);
 		Link();
 		Use();
 	}
 
 	/// Attaches @p shaders, links, uses and describes the program
-	QuickProgram(
-		ObjectDesc&& object_desc,
-		const Sequence<ShaderName>& shaders
-	): Program(std::move(object_desc))
-	{
+	QuickProgram(ObjectDesc&& object_desc, const Sequence<ShaderName>& shaders)
+	  : Program(std::move(object_desc)) {
 		AttachShaders(shaders);
 		Link();
 		Use();
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 \
+  || GL_ARB_separate_shader_objects
 	/// Attaches @p shaders, makes separable, links and uses the program
 	/**
 	 *  @glvoereq{4,1,ARB,separate_shader_objects}
 	 */
-	QuickProgram(bool separable, const Sequence<ShaderName>& shaders)
-	{
+	QuickProgram(bool separable, const Sequence<ShaderName>& shaders) {
 		AttachShaders(shaders);
-		if(separable) MakeSeparable();
+		if(separable)
+			MakeSeparable();
 		Link();
 		Use();
 	}
@@ -1249,14 +1073,13 @@ public:
 	/**
 	 *  @glvoereq{4,1,ARB,separate_shader_objects}
 	 */
-	QuickProgram(
-		ObjectDesc&& object_desc,
-		bool separable,
-		const Sequence<ShaderName>& shaders
-	): Program(std::move(object_desc))
-	{
+	QuickProgram(ObjectDesc&& object_desc,
+	  bool separable,
+	  const Sequence<ShaderName>& shaders)
+	  : Program(std::move(object_desc)) {
 		AttachShaders(shaders);
-		if(separable) MakeSeparable();
+		if(separable)
+			MakeSeparable();
 		Link();
 		Use();
 	}

@@ -13,49 +13,39 @@
 #ifndef OALPLUS_LISTENER_1303201647_HPP
 #define OALPLUS_LISTENER_1303201647_HPP
 
-#include <oalplus/config.hpp>
-#include <oalplus/fwd.hpp>
 #include <oalplus/alfunc.hpp>
-#include <oalplus/math/vector.hpp>
+#include <oalplus/config.hpp>
 #include <oalplus/error/al.hpp>
+#include <oalplus/fwd.hpp>
+#include <oalplus/math/vector.hpp>
 
 namespace oalplus {
 
-struct ListenerOrientation
-{
+struct ListenerOrientation {
 	// implementation detail
 	ALfloat _v[6];
 
-	ListenerOrientation(void)
-	OALPLUS_NOEXCEPT(true)
-	{ }
+	ListenerOrientation(void) noexcept {
+	}
 
-	ListenerOrientation(const Vec3f& at, const Vec3f& up)
-	OALPLUS_NOEXCEPT(true)
-	{
-		for(unsigned i=0; i<3; ++i)
-		{
-			_v[i+0] = at[i];
-			_v[i+3] = up[i];
+	ListenerOrientation(const Vec3f& at, const Vec3f& up) noexcept {
+		for(unsigned i = 0; i < 3; ++i) {
+			_v[i + 0] = at[i];
+			_v[i + 3] = up[i];
 		}
 	}
 
-	Vec3f At(void) const
-	OALPLUS_NOEXCEPT(true)
-	{
+	Vec3f At(void) const noexcept {
 		return Vec3f(_v, 3);
 	}
 
-	Vec3f Up(void) const
-	OALPLUS_NOEXCEPT(true)
-	{
-		return Vec3f(_v+3, 3);
+	Vec3f Up(void) const noexcept {
+		return Vec3f(_v + 3, 3);
 	}
 };
 
 /// An AL context-specific monostate object representing the listener
-class Listener
-{
+class Listener {
 public:
 	/// Specifies the position of the listener
 	/**
@@ -67,12 +57,8 @@ public:
 	 *  @alfunref{Listenerfv}
 	 *  @aldefref{POSITION}
 	 */
-	static void Position(const Vec3f& position)
-	{
-		OALPLUS_ALFUNC(Listenerfv)(
-			AL_POSITION,
-			position.Data()
-		);
+	static void Position(const Vec3f& position) {
+		OALPLUS_ALFUNC(Listenerfv)(AL_POSITION, position.Data());
 		OALPLUS_VERIFY_SIMPLE(Listenerfv);
 	}
 
@@ -86,12 +72,8 @@ public:
 	 *  @alfunref{Listener3f}
 	 *  @aldefref{POSITION}
 	 */
-	static void Position(ALfloat x, ALfloat y, ALfloat z)
-	{
-		OALPLUS_ALFUNC(Listener3f)(
-			AL_POSITION,
-			x, y, z
-		);
+	static void Position(ALfloat x, ALfloat y, ALfloat z) {
+		OALPLUS_ALFUNC(Listener3f)(AL_POSITION, x, y, z);
 		OALPLUS_VERIFY_SIMPLE(Listener3f);
 	}
 
@@ -104,13 +86,9 @@ public:
 	 *  @alfunref{GetListenerfv}
 	 *  @aldefref{POSITION}
 	 */
-	static Vec3f Position(void)
-	{
+	static Vec3f Position(void) {
 		ALfloat result[3];
-		OALPLUS_ALFUNC(GetListenerfv)(
-			AL_POSITION,
-			result
-		);
+		OALPLUS_ALFUNC(GetListenerfv)(AL_POSITION, result);
 		OALPLUS_VERIFY_SIMPLE(GetListenerfv);
 		return Vec3f(result);
 	}
@@ -125,12 +103,8 @@ public:
 	 *  @alfunref{Listenerfv}
 	 *  @aldefref{VELOCITY}
 	 */
-	static void Velocity(const Vec3f& velocity)
-	{
-		OALPLUS_ALFUNC(Listenerfv)(
-			AL_VELOCITY,
-			velocity.Data()
-		);
+	static void Velocity(const Vec3f& velocity) {
+		OALPLUS_ALFUNC(Listenerfv)(AL_VELOCITY, velocity.Data());
 		OALPLUS_VERIFY_SIMPLE(Listenerfv);
 	}
 
@@ -144,12 +118,8 @@ public:
 	 *  @alfunref{Listener3f}
 	 *  @aldefref{VELOCITY}
 	 */
-	static void Velocity(ALfloat x, ALfloat y, ALfloat z)
-	{
-		OALPLUS_ALFUNC(Listener3f)(
-			AL_VELOCITY,
-			x, y, z
-		);
+	static void Velocity(ALfloat x, ALfloat y, ALfloat z) {
+		OALPLUS_ALFUNC(Listener3f)(AL_VELOCITY, x, y, z);
 		OALPLUS_VERIFY_SIMPLE(Listener3f);
 	}
 
@@ -162,13 +132,9 @@ public:
 	 *  @alfunref{GetListenerfv}
 	 *  @aldefref{VELOCITY}
 	 */
-	static Vec3f Velocity(void)
-	{
+	static Vec3f Velocity(void) {
 		ALfloat result[3];
-		OALPLUS_ALFUNC(GetListenerfv)(
-			AL_VELOCITY,
-			result
-		);
+		OALPLUS_ALFUNC(GetListenerfv)(AL_VELOCITY, result);
 		OALPLUS_VERIFY_SIMPLE(GetListenerfv);
 		return Vec3f(result);
 	}
@@ -183,8 +149,7 @@ public:
 	 *  @alfunref{Listenerfv}
 	 *  @aldefref{ORIENTATION}
 	 */
-	static void Orientation(const ListenerOrientation& lo)
-	{
+	static void Orientation(const ListenerOrientation& lo) {
 		OALPLUS_ALFUNC(Listenerfv)(AL_ORIENTATION, lo._v);
 		OALPLUS_VERIFY_SIMPLE(Listenerfv);
 	}
@@ -199,11 +164,14 @@ public:
 	 *  @alfunref{Listenerfv}
 	 *  @aldefref{ORIENTATION}
 	 */
-	static void Orientation(const Vec3f& at, const Vec3f& up)
-	{
+	static void Orientation(const Vec3f& at, const Vec3f& up) {
 		ALfloat v[6] = {
-			at[0], at[1], at[2],
-			up[0], up[1], up[2],
+		  at[0],
+		  at[1],
+		  at[2],
+		  up[0],
+		  up[1],
+		  up[2],
 		};
 		OALPLUS_ALFUNC(Listenerfv)(AL_ORIENTATION, v);
 		OALPLUS_VERIFY_SIMPLE(Listenerfv);
@@ -221,15 +189,12 @@ public:
 	 *  @alfunref{Listenerfv}
 	 *  @aldefref{ORIENTATION}
 	 */
-	static void Orientation(
-		ALfloat at_x,
-		ALfloat at_y,
-		ALfloat at_z,
-		ALfloat up_x,
-		ALfloat up_y,
-		ALfloat up_z
-	)
-	{
+	static void Orientation(ALfloat at_x,
+	  ALfloat at_y,
+	  ALfloat at_z,
+	  ALfloat up_x,
+	  ALfloat up_y,
+	  ALfloat up_z) {
 		ALfloat v[6] = {at_x, at_y, at_z, up_x, up_y, up_z};
 		OALPLUS_ALFUNC(Listenerfv)(AL_ORIENTATION, v);
 		OALPLUS_VERIFY_SIMPLE(Listenerfv);
@@ -246,8 +211,7 @@ public:
 	 *  @alfunref{Listenerfv}
 	 *  @aldefref{ORIENTATION}
 	 */
-	static ListenerOrientation Orientation(void)
-	{
+	static ListenerOrientation Orientation(void) {
 		ListenerOrientation result;
 		OALPLUS_ALFUNC(GetListenerfv)(AL_ORIENTATION, result._v);
 		OALPLUS_VERIFY_SIMPLE(GetListenerfv);
@@ -265,8 +229,7 @@ public:
 	 *  @alfunref{Listenerfv}
 	 *  @aldefref{ORIENTATION}
 	 */
-	static Vec3f OrientationAt(void)
-	{
+	static Vec3f OrientationAt(void) {
 		ALfloat v[6];
 		OALPLUS_ALFUNC(GetListenerfv)(AL_ORIENTATION, v);
 		OALPLUS_VERIFY_SIMPLE(GetListenerfv);
@@ -283,12 +246,11 @@ public:
 	 *  @alfunref{Listenerfv}
 	 *  @aldefref{ORIENTATION}
 	 */
-	static Vec3f OrientationUp(void)
-	{
+	static Vec3f OrientationUp(void) {
 		ALfloat v[6];
 		OALPLUS_ALFUNC(GetListenerfv)(AL_ORIENTATION, v);
 		OALPLUS_VERIFY_SIMPLE(GetListenerfv);
-		return Vec3f(v+3, 3);
+		return Vec3f(v + 3, 3);
 	}
 
 	/// Specifies the value of gain of the listener
@@ -298,12 +260,8 @@ public:
 	 *  @alfunref{Listenerf}
 	 *  @aldefref{GAIN}
 	 */
-	static void Gain(ALfloat value)
-	{
-		OALPLUS_ALFUNC(Listenerf)(
-			AL_GAIN,
-			value
-		);
+	static void Gain(ALfloat value) {
+		OALPLUS_ALFUNC(Listenerf)(AL_GAIN, value);
 		OALPLUS_VERIFY_SIMPLE(Listenerf);
 	}
 
@@ -314,13 +272,9 @@ public:
 	 *  @alfunref{GetListenerfv}
 	 *  @aldefref{GAIN}
 	 */
-	static ALfloat Gain(void)
-	{
+	static ALfloat Gain(void) {
 		ALfloat result;
-		OALPLUS_ALFUNC(GetListenerfv)(
-			AL_GAIN,
-			&result
-		);
+		OALPLUS_ALFUNC(GetListenerfv)(AL_GAIN, &result);
 		OALPLUS_VERIFY_SIMPLE(GetListenerfv);
 		return result;
 	}
