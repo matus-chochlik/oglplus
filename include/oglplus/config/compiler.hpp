@@ -159,11 +159,7 @@
 #endif
 #endif
 
-// ------- C++11 feature availability detection -------
-
-#if defined(OGLPLUS_NO_NULLPTR) && OGLPLUS_NO_NULLPTR
-#define nullptr 0
-#endif
+// ------- C++XY feature availability detection -------
 
 #if !OGLPLUS_NO_OVERRIDE
 #define OGLPLUS_OVERRIDE override
