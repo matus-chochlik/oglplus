@@ -159,12 +159,6 @@ Indicates that C++11 inherited constructors are not supported. \
 #define OGLPLUS_NO_INHERITED_CONSTRUCTORS __UNSPECIFIED
 #endif
 
-#ifndef OGLPLUS_NO_CHRONO /*<                                  \
-Indicates that the standard [^chrono] header is not available. \
->*/
-#define OGLPLUS_NO_CHRONO __UNSPECIFIED
-#endif
-
 #ifndef OGLPLUS_NO_THREADS /*<                                    \
 Indicates that the C++11 threads implementation is not available. \
 >*/

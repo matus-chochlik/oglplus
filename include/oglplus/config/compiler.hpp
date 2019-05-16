@@ -159,14 +159,6 @@
 #endif
 #endif
 
-#ifndef OGLPLUS_NO_CHRONO
-#if defined(BOOST_NO_CXX11_HDR_CHRONO) || defined(BOOST_NO_HDR_CHRONO)
-#define OGLPLUS_NO_CHRONO 1
-#else
-#define OGLPLUS_NO_CHRONO 0
-#endif
-#endif
-
 #ifndef OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS
 #ifdef _MSC_VER // TODO < specific version
 #define OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS 1
