@@ -1,15 +1,13 @@
-#  Copyright 2010-2017 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 
-# we need C++11
-set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD 14)
 set (CMAKE_CXX_STANDARD_REQUIRED True)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	set (CMAKE_CXX_EXTENSIONS --std=c++11)
-	list(APPEND CMAKE_CXX_FLAGS --std=c++11)
+	list(APPEND CMAKE_CXX_FLAGS --std=c++${CMAKE_CXX_STANDARD})
 endif()
 
 function(cpp_feature_detection FEATURE_NAME)
@@ -26,7 +24,9 @@ function(cpp_feature_detection FEATURE_NAME)
 			OGLPLUS_HAS_${FEATURE_NAME}
 			${PROJECT_BINARY_DIR}/cpp
 			${PROJECT_BINARY_DIR}/cpp/has_${FEATURE_NAME}.cpp
-			CMAKE_FLAGS -DCMAKE_CXX_STANDARD=11 -DCMAKE_CXX_STANDARD_REQUIRED=True
+			CMAKE_FLAGS
+				-DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD}
+				-DCMAKE_CXX_STANDARD_REQUIRED=True
 			LINK_LIBRARIES ${THREADS_LIBRARIES}
 		)
 		message(STATUS
