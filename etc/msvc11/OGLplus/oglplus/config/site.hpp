@@ -33,7 +33,6 @@
 #endif
 
 #define OGLPLUS_NO_INHERITED_CONSTRUCTORS 1
-#define OGLPLUS_NO_THREADS 0
 
 #pragma warning(disable : 4244)
 

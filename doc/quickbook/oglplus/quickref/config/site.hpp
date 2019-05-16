@@ -153,12 +153,6 @@ Indicates that C++11 inherited constructors are not supported. \
 #define OGLPLUS_NO_INHERITED_CONSTRUCTORS __UNSPECIFIED
 #endif
 
-#ifndef OGLPLUS_NO_THREADS /*<                                    \
-Indicates that the C++11 threads implementation is not available. \
->*/
-#define OGLPLUS_NO_THREADS __UNSPECIFIED
-#endif
-
 #ifndef OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS /*<                    \
 Indicates that using C++11 scoped enumerations as template parameters \
 is not supported or not implemented correctly.                        \
