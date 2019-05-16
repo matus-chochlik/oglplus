@@ -92,7 +92,7 @@ public:
 	  : _value(Common(V2(value))) {
 	}
 
-	OGLPLUS_EXPLICIT operator Common(void) const noexcept {
+	explicit operator Common(void) const noexcept {
 		return _value;
 	}
 };
@@ -137,7 +137,7 @@ public:
 	  : _value(Common(V3(value))) {
 	}
 
-	OGLPLUS_EXPLICIT operator Common(void) const noexcept {
+	explicit operator Common(void) const noexcept {
 		return _value;
 	}
 };
@@ -184,7 +184,7 @@ public:
 	  : _value(aux::OneOfBase<Common, typename find<T>::type>::Accept(value)) {
 	}
 
-	OGLPLUS_EXPLICIT operator Common(void) const noexcept {
+	explicit operator Common(void) const noexcept {
 		return _value;
 	}
 };

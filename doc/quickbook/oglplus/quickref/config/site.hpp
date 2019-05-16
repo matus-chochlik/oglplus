@@ -105,12 +105,6 @@ Indicates that C++11 [^delete]d functions are not supported. \
 #define OGLPLUS_NO_DELETED_FUNCTIONS __UNSPECIFIED
 #endif
 
-#ifndef OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS /*<                  \
-Indicates that C++11 explicit conversion operators are not supported. \
->*/
-#define OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS __UNSPECIFIED
-#endif
-
 #ifndef OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS /*<           \
 Indicates that C++11 default template arguments cannot be used. \
 >*/

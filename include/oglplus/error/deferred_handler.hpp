@@ -101,8 +101,7 @@ public:
 		return bool(_release_handler());
 	}
 
-	OGLPLUS_EXPLICIT
-	operator bool(void) const noexcept {
+	explicit operator bool(void) const noexcept {
 		return bool(_handler);
 	}
 

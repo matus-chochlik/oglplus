@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -28,8 +28,7 @@ template <typename Enum>
 struct EnumBaseType;
 
 template <typename Enum>
-struct IsBitfieldBit
-{
+struct IsBitfieldBit {
 	typedef std::false_type Type;
 };
 
@@ -38,10 +37,10 @@ struct IsBitfieldBit
 /// This template serves as a wrapper for OpenGL bitfields
 /**
  *  Applications rarely need to use this class directly. Instantiations of this
- *  template are used as types for parameters in functions taking bitfields based
- *  on strongly-type enumerations. When constructing a bitfield the application
- *  simply passes the enumerated value or a combination of enumerated values using
- *  the bitwise-or operator or initializer list. For example:
+ *  template are used as types for parameters in functions taking bitfields
+ * based on strongly-type enumerations. When constructing a bitfield the
+ * application simply passes the enumerated value or a combination of enumerated
+ * values using the bitwise-or operator or initializer list. For example:
  *
  *  @code
  *  Context gl;
@@ -53,30 +52,30 @@ struct IsBitfieldBit
  *  @endcode
  */
 template <typename Bit>
-class Bitfield
-{
+class Bitfield {
 private:
 	typedef typename enums::EnumBaseType<Bit>::Type BF;
 	BF _bits;
+
 public:
 	/// Constructs an empty bitfield
 	Bitfield(void)
-	 : _bits(0)
-	{ }
+	  : _bits(0) {
+	}
 
 	/// Construct a bitfield from the underlying type
 	Bitfield(BF bits)
-	 : _bits(bits)
-	{ }
+	  : _bits(bits) {
+	}
 
 	/// Construct a bitfield from a single strongly-typed enumeration value
 	Bitfield(Bit _bit)
-	 : _bits(BF(_bit))
-	{ }
+	  : _bits(BF(_bit)) {
+	}
 
 	Bitfield(Bit _bit_a, Bit _bit_b)
-	 : _bits(BF(_bit_a) | BF(_bit_b))
-	{ }
+	  : _bits(BF(_bit_a) | BF(_bit_b)) {
+	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Construction from a pair of iterators through Bit(s)
@@ -85,10 +84,8 @@ public:
 #else
 	template <typename Iter>
 	Bitfield(Iter pos, Iter end)
-	 : _bits(BF(0))
-	{
-		while(pos != end)
-		{
+	  : _bits(BF(0)) {
+		while(pos != end) {
 			_bits |= BF(*pos);
 			++pos;
 		}
@@ -98,56 +95,54 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_INITIALIZER_LISTS
 	/// Construct a bitfield from an initializer list of enumeration values
 	Bitfield(const std::initializer_list<Bit>& bits)
-	 : _bits(BF(0))
-	{
-		for(auto i=bits.begin(),e=bits.end(); i!=e; ++i)
+	  : _bits(BF(0)) {
+		for(auto i = bits.begin(), e = bits.end(); i != e; ++i)
 			_bits |= BF(*i);
 	}
 #endif
 
 	/// Bitwise or operator for combining enumeration values into a bitfield
-	friend Bitfield operator | (Bitfield bf, Bit b)
-	{
+	friend Bitfield operator|(Bitfield bf, Bit b) {
 		bf._bits |= BF(b);
 		return bf;
 	}
 
 	/// Bitwise or operator for combining enumeration values into a bitfield
-	Bitfield& operator |= (Bit b)
-	{
+	Bitfield& operator|=(Bit b) {
 		this->_bits |= BF(b);
 		return *this;
 	}
 
 	/// Test if a specified bit is set
-	bool Test(Bit b) const
-	{
+	bool Test(Bit b) const {
 		return (this->_bits & BF(b)) == BF(b);
 	}
 
 	/// Synonym for test
-	bool Has(Bit b) const
-	{
+	bool Has(Bit b) const {
 		return Test(b);
 	}
 
-	OGLPLUS_EXPLICIT operator BF (void) const
-	{
+	explicit operator BF(void) const {
 		return _bits;
 	}
 };
 
 // helper macro used to define bitfield-related functions
-#define OGLPLUS_MAKE_BITFIELD(BITS) \
-namespace enums { \
-template <> struct EnumBaseType<BITS> { typedef GLbitfield Type; }; \
-template <> struct IsBitfieldBit<BITS> { typedef std::true_type Type; }; \
-} \
-inline oglplus::Bitfield<BITS> operator | (BITS b1, BITS b2) \
-{ \
-	return Bitfield<BITS>(b1, b2); \
-}
-
+#define OGLPLUS_MAKE_BITFIELD(BITS)                              \
+	namespace enums {                                            \
+	template <>                                                  \
+	struct EnumBaseType<BITS> {                                  \
+		typedef GLbitfield Type;                                 \
+	};                                                           \
+	template <>                                                  \
+	struct IsBitfieldBit<BITS> {                                 \
+		typedef std::true_type Type;                             \
+	};                                                           \
+	}                                                            \
+	inline oglplus::Bitfield<BITS> operator|(BITS b1, BITS b2) { \
+		return Bitfield<BITS>(b1, b2);                           \
+	}
 
 } // namespace oglplus
 

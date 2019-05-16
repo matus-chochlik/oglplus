@@ -62,8 +62,7 @@ public:
 		_pstk = nullptr;
 	}
 
-	OGLPLUS_EXPLICIT
-	operator bool(void) const noexcept {
+	explicit operator bool(void) const noexcept {
 		return _pstk != nullptr;
 	}
 };

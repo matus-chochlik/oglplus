@@ -157,8 +157,7 @@ public:
 	  : Outcome<T>(std::move(base)) {
 	}
 
-	OGLPLUS_EXPLICIT
-	operator bool(void) const noexcept {
+	explicit operator bool(void) const noexcept {
 		return !this->_error;
 	}
 
@@ -182,8 +181,7 @@ public:
 	  : Outcome<T>(std::move(base)) {
 	}
 
-	OGLPLUS_EXPLICIT
-	operator bool(void) const noexcept {
+	explicit operator bool(void) const noexcept {
 		return bool(this->_error);
 	}
 

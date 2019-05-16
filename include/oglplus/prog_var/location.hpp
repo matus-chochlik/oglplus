@@ -59,8 +59,7 @@ public:
 	}
 
 	/// Creates variable with specified @p location without specific program
-	OGLPLUS_EXPLICIT
-	ProgVarLoc(GLint location) noexcept
+	explicit ProgVarLoc(GLint location) noexcept
 	  : _program(0)
 	  , _location(location) {
 	}
@@ -134,7 +133,7 @@ public:
 	}
 
 	/// Returns true if the variable is active
-	OGLPLUS_EXPLICIT operator bool(void) const noexcept {
+	explicit operator bool(void) const noexcept {
 		return IsActive();
 	}
 

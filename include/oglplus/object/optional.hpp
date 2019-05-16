@@ -67,8 +67,7 @@ public:
 		return *this;
 	}
 
-	OGLPLUS_EXPLICIT
-	operator bool(void) const noexcept {
+	explicit operator bool(void) const noexcept {
 		return this->HasValidName();
 	}
 

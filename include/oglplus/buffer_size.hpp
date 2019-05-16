@@ -39,6 +39,10 @@ public:
 	BufferSize(BigSizeType size)
 	  : _v(size) {
 	}
+
+	BufferSize(SizeType size)
+	  : _v(size) {
+	}
 #endif
 
 	inline operator BigSizeType(void) const noexcept {
@@ -46,7 +50,7 @@ public:
 	}
 
 	template <typename T>
-	OGLPLUS_EXPLICIT operator T(void) const {
+	explicit operator T(void) const {
 		return T(_v);
 	}
 

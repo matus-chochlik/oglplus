@@ -124,8 +124,7 @@ public:
 		return _v;
 	}
 
-	OGLPLUS_EXPLICIT
-	operator bool(void) const noexcept {
+	explicit operator bool(void) const noexcept {
 		return _v >= T(0);
 	}
 
@@ -138,7 +137,7 @@ public:
 	}
 
 	template <typename X>
-	OGLPLUS_EXPLICIT operator X(void) const {
+	explicit operator X(void) const {
 		return _check1<X>(_v);
 	}
 

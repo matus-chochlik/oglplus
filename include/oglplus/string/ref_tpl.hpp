@@ -57,7 +57,7 @@ public:
 		return result;
 	}
 
-	OGLPLUS_EXPLICIT operator std::basic_string<Char>(void) const {
+	explicit operator std::basic_string<Char>(void) const {
 		return str();
 	}
 };

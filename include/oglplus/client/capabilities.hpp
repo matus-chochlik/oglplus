@@ -57,8 +57,7 @@ public:
 		return this->_get();
 	}
 
-	OGLPLUS_EXPLICIT
-	operator Boolean(void) const noexcept {
+	explicit operator Boolean(void) const noexcept {
 		return IsEnabled();
 	}
 
@@ -82,8 +81,7 @@ public:
 		return _zero().IsEnabled();
 	}
 
-	OGLPLUS_EXPLICIT
-	operator Boolean(void) const noexcept {
+	explicit operator Boolean(void) const noexcept {
 		return IsEnabled();
 	}
 
@@ -122,8 +120,7 @@ public:
 		return this->_get();
 	}
 
-	OGLPLUS_EXPLICIT
-	operator Boolean(void) const noexcept {
+	explicit operator Boolean(void) const noexcept {
 		return IsEnabled();
 	}
 
