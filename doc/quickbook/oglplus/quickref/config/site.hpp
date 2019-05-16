@@ -131,12 +131,6 @@ Indicates that C++11 template aliases are not supported. \
 //]
 //[oglplus_config_site_5
 
-#ifndef OGLPLUS_NO_CONSTEXPR /*<                                         \
-Indicates that C++11 generalized constant expressions are not supported. \
->*/
-#define OGLPLUS_NO_CONSTEXPR __UNSPECIFIED
-#endif
-
 #ifndef OGLPLUS_NO_OVERRIDE /*<                                  \
 Indicates that C++11 explicit virtual override is not supported. \
 >*/

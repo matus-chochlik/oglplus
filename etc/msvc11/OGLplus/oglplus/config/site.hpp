@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -28,7 +28,6 @@
 #define OGLPLUS_NO_UNICODE_LITERALS 1
 #define OGLPLUS_NO_USER_DEFINED_LITERALS 1
 #define OGLPLUS_NO_TEMPLATE_ALIASES 1
-#define OGLPLUS_NO_CONSTEXPR 1
 #define OGLPLUS_NO_LAMBDAS 0
 #define OGLPLUS_NO_NULLPTR 0
 #endif

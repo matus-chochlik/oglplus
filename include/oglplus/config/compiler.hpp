@@ -131,14 +131,6 @@
 #endif
 #endif
 
-#ifndef OGLPLUS_NO_CONSTEXPR
-#if defined(BOOST_NO_CXX11_CONSTEXPR) || defined(BOOST_NO_CONSTEXPR)
-#define OGLPLUS_NO_CONSTEXPR 1
-#else
-#define OGLPLUS_NO_CONSTEXPR 0
-#endif
-#endif
-
 #ifndef OGLPLUS_NO_OVERRIDE
 #if defined(BOOST_NO_CXX11_OVERRIDE) || defined(BOOST_NO_OVERRIDER)
 #define OGLPLUS_NO_OVERRIDE 1
@@ -171,12 +163,6 @@
 
 #if defined(OGLPLUS_NO_NULLPTR) && OGLPLUS_NO_NULLPTR
 #define nullptr 0
-#endif
-
-#if !OGLPLUS_NO_CONSTEXPR
-#define OGLPLUS_CONSTEXPR constexpr
-#else
-#define OGLPLUS_CONSTEXPR const
 #endif
 
 #if !OGLPLUS_NO_OVERRIDE
