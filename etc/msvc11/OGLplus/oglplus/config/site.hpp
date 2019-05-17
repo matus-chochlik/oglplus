@@ -26,8 +26,6 @@
 #define OGLPLUS_NO_TEMPLATE_ALIASES 1
 #endif
 
-#define OGLPLUS_NO_INHERITED_CONSTRUCTORS 1
-
 #pragma warning(disable : 4244)
 
 #endif

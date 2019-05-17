@@ -111,12 +111,6 @@ Indicates that C++11 template aliases are not supported. \
 //]
 //[oglplus_config_site_6
 
-#ifndef OGLPLUS_NO_INHERITED_CONSTRUCTORS /*<                  \
-Indicates that C++11 inherited constructors are not supported. \
->*/
-#define OGLPLUS_NO_INHERITED_CONSTRUCTORS __UNSPECIFIED
-#endif
-
 #ifndef OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS /*<                    \
 Indicates that using C++11 scoped enumerations as template parameters \
 is not supported or not implemented correctly.                        \
