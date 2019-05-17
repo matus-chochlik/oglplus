@@ -63,12 +63,6 @@ Indicates that __GL3W__ should be used. \
 //[oglplus_config_site_4
 #if !OGLPLUS_USE_BOOST_CONFIG
 
-#ifndef OGLPLUS_NO_SCOPED_ENUMS /*<                                 \
-Indicates that C++11 strongly typed enumerations are not supported. \
->*/
-#define OGLPLUS_NO_SCOPED_ENUMS __UNSPECIFIED
-#endif
-
 #ifndef OGLPLUS_NO_VARIADIC_MACROS /*<                         \
 Indicates that preprocessor variadic macros are not supported. \
 >*/
