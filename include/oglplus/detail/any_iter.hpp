@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,12 +20,11 @@ namespace oglplus {
 namespace aux {
 
 template <typename T>
-class AnyInputIter
-{
+class AnyInputIter {
 private:
-	struct _intf
-	{
-		virtual ~_intf(void){ }
+	struct _intf {
+		virtual ~_intf(void) {
+		}
 
 		virtual _intf* _clone(void) const = 0;
 
@@ -39,59 +38,46 @@ private:
 	};
 
 	template <typename Iter>
-	class _impl : public _intf
-	{
+	class _impl : public _intf {
 	private:
 		Iter _iter;
 
-		static const T& _conv(const T& val)
-		{
+		static const T& _conv(const T& val) {
 			return val;
 		}
 
 		template <typename U>
-		static typename std::enable_if<
-			std::is_same<T, const char*>::value &&
-			std::is_same<U, std::string>::value,
-			const char*
-		>::type _conv(const U& val)
-		{
+		static typename std::enable_if<std::is_same<T, const char*>::value
+										 && std::is_same<U, std::string>::value,
+		  const char*>::type
+		_conv(const U& val) {
 			return val.c_str();
 		}
+
 	public:
 		_impl(Iter iter)
-		 : _iter(iter)
-		{ }
+		  : _iter(iter) {
+		}
 
-		_intf* _clone(void) const
-		OGLPLUS_OVERRIDE
-		{
+		_intf* _clone(void) const override {
 			return new _impl(_iter);
 		}
 
-		const T& _deref(void) const
-		OGLPLUS_OVERRIDE
-		{
+		const T& _deref(void) const override {
 			return _conv(*_iter);
 		}
 
-		void _incr(void)
-		OGLPLUS_OVERRIDE
-		{
+		void _incr(void) override {
 			++_iter;
 		}
 
-		bool _equal(const _intf* that) const
-		OGLPLUS_OVERRIDE
-		{
+		bool _equal(const _intf* that) const override {
 			const _impl* i = dynamic_cast<const _impl*>(that);
 			assert(i != nullptr);
 			return _iter == i->_iter;
 		}
 
-		std::ptrdiff_t _dist(const _intf* that) const
-		OGLPLUS_OVERRIDE
-		{
+		std::ptrdiff_t _dist(const _intf* that) const override {
 			const _impl* i = dynamic_cast<const _impl*>(that);
 			assert(i != nullptr);
 			return std::distance(_iter, i->_iter);
@@ -100,17 +86,16 @@ private:
 
 	_intf* _pimpl;
 
-	_intf* _clone(void) const
-	{
+	_intf* _clone(void) const {
 		assert(_pimpl != nullptr);
 		return _pimpl->_clone();
 	}
 
 	AnyInputIter(_intf* pimpl)
-	 : _pimpl(pimpl)
-	{
+	  : _pimpl(pimpl) {
 		assert(_pimpl != nullptr);
 	}
+
 public:
 	typedef T value_type;
 	typedef T* pointer;
@@ -121,92 +106,80 @@ public:
 
 	template <typename Iter>
 	AnyInputIter(Iter i)
-	 : _pimpl(new _impl<Iter>(i))
-	{ }
+	  : _pimpl(new _impl<Iter>(i)) {
+	}
 
 	AnyInputIter(const AnyInputIter& that)
-	 : _pimpl(that._clone())
-	{ }
+	  : _pimpl(that._clone()) {
+	}
 
 	AnyInputIter(AnyInputIter&& tmp)
-	 : _pimpl(tmp._pimpl)
-	{
+	  : _pimpl(tmp._pimpl) {
 		tmp._pimpl = nullptr;
 	}
 
-	~AnyInputIter(void)
-	{
-		if(_pimpl) delete _pimpl;
+	~AnyInputIter(void) {
+		if(_pimpl)
+			delete _pimpl;
 	}
 
-	AnyInputIter& operator = (const AnyInputIter& that)
-	{
-		if(this != &that)
-		{
+	AnyInputIter& operator=(const AnyInputIter& that) {
+		if(this != &that) {
 			_intf* tmp = that._clone();
-			if(_pimpl) delete _pimpl;
+			if(_pimpl)
+				delete _pimpl;
 			_pimpl = tmp;
 		}
 		return *this;
 	}
 
-	AnyInputIter& operator = (AnyInputIter&& tmp)
-	{
-		if(this != &tmp)
-		{
-			if(_pimpl) delete _pimpl;
+	AnyInputIter& operator=(AnyInputIter&& tmp) {
+		if(this != &tmp) {
+			if(_pimpl)
+				delete _pimpl;
 			_pimpl = tmp._pimpl;
 			tmp._pimpl = nullptr;
 		}
 		return *this;
 	}
 
-	const T& operator * (void) const
-	{
+	const T& operator*(void)const {
 		assert(_pimpl != nullptr);
 		return _pimpl->_deref();
 	}
 
-	const T* operator -> (void) const
-	{
+	const T* operator->(void)const {
 		assert(_pimpl != nullptr);
 		return &_pimpl->_deref();
 	}
 
-	AnyInputIter& operator ++ (void)
-	{
+	AnyInputIter& operator++(void) {
 		assert(_pimpl != nullptr);
 		_pimpl->_incr();
 		return *this;
 	}
 
-	AnyInputIter operator ++ (int)
-	{
+	AnyInputIter operator++(int) {
 		AnyInputIter copy(_clone());
 		assert(_pimpl != nullptr);
 		_pimpl->incr();
 		return copy;
 	}
 
-	friend bool operator == (const AnyInputIter& a, const AnyInputIter& b)
-	{
+	friend bool operator==(const AnyInputIter& a, const AnyInputIter& b) {
 		assert(a._pimpl != nullptr);
 		assert(b._pimpl != nullptr);
 		return a._pimpl->_equal(b._pimpl);
 	}
 
-	friend bool operator != (const AnyInputIter& a, const AnyInputIter& b)
-	{
+	friend bool operator!=(const AnyInputIter& a, const AnyInputIter& b) {
 		assert(a._pimpl != nullptr);
 		assert(b._pimpl != nullptr);
 		return !a._pimpl->_equal(b._pimpl);
 	}
 
-	friend std::ptrdiff_t operator - (
-		const AnyInputIter& a,
-		const AnyInputIter& b
-	)
-	{
+	friend std::ptrdiff_t operator-(
+	  const AnyInputIter& a, const AnyInputIter& b) {
 		assert(a._pimpl != nullptr);
 		assert(b._pimpl != nullptr);
 		return b._pimpl->_dist(a._pimpl);
@@ -214,12 +187,12 @@ public:
 };
 
 template <typename T>
-std::ptrdiff_t distance(const AnyInputIter<T>& from, const AnyInputIter<T>& to)
-{
+std::ptrdiff_t distance(
+  const AnyInputIter<T>& from, const AnyInputIter<T>& to) {
 	return to - from;
 }
 
-} // aux
-} // oglplus
+} // namespace aux
+} // namespace oglplus
 
 #endif // include guard

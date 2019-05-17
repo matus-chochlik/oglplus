@@ -28,7 +28,7 @@ private:
 	};
 
 	struct _abort_handler : _handler_intf {
-		void execute(bool) OGLPLUS_OVERRIDE;
+		void execute(bool) override;
 	};
 
 	template <typename Func>
@@ -39,7 +39,7 @@ private:
 		  : _func(std::move(func)) {
 		}
 
-		void execute(bool) OGLPLUS_OVERRIDE {
+		void execute(bool) override {
 			_func();
 		}
 	};

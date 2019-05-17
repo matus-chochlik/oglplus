@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -27,56 +27,47 @@ namespace oglplus {
  *
  *  @ingroup error_handling
  */
-class LimitError
- : public Error
-{
+class LimitError : public Error {
 private:
 	GLfloat _value;
 	GLfloat _limit;
+
 public:
 	static const char* MessageNeg(void);
 	static const char* Message(void);
 
 	LimitError(const char* message)
-	 : Error(message)
-	 , _value(0)
-	 , _limit(0)
-	{ }
+	  : Error(message)
+	  , _value(0)
+	  , _limit(0) {
+	}
 
-	LimitError& Value(GLfloat value)
-	{
+	LimitError& Value(GLfloat value) {
 		_value = value;
 		return *this;
 	}
 
-	LimitError& Value(GLuint value)
-	{
+	LimitError& Value(GLuint value) {
 		_value = static_cast<GLfloat>(value);
 		return *this;
 	}
 
 	/// The value assigned to the limited-type variable
-	GLfloat Value(void) const
-	OGLPLUS_OVERRIDE
-	{
+	GLfloat Value(void) const override {
 		return _value;
 	}
 
-	LimitError& Limit(GLfloat limit)
-	{
+	LimitError& Limit(GLfloat limit) {
 		_limit = limit;
 		return *this;
 	}
 
-	LimitError& Limit(GLuint limit)
-	{
+	LimitError& Limit(GLuint limit) {
 		_limit = static_cast<GLfloat>(limit);
 		return *this;
 	}
 	/// The allowed limit of the limited-type
-	GLfloat Limit(void) const
-	OGLPLUS_OVERRIDE
-	{
+	GLfloat Limit(void) const override {
 		return _limit;
 	}
 };

@@ -131,14 +131,6 @@
 #endif
 #endif
 
-#ifndef OGLPLUS_NO_OVERRIDE
-#if defined(BOOST_NO_CXX11_OVERRIDE) || defined(BOOST_NO_OVERRIDER)
-#define OGLPLUS_NO_OVERRIDE 1
-#else
-#define OGLPLUS_NO_OVERRIDE 0
-#endif
-#endif
-
 #ifndef OGLPLUS_NO_GENERALIZED_ATTRIBUTES
 #define OGLPLUS_NO_GENERALIZED_ATTRIBUTES 1
 #endif
@@ -160,12 +152,6 @@
 #endif
 
 // ------- C++XY feature availability detection -------
-
-#if !OGLPLUS_NO_OVERRIDE
-#define OGLPLUS_OVERRIDE override
-#else
-#define OGLPLUS_OVERRIDE
-#endif
 
 #if !OGLPLUS_NO_GENERALIZED_ATTRIBUTES
 #define OGLPLUS_NORETURN [[noreturn]]

@@ -131,12 +131,6 @@ Indicates that C++11 template aliases are not supported. \
 //]
 //[oglplus_config_site_5
 
-#ifndef OGLPLUS_NO_OVERRIDE /*<                                  \
-Indicates that C++11 explicit virtual override is not supported. \
->*/
-#define OGLPLUS_NO_OVERRIDE __UNSPECIFIED
-#endif
-
 #ifndef OGLPLUS_NO_LAMBDAS /*<                  \
 Indicates that C++11 lambdas are not supported. \
 >*/

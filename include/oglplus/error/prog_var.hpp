@@ -69,17 +69,17 @@ public:
 		return *this;
 	}
 
-	const char* ObjectTypeName(void) const OGLPLUS_OVERRIDE {
+	const char* ObjectTypeName(void) const override {
 		return "PROGRAM";
 	}
 
 	/// Returns the GL program name
-	GLint ObjectName(void) const OGLPLUS_OVERRIDE {
+	GLint ObjectName(void) const override {
 		return GLint(_prog_name);
 	}
 
 	/// Returns the program variable identifer
-	const char* Identifier(void) const OGLPLUS_OVERRIDE;
+	const char* Identifier(void) const override;
 };
 
 } // namespace oglplus
