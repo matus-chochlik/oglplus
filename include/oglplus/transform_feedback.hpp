@@ -129,15 +129,8 @@ public:
         OGLPLUS_VERIFY(BeginTransformFeedback, Error, EnumParam(mode));
     }
 
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
     /// Copying is disabled
     TransformFeedbackActivator(const TransformFeedbackActivator&) = delete;
-#else
-private:
-    TransformFeedbackActivator(const TransformFeedbackActivator&);
-
-public:
-#endif
 
     TransformFeedbackActivator(TransformFeedbackActivator&& tmp)
       : _active(tmp._active) {
@@ -193,14 +186,7 @@ public:
         OGLPLUS_VERIFY_SIMPLE(PauseTransformFeedback);
     }
 
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
     TransformFeedbackPauser(const TransformFeedbackPauser&) = delete;
-#else
-private:
-    TransformFeedbackPauser(const TransformFeedbackPauser&);
-
-public:
-#endif
 
     TransformFeedbackPauser(TransformFeedbackPauser&& tmp)
       : _paused(tmp._paused) {

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -91,12 +91,6 @@ Indicates that C++11 unified initialization syntax is not implemented. \
 Indicates that C++11 initializer lists are not supported. \
 >*/
 #define OGLPLUS_NO_INITIALIZER_LISTS __UNSPECIFIED
-#endif
-
-#ifndef OGLPLUS_NO_DELETED_FUNCTIONS /*<                     \
-Indicates that C++11 [^delete]d functions are not supported. \
->*/
-#define OGLPLUS_NO_DELETED_FUNCTIONS __UNSPECIFIED
 #endif
 
 #ifndef OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS /*<           \

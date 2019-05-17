@@ -882,14 +882,7 @@ struct ProgXFBModeAndNames {
       , names(std::move(tmp.names)) {
     }
 
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
     ProgXFBModeAndNames(const ProgXFBModeAndNames&) = delete;
-#else
-private:
-    ProgXFBModeAndNames(const ProgXFBModeAndNames&);
-
-public:
-#endif
 
     ~ProgXFBModeAndNames(void) {
         if(!names.empty()) {

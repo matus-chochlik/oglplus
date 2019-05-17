@@ -25,7 +25,7 @@
 #include <boost/config.hpp>
 #endif
 
-// ------- C++11 feature availability detection -------
+// ------- C++XY feature availability detection -------
 
 #ifndef OGLPLUS_NO_VARIADIC_MACROS
 #if defined(BOOST_NO_CXX11_VARIADIC_MACROS) || defined(BOOST_NO_VARIADIC_MACROS)
@@ -59,15 +59,6 @@
 #define OGLPLUS_NO_INITIALIZER_LISTS 1
 #else
 #define OGLPLUS_NO_INITIALIZER_LISTS 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_DELETED_FUNCTIONS
-#if defined(BOOST_NO_CXX11_DELETED_FUNCTIONS) || \
-  defined(BOOST_NO_DELETED_FUNCTIONS)
-#define OGLPLUS_NO_DELETED_FUNCTIONS 1
-#else
-#define OGLPLUS_NO_DELETED_FUNCTIONS 0
 #endif
 #endif
 
