@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -314,9 +314,7 @@ public:
 #include <oglplus/math/vector_3.ipp>
 #include <oglplus/math/vector_4.ipp>
 
-#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/math/vector_n.ipp>
-#endif
 
 #include <oglplus/math/vector_swizzle.ipp>
 

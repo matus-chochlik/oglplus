@@ -69,12 +69,6 @@ Indicates that preprocessor variadic macros are not supported. \
 #define OGLPLUS_NO_VARIADIC_MACROS __UNSPECIFIED
 #endif
 
-#ifndef OGLPLUS_NO_VARIADIC_TEMPLATES /*<                           \
-Indicates that C++11 variadic templates are not properly supported. \
->*/
-#define OGLPLUS_NO_VARIADIC_TEMPLATES __UNSPECIFIED
-#endif
-
 #ifndef OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX /*<                   \
 Indicates that C++11 unified initialization syntax is not implemented. \
 >*/
