@@ -21,7 +21,7 @@ namespace oglplus {
 
 template <>
 struct ObjGenTag<tag::DirectState, tag::Renderbuffer> {
-	typedef tag::Create Type;
+    typedef tag::Create Type;
 };
 
 /// Class wrapping renderbuffer-related functionality with direct state access
@@ -32,220 +32,202 @@ template <>
 class ObjectOps<tag::DirectState, tag::Renderbuffer>
   : public ObjZeroOps<tag::DirectState, tag::Renderbuffer> {
 protected:
-	ObjectOps(RenderbufferName name) noexcept
-	  : ObjZeroOps<tag::DirectState, tag::Renderbuffer>(name) {
-	}
+    ObjectOps(RenderbufferName name) noexcept
+      : ObjZeroOps<tag::DirectState, tag::Renderbuffer>(name) {
+    }
 
 public:
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	ObjectOps(ObjectOps&&) = default;
-	ObjectOps(const ObjectOps&) = default;
-	ObjectOps& operator=(ObjectOps&&) = default;
-	ObjectOps& operator=(const ObjectOps&) = default;
-#else
-	typedef ObjZeroOps<tag::DirectState, tag::Renderbuffer> _base;
+    ObjectOps(ObjectOps&&) = default;
+    ObjectOps(const ObjectOps&) = default;
+    ObjectOps& operator=(ObjectOps&&) = default;
+    ObjectOps& operator=(const ObjectOps&) = default;
 
-	ObjectOps(ObjectOps&& temp) noexcept
-	  : _base(static_cast<_base&&>(temp)) {
-	}
+    GLint GetIntParam(GLenum query) const;
 
-	ObjectOps(const ObjectOps& that) noexcept
-	  : _base(static_cast<const _base&>(that)) {
-	}
+    /// Set the renderbuffer storage parameters
+    /**
+     *  @glsymbols
+     *  @glfunref{RenderbufferStorage}
+     */
+    void Storage(
+      PixelDataInternalFormat internalformat, SizeType width, SizeType height) {
+        OGLPLUS_GLFUNC(NamedRenderbufferStorage)
+        (_obj_name(), GLenum(internalformat), width, height);
+        OGLPLUS_CHECK(
+          NamedRenderbufferStorage,
+          ObjectError,
+          Object(*this).EnumParam(internalformat));
+    }
 
-	ObjectOps& operator=(ObjectOps&& temp) noexcept {
-		_base::operator=(static_cast<_base&&>(temp));
-		return *this;
-	}
+    /// Set the renderbuffer storage parameters
+    /**
+     *  @glsymbols
+     *  @glfunref{RenderbufferStorage}
+     */
+    void Storage(const images::ImageSpec& image_spec);
 
-	ObjectOps& operator=(const ObjectOps& that) noexcept {
-		_base::operator=(static_cast<const _base&>(that));
-		return *this;
-	}
-#endif
-	GLint GetIntParam(GLenum query) const;
+    /// Set the renderbuffer multisample storage parameters
+    /**
+     *  @glsymbols
+     *  @glfunref{RenderbufferStorageMultisample}
+     */
+    void StorageMultisample(
+      SizeType samples,
+      PixelDataInternalFormat internalformat,
+      SizeType width,
+      SizeType height) {
+        OGLPLUS_GLFUNC(NamedRenderbufferStorageMultisample)
+        (_obj_name(), samples, GLenum(internalformat), width, height);
+        OGLPLUS_CHECK(
+          NamedRenderbufferStorageMultisample,
+          ObjectError,
+          Object(*this).EnumParam(internalformat));
+    }
 
-	/// Set the renderbuffer storage parameters
-	/**
-	 *  @glsymbols
-	 *  @glfunref{RenderbufferStorage}
-	 */
-	void Storage(
-	  PixelDataInternalFormat internalformat, SizeType width, SizeType height) {
-		OGLPLUS_GLFUNC(NamedRenderbufferStorage)
-		(_obj_name(), GLenum(internalformat), width, height);
-		OGLPLUS_CHECK(NamedRenderbufferStorage,
-		  ObjectError,
-		  Object(*this).EnumParam(internalformat));
-	}
+    /// Returns the width of the renderbuffer as it was specified by Storage*
+    /**
+     *  @see Height
+     *
+     *  @glsymbols
+     *  @glfunref{GetRenderbufferParameter}
+     *  @gldefref{RENDERBUFFER_WIDTH}
+     */
+    SizeType Width(void) const {
+        return MakeSizeType(GetIntParam(GL_RENDERBUFFER_WIDTH), std::nothrow);
+    }
 
-	/// Set the renderbuffer storage parameters
-	/**
-	 *  @glsymbols
-	 *  @glfunref{RenderbufferStorage}
-	 */
-	void Storage(const images::ImageSpec& image_spec);
+    /// Returns the height of the renderbuffer as it was specified by Storage*
+    /**
+     *  @see Width
+     *
+     *  @glsymbols
+     *  @glfunref{GetRenderbufferParameter}
+     *  @gldefref{RENDERBUFFER_HEIGHT}
+     */
+    SizeType Height(void) const {
+        return MakeSizeType(GetIntParam(GL_RENDERBUFFER_HEIGHT), std::nothrow);
+    }
 
-	/// Set the renderbuffer multisample storage parameters
-	/**
-	 *  @glsymbols
-	 *  @glfunref{RenderbufferStorageMultisample}
-	 */
-	void StorageMultisample(SizeType samples,
-	  PixelDataInternalFormat internalformat,
-	  SizeType width,
-	  SizeType height) {
-		OGLPLUS_GLFUNC(NamedRenderbufferStorageMultisample)
-		(_obj_name(), samples, GLenum(internalformat), width, height);
-		OGLPLUS_CHECK(NamedRenderbufferStorageMultisample,
-		  ObjectError,
-		  Object(*this).EnumParam(internalformat));
-	}
+    /// Returns the size in bits of the renderbuffer's red component
+    /**
+     *  @see Green
+     *  @see Blue
+     *  @see Alpha
+     *
+     *  @glsymbols
+     *  @glfunref{GetRenderbufferParameter}
+     *  @gldefref{RENDERBUFFER_RED_SIZE}
+     */
+    SizeType RedSize(void) const {
+        return MakeSizeType(
+          GetIntParam(GL_RENDERBUFFER_RED_SIZE), std::nothrow);
+    }
 
-	/// Returns the width of the renderbuffer as it was specified by Storage*
-	/**
-	 *  @see Height
-	 *
-	 *  @glsymbols
-	 *  @glfunref{GetRenderbufferParameter}
-	 *  @gldefref{RENDERBUFFER_WIDTH}
-	 */
-	SizeType Width(void) const {
-		return MakeSizeType(GetIntParam(GL_RENDERBUFFER_WIDTH), std::nothrow);
-	}
+    /// Returns the size in bits of the renderbuffer's green component
+    /**
+     *  @see RedSize
+     *  @see BlueSize
+     *  @see AlphaSize
+     *  @see DepthSize
+     *  @see StencilSize
+     *
+     *  @glsymbols
+     *  @glfunref{GetRenderbufferParameter}
+     *  @gldefref{RENDERBUFFER_GREEN_SIZE}
+     */
+    SizeType GreenSize(void) const {
+        return MakeSizeType(
+          GetIntParam(GL_RENDERBUFFER_GREEN_SIZE), std::nothrow);
+    }
 
-	/// Returns the height of the renderbuffer as it was specified by Storage*
-	/**
-	 *  @see Width
-	 *
-	 *  @glsymbols
-	 *  @glfunref{GetRenderbufferParameter}
-	 *  @gldefref{RENDERBUFFER_HEIGHT}
-	 */
-	SizeType Height(void) const {
-		return MakeSizeType(GetIntParam(GL_RENDERBUFFER_HEIGHT), std::nothrow);
-	}
+    /// Returns the size in bits of the renderbuffer's blue component
+    /**
+     *  @see RedSize
+     *  @see GreenSize
+     *  @see AlphaSize
+     *  @see DepthSize
+     *  @see StencilSize
+     *
+     *  @glsymbols
+     *  @glfunref{GetRenderbufferParameter}
+     *  @gldefref{RENDERBUFFER_BLUE_SIZE}
+     */
+    SizeType BlueSize(void) const {
+        return MakeSizeType(
+          GetIntParam(GL_RENDERBUFFER_BLUE_SIZE), std::nothrow);
+    }
 
-	/// Returns the size in bits of the renderbuffer's red component
-	/**
-	 *  @see Green
-	 *  @see Blue
-	 *  @see Alpha
-	 *
-	 *  @glsymbols
-	 *  @glfunref{GetRenderbufferParameter}
-	 *  @gldefref{RENDERBUFFER_RED_SIZE}
-	 */
-	SizeType RedSize(void) const {
-		return MakeSizeType(
-		  GetIntParam(GL_RENDERBUFFER_RED_SIZE), std::nothrow);
-	}
+    /// Returns the size in bits of the renderbuffer's alpha component
+    /**
+     *  @see RedSize
+     *  @see GreenSize
+     *  @see BlueSize
+     *  @see DepthSize
+     *  @see StencilSize
+     *
+     *  @glsymbols
+     *  @glfunref{GetRenderbufferParameter}
+     *  @gldefref{RENDERBUFFER_ALPHA_SIZE}
+     */
+    SizeType AlphaSize(void) const {
+        return MakeSizeType(
+          GetIntParam(GL_RENDERBUFFER_ALPHA_SIZE), std::nothrow);
+    }
 
-	/// Returns the size in bits of the renderbuffer's green component
-	/**
-	 *  @see RedSize
-	 *  @see BlueSize
-	 *  @see AlphaSize
-	 *  @see DepthSize
-	 *  @see StencilSize
-	 *
-	 *  @glsymbols
-	 *  @glfunref{GetRenderbufferParameter}
-	 *  @gldefref{RENDERBUFFER_GREEN_SIZE}
-	 */
-	SizeType GreenSize(void) const {
-		return MakeSizeType(
-		  GetIntParam(GL_RENDERBUFFER_GREEN_SIZE), std::nothrow);
-	}
+    /// Returns the size in bits of the renderbuffer's depth component
+    /**
+     *  @see RedSize
+     *  @see GreenSize
+     *  @see BlueSize
+     *  @see AlphaSize
+     *  @see StencilSize
+     *
+     *  @glsymbols
+     *  @glfunref{GetRenderbufferParameter}
+     *  @gldefref{RENDERBUFFER_DEPTH_SIZE}
+     */
+    SizeType DepthSize(void) const {
+        return MakeSizeType(
+          GetIntParam(GL_RENDERBUFFER_DEPTH_SIZE), std::nothrow);
+    }
 
-	/// Returns the size in bits of the renderbuffer's blue component
-	/**
-	 *  @see RedSize
-	 *  @see GreenSize
-	 *  @see AlphaSize
-	 *  @see DepthSize
-	 *  @see StencilSize
-	 *
-	 *  @glsymbols
-	 *  @glfunref{GetRenderbufferParameter}
-	 *  @gldefref{RENDERBUFFER_BLUE_SIZE}
-	 */
-	SizeType BlueSize(void) const {
-		return MakeSizeType(
-		  GetIntParam(GL_RENDERBUFFER_BLUE_SIZE), std::nothrow);
-	}
+    /// Returns the size in bits of the renderbuffer's stencil component
+    /**
+     *  @see RedSize
+     *  @see GreenSize
+     *  @see BlueSize
+     *  @see AlphaSize
+     *  @see DepthSize
+     *
+     *  @glsymbols
+     *  @glfunref{GetRenderbufferParameter}
+     *  @gldefref{RENDERBUFFER_STENCIL_SIZE}
+     */
+    SizeType StencilSize(void) const {
+        return MakeSizeType(
+          GetIntParam(GL_RENDERBUFFER_STENCIL_SIZE), std::nothrow);
+    }
 
-	/// Returns the size in bits of the renderbuffer's alpha component
-	/**
-	 *  @see RedSize
-	 *  @see GreenSize
-	 *  @see BlueSize
-	 *  @see DepthSize
-	 *  @see StencilSize
-	 *
-	 *  @glsymbols
-	 *  @glfunref{GetRenderbufferParameter}
-	 *  @gldefref{RENDERBUFFER_ALPHA_SIZE}
-	 */
-	SizeType AlphaSize(void) const {
-		return MakeSizeType(
-		  GetIntParam(GL_RENDERBUFFER_ALPHA_SIZE), std::nothrow);
-	}
+    /// Returns the number of samples of the renderbuffer
+    /**
+     *  @glsymbols
+     *  @glfunref{GetRenderbufferParameter}
+     *  @gldefref{RENDERBUFFER_SAMPLES}
+     */
+    SizeType Samples(void) const {
+        return MakeSizeType(GetIntParam(GL_RENDERBUFFER_SAMPLES), std::nothrow);
+    }
 
-	/// Returns the size in bits of the renderbuffer's depth component
-	/**
-	 *  @see RedSize
-	 *  @see GreenSize
-	 *  @see BlueSize
-	 *  @see AlphaSize
-	 *  @see StencilSize
-	 *
-	 *  @glsymbols
-	 *  @glfunref{GetRenderbufferParameter}
-	 *  @gldefref{RENDERBUFFER_DEPTH_SIZE}
-	 */
-	SizeType DepthSize(void) const {
-		return MakeSizeType(
-		  GetIntParam(GL_RENDERBUFFER_DEPTH_SIZE), std::nothrow);
-	}
-
-	/// Returns the size in bits of the renderbuffer's stencil component
-	/**
-	 *  @see RedSize
-	 *  @see GreenSize
-	 *  @see BlueSize
-	 *  @see AlphaSize
-	 *  @see DepthSize
-	 *
-	 *  @glsymbols
-	 *  @glfunref{GetRenderbufferParameter}
-	 *  @gldefref{RENDERBUFFER_STENCIL_SIZE}
-	 */
-	SizeType StencilSize(void) const {
-		return MakeSizeType(
-		  GetIntParam(GL_RENDERBUFFER_STENCIL_SIZE), std::nothrow);
-	}
-
-	/// Returns the number of samples of the renderbuffer
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetRenderbufferParameter}
-	 *  @gldefref{RENDERBUFFER_SAMPLES}
-	 */
-	SizeType Samples(void) const {
-		return MakeSizeType(GetIntParam(GL_RENDERBUFFER_SAMPLES), std::nothrow);
-	}
-
-	/// Returns the internal format of the renderbuffer
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetRenderbufferParameter}
-	 *  @gldefref{RENDERBUFFER_INTERNAL_FORMAT}
-	 */
-	PixelDataInternalFormat InternalFormat(void) const {
-		return PixelDataInternalFormat(
-		  GetIntParam(GL_RENDERBUFFER_INTERNAL_FORMAT));
-	}
+    /// Returns the internal format of the renderbuffer
+    /**
+     *  @glsymbols
+     *  @glfunref{GetRenderbufferParameter}
+     *  @gldefref{RENDERBUFFER_INTERNAL_FORMAT}
+     */
+    PixelDataInternalFormat InternalFormat(void) const {
+        return PixelDataInternalFormat(
+          GetIntParam(GL_RENDERBUFFER_INTERNAL_FORMAT));
+    }
 };
 
 /// Renderbuffer operations with direct state access
@@ -256,15 +238,15 @@ typedef ObjectOps<tag::DirectState, tag::Renderbuffer> DSARenderbufferOps;
 // Bind
 inline DSARenderbufferOps& operator<<(
   DSARenderbufferOps& rbo, RenderbufferTarget target) {
-	rbo.Bind(target);
-	return rbo;
+    rbo.Bind(target);
+    return rbo;
 }
 
 // Storage
 inline DSARenderbufferOps& operator<<(
   DSARenderbufferOps& rbo, const images::ImageSpec& image_spec) {
-	rbo.Storage(image_spec);
-	return rbo;
+    rbo.Storage(image_spec);
+    return rbo;
 }
 
 /// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality

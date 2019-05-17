@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_TRANSFORM_FEEDBACK_1107121519_HPP
 #define OGLPLUS_TRANSFORM_FEEDBACK_1107121519_HPP
 
-#include <cassert>
 #include <oglplus/config/compiler.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/glfunc.hpp>
@@ -21,6 +20,7 @@
 #include <oglplus/transform_feedback_mode.hpp>
 #include <oglplus/transform_feedback_target.hpp>
 #include <oglplus/transform_feedback_type.hpp>
+#include <cassert>
 
 namespace oglplus {
 
@@ -37,64 +37,64 @@ namespace oglplus {
 template <>
 class ObjGenDelOps<tag::TransformFeedback> {
 protected:
-	static void Gen(tag::Generate, GLsizei count, GLuint* names) {
-		assert(names != nullptr);
-		OGLPLUS_GLFUNC(GenTransformFeedbacks)(count, names);
-		OGLPLUS_CHECK_SIMPLE(GenTransformFeedbacks);
-	}
+    static void Gen(tag::Generate, GLsizei count, GLuint* names) {
+        assert(names != nullptr);
+        OGLPLUS_GLFUNC(GenTransformFeedbacks)(count, names);
+        OGLPLUS_CHECK_SIMPLE(GenTransformFeedbacks);
+    }
 #if GL_VERSION_4_5 || GL_ARB_direct_state_access
-	static void Gen(tag::Create, GLsizei count, GLuint* names) {
-		assert(names != nullptr);
-		OGLPLUS_GLFUNC(CreateTransformFeedbacks)(count, names);
-		OGLPLUS_CHECK_SIMPLE(CreateTransformFeedbacks);
-	}
+    static void Gen(tag::Create, GLsizei count, GLuint* names) {
+        assert(names != nullptr);
+        OGLPLUS_GLFUNC(CreateTransformFeedbacks)(count, names);
+        OGLPLUS_CHECK_SIMPLE(CreateTransformFeedbacks);
+    }
 #endif
 
-	static void Delete(GLsizei count, GLuint* names) {
-		assert(names != nullptr);
-		OGLPLUS_GLFUNC(DeleteTransformFeedbacks)(count, names);
-		OGLPLUS_VERIFY_SIMPLE(DeleteTransformFeedbacks);
-	}
+    static void Delete(GLsizei count, GLuint* names) {
+        assert(names != nullptr);
+        OGLPLUS_GLFUNC(DeleteTransformFeedbacks)(count, names);
+        OGLPLUS_VERIFY_SIMPLE(DeleteTransformFeedbacks);
+    }
 
-	static Boolean IsA(GLuint name) {
-		Boolean result(OGLPLUS_GLFUNC(IsTransformFeedback)(name), std::nothrow);
-		OGLPLUS_VERIFY_SIMPLE(IsTransformFeedback);
-		return result;
-	}
+    static Boolean IsA(GLuint name) {
+        Boolean result(OGLPLUS_GLFUNC(IsTransformFeedback)(name), std::nothrow);
+        OGLPLUS_VERIFY_SIMPLE(IsTransformFeedback);
+        return result;
+    }
 };
 
 /// TransformFeedback binding operations
 template <>
 class ObjBindingOps<tag::TransformFeedback> {
 private:
-	static GLenum _binding_query(TransformFeedbackTarget target);
+    static GLenum _binding_query(TransformFeedbackTarget target);
 
 protected:
-	static GLuint _binding(TransformFeedbackTarget target);
+    static GLuint _binding(TransformFeedbackTarget target);
 
 public:
-	/// TransformFeedback bind targets
-	typedef TransformFeedbackTarget Target;
+    /// TransformFeedback bind targets
+    typedef TransformFeedbackTarget Target;
 
-	/// Returns the current TransformFeedback bound to specified @p target
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetIntegerv}
-	 */
-	static TransformFeedbackName Binding(Target target) {
-		return TransformFeedbackName(_binding(target));
-	}
+    /// Returns the current TransformFeedback bound to specified @p target
+    /**
+     *  @glsymbols
+     *  @glfunref{GetIntegerv}
+     */
+    static TransformFeedbackName Binding(Target target) {
+        return TransformFeedbackName(_binding(target));
+    }
 
-	/// Binds the specified @p transform feedback to the specified @p target
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindTransformFeedback}
-	 */
-	static void Bind(Target target, TransformFeedbackName tfb) {
-		OGLPLUS_GLFUNC(BindTransformFeedback)(GLenum(target), GetGLName(tfb));
-		OGLPLUS_VERIFY(
-		  BindTransformFeedback, ObjectError, Object(tfb).BindTarget(target));
-	}
+    /// Binds the specified @p transform feedback to the specified @p target
+    /**
+     *  @glsymbols
+     *  @glfunref{BindTransformFeedback}
+     */
+    static void Bind(Target target, TransformFeedbackName tfb) {
+        OGLPLUS_GLFUNC(BindTransformFeedback)(GLenum(target), GetGLName(tfb));
+        OGLPLUS_VERIFY(
+          BindTransformFeedback, ObjectError, Object(tfb).BindTarget(target));
+    }
 };
 
 #endif // GL_VERSION_4_0
@@ -115,54 +115,54 @@ public:
  */
 class TransformFeedbackActivator {
 private:
-	bool _active;
+    bool _active;
 
 public:
-	/// Begins transform feedback
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BeginTransformFeedback}
-	 */
-	TransformFeedbackActivator(TransformFeedbackPrimitiveType mode)
-	  : _active(true) {
-		OGLPLUS_GLFUNC(BeginTransformFeedback)(GLenum(mode));
-		OGLPLUS_VERIFY(BeginTransformFeedback, Error, EnumParam(mode));
-	}
+    /// Begins transform feedback
+    /**
+     *  @glsymbols
+     *  @glfunref{BeginTransformFeedback}
+     */
+    TransformFeedbackActivator(TransformFeedbackPrimitiveType mode)
+      : _active(true) {
+        OGLPLUS_GLFUNC(BeginTransformFeedback)(GLenum(mode));
+        OGLPLUS_VERIFY(BeginTransformFeedback, Error, EnumParam(mode));
+    }
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
-	/// Copying is disabled
-	TransformFeedbackActivator(const TransformFeedbackActivator&) = delete;
+    /// Copying is disabled
+    TransformFeedbackActivator(const TransformFeedbackActivator&) = delete;
 #else
 private:
-	TransformFeedbackActivator(const TransformFeedbackActivator&);
+    TransformFeedbackActivator(const TransformFeedbackActivator&);
 
 public:
 #endif
 
-	TransformFeedbackActivator(TransformFeedbackActivator&& tmp)
-	  : _active(tmp._active) {
-		tmp._active = false;
-	}
+    TransformFeedbackActivator(TransformFeedbackActivator&& tmp)
+      : _active(tmp._active) {
+        tmp._active = false;
+    }
 
-	void Finish(void) {
-		if(_active) {
-			OGLPLUS_GLFUNC(EndTransformFeedback)();
-			OGLPLUS_VERIFY_SIMPLE(EndTransformFeedback);
-			_active = false;
-		}
-	}
+    void Finish(void) {
+        if(_active) {
+            OGLPLUS_GLFUNC(EndTransformFeedback)();
+            OGLPLUS_VERIFY_SIMPLE(EndTransformFeedback);
+            _active = false;
+        }
+    }
 
-	/// Ends transform feedback
-	/**
-	 *  @glsymbols
-	 *  @glfunref{EndTransformFeedback}
-	 */
-	~TransformFeedbackActivator(void) {
-		try {
-			Finish();
-		} catch(...) {
-		}
-	}
+    /// Ends transform feedback
+    /**
+     *  @glsymbols
+     *  @glfunref{EndTransformFeedback}
+     */
+    ~TransformFeedbackActivator(void) {
+        try {
+            Finish();
+        } catch(...) {
+        }
+    }
 };
 
 /// Class lifetime of which controls the pausing/resuming of TFB
@@ -179,58 +179,58 @@ public:
  */
 class TransformFeedbackPauser {
 private:
-	bool _paused;
+    bool _paused;
 
 public:
-	/// Pauses transform feedback
-	/**
-	 *  @glsymbols
-	 *  @glfunref{PauseTransformFeedback}
-	 */
-	TransformFeedbackPauser(void)
-	  : _paused(true) {
-		OGLPLUS_GLFUNC(PauseTransformFeedback)();
-		OGLPLUS_VERIFY_SIMPLE(PauseTransformFeedback);
-	}
+    /// Pauses transform feedback
+    /**
+     *  @glsymbols
+     *  @glfunref{PauseTransformFeedback}
+     */
+    TransformFeedbackPauser(void)
+      : _paused(true) {
+        OGLPLUS_GLFUNC(PauseTransformFeedback)();
+        OGLPLUS_VERIFY_SIMPLE(PauseTransformFeedback);
+    }
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
-	TransformFeedbackPauser(const TransformFeedbackPauser&) = delete;
+    TransformFeedbackPauser(const TransformFeedbackPauser&) = delete;
 #else
 private:
-	TransformFeedbackPauser(const TransformFeedbackPauser&);
+    TransformFeedbackPauser(const TransformFeedbackPauser&);
 
 public:
 #endif
 
-	TransformFeedbackPauser(TransformFeedbackPauser&& tmp)
-	  : _paused(tmp._paused) {
-		tmp._paused = false;
-	}
+    TransformFeedbackPauser(TransformFeedbackPauser&& tmp)
+      : _paused(tmp._paused) {
+        tmp._paused = false;
+    }
 
-	/// Explicitly resumes transform feedback
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ResumeTransformFeedback}
-	 */
-	void Resume(void) {
-		if(_paused) {
-			OGLPLUS_GLFUNC(ResumeTransformFeedback)();
-			OGLPLUS_VERIFY_SIMPLE(ResumeTransformFeedback);
-			_paused = false;
-		}
-	}
+    /// Explicitly resumes transform feedback
+    /**
+     *  @glsymbols
+     *  @glfunref{ResumeTransformFeedback}
+     */
+    void Resume(void) {
+        if(_paused) {
+            OGLPLUS_GLFUNC(ResumeTransformFeedback)();
+            OGLPLUS_VERIFY_SIMPLE(ResumeTransformFeedback);
+            _paused = false;
+        }
+    }
 
-	/// Resumes transform feedback
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ResumeTransformFeedback}
-	 */
-	~TransformFeedbackPauser(void) {
-		try {
-			Resume();
-		} catch(...) {
-		}
-	}
+    /// Resumes transform feedback
+    /**
+     *  @glsymbols
+     *  @glfunref{ResumeTransformFeedback}
+     */
+    ~TransformFeedbackPauser(void) {
+        try {
+            Resume();
+        } catch(...) {
+        }
+    }
 };
 
 /// Common transform feedback operations
@@ -245,143 +245,105 @@ class ObjCommonOps<tag::TransformFeedback>
 #endif
 {
 protected:
-	ObjCommonOps(TransformFeedbackName name) noexcept
-	  : TransformFeedbackName(name) {
-	}
+    ObjCommonOps(TransformFeedbackName name) noexcept
+      : TransformFeedbackName(name) {
+    }
 
 public:
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	ObjCommonOps(ObjCommonOps&&) = default;
-	ObjCommonOps(const ObjCommonOps&) = default;
-	ObjCommonOps& operator=(ObjCommonOps&&) = default;
-	ObjCommonOps& operator=(const ObjCommonOps&) = default;
-#else
-	typedef TransformFeedbackName _base1;
+    ObjCommonOps(ObjCommonOps&&) = default;
+    ObjCommonOps(const ObjCommonOps&) = default;
+    ObjCommonOps& operator=(ObjCommonOps&&) = default;
+    ObjCommonOps& operator=(const ObjCommonOps&) = default;
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
-	typedef ObjBindingOps<tag::TransformFeedback> _base2;
+    using ObjBindingOps<tag::TransformFeedback>::Bind;
+
+    /// Binds this transform feedback to the specified @p target
+    /**
+     *  @glsymbols
+     *  @glfunref{BindTransformFeedback}
+     */
+    void Bind(Target target = Target::TransformFeedback) const {
+        Bind(target, *this);
+    }
 #endif
+    /// Begin the transform feedback mode
+    /** Consider using an instance of Activator class for more robustness.
+     *  @throws Error
+     *
+     *  @see Activator
+     *  @see End
+     *
+     *  @glsymbols
+     *  @glfunref{BeginTransformFeedback}
+     */
+    static void Begin(TransformFeedbackPrimitiveType mode) {
+        OGLPLUS_GLFUNC(BeginTransformFeedback)(GLenum(mode));
+        OGLPLUS_VERIFY(BeginTransformFeedback, Error, EnumParam(mode));
+    }
 
-	ObjCommonOps(ObjCommonOps&& temp) noexcept
-	  : _base1(static_cast<_base1&&>(temp))
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
-	  , _base2(static_cast<_base2&&>(temp))
-#endif
-	{
-	}
+    /// Begin the transform feedback mode with POINTS
+    static void BeginPoints(void) {
+        Begin(TransformFeedbackPrimitiveType::Points);
+    }
 
-	ObjCommonOps(const ObjCommonOps& that) noexcept
-	  : _base1(static_cast<const _base1&>(that))
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
-	  , _base2(static_cast<const _base2&>(that))
-#endif
-	{
-	}
+    /// Begin the transform feedback mode with LINES
+    static void BeginLines(void) {
+        Begin(TransformFeedbackPrimitiveType::Lines);
+    }
 
-	ObjCommonOps& operator=(ObjCommonOps&& temp) noexcept {
-		_base1::operator=(static_cast<_base1&&>(temp));
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
-		_base2::operator=(static_cast<_base2&&>(temp));
-#endif
-		return *this;
-	}
+    /// Begin the transform feedback mode with TRIANGLES
+    static void BeginTriangles(void) {
+        Begin(TransformFeedbackPrimitiveType::Triangles);
+    }
 
-	ObjCommonOps& operator=(const ObjCommonOps& that) noexcept {
-		_base1::operator=(static_cast<const _base1&>(that));
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
-		_base2::operator=(static_cast<const _base2&>(that));
-#endif
-		return *this;
-	}
-#endif
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
-	using ObjBindingOps<tag::TransformFeedback>::Bind;
+    /// End the transform feedback mode
+    /** Consider using an instance of Activator class for more robustness.
+     *  @throws Error
+     *
+     *  @see Activator
+     *  @see Begin
+     *
+     *  @glsymbols
+     *  @glfunref{EndTransformFeedback}
+     */
+    static void End(void) {
+        OGLPLUS_GLFUNC(EndTransformFeedback)();
+        OGLPLUS_VERIFY_SIMPLE(EndTransformFeedback);
+    }
 
-	/// Binds this transform feedback to the specified @p target
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindTransformFeedback}
-	 */
-	void Bind(Target target = Target::TransformFeedback) const {
-		Bind(target, *this);
-	}
-#endif
-	/// Begin the transform feedback mode
-	/** Consider using an instance of Activator class for more robustness.
-	 *  @throws Error
-	 *
-	 *  @see Activator
-	 *  @see End
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BeginTransformFeedback}
-	 */
-	static void Begin(TransformFeedbackPrimitiveType mode) {
-		OGLPLUS_GLFUNC(BeginTransformFeedback)(GLenum(mode));
-		OGLPLUS_VERIFY(BeginTransformFeedback, Error, EnumParam(mode));
-	}
+    /// Pause the transform feedback mode
+    /** Consider using an instance of Pauser class for more robustness.
+     *  @throws Error
+     *
+     *  @see Pauser
+     *  @see Resume
+     *
+     *  @glsymbols
+     *  @glfunref{PauseTransformFeedback}
+     */
+    static void Pause(void) {
+        OGLPLUS_GLFUNC(PauseTransformFeedback)();
+        OGLPLUS_VERIFY_SIMPLE(PauseTransformFeedback);
+    }
 
-	/// Begin the transform feedback mode with POINTS
-	static void BeginPoints(void) {
-		Begin(TransformFeedbackPrimitiveType::Points);
-	}
+    /// Resume the transform feedback mode
+    /** Consider using an instance of Pauser class for more robustness.
+     *  @throws Error
+     *
+     *  @see Pauser
+     *  @see Pause
+     *
+     *  @glsymbols
+     *  @glfunref{ResumeTransformFeedback}
+     */
+    static void Resume(void) {
+        OGLPLUS_GLFUNC(ResumeTransformFeedback)();
+        OGLPLUS_VERIFY_SIMPLE(ResumeTransformFeedback);
+    }
 
-	/// Begin the transform feedback mode with LINES
-	static void BeginLines(void) {
-		Begin(TransformFeedbackPrimitiveType::Lines);
-	}
-
-	/// Begin the transform feedback mode with TRIANGLES
-	static void BeginTriangles(void) {
-		Begin(TransformFeedbackPrimitiveType::Triangles);
-	}
-
-	/// End the transform feedback mode
-	/** Consider using an instance of Activator class for more robustness.
-	 *  @throws Error
-	 *
-	 *  @see Activator
-	 *  @see Begin
-	 *
-	 *  @glsymbols
-	 *  @glfunref{EndTransformFeedback}
-	 */
-	static void End(void) {
-		OGLPLUS_GLFUNC(EndTransformFeedback)();
-		OGLPLUS_VERIFY_SIMPLE(EndTransformFeedback);
-	}
-
-	/// Pause the transform feedback mode
-	/** Consider using an instance of Pauser class for more robustness.
-	 *  @throws Error
-	 *
-	 *  @see Pauser
-	 *  @see Resume
-	 *
-	 *  @glsymbols
-	 *  @glfunref{PauseTransformFeedback}
-	 */
-	static void Pause(void) {
-		OGLPLUS_GLFUNC(PauseTransformFeedback)();
-		OGLPLUS_VERIFY_SIMPLE(PauseTransformFeedback);
-	}
-
-	/// Resume the transform feedback mode
-	/** Consider using an instance of Pauser class for more robustness.
-	 *  @throws Error
-	 *
-	 *  @see Pauser
-	 *  @see Pause
-	 *
-	 *  @glsymbols
-	 *  @glfunref{ResumeTransformFeedback}
-	 */
-	static void Resume(void) {
-		OGLPLUS_GLFUNC(ResumeTransformFeedback)();
-		OGLPLUS_VERIFY_SIMPLE(ResumeTransformFeedback);
-	}
-
-	typedef TransformFeedbackActivator Activator;
-	typedef TransformFeedbackPauser Pauser;
+    typedef TransformFeedbackActivator Activator;
+    typedef TransformFeedbackPauser Pauser;
 };
 
 /// Wrapper for default feedback operations

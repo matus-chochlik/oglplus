@@ -13,8 +13,8 @@
 #ifndef OGLPLUS_ERROR_OUTCOME_1405082311_HPP
 #define OGLPLUS_ERROR_OUTCOME_1405082311_HPP
 
-#include <cassert>
 #include <oglplus/error/deferred_handler.hpp>
+#include <cassert>
 
 namespace oglplus {
 
@@ -26,86 +26,61 @@ class NegativeOutcome;
 
 class BaseOutcome {
 protected:
-	DeferredHandler _error;
+    DeferredHandler _error;
 
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	BaseOutcome(void) = default;
-#else
-	BaseOutcome(void) noexcept {
-	}
-#endif
+    BaseOutcome(void) = default;
+    BaseOutcome(BaseOutcome&&) = default;
 
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	BaseOutcome(BaseOutcome&&) = default;
-#else
-	BaseOutcome(BaseOutcome&& temp) noexcept
-	  : _error(std::move(temp._error)) {
-	}
-#endif
-
-	BaseOutcome(DeferredHandler&& handler)
-	  : _error(std::move(handler)) {
-	}
+    BaseOutcome(DeferredHandler&& handler)
+      : _error(std::move(handler)) {
+    }
 
 public:
-	/// Return true if there was no error, false otherwise
-	bool Done(void) const noexcept {
-		return !_error;
-	}
+    /// Return true if there was no error, false otherwise
+    bool Done(void) const noexcept {
+        return !_error;
+    }
 
-	// Dismisses the error handler and returns true if there was no error
-	bool DoneWithoutError(void) noexcept {
-		return !_error.cancel();
-	}
+    // Dismisses the error handler and returns true if there was no error
+    bool DoneWithoutError(void) noexcept {
+        return !_error.cancel();
+    }
 
-	DeferredHandler ReleaseHandler(void) noexcept {
-		return std::move(_error);
-	}
+    DeferredHandler ReleaseHandler(void) noexcept {
+        return std::move(_error);
+    }
 };
 
 template <typename T>
 class Outcome : public BaseOutcome {
 protected:
-	T _value;
+    T _value;
 
 public:
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	Outcome(Outcome&&) = default;
-#else
-	Outcome(Outcome&& temp) noexcept
-	  : BaseOutcome(static_cast<BaseOutcome&&>(temp))
-	  , _value(std::move(temp._value)) {
-	}
-#endif
+    Outcome(Outcome&&) = default;
 
-	Outcome(T&& value) noexcept
-	  : _value(std::move(value)) {
-	}
+    Outcome(T&& value) noexcept
+      : _value(std::move(value)) {
+    }
 
-	Outcome(DeferredHandler&& handler)
-	  : BaseOutcome(std::move(handler)) {
-	}
+    Outcome(DeferredHandler&& handler)
+      : BaseOutcome(std::move(handler)) {
+    }
 
-	/// Returns stored value or cancels the error and returns the parameter
-	const T& ValueOr(const T& value) {
-		return _error.cancel() ? value : _value;
-	}
+    /// Returns stored value or cancels the error and returns the parameter
+    const T& ValueOr(const T& value) {
+        return _error.cancel() ? value : _value;
+    }
 };
 
 template <>
 class Outcome<void> : public BaseOutcome {
 public:
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	Outcome(Outcome&&) = default;
-#else
-	Outcome(Outcome&& temp) noexcept
-	  : BaseOutcome(static_cast<BaseOutcome&&>(temp)) {
-	}
-#endif
+    Outcome(Outcome&&) = default;
 
-	Outcome(DeferredHandler&& handler)
-	  : BaseOutcome(std::move(handler)) {
-	}
+    Outcome(DeferredHandler&& handler)
+      : BaseOutcome(std::move(handler)) {
+    }
 };
 
 /// Stores a reference to T or a deferred error handler
@@ -116,88 +91,75 @@ public:
 template <typename T>
 class Outcome<T&> : public BaseOutcome {
 protected:
-	T* _ptr;
+    T* _ptr;
 
 public:
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	Outcome(Outcome&&) = default;
-#else
-	Outcome(Outcome&& temp) noexcept
-	  : BaseOutcome(static_cast<BaseOutcome&&>(temp))
-	  , _ptr(std::move(temp._ptr)) {
-	}
-#endif
+    Outcome(Outcome&&) = default;
 
-	Outcome(T& ref) noexcept
-	  : _ptr(&ref) {
-	}
+    Outcome(T& ref) noexcept
+      : _ptr(&ref) {
+    }
 
-	Outcome(DeferredHandler handler)
-	  : BaseOutcome(std::move(handler))
-	  , _ptr(nullptr) {
-	}
+    Outcome(DeferredHandler handler)
+      : BaseOutcome(std::move(handler))
+      , _ptr(nullptr) {
+    }
 
-	Outcome(DeferredHandler handler, T& ref) noexcept
-	  : BaseOutcome(std::move(handler))
-	  , _ptr(&ref) {
-	}
+    Outcome(DeferredHandler handler, T& ref) noexcept
+      : BaseOutcome(std::move(handler))
+      , _ptr(&ref) {
+    }
 
-	/// Trigger the error handler if any or return the stored reference
-	T& Then(void) {
-		_error.trigger();
-		assert(_ptr != nullptr);
-		return *_ptr;
-	}
+    /// Trigger the error handler if any or return the stored reference
+    T& Then(void) {
+        _error.trigger();
+        assert(_ptr != nullptr);
+        return *_ptr;
+    }
 };
 
 template <typename T>
 class PositiveOutcome : public Outcome<T> {
 public:
-	PositiveOutcome(Outcome<T>&& base) noexcept
-	  : Outcome<T>(std::move(base)) {
-	}
+    PositiveOutcome(Outcome<T>&& base) noexcept
+      : Outcome<T>(std::move(base)) {
+    }
 
-	explicit operator bool(void) const noexcept {
-		return !this->_error;
-	}
+    explicit operator bool(void) const noexcept {
+        return !this->_error;
+    }
 
-	bool operator!(void) const noexcept {
-		return bool(this->_error);
-	}
+    bool operator!(void) const noexcept {
+        return bool(this->_error);
+    }
 };
 
 template <typename T>
 class NegativeOutcome : public Outcome<T> {
 public:
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	NegativeOutcome(NegativeOutcome&&) = default;
-#else
-	NegativeOutcome(NegativeOutcome&& temp) noexcept
-	  : Outcome<T>(static_cast<Outcome<T>&&>(temp)) {
-	}
-#endif
+    NegativeOutcome(NegativeOutcome&&) = default;
 
-	NegativeOutcome(Outcome<T>&& base) noexcept
-	  : Outcome<T>(std::move(base)) {
-	}
+    NegativeOutcome(Outcome<T>&& base) noexcept
+      : Outcome<T>(std::move(base)) {
+    }
 
-	explicit operator bool(void) const noexcept {
-		return bool(this->_error);
-	}
+    explicit operator bool(void) const noexcept {
+        return bool(this->_error);
+    }
 
-	bool operator!(void) const noexcept {
-		return !this->_error;
-	}
+    bool operator!(void) const noexcept {
+        return !this->_error;
+    }
 };
 
 template <typename T>
 static inline PositiveOutcome<T> Succeeded(Outcome<T>&& outcome) noexcept {
-	return std::move(outcome);
+    return std::move(outcome);
 }
 
 template <typename T>
 static inline NegativeOutcome<T> Failed(Outcome<T>&& outcome) noexcept {
-	return std::move(outcome);
+    return std::move(outcome);
 }
 
 } // namespace oglplus

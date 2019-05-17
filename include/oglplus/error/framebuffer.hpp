@@ -31,37 +31,30 @@ namespace oglplus {
  */
 class IncompleteFramebuffer : public ObjectError {
 private:
-	FramebufferStatus _status;
+    FramebufferStatus _status;
 
 public:
-	static const char* Message(void);
+    static const char* Message(void);
 
-	IncompleteFramebuffer(const char* message)
-	  : ObjectError(message) {
-	}
+    IncompleteFramebuffer(const char* message)
+      : ObjectError(message) {
+    }
 
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	IncompleteFramebuffer(const IncompleteFramebuffer&) = default;
-	IncompleteFramebuffer& operator=(const IncompleteFramebuffer&) = default;
-#else
-	IncompleteFramebuffer(const IncompleteFramebuffer& that)
-	  : ObjectError(that)
-	  , _status(that._status) {
-	}
-#endif
+    IncompleteFramebuffer(const IncompleteFramebuffer&) = default;
+    IncompleteFramebuffer& operator=(const IncompleteFramebuffer&) = default;
 
-	~IncompleteFramebuffer(void) noexcept {
-	}
+    ~IncompleteFramebuffer(void) noexcept {
+    }
 
-	IncompleteFramebuffer& Status(FramebufferStatus status) {
-		_status = status;
-		EnumParam(status);
-		return *this;
-	}
+    IncompleteFramebuffer& Status(FramebufferStatus status) {
+        _status = status;
+        EnumParam(status);
+        return *this;
+    }
 
-	FramebufferStatus Status(void) const {
-		return _status;
-	}
+    FramebufferStatus Status(void) const {
+        return _status;
+    }
 };
 
 } // namespace oglplus

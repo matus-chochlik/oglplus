@@ -22,64 +22,50 @@ namespace oglplus {
 class ProgVarError : public Error {
 private:
 #if !OGLPLUS_ERROR_NO_PROG_NAME
-	GLuint _prog_name;
+    GLuint _prog_name;
 #endif
 #if !OGLPLUS_ERROR_NO_IDENTIFIER
-	String _identifier;
+    String _identifier;
 #endif
 public:
-	ProgVarError(const char* message);
+    ProgVarError(const char* message);
 
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	ProgVarError(const ProgVarError&) = default;
-	ProgVarError(ProgVarError&&) = default;
-#else
-	ProgVarError(const ProgVarError& that)
-	  : Error(static_cast<const Error&>(that))
-	  , _prog_name(that._prog_name)
-	  , _identifier(that._identifier) {
-	}
+    ProgVarError(const ProgVarError&) = default;
+    ProgVarError(ProgVarError&&) = default;
 
-	ProgVarError(ProgVarError&& temp)
-	  : Error(static_cast<Error&&>(temp))
-	  , _prog_name(std::move(temp._prog_name))
-	  , _identifier(std::move(temp._identifier)) {
-	}
-#endif
+    ~ProgVarError(void) noexcept {
+    }
 
-	~ProgVarError(void) noexcept {
-	}
-
-	ProgVarError& Program(ProgramName program) {
+    ProgVarError& Program(ProgramName program) {
 #if !OGLPLUS_ERROR_NO_PROG_NAME
-		_prog_name = GetGLName(program);
+        _prog_name = GetGLName(program);
 #endif
-		(void)program;
-		return *this;
-	}
+        (void)program;
+        return *this;
+    }
 
-	/// Returns the program
-	ProgramName Program(void) const;
+    /// Returns the program
+    ProgramName Program(void) const;
 
-	ProgVarError& Identifier(StrCRef identifier) {
+    ProgVarError& Identifier(StrCRef identifier) {
 #if !OGLPLUS_ERROR_NO_IDENTIFIER
-		_identifier.assign(identifier.begin(), identifier.end());
+        _identifier.assign(identifier.begin(), identifier.end());
 #endif
-		(void)identifier;
-		return *this;
-	}
+        (void)identifier;
+        return *this;
+    }
 
-	const char* ObjectTypeName(void) const override {
-		return "PROGRAM";
-	}
+    const char* ObjectTypeName(void) const override {
+        return "PROGRAM";
+    }
 
-	/// Returns the GL program name
-	GLint ObjectName(void) const override {
-		return GLint(_prog_name);
-	}
+    /// Returns the GL program name
+    GLint ObjectName(void) const override {
+        return GLint(_prog_name);
+    }
 
-	/// Returns the program variable identifer
-	const char* Identifier(void) const override;
+    /// Returns the program variable identifer
+    const char* Identifier(void) const override;
 };
 
 } // namespace oglplus

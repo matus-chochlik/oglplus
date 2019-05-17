@@ -7,21 +7,21 @@
 //[oglplus_config_site_1
 
 #define OGLPLUS_OPENAL_FOUND                             \
-	__UNSPECIFIED /*<                                    \
+    __UNSPECIFIED /*<                                    \
 Indicates if __OpenAL__ is available and should be used. \
 >*/
 #define OGLPLUS_PNG_FOUND                             \
-	__UNSPECIFIED /*<                                 \
+    __UNSPECIFIED /*<                                 \
 Indicates if __LibPNG__ was found and should be used. \
 >*/
 #define OGLPLUS_PANGO_CAIRO_FOUND                          \
-	__UNSPECIFIED /*<                                      \
+    __UNSPECIFIED /*<                                      \
 Indicates if __Pango_Cairo__ was found and should be used. \
 >*/
 
 #ifndef __OGLPLUS_LOW_PROFILE
 #define __OGLPLUS_LOW_PROFILE                                     \
-	__UNSPECIFIED /*<                                             \
+    __UNSPECIFIED /*<                                             \
 The low-profile mode can be set through the configuration script. \
 >*/
 #endif
@@ -91,12 +91,6 @@ Indicates that C++11 unified initialization syntax is not implemented. \
 Indicates that C++11 initializer lists are not supported. \
 >*/
 #define OGLPLUS_NO_INITIALIZER_LISTS __UNSPECIFIED
-#endif
-
-#ifndef OGLPLUS_NO_DEFAULTED_FUNCTIONS /*<                     \
-Indicates that C++11 [^default]ed functions are not supported. \
->*/
-#define OGLPLUS_NO_DEFAULTED_FUNCTIONS __UNSPECIFIED
 #endif
 
 #ifndef OGLPLUS_NO_DELETED_FUNCTIONS /*<                     \

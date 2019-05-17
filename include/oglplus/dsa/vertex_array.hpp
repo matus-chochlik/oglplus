@@ -23,7 +23,7 @@ namespace oglplus {
 
 template <>
 struct ObjGenTag<tag::DirectState, tag::VertexArray> {
-	typedef tag::Create Type;
+    typedef tag::Create Type;
 };
 
 /// Class wrapping vertex array-related functionality with direct state access
@@ -34,76 +34,58 @@ template <>
 class ObjectOps<tag::DirectState, tag::VertexArray>
   : public ObjZeroOps<tag::DirectState, tag::VertexArray> {
 protected:
-	ObjectOps(VertexArrayName name) noexcept
-	  : ObjZeroOps<tag::DirectState, tag::VertexArray>(name) {
-	}
+    ObjectOps(VertexArrayName name) noexcept
+      : ObjZeroOps<tag::DirectState, tag::VertexArray>(name) {
+    }
 
 public:
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	ObjectOps(ObjectOps&&) = default;
-	ObjectOps(const ObjectOps&) = default;
-	ObjectOps& operator=(ObjectOps&&) = default;
-	ObjectOps& operator=(const ObjectOps&) = default;
-#else
-	typedef ObjZeroOps<tag::DirectState, tag::VertexArray> _base;
+    ObjectOps(ObjectOps&&) = default;
+    ObjectOps(const ObjectOps&) = default;
+    ObjectOps& operator=(ObjectOps&&) = default;
+    ObjectOps& operator=(const ObjectOps&) = default;
 
-	ObjectOps(ObjectOps&& temp) noexcept
-	  : _base(static_cast<_base&&>(temp)) {
-	}
+    /// Bind buffer to VAO's element buffer binding point
+    /**
+     *  @glsymbols
+     *  @glfunref{VertexArrayElementBuffer}
+     */
+    ObjectOps& ElementBuffer(BufferName buffer) {
+        OGLPLUS_GLFUNC(VertexArrayElementBuffer)
+        (_obj_name(), GetGLName(buffer));
+        OGLPLUS_CHECK(
+          VertexArrayElementBuffer,
+          ObjectPairError,
+          Subject(buffer).Object(*this));
+        return *this;
+    }
 
-	ObjectOps(const ObjectOps& that) noexcept
-	  : _base(static_cast<const _base&>(that)) {
-	}
+    /// Enable the specified vertex attribute array
+    /**
+     *  @glsymbols
+     *  @glfunref{EnableVertexArrayAttrib}
+     */
+    ObjectOps& EnableVertexAttrib(VertexAttribSlot location) {
+        OGLPLUS_GLFUNC(EnableVertexArrayAttrib)(_obj_name(), GLuint(location));
+        OGLPLUS_CHECK(
+          EnableVertexArrayAttrib,
+          ObjectError,
+          Object(*this).Index(GLuint(location)));
+        return *this;
+    }
 
-	ObjectOps& operator=(ObjectOps&& temp) noexcept {
-		_base::operator=(static_cast<_base&&>(temp));
-		return *this;
-	}
-
-	ObjectOps& operator=(const ObjectOps& that) noexcept {
-		_base::operator=(static_cast<const _base&>(that));
-		return *this;
-	}
-#endif
-	/// Bind buffer to VAO's element buffer binding point
-	/**
-	 *  @glsymbols
-	 *  @glfunref{VertexArrayElementBuffer}
-	 */
-	ObjectOps& ElementBuffer(BufferName buffer) {
-		OGLPLUS_GLFUNC(VertexArrayElementBuffer)
-		(_obj_name(), GetGLName(buffer));
-		OGLPLUS_CHECK(VertexArrayElementBuffer,
-		  ObjectPairError,
-		  Subject(buffer).Object(*this));
-		return *this;
-	}
-
-	/// Enable the specified vertex attribute array
-	/**
-	 *  @glsymbols
-	 *  @glfunref{EnableVertexArrayAttrib}
-	 */
-	ObjectOps& EnableVertexAttrib(VertexAttribSlot location) {
-		OGLPLUS_GLFUNC(EnableVertexArrayAttrib)(_obj_name(), GLuint(location));
-		OGLPLUS_CHECK(EnableVertexArrayAttrib,
-		  ObjectError,
-		  Object(*this).Index(GLuint(location)));
-		return *this;
-	}
-
-	/// Disable the specified vertex attribute array
-	/**
-	 *  @glsymbols
-	 *  @glfunref{DisableVertexArrayAttrib}
-	 */
-	ObjectOps& DisableVertexAttrib(VertexAttribSlot location) {
-		OGLPLUS_GLFUNC(DisableVertexArrayAttrib)(_obj_name(), GLuint(location));
-		OGLPLUS_CHECK(DisableVertexArrayAttrib,
-		  ObjectError,
-		  Object(*this).Index(GLuint(location)));
-		return *this;
-	}
+    /// Disable the specified vertex attribute array
+    /**
+     *  @glsymbols
+     *  @glfunref{DisableVertexArrayAttrib}
+     */
+    ObjectOps& DisableVertexAttrib(VertexAttribSlot location) {
+        OGLPLUS_GLFUNC(DisableVertexArrayAttrib)(_obj_name(), GLuint(location));
+        OGLPLUS_CHECK(
+          DisableVertexArrayAttrib,
+          ObjectError,
+          Object(*this).Index(GLuint(location)));
+        return *this;
+    }
 };
 
 /// VertexArray operations with direct state access

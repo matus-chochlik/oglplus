@@ -23,7 +23,7 @@ namespace oglplus {
 
 template <>
 struct ObjGenTag<tag::DirectState, tag::TransformFeedback> {
-	typedef tag::Create Type;
+    typedef tag::Create Type;
 };
 
 /// Class wrapping transform feedback-related functionality with direct state
@@ -35,84 +35,65 @@ template <>
 class ObjectOps<tag::DirectState, tag::TransformFeedback>
   : public ObjZeroOps<tag::DirectState, tag::TransformFeedback> {
 protected:
-	ObjectOps(TransformFeedbackName name) noexcept
-	  : ObjZeroOps<tag::DirectState, tag::TransformFeedback>(name) {
-	}
+    ObjectOps(TransformFeedbackName name) noexcept
+      : ObjZeroOps<tag::DirectState, tag::TransformFeedback>(name) {
+    }
 
 public:
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	ObjectOps(ObjectOps&&) = default;
-	ObjectOps(const ObjectOps&) = default;
-	ObjectOps& operator=(ObjectOps&&) = default;
-	ObjectOps& operator=(const ObjectOps&) = default;
-#else
-	typedef ObjZeroOps<tag::DirectState, tag::TransformFeedback> _base;
+    ObjectOps(ObjectOps&&) = default;
+    ObjectOps(const ObjectOps&) = default;
+    ObjectOps& operator=(ObjectOps&&) = default;
+    ObjectOps& operator=(const ObjectOps&) = default;
 
-	ObjectOps(ObjectOps&& temp) noexcept
-	  : _base(static_cast<_base&&>(temp)) {
-	}
+    GLint GetIntParam(GLenum query) const;
+    GLint GetIntParam(GLenum query, GLuint index) const;
+    GLint64 GetInt64Param(GLenum query, GLuint index) const;
 
-	ObjectOps(const ObjectOps& that) noexcept
-	  : _base(static_cast<const _base&>(that)) {
-	}
+    Boolean Active(void) const {
+        return Boolean(GetIntParam(GL_TRANSFORM_FEEDBACK_ACTIVE), std::nothrow);
+    }
 
-	ObjectOps& operator=(ObjectOps&& temp) noexcept {
-		_base::operator=(static_cast<_base&&>(temp));
-		return *this;
-	}
+    Boolean Paused(void) const {
+        return Boolean(GetIntParam(GL_TRANSFORM_FEEDBACK_PAUSED), std::nothrow);
+    }
 
-	ObjectOps& operator=(const ObjectOps& that) noexcept {
-		_base::operator=(static_cast<const _base&>(that));
-		return *this;
-	}
-#endif
-	GLint GetIntParam(GLenum query) const;
-	GLint GetIntParam(GLenum query, GLuint index) const;
-	GLint64 GetInt64Param(GLenum query, GLuint index) const;
+    ObjectOps& BufferBase(GLuint index, BufferName buffer) {
+        OGLPLUS_GLFUNC(TransformFeedbackBufferBase)
+        (_obj_name(), index, GetGLName(buffer));
+        OGLPLUS_CHECK(
+          TransformFeedbackBufferBase,
+          ObjectPairError,
+          Subject(buffer).Object(*this).Index(index));
+        return *this;
+    }
 
-	Boolean Active(void) const {
-		return Boolean(GetIntParam(GL_TRANSFORM_FEEDBACK_ACTIVE), std::nothrow);
-	}
+    ObjectOps& BufferRange(
+      GLuint index, BufferName buffer, BufferSize offset, BufferSize size) {
+        OGLPLUS_GLFUNC(TransformFeedbackBufferRange)
+        (_obj_name(),
+         index,
+         GetGLName(buffer),
+         GLintptr(offset.Get()),
+         GLsizeiptr(size.Get()));
+        OGLPLUS_CHECK(
+          TransformFeedbackBufferRange,
+          ObjectPairError,
+          Subject(buffer).Object(*this).Index(index));
+        return *this;
+    }
 
-	Boolean Paused(void) const {
-		return Boolean(GetIntParam(GL_TRANSFORM_FEEDBACK_PAUSED), std::nothrow);
-	}
+    BufferName BufferBinding(GLuint index) const {
+        return BufferName(
+          GetIntParam(GL_TRANSFORM_FEEDBACK_BUFFER_BINDING, index));
+    }
 
-	ObjectOps& BufferBase(GLuint index, BufferName buffer) {
-		OGLPLUS_GLFUNC(TransformFeedbackBufferBase)
-		(_obj_name(), index, GetGLName(buffer));
-		OGLPLUS_CHECK(TransformFeedbackBufferBase,
-		  ObjectPairError,
-		  Subject(buffer).Object(*this).Index(index));
-		return *this;
-	}
+    GLint64 BufferStart(GLuint index) const {
+        return GetInt64Param(GL_TRANSFORM_FEEDBACK_BUFFER_START, index);
+    }
 
-	ObjectOps& BufferRange(
-	  GLuint index, BufferName buffer, BufferSize offset, BufferSize size) {
-		OGLPLUS_GLFUNC(TransformFeedbackBufferRange)
-		(_obj_name(),
-		  index,
-		  GetGLName(buffer),
-		  GLintptr(offset.Get()),
-		  GLsizeiptr(size.Get()));
-		OGLPLUS_CHECK(TransformFeedbackBufferRange,
-		  ObjectPairError,
-		  Subject(buffer).Object(*this).Index(index));
-		return *this;
-	}
-
-	BufferName BufferBinding(GLuint index) const {
-		return BufferName(
-		  GetIntParam(GL_TRANSFORM_FEEDBACK_BUFFER_BINDING, index));
-	}
-
-	GLint64 BufferStart(GLuint index) const {
-		return GetInt64Param(GL_TRANSFORM_FEEDBACK_BUFFER_START, index);
-	}
-
-	GLint64 BufferSize(GLuint index) const {
-		return GetInt64Param(GL_TRANSFORM_FEEDBACK_BUFFER_SIZE, index);
-	}
+    GLint64 BufferSize(GLuint index) const {
+        return GetInt64Param(GL_TRANSFORM_FEEDBACK_BUFFER_SIZE, index);
+    }
 };
 
 /// TransformFeedback operations with direct state access

@@ -20,47 +20,42 @@ namespace oalplus {
 
 class ErrorALUT : public Error {
 public:
-	static const char* Message(ALenum error_code);
+    static const char* Message(ALenum error_code);
 
-	ErrorALUT(const char* message)
-	  : Error(message) {
-	}
+    ErrorALUT(const char* message)
+      : Error(message) {
+    }
 
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	ErrorALUT(const ErrorALUT&) = default;
-#else
-	ErrorALUT(const ErrorALUT& that)
-	  : Error(static_cast<const Error&>(that)) {
-	}
-#endif
+    ErrorALUT(const ErrorALUT&) = default;
 
-	~ErrorALUT(void) noexcept {
-	}
+    ~ErrorALUT(void) noexcept {
+    }
 
-	ALUTErrorCode Code(void) const noexcept {
-		return ALUTErrorCode(_code);
-	}
+    ALUTErrorCode Code(void) const noexcept {
+        return ALUTErrorCode(_code);
+    }
 };
 
-#define OALPLUS_CHECK_ALUT(ALFUNC, ERROR, ERROR_INFO)  \
-	OALPLUS_HANDLE_ERROR_IF(error_code != AL_NO_ERROR, \
-	  alutGetError(),                                  \
-	  ERROR::Message(error_code),                      \
-	  ERROR,                                           \
-	  ERROR_INFO.ALLib("alut").ALFunc(#ALFUNC))
+#define OALPLUS_CHECK_ALUT(ALFUNC, ERROR, ERROR_INFO) \
+    OALPLUS_HANDLE_ERROR_IF(                          \
+      error_code != AL_NO_ERROR,                      \
+      alutGetError(),                                 \
+      ERROR::Message(error_code),                     \
+      ERROR,                                          \
+      ERROR_INFO.ALLib("alut").ALFunc(#ALFUNC))
 
 #define OALPLUS_CHECK_SIMPLE_ALUT(ALFUNC) \
-	OALPLUS_CHECK_ALUT(ALFUNC, ErrorALUT, NoInfo())
+    OALPLUS_CHECK_ALUT(ALFUNC, ErrorALUT, NoInfo())
 
 #if !OALPLUS_LOW_PROFILE
 #define OALPLUS_VERIFY_ALUT(ALFUNC, ERROR, ERROR_INFO) \
-	OALPLUS_CHECK_ALUT(ALFUNC, ERROR, ERROR_INFO)
+    OALPLUS_CHECK_ALUT(ALFUNC, ERROR, ERROR_INFO)
 #else
 #define OALPLUS_VERIFY_ALUT(ALFUNC, ERROR, ERROR_INFO)
 #endif
 
 #define OALPLUS_VERIFY_SIMPLE_ALUT(ALFUNC) \
-	OALPLUS_VERIFY_ALUT(ALFUNC, ErrorALUT, NoInfo())
+    OALPLUS_VERIFY_ALUT(ALFUNC, ErrorALUT, NoInfo())
 
 } // namespace oalplus
 
