@@ -93,11 +93,6 @@ Indicates that C++11 user-defined literals are not supported. \
 #define OGLPLUS_NO_USER_DEFINED_LITERALS __UNSPECIFIED
 #endif
 
-#ifndef OGLPLUS_NO_TEMPLATE_ALIASES /*<                  \
-Indicates that C++11 template aliases are not supported. \
->*/
-#define OGLPLUS_NO_TEMPLATE_ALIASES __UNSPECIFIED
-#endif
 //]
 //[oglplus_config_site_5
 

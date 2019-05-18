@@ -197,37 +197,10 @@ public:
 #define OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VAR_TAG, PROG_VAR, BASE) \
     using BASE::BASE;
 
-#if !OGLPLUS_NO_TEMPLATE_ALIASES
-
 // OGLPLUS_DECLARE_PROG_VAR
 #define OGLPLUS_DECLARE_PROG_VAR(PROG_VAR, OPS_TAG, VAR_TAG, CHK_TAG) \
     template <typename T>                                             \
     using PROG_VAR = ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T>;
-
-#else
-
-// OGLPLUS_DECLARE_PROG_VAR
-#define OGLPLUS_DECLARE_PROG_VAR(PROG_VAR, OPS_TAG, VAR_TAG, CHK_TAG) \
-    template <typename T>                                             \
-    class PROG_VAR : public ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> {   \
-    private:                                                          \
-        typedef ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> Base;           \
-                                                                      \
-    public:                                                           \
-        OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VAR_TAG, PROG_VAR, Base)      \
-        PROG_VAR& operator=(ProgVarLoc<VAR_TAG> pvloc) {              \
-            Base::Assign(pvloc);                                      \
-            return *this;                                             \
-        }                                                             \
-        PROG_VAR& operator=(typename Base::ParamType value) {         \
-            this->Set(value);                                         \
-            return *this;                                             \
-        }                                                             \
-    };                                                                \
-    template <typename T>                                             \
-    struct Classify<PROG_VAR<T>>                                      \
-      : Classify<ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T>> {};
-#endif
 
 } // namespace oglplus
 
