@@ -32,7 +32,7 @@ enum class BufferTarget : GLenum
 };
 
 template <>
-__Range<BufferTarget> __EnumValueRange<BufferTarget>(void);
+__Range<BufferTarget> __EnumValueRange<BufferTarget>();
 
 __StrCRef __EnumValueName(BufferTarget);
 

@@ -40,7 +40,7 @@ enum class PixelParameter : GLenum
 };
 
 template <>
-__Range<PixelParameter> __EnumValueRange<PixelParameter>(void);
+__Range<PixelParameter> __EnumValueRange<PixelParameter>();
 
 __StrCRef __EnumValueName(PixelParameter);
 

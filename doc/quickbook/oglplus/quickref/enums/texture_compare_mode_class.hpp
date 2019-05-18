@@ -20,7 +20,7 @@ Specialization of __EnumToClass for the __TextureCompareMode enumeration.
  : public Base
 {
 public:
-	EnumToClass(void);
+	EnumToClass();
 	EnumToClass(Base&& base);
 
 	Transform<TextureCompareMode::None>

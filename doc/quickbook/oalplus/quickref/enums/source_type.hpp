@@ -19,7 +19,7 @@ enum class SourceType : ALenum
 };
 
 template <>
-__Range<SourceType> __EnumValueRange<SourceType>(void);
+__Range<SourceType> __EnumValueRange<SourceType>();
 
 __StrCRef __EnumValueName(SourceType);
 

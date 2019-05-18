@@ -23,7 +23,7 @@ enum class ProgramPipelineStage : GLbitfield
 };
 
 template <>
-__Range<ProgramPipelineStage> __EnumValueRange<ProgramPipelineStage>(void);
+__Range<ProgramPipelineStage> __EnumValueRange<ProgramPipelineStage>();
 
 __StrCRef __EnumValueName(ProgramPipelineStage);
 

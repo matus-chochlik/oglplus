@@ -20,7 +20,7 @@ enum class SyncWaitResult : GLenum
 };
 
 template <>
-__Range<SyncWaitResult> __EnumValueRange<SyncWaitResult>(void);
+__Range<SyncWaitResult> __EnumValueRange<SyncWaitResult>();
 
 __StrCRef __EnumValueName(SyncWaitResult);
 

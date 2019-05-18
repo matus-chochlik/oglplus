@@ -15,7 +15,7 @@ class EnumToClass<Base, SurfaceTypeBit, Transform>
  : public Base
 {
 private:
-	Base& _base(void) { return *this; }
+	Base& _base() { return *this; }
 public:
 
 #if defined EGL_WINDOW_BIT
@@ -89,7 +89,7 @@ public:
 # endif
 #endif
 
-	EnumToClass(void) { }
+	EnumToClass() { }
 	EnumToClass(Base&& base)
 	 : Base(std::move(base))
 #if defined EGL_WINDOW_BIT

@@ -19,7 +19,7 @@ enum class PathNVFontTarget : GLenum
 };
 
 template <>
-__Range<PathNVFontTarget> __EnumValueRange<PathNVFontTarget>(void);
+__Range<PathNVFontTarget> __EnumValueRange<PathNVFontTarget>();
 
 __StrCRef __EnumValueName(PathNVFontTarget);
 

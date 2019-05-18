@@ -32,7 +32,7 @@ enum class FramebufferColorAttachment : GLenum
 };
 
 template <>
-__Range<FramebufferColorAttachment> __EnumValueRange<FramebufferColorAttachment>(void);
+__Range<FramebufferColorAttachment> __EnumValueRange<FramebufferColorAttachment>();
 
 __StrCRef __EnumValueName(FramebufferColorAttachment);
 

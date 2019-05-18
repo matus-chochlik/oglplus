@@ -19,7 +19,7 @@ enum class CompatibilityClientAttributeGroup : GLbitfield
 };
 
 template <>
-__Range<CompatibilityClientAttributeGroup> __EnumValueRange<CompatibilityClientAttributeGroup>(void);
+__Range<CompatibilityClientAttributeGroup> __EnumValueRange<CompatibilityClientAttributeGroup>();
 
 __StrCRef __EnumValueName(CompatibilityClientAttributeGroup);
 

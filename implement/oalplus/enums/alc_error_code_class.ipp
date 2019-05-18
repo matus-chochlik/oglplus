@@ -15,7 +15,7 @@ class EnumToClass<Base, ALCErrorCode, Transform>
  : public Base
 {
 private:
-	Base& _base(void) { return *this; }
+	Base& _base() { return *this; }
 public:
 
 #if defined AL_NO_ERROR
@@ -79,7 +79,7 @@ public:
 # endif
 #endif
 
-	EnumToClass(void) { }
+	EnumToClass() { }
 	EnumToClass(Base&& base)
 	 : Base(std::move(base))
 #if defined AL_NO_ERROR

@@ -18,7 +18,7 @@ enum class BlitFilter : GLenum
 };
 
 template <>
-__Range<BlitFilter> __EnumValueRange<BlitFilter>(void);
+__Range<BlitFilter> __EnumValueRange<BlitFilter>();
 
 __StrCRef __EnumValueName(BlitFilter);
 

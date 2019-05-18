@@ -15,7 +15,7 @@ class EnumToClass<Base, DebugOutputARBType, Transform>
  : public Base
 {
 private:
-	Base& _base(void) { return *this; }
+	Base& _base() { return *this; }
 public:
 
 #if defined GL_DEBUG_TYPE_ERROR_ARB
@@ -89,7 +89,7 @@ public:
 # endif
 #endif
 
-	EnumToClass(void) { }
+	EnumToClass() { }
 	EnumToClass(Base&& base)
 	 : Base(std::move(base))
 #if defined GL_DEBUG_TYPE_ERROR_ARB

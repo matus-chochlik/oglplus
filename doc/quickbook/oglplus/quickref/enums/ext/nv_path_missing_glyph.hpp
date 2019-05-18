@@ -18,7 +18,7 @@ enum class PathNVMissingGlyph : GLenum
 };
 
 template <>
-__Range<PathNVMissingGlyph> __EnumValueRange<PathNVMissingGlyph>(void);
+__Range<PathNVMissingGlyph> __EnumValueRange<PathNVMissingGlyph>();
 
 __StrCRef __EnumValueName(PathNVMissingGlyph);
 

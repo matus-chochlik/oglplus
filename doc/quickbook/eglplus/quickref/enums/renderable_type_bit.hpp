@@ -21,7 +21,7 @@ enum class RenderableTypeBit : EGLenum
 };
 
 template <>
-__Range<RenderableTypeBit> __EnumValueRange<RenderableTypeBit>(void);
+__Range<RenderableTypeBit> __EnumValueRange<RenderableTypeBit>();
 
 __StrCRef __EnumValueName(RenderableTypeBit);
 

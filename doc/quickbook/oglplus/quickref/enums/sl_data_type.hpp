@@ -126,7 +126,7 @@ enum class SLDataType : GLenum
 };
 
 template <>
-__Range<SLDataType> __EnumValueRange<SLDataType>(void);
+__Range<SLDataType> __EnumValueRange<SLDataType>();
 
 __StrCRef __EnumValueName(SLDataType);
 

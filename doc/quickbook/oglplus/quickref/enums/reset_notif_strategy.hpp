@@ -18,7 +18,7 @@ enum class ResetNotificationStrategy : GLenum
 };
 
 template <>
-__Range<ResetNotificationStrategy> __EnumValueRange<ResetNotificationStrategy>(void);
+__Range<ResetNotificationStrategy> __EnumValueRange<ResetNotificationStrategy>();
 
 __StrCRef __EnumValueName(ResetNotificationStrategy);
 

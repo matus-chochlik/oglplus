@@ -20,8 +20,9 @@
  *  The application creates a single window and renders into it a red triangle
  *  on a black background. It involves only the very basic things necessary
  *  to draw something.
- *  For a full working code see the @oglplus_example{standalone,001_triangle_glut_glew}
- *  file in the example directory.
+ *  For a full working code see the
+ * @oglplus_example{standalone,001_triangle_glut_glew} file in the example
+ * directory.
  *
  *  @dontinclude standalone/001_triangle_glut_glew.cpp
  *
@@ -63,9 +64,9 @@
  *  The shader will be invoked once per every vertex in the rendered primitives.
  *  @until oglplus::VertexShader vs;
  *
- *  Since this is a very simple example that does not involve hardware tesselation
- *  nor any on-the-fly geometry modification or construction the next stage
- *  in the shading program is the fragment shader. In a simplistic view
+ *  Since this is a very simple example that does not involve hardware
+ * tesselation nor any on-the-fly geometry modification or construction the next
+ * stage in the shading program is the fragment shader. In a simplistic view
  *  (which is sufficient for the purposes of this tutorial) a fragment shader is
  *  responsible for determining the color of a single pixel on
  *  the currently rendered polygon, line or point.
@@ -230,7 +231,7 @@
  *
  *  The @c Display member function is called periodically and is responsible
  *  for redrawing the window contents.
- *  @skipline void Display(void)
+ *  @skipline void Display()
  *  @until {
  *
  *  We'll be again using some symbols from the @c oglplus namespace:
@@ -345,11 +346,10 @@
  *  @until return 0;
  *
  *  If an exception was thrown
- *  by @c oglplus during the initialization or rendering, it will be caught here, some diagnostic info
- *  will be printed to error output and the application will
- *  exit with code 1.
- *  We end up here also if the initialization of the GLEW library failed
- *  for some reason.
+ *  by @c oglplus during the initialization or rendering, it will be caught
+ * here, some diagnostic info will be printed to error output and the
+ * application will exit with code 1. We end up here also if the initialization
+ * of the GLEW library failed for some reason.
  *  @until return 1;
  *
  *  This concludes the @c main function and our example's souce code.

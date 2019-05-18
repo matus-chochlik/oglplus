@@ -36,7 +36,7 @@ enum class ProgramInterface : GLenum
 };
 
 template <>
-__Range<ProgramInterface> __EnumValueRange<ProgramInterface>(void);
+__Range<ProgramInterface> __EnumValueRange<ProgramInterface>();
 
 __StrCRef __EnumValueName(ProgramInterface);
 

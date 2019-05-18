@@ -18,7 +18,7 @@ enum class OpenGLResetNotificationStrategy : EGLenum
 };
 
 template <>
-__Range<OpenGLResetNotificationStrategy> __EnumValueRange<OpenGLResetNotificationStrategy>(void);
+__Range<OpenGLResetNotificationStrategy> __EnumValueRange<OpenGLResetNotificationStrategy>();
 
 __StrCRef __EnumValueName(OpenGLResetNotificationStrategy);
 

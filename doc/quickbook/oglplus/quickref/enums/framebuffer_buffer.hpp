@@ -20,7 +20,7 @@ enum class FramebufferBuffer : GLenum
 };
 
 template <>
-__Range<FramebufferBuffer> __EnumValueRange<FramebufferBuffer>(void);
+__Range<FramebufferBuffer> __EnumValueRange<FramebufferBuffer>();
 
 __StrCRef __EnumValueName(FramebufferBuffer);
 

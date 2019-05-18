@@ -18,7 +18,7 @@ enum class VGColorspace : EGLenum
 };
 
 template <>
-__Range<VGColorspace> __EnumValueRange<VGColorspace>(void);
+__Range<VGColorspace> __EnumValueRange<VGColorspace>();
 
 __StrCRef __EnumValueName(VGColorspace);
 

@@ -31,7 +31,7 @@ enum class MemoryBarrierBit : GLbitfield
 };
 
 template <>
-__Range<MemoryBarrierBit> __EnumValueRange<MemoryBarrierBit>(void);
+__Range<MemoryBarrierBit> __EnumValueRange<MemoryBarrierBit>();
 
 __StrCRef __EnumValueName(MemoryBarrierBit);
 

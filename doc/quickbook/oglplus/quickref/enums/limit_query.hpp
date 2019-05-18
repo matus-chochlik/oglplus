@@ -129,7 +129,7 @@ enum class LimitQuery : GLenum
 };
 
 template <>
-__Range<LimitQuery> __EnumValueRange<LimitQuery>(void);
+__Range<LimitQuery> __EnumValueRange<LimitQuery>();
 
 __StrCRef __EnumValueName(LimitQuery);
 

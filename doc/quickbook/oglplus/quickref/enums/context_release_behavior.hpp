@@ -18,7 +18,7 @@ enum class ContextReleaseBehavior : GLenum
 };
 
 template <>
-__Range<ContextReleaseBehavior> __EnumValueRange<ContextReleaseBehavior>(void);
+__Range<ContextReleaseBehavior> __EnumValueRange<ContextReleaseBehavior>();
 
 __StrCRef __EnumValueName(ContextReleaseBehavior);
 

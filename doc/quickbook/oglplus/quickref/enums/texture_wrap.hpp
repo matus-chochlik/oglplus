@@ -21,7 +21,7 @@ enum class TextureWrap : GLenum
 };
 
 template <>
-__Range<TextureWrap> __EnumValueRange<TextureWrap>(void);
+__Range<TextureWrap> __EnumValueRange<TextureWrap>();
 
 __StrCRef __EnumValueName(TextureWrap);
 

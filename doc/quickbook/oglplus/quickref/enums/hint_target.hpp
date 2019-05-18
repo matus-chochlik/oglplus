@@ -20,7 +20,7 @@ enum class HintTarget : GLenum
 };
 
 template <>
-__Range<HintTarget> __EnumValueRange<HintTarget>(void);
+__Range<HintTarget> __EnumValueRange<HintTarget>();
 
 __StrCRef __EnumValueName(HintTarget);
 

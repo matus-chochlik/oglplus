@@ -19,7 +19,7 @@ enum class FramebufferTarget : GLenum
 };
 
 template <>
-__Range<FramebufferTarget> __EnumValueRange<FramebufferTarget>(void);
+__Range<FramebufferTarget> __EnumValueRange<FramebufferTarget>();
 
 __StrCRef __EnumValueName(FramebufferTarget);
 

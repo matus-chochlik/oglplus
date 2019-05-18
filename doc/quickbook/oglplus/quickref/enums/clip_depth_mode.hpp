@@ -18,7 +18,7 @@ enum class ClipDepthMode : GLenum
 };
 
 template <>
-__Range<ClipDepthMode> __EnumValueRange<ClipDepthMode>(void);
+__Range<ClipDepthMode> __EnumValueRange<ClipDepthMode>();
 
 __StrCRef __EnumValueName(ClipDepthMode);
 

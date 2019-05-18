@@ -18,7 +18,7 @@ enum class RenderBuffer : EGLenum
 };
 
 template <>
-__Range<RenderBuffer> __EnumValueRange<RenderBuffer>(void);
+__Range<RenderBuffer> __EnumValueRange<RenderBuffer>();
 
 __StrCRef __EnumValueName(RenderBuffer);
 

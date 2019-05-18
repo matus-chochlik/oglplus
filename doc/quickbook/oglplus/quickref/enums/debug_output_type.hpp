@@ -26,7 +26,7 @@ enum class DebugOutputType : GLenum
 };
 
 template <>
-__Range<DebugOutputType> __EnumValueRange<DebugOutputType>(void);
+__Range<DebugOutputType> __EnumValueRange<DebugOutputType>();
 
 __StrCRef __EnumValueName(DebugOutputType);
 

@@ -18,7 +18,7 @@ enum class ClipOrigin : GLenum
 };
 
 template <>
-__Range<ClipOrigin> __EnumValueRange<ClipOrigin>(void);
+__Range<ClipOrigin> __EnumValueRange<ClipOrigin>();
 
 __StrCRef __EnumValueName(ClipOrigin);
 

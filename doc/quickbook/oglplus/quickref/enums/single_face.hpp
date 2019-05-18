@@ -18,7 +18,7 @@ enum class SingleFace : GLenum
 };
 
 template <>
-__Range<SingleFace> __EnumValueRange<SingleFace>(void);
+__Range<SingleFace> __EnumValueRange<SingleFace>();
 
 __StrCRef __EnumValueName(SingleFace);
 

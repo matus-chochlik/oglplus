@@ -35,7 +35,7 @@ enum class FramebufferAttachment : GLenum
 };
 
 template <>
-__Range<FramebufferAttachment> __EnumValueRange<FramebufferAttachment>(void);
+__Range<FramebufferAttachment> __EnumValueRange<FramebufferAttachment>();
 
 __StrCRef __EnumValueName(FramebufferAttachment);
 

@@ -26,7 +26,7 @@ enum class ColorBuffer : GLenum
 };
 
 template <>
-__Range<ColorBuffer> __EnumValueRange<ColorBuffer>(void);
+__Range<ColorBuffer> __EnumValueRange<ColorBuffer>();
 
 __StrCRef __EnumValueName(ColorBuffer);
 

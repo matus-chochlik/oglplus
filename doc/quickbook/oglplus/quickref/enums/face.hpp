@@ -19,7 +19,7 @@ enum class Face : GLenum
 };
 
 template <>
-__Range<Face> __EnumValueRange<Face>(void);
+__Range<Face> __EnumValueRange<Face>();
 
 __StrCRef __EnumValueName(Face);
 

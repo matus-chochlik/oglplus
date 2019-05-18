@@ -40,7 +40,7 @@ enum class PixelDataType : GLenum
 };
 
 template <>
-__Range<PixelDataType> __EnumValueRange<PixelDataType>(void);
+__Range<PixelDataType> __EnumValueRange<PixelDataType>();
 
 __StrCRef __EnumValueName(PixelDataType);
 

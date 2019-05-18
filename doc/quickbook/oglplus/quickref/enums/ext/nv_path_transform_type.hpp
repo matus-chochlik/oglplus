@@ -25,7 +25,7 @@ enum class PathNVTransformType : GLenum
 };
 
 template <>
-__Range<PathNVTransformType> __EnumValueRange<PathNVTransformType>(void);
+__Range<PathNVTransformType> __EnumValueRange<PathNVTransformType>();
 
 __StrCRef __EnumValueName(PathNVTransformType);
 

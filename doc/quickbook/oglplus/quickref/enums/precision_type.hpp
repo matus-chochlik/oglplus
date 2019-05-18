@@ -22,7 +22,7 @@ enum class PrecisionType : GLenum
 };
 
 template <>
-__Range<PrecisionType> __EnumValueRange<PrecisionType>(void);
+__Range<PrecisionType> __EnumValueRange<PrecisionType>();
 
 __StrCRef __EnumValueName(PrecisionType);
 

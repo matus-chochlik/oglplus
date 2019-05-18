@@ -20,7 +20,7 @@ enum class BufferIndexedTarget : GLenum
 };
 
 template <>
-__Range<BufferIndexedTarget> __EnumValueRange<BufferIndexedTarget>(void);
+__Range<BufferIndexedTarget> __EnumValueRange<BufferIndexedTarget>();
 
 __StrCRef __EnumValueName(BufferIndexedTarget);
 

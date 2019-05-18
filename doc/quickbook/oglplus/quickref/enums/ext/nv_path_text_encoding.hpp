@@ -18,7 +18,7 @@ enum class PathNVTextEncoding : GLenum
 };
 
 template <>
-__Range<PathNVTextEncoding> __EnumValueRange<PathNVTextEncoding>(void);
+__Range<PathNVTextEncoding> __EnumValueRange<PathNVTextEncoding>();
 
 __StrCRef __EnumValueName(PathNVTextEncoding);
 

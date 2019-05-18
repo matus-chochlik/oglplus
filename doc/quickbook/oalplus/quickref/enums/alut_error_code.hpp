@@ -24,7 +24,7 @@ enum class ALUTErrorCode : ALenum
 };
 
 template <>
-__Range<ALUTErrorCode> __EnumValueRange<ALUTErrorCode>(void);
+__Range<ALUTErrorCode> __EnumValueRange<ALUTErrorCode>();
 
 __StrCRef __EnumValueName(ALUTErrorCode);
 

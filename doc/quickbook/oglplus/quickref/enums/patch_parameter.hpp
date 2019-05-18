@@ -19,7 +19,7 @@ enum class PatchParameter : GLenum
 };
 
 template <>
-__Range<PatchParameter> __EnumValueRange<PatchParameter>(void);
+__Range<PatchParameter> __EnumValueRange<PatchParameter>();
 
 __StrCRef __EnumValueName(PatchParameter);
 

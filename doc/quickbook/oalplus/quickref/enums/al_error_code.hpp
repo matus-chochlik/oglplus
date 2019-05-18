@@ -22,7 +22,7 @@ enum class ALErrorCode : ALenum
 };
 
 template <>
-__Range<ALErrorCode> __EnumValueRange<ALErrorCode>(void);
+__Range<ALErrorCode> __EnumValueRange<ALErrorCode>();
 
 __StrCRef __EnumValueName(ALErrorCode);
 

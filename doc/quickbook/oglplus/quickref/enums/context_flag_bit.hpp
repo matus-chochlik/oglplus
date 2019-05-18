@@ -19,7 +19,7 @@ enum class ContextFlagBit : GLbitfield
 };
 
 template <>
-__Range<ContextFlagBit> __EnumValueRange<ContextFlagBit>(void);
+__Range<ContextFlagBit> __EnumValueRange<ContextFlagBit>();
 
 __StrCRef __EnumValueName(ContextFlagBit);
 

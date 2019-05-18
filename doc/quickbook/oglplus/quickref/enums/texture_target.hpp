@@ -33,7 +33,7 @@ enum class TextureTarget : GLenum
 };
 
 template <>
-__Range<TextureTarget> __EnumValueRange<TextureTarget>(void);
+__Range<TextureTarget> __EnumValueRange<TextureTarget>();
 
 __StrCRef __EnumValueName(TextureTarget);
 

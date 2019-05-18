@@ -20,7 +20,7 @@ enum class DebugOutputARBSeverity : GLenum
 };
 
 template <>
-__Range<DebugOutputARBSeverity> __EnumValueRange<DebugOutputARBSeverity>(void);
+__Range<DebugOutputARBSeverity> __EnumValueRange<DebugOutputARBSeverity>();
 
 __StrCRef __EnumValueName(DebugOutputARBSeverity);
 

@@ -24,7 +24,7 @@ enum class CompareFunction : GLenum
 };
 
 template <>
-__Range<CompareFunction> __EnumValueRange<CompareFunction>(void);
+__Range<CompareFunction> __EnumValueRange<CompareFunction>();
 
 __StrCRef __EnumValueName(CompareFunction);
 

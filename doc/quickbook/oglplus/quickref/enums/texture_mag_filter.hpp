@@ -18,7 +18,7 @@ enum class TextureMagFilter : GLenum
 };
 
 template <>
-__Range<TextureMagFilter> __EnumValueRange<TextureMagFilter>(void);
+__Range<TextureMagFilter> __EnumValueRange<TextureMagFilter>();
 
 __StrCRef __EnumValueName(TextureMagFilter);
 

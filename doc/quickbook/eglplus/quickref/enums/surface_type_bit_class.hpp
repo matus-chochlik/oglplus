@@ -20,7 +20,7 @@ Specialization of __EnumToClass for the __SurfaceTypeBit enumeration.
  : public Base
 {
 public:
-	EnumToClass(void);
+	EnumToClass();
 	EnumToClass(Base&& base);
 
 	Transform<SurfaceTypeBit::Window>

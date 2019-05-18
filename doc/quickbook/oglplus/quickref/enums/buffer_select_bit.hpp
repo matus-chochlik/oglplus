@@ -19,7 +19,7 @@ enum class BufferSelectBit : GLbitfield
 };
 
 template <>
-__Range<BufferSelectBit> __EnumValueRange<BufferSelectBit>(void);
+__Range<BufferSelectBit> __EnumValueRange<BufferSelectBit>();
 
 __StrCRef __EnumValueName(BufferSelectBit);
 

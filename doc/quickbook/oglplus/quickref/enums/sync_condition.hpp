@@ -17,7 +17,7 @@ enum class SyncCondition : GLenum
 };
 
 template <>
-__Range<SyncCondition> __EnumValueRange<SyncCondition>(void);
+__Range<SyncCondition> __EnumValueRange<SyncCondition>();
 
 __StrCRef __EnumValueName(SyncCondition);
 

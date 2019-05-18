@@ -23,7 +23,7 @@ enum class DebugOutputSource : GLenum
 };
 
 template <>
-__Range<DebugOutputSource> __EnumValueRange<DebugOutputSource>(void);
+__Range<DebugOutputSource> __EnumValueRange<DebugOutputSource>();
 
 __StrCRef __EnumValueName(DebugOutputSource);
 

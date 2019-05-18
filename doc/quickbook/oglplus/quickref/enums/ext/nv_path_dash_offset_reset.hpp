@@ -18,7 +18,7 @@ enum class PathNVDashOffsetReset : GLenum
 };
 
 template <>
-__Range<PathNVDashOffsetReset> __EnumValueRange<PathNVDashOffsetReset>(void);
+__Range<PathNVDashOffsetReset> __EnumValueRange<PathNVDashOffsetReset>();
 
 __StrCRef __EnumValueName(PathNVDashOffsetReset);
 

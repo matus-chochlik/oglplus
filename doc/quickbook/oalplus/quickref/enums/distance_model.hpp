@@ -23,7 +23,7 @@ enum class DistanceModel : ALenum
 };
 
 template <>
-__Range<DistanceModel> __EnumValueRange<DistanceModel>(void);
+__Range<DistanceModel> __EnumValueRange<DistanceModel>();
 
 __StrCRef __EnumValueName(DistanceModel);
 

@@ -22,7 +22,7 @@ enum class ShaderType : GLenum
 };
 
 template <>
-__Range<ShaderType> __EnumValueRange<ShaderType>(void);
+__Range<ShaderType> __EnumValueRange<ShaderType>();
 
 __StrCRef __EnumValueName(ShaderType);
 

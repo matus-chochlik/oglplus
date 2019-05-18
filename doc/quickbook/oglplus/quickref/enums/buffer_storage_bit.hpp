@@ -23,7 +23,7 @@ enum class BufferStorageBit : GLbitfield
 };
 
 template <>
-__Range<BufferStorageBit> __EnumValueRange<BufferStorageBit>(void);
+__Range<BufferStorageBit> __EnumValueRange<BufferStorageBit>();
 
 __StrCRef __EnumValueName(BufferStorageBit);
 

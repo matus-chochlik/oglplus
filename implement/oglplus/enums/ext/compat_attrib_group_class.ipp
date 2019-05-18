@@ -15,7 +15,7 @@ class EnumToClass<Base, CompatibilityAttributeGroup, Transform>
  : public Base
 {
 private:
-	Base& _base(void) { return *this; }
+	Base& _base() { return *this; }
 public:
 
 #if defined GL_ACCUM_BUFFER_BIT
@@ -239,7 +239,7 @@ public:
 # endif
 #endif
 
-	EnumToClass(void) { }
+	EnumToClass() { }
 	EnumToClass(Base&& base)
 	 : Base(std::move(base))
 #if defined GL_ACCUM_BUFFER_BIT

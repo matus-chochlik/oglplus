@@ -28,7 +28,7 @@ enum class PrimitiveType : GLenum
 };
 
 template <>
-__Range<PrimitiveType> __EnumValueRange<PrimitiveType>(void);
+__Range<PrimitiveType> __EnumValueRange<PrimitiveType>();
 
 __StrCRef __EnumValueName(PrimitiveType);
 

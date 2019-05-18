@@ -26,7 +26,7 @@ enum class ErrorCode : GLenum
 };
 
 template <>
-__Range<ErrorCode> __EnumValueRange<ErrorCode>(void);
+__Range<ErrorCode> __EnumValueRange<ErrorCode>();
 
 __StrCRef __EnumValueName(ErrorCode);
 

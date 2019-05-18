@@ -50,7 +50,7 @@ enum class PathNVCommand : GLubyte
 };
 
 template <>
-__Range<PathNVCommand> __EnumValueRange<PathNVCommand>(void);
+__Range<PathNVCommand> __EnumValueRange<PathNVCommand>();
 
 __StrCRef __EnumValueName(PathNVCommand);
 

@@ -18,7 +18,7 @@ enum class GLColorspace : EGLenum
 };
 
 template <>
-__Range<GLColorspace> __EnumValueRange<GLColorspace>(void);
+__Range<GLColorspace> __EnumValueRange<GLColorspace>();
 
 __StrCRef __EnumValueName(GLColorspace);
 

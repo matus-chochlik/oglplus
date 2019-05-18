@@ -20,7 +20,7 @@ enum class PolygonMode : GLenum
 };
 
 template <>
-__Range<PolygonMode> __EnumValueRange<PolygonMode>(void);
+__Range<PolygonMode> __EnumValueRange<PolygonMode>();
 
 __StrCRef __EnumValueName(PolygonMode);
 

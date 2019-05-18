@@ -21,7 +21,7 @@ enum class DebugSeverity : GLenum
 };
 
 template <>
-__Range<DebugSeverity> __EnumValueRange<DebugSeverity>(void);
+__Range<DebugSeverity> __EnumValueRange<DebugSeverity>();
 
 __StrCRef __EnumValueName(DebugSeverity);
 

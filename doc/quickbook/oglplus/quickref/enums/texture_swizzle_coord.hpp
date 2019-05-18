@@ -21,7 +21,7 @@ enum class TextureSwizzleCoord : GLenum
 };
 
 template <>
-__Range<TextureSwizzleCoord> __EnumValueRange<TextureSwizzleCoord>(void);
+__Range<TextureSwizzleCoord> __EnumValueRange<TextureSwizzleCoord>();
 
 __StrCRef __EnumValueName(TextureSwizzleCoord);
 

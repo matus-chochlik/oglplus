@@ -20,7 +20,7 @@ enum class PathNVStrokeCoverMode : GLenum
 };
 
 template <>
-__Range<PathNVStrokeCoverMode> __EnumValueRange<PathNVStrokeCoverMode>(void);
+__Range<PathNVStrokeCoverMode> __EnumValueRange<PathNVStrokeCoverMode>();
 
 __StrCRef __EnumValueName(PathNVStrokeCoverMode);
 

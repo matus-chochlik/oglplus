@@ -19,7 +19,7 @@ enum class PathNVListMode : GLenum
 };
 
 template <>
-__Range<PathNVListMode> __EnumValueRange<PathNVListMode>(void);
+__Range<PathNVListMode> __EnumValueRange<PathNVListMode>();
 
 __StrCRef __EnumValueName(PathNVListMode);
 

@@ -19,7 +19,7 @@ enum class TextureWrapCoord : GLenum
 };
 
 template <>
-__Range<TextureWrapCoord> __EnumValueRange<TextureWrapCoord>(void);
+__Range<TextureWrapCoord> __EnumValueRange<TextureWrapCoord>();
 
 __StrCRef __EnumValueName(TextureWrapCoord);
 

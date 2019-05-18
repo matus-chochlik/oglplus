@@ -26,7 +26,7 @@ enum class CompatibilityPrimitiveType : GLenum
 };
 
 template <>
-__Range<CompatibilityPrimitiveType> __EnumValueRange<CompatibilityPrimitiveType>(void);
+__Range<CompatibilityPrimitiveType> __EnumValueRange<CompatibilityPrimitiveType>();
 
 __StrCRef __EnumValueName(CompatibilityPrimitiveType);
 

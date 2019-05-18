@@ -17,7 +17,7 @@ enum class TransformFeedbackTarget : GLenum
 };
 
 template <>
-__Range<TransformFeedbackTarget> __EnumValueRange<TransformFeedbackTarget>(void);
+__Range<TransformFeedbackTarget> __EnumValueRange<TransformFeedbackTarget>();
 
 __StrCRef __EnumValueName(TransformFeedbackTarget);
 

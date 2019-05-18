@@ -17,7 +17,7 @@ enum class NamedStringType : GLenum
 };
 
 template <>
-__Range<NamedStringType> __EnumValueRange<NamedStringType>(void);
+__Range<NamedStringType> __EnumValueRange<NamedStringType>();
 
 __StrCRef __EnumValueName(NamedStringType);
 

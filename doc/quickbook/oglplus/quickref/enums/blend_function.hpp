@@ -35,7 +35,7 @@ enum class BlendFunction : GLenum
 };
 
 template <>
-__Range<BlendFunction> __EnumValueRange<BlendFunction>(void);
+__Range<BlendFunction> __EnumValueRange<BlendFunction>();
 
 __StrCRef __EnumValueName(BlendFunction);
 

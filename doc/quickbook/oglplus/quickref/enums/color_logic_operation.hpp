@@ -32,7 +32,7 @@ enum class ColorLogicOperation : GLenum
 };
 
 template <>
-__Range<ColorLogicOperation> __EnumValueRange<ColorLogicOperation>(void);
+__Range<ColorLogicOperation> __EnumValueRange<ColorLogicOperation>();
 
 __StrCRef __EnumValueName(ColorLogicOperation);
 

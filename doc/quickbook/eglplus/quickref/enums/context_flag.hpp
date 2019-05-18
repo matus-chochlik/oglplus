@@ -19,7 +19,7 @@ enum class ContextFlag : EGLenum
 };
 
 template <>
-__Range<ContextFlag> __EnumValueRange<ContextFlag>(void);
+__Range<ContextFlag> __EnumValueRange<ContextFlag>();
 
 __StrCRef __EnumValueName(ContextFlag);
 

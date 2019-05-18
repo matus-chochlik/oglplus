@@ -15,7 +15,7 @@ class EnumToClass<Base, DataFormat, Transform>
  : public Base
 {
 private:
-	Base& _base(void) { return *this; }
+	Base& _base() { return *this; }
 public:
 
 #if defined AL_FORMAT_MONO8
@@ -59,7 +59,7 @@ public:
 # endif
 #endif
 
-	EnumToClass(void) { }
+	EnumToClass() { }
 	EnumToClass(Base&& base)
 	 : Base(std::move(base))
 #if defined AL_FORMAT_MONO8

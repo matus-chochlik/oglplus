@@ -43,7 +43,7 @@ enum class ProgramResourceProperty : GLenum
 };
 
 template <>
-__Range<ProgramResourceProperty> __EnumValueRange<ProgramResourceProperty>(void);
+__Range<ProgramResourceProperty> __EnumValueRange<ProgramResourceProperty>();
 
 __StrCRef __EnumValueName(ProgramResourceProperty);
 

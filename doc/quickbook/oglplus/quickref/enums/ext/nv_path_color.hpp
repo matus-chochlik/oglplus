@@ -18,7 +18,7 @@ enum class PathNVColor : GLenum
 };
 
 template <>
-__Range<PathNVColor> __EnumValueRange<PathNVColor>(void);
+__Range<PathNVColor> __EnumValueRange<PathNVColor>();
 
 __StrCRef __EnumValueName(PathNVColor);
 

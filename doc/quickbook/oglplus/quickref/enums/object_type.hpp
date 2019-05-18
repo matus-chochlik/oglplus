@@ -28,7 +28,7 @@ enum class ObjectType : GLenum
 };
 
 template <>
-__Range<ObjectType> __EnumValueRange<ObjectType>(void);
+__Range<ObjectType> __EnumValueRange<ObjectType>();
 
 __StrCRef __EnumValueName(ObjectType);
 

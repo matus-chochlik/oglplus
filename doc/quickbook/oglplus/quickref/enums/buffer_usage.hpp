@@ -25,7 +25,7 @@ enum class BufferUsage : GLenum
 };
 
 template <>
-__Range<BufferUsage> __EnumValueRange<BufferUsage>(void);
+__Range<BufferUsage> __EnumValueRange<BufferUsage>();
 
 __StrCRef __EnumValueName(BufferUsage);
 

@@ -20,7 +20,7 @@ enum class CompatibilityMatrixMode : GLenum
 };
 
 template <>
-__Range<CompatibilityMatrixMode> __EnumValueRange<CompatibilityMatrixMode>(void);
+__Range<CompatibilityMatrixMode> __EnumValueRange<CompatibilityMatrixMode>();
 
 __StrCRef __EnumValueName(CompatibilityMatrixMode);
 

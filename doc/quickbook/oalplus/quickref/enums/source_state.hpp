@@ -20,7 +20,7 @@ enum class SourceState : ALenum
 };
 
 template <>
-__Range<SourceState> __EnumValueRange<SourceState>(void);
+__Range<SourceState> __EnumValueRange<SourceState>();
 
 __StrCRef __EnumValueName(SourceState);
 

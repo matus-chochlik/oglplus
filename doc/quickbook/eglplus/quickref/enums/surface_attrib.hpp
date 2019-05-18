@@ -33,7 +33,7 @@ enum class SurfaceAttrib : EGLenum
 };
 
 template <>
-__Range<SurfaceAttrib> __EnumValueRange<SurfaceAttrib>(void);
+__Range<SurfaceAttrib> __EnumValueRange<SurfaceAttrib>();
 
 __StrCRef __EnumValueName(SurfaceAttrib);
 

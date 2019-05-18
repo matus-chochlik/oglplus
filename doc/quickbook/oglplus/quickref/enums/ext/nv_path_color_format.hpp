@@ -22,7 +22,7 @@ enum class PathNVColorFormat : GLenum
 };
 
 template <>
-__Range<PathNVColorFormat> __EnumValueRange<PathNVColorFormat>(void);
+__Range<PathNVColorFormat> __EnumValueRange<PathNVColorFormat>();
 
 __StrCRef __EnumValueName(PathNVColorFormat);
 

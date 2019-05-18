@@ -23,7 +23,7 @@ enum class SurfaceTypeBit : EGLenum
 };
 
 template <>
-__Range<SurfaceTypeBit> __EnumValueRange<SurfaceTypeBit>(void);
+__Range<SurfaceTypeBit> __EnumValueRange<SurfaceTypeBit>();
 
 __StrCRef __EnumValueName(SurfaceTypeBit);
 

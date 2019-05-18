@@ -19,7 +19,7 @@ enum class TextureFormat : EGLenum
 };
 
 template <>
-__Range<TextureFormat> __EnumValueRange<TextureFormat>(void);
+__Range<TextureFormat> __EnumValueRange<TextureFormat>();
 
 __StrCRef __EnumValueName(TextureFormat);
 

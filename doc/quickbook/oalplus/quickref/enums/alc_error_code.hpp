@@ -22,7 +22,7 @@ enum class ALCErrorCode : ALenum
 };
 
 template <>
-__Range<ALCErrorCode> __EnumValueRange<ALCErrorCode>(void);
+__Range<ALCErrorCode> __EnumValueRange<ALCErrorCode>();
 
 __StrCRef __EnumValueName(ALCErrorCode);
 

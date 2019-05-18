@@ -20,7 +20,7 @@ enum class GraphicsResetStatus : GLenum
 };
 
 template <>
-__Range<GraphicsResetStatus> __EnumValueRange<GraphicsResetStatus>(void);
+__Range<GraphicsResetStatus> __EnumValueRange<GraphicsResetStatus>();
 
 __StrCRef __EnumValueName(GraphicsResetStatus);
 

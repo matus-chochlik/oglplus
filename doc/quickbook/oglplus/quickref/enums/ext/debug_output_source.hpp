@@ -23,7 +23,7 @@ enum class DebugOutputARBSource : GLenum
 };
 
 template <>
-__Range<DebugOutputARBSource> __EnumValueRange<DebugOutputARBSource>(void);
+__Range<DebugOutputARBSource> __EnumValueRange<DebugOutputARBSource>();
 
 __StrCRef __EnumValueName(DebugOutputARBSource);
 

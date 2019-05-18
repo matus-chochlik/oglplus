@@ -24,7 +24,7 @@ enum class StencilOperation : GLenum
 };
 
 template <>
-__Range<StencilOperation> __EnumValueRange<StencilOperation>(void);
+__Range<StencilOperation> __EnumValueRange<StencilOperation>();
 
 __StrCRef __EnumValueName(StencilOperation);
 

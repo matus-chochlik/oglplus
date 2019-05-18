@@ -18,7 +18,7 @@ enum class ContextProfileBit : GLbitfield
 };
 
 template <>
-__Range<ContextProfileBit> __EnumValueRange<ContextProfileBit>(void);
+__Range<ContextProfileBit> __EnumValueRange<ContextProfileBit>();
 
 __StrCRef __EnumValueName(ContextProfileBit);
 

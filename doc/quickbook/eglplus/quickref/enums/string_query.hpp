@@ -20,7 +20,7 @@ enum class StringQuery : EGLenum
 };
 
 template <>
-__Range<StringQuery> __EnumValueRange<StringQuery>(void);
+__Range<StringQuery> __EnumValueRange<StringQuery>();
 
 __StrCRef __EnumValueName(StringQuery);
 

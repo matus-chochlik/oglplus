@@ -20,7 +20,7 @@ enum class DataFormat : ALenum
 };
 
 template <>
-__Range<DataFormat> __EnumValueRange<DataFormat>(void);
+__Range<DataFormat> __EnumValueRange<DataFormat>();
 
 __StrCRef __EnumValueName(DataFormat);
 

@@ -18,7 +18,7 @@ enum class TextureCompareMode : GLenum
 };
 
 template <>
-__Range<TextureCompareMode> __EnumValueRange<TextureCompareMode>(void);
+__Range<TextureCompareMode> __EnumValueRange<TextureCompareMode>();
 
 __StrCRef __EnumValueName(TextureCompareMode);
 

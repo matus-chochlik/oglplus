@@ -117,7 +117,7 @@ enum class PixelDataInternalFormat : GLenum
 };
 
 template <>
-__Range<PixelDataInternalFormat> __EnumValueRange<PixelDataInternalFormat>(void);
+__Range<PixelDataInternalFormat> __EnumValueRange<PixelDataInternalFormat>();
 
 __StrCRef __EnumValueName(PixelDataInternalFormat);
 

@@ -20,7 +20,7 @@ enum class PerfMonitorAMDType : GLenum
 };
 
 template <>
-__Range<PerfMonitorAMDType> __EnumValueRange<PerfMonitorAMDType>(void);
+__Range<PerfMonitorAMDType> __EnumValueRange<PerfMonitorAMDType>();
 
 __StrCRef __EnumValueName(PerfMonitorAMDType);
 

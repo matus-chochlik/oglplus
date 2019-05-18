@@ -55,7 +55,7 @@ enum class ImageUnitFormat : GLenum
 };
 
 template <>
-__Range<ImageUnitFormat> __EnumValueRange<ImageUnitFormat>(void);
+__Range<ImageUnitFormat> __EnumValueRange<ImageUnitFormat>();
 
 __StrCRef __EnumValueName(ImageUnitFormat);
 

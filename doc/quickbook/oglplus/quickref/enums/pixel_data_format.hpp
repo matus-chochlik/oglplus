@@ -35,7 +35,7 @@ enum class PixelDataFormat : GLenum
 };
 
 template <>
-__Range<PixelDataFormat> __EnumValueRange<PixelDataFormat>(void);
+__Range<PixelDataFormat> __EnumValueRange<PixelDataFormat>();
 
 __StrCRef __EnumValueName(PixelDataFormat);
 

@@ -22,7 +22,7 @@ enum class TextureMinFilter : GLenum
 };
 
 template <>
-__Range<TextureMinFilter> __EnumValueRange<TextureMinFilter>(void);
+__Range<TextureMinFilter> __EnumValueRange<TextureMinFilter>();
 
 __StrCRef __EnumValueName(TextureMinFilter);
 

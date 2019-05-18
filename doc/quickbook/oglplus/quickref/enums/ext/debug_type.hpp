@@ -26,7 +26,7 @@ enum class DebugType : GLenum
 };
 
 template <>
-__Range<DebugType> __EnumValueRange<DebugType>(void);
+__Range<DebugType> __EnumValueRange<DebugType>();
 
 __StrCRef __EnumValueName(DebugType);
 

@@ -17,7 +17,7 @@ enum class Functionality : GLenum
 };
 
 template <>
-__Range<Functionality> __EnumValueRange<Functionality>(void);
+__Range<Functionality> __EnumValueRange<Functionality>();
 
 __StrCRef __EnumValueName(Functionality);
 

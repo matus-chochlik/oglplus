@@ -18,7 +18,7 @@ enum class TransformFeedbackMode : GLenum
 };
 
 template <>
-__Range<TransformFeedbackMode> __EnumValueRange<TransformFeedbackMode>(void);
+__Range<TransformFeedbackMode> __EnumValueRange<TransformFeedbackMode>();
 
 __StrCRef __EnumValueName(TransformFeedbackMode);
 

@@ -26,7 +26,7 @@ enum class DataType : GLenum
 };
 
 template <>
-__Range<DataType> __EnumValueRange<DataType>(void);
+__Range<DataType> __EnumValueRange<DataType>();
 
 __StrCRef __EnumValueName(DataType);
 

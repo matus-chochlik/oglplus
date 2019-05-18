@@ -24,7 +24,7 @@ enum class BufferMapAccess : GLbitfield
 };
 
 template <>
-__Range<BufferMapAccess> __EnumValueRange<BufferMapAccess>(void);
+__Range<BufferMapAccess> __EnumValueRange<BufferMapAccess>();
 
 __StrCRef __EnumValueName(BufferMapAccess);
 

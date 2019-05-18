@@ -19,7 +19,7 @@ enum class TransformFeedbackPrimitiveType : GLenum
 };
 
 template <>
-__Range<TransformFeedbackPrimitiveType> __EnumValueRange<TransformFeedbackPrimitiveType>(void);
+__Range<TransformFeedbackPrimitiveType> __EnumValueRange<TransformFeedbackPrimitiveType>();
 
 __StrCRef __EnumValueName(TransformFeedbackPrimitiveType);
 

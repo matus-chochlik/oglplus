@@ -19,7 +19,7 @@ enum class TessGenPrimitiveSpacing : GLenum
 };
 
 template <>
-__Range<TessGenPrimitiveSpacing> __EnumValueRange<TessGenPrimitiveSpacing>(void);
+__Range<TessGenPrimitiveSpacing> __EnumValueRange<TessGenPrimitiveSpacing>();
 
 __StrCRef __EnumValueName(TessGenPrimitiveSpacing);
 

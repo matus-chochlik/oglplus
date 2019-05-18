@@ -20,7 +20,7 @@ enum class RenderingAPI : EGLenum
 };
 
 template <>
-__Range<RenderingAPI> __EnumValueRange<RenderingAPI>(void);
+__Range<RenderingAPI> __EnumValueRange<RenderingAPI>();
 
 __StrCRef __EnumValueName(RenderingAPI);
 

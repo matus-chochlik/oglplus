@@ -34,7 +34,7 @@ enum class ProgramParameter : GLenum
 };
 
 template <>
-__Range<ProgramParameter> __EnumValueRange<ProgramParameter>(void);
+__Range<ProgramParameter> __EnumValueRange<ProgramParameter>();
 
 __StrCRef __EnumValueName(ProgramParameter);
 

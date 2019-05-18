@@ -18,7 +18,7 @@ enum class PathNVFontStyle : GLbitfield
 };
 
 template <>
-__Range<PathNVFontStyle> __EnumValueRange<PathNVFontStyle>(void);
+__Range<PathNVFontStyle> __EnumValueRange<PathNVFontStyle>();
 
 __StrCRef __EnumValueName(PathNVFontStyle);
 

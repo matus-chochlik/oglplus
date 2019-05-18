@@ -18,7 +18,7 @@ enum class SwapBehavior : EGLenum
 };
 
 template <>
-__Range<SwapBehavior> __EnumValueRange<SwapBehavior>(void);
+__Range<SwapBehavior> __EnumValueRange<SwapBehavior>();
 
 __StrCRef __EnumValueName(SwapBehavior);
 

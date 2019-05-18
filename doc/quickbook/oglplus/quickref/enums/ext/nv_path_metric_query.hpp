@@ -38,7 +38,7 @@ enum class PathNVMetricQuery : GLbitfield
 };
 
 template <>
-__Range<PathNVMetricQuery> __EnumValueRange<PathNVMetricQuery>(void);
+__Range<PathNVMetricQuery> __EnumValueRange<PathNVMetricQuery>();
 
 __StrCRef __EnumValueName(PathNVMetricQuery);
 

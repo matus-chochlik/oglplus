@@ -17,7 +17,7 @@ enum class RenderbufferTarget : GLenum
 };
 
 template <>
-__Range<RenderbufferTarget> __EnumValueRange<RenderbufferTarget>(void);
+__Range<RenderbufferTarget> __EnumValueRange<RenderbufferTarget>();
 
 __StrCRef __EnumValueName(RenderbufferTarget);
 

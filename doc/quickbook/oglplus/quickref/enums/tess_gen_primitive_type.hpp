@@ -19,7 +19,7 @@ enum class TessGenPrimitiveType : GLenum
 };
 
 template <>
-__Range<TessGenPrimitiveType> __EnumValueRange<TessGenPrimitiveType>(void);
+__Range<TessGenPrimitiveType> __EnumValueRange<TessGenPrimitiveType>();
 
 __StrCRef __EnumValueName(TessGenPrimitiveType);
 

@@ -18,7 +18,7 @@ enum class ResetNotificationStrategyARB : GLenum
 };
 
 template <>
-__Range<ResetNotificationStrategyARB> __EnumValueRange<ResetNotificationStrategyARB>(void);
+__Range<ResetNotificationStrategyARB> __EnumValueRange<ResetNotificationStrategyARB>();
 
 __StrCRef __EnumValueName(ResetNotificationStrategyARB);
 

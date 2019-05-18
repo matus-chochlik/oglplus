@@ -18,7 +18,7 @@ enum class TransparentType : EGLenum
 };
 
 template <>
-__Range<TransparentType> __EnumValueRange<TransparentType>(void);
+__Range<TransparentType> __EnumValueRange<TransparentType>();
 
 __StrCRef __EnumValueName(TransparentType);
 

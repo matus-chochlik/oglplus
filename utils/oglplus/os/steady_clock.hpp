@@ -22,23 +22,22 @@ namespace os {
 // Can be used for measuring time in seconds since the clocks creation
 class steady_clock {
 private:
-	typedef std::chrono::system_clock std_clock;
-	std::chrono::time_point<std_clock> _start;
+    typedef std::chrono::system_clock std_clock;
+    std::chrono::time_point<std_clock> _start;
 
 public:
-	steady_clock(void) {
-		reset();
-	}
+    steady_clock() {
+        reset();
+    }
 
-	void reset(void) {
-		_start = std_clock::now();
-	}
+    void reset() {
+        _start = std_clock::now();
+    }
 
-	double seconds(void) const {
-		return double((std_clock::now() - _start).count())
-			   * double(std_clock::period::num)
-			   / double(std_clock::period::den);
-	}
+    double seconds() const {
+        return double((std_clock::now() - _start).count()) *
+               double(std_clock::period::num) / double(std_clock::period::den);
+    }
 };
 
 } // namespace os

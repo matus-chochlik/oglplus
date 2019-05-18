@@ -15,7 +15,7 @@ class EnumToClass<Base, PathNVListMode, Transform>
  : public Base
 {
 private:
-	Base& _base(void) { return *this; }
+	Base& _base() { return *this; }
 public:
 
 #if defined GL_ACCUM_ADJACENT_PAIRS_NV
@@ -49,7 +49,7 @@ public:
 # endif
 #endif
 
-	EnumToClass(void) { }
+	EnumToClass() { }
 	EnumToClass(Base&& base)
 	 : Base(std::move(base))
 #if defined GL_ACCUM_ADJACENT_PAIRS_NV

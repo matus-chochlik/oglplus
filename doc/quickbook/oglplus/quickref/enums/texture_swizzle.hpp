@@ -22,7 +22,7 @@ enum class TextureSwizzle : GLenum
 };
 
 template <>
-__Range<TextureSwizzle> __EnumValueRange<TextureSwizzle>(void);
+__Range<TextureSwizzle> __EnumValueRange<TextureSwizzle>();
 
 __StrCRef __EnumValueName(TextureSwizzle);
 

@@ -43,7 +43,7 @@ enum class Capability : GLenum
 };
 
 template <>
-__Range<Capability> __EnumValueRange<Capability>(void);
+__Range<Capability> __EnumValueRange<Capability>();
 
 __StrCRef __EnumValueName(Capability);
 

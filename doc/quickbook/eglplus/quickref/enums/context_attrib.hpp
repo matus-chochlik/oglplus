@@ -21,7 +21,7 @@ enum class ContextAttrib : EGLenum
 };
 
 template <>
-__Range<ContextAttrib> __EnumValueRange<ContextAttrib>(void);
+__Range<ContextAttrib> __EnumValueRange<ContextAttrib>();
 
 __StrCRef __EnumValueName(ContextAttrib);
 

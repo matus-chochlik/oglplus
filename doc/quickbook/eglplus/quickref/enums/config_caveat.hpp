@@ -19,7 +19,7 @@ enum class ConfigCaveat : EGLenum
 };
 
 template <>
-__Range<ConfigCaveat> __EnumValueRange<ConfigCaveat>(void);
+__Range<ConfigCaveat> __EnumValueRange<ConfigCaveat>();
 
 __StrCRef __EnumValueName(ConfigCaveat);
 

@@ -31,7 +31,7 @@ enum class BlendEquationAdvanced : GLenum
 };
 
 template <>
-__Range<BlendEquationAdvanced> __EnumValueRange<BlendEquationAdvanced>(void);
+__Range<BlendEquationAdvanced> __EnumValueRange<BlendEquationAdvanced>();
 
 __StrCRef __EnumValueName(BlendEquationAdvanced);
 

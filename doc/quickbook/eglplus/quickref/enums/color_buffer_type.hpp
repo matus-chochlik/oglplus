@@ -18,7 +18,7 @@ enum class ColorBufferType : EGLenum
 };
 
 template <>
-__Range<ColorBufferType> __EnumValueRange<ColorBufferType>(void);
+__Range<ColorBufferType> __EnumValueRange<ColorBufferType>();
 
 __StrCRef __EnumValueName(ColorBufferType);
 

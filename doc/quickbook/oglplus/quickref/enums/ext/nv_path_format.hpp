@@ -18,7 +18,7 @@ enum class PathNVFormat : GLenum
 };
 
 template <>
-__Range<PathNVFormat> __EnumValueRange<PathNVFormat>(void);
+__Range<PathNVFormat> __EnumValueRange<PathNVFormat>();
 
 __StrCRef __EnumValueName(PathNVFormat);
 

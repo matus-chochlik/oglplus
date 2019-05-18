@@ -18,7 +18,7 @@ enum class ProvokeMode : GLenum
 };
 
 template <>
-__Range<ProvokeMode> __EnumValueRange<ProvokeMode>(void);
+__Range<ProvokeMode> __EnumValueRange<ProvokeMode>();
 
 __StrCRef __EnumValueName(ProvokeMode);
 

@@ -20,7 +20,7 @@ enum class GraphicsResetStatusARB : GLenum
 };
 
 template <>
-__Range<GraphicsResetStatusARB> __EnumValueRange<GraphicsResetStatusARB>(void);
+__Range<GraphicsResetStatusARB> __EnumValueRange<GraphicsResetStatusARB>();
 
 __StrCRef __EnumValueName(GraphicsResetStatusARB);
 

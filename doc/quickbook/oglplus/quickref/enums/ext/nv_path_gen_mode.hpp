@@ -20,7 +20,7 @@ enum class PathNVGenMode : GLenum
 };
 
 template <>
-__Range<PathNVGenMode> __EnumValueRange<PathNVGenMode>(void);
+__Range<PathNVGenMode> __EnumValueRange<PathNVGenMode>();
 
 __StrCRef __EnumValueName(PathNVGenMode);
 
