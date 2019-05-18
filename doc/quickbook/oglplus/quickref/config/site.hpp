@@ -102,14 +102,7 @@ Indicates that C++11 template aliases are not supported. \
 //[oglplus_config_site_5
 
 #endif //! OGLPLUS_USE_BOOST_CONFIG
-//]
-//[oglplus_config_site_6
-
-#ifndef OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS /*<                    \
-Indicates that using C++11 scoped enumerations as template parameters \
-is not supported or not implemented correctly.                        \
->*/
-#define OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS __UNSPECIFIED
-#endif
+       //]
+       //[oglplus_config_site_6
 
 //]

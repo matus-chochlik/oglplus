@@ -57,7 +57,6 @@ function(require_cpp_feature FEATURE_NAME)
 
 endfunction()
 
-cpp_feature_detection(SCOPED_ENUM_TEMPLATE_PARAMS)
 cpp_feature_detection(VARIADIC_MACROS)
 cpp_feature_detection(UNIFIED_INITIALIZATION_SYNTAX)
 cpp_feature_detection(FUNCTION_TEMPLATE_DEFAULT_ARGS)
