@@ -87,12 +87,6 @@ Indicates that C++11 unicode string literals are not supported. \
 #define OGLPLUS_NO_UNICODE_LITERALS __UNSPECIFIED
 #endif
 
-#ifndef OGLPLUS_NO_USER_DEFINED_LITERALS /*<                  \
-Indicates that C++11 user-defined literals are not supported. \
->*/
-#define OGLPLUS_NO_USER_DEFINED_LITERALS __UNSPECIFIED
-#endif
-
 //]
 //[oglplus_config_site_5
 

@@ -62,18 +62,6 @@
 #endif
 #endif
 
-#ifndef OGLPLUS_NO_USER_DEFINED_LITERALS
-/* TODO this macro is not (yet) available in Boost.
- * Update this if/when it is implemented
- */
-#if defined(BOOST_NO_CXX11_USER_DEFINED_LITERALS) || \
-  defined(BOOST_NO_USER_DEFINED_LITERALS)
-#define OGLPLUS_NO_USER_DEFINED_LITERALS 1
-#else
-#define OGLPLUS_NO_USER_DEFINED_LITERALS 0
-#endif
-#endif
-
 #ifndef OGLPLUS_NO_GENERALIZED_ATTRIBUTES
 #define OGLPLUS_NO_GENERALIZED_ATTRIBUTES 1
 #endif
