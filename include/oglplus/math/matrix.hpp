@@ -18,9 +18,7 @@
 #include <oglplus/math/quaternion.hpp>
 #include <oglplus/math/vector.hpp>
 
-#if !OGLPLUS_NO_INITIALIZER_LISTS
 #include <initializer_list>
-#endif
 
 #include <algorithm>
 

@@ -75,12 +75,6 @@ Indicates that C++11 unified initialization syntax is not implemented. \
 #define OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX __UNSPECIFIED
 #endif
 
-#ifndef OGLPLUS_NO_INITIALIZER_LISTS /*<                  \
-Indicates that C++11 initializer lists are not supported. \
->*/
-#define OGLPLUS_NO_INITIALIZER_LISTS __UNSPECIFIED
-#endif
-
 #ifndef OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS /*<           \
 Indicates that C++11 default template arguments cannot be used. \
 >*/

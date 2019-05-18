@@ -206,7 +206,6 @@ public:
         UseInProgram(prog);
     }
 
-#if !OGLPLUS_NO_INITIALIZER_LISTS
     template <class ShapeBuilder>
     ShapeWrapperTpl(
       const std::initializer_list<const GLchar*>& names,
@@ -222,7 +221,6 @@ public:
       : ShapeWrapperBase(names.begin(), names.end(), builder, _sel()) {
         UseInProgram(prog);
     }
-#endif
 
     template <class ShapeBuilder>
     ShapeWrapperTpl(

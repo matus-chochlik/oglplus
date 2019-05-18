@@ -49,7 +49,6 @@ public:
       : _names(std::move(temp._names)) {
     }
 
-#if !OGLPLUS_NO_INITIALIZER_LISTS
     /// Constructs the Group from an initializer list
     Group(std::initializer_list<ObjectName<ObjTag>> names) {
         _names.reserve(names.size());
@@ -60,7 +59,6 @@ public:
             ++i;
         }
     }
-#endif
 
     /// Constructs the Group from a std range supporting begin and end
     template <typename StdRange>
