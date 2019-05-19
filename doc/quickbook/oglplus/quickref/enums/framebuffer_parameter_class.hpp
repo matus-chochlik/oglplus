@@ -13,29 +13,22 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__FramebufferParameter> class Transform>
+template <typename Base, template <__FramebufferParameter> class Transform>
 class __EnumToClass<Base, __FramebufferParameter, Transform> /*<
 Specialization of __EnumToClass for the __FramebufferParameter enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<FramebufferParameter::DefaultWidth>
-		DefaultWidth;
-	Transform<FramebufferParameter::DefaultHeight>
-		DefaultHeight;
-	Transform<FramebufferParameter::Layers>
-		Layers;
-	Transform<FramebufferParameter::Samples>
-		Samples;
-	Transform<FramebufferParameter::FixedSampleLocations>
-		FixedSampleLocations;
+    Transform<FramebufferParameter::DefaultWidth> DefaultWidth;
+    Transform<FramebufferParameter::DefaultHeight> DefaultHeight;
+    Transform<FramebufferParameter::Layers> Layers;
+    Transform<FramebufferParameter::Samples> Samples;
+    Transform<FramebufferParameter::FixedSampleLocations> FixedSampleLocations;
 };
 
 } // namespace enums
 #endif
 //]
-

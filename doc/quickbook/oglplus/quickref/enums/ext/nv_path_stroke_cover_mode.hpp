@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_ext_nv_path_stroke_cover_mode
 
-enum class PathNVStrokeCoverMode : GLenum
-{
-	ConvexHull                 = GL_CONVEX_HULL_NV,
-	BoundingBox                = GL_BOUNDING_BOX_NV,
-	BoundingBoxOfBoundingBoxes = GL_BOUNDING_BOX_OF_BOUNDING_BOXES_NV,
-	StrokeCover                = GL_PATH_STROKE_COVER_MODE_NV
+enum class PathNVStrokeCoverMode : GLenum {
+    ConvexHull = GL_CONVEX_HULL_NV,
+    BoundingBox = GL_BOUNDING_BOX_NV,
+    BoundingBoxOfBoundingBoxes = GL_BOUNDING_BOX_OF_BOUNDING_BOXES_NV,
+    StrokeCover = GL_PATH_STROKE_COVER_MODE_NV
 };
 
 template <>

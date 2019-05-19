@@ -13,23 +13,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__TextureMagFilter> class Transform>
+template <typename Base, template <__TextureMagFilter> class Transform>
 class __EnumToClass<Base, __TextureMagFilter, Transform> /*<
 Specialization of __EnumToClass for the __TextureMagFilter enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<TextureMagFilter::Nearest>
-		Nearest;
-	Transform<TextureMagFilter::Linear>
-		Linear;
+    Transform<TextureMagFilter::Nearest> Nearest;
+    Transform<TextureMagFilter::Linear> Linear;
 };
 
 } // namespace enums
 #endif
 //]
-

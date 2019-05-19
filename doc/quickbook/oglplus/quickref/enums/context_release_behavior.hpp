@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_context_release_behavior
 
-enum class ContextReleaseBehavior : GLenum
-{
-	None  = GL_NONE,
-	Flush = GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH
+enum class ContextReleaseBehavior : GLenum {
+    None = GL_NONE,
+    Flush = GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH
 };
 
 template <>

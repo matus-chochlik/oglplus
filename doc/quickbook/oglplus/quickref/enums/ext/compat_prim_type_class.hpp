@@ -13,39 +13,31 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__CompatibilityPrimitiveType> class Transform>
+template <
+  typename Base,
+  template <__CompatibilityPrimitiveType>
+  class Transform>
 class __EnumToClass<Base, __CompatibilityPrimitiveType, Transform> /*<
-Specialization of __EnumToClass for the __CompatibilityPrimitiveType enumeration.
+Specialization of __EnumToClass for the __CompatibilityPrimitiveType
+enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<CompatibilityPrimitiveType::Points>
-		Points;
-	Transform<CompatibilityPrimitiveType::LineStrip>
-		LineStrip;
-	Transform<CompatibilityPrimitiveType::LineLoop>
-		LineLoop;
-	Transform<CompatibilityPrimitiveType::Lines>
-		Lines;
-	Transform<CompatibilityPrimitiveType::TriangleStrip>
-		TriangleStrip;
-	Transform<CompatibilityPrimitiveType::TriangleFan>
-		TriangleFan;
-	Transform<CompatibilityPrimitiveType::Triangles>
-		Triangles;
-	Transform<CompatibilityPrimitiveType::Quads>
-		Quads;
-	Transform<CompatibilityPrimitiveType::QuadStrip>
-		QuadStrip;
-	Transform<CompatibilityPrimitiveType::Polygon>
-		Polygon;
+    Transform<CompatibilityPrimitiveType::Points> Points;
+    Transform<CompatibilityPrimitiveType::LineStrip> LineStrip;
+    Transform<CompatibilityPrimitiveType::LineLoop> LineLoop;
+    Transform<CompatibilityPrimitiveType::Lines> Lines;
+    Transform<CompatibilityPrimitiveType::TriangleStrip> TriangleStrip;
+    Transform<CompatibilityPrimitiveType::TriangleFan> TriangleFan;
+    Transform<CompatibilityPrimitiveType::Triangles> Triangles;
+    Transform<CompatibilityPrimitiveType::Quads> Quads;
+    Transform<CompatibilityPrimitiveType::QuadStrip> QuadStrip;
+    Transform<CompatibilityPrimitiveType::Polygon> Polygon;
 };
 
 } // namespace enums
 #endif
 //]
-

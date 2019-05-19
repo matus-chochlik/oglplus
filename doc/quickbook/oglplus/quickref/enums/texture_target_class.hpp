@@ -13,53 +13,34 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__TextureTarget> class Transform>
+template <typename Base, template <__TextureTarget> class Transform>
 class __EnumToClass<Base, __TextureTarget, Transform> /*<
 Specialization of __EnumToClass for the __TextureTarget enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<TextureTarget::_1D>
-		_1D;
-	Transform<TextureTarget::_2D>
-		_2D;
-	Transform<TextureTarget::_3D>
-		_3D;
-	Transform<TextureTarget::_1DArray>
-		_1DArray;
-	Transform<TextureTarget::_2DArray>
-		_2DArray;
-	Transform<TextureTarget::Rectangle>
-		Rectangle;
-	Transform<TextureTarget::Buffer>
-		Buffer;
-	Transform<TextureTarget::CubeMap>
-		CubeMap;
-	Transform<TextureTarget::CubeMapArray>
-		CubeMapArray;
-	Transform<TextureTarget::_2DMultisample>
-		_2DMultisample;
-	Transform<TextureTarget::_2DMultisampleArray>
-		_2DMultisampleArray;
-	Transform<TextureTarget::CubeMapPositiveX>
-		CubeMapPositiveX;
-	Transform<TextureTarget::CubeMapNegativeX>
-		CubeMapNegativeX;
-	Transform<TextureTarget::CubeMapPositiveY>
-		CubeMapPositiveY;
-	Transform<TextureTarget::CubeMapNegativeY>
-		CubeMapNegativeY;
-	Transform<TextureTarget::CubeMapPositiveZ>
-		CubeMapPositiveZ;
-	Transform<TextureTarget::CubeMapNegativeZ>
-		CubeMapNegativeZ;
+    Transform<TextureTarget::_1D> _1D;
+    Transform<TextureTarget::_2D> _2D;
+    Transform<TextureTarget::_3D> _3D;
+    Transform<TextureTarget::_1DArray> _1DArray;
+    Transform<TextureTarget::_2DArray> _2DArray;
+    Transform<TextureTarget::Rectangle> Rectangle;
+    Transform<TextureTarget::Buffer> Buffer;
+    Transform<TextureTarget::CubeMap> CubeMap;
+    Transform<TextureTarget::CubeMapArray> CubeMapArray;
+    Transform<TextureTarget::_2DMultisample> _2DMultisample;
+    Transform<TextureTarget::_2DMultisampleArray> _2DMultisampleArray;
+    Transform<TextureTarget::CubeMapPositiveX> CubeMapPositiveX;
+    Transform<TextureTarget::CubeMapNegativeX> CubeMapNegativeX;
+    Transform<TextureTarget::CubeMapPositiveY> CubeMapPositiveY;
+    Transform<TextureTarget::CubeMapNegativeY> CubeMapNegativeY;
+    Transform<TextureTarget::CubeMapPositiveZ> CubeMapPositiveZ;
+    Transform<TextureTarget::CubeMapNegativeZ> CubeMapNegativeZ;
 };
 
 } // namespace enums
 #endif
 //]
-

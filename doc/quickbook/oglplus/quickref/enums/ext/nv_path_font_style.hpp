@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_ext_nv_path_font_style
 
-enum class PathNVFontStyle : GLbitfield
-{
-	Bold   = GL_BOLD_BIT_NV,
-	Italic = GL_ITALIC_BIT_NV
+enum class PathNVFontStyle : GLbitfield {
+    Bold = GL_BOLD_BIT_NV,
+    Italic = GL_ITALIC_BIT_NV
 };
 
 template <>
@@ -22,6 +21,6 @@ __Range<PathNVFontStyle> __EnumValueRange<PathNVFontStyle>();
 
 __StrCRef __EnumValueName(PathNVFontStyle);
 
-__Bitfield<PathNVFontStyle> operator | (PathNVFontStyle b1, PathNVFontStyle b2);
+__Bitfield<PathNVFontStyle> operator|(PathNVFontStyle b1, PathNVFontStyle b2);
 
 //]

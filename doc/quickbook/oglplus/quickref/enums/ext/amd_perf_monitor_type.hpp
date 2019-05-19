@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_ext_amd_perf_monitor_type
 
-enum class PerfMonitorAMDType : GLenum
-{
-	UnsignedInt   = GL_UNSIGNED_INT,
-	Float         = GL_FLOAT,
-	UnsignedInt64 = GL_UNSIGNED_INT64_AMD,
-	Percentage    = GL_PERCENTAGE_AMD
+enum class PerfMonitorAMDType : GLenum {
+    UnsignedInt = GL_UNSIGNED_INT,
+    Float = GL_FLOAT,
+    UnsignedInt64 = GL_UNSIGNED_INT64_AMD,
+    Percentage = GL_PERCENTAGE_AMD
 };
 
 template <>

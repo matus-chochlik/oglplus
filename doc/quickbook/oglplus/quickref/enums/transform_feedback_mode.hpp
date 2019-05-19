@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_transform_feedback_mode
 
-enum class TransformFeedbackMode : GLenum
-{
-	InterleavedAttribs = GL_INTERLEAVED_ATTRIBS,
-	SeparateAttribs    = GL_SEPARATE_ATTRIBS
+enum class TransformFeedbackMode : GLenum {
+    InterleavedAttribs = GL_INTERLEAVED_ATTRIBS,
+    SeparateAttribs = GL_SEPARATE_ATTRIBS
 };
 
 template <>

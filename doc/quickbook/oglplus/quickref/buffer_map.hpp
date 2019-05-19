@@ -32,9 +32,9 @@ public:
     BufferRawMap(const BufferRawMap&) = delete; /*<
     Buffer maps are not copyable.
     >*/
-    BufferRawMap(BufferRawMap&&);               /*<
-                  Buffer maps are moveable.
-                  >*/
+    BufferRawMap(BufferRawMap&&); /*<
+    Buffer maps are moveable.
+    >*/
 
     ~BufferRawMap(); /*<
     Unmaps the buffer from client address space (if mapped).
@@ -42,9 +42,9 @@ public:
     >*/
     void Unmap();
 
-    bool Mapped() const;     /*<
-        Returns true if the buffer is mapped.
-        >*/
+    bool Mapped() const; /*<
+    Returns true if the buffer is mapped.
+    >*/
     GLsizeiptr Size() const; /*<
     Returns the size (in bytes) of the mapped buffer.
     >*/

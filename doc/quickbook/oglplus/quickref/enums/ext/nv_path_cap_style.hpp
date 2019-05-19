@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_ext_nv_path_cap_style
 
-enum class PathNVCapStyle : GLenum
-{
-	Flat       = GL_FLAT,
-	Square     = GL_SQUARE_NV,
-	Round      = GL_ROUND_NV,
-	Triangular = GL_TRIANGULAR_NV
+enum class PathNVCapStyle : GLenum {
+    Flat = GL_FLAT,
+    Square = GL_SQUARE_NV,
+    Round = GL_ROUND_NV,
+    Triangular = GL_TRIANGULAR_NV
 };
 
 template <>

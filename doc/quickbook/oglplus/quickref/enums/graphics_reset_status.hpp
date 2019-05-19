@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_graphics_reset_status
 
-enum class GraphicsResetStatus : GLenum
-{
-	NoError              = GL_NO_ERROR,
-	GuiltyContextReset   = GL_GUILTY_CONTEXT_RESET,
-	InnocentContextReset = GL_INNOCENT_CONTEXT_RESET,
-	UnknownContextReset  = GL_UNKNOWN_CONTEXT_RESET
+enum class GraphicsResetStatus : GLenum {
+    NoError = GL_NO_ERROR,
+    GuiltyContextReset = GL_GUILTY_CONTEXT_RESET,
+    InnocentContextReset = GL_INNOCENT_CONTEXT_RESET,
+    UnknownContextReset = GL_UNKNOWN_CONTEXT_RESET
 };
 
 template <>

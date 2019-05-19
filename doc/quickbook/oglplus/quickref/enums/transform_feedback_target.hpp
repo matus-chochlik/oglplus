@@ -11,9 +11,8 @@
 //
 //[oglplus_enums_transform_feedback_target
 
-enum class TransformFeedbackTarget : GLenum
-{
-	TransformFeedback = GL_TRANSFORM_FEEDBACK
+enum class TransformFeedbackTarget : GLenum {
+    TransformFeedback = GL_TRANSFORM_FEEDBACK
 };
 
 template <>

@@ -11,10 +11,7 @@
 //
 //[oglplus_enums_renderbuffer_target
 
-enum class RenderbufferTarget : GLenum
-{
-	Renderbuffer = GL_RENDERBUFFER
-};
+enum class RenderbufferTarget : GLenum { Renderbuffer = GL_RENDERBUFFER };
 
 template <>
 __Range<RenderbufferTarget> __EnumValueRange<RenderbufferTarget>();

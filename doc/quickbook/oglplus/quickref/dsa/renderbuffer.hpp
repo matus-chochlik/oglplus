@@ -32,10 +32,10 @@ public:
               See [glfunc NamedRenderbufferStorageMultisample].
               >*/
 
-    __SizeType Width() const;  /*<
-     Returns the width in pixels of [^this] renderbuffer.
-     See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_WIDTH].
-     >*/
+    __SizeType Width() const; /*<
+    Returns the width in pixels of [^this] renderbuffer.
+    See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_WIDTH].
+    >*/
     __SizeType Height() const; /*<
     Returns the height in pixels of [^this] renderbuffer.
     See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_HEIGHT].
@@ -71,10 +71,10 @@ Returns the size in bits of the stencil component of [^this] renderbuffer.
 See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_STENCIL_SIZE].
 >*/
 
-    __SizeType Samples() const;                       /*<
-                          Returns the number of samples of [^this] renderbuffer.
-                          See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_SAMPLES].
-                          >*/
+    __SizeType Samples() const; /*<
+    Returns the number of samples of [^this] renderbuffer.
+    See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_SAMPLES].
+    >*/
     __PixelDataInternalFormat InternalFormat() const; /*<
     Returns the internal format of [^this] renderbuffer.
     See [glfunc GetNamedRenderbufferParameter], [glconst

@@ -11,11 +11,7 @@
 //
 //[oglplus_enums_face_orientation
 
-enum class FaceOrientation : GLenum
-{
-	CW  = GL_CW,
-	CCW = GL_CCW
-};
+enum class FaceOrientation : GLenum { CW = GL_CW, CCW = GL_CCW };
 
 template <>
 __Range<FaceOrientation> __EnumValueRange<FaceOrientation>();

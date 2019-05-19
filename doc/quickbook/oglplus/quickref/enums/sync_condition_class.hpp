@@ -13,21 +13,18 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__SyncCondition> class Transform>
+template <typename Base, template <__SyncCondition> class Transform>
 class __EnumToClass<Base, __SyncCondition, Transform> /*<
 Specialization of __EnumToClass for the __SyncCondition enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<SyncCondition::GPUCommandsComplete>
-		GPUCommandsComplete;
+    Transform<SyncCondition::GPUCommandsComplete> GPUCommandsComplete;
 };
 
 } // namespace enums
 #endif
 //]
-

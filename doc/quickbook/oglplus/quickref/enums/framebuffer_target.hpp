@@ -11,11 +11,10 @@
 //
 //[oglplus_enums_framebuffer_target
 
-enum class FramebufferTarget : GLenum
-{
-	Draw = GL_DRAW_FRAMEBUFFER,
-	Read = GL_READ_FRAMEBUFFER,
-	Both = GL_FRAMEBUFFER
+enum class FramebufferTarget : GLenum {
+    Draw = GL_DRAW_FRAMEBUFFER,
+    Read = GL_READ_FRAMEBUFFER,
+    Both = GL_FRAMEBUFFER
 };
 
 template <>

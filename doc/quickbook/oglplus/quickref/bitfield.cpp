@@ -13,27 +13,24 @@ Initialization of a __Bitfield from a single enumeration value.
 >*/
 
 gl.Clear(
-	__ClearBit::ColorBuffer|
-	__ClearBit::DepthBuffer|
-	__ClearBit::StencilBuffer
-); /*<
-Initialization from a set of enumeration values.
->*/
+  __ClearBit::ColorBuffer | __ClearBit::DepthBuffer |
+  __ClearBit::StencilBuffer); /*<
+                           Initialization from a set of enumeration values.
+                           >*/
 
-gl.Clear({
-	__ClearBit::ColorBuffer,
-	__ClearBit::DepthBuffer,
-	__ClearBit::StencilBuffer
-}); /*<
-Initialization from an [^std::initializer_list] of enumeration values.
->*/
+gl.Clear(
+  {__ClearBit::ColorBuffer,
+   __ClearBit::DepthBuffer,
+   __ClearBit::StencilBuffer}); /*<
+                            Initialization from an [^std::initializer_list] of
+                            enumeration values.
+                            >*/
 
 if(gl.ProfileMask().Has(__ContextProfileBit::Compatibility)) /*<
 Testing if a particular bit is set
 >*/
 {
-	/* ... */
+    /* ... */
 }
 
 //]
-

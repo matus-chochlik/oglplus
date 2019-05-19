@@ -11,11 +11,10 @@
 //
 //[oglplus_enums_hint_option
 
-enum class HintOption : GLenum
-{
-	Fastest  = GL_FASTEST,
-	Nicest   = GL_NICEST,
-	DontCare = GL_DONT_CARE
+enum class HintOption : GLenum {
+    Fastest = GL_FASTEST,
+    Nicest = GL_NICEST,
+    DontCare = GL_DONT_CARE
 };
 
 template <>

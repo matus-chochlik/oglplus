@@ -13,33 +13,24 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ProgramPipelineStage> class Transform>
+template <typename Base, template <__ProgramPipelineStage> class Transform>
 class __EnumToClass<Base, __ProgramPipelineStage, Transform> /*<
 Specialization of __EnumToClass for the __ProgramPipelineStage enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ProgramPipelineStage::VertexShader>
-		VertexShader;
-	Transform<ProgramPipelineStage::TessControlShader>
-		TessControlShader;
-	Transform<ProgramPipelineStage::TessEvaluationShader>
-		TessEvaluationShader;
-	Transform<ProgramPipelineStage::GeometryShader>
-		GeometryShader;
-	Transform<ProgramPipelineStage::FragmentShader>
-		FragmentShader;
-	Transform<ProgramPipelineStage::ComputeShader>
-		ComputeShader;
-	Transform<ProgramPipelineStage::AllShaders>
-		AllShaders;
+    Transform<ProgramPipelineStage::VertexShader> VertexShader;
+    Transform<ProgramPipelineStage::TessControlShader> TessControlShader;
+    Transform<ProgramPipelineStage::TessEvaluationShader> TessEvaluationShader;
+    Transform<ProgramPipelineStage::GeometryShader> GeometryShader;
+    Transform<ProgramPipelineStage::FragmentShader> FragmentShader;
+    Transform<ProgramPipelineStage::ComputeShader> ComputeShader;
+    Transform<ProgramPipelineStage::AllShaders> AllShaders;
 };
 
 } // namespace enums
 #endif
 //]
-

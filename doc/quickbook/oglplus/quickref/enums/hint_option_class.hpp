@@ -13,25 +13,20 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__HintOption> class Transform>
+template <typename Base, template <__HintOption> class Transform>
 class __EnumToClass<Base, __HintOption, Transform> /*<
 Specialization of __EnumToClass for the __HintOption enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<HintOption::Fastest>
-		Fastest;
-	Transform<HintOption::Nicest>
-		Nicest;
-	Transform<HintOption::DontCare>
-		DontCare;
+    Transform<HintOption::Fastest> Fastest;
+    Transform<HintOption::Nicest> Nicest;
+    Transform<HintOption::DontCare> DontCare;
 };
 
 } // namespace enums
 #endif
 //]
-

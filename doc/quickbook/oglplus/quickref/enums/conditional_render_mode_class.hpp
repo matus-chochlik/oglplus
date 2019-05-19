@@ -13,35 +13,27 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ConditionalRenderMode> class Transform>
+template <typename Base, template <__ConditionalRenderMode> class Transform>
 class __EnumToClass<Base, __ConditionalRenderMode, Transform> /*<
 Specialization of __EnumToClass for the __ConditionalRenderMode enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ConditionalRenderMode::QueryWait>
-		QueryWait;
-	Transform<ConditionalRenderMode::QueryNoWait>
-		QueryNoWait;
-	Transform<ConditionalRenderMode::QueryByRegionWait>
-		QueryByRegionWait;
-	Transform<ConditionalRenderMode::QueryByRegionNoWait>
-		QueryByRegionNoWait;
-	Transform<ConditionalRenderMode::QueryWaitInverted>
-		QueryWaitInverted;
-	Transform<ConditionalRenderMode::QueryNoWaitInverted>
-		QueryNoWaitInverted;
-	Transform<ConditionalRenderMode::QueryByRegionWaitInverted>
-		QueryByRegionWaitInverted;
-	Transform<ConditionalRenderMode::QueryByRegionNoWaitInverted>
-		QueryByRegionNoWaitInverted;
+    Transform<ConditionalRenderMode::QueryWait> QueryWait;
+    Transform<ConditionalRenderMode::QueryNoWait> QueryNoWait;
+    Transform<ConditionalRenderMode::QueryByRegionWait> QueryByRegionWait;
+    Transform<ConditionalRenderMode::QueryByRegionNoWait> QueryByRegionNoWait;
+    Transform<ConditionalRenderMode::QueryWaitInverted> QueryWaitInverted;
+    Transform<ConditionalRenderMode::QueryNoWaitInverted> QueryNoWaitInverted;
+    Transform<ConditionalRenderMode::QueryByRegionWaitInverted>
+      QueryByRegionWaitInverted;
+    Transform<ConditionalRenderMode::QueryByRegionNoWaitInverted>
+      QueryByRegionNoWaitInverted;
 };
 
 } // namespace enums
 #endif
 //]
-

@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_context_profile_bit
 
-enum class ContextProfileBit : GLbitfield
-{
-	Core          = GL_CONTEXT_CORE_PROFILE_BIT,
-	Compatibility = GL_CONTEXT_COMPATIBILITY_PROFILE_BIT
+enum class ContextProfileBit : GLbitfield {
+    Core = GL_CONTEXT_CORE_PROFILE_BIT,
+    Compatibility = GL_CONTEXT_COMPATIBILITY_PROFILE_BIT
 };
 
 template <>
@@ -22,6 +21,7 @@ __Range<ContextProfileBit> __EnumValueRange<ContextProfileBit>();
 
 __StrCRef __EnumValueName(ContextProfileBit);
 
-__Bitfield<ContextProfileBit> operator | (ContextProfileBit b1, ContextProfileBit b2);
+__Bitfield<ContextProfileBit> operator|(
+  ContextProfileBit b1, ContextProfileBit b2);
 
 //]

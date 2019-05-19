@@ -11,11 +11,10 @@
 //
 //[oglplus_enums_buffer_select_bit
 
-enum class BufferSelectBit : GLbitfield
-{
-	ColorBuffer   = GL_COLOR_BUFFER_BIT,
-	DepthBuffer   = GL_DEPTH_BUFFER_BIT,
-	StencilBuffer = GL_STENCIL_BUFFER_BIT
+enum class BufferSelectBit : GLbitfield {
+    ColorBuffer = GL_COLOR_BUFFER_BIT,
+    DepthBuffer = GL_DEPTH_BUFFER_BIT,
+    StencilBuffer = GL_STENCIL_BUFFER_BIT
 };
 
 template <>
@@ -23,6 +22,6 @@ __Range<BufferSelectBit> __EnumValueRange<BufferSelectBit>();
 
 __StrCRef __EnumValueName(BufferSelectBit);
 
-__Bitfield<BufferSelectBit> operator | (BufferSelectBit b1, BufferSelectBit b2);
+__Bitfield<BufferSelectBit> operator|(BufferSelectBit b1, BufferSelectBit b2);
 
 //]

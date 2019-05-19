@@ -11,13 +11,12 @@
 //
 //[oglplus_enums_debug_output_severity
 
-enum class DebugOutputSeverity : GLenum
-{
-	High         = GL_DEBUG_SEVERITY_HIGH,
-	Medium       = GL_DEBUG_SEVERITY_MEDIUM,
-	Low          = GL_DEBUG_SEVERITY_LOW,
-	Notification = GL_DEBUG_SEVERITY_NOTIFICATION,
-	DontCare     = GL_DONT_CARE
+enum class DebugOutputSeverity : GLenum {
+    High = GL_DEBUG_SEVERITY_HIGH,
+    Medium = GL_DEBUG_SEVERITY_MEDIUM,
+    Low = GL_DEBUG_SEVERITY_LOW,
+    Notification = GL_DEBUG_SEVERITY_NOTIFICATION,
+    DontCare = GL_DONT_CARE
 };
 
 template <>

@@ -9,7 +9,7 @@
 template <typename Bits>
 class Bitfield {
 public:
-    Bitfield();          /*< Constructs an empty (zero) bitfield.  >*/
+    Bitfield(); /*< Constructs an empty (zero) bitfield.  >*/
     Bitfield(Bits _bit); /*<
    Construct a bitfield from a single value of [^Bits].
    >*/
@@ -29,9 +29,9 @@ public:
     friend Bitfield operator|(Bitfield bf, Bits b); /*<
     Bitwise-or operator for combining [^Bits] into a bitfield.
     >*/
-    Bitfield& operator|=(Bits b);                   /*<
-    Bitwise-or operator for combining [^Bits] into a bitfield.
-    >*/
+    Bitfield& operator|=(Bits b); /*<
+Bitwise-or operator for combining [^Bits] into a bitfield.
+>*/
 
     bool Test(Bits b) const; /*<
     These functions test if a specified bit is set.

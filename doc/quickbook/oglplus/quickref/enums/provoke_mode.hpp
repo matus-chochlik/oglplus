@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_provoke_mode
 
-enum class ProvokeMode : GLenum
-{
-	FirstVertexConvention = GL_FIRST_VERTEX_CONVENTION,
-	LastVertexConvention  = GL_LAST_VERTEX_CONVENTION
+enum class ProvokeMode : GLenum {
+    FirstVertexConvention = GL_FIRST_VERTEX_CONVENTION,
+    LastVertexConvention = GL_LAST_VERTEX_CONVENTION
 };
 
 template <>

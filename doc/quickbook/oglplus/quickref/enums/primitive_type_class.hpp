@@ -13,43 +13,29 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PrimitiveType> class Transform>
+template <typename Base, template <__PrimitiveType> class Transform>
 class __EnumToClass<Base, __PrimitiveType, Transform> /*<
 Specialization of __EnumToClass for the __PrimitiveType enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PrimitiveType::Points>
-		Points;
-	Transform<PrimitiveType::LineStrip>
-		LineStrip;
-	Transform<PrimitiveType::LineLoop>
-		LineLoop;
-	Transform<PrimitiveType::Lines>
-		Lines;
-	Transform<PrimitiveType::TriangleStrip>
-		TriangleStrip;
-	Transform<PrimitiveType::TriangleFan>
-		TriangleFan;
-	Transform<PrimitiveType::Triangles>
-		Triangles;
-	Transform<PrimitiveType::LinesAdjacency>
-		LinesAdjacency;
-	Transform<PrimitiveType::LineStripAdjacency>
-		LineStripAdjacency;
-	Transform<PrimitiveType::TrianglesAdjacency>
-		TrianglesAdjacency;
-	Transform<PrimitiveType::TriangleStripAdjacency>
-		TriangleStripAdjacency;
-	Transform<PrimitiveType::Patches>
-		Patches;
+    Transform<PrimitiveType::Points> Points;
+    Transform<PrimitiveType::LineStrip> LineStrip;
+    Transform<PrimitiveType::LineLoop> LineLoop;
+    Transform<PrimitiveType::Lines> Lines;
+    Transform<PrimitiveType::TriangleStrip> TriangleStrip;
+    Transform<PrimitiveType::TriangleFan> TriangleFan;
+    Transform<PrimitiveType::Triangles> Triangles;
+    Transform<PrimitiveType::LinesAdjacency> LinesAdjacency;
+    Transform<PrimitiveType::LineStripAdjacency> LineStripAdjacency;
+    Transform<PrimitiveType::TrianglesAdjacency> TrianglesAdjacency;
+    Transform<PrimitiveType::TriangleStripAdjacency> TriangleStripAdjacency;
+    Transform<PrimitiveType::Patches> Patches;
 };
 
 } // namespace enums
 #endif
 //]
-

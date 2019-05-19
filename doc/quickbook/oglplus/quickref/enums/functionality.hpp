@@ -11,10 +11,7 @@
 //
 //[oglplus_enums_functionality
 
-enum class Functionality : GLenum
-{
-	ClipDistance = GL_CLIP_DISTANCE0
-};
+enum class Functionality : GLenum { ClipDistance = GL_CLIP_DISTANCE0 };
 
 template <>
 __Range<Functionality> __EnumValueRange<Functionality>();

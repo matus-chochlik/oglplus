@@ -11,16 +11,15 @@
 //
 //[oglplus_enums_compare_function
 
-enum class CompareFunction : GLenum
-{
-	LEqual   = GL_LEQUAL,
-	GEqual   = GL_GEQUAL,
-	Less     = GL_LESS,
-	Greater  = GL_GREATER,
-	Equal    = GL_EQUAL,
-	NotEqual = GL_NOTEQUAL,
-	Always   = GL_ALWAYS,
-	Never    = GL_NEVER
+enum class CompareFunction : GLenum {
+    LEqual = GL_LEQUAL,
+    GEqual = GL_GEQUAL,
+    Less = GL_LESS,
+    Greater = GL_GREATER,
+    Equal = GL_EQUAL,
+    NotEqual = GL_NOTEQUAL,
+    Always = GL_ALWAYS,
+    Never = GL_NEVER
 };
 
 template <>

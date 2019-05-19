@@ -9,4 +9,3 @@
 typedef __AccessSpecifier Access;
 
 //]
-

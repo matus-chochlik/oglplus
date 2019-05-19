@@ -18,22 +18,22 @@ std::cout << "GLSL Version: " << gl.ShadingLanguageVersion() << std::endl;
 std::cout << "Renderer: " << gl.Renderer() << std::endl;
 std::cout << "Extensions:" << std::endl;
 
-for(auto r=gl.Extensions(); !r.Empty(); r.Next())
-{
-	std::cout << '\t' << r.Front() << std::endl;
+for(auto r = gl.Extensions(); !r.Empty(); r.Next()) {
+    std::cout << '\t' << r.Front() << std::endl;
 }
 
 std::cout << "Limits:" << std::endl;
 
-for(auto r=__EnumValueRange<__LimitQuery>(); !r.Empty(); r.Next())
-{
-	auto ev = r.Front();
-	std::cout << __EnumValueName(ev).c_str() << ": ";
-	try { std::cout << gl.FloatLimit(ev); }
-	catch(...){ std::cout << "N/A"; }
-	std::cout << std::endl;
+for(auto r = __EnumValueRange<__LimitQuery>(); !r.Empty(); r.Next()) {
+    auto ev = r.Front();
+    std::cout << __EnumValueName(ev).c_str() << ": ";
+    try {
+        std::cout << gl.FloatLimit(ev);
+    } catch(...) {
+        std::cout << "N/A";
+    }
+    std::cout << std::endl;
 }
-
 
 gl.ClearColor(0.3f, 0.3f, 0.3f, 0.0f);
 gl.ClearDepth(1.0f);
@@ -60,4 +60,3 @@ gl.DrawArrays(__PrimitiveType::TriangleStrip, 0, n);
 gl.DrawElements(__PrimitiveType::TriangleStrip, m, __DataType::UnsignedInt);
 
 //]
-

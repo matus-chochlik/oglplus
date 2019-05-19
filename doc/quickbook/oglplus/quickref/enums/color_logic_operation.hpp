@@ -11,24 +11,23 @@
 //
 //[oglplus_enums_color_logic_operation
 
-enum class ColorLogicOperation : GLenum
-{
-	Clear        = GL_CLEAR,
-	And          = GL_AND,
-	AndReverse   = GL_AND_REVERSE,
-	Copy         = GL_COPY,
-	AndInverted  = GL_AND_INVERTED,
-	Noop         = GL_NOOP,
-	Xor          = GL_XOR,
-	Or           = GL_OR,
-	Nor          = GL_NOR,
-	Equiv        = GL_EQUIV,
-	Invert       = GL_INVERT,
-	OrReverse    = GL_OR_REVERSE,
-	CopyInverted = GL_COPY_INVERTED,
-	OrInverted   = GL_OR_INVERTED,
-	Nand         = GL_NAND,
-	Set          = GL_SET
+enum class ColorLogicOperation : GLenum {
+    Clear = GL_CLEAR,
+    And = GL_AND,
+    AndReverse = GL_AND_REVERSE,
+    Copy = GL_COPY,
+    AndInverted = GL_AND_INVERTED,
+    Noop = GL_NOOP,
+    Xor = GL_XOR,
+    Or = GL_OR,
+    Nor = GL_NOR,
+    Equiv = GL_EQUIV,
+    Invert = GL_INVERT,
+    OrReverse = GL_OR_REVERSE,
+    CopyInverted = GL_COPY_INVERTED,
+    OrInverted = GL_OR_INVERTED,
+    Nand = GL_NAND,
+    Set = GL_SET
 };
 
 template <>

@@ -94,10 +94,10 @@ public:
     Make the [^program] active for this program pipeline.
     See [glfunc ActiveShaderProgram].
     >*/
-    __ProgramName ActiveShaderProgram() const;             /*<
-                Returns the current active shader program.
-                See [glfunc GetProgramPipeline], [glconst ACTIVE_PROGRAM].
-                >*/
+    __ProgramName ActiveShaderProgram() const; /*<
+    Returns the current active shader program.
+    See [glfunc GetProgramPipeline], [glconst ACTIVE_PROGRAM].
+    >*/
 
     __Boolean HasShader(__ShaderType shader_type) const; /*<
     Returns true if this pipeline contains a shader of the specified type.

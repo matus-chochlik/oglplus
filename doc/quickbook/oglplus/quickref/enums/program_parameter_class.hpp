@@ -13,55 +13,40 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ProgramParameter> class Transform>
+template <typename Base, template <__ProgramParameter> class Transform>
 class __EnumToClass<Base, __ProgramParameter, Transform> /*<
 Specialization of __EnumToClass for the __ProgramParameter enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ProgramParameter::DeleteStatus>
-		DeleteStatus;
-	Transform<ProgramParameter::LinkStatus>
-		LinkStatus;
-	Transform<ProgramParameter::ValidateStatus>
-		ValidateStatus;
-	Transform<ProgramParameter::InfoLogLength>
-		InfoLogLength;
-	Transform<ProgramParameter::AttachedShaders>
-		AttachedShaders;
-	Transform<ProgramParameter::ActiveAtomicCounterBuffers>
-		ActiveAtomicCounterBuffers;
-	Transform<ProgramParameter::ActiveAttributes>
-		ActiveAttributes;
-	Transform<ProgramParameter::ActiveAttributeMaxLength>
-		ActiveAttributeMaxLength;
-	Transform<ProgramParameter::ActiveUniforms>
-		ActiveUniforms;
-	Transform<ProgramParameter::ActiveUniformMaxLength>
-		ActiveUniformMaxLength;
-	Transform<ProgramParameter::ProgramBinaryLength>
-		ProgramBinaryLength;
-	Transform<ProgramParameter::ComputeWorkGroupSize>
-		ComputeWorkGroupSize;
-	Transform<ProgramParameter::TransformFeedbackBufferMode>
-		TransformFeedbackBufferMode;
-	Transform<ProgramParameter::TransformFeedbackVaryings>
-		TransformFeedbackVaryings;
-	Transform<ProgramParameter::TransformFeedbackVaryingMaxLength>
-		TransformFeedbackVaryingMaxLength;
-	Transform<ProgramParameter::GeometryVerticesOut>
-		GeometryVerticesOut;
-	Transform<ProgramParameter::GeometryInputType>
-		GeometryInputType;
-	Transform<ProgramParameter::GeometryOutputType>
-		GeometryOutputType;
+    Transform<ProgramParameter::DeleteStatus> DeleteStatus;
+    Transform<ProgramParameter::LinkStatus> LinkStatus;
+    Transform<ProgramParameter::ValidateStatus> ValidateStatus;
+    Transform<ProgramParameter::InfoLogLength> InfoLogLength;
+    Transform<ProgramParameter::AttachedShaders> AttachedShaders;
+    Transform<ProgramParameter::ActiveAtomicCounterBuffers>
+      ActiveAtomicCounterBuffers;
+    Transform<ProgramParameter::ActiveAttributes> ActiveAttributes;
+    Transform<ProgramParameter::ActiveAttributeMaxLength>
+      ActiveAttributeMaxLength;
+    Transform<ProgramParameter::ActiveUniforms> ActiveUniforms;
+    Transform<ProgramParameter::ActiveUniformMaxLength> ActiveUniformMaxLength;
+    Transform<ProgramParameter::ProgramBinaryLength> ProgramBinaryLength;
+    Transform<ProgramParameter::ComputeWorkGroupSize> ComputeWorkGroupSize;
+    Transform<ProgramParameter::TransformFeedbackBufferMode>
+      TransformFeedbackBufferMode;
+    Transform<ProgramParameter::TransformFeedbackVaryings>
+      TransformFeedbackVaryings;
+    Transform<ProgramParameter::TransformFeedbackVaryingMaxLength>
+      TransformFeedbackVaryingMaxLength;
+    Transform<ProgramParameter::GeometryVerticesOut> GeometryVerticesOut;
+    Transform<ProgramParameter::GeometryInputType> GeometryInputType;
+    Transform<ProgramParameter::GeometryOutputType> GeometryOutputType;
 };
 
 } // namespace enums
 #endif
 //]
-

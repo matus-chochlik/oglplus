@@ -11,18 +11,17 @@
 //
 //[oglplus_enums_data_type
 
-enum class DataType : GLenum
-{
-	Byte          = GL_BYTE,
-	Short         = GL_SHORT,
-	Int           = GL_INT,
-	Fixed         = GL_FIXED,
-	Float         = GL_FLOAT,
-	HalfFloat     = GL_HALF_FLOAT,
-	Double        = GL_DOUBLE,
-	UnsignedByte  = GL_UNSIGNED_BYTE,
-	UnsignedShort = GL_UNSIGNED_SHORT,
-	UnsignedInt   = GL_UNSIGNED_INT
+enum class DataType : GLenum {
+    Byte = GL_BYTE,
+    Short = GL_SHORT,
+    Int = GL_INT,
+    Fixed = GL_FIXED,
+    Float = GL_FLOAT,
+    HalfFloat = GL_HALF_FLOAT,
+    Double = GL_DOUBLE,
+    UnsignedByte = GL_UNSIGNED_BYTE,
+    UnsignedShort = GL_UNSIGNED_SHORT,
+    UnsignedInt = GL_UNSIGNED_INT
 };
 
 template <>

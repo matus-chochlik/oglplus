@@ -13,29 +13,22 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PathNVJoinStyle> class Transform>
+template <typename Base, template <__PathNVJoinStyle> class Transform>
 class __EnumToClass<Base, __PathNVJoinStyle, Transform> /*<
 Specialization of __EnumToClass for the __PathNVJoinStyle enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PathNVJoinStyle::None>
-		None;
-	Transform<PathNVJoinStyle::Round>
-		Round;
-	Transform<PathNVJoinStyle::Bevel>
-		Bevel;
-	Transform<PathNVJoinStyle::MiterRevert>
-		MiterRevert;
-	Transform<PathNVJoinStyle::MiterTruncate>
-		MiterTruncate;
+    Transform<PathNVJoinStyle::None> None;
+    Transform<PathNVJoinStyle::Round> Round;
+    Transform<PathNVJoinStyle::Bevel> Bevel;
+    Transform<PathNVJoinStyle::MiterRevert> MiterRevert;
+    Transform<PathNVJoinStyle::MiterTruncate> MiterTruncate;
 };
 
 } // namespace enums
 #endif
 //]
-

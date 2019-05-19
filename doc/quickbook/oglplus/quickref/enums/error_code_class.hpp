@@ -13,39 +13,28 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ErrorCode> class Transform>
+template <typename Base, template <__ErrorCode> class Transform>
 class __EnumToClass<Base, __ErrorCode, Transform> /*<
 Specialization of __EnumToClass for the __ErrorCode enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ErrorCode::NoError>
-		NoError;
-	Transform<ErrorCode::OutOfMemory>
-		OutOfMemory;
-	Transform<ErrorCode::InvalidEnum>
-		InvalidEnum;
-	Transform<ErrorCode::InvalidValue>
-		InvalidValue;
-	Transform<ErrorCode::InvalidOperation>
-		InvalidOperation;
-	Transform<ErrorCode::InvalidFramebufferOperation>
-		InvalidFramebufferOperation;
-	Transform<ErrorCode::StackOverflow>
-		StackOverflow;
-	Transform<ErrorCode::StackUnderflow>
-		StackUnderflow;
-	Transform<ErrorCode::TableTooLarge>
-		TableTooLarge;
-	Transform<ErrorCode::ContextLost>
-		ContextLost;
+    Transform<ErrorCode::NoError> NoError;
+    Transform<ErrorCode::OutOfMemory> OutOfMemory;
+    Transform<ErrorCode::InvalidEnum> InvalidEnum;
+    Transform<ErrorCode::InvalidValue> InvalidValue;
+    Transform<ErrorCode::InvalidOperation> InvalidOperation;
+    Transform<ErrorCode::InvalidFramebufferOperation>
+      InvalidFramebufferOperation;
+    Transform<ErrorCode::StackOverflow> StackOverflow;
+    Transform<ErrorCode::StackUnderflow> StackUnderflow;
+    Transform<ErrorCode::TableTooLarge> TableTooLarge;
+    Transform<ErrorCode::ContextLost> ContextLost;
 };
 
 } // namespace enums
 #endif
 //]
-

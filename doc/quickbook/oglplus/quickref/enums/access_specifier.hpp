@@ -11,11 +11,10 @@
 //
 //[oglplus_enums_access_specifier
 
-enum class AccessSpecifier : GLenum
-{
-	ReadOnly  = GL_READ_ONLY,
-	WriteOnly = GL_WRITE_ONLY,
-	ReadWrite = GL_READ_WRITE
+enum class AccessSpecifier : GLenum {
+    ReadOnly = GL_READ_ONLY,
+    WriteOnly = GL_WRITE_ONLY,
+    ReadWrite = GL_READ_WRITE
 };
 
 template <>

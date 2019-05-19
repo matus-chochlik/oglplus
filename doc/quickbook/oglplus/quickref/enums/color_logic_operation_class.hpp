@@ -13,51 +13,33 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ColorLogicOperation> class Transform>
+template <typename Base, template <__ColorLogicOperation> class Transform>
 class __EnumToClass<Base, __ColorLogicOperation, Transform> /*<
 Specialization of __EnumToClass for the __ColorLogicOperation enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ColorLogicOperation::Clear>
-		Clear;
-	Transform<ColorLogicOperation::And>
-		And;
-	Transform<ColorLogicOperation::AndReverse>
-		AndReverse;
-	Transform<ColorLogicOperation::Copy>
-		Copy;
-	Transform<ColorLogicOperation::AndInverted>
-		AndInverted;
-	Transform<ColorLogicOperation::Noop>
-		Noop;
-	Transform<ColorLogicOperation::Xor>
-		Xor;
-	Transform<ColorLogicOperation::Or>
-		Or;
-	Transform<ColorLogicOperation::Nor>
-		Nor;
-	Transform<ColorLogicOperation::Equiv>
-		Equiv;
-	Transform<ColorLogicOperation::Invert>
-		Invert;
-	Transform<ColorLogicOperation::OrReverse>
-		OrReverse;
-	Transform<ColorLogicOperation::CopyInverted>
-		CopyInverted;
-	Transform<ColorLogicOperation::OrInverted>
-		OrInverted;
-	Transform<ColorLogicOperation::Nand>
-		Nand;
-	Transform<ColorLogicOperation::Set>
-		Set;
+    Transform<ColorLogicOperation::Clear> Clear;
+    Transform<ColorLogicOperation::And> And;
+    Transform<ColorLogicOperation::AndReverse> AndReverse;
+    Transform<ColorLogicOperation::Copy> Copy;
+    Transform<ColorLogicOperation::AndInverted> AndInverted;
+    Transform<ColorLogicOperation::Noop> Noop;
+    Transform<ColorLogicOperation::Xor> Xor;
+    Transform<ColorLogicOperation::Or> Or;
+    Transform<ColorLogicOperation::Nor> Nor;
+    Transform<ColorLogicOperation::Equiv> Equiv;
+    Transform<ColorLogicOperation::Invert> Invert;
+    Transform<ColorLogicOperation::OrReverse> OrReverse;
+    Transform<ColorLogicOperation::CopyInverted> CopyInverted;
+    Transform<ColorLogicOperation::OrInverted> OrInverted;
+    Transform<ColorLogicOperation::Nand> Nand;
+    Transform<ColorLogicOperation::Set> Set;
 };
 
 } // namespace enums
 #endif
 //]
-

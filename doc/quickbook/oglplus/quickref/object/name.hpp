@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -7,33 +7,32 @@
 //[oglplus_object_name
 
 template <typename __ObjTag>
-class ObjectName
-{
+class ObjectName {
 public:
-	ObjectName(void) noexcept; /*<
-	Constructs a wrapper for object
-	with name [^0] (zero).
-	>*/
+    ObjectName() noexcept; /*<
+    Constructs a wrapper for object
+    with name [^0] (zero).
+    >*/
 
-	explicit ObjectName(GLuint name) noexcept; /*<
-	Constructs a wrapper for an object
-	with the specified [^name].
-	>*/
+    explicit ObjectName(GLuint name) noexcept; /*<
+    Constructs a wrapper for an object
+    with the specified [^name].
+    >*/
 
-	ObjectName(const ObjectName&) noexcept;
-	ObjectName(ObjectName&&) noexcept;
+    ObjectName(const ObjectName&) noexcept;
+    ObjectName(ObjectName&&) noexcept;
 
-	ObjectName& operator = (const ObjectName&) noexcept;
-	ObjectName& operator = (ObjectName&&) noexcept;
+    ObjectName& operator=(const ObjectName&) noexcept;
+    ObjectName& operator=(ObjectName&&) noexcept;
 
-	friend bool operator == (ObjectName, ObjectName);
-	friend bool operator != (ObjectName, ObjectName);
-	friend bool operator <  (ObjectName, ObjectName);
+    friend bool operator==(ObjectName, ObjectName);
+    friend bool operator!=(ObjectName, ObjectName);
+    friend bool operator<(ObjectName, ObjectName);
 };
 
 template <typename ObjTag>
 GLuint GetGLName(__ObjectName<__ObjTag> named); /*<
-	Allows to access the 'raw' GL object name.
+    Allows to access the 'raw' GL object name.
 >*/
 
 //]
@@ -54,4 +53,3 @@ typedef ObjectName<tag::PerfMonitorAMD> PerfMonitorAMDName;
 typedef ObjectName<tag::PathNV> PathNVName;
 
 //]
-

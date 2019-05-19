@@ -11,11 +11,10 @@
 //
 //[oglplus_enums_ext_nv_path_font_target
 
-enum class PathNVFontTarget : GLenum
-{
-	Standard = GL_STANDARD_FONT_NAME_NV,
-	System   = GL_SYSTEM_FONT_NAME_NV,
-	FileName = GL_FILE_NAME_NV
+enum class PathNVFontTarget : GLenum {
+    Standard = GL_STANDARD_FONT_NAME_NV,
+    System = GL_SYSTEM_FONT_NAME_NV,
+    FileName = GL_FILE_NAME_NV
 };
 
 template <>

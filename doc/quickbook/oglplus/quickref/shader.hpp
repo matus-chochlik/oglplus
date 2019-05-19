@@ -57,11 +57,11 @@ public:
     See [glfunc GetShader], [glconst COMPILE_STATUS].
     >*/
 
-    ObjectOps& Compile();                          /*<
-                             Compiles [^this] shader.
-                             Throws __CompileError if the shader cannot be compiled.
-                             See [glfunc CompileShader].
-                             >*/
+    ObjectOps& Compile(); /*<
+    Compiles [^this] shader.
+    Throws __CompileError if the shader cannot be compiled.
+    See [glfunc CompileShader].
+    >*/
     __Outcome<ObjectOps&> Compile(std::nothrow_t); /*<
     This overload of [^Compile] defers the error handling.
     >*/

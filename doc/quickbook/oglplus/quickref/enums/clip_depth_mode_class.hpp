@@ -13,23 +13,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ClipDepthMode> class Transform>
+template <typename Base, template <__ClipDepthMode> class Transform>
 class __EnumToClass<Base, __ClipDepthMode, Transform> /*<
 Specialization of __EnumToClass for the __ClipDepthMode enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ClipDepthMode::NegativeOneToOne>
-		NegativeOneToOne;
-	Transform<ClipDepthMode::ZeroToOne>
-		ZeroToOne;
+    Transform<ClipDepthMode::NegativeOneToOne> NegativeOneToOne;
+    Transform<ClipDepthMode::ZeroToOne> ZeroToOne;
 };
 
 } // namespace enums
 #endif
 //]
-

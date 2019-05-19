@@ -13,27 +13,21 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__BufferIndexedTarget> class Transform>
+template <typename Base, template <__BufferIndexedTarget> class Transform>
 class __EnumToClass<Base, __BufferIndexedTarget, Transform> /*<
 Specialization of __EnumToClass for the __BufferIndexedTarget enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<BufferIndexedTarget::AtomicCounter>
-		AtomicCounter;
-	Transform<BufferIndexedTarget::ShaderStorage>
-		ShaderStorage;
-	Transform<BufferIndexedTarget::TransformFeedback>
-		TransformFeedback;
-	Transform<BufferIndexedTarget::Uniform>
-		Uniform;
+    Transform<BufferIndexedTarget::AtomicCounter> AtomicCounter;
+    Transform<BufferIndexedTarget::ShaderStorage> ShaderStorage;
+    Transform<BufferIndexedTarget::TransformFeedback> TransformFeedback;
+    Transform<BufferIndexedTarget::Uniform> Uniform;
 };
 
 } // namespace enums
 #endif
 //]
-

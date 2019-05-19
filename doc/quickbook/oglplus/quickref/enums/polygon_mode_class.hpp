@@ -13,27 +13,21 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PolygonMode> class Transform>
+template <typename Base, template <__PolygonMode> class Transform>
 class __EnumToClass<Base, __PolygonMode, Transform> /*<
 Specialization of __EnumToClass for the __PolygonMode enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PolygonMode::Point>
-		Point;
-	Transform<PolygonMode::Line>
-		Line;
-	Transform<PolygonMode::Fill>
-		Fill;
-	Transform<PolygonMode::FillRectangle>
-		FillRectangle;
+    Transform<PolygonMode::Point> Point;
+    Transform<PolygonMode::Line> Line;
+    Transform<PolygonMode::Fill> Fill;
+    Transform<PolygonMode::FillRectangle> FillRectangle;
 };
 
 } // namespace enums
 #endif
 //]
-

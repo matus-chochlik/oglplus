@@ -6,7 +6,6 @@
 
 //[oglplus_string_ref_ios
 
-std::ostream& operator << (std::ostream& out, const StrCRef& str);
+std::ostream& operator<<(std::ostream& out, const StrCRef& str);
 
 //]
-

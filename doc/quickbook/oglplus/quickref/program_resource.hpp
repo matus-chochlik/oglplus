@@ -8,10 +8,10 @@
 
 class ProgramResource {
 public:
-    GLint GetIntParam(__ProgramResourceProperty property) const;      /*<
-         Gets the value of a single property (as a GLint).
-         See [glfunc GetProgramResource].
-         >*/
+    GLint GetIntParam(__ProgramResourceProperty property) const; /*<
+    Gets the value of a single property (as a GLint).
+    See [glfunc GetProgramResource].
+    >*/
     __Boolean GetBoolParam(__ProgramResourceProperty property) const; /*<
     Gets the value of a single property (as a boolean value).
     >*/

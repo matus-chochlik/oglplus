@@ -13,23 +13,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__SingleFace> class Transform>
+template <typename Base, template <__SingleFace> class Transform>
 class __EnumToClass<Base, __SingleFace, Transform> /*<
 Specialization of __EnumToClass for the __SingleFace enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<SingleFace::Front>
-		Front;
-	Transform<SingleFace::Back>
-		Back;
+    Transform<SingleFace::Front> Front;
+    Transform<SingleFace::Back> Back;
 };
 
 } // namespace enums
 #endif
 //]
-

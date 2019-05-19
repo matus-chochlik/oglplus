@@ -13,23 +13,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ClipOrigin> class Transform>
+template <typename Base, template <__ClipOrigin> class Transform>
 class __EnumToClass<Base, __ClipOrigin, Transform> /*<
 Specialization of __EnumToClass for the __ClipOrigin enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ClipOrigin::LowerLeft>
-		LowerLeft;
-	Transform<ClipOrigin::UpperLeft>
-		UpperLeft;
+    Transform<ClipOrigin::LowerLeft> LowerLeft;
+    Transform<ClipOrigin::UpperLeft> UpperLeft;
 };
 
 } // namespace enums
 #endif
 //]
-

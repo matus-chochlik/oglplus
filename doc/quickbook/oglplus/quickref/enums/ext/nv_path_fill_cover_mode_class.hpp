@@ -1,4 +1,5 @@
-//  File doc/quickbook/oglplus/quickref/enums/ext/nv_path_fill_cover_mode_class.hpp
+//  File
+//  doc/quickbook/oglplus/quickref/enums/ext/nv_path_fill_cover_mode_class.hpp
 //
 //  Automatically generated file, DO NOT modify manually.
 //  Edit the source 'source/enums/oglplus/ext/nv_path_fill_cover_mode.txt'
@@ -13,27 +14,22 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PathNVFillCoverMode> class Transform>
+template <typename Base, template <__PathNVFillCoverMode> class Transform>
 class __EnumToClass<Base, __PathNVFillCoverMode, Transform> /*<
 Specialization of __EnumToClass for the __PathNVFillCoverMode enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PathNVFillCoverMode::ConvexHull>
-		ConvexHull;
-	Transform<PathNVFillCoverMode::BoundingBox>
-		BoundingBox;
-	Transform<PathNVFillCoverMode::BoundingBoxOfBoundingBoxes>
-		BoundingBoxOfBoundingBoxes;
-	Transform<PathNVFillCoverMode::FillCover>
-		FillCover;
+    Transform<PathNVFillCoverMode::ConvexHull> ConvexHull;
+    Transform<PathNVFillCoverMode::BoundingBox> BoundingBox;
+    Transform<PathNVFillCoverMode::BoundingBoxOfBoundingBoxes>
+      BoundingBoxOfBoundingBoxes;
+    Transform<PathNVFillCoverMode::FillCover> FillCover;
 };
 
 } // namespace enums
 #endif
 //]
-

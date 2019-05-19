@@ -13,27 +13,21 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PathNVFillMode> class Transform>
+template <typename Base, template <__PathNVFillMode> class Transform>
 class __EnumToClass<Base, __PathNVFillMode, Transform> /*<
 Specialization of __EnumToClass for the __PathNVFillMode enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PathNVFillMode::Invert>
-		Invert;
-	Transform<PathNVFillMode::CountUp>
-		CountUp;
-	Transform<PathNVFillMode::CountDown>
-		CountDown;
-	Transform<PathNVFillMode::FillMode>
-		FillMode;
+    Transform<PathNVFillMode::Invert> Invert;
+    Transform<PathNVFillMode::CountUp> CountUp;
+    Transform<PathNVFillMode::CountDown> CountDown;
+    Transform<PathNVFillMode::FillMode> FillMode;
 };
 
 } // namespace enums
 #endif
 //]
-

@@ -13,23 +13,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__TextureCompareMode> class Transform>
+template <typename Base, template <__TextureCompareMode> class Transform>
 class __EnumToClass<Base, __TextureCompareMode, Transform> /*<
 Specialization of __EnumToClass for the __TextureCompareMode enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<TextureCompareMode::None>
-		None;
-	Transform<TextureCompareMode::CompareRefToTexture>
-		CompareRefToTexture;
+    Transform<TextureCompareMode::None> None;
+    Transform<TextureCompareMode::CompareRefToTexture> CompareRefToTexture;
 };
 
 } // namespace enums
 #endif
 //]
-

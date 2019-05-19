@@ -11,18 +11,17 @@
 //
 //[oglplus_enums_debug_output_type
 
-enum class DebugOutputType : GLenum
-{
-	Error              = GL_DEBUG_TYPE_ERROR,
-	DeprecatedBehavior = GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR,
-	UndefinedBehavior  = GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR,
-	Portability        = GL_DEBUG_TYPE_PORTABILITY,
-	Performance        = GL_DEBUG_TYPE_PERFORMANCE,
-	Marker             = GL_DEBUG_TYPE_MARKER,
-	PushGroup          = GL_DEBUG_TYPE_PUSH_GROUP,
-	PopGroup           = GL_DEBUG_TYPE_POP_GROUP,
-	Other              = GL_DEBUG_TYPE_OTHER,
-	DontCare           = GL_DONT_CARE
+enum class DebugOutputType : GLenum {
+    Error = GL_DEBUG_TYPE_ERROR,
+    DeprecatedBehavior = GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR,
+    UndefinedBehavior = GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR,
+    Portability = GL_DEBUG_TYPE_PORTABILITY,
+    Performance = GL_DEBUG_TYPE_PERFORMANCE,
+    Marker = GL_DEBUG_TYPE_MARKER,
+    PushGroup = GL_DEBUG_TYPE_PUSH_GROUP,
+    PopGroup = GL_DEBUG_TYPE_POP_GROUP,
+    Other = GL_DEBUG_TYPE_OTHER,
+    DontCare = GL_DONT_CARE
 };
 
 template <>

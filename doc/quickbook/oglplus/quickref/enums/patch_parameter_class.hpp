@@ -13,25 +13,20 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PatchParameter> class Transform>
+template <typename Base, template <__PatchParameter> class Transform>
 class __EnumToClass<Base, __PatchParameter, Transform> /*<
 Specialization of __EnumToClass for the __PatchParameter enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PatchParameter::PatchVertices>
-		PatchVertices;
-	Transform<PatchParameter::PatchDefaultOuterLevel>
-		PatchDefaultOuterLevel;
-	Transform<PatchParameter::PatchDefaultInnerLevel>
-		PatchDefaultInnerLevel;
+    Transform<PatchParameter::PatchVertices> PatchVertices;
+    Transform<PatchParameter::PatchDefaultOuterLevel> PatchDefaultOuterLevel;
+    Transform<PatchParameter::PatchDefaultInnerLevel> PatchDefaultInnerLevel;
 };
 
 } // namespace enums
 #endif
 //]
-

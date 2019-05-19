@@ -11,14 +11,14 @@
 //
 //[oglplus_enums_reset_notif_strategy
 
-enum class ResetNotificationStrategy : GLenum
-{
-	NoResetNotification = GL_NO_RESET_NOTIFICATION,
-	LoseContextOnReset  = GL_LOSE_CONTEXT_ON_RESET
+enum class ResetNotificationStrategy : GLenum {
+    NoResetNotification = GL_NO_RESET_NOTIFICATION,
+    LoseContextOnReset = GL_LOSE_CONTEXT_ON_RESET
 };
 
 template <>
-__Range<ResetNotificationStrategy> __EnumValueRange<ResetNotificationStrategy>();
+__Range<ResetNotificationStrategy>
+__EnumValueRange<ResetNotificationStrategy>();
 
 __StrCRef __EnumValueName(ResetNotificationStrategy);
 

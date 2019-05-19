@@ -22,20 +22,20 @@ public:
     Begins a query on the specified [^target].
     See [glfunc BeginQuery].
     >*/
-    void End(__QueryTarget target);   /*<
-      Ends the currently active query on the specified [^target].
-      See [glfunc EndQuery].
-      >*/
+    void End(__QueryTarget target); /*<
+    Ends the currently active query on the specified [^target].
+    See [glfunc EndQuery].
+    >*/
 
 #if GL_VERSION_3_0
     void BeginConditionalRender(__ConditionalRenderMode mode); /*<
     Begins conditional render on the query in the specified [^mode].
     See [glfunc BeginConditionalRender].
     >*/
-    static void EndConditionalRender();                        /*<
-                           Ends currently active conditional render.
-                           See [glfunc EndConditionalRender].
-                           >*/
+    static void EndConditionalRender(); /*<
+    Ends currently active conditional render.
+    See [glfunc EndConditionalRender].
+    >*/
 #endif
 
 #if GL_VERSION_3_3 || GL_ARB_timer_query
@@ -43,10 +43,10 @@ public:
     Does a counter query on the specified [^target].
     See [glfunc QueryCounter].
     >*/
-    void Timestamp();                   /*<
-                      Does a timestamp query.
-                      See [glfunc QueryCounter], [glconst TIMESTAMP].
-                      >*/
+    void Timestamp(); /*<
+    Does a timestamp query.
+    See [glfunc QueryCounter], [glconst TIMESTAMP].
+    >*/
 #endif
 
     __Boolean ResultAvailable() const; /*<

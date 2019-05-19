@@ -11,28 +11,28 @@
 //
 //[oglplus_enums_framebuffer_color_attachment
 
-enum class FramebufferColorAttachment : GLenum
-{
-	_0  = GL_COLOR_ATTACHMENT0,
-	_1  = GL_COLOR_ATTACHMENT1,
-	_2  = GL_COLOR_ATTACHMENT2,
-	_3  = GL_COLOR_ATTACHMENT3,
-	_4  = GL_COLOR_ATTACHMENT4,
-	_5  = GL_COLOR_ATTACHMENT5,
-	_6  = GL_COLOR_ATTACHMENT6,
-	_7  = GL_COLOR_ATTACHMENT7,
-	_8  = GL_COLOR_ATTACHMENT8,
-	_9  = GL_COLOR_ATTACHMENT9,
-	_10 = GL_COLOR_ATTACHMENT10,
-	_11 = GL_COLOR_ATTACHMENT11,
-	_12 = GL_COLOR_ATTACHMENT12,
-	_13 = GL_COLOR_ATTACHMENT13,
-	_14 = GL_COLOR_ATTACHMENT14,
-	_15 = GL_COLOR_ATTACHMENT15
+enum class FramebufferColorAttachment : GLenum {
+    _0 = GL_COLOR_ATTACHMENT0,
+    _1 = GL_COLOR_ATTACHMENT1,
+    _2 = GL_COLOR_ATTACHMENT2,
+    _3 = GL_COLOR_ATTACHMENT3,
+    _4 = GL_COLOR_ATTACHMENT4,
+    _5 = GL_COLOR_ATTACHMENT5,
+    _6 = GL_COLOR_ATTACHMENT6,
+    _7 = GL_COLOR_ATTACHMENT7,
+    _8 = GL_COLOR_ATTACHMENT8,
+    _9 = GL_COLOR_ATTACHMENT9,
+    _10 = GL_COLOR_ATTACHMENT10,
+    _11 = GL_COLOR_ATTACHMENT11,
+    _12 = GL_COLOR_ATTACHMENT12,
+    _13 = GL_COLOR_ATTACHMENT13,
+    _14 = GL_COLOR_ATTACHMENT14,
+    _15 = GL_COLOR_ATTACHMENT15
 };
 
 template <>
-__Range<FramebufferColorAttachment> __EnumValueRange<FramebufferColorAttachment>();
+__Range<FramebufferColorAttachment>
+__EnumValueRange<FramebufferColorAttachment>();
 
 __StrCRef __EnumValueName(FramebufferColorAttachment);
 

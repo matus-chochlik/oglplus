@@ -11,13 +11,12 @@
 //
 //[oglplus_enums_texture_swizzle_coord
 
-enum class TextureSwizzleCoord : GLenum
-{
-	R    = GL_TEXTURE_SWIZZLE_R,
-	G    = GL_TEXTURE_SWIZZLE_G,
-	B    = GL_TEXTURE_SWIZZLE_B,
-	A    = GL_TEXTURE_SWIZZLE_A,
-	RGBA = GL_TEXTURE_SWIZZLE_RGBA
+enum class TextureSwizzleCoord : GLenum {
+    R = GL_TEXTURE_SWIZZLE_R,
+    G = GL_TEXTURE_SWIZZLE_G,
+    B = GL_TEXTURE_SWIZZLE_B,
+    A = GL_TEXTURE_SWIZZLE_A,
+    RGBA = GL_TEXTURE_SWIZZLE_RGBA
 };
 
 template <>

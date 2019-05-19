@@ -11,10 +11,7 @@
 //
 //[oglplus_enums_named_string_type
 
-enum class NamedStringType : GLenum
-{
-	ShaderInclude = GL_SHADER_INCLUDE_ARB
-};
+enum class NamedStringType : GLenum { ShaderInclude = GL_SHADER_INCLUDE_ARB };
 
 template <>
 __Range<NamedStringType> __EnumValueRange<NamedStringType>();

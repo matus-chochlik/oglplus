@@ -13,27 +13,21 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__GraphicsResetStatus> class Transform>
+template <typename Base, template <__GraphicsResetStatus> class Transform>
 class __EnumToClass<Base, __GraphicsResetStatus, Transform> /*<
 Specialization of __EnumToClass for the __GraphicsResetStatus enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<GraphicsResetStatus::NoError>
-		NoError;
-	Transform<GraphicsResetStatus::GuiltyContextReset>
-		GuiltyContextReset;
-	Transform<GraphicsResetStatus::InnocentContextReset>
-		InnocentContextReset;
-	Transform<GraphicsResetStatus::UnknownContextReset>
-		UnknownContextReset;
+    Transform<GraphicsResetStatus::NoError> NoError;
+    Transform<GraphicsResetStatus::GuiltyContextReset> GuiltyContextReset;
+    Transform<GraphicsResetStatus::InnocentContextReset> InnocentContextReset;
+    Transform<GraphicsResetStatus::UnknownContextReset> UnknownContextReset;
 };
 
 } // namespace enums
 #endif
 //]
-

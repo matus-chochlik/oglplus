@@ -13,59 +13,45 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ProgramInterface> class Transform>
+template <typename Base, template <__ProgramInterface> class Transform>
 class __EnumToClass<Base, __ProgramInterface, Transform> /*<
 Specialization of __EnumToClass for the __ProgramInterface enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ProgramInterface::Uniform>
-		Uniform;
-	Transform<ProgramInterface::UniformBlock>
-		UniformBlock;
-	Transform<ProgramInterface::AtomicCounterBuffer>
-		AtomicCounterBuffer;
-	Transform<ProgramInterface::ProgramInput>
-		ProgramInput;
-	Transform<ProgramInterface::ProgramOutput>
-		ProgramOutput;
-	Transform<ProgramInterface::VertexSubroutine>
-		VertexSubroutine;
-	Transform<ProgramInterface::TessControlSubroutine>
-		TessControlSubroutine;
-	Transform<ProgramInterface::TessEvaluationSubroutine>
-		TessEvaluationSubroutine;
-	Transform<ProgramInterface::GeometrySubroutine>
-		GeometrySubroutine;
-	Transform<ProgramInterface::FragmentSubroutine>
-		FragmentSubroutine;
-	Transform<ProgramInterface::ComputeSubroutine>
-		ComputeSubroutine;
-	Transform<ProgramInterface::VertexSubroutineUniform>
-		VertexSubroutineUniform;
-	Transform<ProgramInterface::TessControlSubroutineUniform>
-		TessControlSubroutineUniform;
-	Transform<ProgramInterface::TessEvaluationSubroutineUniform>
-		TessEvaluationSubroutineUniform;
-	Transform<ProgramInterface::GeometrySubroutineUniform>
-		GeometrySubroutineUniform;
-	Transform<ProgramInterface::FragmentSubroutineUniform>
-		FragmentSubroutineUniform;
-	Transform<ProgramInterface::ComputeSubroutineUniform>
-		ComputeSubroutineUniform;
-	Transform<ProgramInterface::TransformFeedebackVarying>
-		TransformFeedebackVarying;
-	Transform<ProgramInterface::BufferVariable>
-		BufferVariable;
-	Transform<ProgramInterface::ShaderStorageBlock>
-		ShaderStorageBlock;
+    Transform<ProgramInterface::Uniform> Uniform;
+    Transform<ProgramInterface::UniformBlock> UniformBlock;
+    Transform<ProgramInterface::AtomicCounterBuffer> AtomicCounterBuffer;
+    Transform<ProgramInterface::ProgramInput> ProgramInput;
+    Transform<ProgramInterface::ProgramOutput> ProgramOutput;
+    Transform<ProgramInterface::VertexSubroutine> VertexSubroutine;
+    Transform<ProgramInterface::TessControlSubroutine> TessControlSubroutine;
+    Transform<ProgramInterface::TessEvaluationSubroutine>
+      TessEvaluationSubroutine;
+    Transform<ProgramInterface::GeometrySubroutine> GeometrySubroutine;
+    Transform<ProgramInterface::FragmentSubroutine> FragmentSubroutine;
+    Transform<ProgramInterface::ComputeSubroutine> ComputeSubroutine;
+    Transform<ProgramInterface::VertexSubroutineUniform>
+      VertexSubroutineUniform;
+    Transform<ProgramInterface::TessControlSubroutineUniform>
+      TessControlSubroutineUniform;
+    Transform<ProgramInterface::TessEvaluationSubroutineUniform>
+      TessEvaluationSubroutineUniform;
+    Transform<ProgramInterface::GeometrySubroutineUniform>
+      GeometrySubroutineUniform;
+    Transform<ProgramInterface::FragmentSubroutineUniform>
+      FragmentSubroutineUniform;
+    Transform<ProgramInterface::ComputeSubroutineUniform>
+      ComputeSubroutineUniform;
+    Transform<ProgramInterface::TransformFeedebackVarying>
+      TransformFeedebackVarying;
+    Transform<ProgramInterface::BufferVariable> BufferVariable;
+    Transform<ProgramInterface::ShaderStorageBlock> ShaderStorageBlock;
 };
 
 } // namespace enums
 #endif
 //]
-

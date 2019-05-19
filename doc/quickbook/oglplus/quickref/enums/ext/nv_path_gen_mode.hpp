@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_ext_nv_path_gen_mode
 
-enum class PathNVGenMode : GLenum
-{
-	None              = GL_NONE,
-	EyeLinear         = GL_EYE_LINEAR,
-	ObjectLinear      = GL_OBJECT_LINEAR,
-	ObjectBoundingBox = GL_PATH_OBJECT_BOUNDING_BOX_NV
+enum class PathNVGenMode : GLenum {
+    None = GL_NONE,
+    EyeLinear = GL_EYE_LINEAR,
+    ObjectLinear = GL_OBJECT_LINEAR,
+    ObjectBoundingBox = GL_PATH_OBJECT_BOUNDING_BOX_NV
 };
 
 template <>

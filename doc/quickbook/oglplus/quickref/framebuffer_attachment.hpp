@@ -7,16 +7,14 @@
 //[oglplus_framebuffer_color_attachment_number
 
 class FramebufferColorAttachmentNumber
- : public __LimitedCount<GL_MAX_COLOR_ATTACHMENTS>
-{
+  : public __LimitedCount<GL_MAX_COLOR_ATTACHMENTS> {
 public:
-	FramebufferColorAttachmentNumber(GLuint number); /*<
-	Throws __LimitError if [^number] is greater than
-	the implementation-dependent maximum number of framebuffer
-	color attachments.
-	See [glconst MAX_COLOR_ATTACHMENTS].
-	>*/
+    FramebufferColorAttachmentNumber(GLuint number); /*<
+    Throws __LimitError if [^number] is greater than
+    the implementation-dependent maximum number of framebuffer
+    color attachments.
+    See [glconst MAX_COLOR_ATTACHMENTS].
+    >*/
 };
 
 //]
-

@@ -11,11 +11,7 @@
 //
 //[oglplus_enums_blit_filter
 
-enum class BlitFilter : GLenum
-{
-	Nearest = GL_NEAREST,
-	Linear  = GL_LINEAR
-};
+enum class BlitFilter : GLenum { Nearest = GL_NEAREST, Linear = GL_LINEAR };
 
 template <>
 __Range<BlitFilter> __EnumValueRange<BlitFilter>();

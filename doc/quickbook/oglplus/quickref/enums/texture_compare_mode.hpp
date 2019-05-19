@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_texture_compare_mode
 
-enum class TextureCompareMode : GLenum
-{
-	None                = GL_NONE,
-	CompareRefToTexture = GL_COMPARE_REF_TO_TEXTURE
+enum class TextureCompareMode : GLenum {
+    None = GL_NONE,
+    CompareRefToTexture = GL_COMPARE_REF_TO_TEXTURE
 };
 
 template <>

@@ -13,23 +13,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__SyncStatus> class Transform>
+template <typename Base, template <__SyncStatus> class Transform>
 class __EnumToClass<Base, __SyncStatus, Transform> /*<
 Specialization of __EnumToClass for the __SyncStatus enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<SyncStatus::Signaled>
-		Signaled;
-	Transform<SyncStatus::Unsignaled>
-		Unsignaled;
+    Transform<SyncStatus::Signaled> Signaled;
+    Transform<SyncStatus::Unsignaled> Unsignaled;
 };
 
 } // namespace enums
 #endif
 //]
-

@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_ext_nv_path_format
 
-enum class PathNVFormat : GLenum
-{
-	SVG = GL_PATH_FORMAT_SVG_NV,
-	PS  = GL_PATH_FORMAT_PS_NV
+enum class PathNVFormat : GLenum {
+    SVG = GL_PATH_FORMAT_SVG_NV,
+    PS = GL_PATH_FORMAT_PS_NV
 };
 
 template <>

@@ -13,33 +13,24 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__DebugOutputARBType> class Transform>
+template <typename Base, template <__DebugOutputARBType> class Transform>
 class __EnumToClass<Base, __DebugOutputARBType, Transform> /*<
 Specialization of __EnumToClass for the __DebugOutputARBType enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<DebugOutputARBType::Error>
-		Error;
-	Transform<DebugOutputARBType::DeprecatedBehavior>
-		DeprecatedBehavior;
-	Transform<DebugOutputARBType::UndefinedBehavior>
-		UndefinedBehavior;
-	Transform<DebugOutputARBType::Portability>
-		Portability;
-	Transform<DebugOutputARBType::Performance>
-		Performance;
-	Transform<DebugOutputARBType::Other>
-		Other;
-	Transform<DebugOutputARBType::DontCare>
-		DontCare;
+    Transform<DebugOutputARBType::Error> Error;
+    Transform<DebugOutputARBType::DeprecatedBehavior> DeprecatedBehavior;
+    Transform<DebugOutputARBType::UndefinedBehavior> UndefinedBehavior;
+    Transform<DebugOutputARBType::Portability> Portability;
+    Transform<DebugOutputARBType::Performance> Performance;
+    Transform<DebugOutputARBType::Other> Other;
+    Transform<DebugOutputARBType::DontCare> DontCare;
 };
 
 } // namespace enums
 #endif
 //]
-

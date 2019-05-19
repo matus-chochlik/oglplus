@@ -6,10 +6,8 @@
 
 //[oglplus_utils_Nothing
 
-struct Nothing
-{
-	typedef Nothing Type;
+struct Nothing {
+    typedef Nothing Type;
 };
 
 //]
-

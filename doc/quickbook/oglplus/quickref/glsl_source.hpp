@@ -6,45 +6,37 @@
 
 //[oglplus_glsl_source
 
-class GLSLSource
-{
+class GLSLSource {
 public:
-	GLSLSource(GLSLSource&& tmp);
+    GLSLSource(GLSLSource&& tmp);
 
-	explicit
-	GLSLSource(const __StrCRef& source);
+    explicit GLSLSource(const __StrCRef& source);
 
-	GLSLSource(const std::vector<__StrCRef>& lits);
+    GLSLSource(const std::vector<__StrCRef>& lits);
 
-	template <size_t N>
-	GLSLSource(const __StrCRef (&lits)[N]);
+    template <size_t N>
+    GLSLSource(const __StrCRef (&lits)[N]);
 
-	GLSLSource(const std::vector<__String>& strs);
+    GLSLSource(const std::vector<__String>& strs);
 
-	GLSLSource(std::initializer_list<__StrCRef> lits);
+    GLSLSource(std::initializer_list<__StrCRef> lits);
 
-	GLSLSource(std::initializer_list<__String> strs);
+    GLSLSource(std::initializer_list<__String> strs);
 
-	explicit
-	GLSLSource(const __String& source);
+    explicit GLSLSource(const __String& source);
 
-	explicit
-	GLSLSource(__String&& source);
+    explicit GLSLSource(__String&& source);
 
-	static
-	GLSLSource FromStream(std::istream& input); /*<
-	Constructs a new [^GLSLSource] from the data read from
-	the specified standard [^input] stream.
-	>*/
+    static GLSLSource FromStream(std::istream& input); /*<
+           Constructs a new [^GLSLSource] from the data read from
+           the specified standard [^input] stream.
+           >*/
 
-	static
-	GLSLSource FromFile(const char* path); /*<
-	Constructs a new [^GLSLSource] from the data read from
-	a file located at the specified [^path].
-	>*/
-	static
-	GLSLSource FromFile(const __String& path);
+    static GLSLSource FromFile(const char* path); /*<
+           Constructs a new [^GLSLSource] from the data read from
+           a file located at the specified [^path].
+           >*/
+    static GLSLSource FromFile(const __String& path);
 };
 
 //]
-

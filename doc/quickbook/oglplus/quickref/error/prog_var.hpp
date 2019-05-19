@@ -10,12 +10,12 @@ class ProgVarError : public __Error {
 public:
     ProgVarError(const char* message);
 
-    const char* ObjectTypeName();  /*<
-     Returns the string [^"PROGRAM"].
-     >*/
-    GLint ObjectName() const;      /*<
-         Returns the ['raw] GL name of the program related to this error.
-         >*/
+    const char* ObjectTypeName(); /*<
+    Returns the string [^"PROGRAM"].
+    >*/
+    GLint ObjectName() const; /*<
+    Returns the ['raw] GL name of the program related to this error.
+    >*/
     __ProgramName Program() const; /*<
     Returns the name of the program related to this error.
     >*/

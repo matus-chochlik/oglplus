@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_buffer_indexed_target
 
-enum class BufferIndexedTarget : GLenum
-{
-	AtomicCounter     = GL_ATOMIC_COUNTER_BUFFER,
-	ShaderStorage     = GL_SHADER_STORAGE_BUFFER,
-	TransformFeedback = GL_TRANSFORM_FEEDBACK_BUFFER,
-	Uniform           = GL_UNIFORM_BUFFER
+enum class BufferIndexedTarget : GLenum {
+    AtomicCounter = GL_ATOMIC_COUNTER_BUFFER,
+    ShaderStorage = GL_SHADER_STORAGE_BUFFER,
+    TransformFeedback = GL_TRANSFORM_FEEDBACK_BUFFER,
+    Uniform = GL_UNIFORM_BUFFER
 };
 
 template <>

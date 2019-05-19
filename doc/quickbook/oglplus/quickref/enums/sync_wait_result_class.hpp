@@ -13,27 +13,21 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__SyncWaitResult> class Transform>
+template <typename Base, template <__SyncWaitResult> class Transform>
 class __EnumToClass<Base, __SyncWaitResult, Transform> /*<
 Specialization of __EnumToClass for the __SyncWaitResult enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<SyncWaitResult::ConditionSatisfied>
-		ConditionSatisfied;
-	Transform<SyncWaitResult::AlreadySignaled>
-		AlreadySignaled;
-	Transform<SyncWaitResult::TimeoutExpired>
-		TimeoutExpired;
-	Transform<SyncWaitResult::WaitFailed>
-		WaitFailed;
+    Transform<SyncWaitResult::ConditionSatisfied> ConditionSatisfied;
+    Transform<SyncWaitResult::AlreadySignaled> AlreadySignaled;
+    Transform<SyncWaitResult::TimeoutExpired> TimeoutExpired;
+    Transform<SyncWaitResult::WaitFailed> WaitFailed;
 };
 
 } // namespace enums
 #endif
 //]
-

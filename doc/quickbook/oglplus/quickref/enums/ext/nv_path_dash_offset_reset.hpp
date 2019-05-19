@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_ext_nv_path_dash_offset_reset
 
-enum class PathNVDashOffsetReset : GLenum
-{
-	MoveToReset     = GL_MOVE_TO_RESET_NV,
-	MoveToContinues = GL_MOVE_TO_CONTINUES_NV
+enum class PathNVDashOffsetReset : GLenum {
+    MoveToReset = GL_MOVE_TO_RESET_NV,
+    MoveToContinues = GL_MOVE_TO_CONTINUES_NV
 };
 
 template <>

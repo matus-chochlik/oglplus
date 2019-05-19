@@ -29,6 +29,4 @@ convertible to __Sequence<Shader> accepted by [^__Program::AttachShaders].
 >*/
 prog.Link();
 
-
 //]
-

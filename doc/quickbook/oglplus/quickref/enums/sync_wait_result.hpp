@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_sync_wait_result
 
-enum class SyncWaitResult : GLenum
-{
-	ConditionSatisfied = GL_CONDITION_SATISFIED,
-	AlreadySignaled    = GL_ALREADY_SIGNALED,
-	TimeoutExpired     = GL_TIMEOUT_EXPIRED,
-	WaitFailed         = GL_WAIT_FAILED
+enum class SyncWaitResult : GLenum {
+    ConditionSatisfied = GL_CONDITION_SATISFIED,
+    AlreadySignaled = GL_ALREADY_SIGNALED,
+    TimeoutExpired = GL_TIMEOUT_EXPIRED,
+    WaitFailed = GL_WAIT_FAILED
 };
 
 template <>

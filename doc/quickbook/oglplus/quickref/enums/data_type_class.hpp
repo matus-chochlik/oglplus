@@ -13,39 +13,27 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__DataType> class Transform>
+template <typename Base, template <__DataType> class Transform>
 class __EnumToClass<Base, __DataType, Transform> /*<
 Specialization of __EnumToClass for the __DataType enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<DataType::Byte>
-		Byte;
-	Transform<DataType::Short>
-		Short;
-	Transform<DataType::Int>
-		Int;
-	Transform<DataType::Fixed>
-		Fixed;
-	Transform<DataType::Float>
-		Float;
-	Transform<DataType::HalfFloat>
-		HalfFloat;
-	Transform<DataType::Double>
-		Double;
-	Transform<DataType::UnsignedByte>
-		UnsignedByte;
-	Transform<DataType::UnsignedShort>
-		UnsignedShort;
-	Transform<DataType::UnsignedInt>
-		UnsignedInt;
+    Transform<DataType::Byte> Byte;
+    Transform<DataType::Short> Short;
+    Transform<DataType::Int> Int;
+    Transform<DataType::Fixed> Fixed;
+    Transform<DataType::Float> Float;
+    Transform<DataType::HalfFloat> HalfFloat;
+    Transform<DataType::Double> Double;
+    Transform<DataType::UnsignedByte> UnsignedByte;
+    Transform<DataType::UnsignedShort> UnsignedShort;
+    Transform<DataType::UnsignedInt> UnsignedInt;
 };
 
 } // namespace enums
 #endif
 //]
-

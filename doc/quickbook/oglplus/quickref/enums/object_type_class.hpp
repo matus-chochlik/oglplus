@@ -13,43 +13,29 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ObjectType> class Transform>
+template <typename Base, template <__ObjectType> class Transform>
 class __EnumToClass<Base, __ObjectType, Transform> /*<
 Specialization of __EnumToClass for the __ObjectType enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ObjectType::Buffer>
-		Buffer;
-	Transform<ObjectType::Framebuffer>
-		Framebuffer;
-	Transform<ObjectType::ProgramPipeline>
-		ProgramPipeline;
-	Transform<ObjectType::Program>
-		Program;
-	Transform<ObjectType::Query>
-		Query;
-	Transform<ObjectType::Renderbuffer>
-		Renderbuffer;
-	Transform<ObjectType::Sampler>
-		Sampler;
-	Transform<ObjectType::Shader>
-		Shader;
-	Transform<ObjectType::Texture>
-		Texture;
-	Transform<ObjectType::TransformFeedback>
-		TransformFeedback;
-	Transform<ObjectType::VertexArray>
-		VertexArray;
-	Transform<ObjectType::None>
-		None;
+    Transform<ObjectType::Buffer> Buffer;
+    Transform<ObjectType::Framebuffer> Framebuffer;
+    Transform<ObjectType::ProgramPipeline> ProgramPipeline;
+    Transform<ObjectType::Program> Program;
+    Transform<ObjectType::Query> Query;
+    Transform<ObjectType::Renderbuffer> Renderbuffer;
+    Transform<ObjectType::Sampler> Sampler;
+    Transform<ObjectType::Shader> Shader;
+    Transform<ObjectType::Texture> Texture;
+    Transform<ObjectType::TransformFeedback> TransformFeedback;
+    Transform<ObjectType::VertexArray> VertexArray;
+    Transform<ObjectType::None> None;
 };
 
 } // namespace enums
 #endif
 //]
-

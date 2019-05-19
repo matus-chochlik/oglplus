@@ -13,39 +13,27 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__DebugOutputType> class Transform>
+template <typename Base, template <__DebugOutputType> class Transform>
 class __EnumToClass<Base, __DebugOutputType, Transform> /*<
 Specialization of __EnumToClass for the __DebugOutputType enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<DebugOutputType::Error>
-		Error;
-	Transform<DebugOutputType::DeprecatedBehavior>
-		DeprecatedBehavior;
-	Transform<DebugOutputType::UndefinedBehavior>
-		UndefinedBehavior;
-	Transform<DebugOutputType::Portability>
-		Portability;
-	Transform<DebugOutputType::Performance>
-		Performance;
-	Transform<DebugOutputType::Marker>
-		Marker;
-	Transform<DebugOutputType::PushGroup>
-		PushGroup;
-	Transform<DebugOutputType::PopGroup>
-		PopGroup;
-	Transform<DebugOutputType::Other>
-		Other;
-	Transform<DebugOutputType::DontCare>
-		DontCare;
+    Transform<DebugOutputType::Error> Error;
+    Transform<DebugOutputType::DeprecatedBehavior> DeprecatedBehavior;
+    Transform<DebugOutputType::UndefinedBehavior> UndefinedBehavior;
+    Transform<DebugOutputType::Portability> Portability;
+    Transform<DebugOutputType::Performance> Performance;
+    Transform<DebugOutputType::Marker> Marker;
+    Transform<DebugOutputType::PushGroup> PushGroup;
+    Transform<DebugOutputType::PopGroup> PopGroup;
+    Transform<DebugOutputType::Other> Other;
+    Transform<DebugOutputType::DontCare> DontCare;
 };
 
 } // namespace enums
 #endif
 //]
-

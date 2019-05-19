@@ -13,23 +13,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PathNVColor> class Transform>
+template <typename Base, template <__PathNVColor> class Transform>
 class __EnumToClass<Base, __PathNVColor, Transform> /*<
 Specialization of __EnumToClass for the __PathNVColor enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PathNVColor::Primary>
-		Primary;
-	Transform<PathNVColor::Secondary>
-		Secondary;
+    Transform<PathNVColor::Primary> Primary;
+    Transform<PathNVColor::Secondary> Secondary;
 };
 
 } // namespace enums
 #endif
 //]
-

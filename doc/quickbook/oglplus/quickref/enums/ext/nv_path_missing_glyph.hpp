@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_ext_nv_path_missing_glyph
 
-enum class PathNVMissingGlyph : GLenum
-{
-	Skip = GL_SKIP_MISSING_GLYPH_NV,
-	Use  = GL_USE_MISSING_GLYPH_NV
+enum class PathNVMissingGlyph : GLenum {
+    Skip = GL_SKIP_MISSING_GLYPH_NV,
+    Use = GL_USE_MISSING_GLYPH_NV
 };
 
 template <>

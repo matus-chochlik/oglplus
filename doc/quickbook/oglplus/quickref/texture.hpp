@@ -21,10 +21,10 @@ public:
     Texture bind target.
     >*/
 
-    static __TextureName Binding(__TextureTarget target);            /*<
-               Returns the texture currently bound to the specified [^target].
-               See [glfunc GetIntegerv].
-               >*/
+    static __TextureName Binding(__TextureTarget target); /*<
+    Returns the texture currently bound to the specified [^target].
+    See [glfunc GetIntegerv].
+    >*/
     static void Bind(__TextureTarget target, __TextureName texture); /*<
     Binds the specified [^texture] to the specified [^target].
     See [glfunc BindTexture].
@@ -261,7 +261,7 @@ See [glfunc GetTexLevelParameter], [glconst TEXTURE_DEPTH_TYPE].
            Returns the actual resolution of all texture components.
            See [glfunc GetTexLevelParameter], [glconst TEXTURE_SHARED_SIZE].
            >*/
-                                                                           //]
+    //]
     //[oglplus_texture_2
     static __SizeType CompressedImageSize(
       __TextureTarget target, GLint level = 0); /*<
@@ -848,7 +848,7 @@ See [glfunc GetTexLevelParameter], [glconst TEXTURE_INTERNAL_FORMAT].
     Sets the maximum level value.
     See [glfunc TexParameter], [glconst TEXTURE_MAX_LEVEL].
     >*/
-                                                               //]
+    //]
     //[oglplus_texture_6
 
     static GLfloat MaxAnisotropy(__TextureTarget target); /*<

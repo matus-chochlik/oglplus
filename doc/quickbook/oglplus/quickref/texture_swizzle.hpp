@@ -61,9 +61,9 @@ public:
     TextureSwizzleTuple& Swizzle(
       __TextureSwizzleCoord coordinate,
       __TextureSwizzle
-        mode);                                                        /*<
-                                                                   Sets the swizzle [^mode] for the specified [^coordinate].
-                                                                   >*/
+        mode); /*<
+            Sets the swizzle [^mode] for the specified [^coordinate].
+            >*/
     __TextureSwizzle Swizzle(__TextureSwizzleCoord coordinate) const; /*<
     Returns the swizzle mode for the specified [^coordinate].
     >*/

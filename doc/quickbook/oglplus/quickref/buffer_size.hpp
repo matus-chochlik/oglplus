@@ -8,7 +8,7 @@
 
 class BufferSize {
 public:
-    BufferSize();                   /*< Constructs a zero size. >*/
+    BufferSize(); /*< Constructs a zero size. >*/
     BufferSize(__BigSizeType size); /*<
     Constructs a [^BufferSize] object from a [^value] in bytes.
     >*/

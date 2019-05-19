@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_ext_graphics_reset_status
 
-enum class GraphicsResetStatusARB : GLenum
-{
-	NoError              = GL_NO_ERROR,
-	GuiltyContextReset   = GL_GUILTY_CONTEXT_RESET_ARB,
-	InnocentContextReset = GL_INNOCENT_CONTEXT_RESET_ARB,
-	UnknownContextReset  = GL_UNKNOWN_CONTEXT_RESET_ARB
+enum class GraphicsResetStatusARB : GLenum {
+    NoError = GL_NO_ERROR,
+    GuiltyContextReset = GL_GUILTY_CONTEXT_RESET_ARB,
+    InnocentContextReset = GL_INNOCENT_CONTEXT_RESET_ARB,
+    UnknownContextReset = GL_UNKNOWN_CONTEXT_RESET_ARB
 };
 
 template <>

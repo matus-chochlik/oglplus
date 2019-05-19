@@ -150,9 +150,9 @@ public:
         Preset(Preset&&);
     };
 
-    Preset Save();                   /*<
-                      Saves the current setting of subroutine uniforms into a preset.
-                      >*/
+    Preset Save(); /*<
+    Saves the current setting of subroutine uniforms into a preset.
+    >*/
     void Load(const Preset& preset); /*<
     Loads the setting of subroutine uniforms from a [^preset].
     [note Only presets from the same instance of [^UniformSubroutines]

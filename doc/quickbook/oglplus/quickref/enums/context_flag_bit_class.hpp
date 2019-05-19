@@ -13,25 +13,20 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ContextFlagBit> class Transform>
+template <typename Base, template <__ContextFlagBit> class Transform>
 class __EnumToClass<Base, __ContextFlagBit, Transform> /*<
 Specialization of __EnumToClass for the __ContextFlagBit enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ContextFlagBit::ForwardCompatible>
-		ForwardCompatible;
-	Transform<ContextFlagBit::Debug>
-		Debug;
-	Transform<ContextFlagBit::RobustAccess>
-		RobustAccess;
+    Transform<ContextFlagBit::ForwardCompatible> ForwardCompatible;
+    Transform<ContextFlagBit::Debug> Debug;
+    Transform<ContextFlagBit::RobustAccess> RobustAccess;
 };
 
 } // namespace enums
 #endif
 //]
-

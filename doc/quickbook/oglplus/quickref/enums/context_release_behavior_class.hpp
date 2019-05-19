@@ -13,23 +13,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ContextReleaseBehavior> class Transform>
+template <typename Base, template <__ContextReleaseBehavior> class Transform>
 class __EnumToClass<Base, __ContextReleaseBehavior, Transform> /*<
 Specialization of __EnumToClass for the __ContextReleaseBehavior enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ContextReleaseBehavior::None>
-		None;
-	Transform<ContextReleaseBehavior::Flush>
-		Flush;
+    Transform<ContextReleaseBehavior::None> None;
+    Transform<ContextReleaseBehavior::Flush> Flush;
 };
 
 } // namespace enums
 #endif
 //]
-

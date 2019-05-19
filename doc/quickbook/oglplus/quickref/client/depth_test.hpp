@@ -7,14 +7,12 @@
 //[oglplus_client_DepthTestState
 namespace client {
 
-class DepthTestState
-{
+class DepthTestState {
 public:
-	__SettingStack<__CompareFunction, ...> DepthFunc; /*<
-	Stack managing the setting of depth compare function.
-	>*/
+    __SettingStack<__CompareFunction, ...> DepthFunc; /*<
+    Stack managing the setting of depth compare function.
+    >*/
 };
 
 } // namespace client
 //]
-

@@ -11,11 +11,10 @@
 //
 //[oglplus_enums_face
 
-enum class Face : GLenum
-{
-	Front        = GL_FRONT,
-	Back         = GL_BACK,
-	FrontAndBack = GL_FRONT_AND_BACK
+enum class Face : GLenum {
+    Front = GL_FRONT,
+    Back = GL_BACK,
+    FrontAndBack = GL_FRONT_AND_BACK
 };
 
 template <>

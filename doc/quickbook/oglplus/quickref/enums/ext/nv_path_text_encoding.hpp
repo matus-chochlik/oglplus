@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_ext_nv_path_text_encoding
 
-enum class PathNVTextEncoding : GLenum
-{
-	UTF8  = GL_UTF8_NV,
-	UTF16 = GL_UTF16_NV
+enum class PathNVTextEncoding : GLenum {
+    UTF8 = GL_UTF8_NV,
+    UTF16 = GL_UTF16_NV
 };
 
 template <>

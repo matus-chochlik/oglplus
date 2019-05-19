@@ -11,16 +11,15 @@
 //
 //[oglplus_enums_stencil_operation
 
-enum class StencilOperation : GLenum
-{
-	Keep     = GL_KEEP,
-	Zero     = GL_ZERO,
-	Replace  = GL_REPLACE,
-	Incr     = GL_INCR,
-	Decr     = GL_DECR,
-	Invert   = GL_INVERT,
-	IncrWrap = GL_INCR_WRAP,
-	DecrWrap = GL_DECR_WRAP
+enum class StencilOperation : GLenum {
+    Keep = GL_KEEP,
+    Zero = GL_ZERO,
+    Replace = GL_REPLACE,
+    Incr = GL_INCR,
+    Decr = GL_DECR,
+    Invert = GL_INVERT,
+    IncrWrap = GL_INCR_WRAP,
+    DecrWrap = GL_DECR_WRAP
 };
 
 template <>

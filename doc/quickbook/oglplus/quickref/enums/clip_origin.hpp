@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_clip_origin
 
-enum class ClipOrigin : GLenum
-{
-	LowerLeft = GL_LOWER_LEFT,
-	UpperLeft = GL_UPPER_LEFT
+enum class ClipOrigin : GLenum {
+    LowerLeft = GL_LOWER_LEFT,
+    UpperLeft = GL_UPPER_LEFT
 };
 
 template <>

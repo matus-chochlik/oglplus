@@ -11,11 +11,10 @@
 //
 //[oglplus_enums_tess_gen_primitive_type
 
-enum class TessGenPrimitiveType : GLenum
-{
-	Quads     = GL_QUADS,
-	Triangles = GL_TRIANGLES,
-	Isolines  = GL_ISOLINES
+enum class TessGenPrimitiveType : GLenum {
+    Quads = GL_QUADS,
+    Triangles = GL_TRIANGLES,
+    Isolines = GL_ISOLINES
 };
 
 template <>

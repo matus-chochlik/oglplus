@@ -1,4 +1,5 @@
-//  File doc/quickbook/oglplus/quickref/enums/ext/nv_path_dash_offset_reset_class.hpp
+//  File
+//  doc/quickbook/oglplus/quickref/enums/ext/nv_path_dash_offset_reset_class.hpp
 //
 //  Automatically generated file, DO NOT modify manually.
 //  Edit the source 'source/enums/oglplus/ext/nv_path_dash_offset_reset.txt'
@@ -13,23 +14,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PathNVDashOffsetReset> class Transform>
+template <typename Base, template <__PathNVDashOffsetReset> class Transform>
 class __EnumToClass<Base, __PathNVDashOffsetReset, Transform> /*<
 Specialization of __EnumToClass for the __PathNVDashOffsetReset enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PathNVDashOffsetReset::MoveToReset>
-		MoveToReset;
-	Transform<PathNVDashOffsetReset::MoveToContinues>
-		MoveToContinues;
+    Transform<PathNVDashOffsetReset::MoveToReset> MoveToReset;
+    Transform<PathNVDashOffsetReset::MoveToContinues> MoveToContinues;
 };
 
 } // namespace enums
 #endif
 //]
-

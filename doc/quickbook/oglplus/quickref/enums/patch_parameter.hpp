@@ -11,11 +11,10 @@
 //
 //[oglplus_enums_patch_parameter
 
-enum class PatchParameter : GLenum
-{
-	PatchVertices          = GL_PATCH_VERTICES,
-	PatchDefaultOuterLevel = GL_PATCH_DEFAULT_OUTER_LEVEL,
-	PatchDefaultInnerLevel = GL_PATCH_DEFAULT_INNER_LEVEL
+enum class PatchParameter : GLenum {
+    PatchVertices = GL_PATCH_VERTICES,
+    PatchDefaultOuterLevel = GL_PATCH_DEFAULT_OUTER_LEVEL,
+    PatchDefaultInnerLevel = GL_PATCH_DEFAULT_INNER_LEVEL
 };
 
 template <>

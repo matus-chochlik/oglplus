@@ -15,4 +15,3 @@ Inverts the face orientation (CW to CCW and CCW to CW).
 >*/
 
 //]
-

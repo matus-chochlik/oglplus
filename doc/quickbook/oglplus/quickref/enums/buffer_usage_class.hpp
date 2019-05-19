@@ -13,37 +13,26 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__BufferUsage> class Transform>
+template <typename Base, template <__BufferUsage> class Transform>
 class __EnumToClass<Base, __BufferUsage, Transform> /*<
 Specialization of __EnumToClass for the __BufferUsage enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<BufferUsage::StreamDraw>
-		StreamDraw;
-	Transform<BufferUsage::StreamRead>
-		StreamRead;
-	Transform<BufferUsage::StreamCopy>
-		StreamCopy;
-	Transform<BufferUsage::StaticDraw>
-		StaticDraw;
-	Transform<BufferUsage::StaticRead>
-		StaticRead;
-	Transform<BufferUsage::StaticCopy>
-		StaticCopy;
-	Transform<BufferUsage::DynamicDraw>
-		DynamicDraw;
-	Transform<BufferUsage::DynamicRead>
-		DynamicRead;
-	Transform<BufferUsage::DynamicCopy>
-		DynamicCopy;
+    Transform<BufferUsage::StreamDraw> StreamDraw;
+    Transform<BufferUsage::StreamRead> StreamRead;
+    Transform<BufferUsage::StreamCopy> StreamCopy;
+    Transform<BufferUsage::StaticDraw> StaticDraw;
+    Transform<BufferUsage::StaticRead> StaticRead;
+    Transform<BufferUsage::StaticCopy> StaticCopy;
+    Transform<BufferUsage::DynamicDraw> DynamicDraw;
+    Transform<BufferUsage::DynamicRead> DynamicRead;
+    Transform<BufferUsage::DynamicCopy> DynamicCopy;
 };
 
 } // namespace enums
 #endif
 //]
-

@@ -112,8 +112,8 @@ public:
     Returns the actual resolution of all texture components.
     See [glfunc GetTextureLevelParameter], [glconst TEXTURE_SHARED_SIZE].
     >*/
-                                                  //]
-                                                  //[oglplus_dsa_texture_2
+    //]
+    //[oglplus_dsa_texture_2
     __SizeType CompressedImageSize(
       GLint level = 0) const; /*<
 Returns the size (in bytes) of the image array if it is compressed.
@@ -333,8 +333,8 @@ See [glfunc GetTextureLevelParameter], [glconst TEXTURE_COMPRESSED_IMAGE_SIZE].
                       Specifies a one dimensional compressed texture subimage.
                       See [glfunc CompressedTextureSubImage1D].
                   >*/
-                         //]
-                         //[oglplus_dsa_texture_4
+    //]
+    //[oglplus_dsa_texture_4
 
     ObjectOps& Buffer(
       __PixelDataInternalFormat internal_format,
@@ -418,8 +418,8 @@ See [glfunc GetTextureLevelParameter], [glconst TEXTURE_COMPRESSED_IMAGE_SIZE].
     Sets the texture compare function.
     See [glfunc TextureParameter], [glconst TEXTURE_COMPARE_FUNC].
     >*/
-                                                    //]
-                                                    //[oglplus_dsa_texture_5
+    //]
+    //[oglplus_dsa_texture_5
 
     GLfloat LODBias() const; /*<
     Gets the level-of-detail bias value.
@@ -486,8 +486,8 @@ See [glfunc GetTextureLevelParameter], [glconst TEXTURE_COMPRESSED_IMAGE_SIZE].
     Sets the maximum level value.
     See [glfunc TextureParameter], [glconst TEXTURE_MAX_LEVEL].
 >*/
-                                      //]
-                                      //[oglplus_dsa_texture_6
+    //]
+    //[oglplus_dsa_texture_6
 
     GLfloat MaxAnisotropy() const; /*<
     Gets the maximum anisotropy value.

@@ -1,4 +1,5 @@
-//  File doc/quickbook/oglplus/quickref/enums/ext/compat_client_attrib_group_class.hpp
+//  File
+//  doc/quickbook/oglplus/quickref/enums/ext/compat_client_attrib_group_class.hpp
 //
 //  Automatically generated file, DO NOT modify manually.
 //  Edit the source 'source/enums/oglplus/ext/compat_client_attrib_group.txt'
@@ -13,25 +14,24 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__CompatibilityClientAttributeGroup> class Transform>
+template <
+  typename Base,
+  template <__CompatibilityClientAttributeGroup>
+  class Transform>
 class __EnumToClass<Base, __CompatibilityClientAttributeGroup, Transform> /*<
-Specialization of __EnumToClass for the __CompatibilityClientAttributeGroup enumeration.
+Specialization of __EnumToClass for the __CompatibilityClientAttributeGroup
+enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<CompatibilityClientAttributeGroup::VertexArray>
-		VertexArray;
-	Transform<CompatibilityClientAttributeGroup::PixelStore>
-		PixelStore;
-	Transform<CompatibilityClientAttributeGroup::AllAttribs>
-		AllAttribs;
+    Transform<CompatibilityClientAttributeGroup::VertexArray> VertexArray;
+    Transform<CompatibilityClientAttributeGroup::PixelStore> PixelStore;
+    Transform<CompatibilityClientAttributeGroup::AllAttribs> AllAttribs;
 };
 
 } // namespace enums
 #endif
 //]
-

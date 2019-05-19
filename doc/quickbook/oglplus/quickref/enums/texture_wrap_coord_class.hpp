@@ -13,25 +13,20 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__TextureWrapCoord> class Transform>
+template <typename Base, template <__TextureWrapCoord> class Transform>
 class __EnumToClass<Base, __TextureWrapCoord, Transform> /*<
 Specialization of __EnumToClass for the __TextureWrapCoord enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<TextureWrapCoord::S>
-		S;
-	Transform<TextureWrapCoord::T>
-		T;
-	Transform<TextureWrapCoord::R>
-		R;
+    Transform<TextureWrapCoord::S> S;
+    Transform<TextureWrapCoord::T> T;
+    Transform<TextureWrapCoord::R> R;
 };
 
 } // namespace enums
 #endif
 //]
-

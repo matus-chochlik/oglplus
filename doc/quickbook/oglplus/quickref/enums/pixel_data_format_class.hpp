@@ -13,57 +13,36 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PixelDataFormat> class Transform>
+template <typename Base, template <__PixelDataFormat> class Transform>
 class __EnumToClass<Base, __PixelDataFormat, Transform> /*<
 Specialization of __EnumToClass for the __PixelDataFormat enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PixelDataFormat::DepthComponent>
-		DepthComponent;
-	Transform<PixelDataFormat::DepthStencil>
-		DepthStencil;
-	Transform<PixelDataFormat::StencilIndex>
-		StencilIndex;
-	Transform<PixelDataFormat::Red>
-		Red;
-	Transform<PixelDataFormat::Green>
-		Green;
-	Transform<PixelDataFormat::Blue>
-		Blue;
-	Transform<PixelDataFormat::RG>
-		RG;
-	Transform<PixelDataFormat::RGB>
-		RGB;
-	Transform<PixelDataFormat::RGBA>
-		RGBA;
-	Transform<PixelDataFormat::BGR>
-		BGR;
-	Transform<PixelDataFormat::BGRA>
-		BGRA;
-	Transform<PixelDataFormat::RedInteger>
-		RedInteger;
-	Transform<PixelDataFormat::GreenInteger>
-		GreenInteger;
-	Transform<PixelDataFormat::BlueInteger>
-		BlueInteger;
-	Transform<PixelDataFormat::RGInteger>
-		RGInteger;
-	Transform<PixelDataFormat::RGBInteger>
-		RGBInteger;
-	Transform<PixelDataFormat::RGBAInteger>
-		RGBAInteger;
-	Transform<PixelDataFormat::BGRInteger>
-		BGRInteger;
-	Transform<PixelDataFormat::BGRAInteger>
-		BGRAInteger;
+    Transform<PixelDataFormat::DepthComponent> DepthComponent;
+    Transform<PixelDataFormat::DepthStencil> DepthStencil;
+    Transform<PixelDataFormat::StencilIndex> StencilIndex;
+    Transform<PixelDataFormat::Red> Red;
+    Transform<PixelDataFormat::Green> Green;
+    Transform<PixelDataFormat::Blue> Blue;
+    Transform<PixelDataFormat::RG> RG;
+    Transform<PixelDataFormat::RGB> RGB;
+    Transform<PixelDataFormat::RGBA> RGBA;
+    Transform<PixelDataFormat::BGR> BGR;
+    Transform<PixelDataFormat::BGRA> BGRA;
+    Transform<PixelDataFormat::RedInteger> RedInteger;
+    Transform<PixelDataFormat::GreenInteger> GreenInteger;
+    Transform<PixelDataFormat::BlueInteger> BlueInteger;
+    Transform<PixelDataFormat::RGInteger> RGInteger;
+    Transform<PixelDataFormat::RGBInteger> RGBInteger;
+    Transform<PixelDataFormat::RGBAInteger> RGBAInteger;
+    Transform<PixelDataFormat::BGRInteger> BGRInteger;
+    Transform<PixelDataFormat::BGRAInteger> BGRAInteger;
 };
 
 } // namespace enums
 #endif
 //]
-

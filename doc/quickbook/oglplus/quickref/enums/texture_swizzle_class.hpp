@@ -13,31 +13,23 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__TextureSwizzle> class Transform>
+template <typename Base, template <__TextureSwizzle> class Transform>
 class __EnumToClass<Base, __TextureSwizzle, Transform> /*<
 Specialization of __EnumToClass for the __TextureSwizzle enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<TextureSwizzle::Red>
-		Red;
-	Transform<TextureSwizzle::Green>
-		Green;
-	Transform<TextureSwizzle::Blue>
-		Blue;
-	Transform<TextureSwizzle::Alpha>
-		Alpha;
-	Transform<TextureSwizzle::Zero>
-		Zero;
-	Transform<TextureSwizzle::One>
-		One;
+    Transform<TextureSwizzle::Red> Red;
+    Transform<TextureSwizzle::Green> Green;
+    Transform<TextureSwizzle::Blue> Blue;
+    Transform<TextureSwizzle::Alpha> Alpha;
+    Transform<TextureSwizzle::Zero> Zero;
+    Transform<TextureSwizzle::One> One;
 };
 
 } // namespace enums
 #endif
 //]
-

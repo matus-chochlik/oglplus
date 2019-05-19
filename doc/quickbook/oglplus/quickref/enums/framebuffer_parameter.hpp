@@ -11,13 +11,12 @@
 //
 //[oglplus_enums_framebuffer_parameter
 
-enum class FramebufferParameter : GLenum
-{
-	DefaultWidth         = GL_FRAMEBUFFER_DEFAULT_WIDTH,
-	DefaultHeight        = GL_FRAMEBUFFER_DEFAULT_HEIGHT,
-	Layers               = GL_FRAMEBUFFER_DEFAULT_LAYERS,
-	Samples              = GL_FRAMEBUFFER_DEFAULT_SAMPLES,
-	FixedSampleLocations = GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS
+enum class FramebufferParameter : GLenum {
+    DefaultWidth = GL_FRAMEBUFFER_DEFAULT_WIDTH,
+    DefaultHeight = GL_FRAMEBUFFER_DEFAULT_HEIGHT,
+    Layers = GL_FRAMEBUFFER_DEFAULT_LAYERS,
+    Samples = GL_FRAMEBUFFER_DEFAULT_SAMPLES,
+    FixedSampleLocations = GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS
 };
 
 template <>

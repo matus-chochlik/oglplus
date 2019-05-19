@@ -11,11 +11,10 @@
 //
 //[oglplus_enums_texture_wrap_coord
 
-enum class TextureWrapCoord : GLenum
-{
-	S = GL_TEXTURE_WRAP_S,
-	T = GL_TEXTURE_WRAP_T,
-	R = GL_TEXTURE_WRAP_R
+enum class TextureWrapCoord : GLenum {
+    S = GL_TEXTURE_WRAP_S,
+    T = GL_TEXTURE_WRAP_T,
+    R = GL_TEXTURE_WRAP_R
 };
 
 template <>

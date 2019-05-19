@@ -13,39 +13,27 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__DebugType> class Transform>
+template <typename Base, template <__DebugType> class Transform>
 class __EnumToClass<Base, __DebugType, Transform> /*<
 Specialization of __EnumToClass for the __DebugType enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<DebugType::Error>
-		Error;
-	Transform<DebugType::DeprecatedBehavior>
-		DeprecatedBehavior;
-	Transform<DebugType::UndefinedBehavior>
-		UndefinedBehavior;
-	Transform<DebugType::Portability>
-		Portability;
-	Transform<DebugType::Performance>
-		Performance;
-	Transform<DebugType::Other>
-		Other;
-	Transform<DebugType::Marker>
-		Marker;
-	Transform<DebugType::PushGroup>
-		PushGroup;
-	Transform<DebugType::PopGroup>
-		PopGroup;
-	Transform<DebugType::DontCare>
-		DontCare;
+    Transform<DebugType::Error> Error;
+    Transform<DebugType::DeprecatedBehavior> DeprecatedBehavior;
+    Transform<DebugType::UndefinedBehavior> UndefinedBehavior;
+    Transform<DebugType::Portability> Portability;
+    Transform<DebugType::Performance> Performance;
+    Transform<DebugType::Other> Other;
+    Transform<DebugType::Marker> Marker;
+    Transform<DebugType::PushGroup> PushGroup;
+    Transform<DebugType::PopGroup> PopGroup;
+    Transform<DebugType::DontCare> DontCare;
 };
 
 } // namespace enums
 #endif
 //]
-

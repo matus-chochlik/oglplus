@@ -11,27 +11,26 @@
 //
 //[oglplus_enums_pixel_data_format
 
-enum class PixelDataFormat : GLenum
-{
-	DepthComponent = GL_DEPTH_COMPONENT,
-	DepthStencil   = GL_DEPTH_STENCIL,
-	StencilIndex   = GL_STENCIL_INDEX,
-	Red            = GL_RED,
-	Green          = GL_GREEN,
-	Blue           = GL_BLUE,
-	RG             = GL_RG,
-	RGB            = GL_RGB,
-	RGBA           = GL_RGBA,
-	BGR            = GL_BGR,
-	BGRA           = GL_BGRA,
-	RedInteger     = GL_RED_INTEGER,
-	GreenInteger   = GL_GREEN_INTEGER,
-	BlueInteger    = GL_BLUE_INTEGER,
-	RGInteger      = GL_RG_INTEGER,
-	RGBInteger     = GL_RGB_INTEGER,
-	RGBAInteger    = GL_RGBA_INTEGER,
-	BGRInteger     = GL_BGR_INTEGER,
-	BGRAInteger    = GL_BGRA_INTEGER
+enum class PixelDataFormat : GLenum {
+    DepthComponent = GL_DEPTH_COMPONENT,
+    DepthStencil = GL_DEPTH_STENCIL,
+    StencilIndex = GL_STENCIL_INDEX,
+    Red = GL_RED,
+    Green = GL_GREEN,
+    Blue = GL_BLUE,
+    RG = GL_RG,
+    RGB = GL_RGB,
+    RGBA = GL_RGBA,
+    BGR = GL_BGR,
+    BGRA = GL_BGRA,
+    RedInteger = GL_RED_INTEGER,
+    GreenInteger = GL_GREEN_INTEGER,
+    BlueInteger = GL_BLUE_INTEGER,
+    RGInteger = GL_RG_INTEGER,
+    RGBInteger = GL_RGB_INTEGER,
+    RGBAInteger = GL_RGBA_INTEGER,
+    BGRInteger = GL_BGR_INTEGER,
+    BGRAInteger = GL_BGRA_INTEGER
 };
 
 template <>

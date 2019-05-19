@@ -1,4 +1,5 @@
-//  File doc/quickbook/oglplus/quickref/enums/transform_feedback_target_class.hpp
+//  File
+//  doc/quickbook/oglplus/quickref/enums/transform_feedback_target_class.hpp
 //
 //  Automatically generated file, DO NOT modify manually.
 //  Edit the source 'source/enums/oglplus/transform_feedback_target.txt'
@@ -13,21 +14,18 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__TransformFeedbackTarget> class Transform>
+template <typename Base, template <__TransformFeedbackTarget> class Transform>
 class __EnumToClass<Base, __TransformFeedbackTarget, Transform> /*<
 Specialization of __EnumToClass for the __TransformFeedbackTarget enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<TransformFeedbackTarget::TransformFeedback>
-		TransformFeedback;
+    Transform<TransformFeedbackTarget::TransformFeedback> TransformFeedback;
 };
 
 } // namespace enums
 #endif
 //]
-

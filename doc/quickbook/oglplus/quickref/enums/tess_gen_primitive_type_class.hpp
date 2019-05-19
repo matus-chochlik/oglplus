@@ -13,25 +13,20 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__TessGenPrimitiveType> class Transform>
+template <typename Base, template <__TessGenPrimitiveType> class Transform>
 class __EnumToClass<Base, __TessGenPrimitiveType, Transform> /*<
 Specialization of __EnumToClass for the __TessGenPrimitiveType enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<TessGenPrimitiveType::Quads>
-		Quads;
-	Transform<TessGenPrimitiveType::Triangles>
-		Triangles;
-	Transform<TessGenPrimitiveType::Isolines>
-		Isolines;
+    Transform<TessGenPrimitiveType::Quads> Quads;
+    Transform<TessGenPrimitiveType::Triangles> Triangles;
+    Transform<TessGenPrimitiveType::Isolines> Isolines;
 };
 
 } // namespace enums
 #endif
 //]
-

@@ -7,43 +7,35 @@
 //[oglplus_client_StencilTestState
 namespace client {
 
-class StencilTestState
-{
+class StencilTestState {
 private:
-	template <__SingleFace Value>
-	class StencilFuncStack /*<
-	This class template is here for documentation purposes only
-	and is [*not] part of the public interface.
-	>*/
-	 : __SettingStack<__context_StencilFuncArgs, ...>
-	{ };
+    template <__SingleFace Value>
+    class StencilFuncStack /*<
+    This class template is here for documentation purposes only
+    and is [*not] part of the public interface.
+    >*/
+      : __SettingStack<__context_StencilFuncArgs, ...> {};
+
 public:
-	__enums_EnumToClass_SingleFace<
-		__Nothing,
-		__SingleFace,
-		StencilFuncStack
-	> StencilFunc; /*<
-	Stack managing the setting of stencil function arguments.
-	>*/
+    __enums_EnumToClass_SingleFace<__Nothing, __SingleFace, StencilFuncStack>
+      StencilFunc; /*<
+    Stack managing the setting of stencil function arguments.
+    >*/
 
 private:
-	template <__SingleFace Value>
-	class StencilOpStack /*<
-	This class template is here for documentation purposes only
-	and is [*not] part of the public interface.
-	>*/
-	 : __SettingStack<__context_StencilOperations, ...>
-	{ };
+    template <__SingleFace Value>
+    class StencilOpStack /*<
+    This class template is here for documentation purposes only
+    and is [*not] part of the public interface.
+    >*/
+      : __SettingStack<__context_StencilOperations, ...> {};
+
 public:
-	__enums_EnumToClass_SingleFace<
-		__Nothing,
-		__SingleFace,
-		StencilOpStack
-	> StencilOp; /*<
-	Stack managing the setting of stencil operations.
-	>*/
+    __enums_EnumToClass_SingleFace<__Nothing, __SingleFace, StencilOpStack>
+      StencilOp; /*<
+    Stack managing the setting of stencil operations.
+    >*/
 };
 
 } // namespace client
 //]
-

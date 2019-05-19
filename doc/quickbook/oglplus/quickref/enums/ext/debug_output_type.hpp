@@ -11,15 +11,14 @@
 //
 //[oglplus_enums_ext_debug_output_type
 
-enum class DebugOutputARBType : GLenum
-{
-	Error              = GL_DEBUG_TYPE_ERROR_ARB,
-	DeprecatedBehavior = GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB,
-	UndefinedBehavior  = GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB,
-	Portability        = GL_DEBUG_TYPE_PORTABILITY_ARB,
-	Performance        = GL_DEBUG_TYPE_PERFORMANCE_ARB,
-	Other              = GL_DEBUG_TYPE_OTHER_ARB,
-	DontCare           = GL_DONT_CARE
+enum class DebugOutputARBType : GLenum {
+    Error = GL_DEBUG_TYPE_ERROR_ARB,
+    DeprecatedBehavior = GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB,
+    UndefinedBehavior = GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB,
+    Portability = GL_DEBUG_TYPE_PORTABILITY_ARB,
+    Performance = GL_DEBUG_TYPE_PERFORMANCE_ARB,
+    Other = GL_DEBUG_TYPE_OTHER_ARB,
+    DontCare = GL_DONT_CARE
 };
 
 template <>

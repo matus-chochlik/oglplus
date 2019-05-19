@@ -11,14 +11,13 @@
 //
 //[oglplus_enums_precision_type
 
-enum class PrecisionType : GLenum
-{
-	LowFloat    = GL_LOW_FLOAT,
-	MediumFloat = GL_MEDIUM_FLOAT,
-	HighFloat   = GL_HIGH_FLOAT,
-	LowInt      = GL_LOW_INT,
-	MediumInt   = GL_MEDIUM_INT,
-	HighInt     = GL_HIGH_INT
+enum class PrecisionType : GLenum {
+    LowFloat = GL_LOW_FLOAT,
+    MediumFloat = GL_MEDIUM_FLOAT,
+    HighFloat = GL_HIGH_FLOAT,
+    LowInt = GL_LOW_INT,
+    MediumInt = GL_MEDIUM_INT,
+    HighInt = GL_HIGH_INT
 };
 
 template <>

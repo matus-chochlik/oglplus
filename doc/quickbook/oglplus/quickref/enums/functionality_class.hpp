@@ -13,21 +13,18 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__Functionality> class Transform>
+template <typename Base, template <__Functionality> class Transform>
 class __EnumToClass<Base, __Functionality, Transform> /*<
 Specialization of __EnumToClass for the __Functionality enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<Functionality::ClipDistance>
-		ClipDistance;
+    Transform<Functionality::ClipDistance> ClipDistance;
 };
 
 } // namespace enums
 #endif
 //]
-

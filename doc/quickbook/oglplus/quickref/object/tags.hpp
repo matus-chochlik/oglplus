@@ -7,20 +7,19 @@
 //[oglplus_object_tags
 namespace tag {
 
-struct Texture { };
-struct Buffer { };
-struct Framebuffer { };
-struct Renderbuffer { };
-struct Query { };
-struct ProgramPipeline { };
-struct Program { };
-struct TransformFeedback { };
-struct Sampler { };
-struct VertexArray { };
-struct Shader { };
-struct PerfMonitorAMD { };
-struct PathNV { };
+struct Texture {};
+struct Buffer {};
+struct Framebuffer {};
+struct Renderbuffer {};
+struct Query {};
+struct ProgramPipeline {};
+struct Program {};
+struct TransformFeedback {};
+struct Sampler {};
+struct VertexArray {};
+struct Shader {};
+struct PerfMonitorAMD {};
+struct PathNV {};
 
 } // namespace tag
 //]
-

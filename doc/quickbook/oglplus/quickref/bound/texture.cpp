@@ -32,31 +32,31 @@ GLsizei width = /* ... */, height = /* ... */;
 
 __Context gl;
 gl.Bound<__Texture>(tex_tgt, tex) /*<
-	Use the wrapper for GL context to create a reference to
-	__BoundObjOps_Texture<__Texture> and use it to setup
-	the texture parameters and image. Many member functions
-	of the returned class return a reference to itself which
-	allows to conveniently chain the calls to several functions,
-	as seen here.
-	>*/
-	.MinFilter(__TextureMinFilter::Linear)
-	.MagFilter(__TextureMagFilter::Nearest)
-	.WrapS(__TextureWrap::Repeat)
-	.WrapT(__TextureWrap::ClampToEdge)
-	.Image2D(
-		0,
-		__PixelDataInternalFormat::RGBA,
-		width, height,
-		0,
-		__PixelDataFormat::RGBA,
-		__PixelDataType::UnsignedByte,
-		image.data() /*<
-		The buffer pointed-to by this parameter must hold enough data
-		to be consumed, depending on the width, height, data type and other
-		parameters.
-		Optionally this pointer can be null, which causes a texture
-		with blank image to be created.
-		>*/
-	);
+    Use the wrapper for GL context to create a reference to
+    __BoundObjOps_Texture<__Texture> and use it to setup
+    the texture parameters and image. Many member functions
+    of the returned class return a reference to itself which
+    allows to conveniently chain the calls to several functions,
+    as seen here.
+    >*/
+  .MinFilter(__TextureMinFilter::Linear)
+  .MagFilter(__TextureMagFilter::Nearest)
+  .WrapS(__TextureWrap::Repeat)
+  .WrapT(__TextureWrap::ClampToEdge)
+  .Image2D(
+    0,
+    __PixelDataInternalFormat::RGBA,
+    width,
+    height,
+    0,
+    __PixelDataFormat::RGBA,
+    __PixelDataType::UnsignedByte,
+    image.data() /*<
+    The buffer pointed-to by this parameter must hold enough data
+    to be consumed, depending on the width, height, data type and other
+    parameters.
+    Optionally this pointer can be null, which causes a texture
+    with blank image to be created.
+    >*/
+  );
 //]
-

@@ -11,16 +11,15 @@
 //
 //[oglplus_enums_buffer_map_access
 
-enum class BufferMapAccess : GLbitfield
-{
-	Read             = GL_MAP_READ_BIT,
-	Write            = GL_MAP_WRITE_BIT,
-	Persistent       = GL_MAP_PERSISTENT_BIT,
-	Coherent         = GL_MAP_COHERENT_BIT,
-	InvalidateRange  = GL_MAP_INVALIDATE_RANGE_BIT,
-	InvalidateBuffer = GL_MAP_INVALIDATE_BUFFER_BIT,
-	FlushExplicit    = GL_MAP_FLUSH_EXPLICIT_BIT,
-	Unsynchronized   = GL_MAP_UNSYNCHRONIZED_BIT
+enum class BufferMapAccess : GLbitfield {
+    Read = GL_MAP_READ_BIT,
+    Write = GL_MAP_WRITE_BIT,
+    Persistent = GL_MAP_PERSISTENT_BIT,
+    Coherent = GL_MAP_COHERENT_BIT,
+    InvalidateRange = GL_MAP_INVALIDATE_RANGE_BIT,
+    InvalidateBuffer = GL_MAP_INVALIDATE_BUFFER_BIT,
+    FlushExplicit = GL_MAP_FLUSH_EXPLICIT_BIT,
+    Unsynchronized = GL_MAP_UNSYNCHRONIZED_BIT
 };
 
 template <>
@@ -28,6 +27,6 @@ __Range<BufferMapAccess> __EnumValueRange<BufferMapAccess>();
 
 __StrCRef __EnumValueName(BufferMapAccess);
 
-__Bitfield<BufferMapAccess> operator | (BufferMapAccess b1, BufferMapAccess b2);
+__Bitfield<BufferMapAccess> operator|(BufferMapAccess b1, BufferMapAccess b2);
 
 //]

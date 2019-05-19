@@ -13,57 +13,40 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__QueryTarget> class Transform>
+template <typename Base, template <__QueryTarget> class Transform>
 class __EnumToClass<Base, __QueryTarget, Transform> /*<
 Specialization of __EnumToClass for the __QueryTarget enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<QueryTarget::TimeElapsed>
-		TimeElapsed;
-	Transform<QueryTarget::Timestamp>
-		Timestamp;
-	Transform<QueryTarget::SamplesPassed>
-		SamplesPassed;
-	Transform<QueryTarget::AnySamplesPassed>
-		AnySamplesPassed;
-	Transform<QueryTarget::PrimitivesGenerated>
-		PrimitivesGenerated;
-	Transform<QueryTarget::TransformFeedbackPrimitivesWritten>
-		TransformFeedbackPrimitivesWritten;
-	Transform<QueryTarget::VerticesSubmitted>
-		VerticesSubmitted;
-	Transform<QueryTarget::PrimitivesSubmitted>
-		PrimitivesSubmitted;
-	Transform<QueryTarget::VertexShaderInvocations>
-		VertexShaderInvocations;
-	Transform<QueryTarget::TessControlShaderPatches>
-		TessControlShaderPatches;
-	Transform<QueryTarget::TessEvaluationShaderInvocations>
-		TessEvaluationShaderInvocations;
-	Transform<QueryTarget::GeometryShaderInvocations>
-		GeometryShaderInvocations;
-	Transform<QueryTarget::GeometryShaderPrimitivesEmitted>
-		GeometryShaderPrimitivesEmitted;
-	Transform<QueryTarget::FragmentShaderInvocations>
-		FragmentShaderInvocations;
-	Transform<QueryTarget::ComputeShaderInvocations>
-		ComputeShaderInvocations;
-	Transform<QueryTarget::ClippingInputPrimitives>
-		ClippingInputPrimitives;
-	Transform<QueryTarget::ClippingOutputPrimitives>
-		ClippingOutputPrimitives;
-	Transform<QueryTarget::TransformFeedbackOverflow>
-		TransformFeedbackOverflow;
-	Transform<QueryTarget::TransformFeedbackStreamOverflow>
-		TransformFeedbackStreamOverflow;
+    Transform<QueryTarget::TimeElapsed> TimeElapsed;
+    Transform<QueryTarget::Timestamp> Timestamp;
+    Transform<QueryTarget::SamplesPassed> SamplesPassed;
+    Transform<QueryTarget::AnySamplesPassed> AnySamplesPassed;
+    Transform<QueryTarget::PrimitivesGenerated> PrimitivesGenerated;
+    Transform<QueryTarget::TransformFeedbackPrimitivesWritten>
+      TransformFeedbackPrimitivesWritten;
+    Transform<QueryTarget::VerticesSubmitted> VerticesSubmitted;
+    Transform<QueryTarget::PrimitivesSubmitted> PrimitivesSubmitted;
+    Transform<QueryTarget::VertexShaderInvocations> VertexShaderInvocations;
+    Transform<QueryTarget::TessControlShaderPatches> TessControlShaderPatches;
+    Transform<QueryTarget::TessEvaluationShaderInvocations>
+      TessEvaluationShaderInvocations;
+    Transform<QueryTarget::GeometryShaderInvocations> GeometryShaderInvocations;
+    Transform<QueryTarget::GeometryShaderPrimitivesEmitted>
+      GeometryShaderPrimitivesEmitted;
+    Transform<QueryTarget::FragmentShaderInvocations> FragmentShaderInvocations;
+    Transform<QueryTarget::ComputeShaderInvocations> ComputeShaderInvocations;
+    Transform<QueryTarget::ClippingInputPrimitives> ClippingInputPrimitives;
+    Transform<QueryTarget::ClippingOutputPrimitives> ClippingOutputPrimitives;
+    Transform<QueryTarget::TransformFeedbackOverflow> TransformFeedbackOverflow;
+    Transform<QueryTarget::TransformFeedbackStreamOverflow>
+      TransformFeedbackStreamOverflow;
 };
 
 } // namespace enums
 #endif
 //]
-

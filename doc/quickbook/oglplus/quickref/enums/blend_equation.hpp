@@ -11,13 +11,12 @@
 //
 //[oglplus_enums_blend_equation
 
-enum class BlendEquation : GLenum
-{
-	Add             = GL_FUNC_ADD,
-	Subtract        = GL_FUNC_SUBTRACT,
-	ReverseSubtract = GL_FUNC_REVERSE_SUBTRACT,
-	Min             = GL_MIN,
-	Max             = GL_MAX
+enum class BlendEquation : GLenum {
+    Add = GL_FUNC_ADD,
+    Subtract = GL_FUNC_SUBTRACT,
+    ReverseSubtract = GL_FUNC_REVERSE_SUBTRACT,
+    Min = GL_MIN,
+    Max = GL_MAX
 };
 
 template <>

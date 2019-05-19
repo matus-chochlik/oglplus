@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_framebuffer_buffer
 
-enum class FramebufferBuffer : GLenum
-{
-	Color        = GL_COLOR,
-	Depth        = GL_DEPTH,
-	Stencil      = GL_STENCIL,
-	DepthStencil = GL_DEPTH_STENCIL
+enum class FramebufferBuffer : GLenum {
+    Color = GL_COLOR,
+    Depth = GL_DEPTH,
+    Stencil = GL_STENCIL,
+    DepthStencil = GL_DEPTH_STENCIL
 };
 
 template <>

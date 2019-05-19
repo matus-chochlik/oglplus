@@ -13,25 +13,20 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__BufferSelectBit> class Transform>
+template <typename Base, template <__BufferSelectBit> class Transform>
 class __EnumToClass<Base, __BufferSelectBit, Transform> /*<
 Specialization of __EnumToClass for the __BufferSelectBit enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<BufferSelectBit::ColorBuffer>
-		ColorBuffer;
-	Transform<BufferSelectBit::DepthBuffer>
-		DepthBuffer;
-	Transform<BufferSelectBit::StencilBuffer>
-		StencilBuffer;
+    Transform<BufferSelectBit::ColorBuffer> ColorBuffer;
+    Transform<BufferSelectBit::DepthBuffer> DepthBuffer;
+    Transform<BufferSelectBit::StencilBuffer> StencilBuffer;
 };
 
 } // namespace enums
 #endif
 //]
-

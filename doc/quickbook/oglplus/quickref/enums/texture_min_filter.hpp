@@ -11,14 +11,13 @@
 //
 //[oglplus_enums_texture_min_filter
 
-enum class TextureMinFilter : GLenum
-{
-	Nearest              = GL_NEAREST,
-	Linear               = GL_LINEAR,
-	NearestMipmapNearest = GL_NEAREST_MIPMAP_NEAREST,
-	NearestMipmapLinear  = GL_NEAREST_MIPMAP_LINEAR,
-	LinearMipmapNearest  = GL_LINEAR_MIPMAP_NEAREST,
-	LinearMipmapLinear   = GL_LINEAR_MIPMAP_LINEAR
+enum class TextureMinFilter : GLenum {
+    Nearest = GL_NEAREST,
+    Linear = GL_LINEAR,
+    NearestMipmapNearest = GL_NEAREST_MIPMAP_NEAREST,
+    NearestMipmapLinear = GL_NEAREST_MIPMAP_LINEAR,
+    LinearMipmapNearest = GL_LINEAR_MIPMAP_NEAREST,
+    LinearMipmapLinear = GL_LINEAR_MIPMAP_LINEAR
 };
 
 template <>

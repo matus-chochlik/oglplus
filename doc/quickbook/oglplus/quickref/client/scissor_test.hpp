@@ -7,18 +7,16 @@
 //[oglplus_client_ScissorTestState
 namespace client {
 
-class ScissorTestState
-{
-	__SettingStackIndexed<
-		__SettingStack<__context_ScissorRectangle, ...>,
-		__context_ScissorRectangle,
-		__ViewportIndex
-	> Scissor; /*<
-	Indexed set of stacks managing the scissor rectangles
-	for the individual viewports.
-	>*/
+class ScissorTestState {
+    __SettingStackIndexed<
+      __SettingStack<__context_ScissorRectangle, ...>,
+      __context_ScissorRectangle,
+      __ViewportIndex>
+      Scissor; /*<
+    Indexed set of stacks managing the scissor rectangles
+    for the individual viewports.
+    >*/
 };
 
 } // namespace client
 //]
-

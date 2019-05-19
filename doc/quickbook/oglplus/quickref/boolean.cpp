@@ -9,22 +9,22 @@ __Context gl;
 
 if(gl.IsEnabled(__Capability::DepthTest)) /*< Equal to [^GL_TRUE]. >*/
 {
-	/* ... */
+    /* ... */
 }
 
 if(!gl.IsEnabled(__Capability::StencilTest)) /*< Equal to [^GL_FALSE]. >*/
 {
-	/* ... */
+    /* ... */
 }
 
 if(~gl.IsEnabled(__Capability::DepthTest)) /*< Not equal to [^GL_FALSE]. >*/
 {
-	/* ... */
+    /* ... */
 }
 
 if(!~gl.IsEnabled(__Capability::StencilTest)) /*< Not equal to [^GL_TRUE]. >*/
 {
-	/* ... */
+    /* ... */
 }
 
 //]

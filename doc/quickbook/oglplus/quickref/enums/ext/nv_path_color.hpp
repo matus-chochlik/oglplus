@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_ext_nv_path_color
 
-enum class PathNVColor : GLenum
-{
-	Primary   = GL_PRIMARY_COLOR_NV,
-	Secondary = GL_SECONDARY_COLOR_NV
+enum class PathNVColor : GLenum {
+    Primary = GL_PRIMARY_COLOR_NV,
+    Secondary = GL_SECONDARY_COLOR_NV
 };
 
 template <>

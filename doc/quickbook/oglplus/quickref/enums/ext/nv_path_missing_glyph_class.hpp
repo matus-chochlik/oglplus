@@ -1,4 +1,5 @@
-//  File doc/quickbook/oglplus/quickref/enums/ext/nv_path_missing_glyph_class.hpp
+//  File
+//  doc/quickbook/oglplus/quickref/enums/ext/nv_path_missing_glyph_class.hpp
 //
 //  Automatically generated file, DO NOT modify manually.
 //  Edit the source 'source/enums/oglplus/ext/nv_path_missing_glyph.txt'
@@ -13,23 +14,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PathNVMissingGlyph> class Transform>
+template <typename Base, template <__PathNVMissingGlyph> class Transform>
 class __EnumToClass<Base, __PathNVMissingGlyph, Transform> /*<
 Specialization of __EnumToClass for the __PathNVMissingGlyph enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PathNVMissingGlyph::Skip>
-		Skip;
-	Transform<PathNVMissingGlyph::Use>
-		Use;
+    Transform<PathNVMissingGlyph::Skip> Skip;
+    Transform<PathNVMissingGlyph::Use> Use;
 };
 
 } // namespace enums
 #endif
 //]
-

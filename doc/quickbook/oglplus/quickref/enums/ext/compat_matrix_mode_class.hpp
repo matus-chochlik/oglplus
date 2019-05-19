@@ -13,27 +13,21 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__CompatibilityMatrixMode> class Transform>
+template <typename Base, template <__CompatibilityMatrixMode> class Transform>
 class __EnumToClass<Base, __CompatibilityMatrixMode, Transform> /*<
 Specialization of __EnumToClass for the __CompatibilityMatrixMode enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<CompatibilityMatrixMode::Projection>
-		Projection;
-	Transform<CompatibilityMatrixMode::Modelview>
-		Modelview;
-	Transform<CompatibilityMatrixMode::Texture>
-		Texture;
-	Transform<CompatibilityMatrixMode::Color>
-		Color;
+    Transform<CompatibilityMatrixMode::Projection> Projection;
+    Transform<CompatibilityMatrixMode::Modelview> Modelview;
+    Transform<CompatibilityMatrixMode::Texture> Texture;
+    Transform<CompatibilityMatrixMode::Color> Color;
 };
 
 } // namespace enums
 #endif
 //]
-

@@ -13,23 +13,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PathNVFontStyle> class Transform>
+template <typename Base, template <__PathNVFontStyle> class Transform>
 class __EnumToClass<Base, __PathNVFontStyle, Transform> /*<
 Specialization of __EnumToClass for the __PathNVFontStyle enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PathNVFontStyle::Bold>
-		Bold;
-	Transform<PathNVFontStyle::Italic>
-		Italic;
+    Transform<PathNVFontStyle::Bold> Bold;
+    Transform<PathNVFontStyle::Italic> Italic;
 };
 
 } // namespace enums
 #endif
 //]
-

@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_sync_status
 
-enum class SyncStatus : GLenum
-{
-	Signaled   = GL_SIGNALED,
-	Unsignaled = GL_UNSIGNALED
+enum class SyncStatus : GLenum {
+    Signaled = GL_SIGNALED,
+    Unsignaled = GL_UNSIGNALED
 };
 
 template <>

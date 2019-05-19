@@ -135,7 +135,7 @@ try {
 The uniform location can be explicitly queried by calling the [^Init]
 member function which throws in case of failure.
 >*/
-} catch(...) {     /* ... */
+} catch(...) { /* ... */
 }
 
 color7.TryInit(); /*<

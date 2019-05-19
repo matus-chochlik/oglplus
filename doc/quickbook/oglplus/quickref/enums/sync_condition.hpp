@@ -11,9 +11,8 @@
 //
 //[oglplus_enums_sync_condition
 
-enum class SyncCondition : GLenum
-{
-	GPUCommandsComplete = GL_SYNC_GPU_COMMANDS_COMPLETE
+enum class SyncCondition : GLenum {
+    GPUCommandsComplete = GL_SYNC_GPU_COMMANDS_COMPLETE
 };
 
 template <>

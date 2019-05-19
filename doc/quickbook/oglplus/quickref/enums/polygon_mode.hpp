@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_polygon_mode
 
-enum class PolygonMode : GLenum
-{
-	Point         = GL_POINT,
-	Line          = GL_LINE,
-	Fill          = GL_FILL,
-	FillRectangle = GL_FILL_RECTANGLE_NV
+enum class PolygonMode : GLenum {
+    Point = GL_POINT,
+    Line = GL_LINE,
+    Fill = GL_FILL,
+    FillRectangle = GL_FILL_RECTANGLE_NV
 };
 
 template <>

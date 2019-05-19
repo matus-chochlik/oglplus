@@ -11,11 +11,10 @@
 //
 //[oglplus_enums_tess_gen_primitive_spacing
 
-enum class TessGenPrimitiveSpacing : GLenum
-{
-	FractionalEven = GL_FRACTIONAL_EVEN,
-	FractionalOdd  = GL_FRACTIONAL_ODD,
-	Equal          = GL_EQUAL
+enum class TessGenPrimitiveSpacing : GLenum {
+    FractionalEven = GL_FRACTIONAL_EVEN,
+    FractionalOdd = GL_FRACTIONAL_ODD,
+    Equal = GL_EQUAL
 };
 
 template <>

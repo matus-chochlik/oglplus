@@ -13,23 +13,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__FaceOrientation> class Transform>
+template <typename Base, template <__FaceOrientation> class Transform>
 class __EnumToClass<Base, __FaceOrientation, Transform> /*<
 Specialization of __EnumToClass for the __FaceOrientation enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<FaceOrientation::CW>
-		CW;
-	Transform<FaceOrientation::CCW>
-		CCW;
+    Transform<FaceOrientation::CW> CW;
+    Transform<FaceOrientation::CCW> CCW;
 };
 
 } // namespace enums
 #endif
 //]
-

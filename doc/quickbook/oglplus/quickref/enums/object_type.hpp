@@ -11,20 +11,19 @@
 //
 //[oglplus_enums_object_type
 
-enum class ObjectType : GLenum
-{
-	Buffer            = GL_BUFFER,
-	Framebuffer       = GL_FRAMEBUFFER,
-	ProgramPipeline   = GL_PROGRAM_PIPELINE,
-	Program           = GL_PROGRAM,
-	Query             = GL_QUERY,
-	Renderbuffer      = GL_RENDERBUFFER,
-	Sampler           = GL_SAMPLER,
-	Shader            = GL_SHADER,
-	Texture           = GL_TEXTURE,
-	TransformFeedback = GL_TRANSFORM_FEEDBACK,
-	VertexArray       = GL_VERTEX_ARRAY,
-	None              = GL_NONE
+enum class ObjectType : GLenum {
+    Buffer = GL_BUFFER,
+    Framebuffer = GL_FRAMEBUFFER,
+    ProgramPipeline = GL_PROGRAM_PIPELINE,
+    Program = GL_PROGRAM,
+    Query = GL_QUERY,
+    Renderbuffer = GL_RENDERBUFFER,
+    Sampler = GL_SAMPLER,
+    Shader = GL_SHADER,
+    Texture = GL_TEXTURE,
+    TransformFeedback = GL_TRANSFORM_FEEDBACK,
+    VertexArray = GL_VERTEX_ARRAY,
+    None = GL_NONE
 };
 
 template <>

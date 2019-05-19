@@ -11,14 +11,13 @@
 //
 //[oglplus_enums_shader_type
 
-enum class ShaderType : GLenum
-{
-	Vertex         = GL_VERTEX_SHADER,
-	TessControl    = GL_TESS_CONTROL_SHADER,
-	TessEvaluation = GL_TESS_EVALUATION_SHADER,
-	Geometry       = GL_GEOMETRY_SHADER,
-	Fragment       = GL_FRAGMENT_SHADER,
-	Compute        = GL_COMPUTE_SHADER
+enum class ShaderType : GLenum {
+    Vertex = GL_VERTEX_SHADER,
+    TessControl = GL_TESS_CONTROL_SHADER,
+    TessEvaluation = GL_TESS_EVALUATION_SHADER,
+    Geometry = GL_GEOMETRY_SHADER,
+    Fragment = GL_FRAGMENT_SHADER,
+    Compute = GL_COMPUTE_SHADER
 };
 
 template <>

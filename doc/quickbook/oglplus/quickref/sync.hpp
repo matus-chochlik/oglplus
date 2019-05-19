@@ -57,10 +57,10 @@ public:
     to be satisfied.
     See [glfunc WaitSync].
     >*/
-    void Wait() const;                 /*<
-                    Wait indefinitely for the condition to be satisfied.
-                    See [glfunc WaitSync].
-                    >*/
+    void Wait() const; /*<
+    Wait indefinitely for the condition to be satisfied.
+    See [glfunc WaitSync].
+    >*/
 };
 
 //]

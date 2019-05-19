@@ -1,4 +1,5 @@
-//  File doc/quickbook/oglplus/quickref/enums/ext/graphics_reset_status_class.hpp
+//  File
+//  doc/quickbook/oglplus/quickref/enums/ext/graphics_reset_status_class.hpp
 //
 //  Automatically generated file, DO NOT modify manually.
 //  Edit the source 'source/enums/oglplus/ext/graphics_reset_status.txt'
@@ -13,27 +14,22 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__GraphicsResetStatusARB> class Transform>
+template <typename Base, template <__GraphicsResetStatusARB> class Transform>
 class __EnumToClass<Base, __GraphicsResetStatusARB, Transform> /*<
 Specialization of __EnumToClass for the __GraphicsResetStatusARB enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<GraphicsResetStatusARB::NoError>
-		NoError;
-	Transform<GraphicsResetStatusARB::GuiltyContextReset>
-		GuiltyContextReset;
-	Transform<GraphicsResetStatusARB::InnocentContextReset>
-		InnocentContextReset;
-	Transform<GraphicsResetStatusARB::UnknownContextReset>
-		UnknownContextReset;
+    Transform<GraphicsResetStatusARB::NoError> NoError;
+    Transform<GraphicsResetStatusARB::GuiltyContextReset> GuiltyContextReset;
+    Transform<GraphicsResetStatusARB::InnocentContextReset>
+      InnocentContextReset;
+    Transform<GraphicsResetStatusARB::UnknownContextReset> UnknownContextReset;
 };
 
 } // namespace enums
 #endif
 //]
-

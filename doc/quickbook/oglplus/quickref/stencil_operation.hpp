@@ -9,4 +9,3 @@
 typedef __StencilOperation StencilOp;
 
 //]
-

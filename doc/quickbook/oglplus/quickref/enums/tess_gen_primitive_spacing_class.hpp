@@ -1,4 +1,5 @@
-//  File doc/quickbook/oglplus/quickref/enums/tess_gen_primitive_spacing_class.hpp
+//  File
+//  doc/quickbook/oglplus/quickref/enums/tess_gen_primitive_spacing_class.hpp
 //
 //  Automatically generated file, DO NOT modify manually.
 //  Edit the source 'source/enums/oglplus/tess_gen_primitive_spacing.txt'
@@ -13,25 +14,20 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__TessGenPrimitiveSpacing> class Transform>
+template <typename Base, template <__TessGenPrimitiveSpacing> class Transform>
 class __EnumToClass<Base, __TessGenPrimitiveSpacing, Transform> /*<
 Specialization of __EnumToClass for the __TessGenPrimitiveSpacing enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<TessGenPrimitiveSpacing::FractionalEven>
-		FractionalEven;
-	Transform<TessGenPrimitiveSpacing::FractionalOdd>
-		FractionalOdd;
-	Transform<TessGenPrimitiveSpacing::Equal>
-		Equal;
+    Transform<TessGenPrimitiveSpacing::FractionalEven> FractionalEven;
+    Transform<TessGenPrimitiveSpacing::FractionalOdd> FractionalOdd;
+    Transform<TessGenPrimitiveSpacing::Equal> Equal;
 };
 
 } // namespace enums
 #endif
 //]
-

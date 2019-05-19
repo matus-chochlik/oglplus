@@ -13,33 +13,25 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__FramebufferStatus> class Transform>
+template <typename Base, template <__FramebufferStatus> class Transform>
 class __EnumToClass<Base, __FramebufferStatus, Transform> /*<
 Specialization of __EnumToClass for the __FramebufferStatus enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<FramebufferStatus::Complete>
-		Complete;
-	Transform<FramebufferStatus::Undefined>
-		Undefined;
-	Transform<FramebufferStatus::IncompleteAttachment>
-		IncompleteAttachment;
-	Transform<FramebufferStatus::IncompleteMissingAttachment>
-		IncompleteMissingAttachment;
-	Transform<FramebufferStatus::Unsupported>
-		Unsupported;
-	Transform<FramebufferStatus::IncompleteMultisample>
-		IncompleteMultisample;
-	Transform<FramebufferStatus::IncompleteLayerTargets>
-		IncompleteLayerTargets;
+    Transform<FramebufferStatus::Complete> Complete;
+    Transform<FramebufferStatus::Undefined> Undefined;
+    Transform<FramebufferStatus::IncompleteAttachment> IncompleteAttachment;
+    Transform<FramebufferStatus::IncompleteMissingAttachment>
+      IncompleteMissingAttachment;
+    Transform<FramebufferStatus::Unsupported> Unsupported;
+    Transform<FramebufferStatus::IncompleteMultisample> IncompleteMultisample;
+    Transform<FramebufferStatus::IncompleteLayerTargets> IncompleteLayerTargets;
 };
 
 } // namespace enums
 #endif
 //]
-

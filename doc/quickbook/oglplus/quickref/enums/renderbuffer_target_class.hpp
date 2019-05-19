@@ -13,21 +13,18 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__RenderbufferTarget> class Transform>
+template <typename Base, template <__RenderbufferTarget> class Transform>
 class __EnumToClass<Base, __RenderbufferTarget, Transform> /*<
 Specialization of __EnumToClass for the __RenderbufferTarget enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<RenderbufferTarget::Renderbuffer>
-		Renderbuffer;
+    Transform<RenderbufferTarget::Renderbuffer> Renderbuffer;
 };
 
 } // namespace enums
 #endif
 //]
-

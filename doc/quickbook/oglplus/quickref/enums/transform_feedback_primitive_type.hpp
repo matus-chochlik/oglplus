@@ -1,4 +1,5 @@
-//  File doc/quickbook/oglplus/quickref/enums/transform_feedback_primitive_type.hpp
+//  File
+//  doc/quickbook/oglplus/quickref/enums/transform_feedback_primitive_type.hpp
 //
 //  Automatically generated file, DO NOT modify manually.
 //  Edit the source 'source/enums/oglplus/transform_feedback_primitive_type.txt'
@@ -11,15 +12,15 @@
 //
 //[oglplus_enums_transform_feedback_primitive_type
 
-enum class TransformFeedbackPrimitiveType : GLenum
-{
-	Triangles = GL_TRIANGLES,
-	Lines     = GL_LINES,
-	Points    = GL_POINTS
+enum class TransformFeedbackPrimitiveType : GLenum {
+    Triangles = GL_TRIANGLES,
+    Lines = GL_LINES,
+    Points = GL_POINTS
 };
 
 template <>
-__Range<TransformFeedbackPrimitiveType> __EnumValueRange<TransformFeedbackPrimitiveType>();
+__Range<TransformFeedbackPrimitiveType>
+__EnumValueRange<TransformFeedbackPrimitiveType>();
 
 __StrCRef __EnumValueName(TransformFeedbackPrimitiveType);
 

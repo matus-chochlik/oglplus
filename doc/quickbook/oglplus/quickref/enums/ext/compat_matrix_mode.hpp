@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_ext_compat_matrix_mode
 
-enum class CompatibilityMatrixMode : GLenum
-{
-	Projection = GL_PROJECTION,
-	Modelview  = GL_MODELVIEW,
-	Texture    = GL_TEXTURE,
-	Color      = GL_COLOR
+enum class CompatibilityMatrixMode : GLenum {
+    Projection = GL_PROJECTION,
+    Modelview = GL_MODELVIEW,
+    Texture = GL_TEXTURE,
+    Color = GL_COLOR
 };
 
 template <>

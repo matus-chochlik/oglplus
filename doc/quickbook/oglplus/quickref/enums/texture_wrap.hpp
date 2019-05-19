@@ -11,13 +11,12 @@
 //
 //[oglplus_enums_texture_wrap
 
-enum class TextureWrap : GLenum
-{
-	ClampToEdge       = GL_CLAMP_TO_EDGE,
-	Repeat            = GL_REPEAT,
-	ClampToBorder     = GL_CLAMP_TO_BORDER,
-	MirroredRepeat    = GL_MIRRORED_REPEAT,
-	MirrorClampToEdge = GL_MIRROR_CLAMP_TO_EDGE
+enum class TextureWrap : GLenum {
+    ClampToEdge = GL_CLAMP_TO_EDGE,
+    Repeat = GL_REPEAT,
+    ClampToBorder = GL_CLAMP_TO_BORDER,
+    MirroredRepeat = GL_MIRRORED_REPEAT,
+    MirrorClampToEdge = GL_MIRROR_CLAMP_TO_EDGE
 };
 
 template <>

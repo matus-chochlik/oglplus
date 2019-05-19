@@ -18,10 +18,10 @@ public:
     Binds the specified [^program] object.
     See [glfunc BindProgram].
     >*/
-    void Bind() const;                       /*<
-                          Binds [^this] program object.
-                          See [glfunc BindProgram].
-                          >*/
+    void Bind() const; /*<
+    Binds [^this] program object.
+    See [glfunc BindProgram].
+    >*/
 
     void Use(); /*<
     Makes [^this] program current.
@@ -294,8 +294,8 @@ be used after the [^Program] goes out of scope and is destroyed.
     ShaderRange AttachedShaders() const; /*<
     Returns a range allowing to traverse shaders attached to [^this] program.
     >*/
-                                         //]
-                                         //[oglplus_program_5
+    //]
+    //[oglplus_program_5
 
     __TransformFeedbackMode TransformFeedbackBufferMode() const; /*<
     Returns the transform feedback buffer mode.
@@ -308,10 +308,10 @@ be used after the [^Program] goes out of scope and is destroyed.
     See [glfunc GetProgram], [glconst GEOMETRY_VERTICES_OUT].
     >*/
 
-    __PrimitiveType GeometryInputType() const;  /*<
-     Returns the geometry shader input primitive type
-     See [glfunc GetProgram], [glconst GEOMETRY_INPUT_TYPE].
-     >*/
+    __PrimitiveType GeometryInputType() const; /*<
+    Returns the geometry shader input primitive type
+    See [glfunc GetProgram], [glconst GEOMETRY_INPUT_TYPE].
+    >*/
     __PrimitiveType GeometryOutputType() const; /*<
     Returns the geometry shader output primitive type
     See [glfunc GetProgram], [glconst GEOMETRY_OUTPUT_TYPE].

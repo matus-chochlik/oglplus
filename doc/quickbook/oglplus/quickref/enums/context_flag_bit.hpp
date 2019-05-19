@@ -11,11 +11,10 @@
 //
 //[oglplus_enums_context_flag_bit
 
-enum class ContextFlagBit : GLbitfield
-{
-	ForwardCompatible = GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT,
-	Debug             = GL_CONTEXT_FLAG_DEBUG_BIT,
-	RobustAccess      = GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB
+enum class ContextFlagBit : GLbitfield {
+    ForwardCompatible = GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT,
+    Debug = GL_CONTEXT_FLAG_DEBUG_BIT,
+    RobustAccess = GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB
 };
 
 template <>
@@ -23,6 +22,6 @@ __Range<ContextFlagBit> __EnumValueRange<ContextFlagBit>();
 
 __StrCRef __EnumValueName(ContextFlagBit);
 
-__Bitfield<ContextFlagBit> operator | (ContextFlagBit b1, ContextFlagBit b2);
+__Bitfield<ContextFlagBit> operator|(ContextFlagBit b1, ContextFlagBit b2);
 
 //]

@@ -13,29 +13,22 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__DebugSeverity> class Transform>
+template <typename Base, template <__DebugSeverity> class Transform>
 class __EnumToClass<Base, __DebugSeverity, Transform> /*<
 Specialization of __EnumToClass for the __DebugSeverity enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<DebugSeverity::High>
-		High;
-	Transform<DebugSeverity::Medium>
-		Medium;
-	Transform<DebugSeverity::Low>
-		Low;
-	Transform<DebugSeverity::Notification>
-		Notification;
-	Transform<DebugSeverity::DontCare>
-		DontCare;
+    Transform<DebugSeverity::High> High;
+    Transform<DebugSeverity::Medium> Medium;
+    Transform<DebugSeverity::Low> Low;
+    Transform<DebugSeverity::Notification> Notification;
+    Transform<DebugSeverity::DontCare> DontCare;
 };
 
 } // namespace enums
 #endif
 //]
-

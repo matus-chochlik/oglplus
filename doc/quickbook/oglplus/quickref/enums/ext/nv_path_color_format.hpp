@@ -11,14 +11,13 @@
 //
 //[oglplus_enums_ext_nv_path_color_format
 
-enum class PathNVColorFormat : GLenum
-{
-	Luminance      = GL_LUMINANCE,
-	Alpha          = GL_ALPHA,
-	Intensity      = GL_INTENSITY,
-	LuminanceAlpha = GL_LUMINANCE_ALPHA,
-	RGB            = GL_RGB,
-	RGBA           = GL_RGBA
+enum class PathNVColorFormat : GLenum {
+    Luminance = GL_LUMINANCE,
+    Alpha = GL_ALPHA,
+    Intensity = GL_INTENSITY,
+    LuminanceAlpha = GL_LUMINANCE_ALPHA,
+    RGB = GL_RGB,
+    RGBA = GL_RGBA
 };
 
 template <>

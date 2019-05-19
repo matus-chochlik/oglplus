@@ -6,33 +6,32 @@
 
 //[oglplus_capability_syntax_sugar
 
-void operator << (__Capability capability, bool enable); /*<
+void operator<<(__Capability capability, bool enable); /*<
 Enables or disables the specified [^capability].
 >*/
-void operator + (Capability capability); /*<
+void operator+(Capability capability); /*<
 Enables the specified [^capability].
 >*/
-void operator - (Capability capability); /*<
+void operator-(Capability capability); /*<
 Disables the specified [^capability].
 >*/
 
-struct FunctionalityAndNumber { }; /*<
+struct FunctionalityAndNumber {}; /*<
 An opaque helper type used by the [^Functionality] operators below.
 >*/
 
-FunctionalityAndNumber operator | (__Functionality func, GLuint number); /*<
+FunctionalityAndNumber operator|(__Functionality func, GLuint number); /*<
 Creates an instance of [^FunctionalityAndNumber].
 >*/
 
-void operator << (FunctionalityAndNumber func_and_num, bool enable); /*<
+void operator<<(FunctionalityAndNumber func_and_num, bool enable); /*<
 Enables or disables the specified functionality.
 >*/
-void operator + (FunctionalityAndNumber func_and_num); /*<
+void operator+(FunctionalityAndNumber func_and_num); /*<
 Enables the specified functionality.
 >*/
-void operator - (FunctionalityAndNumber func_and_num); /*<
+void operator-(FunctionalityAndNumber func_and_num); /*<
 Disables the specified functionality.
 >*/
 
 //]
-

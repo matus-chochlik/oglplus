@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_ext_nv_path_fill_cover_mode
 
-enum class PathNVFillCoverMode : GLenum
-{
-	ConvexHull                 = GL_CONVEX_HULL_NV,
-	BoundingBox                = GL_BOUNDING_BOX_NV,
-	BoundingBoxOfBoundingBoxes = GL_BOUNDING_BOX_OF_BOUNDING_BOXES_NV,
-	FillCover                  = GL_PATH_FILL_COVER_MODE_NV
+enum class PathNVFillCoverMode : GLenum {
+    ConvexHull = GL_CONVEX_HULL_NV,
+    BoundingBox = GL_BOUNDING_BOX_NV,
+    BoundingBoxOfBoundingBoxes = GL_BOUNDING_BOX_OF_BOUNDING_BOXES_NV,
+    FillCover = GL_PATH_FILL_COVER_MODE_NV
 };
 
 template <>

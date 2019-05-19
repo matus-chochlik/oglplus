@@ -13,27 +13,21 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__HintTarget> class Transform>
+template <typename Base, template <__HintTarget> class Transform>
 class __EnumToClass<Base, __HintTarget, Transform> /*<
 Specialization of __EnumToClass for the __HintTarget enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<HintTarget::LineSmooth>
-		LineSmooth;
-	Transform<HintTarget::PolygonSmooth>
-		PolygonSmooth;
-	Transform<HintTarget::TextureCompression>
-		TextureCompression;
-	Transform<HintTarget::FragmentShaderDerivative>
-		FragmentShaderDerivative;
+    Transform<HintTarget::LineSmooth> LineSmooth;
+    Transform<HintTarget::PolygonSmooth> PolygonSmooth;
+    Transform<HintTarget::TextureCompression> TextureCompression;
+    Transform<HintTarget::FragmentShaderDerivative> FragmentShaderDerivative;
 };
 
 } // namespace enums
 #endif
 //]
-

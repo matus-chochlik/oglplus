@@ -13,23 +13,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ContextProfileBit> class Transform>
+template <typename Base, template <__ContextProfileBit> class Transform>
 class __EnumToClass<Base, __ContextProfileBit, Transform> /*<
 Specialization of __EnumToClass for the __ContextProfileBit enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ContextProfileBit::Core>
-		Core;
-	Transform<ContextProfileBit::Compatibility>
-		Compatibility;
+    Transform<ContextProfileBit::Core> Core;
+    Transform<ContextProfileBit::Compatibility> Compatibility;
 };
 
 } // namespace enums
 #endif
 //]
-

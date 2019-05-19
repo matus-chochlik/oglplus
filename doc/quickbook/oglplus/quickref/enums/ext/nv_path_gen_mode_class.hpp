@@ -13,27 +13,21 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PathNVGenMode> class Transform>
+template <typename Base, template <__PathNVGenMode> class Transform>
 class __EnumToClass<Base, __PathNVGenMode, Transform> /*<
 Specialization of __EnumToClass for the __PathNVGenMode enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PathNVGenMode::None>
-		None;
-	Transform<PathNVGenMode::EyeLinear>
-		EyeLinear;
-	Transform<PathNVGenMode::ObjectLinear>
-		ObjectLinear;
-	Transform<PathNVGenMode::ObjectBoundingBox>
-		ObjectBoundingBox;
+    Transform<PathNVGenMode::None> None;
+    Transform<PathNVGenMode::EyeLinear> EyeLinear;
+    Transform<PathNVGenMode::ObjectLinear> ObjectLinear;
+    Transform<PathNVGenMode::ObjectBoundingBox> ObjectBoundingBox;
 };
 
 } // namespace enums
 #endif
 //]
-

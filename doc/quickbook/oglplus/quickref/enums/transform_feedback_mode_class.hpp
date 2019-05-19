@@ -13,23 +13,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__TransformFeedbackMode> class Transform>
+template <typename Base, template <__TransformFeedbackMode> class Transform>
 class __EnumToClass<Base, __TransformFeedbackMode, Transform> /*<
 Specialization of __EnumToClass for the __TransformFeedbackMode enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<TransformFeedbackMode::InterleavedAttribs>
-		InterleavedAttribs;
-	Transform<TransformFeedbackMode::SeparateAttribs>
-		SeparateAttribs;
+    Transform<TransformFeedbackMode::InterleavedAttribs> InterleavedAttribs;
+    Transform<TransformFeedbackMode::SeparateAttribs> SeparateAttribs;
 };
 
 } // namespace enums
 #endif
 //]
-

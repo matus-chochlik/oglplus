@@ -13,67 +13,48 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PixelParameter> class Transform>
+template <typename Base, template <__PixelParameter> class Transform>
 class __EnumToClass<Base, __PixelParameter, Transform> /*<
 Specialization of __EnumToClass for the __PixelParameter enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PixelParameter::PackSwapBytes>
-		PackSwapBytes;
-	Transform<PixelParameter::PackLSBFirst>
-		PackLSBFirst;
-	Transform<PixelParameter::PackRowLength>
-		PackRowLength;
-	Transform<PixelParameter::PackSkipRows>
-		PackSkipRows;
-	Transform<PixelParameter::PackSkipPixels>
-		PackSkipPixels;
-	Transform<PixelParameter::PackAlignment>
-		PackAlignment;
-	Transform<PixelParameter::PackImageHeight>
-		PackImageHeight;
-	Transform<PixelParameter::PackSkipImages>
-		PackSkipImages;
-	Transform<PixelParameter::PackCompressedBlockWidth>
-		PackCompressedBlockWidth;
-	Transform<PixelParameter::PackCompressedBlockHeight>
-		PackCompressedBlockHeight;
-	Transform<PixelParameter::PackCompressedBlockDepth>
-		PackCompressedBlockDepth;
-	Transform<PixelParameter::PackCompressedBlockSize>
-		PackCompressedBlockSize;
-	Transform<PixelParameter::UnpackSwapBytes>
-		UnpackSwapBytes;
-	Transform<PixelParameter::UnpackLSBFirst>
-		UnpackLSBFirst;
-	Transform<PixelParameter::UnpackRowLength>
-		UnpackRowLength;
-	Transform<PixelParameter::UnpackSkipRows>
-		UnpackSkipRows;
-	Transform<PixelParameter::UnpackSkipPixels>
-		UnpackSkipPixels;
-	Transform<PixelParameter::UnpackAlignment>
-		UnpackAlignment;
-	Transform<PixelParameter::UnpackImageHeight>
-		UnpackImageHeight;
-	Transform<PixelParameter::UnpackSkipImages>
-		UnpackSkipImages;
-	Transform<PixelParameter::UnpackCompressedBlockWidth>
-		UnpackCompressedBlockWidth;
-	Transform<PixelParameter::UnpackCompressedBlockHeight>
-		UnpackCompressedBlockHeight;
-	Transform<PixelParameter::UnpackCompressedBlockDepth>
-		UnpackCompressedBlockDepth;
-	Transform<PixelParameter::UnpackCompressedBlockSize>
-		UnpackCompressedBlockSize;
+    Transform<PixelParameter::PackSwapBytes> PackSwapBytes;
+    Transform<PixelParameter::PackLSBFirst> PackLSBFirst;
+    Transform<PixelParameter::PackRowLength> PackRowLength;
+    Transform<PixelParameter::PackSkipRows> PackSkipRows;
+    Transform<PixelParameter::PackSkipPixels> PackSkipPixels;
+    Transform<PixelParameter::PackAlignment> PackAlignment;
+    Transform<PixelParameter::PackImageHeight> PackImageHeight;
+    Transform<PixelParameter::PackSkipImages> PackSkipImages;
+    Transform<PixelParameter::PackCompressedBlockWidth>
+      PackCompressedBlockWidth;
+    Transform<PixelParameter::PackCompressedBlockHeight>
+      PackCompressedBlockHeight;
+    Transform<PixelParameter::PackCompressedBlockDepth>
+      PackCompressedBlockDepth;
+    Transform<PixelParameter::PackCompressedBlockSize> PackCompressedBlockSize;
+    Transform<PixelParameter::UnpackSwapBytes> UnpackSwapBytes;
+    Transform<PixelParameter::UnpackLSBFirst> UnpackLSBFirst;
+    Transform<PixelParameter::UnpackRowLength> UnpackRowLength;
+    Transform<PixelParameter::UnpackSkipRows> UnpackSkipRows;
+    Transform<PixelParameter::UnpackSkipPixels> UnpackSkipPixels;
+    Transform<PixelParameter::UnpackAlignment> UnpackAlignment;
+    Transform<PixelParameter::UnpackImageHeight> UnpackImageHeight;
+    Transform<PixelParameter::UnpackSkipImages> UnpackSkipImages;
+    Transform<PixelParameter::UnpackCompressedBlockWidth>
+      UnpackCompressedBlockWidth;
+    Transform<PixelParameter::UnpackCompressedBlockHeight>
+      UnpackCompressedBlockHeight;
+    Transform<PixelParameter::UnpackCompressedBlockDepth>
+      UnpackCompressedBlockDepth;
+    Transform<PixelParameter::UnpackCompressedBlockSize>
+      UnpackCompressedBlockSize;
 };
 
 } // namespace enums
 #endif
 //]
-

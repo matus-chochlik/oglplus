@@ -13,10 +13,10 @@ public:
     Sampler bind target.
     >*/
 
-    static __SamplerName Binding(__TextureUnitSelector target);            /*<
-               Returns the sampler currently bound to the specified [^target].
-               See [glfunc GetIntegerv].
-               >*/
+    static __SamplerName Binding(__TextureUnitSelector target); /*<
+    Returns the sampler currently bound to the specified [^target].
+    See [glfunc GetIntegerv].
+    >*/
     static void Bind(__TextureUnitSelector target, __SamplerName sampler); /*<
     Binds the specified [^sampler] to the specified [^target].
     See [glfunc BindSampler].
@@ -50,39 +50,39 @@ public:
     void BorderColor(__Vector<GLuint, 4> color);
     void BorderColor(__Vector<GLint, 4> color);
 
-    __TextureCompareMode CompareMode() const;    /*<
-       Returns the currently set texture compare mode of this sampler object.
-       See [glfunc GetSamplerParameter], [glconst TEXTURE_COMPARE_MODE].
-       >*/
+    __TextureCompareMode CompareMode() const; /*<
+    Returns the currently set texture compare mode of this sampler object.
+    See [glfunc GetSamplerParameter], [glconst TEXTURE_COMPARE_MODE].
+    >*/
     void CompareMode(__TextureCompareMode mode); /*<
     Sets the texture compare mode for this sampler object.
     See [glfunc SamplerParameter], [glconst TEXTURE_COMPARE_MODE].
     >*/
 
-    __CompareFunction CompareFunc() const;    /*<
-       Returns the currently set texture compare function of this sampler object.
-       See [glfunc GetSamplerParameter], [glconst TEXTURE_COMPARE_FUNC].
-       >*/
+    __CompareFunction CompareFunc() const; /*<
+    Returns the currently set texture compare function of this sampler object.
+    See [glfunc GetSamplerParameter], [glconst TEXTURE_COMPARE_FUNC].
+    >*/
     void CompareFunc(__CompareFunction func); /*<
     Sets the texture compare mode for this sampler object.
     See [glfunc SamplerParameter], [glconst TEXTURE_COMPARE_FUNC].
     >*/
 
-    __TextureMinFilter MinFilter() const;      /*<
-         Returns the currently set texture minnification filter of this
-         sampler object.
-         See [glfunc GetSamplerParameter], [glconst TEXTURE_MIN_FILTER].
-         >*/
+    __TextureMinFilter MinFilter() const; /*<
+    Returns the currently set texture minnification filter of this
+    sampler object.
+    See [glfunc GetSamplerParameter], [glconst TEXTURE_MIN_FILTER].
+    >*/
     void MinFilter(__TextureMinFilter filter); /*<
     Sets the texture minnification filter for this sampler object.
     See [glfunc SamplerParameter], [glconst TEXTURE_MIN_FILTER].
     >*/
 
-    __TextureMagFilter MagFilter() const;      /*<
-         Returns the currently set texture magnification filter of this
-         sampler object.
-         See [glfunc GetSamplerParameter], [glconst TEXTURE_MAG_FILTER].
-         >*/
+    __TextureMagFilter MagFilter() const; /*<
+    Returns the currently set texture magnification filter of this
+    sampler object.
+    See [glfunc GetSamplerParameter], [glconst TEXTURE_MAG_FILTER].
+    >*/
     void MagFilter(__TextureMagFilter filter); /*<
     Sets the texture magnification filter for this sampler object.
     See [glfunc SamplerParameter], [glconst TEXTURE_MAG_FILTER].
@@ -94,14 +94,14 @@ public:
     See [glfunc SamplerParameter], [glconst TEXTURE_MIN_FILTER],
     [glconst TEXTURE_MAG_FILTER].
     >*/
-                                               //]
-                                               //[oglplus_sampler_2
+    //]
+    //[oglplus_sampler_2
 
-    __TextureWrap Wrap(__TextureWrapCoord coord) const;     /*<
-        Returns the currently set texture wrap mode on the specified
-        [^coord] of this sampler object.
-        See [glfunc GetSamplerParameter].
-        >*/
+    __TextureWrap Wrap(__TextureWrapCoord coord) const; /*<
+    Returns the currently set texture wrap mode on the specified
+    [^coord] of this sampler object.
+    See [glfunc GetSamplerParameter].
+    >*/
     void Wrap(__TextureWrapCoord coord, __TextureWrap mode) /*<
     Sets the texture wrap mode on the specified [^coord]
     for this sampler object.
@@ -130,42 +130,42 @@ public:
     void WrapT(TextureWrap mode);
     void WrapR(TextureWrap mode);
 
-    GLfloat LODBias() const;     /*<
-        Returns the currently set texture level-of-detail bias value
-        of this sampler object.
-        See [glfunc GetSamplerParameter], [glconst TEXTURE_LOD_BIAS].
-        >*/
+    GLfloat LODBias() const; /*<
+    Returns the currently set texture level-of-detail bias value
+    of this sampler object.
+    See [glfunc GetSamplerParameter], [glconst TEXTURE_LOD_BIAS].
+    >*/
     void LODBias(GLfloat value); /*<
     Sets the texture level-of-detail bias value for this sampler object.
     See [glfunc SamplerParameter], [glconst TEXTURE_LOD_BIAS].
     >*/
 
-    GLfloat MinLOD() const;     /*<
-        Returns the currently set minimum texture level-of-detail value
-        of this sampler object.
-        See [glfunc GetSamplerParameter], [glconst TEXTURE_MIN_LOD].
-        >*/
+    GLfloat MinLOD() const; /*<
+    Returns the currently set minimum texture level-of-detail value
+    of this sampler object.
+    See [glfunc GetSamplerParameter], [glconst TEXTURE_MIN_LOD].
+    >*/
     void MinLOD(GLfloat value); /*<
     Sets the minimal texture level-of-detail value for this sampler object.
     See [glfunc SamplerParameter], [glconst TEXTURE_MIN_LOD].
     >*/
 
-    GLfloat MaxLOD() const;     /*<
-        Returns the currently set maximum texture level-of-detail value
-        of this sampler object.
-        See [glfunc GetSamplerParameter], [glconst TEXTURE_MAX_LOD].
-        >*/
+    GLfloat MaxLOD() const; /*<
+    Returns the currently set maximum texture level-of-detail value
+    of this sampler object.
+    See [glfunc GetSamplerParameter], [glconst TEXTURE_MAX_LOD].
+    >*/
     void MaxLOD(GLfloat value); /*<
     Sets the maximal texture level-of-detail value for this sampler object.
     See [glfunc SamplerParameter], [glconst TEXTURE_MAX_LOD].
     >*/
 
 #if GL_ARB_seamless_cubemap_per_texture
-    __Boolean Seamless() const;      /*<
-         Returns the value of the seamless-cube map setting of this
-         sampler object.
-         See [glfunc GetSamplerParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].
-         >*/
+    __Boolean Seamless() const; /*<
+    Returns the value of the seamless-cube map setting of this
+    sampler object.
+    See [glfunc GetSamplerParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].
+    >*/
     void Seamless(__Boolean enable); /*<
     Sets the seamless cubemap setting for this sampler object.
     See [glfunc SamplerParameter], [glconst TEXTURE_CUBE_MAP_SEAMLESS].

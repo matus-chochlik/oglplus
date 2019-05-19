@@ -12,9 +12,9 @@ Array of three buffer objects.
 
 std::size_t n = /* ... */
 
-std::vector<GLfloat> pos(n * 3); /*<
-Position data.
->*/
+  std::vector<GLfloat> pos(n * 3); /*<
+  Position data.
+  >*/
 std::vector<GLfloat> nms(n * 3); /*<
 Normal vector data.
 >*/
@@ -28,35 +28,33 @@ vbos[0].Bind(__BufferTarget::Array); /*<
 Bind and setup the buffer object on index 0.
 >*/
 {
-	__Buffer::Data(__BufferTarget::Array, pos);
+    __Buffer::Data(__BufferTarget::Array, pos);
 
-	__VertexArrayAttrib attr(prog, "Position");
-	attr.Setup<__Vec3f>();
-	attr.Enable();
+    __VertexArrayAttrib attr(prog, "Position");
+    attr.Setup<__Vec3f>();
+    attr.Enable();
 }
 
 vbos[1].Bind(__BufferTarget::Array); /*<
 Bind and setup the buffer object on index 1.
 >*/
 {
-	__Buffer::Data(__BufferTarget::Array, nms);
+    __Buffer::Data(__BufferTarget::Array, nms);
 
-	__VertexArrayAttrib attr(prog, "Normal");
-	attr.Setup<__Vec3f>();
-	attr.Enable();
+    __VertexArrayAttrib attr(prog, "Normal");
+    attr.Setup<__Vec3f>();
+    attr.Enable();
 }
 
 vbos[2].Bind(__BufferTarget::Array); /*<
 Bind and setup the buffer object on index 2.
 >*/
 {
-	__Buffer::Data(__BufferTarget::Array, tcs);
+    __Buffer::Data(__BufferTarget::Array, tcs);
 
-	__VertexArrayAttrib attr(prog, "TexCoord");
-	attr.Setup<__Vec2f>();
-	attr.Enable();
+    __VertexArrayAttrib attr(prog, "TexCoord");
+    attr.Setup<__Vec2f>();
+    attr.Enable();
 }
 
-
 //]
-

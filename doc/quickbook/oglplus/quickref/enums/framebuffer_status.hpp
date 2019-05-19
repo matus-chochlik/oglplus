@@ -11,15 +11,14 @@
 //
 //[oglplus_enums_framebuffer_status
 
-enum class FramebufferStatus : GLenum
-{
-	Complete                    = GL_FRAMEBUFFER_COMPLETE,
-	Undefined                   = GL_FRAMEBUFFER_UNDEFINED,
-	IncompleteAttachment        = GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT,
-	IncompleteMissingAttachment = GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT,
-	Unsupported                 = GL_FRAMEBUFFER_UNSUPPORTED,
-	IncompleteMultisample       = GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE,
-	IncompleteLayerTargets      = GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS
+enum class FramebufferStatus : GLenum {
+    Complete = GL_FRAMEBUFFER_COMPLETE,
+    Undefined = GL_FRAMEBUFFER_UNDEFINED,
+    IncompleteAttachment = GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT,
+    IncompleteMissingAttachment = GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT,
+    Unsupported = GL_FRAMEBUFFER_UNSUPPORTED,
+    IncompleteMultisample = GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE,
+    IncompleteLayerTargets = GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS
 };
 
 template <>

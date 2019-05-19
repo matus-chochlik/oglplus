@@ -13,33 +13,24 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__BufferStorageBit> class Transform>
+template <typename Base, template <__BufferStorageBit> class Transform>
 class __EnumToClass<Base, __BufferStorageBit, Transform> /*<
 Specialization of __EnumToClass for the __BufferStorageBit enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<BufferStorageBit::MapRead>
-		MapRead;
-	Transform<BufferStorageBit::MapWrite>
-		MapWrite;
-	Transform<BufferStorageBit::MapPersistent>
-		MapPersistent;
-	Transform<BufferStorageBit::MapCoherent>
-		MapCoherent;
-	Transform<BufferStorageBit::DynamicStorage>
-		DynamicStorage;
-	Transform<BufferStorageBit::ClientStorage>
-		ClientStorage;
-	Transform<BufferStorageBit::SparseStorage>
-		SparseStorage;
+    Transform<BufferStorageBit::MapRead> MapRead;
+    Transform<BufferStorageBit::MapWrite> MapWrite;
+    Transform<BufferStorageBit::MapPersistent> MapPersistent;
+    Transform<BufferStorageBit::MapCoherent> MapCoherent;
+    Transform<BufferStorageBit::DynamicStorage> DynamicStorage;
+    Transform<BufferStorageBit::ClientStorage> ClientStorage;
+    Transform<BufferStorageBit::SparseStorage> SparseStorage;
 };
 
 } // namespace enums
 #endif
 //]
-

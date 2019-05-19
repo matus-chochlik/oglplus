@@ -15,19 +15,19 @@ public:
     Group(const Group&); /*< [^Group] is copyable and movable. >*/
     Group(Group&&);
 
-    Group(void); /*< Constructs an empty group >*/
+    Group(); /*< Constructs an empty group >*/
 
-    Group(std::initializer_list<__ObjectName<__ObjTag>> names) /*<
+    Group(std::initializer_list<__ObjectName<__ObjTag>> names); /*<
     Constructs the Group from an initializer list.
     >*/
 
-      Group& Add(__ObjectName<__ObjTag> name); /*<
-      Add a new name to this group.
-      >*/
+    Group& Add(__ObjectName<__ObjTag> name); /*<
+    Add a new name to this group.
+    >*/
 
-    __Sequence<__ObjectName<__ObjTag>> seq(void) const;
+    __Sequence<__ObjectName<__ObjTag>> seq() const;
 
-    operator __Sequence<__ObjectName<__ObjTag>>(void) const; /*<
+    operator __Sequence<__ObjectName<__ObjTag>>() const; /*<
    Implicit conversion to a sequence of object names, which can
    be passed as an argument to various functions.
    Note that the returned sequence must not be used after
@@ -66,9 +66,9 @@ public:
     of the same type.
     >*/
 
-    __Sequence<__ObjectName<__ObjTag>> seq(void) const;
+    __Sequence<__ObjectName<__ObjTag>> seq() const;
 
-    operator __Sequence<__ObjectName<__ObjTag>>(void) const; /*<
+    operator __Sequence<__ObjectName<__ObjTag>>() const; /*<
    Implicit conversion to a sequence of object names, which can
    be passed as an argument to various functions.
    Note that the returned sequence must not be used after

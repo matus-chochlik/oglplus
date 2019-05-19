@@ -13,23 +13,19 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ProvokeMode> class Transform>
+template <typename Base, template <__ProvokeMode> class Transform>
 class __EnumToClass<Base, __ProvokeMode, Transform> /*<
 Specialization of __EnumToClass for the __ProvokeMode enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ProvokeMode::FirstVertexConvention>
-		FirstVertexConvention;
-	Transform<ProvokeMode::LastVertexConvention>
-		LastVertexConvention;
+    Transform<ProvokeMode::FirstVertexConvention> FirstVertexConvention;
+    Transform<ProvokeMode::LastVertexConvention> LastVertexConvention;
 };
 
 } // namespace enums
 #endif
 //]
-

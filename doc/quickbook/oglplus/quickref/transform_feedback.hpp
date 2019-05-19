@@ -39,15 +39,15 @@ See [glfunc GetIntegerv].
     See [glfunc BeginTransformFeedback].
     [note Consider using an instance of [^Activator] class for more robustness.]
     >*/
-    static void BeginPoints();                                /*<
-                                   See [glconst POINTS].
-                                   >*/
-    static void BeginLines();                                 /*<
-                                    See [glconst LINES].
-                                    >*/
-    static void BeginTriangles();                             /*<
-                                See [glconst TRIANGLES].
-                                >*/
+    static void BeginPoints(); /*<
+    See [glconst POINTS].
+    >*/
+    static void BeginLines(); /*<
+    See [glconst LINES].
+    >*/
+    static void BeginTriangles(); /*<
+    See [glconst TRIANGLES].
+    >*/
 
     static void End(); /*<
     Ends the currently active transform feedback.
@@ -78,7 +78,7 @@ typedef ObjectOps<
 Indirectly inherits from
 __ObjCommonOps_TransformFeedback<__tag_TransformFeedback>
 >*/
-                             TransformFeedbackOps;
+  TransformFeedbackOps;
 
 typedef __Object<TransformFeedbackOps> TransformFeedback;
 #endif
@@ -89,7 +89,7 @@ typedef __ObjectZero<__ObjZeroOps<
 Indirectly inherits from
 __ObjCommonOps_TransformFeedback<__tag_TransformFeedback>
 >*/
-                              DefaultTransformFeedback;
+  DefaultTransformFeedback;
 
 //]
 //[oglplus_transform_feedback_activator

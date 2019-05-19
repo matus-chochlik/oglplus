@@ -11,13 +11,12 @@
 //
 //[oglplus_enums_ext_nv_path_join_style
 
-enum class PathNVJoinStyle : GLenum
-{
-	None          = GL_NONE,
-	Round         = GL_ROUND_NV,
-	Bevel         = GL_BEVEL_NV,
-	MiterRevert   = GL_MITER_REVERT_NV,
-	MiterTruncate = GL_MITER_TRUNCATE_NV
+enum class PathNVJoinStyle : GLenum {
+    None = GL_NONE,
+    Round = GL_ROUND_NV,
+    Bevel = GL_BEVEL_NV,
+    MiterRevert = GL_MITER_REVERT_NV,
+    MiterTruncate = GL_MITER_TRUNCATE_NV
 };
 
 template <>

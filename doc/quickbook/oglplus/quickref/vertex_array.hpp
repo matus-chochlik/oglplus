@@ -18,10 +18,10 @@ public:
     Binds the specified [^vertex_array] object.
     See [glfunc BindVertexArray].
     >*/
-    void Bind() const;                                /*<
-                                   Binds the [^this] vertex array object.
-                                   See [glfunc BindVertexArray].
-                                   >*/
+    void Bind() const; /*<
+    Binds the [^this] vertex array object.
+    See [glfunc BindVertexArray].
+    >*/
 };
 //]
 //[oglplus_vertex_array_def

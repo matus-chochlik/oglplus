@@ -11,11 +11,10 @@
 //
 //[oglplus_enums_ext_nv_path_list_mode
 
-enum class PathNVListMode : GLenum
-{
-	AccumAdjacentPairs = GL_ACCUM_ADJACENT_PAIRS_NV,
-	AdjacentPairs      = GL_ADJACENT_PAIRS_NV,
-	FirstToRest        = GL_FIRST_TO_REST_NV
+enum class PathNVListMode : GLenum {
+    AccumAdjacentPairs = GL_ACCUM_ADJACENT_PAIRS_NV,
+    AdjacentPairs = GL_ADJACENT_PAIRS_NV,
+    FirstToRest = GL_FIRST_TO_REST_NV
 };
 
 template <>

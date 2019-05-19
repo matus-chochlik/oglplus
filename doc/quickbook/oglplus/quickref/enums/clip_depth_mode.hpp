@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_clip_depth_mode
 
-enum class ClipDepthMode : GLenum
-{
-	NegativeOneToOne = GL_NEGATIVE_ONE_TO_ONE,
-	ZeroToOne        = GL_ZERO_TO_ONE
+enum class ClipDepthMode : GLenum {
+    NegativeOneToOne = GL_NEGATIVE_ONE_TO_ONE,
+    ZeroToOne = GL_ZERO_TO_ONE
 };
 
 template <>

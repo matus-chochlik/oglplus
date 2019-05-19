@@ -10,12 +10,12 @@ class ObjectError : public __Error {
 public:
     ObjectError(const char* message);
 
-    GLenum ObjectType() const;          /*<
-             Returns the OpenGL constant value determining the object type
-             (like [^GL_PROGRAM], [^GL_TEXTURE], [^GL_SHADER], [^GL_BUFFER], etc.),
-             which caused the error.
-             If the object type is not available the value zero is returned.
-             >*/
+    GLenum ObjectType() const; /*<
+    Returns the OpenGL constant value determining the object type
+    (like [^GL_PROGRAM], [^GL_TEXTURE], [^GL_SHADER], [^GL_BUFFER], etc.),
+    which caused the error.
+    If the object type is not available the value zero is returned.
+    >*/
     const char* ObjectTypeName() const; /*<
     Returns a c-string (without the [^GL_] prefix) corresponding
     to the GL constant determining the object type (like [^"PROGRAM"],
@@ -23,22 +23,22 @@ public:
     If the object type name is not available then nullptr is returned.
     >*/
 
-    GLenum BindTarget() const;      /*<
-         Returns the OpenGL constant value determining the bind target,
-         to which the object related to the error was bound.
-         If the target is not available the value zero is returned.
-         >*/
+    GLenum BindTarget() const; /*<
+    Returns the OpenGL constant value determining the bind target,
+    to which the object related to the error was bound.
+    If the target is not available the value zero is returned.
+    >*/
     const char* TargetName() const; /*<
     Returns a c-string (without the [^GL_] prefix) corresponding
     to the GL constant determining the bind target.
     If the target name is not available then nullptr is returned.
     >*/
 
-    GLint ObjectName() const;           /*<
-              Returns the raw OpenGL (integer) name of the object, which caused
-              the error. If the object name is not available then a negative
-              integer value is returned.
-              >*/
+    GLint ObjectName() const; /*<
+    Returns the raw OpenGL (integer) name of the object, which caused
+    the error. If the object name is not available then a negative
+    integer value is returned.
+    >*/
     const __String& ObjectDesc() const; /*<
     Returns a textual description of the object, which caused the error.
     If no description is available, then an empty __String is returned.
@@ -52,23 +52,23 @@ class ObjectPairError : public __ObjectError {
 public:
     ObjectPairError(const char* message);
 
-    GLenum SubjectType() const;          /*<
-             Returns the OpenGL constant value determining the type of the subject,
-             in the object pair which caused the error.
-             If the subject type is not available the value zero is returned.
-             >*/
+    GLenum SubjectType() const; /*<
+    Returns the OpenGL constant value determining the type of the subject,
+    in the object pair which caused the error.
+    If the subject type is not available the value zero is returned.
+    >*/
     const char* SubjectTypeName() const; /*<
     Returns a c-string (without the [^GL_] prefix) corresponding
     to the GL constant determining the subject type.
     If the subject type name is not available then nullptr is returned.
     >*/
 
-    GLint SubjectName() const;           /*<
-              Returns the OpenGL (integer) name of the subject in the object
-              pair, which caused the error.
-              If the object name is not available then a negative integer value
-              is returned.
-              >*/
+    GLint SubjectName() const; /*<
+    Returns the OpenGL (integer) name of the subject in the object
+    pair, which caused the error.
+    If the object name is not available then a negative integer value
+    is returned.
+    >*/
     const __String& SubjectDesc() const; /*<
     Returns a textual description of the subject, which caused the error.
     If no description is available, then an empty __String is returned.

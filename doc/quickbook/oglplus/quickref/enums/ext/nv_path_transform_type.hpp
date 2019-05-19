@@ -11,17 +11,16 @@
 //
 //[oglplus_enums_ext_nv_path_transform_type
 
-enum class PathNVTransformType : GLenum
-{
-	None              = GL_NONE,
-	TranslateX        = GL_TRANSLATE_X_NV,
-	TranslateY        = GL_TRANSLATE_Y_NV,
-	Translate2D       = GL_TRANSLATE_2D_NV,
-	Translate3D       = GL_TRANSLATE_3D_NV,
-	Affine2D          = GL_AFFINE_2D_NV,
-	Affine3D          = GL_AFFINE_3D_NV,
-	TransposeAffine2D = GL_TRANSPOSE_AFFINE_2D_NV,
-	TransposeAffine3D = GL_TRANSPOSE_AFFINE_3D_NV
+enum class PathNVTransformType : GLenum {
+    None = GL_NONE,
+    TranslateX = GL_TRANSLATE_X_NV,
+    TranslateY = GL_TRANSLATE_Y_NV,
+    Translate2D = GL_TRANSLATE_2D_NV,
+    Translate3D = GL_TRANSLATE_3D_NV,
+    Affine2D = GL_AFFINE_2D_NV,
+    Affine3D = GL_AFFINE_3D_NV,
+    TransposeAffine2D = GL_TRANSPOSE_AFFINE_2D_NV,
+    TransposeAffine3D = GL_TRANSPOSE_AFFINE_3D_NV
 };
 
 template <>

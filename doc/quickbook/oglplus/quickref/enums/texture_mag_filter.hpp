@@ -11,10 +11,9 @@
 //
 //[oglplus_enums_texture_mag_filter
 
-enum class TextureMagFilter : GLenum
-{
-	Nearest = GL_NEAREST,
-	Linear  = GL_LINEAR
+enum class TextureMagFilter : GLenum {
+    Nearest = GL_NEAREST,
+    Linear = GL_LINEAR
 };
 
 template <>

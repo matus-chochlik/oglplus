@@ -10,4 +10,3 @@ typedef __PixelDataFormat Format;
 typedef __PixelDataInternalFormat InternalFormat;
 
 //]
-

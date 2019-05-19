@@ -27,4 +27,3 @@ Disables GPU program variable typechecking.
 
 } // namespace tag
 //]
-

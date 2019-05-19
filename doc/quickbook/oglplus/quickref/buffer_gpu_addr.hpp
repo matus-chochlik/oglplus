@@ -8,10 +8,9 @@
 
 #if GL_NV_shader_buffer_load
 
-class BufferGPUAddress
-{
+class BufferGPUAddress {
 public:
-	BufferGPUAddress(GLuint64EXT addr);
+    BufferGPUAddress(GLuint64EXT addr);
 };
 
 GLuint64EXT GetGLAddress(BufferGPUAddress bga); /*<
@@ -21,4 +20,3 @@ Returns the underlying buffer address value.
 #endif
 
 //]
-

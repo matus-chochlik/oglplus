@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_ext_nv_path_fill_mode
 
-enum class PathNVFillMode : GLenum
-{
-	Invert    = GL_INVERT,
-	CountUp   = GL_COUNT_UP_NV,
-	CountDown = GL_COUNT_DOWN_NV,
-	FillMode  = GL_PATH_FILL_MODE_NV
+enum class PathNVFillMode : GLenum {
+    Invert = GL_INVERT,
+    CountUp = GL_COUNT_UP_NV,
+    CountDown = GL_COUNT_DOWN_NV,
+    FillMode = GL_PATH_FILL_MODE_NV
 };
 
 template <>

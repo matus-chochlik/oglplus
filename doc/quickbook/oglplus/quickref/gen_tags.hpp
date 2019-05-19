@@ -10,10 +10,9 @@ namespace tag {
 struct Generate; /*<
 Indicates that a [^glGen*] function should be used.
 >*/
-struct Create ; /*<
+struct Create; /*<
 Indicates that a [^glCreate*] function should be used.
 >*/
 
 } // namespace tag
 //]
-

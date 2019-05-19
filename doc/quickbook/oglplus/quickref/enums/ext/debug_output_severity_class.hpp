@@ -1,4 +1,5 @@
-//  File doc/quickbook/oglplus/quickref/enums/ext/debug_output_severity_class.hpp
+//  File
+//  doc/quickbook/oglplus/quickref/enums/ext/debug_output_severity_class.hpp
 //
 //  Automatically generated file, DO NOT modify manually.
 //  Edit the source 'source/enums/oglplus/ext/debug_output_severity.txt'
@@ -13,27 +14,21 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__DebugOutputARBSeverity> class Transform>
+template <typename Base, template <__DebugOutputARBSeverity> class Transform>
 class __EnumToClass<Base, __DebugOutputARBSeverity, Transform> /*<
 Specialization of __EnumToClass for the __DebugOutputARBSeverity enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<DebugOutputARBSeverity::High>
-		High;
-	Transform<DebugOutputARBSeverity::Medium>
-		Medium;
-	Transform<DebugOutputARBSeverity::Low>
-		Low;
-	Transform<DebugOutputARBSeverity::DontCare>
-		DontCare;
+    Transform<DebugOutputARBSeverity::High> High;
+    Transform<DebugOutputARBSeverity::Medium> Medium;
+    Transform<DebugOutputARBSeverity::Low> Low;
+    Transform<DebugOutputARBSeverity::DontCare> DontCare;
 };
 
 } // namespace enums
 #endif
 //]
-

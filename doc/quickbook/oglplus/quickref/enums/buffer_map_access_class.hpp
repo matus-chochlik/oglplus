@@ -13,35 +13,25 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__BufferMapAccess> class Transform>
+template <typename Base, template <__BufferMapAccess> class Transform>
 class __EnumToClass<Base, __BufferMapAccess, Transform> /*<
 Specialization of __EnumToClass for the __BufferMapAccess enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<BufferMapAccess::Read>
-		Read;
-	Transform<BufferMapAccess::Write>
-		Write;
-	Transform<BufferMapAccess::Persistent>
-		Persistent;
-	Transform<BufferMapAccess::Coherent>
-		Coherent;
-	Transform<BufferMapAccess::InvalidateRange>
-		InvalidateRange;
-	Transform<BufferMapAccess::InvalidateBuffer>
-		InvalidateBuffer;
-	Transform<BufferMapAccess::FlushExplicit>
-		FlushExplicit;
-	Transform<BufferMapAccess::Unsynchronized>
-		Unsynchronized;
+    Transform<BufferMapAccess::Read> Read;
+    Transform<BufferMapAccess::Write> Write;
+    Transform<BufferMapAccess::Persistent> Persistent;
+    Transform<BufferMapAccess::Coherent> Coherent;
+    Transform<BufferMapAccess::InvalidateRange> InvalidateRange;
+    Transform<BufferMapAccess::InvalidateBuffer> InvalidateBuffer;
+    Transform<BufferMapAccess::FlushExplicit> FlushExplicit;
+    Transform<BufferMapAccess::Unsynchronized> Unsynchronized;
 };
 
 } // namespace enums
 #endif
 //]
-

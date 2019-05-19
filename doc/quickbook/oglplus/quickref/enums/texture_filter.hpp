@@ -11,11 +11,7 @@
 //
 //[oglplus_enums_texture_filter
 
-enum class TextureFilter : GLenum
-{
-	Nearest = GL_NEAREST,
-	Linear  = GL_LINEAR
-};
+enum class TextureFilter : GLenum { Nearest = GL_NEAREST, Linear = GL_LINEAR };
 
 template <>
 __Range<TextureFilter> __EnumValueRange<TextureFilter>();

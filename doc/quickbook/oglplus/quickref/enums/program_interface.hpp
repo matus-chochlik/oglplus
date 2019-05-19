@@ -11,28 +11,27 @@
 //
 //[oglplus_enums_program_interface
 
-enum class ProgramInterface : GLenum
-{
-	Uniform                         = GL_UNIFORM,
-	UniformBlock                    = GL_UNIFORM_BLOCK,
-	AtomicCounterBuffer             = GL_ATOMIC_COUNTER_BUFFER,
-	ProgramInput                    = GL_PROGRAM_INPUT,
-	ProgramOutput                   = GL_PROGRAM_OUTPUT,
-	VertexSubroutine                = GL_VERTEX_SUBROUTINE,
-	TessControlSubroutine           = GL_TESS_CONTROL_SUBROUTINE,
-	TessEvaluationSubroutine        = GL_TESS_EVALUATION_SUBROUTINE,
-	GeometrySubroutine              = GL_GEOMETRY_SUBROUTINE,
-	FragmentSubroutine              = GL_FRAGMENT_SUBROUTINE,
-	ComputeSubroutine               = GL_COMPUTE_SUBROUTINE,
-	VertexSubroutineUniform         = GL_VERTEX_SUBROUTINE_UNIFORM,
-	TessControlSubroutineUniform    = GL_TESS_CONTROL_SUBROUTINE_UNIFORM,
-	TessEvaluationSubroutineUniform = GL_TESS_EVALUATION_SUBROUTINE_UNIFORM,
-	GeometrySubroutineUniform       = GL_GEOMETRY_SUBROUTINE_UNIFORM,
-	FragmentSubroutineUniform       = GL_FRAGMENT_SUBROUTINE_UNIFORM,
-	ComputeSubroutineUniform        = GL_COMPUTE_SUBROUTINE_UNIFORM,
-	TransformFeedebackVarying       = GL_TRANSFORM_FEEDEBACK_VARYING,
-	BufferVariable                  = GL_BUFFER_VARIABLE,
-	ShaderStorageBlock              = GL_SHADER_STORAGE_BLOCK
+enum class ProgramInterface : GLenum {
+    Uniform = GL_UNIFORM,
+    UniformBlock = GL_UNIFORM_BLOCK,
+    AtomicCounterBuffer = GL_ATOMIC_COUNTER_BUFFER,
+    ProgramInput = GL_PROGRAM_INPUT,
+    ProgramOutput = GL_PROGRAM_OUTPUT,
+    VertexSubroutine = GL_VERTEX_SUBROUTINE,
+    TessControlSubroutine = GL_TESS_CONTROL_SUBROUTINE,
+    TessEvaluationSubroutine = GL_TESS_EVALUATION_SUBROUTINE,
+    GeometrySubroutine = GL_GEOMETRY_SUBROUTINE,
+    FragmentSubroutine = GL_FRAGMENT_SUBROUTINE,
+    ComputeSubroutine = GL_COMPUTE_SUBROUTINE,
+    VertexSubroutineUniform = GL_VERTEX_SUBROUTINE_UNIFORM,
+    TessControlSubroutineUniform = GL_TESS_CONTROL_SUBROUTINE_UNIFORM,
+    TessEvaluationSubroutineUniform = GL_TESS_EVALUATION_SUBROUTINE_UNIFORM,
+    GeometrySubroutineUniform = GL_GEOMETRY_SUBROUTINE_UNIFORM,
+    FragmentSubroutineUniform = GL_FRAGMENT_SUBROUTINE_UNIFORM,
+    ComputeSubroutineUniform = GL_COMPUTE_SUBROUTINE_UNIFORM,
+    TransformFeedebackVarying = GL_TRANSFORM_FEEDEBACK_VARYING,
+    BufferVariable = GL_BUFFER_VARIABLE,
+    ShaderStorageBlock = GL_SHADER_STORAGE_BLOCK
 };
 
 template <>

@@ -15,30 +15,26 @@ using oglplus::__context_PixelOps;
 //[oglplus_client_PixelState
 namespace client {
 
-class PixelState
-{
+class PixelState {
 private:
-	template <__PixelParameter Parameter>
-	class PixelParams /*<
-	This class template is here for documentation purposes only
-	and is [*not] part of the public interface.
-	>*/
-	 : __SettingStack<__Unspecified, ...> /*<
-	Stack of numeric values (booleans, integers, floats) appropriate
-	for the pixel [^Parameter] type.
-	>*/
-	{ };
+    template <__PixelParameter Parameter>
+    class PixelParams /*<
+    This class template is here for documentation purposes only
+    and is [*not] part of the public interface.
+    >*/
+      : __SettingStack<__Unspecified, ...> /*<
+     Stack of numeric values (booleans, integers, floats) appropriate
+     for the pixel [^Parameter] type.
+     >*/
+    {};
+
 public:
-	__enums_EnumToClass_PixelParameter<
-		__Nothing,
-		__PixelParameter,
-		PixelParams
-	> PixelStore; /*<
-	Set of stacks managing the setting of numeric pixel parameters
-	individually for each value in the __PixelParameter enumeration.
-	>*/
+    __enums_EnumToClass_PixelParameter<__Nothing, __PixelParameter, PixelParams>
+      PixelStore; /*<
+    Set of stacks managing the setting of numeric pixel parameters
+    individually for each value in the __PixelParameter enumeration.
+    >*/
 };
 
 } // namespace client
 //]
-

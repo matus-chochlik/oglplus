@@ -11,11 +11,7 @@
 //
 //[oglplus_enums_single_face
 
-enum class SingleFace : GLenum
-{
-	Front = GL_FRONT,
-	Back  = GL_BACK
-};
+enum class SingleFace : GLenum { Front = GL_FRONT, Back = GL_BACK };
 
 template <>
 __Range<SingleFace> __EnumValueRange<SingleFace>();

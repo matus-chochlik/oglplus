@@ -11,15 +11,14 @@
 //
 //[oglplus_enums_debug_output_source
 
-enum class DebugOutputSource : GLenum
-{
-	API            = GL_DEBUG_SOURCE_API,
-	WindowSystem   = GL_DEBUG_SOURCE_WINDOW_SYSTEM,
-	ShaderCompiler = GL_DEBUG_SOURCE_SHADER_COMPILER,
-	ThirdParty     = GL_DEBUG_SOURCE_THIRD_PARTY,
-	Application    = GL_DEBUG_SOURCE_APPLICATION,
-	Other          = GL_DEBUG_SOURCE_OTHER,
-	DontCare       = GL_DONT_CARE
+enum class DebugOutputSource : GLenum {
+    API = GL_DEBUG_SOURCE_API,
+    WindowSystem = GL_DEBUG_SOURCE_WINDOW_SYSTEM,
+    ShaderCompiler = GL_DEBUG_SOURCE_SHADER_COMPILER,
+    ThirdParty = GL_DEBUG_SOURCE_THIRD_PARTY,
+    Application = GL_DEBUG_SOURCE_APPLICATION,
+    Other = GL_DEBUG_SOURCE_OTHER,
+    DontCare = GL_DONT_CARE
 };
 
 template <>

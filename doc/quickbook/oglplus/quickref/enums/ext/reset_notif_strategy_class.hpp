@@ -13,23 +13,25 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ResetNotificationStrategyARB> class Transform>
+template <
+  typename Base,
+  template <__ResetNotificationStrategyARB>
+  class Transform>
 class __EnumToClass<Base, __ResetNotificationStrategyARB, Transform> /*<
-Specialization of __EnumToClass for the __ResetNotificationStrategyARB enumeration.
+Specialization of __EnumToClass for the __ResetNotificationStrategyARB
+enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ResetNotificationStrategyARB::NoResetNotification>
-		NoResetNotification;
-	Transform<ResetNotificationStrategyARB::LoseContextOnReset>
-		LoseContextOnReset;
+    Transform<ResetNotificationStrategyARB::NoResetNotification>
+      NoResetNotification;
+    Transform<ResetNotificationStrategyARB::LoseContextOnReset>
+      LoseContextOnReset;
 };
 
 } // namespace enums
 #endif
 //]
-

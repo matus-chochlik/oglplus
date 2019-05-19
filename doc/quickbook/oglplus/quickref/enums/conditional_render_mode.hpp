@@ -11,16 +11,15 @@
 //
 //[oglplus_enums_conditional_render_mode
 
-enum class ConditionalRenderMode : GLenum
-{
-	QueryWait                   = GL_QUERY_WAIT,
-	QueryNoWait                 = GL_QUERY_NO_WAIT,
-	QueryByRegionWait           = GL_QUERY_BY_REGION_WAIT,
-	QueryByRegionNoWait         = GL_QUERY_BY_REGION_NO_WAIT,
-	QueryWaitInverted           = GL_QUERY_WAIT_INVERTED,
-	QueryNoWaitInverted         = GL_QUERY_NO_WAIT_INVERTED,
-	QueryByRegionWaitInverted   = GL_QUERY_BY_REGION_WAIT_INVERTED,
-	QueryByRegionNoWaitInverted = GL_QUERY_BY_REGION_NO_WAIT_INVERTED
+enum class ConditionalRenderMode : GLenum {
+    QueryWait = GL_QUERY_WAIT,
+    QueryNoWait = GL_QUERY_NO_WAIT,
+    QueryByRegionWait = GL_QUERY_BY_REGION_WAIT,
+    QueryByRegionNoWait = GL_QUERY_BY_REGION_NO_WAIT,
+    QueryWaitInverted = GL_QUERY_WAIT_INVERTED,
+    QueryNoWaitInverted = GL_QUERY_NO_WAIT_INVERTED,
+    QueryByRegionWaitInverted = GL_QUERY_BY_REGION_WAIT_INVERTED,
+    QueryByRegionNoWaitInverted = GL_QUERY_BY_REGION_NO_WAIT_INVERTED
 };
 
 template <>

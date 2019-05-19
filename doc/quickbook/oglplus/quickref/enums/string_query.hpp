@@ -11,12 +11,11 @@
 //
 //[oglplus_enums_string_query
 
-enum class StringQuery : GLenum
-{
-	Renderer               = GL_RENDERER,
-	Vendor                 = GL_VENDOR,
-	Version                = GL_VERSION,
-	ShadingLanguageVersion = GL_SHADING_LANGUAGE_VERSION
+enum class StringQuery : GLenum {
+    Renderer = GL_RENDERER,
+    Vendor = GL_VENDOR,
+    Version = GL_VERSION,
+    ShadingLanguageVersion = GL_SHADING_LANGUAGE_VERSION
 };
 
 template <>

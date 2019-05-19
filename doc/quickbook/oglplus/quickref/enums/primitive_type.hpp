@@ -11,20 +11,19 @@
 //
 //[oglplus_enums_primitive_type
 
-enum class PrimitiveType : GLenum
-{
-	Points                 = GL_POINTS,
-	LineStrip              = GL_LINE_STRIP,
-	LineLoop               = GL_LINE_LOOP,
-	Lines                  = GL_LINES,
-	TriangleStrip          = GL_TRIANGLE_STRIP,
-	TriangleFan            = GL_TRIANGLE_FAN,
-	Triangles              = GL_TRIANGLES,
-	LinesAdjacency         = GL_LINES_ADJACENCY,
-	LineStripAdjacency     = GL_LINE_STRIP_ADJACENCY,
-	TrianglesAdjacency     = GL_TRIANGLES_ADJACENCY,
-	TriangleStripAdjacency = GL_TRIANGLE_STRIP_ADJACENCY,
-	Patches                = GL_PATCHES
+enum class PrimitiveType : GLenum {
+    Points = GL_POINTS,
+    LineStrip = GL_LINE_STRIP,
+    LineLoop = GL_LINE_LOOP,
+    Lines = GL_LINES,
+    TriangleStrip = GL_TRIANGLE_STRIP,
+    TriangleFan = GL_TRIANGLE_FAN,
+    Triangles = GL_TRIANGLES,
+    LinesAdjacency = GL_LINES_ADJACENCY,
+    LineStripAdjacency = GL_LINE_STRIP_ADJACENCY,
+    TrianglesAdjacency = GL_TRIANGLES_ADJACENCY,
+    TriangleStripAdjacency = GL_TRIANGLE_STRIP_ADJACENCY,
+    Patches = GL_PATCHES
 };
 
 template <>

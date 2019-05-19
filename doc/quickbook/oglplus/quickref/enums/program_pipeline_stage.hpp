@@ -11,15 +11,14 @@
 //
 //[oglplus_enums_program_pipeline_stage
 
-enum class ProgramPipelineStage : GLbitfield
-{
-	VertexShader         = GL_VERTEX_SHADER_BIT,
-	TessControlShader    = GL_TESS_CONTROL_SHADER_BIT,
-	TessEvaluationShader = GL_TESS_EVALUATION_SHADER_BIT,
-	GeometryShader       = GL_GEOMETRY_SHADER_BIT,
-	FragmentShader       = GL_FRAGMENT_SHADER_BIT,
-	ComputeShader        = GL_COMPUTE_SHADER_BIT,
-	AllShaders           = GL_ALL_SHADER_BITS
+enum class ProgramPipelineStage : GLbitfield {
+    VertexShader = GL_VERTEX_SHADER_BIT,
+    TessControlShader = GL_TESS_CONTROL_SHADER_BIT,
+    TessEvaluationShader = GL_TESS_EVALUATION_SHADER_BIT,
+    GeometryShader = GL_GEOMETRY_SHADER_BIT,
+    FragmentShader = GL_FRAGMENT_SHADER_BIT,
+    ComputeShader = GL_COMPUTE_SHADER_BIT,
+    AllShaders = GL_ALL_SHADER_BITS
 };
 
 template <>
@@ -27,6 +26,7 @@ __Range<ProgramPipelineStage> __EnumValueRange<ProgramPipelineStage>();
 
 __StrCRef __EnumValueName(ProgramPipelineStage);
 
-__Bitfield<ProgramPipelineStage> operator | (ProgramPipelineStage b1, ProgramPipelineStage b2);
+__Bitfield<ProgramPipelineStage> operator|(
+  ProgramPipelineStage b1, ProgramPipelineStage b2);
 
 //]

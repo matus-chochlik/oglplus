@@ -13,25 +13,20 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__AccessSpecifier> class Transform>
+template <typename Base, template <__AccessSpecifier> class Transform>
 class __EnumToClass<Base, __AccessSpecifier, Transform> /*<
 Specialization of __EnumToClass for the __AccessSpecifier enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<AccessSpecifier::ReadOnly>
-		ReadOnly;
-	Transform<AccessSpecifier::WriteOnly>
-		WriteOnly;
-	Transform<AccessSpecifier::ReadWrite>
-		ReadWrite;
+    Transform<AccessSpecifier::ReadOnly> ReadOnly;
+    Transform<AccessSpecifier::WriteOnly> WriteOnly;
+    Transform<AccessSpecifier::ReadWrite> ReadWrite;
 };
 
 } // namespace enums
 #endif
 //]
-

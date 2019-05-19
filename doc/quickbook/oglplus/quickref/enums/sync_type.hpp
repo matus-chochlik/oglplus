@@ -11,10 +11,7 @@
 //
 //[oglplus_enums_sync_type
 
-enum class SyncType : GLenum
-{
-	Fence = GL_SYNC_FENCE
-};
+enum class SyncType : GLenum { Fence = GL_SYNC_FENCE };
 
 template <>
 __Range<SyncType> __EnumValueRange<SyncType>();

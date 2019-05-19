@@ -119,14 +119,14 @@ public:
     //]
     //[oglplus_dsa_buffer_2
 
-    __SizeType Size() const;                      /*<
-                         Returns the size of [^this] buffer.
-                         See [glfunc Get], [glconst BUFFER_SIZE].
-                         >*/
-    __BufferUsage Usage() const;                  /*<
-                     Returns the usage hint of [^this] buffer.
-                     See [glfunc Get], [glconst BUFFER_USAGE].
-                     >*/
+    __SizeType Size() const; /*<
+    Returns the size of [^this] buffer.
+    See [glfunc Get], [glconst BUFFER_SIZE].
+    >*/
+    __BufferUsage Usage() const; /*<
+    Returns the usage hint of [^this] buffer.
+    See [glfunc Get], [glconst BUFFER_USAGE].
+    >*/
     __Bitfield<__BufferMapAccess> Access() const; /*<
     Returns the access bits of [^this] buffer.
     See [glfunc Get], [glconst BUFFER_ACCESS].
@@ -137,14 +137,14 @@ public:
     Makes [^this] accessible to GLSL shaders.
     See [glfunc MakeBufferResidentNV]
     >*/
-    void MakeNonResident();                      /*<
-                         Makes [^this] buffer inaccessible to GLSL shaders.
-                         See [glfunc MakeBufferNonResidentNV]
-                         >*/
-    __BufferGPUAddress GPUAddress() const;       /*<
-          Returns the GPU address of [^this] buffer.
-          See [glfunc GetBufferParameter], [glconst BUFFER_GPU_ADDRESS_NV].
-          >*/
+    void MakeNonResident(); /*<
+    Makes [^this] buffer inaccessible to GLSL shaders.
+    See [glfunc MakeBufferNonResidentNV]
+    >*/
+    __BufferGPUAddress GPUAddress() const; /*<
+    Returns the GPU address of [^this] buffer.
+    See [glfunc GetBufferParameter], [glconst BUFFER_GPU_ADDRESS_NV].
+    >*/
 #endif
 };
 //]

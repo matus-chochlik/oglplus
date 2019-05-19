@@ -14,9 +14,9 @@ public:
     >*/
     typedef __BufferIndexedTarget IndexedTarget;
 
-    static __BufferName Binding(__BufferTarget target);           /*<
-              Returns the buffer currently bound to the specified [^target].
-              >*/
+    static __BufferName Binding(__BufferTarget target); /*<
+    Returns the buffer currently bound to the specified [^target].
+    >*/
     static void Bind(__BufferTarget target, __BufferName buffer); /*<
     Binds the specified [^buffer] to the specified [^target].
     >*/
@@ -67,9 +67,9 @@ public:
 #endif
     //]
     //[oglplus_buffer_common_2
-    void Bind(__BufferTarget target) const;                      /*<
-                         Binds [^this] buffer to the specified [^target].
-                         >*/
+    void Bind(__BufferTarget target) const; /*<
+    Binds [^this] buffer to the specified [^target].
+    >*/
     void Bind(__BufferIndexedTarget target, GLuint index) const; /*<
     Binds [^this] buffer to the specified indexed [^target].
     >*/
@@ -117,10 +117,10 @@ the specified [^index].
 //]
 //[oglplus_buffer_common_3
 #if GL_VERSION_4_3 || GL_ARB_invalidate_subdata
-    void InvalidateData();                                          /*<
-                                             Invalidate all of [^this] buffer's data.
-                                             See [glfunc InvalidateBufferData].
-                                             >*/
+    void InvalidateData(); /*<
+    Invalidate all of [^this] buffer's data.
+    See [glfunc InvalidateBufferData].
+    >*/
     void InvalidateSubData(__BufferSize offset, __BufferSize size); /*<
     Invalidate a subrange (specified by [^offset] and [^size])
     of [^this] buffer's data.
@@ -280,14 +280,14 @@ See [glfunc GetBufferParameter], [glconst BUFFER_STORAGE_FLAGS].
     //]
     //[oglplus_buffer_2
 
-    static __SizeType Size(__BufferTarget target);                      /*<
-                         Returns the size of a buffer currently bound to the specified [^target].
-                         See [glfunc Get], [glconst BUFFER_SIZE].
-                         >*/
-    static __BufferUsage Usage(__BufferTarget target);                  /*<
-                     Returns the usage hint of a buffer currently bound to the specified
-                     [^target].                  See [glfunc Get], [glconst BUFFER_USAGE].
-                     >*/
+    static __SizeType Size(__BufferTarget target); /*<
+    Returns the size of a buffer currently bound to the specified [^target].
+    See [glfunc Get], [glconst BUFFER_SIZE].
+    >*/
+    static __BufferUsage Usage(__BufferTarget target); /*<
+    Returns the usage hint of a buffer currently bound to the specified
+    [^target].                  See [glfunc Get], [glconst BUFFER_USAGE].
+    >*/
     static __Bitfield<__BufferMapAccess> Access(__BufferTarget target); /*<
     Returns the access bits of a buffer currently bound to the specified
     [^target]. See [glfunc Get], [glconst BUFFER_ACCESS].
@@ -312,14 +312,14 @@ See [glfunc GetBufferParameter], [glconst BUFFER_STORAGE_FLAGS].
 
 #if GL_NV_shader_buffer_load
     static void MakeResident(
-      __BufferTarget target, __AccessSpecifier access);          /*<
+      __BufferTarget target, __AccessSpecifier access); /*<
 Makes buffer currently bound to [^target] accessible to GLSL shaders.
 See [glfunc MakeBufferResidentNV]
 >*/
-    static void MakeNonResident(__BufferTarget target);          /*<
-             Makes buffer currently bound to [^target] inaccessible to GLSL shaders.
-             See [glfunc MakeBufferNonResidentNV]
-             >*/
+    static void MakeNonResident(__BufferTarget target); /*<
+    Makes buffer currently bound to [^target] inaccessible to GLSL shaders.
+    See [glfunc MakeBufferNonResidentNV]
+    >*/
     static __BufferGPUAddress GPUAddress(__BufferTarget target); /*<
     Returns the GPU address of the buffer currently bound to [^target].
     See [glfunc GetBufferParameter], [glconst BUFFER_GPU_ADDRESS_NV].

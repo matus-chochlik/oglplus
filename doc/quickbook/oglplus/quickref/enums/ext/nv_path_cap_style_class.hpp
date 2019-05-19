@@ -13,27 +13,21 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__PathNVCapStyle> class Transform>
+template <typename Base, template <__PathNVCapStyle> class Transform>
 class __EnumToClass<Base, __PathNVCapStyle, Transform> /*<
 Specialization of __EnumToClass for the __PathNVCapStyle enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<PathNVCapStyle::Flat>
-		Flat;
-	Transform<PathNVCapStyle::Square>
-		Square;
-	Transform<PathNVCapStyle::Round>
-		Round;
-	Transform<PathNVCapStyle::Triangular>
-		Triangular;
+    Transform<PathNVCapStyle::Flat> Flat;
+    Transform<PathNVCapStyle::Square> Square;
+    Transform<PathNVCapStyle::Round> Round;
+    Transform<PathNVCapStyle::Triangular> Triangular;
 };
 
 } // namespace enums
 #endif
 //]
-

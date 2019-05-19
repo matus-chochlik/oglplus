@@ -18,10 +18,10 @@ public:
     void trigger(); /*<
     If [^this] instance wraps an error handler, it is invoked
     >*/
-    bool cancel()   /*<
-      If [^this] instance wraps an error handler, this function
-      cancels its invocation and returns [^true], otherwise returns [^false].
-      >*/
+    bool cancel() /*<
+    If [^this] instance wraps an error handler, this function
+    cancels its invocation and returns [^true], otherwise returns [^false].
+    >*/
       noexcept;
 
     explicit operator bool() const /*<

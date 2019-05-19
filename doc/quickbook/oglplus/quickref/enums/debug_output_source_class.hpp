@@ -13,33 +13,24 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__DebugOutputSource> class Transform>
+template <typename Base, template <__DebugOutputSource> class Transform>
 class __EnumToClass<Base, __DebugOutputSource, Transform> /*<
 Specialization of __EnumToClass for the __DebugOutputSource enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass();
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<DebugOutputSource::API>
-		API;
-	Transform<DebugOutputSource::WindowSystem>
-		WindowSystem;
-	Transform<DebugOutputSource::ShaderCompiler>
-		ShaderCompiler;
-	Transform<DebugOutputSource::ThirdParty>
-		ThirdParty;
-	Transform<DebugOutputSource::Application>
-		Application;
-	Transform<DebugOutputSource::Other>
-		Other;
-	Transform<DebugOutputSource::DontCare>
-		DontCare;
+    Transform<DebugOutputSource::API> API;
+    Transform<DebugOutputSource::WindowSystem> WindowSystem;
+    Transform<DebugOutputSource::ShaderCompiler> ShaderCompiler;
+    Transform<DebugOutputSource::ThirdParty> ThirdParty;
+    Transform<DebugOutputSource::Application> Application;
+    Transform<DebugOutputSource::Other> Other;
+    Transform<DebugOutputSource::DontCare> DontCare;
 };
 
 } // namespace enums
 #endif
 //]
-

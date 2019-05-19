@@ -34,9 +34,9 @@ public:
     DSABufferRawMap(const DSABufferRawMap&) = delete; /*<
     DSABuffer maps are not copyable.
     >*/
-    DSABufferRawMap(DSABufferRawMap&&);               /*<
-                  DSABuffer maps are moveable.
-                  >*/
+    DSABufferRawMap(DSABufferRawMap&&); /*<
+    DSABuffer maps are moveable.
+    >*/
 
     ~DSABufferRawMap(); /*<
     Unmaps the buffer from client address space (if mapped).
@@ -44,9 +44,9 @@ public:
     >*/
     void Unmap();
 
-    bool Mapped() const;     /*<
-        Returns true if the buffer is mapped.
-        >*/
+    bool Mapped() const; /*<
+    Returns true if the buffer is mapped.
+    >*/
     GLsizeiptr Size() const; /*<
     Returns the size (in bytes) of the mapped buffer.
     >*/

@@ -11,14 +11,13 @@
 //
 //[oglplus_enums_texture_swizzle
 
-enum class TextureSwizzle : GLenum
-{
-	Red   = GL_RED,
-	Green = GL_GREEN,
-	Blue  = GL_BLUE,
-	Alpha = GL_ALPHA,
-	Zero  = GL_ZERO,
-	One   = GL_ONE
+enum class TextureSwizzle : GLenum {
+    Red = GL_RED,
+    Green = GL_GREEN,
+    Blue = GL_BLUE,
+    Alpha = GL_ALPHA,
+    Zero = GL_ZERO,
+    One = GL_ONE
 };
 
 template <>
