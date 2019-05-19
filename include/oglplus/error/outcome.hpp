@@ -28,7 +28,7 @@ class BaseOutcome {
 protected:
     DeferredHandler _error;
 
-    BaseOutcome(void) = default;
+    BaseOutcome() = default;
     BaseOutcome(BaseOutcome&&) = default;
 
     BaseOutcome(DeferredHandler&& handler)
@@ -37,16 +37,16 @@ protected:
 
 public:
     /// Return true if there was no error, false otherwise
-    bool Done(void) const noexcept {
+    bool Done() const noexcept {
         return !_error;
     }
 
     // Dismisses the error handler and returns true if there was no error
-    bool DoneWithoutError(void) noexcept {
+    bool DoneWithoutError() noexcept {
         return !_error.cancel();
     }
 
-    DeferredHandler ReleaseHandler(void) noexcept {
+    DeferredHandler ReleaseHandler() noexcept {
         return std::move(_error);
     }
 };
@@ -111,7 +111,7 @@ public:
     }
 
     /// Trigger the error handler if any or return the stored reference
-    T& Then(void) {
+    T& Then() {
         _error.trigger();
         assert(_ptr != nullptr);
         return *_ptr;
@@ -125,11 +125,11 @@ public:
       : Outcome<T>(std::move(base)) {
     }
 
-    explicit operator bool(void) const noexcept {
+    explicit operator bool() const noexcept {
         return !this->_error;
     }
 
-    bool operator!(void) const noexcept {
+    bool operator!() const noexcept {
         return bool(this->_error);
     }
 };
@@ -143,11 +143,11 @@ public:
       : Outcome<T>(std::move(base)) {
     }
 
-    explicit operator bool(void) const noexcept {
+    explicit operator bool() const noexcept {
         return bool(this->_error);
     }
 
-    bool operator!(void) const noexcept {
+    bool operator!() const noexcept {
         return !this->_error;
     }
 };

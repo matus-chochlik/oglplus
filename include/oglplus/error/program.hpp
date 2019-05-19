@@ -36,7 +36,7 @@ public:
     ProgramBuildError(const ProgramBuildError&) = default;
     ProgramBuildError(ProgramBuildError&&) = default;
 
-    ~ProgramBuildError(void) noexcept {
+    ~ProgramBuildError() noexcept {
     }
 
     ProgramBuildError& Log(String&& log) {
@@ -45,7 +45,7 @@ public:
     }
 
     /// Returns the compiler error output
-    const String& Log(void) const {
+    const String& Log() const {
         return _log;
     }
 };
@@ -56,7 +56,7 @@ public:
  */
 class CompileError : public ProgramBuildError {
 public:
-    static const char* Message(void);
+    static const char* Message();
 
     CompileError(const char* message)
       : ProgramBuildError(message) {
@@ -69,7 +69,7 @@ public:
  */
 class LinkError : public ProgramBuildError {
 public:
-    static const char* Message(void);
+    static const char* Message();
 
     LinkError(const char* message)
       : ProgramBuildError(message) {
@@ -82,7 +82,7 @@ public:
  */
 class ValidationError : public ProgramBuildError {
 public:
-    static const char* Message(void);
+    static const char* Message();
 
     ValidationError(const char* message)
       : ProgramBuildError(message) {

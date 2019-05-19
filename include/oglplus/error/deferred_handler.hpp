@@ -21,7 +21,7 @@ namespace oglplus {
 class DeferredHandler {
 private:
     struct _handler_intf {
-        virtual ~_handler_intf(void) noexcept {
+        virtual ~_handler_intf() noexcept {
         }
 
         virtual void execute(bool destroying) = 0;
@@ -63,10 +63,10 @@ private:
           new _handler_impl<Func>(std::move(func)), &_impl_delete);
     }
 
-    _unique_handler_ptr _release_handler(void) noexcept;
+    _unique_handler_ptr _release_handler() noexcept;
 
 public:
-    DeferredHandler(void) noexcept
+    DeferredHandler() noexcept
       : _handler(nullptr, &_fake_delete) {
     }
 
@@ -77,7 +77,7 @@ public:
       : _handler(_wrap_func(func)) {
     }
 
-    ~DeferredHandler(void) {
+    ~DeferredHandler() {
         if(_handler) {
             if(!std::uncaught_exception()) {
                 _release_handler()->execute(true);
@@ -85,21 +85,21 @@ public:
         }
     }
 
-    void trigger(void) {
+    void trigger() {
         if(_handler) {
             _release_handler()->execute(false);
         }
     }
 
-    bool cancel(void) noexcept {
+    bool cancel() noexcept {
         return bool(_release_handler());
     }
 
-    explicit operator bool(void) const noexcept {
+    explicit operator bool() const noexcept {
         return bool(_handler);
     }
 
-    bool operator!(void) const noexcept {
+    bool operator!() const noexcept {
         return !_handler;
     }
 };

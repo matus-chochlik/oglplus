@@ -139,7 +139,7 @@ public:
         assert(GetGLName(_vao) != 0u);
     }
 
-    void Use(void) {
+    void Use() {
         if(GetGLName(_vao) == 0u) {
             // WARNING: here should be valid shader (same as in UseInProgram
             // call)!
@@ -149,11 +149,11 @@ public:
         }
     }
 
-    FaceOrientation FaceWinding(void) const {
+    FaceOrientation FaceWinding() const {
         return _face_winding;
     }
 
-    void Draw(void) const {
+    void Draw() const {
         _gl.FrontFace(_face_winding);
         _shape_instr.Draw(_index_info, 1, 0);
     }
@@ -173,7 +173,7 @@ public:
         _shape_instr.Draw(_index_info, 1, 0, drawing_driver);
     }
 
-    const Spheref& BoundingSphere(void) const {
+    const Spheref& BoundingSphere() const {
         return _bounding_sphere;
     }
 };
@@ -183,7 +183,7 @@ public:
 template <typename Selector>
 class ShapeWrapperTpl : public ShapeWrapperBase {
 private:
-    static Selector _sel(void) {
+    static Selector _sel() {
         return Selector();
     }
 

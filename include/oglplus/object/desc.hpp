@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -27,40 +27,39 @@ namespace oglplus {
 class ObjectDesc {
 private:
 #if !OGLPLUS_NO_OBJECT_DESC
-	std::string _str;
+    std::string _str;
 #endif
 public:
-	ObjectDesc(void) {
-	}
+    ObjectDesc() {}
 
-	ObjectDesc(std::string&& str)
+    ObjectDesc(std::string&& str)
 #if !OGLPLUS_NO_OBJECT_DESC
-	  : _str(std::forward<std::string>(str))
+      : _str(std::forward<std::string>(str))
 #endif
-	{
-		OGLPLUS_FAKE_USE(str);
-	}
+    {
+        OGLPLUS_FAKE_USE(str);
+    }
 
-	ObjectDesc(ObjectDesc&& tmp)
+    ObjectDesc(ObjectDesc&& tmp)
 #if !OGLPLUS_NO_OBJECT_DESC
-	  : _str(std::move(tmp._str))
+      : _str(std::move(tmp._str))
 #endif
-	{
-		OGLPLUS_FAKE_USE(tmp);
-	}
+    {
+        OGLPLUS_FAKE_USE(tmp);
+    }
 
-	const std::string& Str(void) {
+    const std::string& Str() {
 #if !OGLPLUS_NO_OBJECT_DESC
-		return _str;
+        return _str;
 #else
-		return EmptyStdString();
+        return EmptyStdString();
 #endif
-	}
+    }
 
 #if !OGLPLUS_NO_OBJECT_DESC
-	std::string&& Release(void) {
-		return std::move(_str);
-	}
+    std::string&& Release() {
+        return std::move(_str);
+    }
 #endif
 };
 
@@ -73,15 +72,15 @@ namespace aux {
 #if !OGLPLUS_NO_OBJECT_DESC
 class ObjectDescRegistryBase {
 private:
-	typedef ::std::map<unsigned, std::string> _desc_map;
+    typedef ::std::map<unsigned, std::string> _desc_map;
 
 protected:
-	static void _do_register_desc(
-	  _desc_map& storage, unsigned name, ObjectDesc&& desc);
+    static void _do_register_desc(
+      _desc_map& storage, unsigned name, ObjectDesc&& desc);
 
-	static void _do_unregister_desc(_desc_map& storage, unsigned name);
+    static void _do_unregister_desc(_desc_map& storage, unsigned name);
 
-	static const std::string& _do_get_desc(_desc_map& storage, unsigned name);
+    static const std::string& _do_get_desc(_desc_map& storage, unsigned name);
 };
 #endif // !OGLPLUS_NO_OBJECT_DESC
 
@@ -92,50 +91,50 @@ class ObjectDescRegistry
 {
 private:
 #if !OGLPLUS_NO_OBJECT_DESC
-	typedef ObjectDescRegistryBase _base;
-	typedef ::std::map<unsigned, std::string> _desc_map;
+    typedef ObjectDescRegistryBase _base;
+    typedef ::std::map<unsigned, std::string> _desc_map;
 
-	static _desc_map& _storage(int id) {
-		return ObjectDescRegistryStorage(id);
-	}
+    static _desc_map& _storage(int id) {
+        return ObjectDescRegistryStorage(id);
+    }
 #endif
 public:
-	// internal implementation detail. do not use directly
-	static void _register_desc(int id, unsigned name, ObjectDesc&& desc)
+    // internal implementation detail. do not use directly
+    static void _register_desc(int id, unsigned name, ObjectDesc&& desc)
 #if OGLPLUS_NO_OBJECT_DESC
-	  noexcept {
-		(void)id;
-		(void)name;
-		(void)desc;
-	}
+      noexcept {
+        () id;
+        () name;
+        () desc;
+    }
 #else
-	{
-		_base::_do_register_desc(_storage(id), name, std::move(desc));
-	}
+    {
+        _base::_do_register_desc(_storage(id), name, std::move(desc));
+    }
 #endif
 
-	// internal implementation detail. do not use directly
-	static void _unregister_desc(int id, unsigned name)
+    // internal implementation detail. do not use directly
+    static void _unregister_desc(int id, unsigned name)
 #if OGLPLUS_NO_OBJECT_DESC
-	  noexcept {
-		(void)id;
-		(void)name;
-	}
+      noexcept {
+        () id;
+        () name;
+    }
 #else
-	{
-		_base::_do_unregister_desc(_storage(id), name);
-	}
+    {
+        _base::_do_unregister_desc(_storage(id), name);
+    }
 #endif
 
-	// internal implementation detail. do not use directly
+    // internal implementation detail. do not use directly
 #if OGLPLUS_NO_OBJECT_DESC
-	static const std::string& _get_desc(int, unsigned) noexcept {
-		return EmptyStdString();
-	}
+    static const std::string& _get_desc(int, unsigned) noexcept {
+        return EmptyStdString();
+    }
 #else
-	static const std::string& _get_desc(int id, unsigned name) {
-		return _base::_do_get_desc(_storage(id), name);
-	}
+    static const std::string& _get_desc(int id, unsigned name) {
+        return _base::_do_get_desc(_storage(id), name);
+    }
 #endif
 };
 
@@ -143,7 +142,7 @@ public:
 
 template <typename ObjTag>
 inline const std::string& DescriptionOf(ObjectName<ObjTag> object) {
-	return aux::ObjectDescRegistry::_get_desc(ObjTag::value, GetName(object));
+    return aux::ObjectDescRegistry::_get_desc(ObjTag::value, GetName(object));
 }
 
 } // namespace oglplus

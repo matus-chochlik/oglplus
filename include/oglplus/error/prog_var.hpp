@@ -33,39 +33,39 @@ public:
     ProgVarError(const ProgVarError&) = default;
     ProgVarError(ProgVarError&&) = default;
 
-    ~ProgVarError(void) noexcept {
+    ~ProgVarError() noexcept {
     }
 
     ProgVarError& Program(ProgramName program) {
 #if !OGLPLUS_ERROR_NO_PROG_NAME
         _prog_name = GetGLName(program);
 #endif
-        (void)program;
+        OGLPLUS_FAKE_USE(program);
         return *this;
     }
 
     /// Returns the program
-    ProgramName Program(void) const;
+    ProgramName Program() const;
 
     ProgVarError& Identifier(StrCRef identifier) {
 #if !OGLPLUS_ERROR_NO_IDENTIFIER
         _identifier.assign(identifier.begin(), identifier.end());
 #endif
-        (void)identifier;
+        OGLPLUS_FAKE_USE(identifier);
         return *this;
     }
 
-    const char* ObjectTypeName(void) const override {
+    const char* ObjectTypeName() const override {
         return "PROGRAM";
     }
 
     /// Returns the GL program name
-    GLint ObjectName(void) const override {
+    GLint ObjectName() const override {
         return GLint(_prog_name);
     }
 
     /// Returns the program variable identifer
-    const char* Identifier(void) const override;
+    const char* Identifier() const override;
 };
 
 } // namespace oglplus

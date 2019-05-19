@@ -32,49 +32,46 @@ namespace oglplus {
 template <class Object>
 class OptionalImpl<tag::Object, Object> : public Object {
 public:
-	/// Construction of an uninitialized instance
-	/** The only things that can safely be done with
-	 *  an uninitialized Optional<Object> is assignment,
-	 *  moving, destruction and checking whether it is
-	 *  initialized.
-	 *
-	 *  @see HasValidName
-	 *  @see Assign
-	 */
-	OptionalImpl(void) noexcept
-	  : Object(typename Object::Uninitialized_()) {
-	}
+    /// Construction of an uninitialized instance
+    /** The only things that can safely be done with
+     *  an uninitialized Optional<Object> is assignment,
+     *  moving, destruction and checking whether it is
+     *  initialized.
+     *
+     *  @see HasValidName
+     *  @see Assign
+     */
+    OptionalImpl() noexcept
+      : Object(typename Object::Uninitialized_()) {}
 
-	/// Construction of an initialized instance
-	/** Initialized Optional<Object> can be used everywhere where
-	 *  a plain Object could be used, furthermore Optional<Object>
-	 *  can also be cleared (this brings it in uninitialized state)
-	 *
-	 *  @see HasValidName
-	 *  @see Clear
-	 */
-	OptionalImpl(Object&& temp) noexcept
-	  : Object(std::move(temp)) {
-	}
+    /// Construction of an initialized instance
+    /** Initialized Optional<Object> can be used everywhere where
+     *  a plain Object could be used, furthermore Optional<Object>
+     *  can also be cleared (this brings it in uninitialized state)
+     *
+     *  @see HasValidName
+     *  @see Clear
+     */
+    OptionalImpl(Object&& temp) noexcept
+      : Object(std::move(temp)) {}
 
-	/// Move constructor
-	OptionalImpl(OptionalImpl&& temp) noexcept
-	  : Object(static_cast<Object&&>(temp)) {
-	}
+    /// Move constructor
+    OptionalImpl(OptionalImpl&& temp) noexcept
+      : Object(static_cast<Object&&>(temp)) {}
 
-	OptionalImpl& operator=(Object&& temp) {
-		Object::operator=(std::move(temp));
-		return *this;
-	}
+    OptionalImpl& operator=(Object&& temp) {
+        Object::operator=(std::move(temp));
+        return *this;
+    }
 
-	explicit operator bool(void) const noexcept {
-		return this->HasValidName();
-	}
+    explicit operator bool() const noexcept {
+        return this->HasValidName();
+    }
 
-	/// Releases the stored object and makes this Optional uninitialized
-	Object Release(void) noexcept {
-		return Object(static_cast<Object&&>(*this));
-	}
+    /// Releases the stored object and makes this Optional uninitialized
+    Object Release() noexcept {
+        return Object(static_cast<Object&&>(*this));
+    }
 };
 
 } // namespace oglplus

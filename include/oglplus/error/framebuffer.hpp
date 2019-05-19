@@ -34,7 +34,7 @@ private:
     FramebufferStatus _status;
 
 public:
-    static const char* Message(void);
+    static const char* Message();
 
     IncompleteFramebuffer(const char* message)
       : ObjectError(message) {
@@ -43,7 +43,7 @@ public:
     IncompleteFramebuffer(const IncompleteFramebuffer&) = default;
     IncompleteFramebuffer& operator=(const IncompleteFramebuffer&) = default;
 
-    ~IncompleteFramebuffer(void) noexcept {
+    ~IncompleteFramebuffer() noexcept {
     }
 
     IncompleteFramebuffer& Status(FramebufferStatus status) {
@@ -52,7 +52,7 @@ public:
         return *this;
     }
 
-    FramebufferStatus Status(void) const {
+    FramebufferStatus Status() const {
         return _status;
     }
 };

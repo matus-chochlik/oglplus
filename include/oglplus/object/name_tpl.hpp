@@ -51,97 +51,94 @@ typename ObjTag::NameType GetName(ObjectName<ObjTag>);
 template <typename ObjTag>
 class ObjectName {
 protected:
-	typedef typename ObjTag::NameType NameT;
+    typedef typename ObjTag::NameType NameT;
 
 private:
-	friend NameT GetName<ObjTag>(ObjectName);
-	NameT _name;
+    friend NameT GetName<ObjTag>(ObjectName);
+    NameT _name;
 
 protected:
-	inline NameT _obj_name(void) const noexcept {
-		return _name;
-	}
+    inline NameT _obj_name() const noexcept {
+        return _name;
+    }
 
-	inline NameT* _name_ptr(void) noexcept {
-		return &_name;
-	}
+    inline NameT* _name_ptr() noexcept {
+        return &_name;
+    }
 
-	inline const NameT* _name_ptr(void) const noexcept {
-		return &_name;
-	}
+    inline const NameT* _name_ptr() const noexcept {
+        return &_name;
+    }
 
-	static inline NameT _invalid_name(void) noexcept {
-		return ~NameT(0);
-	}
+    static inline NameT _invalid_name() noexcept {
+        return ~NameT(0);
+    }
 
-	inline bool _has_deletable_name(void) noexcept {
-		// TODO: fix this for objects where Gen*
-		// returns a valid name 0
-		return (_name > 0u) && (_name != _invalid_name());
-	}
+    inline bool _has_deletable_name() noexcept {
+        // TODO: fix this for objects where Gen*
+        // returns a valid name 0
+        return (_name > 0u) && (_name != _invalid_name());
+    }
 
 public:
-	static ObjectName InvalidName(void) noexcept {
-		return ObjectName(_invalid_name());
-	}
+    static ObjectName InvalidName() noexcept {
+        return ObjectName(_invalid_name());
+    }
 
-	/// Constructs uninitialized (invalid) name wrapper
-	ObjectName(void) noexcept
-	  : _name(_invalid_name()) {
-	}
+    /// Constructs uninitialized (invalid) name wrapper
+    ObjectName() noexcept
+      : _name(_invalid_name()) {}
 
-	/// Constructs wrapper for the specified @p name.
-	explicit ObjectName(NameT name) noexcept
-	  : _name(name) {
-	}
+    /// Constructs wrapper for the specified @p name.
+    explicit ObjectName(NameT name) noexcept
+      : _name(name) {}
 
-	ObjectName(const ObjectName& that) noexcept
-	  : _name(that._name) {
-	}
+    ObjectName(const ObjectName& that) noexcept
+      : _name(that._name) {}
 
-	ObjectName(ObjectName&& temp) noexcept
-	  : _name(temp._name) {
-		temp._name = _invalid_name();
-	}
+    ObjectName(ObjectName&& temp) noexcept
+      : _name(temp._name) {
+        temp._name = _invalid_name();
+    }
 
-	ObjectName& operator=(const ObjectName& that) noexcept {
-		_name = that._name;
-		return *this;
-	}
+    ObjectName& operator=(const ObjectName& that) noexcept {
+        _name = that._name;
+        return *this;
+    }
 
-	ObjectName& operator=(ObjectName&& temp) noexcept {
-		if(this != &temp) {
-			_name = temp._name;
-			temp._name = _invalid_name();
-		}
-		return *this;
-	}
+    ObjectName& operator=(ObjectName&& temp) noexcept {
+        if(this != &temp) {
+            _name = temp._name;
+            temp._name = _invalid_name();
+        }
+        return *this;
+    }
 
-	/// Returns true if the object name is valid, false otherwise
-	bool HasValidName(void) const noexcept {
-		return this->_name != _invalid_name();
-	}
+    /// Returns true if the object name is valid, false otherwise
+    bool HasValidName() const noexcept {
+        return this->_name != _invalid_name();
+    }
 
-	/// Equality comparison
-	friend bool operator==(ObjectName a, ObjectName b) {
-		return a._name == b._name;
-	}
+    /// Equality comparison
+    friend bool operator==(ObjectName a, ObjectName b) {
+        return a._name == b._name;
+    }
 
-	/// Inequality comparison
-	friend bool operator!=(ObjectName a, ObjectName b) {
-		return a._name != b._name;
-	}
+    /// Inequality comparison
+    friend bool operator!=(ObjectName a, ObjectName b) {
+        return a._name != b._name;
+    }
 
-	/// Ordering
-	friend bool operator<(ObjectName a, ObjectName b) {
-		return a._name < b._name;
-	}
+    /// Ordering
+    friend bool operator<(ObjectName a, ObjectName b) {
+        return a._name < b._name;
+    }
 };
 
 /// Returns the base name assigned to @p named object
 template <typename ObjTag>
 inline typename ObjTag::NameType GetName(ObjectName<ObjTag> named) {
-	return named._name;
+    return named._name;
 }
 
 template <typename X>
@@ -149,9 +146,9 @@ struct Classify;
 
 template <typename ObjTg>
 struct Classify<ObjectName<ObjTg>> {
-	typedef ObjectName<ObjTg> Base;
-	typedef tag::ObjectName Tag;
-	typedef ObjTg ObjTag;
+    typedef ObjectName<ObjTg> Base;
+    typedef tag::ObjectName Tag;
+    typedef ObjTg ObjTag;
 };
 
 } // namespace oglplus

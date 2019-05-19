@@ -55,8 +55,7 @@ template <class ObjTag>
 class ObjCommonOps : public ObjectName<ObjTag> {
 protected:
     ObjCommonOps(ObjectName<ObjTag> name) noexcept
-      : ObjectName<ObjTag>(name) {
-    }
+      : ObjectName<ObjTag>(name) {}
 
 public:
     ObjCommonOps(ObjCommonOps&&) = default;
@@ -70,8 +69,7 @@ template <class OpsTag, class ObjTag>
 class ObjZeroOps : public ObjCommonOps<ObjTag> {
 protected:
     ObjZeroOps(ObjectName<ObjTag> name) noexcept
-      : ObjCommonOps<ObjTag>(name) {
-    }
+      : ObjCommonOps<ObjTag>(name) {}
 
 public:
     ObjZeroOps(ObjZeroOps&&) = default;
@@ -90,9 +88,8 @@ class ObjectZero<ObjZeroOps<OpsTag, ObjTag>>
   : public ObjZeroOps<OpsTag, ObjTag> {
 public:
     /// ObjectZero is default constructible
-    ObjectZero(void) noexcept
-      : ObjZeroOps<OpsTag, ObjTag>(ObjectName<ObjTag>(0)) {
-    }
+    ObjectZero() noexcept
+      : ObjZeroOps<OpsTag, ObjTag>(ObjectName<ObjTag>(0)) {}
 };
 
 /// Implements operations applicable to named (non-zero) objects
@@ -100,8 +97,7 @@ template <class OpsTag, class ObjTag>
 class ObjectOps : public ObjZeroOps<OpsTag, ObjTag> {
 protected:
     ObjectOps(ObjectName<ObjTag> name) noexcept
-      : ObjZeroOps<OpsTag, ObjTag>(name) {
-    }
+      : ObjZeroOps<OpsTag, ObjTag>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -125,7 +121,7 @@ private:
           ObjTag::value, this->_obj_name(), std::move(description));
     }
 
-    void _undescribe(void) {
+    void _undescribe() {
         aux::ObjectDescRegistry::_unregister_desc(
           ObjTag::value, this->_obj_name());
     }
@@ -141,7 +137,7 @@ private:
         _init(gen_tag, Nothing());
     }
 
-    void _cleanup(void) {
+    void _cleanup() {
         if(this->_has_deletable_name()) {
             _undescribe();
             ObjGenDelOps<ObjTag>::Delete(1, this->_name_ptr());
@@ -152,12 +148,10 @@ protected:
     struct Uninitialized_ {};
 
     ObjectTpl(Uninitialized_) noexcept
-      : NameHolder(ObjectName<ObjTag>()) {
-    }
+      : NameHolder(ObjectName<ObjTag>()) {}
 
     ObjectTpl(ObjectName<ObjTag> name) noexcept
-      : NameHolder(name) {
-    }
+      : NameHolder(name) {}
 
     ObjectTpl(ObjectName<ObjTag> name, ObjectDesc&& description) noexcept
       : NameHolder(name) {
@@ -195,10 +189,9 @@ public:
 
     /// Objects are movable
     ObjectTpl(ObjectTpl&& temp) noexcept
-      : NameHolder(static_cast<NameHolder&&>(temp)) {
-    }
+      : NameHolder(static_cast<NameHolder&&>(temp)) {}
 
-    ~ObjectTpl(void) noexcept {
+    ~ObjectTpl() noexcept {
         try {
             _cleanup();
         } catch(...) {
@@ -221,12 +214,12 @@ public:
     }
 
     /// Returns the textual description of this object
-    const std::string& Description(void) const {
+    const std::string& Description() const {
         return aux::ObjectDescRegistry::_get_desc(
           ObjTag::value, this->_obj_name());
     }
 
-    Sequence<ObjectName<ObjTag>> seq(void) const {
+    Sequence<ObjectName<ObjTag>> seq() const {
         return Sequence<ObjectName<ObjTag>>(this->_name_ptr(), 1);
     }
 
@@ -234,7 +227,7 @@ public:
     /** Note that the returned sequence must not be used after
      *  this object has been destroyed.
      */
-    operator Sequence<ObjectName<ObjTag>>(void) const {
+    operator Sequence<ObjectName<ObjTag>>() const {
         return seq();
     }
 };
@@ -249,37 +242,30 @@ private:
 public:
     /// Construction with a specific method of object creation
     ObjHandle(tag::Generate generate)
-      : Base_(generate) {
-    }
+      : Base_(generate) {}
 
     /// Construction with a specific method of object creation
     ObjHandle(tag::Create create)
-      : Base_(create) {
-    }
+      : Base_(create) {}
 
     ObjHandle(tag::Generate generate, ObjectDesc&& description)
-      : Base_(generate, std::move(description)) {
-    }
+      : Base_(generate, std::move(description)) {}
 
     ObjHandle(tag::Create create, ObjectDesc&& description)
-      : Base_(create, std::move(description)) {
-    }
+      : Base_(create, std::move(description)) {}
 
     /// Object subtype
     typedef typename ObjectSubtype<ObjTag>::Type Subtype;
 
     ObjHandle(tag::Generate generate, Subtype subtype)
-      : Base_(generate, subtype) {
-    }
+      : Base_(generate, subtype) {}
 
     ObjHandle(tag::Create create, Subtype subtype)
-      : Base_(create, subtype) {
-    }
+      : Base_(create, subtype) {}
 
     /// Object handles are move constructible
     ObjHandle(ObjHandle&& temp)
-      : Base_(static_cast<Base_&&>(temp)) {
-    }
+      : Base_(static_cast<Base_&&>(temp)) {}
 
     /// Object handles are move assignable
     ObjHandle& operator=(ObjHandle&& temp) {
@@ -306,16 +292,13 @@ private:
 
 protected:
     Object(typename Base_::Uninitialized_ uninit)
-      : Base_(uninit) {
-    }
+      : Base_(uninit) {}
 
     Object(ObjectName<ObjTag> name)
-      : Base_(name) {
-    }
+      : Base_(name) {}
 
     Object(ObjectName<ObjTag> name, ObjectDesc&& description)
-      : Base_(name, std::move(description)) {
-    }
+      : Base_(name, std::move(description)) {}
 
 public:
     static Object FromRawName(ObjectName<ObjTag> name) {
@@ -323,66 +306,53 @@ public:
     }
 
     /// Most objects are default constructible
-    Object(void)
-      : Base_(DefGenTag()) {
-    }
+    Object()
+      : Base_(DefGenTag()) {}
 
     /// Construction with a specific method of object creation
     Object(tag::Generate generate)
-      : Base_(generate) {
-    }
+      : Base_(generate) {}
 
     /// Construction with a specific method of object creation
     Object(tag::Create create)
-      : Base_(create) {
-    }
+      : Base_(create) {}
 
     /// A textual description can be attached to objects
     Object(ObjectDesc&& description)
-      : Base_(DefGenTag(), std::move(description)) {
-    }
+      : Base_(DefGenTag(), std::move(description)) {}
 
     Object(tag::Generate generate, ObjectDesc&& description)
-      : Base_(generate, std::move(description)) {
-    }
+      : Base_(generate, std::move(description)) {}
 
     Object(tag::Create create, ObjectDesc&& description)
-      : Base_(create, std::move(description)) {
-    }
+      : Base_(create, std::move(description)) {}
 
     /// Object subtype
     typedef typename ObjectSubtype<ObjTag>::Type Subtype;
 
     /// Construction with subtype specification
     Object(Subtype subtype)
-      : Base_(DefGenTag(), subtype) {
-    }
+      : Base_(DefGenTag(), subtype) {}
 
     Object(tag::Generate generate, Subtype subtype)
-      : Base_(generate, subtype) {
-    }
+      : Base_(generate, subtype) {}
 
     Object(tag::Create create, Subtype subtype)
-      : Base_(create, subtype) {
-    }
+      : Base_(create, subtype) {}
 
     /// A textual description can be attached to objects
     Object(Subtype subtype, ObjectDesc&& description)
-      : Base_(DefGenTag(), subtype, std::move(description)) {
-    }
+      : Base_(DefGenTag(), subtype, std::move(description)) {}
 
     Object(tag::Generate generate, Subtype subtype, ObjectDesc&& description)
-      : Base_(generate, subtype, std::move(description)) {
-    }
+      : Base_(generate, subtype, std::move(description)) {}
 
     Object(tag::Create create, Subtype subtype, ObjectDesc&& description)
-      : Base_(create, subtype, std::move(description)) {
-    }
+      : Base_(create, subtype, std::move(description)) {}
 
     /// Objects are move constructible
     Object(Object&& temp)
-      : Base_(static_cast<Base_&&>(temp)) {
-    }
+      : Base_(static_cast<Base_&&>(temp)) {}
 
     /// Objects are move assignable
     Object& operator=(Object&& temp) {

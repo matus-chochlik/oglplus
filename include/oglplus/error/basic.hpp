@@ -77,10 +77,10 @@ public:
     Error(const Error&) = default;
     Error& operator=(const Error&) = default;
 
-    ~Error(void) noexcept {
+    ~Error() noexcept {
     }
 
-    Error& NoInfo(void) {
+    Error& NoInfo() {
         return *this;
     }
 
@@ -90,7 +90,7 @@ public:
     }
 
     /// Returns the GL error code related to the error
-    ErrorCode Code(void) const {
+    ErrorCode Code() const {
         return ErrorCode(_code);
     }
 
@@ -98,7 +98,7 @@ public:
 #if !OGLPLUS_ERROR_NO_FILE
         _file = file;
 #endif
-        (void)file;
+        OGLPLUS_FAKE_USE(file);
         return *this;
     }
 
@@ -109,13 +109,13 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns nullptr.
      */
-    const char* SourceFile(void) const;
+    const char* SourceFile() const;
 
     Error& SourceFunc(const char* func) {
 #if !OGLPLUS_ERROR_NO_FUNC
         _func = func;
 #endif
-        (void)func;
+        OGLPLUS_FAKE_USE(func);
         return *this;
     }
 
@@ -126,13 +126,13 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns nullptr.
      */
-    const char* SourceFunc(void) const;
+    const char* SourceFunc() const;
 
     Error& SourceLine(unsigned line) {
 #if !OGLPLUS_ERROR_NO_LINE
         _line = line;
 #endif
-        (void)line;
+        OGLPLUS_FAKE_USE(line);
         return *this;
     }
 
@@ -143,23 +143,23 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns zero.
      */
-    unsigned SourceLine(void) const;
+    unsigned SourceLine() const;
 
     Error& GLLib(const char* lib_name) {
 #if !OGLPLUS_ERROR_NO_GL_LIB
         _gllib_name = lib_name;
 #endif
-        (void)lib_name;
+        OGLPLUS_FAKE_USE(lib_name);
         return *this;
     }
 
-    const char* GLLib(void) const;
+    const char* GLLib() const;
 
     Error& GLFunc(const char* func_name) {
 #if !OGLPLUS_ERROR_NO_GL_FUNC
         _glfunc_name = func_name;
 #endif
-        (void)func_name;
+        OGLPLUS_FAKE_USE(func_name);
         return *this;
     }
 
@@ -172,7 +172,7 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns nullptr.
      */
-    const char* GLFunc(void) const;
+    const char* GLFunc() const;
 
     template <typename Enum_>
     Error& EnumParam(Enum_ param) {
@@ -180,7 +180,7 @@ public:
         _enumpar = GLenum(param);
         _enumpar_name = EnumValueName(param).c_str();
 #endif
-        (void)param;
+        OGLPLUS_FAKE_USE(param);
         return *this;
     }
 
@@ -189,8 +189,8 @@ public:
         _enumpar = param;
         _enumpar_name = param_name;
 #endif
-        (void)param;
-        (void)param_name;
+        OGLPLUS_FAKE_USE(param);
+        OGLPLUS_FAKE_USE(param_name);
         return *this;
     }
 
@@ -203,7 +203,7 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns zero.
      */
-    GLenum EnumParam(void) const;
+    GLenum EnumParam() const;
 
     /// Returns the name of the enumeration parameter related to the error
     /** This function returns the name of the main enumeration
@@ -214,13 +214,13 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns nullptr.
      */
-    const char* EnumParamName(void) const;
+    const char* EnumParamName() const;
 
     Error& Index(SizeType index) {
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
         _index = GLint(index);
 #endif
-        (void)index;
+        OGLPLUS_FAKE_USE(index);
         return *this;
     }
 
@@ -235,25 +235,25 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns a negative integer.
      */
-    GLint Index(void) const;
+    GLint Index() const;
 
     /// Returns the value parameter related to the error
-    virtual GLfloat Value(void) const {
+    virtual GLfloat Value() const {
         return GLfloat(0);
     }
 
     /// Returns the limit value related to the error
-    virtual GLfloat Limit(void) const {
+    virtual GLfloat Limit() const {
         return GLfloat(0);
     }
 
     /// Returns the bind target
-    virtual GLenum BindTarget(void) const {
+    virtual GLenum BindTarget() const {
         return GLenum(0);
     }
 
     /// Returns the bind target name
-    virtual const char* TargetName(void) const {
+    virtual const char* TargetName() const {
         return nullptr;
     }
 
@@ -261,7 +261,7 @@ public:
     /** If the error is related to a GL object, then an object
      *  type enumeration value is returned. Otherwise the result is zero.
      */
-    virtual GLenum ObjectType(void) const {
+    virtual GLenum ObjectType() const {
         return GLenum(0);
     }
 
@@ -270,7 +270,7 @@ public:
      *  storing object type name is returned. Otherwise the result
      *  is nullptr.
      */
-    virtual const char* ObjectTypeName(void) const {
+    virtual const char* ObjectTypeName() const {
         return nullptr;
     }
 
@@ -279,7 +279,7 @@ public:
      *  GL name of the object is returned. Otherwise the result
      *  is a negative integer.
      */
-    virtual GLint ObjectName(void) const {
+    virtual GLint ObjectName() const {
         return -1;
     }
 
@@ -288,7 +288,7 @@ public:
      *  storing object description is returned. Otherwise the result
      *  is an empty std::string.
      */
-    virtual const std::string& ObjectDesc(void) const {
+    virtual const std::string& ObjectDesc() const {
         return EmptyStdString();
     }
 
@@ -297,7 +297,7 @@ public:
      *  an object type enumeration value is returned. Otherwise
      *  the result is zero.
      */
-    virtual GLenum SubjectType(void) const {
+    virtual GLenum SubjectType() const {
         return GLenum(0);
     }
 
@@ -306,7 +306,7 @@ public:
      *  storing secondary object type name is returned. Otherwise the result
      *  is nullptr.
      */
-    virtual const char* SubjectTypeName(void) const {
+    virtual const char* SubjectTypeName() const {
         return nullptr;
     }
 
@@ -315,7 +315,7 @@ public:
      *  the numeric GL name of the secondary object is returned.
      *  Otherwise the result is a negative integer.
      */
-    virtual GLint SubjectName(void) const {
+    virtual GLint SubjectName() const {
         return -1;
     }
 
@@ -324,7 +324,7 @@ public:
      *  storing the secondary object description is returned. Otherwise
      *  the result is an empty std::string.
      */
-    virtual const std::string& SubjectDesc(void) const {
+    virtual const std::string& SubjectDesc() const {
         return EmptyStdString();
     }
 
@@ -334,7 +334,7 @@ public:
      *  storing the identifier of the variable. Otherwise the result
      *  is nullptr.
      */
-    virtual const char* Identifier(void) const {
+    virtual const char* Identifier() const {
         return nullptr;
     }
 
@@ -344,7 +344,7 @@ public:
      *  log and it is available then it is returned by this function.
      *  Otherwise the result is an empty String.
      */
-    virtual const String& Log(void) const {
+    virtual const String& Log() const {
         return EmptyString();
     }
 };
@@ -356,10 +356,10 @@ inline void HandleError(ErrorType& error) {
 }
 
 #define OGLPLUS_ERROR_CONTEXT(GLFUNC, CLASS) \
-    static const char* _errinf_glfn(void) {  \
+    static const char* _errinf_glfn() {      \
         return #GLFUNC;                      \
     }                                        \
-    static const char* _errinf_cls(void) {   \
+    static const char* _errinf_cls() {       \
         return #CLASS;                       \
     }
 
@@ -371,16 +371,16 @@ inline void HandleError(ErrorType& error) {
 #define OGLPLUS_HANDLE_ERROR(ERROR_CODE, MESSAGE, ERROR, ERROR_INFO) \
     {                                                                \
         ERROR error(MESSAGE);                                        \
-        (void)error.ERROR_INFO.SourceFile(__FILE__)                  \
-          .SourceFunc(__FUNCTION__)                                  \
-          .SourceLine(__LINE__)                                      \
-          .Code(error_code);                                         \
+        OGLPLUS_FAKE_USE(error.ERROR_INFO.SourceFile(__FILE__)       \
+                           .SourceFunc(__FUNCTION__)                 \
+                           .SourceLine(__LINE__)                     \
+                           .Code(error_code));                       \
         HandleError(error);                                          \
     }
 
 #define OGLPLUS_RETURN_HANDLER(ERROR_CODE, MESSAGE, ERROR, ERROR_INFO)    \
     {                                                                     \
-        return DeferredHandler([=](void) -> void {                        \
+        return DeferredHandler([=]() -> void {                            \
             OGLPLUS_HANDLE_ERROR(ERROR_CODE, MESSAGE, ERROR, ERROR_INFO); \
         });                                                               \
     }

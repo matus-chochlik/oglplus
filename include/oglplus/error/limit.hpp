@@ -29,47 +29,47 @@ namespace oglplus {
  */
 class LimitError : public Error {
 private:
-	GLfloat _value;
-	GLfloat _limit;
+    GLfloat _value;
+    GLfloat _limit;
 
 public:
-	static const char* MessageNeg(void);
-	static const char* Message(void);
+    static const char* MessageNeg();
+    static const char* Message();
 
-	LimitError(const char* message)
-	  : Error(message)
-	  , _value(0)
-	  , _limit(0) {
-	}
+    LimitError(const char* message)
+      : Error(message)
+      , _value(0)
+      , _limit(0) {
+    }
 
-	LimitError& Value(GLfloat value) {
-		_value = value;
-		return *this;
-	}
+    LimitError& Value(GLfloat value) {
+        _value = value;
+        return *this;
+    }
 
-	LimitError& Value(GLuint value) {
-		_value = static_cast<GLfloat>(value);
-		return *this;
-	}
+    LimitError& Value(GLuint value) {
+        _value = static_cast<GLfloat>(value);
+        return *this;
+    }
 
-	/// The value assigned to the limited-type variable
-	GLfloat Value(void) const override {
-		return _value;
-	}
+    /// The value assigned to the limited-type variable
+    GLfloat Value() const override {
+        return _value;
+    }
 
-	LimitError& Limit(GLfloat limit) {
-		_limit = limit;
-		return *this;
-	}
+    LimitError& Limit(GLfloat limit) {
+        _limit = limit;
+        return *this;
+    }
 
-	LimitError& Limit(GLuint limit) {
-		_limit = static_cast<GLfloat>(limit);
-		return *this;
-	}
-	/// The allowed limit of the limited-type
-	GLfloat Limit(void) const override {
-		return _limit;
-	}
+    LimitError& Limit(GLuint limit) {
+        _limit = static_cast<GLfloat>(limit);
+        return *this;
+    }
+    /// The allowed limit of the limited-type
+    GLfloat Limit() const override {
+        return _limit;
+    }
 };
 
 } // namespace oglplus

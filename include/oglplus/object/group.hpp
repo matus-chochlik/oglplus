@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -33,8 +33,7 @@ private:
 
 public:
     /// Constructs an empty Group
-    Group(void) {
-    }
+    Group() {}
 
     Group(ObjectName<ObjTag> a, ObjectName<ObjTag> b) {
         _names.push_back(GetName(a));
@@ -42,12 +41,10 @@ public:
     }
 
     Group(const Group& that)
-      : _names(that._names) {
-    }
+      : _names(that._names) {}
 
     Group(Group&& temp)
-      : _names(std::move(temp._names)) {
-    }
+      : _names(std::move(temp._names)) {}
 
     /// Constructs the Group from an initializer list
     Group(std::initializer_list<ObjectName<ObjTag>> names) {
@@ -85,7 +82,7 @@ public:
         return *this;
     }
 
-    Sequence<ObjectName<ObjTag>> seq(void) const {
+    Sequence<ObjectName<ObjTag>> seq() const {
         return Sequence<ObjectName<ObjTag>>(_names.data(), _names.size());
     }
 
@@ -93,7 +90,7 @@ public:
     /** Note that the returned sequence must not be used after
      *  this group has been destroyed.
      */
-    operator Sequence<ObjectName<ObjTag>>(void) const {
+    operator Sequence<ObjectName<ObjTag>>() const {
         return seq();
     }
 };
@@ -121,8 +118,7 @@ private:
 
     std::array<NameT, N> _names;
 
-    void _init(std::size_t) {
-    }
+    void _init(std::size_t) {}
 
     template <typename... Tags>
     void _init(
@@ -143,7 +139,7 @@ public:
         _init(0, names...);
     }
 
-    Sequence<ObjectName<ObjTag>> seq(void) const {
+    Sequence<ObjectName<ObjTag>> seq() const {
         return Sequence<ObjectName<ObjTag>>(_names.data(), _names.size());
     }
 
@@ -151,7 +147,7 @@ public:
     /** Note that the returned sequence must not be used after
      *  this group has been destroyed.
      */
-    operator Sequence<ObjectName<ObjTag>>(void) const {
+    operator Sequence<ObjectName<ObjTag>>() const {
         return seq();
     }
 };

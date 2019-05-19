@@ -20,12 +20,10 @@ namespace oglplus {
 template <typename ObjTag>
 class BoundObjOps {
 public:
-    BoundObjOps(void) noexcept {
-    }
+    BoundObjOps() noexcept {}
 
     template <typename X>
-    BoundObjOps(X) noexcept {
-    }
+    BoundObjOps(X) noexcept {}
 };
 
 template <typename ObjTag>
@@ -34,8 +32,7 @@ class ObjectOps<tag::CurrentBound, ObjTag>
   , public BoundObjOps<ObjTag> {
 protected:
     ObjectOps(ObjectName<ObjTag> name) noexcept
-      : ObjZeroOps<tag::CurrentBound, ObjTag>(name) {
-    }
+      : ObjZeroOps<tag::CurrentBound, ObjTag>(name) {}
 
 public:
     typedef typename BoundObjOps<ObjTag>::Target Target;
@@ -53,7 +50,7 @@ private:
     typedef ObjectOps<tag::CurrentBound, ObjTag> Base;
 
 public:
-    Reference(void)
+    Reference()
       : ObjectOps<tag::CurrentBound, ObjTag>(ObjBindingOps<ObjTag>::Binding()) {
     }
 
