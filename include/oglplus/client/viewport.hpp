@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -23,127 +23,95 @@ namespace aux {
 #if GL_VERSION_4_1 || GL_ARB_viewport_array
 
 class ViewportIndexed
- : public SettingStack<context::ViewportExtents, ViewportIndex>
-{
+  : public SettingStack<context::ViewportExtents, ViewportIndex> {
 private:
-	static
-	context::ViewportExtents _do_get(ViewportIndex index)
-	{
-		return context::ViewportState::Viewport(index);
-	}
+    static context::ViewportExtents _do_get(ViewportIndex index) {
+        return context::ViewportState::Viewport(index);
+    }
 
-	static
-	void _do_set(context::ViewportExtents vp, ViewportIndex index)
-	{
-		context::ViewportState::Viewport(index, vp);
-	}
+    static void _do_set(context::ViewportExtents vp, ViewportIndex index) {
+        context::ViewportState::Viewport(index, vp);
+    }
+
 public:
-	ViewportIndexed(ViewportIndex index)
-	 : SettingStack<context::ViewportExtents, ViewportIndex>(
-		&_do_get,
-		&_do_set,
-		index
-	)
-	{ }
+    ViewportIndexed(ViewportIndex index)
+      : SettingStack<context::ViewportExtents, ViewportIndex>(
+          &_do_get, &_do_set, index) {
+    }
 };
 
-
 typedef SettingStackIndexed<
-	ViewportIndexed,
-	context::ViewportExtents,
-	ViewportIndex
-> Viewport;
+  ViewportIndexed,
+  context::ViewportExtents,
+  ViewportIndex>
+  Viewport;
 
 class DepthRangeIndexed
- : public SettingStack<context::ViewportDepthRange, ViewportIndex>
-{
+  : public SettingStack<context::ViewportDepthRange, ViewportIndex> {
 private:
-	static
-	context::ViewportDepthRange _do_get(ViewportIndex index)
-	{
-		return context::ViewportState::DepthRange(index);
-	}
+    static context::ViewportDepthRange _do_get(ViewportIndex index) {
+        return context::ViewportState::DepthRange(index);
+    }
 
-	static
-	void _do_set(context::ViewportDepthRange vdr, ViewportIndex index)
-	{
-		context::ViewportState::DepthRange(index, vdr);
-	}
+    static void _do_set(context::ViewportDepthRange vdr, ViewportIndex index) {
+        context::ViewportState::DepthRange(index, vdr);
+    }
+
 public:
-	DepthRangeIndexed(ViewportIndex index)
-	 : SettingStack<context::ViewportDepthRange, ViewportIndex>(
-		&_do_get,
-		&_do_set,
-		index
-	)
-	{ }
+    DepthRangeIndexed(ViewportIndex index)
+      : SettingStack<context::ViewportDepthRange, ViewportIndex>(
+          &_do_get, &_do_set, index) {
+    }
 };
 
 typedef SettingStackIndexed<
-	DepthRangeIndexed,
-	context::ViewportDepthRange,
-	ViewportIndex
-> DepthRange;
+  DepthRangeIndexed,
+  context::ViewportDepthRange,
+  ViewportIndex>
+  DepthRange;
 
 #else
 
-class Viewport
- : public SettingStack<context::ViewportExtents, Nothing>
-{
+class Viewport : public SettingStack<context::ViewportExtents, Nothing> {
 private:
-	static
-	context::ViewportExtents _do_get(Nothing)
-	{
-		return context::ViewportState::Viewport();
-	}
+    static context::ViewportExtents _do_get(Nothing) {
+        return context::ViewportState::Viewport();
+    }
 
-	static
-	void _do_set(context::ViewportExtents vp, Nothing)
-	{
-		context::ViewportState::Viewport(vp);
-	}
+    static void _do_set(context::ViewportExtents vp, Nothing) {
+        context::ViewportState::Viewport(vp);
+    }
+
 public:
-	Viewport(void)
-	 : SettingStack<context::ViewportExtents, Nothing>(
-		&_do_get,
-		&_do_set
-	)
-	{ }
+    Viewport()
+      : SettingStack<context::ViewportExtents, Nothing>(&_do_get, &_do_set) {
+    }
 };
 
-class DepthRange
- : public SettingStack<context::ViewportDepthRange, Nothing>
-{
+class DepthRange : public SettingStack<context::ViewportDepthRange, Nothing> {
 private:
-	static
-	context::ViewportDepthRange _do_get(Nothing)
-	{
-		return context::ViewportState::DepthRange();
-	}
+    static context::ViewportDepthRange _do_get(Nothing) {
+        return context::ViewportState::DepthRange();
+    }
 
-	static
-	void _do_set(context::ViewportDepthRange vdr, Nothing)
-	{
-		context::ViewportState::DepthRange(vdr);
-	}
+    static void _do_set(context::ViewportDepthRange vdr, Nothing) {
+        context::ViewportState::DepthRange(vdr);
+    }
+
 public:
-	DepthRange(void)
-	 : SettingStack<context::ViewportDepthRange, Nothing>(
-		&_do_get,
-		&_do_set
-	)
-	{ }
+    DepthRange()
+      : SettingStack<context::ViewportDepthRange, Nothing>(&_do_get, &_do_set) {
+    }
 };
 
 #endif
 
 } // namespace aux
 
-class ViewportState
-{
+class ViewportState {
 public:
-	aux::Viewport Viewport;
-	aux::DepthRange DepthRange;
+    aux::Viewport Viewport;
+    aux::DepthRange DepthRange;
 };
 
 } // namespace client

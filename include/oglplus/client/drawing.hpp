@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -21,34 +21,28 @@ namespace client {
 namespace aux {
 
 #if GL_VERSION_3_1
-class PrimitiveRestartIndex
- : public SettingStack<GLint, Nothing>
-{
+class PrimitiveRestartIndex : public SettingStack<GLint, Nothing> {
 private:
-	static
-	GLint _do_get(Nothing)
-	{
-		return context::DrawingState::PrimitiveRestartIndex();
-	}
+    static GLint _do_get(Nothing) {
+        return context::DrawingState::PrimitiveRestartIndex();
+    }
 
-	static
-	void _do_set(GLint val, Nothing)
-	{
-		context::DrawingState::PrimitiveRestartIndex(val);
-	}
+    static void _do_set(GLint val, Nothing) {
+        context::DrawingState::PrimitiveRestartIndex(val);
+    }
+
 public:
-	PrimitiveRestartIndex(void)
-	 : SettingStack<GLint, Nothing>(&_do_get, &_do_set)
-	{ }
+    PrimitiveRestartIndex()
+      : SettingStack<GLint, Nothing>(&_do_get, &_do_set) {
+    }
 };
 #endif
 
 } // namespace aux
 
-class DrawingState
-{
+class DrawingState {
 public:
-	aux::PrimitiveRestartIndex PrimitiveRestartIndex;
+    aux::PrimitiveRestartIndex PrimitiveRestartIndex;
 };
 
 using oglplus::context::DrawingOps;

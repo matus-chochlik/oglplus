@@ -24,74 +24,74 @@ namespace aux {
 template <Capability Cap>
 class CurrentCapabilityIndexed : public SettingStack<Boolean, GLuint> {
 private:
-	static Boolean _do_get(GLuint index) {
-		if(index == 0) {
-			return context::Capabilities::IsEnabled(Cap);
-		} else {
-			return context::Capabilities::IsEnabled(Cap, index);
-		}
-	}
+    static Boolean _do_get(GLuint index) {
+        if(index == 0) {
+            return context::Capabilities::IsEnabled(Cap);
+        } else {
+            return context::Capabilities::IsEnabled(Cap, index);
+        }
+    }
 
-	static void _do_set(Boolean status, GLuint index) {
-		if(index == 0) {
-			if(status) {
-				context::Capabilities::Enable(Cap);
-			} else {
-				context::Capabilities::Disable(Cap);
-			}
-		} else {
-			if(status) {
-				context::Capabilities::Enable(Cap, index);
-			} else {
-				context::Capabilities::Disable(Cap, index);
-			}
-		}
-	}
+    static void _do_set(Boolean status, GLuint index) {
+        if(index == 0) {
+            if(status) {
+                context::Capabilities::Enable(Cap);
+            } else {
+                context::Capabilities::Disable(Cap);
+            }
+        } else {
+            if(status) {
+                context::Capabilities::Enable(Cap, index);
+            } else {
+                context::Capabilities::Disable(Cap, index);
+            }
+        }
+    }
 
 public:
-	CurrentCapabilityIndexed(GLuint index = 0)
-	  : SettingStack<Boolean, GLuint>(&_do_get, &_do_set, index) {
-	}
+    CurrentCapabilityIndexed(GLuint index = 0)
+      : SettingStack<Boolean, GLuint>(&_do_get, &_do_set, index) {
+    }
 
-	Boolean IsEnabled(void) const noexcept {
-		return this->_get();
-	}
+    Boolean IsEnabled() const noexcept {
+        return this->_get();
+    }
 
-	explicit operator Boolean(void) const noexcept {
-		return IsEnabled();
-	}
+    explicit operator Boolean() const noexcept {
+        return IsEnabled();
+    }
 
-	void Enable(Boolean status = true) {
-		this->_set(status);
-	}
+    void Enable(Boolean status = true) {
+        this->_set(status);
+    }
 
-	void Disable(void) {
-		this->_set(false);
-	}
+    void Disable() {
+        this->_set(false);
+    }
 };
 
 template <Capability Cap>
 class CurrentCapability
   : public SettingStackIndexed<CurrentCapabilityIndexed<Cap>, Boolean> {
 private:
-	using SettingStackIndexed<CurrentCapabilityIndexed<Cap>, Boolean>::_zero;
+    using SettingStackIndexed<CurrentCapabilityIndexed<Cap>, Boolean>::_zero;
 
 public:
-	Boolean IsEnabled(void) const noexcept {
-		return _zero().IsEnabled();
-	}
+    Boolean IsEnabled() const noexcept {
+        return _zero().IsEnabled();
+    }
 
-	explicit operator Boolean(void) const noexcept {
-		return IsEnabled();
-	}
+    explicit operator Boolean() const noexcept {
+        return IsEnabled();
+    }
 
-	void Enable(Boolean status = true) {
-		return _zero().Enable(status);
-	}
+    void Enable(Boolean status = true) {
+        return _zero().Enable(status);
+    }
 
-	void Disable(void) {
-		return _zero().Disable();
-	}
+    void Disable() {
+        return _zero().Disable();
+    }
 };
 
 #else
@@ -99,38 +99,38 @@ public:
 template <Capability Cap>
 class CurrentCapability : public SettingStack<Boolean, Nothing> {
 private:
-	static Boolean _do_get(Nothing) {
-		return context::Capabilities::IsEnabled(Cap);
-	}
+    static Boolean _do_get(Nothing) {
+        return context::Capabilities::IsEnabled(Cap);
+    }
 
-	static void _do_set(Boolean status, Nothing) {
-		if(status) {
-			context::Capabilities::Enable(Cap);
-		} else {
-			context::Capabilities::Disable(Cap);
-		}
-	}
+    static void _do_set(Boolean status, Nothing) {
+        if(status) {
+            context::Capabilities::Enable(Cap);
+        } else {
+            context::Capabilities::Disable(Cap);
+        }
+    }
 
 public:
-	CurrentCapability(void)
-	  : SettingStack<Boolean, Nothing>(&_do_get, &_do_set) {
-	}
+    CurrentCapability()
+      : SettingStack<Boolean, Nothing>(&_do_get, &_do_set) {
+    }
 
-	Boolean IsEnabled(void) const noexcept {
-		return this->_get();
-	}
+    Boolean IsEnabled() const noexcept {
+        return this->_get();
+    }
 
-	explicit operator Boolean(void) const noexcept {
-		return IsEnabled();
-	}
+    explicit operator Boolean() const noexcept {
+        return IsEnabled();
+    }
 
-	void Enable(Boolean status = true) {
-		return this->_set(status);
-	}
+    void Enable(Boolean status = true) {
+        return this->_set(status);
+    }
 
-	void Disable(void) {
-		return this->_set(false);
-	}
+    void Disable() {
+        return this->_set(false);
+    }
 };
 #endif
 
@@ -138,8 +138,8 @@ public:
 
 class CapabilityState {
 public:
-	oglplus::enums::EnumToClass<Nothing, Capability, aux::CurrentCapability>
-	  Caps;
+    oglplus::enums::EnumToClass<Nothing, Capability, aux::CurrentCapability>
+      Caps;
 };
 
 } // namespace client

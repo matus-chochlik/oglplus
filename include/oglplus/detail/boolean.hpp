@@ -13,8 +13,8 @@
 #ifndef OGLPLUS_DETAIL_BOOLEAN_1501311633_HPP
 #define OGLPLUS_DETAIL_BOOLEAN_1501311633_HPP
 
-#include <new>
 #include <oglplus/config/compiler.hpp>
+#include <new>
 #include <stdexcept>
 
 namespace oglplus {
@@ -25,78 +25,78 @@ struct BoolImpl;
 template <typename B, typename T, T TrueVal, T FalseVal>
 struct WeakBoolImpl {
 private:
-	T _v;
+    T _v;
 
-	explicit WeakBoolImpl(T v) noexcept
-	  : _v(v) {
-	}
+    explicit WeakBoolImpl(T v) noexcept
+      : _v(v) {
+    }
 
-	friend struct BoolImpl<B, T, TrueVal, FalseVal>;
+    friend struct BoolImpl<B, T, TrueVal, FalseVal>;
 
 public:
-	operator bool(void) const noexcept {
-		return _v != FalseVal;
-	}
+    operator bool() const noexcept {
+        return _v != FalseVal;
+    }
 
-	bool operator!(void) const noexcept {
-		return _v != TrueVal;
-	}
+    bool operator!() const noexcept {
+        return _v != TrueVal;
+    }
 };
 
 template <typename B, typename T, T TrueVal, T FalseVal>
 struct BoolImpl {
 private:
-	static_assert(TrueVal != FalseVal, "");
-	static_assert(TrueVal >= 0, "");
-	static_assert(FalseVal >= 0, "");
+    static_assert(TrueVal != FalseVal, "");
+    static_assert(TrueVal >= 0, "");
+    static_assert(FalseVal >= 0, "");
 
-	T _v;
+    T _v;
 
 public:
-	// implementation detail
-	inline B _get(void) const noexcept {
-		return B(_v);
-	}
+    // implementation detail
+    inline B _get() const noexcept {
+        return B(_v);
+    }
 
-	// implementation detail
-	inline T* _ptr(void) noexcept {
-		return &_v;
-	}
+    // implementation detail
+    inline T* _ptr() noexcept {
+        return &_v;
+    }
 
-	BoolImpl(void) noexcept
-	  : _v(T(FalseVal)) {
-	}
+    BoolImpl() noexcept
+      : _v(T(FalseVal)) {
+    }
 
-	BoolImpl(bool bv) noexcept
-	  : _v(bv ? TrueVal : FalseVal) {
-	}
+    BoolImpl(bool bv) noexcept
+      : _v(bv ? TrueVal : FalseVal) {
+    }
 
-	BoolImpl(T v, std::nothrow_t) noexcept
-	  : _v(v) {
-	}
+    BoolImpl(T v, std::nothrow_t) noexcept
+      : _v(v) {
+    }
 
-	explicit BoolImpl(T v)
-	  : _v(v) {
-		if((_v != TrueVal) && (_v != FalseVal)) {
-			throw std::domain_error("Invalid value for Boolean");
-		}
-	}
+    explicit BoolImpl(T v)
+      : _v(v) {
+        if((_v != TrueVal) && (_v != FalseVal)) {
+            throw std::domain_error("Invalid value for Boolean");
+        }
+    }
 
-	static BoolImpl Indeterminate(void) noexcept {
-		return BoolImpl(TrueVal + FalseVal + 1);
-	}
+    static BoolImpl Indeterminate() noexcept {
+        return BoolImpl(TrueVal + FalseVal + 1);
+    }
 
-	operator bool(void) const noexcept {
-		return _v == TrueVal;
-	}
+    operator bool() const noexcept {
+        return _v == TrueVal;
+    }
 
-	bool operator!(void) const noexcept {
-		return _v == FalseVal;
-	}
+    bool operator!() const noexcept {
+        return _v == FalseVal;
+    }
 
-	WeakBoolImpl<B, T, TrueVal, FalseVal> operator~(void) const noexcept {
-		return WeakBoolImpl<B, T, TrueVal, FalseVal>(_v);
-	}
+    WeakBoolImpl<B, T, TrueVal, FalseVal> operator~() const noexcept {
+        return WeakBoolImpl<B, T, TrueVal, FalseVal>(_v);
+    }
 };
 
 } // namespace oglplus

@@ -21,11 +21,11 @@ namespace oglplus {
 namespace imports {
 
 struct BlendFileVisitor {
-    BlendFileVisitor(void) = default;
+    BlendFileVisitor() = default;
     BlendFileVisitor(const BlendFileVisitor&) = default;
     BlendFileVisitor(BlendFileVisitor&&) = default;
 
-    virtual ~BlendFileVisitor(void) {
+    virtual ~BlendFileVisitor() {
     }
 
     virtual void VisitStr(const std::string&) = 0;

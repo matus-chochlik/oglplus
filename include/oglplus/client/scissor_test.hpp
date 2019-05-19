@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -23,72 +23,54 @@ namespace aux {
 #if GL_VERSION_4_1 || GL_ARB_viewport_array
 
 class ScissorIndexed
- : public SettingStack<context::ScissorRectangle, ViewportIndex>
-{
+  : public SettingStack<context::ScissorRectangle, ViewportIndex> {
 private:
-	static
-	context::ScissorRectangle _do_get(ViewportIndex index)
-	{
-		return context::ScissorTest::ScissorBox(index);
-	}
+    static context::ScissorRectangle _do_get(ViewportIndex index) {
+        return context::ScissorTest::ScissorBox(index);
+    }
 
-	static
-	void _do_set(context::ScissorRectangle vp, ViewportIndex index)
-	{
-		context::ScissorTest::Scissor(index, vp);
-	}
+    static void _do_set(context::ScissorRectangle vp, ViewportIndex index) {
+        context::ScissorTest::Scissor(index, vp);
+    }
+
 public:
-	ScissorIndexed(ViewportIndex index)
-	 : SettingStack<context::ScissorRectangle, ViewportIndex>(
-		&_do_get,
-		&_do_set,
-		index
-	)
-	{ }
+    ScissorIndexed(ViewportIndex index)
+      : SettingStack<context::ScissorRectangle, ViewportIndex>(
+          &_do_get, &_do_set, index) {
+    }
 };
 
 class Scissor
- : public SettingStackIndexed<
-	ScissorIndexed,
-	context::ScissorRectangle,
-	ViewportIndex
->
-{ };
+  : public SettingStackIndexed<
+      ScissorIndexed,
+      context::ScissorRectangle,
+      ViewportIndex> {};
 
 #else
 
-class Scissor
- : public SettingStack<context::ScissorRectangle, Nothing>
-{
+class Scissor : public SettingStack<context::ScissorRectangle, Nothing> {
 private:
-	static
-	context::ScissorRectangle _do_get(Nothing)
-	{
-		return context::ScissorTest::ScissorBox();
-	}
+    static context::ScissorRectangle _do_get(Nothing) {
+        return context::ScissorTest::ScissorBox();
+    }
 
-	static
-	void _do_set(context::ScissorRectangle vp, Nothing)
-	{
-		context::ScissorTest::Scissor(vp);
-	}
+    static void _do_set(context::ScissorRectangle vp, Nothing) {
+        context::ScissorTest::Scissor(vp);
+    }
+
 public:
-	Scissor(void)
-	 : SettingStack<context::ScissorRectangle, Nothing>(
-		&_do_get,
-		&_do_set
-	)
-	{ }
+    Scissor()
+      : SettingStack<context::ScissorRectangle, Nothing>(&_do_get, &_do_set) {
+    }
 };
 
 #endif
 
 } // namespace aux
 
-class ScissorTestState
-{
+class ScissorTestState {
 public:
-	aux::Scissor Scissor;
+    aux::Scissor Scissor;
 };
 
 } // namespace client

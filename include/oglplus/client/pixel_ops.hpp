@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -24,49 +24,36 @@ namespace aux {
 
 template <PixelParameter Parameter>
 class PixelStore
- : public SettingStack<
-	typename oglplus::enums::EnumAssocGLType<
-		PixelParameter,
-		Parameter
-	>::Type,
-	Nothing
->
-{
+  : public SettingStack<
+      typename oglplus::enums::EnumAssocGLType<PixelParameter, Parameter>::Type,
+      Nothing> {
 private:
-	typedef	typename oglplus::enums::EnumAssocGLType<
-		PixelParameter,
-		Parameter
-	>::Type _value_t;
+    typedef
+      typename oglplus::enums::EnumAssocGLType<PixelParameter, Parameter>::Type
+        _value_t;
 
-	static
-	_value_t _do_get(Nothing)
-	{
-		return context::PixelState::PixelStoreValue<Parameter>();
-	}
+    static _value_t _do_get(Nothing) {
+        return context::PixelState::PixelStoreValue<Parameter>();
+    }
 
-	static
-	void _do_set(_value_t value, Nothing)
-	{
-		context::PixelState::PixelStore<Parameter>(value);
-	}
+    static void _do_set(_value_t value, Nothing) {
+        context::PixelState::PixelStore<Parameter>(value);
+    }
+
 public:
-	PixelStore(void)
-	 : SettingStack<_value_t, Nothing>(&_do_get, &_do_set)
-	{ }
+    PixelStore()
+      : SettingStack<_value_t, Nothing>(&_do_get, &_do_set) {
+    }
 };
 #endif
 
 } // namespace aux
 
-class PixelState
-{
+class PixelState {
 public:
 #if GL_VERSION_3_0
-	oglplus::enums::EnumToClass<
-		Nothing,
-		PixelParameter,
-		aux::PixelStore
-	> PixelStore;
+    oglplus::enums::EnumToClass<Nothing, PixelParameter, aux::PixelStore>
+      PixelStore;
 #endif
 };
 

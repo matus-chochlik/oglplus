@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -22,39 +22,30 @@ namespace aux {
 
 #if GL_VERSION_4_5
 
-class ClipControl
- : public SettingStack<context::ClipControlParams, Nothing>
-{
+class ClipControl : public SettingStack<context::ClipControlParams, Nothing> {
 private:
-	static
-	context::ClipControlParams _do_get(Nothing)
-	{
-		return context::ClipControlState::ClipControl();
-	}
+    static context::ClipControlParams _do_get(Nothing) {
+        return context::ClipControlState::ClipControl();
+    }
 
-	static
-	void _do_set(context::ClipControlParams value, Nothing)
-	{
-		context::ClipControlState::ClipControl(value);
-	}
+    static void _do_set(context::ClipControlParams value, Nothing) {
+        context::ClipControlState::ClipControl(value);
+    }
+
 public:
-	ClipControl(void)
-	 : SettingStack<context::ClipControlParams, Nothing>(
-		&_do_get,
-		&_do_set
-	)
-	{ }
+    ClipControl()
+      : SettingStack<context::ClipControlParams, Nothing>(&_do_get, &_do_set) {
+    }
 };
 
 #endif
 
 } // namespace aux
 
-class ClipControlState
-{
+class ClipControlState {
 public:
 #if GL_VERSION_4_5
-	aux::ClipControl ClipControl;
+    aux::ClipControl ClipControl;
 #endif
 };
 

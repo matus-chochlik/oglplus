@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,86 +20,61 @@ namespace oglplus {
 namespace client {
 namespace aux {
 
-class ClearColor
- : public SettingStack<context::RGBAValue, Nothing>
-{
+class ClearColor : public SettingStack<context::RGBAValue, Nothing> {
 private:
-	static
-	context::RGBAValue _do_get(Nothing)
-	{
-		return context::BufferClearingState::ColorClearValue();
-	}
+    static context::RGBAValue _do_get(Nothing) {
+        return context::BufferClearingState::ColorClearValue();
+    }
 
-	static
-	void _do_set(context::RGBAValue value, Nothing)
-	{
-		context::BufferClearingState::ClearColor(value);
-	}
+    static void _do_set(context::RGBAValue value, Nothing) {
+        context::BufferClearingState::ClearColor(value);
+    }
+
 public:
-	ClearColor(void)
-	 : SettingStack<context::RGBAValue, Nothing>(
-		&_do_get,
-		&_do_set
-	)
-	{ }
+    ClearColor()
+      : SettingStack<context::RGBAValue, Nothing>(&_do_get, &_do_set) {
+    }
 };
 
-class ClearDepth
- : public SettingStack<GLfloat, Nothing>
-{
+class ClearDepth : public SettingStack<GLfloat, Nothing> {
 private:
-	static
-	GLfloat _do_get(Nothing)
-	{
-		return context::BufferClearingState::DepthClearValue();
-	}
+    static GLfloat _do_get(Nothing) {
+        return context::BufferClearingState::DepthClearValue();
+    }
 
-	static
-	void _do_set(GLfloat value, Nothing)
-	{
-		context::BufferClearingState::ClearDepth(value);
-	}
+    static void _do_set(GLfloat value, Nothing) {
+        context::BufferClearingState::ClearDepth(value);
+    }
+
 public:
-	ClearDepth(void)
-	 : SettingStack<GLfloat, Nothing>(
-		&_do_get,
-		&_do_set
-	)
-	{ }
+    ClearDepth()
+      : SettingStack<GLfloat, Nothing>(&_do_get, &_do_set) {
+    }
 };
 
-class ClearStencil
- : public SettingStack<GLint, Nothing>
-{
+class ClearStencil : public SettingStack<GLint, Nothing> {
 private:
-	static
-	GLint _do_get(Nothing)
-	{
-		return context::BufferClearingState::StencilClearValue();
-	}
+    static GLint _do_get(Nothing) {
+        return context::BufferClearingState::StencilClearValue();
+    }
 
-	static
-	void _do_set(GLint value, Nothing)
-	{
-		context::BufferClearingState::ClearStencil(value);
-	}
+    static void _do_set(GLint value, Nothing) {
+        context::BufferClearingState::ClearStencil(value);
+    }
+
 public:
-	ClearStencil(void)
-	 : SettingStack<GLint, Nothing>(
-		&_do_get,
-		&_do_set
-	)
-	{ }
+    ClearStencil()
+      : SettingStack<GLint, Nothing>(&_do_get, &_do_set) {
+    }
 };
 
 } // namespace aux
 
-class BufferClearingState
-{
+class BufferClearingState {
 public:
-	aux::ClearColor ClearColor;
-	aux::ClearDepth ClearDepth;
-	aux::ClearStencil ClearStencil;
+    aux::ClearColor ClearColor;
+    aux::ClearDepth ClearDepth;
+    aux::ClearStencil ClearStencil;
 };
 
 using context::BufferClearingOps;

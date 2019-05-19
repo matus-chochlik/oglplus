@@ -22,77 +22,78 @@ namespace oglplus {
 
 class ProgPLUseStages {
 private:
-	GLuint _pipeline, _program;
-	GLbitfield _bits;
+    GLuint _pipeline, _program;
+    GLbitfield _bits;
 
-	GLbitfield _forward(void) noexcept {
-		GLbitfield res = _bits;
-		_bits = 0;
-		return res;
-	}
+    GLbitfield _forward() noexcept {
+        GLbitfield res = _bits;
+        _bits = 0;
+        return res;
+    }
 
-	ProgPLUseStages(void);
-	ProgPLUseStages(const ProgPLUseStages&);
+    ProgPLUseStages();
+    ProgPLUseStages(const ProgPLUseStages&);
 
-	inline ProgPLUseStages _make(GLbitfield bit) noexcept {
-		return ProgPLUseStages(_pipeline, _program, _forward() | bit);
-	}
+    inline ProgPLUseStages _make(GLbitfield bit) noexcept {
+        return ProgPLUseStages(_pipeline, _program, _forward() | bit);
+    }
 
 public:
-	ProgPLUseStages(GLuint pipeline, GLuint program, GLbitfield bits) noexcept
-	  : _pipeline(pipeline)
-	  , _program(program)
-	  , _bits(bits) {
-	}
+    ProgPLUseStages(GLuint pipeline, GLuint program, GLbitfield bits) noexcept
+      : _pipeline(pipeline)
+      , _program(program)
+      , _bits(bits) {
+    }
 
-	inline ProgPLUseStages Vertex(void) noexcept {
-		return _make(GL_VERTEX_SHADER_BIT);
-	}
+    inline ProgPLUseStages Vertex() noexcept {
+        return _make(GL_VERTEX_SHADER_BIT);
+    }
 
-	inline ProgPLUseStages TessControl(void) noexcept {
-		return _make(GL_TESS_CONTROL_SHADER_BIT);
-	}
+    inline ProgPLUseStages TessControl() noexcept {
+        return _make(GL_TESS_CONTROL_SHADER_BIT);
+    }
 
-	inline ProgPLUseStages TessEvaluation(void) noexcept {
-		return _make(GL_TESS_EVALUATION_SHADER_BIT);
-	}
+    inline ProgPLUseStages TessEvaluation() noexcept {
+        return _make(GL_TESS_EVALUATION_SHADER_BIT);
+    }
 
-	inline ProgPLUseStages Geometry(void) noexcept {
-		return _make(GL_GEOMETRY_SHADER_BIT);
-	}
+    inline ProgPLUseStages Geometry() noexcept {
+        return _make(GL_GEOMETRY_SHADER_BIT);
+    }
 
-	inline ProgPLUseStages Fragment(void) noexcept {
-		return _make(GL_FRAGMENT_SHADER_BIT);
-	}
+    inline ProgPLUseStages Fragment() noexcept {
+        return _make(GL_FRAGMENT_SHADER_BIT);
+    }
 
-	inline ProgPLUseStages All(void) noexcept {
-		return _make(GL_ALL_SHADER_BITS);
-	}
+    inline ProgPLUseStages All() noexcept {
+        return _make(GL_ALL_SHADER_BITS);
+    }
 
-	inline ProgPLUseStages(ProgPLUseStages&& temp) noexcept
-	  : _pipeline(temp._pipeline)
-	  , _program(temp._program)
-	  , _bits(temp._forward()) {
-	}
+    inline ProgPLUseStages(ProgPLUseStages&& temp) noexcept
+      : _pipeline(temp._pipeline)
+      , _program(temp._program)
+      , _bits(temp._forward()) {
+    }
 
-	void DoIt(void) {
-		if(_bits) {
-			assert(_pipeline);
-			assert(_program);
-			OGLPLUS_GLFUNC(UseProgramStages)(_pipeline, _bits, _program);
-			OGLPLUS_VERIFY(UseProgramStages,
-			  ObjectError,
-			  Object(ProgramPipelineName(_pipeline)));
-			_bits = 0;
-		}
-	}
+    void DoIt() {
+        if(_bits) {
+            assert(_pipeline);
+            assert(_program);
+            OGLPLUS_GLFUNC(UseProgramStages)(_pipeline, _bits, _program);
+            OGLPLUS_VERIFY(
+              UseProgramStages,
+              ObjectError,
+              Object(ProgramPipelineName(_pipeline)));
+            _bits = 0;
+        }
+    }
 
-	inline ~ProgPLUseStages(void) {
-		try {
-			DoIt();
-		} catch(...) {
-		}
-	}
+    inline ~ProgPLUseStages() {
+        try {
+            DoIt();
+        } catch(...) {
+        }
+    }
 };
 
 #endif // program pipeline
