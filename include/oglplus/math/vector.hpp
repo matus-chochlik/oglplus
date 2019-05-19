@@ -117,10 +117,9 @@ class VectorBase {
 protected:
     T _elem[N];
 
-    VectorBase(oglplus::Nothing) {
-    }
+    VectorBase(oglplus::Nothing) {}
 
-    VectorBase(void) {
+    VectorBase() {
         std::fill(_elem, _elem + N, T(0));
     }
 
@@ -187,17 +186,17 @@ public:
     VectorBase& operator=(VectorBase&&) = default;
 
     /// The size (the number of components) of this vector
-    static std::size_t Size(void) {
+    static std::size_t Size() {
         return N;
     }
 
     /// Pointer to the components of this vector
-    T* Data(void) {
+    T* Data() {
         return this->_elem;
     }
 
     /// Pointer to the components of this vector
-    const T* Data(void) const {
+    const T* Data() const {
         return this->_elem;
     }
 
@@ -284,7 +283,7 @@ public:
     }
 
     /// Returns the lenght of this vector
-    T Length(void) const {
+    T Length() const {
         return std::sqrt(DotProduct(*this, *this));
     }
 
@@ -294,7 +293,7 @@ public:
     }
 
     /// Normalizes this vector
-    void Normalize(void) {
+    void Normalize() {
         T l = Length();
         if(l != T(0) && l != T(1))
             Multiply(T(1) / l);

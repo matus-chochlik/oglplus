@@ -335,12 +335,10 @@ public:
 	typedef ExplicitOps::Target Target;
 	Target target;
 
-	BoundObjOps(void)
-	{ }
+	BoundObjOps() {}
 
 	BoundObjOps(Target init_tgt)
-	 : target(init_tgt)
-	{ }
+	 : target(init_tgt) {}
 </xsl:text>
 	<xsl:variable name="ObjZeroOps" select="concat('oglplus::ObjZeroOps&lt; tag::ExplicitSel, tag::', $Object,' &gt;')"/>
 	<xsl:variable name="ObjectOps"  select="concat('oglplus::ObjectOps&lt; tag::ExplicitSel, tag::', $Object,' &gt;')"/>

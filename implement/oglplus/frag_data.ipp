@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,18 +12,13 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
-const char* ProgVarLocOps<tag::FragData>::
-MsgGettingInactive(void)
-{
-	return "Getting the location of inactive program fragment data output";
+const char* ProgVarLocOps<tag::FragData>::MsgGettingInactive() {
+    return "Getting the location of inactive program fragment data output";
 }
 
 OGLPLUS_LIB_FUNC
-const char* ProgVarLocOps<tag::FragData>::
-MsgUsingInactive(void)
-{
-	return "Using inactive program fragment data output";
+const char* ProgVarLocOps<tag::FragData>::MsgUsingInactive() {
+    return "Using inactive program fragment data output";
 }
 
 } // namespace oglplus
-

@@ -263,8 +263,7 @@ protected:
     }
 
     // No initialization
-    Matrix(oglplus::Nothing) {
-    }
+    Matrix(oglplus::Nothing) {}
 
 public:
     template <typename InitOp>
@@ -273,7 +272,7 @@ public:
     }
 
     /// Default construction (identity matrix)
-    Matrix(void) {
+    Matrix() {
         std::fill(_m._data, _m._data + Rows * Cols, T(0));
         for(std::size_t i = 0, n = Rows < Cols ? Rows : Cols; i != n; ++i)
             this->_m._elem[i][i] = T(1);
@@ -334,12 +333,12 @@ public:
     }
 
     /// Returns a pointer to the matrix elements in row major order
-    const T* Data(void) const {
+    const T* Data() const {
         return this->_m._data;
     }
 
     /// Returns the number of elements of the matrix
-    std::size_t Size(void) const {
+    std::size_t Size() const {
         return Rows * Cols;
     }
 
@@ -487,7 +486,7 @@ public:
 
     /// Submatrix extraction
     template <std::size_t I, std::size_t J, std::size_t R, std::size_t C>
-    Matrix<T, R, C> Submatrix(void) const {
+    Matrix<T, R, C> Submatrix() const {
         _op_extract<I, J, R, C> init = {*this};
         return Matrix<T, R, C>(_spec_ctr(), init);
     }
@@ -692,13 +691,11 @@ private:
 
 public:
     /// Constructs an identity matrix
-    ModelMatrix(void)
-      : Base() {
-    }
+    ModelMatrix()
+      : Base() {}
 
     ModelMatrix(const Base& base)
-      : Base(base) {
-    }
+      : Base(base) {}
 
     struct Translation_ {};
 
@@ -1003,20 +1000,19 @@ private:
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY
     /// Constructs an identity matrix
-    CameraMatrix(void);
+    CameraMatrix();
 #endif
 
-    CameraMatrix(void) = default;
+    CameraMatrix() = default;
 
     CameraMatrix(const Base& base)
-      : Base(base) {
-    }
+      : Base(base) {}
 
-    Vector<T, 3> Position(void) const {
+    Vector<T, 3> Position() const {
         return Vector<T, 3>(Inverse(*this).Col(3).Data(), 3);
     }
 
-    Vector<T, 3> Direction(void) const {
+    Vector<T, 3> Direction() const {
         return -Vector<T, 3>(this->Row(2).Data(), 3);
     }
 

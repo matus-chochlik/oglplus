@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -47,19 +47,16 @@ private:
 
     struct Radians_ {};
     Angle(T val_rad, Radians_)
-      : _val_rad(val_rad) {
-    }
+      : _val_rad(val_rad) {}
 
     struct Degrees_ {};
     Angle(T val_deg, Degrees_)
-      : _val_rad(T(val_deg * (math::Pi() / T(180)))) {
-    }
+      : _val_rad(T(val_deg * (math::Pi() / T(180)))) {}
 
 public:
     /// Constructs a zero angle
-    Angle(void)
-      : _val_rad(T(0)) {
-    }
+    Angle()
+      : _val_rad(T(0)) {}
 
     /// Angle is copy constructible
     Angle(const Angle&) = default;
@@ -72,8 +69,7 @@ public:
     /// Copy construction from angles using different underlying type
     template <typename U>
     Angle(const Angle<U>& other)
-      : _val_rad(T(other.Value())) {
-    }
+      : _val_rad(T(other.Value())) {}
 
     /// Constructs a new angle from value in radians
     static inline Angle Radians(T val_rad) {
@@ -98,22 +94,22 @@ public:
     }
 
     /// Returns the value of the angle in radians
-    inline T Value(void) const {
+    inline T Value() const {
         return _val_rad;
     }
 
     /// Returns the value of the angle in degrees
-    inline T ValueInDegrees(void) const {
+    inline T ValueInDegrees() const {
         return _val_rad * T(180 / math::Pi());
     }
 
     /// Returns the value of the angle in number of right angles
-    inline T ValueInRightAngles(void) const {
+    inline T ValueInRightAngles() const {
         return _val_rad * T(2.0 / math::Pi());
     }
 
     /// Returns the value of the angle in number of full circles
-    inline T ValueInFullCircles(void) const {
+    inline T ValueInFullCircles() const {
         return _val_rad * T(0.5 / math::Pi());
     }
 
@@ -153,7 +149,7 @@ public:
 #endif
 
     /// Negation
-    Angle Negated(void) const {
+    Angle Negated() const {
         return Angle(-this->_val_rad, Radians_());
     }
 
@@ -269,7 +265,7 @@ public:
 #endif
 
     /// Returns the sine of the angle
-    T Sin(void) const {
+    T Sin() const {
         return ::std::sin(this->_val_rad);
     }
 
@@ -279,7 +275,7 @@ public:
 #endif
 
     /// Returns the cosine of the angle
-    T Cos(void) const {
+    T Cos() const {
         return ::std::cos(this->_val_rad);
     }
 
@@ -289,7 +285,7 @@ public:
 #endif
 
     /// Returns the tangent of the angle
-    T Tan(void) const {
+    T Tan() const {
         return ::std::tan(this->_val_rad);
     }
 };
@@ -436,7 +432,7 @@ static inline Angle<AngleValueType> FullCircles(T value) {
       AngleValueType(value * math::TwoPi()));
 }
 
-static inline Angle<AngleValueType> FullCircle(void) {
+static inline Angle<AngleValueType> FullCircle() {
     return Angle<AngleValueType>::Radians(AngleValueType(math::TwoPi()));
 }
 
@@ -469,7 +465,7 @@ static inline Angle<AngleValueType> RightAngles(T value) {
       AngleValueType(value * math::HalfPi()));
 }
 
-static inline Angle<AngleValueType> RightAngle(void) {
+static inline Angle<AngleValueType> RightAngle() {
     return Angle<AngleValueType>::Radians(AngleValueType(math::HalfPi()));
 }
 

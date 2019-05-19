@@ -13,36 +13,36 @@ namespace oglplus {
 namespace images {
 
 OGLPLUS_LIB_FUNC
-bool Image::_is_initialized(void) const noexcept {
-	return (!_storage.empty()) && (_convert != nullptr);
+bool Image::_is_initialized() const noexcept {
+    return (!_storage.empty()) && (_convert != nullptr);
 }
 
 OGLPLUS_LIB_FUNC
 PixelDataFormat Image::_get_def_pdf(unsigned n) noexcept {
-	if(n == 1)
-		return PixelDataFormat::Red;
-	if(n == 2)
-		return PixelDataFormat::RG;
-	if(n == 3)
-		return PixelDataFormat::RGB;
-	if(n == 4)
-		return PixelDataFormat::RGBA;
-	OGLPLUS_ABORT("Invalid number of color channels!");
-	return PixelDataFormat::Red;
+    if(n == 1)
+        return PixelDataFormat::Red;
+    if(n == 2)
+        return PixelDataFormat::RG;
+    if(n == 3)
+        return PixelDataFormat::RGB;
+    if(n == 4)
+        return PixelDataFormat::RGBA;
+    OGLPLUS_ABORT("Invalid number of color channels!");
+    return PixelDataFormat::Red;
 }
 
 OGLPLUS_LIB_FUNC
 PixelDataInternalFormat Image::_get_def_pdif(unsigned n) noexcept {
-	if(n == 1)
-		return PixelDataInternalFormat::Red;
-	if(n == 2)
-		return PixelDataInternalFormat::RG;
-	if(n == 3)
-		return PixelDataInternalFormat::RGB;
-	if(n == 4)
-		return PixelDataInternalFormat::RGBA;
-	OGLPLUS_ABORT("Invalid number of color channels!");
-	return PixelDataInternalFormat::Red;
+    if(n == 1)
+        return PixelDataInternalFormat::Red;
+    if(n == 2)
+        return PixelDataInternalFormat::RG;
+    if(n == 3)
+        return PixelDataInternalFormat::RGB;
+    if(n == 4)
+        return PixelDataInternalFormat::RGBA;
+    OGLPLUS_ABORT("Invalid number of color channels!");
+    return PixelDataInternalFormat::Red;
 }
 
 } // namespace images
