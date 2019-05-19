@@ -50,7 +50,7 @@ struct BitmapGlyphRenderingConfig {
     /// Minimal allocation unit for a layout storage unit
     unsigned layout_storage_unit;
 
-    BitmapGlyphRenderingConfig(void)
+    BitmapGlyphRenderingConfig()
       : page_frames(8)
       , plane_count(3)
       , pages_per_plane(256)

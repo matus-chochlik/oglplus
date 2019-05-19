@@ -23,75 +23,75 @@ namespace native {
 /// Wrapper for a valid GLX context handle
 class ContextGLX {
 private:
-	::Display* _display;
-	::GLXContext _context;
+    ::Display* _display;
+    ::GLXContext _context;
 
-	friend ::Display* GetGLXDisplay(const ContextGLX&) noexcept;
+    friend ::Display* GetGLXDisplay(const ContextGLX&) noexcept;
 
-	friend ::GLXContext GetGLXContext(const ContextGLX&) noexcept;
+    friend ::GLXContext GetGLXContext(const ContextGLX&) noexcept;
 
 protected:
-	struct Current_ {};
+    struct Current_ {};
 
-	ContextGLX(Current_)
-	  : _display(::glXGetCurrentDisplay())
-	  , _context(::glXGetCurrentContext()) {
-		if(!_display)
-			HandleNoGLXDisplay();
-		if(!_context)
-			HandleNoGLXContext();
-	}
+    ContextGLX(Current_)
+      : _display(::glXGetCurrentDisplay())
+      , _context(::glXGetCurrentContext()) {
+        if(!_display)
+            HandleNoGLXDisplay();
+        if(!_context)
+            HandleNoGLXContext();
+    }
 
 public:
-	friend bool operator==(const ContextGLX& a, const ContextGLX& b) noexcept {
-		return (a._display == b._display) && (a._context == b._context);
-	}
+    friend bool operator==(const ContextGLX& a, const ContextGLX& b) noexcept {
+        return (a._display == b._display) && (a._context == b._context);
+    }
 
-	friend bool operator!=(const ContextGLX& a, const ContextGLX& b) noexcept {
-		return (a._display != b._display) || (a._context != b._context);
-	}
+    friend bool operator!=(const ContextGLX& a, const ContextGLX& b) noexcept {
+        return (a._display != b._display) || (a._context != b._context);
+    }
 
-	friend bool operator<(const ContextGLX& a, const ContextGLX& b) noexcept {
-		return (a._display < b._display)
-			   || ((a._display == b._display) && (a._context < b._context));
-	}
+    friend bool operator<(const ContextGLX& a, const ContextGLX& b) noexcept {
+        return (a._display < b._display) ||
+               ((a._display == b._display) && (a._context < b._context));
+    }
 
-	/// Returns a wrapper for the currently bound GLX context
-	/** This function gets and wraps the current GLX context (+display).
-	 *  If no context is current it throws a @c runtime_error.
-	 *
-	 *  @throws std::runtime_error
-	 */
-	static ContextGLX Current(void) {
-		return ContextGLX(Current_());
-	}
+    /// Returns a wrapper for the currently bound GLX context
+    /** This function gets and wraps the current GLX context (+display).
+     *  If no context is current it throws a @c runtime_error.
+     *
+     *  @throws std::runtime_error
+     */
+    static ContextGLX Current() {
+        return ContextGLX(Current_());
+    }
 
-	/// Makes the context current on this thread
-	void MakeCurrent(const SurfaceGLX& surface) {
-		::glXMakeCurrent(_display, surface._drawable, _context);
-	}
+    /// Makes the context current on this thread
+    void MakeCurrent(const SurfaceGLX& surface) {
+        ::glXMakeCurrent(_display, surface._drawable, _context);
+    }
 
-	/// Releases the current context without binding a new one
-	void Release(void) {
-		::glXMakeCurrent(_display, ::GLXDrawable(0), ::GLXContext(0));
-	}
+    /// Releases the current context without binding a new one
+    void Release() {
+        ::glXMakeCurrent(_display, ::GLXDrawable(0), ::GLXContext(0));
+    }
 };
 
 inline ::Display* GetGLXDisplay(const ContextGLX& cglx) noexcept {
-	return cglx._display;
+    return cglx._display;
 }
 
 inline ::GLXContext GetGLXContext(const ContextGLX& cglx) noexcept {
-	return cglx._context;
+    return cglx._context;
 }
 
 typedef ContextGLX Context;
 
 class CurrentContextGLX : public ContextGLX {
 public:
-	CurrentContextGLX(void)
-	  : ContextGLX(ContextGLX::Current_()) {
-	}
+    CurrentContextGLX()
+      : ContextGLX(ContextGLX::Current_()) {
+    }
 };
 
 typedef CurrentContextGLX CurrentContext;

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -50,32 +50,32 @@ public:
     }
 
     /// The left edge of the rectangle
-    GLfloat Left(void) const {
+    GLfloat Left() const {
         return _left;
     }
 
     /// the right edge of the rectangle
-    GLfloat Right(void) const {
+    GLfloat Right() const {
         return _right;
     }
 
     /// the bottom edge of the rectangle
-    GLfloat Bottom(void) const {
+    GLfloat Bottom() const {
         return _bottom;
     }
 
     /// the top edge of the rectangle
-    GLfloat Top(void) const {
+    GLfloat Top() const {
         return _top;
     }
 
     /// The width of the rectangle
-    GLfloat Width(void) const {
+    GLfloat Width() const {
         return Right() - Left();
     }
 
     /// The height of the rectangle
-    GLfloat Height(void) const {
+    GLfloat Height() const {
         return Top() - Bottom();
     }
 };
@@ -193,10 +193,10 @@ public:
      *
      *  @see Set
      */
-    SizeType Capacity(void) const;
+    SizeType Capacity() const;
 
     /// The width of the layout in font size units
-    GLfloat Width(void) const;
+    GLfloat Width() const;
 
     /// Sets a new text to be layed-out
     /** This function lays-out a new sequence of glyphs representing
@@ -313,7 +313,7 @@ public:
     /// Use the renderer
     /** Call this function before using the renderer
      */
-    void Use(void);
+    void Use();
 
     /// Transforms and renders the specified @p layout
     /** The currently set alignment and matrices are used

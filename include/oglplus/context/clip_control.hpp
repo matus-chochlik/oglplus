@@ -20,24 +20,24 @@ namespace oglplus {
 namespace context {
 
 struct ClipControlParams {
-	GLenum _origin;
-	GLenum _depth;
+    GLenum _origin;
+    GLenum _depth;
 
-	ClipControlParams(void) noexcept {
-	}
+    ClipControlParams() noexcept {
+    }
 
-	ClipControlParams(ClipOrigin origin, ClipDepthMode depth) noexcept
-	  : _origin(GLenum(origin))
-	  , _depth(GLenum(depth)) {
-	}
+    ClipControlParams(ClipOrigin origin, ClipDepthMode depth) noexcept
+      : _origin(GLenum(origin))
+      , _depth(GLenum(depth)) {
+    }
 
-	ClipOrigin Origin(void) const noexcept {
-		return ClipOrigin(_origin);
-	}
+    ClipOrigin Origin() const noexcept {
+        return ClipOrigin(_origin);
+    }
 
-	ClipDepthMode DepthMode(void) const noexcept {
-		return ClipDepthMode(_depth);
-	}
+    ClipDepthMode DepthMode() const noexcept {
+        return ClipDepthMode(_depth);
+    }
 };
 
 /// Wrapper for the clip control-related operations
@@ -47,54 +47,54 @@ struct ClipControlParams {
 class ClipControlState {
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_5 || GL_ARB_clip_control
-	/// Sets the clipping mode
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{ClipControl}
-	 */
-	static void ClipControl(ClipOrigin origin, ClipDepthMode depth) {
-		OGLPLUS_GLFUNC(ClipControl)(GLenum(origin), GLenum(depth));
-		OGLPLUS_VERIFY_SIMPLE(ClipControl);
-	}
+    /// Sets the clipping mode
+    /**
+     *  @throws Error
+     *
+     *  @glsymbols
+     *  @glfunref{ClipControl}
+     */
+    static void ClipControl(ClipOrigin origin, ClipDepthMode depth) {
+        OGLPLUS_GLFUNC(ClipControl)(GLenum(origin), GLenum(depth));
+        OGLPLUS_VERIFY_SIMPLE(ClipControl);
+    }
 
-	static void ClipControl(const ClipControlParams& params) {
-		OGLPLUS_GLFUNC(ClipControl)(params._origin, params._depth);
-		OGLPLUS_VERIFY_SIMPLE(ClipControl);
-	}
+    static void ClipControl(const ClipControlParams& params) {
+        OGLPLUS_GLFUNC(ClipControl)(params._origin, params._depth);
+        OGLPLUS_VERIFY_SIMPLE(ClipControl);
+    }
 
-	/// Queries the current clip origin setting
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{Get}
-	 */
-	static oglplus::ClipOrigin ClipOrigin(void) {
-		GLint result = 0;
-		OGLPLUS_GLFUNC(GetIntegerv)(GL_CLIP_ORIGIN, &result);
-		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
-		return oglplus::ClipOrigin(GLenum(result));
-	}
+    /// Queries the current clip origin setting
+    /**
+     *  @throws Error
+     *
+     *  @glsymbols
+     *  @glfunref{Get}
+     */
+    static oglplus::ClipOrigin ClipOrigin() {
+        GLint result = 0;
+        OGLPLUS_GLFUNC(GetIntegerv)(GL_CLIP_ORIGIN, &result);
+        OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+        return oglplus::ClipOrigin(GLenum(result));
+    }
 
-	/// Queries the current clip depth mode setting
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{Get}
-	 */
-	static oglplus::ClipDepthMode ClipDepthMode(void) {
-		GLint result = 0;
-		OGLPLUS_GLFUNC(GetIntegerv)(GL_CLIP_DEPTH_MODE, &result);
-		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
-		return oglplus::ClipDepthMode(GLenum(result));
-	}
+    /// Queries the current clip depth mode setting
+    /**
+     *  @throws Error
+     *
+     *  @glsymbols
+     *  @glfunref{Get}
+     */
+    static oglplus::ClipDepthMode ClipDepthMode() {
+        GLint result = 0;
+        OGLPLUS_GLFUNC(GetIntegerv)(GL_CLIP_DEPTH_MODE, &result);
+        OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+        return oglplus::ClipDepthMode(GLenum(result));
+    }
 
-	static ClipControlParams ClipControl(void) {
-		return ClipControlParams(ClipOrigin(), ClipDepthMode());
-	}
+    static ClipControlParams ClipControl() {
+        return ClipControlParams(ClipOrigin(), ClipDepthMode());
+    }
 #endif
 };
 

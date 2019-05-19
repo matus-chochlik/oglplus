@@ -87,7 +87,7 @@ public:
      *  @glfunref{GetRenderbufferParameter}
      *  @gldefref{RENDERBUFFER_WIDTH}
      */
-    SizeType Width(void) const {
+    SizeType Width() const {
         return MakeSizeType(GetIntParam(GL_RENDERBUFFER_WIDTH), std::nothrow);
     }
 
@@ -99,7 +99,7 @@ public:
      *  @glfunref{GetRenderbufferParameter}
      *  @gldefref{RENDERBUFFER_HEIGHT}
      */
-    SizeType Height(void) const {
+    SizeType Height() const {
         return MakeSizeType(GetIntParam(GL_RENDERBUFFER_HEIGHT), std::nothrow);
     }
 
@@ -113,7 +113,7 @@ public:
      *  @glfunref{GetRenderbufferParameter}
      *  @gldefref{RENDERBUFFER_RED_SIZE}
      */
-    SizeType RedSize(void) const {
+    SizeType RedSize() const {
         return MakeSizeType(
           GetIntParam(GL_RENDERBUFFER_RED_SIZE), std::nothrow);
     }
@@ -130,7 +130,7 @@ public:
      *  @glfunref{GetRenderbufferParameter}
      *  @gldefref{RENDERBUFFER_GREEN_SIZE}
      */
-    SizeType GreenSize(void) const {
+    SizeType GreenSize() const {
         return MakeSizeType(
           GetIntParam(GL_RENDERBUFFER_GREEN_SIZE), std::nothrow);
     }
@@ -147,7 +147,7 @@ public:
      *  @glfunref{GetRenderbufferParameter}
      *  @gldefref{RENDERBUFFER_BLUE_SIZE}
      */
-    SizeType BlueSize(void) const {
+    SizeType BlueSize() const {
         return MakeSizeType(
           GetIntParam(GL_RENDERBUFFER_BLUE_SIZE), std::nothrow);
     }
@@ -164,7 +164,7 @@ public:
      *  @glfunref{GetRenderbufferParameter}
      *  @gldefref{RENDERBUFFER_ALPHA_SIZE}
      */
-    SizeType AlphaSize(void) const {
+    SizeType AlphaSize() const {
         return MakeSizeType(
           GetIntParam(GL_RENDERBUFFER_ALPHA_SIZE), std::nothrow);
     }
@@ -181,7 +181,7 @@ public:
      *  @glfunref{GetRenderbufferParameter}
      *  @gldefref{RENDERBUFFER_DEPTH_SIZE}
      */
-    SizeType DepthSize(void) const {
+    SizeType DepthSize() const {
         return MakeSizeType(
           GetIntParam(GL_RENDERBUFFER_DEPTH_SIZE), std::nothrow);
     }
@@ -198,7 +198,7 @@ public:
      *  @glfunref{GetRenderbufferParameter}
      *  @gldefref{RENDERBUFFER_STENCIL_SIZE}
      */
-    SizeType StencilSize(void) const {
+    SizeType StencilSize() const {
         return MakeSizeType(
           GetIntParam(GL_RENDERBUFFER_STENCIL_SIZE), std::nothrow);
     }
@@ -209,7 +209,7 @@ public:
      *  @glfunref{GetRenderbufferParameter}
      *  @gldefref{RENDERBUFFER_SAMPLES}
      */
-    SizeType Samples(void) const {
+    SizeType Samples() const {
         return MakeSizeType(GetIntParam(GL_RENDERBUFFER_SAMPLES), std::nothrow);
     }
 
@@ -219,7 +219,7 @@ public:
      *  @glfunref{GetRenderbufferParameter}
      *  @gldefref{RENDERBUFFER_INTERNAL_FORMAT}
      */
-    PixelDataInternalFormat InternalFormat(void) const {
+    PixelDataInternalFormat InternalFormat() const {
         return PixelDataInternalFormat(
           GetIntParam(GL_RENDERBUFFER_INTERNAL_FORMAT));
     }

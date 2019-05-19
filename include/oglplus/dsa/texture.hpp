@@ -728,7 +728,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_BASE_LEVEL}
      */
-    GLuint BaseLevel(void) const {
+    GLuint BaseLevel() const {
         return GetIntParam(GL_TEXTURE_BASE_LEVEL);
     }
 
@@ -833,7 +833,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_COMPARE_MODE}
      */
-    TextureCompareMode CompareMode(void) const {
+    TextureCompareMode CompareMode() const {
         return TextureCompareMode(GetIntParam(GL_TEXTURE_COMPARE_MODE));
     }
 
@@ -857,7 +857,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_COMPARE_FUNC}
      */
-    CompareFunction CompareFunc(void) const {
+    CompareFunction CompareFunc() const {
         return CompareFunction(GetIntParam(GL_TEXTURE_COMPARE_FUNC));
     }
 
@@ -881,7 +881,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_LOD_BIAS}
      */
-    GLfloat LODBias(void) const {
+    GLfloat LODBias() const {
         return GetFloatParam(GL_TEXTURE_LOD_BIAS);
     }
 
@@ -923,7 +923,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_MAG_FILTER}
      */
-    TextureMagFilter MagFilter(void) const {
+    TextureMagFilter MagFilter() const {
         return TextureMagFilter(GetIntParam(GL_TEXTURE_MAG_FILTER));
     }
 
@@ -947,7 +947,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_MIN_FILTER}
      */
-    TextureMinFilter MinFilter(void) const {
+    TextureMinFilter MinFilter() const {
         return TextureMinFilter(GetIntParam(GL_TEXTURE_MIN_FILTER));
     }
 
@@ -971,7 +971,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_MIN_LOD}
      */
-    GLfloat MinLOD(void) const {
+    GLfloat MinLOD() const {
         return GetFloatParam(GL_TEXTURE_MIN_LOD);
     }
 
@@ -994,7 +994,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_MAX_LOD}
      */
-    GLfloat MaxLOD(void) const {
+    GLfloat MaxLOD() const {
         return GetFloatParam(GL_TEXTURE_MAX_LOD);
     }
 
@@ -1017,7 +1017,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_MAX_LEVEL}
      */
-    GLint MaxLevel(void) const {
+    GLint MaxLevel() const {
         return GetIntParam(GL_TEXTURE_MAX_LEVEL);
     }
 
@@ -1040,7 +1040,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{MAX_TEXTURE_MAX_ANISOTROPY_EXT}
      */
-    GLfloat MaxAnisotropy(void) const {
+    GLfloat MaxAnisotropy() const {
 #ifdef GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
         return GetFloatParam(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
 #else
@@ -1054,7 +1054,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
      */
-    GLfloat Anisotropy(void) const {
+    GLfloat Anisotropy() const {
 #ifdef GL_TEXTURE_MAX_ANISOTROPY_EXT
         return GetFloatParam(GL_TEXTURE_MAX_ANISOTROPY_EXT);
 #else
@@ -1111,7 +1111,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_SWIZZLE_R}
      */
-    TextureSwizzle SwizzleR(void) const {
+    TextureSwizzle SwizzleR() const {
         return Swizzle(TextureSwizzleCoord::R);
     }
 
@@ -1133,7 +1133,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_SWIZZLE_G}
      */
-    TextureSwizzle SwizzleG(void) const {
+    TextureSwizzle SwizzleG() const {
         return Swizzle(TextureSwizzleCoord::G);
     }
 
@@ -1155,7 +1155,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_SWIZZLE_B}
      */
-    TextureSwizzle SwizzleB(void) const {
+    TextureSwizzle SwizzleB() const {
         return Swizzle(TextureSwizzleCoord::B);
     }
 
@@ -1177,7 +1177,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_SWIZZLE_A}
      */
-    TextureSwizzle SwizzleA(void) const {
+    TextureSwizzle SwizzleA() const {
         return Swizzle(TextureSwizzleCoord::A);
     }
 
@@ -1199,7 +1199,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_SWIZZLE_RGBA}
      */
-    TextureSwizzleTuple SwizzleRGBA(void) const {
+    TextureSwizzleTuple SwizzleRGBA() const {
         TextureSwizzleTuple result;
         OGLPLUS_GLFUNC(GetTextureParameteriv)
         (_obj_name(), GL_TEXTURE_SWIZZLE_RGBA, result.Values());
@@ -1289,7 +1289,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_WRAP_S}
      */
-    TextureWrap WrapS(void) const {
+    TextureWrap WrapS() const {
         return Wrap(TextureWrapCoord::S);
     }
 
@@ -1309,7 +1309,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_WRAP_T}
      */
-    TextureWrap WrapT(void) const {
+    TextureWrap WrapT() const {
         return Wrap(TextureWrapCoord::T);
     }
 
@@ -1329,7 +1329,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_WRAP_R}
      */
-    TextureWrap WrapR(void) const {
+    TextureWrap WrapR() const {
         return Wrap(TextureWrapCoord::R);
     }
 
@@ -1351,7 +1351,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{DEPTH_STENCIL_TEXTURE_MODE}
      */
-    PixelDataFormat DepthStencilMode(void) const {
+    PixelDataFormat DepthStencilMode() const {
         return PixelDataFormat(GetIntParam(GL_DEPTH_STENCIL_TEXTURE_MODE));
     }
 
@@ -1378,7 +1378,7 @@ public:
      *  @glfunref{GetTexParameter}
      *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
      */
-    Boolean Seamless(void) const {
+    Boolean Seamless() const {
         return Boolean(GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS), std::nothrow);
     }
 
@@ -1401,7 +1401,7 @@ public:
      *  @glsymbols
      *  @glfunref{GenerateMipmap}
      */
-    ObjectOps& GenerateMipmap(void) {
+    ObjectOps& GenerateMipmap() {
         OGLPLUS_GLFUNC(GenerateTextureMipmap)(_obj_name());
         OGLPLUS_CHECK(GenerateTextureMipmap, ObjectError, Object(*this));
         return *this;

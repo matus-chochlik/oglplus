@@ -28,19 +28,19 @@ namespace oglplus {
  */
 class Application {
 private:
-    static std::string& _app_rel_path(void) noexcept {
+    static std::string& _app_rel_path() noexcept {
         static std::string str;
         return str;
     }
 
-    static std::string& _app_name(void) noexcept {
+    static std::string& _app_name() noexcept {
         static std::string str;
         return str;
     }
 
 public:
     /// Default constructor
-    Application(void) = default;
+    Application() = default;
 
     /// No copy construction
     Application(const Application&) = delete;
@@ -77,12 +77,12 @@ public:
      *  relative to the current working directory, including the trailing
      *  path separator.
      */
-    static const std::string& RelativePath(void) noexcept {
+    static const std::string& RelativePath() noexcept {
         return _app_rel_path();
     }
 
     /// Returns the application executable base name
-    static const std::string& Name(void) noexcept {
+    static const std::string& Name() noexcept {
         return _app_name();
     }
 };

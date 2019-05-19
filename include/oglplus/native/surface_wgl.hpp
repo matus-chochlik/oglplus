@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -24,59 +24,53 @@ namespace oglplus {
 namespace native {
 
 /// Wrapper for WGL (DC) surface handle
-class SurfaceWGL
-{
+class SurfaceWGL {
 private:
-	::HDC _hdc;
+    ::HDC _hdc;
 
-	friend class ContextWGL;
+    friend class ContextWGL;
 
-	struct Current_ { };
+    struct Current_ {};
 
-	SurfaceWGL(Current_)
-	 : _hdc(::wglGetCurrentDC())
-	{
-		if(!_hdc) HandleNoWGLDC();
-	}
+    SurfaceWGL(Current_)
+      : _hdc(::wglGetCurrentDC()) {
+        if(!_hdc)
+            HandleNoWGLDC();
+    }
+
 public:
-	/// Returns a wrapper for the currently bound WGL surface
-	/** This function gets and wraps the current WGL Device Context.
-	 *  If no DC is current it throws a @c runtime_error.
-	 *
-	 *  @throws std::runtime_error
-	 */
-	static SurfaceWGL Current(void)
-	{
-		return SurfaceWGL(Current_());
-	}
+    /// Returns a wrapper for the currently bound WGL surface
+    /** This function gets and wraps the current WGL Device Context.
+     *  If no DC is current it throws a @c runtime_error.
+     *
+     *  @throws std::runtime_error
+     */
+    static SurfaceWGL Current() {
+        return SurfaceWGL(Current_());
+    }
 
-	/// Returns the width of the surface
-	int Width(void) const
-	{
-		::RECT rect;
-		if(::GetClientRect(::WindowFromDC(_hdc), &rect) == TRUE)
-		{
-			return rect.right - rect.left;
-		}
-		return 0;
-	}
+    /// Returns the width of the surface
+    int Width() const {
+        ::RECT rect;
+        if(::GetClientRect(::WindowFromDC(_hdc), &rect) == TRUE) {
+            return rect.right - rect.left;
+        }
+        return 0;
+    }
 
-	/// Returns the height of the surface
-	int Height(void) const
-	{
-		::RECT rect;
-		if(::GetClientRect(::WindowFromDC(_hdc), &rect) == TRUE)
-		{
-			return rect.bottom - rect.top;
-		}
-		return 0;
-	}
+    /// Returns the height of the surface
+    int Height() const {
+        ::RECT rect;
+        if(::GetClientRect(::WindowFromDC(_hdc), &rect) == TRUE) {
+            return rect.bottom - rect.top;
+        }
+        return 0;
+    }
 
-	/// Swaps the front and back buffers
-	void SwapBuffers(void)
-	{
-		::SwapBuffers(_hdc);
-	}
+    /// Swaps the front and back buffers
+    void SwapBuffers() {
+        ::SwapBuffers(_hdc);
+    }
 };
 
 typedef SurfaceWGL Surface;

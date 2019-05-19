@@ -432,7 +432,7 @@ public:
      *  @glfunref{GetPathParameterNV}
      *  @gldefref{PATH_STROKE_WIDTH_NV}
      */
-    GLfloat StrokeWidth(void) {
+    GLfloat StrokeWidth() {
         GLfloat result;
         OGLPLUS_GLFUNC(GetPathParameterfvNV)
         (_obj_name(), GL_PATH_STROKE_WIDTH_NV, &result);
@@ -459,7 +459,7 @@ public:
      *  @glfunref{GetPathParameterNV}
      *  @gldefref{PATH_MITER_LIMIT_NV}
      */
-    GLfloat MiterLimit(void) {
+    GLfloat MiterLimit() {
         GLfloat result;
         OGLPLUS_GLFUNC(GetPathParameterfvNV)
         (_obj_name(), GL_PATH_MITER_LIMIT_NV, &result);
@@ -551,7 +551,7 @@ public:
      *  @glfunref{GetPathParameterNV}
      *  @gldefref{PATH_DASH_OFFSET_NV}
      */
-    GLfloat DashOffset(void) {
+    GLfloat DashOffset() {
         GLfloat result;
         OGLPLUS_GLFUNC(GetPathParameterfvNV)
         (_obj_name(), GL_PATH_DASH_OFFSET_NV, &result);
@@ -614,7 +614,7 @@ public:
      *  @glfunref{GetPathParameterNV}
      *  @gldefref{PATH_CLIENT_LENGTH_NV}
      */
-    GLfloat ClientLength(void) {
+    GLfloat ClientLength() {
         GLfloat result;
         OGLPLUS_GLFUNC(GetPathParameterfvNV)
         (_obj_name(), GL_PATH_CLIENT_LENGTH_NV, &result);

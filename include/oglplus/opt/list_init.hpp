@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,156 +14,138 @@
 #define OGLPLUS_OPT_LIST_INIT_HPP
 
 #include <oglplus/utils/type_tag.hpp>
+#include <array>
 #include <type_traits>
 #include <utility>
-#include <array>
 #include <vector>
 
 namespace oglplus {
 namespace aux {
 
 template <typename T, std::size_t I>
-class ListInitializerBase
-{
+class ListInitializerBase {
 private:
-	T _value;
-	const ListInitializerBase<T, I-1>* _prev;
+    T _value;
+    const ListInitializerBase<T, I - 1>* _prev;
 
-	friend class ListInitializerBase<T, I+1>;
+    friend class ListInitializerBase<T, I + 1>;
+
 protected:
-	template <typename RandomAccessContainer>
-	void _init(RandomAccessContainer& dest) const
-	{
-		_prev->_init(dest);
-		dest[I] = _value;
-	}
+    template <typename RandomAccessContainer>
+    void _init(RandomAccessContainer& dest) const {
+        _prev->_init(dest);
+        dest[I] = _value;
+    }
 
-	template <typename BackInsertionContainer>
-	void _push_back(BackInsertionContainer& dest) const
-	{
-		_prev->_push_back(dest);
-		dest.push_back(_value);
-	}
+    template <typename BackInsertionContainer>
+    void _push_back(BackInsertionContainer& dest) const {
+        _prev->_push_back(dest);
+        dest.push_back(_value);
+    }
 
-	ListInitializerBase(T value, const ListInitializerBase<T, I-1>* prev)
-	 : _value(value)
-	 , _prev(prev)
-	{ }
+    ListInitializerBase(T value, const ListInitializerBase<T, I - 1>* prev)
+      : _value(value)
+      , _prev(prev) {
+    }
 };
 
 template <typename T>
-class ListInitializerBase<T, 0>
-{
+class ListInitializerBase<T, 0> {
 private:
-	T _value;
+    T _value;
 
-	friend class ListInitializerBase<T, 1>;
+    friend class ListInitializerBase<T, 1>;
 
 protected:
-	template <typename RandomAccessContainer>
-	void _init(RandomAccessContainer& dest) const
-	{
-		dest[0] = _value;
-	}
+    template <typename RandomAccessContainer>
+    void _init(RandomAccessContainer& dest) const {
+        dest[0] = _value;
+    }
 
-	template <typename BackInsertionContainer>
-	void _push_back(BackInsertionContainer& dest) const
-	{
-		dest.push_back(_value);
-	}
+    template <typename BackInsertionContainer>
+    void _push_back(BackInsertionContainer& dest) const {
+        dest.push_back(_value);
+    }
 
-	ListInitializerBase(T value)
-	 : _value(value)
-	{ }
+    ListInitializerBase(T value)
+      : _value(value) {
+    }
 };
 
 template <typename T, std::size_t I>
-class ListInitializer
- : public ListInitializerBase<T, I>
-{
+class ListInitializer : public ListInitializerBase<T, I> {
 private:
-	typedef ListInitializerBase<T, I> _base;
+    typedef ListInitializerBase<T, I> _base;
 
-	friend class ListInitializer<T, I-1>;
+    friend class ListInitializer<T, I - 1>;
 
-	template <typename X>
-	static decltype(X(), std::true_type()) _has_def_ctr(TypeTag<X>);
+    template <typename X>
+    static decltype(X(), std::true_type()) _has_def_ctr(TypeTag<X>);
 
-	static std::false_type _has_def_ctr(...);
+    static std::false_type _has_def_ctr(...);
 
-	static std::array<T, I+1> _result_of_get(std::true_type);
+    static std::array<T, I + 1> _result_of_get(std::true_type);
 
-	static std::vector<T> _result_of_get(std::false_type);
+    static std::vector<T> _result_of_get(std::false_type);
 
-	typedef decltype(_result_of_get(_has_def_ctr(TypeTag<T>()))) ResultOfGet;
+    typedef decltype(_result_of_get(_has_def_ctr(TypeTag<T>()))) ResultOfGet;
 
-	template <typename X>
-	void _do_get(std::array<X, I+1>& result) const
-	{
-		this->_init(result);
-	}
+    template <typename X>
+    void _do_get(std::array<X, I + 1>& result) const {
+        this->_init(result);
+    }
 
-	void _do_get(std::vector<T>& result) const
-	{
-		this->_push_back(result);
-	}
+    void _do_get(std::vector<T>& result) const {
+        this->_push_back(result);
+    }
 
-	template <typename StdContainer>
-	StdContainer _do_get_as(TypeTag<StdContainer>, std::true_type) const
-	{
-		return StdContainer(Get());
-	}
+    template <typename StdContainer>
+    StdContainer _do_get_as(TypeTag<StdContainer>, std::true_type) const {
+        return StdContainer(Get());
+    }
 
-	template <typename StdContainer>
-	StdContainer _do_get_as(TypeTag<StdContainer>, std::false_type) const
-	{
-		auto tmp = Get();
-		return StdContainer(tmp.begin(), tmp.end());
-	}
+    template <typename StdContainer>
+    StdContainer _do_get_as(TypeTag<StdContainer>, std::false_type) const {
+        auto tmp = Get();
+        return StdContainer(tmp.begin(), tmp.end());
+    }
 
-	// non copyable
-	ListInitializer(const ListInitializer&);
+    // non copyable
+    ListInitializer(const ListInitializer&);
 
-	ListInitializer(T value, const ListInitializer<T, I-1>* prev)
-	 : _base(value, prev)
-	{ }
+    ListInitializer(T value, const ListInitializer<T, I - 1>* prev)
+      : _base(value, prev) {
+    }
+
 public:
-	ListInitializer(T value)
-	 : _base(value)
-	{ }
+    ListInitializer(T value)
+      : _base(value) {
+    }
 
-	ListInitializer(ListInitializer&& temp)
-	 : _base(temp)
-	{ }
+    ListInitializer(ListInitializer&& temp)
+      : _base(temp) {
+    }
 
-	ListInitializer<T, I+1> operator()(T value) const
-	{
-		return ListInitializer<T, I+1>(value, this);
-	}
+    ListInitializer<T, I + 1> operator()(T value) const {
+        return ListInitializer<T, I + 1>(value, this);
+    }
 
-	ResultOfGet Get(void) const
-	{
-		ResultOfGet result;
-		this->_do_get(result);
-		return result;
-	}
+    ResultOfGet Get() const {
+        ResultOfGet result;
+        this->_do_get(result);
+        return result;
+    }
 
-	template <typename StdContainer>
-	StdContainer As(void) const
-	{
-		return this->_do_get_as(
-			TypeTag<StdContainer>(),
-			typename std::is_convertible<
-				ResultOfGet,
-				StdContainer
-			>::type()
-		);
-	}
+    template <typename StdContainer>
+    StdContainer As() const {
+        return this->_do_get_as(
+          TypeTag<StdContainer>(),
+          typename std::is_convertible<ResultOfGet, StdContainer>::type());
+    }
 
-	std::vector<T> AsVector(void) const
-	{
-		return As<std::vector<T>>();
-	}
+    std::vector<T> AsVector() const {
+        return As<std::vector<T>>();
+    }
 };
 
 } // namespace aux
@@ -183,23 +165,22 @@ public:
  *  }
  *
  *  // creates a vector of doubles
- *  std::vector<double> v = ListOf<double>(1)(2)(3)(4)(5)(6).As<std::vector<double>>();
+ *  std::vector<double> v =
+ * ListOf<double>(1)(2)(3)(4)(5)(6).As<std::vector<double>>();
  *  @endcode
  *
  *  @see List()
  */
 template <typename T>
-class ListOf
- : public aux::ListInitializer<T, 0>
-{
+class ListOf : public aux::ListInitializer<T, 0> {
 public:
-	ListOf(T value)
-	 : aux::ListInitializer<T, 0>(value)
-	{ }
+    ListOf(T value)
+      : aux::ListInitializer<T, 0>(value) {
+    }
 };
 
-
-/// Helper function template that can be used for static container initialization
+/// Helper function template that can be used for static container
+/// initialization
 /**
  *  @ingroup utility_classes
  *
@@ -219,9 +200,8 @@ public:
  *  @see ListOf
  */
 template <typename T>
-inline aux::ListInitializer<T, 0> List(T value)
-{
-	return aux::ListInitializer<T, 0>(value);
+inline aux::ListInitializer<T, 0> List(T value) {
+    return aux::ListInitializer<T, 0>(value);
 }
 
 } // namespace oglplus

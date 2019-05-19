@@ -99,7 +99,7 @@ public:
         temp._ptr = nullptr;
     }
 
-    ~DSABufferRawMap(void) {
+    ~DSABufferRawMap() {
         try {
             Unmap();
         } catch(...) {
@@ -113,7 +113,7 @@ public:
      *
      *  @throws Error
      */
-    void Unmap(void) {
+    void Unmap() {
         if(_ptr != nullptr) {
             OGLPLUS_GLFUNC(UnmapNamedBuffer)(_buf_name);
             OGLPLUS_IGNORE(UnmapNamedBuffer);
@@ -122,12 +122,12 @@ public:
     }
 
     /// Returns true if the buffer is mapped
-    bool Mapped(void) const {
+    bool Mapped() const {
         return _ptr != nullptr;
     }
 
     /// Returns the size (in bytes) of the mapped buffer
-    BigSizeType Size(void) const {
+    BigSizeType Size() const {
         return BigSizeType(_size, std::nothrow);
     }
 
@@ -135,7 +135,7 @@ public:
     /**
      *  @pre Mapped()
      */
-    const GLvoid* RawData(void) const {
+    const GLvoid* RawData() const {
         assert(Mapped());
         return _ptr;
     }
@@ -144,7 +144,7 @@ public:
     /**
      *  @pre Mapped()
      */
-    GLvoid* RawData(void) {
+    GLvoid* RawData() {
         assert(Mapped());
         return _ptr;
     }
@@ -208,18 +208,18 @@ public:
     }
 
     /// Returns the count of elements of Type in the mapped buffer
-    GLsizeiptr Count(void) const {
+    GLsizeiptr Count() const {
         assert(this->Size() % sizeof(Type) == 0);
         return this->Size() / sizeof(Type);
     }
 
     /// Returns a const pointer to the mapped data
-    const Type* Data(void) const {
+    const Type* Data() const {
         return static_cast<const Type*>(this->RawData());
     }
 
     /// Returns a pointer to the mapped data
-    Type* Data(void) {
+    Type* Data() {
         return static_cast<Type*>(this->RawData());
     }
 

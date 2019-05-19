@@ -55,7 +55,7 @@ public:
      *  @glsymbols
      *  @glfunref{GetPerfMonitorCounterStringAMD}
      */
-    String GetString(void) const {
+    String GetString() const {
         GLsizei length = 0;
         OGLPLUS_GLFUNC(GetPerfMonitorCounterStringAMD)
         (_group, _counter, 0, &length, nullptr);
@@ -74,7 +74,7 @@ public:
      *  @glfunref{GetPerfMonitorCounterInfoAMD}
      *  @gldefref{COUNTER_TYPE_AMD}
      */
-    PerfMonitorAMDType Type(void) const {
+    PerfMonitorAMDType Type() const {
         GLenum result;
         OGLPLUS_GLFUNC(GetPerfMonitorCounterInfoAMD)
         (_group, _counter, GL_COUNTER_TYPE_AMD, &result);
@@ -105,7 +105,7 @@ public:
      *  @glsymbols
      *  @glfunref{GetPerfMonitorGroupStringAMD}
      */
-    String GetString(void) const {
+    String GetString() const {
         GLsizei length = 0;
         OGLPLUS_GLFUNC(GetPerfMonitorGroupStringAMD)
         (_group, 0, &length, nullptr);
@@ -187,22 +187,22 @@ private:
 
 public:
     /// Returns the counter that this is a result of
-    PerfMonitorAMDCounter Counter(void) const {
+    PerfMonitorAMDCounter Counter() const {
         return _counter;
     }
 
     /// Returns the low dword of the result
-    GLuint Low(void) const {
+    GLuint Low() const {
         return _un._qw._lo;
     }
 
     /// Returns the high dword of the result
-    GLuint High(void) const {
+    GLuint High() const {
         return _un._qw._lo;
     }
 
     /// Returns the floating-point value of the result
-    GLfloat Float(void) const {
+    GLfloat Float() const {
         return _un._fl;
     }
 };
@@ -287,7 +287,7 @@ public:
      *  @glsymbols
      *  @glfunref{BeginPerfMonitorAMD}
      */
-    void Begin(void) const {
+    void Begin() const {
         OGLPLUS_GLFUNC(BeginPerfMonitorAMD)(this->_obj_name());
         OGLPLUS_CHECK(BeginPerfMonitorAMD, ObjectError, Object(*this));
     }
@@ -297,7 +297,7 @@ public:
      *  @glsymbols
      *  @glfunref{EndPerfMonitorAMD}
      */
-    void End(void) const {
+    void End() const {
         OGLPLUS_GLFUNC(EndPerfMonitorAMD)(this->_obj_name());
         OGLPLUS_CHECK(EndPerfMonitorAMD, ObjectError, Object(*this));
     }
@@ -308,7 +308,7 @@ public:
      *  @glfunref{GetPerfMonitorCounterDataAMD}
      *  @gldefref{PERFMON_RESULT_AVAILABLE_AMD}
      */
-    bool ResultAvailable(void) const {
+    bool ResultAvailable() const {
         GLuint result = 0;
         OGLPLUS_GLFUNC(GetPerfMonitorCounterDataAMD)
         (this->_obj_name(),
@@ -416,7 +416,7 @@ public:
      *  @glsymbols
      *  @glfunref{GetPerfMonitorGroupsAMD}
      */
-    std::vector<PerfMonitorAMDGroup> GetGroups(void) const {
+    std::vector<PerfMonitorAMDGroup> GetGroups() const {
         std::vector<PerfMonitorAMDGroup> result;
         GetGroups(result);
         return result;

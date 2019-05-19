@@ -153,7 +153,7 @@ public:
          *  @glsymbols
          *  @glfunref{DebugMessageCallback}
          */
-        ~LogSink(void) {
+        ~LogSink() {
             OGLPLUS_GLFUNC(DebugMessageCallback)(_prev_callback, _prev_context);
             OGLPLUS_VERIFY_SIMPLE(DebugMessageCallback);
         }
@@ -210,7 +210,7 @@ public:
          *  @glsymbols
          *  @glfunref{PopDebugGroup}
          */
-        ~Group(void) {
+        ~Group() {
             OGLPLUS_GLFUNC(PopDebugGroup)();
             OGLPLUS_VERIFY_SIMPLE(PopDebugGroup);
         }

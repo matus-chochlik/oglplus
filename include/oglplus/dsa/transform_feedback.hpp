@@ -49,11 +49,11 @@ public:
     GLint GetIntParam(GLenum query, GLuint index) const;
     GLint64 GetInt64Param(GLenum query, GLuint index) const;
 
-    Boolean Active(void) const {
+    Boolean Active() const {
         return Boolean(GetIntParam(GL_TRANSFORM_FEEDBACK_ACTIVE), std::nothrow);
     }
 
-    Boolean Paused(void) const {
+    Boolean Paused() const {
         return Boolean(GetIntParam(GL_TRANSFORM_FEEDBACK_PAUSED), std::nothrow);
     }
 

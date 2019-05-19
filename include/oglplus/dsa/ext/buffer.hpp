@@ -54,7 +54,7 @@ public:
      *
      *  @throws Error
      */
-    Boolean Mapped(void) const {
+    Boolean Mapped() const {
         return Boolean(GetIntParam(GL_BUFFER_MAPPED), std::nothrow);
     }
 
@@ -249,7 +249,7 @@ public:
      *
      *  @throws Error
      */
-    GLsizei Size(void) const {
+    GLsizei Size() const {
         return GLsizei(GetIntParam(GL_BUFFER_SIZE));
     }
 
@@ -263,7 +263,7 @@ public:
      *
      *  @throws Error
      */
-    BufferUsage Usage(void) const {
+    BufferUsage Usage() const {
         return BufferUsage(GetIntParam(GL_BUFFER_USAGE));
     }
 
@@ -277,7 +277,7 @@ public:
      *
      *  @throws Error
      */
-    Bitfield<BufferMapAccess> Access(void) const {
+    Bitfield<BufferMapAccess> Access() const {
         return Bitfield<BufferMapAccess>(
           GLbitfield(GetIntParam(GL_BUFFER_ACCESS)));
     }
@@ -307,7 +307,7 @@ public:
      *
      *  @throws Error
      */
-    void MakeNonResident(void) const {
+    void MakeNonResident() const {
         OGLPLUS_GLFUNC(MakeNamedBufferNonResidentNV)(_obj_name());
         OGLPLUS_CHECK(MakeNamedBufferNonResidentNV, ObjectError, Object(*this));
     }
@@ -321,7 +321,7 @@ public:
      *
      *  @throws Error
      */
-    BufferGPUAddress GPUAddress(void) const {
+    BufferGPUAddress GPUAddress() const {
         GLuint64EXT value = 0;
         OGLPLUS_GLFUNC(GetNamedBufferParameterui64vNV)
         (_obj_name(), GL_BUFFER_GPU_ADDRESS_NV, &value);

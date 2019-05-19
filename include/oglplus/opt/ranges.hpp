@@ -38,35 +38,35 @@ namespace oglplus {
  */
 class Range {
 public:
-	/// The type of value returned by Front
-	typedef const Unspecified ValueType;
+    /// The type of value returned by Front
+    typedef const Unspecified ValueType;
 
-	/// Copy constructor
-	Range(const Range&);
+    /// Copy constructor
+    Range(const Range&);
 
-	/// Returns true if the range is empty
-	bool Empty(void) const;
+    /// Returns true if the range is empty
+    bool Empty() const;
 
-	/// Returns the number of Elements in the range
-	size_t Size(void) const;
+    /// Returns the number of Elements in the range
+    size_t Size() const;
 
-	/// Goes to the next element in the range.
-	/** This function moves the front of the range one element ahead.
-	 *  The range must not be empty when calling Next, otherwise the
-	 *  result is undefined and the application may be aborted.
-	 *
-	 *  @see Empty
-	 */
-	void Next(void);
+    /// Goes to the next element in the range.
+    /** This function moves the front of the range one element ahead.
+     *  The range must not be empty when calling Next, otherwise the
+     *  result is undefined and the application may be aborted.
+     *
+     *  @see Empty
+     */
+    void Next();
 
-	/// Returns the element at the front of the range
-	/** The range must not be empty when calling Front, otherwise the
-	 *  result is undefined and the application may be aborted.
-	 *
-	 *  @see Empty
-	 *  @see Next
-	 */
-	ValueType Front(void);
+    /// Returns the element at the front of the range
+    /** The range must not be empty when calling Front, otherwise the
+     *  result is undefined and the application may be aborted.
+     *
+     *  @see Empty
+     *  @see Next
+     */
+    ValueType Front();
 };
 #endif
 
@@ -79,7 +79,7 @@ namespace ranges {
  */
 template <typename Range>
 struct IsRange {
-	typedef decltype(oglplus::aux::IsRange((Range*)nullptr)) Type;
+    typedef decltype(oglplus::aux::IsRange((Range*)nullptr)) Type;
 };
 
 /// A type erasure for types conforming to the oglplus::Range concept.
@@ -89,140 +89,140 @@ struct IsRange {
 template <typename Element>
 class AnyRange {
 private:
-	struct _intf {
-		virtual ~_intf(void) {
-		}
+    struct _intf {
+        virtual ~_intf() {
+        }
 
-		virtual _intf* _clone(void) const = 0;
+        virtual _intf* _clone() const = 0;
 
-		virtual bool _empty(void) const = 0;
-		virtual std::size_t _size(void) const = 0;
-		virtual void _next(void) = 0;
-		virtual Element _front(void) const = 0;
-	};
+        virtual bool _empty() const = 0;
+        virtual std::size_t _size() const = 0;
+        virtual void _next() = 0;
+        virtual Element _front() const = 0;
+    };
 
-	template <class Rng>
-	class _impl : public _intf {
-	private:
-		static_assert(IsRange<Rng>::Type::value, "Range is expected");
-		Rng _rng;
+    template <class Rng>
+    class _impl : public _intf {
+    private:
+        static_assert(IsRange<Rng>::Type::value, "Range is expected");
+        Rng _rng;
 
-	public:
-		_impl(Rng rng)
-		  : _rng(rng) {
-		}
+    public:
+        _impl(Rng rng)
+          : _rng(rng) {
+        }
 
-		_intf* _clone(void) const override {
-			return new _impl(*this);
-		}
+        _intf* _clone() const override {
+            return new _impl(*this);
+        }
 
-		bool _empty(void) const override {
-			return _rng.Empty();
-		}
+        bool _empty() const override {
+            return _rng.Empty();
+        }
 
-		std::size_t _size(void) const override {
-			return _rng.Size();
-		}
+        std::size_t _size() const override {
+            return _rng.Size();
+        }
 
-		void _next(void) override {
-			_rng.Next();
-		}
+        void _next() override {
+            _rng.Next();
+        }
 
-		Element _front(void) const override {
-			return _rng.Front();
-		}
-	};
+        Element _front() const override {
+            return _rng.Front();
+        }
+    };
 
-	_intf* _pimpl;
+    _intf* _pimpl;
 
-	static _intf* _clone(_intf* pimpl) {
-		assert(pimpl);
-		return pimpl->_clone();
-	}
+    static _intf* _clone(_intf* pimpl) {
+        assert(pimpl);
+        return pimpl->_clone();
+    }
 
 public:
-	typedef Element ValueType;
+    typedef Element ValueType;
 
-	AnyRange(void)
-	  : _pimpl(nullptr) {
-	}
+    AnyRange()
+      : _pimpl(nullptr) {
+    }
 
-	template <typename Range>
-	AnyRange(Range range)
-	  : _pimpl(new _impl<Range>(range)) {
-	}
+    template <typename Range>
+    AnyRange(Range range)
+      : _pimpl(new _impl<Range>(range)) {
+    }
 
-	AnyRange(const AnyRange& other)
-	  : _pimpl(_clone(other._pimpl)) {
-	}
+    AnyRange(const AnyRange& other)
+      : _pimpl(_clone(other._pimpl)) {
+    }
 
-	AnyRange(AnyRange&& temp)
-	  : _pimpl(temp._pimpl) {
-		temp._pimpl = nullptr;
-	}
+    AnyRange(AnyRange&& temp)
+      : _pimpl(temp._pimpl) {
+        temp._pimpl = nullptr;
+    }
 
-	~AnyRange(void) {
-		if(_pimpl)
-			delete _pimpl;
-	}
+    ~AnyRange() {
+        if(_pimpl)
+            delete _pimpl;
+    }
 
-	template <typename Range>
-	AnyRange& operator=(const Range& range) {
-		if(_pimpl)
-			delete _pimpl;
-		_pimpl = new _impl<Range>(range);
-		return *this;
-	}
+    template <typename Range>
+    AnyRange& operator=(const Range& range) {
+        if(_pimpl)
+            delete _pimpl;
+        _pimpl = new _impl<Range>(range);
+        return *this;
+    }
 
-	AnyRange& operator=(const AnyRange& other) {
-		if(this != &other) {
-			if(_pimpl)
-				delete _pimpl;
-			_pimpl = _clone(other._pimpl);
-		}
-		return *this;
-	}
+    AnyRange& operator=(const AnyRange& other) {
+        if(this != &other) {
+            if(_pimpl)
+                delete _pimpl;
+            _pimpl = _clone(other._pimpl);
+        }
+        return *this;
+    }
 
-	AnyRange& operator=(AnyRange&& other) {
-		if(this != &other) {
-			if(_pimpl)
-				delete _pimpl;
-			_pimpl = other._pimpl;
-			other._pimpl = nullptr;
-		}
-		return *this;
-	}
+    AnyRange& operator=(AnyRange&& other) {
+        if(this != &other) {
+            if(_pimpl)
+                delete _pimpl;
+            _pimpl = other._pimpl;
+            other._pimpl = nullptr;
+        }
+        return *this;
+    }
 
-	/// Returns true if the range is empty
-	bool Empty(void) const {
-		if(!_pimpl)
-			return true;
-		return _pimpl->_empty();
-	}
+    /// Returns true if the range is empty
+    bool Empty() const {
+        if(!_pimpl)
+            return true;
+        return _pimpl->_empty();
+    }
 
-	/// Returns the number of Elements in the range
-	size_t Size(void) const {
-		if(!_pimpl)
-			return 0;
-		return _pimpl->_size();
-	}
+    /// Returns the number of Elements in the range
+    size_t Size() const {
+        if(!_pimpl)
+            return 0;
+        return _pimpl->_size();
+    }
 
-	/// Goes to the next element in the range.
-	void Next(void) {
-		assert(!Empty());
-		_pimpl->_next();
-	}
+    /// Goes to the next element in the range.
+    void Next() {
+        assert(!Empty());
+        _pimpl->_next();
+    }
 
-	/// Returns the element at the front of the range
-	ValueType Front(void) const {
-		assert(!Empty());
-		return _pimpl->_front();
-	}
+    /// Returns the element at the front of the range
+    ValueType Front() const {
+        assert(!Empty());
+        return _pimpl->_front();
+    }
 };
 
 template <typename Range>
 inline AnyRange<typename Range::ValueType> EraseType(Range range) {
-	return AnyRange<typename Range::ValueType>(range);
+    return AnyRange<typename Range::ValueType>(range);
 }
 
 /// Executes a functor on every element in a @p range
@@ -231,13 +231,13 @@ inline AnyRange<typename Range::ValueType> EraseType(Range range) {
  */
 template <typename Range, typename Func>
 inline Func ForEach(Range range, Func func) {
-	static_assert(
-	  IsRange<Range>::Type::value, "A Range is expected as the first argument");
-	while(!range.Empty()) {
-		func(range.Front());
-		range.Next();
-	}
-	return func;
+    static_assert(
+      IsRange<Range>::Type::value, "A Range is expected as the first argument");
+    while(!range.Empty()) {
+        func(range.Front());
+        range.Next();
+    }
+    return func;
 }
 
 /// Finds the specified value in a range
@@ -250,51 +250,51 @@ inline Func ForEach(Range range, Func func) {
  */
 template <typename Range>
 inline Range Find(Range range, typename Range::ValueType value) {
-	static_assert(
-	  IsRange<Range>::Type::value, "A Range is expected as the first argument");
-	while(!range.Empty()) {
-		if(range.Front() == value)
-			break;
-		range.Next();
-	}
-	return range;
+    static_assert(
+      IsRange<Range>::Type::value, "A Range is expected as the first argument");
+    while(!range.Empty()) {
+        if(range.Front() == value)
+            break;
+        range.Next();
+    }
+    return range;
 }
 
 template <typename Range>
 inline bool Contains(Range range, typename Range::ValueType value) {
-	static_assert(
-	  IsRange<Range>::Type::value, "A Range is expected as the first argument");
-	while(!range.Empty()) {
-		if(range.Front() == value)
-			return true;
-		range.Next();
-	}
-	return false;
+    static_assert(
+      IsRange<Range>::Type::value, "A Range is expected as the first argument");
+    while(!range.Empty()) {
+        if(range.Front() == value)
+            return true;
+        range.Next();
+    }
+    return false;
 }
 
 template <typename Range, typename Predicate>
 inline Range& AdvanceUntil(Range& range, Predicate predicate) {
-	static_assert(
-	  IsRange<Range>::Type::value, "A Range is expected as the first argument");
-	while(!range.Empty()) {
-		if(predicate(range.Front()))
-			break;
-		range.Next();
-	}
-	return range;
+    static_assert(
+      IsRange<Range>::Type::value, "A Range is expected as the first argument");
+    while(!range.Empty()) {
+        if(predicate(range.Front()))
+            break;
+        range.Next();
+    }
+    return range;
 }
 
 template <typename Range, typename Predicate>
 inline std::size_t CountIf(Range range, Predicate predicate) {
-	static_assert(
-	  IsRange<Range>::Type::value, "A Range is expected as the first argument");
-	std::size_t result = 0;
-	while(!range.Empty()) {
-		if(predicate(range.Front()))
-			++result;
-		range.Next();
-	}
-	return result;
+    static_assert(
+      IsRange<Range>::Type::value, "A Range is expected as the first argument");
+    std::size_t result = 0;
+    while(!range.Empty()) {
+        if(predicate(range.Front()))
+            ++result;
+        range.Next();
+    }
+    return result;
 }
 
 /// Finds the first a value satisfying a predicate in a range
@@ -307,44 +307,44 @@ inline std::size_t CountIf(Range range, Predicate predicate) {
  */
 template <typename Range, typename Predicate>
 inline Range FindIf(Range range, Predicate predicate) {
-	return AdvanceUntil(range, predicate);
+    return AdvanceUntil(range, predicate);
 }
 
 template <typename Range, typename Predicate>
 inline bool Has(Range range, Predicate predicate) {
-	return !AdvanceUntil(range, predicate).Empty();
+    return !AdvanceUntil(range, predicate).Empty();
 }
 
 template <typename Range, typename Transf>
 class Transformed {
 private:
-	Range _range;
-	Transf _transf;
+    Range _range;
+    Transf _transf;
 
 public:
-	typedef decltype(std::declval<Transf>()(
-	  std::declval<typename Range::ValueType>())) ValueType;
+    typedef decltype(std::declval<Transf>()(
+      std::declval<typename Range::ValueType>())) ValueType;
 
-	Transformed(Range range, Transf transf)
-	  : _range(range)
-	  , _transf(transf) {
-	}
+    Transformed(Range range, Transf transf)
+      : _range(range)
+      , _transf(transf) {
+    }
 
-	bool Empty(void) const {
-		return _range.Empty();
-	}
+    bool Empty() const {
+        return _range.Empty();
+    }
 
-	size_t Size(void) const {
-		return _range.Size();
-	}
+    size_t Size() const {
+        return _range.Size();
+    }
 
-	void Next(void) {
-		_range.Next();
-	}
+    void Next() {
+        _range.Next();
+    }
 
-	ValueType Front(void) const {
-		return _transf(_range.Front());
-	}
+    ValueType Front() const {
+        return _transf(_range.Front());
+    }
 };
 
 /// Transforms a range by an unary function
@@ -355,9 +355,9 @@ public:
  */
 template <typename Range, typename Transf>
 inline Transformed<Range, Transf> Transform(Range range, Transf transf) {
-	static_assert(
-	  IsRange<Range>::Type::value, "A Range is expected as the first argument");
-	return Transformed<Range, Transf>(range, transf);
+    static_assert(
+      IsRange<Range>::Type::value, "A Range is expected as the first argument");
+    return Transformed<Range, Transf>(range, transf);
 }
 
 /// Folds the range by using a binary functor and a state value
@@ -377,46 +377,46 @@ inline Transformed<Range, Transf> Transform(Range range, Transf transf) {
  */
 template <typename Range, typename State, typename Op>
 inline State Fold(Range range, State state, Op op) {
-	static_assert(
-	  IsRange<Range>::Type::value, "A Range is expected as the first argument");
-	while(!range.Empty()) {
-		state = op(state, range.Front());
-		range.Next();
-	}
-	return state;
+    static_assert(
+      IsRange<Range>::Type::value, "A Range is expected as the first argument");
+    while(!range.Empty()) {
+        state = op(state, range.Front());
+        range.Next();
+    }
+    return state;
 }
 
 template <typename Range, typename Predicate>
 class Filtered {
 private:
-	Range _range;
-	Predicate _pred;
+    Range _range;
+    Predicate _pred;
 
 public:
-	typedef typename Range::ValueType ValueType;
+    typedef typename Range::ValueType ValueType;
 
-	Filtered(Range range, Predicate pred)
-	  : _range(range)
-	  , _pred(pred) {
-		oglplus::ranges::AdvanceUntil(_range, _pred);
-	}
+    Filtered(Range range, Predicate pred)
+      : _range(range)
+      , _pred(pred) {
+        oglplus::ranges::AdvanceUntil(_range, _pred);
+    }
 
-	bool Empty(void) const {
-		return _range.Empty();
-	}
+    bool Empty() const {
+        return _range.Empty();
+    }
 
-	size_t Size(void) const {
-		return CountIf(*this, _pred);
-	}
+    size_t Size() const {
+        return CountIf(*this, _pred);
+    }
 
-	void Next(void) {
-		_range.Next();
-		oglplus::ranges::AdvanceUntil(_range, _pred);
-	}
+    void Next() {
+        _range.Next();
+        oglplus::ranges::AdvanceUntil(_range, _pred);
+    }
 
-	ValueType Front(void) const {
-		return _range.Front();
-	}
+    ValueType Front() const {
+        return _range.Front();
+    }
 };
 
 /// Returns a range containing only elements satisfying a predicate
@@ -427,60 +427,60 @@ public:
  */
 template <typename Range, typename Predicate>
 inline Filtered<Range, Predicate> OnlyIf(Range range, Predicate pred) {
-	static_assert(
-	  IsRange<Range>::Type::value, "A Range is expected as the first argument");
-	return Filtered<Range, Predicate>(range, pred);
+    static_assert(
+      IsRange<Range>::Type::value, "A Range is expected as the first argument");
+    return Filtered<Range, Predicate>(range, pred);
 }
 
 template <typename Element, typename R1, typename R2>
 class Concatenated {
 private:
-	R1 _r1;
-	R2 _r2;
+    R1 _r1;
+    R2 _r2;
 
 public:
-	typedef Element ValueType;
+    typedef Element ValueType;
 
-	Concatenated(R1 r1, R2 r2)
-	  : _r1(r1)
-	  , _r2(r2) {
-	}
+    Concatenated(R1 r1, R2 r2)
+      : _r1(r1)
+      , _r2(r2) {
+    }
 
-	bool Empty(void) const {
-		return _r1.Empty() && _r2.Empty();
-	}
+    bool Empty() const {
+        return _r1.Empty() && _r2.Empty();
+    }
 
-	size_t Size(void) const {
-		return _r1.Size() + _r2.Size();
-	}
+    size_t Size() const {
+        return _r1.Size() + _r2.Size();
+    }
 
-	void Next(void) {
-		if(!_r1.Empty())
-			_r1.Next();
-		else if(!_r2.Empty())
-			_r2.Next();
-		else
-			assert(!Empty());
-	}
+    void Next() {
+        if(!_r1.Empty())
+            _r1.Next();
+        else if(!_r2.Empty())
+            _r2.Next();
+        else
+            assert(!Empty());
+    }
 
-	ValueType Front(void) const {
-		if(!_r1.Empty())
-			return ValueType(_r1.Front());
-		else if(!_r2.Empty())
-			return ValueType(_r2.Front());
-		else
-			assert(!Empty());
-		return *((ValueType*)nullptr);
-	}
+    ValueType Front() const {
+        if(!_r1.Empty())
+            return ValueType(_r1.Front());
+        else if(!_r2.Empty())
+            return ValueType(_r2.Front());
+        else
+            assert(!Empty());
+        return *((ValueType*)nullptr);
+    }
 };
 
 template <typename Element, typename R1, typename R2>
 inline Concatenated<Element, R1, R2> Concatenate(R1 r1, R2 r2) {
-	static_assert(
-	  IsRange<R1>::Type::value, "A Range is expected as the first argument");
-	static_assert(
-	  IsRange<R2>::Type::value, "A Range is expected as the second argument");
-	return Concatenated<Element, R1, R2>(r1, r2);
+    static_assert(
+      IsRange<R1>::Type::value, "A Range is expected as the first argument");
+    static_assert(
+      IsRange<R2>::Type::value, "A Range is expected as the second argument");
+    return Concatenated<Element, R1, R2>(r1, r2);
 }
 
 } // namespace ranges

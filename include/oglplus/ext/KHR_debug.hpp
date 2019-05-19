@@ -172,7 +172,7 @@ public:
         LogSink(const LogSink&) = delete;
 
         /// Restores the previous callback and its context
-        ~LogSink(void) {
+        ~LogSink() {
             if(_prev_callback) {
                 OGLPLUS_GLFUNC(DebugMessageCallback)
                 (_prev_callback, _prev_context);
@@ -235,7 +235,7 @@ public:
     }
 
     /// Pops a debug group
-    static void PopGroup(void) {
+    static void PopGroup() {
         OGLPLUS_GLFUNC(PopDebugGroup)();
         OGLPLUS_VERIFY_SIMPLE(PopDebugGroup);
     }
@@ -273,7 +273,7 @@ public:
         essence->Call(data);
     }
 
-    operator Callback(void) const {
+    operator Callback() const {
         return Callback(*this);
     }
 };
@@ -313,7 +313,7 @@ public:
     KHR_debug_Unique(KHR_debug::Callback);
 
     /// Conversion to Callback type for the KHR_debug ext wrapper
-    operator KHR_debug::Callback(void) const;
+    operator KHR_debug::Callback() const;
 };
 #else
 typedef KHR_debug_CallbackWithEssence<KHR_debug_UniqueEssence> KHR_debug_Unique;
@@ -329,7 +329,7 @@ public:
     typedef std::ostream& CtrParam;
 
     KHR_debug_TreeEssence(std::ostream& out);
-    ~KHR_debug_TreeEssence(void);
+    ~KHR_debug_TreeEssence();
 
     void Call(const KHR_debug::CallbackData& data);
 };
@@ -348,7 +348,7 @@ public:
     KHR_debug_Tree(std::ostream&);
 
     /// Conversion to Callback type for the KHR_debug ext wrapper
-    operator KHR_debug::Callback(void) const;
+    operator KHR_debug::Callback() const;
 };
 #else
 typedef KHR_debug_CallbackWithEssence<KHR_debug_TreeEssence> KHR_debug_Tree;
@@ -364,7 +364,7 @@ public:
     typedef std::ostream& CtrParam;
 
     KHR_debug_ToXMLEssence(std::ostream& out);
-    ~KHR_debug_ToXMLEssence(void);
+    ~KHR_debug_ToXMLEssence();
 
     void Call(const KHR_debug::CallbackData& data);
 };
@@ -382,7 +382,7 @@ public:
     KHR_debug_ToXML(std::ostream&);
 
     /// Conversion to Callback type for the KHR_debug ext wrapper
-    operator KHR_debug::Callback(void) const;
+    operator KHR_debug::Callback() const;
 };
 #else
 typedef KHR_debug_CallbackWithEssence<KHR_debug_ToXMLEssence> KHR_debug_ToXML;

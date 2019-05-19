@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -21,57 +21,49 @@ namespace oglplus {
 namespace text {
 
 template <typename Handle, typename DeleterParam = Handle>
-class PangoCairoHandle
-{
+class PangoCairoHandle {
 private:
-	Handle _handle;
-	void (*_deleter)(DeleterParam);
+    Handle _handle;
+    void (*_deleter)(DeleterParam);
 
-	PangoCairoHandle(const PangoCairoHandle&);
+    PangoCairoHandle(const PangoCairoHandle&);
+
 public:
-	PangoCairoHandle(
-		Handle handle,
-		void(*deleter)(DeleterParam)
-	): _handle(handle)
-	 , _deleter(deleter)
-	{ }
+    PangoCairoHandle(Handle handle, void (*deleter)(DeleterParam))
+      : _handle(handle)
+      , _deleter(deleter) {
+    }
 
-	PangoCairoHandle(PangoCairoHandle&& tmp)
-	 : _handle(tmp._handle)
-	 , _deleter(tmp._deleter)
-	{
-		tmp._handle = nullptr;
-		tmp._deleter = nullptr;
-	}
+    PangoCairoHandle(PangoCairoHandle&& tmp)
+      : _handle(tmp._handle)
+      , _deleter(tmp._deleter) {
+        tmp._handle = nullptr;
+        tmp._deleter = nullptr;
+    }
 
-	~PangoCairoHandle(void)
-	{
-		if(_handle && _deleter)
-			_deleter(static_cast<DeleterParam>(_handle));
-	}
+    ~PangoCairoHandle() {
+        if(_handle && _deleter)
+            _deleter(static_cast<DeleterParam>(_handle));
+    }
 
-	void replace(Handle handle)
-	{
-		if(_handle && _deleter)
-			_deleter(static_cast<DeleterParam>(_handle));
-		_handle = handle;
-	}
+    void replace(Handle handle) {
+        if(_handle && _deleter)
+            _deleter(static_cast<DeleterParam>(_handle));
+        _handle = handle;
+    }
 
-	PangoCairoHandle& operator = (Handle handle)
-	{
-		replace(handle);
-		return *this;
-	}
+    PangoCairoHandle& operator=(Handle handle) {
+        replace(handle);
+        return *this;
+    }
 
-	Handle get(void)
-	{
-		return _handle;
-	}
+    Handle get() {
+        return _handle;
+    }
 
-	operator Handle (void)
-	{
-		return get();
-	}
+    operator Handle() {
+        return get();
+    }
 };
 
 } // namespace text

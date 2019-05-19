@@ -23,64 +23,64 @@ namespace native {
 /// Wrapper for a valid WGL context handle
 class ContextWGL {
 private:
-	::HGLRC _context;
+    ::HGLRC _context;
 
-	friend ::HGLRC GetHGLRC(const ContextWGL&);
+    friend ::HGLRC GetHGLRC(const ContextWGL&);
 
 protected:
-	struct Current_ {};
+    struct Current_ {};
 
-	ContextWGL(Current_)
-	  : _context(::wglGetCurrentContext()) {
-		if(!_context)
-			HandleNoWGLRC();
-	}
+    ContextWGL(Current_)
+      : _context(::wglGetCurrentContext()) {
+        if(!_context)
+            HandleNoWGLRC();
+    }
 
 public:
-	friend bool operator==(const ContextWGL& a, const ContextWGL& b) noexcept {
-		return a._context == b._context;
-	}
+    friend bool operator==(const ContextWGL& a, const ContextWGL& b) noexcept {
+        return a._context == b._context;
+    }
 
-	friend bool operator!=(const ContextWGL& a, const ContextWGL& b) noexcept {
-		return a._context != b._context;
-	}
+    friend bool operator!=(const ContextWGL& a, const ContextWGL& b) noexcept {
+        return a._context != b._context;
+    }
 
-	friend bool operator<(const ContextWGL& a, const ContextWGL& b) noexcept {
-		return a._context < b._context;
-	}
+    friend bool operator<(const ContextWGL& a, const ContextWGL& b) noexcept {
+        return a._context < b._context;
+    }
 
-	/// Returns a wrapper for the currently bound WGL context
-	/** This function gets and wraps the current WGL rendering context.
-	 *  If no context is current it throws a @c runtime_error.
-	 *
-	 *  @throws std::runtime_error
-	 */
-	static ContextWGL Current(void) {
-		return ContextWGL(Current_());
-	}
+    /// Returns a wrapper for the currently bound WGL context
+    /** This function gets and wraps the current WGL rendering context.
+     *  If no context is current it throws a @c runtime_error.
+     *
+     *  @throws std::runtime_error
+     */
+    static ContextWGL Current() {
+        return ContextWGL(Current_());
+    }
 
-	/// Makes the context current on this thread
-	void MakeCurrent(const SurfaceWGL& surface) {
-		::wglMakeCurrent(surface._hdc, _context);
-	}
+    /// Makes the context current on this thread
+    void MakeCurrent(const SurfaceWGL& surface) {
+        ::wglMakeCurrent(surface._hdc, _context);
+    }
 
-	/// Releases the current context without binding a new one
-	void Release(void) {
-		::wglMakeCurrent(::HDC(0), ::HGLRC(0));
-	}
+    /// Releases the current context without binding a new one
+    void Release() {
+        ::wglMakeCurrent(::HDC(0), ::HGLRC(0));
+    }
 };
 
 inline ::HGLRC GetHGLRC(const ContextWGL& cwgl) noexcept {
-	return cwgl._context;
+    return cwgl._context;
 }
 
 typedef ContextWGL Context;
 
 class CurrentContextWGL : public ContextWGL {
 public:
-	CurrentContextWGL(void)
-	  : ContextWGL(ContextWGL::Current_()) {
-	}
+    CurrentContextWGL()
+      : ContextWGL(ContextWGL::Current_()) {
+    }
 };
 
 typedef CurrentContextWGL CurrentContext;

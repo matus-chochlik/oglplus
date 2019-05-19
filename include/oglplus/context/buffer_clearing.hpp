@@ -48,7 +48,7 @@ class ClrBits {
 private:
     GLbitfield _bits;
 
-    GLbitfield _forward(void) {
+    GLbitfield _forward() {
         GLbitfield res = _bits;
         _bits = 0;
         return res;
@@ -56,7 +56,7 @@ private:
 
     friend class BufferClearingOps;
 
-    ClrBits(void) = delete;
+    ClrBits() = delete;
     ClrBits(const ClrBits&) = delete;
 
     ClrBits(GLbitfield bit)
@@ -73,7 +73,7 @@ public:
      *  @glsymbols
      *  @gldefref{COLOR_BUFFER_BIT}
      */
-    inline ClrBits ColorBuffer(void) {
+    inline ClrBits ColorBuffer() {
         return _make(GL_COLOR_BUFFER_BIT);
     }
 
@@ -82,7 +82,7 @@ public:
      *  @glsymbols
      *  @gldefref{DEPTH_BUFFER_BIT}
      */
-    inline ClrBits DepthBuffer(void) {
+    inline ClrBits DepthBuffer() {
         return _make(GL_DEPTH_BUFFER_BIT);
     }
 
@@ -91,7 +91,7 @@ public:
      *  @glsymbols
      *  @gldefref{STENCIL_BUFFER_BIT}
      */
-    inline ClrBits StencilBuffer(void) {
+    inline ClrBits StencilBuffer() {
         return _make(GL_STENCIL_BUFFER_BIT);
     }
 
@@ -99,18 +99,18 @@ public:
       : _bits(temp._forward()) {
     }
 
-    void DoIt(void) const {
+    void DoIt() const {
         if(_bits) {
             OGLPLUS_GLFUNC(Clear)(_bits);
             OGLPLUS_VERIFY_SIMPLE(Clear);
         }
     }
 
-    void Dismiss(void) {
+    void Dismiss() {
         _bits = 0;
     }
 
-    void operator()(void) const {
+    void operator()() const {
         DoIt();
     }
 
@@ -125,7 +125,7 @@ public:
      *  @glsymbols
      *  @glfunref{Clear}
      */
-    inline ~ClrBits(void) {
+    inline ~ClrBits() {
         try {
             DoIt();
         } catch(...) {
@@ -204,7 +204,7 @@ public:
      *  @glfunref{Get}
      *  @gldefref{COLOR_CLEAR_VALUE}
      */
-    static oglplus::context::RGBAValue ColorClearValue(void) {
+    static oglplus::context::RGBAValue ColorClearValue() {
         oglplus::context::RGBAValue result;
         OGLPLUS_GLFUNC(GetFloatv)(GL_COLOR_CLEAR_VALUE, result._v);
         OGLPLUS_VERIFY_SIMPLE(GetFloatv);
@@ -219,7 +219,7 @@ public:
      *  @glfunref{Get}
      *  @gldefref{DEPTH_CLEAR_VALUE}
      */
-    static GLfloat DepthClearValue(void) {
+    static GLfloat DepthClearValue() {
         GLfloat result;
         OGLPLUS_GLFUNC(GetFloatv)(GL_DEPTH_CLEAR_VALUE, &result);
         OGLPLUS_VERIFY_SIMPLE(GetFloatv);
@@ -234,7 +234,7 @@ public:
      *  @glfunref{Get}
      *  @gldefref{STENCIL_CLEAR_VALUE}
      */
-    static GLint StencilClearValue(void) {
+    static GLint StencilClearValue() {
         GLint result;
         OGLPLUS_GLFUNC(GetIntegerv)(GL_STENCIL_CLEAR_VALUE, &result);
         OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
@@ -271,7 +271,7 @@ public:
      *  @glsymbols
      *  @glfunref{Clear}
      */
-    static ClrBits Clear(void) {
+    static ClrBits Clear() {
         return ClrBits(0);
     }
 

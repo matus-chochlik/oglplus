@@ -154,7 +154,7 @@ public:
         LogSink(const LogSink&) = delete;
 
         /// Restores the previous callback and its context
-        ~LogSink(void) {
+        ~LogSink() {
             if(_prev_callback) {
                 OGLPLUS_GLFUNC(DebugMessageCallbackARB)
                 (_prev_callback, _prev_context);
@@ -220,7 +220,7 @@ public:
         essence->Call(data);
     }
 
-    operator Callback(void) const {
+    operator Callback() const {
         return Callback(*this);
     }
 };
@@ -260,7 +260,7 @@ public:
     ARB_debug_output_Unique(ARB_debug_output::Callback);
 
     /// Conversion to Callback type for the ARB_debug_output ext wrapper
-    operator ARB_debug_output::Callback(void) const;
+    operator ARB_debug_output::Callback() const;
 };
 #else
 typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_UniqueEssence>
@@ -277,7 +277,7 @@ public:
     typedef std::ostream& CtrParam;
 
     ARB_debug_output_TreeEssence(std::ostream& out);
-    ~ARB_debug_output_TreeEssence(void);
+    ~ARB_debug_output_TreeEssence();
 
     void Call(const ARB_debug_output::CallbackData& data);
 };
@@ -296,7 +296,7 @@ public:
     ARB_debug_output_Tree(std::ostream&);
 
     /// Conversion to Callback type for the ARB_debug_output ext wrapper
-    operator ARB_debug_output::Callback(void) const;
+    operator ARB_debug_output::Callback() const;
 };
 #else
 typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_TreeEssence>
@@ -313,7 +313,7 @@ public:
     typedef std::ostream& CtrParam;
 
     ARB_debug_output_ToXMLEssence(std::ostream& out);
-    ~ARB_debug_output_ToXMLEssence(void);
+    ~ARB_debug_output_ToXMLEssence();
 
     void Call(const ARB_debug_output::CallbackData& data);
 };
@@ -331,7 +331,7 @@ public:
     ARB_debug_output_ToXML(std::ostream&);
 
     /// Conversion to Callback type for the ARB_debug_output ext wrapper
-    operator ARB_debug_output::Callback(void) const;
+    operator ARB_debug_output::Callback() const;
 };
 #else
 typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_ToXMLEssence>

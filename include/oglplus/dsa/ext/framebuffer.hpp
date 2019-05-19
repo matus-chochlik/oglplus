@@ -45,7 +45,7 @@ public:
     typedef FramebufferOps::Property Property;
 
     using ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer>::Bind;
-    void Bind(void) {
+    void Bind() {
         ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer>::Bind(target);
     }
 
@@ -70,7 +70,7 @@ public:
         return FramebufferStatus(result);
     }
 
-    FramebufferStatus Status(void) const {
+    FramebufferStatus Status() const {
         return Status(target);
     }
 
@@ -86,7 +86,7 @@ public:
         return Status(fbo_target) == FramebufferStatus::Complete;
     }
 
-    bool IsComplete(void) const {
+    bool IsComplete() const {
         return IsComplete(target);
     }
 
@@ -100,7 +100,7 @@ public:
         }
     }
 
-    void Complete(void) const {
+    void Complete() const {
         Complete(target);
     }
 
