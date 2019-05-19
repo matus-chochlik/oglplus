@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,58 +14,58 @@
 #include "app_data.hpp"
 
 #include <oglplus/gl.hpp>
-#include <oglplus/config/fix_gl_version.hpp>
 #include <oglplus/config/fix_gl_extension.hpp>
-#include <oglplus/program.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 #include <oglplus/dsa/uniform.hpp>
-#include <oglplus/uniform_block.hpp>
 #include <oglplus/prog_var/optional.hpp>
+#include <oglplus/program.hpp>
+#include <oglplus/uniform_block.hpp>
 
-#include <oglplus/math/vector.hpp>
 #include <oglplus/math/matrix.hpp>
+#include <oglplus/math/vector.hpp>
 
 namespace oglplus {
 namespace cloud_trace {
 
-class RaytraceProg : public Program
-{
+class RaytraceProg : public Program {
 private:
-	static Program make(void);
+    static Program make();
 
-	Program& self(void);
+    Program& self();
 
-	ProgramUniform<Mat3f> ray_matrix;
+    ProgramUniform<Mat3f> ray_matrix;
+
 public:
-	ProgramUniformSampler cloud_tex;
-	ProgramUniform<GLint> cloud_count;
-	ProgramUniform<Vec4f> clip_plane0;
-	ProgramUniform<Vec4f> clip_plane1;
-	ProgramUniform<Vec4f> clip_plane2;
-	ProgramUniform<Vec4f> clip_plane3;
+    ProgramUniformSampler cloud_tex;
+    ProgramUniform<GLint> cloud_count;
+    ProgramUniform<Vec4f> clip_plane0;
+    ProgramUniform<Vec4f> clip_plane1;
+    ProgramUniform<Vec4f> clip_plane2;
+    ProgramUniform<Vec4f> clip_plane3;
 
-	UniformBlock cloud_block;
+    UniformBlock cloud_block;
 
-	RaytraceProg(const AppData&);
+    RaytraceProg(const AppData&);
 
-	void SetRayMatrix(const AppData&, unsigned face);
+    void SetRayMatrix(const AppData&, unsigned face);
 };
 
-class RenderProg : public Program
-{
+class RenderProg : public Program {
 private:
-	static Program make(const AppData&);
+    static Program make(const AppData&);
 
-	Program& self(void);
+    Program& self();
 
-	Optional<ProgramUniform<GLint>> cube_face;
-	Optional<ProgramUniform<Mat3f>> ray_matrix;
+    Optional<ProgramUniform<GLint>> cube_face;
+    Optional<ProgramUniform<Mat3f>> ray_matrix;
+
 public:
-	ProgramUniform<Vec2f> raytrace_size;
-	ProgramUniformSampler raytrace_output;
+    ProgramUniform<Vec2f> raytrace_size;
+    ProgramUniformSampler raytrace_output;
 
-	RenderProg(const AppData&);
+    RenderProg(const AppData&);
 
-	void SetRayMatrix(const AppData&, unsigned face);
+    void SetRayMatrix(const AppData&, unsigned face);
 };
 
 } // namespace cloud_trace

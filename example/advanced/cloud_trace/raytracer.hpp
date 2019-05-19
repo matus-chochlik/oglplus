@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,8 +17,8 @@
 #include "textures.hpp"
 
 #include <oglplus/gl.hpp>
-#include <oglplus/config/fix_gl_version.hpp>
 #include <oglplus/config/fix_gl_extension.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 
 #include <oglplus/context.hpp>
 #include <oglplus/framebuffer.hpp>
@@ -30,63 +30,56 @@
 namespace oglplus {
 namespace cloud_trace {
 
-struct RaytracerData
-{
-	CloudData cloud_data;
-	CloudVolume cloud_vol;
+struct RaytracerData {
+    CloudData cloud_data;
+    CloudVolume cloud_vol;
 
-	RaytracerData(const AppData&);
+    RaytracerData(const AppData&);
 };
 
-struct RaytracerResources
-{
-	CloudBuffer cloud_buf;
-	CloudTexture cloud_tex;
+struct RaytracerResources {
+    CloudBuffer cloud_buf;
+    CloudTexture cloud_tex;
 
-	RaytraceProg raytrace_prog;
+    RaytraceProg raytrace_prog;
 
-	RaytracerResources(
-		const AppData&,
-		const RaytracerData&,
-		ResourceAllocator&
-	);
-	void Use(void);
+    RaytracerResources(
+      const AppData&, const RaytracerData&, ResourceAllocator&);
+    void Use();
 };
 
-struct RaytracerTarget
-{
-	const GLuint tex_unit;
+struct RaytracerTarget {
+    const GLuint tex_unit;
 
-	Context gl;
-	Texture tex;
-	Framebuffer fbo;
+    Context gl;
+    Texture tex;
+    Framebuffer fbo;
 
-	RaytracerTarget(AppData&, ResourceAllocator&);
-	void Clear(AppData&);
+    RaytracerTarget(AppData&, ResourceAllocator&);
+    void Clear(AppData&);
 };
 
-class Raytracer
-{
+class Raytracer {
 private:
-	Context gl;
+    Context gl;
 
-	const unsigned w, h;
+    const unsigned w, h;
 
-	RaytracerResources& resources;
+    RaytracerResources& resources;
 
-	shapes::ShapeWrapper screen;
+    shapes::ShapeWrapper screen;
 
 public:
-	Renderbuffer rbo;
-	Framebuffer fbo;
+    Renderbuffer rbo;
+    Framebuffer fbo;
 
-	Raytracer(AppData&, RaytracerResources&);
+    Raytracer(AppData&, RaytracerResources&);
 
-	void Use(AppData&);
-	void InitFrame(AppData&, unsigned face);
-	void BeginWork(const AppData&);
-	void EndWork(const AppData&);
-	void Raytrace(const AppData&, unsigned tile);
+    void Use(AppData&);
+    void InitFrame(AppData&, unsigned face);
+    void BeginWork(const AppData&);
+    void EndWork(const AppData&);
+    void Raytrace(const AppData&, unsigned tile);
 };
 
 } // namespace cloud_trace

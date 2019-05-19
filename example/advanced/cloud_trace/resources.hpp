@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,16 +14,16 @@
 namespace oglplus {
 namespace cloud_trace {
 
-class ResourceAllocator
-{
+class ResourceAllocator {
 private:
-	unsigned tex_unit;
-	unsigned ub_index;
-public:
-	ResourceAllocator(void);
+    unsigned tex_unit;
+    unsigned ub_index;
 
-	unsigned GetNextTexUnit(void);
-	unsigned GetNextUniformIndex(void);
+public:
+    ResourceAllocator();
+
+    unsigned GetNextTexUnit();
+    unsigned GetNextUniformIndex();
 };
 
 } // namespace cloud_trace
