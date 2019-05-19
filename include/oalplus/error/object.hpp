@@ -24,30 +24,30 @@ namespace oalplus {
 class ObjectError : public ErrorAL {
 private:
 #if !OALPLUS_ERROR_NO_OBJECT_TYPE
-	ALenum _obj_type;
+    ALenum _obj_type;
 #endif
-	int _obj_typeid;
-	ALuint _obj_name;
+    int _obj_typeid;
+    ALuint _obj_name;
 
 public:
-	ObjectError(const char* message);
+    ObjectError(const char* message);
 
-	/// Returns the object type
-	ALenum ObjectType(void) const override;
+    /// Returns the object type
+    ALenum ObjectType() const override;
 
-	template <typename ObjTag>
-	ObjectError& Object(oalplus::ObjectName<ObjTag> object) {
-		// TODO object type
-		_obj_typeid = ObjTag::value;
-		_obj_name = GetALName(object);
-		return *this;
-	}
+    template <typename ObjTag>
+    ObjectError& Object(oalplus::ObjectName<ObjTag> object) {
+        // TODO object type
+        _obj_typeid = ObjTag::value;
+        _obj_name = GetALName(object);
+        return *this;
+    }
 
-	/// Object AL name
-	ALint ObjectName(void) const override;
+    /// Object AL name
+    ALint ObjectName() const override;
 
-	/// Object textual description
-	const String& ObjectDesc(void) const override;
+    /// Object textual description
+    const String& ObjectDesc() const override;
 };
 
 } // namespace oalplus

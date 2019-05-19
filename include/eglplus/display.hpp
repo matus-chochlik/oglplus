@@ -27,61 +27,61 @@ class Display;
 /// Wrapper around EGLDisplay
 class Display {
 private:
-	::EGLDisplay _handle;
+    ::EGLDisplay _handle;
 
-	friend ::EGLDisplay GetEGLHandle(const Display&) noexcept;
+    friend ::EGLDisplay GetEGLHandle(const Display&) noexcept;
 
 public:
-	/// Opens the default display
-	/**
-	 *  @eglsymbols
-	 *  @eglfunref{GetDisplay}
-	 *  @egldefref{DEFAULT_DISPLAY}
-	 */
-	Display(void)
-	  : _handle(EGLPLUS_EGLFUNC(GetDisplay)(EGL_DEFAULT_DISPLAY)) {
-		EGLPLUS_CHECK_SIMPLE(GetDisplay);
-	}
+    /// Opens the default display
+    /**
+     *  @eglsymbols
+     *  @eglfunref{GetDisplay}
+     *  @egldefref{DEFAULT_DISPLAY}
+     */
+    Display()
+      : _handle(EGLPLUS_EGLFUNC(GetDisplay)(EGL_DEFAULT_DISPLAY)) {
+        EGLPLUS_CHECK_SIMPLE(GetDisplay);
+    }
 
-	/// Opens the display specified by @p display_id
-	/**
-	 *  @eglsymbols
-	 *  @eglfunref{GetDisplay}
-	 */
-	Display(::EGLNativeDisplayType display_id)
-	  : _handle(EGLPLUS_EGLFUNC(GetDisplay)(display_id)) {
-		EGLPLUS_CHECK_SIMPLE(GetDisplay);
-	}
+    /// Opens the display specified by @p display_id
+    /**
+     *  @eglsymbols
+     *  @eglfunref{GetDisplay}
+     */
+    Display(::EGLNativeDisplayType display_id)
+      : _handle(EGLPLUS_EGLFUNC(GetDisplay)(display_id)) {
+        EGLPLUS_CHECK_SIMPLE(GetDisplay);
+    }
 
-	/// Sets the SwapInterval for the current display
-	/**
-	 *  @eglsymbols
-	 *  @eglfunref{SwapInterval}
-	 */
-	Boolean SwapInterval(EGLint interval) {
-		Boolean result(
-		  EGLPLUS_EGLFUNC(SwapInterval)(_handle, interval), std::nothrow);
-		EGLPLUS_CHECK_SIMPLE(SwapInterval);
-		return result;
-	}
+    /// Sets the SwapInterval for the current display
+    /**
+     *  @eglsymbols
+     *  @eglfunref{SwapInterval}
+     */
+    Boolean SwapInterval(EGLint interval) {
+        Boolean result(
+          EGLPLUS_EGLFUNC(SwapInterval)(_handle, interval), std::nothrow);
+        EGLPLUS_CHECK_SIMPLE(SwapInterval);
+        return result;
+    }
 
-	/// Releases the current context without assigning a new one
-	/**
-	 *  @eglsymbols
-	 *  @eglfunref{MakeCurrent}
-	 */
-	Boolean ReleaseContext(void) {
-		Boolean result(
-		  EGLPLUS_EGLFUNC(MakeCurrent)(
-			_handle, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT),
-		  std::nothrow);
-		EGLPLUS_CHECK_SIMPLE(MakeCurrent);
-		return result;
-	}
+    /// Releases the current context without assigning a new one
+    /**
+     *  @eglsymbols
+     *  @eglfunref{MakeCurrent}
+     */
+    Boolean ReleaseContext() {
+        Boolean result(
+          EGLPLUS_EGLFUNC(MakeCurrent)(
+            _handle, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT),
+          std::nothrow);
+        EGLPLUS_CHECK_SIMPLE(MakeCurrent);
+        return result;
+    }
 };
 
 inline ::EGLDisplay GetEGLHandle(const Display& display) noexcept {
-	return display._handle;
+    return display._handle;
 }
 
 } // namespace eglplus

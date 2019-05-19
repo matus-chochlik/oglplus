@@ -104,19 +104,19 @@ public:
     }
 
     /// Count of buffers storing the individual parts of the source
-    GLsizei Count(void) const noexcept {
+    GLsizei Count() const noexcept {
         assert(bool(_impl));
         return _impl->Count();
     }
 
     /// Pointers to the individual parts of the source
-    const GLchar* const* Parts(void) const noexcept {
+    const GLchar* const* Parts() const noexcept {
         assert(bool(_impl));
         return _impl->Parts();
     }
 
     /// Pointer to the lengths of the individual parts of the source
-    GLint const* Lengths(void) const noexcept {
+    GLint const* Lengths() const noexcept {
         assert(bool(_impl));
         return _impl->Lengths();
     }

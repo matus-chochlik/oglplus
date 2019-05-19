@@ -57,7 +57,7 @@ private:
 
 public:
     /// Constructs an empty bitfield
-    Bitfield(void)
+    Bitfield()
       : _bits(0) {
     }
 
@@ -119,7 +119,7 @@ public:
         return Test(b);
     }
 
-    explicit operator BF(void) const {
+    explicit operator BF() const {
         return _bits;
     }
 };

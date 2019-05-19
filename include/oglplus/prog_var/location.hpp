@@ -28,139 +28,141 @@ GLint GetGLLocation(ProgVarLoc<VarTag>) noexcept;
 template <typename VarTag>
 class ProgVarLoc : public ProgVarLocOps<VarTag> {
 protected:
-	friend GLint GetGLLocation<VarTag>(ProgVarLoc) noexcept;
+    friend GLint GetGLLocation<VarTag>(ProgVarLoc) noexcept;
 
-	GLuint _program;
-	GLint _location;
+    GLuint _program;
+    GLint _location;
 
-	void RequireActive(StrCRef identifier) const {
-		OGLPLUS_HANDLE_ERROR_IF(!IsActive(),
-		  GL_INVALID_OPERATION,
-		  ProgVarLocOps<VarTag>::MsgUsingInactive(),
-		  ProgVarError,
-		  Program(ProgramName(_program)).Identifier(identifier));
-	}
+    void RequireActive(StrCRef identifier) const {
+        OGLPLUS_HANDLE_ERROR_IF(
+          !IsActive(),
+          GL_INVALID_OPERATION,
+          ProgVarLocOps<VarTag>::MsgUsingInactive(),
+          ProgVarError,
+          Program(ProgramName(_program)).Identifier(identifier));
+    }
 
-	void RequireActive(void) const {
-		RequireActive(StrCRef());
-	}
+    void RequireActive() const {
+        RequireActive(StrCRef());
+    }
 
 public:
-	/// Default construction
-	ProgVarLoc(void) noexcept
-	  : _program(0u)
-	  , _location(-1) {
-	}
+    /// Default construction
+    ProgVarLoc() noexcept
+      : _program(0u)
+      , _location(-1) {
+    }
 
-	/// Creates variable without specific @p location in specified @p program
-	ProgVarLoc(ProgramName program) noexcept
-	  : _program(GetGLName(program))
-	  , _location(-1) {
-	}
+    /// Creates variable without specific @p location in specified @p program
+    ProgVarLoc(ProgramName program) noexcept
+      : _program(GetGLName(program))
+      , _location(-1) {
+    }
 
-	/// Creates variable with specified @p location without specific program
-	explicit ProgVarLoc(GLint location) noexcept
-	  : _program(0)
-	  , _location(location) {
-	}
+    /// Creates variable with specified @p location without specific program
+    explicit ProgVarLoc(GLint location) noexcept
+      : _program(0)
+      , _location(location) {
+    }
 
-	/// Creates variable with specified @p location in specified @p program
-	ProgVarLoc(ProgramName program, GLint location) noexcept
-	  : _program(GetGLName(program))
-	  , _location(location) {
-	}
+    /// Creates variable with specified @p location in specified @p program
+    ProgVarLoc(ProgramName program, GLint location) noexcept
+      : _program(GetGLName(program))
+      , _location(location) {
+    }
 
-	/// Creates variable with specified @p identifier in specified @p program
-	ProgVarLoc(ProgramName program, StrCRef identifier)
-	  : _program(GetGLName(program))
-	  , _location(
-		  ProgVarLocOps<VarTag>::GetLocation(program, identifier, true)) {
-	}
+    /// Creates variable with specified @p identifier in specified @p program
+    ProgVarLoc(ProgramName program, StrCRef identifier)
+      : _program(GetGLName(program))
+      , _location(
+          ProgVarLocOps<VarTag>::GetLocation(program, identifier, true)) {
+    }
 
-	template <typename LocOpsParam>
-	ProgVarLoc(LocOpsParam param, ProgramName program, StrCRef identifier)
-	  : ProgVarLocOps<VarTag>(param)
-	  , _program(GetGLName(program))
-	  , _location(
-		  ProgVarLocOps<VarTag>::GetLocation(program, identifier, true)) {
-	}
+    template <typename LocOpsParam>
+    ProgVarLoc(LocOpsParam param, ProgramName program, StrCRef identifier)
+      : ProgVarLocOps<VarTag>(param)
+      , _program(GetGLName(program))
+      , _location(
+          ProgVarLocOps<VarTag>::GetLocation(program, identifier, true)) {
+    }
 
-	/// Creates variable with specified @p identifier in specified @p program
-	ProgVarLoc(ProgramName program, StrCRef identifier, bool active_only)
-	  : _program(GetGLName(program))
-	  , _location(ProgVarLocOps<VarTag>::GetLocation(
-		  program, identifier, active_only)) {
-	}
+    /// Creates variable with specified @p identifier in specified @p program
+    ProgVarLoc(ProgramName program, StrCRef identifier, bool active_only)
+      : _program(GetGLName(program))
+      , _location(ProgVarLocOps<VarTag>::GetLocation(
+          program, identifier, active_only)) {
+    }
 
-	template <typename LocOpsParam>
-	ProgVarLoc(LocOpsParam param,
-	  ProgramName program,
-	  StrCRef identifier,
-	  bool active_only)
-	  : ProgVarLocOps<VarTag>(param)
-	  , _program(GetGLName(program))
-	  , _location(ProgVarLocOps<VarTag>::GetLocation(
-		  program, identifier, active_only)) {
-	}
+    template <typename LocOpsParam>
+    ProgVarLoc(
+      LocOpsParam param,
+      ProgramName program,
+      StrCRef identifier,
+      bool active_only)
+      : ProgVarLocOps<VarTag>(param)
+      , _program(GetGLName(program))
+      , _location(ProgVarLocOps<VarTag>::GetLocation(
+          program, identifier, active_only)) {
+    }
 
-	/// Copy assignment
-	ProgVarLoc& Assign(ProgVarLoc that) {
-		this->_program = that._program;
-		this->_location = that._location;
-		return *this;
-	}
+    /// Copy assignment
+    ProgVarLoc& Assign(ProgVarLoc that) {
+        this->_program = that._program;
+        this->_location = that._location;
+        return *this;
+    }
 
-	/// Late initialization of the variable location from its identifier
-	ProgVarLoc& BindTo(StrCRef identifier, bool is_active = true) {
-		_location = ProgVarLocOps<VarTag>::GetLocation(
-		  ProgramName(_program), identifier, is_active);
-		return *this;
-	}
+    /// Late initialization of the variable location from its identifier
+    ProgVarLoc& BindTo(StrCRef identifier, bool is_active = true) {
+        _location = ProgVarLocOps<VarTag>::GetLocation(
+          ProgramName(_program), identifier, is_active);
+        return *this;
+    }
 
-	/// The program the variable belongs to
-	ProgramName Program(void) const noexcept {
-		return ProgramName(_program);
-	}
+    /// The program the variable belongs to
+    ProgramName Program() const noexcept {
+        return ProgramName(_program);
+    }
 
-	/// Returns the location of the variable
-	GLint Location(void) const noexcept {
-		return _location;
-	}
+    /// Returns the location of the variable
+    GLint Location() const noexcept {
+        return _location;
+    }
 
-	/// Returns true if the variable is active
-	bool IsActive(void) const noexcept {
-		return _location >= 0;
-	}
+    /// Returns true if the variable is active
+    bool IsActive() const noexcept {
+        return _location >= 0;
+    }
 
-	/// Returns true if the variable is active
-	explicit operator bool(void) const noexcept {
-		return IsActive();
-	}
+    /// Returns true if the variable is active
+    explicit operator bool() const noexcept {
+        return IsActive();
+    }
 
-	/// Equality comparison
-	friend bool operator==(ProgVarLoc a, ProgVarLoc b) noexcept {
-		return (a._program == b._program) && (a._location == b._location);
-	}
+    /// Equality comparison
+    friend bool operator==(ProgVarLoc a, ProgVarLoc b) noexcept {
+        return (a._program == b._program) && (a._location == b._location);
+    }
 
-	/// Inequality comparison
-	friend bool operator!=(ProgVarLoc a, ProgVarLoc b) noexcept {
-		return (a._program != b._program) || (a._location != b._location);
-	}
+    /// Inequality comparison
+    friend bool operator!=(ProgVarLoc a, ProgVarLoc b) noexcept {
+        return (a._program != b._program) || (a._location != b._location);
+    }
 
-	/// Ordering
-	friend bool operator<(ProgVarLoc a, ProgVarLoc b) noexcept {
-		if(a._program < b._program)
-			return true;
-		if(a._program == b._program)
-			return (a._location < b._location);
-		return false;
-	}
+    /// Ordering
+    friend bool operator<(ProgVarLoc a, ProgVarLoc b) noexcept {
+        if(a._program < b._program)
+            return true;
+        if(a._program == b._program)
+            return (a._location < b._location);
+        return false;
+    }
 };
 
 /// Returns the GL location/index of the specified @p variable
 template <typename VarTag>
 inline GLint GetGLLocation(ProgVarLoc<VarTag> variable) noexcept {
-	return variable._location;
+    return variable._location;
 }
 
 } // namespace oglplus

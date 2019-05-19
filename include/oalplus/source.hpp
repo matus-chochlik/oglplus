@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -85,7 +85,7 @@ public:
      *  @alsymbols
      *  @alfunref{SourcePlay}
      */
-    void Play(void) {
+    void Play() {
         OALPLUS_ALFUNC(SourcePlay)(_obj_name());
         OALPLUS_VERIFY(SourcePlay, ObjectError, Object(*this));
     }
@@ -95,7 +95,7 @@ public:
      *  @alsymbols
      *  @alfunref{SourcePause}
      */
-    void Pause(void) {
+    void Pause() {
         OALPLUS_ALFUNC(SourcePause)(_obj_name());
         OALPLUS_VERIFY(SourcePause, ObjectError, Object(*this));
     }
@@ -105,7 +105,7 @@ public:
      *  @alsymbols
      *  @alfunref{SourceStop}
      */
-    void Stop(void) {
+    void Stop() {
         OALPLUS_ALFUNC(SourceStop)(_obj_name());
         OALPLUS_VERIFY(SourceStop, ObjectError, Object(*this));
     }
@@ -115,7 +115,7 @@ public:
      *  @alsymbols
      *  @alfunref{SourceRewind}
      */
-    void Rewind(void) {
+    void Rewind() {
         OALPLUS_ALFUNC(SourceRewind)(_obj_name());
         OALPLUS_VERIFY(SourceRewind, ObjectError, Object(*this));
     }
@@ -126,7 +126,7 @@ public:
      *  @alfunref{GetSourceiv}
      *  @aldefref{SOURCE_STATE}
      */
-    SourceState State(void) const {
+    SourceState State() const {
         ALint result = 0;
         OALPLUS_ALFUNC(GetSourceiv)(_obj_name(), AL_SOURCE_STATE, &result);
         OALPLUS_VERIFY(GetSourceiv, ObjectError, Object(*this));
@@ -150,7 +150,7 @@ public:
      *  @alfunref{GetSourceiv}
      *  @aldefref{SOURCE_RELATIVE}
      */
-    Boolean Relative(void) const {
+    Boolean Relative() const {
         Boolean result;
         OALPLUS_ALFUNC(GetSourceiv)
         (_obj_name(), AL_SOURCE_RELATIVE, result._ptr());
@@ -175,7 +175,7 @@ public:
      *  @alfunref{GetSourceiv}
      *  @aldefref{SOURCE_TYPE}
      */
-    SourceType Type(void) const {
+    SourceType Type() const {
         ALint result;
         OALPLUS_ALFUNC(GetSourceiv)(_obj_name(), AL_SOURCE_TYPE, &result);
         OALPLUS_VERIFY(GetSourceiv, ObjectError, Object(*this));
@@ -199,7 +199,7 @@ public:
      *  @alfunref{GetSourceiv}
      *  @aldefref{LOOPING}
      */
-    Boolean Looping(void) const {
+    Boolean Looping() const {
         Boolean result;
         OALPLUS_ALFUNC(GetSourceiv)(_obj_name(), AL_LOOPING, result._ptr());
         OALPLUS_VERIFY(GetSourceiv, ObjectError, Object(*this));
@@ -223,7 +223,7 @@ public:
      *  @alfunref{Sourcei}
      *  @aldefref{BUFFER}
      */
-    void DetachBuffers(void) {
+    void DetachBuffers() {
         OALPLUS_ALFUNC(Sourcei)(_obj_name(), AL_BUFFER, 0);
         OALPLUS_VERIFY(Sourcei, ObjectError, Object(*this));
     }
@@ -271,7 +271,7 @@ public:
      *  @alfunref{GetSourcefv}
      *  @aldefref{GAIN}
      */
-    ALfloat Gain(void) const {
+    ALfloat Gain() const {
         ALfloat result;
         OALPLUS_ALFUNC(GetSourcefv)(_obj_name(), AL_GAIN, &result);
         OALPLUS_VERIFY(GetSourcefv, ObjectError, Object(*this));
@@ -295,7 +295,7 @@ public:
      *  @alfunref{GetSourcefv}
      *  @aldefref{MIN_GAIN}
      */
-    ALfloat MinGain(void) const {
+    ALfloat MinGain() const {
         ALfloat result;
         OALPLUS_ALFUNC(GetSourcefv)(_obj_name(), AL_MIN_GAIN, &result);
         OALPLUS_VERIFY(GetSourcefv, ObjectError, Object(*this));
@@ -319,7 +319,7 @@ public:
      *  @alfunref{GetSourcefv}
      *  @aldefref{MAX_GAIN}
      */
-    ALfloat MaxGain(void) const {
+    ALfloat MaxGain() const {
         ALfloat result;
         OALPLUS_ALFUNC(GetSourcefv)(_obj_name(), AL_MAX_GAIN, &result);
         OALPLUS_VERIFY(GetSourcefv, ObjectError, Object(*this));
@@ -343,7 +343,7 @@ public:
      *  @alfunref{GetSourcefv}
      *  @aldefref{REFERENCE_DISTANCE}
      */
-    ALfloat ReferenceDistance(void) const {
+    ALfloat ReferenceDistance() const {
         ALfloat result;
         OALPLUS_ALFUNC(GetSourcefv)
         (_obj_name(), AL_REFERENCE_DISTANCE, &result);
@@ -368,7 +368,7 @@ public:
      *  @alfunref{GetSourcefv}
      *  @aldefref{ROLLOFF_FACTOR}
      */
-    ALfloat RolloffFactor(void) const {
+    ALfloat RolloffFactor() const {
         ALfloat result;
         OALPLUS_ALFUNC(GetSourcefv)(_obj_name(), AL_ROLLOFF_FACTOR, &result);
         OALPLUS_VERIFY(GetSourcefv, ObjectError, Object(*this));
@@ -392,7 +392,7 @@ public:
      *  @alfunref{GetSourcefv}
      *  @aldefref{MAX_DISTANCE}
      */
-    ALfloat MaxDistance(void) const {
+    ALfloat MaxDistance() const {
         ALfloat result;
         OALPLUS_ALFUNC(GetSourcefv)(_obj_name(), AL_MAX_DISTANCE, &result);
         OALPLUS_VERIFY(GetSourcefv, ObjectError, Object(*this));
@@ -416,7 +416,7 @@ public:
      *  @alfunref{GetSourcefv}
      *  @aldefref{PITCH}
      */
-    ALfloat Pitch(void) const {
+    ALfloat Pitch() const {
         ALfloat result;
         OALPLUS_ALFUNC(GetSourcefv)(_obj_name(), AL_PITCH, &result);
         OALPLUS_VERIFY(GetSourcefv, ObjectError, Object(*this));
@@ -451,7 +451,7 @@ public:
      *  @alfunref{GetSourcefv}
      *  @aldefref{POSITION}
      */
-    Vec3f Position(void) const {
+    Vec3f Position() const {
         ALfloat result[3];
         OALPLUS_ALFUNC(GetSourcefv)(_obj_name(), AL_POSITION, result);
         OALPLUS_VERIFY(GetSourcefv, ObjectError, Object(*this));
@@ -486,7 +486,7 @@ public:
      *  @alfunref{GetSourcefv}
      *  @aldefref{VELOCITY}
      */
-    Vec3f Velocity(void) const {
+    Vec3f Velocity() const {
         ALfloat result[3];
         OALPLUS_ALFUNC(GetSourcefv)(_obj_name(), AL_VELOCITY, result);
         OALPLUS_VERIFY(GetSourcefv, ObjectError, Object(*this));
@@ -521,7 +521,7 @@ public:
      *  @alfunref{GetSourcefv}
      *  @aldefref{DIRECTION}
      */
-    Vec3f Direction(void) const {
+    Vec3f Direction() const {
         ALfloat result[3];
         OALPLUS_ALFUNC(GetSourcefv)(_obj_name(), AL_DIRECTION, result);
         OALPLUS_VERIFY(GetSourcefv, ObjectError, Object(*this));
@@ -546,7 +546,7 @@ public:
      *  @alfunref{GetSourcefv}
      *  @aldefref{CONE_INNER_ANGLE}
      */
-    Anglef ConeInnerAngle(void) const {
+    Anglef ConeInnerAngle() const {
         ALfloat result;
         OALPLUS_ALFUNC(GetSourcefv)(_obj_name(), AL_CONE_INNER_ANGLE, &result);
         OALPLUS_VERIFY(GetSourcefv, ObjectError, Object(*this));
@@ -571,7 +571,7 @@ public:
      *  @alfunref{GetSourcefv}
      *  @aldefref{CONE_OUTER_ANGLE}
      */
-    Anglef ConeOuterAngle(void) const {
+    Anglef ConeOuterAngle() const {
         ALfloat result;
         OALPLUS_ALFUNC(GetSourcefv)(_obj_name(), AL_CONE_OUTER_ANGLE, &result);
         OALPLUS_VERIFY(GetSourcefv, ObjectError, Object(*this));
@@ -595,7 +595,7 @@ public:
      *  @alfunref{GetSourcefv}
      *  @aldefref{CONE_OUTER_GAIN}
      */
-    ALfloat ConeOuterGain(void) const {
+    ALfloat ConeOuterGain() const {
         ALfloat result;
         OALPLUS_ALFUNC(GetSourcefv)(_obj_name(), AL_CONE_OUTER_GAIN, &result);
         OALPLUS_VERIFY(GetSourcefv, ObjectError, Object(*this));

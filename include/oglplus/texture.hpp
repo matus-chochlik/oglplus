@@ -231,7 +231,7 @@ public:
      *  @glfunref{Get}
      *  @gldefref{ACTIVE_TEXTURE}
      */
-    static GLint Active(void) {
+    static GLint Active() {
         GLint result;
         OGLPLUS_GLFUNC(GetIntegerv)(GL_ACTIVE_TEXTURE, &result);
         OGLPLUS_VERIFY(
@@ -2310,7 +2310,7 @@ public:
      *  @glsymbols
      *  @glfunref{TextureBarrierNV}
      */
-    static void Barrier(void) {
+    static void Barrier() {
 #if GL_VERSION_4_5 || GL_ARB_texture_barrier
         OGLPLUS_GLFUNC(TextureBarrier)();
         OGLPLUS_VERIFY_SIMPLE(TextureBarrier);

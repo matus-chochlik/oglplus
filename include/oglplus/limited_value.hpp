@@ -40,14 +40,14 @@ class LimitedCount {
 private:
     GLuint _value;
 
-    static GLuint _query_limit(void) {
+    static GLuint _query_limit() {
         GLint limit = 0;
         OGLPLUS_GLFUNC(GetIntegerv)(Query, &limit);
         OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
         return GLuint(limit);
     }
 
-    static GLuint _limit(void) {
+    static GLuint _limit() {
         static GLuint limit = _query_limit();
         return limit;
     }
@@ -103,11 +103,11 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY
     /// Returns the value
     template <typename Type>
-    explicit operator Type(void) const;
+    explicit operator Type() const;
 #endif
 
     template <typename Type>
-    explicit operator Type(void) const {
+    explicit operator Type() const {
         return Type(_value);
     }
 

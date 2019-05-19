@@ -93,7 +93,7 @@ public:
      *  @alfunref{GetBuffer}
      *  @aldefref{FREQUENCY}
      */
-    ALsizei Frequency(void) const {
+    ALsizei Frequency() const {
         ALint result = 0;
         OALPLUS_ALFUNC(GetBufferiv)(_obj_name(), AL_FREQUENCY, &result);
         OALPLUS_VERIFY(GetBufferiv, ObjectError, Object(*this));
@@ -106,7 +106,7 @@ public:
      *  @alfunref{GetBuffer}
      *  @aldefref{SIZE}
      */
-    ALsizei Size(void) const {
+    ALsizei Size() const {
         ALint result = 0;
         OALPLUS_ALFUNC(GetBufferiv)(_obj_name(), AL_SIZE, &result);
         OALPLUS_VERIFY(GetBufferiv, ObjectError, Object(*this));
@@ -119,7 +119,7 @@ public:
      *  @alfunref{GetBuffer}
      *  @aldefref{BITS}
      */
-    ALsizei Bits(void) const {
+    ALsizei Bits() const {
         ALint result = 0;
         OALPLUS_ALFUNC(GetBufferiv)(_obj_name(), AL_BITS, &result);
         OALPLUS_VERIFY(GetBufferiv, ObjectError, Object(*this));
@@ -132,7 +132,7 @@ public:
      *  @alfunref{GetBuffer}
      *  @aldefref{CHANNELS}
      */
-    ALsizei Channels(void) const {
+    ALsizei Channels() const {
         ALint result = 0;
         OALPLUS_ALFUNC(GetBufferiv)(_obj_name(), AL_CHANNELS, &result);
         OALPLUS_VERIFY(GetBufferiv, ObjectError, Object(*this));
@@ -148,7 +148,7 @@ public:
      *  @aldefref{BITS}
      *  @aldefref{CHANNELS}
      */
-    ALfloat Duration(void) const {
+    ALfloat Duration() const {
         ALfloat s = Size();
         ALfloat f = Frequency();
         ALfloat b = Bits() / 8.0f;

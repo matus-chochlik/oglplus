@@ -62,7 +62,7 @@ protected:
 template <>
 class ObjBindingOps<tag::VertexArray> {
 protected:
-    static GLuint _binding(void) {
+    static GLuint _binding() {
         GLint name = 0;
         OGLPLUS_GLFUNC(GetIntegerv)(GL_VERTEX_ARRAY_BINDING, &name);
         OGLPLUS_VERIFY(
@@ -77,7 +77,7 @@ public:
      *  @glsymbols
      *  @glfunref{GetIntegerv}
      */
-    static VertexArrayName Binding(void) {
+    static VertexArrayName Binding() {
         return VertexArrayName(_binding());
     }
 
@@ -118,7 +118,7 @@ public:
      *  @glsymbols
      *  @glfunref{BindVertexArray}
      */
-    void Bind(void) const {
+    void Bind() const {
         Bind(*this);
     }
 };

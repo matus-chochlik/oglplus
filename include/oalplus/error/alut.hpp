@@ -28,10 +28,10 @@ public:
 
     ErrorALUT(const ErrorALUT&) = default;
 
-    ~ErrorALUT(void) noexcept {
+    ~ErrorALUT() noexcept {
     }
 
-    ALUTErrorCode Code(void) const noexcept {
+    ALUTErrorCode Code() const noexcept {
         return ALUTErrorCode(_code);
     }
 };

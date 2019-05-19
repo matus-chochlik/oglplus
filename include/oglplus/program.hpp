@@ -81,7 +81,7 @@ struct ObjGenTag<tag::DirectState, tag::Program> {
 template <>
 class ObjBindingOps<tag::Program> {
 protected:
-    static GLuint _binding(void) {
+    static GLuint _binding() {
         GLint name = 0;
         OGLPLUS_GLFUNC(GetIntegerv)(GL_CURRENT_PROGRAM, &name);
         OGLPLUS_VERIFY(
@@ -96,7 +96,7 @@ public:
      *  @glsymbols
      *  @glfunref{GetIntegerv}
      */
-    static ProgramName Binding(void) {
+    static ProgramName Binding() {
         return ProgramName(_binding());
     }
 
@@ -141,7 +141,7 @@ public:
      *  @glsymbols
      *  @glfunref{UseProgram}
      */
-    void Bind(void) const {
+    void Bind() const {
         Bind(*this);
     }
 
@@ -154,7 +154,7 @@ public:
      *  @glsymbols
      *  @glfunref{UseProgram}
      */
-    void Use(void) const {
+    void Use() const {
         Bind(*this);
     }
 };
@@ -232,7 +232,7 @@ public:
      *  @glfunref{GetProgram}
      *  @gldefref{LINK_STATUS}
      */
-    Boolean IsLinked(void) const {
+    Boolean IsLinked() const {
         return Boolean(
           GetIntParam(ProgramParameter(GL_LINK_STATUS)), std::nothrow);
     }
@@ -246,7 +246,7 @@ public:
      *  @glfunref{GetProgram}
      *  @glfunref{GetProgramInfoLog}
      */
-    String GetInfoLog(void) const;
+    String GetInfoLog() const;
 
     /// Links this shading language program
     /**
@@ -259,7 +259,7 @@ public:
      *  @glfunref{GetProgram}
      *  @glfunref{GetProgramInfoLog}
      */
-    ObjectOps& Link(void);
+    ObjectOps& Link();
 
     Outcome<ObjectOps&> Link(std::nothrow_t);
 
@@ -278,7 +278,7 @@ public:
      *  @glfunref{GetProgram}
      *  @glfunref{GetProgramInfoLog}
      */
-    Outcome<ObjectOps&> Build(void);
+    Outcome<ObjectOps&> Build();
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_shading_language_include
 
@@ -321,7 +321,7 @@ public:
      *  @glfunref{GetProgram}
      *  @gldefref{VALIDATE_STATUS}
      */
-    Boolean IsValid(void) const {
+    Boolean IsValid() const {
         return Boolean(
           GetIntParam(ProgramParameter(GL_VALIDATE_STATUS)), std::nothrow);
     }
@@ -337,7 +337,7 @@ public:
      *  @glfunref{GetProgram}
      *  @glfunref{GetProgramInfoLog}
      */
-    ObjectOps& Validate(void);
+    ObjectOps& Validate();
 
     Outcome<ObjectOps&> Validate(std::nothrow_t);
 
@@ -388,16 +388,16 @@ public:
     class ActiveVariableInfo {
     public:
         /// Returns the index of the attribute or uniform
-        GLuint Index(void) const;
+        GLuint Index() const;
 
         /// Returns the name (identifier) of the attribute or uniform
-        const String& Name(void) const;
+        const String& Name() const;
 
         /// Returns the size in units of Type
-        const GLint Size(void) const;
+        const GLint Size() const;
 
         /// Returns the data type of the variable
-        const SLDataType Type(void) const;
+        const SLDataType Type() const;
     };
 
     /// Helper class for efficient iteration of Program interface items
@@ -505,7 +505,7 @@ public:
     /**
      *  @see ActiveAttribs
      */
-    InterfaceContext ActiveAttribContext(void) const;
+    InterfaceContext ActiveAttribContext() const;
 
     /// Returns a range allowing to do the traversal of active attributes
     /** This instance of Program must be kept alive during the whole
@@ -514,13 +514,13 @@ public:
      *
      *  @throws Error
      */
-    ActiveAttribRange ActiveAttribs(void) const;
+    ActiveAttribRange ActiveAttribs() const;
 
     /// Returns the context for traversal of Program's active uniforms
     /**
      *  @see ActiveUniforms
      */
-    InterfaceContext ActiveUniformContext(void) const;
+    InterfaceContext ActiveUniformContext() const;
 
     /// Returns a range allowing to do the traversal of active uniforms
     /** This instance of Program must be kept alive during the whole
@@ -529,7 +529,7 @@ public:
      *
      *  @throws Error
      */
-    ActiveUniformRange ActiveUniforms(void) const;
+    ActiveUniformRange ActiveUniforms() const;
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_shader_subroutine
 
@@ -573,7 +573,7 @@ public:
     /**
      *  @see TransformFeedbackVaryings
      */
-    InterfaceContext TransformFeedbackVaryingContext(void) const;
+    InterfaceContext TransformFeedbackVaryingContext() const;
 
     /// Returns a range allowing to do the traversal of feedback varyings
     /** This instance of Program must be kept alive during the whole
@@ -582,10 +582,10 @@ public:
      *
      *  @throws Error
      */
-    TransformFeedbackVaryingRange TransformFeedbackVaryings(void) const;
+    TransformFeedbackVaryingRange TransformFeedbackVaryings() const;
 
     /// Returns a range allowing to traverse shaders attached to this program
-    ShaderRange AttachedShaders(void) const;
+    ShaderRange AttachedShaders() const;
 
 #if OGLPLUS_DOCUMENTATION_ONLY
     /// Information about a active uniform block
@@ -596,10 +596,10 @@ public:
      */
     class ActiveUniformBlockInfo {
         /// Returns the index of the attribute or uniform
-        GLuint Index(void) const;
+        GLuint Index() const;
 
         /// Returns the name (identifier) of the named uniform block
-        const String& Name(void) const;
+        const String& Name() const;
 
         // TODO: active uniform indices, etc.
     };
@@ -620,7 +620,7 @@ public:
      *
      *  @throws Error
      */
-    ActiveUniformBlockRange ActiveUniformBlocks(void) const;
+    ActiveUniformBlockRange ActiveUniformBlocks() const;
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || \
   GL_ARB_separate_shader_objects
@@ -675,7 +675,7 @@ public:
      *  @glfunref{GetProgram}
      *  @gldefref{TRANSFORM_FEEDBACK_BUFFER_MODE}
      */
-    TransformFeedbackMode TransformFeedbackBufferMode(void) const {
+    TransformFeedbackMode TransformFeedbackBufferMode() const {
         return TransformFeedbackMode(
           GetIntParam(ProgramParameter(GL_TRANSFORM_FEEDBACK_BUFFER_MODE)));
     }
@@ -687,7 +687,7 @@ public:
      *  @glfunref{GetProgram}
      *  @gldefref{GEOMETRY_VERTICES_OUT}
      */
-    GLint GeometryVerticesOut(void) const {
+    GLint GeometryVerticesOut() const {
         return GetIntParam(ProgramParameter(GL_GEOMETRY_VERTICES_OUT));
     }
 #endif
@@ -701,7 +701,7 @@ public:
      *  @glfunref{GetProgram}
      *  @gldefref{GEOMETRY_SHADER_INVOCATIONS}
      */
-    GLint GeometryShaderInvocations(void) const {
+    GLint GeometryShaderInvocations() const {
         return GetIntParam(ProgramParameter(GL_GEOMETRY_SHADER_INVOCATIONS));
     }
 #endif // gpu shader 5
@@ -715,7 +715,7 @@ public:
      *  @glfunref{GetProgram}
      *  @gldefref{GEOMETRY_INPUT_TYPE}
      */
-    PrimitiveType GeometryInputType(void) const {
+    PrimitiveType GeometryInputType() const {
         return PrimitiveType(
           GetIntParam(ProgramParameter(GL_GEOMETRY_INPUT_TYPE)));
     }
@@ -727,7 +727,7 @@ public:
      *  @glfunref{GetProgram}
      *  @gldefref{GEOMETRY_OUTPUT_TYPE}
      */
-    PrimitiveType GeometryOutputType(void) const {
+    PrimitiveType GeometryOutputType() const {
         return PrimitiveType(
           GetIntParam(ProgramParameter(GL_GEOMETRY_OUTPUT_TYPE)));
     }
@@ -742,7 +742,7 @@ public:
      *  @glfunref{GetProgram}
      *  @gldefref{TESS_GEN_VERTEX_ORDER}
      */
-    FaceOrientation TessGenVertexOrder(void) const {
+    FaceOrientation TessGenVertexOrder() const {
         return FaceOrientation(
           GetIntParam(ProgramParameter(GL_TESS_GEN_VERTEX_ORDER)));
     }
@@ -754,7 +754,7 @@ public:
      *  @glfunref{GetProgram}
      *  @gldefref{TESS_GEN_MODE}
      */
-    TessGenPrimitiveType TessGenMode(void) const {
+    TessGenPrimitiveType TessGenMode() const {
         return TessGenPrimitiveType(
           GetIntParam(ProgramParameter(GL_TESS_GEN_MODE)));
     }
@@ -766,7 +766,7 @@ public:
      *  @glfunref{GetProgram}
      *  @gldefref{TESS_GEN_SPACING}
      */
-    TessGenPrimitiveSpacing TessGenSpacing(void) const {
+    TessGenPrimitiveSpacing TessGenSpacing() const {
         return TessGenPrimitiveSpacing(
           GetIntParam(ProgramParameter(GL_TESS_GEN_SPACING)));
     }
@@ -778,7 +778,7 @@ public:
      *  @glfunref{GetProgram}
      *  @gldefref{TESS_GEN_POINT_MODE}
      */
-    Boolean TessGenPointMode(void) const {
+    Boolean TessGenPointMode() const {
         return Boolean(
           GetIntParam(ProgramParameter(GL_TESS_GEN_POINT_MODE)), std::nothrow);
     }
@@ -884,7 +884,7 @@ struct ProgXFBModeAndNames {
 
     ProgXFBModeAndNames(const ProgXFBModeAndNames&) = delete;
 
-    ~ProgXFBModeAndNames(void) {
+    ~ProgXFBModeAndNames() {
         if(!names.empty()) {
             prog.TransformFeedbackVaryings(names.size(), names.data(), mode);
         }
@@ -920,7 +920,7 @@ private:
         return _make(shader_type, source.Count(), source.Parts());
     }
 
-    void _check(void);
+    void _check();
 
 public:
     /// Creates a program with a single shader with specified type and source

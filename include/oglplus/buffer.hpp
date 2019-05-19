@@ -321,7 +321,7 @@ public:
      *
      *  @glvoereq{4,3,ARB,invalidate_subdata}
      */
-    void InvalidateData(void) {
+    void InvalidateData() {
         OGLPLUS_GLFUNC(InvalidateBufferData)(_obj_name());
         OGLPLUS_CHECK(InvalidateBufferData, ObjectError, Object(*this));
     }
@@ -668,7 +668,7 @@ public:
      *  @glfunref{Get}
      *  @gldefref{SPARSE_BUFFER_PAGE_SIZE_ARB}
      */
-    static SizeType PageSize(void) {
+    static SizeType PageSize() {
         GLint value = 0;
         OGLPLUS_GLFUNC(GetIntegerv)(GL_SPARSE_BUFFER_PAGE_SIZE_ARB, &value);
         OGLPLUS_VERIFY_SIMPLE(GetIntegerv);

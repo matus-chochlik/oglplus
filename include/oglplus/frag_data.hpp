@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,12 +13,12 @@
 #ifndef OGLPLUS_FRAG_DATA_1107121519_HPP
 #define OGLPLUS_FRAG_DATA_1107121519_HPP
 
-#include <oglplus/glfunc.hpp>
-#include <oglplus/string/ref.hpp>
 #include <oglplus/error/prog_var.hpp>
+#include <oglplus/frag_data_slot.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/prog_var/location.hpp>
 #include <oglplus/prog_var/wrapper.hpp>
-#include <oglplus/frag_data_slot.hpp>
+#include <oglplus/string/ref.hpp>
 
 #include <cassert>
 
@@ -27,94 +27,69 @@
 namespace oglplus {
 
 template <>
-class ProgVarLocOps<tag::FragData>
-{
+class ProgVarLocOps<tag::FragData> {
 private:
-	static const char* MsgGettingInactive(void);
-protected:
-	static const char* MsgUsingInactive(void);
-public:
-	/// Bind the fragment data location
-	/**
-	 *  @see GetLocation
-	 *  @see QueryLocation
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindFragDataLocation}
-	 */
-	static void BindLocation(
-		ProgramName program,
-		FragDataSlot location,
-		StrCRef identifier
-	)
-	{
-		OGLPLUS_GLFUNC(BindFragDataLocation)(
-			GetGLName(program),
-			GLuint(location),
-			identifier.c_str()
-		);
-		OGLPLUS_CHECK(
-			BindFragDataLocation,
-			ProgVarError,
-			Program(program).
-			Identifier(identifier).
-			Index(GLuint(location))
-		);
-	}
+    static const char* MsgGettingInactive();
 
-	/// Finds the fragment data location, throws on failure if active_only
-	/** Finds the location / index of the fragment data specified
-	 *  by @p identifier in a @p program. If active_only is true then
-	 *  throws if no such fragment data output exists or if it is not active.
-	 *
-	 *  @glsymbols
-	 *  @glfunref{GetFragDataLocation}
-	 */
-	static GLint GetLocation(
-		ProgramName program,
-		StrCRef identifier,
-		bool active_only
-	)
-	{
-		GLint result = OGLPLUS_GLFUNC(GetFragDataLocation)(
-			GetGLName(program),
-			identifier.c_str()
-		);
-		OGLPLUS_CHECK(
-			GetFragDataLocation,
-			ProgVarError,
-			Program(program).
-			Identifier(identifier)
-		);
-		OGLPLUS_HANDLE_ERROR_IF(
-			active_only && (result < 0),
-			GL_INVALID_OPERATION,
-			MsgGettingInactive(),
-			ProgVarError,
-			Program(program).
-			Identifier(identifier)
-		);
-		return result;
-	}
+protected:
+    static const char* MsgUsingInactive();
+
+public:
+    /// Bind the fragment data location
+    /**
+     *  @see GetLocation
+     *  @see QueryLocation
+     *
+     *  @glsymbols
+     *  @glfunref{BindFragDataLocation}
+     */
+    static void BindLocation(
+      ProgramName program, FragDataSlot location, StrCRef identifier) {
+        OGLPLUS_GLFUNC(BindFragDataLocation)
+        (GetGLName(program), GLuint(location), identifier.c_str());
+        OGLPLUS_CHECK(
+          BindFragDataLocation,
+          ProgVarError,
+          Program(program).Identifier(identifier).Index(GLuint(location)));
+    }
+
+    /// Finds the fragment data location, throws on failure if active_only
+    /** Finds the location / index of the fragment data specified
+     *  by @p identifier in a @p program. If active_only is true then
+     *  throws if no such fragment data output exists or if it is not active.
+     *
+     *  @glsymbols
+     *  @glfunref{GetFragDataLocation}
+     */
+    static GLint GetLocation(
+      ProgramName program, StrCRef identifier, bool active_only) {
+        GLint result = OGLPLUS_GLFUNC(GetFragDataLocation)(
+          GetGLName(program), identifier.c_str());
+        OGLPLUS_CHECK(
+          GetFragDataLocation,
+          ProgVarError,
+          Program(program).Identifier(identifier));
+        OGLPLUS_HANDLE_ERROR_IF(
+          active_only && (result < 0),
+          GL_INVALID_OPERATION,
+          MsgGettingInactive(),
+          ProgVarError,
+          Program(program).Identifier(identifier));
+        return result;
+    }
 };
 
 template <>
-class ProgVarCommonOps<tag::FragData>
- : public ProgVarLoc<tag::FragData>
-{
+class ProgVarCommonOps<tag::FragData> : public ProgVarLoc<tag::FragData> {
 protected:
-	ProgVarCommonOps(FragDataLoc fdloc)
-	 : ProgVarLoc<tag::FragData>(fdloc)
-	{ }
+    ProgVarCommonOps(FragDataLoc fdloc)
+      : ProgVarLoc<tag::FragData>(fdloc) {
+    }
+
 public:
-	void Bind(StrCRef identifier)
-	{
-		BindLocation(
-			this->Program(),
-			this->_location,
-			identifier
-		);
-	}
+    void Bind(StrCRef identifier) {
+        BindLocation(this->Program(), this->_location, identifier);
+    }
 };
 
 /// Encapsulates frag data operations
@@ -123,12 +98,8 @@ public:
  *
  *  @ingroup shader_variables
  */
-typedef ProgVar<
-	tag::ImplicitSel,
-	tag::FragData,
-	tag::NoTypecheck,
-	void
-> FragData;
+typedef ProgVar<tag::ImplicitSel, tag::FragData, tag::NoTypecheck, void>
+  FragData;
 
 typedef FragData FragmentData;
 

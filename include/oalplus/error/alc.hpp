@@ -34,10 +34,10 @@ public:
 
     ErrorALC(const ErrorALC&) = default;
 
-    ~ErrorALC(void) noexcept {
+    ~ErrorALC() noexcept {
     }
 
-    ALCErrorCode Code(void) const noexcept {
+    ALCErrorCode Code() const noexcept {
         return ALCErrorCode(_code);
     }
 
@@ -46,7 +46,7 @@ public:
         return *this;
     }
 
-    const ::ALCdevice* Device(void) const {
+    const ::ALCdevice* Device() const {
         return _device;
     }
 };

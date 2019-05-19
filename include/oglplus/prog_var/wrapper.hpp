@@ -42,13 +42,13 @@ private:
     typedef ProgVarGetSetOps<OpsTag, VarTag, BaseType> BaseGetSetOps;
     typedef ProgVarTypecheck<ChkTag, VarTag> Typecheck;
 
-    static inline BaseType* _no_tc(void) {
+    static inline BaseType* _no_tc() {
         return nullptr;
     }
 
 public:
     /// Default construction
-    ProgVar(void)
+    ProgVar()
       : BaseGetSetOps(ProgVarLoc<VarTag>())
       , Typecheck(_no_tc()) {
     }
@@ -164,7 +164,7 @@ private:
 
 public:
     /// Default construction
-    ProgVar(void)
+    ProgVar()
       : BaseOps(ProgVarLoc<VarTag>()) {
     }
 

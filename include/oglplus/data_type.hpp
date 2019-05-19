@@ -60,8 +60,8 @@ struct DataTypeCT<GLdouble>
 
 /// Returns the DataType for the specified type @p T
 template <typename T>
-inline DataType GetDataType(void) noexcept {
-	return DataType(DataTypeCT<T>::value);
+inline DataType GetDataType() noexcept {
+    return DataType(DataTypeCT<T>::value);
 }
 
 namespace aux {
@@ -73,7 +73,7 @@ std::false_type _get_is_gl_data_type(...);
 
 template <typename T>
 struct _is_gl_data_type {
-	typedef decltype(_get_is_gl_data_type(&TypeTag<T>())) type;
+    typedef decltype(_get_is_gl_data_type(&TypeTag<T>())) type;
 };
 
 } // namespace aux

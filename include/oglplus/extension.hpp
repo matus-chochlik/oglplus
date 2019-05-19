@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -26,33 +26,27 @@ namespace oglplus {
 void RequireExtension(const GLchar* name, bool available);
 
 #if OGLPLUS_USE_GLEW
-#define OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION) (\
-	(GL_ ## VENDOR ## _ ## EXTENSION == GL_TRUE) ||\
-	(GLEW_ ## VENDOR ## _ ## EXTENSION == GL_TRUE) \
-)
+#define OGLPLUS_EXTENSION_AVAILABLE(VENDOR, EXTENSION) \
+    ((GL_##VENDOR##_##EXTENSION == GL_TRUE) ||         \
+     (GLEW_##VENDOR##_##EXTENSION == GL_TRUE))
 #else
 bool HasExtension(const GLchar* name);
-#define OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION) (\
-	HasExtension("GL_" #VENDOR "_" #EXTENSION) \
-)
+#define OGLPLUS_EXTENSION_AVAILABLE(VENDOR, EXTENSION) \
+    (HasExtension("GL_" #VENDOR "_" #EXTENSION))
 #endif
 
 #define OGLPLUS_REQUIRE_EXTENSION(VENDOR, EXTENSION) \
-	::oglplus::RequireExtension( \
-		#VENDOR "_" #EXTENSION, \
-		OGLPLUS_EXTENSION_AVAILABLE(VENDOR, EXTENSION) \
-	)
+    ::oglplus::RequireExtension(                     \
+      #VENDOR "_" #EXTENSION, OGLPLUS_EXTENSION_AVAILABLE(VENDOR, EXTENSION))
 
-#define OGLPLUS_EXTENSION_CLASS(VENDOR, EXTENSION) \
-	VENDOR ## _ ## EXTENSION(bool throw_if_unavailable = true) \
-	{ \
-		if(throw_if_unavailable) \
-			OGLPLUS_REQUIRE_EXTENSION(VENDOR, EXTENSION); \
-	} \
-	static bool Available(void) \
-	{ \
-		return OGLPLUS_EXTENSION_AVAILABLE(VENDOR, EXTENSION); \
-	}
+#define OGLPLUS_EXTENSION_CLASS(VENDOR, EXTENSION)             \
+    VENDOR##_##EXTENSION(bool throw_if_unavailable = true) {   \
+        if(throw_if_unavailable)                               \
+            OGLPLUS_REQUIRE_EXTENSION(VENDOR, EXTENSION);      \
+    }                                                          \
+    static bool Available() {                                  \
+        return OGLPLUS_EXTENSION_AVAILABLE(VENDOR, EXTENSION); \
+    }
 
 /// Allows to check is the specified extension is available
 /**
@@ -69,8 +63,8 @@ bool HasExtension(const GLchar* name);
  *  @endcode
  *  @ingroup gl_extensions
  */
-#define OGLPLUS_HAS_GL_EXT(VENDOR,EXTENSION) \
-	OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION)
+#define OGLPLUS_HAS_GL_EXT(VENDOR, EXTENSION) \
+    OGLPLUS_EXTENSION_AVAILABLE(VENDOR, EXTENSION)
 
 } // namespace oglplus
 

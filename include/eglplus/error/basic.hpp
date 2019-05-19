@@ -67,10 +67,10 @@ public:
     Error(const Error&) = default;
     Error(Error&&) = default;
 
-    ~Error(void) noexcept {
+    ~Error() noexcept {
     }
 
-    Error& NoInfo(void) {
+    Error& NoInfo() {
         return *this;
     }
 
@@ -80,7 +80,7 @@ public:
     }
 
     /// Returns the EGL error code related to the error
-    EGLenum Code(void) const {
+    EGLenum Code() const {
         return _code;
     }
 
@@ -88,7 +88,7 @@ public:
 #if !EGLPLUS_ERROR_NO_FILE
         _file = file;
 #endif
-        (void)file;
+        EGLPLUS_FAKE_USE(file);
         return *this;
     }
 
@@ -99,13 +99,13 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns nullptr.
      */
-    const char* SourceFile(void) const;
+    const char* SourceFile() const;
 
     Error& SourceFunc(const char* func) {
 #if !EGLPLUS_ERROR_NO_FUNC
         _func = func;
 #endif
-        (void)func;
+        EGLPLUS_FAKE_USE(func);
         return *this;
     }
 
@@ -116,13 +116,13 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns nullptr.
      */
-    const char* SourceFunc(void) const;
+    const char* SourceFunc() const;
 
     Error& SourceLine(unsigned line) {
 #if !EGLPLUS_ERROR_NO_LINE
         _line = line;
 #endif
-        (void)line;
+        EGLPLUS_FAKE_USE(line);
         return *this;
     }
 
@@ -133,13 +133,13 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns zero.
      */
-    unsigned SourceLine(void) const;
+    unsigned SourceLine() const;
 
     Error& EGLFunc(const char* func_name) {
 #if !EGLPLUS_ERROR_NO_EGL_FUNC
         _eglfunc_name = func_name;
 #endif
-        (void)func_name;
+        EGLPLUS_FAKE_USE(func_name);
         return *this;
     }
 
@@ -152,7 +152,7 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns nullptr.
      */
-    const char* EGLFunc(void) const;
+    const char* EGLFunc() const;
 
     template <typename Enum_>
     Error& EnumParam(Enum_ param) {
@@ -160,7 +160,7 @@ public:
         _enumpar = EGLenum(param);
         _enumpar_name = EnumValueName(param).c_str();
 #endif
-        (void)param;
+        EGLPLUS_FAKE_USE(param);
         return *this;
     }
 
@@ -169,8 +169,8 @@ public:
         _enumpar = param;
         _enumpar_name = param_name;
 #endif
-        (void)param;
-        (void)param_name;
+        EGLPLUS_FAKE_USE(param);
+        EGLPLUS_FAKE_USE(param_name);
         return *this;
     }
 
@@ -183,7 +183,7 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns zero.
      */
-    EGLenum EnumParam(void) const;
+    EGLenum EnumParam() const;
 
     /// Returns the name of the enumeration parameter related to the error
     /** This function returns the name of the main enumeration
@@ -194,7 +194,7 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns nullptr.
      */
-    const char* EnumParamName(void) const;
+    const char* EnumParamName() const;
 };
 
 /// Generic error handling function
@@ -206,10 +206,10 @@ inline void HandleError(ErrorType& error) {
 #define EGLPLUS_HANDLE_ERROR(ERROR_CODE, MESSAGE, ERROR, ERROR_INFO) \
     {                                                                \
         ERROR error(MESSAGE);                                        \
-        (void)error.ERROR_INFO.SourceFile(__FILE__)                  \
-          .SourceFunc(__FUNCTION__)                                  \
-          .SourceLine(__LINE__)                                      \
-          .Code(error_code);                                         \
+        EGLPLUS_FAKE_USE(error.ERROR_INFO.SourceFile(__FILE__)       \
+                           .SourceFunc(__FUNCTION__)                 \
+                           .SourceLine(__LINE__)                     \
+                           .Code(error_code));                       \
         HandleError(error);                                          \
     }
 
@@ -218,8 +218,9 @@ inline void HandleError(ErrorType& error) {
   CONDITION, ERROR_CODE, MESSAGE, ERROR, ERROR_INFO)                     \
     {                                                                    \
         EGLenum error_code = ERROR_CODE;                                 \
-        if(CONDITION)                                                    \
+        if(CONDITION) {                                                  \
             EGLPLUS_HANDLE_ERROR(error_code, MESSAGE, ERROR, ERROR_INFO) \
+        }                                                                \
     }
 
 #define EGLPLUS_GLFUNC_CHECK(FUNC_NAME, ERROR, ERROR_INFO) \

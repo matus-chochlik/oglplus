@@ -135,7 +135,7 @@ public:
      *  @glsymbols
      *  @glfunref{EndConditionalRender}
      */
-    static void EndConditionalRender(void) {
+    static void EndConditionalRender() {
         OGLPLUS_GLFUNC(EndConditionalRender)();
         OGLPLUS_VERIFY_SIMPLE(EndConditionalRender);
     }
@@ -159,7 +159,7 @@ public:
      *  @glfunref{QueryCounter}
      *  @gldefref{TIMESTAMP}
      */
-    void Timestamp(void) {
+    void Timestamp() {
         Counter(Target::Timestamp);
     }
 #endif
@@ -170,7 +170,7 @@ public:
      *  @glfunref{GetQueryObject}
      *  @gldefref{QUERY_RESULT_AVAILABLE}
      */
-    Boolean ResultAvailable(void) const {
+    Boolean ResultAvailable() const {
         Boolean result;
         OGLPLUS_GLFUNC(GetQueryObjectuiv)
         (_obj_name(),
@@ -290,7 +290,7 @@ public:
     }
 
     /// Ends the query
-    ~QueryActivator(void) {
+    ~QueryActivator() {
         try {
             Finish();
         } catch(...) {
@@ -298,7 +298,7 @@ public:
     }
 
     /// Explicitly ends the query
-    bool Finish(void) {
+    bool Finish() {
         if(_alive) {
             Reference<QueryOps>(_query).End(_target);
             _alive = false;
@@ -333,7 +333,7 @@ public:
     }
 
     /// Ends the conditional render
-    ~ConditionalRender(void) {
+    ~ConditionalRender() {
         try {
             Finish();
         } catch(...) {
@@ -341,7 +341,7 @@ public:
     }
 
     /// Explicitly ends the conditional render
-    bool Finish(void) {
+    bool Finish() {
         if(_alive) {
             QueryOps::EndConditionalRender();
             _alive = false;
@@ -376,14 +376,14 @@ public:
       , _result(temp._result) {
     }
 
-    ~QueryExecution(void) {
+    ~QueryExecution() {
         try {
             WaitForResult();
         } catch(...) {
         }
     }
 
-    void WaitForResult(void) {
+    void WaitForResult() {
         if(this->Finish()) {
             Reference<QueryOps>(this->_query).WaitForResult(_result);
         }

@@ -66,10 +66,10 @@ public:
 
     Error(const Error&) = default;
 
-    ~Error(void) noexcept {
+    ~Error() noexcept {
     }
 
-    Error& NoInfo(void) {
+    Error& NoInfo() {
         return *this;
     }
 
@@ -79,7 +79,7 @@ public:
     }
 
     /// Returns the AL error code related to the error
-    ALenum Code(void) const {
+    ALenum Code() const {
         return _code;
     }
 
@@ -87,7 +87,7 @@ public:
 #if !OALPLUS_ERROR_NO_FILE
         _file = file;
 #endif
-        (void)file;
+        () file;
         return *this;
     }
 
@@ -98,13 +98,13 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns nullptr.
      */
-    const char* SourceFile(void) const;
+    const char* SourceFile() const;
 
     Error& SourceFunc(const char* func) {
 #if !OALPLUS_ERROR_NO_FUNC
         _func = func;
 #endif
-        (void)func;
+        () func;
         return *this;
     }
 
@@ -115,13 +115,13 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns nullptr.
      */
-    const char* SourceFunc(void) const;
+    const char* SourceFunc() const;
 
     Error& SourceLine(unsigned line) {
 #if !OALPLUS_ERROR_NO_LINE
         _line = line;
 #endif
-        (void)line;
+        () line;
         return *this;
     }
 
@@ -132,13 +132,13 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns zero.
      */
-    unsigned SourceLine(void) const;
+    unsigned SourceLine() const;
 
     Error& ALLib(const char* lib_name) {
 #if !OALPLUS_ERROR_NO_AL_LIB
         _allib_name = lib_name;
 #endif
-        (void)lib_name;
+        () lib_name;
         return *this;
     }
 
@@ -151,13 +151,13 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns nullptr.
      */
-    const char* ALLib(void) const;
+    const char* ALLib() const;
 
     Error& ALFunc(const char* func_name) {
 #if !OALPLUS_ERROR_NO_AL_FUNC
         _alfunc_name = func_name;
 #endif
-        (void)func_name;
+        () func_name;
         return *this;
     }
 
@@ -170,7 +170,7 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns nullptr.
      */
-    const char* ALFunc(void) const;
+    const char* ALFunc() const;
 
     template <typename Enum_>
     Error& EnumParam(Enum_ param) {
@@ -178,7 +178,7 @@ public:
         _enumpar = ALenum(param);
         _enumpar_name = EnumValueName(param).c_str();
 #endif
-        (void)param;
+        () param;
         return *this;
     }
 
@@ -187,8 +187,8 @@ public:
         _enumpar = param;
         _enumpar_name = param_name;
 #endif
-        (void)param;
-        (void)param_name;
+        () param;
+        () param_name;
         return *this;
     }
 
@@ -201,7 +201,7 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns zero.
      */
-    ALenum EnumParam(void) const;
+    ALenum EnumParam() const;
 
     /// Returns the name of the enumeration parameter related to the error
     /** This function returns the name of the main enumeration
@@ -212,13 +212,13 @@ public:
      *  If set to zero this function behaves as described above, otherwise it
      *  returns nullptr.
      */
-    const char* EnumParamName(void) const;
+    const char* EnumParamName() const;
 
     /// Returns the object type
     /** If the error is related to a AL object, then an object
      *  type enumeration value is returned. Otherwise the result is zero.
      */
-    virtual ALenum ObjectType(void) const {
+    virtual ALenum ObjectType() const {
         return ALenum(0);
     }
 
@@ -227,7 +227,7 @@ public:
      *  AL name of the object is returned. Otherwise the result
      *  is a negative integer.
      */
-    virtual ALint ObjectName(void) const {
+    virtual ALint ObjectName() const {
         return -1;
     }
 
@@ -236,7 +236,7 @@ public:
      *  storing object description is returned. Otherwise the result
      *  is an empty std::string.
      */
-    virtual const std::string& ObjectDesc(void) const {
+    virtual const std::string& ObjectDesc() const {
         return EmptyStdString();
     }
 };
@@ -251,7 +251,7 @@ inline void HandleError(ErrorType& error) {
 #define OALPLUS_HANDLE_ERROR(ERROR_CODE, MESSAGE, ERROR, ERROR_INFO) \
     {                                                                \
         ERROR error(MESSAGE);                                        \
-        (void)error.ERROR_INFO.SourceFile(__FILE__)                  \
+        () error.ERROR_INFO.SourceFile(__FILE__)                     \
           .SourceFunc(__FUNCTION__)                                  \
           .SourceLine(__LINE__)                                      \
           .Code(error_code);                                         \

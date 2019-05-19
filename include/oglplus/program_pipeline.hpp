@@ -73,7 +73,7 @@ protected:
 template <>
 class ObjBindingOps<tag::ProgramPipeline> {
 protected:
-    static GLuint _binding(void) {
+    static GLuint _binding() {
         GLint name = 0;
         OGLPLUS_GLFUNC(GetIntegerv)(GL_PROGRAM_PIPELINE_BINDING, &name);
         OGLPLUS_VERIFY(
@@ -90,7 +90,7 @@ public:
      *  @glsymbols
      *  @glfunref{GetIntegerv}
      */
-    static ProgramPipelineName Binding(void) {
+    static ProgramPipelineName Binding() {
         return ProgramPipelineName(_binding());
     }
 
@@ -131,7 +131,7 @@ public:
      *  @glsymbols
      *  @glfunref{BindProgramPipeline}
      */
-    void Bind(void) const {
+    void Bind() const {
         Bind(*this);
     }
 };
@@ -232,7 +232,7 @@ public:
      *  @glfunref{GetProgramPipeline}
      *  @glfunref{GetProgramPipelineInfoLog}
      */
-    String GetInfoLog(void) const;
+    String GetInfoLog() const;
 
     /// Returns true if the pipeline is validated, false otherwise
     /**
@@ -241,7 +241,7 @@ public:
      *  @glsymbols
      *  @glfunref{GetProgramPipeline}
      */
-    Boolean IsValid(void) const {
+    Boolean IsValid() const {
         return Boolean(GetIntParam(GL_VALIDATE_STATUS), std::nothrow);
     }
 
@@ -253,7 +253,7 @@ public:
      *  @glsymbols
      *  @glfunref{ValidateProgramPipeline}
      */
-    ObjectOps& Validate(void);
+    ObjectOps& Validate();
 
     Outcome<ObjectOps&> Validate(std::nothrow_t);
 
@@ -273,7 +273,7 @@ public:
      *  @glfunref{GetProgramPipeline}
      *  @gldefref{ACTIVE_PROGRAM}
      */
-    ProgramName ActiveShaderProgram(void) const {
+    ProgramName ActiveShaderProgram() const {
         return ProgramName(GetUIntParam(GL_ACTIVE_PROGRAM));
     }
 

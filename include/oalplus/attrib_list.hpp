@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -26,20 +26,26 @@ using oglplus::FinishedAttributeList;
 /// Reused FinishedAttributeList from OGLplus
 using oglplus::AttributeList;
 
-struct AttributeListTraits
-{
-	typedef ALint Int;
+struct AttributeListTraits {
+    typedef ALint Int;
 
-	template <typename Enum>
-	struct EnumBaseType
-	{
-		typedef typename oalplus::enums::EnumBaseType<Enum>::Type Type;
-	};
+    template <typename Enum>
+    struct EnumBaseType {
+        typedef typename oalplus::enums::EnumBaseType<Enum>::Type Type;
+    };
 
-	static ALint ListEnd(void) { return 0; }
-	static ALint TrueValue(void) { return AL_TRUE; }
-	static ALint FalseValue(void) { return AL_FALSE; }
-	static ALint DontCare(void) { return 0; }
+    static ALint ListEnd() {
+        return 0;
+    }
+    static ALint TrueValue() {
+        return AL_TRUE;
+    }
+    static ALint FalseValue() {
+        return AL_FALSE;
+    }
+    static ALint DontCare() {
+        return 0;
+    }
 };
 
 } // namespace oalplus

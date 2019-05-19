@@ -20,34 +20,35 @@ namespace oalplus {
 
 class ErrorAL : public Error {
 public:
-	static const char* Message(ALenum error_code) {
-		return ::alGetString(error_code);
-	}
+    static const char* Message(ALenum error_code) {
+        return ::alGetString(error_code);
+    }
 
-	ErrorAL(const char* message)
-	  : Error(message) {
-	}
+    ErrorAL(const char* message)
+      : Error(message) {
+    }
 
-	ALErrorCode Code(void) const noexcept {
-		return ALErrorCode(_code);
-	}
+    ALErrorCode Code() const noexcept {
+        return ALErrorCode(_code);
+    }
 };
 
 #define OALPLUS_ALFUNC_CHECK(FUNC_NAME, ERROR, ERROR_INFO) \
-	OALPLUS_HANDLE_ERROR_IF(error_code != AL_NO_ERROR,     \
-	  alGetError(),                                        \
-	  ERROR::Message(error_code),                          \
-	  ERROR,                                               \
-	  ERROR_INFO.ALFunc(FUNC_NAME))
+    OALPLUS_HANDLE_ERROR_IF(                               \
+      error_code != AL_NO_ERROR,                           \
+      alGetError(),                                        \
+      ERROR::Message(error_code),                          \
+      ERROR,                                               \
+      ERROR_INFO.ALFunc(FUNC_NAME))
 
 #define OALPLUS_CHECK(ALFUNC, ERROR, ERROR_INFO) \
-	OALPLUS_ALFUNC_CHECK(#ALFUNC, ERROR, ERROR_INFO)
+    OALPLUS_ALFUNC_CHECK(#ALFUNC, ERROR, ERROR_INFO)
 
 #define OALPLUS_CHECK_SIMPLE(ALFUNC) OALPLUS_CHECK(ALFUNC, ErrorAL, NoInfo())
 
 #if !OALPLUS_LOW_PROFILE
 #define OALPLUS_VERIFY(ALFUNC, ERROR, ERROR_INFO) \
-	OALPLUS_CHECK(ALFUNC, ERROR, ERROR_INFO)
+    OALPLUS_CHECK(ALFUNC, ERROR, ERROR_INFO)
 #else
 #define OALPLUS_VERIFY(ALFUNC, ERROR, ERROR_INFO)
 #endif

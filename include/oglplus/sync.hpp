@@ -79,7 +79,7 @@ public:
         temp._sync = 0;
     }
 
-    ~Sync(void) {
+    ~Sync() {
         if(_sync != 0)
             OGLPLUS_GLFUNC(DeleteSync)(_sync);
     }
@@ -91,7 +91,7 @@ public:
      *  @gldefref{SYNC_STATUS}
      *  @gldefref{SIGNALED}
      */
-    bool Signaled(void) const {
+    bool Signaled() const {
         GLint result = 0;
         OGLPLUS_GLFUNC(GetSynciv)(_sync, GL_SYNC_STATUS, 1, nullptr, &result);
         return result == GL_SIGNALED;
@@ -103,7 +103,7 @@ public:
      *  @glfunref{GetSync}
      *  @gldefref{OBJECT_TYPE}
      */
-    SyncType Type(void) const {
+    SyncType Type() const {
         GLint result = 0;
         OGLPLUS_GLFUNC(GetSynciv)(_sync, GL_OBJECT_TYPE, 1, nullptr, &result);
         return SyncType(result);
@@ -115,7 +115,7 @@ public:
      *  @glfunref{GetSync}
      *  @gldefref{SYNC_CONDITION}
      */
-    SyncCondition Condition(void) const {
+    SyncCondition Condition() const {
         GLint result = 0;
         OGLPLUS_GLFUNC(GetSynciv)
         (_sync, GL_SYNC_CONDITION, 1, nullptr, &result);
@@ -128,7 +128,7 @@ public:
      *  @glfunref{GetSync}
      *  @gldefref{SYNC_STATUS}
      */
-    SyncStatus Status(void) const {
+    SyncStatus Status() const {
         GLint result = 0;
         OGLPLUS_GLFUNC(GetSynciv)(_sync, GL_SYNC_STATUS, 1, nullptr, &result);
         return SyncStatus(result);

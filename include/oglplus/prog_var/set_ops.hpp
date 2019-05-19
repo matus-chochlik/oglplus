@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -41,7 +41,7 @@ private:
     typedef std::true_type _set_cont;
 
     template <std::size_t N>
-    static std::integral_constant<bool, (N > 4)> _set_mode(void) {
+    static std::integral_constant<bool, (N > 4)> _set_mode() {
         return std::integral_constant<bool, (N > 4)>();
     }
 

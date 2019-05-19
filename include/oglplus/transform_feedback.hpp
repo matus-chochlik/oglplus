@@ -137,7 +137,7 @@ public:
         tmp._active = false;
     }
 
-    void Finish(void) {
+    void Finish() {
         if(_active) {
             OGLPLUS_GLFUNC(EndTransformFeedback)();
             OGLPLUS_VERIFY_SIMPLE(EndTransformFeedback);
@@ -150,7 +150,7 @@ public:
      *  @glsymbols
      *  @glfunref{EndTransformFeedback}
      */
-    ~TransformFeedbackActivator(void) {
+    ~TransformFeedbackActivator() {
         try {
             Finish();
         } catch(...) {
@@ -180,7 +180,7 @@ public:
      *  @glsymbols
      *  @glfunref{PauseTransformFeedback}
      */
-    TransformFeedbackPauser(void)
+    TransformFeedbackPauser()
       : _paused(true) {
         OGLPLUS_GLFUNC(PauseTransformFeedback)();
         OGLPLUS_VERIFY_SIMPLE(PauseTransformFeedback);
@@ -198,7 +198,7 @@ public:
      *  @glsymbols
      *  @glfunref{ResumeTransformFeedback}
      */
-    void Resume(void) {
+    void Resume() {
         if(_paused) {
             OGLPLUS_GLFUNC(ResumeTransformFeedback)();
             OGLPLUS_VERIFY_SIMPLE(ResumeTransformFeedback);
@@ -211,7 +211,7 @@ public:
      *  @glsymbols
      *  @glfunref{ResumeTransformFeedback}
      */
-    ~TransformFeedbackPauser(void) {
+    ~TransformFeedbackPauser() {
         try {
             Resume();
         } catch(...) {
@@ -269,17 +269,17 @@ public:
     }
 
     /// Begin the transform feedback mode with POINTS
-    static void BeginPoints(void) {
+    static void BeginPoints() {
         Begin(TransformFeedbackPrimitiveType::Points);
     }
 
     /// Begin the transform feedback mode with LINES
-    static void BeginLines(void) {
+    static void BeginLines() {
         Begin(TransformFeedbackPrimitiveType::Lines);
     }
 
     /// Begin the transform feedback mode with TRIANGLES
-    static void BeginTriangles(void) {
+    static void BeginTriangles() {
         Begin(TransformFeedbackPrimitiveType::Triangles);
     }
 
@@ -293,7 +293,7 @@ public:
      *  @glsymbols
      *  @glfunref{EndTransformFeedback}
      */
-    static void End(void) {
+    static void End() {
         OGLPLUS_GLFUNC(EndTransformFeedback)();
         OGLPLUS_VERIFY_SIMPLE(EndTransformFeedback);
     }
@@ -308,7 +308,7 @@ public:
      *  @glsymbols
      *  @glfunref{PauseTransformFeedback}
      */
-    static void Pause(void) {
+    static void Pause() {
         OGLPLUS_GLFUNC(PauseTransformFeedback)();
         OGLPLUS_VERIFY_SIMPLE(PauseTransformFeedback);
     }
@@ -323,7 +323,7 @@ public:
      *  @glsymbols
      *  @glfunref{ResumeTransformFeedback}
      */
-    static void Resume(void) {
+    static void Resume() {
         OGLPLUS_GLFUNC(ResumeTransformFeedback)();
         OGLPLUS_VERIFY_SIMPLE(ResumeTransformFeedback);
     }

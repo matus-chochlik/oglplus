@@ -57,7 +57,7 @@ template <typename Common, typename Variants>
 class OneOf {
 public:
     /// OneOf is convertible to the Common representation of the Variants
-    operator Common(void) const;
+    operator Common() const;
 };
 #else
 template <typename Common, typename TypeList>
@@ -95,7 +95,7 @@ public:
       : _value(Common(V2(value))) {
     }
 
-    explicit operator Common(void) const noexcept {
+    explicit operator Common() const noexcept {
         return _value;
     }
 };
@@ -143,7 +143,7 @@ public:
       : _value(Common(V3(value))) {
     }
 
-    explicit operator Common(void) const noexcept {
+    explicit operator Common() const noexcept {
         return _value;
     }
 };
@@ -164,7 +164,7 @@ private:
     static void _do_find_one_of(std::false_type);
 
     template <typename T, typename V, typename... Vi>
-    static auto _find_one_of(void)
+    static auto _find_one_of()
       -> decltype(_do_find_one_of<T, V, Vi...>(std::is_convertible<T, V>()));
 
     template <typename T, typename V, typename V1, typename... Vi>
@@ -189,7 +189,7 @@ public:
       : _value(aux::OneOfBase<Common, typename find<T>::type>::Accept(value)) {
     }
 
-    explicit operator Common(void) const noexcept {
+    explicit operator Common() const noexcept {
         return _value;
     }
 };

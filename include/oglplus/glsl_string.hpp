@@ -67,15 +67,15 @@ public:
       , _len(GLint(a.size())) {
     }
 
-    SizeType Count(void) const noexcept {
+    SizeType Count() const noexcept {
         return 1;
     }
 
-    const GLchar* const* Parts(void) const noexcept {
+    const GLchar* const* Parts() const noexcept {
         return &_str;
     }
 
-    GLint const* Lengths(void) const noexcept {
+    GLint const* Lengths() const noexcept {
         return (_len < 0) ? (nullptr) : (&_len);
     }
 };
@@ -129,15 +129,15 @@ public:
       , _lens(nullptr) {
     }
 
-    SizeType Count(void) const noexcept {
+    SizeType Count() const noexcept {
         return _count;
     }
 
-    const GLchar* const* Parts(void) const noexcept {
+    const GLchar* const* Parts() const noexcept {
         return _strs;
     }
 
-    GLint const* Lengths(void) const noexcept {
+    GLint const* Lengths() const noexcept {
         return _lens;
     }
 };

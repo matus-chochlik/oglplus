@@ -268,7 +268,7 @@ public:
      *  @glfunref{GetSamplerParameter}
      *  @gldefref{TEXTURE_COMPARE_MODE}
      */
-    TextureCompareMode CompareMode(void) const {
+    TextureCompareMode CompareMode() const {
         return TextureCompareMode(GetIntParam(GL_TEXTURE_COMPARE_MODE));
     }
 
@@ -291,7 +291,7 @@ public:
      *  @glfunref{GetSamplerParameter}
      *  @gldefref{TEXTURE_COMPARE_FUNC}
      */
-    CompareFunction CompareFunc(void) const {
+    CompareFunction CompareFunc() const {
         return CompareFunction(GetIntParam(GL_TEXTURE_COMPARE_FUNC));
     }
 
@@ -314,7 +314,7 @@ public:
      *  @glfunref{GetSamplerParameter}
      *  @gldefref{TEXTURE_LOD_BIAS}
      */
-    GLfloat LODBias(void) const {
+    GLfloat LODBias() const {
         return GetFloatParam(GL_TEXTURE_LOD_BIAS);
     }
 
@@ -354,7 +354,7 @@ public:
      *  @glfunref{GetSamplerParameter}
      *  @gldefref{TEXTURE_MAG_FILTER}
      */
-    TextureMagFilter MagFilter(void) const {
+    TextureMagFilter MagFilter() const {
         return TextureMagFilter(GetIntParam(GL_TEXTURE_MAG_FILTER));
     }
 
@@ -377,7 +377,7 @@ public:
      *  @glfunref{GetSamplerParameter}
      *  @gldefref{TEXTURE_MIN_FILTER}
      */
-    TextureMinFilter MinFilter(void) const {
+    TextureMinFilter MinFilter() const {
         return TextureMinFilter(GetIntParam(GL_TEXTURE_MIN_FILTER));
     }
 
@@ -400,7 +400,7 @@ public:
      *  @glfunref{GetSamplerParameter}
      *  @gldefref{TEXTURE_MIN_LOD}
      */
-    GLfloat MinLOD(void) const {
+    GLfloat MinLOD() const {
         return GetFloatParam(GL_TEXTURE_MIN_LOD);
     }
 
@@ -422,7 +422,7 @@ public:
      *  @glfunref{GetSamplerParameter}
      *  @gldefref{TEXTURE_MAX_LOD}
      */
-    GLfloat MaxLOD(void) const {
+    GLfloat MaxLOD() const {
         return GetFloatParam(GL_TEXTURE_MAX_LOD);
     }
 
@@ -465,7 +465,7 @@ public:
      *  @glfunref{GetSamplerParameter}
      *  @gldefref{TEXTURE_WRAP_S}
      */
-    TextureWrap WrapS(void) const {
+    TextureWrap WrapS() const {
         return Wrap(TextureWrapCoord::S);
     }
 
@@ -485,7 +485,7 @@ public:
      *  @glfunref{GetSamplerParameter}
      *  @gldefref{TEXTURE_WRAP_T}
      */
-    TextureWrap WrapT(void) const {
+    TextureWrap WrapT() const {
         return Wrap(TextureWrapCoord::T);
     }
 
@@ -505,7 +505,7 @@ public:
      *  @glfunref{GetSamplerParameter}
      *  @gldefref{TEXTURE_WRAP_R}
      */
-    TextureWrap WrapR(void) const {
+    TextureWrap WrapR() const {
         return Wrap(TextureWrapCoord::R);
     }
 
@@ -526,7 +526,7 @@ public:
      *  @glfunref{GetSamplerParameter}
      *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
      */
-    Boolean Seamless(void) const {
+    Boolean Seamless() const {
         return Boolean(GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS), std::nothrow);
     }
 

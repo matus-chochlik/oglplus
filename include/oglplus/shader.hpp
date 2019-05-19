@@ -142,7 +142,7 @@ public:
      *  @glfunref{GetShader}
      *  @gldefref{SHADER_TYPE}
      */
-    ShaderType Type(void) const {
+    ShaderType Type() const {
         GLint result = 0;
         OGLPLUS_GLFUNC(GetShaderiv)(_obj_name(), GL_SHADER_TYPE, &result);
         OGLPLUS_VERIFY(GetShaderiv, ObjectError, Object(*this));
@@ -202,7 +202,7 @@ public:
      *  @glfunref{GetShader}
      *  @gldefref{COMPILE_STATUS}
      */
-    Boolean IsCompiled(void) const {
+    Boolean IsCompiled() const {
         Boolean status;
         OGLPLUS_GLFUNC(GetShaderiv)
         (_obj_name(), GL_COMPILE_STATUS, status._ptr());
@@ -220,7 +220,7 @@ public:
      *  @glfunref{GetShader}
      *  @glfunref{GetShaderInfoLog}
      */
-    String GetInfoLog(void) const;
+    String GetInfoLog() const;
 
     /// Compiles the shader
     /**
@@ -231,7 +231,7 @@ public:
      *  @glsymbols
      *  @glfunref{CompileShader}
      */
-    ObjectOps& Compile(void);
+    ObjectOps& Compile();
 
     Outcome<ObjectOps&> Compile(std::nothrow_t);
 
@@ -302,7 +302,7 @@ public:
      *  @glsymbols
      *  @glfunref{ReleaseShaderCompiler}
      */
-    static void ReleaseCompiler(void) {
+    static void ReleaseCompiler() {
         OGLPLUS_GLFUNC(ReleaseShaderCompiler)();
         OGLPLUS_VERIFY_SIMPLE(ReleaseShaderCompiler);
     }
@@ -421,7 +421,7 @@ private:
     SpecShader(const SpecShader&); // = delete;
 public:
     /// Default construction
-    SpecShader(void)
+    SpecShader()
       : Shader(ShType) {
     }
 
