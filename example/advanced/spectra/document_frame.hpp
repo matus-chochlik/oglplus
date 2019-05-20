@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,99 +14,90 @@
 
 #include <oglplus/gl.hpp>
 
-#include "spectra_app.hpp"
 #include "document_canvas.hpp"
 #include "document_view.hpp"
+#include "spectra_app.hpp"
 
 #include <wx/wx.h>
 
-#include <memory>
 #include <functional>
+#include <memory>
 
 struct SpectraDocument;
 class SpectraMainFrame;
 class SpectraVisualisation;
 class SpectraRenderer;
 
-class SpectraDocumentFrame
- : public wxFrame
-{
+class SpectraDocumentFrame : public wxFrame {
 private:
-	SpectraApp& parent_app;
-	SpectraMainFrame* main_frame;
+    SpectraApp& parent_app;
+    SpectraMainFrame* main_frame;
 
-	wxMenuBar* main_menu;
-	wxMenuItem* play_menu_item;
+    wxMenuBar* main_menu;
+    wxMenuItem* play_menu_item;
 
-	wxPanel* main_panel;
+    wxPanel* main_panel;
 
-	wxStatusBar* status_bar;
-	void SetStatus(const wxString& status_text);
+    wxStatusBar* status_bar;
+    void SetStatus(const wxString& status_text);
 
-	wxGLContext* parent_context;
-	SpectraDocumentCanvas* gl_canvas;
+    wxGLContext* parent_context;
+    SpectraDocumentCanvas* gl_canvas;
 
-	std::shared_ptr<SpectraVisualisation> document_vis;
-	std::shared_ptr<SpectraRenderer> renderer;
+    std::shared_ptr<SpectraVisualisation> document_vis;
+    std::shared_ptr<SpectraRenderer> renderer;
 
-	SpectraDocumentView document_view;
+    SpectraDocumentView document_view;
 
-	void InitMainMenu(void);
-	void InitComponents(void);
-	void ConnectEventHandlers(void);
+    void InitMainMenu();
+    void InitComponents();
+    void ConnectEventHandlers();
 
-	void DoClose(wxCommandEvent&);
-	void OnClose(wxCloseEvent&);
+    void DoClose(wxCommandEvent&);
+    void OnClose(wxCloseEvent&);
 
-	void DoDuplicate(wxCommandEvent&);
+    void DoDuplicate(wxCommandEvent&);
 
-	void HandleResize(void);
-	void OnResize(wxSizeEvent& event);
+    void HandleResize();
+    void OnResize(wxSizeEvent& event);
 
-	void HandleSysColorChange(void);
-	void OnSysColorChange(wxSysColourChangedEvent&);
+    void HandleSysColorChange();
+    void OnSysColorChange(wxSysColourChangedEvent&);
 
-	void DoPlay(wxCommandEvent&);
+    void DoPlay(wxCommandEvent&);
 
-	wxPoint old_mouse_position;
-	GLint ClampMouseCoord(GLint c, GLint m);
-	void HandleMouseMotion(const wxMouseEvent& event);
-	void OnMouseMotionEvent(wxMouseEvent& event);
-	void HandleMouseWheel(const wxMouseEvent& event);
-	void OnMouseWheelEvent(wxMouseEvent& event);
+    wxPoint old_mouse_position;
+    GLint ClampMouseCoord(GLint c, GLint m);
+    void HandleMouseMotion(const wxMouseEvent& event);
+    void OnMouseMotionEvent(wxMouseEvent& event);
+    void HandleMouseWheel(const wxMouseEvent& event);
+    void OnMouseWheelEvent(wxMouseEvent& event);
 
-	int idle_call_count;
-	void Update(void);
+    int idle_call_count;
+    void Update();
+
 public:
-	void OnIdle(wxIdleEvent& event);
+    void OnIdle(wxIdleEvent& event);
 
-	typedef std::function<
-		std::shared_ptr<SpectraVisualisation> (
-			SpectraApp&,
-			SpectraMainFrame*,
-			wxGLCanvas*,
-			wxGLContext*
-		)
-	> VisualisationGetter;
+    typedef std::function<std::shared_ptr<SpectraVisualisation>(
+      SpectraApp&, SpectraMainFrame*, wxGLCanvas*, wxGLContext*)>
+      VisualisationGetter;
 
-	typedef std::function<
-		std::shared_ptr<SpectraRenderer> (
-			SpectraApp&,
-			SpectraMainFrame*,
-			const std::shared_ptr<SpectraVisualisation>&,
-			wxGLCanvas*
-		)
-	> RendererGetter;
+    typedef std::function<std::shared_ptr<SpectraRenderer>(
+      SpectraApp&,
+      SpectraMainFrame*,
+      const std::shared_ptr<SpectraVisualisation>&,
+      wxGLCanvas*)>
+      RendererGetter;
 
-	SpectraDocumentFrame(
-		SpectraApp& app,
-		SpectraMainFrame* parent,
-		wxGLContext* parent_ctxt,
-		const VisualisationGetter& get_doc_vis,
-		const RendererGetter& get_renderer
-	);
+    SpectraDocumentFrame(
+      SpectraApp& app,
+      SpectraMainFrame* parent,
+      wxGLContext* parent_ctxt,
+      const VisualisationGetter& get_doc_vis,
+      const RendererGetter& get_renderer);
 
-	~SpectraDocumentFrame(void);
+    ~SpectraDocumentFrame();
 };
 
 #endif // include guard

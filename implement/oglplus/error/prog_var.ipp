@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,31 +13,29 @@ namespace oglplus {
 
 OGLPLUS_LIB_FUNC
 ProgVarError::ProgVarError(const char* message)
- : Error(message)
+  : Error(message)
 #if !OGLPLUS_ERROR_NO_PROG_NAME
- , _prog_name(0)
+  , _prog_name(0)
 #endif
-{ }
+{
+}
 
 OGLPLUS_LIB_FUNC
-ProgramName ProgVarError::Program(void) const
-{
+ProgramName ProgVarError::Program() const {
 #if !OGLPLUS_ERROR_NO_PROG_NAME
-	return ProgramName(_prog_name);
+    return ProgramName(_prog_name);
 #else
-	return ProgramName();
+    return ProgramName();
 #endif
 }
 
 OGLPLUS_LIB_FUNC
-const char* ProgVarError::Identifier(void) const
-{
+const char* ProgVarError::Identifier() const {
 #if !OGLPLUS_ERROR_NO_IDENTIFIER
-	if(!_identifier.empty())
-		return _identifier.c_str();
+    if(!_identifier.empty())
+        return _identifier.c_str();
 #endif
-	return nullptr;
+    return nullptr;
 }
 
 } // namespace oglplus
-

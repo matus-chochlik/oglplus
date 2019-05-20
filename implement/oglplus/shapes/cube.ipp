@@ -13,7 +13,7 @@ namespace oglplus {
 namespace shapes {
 
 OGLPLUS_LIB_FUNC
-std::vector<GLfloat> Cube::_positions(void) const {
+std::vector<GLfloat> Cube::_positions() const {
     /*
      *   (E)-----(A)
      *   /|      /|
@@ -165,7 +165,7 @@ std::vector<GLfloat> Cube::_positions(void) const {
 }
 
 OGLPLUS_LIB_FUNC
-std::vector<GLfloat> Cube::_normals(void) const {
+std::vector<GLfloat> Cube::_normals() const {
     typedef GLfloat T;
     const T n[6][3] = {{+T(1), T(0), T(0)},
                        {T(0), +T(1), T(0)},
@@ -189,7 +189,7 @@ std::vector<GLfloat> Cube::_normals(void) const {
 }
 
 OGLPLUS_LIB_FUNC
-std::vector<GLfloat> Cube::_tangents(void) const {
+std::vector<GLfloat> Cube::_tangents() const {
     typedef GLfloat T;
     const T n[6][3] = {{T(0), T(0), -T(1)},
                        {+T(1), T(0), T(0)},
@@ -212,7 +212,7 @@ std::vector<GLfloat> Cube::_tangents(void) const {
 }
 
 OGLPLUS_LIB_FUNC
-std::vector<GLfloat> Cube::_tex_coords(void) const {
+std::vector<GLfloat> Cube::_tex_coords() const {
     typedef GLfloat T;
     const T n[6][2] = {{+T(1), +T(1)},
                        {+T(1), T(0)},

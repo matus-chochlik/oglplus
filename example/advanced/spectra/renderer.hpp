@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,46 +12,42 @@
 #ifndef OGLPLUS_EXAMPLE_SPECTRA_RENDERER_HPP
 #define OGLPLUS_EXAMPLE_SPECTRA_RENDERER_HPP
 
-#include "shared_objects.hpp"
 #include "document_view.hpp"
-#include "visualisation.hpp"
+#include "shared_objects.hpp"
 #include "spectra_app.hpp"
+#include "visualisation.hpp"
 
-#include <wx/wx.h>
 #include <wx/glcanvas.h>
+#include <wx/wx.h>
 
 #include <memory>
 
-class SpectraRenderer
-{
+class SpectraRenderer {
 protected:
-	SpectraApp& parent_app;
+    SpectraApp& parent_app;
 
-	std::shared_ptr<SpectraSharedObjects> shared_objects;
+    std::shared_ptr<SpectraSharedObjects> shared_objects;
 
-	SpectraSharedObjects& Common(void);
+    SpectraSharedObjects& Common();
 
-	std::shared_ptr<SpectraVisualisation> document_vis;
+    std::shared_ptr<SpectraVisualisation> document_vis;
 
-	SpectraVisualisation& DocVis(void);
+    SpectraVisualisation& DocVis();
 
-	SpectraRenderer(
-		SpectraApp& app,
-		const std::shared_ptr<SpectraSharedObjects>& sh_obj,
-		const std::shared_ptr<SpectraVisualisation>& doc_vis,
-		wxGLCanvas* canvas
-	);
+    SpectraRenderer(
+      SpectraApp& app,
+      const std::shared_ptr<SpectraSharedObjects>& sh_obj,
+      const std::shared_ptr<SpectraVisualisation>& doc_vis,
+      wxGLCanvas* canvas);
+
 public:
-	virtual ~SpectraRenderer(void) { }
+    virtual ~SpectraRenderer() {}
 
-	virtual void ReinitStyle(void);
+    virtual void ReinitStyle();
 
-	virtual bool Interactive(void) = 0;
+    virtual bool Interactive() = 0;
 
-	virtual void Render(
-		SpectraDocumentView& view,
-		wxGLCanvas* canvas
-	) = 0;
+    virtual void Render(SpectraDocumentView& view, wxGLCanvas* canvas) = 0;
 };
 
 #endif // include guard

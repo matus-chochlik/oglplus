@@ -4,134 +4,115 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #include <oglplus/lib/incl_begin.ipp>
-#include <oglplus/object/desc.hpp>
 #include <oglplus/lib/incl_end.ipp>
+#include <oglplus/object/desc.hpp>
 
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
 ObjectError::ObjectError(const char* message)
- : Error(message)
+  : Error(message)
 #if !OGLPLUS_ERROR_NO_OBJECT_TYPE
- , _obj_type(GL_NONE)
+  , _obj_type(GL_NONE)
 #endif
 #if !OGLPLUS_ERROR_NO_BIND_TARGET
- , _bind_tgt(0)
+  , _bind_tgt(0)
 #endif
 #if !OGLPLUS_ERROR_NO_TARGET_NAME
- , _tgt_name(nullptr)
+  , _tgt_name(nullptr)
 #endif
- , _obj_typeid(0)
- , _obj_name(0)
-{ }
-
+  , _obj_typeid(0)
+  , _obj_name(0) {
+}
 
 OGLPLUS_LIB_FUNC
-GLenum ObjectError::ObjectType(void) const
-{
+GLenum ObjectError::ObjectType() const {
 #if !OGLPLUS_ERROR_NO_OBJECT_TYPE
-	return _obj_type;
+    return _obj_type;
 #else
-	return GLenum(0);
+    return GLenum(0);
 #endif
 }
 
 OGLPLUS_LIB_FUNC
-const char* ObjectError::ObjectTypeName(void) const
-{
+const char* ObjectError::ObjectTypeName() const {
 #if !OGLPLUS_ERROR_NO_CLASS_NAME
-	return EnumValueName(oglplus::ObjectType(this->ObjectType())).c_str();
+    return EnumValueName(oglplus::ObjectType(this->ObjectType())).c_str();
 #else
-	return nullptr;
+    return nullptr;
 #endif
 }
 
 OGLPLUS_LIB_FUNC
-GLenum ObjectError::BindTarget(void) const
-{
+GLenum ObjectError::BindTarget() const {
 #if !OGLPLUS_ERROR_NO_TARGET_NAME
-	return _bind_tgt;
+    return _bind_tgt;
 #else
-	return GLenum(0);
+    return GLenum(0);
 #endif
 }
 
 OGLPLUS_LIB_FUNC
-const char* ObjectError::TargetName(void) const
-{
+const char* ObjectError::TargetName() const {
 #if !OGLPLUS_ERROR_NO_TARGET_NAME
-	return _tgt_name;
+    return _tgt_name;
 #else
-	return nullptr;
+    return nullptr;
 #endif
 }
 
 OGLPLUS_LIB_FUNC
-GLint ObjectError::ObjectName(void) const
-{
-	return GLint(_obj_name);
+GLint ObjectError::ObjectName() const {
+    return GLint(_obj_name);
 }
 
 OGLPLUS_LIB_FUNC
-const String& ObjectError::ObjectDesc(void) const
-{
-	return aux::ObjectDescRegistry::_get_desc(
-		_obj_typeid,
-		_obj_name
-	);
+const String& ObjectError::ObjectDesc() const {
+    return aux::ObjectDescRegistry::_get_desc(_obj_typeid, _obj_name);
 }
 
 OGLPLUS_LIB_FUNC
 ObjectPairError::ObjectPairError(const char* message)
- : ObjectError(message)
+  : ObjectError(message)
 #if !OGLPLUS_ERROR_NO_OBJECT_TYPE
- , _sub_type(0)
+  , _sub_type(0)
 #endif
- , _sub_typeid(0)
- , _sub_name(0)
-{ }
-
+  , _sub_typeid(0)
+  , _sub_name(0) {
+}
 
 OGLPLUS_LIB_FUNC
-GLenum ObjectPairError::SubjectType(void) const
-{
+GLenum ObjectPairError::SubjectType() const {
 #if !OGLPLUS_ERROR_NO_OBJECT_TYPE
-	return _sub_type;
+    return _sub_type;
 #else
-	return GLenum(0);
+    return GLenum(0);
 #endif
 }
 
 OGLPLUS_LIB_FUNC
-const char* ObjectPairError::SubjectTypeName(void) const
-{
+const char* ObjectPairError::SubjectTypeName() const {
 #if !OGLPLUS_ERROR_NO_CLASS_NAME
-	return EnumValueName(oglplus::ObjectType(this->SubjectType())).c_str();
+    return EnumValueName(oglplus::ObjectType(this->SubjectType())).c_str();
 #else
-	return nullptr;
+    return nullptr;
 #endif
 }
 
 OGLPLUS_LIB_FUNC
-GLint ObjectPairError::SubjectName(void) const
-{
-	return GLint(_sub_name);
+GLint ObjectPairError::SubjectName() const {
+    return GLint(_sub_name);
 }
 
 OGLPLUS_LIB_FUNC
-const String& ObjectPairError::SubjectDesc(void) const
-{
-	return aux::ObjectDescRegistry::_get_desc(
-		_sub_typeid,
-		_sub_name
-	);
+const String& ObjectPairError::SubjectDesc() const {
+    return aux::ObjectDescRegistry::_get_desc(_sub_typeid, _sub_name);
 }
 
 } // namespace oglplus
-

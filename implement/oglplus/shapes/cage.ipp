@@ -30,7 +30,7 @@ const Matrix<double, 3, 3>& Cage::_face_mat(GLuint face) {
 }
 
 OGLPLUS_LIB_FUNC
-GLuint Cage::_vert_count(void) const {
+GLuint Cage::_vert_count() const {
     return GLuint(
       6 * 8 + (_divs.z() - 1) * 2 * 4 * 2 + (_divs.x() - 1) * 4 * 4 * 2 +
 
@@ -43,7 +43,7 @@ GLuint Cage::_vert_count(void) const {
 }
 
 OGLPLUS_LIB_FUNC
-GLuint Cage::_index_count(void) const {
+GLuint Cage::_index_count() const {
 #ifdef GL_PRIMITIVE_RESTART
     return GLuint(
       6 * 11 + (_divs.z() - 1) * 2 * 5 * 2 + (_divs.x() - 1) * 4 * 5 * 2 +
@@ -68,7 +68,7 @@ GLuint Cage::_index_count(void) const {
 }
 
 OGLPLUS_LIB_FUNC
-std::vector<GLfloat> Cage::_positions(void) const {
+std::vector<GLfloat> Cage::_positions() const {
     std::vector<GLfloat> dest(_vert_count() * 3);
     auto p = dest.begin();
 
@@ -182,7 +182,7 @@ std::vector<GLfloat> Cage::_positions(void) const {
 }
 
 OGLPLUS_LIB_FUNC
-std::vector<GLfloat> Cage::_normals(void) const {
+std::vector<GLfloat> Cage::_normals() const {
     std::vector<GLfloat> dest(_vert_count() * 3);
     auto p = dest.begin();
 
@@ -235,7 +235,7 @@ std::vector<GLfloat> Cage::_normals(void) const {
 }
 
 OGLPLUS_LIB_FUNC
-std::vector<GLfloat> Cage::_tangents(void) const {
+std::vector<GLfloat> Cage::_tangents() const {
     std::vector<GLfloat> dest(_vert_count() * 3);
     auto p = dest.begin();
 
@@ -281,7 +281,7 @@ std::vector<GLfloat> Cage::_tangents(void) const {
 }
 
 OGLPLUS_LIB_FUNC
-std::vector<GLfloat> Cage::_tex_coords(void) const {
+std::vector<GLfloat> Cage::_tex_coords() const {
     std::vector<GLfloat> dest(_vert_count() * 3);
     auto p = dest.begin();
 
