@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_TEXT_ANY_HPP
 #define OGLPLUS_TEXT_ANY_HPP
 
+#include <oglplus/text/common.hpp>
 #include <oglplus/text/unicode.hpp>
 
 #include <cassert>
@@ -27,8 +28,7 @@ class AnyRendering;
 class AnyFont {
 private:
     struct _intf {
-        virtual ~_intf() {
-        }
+        virtual ~_intf() {}
 
         virtual _intf* _clone() const = 0;
         virtual const void* _addr() = 0;
@@ -48,8 +48,7 @@ private:
 
     public:
         _impl(const Font& font)
-          : _font(font) {
-        }
+          : _font(font) {}
 
         _intf* _clone() const override {
             return new _impl(_font);
@@ -80,15 +79,13 @@ private:
 
     template <class Font>
     AnyFont(const Font& font)
-      : _pimpl(new _impl<Font>(font)) {
-    }
+      : _pimpl(new _impl<Font>(font)) {}
 
     friend class AnyRendering;
 
 public:
     AnyFont(const AnyFont& that)
-      : _pimpl(that._clone()) {
-    }
+      : _pimpl(that._clone()) {}
 
     AnyFont(AnyFont&& tmp)
       : _pimpl(tmp._pimpl) {
@@ -143,8 +140,7 @@ public:
 class AnyLayout {
 private:
     struct _intf {
-        virtual ~_intf() {
-        }
+        virtual ~_intf() {}
 
         virtual const void* _addr() = 0;
 
@@ -163,8 +159,7 @@ private:
 
     public:
         _impl(Layout&& layout)
-          : _layout(std::move(layout)) {
-        }
+          : _layout(std::move(layout)) {}
 
         const void* _addr() override {
             return static_cast<void*>(&_layout);
@@ -190,13 +185,11 @@ private:
     _intf* _pimpl;
 
     AnyLayout(_intf* pimpl)
-      : _pimpl(pimpl) {
-    }
+      : _pimpl(pimpl) {}
 
     template <class Layout>
     AnyLayout(Layout&& layout)
-      : _pimpl(new _impl<Layout>(std::move(layout))) {
-    }
+      : _pimpl(new _impl<Layout>(std::move(layout))) {}
 
     friend class AnyRendering;
 
@@ -253,8 +246,7 @@ public:
 class AnyRenderer {
 private:
     struct _intf {
-        virtual ~_intf() {
-        }
+        virtual ~_intf() {}
 
         virtual void SetProjection(const Mat4f& projection_matrix) = 0;
         virtual void SetCamera(const Mat4f& camera_matrix) = 0;
@@ -272,8 +264,7 @@ private:
 
     public:
         _impl(Renderer&& renderer)
-          : _renderer(std::move(renderer)) {
-        }
+          : _renderer(std::move(renderer)) {}
 
         void SetProjection(const Mat4f& projection_matrix) override {
             _renderer.SetProjection(projection_matrix);
@@ -308,8 +299,7 @@ private:
 
     template <class Renderer, class Layout>
     AnyRenderer(Renderer&& renderer, Layout*)
-      : _pimpl(new _impl<Renderer, Layout>(std::move(renderer))) {
-    }
+      : _pimpl(new _impl<Renderer, Layout>(std::move(renderer))) {}
 
     friend class AnyRendering;
 
@@ -373,8 +363,7 @@ public:
 class AnyRendering {
 private:
     struct _intf {
-        virtual ~_intf() {
-        }
+        virtual ~_intf() {}
 
         virtual AnyFont LoadFont(const char* font_name) = 0;
 
@@ -395,8 +384,7 @@ private:
 
     public:
         _impl(RenderingUtility&& ru)
-          : _ru(std::move(ru)) {
-        }
+          : _ru(std::move(ru)) {}
 
         AnyFont LoadFont(const char* font_name) override {
             return AnyFont(_ru.LoadFont(font_name));
@@ -420,8 +408,7 @@ private:
 public:
     template <class RenderingUtility>
     AnyRendering(RenderingUtility&& renderer)
-      : _pimpl(new _impl<RenderingUtility>(std::move(renderer))) {
-    }
+      : _pimpl(new _impl<RenderingUtility>(std::move(renderer))) {}
 
     AnyRendering(AnyRendering&& tmp)
       : _pimpl(tmp._pimpl) {

@@ -63,6 +63,12 @@ IncludeBlocks:   Preserve
 IncludeCategories:
   - Regex:           '^".*"$'
     Priority:        1
+  - Regex:           '^<eglplus/egl.hpp>$'
+    Priority:        20
+  - Regex:           '^<eglplus/config'
+    Priority:        22
+  - Regex:           '^<eglplus/'
+    Priority:        23
   - Regex:           '^<oglplus/gl.hpp>$'
     Priority:        30
   - Regex:           '^<oglplus/(glx|x11)/'
