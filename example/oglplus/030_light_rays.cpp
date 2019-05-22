@@ -27,14 +27,14 @@ namespace oglplus {
 struct MeshInputFile {
     std::ifstream stream;
 
-    MeshInputFile(void) {
+    MeshInputFile() {
         OpenResourceFile(stream, "models", "large_fan", ".obj");
     }
 };
 
 class CommonVertexShader : public VertexShader {
 public:
-    CommonVertexShader(void) {
+    CommonVertexShader() {
         Source(
           "#version 140\n"
           "uniform vec3 LightPosition;"
@@ -48,7 +48,7 @@ public:
           "out vec3 vertLightDir;"
           "out vec4 vertShadowCoord;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	gl_Position = ModelMatrix * Position;"
           "	vertLightDir = normalize(LightPosition - gl_Position.xyz);"
@@ -68,7 +68,7 @@ private:
         FragmentShader fs(ObjectDesc("Shadow"));
         fs.Source(
             "#version 140\n"
-            "void main(void) { }")
+            "void main() { }")
           .Compile();
 
         prog.AttachShader(vs).AttachShader(fs);
@@ -77,7 +77,7 @@ private:
         return prog;
     }
 
-    Program& self(void) {
+    Program& self() {
         return *this;
     }
 
@@ -109,7 +109,7 @@ private:
 
             "out float fragIntensity;"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	vec3 ShadowCoord = (vertShadowCoord.xyz/vertShadowCoord.w)*0.5 "
             "+ 0.5;"
@@ -132,7 +132,7 @@ private:
         return prog;
     }
 
-    Program& self(void) {
+    Program& self() {
         return *this;
     }
 
@@ -146,8 +146,7 @@ public:
       , projection_matrix(self(), "ProjectionMatrix")
       , camera_matrix(self(), "CameraMatrix")
       , model_matrix(self(), "ModelMatrix")
-      , light_matrix(self(), "LightMatrix") {
-    }
+      , light_matrix(self(), "LightMatrix") {}
 };
 
 class DrawProgram : public Program {
@@ -172,7 +171,7 @@ private:
 
             "out vec3 fragColor;"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	vec3 ShadowCoord = (vertShadowCoord.xyz/vertShadowCoord.w)*0.5 "
             "+ 0.5;"
@@ -212,7 +211,7 @@ private:
         return prog;
     }
 
-    Program& self(void) {
+    Program& self() {
         return *this;
     }
 
@@ -230,8 +229,7 @@ public:
       , projection_matrix(self(), "ProjectionMatrix")
       , camera_matrix(self(), "CameraMatrix")
       , model_matrix(self(), "ModelMatrix")
-      , light_matrix(self(), "LightMatrix") {
-    }
+      , light_matrix(self(), "LightMatrix") {}
 };
 
 class LightRayExample : public Example {
@@ -336,7 +334,7 @@ private:
     Framebuffer light_fbo;
     Renderbuffer light_rbo;
 
-    void SetupLightMask(void) {
+    void SetupLightMask() {
         Texture::Active(light_tex_unit);
         Texture::Target tex_tgt = Texture::Target::Rectangle;
         light_mask.Bind(tex_tgt);
@@ -384,7 +382,7 @@ private:
     Mat4f projection;
 
 public:
-    LightRayExample(void)
+    LightRayExample()
       : gl()
       , mesh_loader(
           mesh_input.stream, shapes::ObjMesh::LoadingOptions(false).Normals())
@@ -486,17 +484,16 @@ public:
         meshes.Draw(drawing_driver);
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Minutes(1.5);
     }
 
-    ExampleTimePeriod ScreenshotTime(void) const {
+    ExampleTimePeriod ScreenshotTime() const {
         return ExampleTimePeriod::Seconds(17.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

@@ -34,12 +34,12 @@ private:
     Buffer colors;
 
 public:
-    RectangleExample(void) {
+    RectangleExample() {
         prog << "#version 120\n"
                 "attribute vec2 Position;"
                 "attribute vec3 Color;"
                 "varying vec3 vertColor;"
-                "void main(void)"
+                "void main()"
                 "{"
                 "	vertColor = Color;"
                 "	gl_Position = vec4(Position, 0.0, 1.0);"
@@ -47,7 +47,7 @@ public:
 
         prog << "#version 120\n"
                 "varying vec3 vertColor;"
-                "void main(void)"
+                "void main()"
                 "{"
                 "	gl_FragColor = vec4(vertColor, 1.0);"
                 "}"_glsl_fs;
@@ -107,8 +107,7 @@ public:
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

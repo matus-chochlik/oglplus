@@ -47,7 +47,7 @@ private:
     Lazy<Uniform<Mat4f>> camera_matrix;
 
 public:
-    SphereExample(void)
+    SphereExample()
       : sphere_instr(make_sphere.Instructions())
       , sphere_indices(make_sphere.Indices())
       , projection_matrix(prog, "ProjectionMatrix")
@@ -66,7 +66,7 @@ public:
             "layout(location = 0) in vec4 Position;"
             "layout(location = 1) in vec2 TexCoord;"
             "out vec2 vertTexCoord;"
-            "void main(void)"
+            "void main()"
             "{"
             "	vertTexCoord = TexCoord;"
             "	gl_Position = "
@@ -83,7 +83,7 @@ public:
             "#version 140\n"
             "in vec2 vertTexCoord;"
             "out vec4 fragColor;"
-            "void main(void)"
+            "void main()"
             "{"
             "	float i = ("
             "		int(vertTexCoord.x*18) % 2+"
@@ -152,13 +152,12 @@ public:
         sphere_instr.Draw(sphere_indices);
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Seconds(30.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

@@ -33,7 +33,7 @@ namespace oglplus {
 
 class TransformProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         const GLchar* shader_source =
           "#version 150\n"
           "uniform mat4 CameraMatrix, ModelMatrix;"
@@ -57,7 +57,7 @@ private:
           "out vec3 vertViewDir;"
           "out vec2 vertTexCoord;"
           "out vec4 vertLightTexCoord;"
-          "void main(void)"
+          "void main()"
           "{"
           "	gl_Position = "
           "		ModelMatrix *"
@@ -78,7 +78,7 @@ private:
         return ShaderProgram(
           ShaderType::Vertex, shader_source, ObjectDesc("Transform"));
     }
-    const Program& prog(void) const {
+    const Program& prog() const {
         return *this;
     }
 
@@ -89,7 +89,7 @@ public:
     ProgramUniform<Vec4f> clip_plane;
     ProgramUniform<GLfloat> clip_direction;
 
-    TransformProgram(void)
+    TransformProgram()
       : Program(make())
       , camera_matrix(prog(), "CameraMatrix")
       , model_matrix(prog(), "ModelMatrix")
@@ -98,13 +98,12 @@ public:
       , camera_position(prog(), "CameraPosition")
       , light_position(prog(), "LightPosition")
       , clip_plane(prog(), "ClipPlane")
-      , clip_direction(prog(), "ClipDirection") {
-    }
+      , clip_direction(prog(), "ClipDirection") {}
 };
 
 class ShadowFragmentShader : public FragmentShader {
 public:
-    ShadowFragmentShader(void)
+    ShadowFragmentShader()
       : FragmentShader(
           ObjectDesc("Shadow fragment shader"),
           "#version 150\n"
@@ -116,15 +115,14 @@ public:
           "in vec2 vertTexCoord;"
           "in vec4 vertLightTexCoord;"
 
-          "void main(void)"
+          "void main()"
           "{"
-          "}") {
-    }
+          "}") {}
 };
 
 class ShadowProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("Shadow"));
         prog.AttachShader(ShadowFragmentShader());
         prog.MakeSeparable().Link().Use();
@@ -132,14 +130,13 @@ private:
     }
 
 public:
-    ShadowProgram(void)
-      : Program(make()) {
-    }
+    ShadowProgram()
+      : Program(make()) {}
 };
 
 class LightFragmentShader : public FragmentShader {
 public:
-    LightFragmentShader(void)
+    LightFragmentShader()
       : FragmentShader(
           ObjectDesc("Shadow fragment shader"),
           "#version 150\n"
@@ -153,41 +150,39 @@ public:
           "in vec4 vertLightTexCoord;"
           "out vec4 fragColor;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	float Opacity = 1.0 - abs(dot("
           "		normalize(vertNormal),"
           "		normalize(vertViewDir)"
           "	));"
           "	fragColor = vec4(Color, 0.4 + sqrt(Opacity)*0.6);"
-          "}") {
-    }
+          "}") {}
 };
 
 class LightProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("Light"));
         prog.AttachShader(LightFragmentShader());
         prog.MakeSeparable().Link().Use();
         return prog;
     }
-    const Program& prog(void) const {
+    const Program& prog() const {
         return *this;
     }
 
 public:
     ProgramUniform<Vec3f> color;
 
-    LightProgram(void)
+    LightProgram()
       : Program(make())
-      , color(prog(), "Color") {
-    }
+      , color(prog(), "Color") {}
 };
 
 class GlassFragmentShader : public FragmentShader {
 public:
-    GlassFragmentShader(void)
+    GlassFragmentShader()
       : FragmentShader(
           ObjectDesc("Metal fragment shader"),
           "#version 150\n"
@@ -202,7 +197,7 @@ public:
           "in vec4 vertLightTexCoord;"
           "out vec4 fragColor;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	vec3 LightColor = vec3(1.0, 1.0, 1.0);"
 
@@ -257,19 +252,18 @@ public:
           "		LightColor * Specular, "
           "		0.4 + min(Specular, 1.0)*0.3"
           "	);"
-          "}") {
-    }
+          "}") {}
 };
 
 class GlassProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("Glass"));
         prog.AttachShader(GlassFragmentShader());
         prog.MakeSeparable().Link().Use();
         return prog;
     }
-    const Program& prog(void) const {
+    const Program& prog() const {
         return *this;
     }
 
@@ -277,16 +271,15 @@ public:
     ProgramUniform<Vec3f> color;
     ProgramUniformSampler frame_shadow_tex;
 
-    GlassProgram(void)
+    GlassProgram()
       : Program(make())
       , color(prog(), "Color")
-      , frame_shadow_tex(prog(), "FrameShadowTex") {
-    }
+      , frame_shadow_tex(prog(), "FrameShadowTex") {}
 };
 
 class MetalFragmentShader : public FragmentShader {
 public:
-    MetalFragmentShader(void)
+    MetalFragmentShader()
       : FragmentShader(
           ObjectDesc("Metal fragment shader"),
           "#version 150\n"
@@ -304,7 +297,7 @@ public:
           "in vec4 vertLightTexCoord;"
           "out vec4 fragColor;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	vec3 Sample = texture(MetalTex, vertTexCoord).rgb;"
           "	vec3 LightColor = vec3(1.0, 1.0, 1.0);"
@@ -385,19 +378,18 @@ public:
           "		LightColor * Specular, "
           "		1.0"
           "	);"
-          "}") {
-    }
+          "}") {}
 };
 
 class MetalProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("Metal"));
         prog.AttachShader(MetalFragmentShader());
         prog.MakeSeparable().Link().Use();
         return prog;
     }
-    const Program& prog(void) const {
+    const Program& prog() const {
         return *this;
     }
 
@@ -406,15 +398,14 @@ public:
     ProgramUniformSampler metal_tex, frame_shadow_tex, glass_shadow_tex;
     ProgramUniform<GLint> with_glass_shadow;
 
-    MetalProgram(void)
+    MetalProgram()
       : Program(make())
       , color_1(prog(), "Color1")
       , color_2(prog(), "Color2")
       , metal_tex(prog(), "MetalTex")
       , frame_shadow_tex(prog(), "FrameShadowTex")
       , glass_shadow_tex(prog(), "GlassShadowTex")
-      , with_glass_shadow(prog(), "WithGlassShadow") {
-    }
+      , with_glass_shadow(prog(), "WithGlassShadow") {}
 };
 
 template <typename ShapeBuilder>
@@ -504,7 +495,7 @@ private:
     Framebuffer glass_shadow_fbo;
 
 public:
-    GlassAndMetalExample(void)
+    GlassAndMetalExample()
       : transf_prog()
       , metal_prog()
       , plane(transf_prog, shapes::Plane(Vec3f(9, 0, 0), Vec3f(0, 0, -9)))
@@ -778,17 +769,16 @@ public:
         RenderImage(time, torus_center, torus_matrix, light_proj_matrix);
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Seconds(90.0);
     }
 
-    ExampleTimePeriod ScreenshotTime(void) const {
+    ExampleTimePeriod ScreenshotTime() const {
         return ExampleTimePeriod::Seconds(7.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

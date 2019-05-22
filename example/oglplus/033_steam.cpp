@@ -76,7 +76,7 @@ public:
 
 class MeshProg : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("Depth"));
 
         Shader vs(ShaderType::Vertex);
@@ -94,7 +94,7 @@ private:
             "out vec3 vertBackLtDir;"
             "out vec3 vertAmbiLtDir;"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	gl_Position = ModelMatrix * Position;"
             "	vertNormal = mat3(ModelMatrix) * Normal;"
@@ -112,7 +112,7 @@ private:
             "in vec3 vertBackLtDir;"
             "in vec3 vertAmbiLtDir;"
             "out vec3 fragColor;"
-            "void main(void)"
+            "void main()"
             "{"
             "	float bl = dot(normalize(vertNormal),normalize(vertBackLtDir));"
             "	float al = dot(normalize(vertNormal),normalize(vertAmbiLtDir));"
@@ -127,24 +127,23 @@ private:
         return prog;
     }
 
-    Program& self(void) {
+    Program& self() {
         return *this;
     }
 
 public:
     ProgramUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
 
-    MeshProg(void)
+    MeshProg()
       : Program(make())
       , projection_matrix(self(), "ProjectionMatrix")
       , camera_matrix(self(), "CameraMatrix")
-      , model_matrix(self(), "ModelMatrix") {
-    }
+      , model_matrix(self(), "ModelMatrix") {}
 };
 
 class ParticlePhysicsProg : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("ParticlePhysics"));
 
         Shader vs(ShaderType::Vertex);
@@ -163,7 +162,7 @@ private:
             "out vec4 xfbPositionAndId;"
             "out vec4 xfbVelocityAndAge;"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	int id1 = int(gl_VertexID)%256;"
             "	int id2 = int(PositionAndId.w)%256;"
@@ -216,7 +215,7 @@ private:
         return prog;
     }
 
-    Program& self(void) {
+    Program& self() {
         return *this;
     }
 
@@ -237,7 +236,7 @@ public:
 
 class PatricleVolumeProg : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("PatricleVolume"));
 
         Shader vs(ShaderType::Vertex);
@@ -247,7 +246,7 @@ private:
             "in vec4 VelocityAndAge;"
             "out int vertID1, vertID2;"
             "out float vertAge;"
-            "void main(void)"
+            "void main()"
             "{"
             "	gl_Position = vec4(PositionAndId.xyz, 1.0);"
             "	vertID1 = int(gl_VertexID)%256;"
@@ -277,7 +276,7 @@ private:
             "out vec2 geomTexCoord;"
             "out float geomAge;"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	float s0 = 4;"
             "	float s1 = 20;"
@@ -327,7 +326,7 @@ private:
             "in float geomAge;"
             "out vec2 fragColor;"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	vec3 GFTCoord = (geomGFTCoord.xyz/geomGFTCoord.w)*0.5 + 0.5;"
             "	float gf = texture(OccludeTex, GFTCoord.xy).r - GFTCoord.z;"
@@ -347,7 +346,7 @@ private:
         return prog;
     }
 
-    Program& self(void) {
+    Program& self() {
         return *this;
     }
 
@@ -367,7 +366,7 @@ public:
 
 class CompositeProg : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("Composite"));
 
         Shader vs(ShaderType::Vertex);
@@ -378,7 +377,7 @@ private:
             "in vec2 TexCoord;"
             "out vec2 vertTexCoord;"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	gl_Position = Position;"
             "	vertTexCoord = TexCoord*ScreenSize;"
@@ -394,7 +393,7 @@ private:
             "in vec2 vertTexCoord;"
             "out vec3 fragColor;"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	vec3 geom = texture(GeomTex, vertTexCoord).rgb;"
             "	vec2 volm = texture(VolmTex, vertTexCoord).rg;"
@@ -410,7 +409,7 @@ private:
         return prog;
     }
 
-    Program& self(void) {
+    Program& self() {
         return *this;
     }
 
@@ -434,16 +433,15 @@ private:
     GLuint fan_index;
 
 public:
-    Geometry(void)
+    Geometry()
       : mesh_prog()
       , mesh_input("models", "large_fan", ".obj")
       , mesh_loader(
           mesh_input, shapes::ObjMesh::LoadingOptions(false).Normals())
       , meshes(List("Position")("Normal").Get(), mesh_loader, mesh_prog)
-      , fan_index(mesh_loader.GetMeshIndex("Fan")) {
-    }
+      , fan_index(mesh_loader.GetMeshIndex("Fan")) {}
 
-    void Use(void) {
+    void Use() {
         meshes.Use();
         mesh_prog.Use();
     }
@@ -662,7 +660,7 @@ private:
     Mat4f projection;
 
 public:
-    ParticlesExample(void)
+    ParticlesExample()
       : gl()
       , geom_tex_unit(0)
       , volm_tex_unit(1)
@@ -773,21 +771,20 @@ public:
         frame_no++;
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Minutes(1.0);
     }
 
-    ExampleTimePeriod ScreenshotTime(void) const {
+    ExampleTimePeriod ScreenshotTime() const {
         return ExampleTimePeriod::Seconds(10.0);
     }
 
-    ExampleTimePeriod HeatUpTime(void) const {
+    ExampleTimePeriod HeatUpTime() const {
         return ExampleTimePeriod::Seconds(0.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

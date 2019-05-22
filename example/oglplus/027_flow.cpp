@@ -32,7 +32,7 @@ namespace oglplus {
 
 class FlowMapProg : public Program {
 private:
-    static Program make_prog(void) {
+    static Program make_prog() {
         Program prog(ObjectDesc("Flow map"));
         prog
           .AttachShader(VertexShader(
@@ -44,7 +44,7 @@ private:
 
                     "out vec2 vertTexCoord;"
 
-                    "void main(void)"
+                    "void main()"
                     "{"
                     "	gl_Position = Position;"
                     "	vertTexCoord = TexCoord;"
@@ -89,7 +89,7 @@ private:
               "	return texture(tex, TC+vec2(steer, flow)*TS).r*factor;"
               "}"
 
-              "void main(void)"
+              "void main()"
               "{"
               "	vec2 FC = gl_FragCoord.xy+vec2(-HMapSize/2, -HMapSize+4);"
               "	float s = 2.71*sin(1.1*Time+0.03*length(FC));"
@@ -137,7 +137,7 @@ private:
         return prog;
     }
 
-    Program& prog(void) {
+    Program& prog() {
         return *this;
     }
 
@@ -216,31 +216,31 @@ public:
           .Image2D(flow_map_image);
     }
 
-    void Swap(void) {
+    void Swap() {
         ++curr;
     }
 
-    GLuint FlowMapUnit(void) const {
+    GLuint FlowMapUnit() const {
         return first_tex_unit + nhm + 1;
     }
 
-    GLuint HMapUnit1(void) const {
+    GLuint HMapUnit1() const {
         return first_tex_unit + (curr + 0) % nhm;
     }
 
-    GLuint HMapUnit2(void) const {
+    GLuint HMapUnit2() const {
         return first_tex_unit + (curr + 1) % nhm;
     }
 
-    Reference<Texture> CurrentHeightMap(void) const {
+    Reference<Texture> CurrentHeightMap() const {
         return height_maps[(curr + 2) % nhm];
     }
 
-    GLuint BumpMapUnit(void) const {
+    GLuint BumpMapUnit() const {
         return first_tex_unit + nhm;
     }
 
-    Reference<Texture> BumpMap(void) const {
+    Reference<Texture> BumpMap() const {
         return bump_map;
     }
 };
@@ -292,14 +292,14 @@ public:
         holder.Swap();
     }
 
-    GLuint TexUnit(void) const {
+    GLuint TexUnit() const {
         return holder.BumpMapUnit();
     }
 };
 
 class ScreenProg : public Program {
 private:
-    static Program make_prog(void) {
+    static Program make_prog() {
         Program prog(ObjectDesc("Screen"));
 
         prog
@@ -312,7 +312,7 @@ private:
 
                     "out vec2 vertTexCoord;"
 
-                    "void main(void)"
+                    "void main()"
                     "{"
                     "	gl_Position = Position;"
                     "	vertTexCoord = TexCoord;"
@@ -327,7 +327,7 @@ private:
 
                     "out vec3 fragColor;"
 
-                    "void main(void)"
+                    "void main()"
                     "{"
                     "	vec4 nm = texture(NormalMap, vertTexCoord);"
                     "	vec2 offs = nm.xy*0.05+vec2(0.004, 0.004)*nm.w;"
@@ -342,18 +342,17 @@ private:
         return prog;
     }
 
-    Program& prog(void) {
+    Program& prog() {
         return *this;
     }
 
 public:
     Uniform<SLtoCpp<SLDataType::Sampler2D>> background, normal_map;
 
-    ScreenProg(void)
+    ScreenProg()
       : Program(make_prog())
       , background(prog(), "Background")
-      , normal_map(prog(), "NormalMap") {
-    }
+      , normal_map(prog(), "NormalMap") {}
 };
 
 class FlowExample : public Example {
@@ -373,7 +372,7 @@ private:
     shapes::ShapeWrapper screen;
 
 public:
-    FlowExample(void)
+    FlowExample()
       : gl()
       , flow(images::LoadTexture("flow_map"), 1)
       , screen(
@@ -412,25 +411,24 @@ public:
         screen.Draw();
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Minutes(1.0);
     }
 
-    ExampleTimePeriod HeatUpTime(void) const {
+    ExampleTimePeriod HeatUpTime() const {
         return ExampleTimePeriod::Seconds(0.0);
     }
 
-    ExampleTimePeriod ScreenshotTime(void) const {
+    ExampleTimePeriod ScreenshotTime() const {
         return ExampleTimePeriod::Seconds(3.0);
     }
 
-    ExampleTimePeriod FrameTime(void) const {
+    ExampleTimePeriod FrameTime() const {
         return ExampleTimePeriod::Seconds(1.0 / 30.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

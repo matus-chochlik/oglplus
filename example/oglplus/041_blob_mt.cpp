@@ -92,7 +92,7 @@ public:
     Context gl;
 
     Program prog;
-    static Program MakeProg(void);
+    static Program MakeProg();
 
     const unsigned grid_div;
     shapes::ShapeWrapperWithAdjacency grid;
@@ -129,9 +129,9 @@ private:
 
 public:
     SurfacePolygonizer(SurfaceExample& parent, GLuint id);
-    ~SurfacePolygonizer(void);
+    ~SurfacePolygonizer();
 
-    void Cancel(void);
+    void Cancel();
 
     void Polygonize(GLuint p);
     void Render(double time);
@@ -160,7 +160,7 @@ private:
 public:
     SurfaceDepthMapRenderer(SurfaceExample& parent);
 
-    void Cancel(void);
+    void Cancel();
     void Render(double);
 };
 
@@ -195,7 +195,7 @@ private:
 public:
     SurfaceLightMapRenderer(SurfaceExample& parent);
 
-    void Cancel(void);
+    void Cancel();
     void Render(double);
 };
 
@@ -221,7 +221,7 @@ private:
 public:
     SurfaceColorMapRenderer(SurfaceExample& parent);
 
-    void Cancel(void);
+    void Cancel();
     void Render(double);
 };
 
@@ -244,16 +244,16 @@ private:
     ExampleFrameSyncQueue light_map_ready, light_map_needed;
 
     Program depth_prog;
-    static Program MakeDepthProg(void);
+    static Program MakeDepthProg();
 
     Program color_prog;
-    static Program MakeColorProg(void);
+    static Program MakeColorProg();
 
     Program light_ray_prog;
-    static Program MakeLightMapProg(void);
+    static Program MakeLightMapProg();
 
     Program screen_prog;
-    static Program MakeScreenProg(void);
+    static Program MakeScreenProg();
     Uniform<Vec3f> ndc_light_pos;
     Uniform<Vec2f> screen_size;
 
@@ -267,30 +267,30 @@ public:
     void Reshape(GLuint width, GLuint height);
     void Render(ExampleClock& clock);
 
-    ExampleTimePeriod ScreenshotTime(void) const {
+    ExampleTimePeriod ScreenshotTime() const {
         return ExampleTimePeriod::Seconds(50.8);
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Minutes(2.0);
     }
 
-    GLuint CellConfigTexUnit(void) const {
+    GLuint CellConfigTexUnit() const {
         return 0;
     }
-    GLuint MetaballPosTexUnit(void) const {
+    GLuint MetaballPosTexUnit() const {
         return 1;
     }
-    GLuint DepthMapTexUnit(void) const {
+    GLuint DepthMapTexUnit() const {
         return 2;
     }
-    GLuint DummyMapTexUnit(void) const {
+    GLuint DummyMapTexUnit() const {
         return 3;
     }
-    GLuint ColorMapTexUnit(void) const {
+    GLuint ColorMapTexUnit() const {
         return 4;
     }
-    GLuint LightMapTexUnit(void) const {
+    GLuint LightMapTexUnit() const {
         return 5;
     }
 };
@@ -348,7 +348,7 @@ SurfacePolyXFBData::SurfacePolyXFBData(SurfaceDrawData& draw_data, GLuint id)
     DefaultTransformFeedback().Bind();
 }
 
-Program SurfacePolygonizerCommon::MakeProg(void) {
+Program SurfacePolygonizerCommon::MakeProg() {
     Program prog;
 
     VertexShader vs(ObjectDesc("Polygonization vertex"));
@@ -364,7 +364,7 @@ Program SurfacePolygonizerCommon::MakeProg(void) {
         "out float vertValue;"
         "flat out int vertInside;"
 
-        "void main(void)"
+        "void main()"
         "{"
         "	vertPosition = Position + GridOffset;"
 
@@ -459,7 +459,7 @@ Program SurfacePolygonizerCommon::MakeProg(void) {
         "	}"
         "}"
 
-        "void main(void)"
+        "void main()"
         "{"
         "	process_tetrahedron(0, 2, 4, 1);"
         "}")
@@ -475,7 +475,7 @@ Program SurfacePolygonizerCommon::MakeProg(void) {
     return prog;
 }
 
-void SurfacePolygonizerCommon::InitGridOffsets(void) {
+void SurfacePolygonizerCommon::InitGridOffsets() {
     int side = 1;
     int s = 2 * side + 1;
     int k = 0;
@@ -621,11 +621,11 @@ SurfacePolygonizer::SurfacePolygonizer(SurfaceExample& parent, GLuint id)
     gl.Enable(Capability::RasterizerDiscard);
 }
 
-SurfacePolygonizer::~SurfacePolygonizer(void) {
+SurfacePolygonizer::~SurfacePolygonizer() {
     Cancel();
 }
 
-void SurfacePolygonizer::Cancel(void) {
+void SurfacePolygonizer::Cancel() {
     xfb_data.plane_to_draw.Cancel();
     xfb_data.plane_to_poly.Cancel();
 }
@@ -724,7 +724,7 @@ SurfaceDepthMapRenderer::SurfaceDepthMapRenderer(SurfaceExample& parent)
     projection_matrix_1.Set(surface_data.light_projection);
 }
 
-void SurfaceDepthMapRenderer::Cancel(void) {
+void SurfaceDepthMapRenderer::Cancel() {
     depth_map_needed.Cancel();
     depth_map_ready.Cancel();
 }
@@ -796,7 +796,7 @@ SurfaceLightMapRenderer::SurfaceLightMapRenderer(SurfaceExample& parent)
     prog.Use();
 }
 
-void SurfaceLightMapRenderer::Cancel(void) {
+void SurfaceLightMapRenderer::Cancel() {
     light_map_ready.Cancel();
     light_map_needed.Cancel();
 }
@@ -907,7 +907,7 @@ SurfaceColorMapRenderer::SurfaceColorMapRenderer(SurfaceExample& parent)
     gl.FrontFace(parent.polygonizer_common.grid.FaceWinding());
 }
 
-void SurfaceColorMapRenderer::Cancel(void) {
+void SurfaceColorMapRenderer::Cancel() {
     color_map_ready.Cancel();
     color_map_needed.Cancel();
 }
@@ -957,7 +957,7 @@ void SurfaceColorMapRenderer::Render(double) {
     color_map_ready.Push(p);
 }
 
-Program SurfaceExample::MakeDepthProg(void) {
+Program SurfaceExample::MakeDepthProg() {
     Program prog(ObjectDesc("Depth map"));
 
     VertexShader vs(ObjectDesc("Depth map vertex"));
@@ -966,7 +966,7 @@ Program SurfaceExample::MakeDepthProg(void) {
 
         "in vec4 Position;"
 
-        "void main(void)"
+        "void main()"
         "{"
         "	gl_Position = Position;"
         "}")
@@ -987,7 +987,7 @@ Program SurfaceExample::MakeDepthProg(void) {
 
         "flat out int geomLayer;"
 
-        "void main(void)"
+        "void main()"
         "{"
         "	for(int l=0; l!=NL; ++l)"
         "	{"
@@ -1011,7 +1011,7 @@ Program SurfaceExample::MakeDepthProg(void) {
 
         "flat in int geomLayer;"
 
-        "void main(void)"
+        "void main()"
         "{"
         "	if((geomLayer == 1) == (gl_FrontFacing))"
         "		discard;"
@@ -1024,7 +1024,7 @@ Program SurfaceExample::MakeDepthProg(void) {
     return prog;
 }
 
-Program SurfaceExample::MakeColorProg(void) {
+Program SurfaceExample::MakeColorProg() {
     Program prog(ObjectDesc("Color"));
 
     VertexShader vs(ObjectDesc("Color vertex"));
@@ -1047,7 +1047,7 @@ Program SurfaceExample::MakeColorProg(void) {
         "out vec3 vertLightDir;"
         "out vec4 vertShadowCoord;"
 
-        "void main(void)"
+        "void main()"
         "{"
         "	vertColor = normalize(vec3(1,1,1)-Position.xyz);"
         "	vertNormal = Normal;"
@@ -1077,7 +1077,7 @@ Program SurfaceExample::MakeColorProg(void) {
 
         "out vec3 fragColor;"
 
-        "void main(void)"
+        "void main()"
         "{"
         "	vec3 Normal = normalize(vertNormal);"
         "	vec3 ViewDir = normalize(vertViewDir);"
@@ -1123,7 +1123,7 @@ Program SurfaceExample::MakeColorProg(void) {
     return prog;
 }
 
-Program SurfaceExample::MakeLightMapProg(void) {
+Program SurfaceExample::MakeLightMapProg() {
     Program prog(ObjectDesc("Light ray"));
 
     VertexShader vs(ObjectDesc("Light ray vertex"));
@@ -1135,7 +1135,7 @@ Program SurfaceExample::MakeLightMapProg(void) {
 
         "in vec3 Position;"
 
-        "void main(void)"
+        "void main()"
         "{"
         "	gl_Position = vec4(Position * Scale, 1.0);"
         "	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
@@ -1150,18 +1150,18 @@ Program SurfaceExample::MakeLightMapProg(void) {
         "uniform vec3 NDCLightPos;"
         "uniform vec2 ScreenSize;"
 
-        "subroutine float GetIntensityFunc(void);"
+        "subroutine float GetIntensityFunc();"
 
         "subroutine uniform GetIntensityFunc GetIntensity;"
 
         "subroutine(GetIntensityFunc)"
-        "float GetIntensitySurface(void)"
+        "float GetIntensitySurface()"
         "{"
         "	return 0.0;"
         "}"
 
         "subroutine(GetIntensityFunc)"
-        "float GetIntensityBackground(void)"
+        "float GetIntensityBackground()"
         "{"
         "	vec2 LPos = (NDCLightPos.xy*0.5+0.5)*ScreenSize;"
         "	vec2 d = gl_FragCoord.xy - LPos;"
@@ -1170,7 +1170,7 @@ Program SurfaceExample::MakeLightMapProg(void) {
 
         "out float fragIntensity;"
 
-        "void main(void)"
+        "void main()"
         "{"
         "	fragIntensity = GetIntensity();"
         "}")
@@ -1182,7 +1182,7 @@ Program SurfaceExample::MakeLightMapProg(void) {
     return prog;
 }
 
-Program SurfaceExample::MakeScreenProg(void) {
+Program SurfaceExample::MakeScreenProg() {
     Program prog(ObjectDesc("Screen"));
 
     VertexShader vs(ObjectDesc("Screen vertex"));
@@ -1194,7 +1194,7 @@ Program SurfaceExample::MakeScreenProg(void) {
 
         "out vec2 vertTexCoord;"
 
-        "void main(void)"
+        "void main()"
         "{"
         "	vertTexCoord = TexCoord;"
         "	gl_Position = Position;"
@@ -1214,7 +1214,7 @@ Program SurfaceExample::MakeScreenProg(void) {
 
         "out vec3 fragColor;"
 
-        "void main(void)"
+        "void main()"
         "{"
         "	fragColor = texture(ColorMap, gl_FragCoord.xy).rgb;"
         "	if(NDCLightPos.z > 1.0) return;"

@@ -32,7 +32,7 @@ namespace oglplus {
 
 class TransformProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         const GLchar* shader_source =
           "#version 150\n"
           "uniform mat4 CameraMatrix, ModelMatrix;"
@@ -51,7 +51,7 @@ private:
           "out vec3 vertLightDir, vertViewDir;"
           "out vec2 vertTexCoord;"
           "out vec4 vertLightTexCoord;"
-          "void main(void)"
+          "void main()"
           "{"
           "	gl_Position = "
           "		ModelMatrix *"
@@ -68,7 +68,7 @@ private:
         return ShaderProgram(
           ShaderType::Vertex, shader_source, ObjectDesc("Transform"));
     }
-    const Program& prog(void) const {
+    const Program& prog() const {
         return *this;
     }
 
@@ -77,20 +77,19 @@ public:
     ProgramUniform<Mat2f> texture_matrix;
     ProgramUniform<Vec3f> camera_position, light_position;
 
-    TransformProgram(void)
+    TransformProgram()
       : Program(make())
       , camera_matrix(prog(), "CameraMatrix")
       , model_matrix(prog(), "ModelMatrix")
       , light_proj_matrix(prog(), "LightProjMatrix")
       , texture_matrix(prog(), "TextureMatrix")
       , camera_position(prog(), "CameraPosition")
-      , light_position(prog(), "LightPosition") {
-    }
+      , light_position(prog(), "LightPosition") {}
 };
 
 class ShadowFragShader : public FragmentShader {
 public:
-    ShadowFragShader(void)
+    ShadowFragShader()
       : FragmentShader(
           ObjectDesc("Shadow fragment shader"),
           "#version 150\n"
@@ -100,13 +99,12 @@ public:
           "in vec2 vertTexCoord;"
           "in vec4 vertLightTexCoord;"
 
-          "void main(void){ }") {
-    }
+          "void main(){ }") {}
 };
 
 class ShadowProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("Shadow"));
         prog.AttachShader(ShadowFragShader());
         prog.MakeSeparable().Link().Use();
@@ -114,14 +112,13 @@ private:
     }
 
 public:
-    ShadowProgram(void)
-      : Program(make()) {
-    }
+    ShadowProgram()
+      : Program(make()) {}
 };
 
 class LineGeomShader : public GeometryShader {
 public:
-    LineGeomShader(void)
+    LineGeomShader()
       : GeometryShader(
           ObjectDesc("Line geometry shader"),
           "#version 150\n"
@@ -142,7 +139,7 @@ public:
           "};"
           "out float geomOpacity;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	vec4 p0 = gl_in[0].gl_Position;"
           "	vec4 p1 = gl_in[1].gl_Position;"
@@ -172,13 +169,12 @@ public:
           "	EmitVertex();"
 
           "	EndPrimitive();"
-          "}") {
-    }
+          "}") {}
 };
 
 class LineFragShader : public FragmentShader {
 public:
-    LineFragShader(void)
+    LineFragShader()
       : FragmentShader(
           ObjectDesc("Line fragment shader"),
           "#version 150\n"
@@ -186,16 +182,15 @@ public:
 
           "out vec4 fragColor;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	fragColor = vec4(0.0, 0.0, 0.0, 0.1+0.4*geomOpacity);"
-          "}") {
-    }
+          "}") {}
 };
 
 class LineProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("Line"));
         prog.AttachShader(LineGeomShader());
         prog.AttachShader(LineFragShader());
@@ -204,14 +199,13 @@ private:
     }
 
 public:
-    LineProgram(void)
-      : Program(make()) {
-    }
+    LineProgram()
+      : Program(make()) {}
 };
 
 class SketchFragShader : public FragmentShader {
 public:
-    SketchFragShader(void)
+    SketchFragShader()
       : FragmentShader(
           ObjectDesc("Sketch fragment shader"),
           "#version 150\n"
@@ -225,7 +219,7 @@ public:
           "in vec4 vertLightTexCoord;"
           "out vec4 fragColor;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	float LightMult = 1.0;"
 
@@ -280,30 +274,28 @@ public:
 
           "	fragColor = vec4(0.0, 0.0, 0.0, pow(Sample.b*(0.5 + Shadow*0.5), "
           "0.5));"
-          "}") {
-    }
+          "}") {}
 };
 
 class SketchProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("Sketch"));
         prog.AttachShader(SketchFragShader());
         prog.MakeSeparable().Link().Use();
         return prog;
     }
-    const Program& prog(void) const {
+    const Program& prog() const {
         return *this;
     }
 
 public:
     ProgramUniformSampler sketch_tex, shadow_tex;
 
-    SketchProgram(void)
+    SketchProgram()
       : Program(make())
       , sketch_tex(prog(), "SketchTex")
-      , shadow_tex(prog(), "ShadowTex") {
-    }
+      , shadow_tex(prog(), "ShadowTex") {}
 };
 
 template <typename ShapeBuilder>
@@ -356,7 +348,7 @@ public:
         }
     }
 
-    void Draw(void) {
+    void Draw() {
         vao.Bind();
         gl.FrontFace(make_shape.FaceWinding());
         shape_instr.Draw(shape_indices, 1);
@@ -368,7 +360,7 @@ public:
         shape_instr.Draw(shape_indices, 1, 0, drawing_driver);
     }
 
-    void DrawEdges(void) {
+    void DrawEdges() {
         vao.Bind();
         edge_instr.Draw(edge_indices);
     }
@@ -400,7 +392,7 @@ private:
     Framebuffer frame_shadow_fbo;
 
 public:
-    SketchExample(void)
+    SketchExample()
       : transf_prog()
       , sketch_prog()
       , plane(
@@ -620,17 +612,16 @@ public:
         RenderImage(time, torus_matrix, light_proj_matrix);
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Minutes(1.5);
     }
 
-    ExampleTimePeriod ScreenshotTime(void) const {
+    ExampleTimePeriod ScreenshotTime() const {
         return ExampleTimePeriod::Seconds(3.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

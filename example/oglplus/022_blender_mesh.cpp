@@ -28,14 +28,14 @@ namespace oglplus {
 
 class DepthProgram : public Program {
 private:
-    const Program& prog(void) const {
+    const Program& prog() const {
         return *this;
     }
 
 public:
     Lazy<ProgramUniform<Mat4f>> projection_matrix, camera_matrix, model_matrix;
 
-    DepthProgram(void)
+    DepthProgram()
       : Program(ObjectDesc("Depth"))
       , projection_matrix(prog(), "ProjectionMatrix")
       , camera_matrix(prog(), "CameraMatrix")
@@ -47,7 +47,7 @@ public:
 
           "in vec4 Position;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	gl_Position = ProjectionMatrix * CameraMatrix * ModelMatrix * "
           "Position;"
@@ -58,7 +58,7 @@ public:
         FragmentShader fs;
         fs.Source(
           "#version 140\n"
-          "void main(void) { }");
+          "void main() { }");
         fs.Compile();
         AttachShader(fs);
 
@@ -68,7 +68,7 @@ public:
 
 class ShapeProgram : public Program {
 private:
-    const Program& prog(void) const {
+    const Program& prog() const {
         return *this;
     }
 
@@ -77,7 +77,7 @@ public:
 
     Lazy<ProgramUniform<Vec3f>> colors;
 
-    ShapeProgram(void)
+    ShapeProgram()
       : Program(ObjectDesc("Shape"))
       , projection_matrix(prog(), "ProjectionMatrix")
       , camera_matrix(prog(), "CameraMatrix")
@@ -98,7 +98,7 @@ public:
           "out vec3 vertLightDir;"
           "out vec3 vertNormal;"
           "flat out int vertMaterial;"
-          "void main(void)"
+          "void main()"
           "{"
           "	gl_Position = ModelMatrix * Position;"
           "	vertLightDir = LightPosition - gl_Position.xyz;"
@@ -123,7 +123,7 @@ public:
           "flat in int vertMaterial;"
 
           "out vec3 fragColor;"
-          "void main(void)"
+          "void main()"
           "{"
           "	float w = gl_FragCoord.w;"
           "	float sum_bz = 0.0;"
@@ -165,7 +165,7 @@ private:
     DepthProgram depth_prog;
     ShapeProgram draw_prog;
 
-    static shapes::ShapeWrapper load_monkeys(void) {
+    static shapes::ShapeWrapper load_monkeys() {
         std::ifstream input;
         OpenResourceFile(input, "models", "monkeys", ".blend");
         if(!input.good())
@@ -191,7 +191,7 @@ private:
     GLuint width, height;
 
 public:
-    BlenderMeshExample(void)
+    BlenderMeshExample()
       : gl()
       , monkeys(load_monkeys())
       , depth_prog()
@@ -294,13 +294,12 @@ public:
           });
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Seconds(30.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

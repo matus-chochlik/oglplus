@@ -37,7 +37,7 @@ private:
     shapes::DrawingInstructions plane_instr;
     shapes::Plane::IndexArray plane_indices;
 
-    static std::vector<shapes::Plane> make_plane_builders(void) {
+    static std::vector<shapes::Plane> make_plane_builders() {
         std::vector<shapes::Plane> result;
         result.push_back(
           shapes::Plane(Vec3f(0.0f, 2.0f, 0.0f), Vec3f(0.0f, 0.0f, 2.0f)));
@@ -74,7 +74,7 @@ private:
     Array<Buffer> plane_positions;
 
 public:
-    TorusExample(void)
+    TorusExample()
       : make_torus()
       , torus_instr(make_torus.Instructions())
       , torus_indices(make_torus.Indices())
@@ -109,7 +109,7 @@ public:
           "in vec4 Position;"
           "in vec2 TexCoord;"
           "out vec2 vertTexCoord;"
-          "void main(void)"
+          "void main()"
           "{"
           "	vertTexCoord = TexCoord;"
           "	gl_Position = "
@@ -131,7 +131,7 @@ public:
           "#version 140\n"
           "in vec2 vertTexCoord;"
           "out vec4 fragColor;"
-          "void main(void)"
+          "void main()"
           "{"
           "	float i = ("
           "		int(vertTexCoord.x*36) % 2+"
@@ -186,7 +186,7 @@ public:
             "uniform vec3 Normal;"
             "in vec4 Position;"
             "out vec3 vertColor;"
-            "void main(void)"
+            "void main()"
             "{"
             "	gl_Position = Position;"
             "	for(int p=0; p!=PlaneCount; ++p)"
@@ -211,7 +211,7 @@ public:
             "#version 140\n"
             "in vec3 vertColor;"
             "out vec4 fragColor;"
-            "void main(void)"
+            "void main()"
             "{"
             "	fragColor = vec4(vertColor, 0.7);"
             "}")
@@ -266,7 +266,7 @@ public:
         ProgramUniform<Mat4f>(plane_prog, "ProjectionMatrix").Set(proj);
     }
 
-    void RenderTorus(void) {
+    void RenderTorus() {
         torus_prog.Use();
         torus.Bind();
         torus_instr.Draw(torus_indices);
@@ -327,13 +327,12 @@ public:
         BSP(camera, 0);
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Seconds(30.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

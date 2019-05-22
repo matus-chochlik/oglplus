@@ -40,7 +40,7 @@ private:
 
     Program prog;
 
-    Program make_prog(void) {
+    Program make_prog() {
         Program result(ObjectDesc("Main"));
 
         vertex_shader
@@ -54,7 +54,7 @@ private:
             "out vec3 vertLight;"
             "out vec2 vertTexCoord;"
             "uniform vec3 LightPos;"
-            "void main(void)"
+            "void main()"
             "{"
             "	vertNormal = mat3(ModelMatrix)*Normal;"
             "	gl_Position = ModelMatrix * Position;"
@@ -73,7 +73,7 @@ private:
           "in vec3 vertLight;"
           "in vec2 vertTexCoord;"
           "out vec4 fragColor;"
-          "void main(void)"
+          "void main()"
           "{"
           "	float d = dot(vertNormal, normalize(vertLight));"
           "	float i = 0.6 + max(d, 0.0);"
@@ -102,7 +102,7 @@ private:
     ExampleSyncQueue* thread_ready;
 
 public:
-    FBTexExample(void)
+    FBTexExample()
       : gl()
       , vertex_shader(ObjectDesc("Vertex"))
       , prog(make_prog())
@@ -121,12 +121,12 @@ public:
         Use();
     }
 
-    void SetProjection(void) {
+    void SetProjection() {
         projection_matrix.Set(
           CamMatrixf::PerspectiveX(Degrees(54), width, height, 1, 100));
     }
 
-    void Use(void) {
+    void Use() {
         gl.ClearDepth(1.0f);
         gl.ClearColor(0.8f, 0.8f, 0.8f, 0.0f);
 
@@ -170,11 +170,11 @@ public:
         parent_ready.Signal();
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Seconds(30.0);
     }
 
-    ExampleTimePeriod ScreenshotTime(void) const {
+    ExampleTimePeriod ScreenshotTime() const {
         return ExampleTimePeriod::Seconds(2.0);
     }
 };
@@ -197,7 +197,7 @@ private:
           "in vec3 vertLight;"
           "in vec2 vertTexCoord;"
           "out vec3 fragColor;"
-          "void main(void)"
+          "void main()"
           "{"
           "	float d = max(dot("
           "		vertNormal, "
@@ -274,7 +274,7 @@ public:
         Use();
     }
 
-    void Use(void) {
+    void Use() {
         gl.ClearDepth(1.0f);
         gl.ClearColor(0.9f, 0.4f, 0.4f, 1.0f);
 
@@ -292,7 +292,7 @@ public:
           CamMatrixf::PerspectiveX(Degrees(48), 1.0, 1, 100));
     }
 
-    void Cancel(void) {
+    void Cancel() {
         parent_ready.Cancel();
         thread_ready.Cancel();
     }

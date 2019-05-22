@@ -34,7 +34,7 @@ namespace oglplus {
 
 class RaytraceProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog;
 
         VertexShader vs;
@@ -45,7 +45,7 @@ private:
 
             "out int vertFace;"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	gl_Position = Coord;"
             "	vertFace = gl_InstanceID;"
@@ -124,7 +124,7 @@ private:
             "	).z < 0.0;"
             "}"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	int face = vertFace[0];"
             "	mat4 Coord[6];"
@@ -174,7 +174,7 @@ private:
 
             "out vec3 fragColor;"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	float bt = 2.0;"
             "	for(int of=0; of!=6; ++of)"
@@ -220,7 +220,7 @@ private:
         return prog;
     }
 
-    Program& self(void) {
+    Program& self() {
         return *this;
     }
 
@@ -229,13 +229,12 @@ public:
     ProgramUniform<Vec3f> camera_position;
     ProgramUniform<Vec4f> cutout_coord;
 
-    RaytraceProgram(void)
+    RaytraceProgram()
       : Program(make())
       , projection_matrix(self(), "ProjectionMatrix")
       , camera_matrix(self(), "CameraMatrix")
       , camera_position(self(), "CameraPosition")
-      , cutout_coord(self(), "CutoutCoord") {
-    }
+      , cutout_coord(self(), "CutoutCoord") {}
 };
 
 class RaytraceExample : public Example {
@@ -252,7 +251,7 @@ private:
     GLuint cube_side;
 
 public:
-    RaytraceExample(void)
+    RaytraceExample()
       : cube_side(512) {
         GLfloat grid_coords[3] = {0.5f, 0.5f, 0.5f};
 
@@ -349,13 +348,12 @@ public:
         gl.DrawArraysInstanced(PrimitiveType::Points, 0, 1, 6);
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Seconds(90.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

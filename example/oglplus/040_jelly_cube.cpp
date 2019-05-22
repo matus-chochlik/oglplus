@@ -39,7 +39,7 @@ namespace se = ::oglplus::smart_enums;
 
 class MetalProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Shader vs(se::Vertex(), ObjectDesc("Metal vertex"));
         vs.Source(
           "#version 150\n"
@@ -53,7 +53,7 @@ private:
           "out vec3 vertNormal, vertTangent, vertBitangent;"
           "out vec3 vertLightDir, vertViewDir;"
           "out vec2 vertTexCoord;"
-          "void main(void)"
+          "void main()"
           "{"
           "	gl_Position = Position;"
           "	vertLightDir = LightPosition - gl_Position.xyz;"
@@ -81,7 +81,7 @@ private:
 
           "out vec3 fragColor;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	vec3 Sample = texture(MetalTex, vertTexCoord).rgb;"
           "	vec3 LightColor = vec3(1.0, 1.0, 0.9);"
@@ -128,7 +128,7 @@ private:
         return prog;
     }
 
-    const Program& self(void) const {
+    const Program& self() const {
         return *this;
     }
 
@@ -137,13 +137,12 @@ public:
     ProgramUniform<Vec3f> camera_position;
     ProgramUniform<GLfloat> light_multiplier;
 
-    MetalProgram(void)
+    MetalProgram()
       : Program(make())
       , camera_matrix(self(), "CameraMatrix")
       , projection_matrix(self(), "ProjectionMatrix")
       , camera_position(self(), "CameraPosition")
-      , light_multiplier(self(), "LightMultiplier") {
-    }
+      , light_multiplier(self(), "LightMultiplier") {}
 };
 
 class MetalFloor : public shapes::ShapeWrapper {
@@ -176,7 +175,7 @@ public:
 
 class CameraDriveProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Shader tfbs(se::Vertex(), ObjectDesc("Camera drive"));
         tfbs.Source(
           "#version 150\n"
@@ -192,7 +191,7 @@ private:
 
           "out vec4 tfbPosition, tfbVelocity;"
 
-          "bool is_camera(void)"
+          "bool is_camera()"
           "{"
           "	return gl_VertexID == 0;"
           "}"
@@ -204,7 +203,7 @@ private:
           "	return k * sign(ds) * min(abs(ds), l) * normalize(v);"
           "}"
 
-          "vec3 springs(void)"
+          "vec3 springs()"
           "{"
           "	if(is_camera())"
           "	{"
@@ -226,7 +225,7 @@ private:
           "	}"
           "}"
 
-          "vec3 elevation(void)"
+          "vec3 elevation()"
           "{"
           "	if(is_camera())"
           "	{"
@@ -238,12 +237,12 @@ private:
           "	else return vec3(0.0, 0.0, 0.0);"
           "}"
 
-          "vec3 drag(void)"
+          "vec3 drag()"
           "{"
           "	return -0.08 * Velocity;"
           "}"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	vec3 Force = drag() + elevation() + springs();"
           "	tfbVelocity = vec4(Velocity + (Force * Interval) / Mass, 1.0);"
@@ -262,17 +261,16 @@ private:
         return prog;
     }
 
-    const Program& self(void) {
+    const Program& self() {
         return *this;
     }
 
 public:
     ProgramUniform<GLfloat> interval;
 
-    CameraDriveProgram(void)
+    CameraDriveProgram()
       : Program(make())
-      , interval(self(), "Interval") {
-    }
+      , interval(self(), "Interval") {}
 };
 
 class ChasingCamera {
@@ -374,22 +372,22 @@ public:
         tgt_pos = map.At(1).xyz();
     }
 
-    Vec3f Position(void) const {
+    Vec3f Position() const {
         return cam_pos;
     }
 
-    Vec3f Target(void) const {
+    Vec3f Target() const {
         return tgt_pos;
     }
 
-    CamMatrixf Matrix(void) const {
+    CamMatrixf Matrix() const {
         return CamMatrixf::LookingAt(cam_pos, tgt_pos);
     }
 };
 
 class JellyPhysProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Shader tfbs(se::Vertex(), ObjectDesc("Jelly physics"));
         tfbs.Source(
           "#version 150\n"
@@ -424,14 +422,14 @@ private:
 
           "out vec4 tfbPosition, tfbVelocity;"
 
-          "vec3 gravity(void)"
+          "vec3 gravity()"
           "{"
           "	float Acting = -max(sign(Position.y), 0.0);"
           "	vec3 GravAccel = vec3(0.0, Acting * 9.81, 0.0);"
           "	return Mass * GravAccel;"
           "}"
 
-          "vec3 floor(void)"
+          "vec3 floor()"
           "{"
           "	float IsUnder = -min(sign(Position.y), 0.0);"
           "	float GoingDown = -min(sign(Velocity.y), 0.0);"
@@ -503,7 +501,7 @@ private:
           "	);"
           "}"
 
-          "vec3 springs(void)"
+          "vec3 springs()"
           "{"
           "	vec3 Result = vec3(0.0, 0.0, 0.0);"
           "	VertexSpringIndices vsi = VertexSprings[gl_VertexID];"
@@ -522,18 +520,18 @@ private:
           "	return Result;"
           "}"
 
-          "vec3 drag(void)"
+          "vec3 drag()"
           "{"
           "	return -0.002 * SpringALength * Velocity;"
           "}"
 
-          "vec3 impulse(void)"
+          "vec3 impulse()"
           "{"
           "	vec3 v = Position - ImpulseCenter;"
           "	return ImpulseStrength * normalize(v)/length(v);"
           "}"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	vec3 Force = drag() + gravity() + springs() + floor() + impulse();"
           "	tfbVelocity = vec4(Velocity + (Force * Interval) / Mass, 1.0);"
@@ -551,7 +549,7 @@ private:
         return prog;
     }
 
-    const Program& self(void) {
+    const Program& self() {
         return *this;
     }
 
@@ -559,18 +557,17 @@ public:
     ProgramUniform<Vec3f> impulse_center;
     ProgramUniform<GLfloat> impulse_strength, interval, mass;
 
-    JellyPhysProgram(void)
+    JellyPhysProgram()
       : Program(make())
       , impulse_center(self(), "ImpulseCenter")
       , impulse_strength(self(), "ImpulseStrength")
       , interval(self(), "Interval")
-      , mass(self(), "Mass") {
-    }
+      , mass(self(), "Mass") {}
 };
 
 class JellyDrawProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Shader vs(se::Vertex(), ObjectDesc("Draw vertex"));
         vs.Source(
           "#version 150\n"
@@ -581,7 +578,7 @@ private:
 
           "out vec3 vertLightDir;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	gl_Position = vec4(Position, 1.0);"
           "	vertLightDir = normalize(LightPosition - Position);"
@@ -620,7 +617,7 @@ private:
           "	));"
           "}"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	vec3 fn  = face_normal(0, 2, 4);"
           "	vec3 fn1 = face_normal(1, 2, 0);"
@@ -651,7 +648,7 @@ private:
 
           "out vec3 fragColor;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	float Ambient = 0.8;"
           "	float Diffuse = LightMultiplier * sqrt(max(dot("
@@ -672,7 +669,7 @@ private:
         return prog;
     }
 
-    const Program& self(void) {
+    const Program& self() {
         return *this;
     }
 
@@ -681,19 +678,18 @@ public:
     ProgramUniform<Vec3f> ambient_color, diffuse_color;
     ProgramUniform<GLfloat> light_multiplier;
 
-    JellyDrawProgram(void)
+    JellyDrawProgram()
       : Program(make())
       , camera_matrix(self(), "CameraMatrix")
       , projection_matrix(self(), "ProjectionMatrix")
       , ambient_color(self(), "AmbientColor")
       , diffuse_color(self(), "DiffuseColor")
-      , light_multiplier(self(), "LightMultiplier") {
-    }
+      , light_multiplier(self(), "LightMultiplier") {}
 };
 
 class ShadowProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Shader vs(se::Vertex(), ObjectDesc("Shadow vertex"));
         vs.Source(
           "#version 150\n"
@@ -704,7 +700,7 @@ private:
 
           "out vec3 vertLightDir;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	gl_Position = vec4(Position, 1.0);"
           "	vertLightDir = LightPosition - Position;"
@@ -769,7 +765,7 @@ private:
           "	);"
           "}"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	vec3 ld = face_light_dir(0, 2, 4);"
           "	vec3 fn  = face_normal(0, 2, 4);"
@@ -792,18 +788,17 @@ private:
         return prog;
     }
 
-    const Program& self(void) {
+    const Program& self() {
         return *this;
     }
 
 public:
     ProgramUniform<Mat4f> camera_matrix, projection_matrix;
 
-    ShadowProgram(void)
+    ShadowProgram()
       : Program(make())
       , camera_matrix(self(), "CameraMatrix")
-      , projection_matrix(self(), "ProjectionMatrix") {
-    }
+      , projection_matrix(self(), "ProjectionMatrix") {}
 };
 
 // Wrapper around the data for rendering of the jelly cube
@@ -1340,19 +1335,18 @@ private:
     double _remaining;
     bool _status;
 
-    bool _started(void) const {
+    bool _started() const {
         return _remaining > 0.0;
     }
 
-    bool _can_restart(void) const {
+    bool _can_restart() const {
         return _remaining < -2.0;
     }
 
 public:
-    BulletTimeTrigger(void)
+    BulletTimeTrigger()
       : _remaining(0.0)
-      , _status(false) {
-    }
+      , _status(false) {}
 
     void UpdateAndStartIf(double interval, bool can_start, double duration) {
         _remaining -= interval;
@@ -1360,7 +1354,7 @@ public:
             _remaining = duration;
     }
 
-    bool On(void) {
+    bool On() {
         if(_started() && !_status) {
             _status = true;
             return true;
@@ -1368,7 +1362,7 @@ public:
         return false;
     }
 
-    bool Off(void) {
+    bool Off() {
         if(!_started() && _status) {
             _status = false;
             return true;
@@ -1536,7 +1530,7 @@ public:
         UpdateImpulse(clock.Now().Seconds(), camera.Target());
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Minutes(2.0);
     }
 
@@ -1544,21 +1538,20 @@ public:
         return clock.RealTime() < DefaultTimeout();
     }
 
-    ExampleTimePeriod HeatUpTime(void) const {
+    ExampleTimePeriod HeatUpTime() const {
         return ExampleTimePeriod::Seconds(0.0);
     }
 
-    ExampleTimePeriod ScreenshotTime(void) const {
+    ExampleTimePeriod ScreenshotTime() const {
         return ExampleTimePeriod::Seconds(2.0);
     }
 
-    ExampleTimePeriod FrameTime(void) const {
+    ExampleTimePeriod FrameTime() const {
         return ExampleTimePeriod::Seconds(1.0 / 60.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

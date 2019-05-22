@@ -56,7 +56,7 @@ private:
     typedef std::pair<const GLfloat, GLint> DepthAndID;
 
 public:
-    PickingExample(void)
+    PickingExample()
       : cube_instr(make_cube.Instructions())
       , cube_indices(make_cube.Indices())
       , vs(ShaderType::Vertex, ObjectDesc("Vertex"))
@@ -69,7 +69,7 @@ public:
           "in vec4 Position;"
           "out vec3 vertColor;"
           "flat out int vertInstanceID;"
-          "void main(void)"
+          "void main()"
           "{"
           "	float x = gl_InstanceID % 6 - 2.5;"
           "	float y = gl_InstanceID / 6 - 2.5;"
@@ -139,7 +139,7 @@ public:
           "	);"
           "}"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	vec2 bc = barycentric_coords("
           "		gl_in[0].gl_Position,"
@@ -169,7 +169,7 @@ public:
           "in vec3 vertColor;"
           "uniform int Picked;"
           "out vec4 fragColor;"
-          "void main(void)"
+          "void main()"
           "{"
           "	if(vertInstanceID == Picked)"
           "		fragColor = vec4(1.0, 1.0, 1.0, 1.0);"
@@ -296,13 +296,12 @@ public:
         cube_instr.Draw(cube_indices, 36);
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Seconds(30.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

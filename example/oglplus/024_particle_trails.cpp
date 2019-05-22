@@ -37,7 +37,7 @@ private:
     std::vector<float> ages;
 
     // Creates a directional vector for a new particle
-    static Vec3f NewDirection(void) {
+    static Vec3f NewDirection() {
         float disp = 0.4f;
         float dx = (0.5f - (float(std::rand()) / RAND_MAX)) * disp;
         float dy = (0.5f - (float(std::rand()) / RAND_MAX)) * disp;
@@ -126,7 +126,7 @@ private:
 
     // Program
     Program prog;
-    static Program make_prog(void) {
+    static Program make_prog() {
         VertexShader vs;
         vs.Source(
           "#version 150\n"
@@ -134,7 +134,7 @@ private:
           "in vec4 Position;"
           "in float Age;"
           "out float vertAge;"
-          "void main(void)"
+          "void main()"
           "{"
           "	gl_Position = CameraMatrix * Position;"
           "	vertAge = Age;"
@@ -149,7 +149,7 @@ private:
           "uniform mat4 ProjectionMatrix;"
           "in float vertAge[];"
           "out float geomAge;"
-          "void main(void)"
+          "void main()"
           "{"
           "	if(vertAge[0] > 1.0) return;"
           "	float s = 0.5;"
@@ -178,7 +178,7 @@ private:
           "#version 150\n"
           "in float geomAge;"
           "out vec4 fragColor;"
-          "void main(void)"
+          "void main()"
           "{"
           "	vec3 Color1 = vec3(1.0, 0.5, 0.5);"
           "	vec3 Color2 = vec3(0.3, 0.1, 0.1);"
@@ -212,7 +212,7 @@ private:
     std::vector<float> ages;
 
 public:
-    SmokeExample(void)
+    SmokeExample()
       : emitters()
       , prog(make_prog())
       , projection_matrix(prog, "ProjectionMatrix")
@@ -319,21 +319,20 @@ public:
         gl.DrawElements(PrimitiveType::Points, indices.size(), indices.data());
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Minutes(1.0);
     }
 
-    ExampleTimePeriod ScreenshotTime(void) const {
+    ExampleTimePeriod ScreenshotTime() const {
         return ExampleTimePeriod::Seconds(4.5);
     }
 
-    ExampleTimePeriod HeatUpTime(void) const {
+    ExampleTimePeriod HeatUpTime() const {
         return ExampleTimePeriod::Seconds(0.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

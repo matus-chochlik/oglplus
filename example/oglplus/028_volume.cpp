@@ -30,7 +30,7 @@ namespace oglplus {
 
 class VolumeVertShader : public VertexShader {
 public:
-    VolumeVertShader(void)
+    VolumeVertShader()
       : VertexShader(
           ObjectDesc("Volume vertex shader"),
           StrCRef("#version 150\n"
@@ -43,7 +43,7 @@ public:
                   "out vec3 vertGradient;"
                   "out float vertValue;"
 
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	gl_Position = Position;"
                   "	float Density = texture(VolumeTex, Position.xyz).r;"
@@ -58,13 +58,12 @@ public:
                   "		float Diff = Density - texture(VolumeTex, Coord).r;"
                   "		vertGradient += Diff * Offs;"
                   "	}"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class VolumeGeomShader : public GeometryShader {
 public:
-    VolumeGeomShader(void)
+    VolumeGeomShader()
       : GeometryShader(
           ObjectDesc("Volume geometry shader"),
           StrCRef(
@@ -80,7 +79,7 @@ public:
 
             "out vec3 geomNormal, geomLightDir, geomViewDir;"
 
-            "void do_nothing(void){ }"
+            "void do_nothing(){ }"
 
             "float find_t(int i1, int i2)"
             "{"
@@ -195,16 +194,15 @@ public:
             "	}"
             "}"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	process_tetrahedron(0, 2, 4, 1);"
-            "}")) {
-    }
+            "}")) {}
 };
 
 class VolumeFragShader : public FragmentShader {
 public:
-    VolumeFragShader(void)
+    VolumeFragShader()
       : FragmentShader(
           ObjectDesc("Volume fragment shader"),
           StrCRef(
@@ -214,7 +212,7 @@ public:
 
             "out vec4 fragColor;"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	vec3 Normal = normalize(geomNormal);"
             "	vec3 LightDir = normalize(geomLightDir);"
@@ -231,13 +229,12 @@ public:
             "		Specular* vec3(1.0, 1.0, 1.0),"
             "		1.0"
             "	);"
-            "}")) {
-    }
+            "}")) {}
 };
 
 class VolumeProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog;
         prog.AttachShader(VolumeVertShader());
         prog.AttachShader(VolumeGeomShader());
@@ -247,7 +244,7 @@ private:
         return prog;
     }
 
-    const Program& self(void) const {
+    const Program& self() const {
         return *this;
     }
 
@@ -257,15 +254,14 @@ public:
     ProgramUniform<Vec3f> camera_position, light_position;
     ProgramUniformSampler volume_tex;
 
-    VolumeProgram(void)
+    VolumeProgram()
       : Program(make())
       , threshold(self(), "Threshold")
       , grid_step(self(), "GridStep")
       , transform_matrix(self(), "TransformMatrix")
       , camera_position(self(), "CameraPosition")
       , light_position(self(), "LightPosition")
-      , volume_tex(self(), "VolumeTex") {
-    }
+      , volume_tex(self(), "VolumeTex") {}
 };
 
 class Grid {
@@ -310,15 +306,15 @@ public:
         grid_indices.clear();
     }
 
-    float Step(void) const {
+    float Step() const {
         return 1.0f / grid_div;
     }
 
-    void Use(void) {
+    void Use() {
         vao.Bind();
     }
 
-    void Draw(void) {
+    void Draw() {
         grid_instr.Draw(grid_indices);
     }
 };
@@ -397,13 +393,12 @@ public:
         height = vp_height;
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Seconds(60.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

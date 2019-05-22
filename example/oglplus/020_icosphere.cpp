@@ -58,7 +58,7 @@ private:
     Texture tex;
 
 public:
-    CubeMapExample(void)
+    CubeMapExample()
       : make_shape(4)
       , shape_instr(make_shape.Instructions())
       , shape_indices(make_shape.Indices())
@@ -74,7 +74,7 @@ public:
           "out vec3 vertLightDir;"
           "out vec3 vertViewDir;"
           "uniform vec3 LightPos;"
-          "void main(void)"
+          "void main()"
           "{"
           "	vec3 Normal = Position.xyz;"
           "	gl_Position = ModelMatrix * Position;"
@@ -102,7 +102,7 @@ public:
           "out vec3 geomLightRefl;"
           "out vec3 geomViewDir;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	vec3 FaceNormal = 0.333333*("
           "		vertNormal[0]+"
@@ -135,7 +135,7 @@ public:
           "in vec3 geomLightRefl;"
           "in vec3 geomViewDir;"
           "out vec3 fragColor;"
-          "void main(void)"
+          "void main()"
           "{"
           "	vec3 lt = vec3(1.0, 1.0, 1.0);"
           "	vec3 tex = texture(TexUnit, geomTexCoord).rgb;"
@@ -236,13 +236,12 @@ public:
         shape_instr.Draw(shape_indices);
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Minutes(1.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

@@ -34,14 +34,14 @@ private:
 
     Program prog;
 
-    static Program make_prog(void) {
+    static Program make_prog() {
         Program prog;
         VertexShader vs;
         vs.Source(StrCRef("#version 150\n"
                           "in vec3 Position;"
                           "in vec2 TexCoord;"
                           "out vec2 vertTexCoord;"
-                          "void main(void)"
+                          "void main()"
                           "{"
                           "	gl_Position = vec4(Position, 1.0);"
                           "	vertTexCoord = TexCoord;"
@@ -74,7 +74,7 @@ private:
             "out vec3 geomPosition;"
             "out vec3 geomTexCoord;"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	vec4 world_pos[8*3];"
             "	vec3 tex_coord[8*3];"
@@ -246,7 +246,7 @@ private:
                           "	return vec3(a.x/b.x, a.y/b.y, a.z/b.z);"
                           "}"
 
-                          "void main(void)"
+                          "void main()"
                           "{"
                           "	const vec3 one = vec3(1.0, 1.0, 1.0);"
 
@@ -295,7 +295,7 @@ private:
     Texture color_tex, bump_tex;
 
 public:
-    ParallaxExample(void)
+    ParallaxExample()
       : prog(make_prog())
       , projection_matrix(prog, "ProjectionMatrix")
       , camera_matrix(prog, "CameraMatrix")
@@ -378,13 +378,12 @@ public:
         shape.Draw();
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Minutes(1.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

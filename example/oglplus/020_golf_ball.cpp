@@ -104,7 +104,7 @@ private:
     Buffer verts, normals;
 
 public:
-    SphereExample(void)
+    SphereExample()
       : sphere_instr(make_sphere.Instructions())
       , sphere_indices(make_sphere.Indices())
       , hole_count(50)
@@ -118,7 +118,7 @@ public:
           "uniform float Diameter;"
           "in vec3 Hole;"
           "out vec3 vertTransfHole;"
-          "void main(void)"
+          "void main()"
           "{"
           "	vertTransfHole = ("
           "		CameraMatrix *"
@@ -167,7 +167,7 @@ public:
           "out vec3 vertNormal;"
           "out vec3 vertLight;"
           "const vec3 LightPos = vec3(2.0, 3.0, 3.0);"
-          "void main(void)"
+          "void main()"
           "{"
           "	gl_Position = ModelMatrix * Position;"
           "	vertNormal = mat3(ModelMatrix)*Normal;"
@@ -186,7 +186,7 @@ public:
           "const int HoleCount = 50;"
           "uniform vec3 TransfHole[50];"
           "uniform float Diameter;"
-          "void main(void)"
+          "void main()"
           "{"
           "	int imax = 0;"
           "	float dmax = -1.0;"
@@ -309,13 +309,12 @@ public:
         sphere_instr.Draw(sphere_indices);
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Seconds(30.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

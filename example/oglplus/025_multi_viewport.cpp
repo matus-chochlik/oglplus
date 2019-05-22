@@ -39,7 +39,7 @@ private:
     // Program
     Program prog;
 
-    static Program make(void) {
+    static Program make() {
         VertexShader vs;
         vs.Source(
           "#version 150\n"
@@ -54,7 +54,7 @@ private:
           "out vec3 vertLightDir;"
           "out vec3 vertLightRefl;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	vertNormal = mat3(ModelMatrix)*Normal;"
           "	vertTexCoord = Normal;"
@@ -85,7 +85,7 @@ private:
           "out vec3 geomViewDir;"
           "out vec3 geomViewRefl;"
 
-          "void main(void)"
+          "void main()"
           "{"
           "	for(int vp=0; vp!=4; ++vp)"
           "	{"
@@ -123,7 +123,7 @@ private:
           "in vec3 geomViewDir;"
           "in vec3 geomViewRefl;"
           "out vec4 fragColor;"
-          "void main(void)"
+          "void main()"
           "{"
           "	float l = length(geomLightDir);"
           "	float d = dot("
@@ -168,7 +168,7 @@ private:
     Mat4f projection;
 
 public:
-    MultiViewportExample(void)
+    MultiViewportExample()
       : make_shape(1.0, 0.1, 8, 4, 48)
       , shape_instr(make_shape.Instructions())
       , shape_indices(make_shape.Indices())
@@ -306,17 +306,16 @@ public:
         shape_instr.Draw(shape_indices);
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Minutes(1.0);
     }
 
-    ExampleTimePeriod ScreenshotTime(void) const {
+    ExampleTimePeriod ScreenshotTime() const {
         return ExampleTimePeriod::Seconds(3.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

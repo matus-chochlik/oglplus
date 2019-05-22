@@ -28,7 +28,7 @@ namespace oglplus {
 
 class VaseVertShader : public VertexShader {
 public:
-    VaseVertShader(void)
+    VaseVertShader()
       : VertexShader(
           ObjectDesc("Vase vertex"),
           StrCRef(
@@ -45,7 +45,7 @@ public:
             "out vec3 vertViewDir;"
             "out vec2 vertTexCoord;"
             "out float vertShadow;"
-            "void main(void)"
+            "void main()"
             "{"
             "	gl_Position = ModelMatrix* Position;"
             "	vertNormal = mat3(ModelMatrix)*Normal;"
@@ -55,13 +55,12 @@ public:
             "	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
             "	vertTexCoord = TexCoord.xy;"
             "	vertShadow = TexCoord.z;"
-            "}")) {
-    }
+            "}")) {}
 };
 
 class VaseFragShader : public FragmentShader {
 public:
-    VaseFragShader(void)
+    VaseFragShader()
       : FragmentShader(
           ObjectDesc("Vase fragment"),
           StrCRef("#version 140\n"
@@ -73,7 +72,7 @@ public:
                   "in vec2 vertTexCoord;"
                   "in float vertShadow;"
                   "out vec3 fragColor;"
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	float Ambient = 0.2 + 0.3 * vertShadow;"
 
@@ -93,19 +92,18 @@ public:
                   "	fragColor = "
                   "		(Ambient + Diffuse)*Texel +"
                   "		Specular * LightColor;"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class VaseProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("Vase program"));
         prog << VaseVertShader() << VaseFragShader();
         prog.Link().Use();
         return prog;
     }
-    const Program& prog(void) const {
+    const Program& prog() const {
         return *this;
     }
 
@@ -114,15 +112,14 @@ public:
     ProgramUniform<Vec3f> camera_position, light_position;
     ProgramUniformSampler vase_tex;
 
-    VaseProgram(void)
+    VaseProgram()
       : Program(make())
       , projection_matrix(prog(), "ProjectionMatrix")
       , camera_matrix(prog(), "CameraMatrix")
       , model_matrix(prog(), "ModelMatrix")
       , camera_position(prog(), "CameraPosition")
       , light_position(prog(), "LightPosition")
-      , vase_tex(prog(), "VaseTex") {
-    }
+      , vase_tex(prog(), "VaseTex") {}
 };
 
 class VaseExample : public Example {
@@ -140,7 +137,7 @@ private:
     shapes::ShapeWrapper vase;
 
 public:
-    VaseExample(void)
+    VaseExample()
       : vase(
           List("Position")("Normal")("TexCoord").Get(),
           shapes::RevolveY<GLfloat>(
@@ -296,13 +293,12 @@ public:
         vase.Draw();
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Seconds(30.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

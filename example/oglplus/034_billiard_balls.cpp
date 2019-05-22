@@ -53,7 +53,7 @@ namespace oglplus {
 // the common vertex shader used in most of the rendering pipelines
 class CommonVertShader : public VertexShader {
 public:
-    CommonVertShader(void)
+    CommonVertShader()
       : VertexShader(
           ObjectDesc("Common vertex shader"),
           StrCRef("#version 150\n"
@@ -74,7 +74,7 @@ public:
                   "out vec3 vertViewDir;"
                   "out vec2 vertTexCoord;"
                   "out vec2 vertSTCoord;"
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	gl_Position = ModelMatrix * Position;"
                   "	vertLightDir = LightPosition - gl_Position.xyz;"
@@ -84,13 +84,12 @@ public:
                   "	vertBitangent = cross(vertNormal, vertTangent);"
                   "	vertTexCoord = (TextureMatrix * vec3(TexCoord,1.0)).xy;"
                   "	vertSTCoord = TexCoord;"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class DefaultGeomShader : public GeometryShader {
 public:
-    DefaultGeomShader(void)
+    DefaultGeomShader()
       : GeometryShader(
           ObjectDesc("Default geometry shader"),
           StrCRef("#version 150\n"
@@ -120,7 +119,7 @@ public:
                   "out vec2 geomTexCoord;"
                   "out vec2 geomSTCoord;"
 
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	for(int i=0; i!=3; ++i)"
                   "	{"
@@ -138,13 +137,12 @@ public:
                   "		EmitVertex();"
                   "	}"
                   "	EndPrimitive();"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class CubemapGeomShader : public GeometryShader {
 public:
-    CubemapGeomShader(void)
+    CubemapGeomShader()
       : GeometryShader(
           ObjectDesc("Cubemap geometry shader"),
           StrCRef("#version 150\n"
@@ -208,7 +206,7 @@ public:
                   "	)"
                   ");"
 
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	for(gl_Layer=0; gl_Layer!=6; ++gl_Layer)"
                   "	{"
@@ -232,13 +230,12 @@ public:
                   "		}"
                   "		EndPrimitive();"
                   "	}"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class VertexProgram : public QuickProgram {
 private:
-    const Program& self(void) const {
+    const Program& self() const {
         return *this;
     }
 
@@ -247,18 +244,17 @@ public:
     ProgramUniform<Mat3f> texture_matrix;
     ProgramUniform<Vec3f> camera_position, light_position;
 
-    VertexProgram(void)
+    VertexProgram()
       : QuickProgram(ObjectDesc("Vertex"), true, CommonVertShader())
       , model_matrix(self(), "ModelMatrix")
       , texture_matrix(self(), "TextureMatrix")
       , camera_position(self(), "CameraPosition")
-      , light_position(self(), "LightPosition") {
-    }
+      , light_position(self(), "LightPosition") {}
 };
 
 class GeometryProgram : public QuickProgram {
 private:
-    const Program& self(void) const {
+    const Program& self() const {
         return *this;
     }
 
@@ -268,13 +264,12 @@ public:
     GeometryProgram(const GeometryShader& shader)
       : QuickProgram(ObjectDesc("Geometry"), true, shader)
       , projection_matrix(self(), "ProjectionMatrix")
-      , camera_matrix(self(), "CameraMatrix") {
-    }
+      , camera_matrix(self(), "CameraMatrix") {}
 };
 
 class ClothFragmentShader : public FragmentShader {
 public:
-    ClothFragmentShader(void)
+    ClothFragmentShader()
       : FragmentShader(
           ObjectDesc("Cloth fragment shader"),
           StrCRef("#version 150\n"
@@ -289,7 +284,7 @@ public:
                   "in vec2 geomSTCoord;"
                   "out vec4 fragColor;"
 
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	vec3 LightColor = texture(LightMap, geomSTCoord).rgb;"
                   "	vec3 Sample = 0.5*("
@@ -328,13 +323,12 @@ public:
                   "		LightColor * Specular, "
                   "		1.0"
                   "	);"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class ClothProgram : public QuickProgram {
 private:
-    const Program& self(void) const {
+    const Program& self() const {
         return *this;
     }
 
@@ -343,18 +337,17 @@ public:
     ProgramUniformSampler cloth_tex;
     ProgramUniformSampler light_map;
 
-    ClothProgram(void)
+    ClothProgram()
       : QuickProgram(ObjectDesc("Cloth"), true, ClothFragmentShader())
       , color_1(self(), "Color1")
       , color_2(self(), "Color2")
       , cloth_tex(self(), "ClothTex")
-      , light_map(self(), "LightMap") {
-    }
+      , light_map(self(), "LightMap") {}
 };
 
 class BallFragmentShader : public FragmentShader {
 public:
-    BallFragmentShader(void)
+    BallFragmentShader()
       : FragmentShader(
           ObjectDesc("Ball fragment shader"),
           StrCRef("#version 150\n"
@@ -371,7 +364,7 @@ public:
                   "in vec2 geomSTCoord;"
                   "out vec4 fragColor;"
 
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	vec3 TexCoord = vec3(geomTexCoord, float(BallIdx));"
                   "	vec4 Sample = texture(NumberTex, TexCoord);"
@@ -412,13 +405,12 @@ public:
                   "		LightColor * Specular, "
                   "		1.0"
                   "	);"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class BallProgram : public QuickProgram {
 private:
-    const Program& self(void) const {
+    const Program& self() const {
         return *this;
     }
 
@@ -427,36 +419,34 @@ public:
     ProgramUniformSampler number_tex, reflect_tex;
     ProgramUniform<GLint> ball_idx;
 
-    BallProgram(void)
+    BallProgram()
       : QuickProgram(ObjectDesc("Ball"), true, BallFragmentShader())
       , color_1(self(), "Color1")
       , color_2(self(), "Color2")
       , number_tex(self(), "NumberTex")
       , reflect_tex(self(), "ReflectTex")
-      , ball_idx(self(), "BallIdx") {
-    }
+      , ball_idx(self(), "BallIdx") {}
 };
 
 class LightmapVertShader : public VertexShader {
 public:
-    LightmapVertShader(void)
+    LightmapVertShader()
       : VertexShader(
           ObjectDesc("Lightmap vertex shader"),
           StrCRef("#version 150\n"
                   "uniform mat4 TransformMatrix;"
                   "in vec4 Position;"
                   "out vec3 vertPosition;"
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	vertPosition = Position.xyz;"
                   "	gl_Position = TransformMatrix * Position;"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class LightmapFragShader : public FragmentShader {
 public:
-    LightmapFragShader(void)
+    LightmapFragShader()
       : FragmentShader(
           ObjectDesc("Lightmap fragment shader"),
           StrCRef(
@@ -466,7 +456,7 @@ public:
             "];"
             "in vec3 vertPosition;"
             "out vec4 fragColor;"
-            "void main(void)"
+            "void main()"
             "{"
             "	float d_max = 0.0;"
             "	vec3 L = LightPosition;"
@@ -482,13 +472,12 @@ public:
             "	}"
             "	float lt = exp(-d_max*0.8);"
             "	fragColor = vec4(lt, lt, lt, 1.0);"
-            "}")) {
-    }
+            "}")) {}
 };
 
 class LightmapProgram : public QuickProgram {
 private:
-    const Program& self(void) const {
+    const Program& self() const {
         return *this;
     }
 
@@ -497,13 +486,12 @@ public:
     ProgramUniform<Vec3f> light_position;
     ProgramUniform<Vec3f> ball_positions;
 
-    LightmapProgram(void)
+    LightmapProgram()
       : QuickProgram(
           ObjectDesc("Lightmap"), (LightmapVertShader(), LightmapFragShader()))
       , transform_matrix(self(), "TransformMatrix")
       , light_position(self(), "LightPosition")
-      , ball_positions(self(), "BallPositions") {
-    }
+      , ball_positions(self(), "BallPositions") {}
 };
 
 template <typename ShapeBuilder>
@@ -560,7 +548,7 @@ public:
         }
     }
 
-    void Draw(void) {
+    void Draw() {
         vao.Bind();
         gl.FrontFace(make_shape.FaceWinding());
         shape_instr.Draw(shape_indices);
@@ -602,7 +590,7 @@ private:
     Array<Texture> reflect_textures;
 
 public:
-    BilliardExample(void)
+    BilliardExample()
       : gl()
       , geom_prog(DefaultGeomShader())
       , plane_u(16, 0, 0)
@@ -972,17 +960,16 @@ public:
           CamMatrixf::PerspectiveX(Degrees(60), width, height, 1, 80));
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Minutes(1.5);
     }
 
-    ExampleTimePeriod ScreenshotTime(void) const {
+    ExampleTimePeriod ScreenshotTime() const {
         return ExampleTimePeriod::Seconds(1.5);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

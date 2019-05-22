@@ -30,7 +30,7 @@ namespace oglplus {
 
 class ShapeVertShader : public VertexShader {
 public:
-    ShapeVertShader(void)
+    ShapeVertShader()
       : VertexShader(
           ObjectDesc("Shape vertex shader"),
           StrCRef("#version 150\n"
@@ -49,7 +49,7 @@ public:
                   "out vec3 vertTangent;"
                   "out vec3 vertBitangent;"
                   "out vec2 vertTexCoord;"
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	gl_Position = ModelMatrix * Position;"
                   "	vertPosition = gl_Position.xyz;"
@@ -62,13 +62,12 @@ public:
                   "		ProjectionMatrix * "
                   "		CameraMatrix * "
                   "		gl_Position;"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class ShapeFragShader : public FragmentShader {
 public:
-    ShapeFragShader(void)
+    ShapeFragShader()
       : FragmentShader(
           ObjectDesc("Shape fragment shader"),
           StrCRef(
@@ -91,7 +90,7 @@ public:
 
             "const vec3 LightColor = vec3(1.0, 1.0, 1.0);"
 
-            "void main(void)"
+            "void main()"
             "{"
             "	vec4 Sample = texture(MetalTex, vertTexCoord);"
 
@@ -131,20 +130,19 @@ public:
             "		Color * Ambient +"
             "		Color * Diffuse +"
             "		LightColor * Specular;"
-            "}")) {
-    }
+            "}")) {}
 };
 
 class ShapeProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("Shape program"));
         prog.AttachShader(ShapeVertShader());
         prog.AttachShader(ShapeFragShader());
         prog.Link().Use();
         return prog;
     }
-    const Program& prog(void) const {
+    const Program& prog() const {
         return *this;
     }
 
@@ -154,7 +152,7 @@ public:
     ProgramUniform<Vec3f> color_1, color_2;
     ProgramUniformSampler metal_tex;
 
-    ShapeProgram(void)
+    ShapeProgram()
       : Program(make())
       , projection_matrix(prog(), "ProjectionMatrix")
       , camera_matrix(prog(), "CameraMatrix")
@@ -163,13 +161,12 @@ public:
       , light_position(prog(), "LightPosition")
       , color_1(prog(), "Color1")
       , color_2(prog(), "Color2")
-      , metal_tex(prog(), "MetalTex") {
-    }
+      , metal_tex(prog(), "MetalTex") {}
 };
 
 class LightVertShader : public VertexShader {
 public:
-    LightVertShader(void)
+    LightVertShader()
       : VertexShader(
           ObjectDesc("Light vertex shader"),
           StrCRef("#version 150\n"
@@ -177,56 +174,53 @@ public:
                   "uniform mat4 ProjectionMatrix, CameraMatrix;"
                   "in vec4 Position;"
 
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	gl_Position = ProjectionMatrix * CameraMatrix * Position;"
                   "	gl_PointSize = 9.0;"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class LightFragShader : public FragmentShader {
 public:
-    LightFragShader(void)
+    LightFragShader()
       : FragmentShader(
           ObjectDesc("Light fragment shader"),
           StrCRef("#version 150\n"
 
                   "out vec3 fragColor;"
 
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	fragColor = vec3(1.0, 1.0, 1.0);"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class LightProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("Light program"));
         prog.AttachShader(LightVertShader());
         prog.AttachShader(LightFragShader());
         prog.Link().Use();
         return prog;
     }
-    const Program& prog(void) const {
+    const Program& prog() const {
         return *this;
     }
 
 public:
     ProgramUniform<Mat4f> projection_matrix, camera_matrix;
 
-    LightProgram(void)
+    LightProgram()
       : Program(make())
       , projection_matrix(prog(), "ProjectionMatrix")
-      , camera_matrix(prog(), "CameraMatrix") {
-    }
+      , camera_matrix(prog(), "CameraMatrix") {}
 };
 
 class FlareVertShader : public VertexShader {
 public:
-    FlareVertShader(void)
+    FlareVertShader()
       : VertexShader(
           ObjectDesc("Flare vertex shader"),
           StrCRef("#version 150\n"
@@ -234,17 +228,16 @@ public:
                   "uniform mat4 CameraMatrix;"
                   "in vec4 Position;"
 
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	gl_Position = CameraMatrix * Position;"
                   "	gl_PointSize = 9.0;"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class FlareGeomShader : public GeometryShader {
 public:
-    FlareGeomShader(void)
+    FlareGeomShader()
       : GeometryShader(
           ObjectDesc("Flare geometry shader"),
           StrCRef("#version 150\n"
@@ -256,7 +249,7 @@ public:
 
                   "out vec2 geomTexCoord;"
 
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	for(int l=0; l!=3; ++l)"
                   "	{"
@@ -284,13 +277,12 @@ public:
                   "		}"
                   "		EndPrimitive();"
                   "	}"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class FlareFragShader : public FragmentShader {
 public:
-    FlareFragShader(void)
+    FlareFragShader()
       : FragmentShader(
           ObjectDesc("Flare fragment shader"),
           StrCRef("#version 150\n"
@@ -299,17 +291,16 @@ public:
                   "in vec2 geomTexCoord;"
                   "out vec4 fragColor;"
 
-                  "void main(void)"
+                  "void main()"
                   "{"
                   "	vec4 Sample = texture(FlareTex, geomTexCoord);"
                   "	fragColor = vec4(Sample.rgb, Sample.a*0.4);"
-                  "}")) {
-    }
+                  "}")) {}
 };
 
 class FlareProgram : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog(ObjectDesc("Flare"));
         prog.AttachShader(FlareVertShader());
         prog.AttachShader(FlareGeomShader());
@@ -317,7 +308,7 @@ private:
         prog.Link().Use();
         return prog;
     }
-    const Program& prog(void) const {
+    const Program& prog() const {
         return *this;
     }
 
@@ -326,13 +317,12 @@ public:
     ProgramUniform<GLint> samples;
     ProgramUniformSampler flare_tex;
 
-    FlareProgram(void)
+    FlareProgram()
       : Program(make())
       , projection_matrix(prog(), "ProjectionMatrix")
       , camera_matrix(prog(), "CameraMatrix")
       , samples(prog(), "Samples")
-      , flare_tex(prog(), "FlareTex") {
-    }
+      , flare_tex(prog(), "FlareTex") {}
 };
 
 template <typename ShapeBuilder>
@@ -385,7 +375,7 @@ public:
         }
     }
 
-    void Draw(void) {
+    void Draw() {
         vao.Bind();
         gl.FrontFace(make_shape.FaceWinding());
         shape_instr.Draw(shape_indices, 1);
@@ -415,7 +405,7 @@ private:
     Array<Query> queries;
 
 public:
-    FlareExample(void)
+    FlareExample()
       : shape(shape_prog, shapes::SpiralSphere())
       , n_flares(32)
       , queries(n_flares) {
@@ -535,13 +525,12 @@ public:
         gl.Disable(Capability::Blend);
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Seconds(90.0);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/

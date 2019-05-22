@@ -37,7 +37,7 @@ namespace oglplus {
 
 class DrawProg : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog;
 
         VertexShader vs;
@@ -46,7 +46,7 @@ private:
             "uniform mat4 ProjectionMatrix, CameraMatrix;"
             "layout (std140) uniform OffsetBlock {vec3 Offset[16*16*16];};"
             "in vec3 Position;"
-            "void main(void)"
+            "void main()"
             "{"
             "	gl_Position = "
             "		ProjectionMatrix *"
@@ -59,7 +59,7 @@ private:
         fs.Source(
             "#version 140\n"
             "out float fragValue;"
-            "void main(void)"
+            "void main()"
             "{"
             "	fragValue = 1.0/16.0;"
             "}")
@@ -70,23 +70,22 @@ private:
         return prog;
     }
 
-    Program& self(void) {
+    Program& self() {
         return *this;
     }
 
 public:
     ProgramUniform<Mat4f> projection_matrix, camera_matrix;
 
-    DrawProg(void)
+    DrawProg()
       : Program(make())
       , projection_matrix(self(), "ProjectionMatrix")
-      , camera_matrix(self(), "CameraMatrix") {
-    }
+      , camera_matrix(self(), "CameraMatrix") {}
 };
 
 class ScreenProg : public Program {
 private:
-    static Program make(void) {
+    static Program make() {
         Program prog;
 
         VertexShader vs;
@@ -96,7 +95,7 @@ private:
             "in vec4 Position;"
             "in vec2 TexCoord;"
             "out vec2 vertTexCoord;"
-            "void main(void)"
+            "void main()"
             "{"
             "	gl_Position = Position;"
             "	vertTexCoord = TexCoord*ScreenSize;"
@@ -110,7 +109,7 @@ private:
             "uniform sampler2DRect Tex;"
             "in vec2 vertTexCoord;"
             "out vec4 fragColor;"
-            "void main(void)"
+            "void main()"
             "{"
             "	float Overdraw = texture(Tex, vertTexCoord).r;"
             "	fragColor = texture(Palette, Overdraw);"
@@ -121,17 +120,16 @@ private:
         return prog;
     }
 
-    Program& self(void) {
+    Program& self() {
         return *this;
     }
 
 public:
     ProgramUniform<Vec2f> screen_size;
 
-    ScreenProg(void)
+    ScreenProg()
       : Program(make())
-      , screen_size(self(), "ScreenSize") {
-    }
+      , screen_size(self(), "ScreenSize") {}
 };
 
 struct OffsetData : public std::vector<GLfloat> {
@@ -173,7 +171,7 @@ private:
     DefaultFramebuffer dfb;
 
 public:
-    CubeExample(void)
+    CubeExample()
       : n(16)
       , screen_prog()
       , draw_prog()
@@ -277,17 +275,16 @@ public:
         RenderOnscreen(time);
     }
 
-    ExampleTimePeriod DefaultTimeout(void) {
+    ExampleTimePeriod DefaultTimeout() {
         return ExampleTimePeriod::Seconds(30.0);
     }
 
-    ExampleTimePeriod ScreenshotTime(void) const {
+    ExampleTimePeriod ScreenshotTime() const {
         return ExampleTimePeriod::Seconds(8.1);
     }
 };
 
-void setupExample(ExampleParams& /*params*/) {
-}
+void setupExample(ExampleParams& /*params*/) {}
 
 std::unique_ptr<ExampleThread> makeExampleThread(
   Example& /*example*/, unsigned /*thread_id*/, const ExampleParams& /*params*/
