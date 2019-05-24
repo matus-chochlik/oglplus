@@ -76,47 +76,32 @@ public:
         struct {
             Dir direction;
             const char* text;
-        } lines[] = {
-#if !OGLPLUS_NO_UNICODE_LITERALS
-            {Dir::LeftToRight, u8"Hello world"},
-            {Dir::LeftToRight, u8"Nazdar svet"},
-            {Dir::LeftToRight, u8"Γεια σας κόσμο"},
-            {Dir::LeftToRight, u8"Привет мир"},
-            {Dir::LeftToRight, u8"Witaj świecie"},
-            {Dir::LeftToRight, u8"Здравей свят"},
-            {Dir::LeftToRight, u8"Ahoj světe"},
-            {Dir::LeftToRight, u8"Moi maailma"},
-            {Dir::LeftToRight, u8"Bonjour tout le monde"},
-            {Dir::LeftToRight, u8"Hallo welt"},
-            {Dir::LeftToRight, u8"Բարեւ աշխարհ"},
-            {Dir::LeftToRight, u8"Hej världen"},
-            {Dir::LeftToRight, u8"Прывітанне свет"},
-            {Dir::LeftToRight, u8"Olá mundo"},
-            {Dir::LeftToRight, u8"Здраво свете"},
-            {Dir::LeftToRight, u8"Zdravo svet"},
-            {Dir::LeftToRight, u8"Hola mundo"},
-            {Dir::LeftToRight, u8"Merhaba dünya"},
-            {Dir::LeftToRight, u8"Привіт світ"},
-            {Dir::LeftToRight, u8"Pozdrav svijetu"},
-            {Dir::LeftToRight, u8"Hello világ"},
-            {Dir::RightToLeft, u8"مرحبا العالم"},
-            {Dir::LeftToRight, u8"Ciao mondo"},
-            {Dir::LeftToRight, u8"Здраво светот"},
-            {Dir::RightToLeft, u8"שלום עולם"},
-            { Dir::LeftToRight,
-              u8"Hei verden" }
-#else
-            {Dir::LeftToRight, "Hello world"},
-            {Dir::LeftToRight, "Nazdar svet"},
-            {Dir::LeftToRight, "Moi maailma"},
-            {Dir::LeftToRight, "Hallo welt"},
-            {Dir::LeftToRight, "Zdravo svet"},
-            {Dir::LeftToRight, "Pozdrav svijetu"},
-            {Dir::LeftToRight, "Hola mundo"},
-            {Dir::LeftToRight, "Ciao mondo"},
-            {Dir::LeftToRight, "Hei verden"}
-#endif
-        };
+        } lines[] = {{Dir::LeftToRight, u8"Hello world"},
+                     {Dir::LeftToRight, u8"Nazdar svet"},
+                     {Dir::LeftToRight, u8"Γεια σας κόσμο"},
+                     {Dir::LeftToRight, u8"Привет мир"},
+                     {Dir::LeftToRight, u8"Witaj świecie"},
+                     {Dir::LeftToRight, u8"Здравей свят"},
+                     {Dir::LeftToRight, u8"Ahoj světe"},
+                     {Dir::LeftToRight, u8"Moi maailma"},
+                     {Dir::LeftToRight, u8"Bonjour tout le monde"},
+                     {Dir::LeftToRight, u8"Hallo welt"},
+                     {Dir::LeftToRight, u8"Բարեւ աշխարհ"},
+                     {Dir::LeftToRight, u8"Hej världen"},
+                     {Dir::LeftToRight, u8"Прывітанне свет"},
+                     {Dir::LeftToRight, u8"Olá mundo"},
+                     {Dir::LeftToRight, u8"Здраво свете"},
+                     {Dir::LeftToRight, u8"Zdravo svet"},
+                     {Dir::LeftToRight, u8"Hola mundo"},
+                     {Dir::LeftToRight, u8"Merhaba dünya"},
+                     {Dir::LeftToRight, u8"Привіт світ"},
+                     {Dir::LeftToRight, u8"Pozdrav svijetu"},
+                     {Dir::LeftToRight, u8"Hello világ"},
+                     {Dir::RightToLeft, u8"مرحبا العالم"},
+                     {Dir::LeftToRight, u8"Ciao mondo"},
+                     {Dir::LeftToRight, u8"Здраво светот"},
+                     {Dir::RightToLeft, u8"שלום עולם"},
+                     {Dir::LeftToRight, u8"Hei verden"}};
         const std::size_t line_count = sizeof(lines) / sizeof(lines[0]);
 
         layout.Set(lines[current_line].text);

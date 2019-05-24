@@ -47,11 +47,7 @@ public:
       , tr(0, 1, 2)
       , font(tr.LoadFont((argc > 1) ? argv[1] : "Sans"))
       , oglp_layout(tr.MakeLayout(font, "OGLplus"))
-#if !OGLPLUS_NO_UNICODE_LITERALS
       , desc_layout(tr.MakeLayout(font, u8"a C++ wrapper for OpenGL©"))
-#else
-      , desc_layout(tr.MakeLayout(font, "a C++ wrapper for OpenGL(c)"))
-#endif
       , time_layout(tr.MakeLayout(font, 25))
       , rndr(tr.GetRenderer(
           oglplus::GeometryShader(

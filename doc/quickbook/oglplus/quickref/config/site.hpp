@@ -81,12 +81,6 @@ Indicates that C++11 default template arguments cannot be used. \
 #define OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS __UNSPECIFIED
 #endif
 
-#ifndef OGLPLUS_NO_UNICODE_LITERALS /*<                         \
-Indicates that C++11 unicode string literals are not supported. \
->*/
-#define OGLPLUS_NO_UNICODE_LITERALS __UNSPECIFIED
-#endif
-
 //]
 //[oglplus_config_site_5
 
