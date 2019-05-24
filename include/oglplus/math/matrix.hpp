@@ -316,16 +316,8 @@ public:
      */
     template <typename... C>
     explicit Matrix(const Vector<T, C>... row);
-#elif !OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
-
-#include <oglplus/math/matrix_n_ctr.ipp>
-
 #else
-
-#include <oglplus/math/matrix_2_ctr.ipp>
-#include <oglplus/math/matrix_3_ctr.ipp>
-#include <oglplus/math/matrix_4_ctr.ipp>
-
+#include <oglplus/math/matrix_n_ctr.ipp>
 #endif
 
     void Fill(T value) {

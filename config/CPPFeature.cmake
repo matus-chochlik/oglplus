@@ -58,6 +58,5 @@ function(require_cpp_feature FEATURE_NAME)
 endfunction()
 
 cpp_feature_detection(VARIADIC_MACROS)
-cpp_feature_detection(UNIFIED_INITIALIZATION_SYNTAX)
 cpp_feature_detection(FUNCTION_TEMPLATE_DEFAULT_ARGS)
 cpp_feature_detection(GENERALIZED_ATTRIBUTES)
