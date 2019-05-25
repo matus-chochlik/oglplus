@@ -13,11 +13,9 @@
 #include <oglplus/config/fix_gl_extension.hpp>
 #include <oglplus/config/fix_gl_version.hpp>
 #include <oglplus/error/glfunc.hpp>
-#include <oglplus/lib/oglplus.hpp>
 #include <oglplus/opt/application.hpp>
 
 #include <oalplus/al.hpp>
-#include <oalplus/lib.hpp>
 
 #include "main_frame.hpp"
 #include "spectra_app.hpp"

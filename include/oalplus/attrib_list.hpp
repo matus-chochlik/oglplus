@@ -14,6 +14,7 @@
 #define OALPLUS_ATTRIB_LIST_1303292057_HPP
 
 #include <oglplus/detail/attrib_list.hpp>
+#include <oalplus/context_attrib.hpp>
 
 #include <cassert>
 #include <vector>

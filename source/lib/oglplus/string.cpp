@@ -10,6 +10,7 @@
  */
 
 #include "prologue.ipp"
+
 #include <oglplus/utils/xml.hpp>
 
 #include "implement.ipp"

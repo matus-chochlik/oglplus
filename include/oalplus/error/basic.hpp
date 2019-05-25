@@ -66,8 +66,7 @@ public:
 
     Error(const Error&) = default;
 
-    ~Error() noexcept {
-    }
+    ~Error() noexcept {}
 
     Error& NoInfo() {
         return *this;
@@ -87,7 +86,7 @@ public:
 #if !OALPLUS_ERROR_NO_FILE
         _file = file;
 #endif
-        () file;
+        OALPLUS_FAKE_USE(file);
         return *this;
     }
 
@@ -104,7 +103,7 @@ public:
 #if !OALPLUS_ERROR_NO_FUNC
         _func = func;
 #endif
-        () func;
+        OALPLUS_FAKE_USE(func);
         return *this;
     }
 
@@ -121,7 +120,7 @@ public:
 #if !OALPLUS_ERROR_NO_LINE
         _line = line;
 #endif
-        () line;
+        OALPLUS_FAKE_USE(line);
         return *this;
     }
 
@@ -138,7 +137,7 @@ public:
 #if !OALPLUS_ERROR_NO_AL_LIB
         _allib_name = lib_name;
 #endif
-        () lib_name;
+        OALPLUS_FAKE_USE(lib_name);
         return *this;
     }
 
@@ -157,7 +156,7 @@ public:
 #if !OALPLUS_ERROR_NO_AL_FUNC
         _alfunc_name = func_name;
 #endif
-        () func_name;
+        OALPLUS_FAKE_USE(func_name);
         return *this;
     }
 
@@ -178,7 +177,7 @@ public:
         _enumpar = ALenum(param);
         _enumpar_name = EnumValueName(param).c_str();
 #endif
-        () param;
+        OALPLUS_FAKE_USE(param);
         return *this;
     }
 
@@ -187,8 +186,8 @@ public:
         _enumpar = param;
         _enumpar_name = param_name;
 #endif
-        () param;
-        () param_name;
+        OALPLUS_FAKE_USE(param);
+        OALPLUS_FAKE_USE(param_name);
         return *this;
     }
 
@@ -251,11 +250,11 @@ inline void HandleError(ErrorType& error) {
 #define OALPLUS_HANDLE_ERROR(ERROR_CODE, MESSAGE, ERROR, ERROR_INFO) \
     {                                                                \
         ERROR error(MESSAGE);                                        \
-        () error.ERROR_INFO.SourceFile(__FILE__)                     \
-          .SourceFunc(__FUNCTION__)                                  \
-          .SourceLine(__LINE__)                                      \
-          .Code(error_code);                                         \
-        HandleError(error);                                          \
+        OALPLUS_FAKE_USE(error.ERROR_INFO.SourceFile(__FILE__)       \
+                           .SourceFunc(__FUNCTION__)                 \
+                           .SourceLine(__LINE__)                     \
+                           .Code(error_code);                        \
+                         HandleError(error));                        \
     }
 
 // Macro for generic error handling

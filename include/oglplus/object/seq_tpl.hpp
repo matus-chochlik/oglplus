@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_OBJECT_SEQ_TPL_1405011014_HPP
 #define OGLPLUS_OBJECT_SEQ_TPL_1405011014_HPP
 
+#include <oglplus/fwd.hpp>
 #include <oglplus/object/name_tpl.hpp>
 #include <cassert>
 #include <cstddef>
