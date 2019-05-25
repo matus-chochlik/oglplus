@@ -103,9 +103,9 @@ public:
     static void _register_desc(int id, unsigned name, ObjectDesc&& desc)
 #if OGLPLUS_NO_OBJECT_DESC
       noexcept {
-        () id;
-        () name;
-        () desc;
+        OGLPLUS_FAKE_USE(id);
+        OGLPLUS_FAKE_USE(name);
+        OGLPLUS_FAKE_USE(desc);
     }
 #else
     {
@@ -117,8 +117,8 @@ public:
     static void _unregister_desc(int id, unsigned name)
 #if OGLPLUS_NO_OBJECT_DESC
       noexcept {
-        () id;
-        () name;
+        OGLPLUS_FAKE_USE(id);
+        OGLPLUS_FAKE_USE(name);
     }
 #else
     {

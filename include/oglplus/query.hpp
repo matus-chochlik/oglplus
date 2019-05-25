@@ -40,7 +40,7 @@ protected:
         OGLPLUS_GLFUNC(GenQueries)(count, names);
         OGLPLUS_CHECK_SIMPLE(GenQueries);
     }
-#if GL_VERSION_4_5 || GL_ARB_direct_state_access
+#if GL_VERSION_4_5 || (GL_VERSION_3_1 && GL_ARB_direct_state_access)
     static void Gen(tag::Create, GLenum target, GLsizei count, GLuint* names) {
         assert(names != nullptr);
         OGLPLUS_GLFUNC(CreateQueries)(target, count, names);
@@ -85,8 +85,7 @@ class ObjectOps<tag::DirectState, tag::Query>
   : public ObjZeroOps<tag::DirectState, tag::Query> {
 protected:
     ObjectOps(QueryName name) noexcept
-      : ObjZeroOps<tag::DirectState, tag::Query>(name) {
-    }
+      : ObjZeroOps<tag::DirectState, tag::Query>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -118,7 +117,7 @@ public:
         OGLPLUS_VERIFY(EndQuery, ObjectError, Object(*this).EnumParam(target));
     }
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
     /// Begin conditional render on the query in the specified mode
     /**
      *  @glsymbols
@@ -141,7 +140,8 @@ public:
     }
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_timer_query
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || \
+  (GL_VERSION_3_1 && GL_ARB_timer_query)
     /// Do a counter query on the specified @p target
     /**
      *  @glsymbols
@@ -180,7 +180,7 @@ public:
         return result;
     }
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
     /// Get the query result
     /**
      *  @glsymbols
@@ -191,7 +191,7 @@ public:
         OGLPLUS_GLFUNC(GetQueryObjectiv)(_obj_name(), GL_QUERY_RESULT, &result);
         OGLPLUS_VERIFY(GetQueryObjectiv, ObjectError, Object(*this));
     }
-#endif // GL_VERSION_3_0
+#endif // GL_VERSION_3_1
 
     /// Get the query result
     /**
@@ -308,7 +308,7 @@ public:
     }
 };
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 /// RAII conditional render activator/deactivator
 /**
  *  @see Query
@@ -368,13 +368,11 @@ private:
 public:
     QueryExecution(QueryName query, QueryTarget target, ResultType& result)
       : QueryActivator(query, target)
-      , _result(result) {
-    }
+      , _result(result) {}
 
     QueryExecution(QueryExecution&& temp)
       : QueryActivator(static_cast<QueryActivator&&>(temp))
-      , _result(temp._result) {
-    }
+      , _result(temp._result) {}
 
     ~QueryExecution() {
         try {

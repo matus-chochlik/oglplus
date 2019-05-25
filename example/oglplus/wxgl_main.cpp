@@ -214,7 +214,8 @@ private:
         assert(info_display);
         assert(gl_canvas);
 
-        example_clock.Update(ExampleTimePeriod::Seconds(os_clock.seconds()));
+        example_clock.Update(
+          oglplus::ExampleTimePeriod::Seconds(os_clock.seconds()));
         example->Continue(example_clock);
         GLuint primitives_per_frame = 0;
         {

@@ -9,6 +9,7 @@
 #ifndef OGLPLUS_EXAMPLE_EXAMPLE_1119071146_HPP
 #define OGLPLUS_EXAMPLE_EXAMPLE_1119071146_HPP
 
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/assert.hpp>
 #include <memory>
 #include <set>
