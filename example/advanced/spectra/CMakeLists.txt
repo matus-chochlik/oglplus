@@ -1,4 +1,4 @@
-#  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -53,6 +53,10 @@ if((HAS_GL_VERSION_4_1) OR (HAS_GL_EXT_direct_state_access) OR (HAS_GL_ARB_separ
 	target_link_libraries(spectra ${wxWidgets_LIBRARIES})
 	target_link_libraries(spectra ${OGLPLUS_GL_LIBRARIES})
 	target_link_libraries(spectra ${OPENAL_LIBRARIES})
+	if(${OGLPLUS_LINK_LIBRARY})
+		target_link_libraries(spectra oglplus)
+	endif()
+	target_link_libraries(spectra oalplus)
 	add_dependencies(oglplus-advanced-example-spectra spectra)
 	add_dependencies(oglplus-advanced-examples oglplus-advanced-example-spectra)
 endif()

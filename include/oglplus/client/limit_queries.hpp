@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -21,47 +21,32 @@ namespace client {
 namespace aux {
 
 template <LimitQuery Query>
-class Limits
-{
+class Limits {
 public:
-	typedef	typename oglplus::enums::EnumAssocGLType<
-		LimitQuery,
-		Query
-	>::Type value_type;
+    typedef typename oglplus::enums::EnumAssocGLType<LimitQuery, Query>::Type
+      value_type;
 
-	static
-	value_type Get(void)
-	{
-		return context::LimitQueries::Limit<Query>();
-	}
+    static value_type Get() {
+        return context::LimitQueries::Limit<Query>();
+    }
 
-	static
-	value_type Get(GLuint index)
-	{
-		return context::LimitQueries::Limit<Query>(index);
-	}
+    static value_type Get(GLuint index) {
+        return context::LimitQueries::Limit<Query>(index);
+    }
 
-	operator value_type(void) const
-	{
-		return Get();
-	}
+    operator value_type() const {
+        return Get();
+    }
 };
 
 } // namespace aux
 } // namespace client
 
-
 namespace client {
 
-class LimitQueries
- : public context::LimitQueries
-{
+class LimitQueries : public context::LimitQueries {
 public:
-	oglplus::enums::EnumToClass<
-		Nothing,
-		LimitQuery,
-		aux::Limits
-	> Limits;
+    oglplus::enums::EnumToClass<Nothing, LimitQuery, aux::Limits> Limits;
 };
 
 } // namespace client

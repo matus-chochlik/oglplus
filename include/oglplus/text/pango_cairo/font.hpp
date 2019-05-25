@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -39,56 +39,51 @@
 namespace oglplus {
 namespace text {
 
-class PangoCairoFontEssence
-{
+class PangoCairoFontEssence {
 private:
-	friend class PangoCairoLayout;
+    friend class PangoCairoLayout;
 
-	PangoCairoHandle< ::PangoFontDescription*> _font_desc;
-	PangoCairoHandle< ::PangoFontMap*, ::gpointer> _font_map;
-	PangoCairoHandle< ::PangoContext*, ::gpointer> _context;
-	PangoCairoHandle< ::PangoFont*, ::gpointer> _font;
-	PangoCairoHandle< ::PangoFontMetrics*> _font_metrics;
+    PangoCairoHandle<::PangoFontDescription*> _font_desc;
+    PangoCairoHandle<::PangoFontMap*, ::gpointer> _font_map;
+    PangoCairoHandle<::PangoContext*, ::gpointer> _context;
+    PangoCairoHandle<::PangoFont*, ::gpointer> _font;
+    PangoCairoHandle<::PangoFontMetrics*> _font_metrics;
 
-	PangoCairoFontEssence(const PangoCairoFontEssence&);
+    PangoCairoFontEssence(const PangoCairoFontEssence&);
+
 public:
-	PangoCairoFontEssence(const char* font_name);
+    PangoCairoFontEssence(const char* font_name);
 
-	int Ascent(void)
-	{
-		return ::pango_font_metrics_get_ascent(_font_metrics)/
-			PANGO_SCALE;
-	}
+    int Ascent() {
+        return ::pango_font_metrics_get_ascent(_font_metrics) / PANGO_SCALE;
+    }
 
-	int Descent(void)
-	{
-		return ::pango_font_metrics_get_descent(_font_metrics)/
-			PANGO_SCALE;
-	}
+    int Descent() {
+        return ::pango_font_metrics_get_descent(_font_metrics) / PANGO_SCALE;
+    }
 
-	int Height(void)
-	{
-		return Ascent()+Descent();
-	}
+    int Height() {
+        return Ascent() + Descent();
+    }
 
-	int ApproxGlyphWidth(void)
-	{
-		int cw = ::pango_font_metrics_get_approximate_char_width(_font_metrics);
-		int dw = ::pango_font_metrics_get_approximate_digit_width(_font_metrics);
-		return ((cw > dw)? cw : dw)/PANGO_SCALE;
-	}
+    int ApproxGlyphWidth() {
+        int cw = ::pango_font_metrics_get_approximate_char_width(_font_metrics);
+        int dw =
+          ::pango_font_metrics_get_approximate_digit_width(_font_metrics);
+        return ((cw > dw) ? cw : dw) / PANGO_SCALE;
+    }
 };
 
-class PangoCairoFont
-{
+class PangoCairoFont {
 private:
-	friend class PangoCairoLayout;
+    friend class PangoCairoLayout;
 
-	std::shared_ptr<PangoCairoFontEssence> _essence;
+    std::shared_ptr<PangoCairoFontEssence> _essence;
+
 public:
-	PangoCairoFont(const char* font_name)
-	 : _essence(std::make_shared<PangoCairoFontEssence>(font_name))
-	{ }
+    PangoCairoFont(const char* font_name)
+      : _essence(std::make_shared<PangoCairoFontEssence>(font_name)) {
+    }
 };
 
 } // namespace text

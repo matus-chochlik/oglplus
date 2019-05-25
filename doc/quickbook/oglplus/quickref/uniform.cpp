@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -11,24 +11,24 @@ __Context gl;
 __VertexShader vs;
 
 vs.Source(
-	"#version 150\n"
-	"in vec3 Position;\n"
-	"void main(void)\n"
-	"{\n"
-	"	gl_Position = Position;\n"
-	"}\n"
-).Compile();
+    "#version 150\n"
+    "in vec3 Position;\n"
+    "void main()\n"
+    "{\n"
+    "	gl_Position = Position;\n"
+    "}\n")
+  .Compile();
 
 __FragmentShader fs;
 
 fs.Source(
-	"#version 130\n"
-	"uniform vec4 Color;\n"
-	"void main(void)\n"
-	"{\n"
-	"	gl_FragColor = Color;\n"
-	"}\n"
-).Compile();
+    "#version 130\n"
+    "uniform vec4 Color;\n"
+    "void main()\n"
+    "{\n"
+    "	gl_FragColor = Color;\n"
+    "}\n")
+  .Compile();
 
 __Program prog;
 
@@ -47,7 +47,8 @@ Check if the uniform is active.
 >*/
 assert(color_loc1);
 
-__UniformLoc color_loc2(prog, "Color", false /*< Don't throw if inactive.>*/); /*<
+__UniformLoc color_loc2(
+  prog, "Color", false /*< Don't throw if inactive.>*/); /*<
 Getting the location of a uniform in a GPU program, by its name.
 Does not throw if the uniform is not active.
 >*/
@@ -99,16 +100,16 @@ match [^vec4] declared in the fragment shader.
 //[oglplus_uniform_example_2
 
 __UntypedUniform color5(prog, "Color"); /*<
-Untyped uniforms do not carry the type information on the C++ side 
+Untyped uniforms do not carry the type information on the C++ side
 and cannot be typechecked during construction.
 >*/
 
-color5.Set(__Vec4f(0,0,1,1));
+color5.Set(__Vec4f(0, 0, 1, 1));
 
-(prog/"Color").Set(__Vec4f(0,0,1,1)); /*<
-Syntax sugar operator for constructing untyped uniforms, equivalent
-to [^__UntypedUniform(prog,"Color").Set(...)].
->*/
+(prog / "Color").Set(__Vec4f(0, 0, 1, 1)); /*<
+     Syntax sugar operator for constructing untyped uniforms, equivalent
+     to [^__UntypedUniform(prog,"Color").Set(...)].
+     >*/
 
 __Optional_ProgVar<__Uniform<__Vec4f>> color6(prog, "Blah"); /*<
 The [^Optional] modifier allows to construct instances of [^Uniform]
@@ -116,10 +117,10 @@ without throwing even if the specified identifier does not refer to
 an active uniform in the GPU program.
 >*/
 
-color6.TrySet(__Vec4f(0,1,0,1)); /*<
-If the referenced uniform is active, then this sets its value,
-but unlike [^Set], [^TrySet] does not throw if the uniform is inactive.
->*/
+color6.TrySet(__Vec4f(0, 1, 0, 1)); /*<
+   If the referenced uniform is active, then this sets its value,
+   but unlike [^Set], [^TrySet] does not throw if the uniform is inactive.
+   >*/
 
 __Lazy_ProgVar<__Uniform<__Vec4f>> color7(prog, "Color"); /*<
 The [^Lazy] modifier allows to postpone the querying of uniform location
@@ -129,21 +130,22 @@ This means that the referenced program does not have to be linked and current
 when the [^Uniform] is constructed.
 >*/
 
-try { color7.Init(); /*<
+try {
+    color7.Init(); /*<
 The uniform location can be explicitly queried by calling the [^Init]
 member function which throws in case of failure.
->*/ }
-catch(...) { /* ... */ }
+>*/
+} catch(...) { /* ... */
+}
 
 color7.TryInit(); /*<
 The [^TryInit] function also queries the uniform location, but does not throw,
 the instance just remains not active.
 >*/
 
-color7.Set(__Vec4f(0,0,0,1)); /*<
-If the location is still not initialized yet, then it is queried before
-setting the uniform value.
->*/
+color7.Set(__Vec4f(0, 0, 0, 1)); /*<
+   If the location is still not initialized yet, then it is queried before
+   setting the uniform value.
+   >*/
 
 //]
-

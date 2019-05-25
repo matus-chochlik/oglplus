@@ -1,4 +1,4 @@
-/*  Copyright 2014 Matus Chochlik. Distributed under the Boost
+/*  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -41,7 +41,7 @@ vec4 encode_rt_data(
 	float age
 );
 
-void main(void)
+void main()
 {
 	const vec3 ori0 = vec3(0);
 	vec3 ray0 = normalize(vertRay);

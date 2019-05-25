@@ -9,4 +9,3 @@
 typedef __ColorLogicOperation ColorLogicOp;
 
 //]
-

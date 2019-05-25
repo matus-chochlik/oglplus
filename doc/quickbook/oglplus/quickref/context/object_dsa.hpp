@@ -7,12 +7,10 @@
 //[oglplus_context_ObjectDSA
 namespace context {
 
-class ObjectDSA
-{
+class ObjectDSA {
 public:
-	// TODO
+    // TODO
 };
 
 } // namespace context
 //]
-

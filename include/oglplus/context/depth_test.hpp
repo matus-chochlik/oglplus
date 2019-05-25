@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,8 +13,8 @@
 #ifndef OGLPLUS_CONTEXT_DEPTH_TEST_1201040722_HPP
 #define OGLPLUS_CONTEXT_DEPTH_TEST_1201040722_HPP
 
-#include <oglplus/glfunc.hpp>
 #include <oglplus/compare_function.hpp>
+#include <oglplus/glfunc.hpp>
 
 namespace oglplus {
 namespace context {
@@ -23,33 +23,30 @@ namespace context {
 /**
  *  @ingroup ogl_context
  */
-class DepthTest
-{
+class DepthTest {
 public:
-	/// Sets the depth comparison @p function
-	/**
-	 *  @glsymbols
-	 *  @glfunref{DepthFunc}
-	 */
-	static void DepthFunc(CompareFunction function)
-	{
-		OGLPLUS_GLFUNC(DepthFunc)(GLenum(function));
-		OGLPLUS_VERIFY_SIMPLE(DepthFunc);
-	}
+    /// Sets the depth comparison @p function
+    /**
+     *  @glsymbols
+     *  @glfunref{DepthFunc}
+     */
+    static void DepthFunc(CompareFunction function) {
+        OGLPLUS_GLFUNC(DepthFunc)(GLenum(function));
+        OGLPLUS_VERIFY_SIMPLE(DepthFunc);
+    }
 
-	/// Returns the depth comparison function
-	/**
-	 *  @glsymbols
-	 *  @glfunref{Get}
-	 *  @gldefref{DEPTH_FUNC}
-	 */
-	static CompareFunction DepthFunc(void)
-	{
-		GLint result;
-		OGLPLUS_GLFUNC(GetIntegerv)(GL_DEPTH_FUNC, &result);
-		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
-		return CompareFunction(result);
-	}
+    /// Returns the depth comparison function
+    /**
+     *  @glsymbols
+     *  @glfunref{Get}
+     *  @gldefref{DEPTH_FUNC}
+     */
+    static CompareFunction DepthFunc() {
+        GLint result;
+        OGLPLUS_GLFUNC(GetIntegerv)(GL_DEPTH_FUNC, &result);
+        OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
+        return CompareFunction(result);
+    }
 };
 
 } // namespace context

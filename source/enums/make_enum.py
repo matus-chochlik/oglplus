@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
-#  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
+#  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -253,7 +253,7 @@ def action_qbk_hpp(options):
 	print_line(options, "};")
 	print_newline(options)
 	print_line(options, "template <>")
-	print_line(options, "__Range<%s> __EnumValueRange<%s>(void);" % (
+	print_line(options, "__Range<%s> __EnumValueRange<%s>();" % (
 		options.enum_name,
 		options.enum_name
 	))
@@ -291,7 +291,7 @@ def action_qbk_class_hpp(options):
 	print_line(options, "{")
 	print_line(options, "public:")
 
-	print_line(options, "	EnumToClass(void);")
+	print_line(options, "	EnumToClass();")
 	print_line(options, "	EnumToClass(Base&& base);")
 
 	print_newline(options)
@@ -573,7 +573,7 @@ def action_impl_enum_class_ipp(options):
 	print_line(options, " : public Base")
 	print_line(options, "{")
 	print_line(options, "private:")
-	print_line(options, "	Base& _base(void) { return *this; }")
+	print_line(options, "	Base& _base() { return *this; }")
 	print_line(options, "public:")
 
 	print_newline(options)
@@ -601,7 +601,7 @@ def action_impl_enum_class_ipp(options):
 		print_line(options, "#endif")
 
 	print_newline(options)
-	print_line(options, "	EnumToClass(void) { }")
+	print_line(options, "	EnumToClass() { }")
 	print_line(options, "	EnumToClass(Base&& base)")
 	print_line(options, "	 : Base(std::move(base))")
 
@@ -691,7 +691,7 @@ def action_smart_enums_ipp(options):
 	for enum_value in sorted(enum_values):
 		evp = (enum_value, enum_value)
 		print_line(options, "struct %s {" % enum_value)
-		print_line(options, "template <typename Enum, Enum = Enum::%s> operator Enum (void) const{ return Enum::%s; }" % evp)
+		print_line(options, "template <typename Enum, Enum = Enum::%s> operator Enum () const{ return Enum::%s; }" % evp)
 		print_line(options, "template <typename Enum> friend bool operator==(Enum value, %s){ return value == Enum::%s; }" % evp)
 		print_line(options, "template <typename Enum> friend bool operator!=(Enum value, %s){ return value != Enum::%s; }" % evp)
 		print_line(options, "};")
@@ -708,7 +708,7 @@ def action_smart_values_ipp(options):
 
 	print_cpp_header(options)
 	for enum_value in sorted(enum_values):
-		print_line(options, "OGLPLUS_CONSTEXPR %s::smart_enums::%s %s = {};" % (
+		print_line(options, "constexpr %s::smart_enums::%s %s = {};" % (
 			options.library,
 			enum_value,
 			enum_value

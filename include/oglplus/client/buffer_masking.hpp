@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -23,144 +23,99 @@ namespace aux {
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 
 class ColorMaskIndexed
- : public SettingStack<context::RGBAMask, DrawBufferIndex>
-{
+  : public SettingStack<context::RGBAMask, DrawBufferIndex> {
 private:
-	static
-	context::RGBAMask _do_get(DrawBufferIndex index)
-	{
-		if(GLuint(index) == 0)
-		{
-			return context::BufferMaskingState::ColorWriteMask();
-		}
-		else
-		{
-			return context::BufferMaskingState::ColorWriteMask(
-				index
-			);
-		}
-	}
+    static context::RGBAMask _do_get(DrawBufferIndex index) {
+        if(GLuint(index) == 0) {
+            return context::BufferMaskingState::ColorWriteMask();
+        } else {
+            return context::BufferMaskingState::ColorWriteMask(index);
+        }
+    }
 
-	static
-	void _do_set(context::RGBAMask value, DrawBufferIndex index)
-	{
-		if(GLuint(index) == 0)
-		{
-			context::BufferMaskingState::ColorMask(value);
-		}
-		else
-		{
-			context::BufferMaskingState::ColorMask(index, value);
-		}
-	}
+    static void _do_set(context::RGBAMask value, DrawBufferIndex index) {
+        if(GLuint(index) == 0) {
+            context::BufferMaskingState::ColorMask(value);
+        } else {
+            context::BufferMaskingState::ColorMask(index, value);
+        }
+    }
+
 public:
-	ColorMaskIndexed(DrawBufferIndex index = 0)
-	 : SettingStack<context::RGBAMask, DrawBufferIndex>(
-		&_do_get,
-		&_do_set,
-		index
-	)
-	{ }
+    ColorMaskIndexed(DrawBufferIndex index = 0)
+      : SettingStack<context::RGBAMask, DrawBufferIndex>(
+          &_do_get, &_do_set, index) {
+    }
 };
 
 class ColorMask
- : public SettingStackIndexed<
-	ColorMaskIndexed,
-	context::RGBAMask,
-	DrawBufferIndex
->
-{ };
+  : public SettingStackIndexed<
+      ColorMaskIndexed,
+      context::RGBAMask,
+      DrawBufferIndex> {};
 
 #else
 
-class ColorMask
- : public SettingStack<context::RGBAMask, Nothing>
-{
+class ColorMask : public SettingStack<context::RGBAMask, Nothing> {
 private:
-	static
-	context::RGBAMask _do_get(Nothing)
-	{
-		return context::BufferMaskingState::ColorMask();
-	}
+    static context::RGBAMask _do_get(Nothing) {
+        return context::BufferMaskingState::ColorMask();
+    }
 
-	static
-	void _do_set(context::RGBAMask value, Nothing)
-	{
-		context::BufferClearingState::ColorWriteMask();
-	}
+    static void _do_set(context::RGBAMask value, Nothing) {
+        context::BufferClearingState::ColorWriteMask();
+    }
+
 public:
-	ColorMask(void)
-	 : SettingStack<context::RGBAValue, Nothing>(
-		&_do_get,
-		&_do_set
-	)
-	{ }
+    ColorMask()
+      : SettingStack<context::RGBAValue, Nothing>(&_do_get, &_do_set) {
+    }
 };
 
 #endif
 
-class DepthMask
- : public SettingStack<Boolean, Nothing>
-{
+class DepthMask : public SettingStack<Boolean, Nothing> {
 private:
-	static
-	Boolean _do_get(Nothing)
-	{
-		return context::BufferMaskingState::DepthWriteMask();
-	}
+    static Boolean _do_get(Nothing) {
+        return context::BufferMaskingState::DepthWriteMask();
+    }
 
-	static
-	void _do_set(Boolean value, Nothing)
-	{
-		context::BufferMaskingState::DepthMask(value);
-	}
+    static void _do_set(Boolean value, Nothing) {
+        context::BufferMaskingState::DepthMask(value);
+    }
+
 public:
-	DepthMask(void)
-	 : SettingStack<Boolean, Nothing>(
-		&_do_get,
-		&_do_set
-	)
-	{ }
+    DepthMask()
+      : SettingStack<Boolean, Nothing>(&_do_get, &_do_set) {
+    }
 };
 
 template <SingleFace F>
-class StencilMask
- : public SettingStack<Boolean, Nothing>
-{
+class StencilMask : public SettingStack<Boolean, Nothing> {
 private:
-	static
-	Boolean _do_get(Nothing)
-	{
-		return context::BufferMaskingState::StencilWriteMaskSingle(F);
-	}
+    static Boolean _do_get(Nothing) {
+        return context::BufferMaskingState::StencilWriteMaskSingle(F);
+    }
 
-	static
-	void _do_set(Boolean value, Nothing)
-	{
-		context::BufferMaskingState::StencilMaskSeparateSingle(F, value);
-	}
+    static void _do_set(Boolean value, Nothing) {
+        context::BufferMaskingState::StencilMaskSeparateSingle(F, value);
+    }
+
 public:
-	StencilMask(void)
-	 : SettingStack<Boolean, Nothing>(
-		&_do_get,
-		&_do_set
-	)
-	{ }
+    StencilMask()
+      : SettingStack<Boolean, Nothing>(&_do_get, &_do_set) {
+    }
 };
 
 } // namespace aux
 
-class BufferMaskingState
-{
+class BufferMaskingState {
 public:
-	aux::ColorMask ColorMask;
-	aux::DepthMask DepthMask;
+    aux::ColorMask ColorMask;
+    aux::DepthMask DepthMask;
 
-	oglplus::enums::EnumToClass<
-		Nothing,
-		SingleFace,
-		aux::StencilMask
-	> StencilMask;
+    oglplus::enums::EnumToClass<Nothing, SingleFace, aux::StencilMask>
+      StencilMask;
 };
 
 } // namespace client

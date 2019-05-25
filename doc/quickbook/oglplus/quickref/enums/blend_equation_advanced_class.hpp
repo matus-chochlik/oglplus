@@ -4,7 +4,7 @@
 //  Edit the source 'source/enums/oglplus/blend_equation_advanced.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
-//  Copyright 2010-2017 Matus Chochlik.
+//  Copyright 2010-2019 Matus Chochlik.
 //  Distributed under the Boost Software License, Version 1.0.
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -13,49 +13,32 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__BlendEquationAdvanced> class Transform>
+template <typename Base, template <__BlendEquationAdvanced> class Transform>
 class __EnumToClass<Base, __BlendEquationAdvanced, Transform> /*<
 Specialization of __EnumToClass for the __BlendEquationAdvanced enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass(void);
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<BlendEquationAdvanced::Multiply>
-		Multiply;
-	Transform<BlendEquationAdvanced::Screen>
-		Screen;
-	Transform<BlendEquationAdvanced::Overlay>
-		Overlay;
-	Transform<BlendEquationAdvanced::Darken>
-		Darken;
-	Transform<BlendEquationAdvanced::Lighten>
-		Lighten;
-	Transform<BlendEquationAdvanced::Colordodge>
-		Colordodge;
-	Transform<BlendEquationAdvanced::Colorburn>
-		Colorburn;
-	Transform<BlendEquationAdvanced::Hardlight>
-		Hardlight;
-	Transform<BlendEquationAdvanced::Softlight>
-		Softlight;
-	Transform<BlendEquationAdvanced::Difference>
-		Difference;
-	Transform<BlendEquationAdvanced::Exclusion>
-		Exclusion;
-	Transform<BlendEquationAdvanced::HSLHue>
-		HSLHue;
-	Transform<BlendEquationAdvanced::HSLSaturation>
-		HSLSaturation;
-	Transform<BlendEquationAdvanced::HSLColor>
-		HSLColor;
-	Transform<BlendEquationAdvanced::HSLLuminosity>
-		HSLLuminosity;
+    Transform<BlendEquationAdvanced::Multiply> Multiply;
+    Transform<BlendEquationAdvanced::Screen> Screen;
+    Transform<BlendEquationAdvanced::Overlay> Overlay;
+    Transform<BlendEquationAdvanced::Darken> Darken;
+    Transform<BlendEquationAdvanced::Lighten> Lighten;
+    Transform<BlendEquationAdvanced::Colordodge> Colordodge;
+    Transform<BlendEquationAdvanced::Colorburn> Colorburn;
+    Transform<BlendEquationAdvanced::Hardlight> Hardlight;
+    Transform<BlendEquationAdvanced::Softlight> Softlight;
+    Transform<BlendEquationAdvanced::Difference> Difference;
+    Transform<BlendEquationAdvanced::Exclusion> Exclusion;
+    Transform<BlendEquationAdvanced::HSLHue> HSLHue;
+    Transform<BlendEquationAdvanced::HSLSaturation> HSLSaturation;
+    Transform<BlendEquationAdvanced::HSLColor> HSLColor;
+    Transform<BlendEquationAdvanced::HSLLuminosity> HSLLuminosity;
 };
 
 } // namespace enums
 #endif
 //]
-

@@ -14,14 +14,12 @@ using oglplus::__context_DrawingOps;
 //[oglplus_client_DrawingState
 namespace client {
 
-class DrawingState
-{
+class DrawingState {
 public:
-	__SettingStack<GLint, ...> PrimitiveRestartIndex; /*<
-	Stack managing the setting of primitive restart index.
-	>*/
+    __SettingStack<GLint, ...> PrimitiveRestartIndex; /*<
+    Stack managing the setting of primitive restart index.
+    >*/
 };
 
 } // namespace client
 //]
-

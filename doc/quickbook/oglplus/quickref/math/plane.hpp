@@ -7,11 +7,8 @@
 //[oglplus_math_plane
 
 template <typename T>
-class Plane
-{
+class Plane {
 public:
-
 }; // class Plane
 
 //]
-

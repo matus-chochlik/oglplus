@@ -4,7 +4,7 @@
 //  Edit the source 'source/enums/oglplus/debug_output_source.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
-//  Copyright 2010-2017 Matus Chochlik.
+//  Copyright 2010-2019 Matus Chochlik.
 //  Distributed under the Boost Software License, Version 1.0.
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -15,7 +15,7 @@ class EnumToClass<Base, DebugOutputSource, Transform>
  : public Base
 {
 private:
-	Base& _base(void) { return *this; }
+	Base& _base() { return *this; }
 public:
 
 #if defined GL_DEBUG_SOURCE_API
@@ -89,7 +89,7 @@ public:
 # endif
 #endif
 
-	EnumToClass(void) { }
+	EnumToClass() { }
 	EnumToClass(Base&& base)
 	 : Base(std::move(base))
 #if defined GL_DEBUG_SOURCE_API

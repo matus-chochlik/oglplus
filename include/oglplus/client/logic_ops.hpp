@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -21,35 +21,29 @@ namespace client {
 namespace aux {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
-class LogicOp
- : public SettingStack<ColorLogicOperation, Nothing>
-{
+class LogicOp : public SettingStack<ColorLogicOperation, Nothing> {
 private:
-	static
-	ColorLogicOperation _do_get(Nothing)
-	{
-		return context::LogicOpState::LogicOpMode();
-	}
+    static ColorLogicOperation _do_get(Nothing) {
+        return context::LogicOpState::LogicOpMode();
+    }
 
-	static
-	void _do_set(ColorLogicOperation op, Nothing)
-	{
-		context::LogicOpState::LogicOp(op);
-	}
+    static void _do_set(ColorLogicOperation op, Nothing) {
+        context::LogicOpState::LogicOp(op);
+    }
+
 public:
-	LogicOp(void)
-	 : SettingStack<ColorLogicOperation, Nothing>(&_do_get, &_do_set)
-	{ }
+    LogicOp()
+      : SettingStack<ColorLogicOperation, Nothing>(&_do_get, &_do_set) {
+    }
 };
 #endif
 
 } // namespace aux
 
-class LogicOpState
-{
+class LogicOpState {
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
-	aux::LogicOp LogicOp;
+    aux::LogicOp LogicOp;
 #endif
 };
 

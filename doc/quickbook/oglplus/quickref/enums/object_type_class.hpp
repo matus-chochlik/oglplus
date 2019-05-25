@@ -4,7 +4,7 @@
 //  Edit the source 'source/enums/oglplus/object_type.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
-//  Copyright 2010-2017 Matus Chochlik.
+//  Copyright 2010-2019 Matus Chochlik.
 //  Distributed under the Boost Software License, Version 1.0.
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -13,43 +13,29 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ObjectType> class Transform>
+template <typename Base, template <__ObjectType> class Transform>
 class __EnumToClass<Base, __ObjectType, Transform> /*<
 Specialization of __EnumToClass for the __ObjectType enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass(void);
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ObjectType::Buffer>
-		Buffer;
-	Transform<ObjectType::Framebuffer>
-		Framebuffer;
-	Transform<ObjectType::ProgramPipeline>
-		ProgramPipeline;
-	Transform<ObjectType::Program>
-		Program;
-	Transform<ObjectType::Query>
-		Query;
-	Transform<ObjectType::Renderbuffer>
-		Renderbuffer;
-	Transform<ObjectType::Sampler>
-		Sampler;
-	Transform<ObjectType::Shader>
-		Shader;
-	Transform<ObjectType::Texture>
-		Texture;
-	Transform<ObjectType::TransformFeedback>
-		TransformFeedback;
-	Transform<ObjectType::VertexArray>
-		VertexArray;
-	Transform<ObjectType::None>
-		None;
+    Transform<ObjectType::Buffer> Buffer;
+    Transform<ObjectType::Framebuffer> Framebuffer;
+    Transform<ObjectType::ProgramPipeline> ProgramPipeline;
+    Transform<ObjectType::Program> Program;
+    Transform<ObjectType::Query> Query;
+    Transform<ObjectType::Renderbuffer> Renderbuffer;
+    Transform<ObjectType::Sampler> Sampler;
+    Transform<ObjectType::Shader> Shader;
+    Transform<ObjectType::Texture> Texture;
+    Transform<ObjectType::TransformFeedback> TransformFeedback;
+    Transform<ObjectType::VertexArray> VertexArray;
+    Transform<ObjectType::None> None;
 };
 
 } // namespace enums
 #endif
 //]
-

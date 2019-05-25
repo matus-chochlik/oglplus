@@ -1,4 +1,4 @@
-/*  Copyright 2014 Matus Chochlik. Distributed under the Boost
+/*  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -40,7 +40,7 @@ float dist_diff(vec2 offs, float first)
 	return sign(dd)*da*exp(-da);
 }
 
-void main(void)
+void main()
 {
 	vec4 rt = texture(RaytraceOutput, vertTexCoord);
 	vec3 up = vec3(0.0, 1.0, 0.0);

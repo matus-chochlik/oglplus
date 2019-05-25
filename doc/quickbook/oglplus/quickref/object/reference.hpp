@@ -7,12 +7,9 @@
 //[oglplus_object_Reference
 
 template <typename __Object>
-class Reference
- : public __ObjectOps<__OpsTag, __ObjTag>
-{
+class Reference : public __ObjectOps<__OpsTag, __ObjTag> {
 public:
-	Reference(__ObjectName<__ObjTag> name);
+    Reference(__ObjectName<__ObjTag> name);
 };
 
 //]
-

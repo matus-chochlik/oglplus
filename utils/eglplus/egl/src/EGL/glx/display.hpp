@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,17 +15,16 @@
 
 extern bool eglplus_egl_valid_display(EGLDisplay);
 
-struct eglplus_egl_glx_DisplayImpl
-{
-	::Display * _x_display_id;
-	::Display * _x_open_display;
+struct eglplus_egl_glx_DisplayImpl {
+    ::Display* _x_display_id;
+    ::Display* _x_open_display;
 
-	eglplus_egl_glx_DisplayImpl(EGLNativeDisplayType);
+    eglplus_egl_glx_DisplayImpl(EGLNativeDisplayType);
 
-	bool initialized(void) const;
+    bool initialized() const;
 
-	bool _init(void);
-	bool _cleanup(void);
+    bool _init();
+    bool _cleanup();
 };
 
 #endif // include guard

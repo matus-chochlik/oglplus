@@ -6,54 +6,42 @@
 
 //[oglplus_glsl_string
 
-class GLSLString
-{
+class GLSLString {
 public:
-	GLSLString(const GLchar* str)
-	noexcept;
+    GLSLString(const GLchar* str) noexcept;
 
-	template <std::size_t N>
-	GLSLString(const GLchar (&str)[N])
-	noexcept;
+    template <std::size_t N>
+    GLSLString(const GLchar (&str)[N]) noexcept;
 
-	GLSLString(const __StrCRef& str)
-	noexcept;
+    GLSLString(const __StrCRef& str) noexcept;
 
-	GLSLString(const __String& str)
-	noexcept;
+    GLSLString(const __String& str) noexcept;
 
-	GLSLString(const std::vector<GLchar>& v);
-	noexcept
+    GLSLString(const std::vector<GLchar>& v);
+    noexcept
 
-	template <std::size_t N>
-	GLSLString(const std::array<GLchar, N>& a);
-	noexcept;
+      template <std::size_t N>
+      GLSLString(const std::array<GLchar, N>& a);
+    noexcept;
 };
 //]
 //[oglplus_glsl_strings
-class GLSLStrings
-{
+class GLSLStrings {
 public:
-	GLSLStrings(GLsizei count, const GLchar* const * strs)
-	noexcept;
+    GLSLStrings(GLsizei count, const GLchar* const* strs) noexcept;
 
-	GLSLStrings(GLsizei count, const GLchar* const* strs, const GLint* lens)
-	noexcept;
+    GLSLStrings(
+      GLsizei count, const GLchar* const* strs, const GLint* lens) noexcept;
 
-	template <std::size_t N>
-	GLSLStrings(const GLchar* (&strs)[N])
-	noexcept;
+    template <std::size_t N>
+    GLSLStrings(const GLchar* (&strs)[N]) noexcept;
 
-	GLSLStrings(const std::vector<const GLchar*>& v)
-	noexcept;
+    GLSLStrings(const std::vector<const GLchar*>& v) noexcept;
 
-	template <std::size_t N>
-	GLSLStrings(const std::array<const GLchar*, N>& a)
-	noexcept;
+    template <std::size_t N>
+    GLSLStrings(const std::array<const GLchar*, N>& a) noexcept;
 
-	GLSLStrings(const std::initializer_list<const GLchar*>& l)
-	noexcept;
+    GLSLStrings(const std::initializer_list<const GLchar*>& l) noexcept;
 };
 
 //]
-

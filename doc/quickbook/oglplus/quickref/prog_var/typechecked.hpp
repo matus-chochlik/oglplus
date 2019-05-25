@@ -7,16 +7,13 @@
 //[oglplus_prog_var_typechecked
 
 template <typename __ProgVar>
-class Typechecked
- : public __ProgVar
-{
+class Typechecked : public __ProgVar {
 public:
-	using __ProgVar::ProgVar; /*<
-	Inherits constructors from __ProgVar, but also enables
-	typechecking for those program variable types where it
-	does make sense.
-	>*/
+    using __ProgVar::ProgVar; /*<
+    Inherits constructors from __ProgVar, but also enables
+    typechecking for those program variable types where it
+    does make sense.
+    >*/
 };
 
 //]
-

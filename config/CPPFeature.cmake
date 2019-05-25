@@ -1,15 +1,13 @@
-#  Copyright 2010-2017 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 
-# we need C++11
-set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD 14)
 set (CMAKE_CXX_STANDARD_REQUIRED True)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	set (CMAKE_CXX_EXTENSIONS --std=c++11)
-	list(APPEND CMAKE_CXX_FLAGS --std=c++11)
+	list(APPEND CMAKE_CXX_FLAGS --std=c++${CMAKE_CXX_STANDARD})
 endif()
 
 function(cpp_feature_detection FEATURE_NAME)
@@ -26,7 +24,9 @@ function(cpp_feature_detection FEATURE_NAME)
 			OGLPLUS_HAS_${FEATURE_NAME}
 			${PROJECT_BINARY_DIR}/cpp
 			${PROJECT_BINARY_DIR}/cpp/has_${FEATURE_NAME}.cpp
-			CMAKE_FLAGS -DCMAKE_CXX_STANDARD=11 -DCMAKE_CXX_STANDARD_REQUIRED=True
+			CMAKE_FLAGS
+				-DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD}
+				-DCMAKE_CXX_STANDARD_REQUIRED=True
 			LINK_LIBRARIES ${THREADS_LIBRARIES}
 		)
 		message(STATUS
@@ -57,25 +57,6 @@ function(require_cpp_feature FEATURE_NAME)
 
 endfunction()
 
-require_cpp_feature(SCOPED_ENUMS)
-
-cpp_feature_detection(SCOPED_ENUM_TEMPLATE_PARAMS)
 cpp_feature_detection(VARIADIC_MACROS)
-cpp_feature_detection(VARIADIC_TEMPLATES)
-cpp_feature_detection(UNIFIED_INITIALIZATION_SYNTAX)
-cpp_feature_detection(INITIALIZER_LISTS)
-cpp_feature_detection(DEFAULTED_FUNCTIONS)
-cpp_feature_detection(DELETED_FUNCTIONS)
-cpp_feature_detection(EXPLICIT_CONVERSION_OPERATORS)
 cpp_feature_detection(FUNCTION_TEMPLATE_DEFAULT_ARGS)
-cpp_feature_detection(UNICODE_LITERALS)
-cpp_feature_detection(USER_DEFINED_LITERALS)
-cpp_feature_detection(INHERITED_CONSTRUCTORS)
 cpp_feature_detection(GENERALIZED_ATTRIBUTES)
-cpp_feature_detection(TEMPLATE_ALIASES)
-cpp_feature_detection(CONSTEXPR)
-cpp_feature_detection(NOEXCEPT)
-cpp_feature_detection(OVERRIDE)
-cpp_feature_detection(LAMBDAS)
-cpp_feature_detection(CHRONO)
-cpp_feature_detection(THREADS)

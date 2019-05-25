@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -35,10 +35,7 @@ typedef ObjectName<tag::PathNV> PathNVName;
 
 /// Returns the GLuint OpenGL name assigned to @p named object
 template <typename ObjTag>
-inline
-GLuint GetGLName(ObjectName<ObjTag> named)
-OGLPLUS_NOEXCEPT(true)
-{
+inline GLuint GetGLName(ObjectName<ObjTag> named) noexcept {
 	return GetName(named);
 }
 

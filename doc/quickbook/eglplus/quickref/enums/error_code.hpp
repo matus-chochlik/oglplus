@@ -4,7 +4,7 @@
 //  Edit the source 'source/enums/eglplus/error_code.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
-//  Copyright 2010-2017 Matus Chochlik.
+//  Copyright 2010-2019 Matus Chochlik.
 //  Distributed under the Boost Software License, Version 1.0.
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -30,7 +30,7 @@ enum class ErrorCode : EGLenum
 };
 
 template <>
-__Range<ErrorCode> __EnumValueRange<ErrorCode>(void);
+__Range<ErrorCode> __EnumValueRange<ErrorCode>();
 
 __StrCRef __EnumValueName(ErrorCode);
 

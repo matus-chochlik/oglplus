@@ -8,15 +8,14 @@
 
 template <typename T>
 using ProgramUniform = __ProgVar<
-	__tag_DirectState,
-	__tag_Uniform,
-	__tag_NoTypecheck,
-	T
->; /*<
-[^ProgramUniform] indirectly inherits from __ProgVarLocOps_Uniform and __ProgVarGetSetOps_Uniform.
->*/
+  __tag_DirectState,
+  __tag_Uniform,
+  __tag_NoTypecheck,
+  T>; /*<
+   [^ProgramUniform] indirectly inherits from __ProgVarLocOps_Uniform and
+   __ProgVarGetSetOps_Uniform.
+   >*/
 
 typedef __ProgramUniform<GLint> ProgramUniformSampler;
 
 //]
-

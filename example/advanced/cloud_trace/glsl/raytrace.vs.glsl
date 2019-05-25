@@ -1,4 +1,4 @@
-/*  Copyright 2014 Matus Chochlik. Distributed under the Boost
+/*  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -11,7 +11,7 @@ uniform bool ClipTiles;
 in vec2 Position;
 out vec3 vertRay;
 
-void main(void)
+void main()
 {
 	gl_Position = vec4(Position, 0, 1);
 	if(ClipTiles)

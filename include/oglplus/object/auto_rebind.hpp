@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,26 +20,25 @@ namespace oglplus {
 template <typename Object>
 class AutoRebind;
 
-/// Class that remembers the currently bound Object and rebinds it when destroyed
+/// Class that remembers the currently bound Object and rebinds it when
+/// destroyed
 template <typename OpsTag, typename ObjTag>
-class AutoRebind<Object<ObjectOps<OpsTag, ObjTag>>>
-{
+class AutoRebind<Object<ObjectOps<OpsTag, ObjTag>>> {
 private:
-	typedef typename ObjectOps<OpsTag, ObjTag>::Target Target;
-	ObjectName<ObjTag> _object;
-	Target _target;
-public:
-	/// Remembers the object currently bound to target
-	AutoRebind(Target target)
-	 : _object(ObjBindingOps<ObjTag>::Binding(target))
-	 , _target(target)
-	{ }
+    typedef typename ObjectOps<OpsTag, ObjTag>::Target Target;
+    ObjectName<ObjTag> _object;
+    Target _target;
 
-	/// Re-binds the object to the target specified in constructor
-	~AutoRebind(void)
-	{
-		ObjBindingOps<ObjTag>::Bind(_target, _object);
-	}
+public:
+    /// Remembers the object currently bound to target
+    AutoRebind(Target target)
+      : _object(ObjBindingOps<ObjTag>::Binding(target))
+      , _target(target) {}
+
+    /// Re-binds the object to the target specified in constructor
+    ~AutoRebind() {
+        ObjBindingOps<ObjTag>::Bind(_target, _object);
+    }
 };
 
 } // namespace oglplus

@@ -372,8 +372,6 @@
 [def __OGLPLUS_NO_ENUM_VALUE_RANGES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_RANGES]]]
 [def __OGLPLUS_NO_ENUM_VALUE_NAMES [link oglplus.quickref.config.enums [^OGLPLUS_NO_ENUM_VALUE_NAMES]]]
 
-[def __OGLPLUS_NO_INITIALIZER_LISTS [link oglplus.quickref.config.site.compiler [^OGLPLUS_NO_INITIALIZER_LISTS]]]
-[def __OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS [link oglplus.quickref.config.site.compiler [^OGLPLUS_NO_SCOPED_ENUM_TEMPLATE_PARAMS]]]
 [/---------]
 [/Templates]
 [/---------]

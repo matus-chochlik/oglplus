@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -9,9 +9,8 @@
 #if __OGLPLUS_LOW_PROFILE
 
 template <typename T>
-struct SizeImpl
-{
-	typedef T Type;
+struct SizeImpl {
+    typedef T Type;
 };
 
 #else // !OGLPLUS_LOW_PROFILE
@@ -22,7 +21,7 @@ struct SizeImpl
 public:
 	typedef SizeImpl Type;
 
-	SizeImpl(void) /*<
+	SizeImpl() /*<
 	Constructs a zero size instance.
 	>*/
 	noexcept;
@@ -34,26 +33,26 @@ public:
 	>*/
 
 	explicit
-	operator bool (void) const
+	operator bool () const
 	noexcept; /*<
 	Indicates if the stored value is valid i.e. nonnegativa and was
 	in range of [^T] when initialized.
 	>*/
 
-	bool operator ! (void) const
+	bool operator ! () const
 	noexcept; /*<
 	Indicates if the stored value is invalid i.e. negative or was
 	out of range of [^T] when initialized.
 	>*/
 
-	operator T (void) const /*<
+	operator T () const /*<
 	Implicit conversion to [^T].
 	>*/
 	noexcept;
 
 	template <typename X>
 	explicit
-	operator X (void) const; /*<
+	operator X () const; /*<
 	Explicit conversion to other (integral) types. May throw if the
 	stored value is negative and [^X] is unsigned or if it is
 	out of range of [^X].
@@ -97,4 +96,3 @@ Does not throw.
 
 
 //]
-

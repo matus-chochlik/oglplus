@@ -1,4 +1,4 @@
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -68,6 +68,7 @@ endif()
 
 if(OPENAL_AL_H_FOUND AND OPENAL_ALUT_H_FOUND)
 	if(${OPENAL_AL_H_FOUND} AND ${OPENAL_ALUT_H_FOUND})
+		message(STATUS "Found AL: ${OPENAL_LIBRARIES}")
 		set(OPENAL_FOUND 1)
 	endif()
 endif()

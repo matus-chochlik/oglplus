@@ -6,12 +6,10 @@
 
 //[oglplus_concept_Metafunction
 
-struct Metafunction
-{
-	typedef __Unspecified Type; /*<
-	The result of a metafunction.
-	>*/
+struct Metafunction {
+    typedef __Unspecified Type; /*<
+    The result of a metafunction.
+    >*/
 };
 
 //]
-

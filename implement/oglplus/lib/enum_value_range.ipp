@@ -4,7 +4,7 @@
 //  Edit the enumeration source files in 'source/enums/oglplus'
 //  or the 'source/enums/make_enum.py' script instead.
 //
-//  Copyright 2010-2017 Matus Chochlik.
+//  Copyright 2010-2019 Matus Chochlik.
 //  Distributed under the Boost Software License, Version 1.0.
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -38,9 +38,6 @@ OGLPLUS_ENUM_CLASS_FWD(TextureMagFilter, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(ErrorCode, GLenum)
 #include <oglplus/enums/error_code_range.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(BufferTarget, GLenum)
-#include <oglplus/enums/buffer_target_range.ipp>
-
 OGLPLUS_ENUM_CLASS_FWD(TessGenPrimitiveSpacing, GLenum)
 #include <oglplus/enums/tess_gen_primitive_spacing_range.ipp>
 
@@ -61,9 +58,6 @@ OGLPLUS_ENUM_CLASS_FWD(HintTarget, GLenum)
 
 OGLPLUS_ENUM_CLASS_FWD(SingleFace, GLenum)
 #include <oglplus/enums/single_face_range.ipp>
-
-OGLPLUS_ENUM_CLASS_FWD(Functionality, GLenum)
-#include <oglplus/enums/functionality_range.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(SyncWaitResult, GLenum)
 #include <oglplus/enums/sync_wait_result_range.ipp>
@@ -86,8 +80,8 @@ OGLPLUS_ENUM_CLASS_FWD(FaceOrientation, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(ResetNotificationStrategy, GLenum)
 #include <oglplus/enums/reset_notif_strategy_range.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(PixelDataInternalFormat, GLenum)
-#include <oglplus/enums/pixel_data_internal_format_range.ipp>
+OGLPLUS_ENUM_CLASS_FWD(Functionality, GLenum)
+#include <oglplus/enums/functionality_range.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(BlitFilter, GLenum)
 #include <oglplus/enums/blit_filter_range.ipp>
@@ -173,6 +167,9 @@ OGLPLUS_ENUM_CLASS_FWD(PixelDataType, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(PatchParameter, GLenum)
 #include <oglplus/enums/patch_parameter_range.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(PixelDataInternalFormat, GLenum)
+#include <oglplus/enums/pixel_data_internal_format_range.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(PrimitiveType, GLenum)
 #include <oglplus/enums/primitive_type_range.ipp>
 
@@ -190,6 +187,9 @@ OGLPLUS_ENUM_CLASS_FWD(TextureWrap, GLenum)
 
 OGLPLUS_ENUM_CLASS_FWD(Face, GLenum)
 #include <oglplus/enums/face_range.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(BufferTarget, GLenum)
+#include <oglplus/enums/buffer_target_range.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(CompareFunction, GLenum)
 #include <oglplus/enums/compare_function_range.ipp>

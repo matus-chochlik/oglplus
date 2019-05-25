@@ -7,14 +7,12 @@
 //[oglplus_client_LogicOpState
 namespace client {
 
-class LogicOpState
-{
+class LogicOpState {
 public:
-	__SettingStack<__ColorLogicOperation, ...> LogicOp; /*<
-	Stack managing the setting of color logic operation.
-	>*/
+    __SettingStack<__ColorLogicOperation, ...> LogicOp; /*<
+    Stack managing the setting of color logic operation.
+    >*/
 };
 
 } // namespace client
 //]
-

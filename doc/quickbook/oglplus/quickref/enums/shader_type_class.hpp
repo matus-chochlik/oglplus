@@ -4,7 +4,7 @@
 //  Edit the source 'source/enums/oglplus/shader_type.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
-//  Copyright 2010-2017 Matus Chochlik.
+//  Copyright 2010-2019 Matus Chochlik.
 //  Distributed under the Boost Software License, Version 1.0.
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -13,31 +13,23 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ShaderType> class Transform>
+template <typename Base, template <__ShaderType> class Transform>
 class __EnumToClass<Base, __ShaderType, Transform> /*<
 Specialization of __EnumToClass for the __ShaderType enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass(void);
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ShaderType::Vertex>
-		Vertex;
-	Transform<ShaderType::TessControl>
-		TessControl;
-	Transform<ShaderType::TessEvaluation>
-		TessEvaluation;
-	Transform<ShaderType::Geometry>
-		Geometry;
-	Transform<ShaderType::Fragment>
-		Fragment;
-	Transform<ShaderType::Compute>
-		Compute;
+    Transform<ShaderType::Vertex> Vertex;
+    Transform<ShaderType::TessControl> TessControl;
+    Transform<ShaderType::TessEvaluation> TessEvaluation;
+    Transform<ShaderType::Geometry> Geometry;
+    Transform<ShaderType::Fragment> Fragment;
+    Transform<ShaderType::Compute> Compute;
 };
 
 } // namespace enums
 #endif
 //]
-

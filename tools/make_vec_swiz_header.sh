@@ -59,7 +59,7 @@ function MakeSwizzle()
 		echo
 		for I in $(seq 1 ${N})
 		do
-			echo "	T ${Coords:$[I-1]:1}(void) const " \
+			echo "	T ${Coords:$[I-1]:1}() const " \
 				"{ return this->At($[I-1]); }"
 		done
 
@@ -68,7 +68,7 @@ function MakeSwizzle()
 			echo
 			for Comb in $(Combinations ${Coords:0:${N}} ${I})
 			do
-				echo -n "	Vector<T, ${#Comb}> ${Comb}(void) const" \
+				echo -n "	Vector<T, ${#Comb}> ${Comb}() const" \
 					"{ return Vector<T, ${#Comb}>("
 				echo ${Comb} | sed 's/./&(),/g' | sed 's/,$/); }/'
 			done

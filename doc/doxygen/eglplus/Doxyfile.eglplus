@@ -1,4 +1,4 @@
-#  Copyright 2009-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2009-2019 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -47,9 +47,6 @@ PREDEFINED             = \
 	"EGLPLUS_ERROR_INFO_NO_BIND_TARGET=0" \
 	"EGLPLUS_DOXYGEN_PARSE=1" \
 	"EGLPLUS_DOCUMENTATION_ONLY=1" \
-	"EGLPLUS_NOEXCEPT()=" \
-	"EGLPLUS_NOEXCEPT_IF()=" \
-	"EGLPLUS_CONSTEXPR=const" \
 	"EGLPLUS_ENUM_CLASS_BEGIN(NAME,TYPE)=enum class NAME : TYPE {" \
 	"EGLPLUS_ENUM_CLASS_END=};"
 

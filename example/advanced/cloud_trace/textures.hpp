@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,33 +15,31 @@
 #include "resources.hpp"
 
 #include <oglplus/gl.hpp>
-#include <oglplus/config/fix_gl_version.hpp>
 #include <oglplus/config/fix_gl_extension.hpp>
-#include <oglplus/texture.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 #include <oglplus/images/image.hpp>
+#include <oglplus/texture.hpp>
 
 namespace oglplus {
 namespace cloud_trace {
 
-struct CloudVolume
-{
-	images::Image image;
+struct CloudVolume {
+    images::Image image;
 
-	CloudVolume(const AppData&);
+    CloudVolume(const AppData&);
 
-	images::Image GenOrLoad(const AppData&);
-	images::Image Generate(const AppData&);
-	images::Image Load(const AppData&);
+    images::Image GenOrLoad(const AppData&);
+    images::Image Generate(const AppData&);
+    images::Image Load(const AppData&);
 
-	void Save(const AppData&);
+    void Save(const AppData&);
 };
 
-class CloudTexture : public Texture
-{
+class CloudTexture : public Texture {
 public:
-	const GLuint tex_unit;
-	CloudTexture(const AppData&, const CloudVolume&, ResourceAllocator&);
-	void Use(void);
+    const GLuint tex_unit;
+    CloudTexture(const AppData&, const CloudVolume&, ResourceAllocator&);
+    void Use();
 };
 
 } // namespace cloud_trace

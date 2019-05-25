@@ -7,18 +7,16 @@
 //[oglplus_context_Hints
 namespace context {
 
-class Hints
-{
+class Hints {
 public:
-	static void Hint(__HintTarget target, __HintOption option); /*<
-	Sets a hint [^option] for a hint [^target].
-	See [glfunc Hint].
-	>*/
-	static __HintOption Hint(__HintTarget target); /*<
-	Queries the currently set hint option for a hint [^target].
-	>*/
+    static void Hint(__HintTarget target, __HintOption option); /*<
+    Sets a hint [^option] for a hint [^target].
+    See [glfunc Hint].
+    >*/
+    static __HintOption Hint(__HintTarget target); /*<
+    Queries the currently set hint option for a hint [^target].
+    >*/
 };
 
 } // namespace context
 //]
-

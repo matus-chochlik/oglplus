@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -24,91 +24,69 @@ namespace oglplus {
 /**
  *  @ingroup error_handling
  */
-class ProgramBuildError
- : public ObjectError
-{
+class ProgramBuildError : public ObjectError {
 private:
-	String _log;
+    String _log;
+
 public:
-	ProgramBuildError(const char* message)
-	 : ObjectError(message)
-	{ }
+    ProgramBuildError(const char* message)
+      : ObjectError(message) {
+    }
 
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	ProgramBuildError(const ProgramBuildError&) = default;
-	ProgramBuildError(ProgramBuildError&&) = default;
-#else
-	ProgramBuildError(const ProgramBuildError& that)
-	 : ObjectError(static_cast<const ObjectError&>(that))
-	 , _log(that._log)
-	{ }
+    ProgramBuildError(const ProgramBuildError&) = default;
+    ProgramBuildError(ProgramBuildError&&) = default;
 
-	ProgramBuildError(ProgramBuildError&& temp)
-	 : ObjectError(static_cast<ObjectError&&>(temp))
-	 , _log(std::move(temp._log))
-	{ }
-#endif
+    ~ProgramBuildError() noexcept {
+    }
 
-	~ProgramBuildError(void)
-	OGLPLUS_NOTHROW
-	{ }
+    ProgramBuildError& Log(String&& log) {
+        _log = std::move(log);
+        return *this;
+    }
 
-	ProgramBuildError& Log(String&& log)
-	{
-		_log = std::move(log);
-		return *this;
-	}
-
-	/// Returns the compiler error output
-	const String& Log(void) const
-	{
-		return _log;
-	}
+    /// Returns the compiler error output
+    const String& Log() const {
+        return _log;
+    }
 };
 
 /// Exception class for OpenGL shading language compilation error
 /**
  *  @ingroup error_handling
  */
-class CompileError
- : public ProgramBuildError
-{
+class CompileError : public ProgramBuildError {
 public:
-	static const char* Message(void);
+    static const char* Message();
 
-	CompileError(const char* message)
-	 : ProgramBuildError(message)
-	{ }
+    CompileError(const char* message)
+      : ProgramBuildError(message) {
+    }
 };
 
 /// Exception class for OpenGL shading language program link error
 /**
  *  @ingroup error_handling
  */
-class LinkError
- : public ProgramBuildError
-{
+class LinkError : public ProgramBuildError {
 public:
-	static const char* Message(void);
+    static const char* Message();
 
-	LinkError(const char* message)
-	 : ProgramBuildError(message)
-	{ }
+    LinkError(const char* message)
+      : ProgramBuildError(message) {
+    }
 };
 
 /// Exception class for OpenGL shading language program validation error
 /**
  *  @ingroup error_handling
  */
-class ValidationError
- : public ProgramBuildError
-{
+class ValidationError : public ProgramBuildError {
 public:
-	static const char* Message(void);
+    static const char* Message();
 
-	ValidationError(const char* message)
-	 : ProgramBuildError(message)
-	{ }
+    ValidationError(const char* message)
+      : ProgramBuildError(message) {
+    }
 };
 
 } // namespace oglplus

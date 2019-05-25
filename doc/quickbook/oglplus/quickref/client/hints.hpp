@@ -7,28 +7,22 @@
 //[oglplus_client_HintState
 namespace client {
 
-class HintState
-{
+class HintState {
 private:
-	template <__HintTarget Value>
-	class Hint /*<
-	This class template is here for documentation purposes only
-	and is [*not] part of the public interface.
-	>*/
-	 : __SettingStack<__HintOption, ...>
-	{ };
-public:
+    template <__HintTarget Value>
+    class Hint /*<
+    This class template is here for documentation purposes only
+    and is [*not] part of the public interface.
+    >*/
+      : __SettingStack<__HintOption, ...> {};
 
-	__enums_EnumToClass_HintTarget<
-		__Nothing,
-		__HintTarget,
-		Hint
-	> Hints; /*<
-	Set of stacks managing the setting of __HintOption settings
-	individually for each value in the __HintTarget enumeration.
-	>*/
+public:
+    __enums_EnumToClass_HintTarget<__Nothing, __HintTarget, Hint>
+      Hints; /*<
+    Set of stacks managing the setting of __HintOption settings
+    individually for each value in the __HintTarget enumeration.
+    >*/
 };
 
 } // namespace client
 //]
-

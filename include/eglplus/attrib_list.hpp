@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -26,20 +26,26 @@ using oglplus::FinishedAttributeList;
 /// Reused FinishedAttributeList from OGLplus
 using oglplus::AttributeList;
 
-struct AttributeListTraits
-{
-	typedef EGLint Int;
+struct AttributeListTraits {
+    typedef EGLint Int;
 
-	template <typename Enum>
-	struct EnumBaseType
-	{
-		typedef typename eglplus::enums::EnumBaseType<Enum>::Type Type;
-	};
+    template <typename Enum>
+    struct EnumBaseType {
+        typedef typename eglplus::enums::EnumBaseType<Enum>::Type Type;
+    };
 
-	static EGLint ListEnd(void) { return EGL_NONE; }
-	static EGLint TrueValue(void) { return EGL_TRUE; }
-	static EGLint FalseValue(void) { return EGL_FALSE; }
-	static EGLint DontCare(void) { return EGL_DONT_CARE; }
+    static EGLint ListEnd() {
+        return EGL_NONE;
+    }
+    static EGLint TrueValue() {
+        return EGL_TRUE;
+    }
+    static EGLint FalseValue() {
+        return EGL_FALSE;
+    }
+    static EGLint DontCare() {
+        return EGL_DONT_CARE;
+    }
 };
 
 } // namespace eglplus

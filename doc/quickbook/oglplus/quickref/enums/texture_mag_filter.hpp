@@ -4,21 +4,20 @@
 //  Edit the source 'source/enums/oglplus/texture_mag_filter.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
-//  Copyright 2010-2017 Matus Chochlik.
+//  Copyright 2010-2019 Matus Chochlik.
 //  Distributed under the Boost Software License, Version 1.0.
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //
 //[oglplus_enums_texture_mag_filter
 
-enum class TextureMagFilter : GLenum
-{
-	Nearest = GL_NEAREST,
-	Linear  = GL_LINEAR
+enum class TextureMagFilter : GLenum {
+    Nearest = GL_NEAREST,
+    Linear = GL_LINEAR
 };
 
 template <>
-__Range<TextureMagFilter> __EnumValueRange<TextureMagFilter>(void);
+__Range<TextureMagFilter> __EnumValueRange<TextureMagFilter>();
 
 __StrCRef __EnumValueName(TextureMagFilter);
 

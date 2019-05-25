@@ -248,7 +248,7 @@ public:
 
 	Target target;
 
-	BoundObjOps(void);
+	BoundObjOps();
 
 	BoundObjOps(Target init_tgt);
 </xsl:text>

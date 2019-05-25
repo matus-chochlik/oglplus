@@ -7,14 +7,12 @@
 //[oglplus_client_ClipControlState
 namespace client {
 
-class ClipControlState
-{
+class ClipControlState {
 public:
-	__SettingStack<__context_ClipControlParams, ...> ClipControl; /*<
-	Stack managing the setting of clipping control parameters
-	>*/
+    __SettingStack<__context_ClipControlParams, ...> ClipControl; /*<
+    Stack managing the setting of clipping control parameters
+    >*/
 };
 
 } // namespace client
 //]
-

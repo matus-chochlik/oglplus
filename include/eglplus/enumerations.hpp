@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,49 +14,41 @@
 #define EGLPLUS_ENUMERATIONS_1303201759_HPP
 
 #include <eglplus/config.hpp>
-#include <eglplus/string.hpp>
-#include <eglplus/detail/enum_class.hpp>
 #include <eglplus/detail/base_range.hpp>
+#include <eglplus/detail/enum_class.hpp>
+#include <eglplus/string.hpp>
 #include <eglplus/utils/type_tag.hpp>
 
 namespace eglplus {
 namespace enums {
 
 template <typename Enum>
-struct EnumBaseType
-{
-	typedef EGLenum Type;
+struct EnumBaseType {
+    typedef EGLenum Type;
 };
 
 template <typename EnumType>
-inline StrCRef EnumValueName(EnumType enum_value)
-{
+inline StrCRef EnumValueName(EnumType enum_value) {
 #if !EGLPLUS_NO_ENUM_VALUE_NAMES
-	typedef typename EnumBaseType<EnumType>::Type BaseType;
-	return ValueName_(
-		&TypeTag<EnumType>(),
-		BaseType(enum_value)
-	);
+    typedef typename EnumBaseType<EnumType>::Type BaseType;
+    return ValueName_(&TypeTag<EnumType>(), BaseType(enum_value));
 #else
-	OGLPLUS_FAKE_USE(enum_value);
-	return StrCRef();
+    OGLPLUS_FAKE_USE(enum_value);
+    return StrCRef();
 #endif
 }
 
 template <typename EnumType>
-inline aux::CastIterRange<
-	const typename EnumBaseType<EnumType>::Type*,
-	EnumType
-> EnumValueRange(void)
-{
+inline aux::
+  CastIterRange<const typename EnumBaseType<EnumType>::Type*, EnumType>
+  EnumValueRange() {
 #if !EGLPLUS_NO_ENUM_VALUE_RANGES
-	return ValueRange_(&TypeTag<EnumType>());
+    return ValueRange_(&TypeTag<EnumType>());
 #else
-	const typename EnumBaseType<EnumType>::Type* x = nullptr;
-	return aux::CastIterRange<
-		const typename EnumBaseType<EnumType>::Type*,
-		EnumType
-	>(x, x);
+    const typename EnumBaseType<EnumType>::Type* x = nullptr;
+    return aux::
+      CastIterRange<const typename EnumBaseType<EnumType>::Type*, EnumType>(
+        x, x);
 
 #endif
 }

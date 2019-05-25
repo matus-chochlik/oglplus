@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,26 +20,23 @@
 namespace oglplus {
 namespace text {
 
-struct PangoCairoLayoutData
-{
-	Texture _storage;
+struct PangoCairoLayoutData {
+    Texture _storage;
 
-	PangoCairoLayoutData(void)
-	{ }
+    PangoCairoLayoutData() {
+    }
 
-	PangoCairoLayoutData(PangoCairoLayoutData&& tmp)
-	 : _storage(std::move(tmp._storage))
-	{ }
+    PangoCairoLayoutData(PangoCairoLayoutData&& tmp)
+      : _storage(std::move(tmp._storage)) {
+    }
 };
 
-class PangoCairoLayoutStorage
-{
+class PangoCairoLayoutStorage {
 private:
-	// TODO
+    // TODO
 public:
-	PangoCairoLayoutStorage(void)
-	{ }
-
+    PangoCairoLayoutStorage() {
+    }
 };
 
 } // namespace text

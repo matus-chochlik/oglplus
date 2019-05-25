@@ -4,7 +4,7 @@
 //  Edit the source 'source/enums/oglplus/color_buffer.txt'
 //  or the 'source/enums/make_enum.py' script instead.
 //
-//  Copyright 2010-2017 Matus Chochlik.
+//  Copyright 2010-2019 Matus Chochlik.
 //  Distributed under the Boost Software License, Version 1.0.
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -13,39 +13,27 @@
 #if !__OGLPLUS_NO_ENUM_VALUE_CLASSES
 namespace enums {
 
-template <typename Base, template<__ColorBuffer> class Transform>
+template <typename Base, template <__ColorBuffer> class Transform>
 class __EnumToClass<Base, __ColorBuffer, Transform> /*<
 Specialization of __EnumToClass for the __ColorBuffer enumeration.
 >*/
- : public Base
-{
+  : public Base {
 public:
-	EnumToClass(void);
-	EnumToClass(Base&& base);
+    EnumToClass();
+    EnumToClass(Base&& base);
 
-	Transform<ColorBuffer::None>
-		None;
-	Transform<ColorBuffer::FrontLeft>
-		FrontLeft;
-	Transform<ColorBuffer::FrontRight>
-		FrontRight;
-	Transform<ColorBuffer::BackLeft>
-		BackLeft;
-	Transform<ColorBuffer::BackRight>
-		BackRight;
-	Transform<ColorBuffer::Front>
-		Front;
-	Transform<ColorBuffer::Back>
-		Back;
-	Transform<ColorBuffer::Left>
-		Left;
-	Transform<ColorBuffer::Right>
-		Right;
-	Transform<ColorBuffer::FrontAndBack>
-		FrontAndBack;
+    Transform<ColorBuffer::None> None;
+    Transform<ColorBuffer::FrontLeft> FrontLeft;
+    Transform<ColorBuffer::FrontRight> FrontRight;
+    Transform<ColorBuffer::BackLeft> BackLeft;
+    Transform<ColorBuffer::BackRight> BackRight;
+    Transform<ColorBuffer::Front> Front;
+    Transform<ColorBuffer::Back> Back;
+    Transform<ColorBuffer::Left> Left;
+    Transform<ColorBuffer::Right> Right;
+    Transform<ColorBuffer::FrontAndBack> FrontAndBack;
 };
 
 } // namespace enums
 #endif
 //]
-

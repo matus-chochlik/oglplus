@@ -6,18 +6,15 @@
 
 //[oglplus_frag_data_slot
 
-class FragDataSlot
- : public __LimitedCount<GL_MAX_DRAW_BUFFERS>
-{
+class FragDataSlot : public __LimitedCount<GL_MAX_DRAW_BUFFERS> {
 public:
-	FragDataSlot(GLuint number); /*<
-	Throws __LimitError if [^number] is greater than
-	the implementation-dependent maximum number of vertex attributes.
-	See [glconst MAX_DRAW_BUFFERS].
-	>*/
+    FragDataSlot(GLuint number); /*<
+    Throws __LimitError if [^number] is greater than
+    the implementation-dependent maximum number of vertex attributes.
+    See [glconst MAX_DRAW_BUFFERS].
+    >*/
 };
 
 typedef __FragDataSlot FragmentDataSlot;
 
 //]
-

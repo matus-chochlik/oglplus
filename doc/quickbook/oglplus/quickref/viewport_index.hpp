@@ -6,16 +6,13 @@
 
 //[oglplus_viewport_index
 
-class ViewportIndex
- : public __LimitedCount<GL_MAX_VIEWPORTS>
-{
+class ViewportIndex : public __LimitedCount<GL_MAX_VIEWPORTS> {
 public:
-	ViewportIndex(GLuint number); /*<
-	Throws __LimitError if [^number] is greater than
-	the implementation-dependent maximum number of viewports.
-	See [glconst MAX_VIEWPORTS].
-	>*/
+    ViewportIndex(GLuint number); /*<
+    Throws __LimitError if [^number] is greater than
+    the implementation-dependent maximum number of viewports.
+    See [glconst MAX_VIEWPORTS].
+    >*/
 };
 
 //]
-

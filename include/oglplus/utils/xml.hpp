@@ -4,13 +4,13 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2011-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2011-2018 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#ifndef __OGLPLUS_UTILS_XML_1310290816_HPP
-#define __OGLPLUS_UTILS_XML_1310290816_HPP
+#ifndef OGLPLUS_UTILS_XML_1310290816_HPP
+#define OGLPLUS_UTILS_XML_1310290816_HPP
 
 #include <iosfwd>
 #include <cstddef>

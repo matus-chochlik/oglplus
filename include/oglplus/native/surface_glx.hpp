@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -24,64 +24,55 @@ namespace oglplus {
 namespace native {
 
 /// Wrapper for GLX (drawable) surface handle
-class SurfaceGLX
-{
+class SurfaceGLX {
 private:
-	::Display* _display;
-	::GLXDrawable  _drawable;
+    ::Display* _display;
+    ::GLXDrawable _drawable;
 
-	friend class ContextGLX;
+    friend class ContextGLX;
 
-	struct Current_ { };
+    struct Current_ {};
 
-	SurfaceGLX(Current_)
-	 : _display(::glXGetCurrentDisplay())
-	 , _drawable(::glXGetCurrentDrawable())
-	{
-		if(!_display) HandleNoGLXDisplay();
-		if(!_drawable) HandleNoGLXDrawable();
-	}
+    SurfaceGLX(Current_)
+      : _display(::glXGetCurrentDisplay())
+      , _drawable(::glXGetCurrentDrawable()) {
+        if(!_display)
+            HandleNoGLXDisplay();
+        if(!_drawable)
+            HandleNoGLXDrawable();
+    }
 
-	unsigned _query(int param) const
-	{
-		unsigned result = 0;
-		::glXQueryDrawable(
-			_display,
-			_drawable,
-			param,
-			&result
-		);
-		return result;
-	}
+    unsigned _query(int param) const {
+        unsigned result = 0;
+        ::glXQueryDrawable(_display, _drawable, param, &result);
+        return result;
+    }
+
 public:
-	/// Returns a wrapper for the currently bound GLX surface
-	/** This function gets and wraps the current GLX drawable (+display).
-	 *  If no drawable is current it throws a @c runtime_error.
-	 *
-	 *  @throws std::runtime_error
-	 */
-	static SurfaceGLX Current(void)
-	{
-		return SurfaceGLX(Current_());
-	}
+    /// Returns a wrapper for the currently bound GLX surface
+    /** This function gets and wraps the current GLX drawable (+display).
+     *  If no drawable is current it throws a @c runtime_error.
+     *
+     *  @throws std::runtime_error
+     */
+    static SurfaceGLX Current() {
+        return SurfaceGLX(Current_());
+    }
 
-	/// Returns the width of the surface
-	int Width(void) const
-	{
-		return int(_query(GLX_WIDTH));
-	}
+    /// Returns the width of the surface
+    int Width() const {
+        return int(_query(GLX_WIDTH));
+    }
 
-	/// Returns the height of the surface
-	int Height(void) const
-	{
-		return int(_query(GLX_HEIGHT));
-	}
+    /// Returns the height of the surface
+    int Height() const {
+        return int(_query(GLX_HEIGHT));
+    }
 
-	/// Swaps the front and back buffers
-	void SwapBuffers(void)
-	{
-		::glXSwapBuffers(_display, _drawable);
-	}
+    /// Swaps the front and back buffers
+    void SwapBuffers() {
+        ::glXSwapBuffers(_display, _drawable);
+    }
 };
 
 typedef SurfaceGLX Surface;

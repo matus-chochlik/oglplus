@@ -7,7 +7,8 @@
 //[oglplus_limited_value_example_1
 
 __Texture::Active(0); /*<
-Implicit conversion of numeric value to __TextureUnitSelector (derived from __LimitedCount).
+Implicit conversion of numeric value to __TextureUnitSelector (derived from
+__LimitedCount).
 >*/
 
 __TextureUnitSelector tex_unit = 2;
@@ -19,4 +20,3 @@ Very probably will throw __LimitError.
 >*/
 
 //]
-

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -18,126 +18,90 @@
 
 namespace oglplus {
 
-class DeferredHandler
-{
+class DeferredHandler {
 private:
-	struct _handler_intf
-	{
-		virtual
-		~_handler_intf(void)
-		OGLPLUS_NOTHROW
-		{ }
+    struct _handler_intf {
+        virtual ~_handler_intf() noexcept {
+        }
 
-		virtual
-		void execute(bool destroying) = 0;
-	};
+        virtual void execute(bool destroying) = 0;
+    };
 
-	struct _abort_handler : _handler_intf
-	{
-		void execute(bool)
-		OGLPLUS_OVERRIDE;
-	};
+    struct _abort_handler : _handler_intf {
+        void execute(bool) override;
+    };
 
-	template <typename Func>
-	struct _handler_impl : _handler_intf
-	{
-		Func _func;
+    template <typename Func>
+    struct _handler_impl : _handler_intf {
+        Func _func;
 
-		_handler_impl(Func&& func)
-		 : _func(std::move(func))
-		{ }
+        _handler_impl(Func&& func)
+          : _func(std::move(func)) {
+        }
 
-		void execute(bool)
-		OGLPLUS_OVERRIDE
-		{
-			_func();
-		}
-	};
+        void execute(bool) override {
+            _func();
+        }
+    };
 
-	typedef void(*_intf_deleter)(_handler_intf*);
+    typedef void (*_intf_deleter)(_handler_intf*);
 
-	static
-	void _impl_delete(_handler_intf* x) { delete x; }
+    static void _impl_delete(_handler_intf* x) {
+        delete x;
+    }
 
-	static
-	void _fake_delete(_handler_intf*) { }
+    static void _fake_delete(_handler_intf*) {
+    }
 
-	typedef std::unique_ptr<_handler_intf, _intf_deleter>
-		_unique_handler_ptr;
+    typedef std::unique_ptr<_handler_intf, _intf_deleter> _unique_handler_ptr;
 
-	_unique_handler_ptr _handler;
+    _unique_handler_ptr _handler;
 
-	template <typename Func>
-	static
-	_unique_handler_ptr _wrap_func(Func func)
-	{
-		return _unique_handler_ptr(
-			new _handler_impl<Func>(
-				std::move(func)
-			), &_impl_delete
-		);
-	}
+    template <typename Func>
+    static _unique_handler_ptr _wrap_func(Func func) {
+        return _unique_handler_ptr(
+          new _handler_impl<Func>(std::move(func)), &_impl_delete);
+    }
 
-	_unique_handler_ptr _release_handler(void)
-	OGLPLUS_NOEXCEPT(true);
+    _unique_handler_ptr _release_handler() noexcept;
+
 public:
-	DeferredHandler(void)
-	OGLPLUS_NOEXCEPT(true)
-	 : _handler(nullptr, &_fake_delete)
-	{ }
+    DeferredHandler() noexcept
+      : _handler(nullptr, &_fake_delete) {
+    }
 
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	DeferredHandler(DeferredHandler&&) = default;
-#else
-	DeferredHandler(DeferredHandler&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	 : _handler(std::move(temp._handler))
-	{ }
-#endif
+    DeferredHandler(DeferredHandler&&) = default;
 
-	template <typename Func>
-	explicit
-	DeferredHandler(Func func)
-	 : _handler(_wrap_func(func))
-	{ }
+    template <typename Func>
+    explicit DeferredHandler(Func func)
+      : _handler(_wrap_func(func)) {
+    }
 
-	~DeferredHandler(void)
-	{
-		if(_handler)
-		{
-			if(!std::uncaught_exception())
-			{
-				_release_handler()->execute(true);
-			}
-		}
-	}
+    ~DeferredHandler() {
+        if(_handler) {
+            if(!std::uncaught_exception()) {
+                _release_handler()->execute(true);
+            }
+        }
+    }
 
-	void trigger(void)
-	{
-		if(_handler)
-		{
-			_release_handler()->execute(false);
-		}
-	}
+    void trigger() {
+        if(_handler) {
+            _release_handler()->execute(false);
+        }
+    }
 
-	bool cancel(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return bool(_release_handler());
-	}
+    bool cancel() noexcept {
+        return bool(_release_handler());
+    }
 
-	OGLPLUS_EXPLICIT
-	operator bool (void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return bool(_handler);
-	}
+    explicit operator bool() const noexcept {
+        return bool(_handler);
+    }
 
-	bool operator ! (void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return !_handler;
-	}
+    bool operator!() const noexcept {
+        return !_handler;
+    }
 };
 
 } // namespace oglplus

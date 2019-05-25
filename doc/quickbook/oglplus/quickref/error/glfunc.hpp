@@ -6,12 +6,9 @@
 
 //[oglplus_error_MissingFunction
 
-class MissingFunction
- : public __Error
-{
+class MissingFunction : public __Error {
 public:
-	MissingFunction(const char* message);
+    MissingFunction(const char* message);
 };
 
 //]
-

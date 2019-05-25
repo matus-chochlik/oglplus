@@ -14,22 +14,20 @@ using oglplus::__context_BufferClearingOps;
 //[oglplus_client_BufferClearingState
 namespace client {
 
-class BufferClearingState
-{
+class BufferClearingState {
 public:
-	__SettingStack<__context_RGBAValue, ...> ClearColor; /*<
-	Stack managing the setting of clear color.
-	>*/
+    __SettingStack<__context_RGBAValue, ...> ClearColor; /*<
+    Stack managing the setting of clear color.
+    >*/
 
-	__SettingStack<GLfloat, ...> ClearDepth; /*<
-	Stack managing the setting of clear depth value.
-	>*/
+    __SettingStack<GLfloat, ...> ClearDepth; /*<
+    Stack managing the setting of clear depth value.
+    >*/
 
-	__SettingStack<GLint, ...> ClearStencil; /*<
-	Stack managing the setting of clear stencil value.
-	>*/
+    __SettingStack<GLint, ...> ClearStencil; /*<
+    Stack managing the setting of clear stencil value.
+    >*/
 };
 
 } // namespace client
 //]
-
