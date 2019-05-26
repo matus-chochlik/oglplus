@@ -46,8 +46,7 @@ public:
       , _u(1.0f, 0.0f, 0.0f)
       , _v(0.0f, 0.0f, -1.0f)
       , _udiv(2)
-      , _vdiv(2) {
-    }
+      , _vdiv(2) {}
 
     /// Creates a grid with going through origin specified by @p u and @p v
     Grid(const Vec3f u, const Vec3f v)
@@ -180,12 +179,11 @@ public:
      *  - "Position" the vertex positions (Positions)
      *  - "TexCoord" the ST texture coordinates (TexCoordinates)
      */
-    typedef VertexAttribsInfo<Grid> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<Grid>;
 #else
-    typedef VertexAttribsInfo<
+    using VertexAttribs = VertexAttribsInfo<
       Grid,
-      std::tuple<VertexPositionsTag, VertexTexCoordinatesTag>>
-      VertexAttribs;
+      std::tuple<VertexPositionsTag, VertexTexCoordinatesTag>>;
 #endif
 
     /// Queries the bounding sphere coordinates and dimensions
@@ -196,7 +194,7 @@ public:
     }
 
     /// The type of index container returned by Indices()
-    typedef std::vector<GLuint> IndexArray;
+    using IndexArray = std::vector<GLuint>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const;

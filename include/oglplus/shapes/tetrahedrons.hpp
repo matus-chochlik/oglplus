@@ -37,8 +37,7 @@ public:
     /// Makes a unit sized tetrahedra filled cube with 10 divisions
     Tetrahedrons()
       : _side(1.0)
-      , _divisions(10) {
-    }
+      , _divisions(10) {}
 
     /// Makes a cube with the specified @p side and number of @p divisions
     Tetrahedrons(double side, unsigned divisions)
@@ -108,21 +107,19 @@ public:
      *  - "Position" the vertex positions (Positions)
      *  - "TexCoord" the STR texture coordinates (TexCoordinates)
      */
-    typedef VertexAttribsInfo<Tetrahedrons> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<Tetrahedrons>;
 #else
-    typedef VertexAttribsInfo<
+    using VertexAttribs = VertexAttribsInfo<
       Tetrahedrons,
-      std::tuple<VertexPositionsTag, VertexTexCoordinatesTag>>
-      VertexAttribs;
+      std::tuple<VertexPositionsTag, VertexTexCoordinatesTag>>;
 #endif
 
     // This is here just for consistency with Shape wrapper
     template <typename T>
-    void BoundingSphere(oglplus::Sphere<T>&) const {
-    }
+    void BoundingSphere(oglplus::Sphere<T>&) const {}
 
     /// The type of index container returned by Indices()
-    typedef std::vector<GLuint> IndexArray;
+    using IndexArray = std::vector<GLuint>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(WithAdjacency = WithAdjacency()) const;

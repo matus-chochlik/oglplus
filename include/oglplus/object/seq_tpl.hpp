@@ -24,8 +24,8 @@ namespace oglplus {
 template <typename ObjectT>
 class SeqIterator {
 private:
-    typedef typename Classify<ObjectT>::ObjTag ObjTag;
-    typedef typename ObjTag::NameType NameT;
+    using ObjTag = typename Classify<ObjectT>::ObjTag;
+    using NameT = typename ObjTag::NameType;
     const NameT* _pos;
 
 public:
@@ -48,10 +48,10 @@ public:
     }
 
     /// Value type
-    typedef ObjectT value_type;
+    using value_type = ObjectT;
 
     /// Difference type
-    typedef std::ptrdiff_t difference_type;
+    using difference_type = std::ptrdiff_t;
 
     /// Distance
     friend difference_type operator-(SeqIterator a, SeqIterator b) {
@@ -123,8 +123,8 @@ const typename Classify<ObjectT>::ObjTag::NameType* GetNames(
 template <typename ObjectT>
 class Sequence {
 private:
-    typedef typename Classify<ObjectT>::ObjTag ObjTag;
-    typedef typename ObjTag::NameType NameT;
+    using ObjTag = typename Classify<ObjectT>::ObjTag;
+    using NameT = typename ObjTag::NameType;
 
     friend const NameT* GetNames<ObjectT>(const Sequence&);
 
@@ -174,9 +174,9 @@ public:
     }
 
     /// Iterator type
-    typedef SeqIterator<ObjectT> iterator;
+    using iterator = SeqIterator<ObjectT>;
     /// Const iterator type
-    typedef SeqIterator<ObjectT> const_iterator;
+    using const_iterator = SeqIterator<ObjectT>;
 
     /// Position at the beginning of the sequence
     const_iterator begin() const {

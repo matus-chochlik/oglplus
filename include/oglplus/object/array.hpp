@@ -38,16 +38,16 @@ class ObjGenDelOps;
 template <typename Object>
 class Array : public ObjGenDelOps<typename Classify<Object>::ObjTag> {
 private:
-    typedef typename Classify<Object>::OpsTag OpsTag;
-    typedef typename Classify<Object>::ObjTag ObjTag;
-    typedef typename ObjGenTag<OpsTag, ObjTag>::Type GenTag;
-    typedef ObjGenDelOps<ObjTag> GenDelOps;
+    using OpsTag = typename Classify<Object>::OpsTag;
+    using ObjTag = typename Classify<Object>::ObjTag;
+    using GenTag = typename ObjGenTag<OpsTag, ObjTag>::Type;
+    using GenDelOps = ObjGenDelOps<ObjTag>;
 
     /// Array is not copyable
     Array(const Array&);
 
 protected:
-    typedef typename ObjTag::NameType NameT;
+    using NameT = typename ObjTag::NameType;
     std::vector<NameT> _names;
 
     void _init(Nothing) {
@@ -106,10 +106,10 @@ public:
     }
 
     /// Reference to elements
-    typedef Reference<Object> reference;
+    using reference = Reference<Object>;
 
     /// Reference to const elements
-    typedef const reference const_reference;
+    using const_reference = const reference;
 
     /// Returns a reference to the i-th instance in the array
     reference at(std::size_t index) {
@@ -132,10 +132,10 @@ public:
     }
 
     /// Iterator type
-    typedef SeqIterator<Object> iterator;
+    using iterator = SeqIterator<Object>;
 
     /// Const-iterator type
-    typedef iterator const_iterator;
+    using const_iterator = iterator;
 
     /// Returns an iterator pointing to the first element
     const_iterator begin() const {

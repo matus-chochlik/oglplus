@@ -28,7 +28,7 @@ class Group;
 template <typename ObjTag>
 class Group<ObjectName<ObjTag>> {
 private:
-    typedef typename ObjTag::NameType NameT;
+    using NameT = typename ObjTag::NameType;
     std::vector<NameT> _names;
 
 public:
@@ -114,7 +114,7 @@ class StaticGroup;
 template <typename ObjTag, std::size_t N>
 class StaticGroup<ObjectName<ObjTag>, N> {
 private:
-    typedef typename ObjTag::NameType NameT;
+    using NameT = typename ObjTag::NameType;
 
     std::array<NameT, N> _names;
 

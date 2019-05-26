@@ -69,8 +69,7 @@ public:
       , _thickness(0.1)
       , _bands(4)
       , _divisions(8)
-      , _segments(48) {
-    }
+      , _segments(48) {}
 
     /// Creates a custom spiral sphere
     SpiralSphere(
@@ -83,8 +82,7 @@ public:
       , _thickness(thickness)
       , _bands(bands)
       , _divisions(divisions)
-      , _segments(segments) {
-    }
+      , _segments(segments) {}
 
     /// Returns the winding direction of faces
     FaceOrientation FaceWinding() const {
@@ -176,17 +174,16 @@ public:
      *  - "Bitangent" the vertex bi-tangent vector (Bitangents)
      *  - "TexCoord" the ST texture coordinates (TexCoordinates)
      */
-    typedef VertexAttribsInfo<SpiralSphere> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<SpiralSphere>;
 #else
-    typedef VertexAttribsInfo<
+    using VertexAttribs = VertexAttribsInfo<
       SpiralSphere,
       std::tuple<
         VertexPositionsTag,
         VertexNormalsTag,
         VertexTangentsTag,
         VertexBitangentsTag,
-        VertexTexCoordinatesTag>>
-      VertexAttribs;
+        VertexTexCoordinatesTag>>;
 #endif
 
     /// Queries the bounding sphere coordinates and dimensions
@@ -197,7 +194,7 @@ public:
     }
 
     /// The type of index container returned by Indices()
-    typedef std::vector<GLuint> IndexArray;
+    using IndexArray = std::vector<GLuint>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const;

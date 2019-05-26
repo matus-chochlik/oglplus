@@ -72,7 +72,7 @@ namespace aux {
 #if !OGLPLUS_NO_OBJECT_DESC
 class ObjectDescRegistryBase {
 private:
-    typedef ::std::map<unsigned, std::string> _desc_map;
+    using _desc_map = ::std::map<unsigned, std::string>;
 
 protected:
     static void _do_register_desc(
@@ -91,8 +91,8 @@ class ObjectDescRegistry
 {
 private:
 #if !OGLPLUS_NO_OBJECT_DESC
-    typedef ObjectDescRegistryBase _base;
-    typedef ::std::map<unsigned, std::string> _desc_map;
+    using _base = ObjectDescRegistryBase;
+    using _desc_map = ::std::map<unsigned, std::string>;
 
     static _desc_map& _storage(int id) {
         return ObjectDescRegistryStorage(id);

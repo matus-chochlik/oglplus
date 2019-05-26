@@ -25,7 +25,7 @@ class AutoRebind;
 template <typename OpsTag, typename ObjTag>
 class AutoRebind<Object<ObjectOps<OpsTag, ObjTag>>> {
 private:
-    typedef typename ObjectOps<OpsTag, ObjTag>::Target Target;
+    using Target = typename ObjectOps<OpsTag, ObjTag>::Target;
     ObjectName<ObjTag> _object;
     Target _target;
 

@@ -152,7 +152,7 @@ private:
       _loading_options opts);
 
 public:
-    typedef _loading_options LoadingOptions;
+    using LoadingOptions = _loading_options;
 
     BlenderMesh(imports::BlendFile& blend_file) {
         _call_load_meshes(
@@ -177,8 +177,8 @@ public:
         return FaceOrientation::CCW;
     }
 
-    typedef GLuint (BlenderMesh::*VertexAttribFunc)(
-      std::vector<GLfloat>&) const;
+    using VertexAttribFunc =
+      GLuint (BlenderMesh::*)(std::vector<GLfloat>&) const;
 
     /// Makes the vertex positions and returns the number of values per vertex
     template <typename T>
@@ -235,9 +235,9 @@ public:
      *  - "Position" the vertex positions (Positions)
      *  - "Normal" the vertex normals (Normals)
      */
-    typedef VertexAttribsInfo<BlenderMesh> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<BlenderMesh>;
 #else
-    typedef VertexAttribsInfo<
+    using VertexAttribs = VertexAttribsInfo<
       BlenderMesh,
       std::tuple<
         VertexPositionsTag,
@@ -245,8 +245,7 @@ public:
         VertexTangentsTag,
         VertexBitangentsTag,
         VertexTexCoordinatesTag,
-        VertexMaterialNumbersTag>>
-      VertexAttribs;
+        VertexMaterialNumbersTag>>;
 #endif
 
     Spheref GetBoundingSphere() const;
@@ -258,7 +257,7 @@ public:
     }
 
     /// The type of the index container returned by Indices()
-    typedef std::vector<GLuint> IndexArray;
+    using IndexArray = std::vector<GLuint>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const {

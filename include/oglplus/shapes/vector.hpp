@@ -36,23 +36,21 @@ public:
     PointAndVector()
       : _x(1)
       , _y(0)
-      , _z(0) {
-    }
+      , _z(0) {}
 
     /// Constructs a vector with x,y,z coordinates
     PointAndVector(double x, double y, double z)
       : _x(x)
       , _y(y)
-      , _z(z) {
-    }
+      , _z(z) {}
 
     /// Returns the winding direction of faces
     FaceOrientation FaceWinding() const {
         return FaceOrientation::CW;
     }
 
-    typedef GLuint (PointAndVector::*VertexAttribFunc)(
-      std::vector<GLfloat>&) const;
+    using VertexAttribFunc =
+      GLuint (PointAndVector::*)(std::vector<GLfloat>&) const;
 
     /// Makes the vertices and returns the number of values per vertex
     template <typename T>
@@ -77,12 +75,11 @@ public:
      *  - "Position" the vertex positions (Positions)
      *  - "Normal" the vertex normal vectors (Normals)
      */
-    typedef VertexAttribsInfo<PointAndVector> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<PointAndVector>;
 #else
-    typedef VertexAttribsInfo<
+    using VertexAttribs = VertexAttribsInfo<
       PointAndVector,
-      std::tuple<VertexPositionsTag, VertexNormalsTag>>
-      VertexAttribs;
+      std::tuple<VertexPositionsTag, VertexNormalsTag>>;
 #endif
 
     /// Queries the bounding sphere coordinates and dimensions
@@ -93,7 +90,7 @@ public:
     }
 
     /// The type of the index container returned by Indices()
-    typedef std::vector<GLushort> IndexArray;
+    using IndexArray = std::vector<GLushort>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const {

@@ -47,8 +47,7 @@ public:
       , _u(1.0f, 0.0f, 0.0f)
       , _v(0.0f, 0.0f, -1.0f)
       , _udiv(2)
-      , _vdiv(2) {
-    }
+      , _vdiv(2) {}
 
     /// Creates a default plane with udiv and vdiv divisions
     Plane(unsigned udiv, unsigned vdiv)
@@ -235,17 +234,16 @@ public:
      *  - "Bitangent" the vertex bi-tangent vector (Bitangents)
      *  - "TexCoord" the ST texture coordinates (TexCoordinates)
      */
-    typedef VertexAttribsInfo<Plane> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<Plane>;
 #else
-    typedef VertexAttribsInfo<
+    using VertexAttribs = VertexAttribsInfo<
       Plane,
       std::tuple<
         VertexPositionsTag,
         VertexNormalsTag,
         VertexTangentsTag,
         VertexBitangentsTag,
-        VertexTexCoordinatesTag>>
-      VertexAttribs;
+        VertexTexCoordinatesTag>>;
 #endif
 
     /// Queries the bounding sphere coordinates and dimensions
@@ -256,7 +254,7 @@ public:
     }
 
     /// The type of index container returned by Indices()
-    typedef std::vector<GLuint> IndexArray;
+    using IndexArray = std::vector<GLuint>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const;

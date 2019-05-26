@@ -51,7 +51,7 @@ typename ObjTag::NameType GetName(ObjectName<ObjTag>);
 template <typename ObjTag>
 class ObjectName {
 protected:
-    typedef typename ObjTag::NameType NameT;
+    using NameT = typename ObjTag::NameType;
 
 private:
     friend NameT GetName<ObjTag>(ObjectName);
@@ -146,9 +146,9 @@ struct Classify;
 
 template <typename ObjTg>
 struct Classify<ObjectName<ObjTg>> {
-    typedef ObjectName<ObjTg> Base;
-    typedef tag::ObjectName Tag;
-    typedef ObjTg ObjTag;
+    using Base = ObjectName<ObjTg>;
+    using Tag = tag::ObjectName;
+    using ObjTag = ObjTg;
 };
 
 } // namespace oglplus

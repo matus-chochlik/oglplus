@@ -104,8 +104,8 @@ public:
         return 3;
     }
 
-    typedef oglplus::ShapeDrawOperationMethod Method;
-    typedef oglplus::PrimitiveType Mode;
+    using Method = oglplus::ShapeDrawOperationMethod;
+    using Mode = oglplus::PrimitiveType;
 
     template <typename ShapeBuilder>
     ShapeAnalyzerGraphData(const ShapeBuilder& builder)

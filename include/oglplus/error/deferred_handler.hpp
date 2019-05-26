@@ -42,7 +42,7 @@ private:
         }
     };
 
-    typedef void (*_intf_deleter)(_handler_intf*);
+    using _intf_deleter = void (*)(_handler_intf*);
 
     static void _impl_delete(_handler_intf* x) {
         delete x;

@@ -42,7 +42,7 @@ private:
     std::vector<double> _positions;
     std::vector<GLuint> _indices;
 
-    typedef std::pair<GLuint, GLuint> _edge;
+    using _edge = std::pair<GLuint, GLuint>;
     std::map<_edge, GLuint> _midpoints;
 
     GLuint _midpoint(GLuint ia, GLuint ib);
@@ -54,7 +54,7 @@ private:
     void _init_octoh();
 
 public:
-    typedef SubdivSphereInitialShape InitialShape;
+    using InitialShape = SubdivSphereInitialShape;
 
     SimpleSubdivSphere()
       : _subdivs(2) {
@@ -73,8 +73,8 @@ public:
         return FaceOrientation::CCW;
     }
 
-    typedef GLuint (SimpleSubdivSphere::*VertexAttribFunc)(
-      std::vector<GLfloat>&) const;
+    using VertexAttribFunc =
+      GLuint (SimpleSubdivSphere::*)(std::vector<GLfloat>&) const;
 
     /// Makes the positions and returns the number of values per vertex
     template <typename T>
@@ -89,12 +89,10 @@ public:
      *  vertex attributes:
      *  - "Position" the vertex positions (Positions)
      */
-    typedef VertexAttribsInfo<SubdivSphere> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<SubdivSphere>;
 #else
-    typedef VertexAttribsInfo<
-      SimpleSubdivSphere,
-      std::tuple<VertexPositionsTag>>
-      VertexAttribs;
+    using VertexAttribs =
+      VertexAttribsInfo<SimpleSubdivSphere, std::tuple<VertexPositionsTag>>;
 #endif
 
     /// Queries the bounding sphere coordinates and dimensions
@@ -104,7 +102,7 @@ public:
     }
 
     /// The type of the index container returned by Indices()
-    typedef std::vector<GLuint> IndexArray;
+    using IndexArray = std::vector<GLuint>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const {

@@ -41,8 +41,7 @@ public:
       , _sz(1.0)
       , _ox(0.0)
       , _oy(0.0)
-      , _oz(0.0) {
-    }
+      , _oz(0.0) {}
 
     /// Constructs a cube with width, height, depth
     Cube(double w, double h, double d)
@@ -51,8 +50,7 @@ public:
       , _sz(d)
       , _ox(0.0)
       , _oy(0.0)
-      , _oz(0.0) {
-    }
+      , _oz(0.0) {}
 
     /// Constructs a cube with width, height, depth and x,y and z offsets
     Cube(double w, double h, double d, double x, double y, double z)
@@ -61,15 +59,14 @@ public:
       , _sz(d)
       , _ox(x)
       , _oy(y)
-      , _oz(z) {
-    }
+      , _oz(z) {}
 
     /// Returns the winding direction of faces
     FaceOrientation FaceWinding() const {
         return FaceOrientation::CW;
     }
 
-    typedef GLuint (Cube::*VertexAttribFunc)(std::vector<GLfloat>&) const;
+    using VertexAttribFunc = GLuint (Cube::*)(std::vector<GLfloat>&) const;
 
     std::vector<GLfloat> _positions() const;
 
@@ -141,16 +138,15 @@ public:
      *  - "Tangent" the vertex tangent vector (Tangents)
      *  - "TexCoord" the ST texture coordinates (TexCoordinates)
      */
-    typedef VertexAttribsInfo<Cube> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<Cube>;
 #else
-    typedef VertexAttribsInfo<
+    using VertexAttribs = VertexAttribsInfo<
       Cube,
       std::tuple<
         VertexPositionsTag,
         VertexNormalsTag,
         VertexTangentsTag,
-        VertexTexCoordinatesTag>>
-      VertexAttribs;
+        VertexTexCoordinatesTag>>;
 #endif
 
     /// Queries the bounding sphere coordinates and dimensions
@@ -164,7 +160,7 @@ public:
     }
 
     /// The type of the index container returned by Indices()
-    typedef std::vector<GLushort> IndexArray;
+    using IndexArray = std::vector<GLushort>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const {
