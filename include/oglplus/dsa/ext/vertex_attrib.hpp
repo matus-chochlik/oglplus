@@ -32,8 +32,7 @@ public:
      */
     DSAVertexArrayAttribEXT(VertexArrayName vao, VertexAttribSlot location)
       : ProgVarCommonOps<tag::VertexAttrib>(VertexAttribLoc(GLint(location)))
-      , _vao(GetGLName(vao)) {
-    }
+      , _vao(GetGLName(vao)) {}
 
     /// References the vertex attrib array @p identifier of the @p program
     /**
@@ -44,8 +43,7 @@ public:
       VertexArrayName vao, ProgramName program, StrCRef identifier)
       : ProgVarCommonOps<tag::VertexAttrib>(
           VertexAttribLoc(program, identifier))
-      , _vao(GetGLName(vao)) {
-    }
+      , _vao(GetGLName(vao)) {}
 
     /// Setup the properties of this vertex attribute array
     /**
@@ -128,7 +126,7 @@ public:
     template <typename T>
     const DSAVertexArrayAttribEXT& Setup(
       BufferName buffer, GLuint n = 1) const {
-        typedef decltype(_get_et(TypeTag<T>())) elem_type;
+        using elem_type = decltype(_get_et(TypeTag<T>()));
 
         return Setup(
           buffer,

@@ -36,7 +36,7 @@ private:
     std::vector<PathNVCommand> _commands;
     std::vector<PathCoordType> _coords;
 
-    typedef PathCoordType T;
+    using T = PathCoordType;
 
     PathNVSpec& _append(PathNVCommand command) {
         _commands.push_back(command);
@@ -64,8 +64,7 @@ private:
 
 public:
     /// Creates an empty path specification
-    PathNVSpec() {
-    }
+    PathNVSpec() {}
 
     /// Creates an empty path specification with storage size hints
     /** This constructor pre-allocates space for @p command_count_hint
@@ -78,8 +77,7 @@ public:
 
     PathNVSpec(PathNVSpec&& tmp)
       : _commands(std::move(tmp._commands))
-      , _coords(std::move(tmp._coords)) {
-    }
+      , _coords(std::move(tmp._coords)) {}
 
     /** @name Path specification commands
      *  The path specification is built by calling the member functions
@@ -286,20 +284,18 @@ public:
 template <typename PathCoordType>
 class BriefPathNVSpec : public PathNVSpec<PathCoordType> {
 private:
-    typedef PathNVSpec<PathCoordType> Base;
-    typedef PathCoordType CT;
+    using Base = PathNVSpec<PathCoordType>;
+    using CT = PathCoordType;
 
     BriefPathNVSpec& self(Base& base) {
         return static_cast<BriefPathNVSpec&>(base);
     }
 
 public:
-    BriefPathNVSpec() {
-    }
+    BriefPathNVSpec() {}
 
     BriefPathNVSpec(GLuint command_count_hint, GLuint coord_count_hint)
-      : Base(command_count_hint, coord_count_hint) {
-    }
+      : Base(command_count_hint, coord_count_hint) {}
 
     /// Close
     BriefPathNVSpec& Z() {

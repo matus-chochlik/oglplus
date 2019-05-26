@@ -28,8 +28,7 @@ class ObjectOps<tag::DirectStateEXT, tag::Renderbuffer>
   : public ObjZeroOps<tag::DirectStateEXT, tag::Renderbuffer> {
 protected:
     ObjectOps(RenderbufferName name) noexcept
-      : ObjZeroOps<tag::DirectStateEXT, tag::Renderbuffer>(name) {
-    }
+      : ObjZeroOps<tag::DirectStateEXT, tag::Renderbuffer>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -226,7 +225,7 @@ public:
 };
 
 /// Renderbuffer operations with direct state access
-typedef ObjectOps<tag::DirectStateEXT, tag::Renderbuffer> DSARenderbufferOpsEXT;
+using DSARenderbufferOpsEXT = ObjectOps<tag::DirectStateEXT, tag::Renderbuffer>;
 
 // syntax-sugar operators
 
@@ -248,7 +247,7 @@ inline DSARenderbufferOpsEXT& operator<<(
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSARenderbufferOpsEXT> DSARenderbufferEXT;
+using DSARenderbufferEXT = Object<DSARenderbufferOpsEXT>;
 
 #else
 #error Direct State Access Renderbuffers not available

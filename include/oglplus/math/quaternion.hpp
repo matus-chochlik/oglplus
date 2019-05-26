@@ -30,8 +30,8 @@ class QuaternionSLERP;
 /**
  *  @ingroup math_utils
  */
-typedef Quaternion<GLfloat> Quatf;
-typedef QuaternionSLERP<GLfloat> QuatfSLERP;
+using Quatf = Quaternion<GLfloat>;
+using QuatfSLERP = QuaternionSLERP<GLfloat>;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
@@ -39,8 +39,8 @@ typedef QuaternionSLERP<GLfloat> QuatfSLERP;
 /**
  *  @ingroup math_utils
  */
-typedef Quaternion<GLdouble> Quatd;
-typedef QuaternionSLERP<GLfloat> QuatdSLERP;
+using Quatd = Quaternion<GLdouble>;
+using QuatdSLERP = QuaternionSLERP<GLfloat>;
 #endif
 
 /// Template class for quaternions

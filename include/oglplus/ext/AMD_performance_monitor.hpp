@@ -46,8 +46,7 @@ private:
 
     PerfMonitorAMDCounter(GLuint group, GLuint counter)
       : _group(group)
-      , _counter(counter) {
-    }
+      , _counter(counter) {}
 
 public:
     /// Returns a string describing the monitor counter
@@ -96,8 +95,7 @@ private:
     friend class AMD_performance_monitor;
 
     PerfMonitorAMDGroup(GLuint group)
-      : _group(group) {
-    }
+      : _group(group) {}
 
 public:
     /// Returns a string describing the monitor group
@@ -243,8 +241,7 @@ class ObjectOps<tag::DirectState, tag::PerfMonitorAMD>
   : public ObjZeroOps<tag::DirectState, tag::PerfMonitorAMD> {
 protected:
     ObjectOps(ObjectName<tag::PerfMonitorAMD> name) noexcept
-      : ObjZeroOps<tag::DirectState, tag::PerfMonitorAMD>(name) {
-    }
+      : ObjZeroOps<tag::DirectState, tag::PerfMonitorAMD>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -368,7 +365,7 @@ public:
 };
 
 /// PerfMonitorAMD operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::PerfMonitorAMD> PerfMonitorAMDOps;
+using PerfMonitorAMDOps = ObjectOps<tag::DirectState, tag::PerfMonitorAMD>;
 
 /// An @ref oglplus_object encapsulating the performance monitor functionality
 /**
@@ -377,7 +374,7 @@ typedef ObjectOps<tag::DirectState, tag::PerfMonitorAMD> PerfMonitorAMDOps;
  *  @glsymbols
  *  @glextref{AMD,performance_monitor}
  */
-typedef Object<PerfMonitorAMDOps> PerfMonitorAMD;
+using PerfMonitorAMD = Object<PerfMonitorAMDOps>;
 
 /// Wrapper for the AMD_performance_monitor extension
 /**

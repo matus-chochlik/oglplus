@@ -21,7 +21,7 @@ namespace oglplus {
 
 template <>
 struct ObjGenTag<tag::DirectState, tag::Texture> {
-    typedef tag::Create Type;
+    using Type = tag::Create;
 };
 
 /// Class wrapping texture object functionality with direct state access
@@ -33,8 +33,7 @@ class ObjectOps<tag::DirectState, tag::Texture>
   : public ObjZeroOps<tag::DirectState, tag::Texture> {
 protected:
     ObjectOps(TextureName name) noexcept
-      : ObjZeroOps<tag::DirectState, tag::Texture>(name) {
-    }
+      : ObjZeroOps<tag::DirectState, tag::Texture>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -43,7 +42,7 @@ public:
     ObjectOps& operator=(const ObjectOps&) = default;
 
     /// Types related to Texture
-    typedef TextureOps::Property Property;
+    using Property = TextureOps::Property;
 
     using ObjCommonOps<tag::Texture>::Bind;
 
@@ -1409,7 +1408,7 @@ public:
 };
 
 /// Texture operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::Texture> DSATextureOps;
+using DSATextureOps = ObjectOps<tag::DirectState, tag::Texture>;
 
 // Helper class for syntax-sugar operators
 struct DSATextureOpsAndSlot {
@@ -1418,8 +1417,7 @@ struct DSATextureOpsAndSlot {
 
     DSATextureOpsAndSlot(DSATextureOps& t, GLint s)
       : tex(t)
-      , slot(s) {
-    }
+      , slot(s) {}
 };
 
 // syntax sugar operators
@@ -1568,7 +1566,7 @@ inline DSATextureOps& operator<<(DSATextureOps& tex, TextureMipmap) {
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSATextureOps> DSATexture;
+using DSATexture = Object<DSATextureOps>;
 
 #endif // GL_ARB_direct_state_access
 

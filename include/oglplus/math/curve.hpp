@@ -207,7 +207,7 @@ public:
             const Type* data = _points.data() + poffs;
             std::size_t size = _points.size() - poffs;
             for(unsigned j = 0; j != n; ++j) {
-                typedef math::Bezier<Type, Parameter, Order> b;
+                using b = math::Bezier<Type, Parameter, Order>;
                 assert(p != dest.end());
                 *p = Type(b::Position(data, size, t_sub));
                 ++p;

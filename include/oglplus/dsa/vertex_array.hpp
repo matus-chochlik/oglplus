@@ -23,7 +23,7 @@ namespace oglplus {
 
 template <>
 struct ObjGenTag<tag::DirectState, tag::VertexArray> {
-    typedef tag::Create Type;
+    using Type = tag::Create;
 };
 
 /// Class wrapping vertex array-related functionality with direct state access
@@ -35,8 +35,7 @@ class ObjectOps<tag::DirectState, tag::VertexArray>
   : public ObjZeroOps<tag::DirectState, tag::VertexArray> {
 protected:
     ObjectOps(VertexArrayName name) noexcept
-      : ObjZeroOps<tag::DirectState, tag::VertexArray>(name) {
-    }
+      : ObjZeroOps<tag::DirectState, tag::VertexArray>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -89,13 +88,13 @@ public:
 };
 
 /// VertexArray operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::VertexArray> DSAVertexArrayOps;
+using DSAVertexArrayOps = ObjectOps<tag::DirectState, tag::VertexArray>;
 
 /// An @ref oglplus_object encapsulating the OpenGL vertex array functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSAVertexArrayOps> DSAVertexArray;
+using DSAVertexArray = Object<DSAVertexArrayOps>;
 
 #endif // GL_ARB_direct_state_access
 

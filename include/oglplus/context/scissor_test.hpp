@@ -20,7 +20,7 @@ namespace oglplus {
 namespace context {
 
 /// Helper structure storing the extents of a 2D scissor rectangle
-typedef ViewportExtents ScissorRectangle;
+using ScissorRectangle = ViewportExtents;
 
 /// Wrapper for the scissor-buffer-related operations
 /**

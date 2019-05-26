@@ -21,7 +21,7 @@ namespace oglplus {
 
 template <>
 struct ObjGenTag<tag::DirectState, tag::Renderbuffer> {
-    typedef tag::Create Type;
+    using Type = tag::Create;
 };
 
 /// Class wrapping renderbuffer-related functionality with direct state access
@@ -33,8 +33,7 @@ class ObjectOps<tag::DirectState, tag::Renderbuffer>
   : public ObjZeroOps<tag::DirectState, tag::Renderbuffer> {
 protected:
     ObjectOps(RenderbufferName name) noexcept
-      : ObjZeroOps<tag::DirectState, tag::Renderbuffer>(name) {
-    }
+      : ObjZeroOps<tag::DirectState, tag::Renderbuffer>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -231,7 +230,7 @@ public:
 };
 
 /// Renderbuffer operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::Renderbuffer> DSARenderbufferOps;
+using DSARenderbufferOps = ObjectOps<tag::DirectState, tag::Renderbuffer>;
 
 // syntax-sugar operators
 
@@ -253,7 +252,7 @@ inline DSARenderbufferOps& operator<<(
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSARenderbufferOps> DSARenderbuffer;
+using DSARenderbuffer = Object<DSARenderbufferOps>;
 
 #endif // GL_ARB_direct_state_access
 

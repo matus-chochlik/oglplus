@@ -30,8 +30,7 @@ class ObjectOps<tag::DirectStateEXT, tag::VertexArray>
   : public ObjZeroOps<tag::DirectStateEXT, tag::VertexArray> {
 protected:
     ObjectOps(VertexArrayName name) noexcept
-      : ObjZeroOps<tag::DirectStateEXT, tag::VertexArray>(name) {
-    }
+      : ObjZeroOps<tag::DirectStateEXT, tag::VertexArray>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -127,13 +126,13 @@ public:
 };
 
 /// VertexArray operations with direct state access
-typedef ObjectOps<tag::DirectStateEXT, tag::VertexArray> DSAVertexArrayOpsEXT;
+using DSAVertexArrayOpsEXT = ObjectOps<tag::DirectStateEXT, tag::VertexArray>;
 
 /// An @ref oglplus_object encapsulating the OpenGL vertex array functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSAVertexArrayOpsEXT> DSAVertexArrayEXT;
+using DSAVertexArrayEXT = Object<DSAVertexArrayOpsEXT>;
 
 #endif // GL_EXT_direct_state_access
 

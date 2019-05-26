@@ -15,9 +15,8 @@
 namespace oglplus {
 
 // Nothing
-struct Nothing
-{
-	typedef Nothing Type;
+struct Nothing {
+    using Type = Nothing;
 };
 
 } // namespace oglplus

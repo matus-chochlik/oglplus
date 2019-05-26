@@ -89,7 +89,7 @@ public:
      *  @see ARB_debug_output_Tree
      *  @see ARB_debug_output_ToXML
      */
-    typedef std::function<void(const CallbackData&)> Callback;
+    using Callback = std::function<void(const CallbackData&)>;
 
     /// Installs a custom callback processing the debug output
     /**
@@ -210,11 +210,10 @@ private:
     std::shared_ptr<Essence> essence;
 
 public:
-    typedef typename ARB_debug_output::Callback Callback;
+    using Callback = typename ARB_debug_output::Callback;
 
     ARB_debug_output_CallbackWithEssence(typename Essence::CtrParam param)
-      : essence(std::make_shared<Essence>(param)) {
-    }
+      : essence(std::make_shared<Essence>(param)) {}
 
     void operator()(const ARB_debug_output::CallbackData& data) {
         essence->Call(data);
@@ -227,7 +226,7 @@ public:
 
 class ARB_debug_output_UniqueEssence {
 private:
-    typedef ARB_debug_output::Callback Callback;
+    using Callback = ARB_debug_output::Callback;
     Callback _callback;
 
     String buffer;
@@ -236,11 +235,10 @@ private:
     ARB_debug_output_UniqueEssence(const ARB_debug_output_UniqueEssence&);
 
 public:
-    typedef const Callback& CtrParam;
+    using CtrParam = const Callback&;
 
     ARB_debug_output_UniqueEssence(const Callback& callback)
-      : _callback(callback) {
-    }
+      : _callback(callback) {}
 
     void Call(const ARB_debug_output::CallbackData& data);
 };
@@ -263,8 +261,8 @@ public:
     operator ARB_debug_output::Callback() const;
 };
 #else
-typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_UniqueEssence>
-  ARB_debug_output_Unique;
+using ARB_debug_output_Unique =
+  ARB_debug_output_CallbackWithEssence<ARB_debug_output_UniqueEssence>;
 #endif
 
 class ARB_debug_output_TreeEssence {
@@ -274,7 +272,7 @@ private:
     ARB_debug_output_TreeEssence(const ARB_debug_output_TreeEssence&);
 
 public:
-    typedef std::ostream& CtrParam;
+    using CtrParam = std::ostream&;
 
     ARB_debug_output_TreeEssence(std::ostream& out);
     ~ARB_debug_output_TreeEssence();
@@ -299,8 +297,8 @@ public:
     operator ARB_debug_output::Callback() const;
 };
 #else
-typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_TreeEssence>
-  ARB_debug_output_Tree;
+using ARB_debug_output_Tree =
+  ARB_debug_output_CallbackWithEssence<ARB_debug_output_TreeEssence>;
 #endif
 
 class ARB_debug_output_ToXMLEssence {
@@ -310,7 +308,7 @@ private:
     ARB_debug_output_ToXMLEssence(const ARB_debug_output_ToXMLEssence&);
 
 public:
-    typedef std::ostream& CtrParam;
+    using CtrParam = std::ostream&;
 
     ARB_debug_output_ToXMLEssence(std::ostream& out);
     ~ARB_debug_output_ToXMLEssence();
@@ -334,8 +332,8 @@ public:
     operator ARB_debug_output::Callback() const;
 };
 #else
-typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_ToXMLEssence>
-  ARB_debug_output_ToXML;
+using ARB_debug_output_ToXML =
+  ARB_debug_output_CallbackWithEssence<ARB_debug_output_ToXMLEssence>;
 #endif
 
 #endif // ARB_debug_output

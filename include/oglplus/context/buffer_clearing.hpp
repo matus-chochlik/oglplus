@@ -25,7 +25,7 @@ namespace oglplus {
 /**
  *  @ingroup enumerations
  */
-typedef BufferSelectBit ClearBit;
+using ClearBit = BufferSelectBit;
 
 namespace context {
 
@@ -60,8 +60,7 @@ private:
     ClrBits(const ClrBits&) = delete;
 
     ClrBits(GLbitfield bit)
-      : _bits(bit) {
-    }
+      : _bits(bit) {}
 
     inline ClrBits _make(GLbitfield bit) {
         return ClrBits(_forward() | bit);
@@ -96,8 +95,7 @@ public:
     }
 
     inline ClrBits(ClrBits&& temp)
-      : _bits(temp._forward()) {
-    }
+      : _bits(temp._forward()) {}
 
     void DoIt() const {
         if(_bits) {

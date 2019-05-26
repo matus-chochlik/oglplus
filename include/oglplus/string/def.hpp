@@ -33,7 +33,7 @@ bool ValidString(const char* begin, const char* end);
 /**
  *  @ingroup oglplus_strings
  */
-typedef ::std::basic_string<GLchar> String;
+using String = ::std::basic_string<GLchar>;
 
 const String& EmptyString();
 

@@ -22,7 +22,7 @@ namespace oglplus {
 
 template <>
 struct ObjGenTag<tag::DirectState, tag::Framebuffer> {
-    typedef tag::Create Type;
+    using Type = tag::Create;
 };
 
 /// Class wrapping framebuffer-related functionality with direct state access
@@ -34,8 +34,7 @@ class ObjectOps<tag::DirectState, tag::Framebuffer>
   : public ObjZeroOps<tag::DirectState, tag::Framebuffer> {
 protected:
     ObjectOps(FramebufferName name) noexcept
-      : ObjZeroOps<tag::DirectState, tag::Framebuffer>(name) {
-    }
+      : ObjZeroOps<tag::DirectState, tag::Framebuffer>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -43,7 +42,7 @@ public:
     ObjectOps& operator=(ObjectOps&&) = default;
     ObjectOps& operator=(const ObjectOps&) = default;
 
-    typedef FramebufferOps::Property Property;
+    using Property = FramebufferOps::Property;
 
     using ObjZeroOps<tag::DirectState, tag::Framebuffer>::Bind;
     void Bind(Target target) {
@@ -226,10 +225,9 @@ public:
     }
 
     /// Color buffer specification type
-    typedef OneOf<
+    using ColorBuffer = OneOf<
       GLenum,
-      std::tuple<oglplus::ColorBuffer, oglplus::FramebufferColorAttachment>>
-      ColorBuffer;
+      std::tuple<oglplus::ColorBuffer, oglplus::FramebufferColorAttachment>>;
 
     /// Sets the destination color buffer for draw operations
     /**
@@ -265,19 +263,18 @@ public:
 };
 
 /// Framebuffer operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::Framebuffer> DSAFramebufferOps;
+using DSAFramebufferOps = ObjectOps<tag::DirectState, tag::Framebuffer>;
 
 // Helper class for syntax-sugar operators
 struct DSAFramebufferOpsAndAttch {
-    typedef DSAFramebufferOps::Property::Attachment Attachment;
+    using Attachment = DSAFramebufferOps::Property::Attachment;
 
     DSAFramebufferOps& fbo;
     Attachment attachment;
 
     DSAFramebufferOpsAndAttch(DSAFramebufferOps& f, Attachment a)
       : fbo(f)
-      , attachment(a) {
-    }
+      , attachment(a) {}
 };
 
 inline DSAFramebufferOpsAndAttch operator<<(
@@ -312,7 +309,7 @@ inline DSAFramebufferOps& operator<<(
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSAFramebufferOps> DSAFramebuffer;
+using DSAFramebuffer = Object<DSAFramebufferOps>;
 
 #endif // GL_ARB_direct_state_access
 

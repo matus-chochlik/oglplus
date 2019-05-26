@@ -169,7 +169,7 @@ public:
  *  it is here for documentation purporses only. Concrete
  *  implementations of text RenderingUtility have their own
  *  layout classes. The exact type of these can be obtained
- *  from the @c Layout typedef in the particular @c RenderingUtility.
+ *  from the @c Layout type in the particular @c RenderingUtility.
  *  Concrete implementations of layouts may have additional
  *  members.
  *
@@ -228,7 +228,7 @@ public:
  *  it is here for documentation purporses only. Concrete
  *  implementations of text RenderingUtility have their own
  *  renderer classes. The exact type of these can be obtained
- *  from the @c Renderer typedef in the particular @c RenderingUtility.
+ *  from the @c Renderer type in the particular @c RenderingUtility.
  *  Concrete implementations of layouts may have additional
  *  members.
  *

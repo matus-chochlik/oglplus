@@ -34,8 +34,7 @@ private:
 public:
     StrCRefChainTpl(Left left, Right right)
       : _left(left)
-      , _right(right) {
-    }
+      , _right(right) {}
 
     bool empty() const {
         return _left.empty() && _right.empty();
@@ -87,8 +86,7 @@ public:
     /// Default construction (reference to an empty c-string)
     StrCRefTpl() noexcept
       : _c_str(nullptr)
-      , _size(0) {
-    }
+      , _size(0) {}
 
     /// Construction from a null-terminated string
     StrCRefTpl(const Char* cstr) noexcept
@@ -147,9 +145,9 @@ public:
     }
 
     /// Iterator type
-    typedef const Char* iterator;
+    using iterator = const Char*;
     /// Const iterator type
-    typedef iterator const_iterator;
+    using const_iterator = iterator;
 
     /// Returns iterator to the first character
     const_iterator begin() const noexcept {

@@ -28,8 +28,7 @@ class ObjZeroOps<tag::DirectStateEXT, tag::Texture>
   : public ObjCommonOps<tag::Texture> {
 protected:
     ObjZeroOps(TextureName name) noexcept
-      : ObjCommonOps<tag::Texture>(name) {
-    }
+      : ObjCommonOps<tag::Texture>(name) {}
 
 public:
     ObjZeroOps(ObjZeroOps&&) = default;
@@ -40,7 +39,7 @@ public:
     Target target;
 
     /// Types related to Texture
-    typedef TextureOps::Property Property;
+    using Property = TextureOps::Property;
 
     using ObjCommonOps<tag::Texture>::Bind;
     void Bind() {
@@ -1844,10 +1843,10 @@ public:
 };
 
 /// Default Texture operations with direct state access
-typedef ObjZeroOps<tag::DirectStateEXT, tag::Texture> DSADefaultTextureOpsEXT;
+using DSADefaultTextureOpsEXT = ObjZeroOps<tag::DirectStateEXT, tag::Texture>;
 
 /// Texture operations with direct state access
-typedef ObjectOps<tag::DirectStateEXT, tag::Texture> DSATextureOpsEXT;
+using DSATextureOpsEXT = ObjectOps<tag::DirectStateEXT, tag::Texture>;
 
 // Helper class for syntax-sugar operators
 struct DSATextureOpsAndSlotEXT {
@@ -1856,8 +1855,7 @@ struct DSATextureOpsAndSlotEXT {
 
     DSATextureOpsAndSlotEXT(DSATextureOpsEXT& t, GLint s)
       : tex(t)
-      , slot(s) {
-    }
+      , slot(s) {}
 };
 
 // syntax sugar operators
@@ -2030,13 +2028,13 @@ inline DSATextureOpsEXT& operator<<(DSATextureOpsEXT& tex, TextureMipmap) {
 /**
  *  @ingroup oglplus_objects
  */
-typedef ObjectZero<DSADefaultTextureOpsEXT> DSADefaultTextureEXT;
+using DSADefaultTextureEXT = ObjectZero<DSADefaultTextureOpsEXT>;
 
 /// An @ref oglplus_object encapsulating the DSA texture object functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSATextureOpsEXT> DSATextureEXT;
+using DSATextureEXT = Object<DSATextureOpsEXT>;
 
 #else
 #error Direct State Access Textures not available

@@ -30,12 +30,11 @@ private:
 
 public:
     /// The matrix mode enumeration
-    typedef CompatibilityMatrixMode Mode;
+    using Mode = CompatibilityMatrixMode;
 
     /// Constructs a new compatibility DSA matrix
     DSAMatrixEXT(Mode mode)
-      : _mode(mode) {
-    }
+      : _mode(mode) {}
 
     /// Pushes a matrix on the stack
     /**
@@ -263,16 +262,14 @@ public:
 class DSAModelviewMatrixEXT : public DSAMatrixEXT {
 public:
     DSAModelviewMatrixEXT()
-      : DSAMatrixEXT(CompatibilityMatrixMode::Modelview) {
-    }
+      : DSAMatrixEXT(CompatibilityMatrixMode::Modelview) {}
 };
 
 /// Wrapper for direct-state-access compatibility projection matrix operations
 class DSAProjectionMatrixEXT : public DSAMatrixEXT {
 public:
     DSAProjectionMatrixEXT()
-      : DSAMatrixEXT(CompatibilityMatrixMode::Projection) {
-    }
+      : DSAMatrixEXT(CompatibilityMatrixMode::Projection) {}
 };
 
 #endif // GL_EXT_direct_state_access

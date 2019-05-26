@@ -38,25 +38,25 @@ class Vector;
 /**
  *  @ingroup math_utils
  */
-typedef Vector<GLint, 1> Vec1i;
+using Vec1i = Vector<GLint, 1>;
 
 /// 2D int vector
 /**
  *  @ingroup math_utils
  */
-typedef Vector<GLint, 2> Vec2i;
+using Vec2i = Vector<GLint, 2>;
 
 /// 3D int vector
 /**
  *  @ingroup math_utils
  */
-typedef Vector<GLint, 3> Vec3i;
+using Vec3i = Vector<GLint, 3>;
 
 /// 4D int vector
 /**
  *  @ingroup math_utils
  */
-typedef Vector<GLint, 4> Vec4i;
+using Vec4i = Vector<GLint, 4>;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
@@ -64,25 +64,25 @@ typedef Vector<GLint, 4> Vec4i;
 /**
  *  @ingroup math_utils
  */
-typedef Vector<GLfloat, 1> Vec1f;
+using Vec1f = Vector<GLfloat, 1>;
 
 /// 2D float vector
 /**
  *  @ingroup math_utils
  */
-typedef Vector<GLfloat, 2> Vec2f;
+using Vec2f = Vector<GLfloat, 2>;
 
 /// 3D float vector
 /**
  *  @ingroup math_utils
  */
-typedef Vector<GLfloat, 3> Vec3f;
+using Vec3f = Vector<GLfloat, 3>;
 
 /// 4D float vector
 /**
  *  @ingroup math_utils
  */
-typedef Vector<GLfloat, 4> Vec4f;
+using Vec4f = Vector<GLfloat, 4>;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
@@ -90,25 +90,25 @@ typedef Vector<GLfloat, 4> Vec4f;
 /**
  *  @ingroup math_utils
  */
-typedef Vector<GLdouble, 1> Vec1d;
+using Vec1d = Vector<GLdouble, 1>;
 
 /// 2D double-precision vector
 /**
  *  @ingroup math_utils
  */
-typedef Vector<GLdouble, 2> Vec2d;
+using Vec2d = Vector<GLdouble, 2>;
 
 /// 3D double-precision vector
 /**
  *  @ingroup math_utils
  */
-typedef Vector<GLdouble, 3> Vec3d;
+using Vec3d = Vector<GLdouble, 3>;
 
 /// 4D double-precision vector
 /**
  *  @ingroup math_utils
  */
-typedef Vector<GLdouble, 4> Vec4d;
+using Vec4d = Vector<GLdouble, 4>;
 #endif
 
 /// Common base class for vectors

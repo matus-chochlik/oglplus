@@ -21,8 +21,7 @@ namespace oglplus {
 class DeferredHandler {
 private:
     struct _handler_intf {
-        virtual ~_handler_intf() noexcept {
-        }
+        virtual ~_handler_intf() noexcept {}
 
         virtual void execute(bool destroying) = 0;
     };
@@ -36,8 +35,7 @@ private:
         Func _func;
 
         _handler_impl(Func&& func)
-          : _func(std::move(func)) {
-        }
+          : _func(std::move(func)) {}
 
         void execute(bool) override {
             _func();
@@ -50,10 +48,9 @@ private:
         delete x;
     }
 
-    static void _fake_delete(_handler_intf*) {
-    }
+    static void _fake_delete(_handler_intf*) {}
 
-    typedef std::unique_ptr<_handler_intf, _intf_deleter> _unique_handler_ptr;
+    using _unique_handler_ptr = std::unique_ptr<_handler_intf, _intf_deleter>;
 
     _unique_handler_ptr _handler;
 
@@ -67,15 +64,13 @@ private:
 
 public:
     DeferredHandler() noexcept
-      : _handler(nullptr, &_fake_delete) {
-    }
+      : _handler(nullptr, &_fake_delete) {}
 
     DeferredHandler(DeferredHandler&&) = default;
 
     template <typename Func>
     explicit DeferredHandler(Func func)
-      : _handler(_wrap_func(func)) {
-    }
+      : _handler(_wrap_func(func)) {}
 
     ~DeferredHandler() {
         if(_handler) {
