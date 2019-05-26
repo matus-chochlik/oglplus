@@ -13,9 +13,9 @@
 #ifndef EGLPLUS_CONTEXT_1305291005_HPP
 #define EGLPLUS_CONTEXT_1305291005_HPP
 
+#include <eglplus/configs.hpp>
 #include <eglplus/attrib_list.hpp>
 #include <eglplus/boolean.hpp>
-#include <eglplus/configs.hpp>
 #include <eglplus/context_attrib.hpp>
 #include <eglplus/context_flag.hpp>
 #include <eglplus/display.hpp>
@@ -54,15 +54,14 @@ struct ContextValueTypeToContextAttrib {
 };
 
 /// Attribute list for context attributes
-typedef AttributeList<
+using ContextAttribs = AttributeList<
   ContextAttrib,
   ContextValueTypeToContextAttrib,
-  AttributeListTraits>
-  ContextAttribs;
+  AttributeListTraits>;
 
 /// Finished list of context attribute values
-typedef FinishedAttributeList<ContextAttrib, AttributeListTraits>
-  FinishedContextAttribs;
+using FinishedContextAttribs =
+  FinishedAttributeList<ContextAttrib, AttributeListTraits>;
 
 class Context;
 ::EGLContext GetEGLHandle(const Context&) noexcept;
@@ -79,8 +78,7 @@ private:
 
     Context(Display display, ::EGLContext handle)
       : _display(display)
-      , _handle(handle) {
-    }
+      , _handle(handle) {}
 
     static ::EGLContext _init(
       const Display& display,
@@ -108,8 +106,7 @@ public:
      */
     Context(const Display& display, const Config& config)
       : _display(display)
-      , _handle(_init(display, config, EGL_NO_CONTEXT, nullptr)) {
-    }
+      , _handle(_init(display, config, EGL_NO_CONTEXT, nullptr)) {}
 
     /// Construct a sharing context without any attributes
     /**
@@ -121,8 +118,7 @@ public:
       const Config& config,
       const Context& shared_context)
       : _display(display)
-      , _handle(_init(display, config, shared_context._handle, nullptr)) {
-    }
+      , _handle(_init(display, config, shared_context._handle, nullptr)) {}
 
     /// Construct a non-sharing context with attributes
     /**
@@ -134,8 +130,7 @@ public:
       const Config& config,
       const FinishedContextAttribs& attribs)
       : _display(display)
-      , _handle(_init(display, config, EGL_NO_CONTEXT, attribs.Get())) {
-    }
+      , _handle(_init(display, config, EGL_NO_CONTEXT, attribs.Get())) {}
 
     /// Construct a sharing context without any attributes
     /**

@@ -46,8 +46,7 @@ public:
       : _left(left)
       , _right(right)
       , _bottom(bottom)
-      , _top(top) {
-    }
+      , _top(top) {}
 
     /// The left edge of the rectangle
     GLfloat Left() const {
@@ -128,7 +127,7 @@ OGLPLUS_ENUM_CLASS_VALUE(RightToLeft, -1)
    *  it is here for documentation purporses only. Concrete
    *  implementations of text RenderingUtility have their own
    *  font classes. The exact type of these can be obtained
-   *  from the @c Font typedef in the particular @c RenderingUtility.
+   *  from the @c Font type-def in the particular @c RenderingUtility.
    *  Concrete implementations of font may have additional
    *  members.
    *
@@ -331,7 +330,7 @@ public:
 class RenderingUtility {
 public:
     /// The concrete font type of the text rendering utility
-    typedef UnspecifiedFont Font;
+    using Font = UnspecifiedFont;
 
     /// Loads a font with the specified name
     /** Font loading is a potentially time-consuming operation. Programs
@@ -341,7 +340,7 @@ public:
     Font LoadFont(const char* font_name);
 
     /// The concrete layout type of the text rendering utility
-    typedef UnspecifiedLayout Layout;
+    using Layout = UnspecifiedLayout;
 
     /// Makes a new layout object using the @p font with specified @p capacity
     /** Layout construction is a potentially time-consuming operation.
@@ -351,7 +350,7 @@ public:
     Layout MakeLayout(Font font, SizeType capacity);
 
     /// The concrete renderer type of the text rendering utility
-    typedef UnspecifiedRenderer Renderer;
+    using Renderer = UnspecifiedRenderer;
 
     /// Returns a new default renderer
     /** The renderer uses a custom fragment shader that should
@@ -382,7 +381,7 @@ private:
 
     ProgramUniform<GLfloat> _align_coef, _dir_coef;
 
-    typedef ConcreteRenderer Base;
+    using Base = ConcreteRenderer;
 
 public:
     template <class ConcreteRenderingImpl>

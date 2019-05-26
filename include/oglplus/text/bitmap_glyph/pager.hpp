@@ -45,7 +45,7 @@ private:
     // checks if the specified page is in _frames
     bool _page_in_frames(GLuint page) const;
 
-    typedef unsigned long age_t;
+    using age_t = unsigned long;
 
     static age_t _zero_age() {
         return age_t(0);
@@ -63,7 +63,7 @@ private:
 
     std::unordered_map<GLuint, GLuint> _active_pages;
 
-    typedef GLubyte gpu_frame_t;
+    using gpu_frame_t = GLubyte;
 
     static gpu_frame_t _invalid_gpu_frame() {
         return gpu_frame_t(~gpu_frame_t(0));

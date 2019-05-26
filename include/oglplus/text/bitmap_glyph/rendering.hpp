@@ -56,8 +56,7 @@ struct BitmapGlyphRenderingConfig {
       , pages_per_plane(256)
       , glyphs_per_page(256)
       , layout_storage_page(1024)
-      , layout_storage_unit(4) {
-    }
+      , layout_storage_unit(4) {}
 };
 
 class BitmapGlyphRenderingBase {
@@ -102,16 +101,15 @@ protected:
       : _bitmap_tex_unit(bitmap_tex_unit)
       , _metric_tex_unit(metric_tex_unit)
       , _pg_map_tex_unit(pg_map_tex_unit)
-      , _config(config) {
-    }
+      , _config(config) {}
 
 public:
     BitmapGlyphRenderingBase(const BitmapGlyphRenderingBase&) = delete;
 
     BitmapGlyphRenderingBase(BitmapGlyphRenderingBase&&) = default;
 
-    typedef BitmapGlyphRenderingConfig Config;
-    typedef BitmapGlyphRenderer CustomRenderer;
+    using Config = BitmapGlyphRenderingConfig;
+    using CustomRenderer = BitmapGlyphRenderer;
 
     CustomRenderer GetRenderer(
       const GeometryShader& layout_transform_shader,
@@ -125,7 +123,7 @@ public:
             pixel_color_shader));
     }
 
-    typedef BitmapGlyphDefaultRenderer Renderer;
+    using Renderer = BitmapGlyphDefaultRenderer;
 
     Renderer GetRenderer(const FragmentShader& pixel_color_shader) {
         return Renderer(*this, pixel_color_shader);
@@ -192,12 +190,11 @@ public:
       TextureUnitSelector pg_map_tex_unit,
       const Config& config = Config())
       : BitmapGlyphRenderingBase(
-          bitmap_tex_unit, metric_tex_unit, pg_map_tex_unit, config) {
-    }
+          bitmap_tex_unit, metric_tex_unit, pg_map_tex_unit, config) {}
 
     BitmapGlyphRenderingTpl(BitmapGlyphRenderingTpl&&) = default;
 
-    typedef BitmapFont Font;
+    using Font = BitmapFont;
 
     Font LoadFont(
       const std::string& font_name,
@@ -229,7 +226,7 @@ public:
           64);
     }
 
-    typedef BitmapGlyphLayoutTpl<BitmapFont> Layout;
+    using Layout = BitmapGlyphLayoutTpl<BitmapFont>;
 
     Layout MakeLayout(const Font& font, SizeType max_len) {
         return Layout(*this, font, max_len);

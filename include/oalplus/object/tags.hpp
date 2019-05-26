@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -18,15 +18,13 @@
 namespace oalplus {
 namespace tag {
 
-#define OALPLUS_DEFINE_OBJECT_TAG(ID, OBJECT) \
-struct OBJECT \
- : std::integral_constant<int, ID> \
-{ \
-	typedef ALuint NameType; \
-};
+#define OALPLUS_DEFINE_OBJECT_TAG(ID, OBJECT)         \
+    struct OBJECT : std::integral_constant<int, ID> { \
+        using NameType = ALuint;                      \
+    };
 
-OALPLUS_DEFINE_OBJECT_TAG( 101, Source)
-OALPLUS_DEFINE_OBJECT_TAG( 102, Buffer)
+OALPLUS_DEFINE_OBJECT_TAG(101, Source)
+OALPLUS_DEFINE_OBJECT_TAG(102, Buffer)
 
 #undef OALPLUS_DEFINE_OBJECT_TAG
 

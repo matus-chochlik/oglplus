@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,16 +17,16 @@
 #error "The Bitmap glyph text rendering utility requires GL version 3.1"
 #endif
 
-#include <oglplus/text/bitmap_glyph/rendering.hpp>
 #include <oglplus/text/bitmap_glyph/font.hpp>
 #include <oglplus/text/bitmap_glyph/font_essence.hpp>
+#include <oglplus/text/bitmap_glyph/rendering.hpp>
 
 namespace oglplus {
 namespace text {
 
-typedef BitmapGlyphFontTpl<BitmapGlyphFontEssence> BitmapGlyphFont;
-typedef BitmapGlyphLayoutTpl<BitmapGlyphFont> BitmapGlyphLayout;
-typedef BitmapGlyphRenderingTpl<BitmapGlyphFont> BitmapGlyphRendering;
+using BitmapGlyphFont = BitmapGlyphFontTpl<BitmapGlyphFontEssence>;
+using BitmapGlyphLayout = BitmapGlyphLayoutTpl<BitmapGlyphFont>;
+using BitmapGlyphRendering = BitmapGlyphRenderingTpl<BitmapGlyphFont>;
 
 } // namespace text
 } // namespace oglplus

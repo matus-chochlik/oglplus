@@ -105,8 +105,8 @@ public:
 
     template <typename AttribValueType>
     AttributeList& Add(Bitfield<AttribValueType> bits) {
-        typedef
-          typename Traits::template EnumBaseType<AttribValueType>::Type Enum;
+        using Enum =
+          typename Traits::template EnumBaseType<AttribValueType>::Type;
         return Add(_value_to_attrib_map(AttribValueType()), Int(Enum(bits)));
     }
 

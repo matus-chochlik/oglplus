@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,79 +17,68 @@
 #include <oglplus/text/pango_cairo/layout.hpp>
 #include <oglplus/text/pango_cairo/renderer.hpp>
 
-#include <oglplus/texture.hpp>
 #include <oglplus/size_type.hpp>
+#include <oglplus/texture.hpp>
 
-#include <vector>
 #include <cassert>
+#include <vector>
 
 namespace oglplus {
 namespace text {
 
-class PangoCairoRendering
-{
+class PangoCairoRendering {
 private:
-	TextureUnitSelector _main_tex_unit;
+    TextureUnitSelector _main_tex_unit;
 
-	friend void PangoCairoAllocateLayoutData(
-		PangoCairoRendering& that,
-		PangoCairoLayoutData& layout_data,
-		SizeType width,
-		SizeType height
-	);
+    friend void PangoCairoAllocateLayoutData(
+      PangoCairoRendering& that,
+      PangoCairoLayoutData& layout_data,
+      SizeType width,
+      SizeType height);
 
-	friend void PangoCairoDeallocateLayoutData(
-		PangoCairoRendering&,
-		PangoCairoLayoutData&
-	);
+    friend void PangoCairoDeallocateLayoutData(
+      PangoCairoRendering&, PangoCairoLayoutData&);
 
-	friend void PangoCairoInitializeLayoutData(
-		PangoCairoRendering& that,
-		PangoCairoLayoutData& layout_data,
-		SizeType width,
-		SizeType height,
-		const void* raw_data
-	);
+    friend void PangoCairoInitializeLayoutData(
+      PangoCairoRendering& that,
+      PangoCairoLayoutData& layout_data,
+      SizeType width,
+      SizeType height,
+      const void* raw_data);
 
-	friend TextureUnitSelector PangoCairoUseLayoutData(
-		PangoCairoRendering& that,
-		const PangoCairoLayoutData& layout_data
-	);
+    friend TextureUnitSelector PangoCairoUseLayoutData(
+      PangoCairoRendering& that, const PangoCairoLayoutData& layout_data);
+
 public:
-	PangoCairoRendering(TextureUnitSelector main_tex_unit)
-	 : _main_tex_unit(main_tex_unit)
-	{ }
+    PangoCairoRendering(TextureUnitSelector main_tex_unit)
+      : _main_tex_unit(main_tex_unit) {}
 
-	typedef PangoCairoFont Font;
+    using Font = PangoCairoFont;
 
-	Font LoadFont(const char* font_name)
-	{
-		return Font(font_name);
-	}
+    Font LoadFont(const char* font_name) {
+        return Font(font_name);
+    }
 
-	typedef PangoCairoLayout Layout;
+    using Layout = PangoCairoLayout;
 
-	Layout MakeLayout(const Font& font, SizeType capacity)
-	{
-		return Layout(*this, font, capacity);
-	}
+    Layout MakeLayout(const Font& font, SizeType capacity) {
+        return Layout(*this, font, capacity);
+    }
 
-	Layout MakeLayout(const Font& font, StrCRef str)
-	{
-		CodePoints cps;
-		UTF8ToCodePoints(str.begin(), str.size(), cps);
+    Layout MakeLayout(const Font& font, StrCRef str) {
+        CodePoints cps;
+        UTF8ToCodePoints(str.begin(), str.size(), cps);
 
-		Layout layout(MakeLayout(font, str.size()));
-		layout.Set(cps.data(), cps.size());
-		return layout;
-	}
+        Layout layout(MakeLayout(font, str.size()));
+        layout.Set(cps.data(), cps.size());
+        return layout;
+    }
 
-	typedef PangoCairoDefaultRenderer Renderer;
+    using Renderer = PangoCairoDefaultRenderer;
 
-	Renderer GetRenderer(const FragmentShader& fragment_shader)
-	{
-		return Renderer(*this, fragment_shader);
-	}
+    Renderer GetRenderer(const FragmentShader& fragment_shader) {
+        return Renderer(*this, fragment_shader);
+    }
 };
 
 } // namespace text

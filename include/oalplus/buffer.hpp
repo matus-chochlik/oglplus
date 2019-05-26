@@ -66,8 +66,7 @@ template <>
 class ObjectOps<tag::DirectState, tag::Buffer> : public BufferName {
 protected:
     ObjectOps(BufferName name) noexcept
-      : BufferName(name) {
-    }
+      : BufferName(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -170,20 +169,19 @@ class ObjectOps<OpsTag, oalplus::tag::Buffer>
   : public oalplus::ObjectOps<OpsTag, oalplus::tag::Buffer> {
 protected:
     ObjectOps(ObjectName<oalplus::tag::Buffer> name) noexcept
-      : oalplus::ObjectOps<OpsTag, oalplus::tag::Buffer>(name) {
-    }
+      : oalplus::ObjectOps<OpsTag, oalplus::tag::Buffer>(name) {}
 };
 
 } // namespace oglplus
 namespace oalplus {
 
-typedef oglplus::ObjectOps<tag::DirectState, tag::Buffer> BufferOps;
+using BufferOps = oglplus::ObjectOps<tag::DirectState, tag::Buffer>;
 
 /// An @ref oalplus_object encapsulating the OpenAL buffer functionality
 /**
  *  @ingroup oalplus_objects
  */
-typedef Object<BufferOps> Buffer;
+using Buffer = Object<BufferOps>;
 
 } // namespace oalplus
 

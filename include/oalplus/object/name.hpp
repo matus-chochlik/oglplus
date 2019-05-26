@@ -13,20 +13,20 @@
 #ifndef OALPLUS_OBJECT_NAME_1107121519_HPP
 #define OALPLUS_OBJECT_NAME_1107121519_HPP
 
-#include <oalplus/object/tags.hpp>
 #include <oglplus/object/name_tpl.hpp>
+#include <oalplus/object/tags.hpp>
 
 namespace oalplus {
 
 using oglplus::ObjectName;
 
-typedef ObjectName<tag::Source> SourceName;
-typedef ObjectName<tag::Buffer> BufferName;
+using SourceName = ObjectName<tag::Source>;
+using BufferName = ObjectName<tag::Buffer>;
 
 /// Returns the ALuint OpenAL name assigned to @p named object
 template <typename ObjTag>
 inline ALuint GetALName(ObjectName<ObjTag> named) noexcept {
-	return GetName(named);
+    return GetName(named);
 }
 
 } // namespace oalplus

@@ -13,8 +13,8 @@
 #ifndef EGLPLUS_SURFACE_1305291005_HPP
 #define EGLPLUS_SURFACE_1305291005_HPP
 
-#include <eglplus/attrib_list.hpp>
 #include <eglplus/configs.hpp>
+#include <eglplus/attrib_list.hpp>
 #include <eglplus/display.hpp>
 #include <eglplus/eglfunc.hpp>
 #include <eglplus/error/basic.hpp>
@@ -80,15 +80,14 @@ struct SurfaceValueTypeToSurfaceAttrib {
 };
 
 /// Attribute list for surface attributes
-typedef AttributeList<
+using SurfaceAttribs = AttributeList<
   SurfaceAttrib,
   SurfaceValueTypeToSurfaceAttrib,
-  AttributeListTraits>
-  SurfaceAttribs;
+  AttributeListTraits>;
 
 /// Finished list of surface attribute values
-typedef FinishedAttributeList<SurfaceAttrib, AttributeListTraits>
-  FinishedSurfaceAttribs;
+using FinishedSurfaceAttribs =
+  FinishedAttributeList<SurfaceAttrib, AttributeListTraits>;
 
 class Surface;
 ::EGLSurface GetEGLHandle(const Surface&) noexcept;
@@ -122,8 +121,7 @@ private:
       const Config& config,
       const FinishedSurfaceAttribs& attribs)
       : _display(display)
-      , _handle(_init(sel, _display, config, attribs)) {
-    }
+      , _handle(_init(sel, _display, config, attribs)) {}
 
     struct Pixmap_ {};
 
@@ -146,8 +144,7 @@ private:
       EGLNativePixmapType pixmap,
       const FinishedSurfaceAttribs& attribs)
       : _display(display)
-      , _handle(_init(sel, _display, config, pixmap, attribs)) {
-    }
+      , _handle(_init(sel, _display, config, pixmap, attribs)) {}
 
     struct Window_ {};
 
@@ -170,8 +167,7 @@ private:
       EGLNativeWindowType window,
       const FinishedSurfaceAttribs& attribs)
       : _display(display)
-      , _handle(_init(sel, _display, config, window, attribs)) {
-    }
+      , _handle(_init(sel, _display, config, window, attribs)) {}
 
 public:
     /// Surfaces are move-constructible

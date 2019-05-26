@@ -24,13 +24,13 @@ namespace enums {
 
 template <typename Enum>
 struct EnumBaseType {
-    typedef EGLenum Type;
+    using Type = EGLenum;
 };
 
 template <typename EnumType>
 inline StrCRef EnumValueName(EnumType enum_value) {
 #if !EGLPLUS_NO_ENUM_VALUE_NAMES
-    typedef typename EnumBaseType<EnumType>::Type BaseType;
+    using BaseType = typename EnumBaseType<EnumType>::Type;
     return ValueName_(&TypeTag<EnumType>(), BaseType(enum_value));
 #else
     OGLPLUS_FAKE_USE(enum_value);

@@ -28,11 +28,11 @@ using oglplus::FinishedAttributeList;
 using oglplus::AttributeList;
 
 struct AttributeListTraits {
-    typedef ALint Int;
+    using Int = ALint;
 
     template <typename Enum>
     struct EnumBaseType {
-        typedef typename oalplus::enums::EnumBaseType<Enum>::Type Type;
+        using Type = typename oalplus::enums::EnumBaseType<Enum>::Type;
     };
 
     static ALint ListEnd() {
