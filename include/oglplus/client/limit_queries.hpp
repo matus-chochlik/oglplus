@@ -23,8 +23,8 @@ namespace aux {
 template <LimitQuery Query>
 class Limits {
 public:
-    typedef typename oglplus::enums::EnumAssocGLType<LimitQuery, Query>::Type
-      value_type;
+    using value_type =
+      typename oglplus::enums::EnumAssocGLType<LimitQuery, Query>::Type;
 
     static value_type Get() {
         return context::LimitQueries::Limit<Query>();

@@ -26,8 +26,8 @@ struct SLtoCpp;
 
 template <typename T>
 struct AdjustProgVar {
-    typedef T BaseType;
-    typedef T ValueType;
+    using BaseType = T;
+    using ValueType = T;
 
     inline static BaseType Adjust(const ValueType& value) {
         return value;
@@ -36,13 +36,13 @@ struct AdjustProgVar {
 
 template <>
 struct AdjustProgVar<void> {
-    typedef void BaseType;
+    using BaseType = void;
 };
 
 template <>
 struct AdjustProgVar<bool> {
-    typedef GLboolean BaseType;
-    typedef bool ValueType;
+    using BaseType = GLboolean;
+    using ValueType = bool;
 
     inline static BaseType Adjust(ValueType value) {
         return value ? GL_TRUE : GL_FALSE;
@@ -51,8 +51,8 @@ struct AdjustProgVar<bool> {
 
 template <std::size_t N>
 struct AdjustProgVar<oglplus::Vector<bool, N>> {
-    typedef oglplus::Vector<GLboolean, N> BaseType;
-    typedef const oglplus::Vector<bool, N>& ValueType;
+    using BaseType = oglplus::Vector<GLboolean, N>;
+    using ValueType = const oglplus::Vector<bool, N>&;
 
     inline static BaseType Adjust(ValueType value) {
         return BaseType(value);
@@ -61,8 +61,8 @@ struct AdjustProgVar<oglplus::Vector<bool, N>> {
 
 template <oglplus::SLDataType SLType>
 struct AdjustProgVar<SLtoCpp<SLType>> {
-    typedef typename aux::GLSL2Cpp<SLType>::Type BaseType;
-    typedef BaseType ValueType;
+    using BaseType = typename aux::GLSL2Cpp<SLType>::Type;
+    using ValueType = BaseType;
 
     inline static BaseType Adjust(ValueType value) {
         return value;

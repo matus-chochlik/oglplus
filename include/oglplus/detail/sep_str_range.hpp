@@ -25,7 +25,7 @@ private:
     typename String::iterator _i, _e;
 
 public:
-    typedef String ValueType;
+    using ValueType = String;
 
     SepStrRangeTpl(const char* str, char sep = ' ')
       : _values(str ? str : "")

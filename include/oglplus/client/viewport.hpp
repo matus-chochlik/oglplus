@@ -36,15 +36,11 @@ private:
 public:
     ViewportIndexed(ViewportIndex index)
       : SettingStack<context::ViewportExtents, ViewportIndex>(
-          &_do_get, &_do_set, index) {
-    }
+          &_do_get, &_do_set, index) {}
 };
 
-typedef SettingStackIndexed<
-  ViewportIndexed,
-  context::ViewportExtents,
-  ViewportIndex>
-  Viewport;
+using Viewport =
+  SettingStackIndexed<ViewportIndexed, context::ViewportExtents, ViewportIndex>;
 
 class DepthRangeIndexed
   : public SettingStack<context::ViewportDepthRange, ViewportIndex> {
@@ -60,15 +56,13 @@ private:
 public:
     DepthRangeIndexed(ViewportIndex index)
       : SettingStack<context::ViewportDepthRange, ViewportIndex>(
-          &_do_get, &_do_set, index) {
-    }
+          &_do_get, &_do_set, index) {}
 };
 
-typedef SettingStackIndexed<
+using DepthRange = SettingStackIndexed<
   DepthRangeIndexed,
   context::ViewportDepthRange,
-  ViewportIndex>
-  DepthRange;
+  ViewportIndex>;
 
 #else
 
@@ -84,8 +78,7 @@ private:
 
 public:
     Viewport()
-      : SettingStack<context::ViewportExtents, Nothing>(&_do_get, &_do_set) {
-    }
+      : SettingStack<context::ViewportExtents, Nothing>(&_do_get, &_do_set) {}
 };
 
 class DepthRange : public SettingStack<context::ViewportDepthRange, Nothing> {

@@ -23,9 +23,9 @@ namespace oglplus {
 /// Stores a finished attribute list create by AttributeList
 template <typename AttribKind, class Traits> // <- do not remove this is
                                              // intentional
-                                             class FinishedAttributeList {
+class FinishedAttributeList {
 private:
-    typedef typename Traits::Int Int;
+    using Int = typename Traits::Int;
     Traits _traits;
     std::vector<Int> _attribs;
 
@@ -42,12 +42,10 @@ public:
     }
 
     FinishedAttributeList(const FinishedAttributeList& that)
-      : _attribs(that._attribs) {
-    }
+      : _attribs(that._attribs) {}
 
     FinishedAttributeList(FinishedAttributeList&& tmp)
-      : _attribs(std::move(tmp._attribs)) {
-    }
+      : _attribs(std::move(tmp._attribs)) {}
 
     /// Returns the terminated array of attribute/value pairs
     const Int* Get() const {
@@ -59,7 +57,7 @@ public:
 template <typename AttribKind, class ValueToAttribMap, class Traits>
 class AttributeList {
 private:
-    typedef typename Traits::Int Int;
+    using Int = typename Traits::Int;
     Traits _traits;
     ValueToAttribMap _value_to_attrib_map;
     std::vector<Int> _attribs;
@@ -76,7 +74,7 @@ public:
      */
     AttributeList& Add(AttribKind attrib, Int value) {
         assert(!Finished());
-        typedef typename Traits::template EnumBaseType<AttribKind>::Type Enum;
+        using Enum = typename Traits::template EnumBaseType<AttribKind>::Type;
         _attribs.push_back(Int(Enum(attrib)));
         _attribs.push_back(value);
         return *this;
@@ -88,7 +86,7 @@ public:
      */
     AttributeList& Add(AttribKind attrib, bool value) {
         assert(!Finished());
-        typedef typename Traits::template EnumBaseType<AttribKind>::Type Enum;
+        using Enum = typename Traits::template EnumBaseType<AttribKind>::Type;
         _attribs.push_back(Int(Enum(attrib)));
         _attribs.push_back(value ? _traits.TrueValue() : _traits.FalseValue());
         return *this;
@@ -100,8 +98,8 @@ public:
      */
     template <typename AttribValueType>
     AttributeList& Add(AttribValueType value) {
-        typedef
-          typename Traits::template EnumBaseType<AttribValueType>::Type Enum;
+        using Enum =
+          typename Traits::template EnumBaseType<AttribValueType>::Type;
         return Add(_value_to_attrib_map(value), Int(Enum(value)));
     }
 
@@ -118,7 +116,7 @@ public:
      */
     AttributeList& DontCare(AttribKind attrib) {
         assert(!Finished());
-        typedef typename Traits::template EnumBaseType<AttribKind>::Type Enum;
+        using Enum = typename Traits::template EnumBaseType<AttribKind>::Type;
         _attribs.push_back(Int(Enum(attrib)));
         _attribs.push_back(_traits.DontCare());
         return *this;

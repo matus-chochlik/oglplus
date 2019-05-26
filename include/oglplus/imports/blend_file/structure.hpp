@@ -88,16 +88,15 @@ private:
     static std::size_t _field_count(
       BlendFileSDNA* sdna, std::size_t struct_index);
 
-    typedef BlendFileRangeTpl<BlendFileStructFieldRange, BlendFileStructField>
-      Base;
+    using Base =
+      BlendFileRangeTpl<BlendFileStructFieldRange, BlendFileStructField>;
 
     friend class BlendFileStruct;
 
     BlendFileStructFieldRange(BlendFileSDNA* sdna, std::size_t struct_index)
       : Base(_field_count(sdna, struct_index))
       , _sdna(sdna)
-      , _struct_index(struct_index) {
-    }
+      , _struct_index(struct_index) {}
 
 public:
     BlendFileStructField Get(std::size_t index) const {
@@ -115,13 +114,11 @@ private:
 
     BlendFileStruct(BlendFileSDNA* sdna, std::size_t struct_index)
       : BlendFileType(
-          sdna, sdna->_structs[struct_index]._type_index, struct_index) {
-    }
+          sdna, sdna->_structs[struct_index]._type_index, struct_index) {}
 
 public:
     BlendFileStruct(const BlendFileType& type)
-      : BlendFileType(type) {
-    }
+      : BlendFileType(type) {}
 
     /// Returns a range of fields of structure
     BlendFileStructFieldRange Fields() const {
@@ -141,14 +138,13 @@ class BlendFileStructRange
 private:
     BlendFileSDNA* _sdna;
 
-    typedef BlendFileRangeTpl<BlendFileStructRange, BlendFileStruct> Base;
+    using Base = BlendFileRangeTpl<BlendFileStructRange, BlendFileStruct>;
 
     friend class BlendFile;
 
     BlendFileStructRange(BlendFileSDNA* sdna)
       : Base(sdna->_structs.size())
-      , _sdna(sdna) {
-    }
+      , _sdna(sdna) {}
 
 public:
     BlendFileStruct Get(std::size_t index) const {

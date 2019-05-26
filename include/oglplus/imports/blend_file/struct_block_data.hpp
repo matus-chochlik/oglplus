@@ -38,15 +38,13 @@ protected:
       std::size_t offset)
       : _flat_field(std::move(flat_field))
       , _block_data_ref(&block_data_ref)
-      , _offset(offset) {
-    }
+      , _offset(offset) {}
 
     BlendFileFlatStructTypedFieldDataImpl(
       BlendFileFlatStructTypedFieldDataImpl&& tmp)
       : _flat_field(std::move(tmp._flat_field))
       , _block_data_ref(tmp._block_data_ref)
-      , _offset(tmp._offset) {
-    }
+      , _offset(tmp._offset) {}
 
     template <unsigned Level>
     BlendFilePointerTpl<Level> _do_get(
@@ -120,7 +118,7 @@ template <typename T>
 class BlendFileFlatStructTypedFieldData
   : public BlendFileFlatStructTypedFieldDataImpl<T> {
 private:
-    typedef BlendFileFlatStructTypedFieldDataImpl<T> _base;
+    using _base = BlendFileFlatStructTypedFieldDataImpl<T>;
     static const _base& _that();
 
     friend class BlendFileFlatStructBlockData;
@@ -129,18 +127,16 @@ private:
       BlendFileFlattenedStructField&& flat_field,
       const BlendFileBlockData& block_data_ref,
       std::size_t offset)
-      : _base(std::move(flat_field), block_data_ref, offset) {
-    }
+      : _base(std::move(flat_field), block_data_ref, offset) {}
 
 public:
-    typedef decltype(_that()._do_get(TypeTag<T>(), 0, 0)) _value_type;
+    using _value_type = decltype(_that()._do_get(TypeTag<T>(), 0, 0));
     // this is a workaround for MSVC 12
-    typedef
-      typename BlendFileFlatStructTypedFieldData<T>::_value_type ValueType;
+    using ValueType =
+      typename BlendFileFlatStructTypedFieldData<T>::_value_type;
 
     BlendFileFlatStructTypedFieldData(BlendFileFlatStructTypedFieldData&& tmp)
-      : _base(static_cast<_base&&>(tmp)) {
-    }
+      : _base(static_cast<_base&&>(tmp)) {}
 
     /// Get the value of the field from the block
     ValueType Get(std::size_t block_element, std::size_t field_element) const {
@@ -177,8 +173,7 @@ private:
       : _flat_struct(std::move(flat_struct))
       , _block(std::move(block))
       , _data(std::move(data))
-      , _offset(offset) {
-    }
+      , _offset(offset) {}
 
     template <typename T>
     static T _adjust_value(T* ptr) {
@@ -192,7 +187,7 @@ private:
 
     template <typename T>
     struct _adjust_type {
-        typedef decltype(_adjust_value(&TypeTag<T>())) type;
+        using type = decltype(_adjust_value(&TypeTag<T>()));
     };
 
 public:
@@ -200,8 +195,7 @@ public:
       : _flat_struct(std::move(tmp._flat_struct))
       , _block(std::move(tmp._block))
       , _data(std::move(tmp._data))
-      , _offset(tmp._offset) {
-    }
+      , _offset(tmp._offset) {}
 
     /// Returns true if the data is structured
     bool IsStructure() const {

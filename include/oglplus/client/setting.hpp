@@ -33,13 +33,11 @@ private:
     friend class SettingStack<T, P>;
 
     SettingHolder() noexcept
-      : _pstk(nullptr) {
-    }
+      : _pstk(nullptr) {}
 
     SettingHolder(SettingStack<T, P>& stk, T prev) noexcept
       : _pstk(&stk)
-      , _prev(prev) {
-    }
+      , _prev(prev) {}
 
     SettingHolder(const SettingHolder&) /* = delete*/;
 
@@ -118,7 +116,7 @@ protected:
     }
 
 public:
-    typedef SettingHolder<T, P> Holder;
+    using Holder = SettingHolder<T, P>;
 
     SettingStack& Indexed(GLuint index) {
         assert(index == 0);
@@ -185,7 +183,7 @@ public:
         return Indexed(index);
     }
 
-    typedef SettingHolder<T, Index> Holder;
+    using Holder = SettingHolder<T, Index>;
 
     inline Holder Push(T value) {
         return _zero().Push(value);

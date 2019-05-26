@@ -32,13 +32,13 @@ class ProgVarBaseSetOps<OpsTag, VarTag, tag::NativeTypes, T, M>
   : public ProgVarSetters<OpsTag, VarTag, tag::NativeTypes>
   , public ProgVarCallers<OpsTag, T> {
 private:
-    typedef ProgVarSetters<OpsTag, VarTag, tag::NativeTypes> Setters;
-    typedef ProgVarCallers<OpsTag, T> Callers;
+    using Setters = ProgVarSetters<OpsTag, VarTag, tag::NativeTypes>;
+    using Callers = ProgVarCallers<OpsTag, T>;
 
     OGLPLUS_ERROR_REUSE_CONTEXT(Setters)
 
-    typedef std::false_type _set_done;
-    typedef std::true_type _set_cont;
+    using _set_done = std::false_type;
+    using _set_cont = std::true_type;
 
     template <std::size_t N>
     static std::integral_constant<bool, (N > 4)> _set_mode() {
@@ -149,8 +149,8 @@ class ProgVarBaseSetOps<OpsTag, VarTag, tag::MatrixTypes, T, M>
   : public ProgVarSetters<OpsTag, VarTag, tag::MatrixTypes>
   , public ProgVarCallers<OpsTag, T> {
 private:
-    typedef ProgVarSetters<OpsTag, VarTag, tag::MatrixTypes> Setters;
-    typedef ProgVarCallers<OpsTag, T> Callers;
+    using Setters = ProgVarSetters<OpsTag, VarTag, tag::MatrixTypes>;
+    using Callers = ProgVarCallers<OpsTag, T>;
 
     OGLPLUS_ERROR_REUSE_CONTEXT(Setters)
 protected:

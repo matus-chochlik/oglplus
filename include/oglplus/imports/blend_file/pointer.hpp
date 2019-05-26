@@ -22,7 +22,7 @@ namespace imports {
 class BlendFilePointerBase {
 public:
     /// Type type return by the Value function
-    typedef uint64_t ValueType;
+    using ValueType = uint64_t;
 
     operator bool() const {
         return _value != 0;
@@ -52,13 +52,11 @@ public:
 protected:
     BlendFilePointerBase()
       : _value(0)
-      , _type_index(0) {
-    }
+      , _type_index(0) {}
 
     BlendFilePointerBase(ValueType value, std::size_t type_index)
       : _value(value)
-      , _type_index(type_index) {
-    }
+      , _type_index(type_index) {}
 
 private:
     friend class BlendFile;
@@ -77,20 +75,18 @@ protected:
     friend class BlendFileFlatStructBlockData;
 
     BlendFilePointerTpl()
-      : BlendFilePointerBase() {
-    }
+      : BlendFilePointerBase() {}
 
     BlendFilePointerTpl(
       BlendFilePointerBase::ValueType value, std::size_t type_index)
-      : BlendFilePointerBase(value, type_index) {
-    }
+      : BlendFilePointerBase(value, type_index) {}
 };
 
 /// Type representing a pointer in of a .blend file
-typedef BlendFilePointerTpl<1> BlendFilePointer;
+using BlendFilePointer = BlendFilePointerTpl<1>;
 
 /// Type representing a pointer to pointer in a .blend file
-typedef BlendFilePointerTpl<2> BlendFilePointerToPointer;
+using BlendFilePointerToPointer = BlendFilePointerTpl<2>;
 
 } // namespace imports
 } // namespace oglplus

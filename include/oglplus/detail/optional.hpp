@@ -25,7 +25,7 @@ class OptionalImpl;
 template <typename X>
 class Optional : public OptionalImpl<typename Classify<X>::Tag, X> {
 private:
-    typedef OptionalImpl<typename Classify<X>::Tag, X> Base;
+    using Base = OptionalImpl<typename Classify<X>::Tag, X>;
 
 public:
     using Base::Base;

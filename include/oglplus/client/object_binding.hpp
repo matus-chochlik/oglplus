@@ -45,8 +45,7 @@ struct CurrentObject {
     public:
         WithTarget()
           : SettingStack<GLuint, Nothing>(&_do_get, &_do_bind)
-          , BoundObjOps<ObjTag>(ObjTgt) {
-        }
+          , BoundObjOps<ObjTag>(ObjTgt) {}
 
         ObjectName<ObjTag> Get() const noexcept {
             return ObjectName<ObjTag>(this->_get());
@@ -56,7 +55,7 @@ struct CurrentObject {
             return Get();
         }
 
-        typedef SettingHolder<GLuint, Nothing> Holder;
+        using Holder = SettingHolder<GLuint, Nothing>;
 
         Holder Push(ObjectName<ObjTag> obj) {
             return this->_push(GetName(obj));
@@ -76,8 +75,7 @@ class CurrentObjectsWithTarget
       typename ObjBindingOps<ObjTag>::Target,
       CurrentObject<ObjTag>::template WithTarget> {
 public:
-    CurrentObjectsWithTarget() {
-    }
+    CurrentObjectsWithTarget() {}
 };
 
 // CurrentObjectWithoutTarget
@@ -94,8 +92,7 @@ private:
 
 public:
     CurrentObjectWithoutTarget()
-      : SettingStack<GLuint, Nothing>(&_do_get, &_do_bind) {
-    }
+      : SettingStack<GLuint, Nothing>(&_do_get, &_do_bind) {}
 
     ObjectName<ObjTag> Get() const noexcept {
         return ObjectName<ObjTag>(this->_get());
@@ -105,7 +102,7 @@ public:
         return Get();
     }
 
-    typedef SettingHolder<GLuint, Nothing> Holder;
+    using Holder = SettingHolder<GLuint, Nothing>;
 
     Holder Push(ObjectName<ObjTag> obj) {
         return this->_push(GetName(obj));
@@ -161,8 +158,7 @@ private:
 
 public:
     CurrentIndexBuffers(GLuint index)
-      : SettingStack<BufferNameAndRange, GLuint>(&_do_get, &_do_bind, index) {
-    }
+      : SettingStack<BufferNameAndRange, GLuint>(&_do_get, &_do_bind, index) {}
 
     BufferNameAndRange Get() const noexcept {
         return this->_get();
@@ -172,7 +168,7 @@ public:
         return Get();
     }
 
-    typedef SettingHolder<GLuint, GLuint> Holder;
+    using Holder = SettingHolder<GLuint, GLuint>;
 
     Holder Push(BufferName obj) {
         BufferNameAndRange bnr = {GetName(obj), 0, 0};
@@ -202,8 +198,8 @@ class CurrentIndexedTargetBuffers {
 private:
     std::vector<CurrentIndexBuffers<BufTgt>> _indices;
 
-    typedef
-      typename enums::EnumAssocType<BufferIndexedTarget, BufTgt>::Type _index_t;
+    using _index_t =
+      typename enums::EnumAssocType<BufferIndexedTarget, BufTgt>::Type;
 
 public:
     CurrentIndexBuffers<BufTgt>& Index(_index_t index) {
@@ -219,15 +215,14 @@ public:
     }
 };
 
-typedef oglplus::enums::
-  EnumToClass<Nothing, BufferIndexedTarget, CurrentIndexedTargetBuffers>
-    CurrentBuffersWithIndexedTarget;
+using CurrentBuffersWithIndexedTarget = oglplus::enums::
+  EnumToClass<Nothing, BufferIndexedTarget, CurrentIndexedTargetBuffers>;
 
 // CurrentUnitTexture
 template <TextureTarget ObjTgt>
 class CurrentUnitTexture : public SettingStack<GLuint, GLuint> {
 private:
-    typedef tag::Texture ObjTag;
+    using ObjTag = tag::Texture;
 
     static void _active_tex(GLuint tex_unit) {
         OGLPLUS_GLFUNC(ActiveTexture)(GLenum(GL_TEXTURE0 + tex_unit));
@@ -246,8 +241,7 @@ private:
 
 public:
     CurrentUnitTexture(TextureUnitSelector tex_unit)
-      : SettingStack<GLuint, GLuint>(&_do_get, &_do_bind, GLuint(tex_unit)) {
-    }
+      : SettingStack<GLuint, GLuint>(&_do_get, &_do_bind, GLuint(tex_unit)) {}
 
     ObjectName<ObjTag> Get() const noexcept {
         return ObjectName<ObjTag>(this->_get());
@@ -257,7 +251,7 @@ public:
         return Get();
     }
 
-    typedef SettingHolder<GLuint, GLuint> Holder;
+    using Holder = SettingHolder<GLuint, GLuint>;
 
     Holder Push(ObjectName<ObjTag> obj) {
         return this->_push(GetName(obj));
@@ -271,15 +265,13 @@ public:
 // CurrentTextures
 class CurrentTextures {
 private:
-    typedef oglplus::enums::
-      EnumToClass<TextureUnitSelector, TextureTarget, CurrentUnitTexture>
-        CurrentUnitTextures;
+    using CurrentUnitTextures = oglplus::enums::
+      EnumToClass<TextureUnitSelector, TextureTarget, CurrentUnitTexture>;
 
     std::vector<CurrentUnitTextures> _units;
 
 public:
-    CurrentTextures() {
-    }
+    CurrentTextures() {}
 
     CurrentUnitTextures& Unit(TextureUnitSelector index) {
         std::size_t idx = static_cast<std::size_t>(index);
@@ -297,7 +289,7 @@ public:
 // CurrentUnitSampler
 class CurrentUnitSampler : public SettingStack<GLuint, GLuint> {
 private:
-    typedef tag::Sampler ObjTag;
+    using ObjTag = tag::Sampler;
 
     static GLuint _do_get(GLuint tex_unit) {
         return GetGLName(ObjBindingOps<ObjTag>::Binding(tex_unit));
@@ -309,8 +301,7 @@ private:
 
 public:
     CurrentUnitSampler(TextureUnitSelector tex_unit)
-      : SettingStack<GLuint, GLuint>(&_do_get, &_do_bind, GLuint(tex_unit)) {
-    }
+      : SettingStack<GLuint, GLuint>(&_do_get, &_do_bind, GLuint(tex_unit)) {}
 
     ObjectName<ObjTag> Get() const noexcept {
         return ObjectName<ObjTag>(this->_get());
@@ -320,7 +311,7 @@ public:
         return Get();
     }
 
-    typedef SettingHolder<GLuint, GLuint> Holder;
+    using Holder = SettingHolder<GLuint, GLuint>;
 
     Holder Push(ObjectName<ObjTag> obj) {
         return this->_push(GetName(obj));
@@ -337,8 +328,7 @@ private:
     std::vector<CurrentUnitSampler> _units;
 
 public:
-    CurrentSamplers() {
-    }
+    CurrentSamplers() {}
 
     CurrentUnitSampler& Unit(TextureUnitSelector index) {
         std::size_t idx = static_cast<std::size_t>(index);

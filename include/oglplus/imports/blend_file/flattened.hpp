@@ -61,10 +61,9 @@ private:
     std::size_t _struct_index;
     const BlendFileSDNA::_flat_struct_info* _flat_fields;
 
-    typedef BlendFileRangeTpl<
+    using Base = BlendFileRangeTpl<
       BlendFileFlattenedStructFieldRange,
-      BlendFileFlattenedStructField>
-      Base;
+      BlendFileFlattenedStructField>;
 
     static std::size_t _field_count(
       const BlendFileSDNA::_flat_struct_info* flat_fields) {

@@ -26,8 +26,7 @@ template <typename VarTag>
 class ProgVarCommonOps : public ProgVarLoc<VarTag> {
 protected:
     ProgVarCommonOps(ProgVarLoc<VarTag> pvloc)
-      : ProgVarLoc<VarTag>(pvloc) {
-    }
+      : ProgVarLoc<VarTag>(pvloc) {}
 
 public:
 };
@@ -38,9 +37,9 @@ class ProgVar
   : public ProgVarGetSetOps<OpsTag, VarTag, typename AdjustProgVar<T>::BaseType>
   , public ProgVarTypecheck<ChkTag, VarTag> {
 private:
-    typedef typename AdjustProgVar<T>::BaseType BaseType;
-    typedef ProgVarGetSetOps<OpsTag, VarTag, BaseType> BaseGetSetOps;
-    typedef ProgVarTypecheck<ChkTag, VarTag> Typecheck;
+    using BaseType = typename AdjustProgVar<T>::BaseType;
+    using BaseGetSetOps = ProgVarGetSetOps<OpsTag, VarTag, BaseType>;
+    using Typecheck = ProgVarTypecheck<ChkTag, VarTag>;
 
     static inline BaseType* _no_tc() {
         return nullptr;
@@ -50,20 +49,17 @@ public:
     /// Default construction
     ProgVar()
       : BaseGetSetOps(ProgVarLoc<VarTag>())
-      , Typecheck(_no_tc()) {
-    }
+      , Typecheck(_no_tc()) {}
 
     /// Variable from a ProgVarLoc
     ProgVar(ProgVarLoc<VarTag> pvloc)
       : BaseGetSetOps(pvloc)
-      , Typecheck(_no_tc()) {
-    }
+      , Typecheck(_no_tc()) {}
 
     /// Variable with the specified @p location in the specified @p program
     ProgVar(ProgramName program, GLuint location)
       : BaseGetSetOps(ProgVarLoc<VarTag>(program, GLint(location)))
-      , Typecheck(_no_tc()) {
-    }
+      , Typecheck(_no_tc()) {}
 
     /// Variable with the specified @p identifier in the specified @p program
     ProgVar(ProgramName program, StrCRef identifier)
@@ -104,7 +100,7 @@ public:
     }
 
     /// Parameter value type
-    typedef typename AdjustProgVar<T>::ValueType ParamType;
+    using ParamType = typename AdjustProgVar<T>::ValueType;
 
     /// Set the variable value
     void Set(const ParamType& value) {
@@ -160,38 +156,32 @@ template <typename OpsTag, typename VarTag>
 class ProgVar<OpsTag, VarTag, tag::NoTypecheck, void>
   : public ProgVarCommonOps<VarTag> {
 private:
-    typedef ProgVarCommonOps<VarTag> BaseOps;
+    using BaseOps = ProgVarCommonOps<VarTag>;
 
 public:
     /// Default construction
     ProgVar()
-      : BaseOps(ProgVarLoc<VarTag>()) {
-    }
+      : BaseOps(ProgVarLoc<VarTag>()) {}
 
     /// Variable from a ProgVarLoc
     ProgVar(ProgVarLoc<VarTag> pvloc)
-      : BaseOps(pvloc) {
-    }
+      : BaseOps(pvloc) {}
 
     /// Variable with the specified @p location in the specified @p program
     ProgVar(ProgramName program, GLuint location)
-      : BaseOps(ProgVarLoc<VarTag>(program, GLint(location))) {
-    }
+      : BaseOps(ProgVarLoc<VarTag>(program, GLint(location))) {}
 
     /// Variable with the specified @p identifier in the specified @p program
     ProgVar(ProgramName program, StrCRef identifier)
-      : BaseOps(ProgVarLoc<VarTag>(program, identifier)) {
-    }
+      : BaseOps(ProgVarLoc<VarTag>(program, identifier)) {}
 
     /// Variable with the specified @p identifier in the specified @p program
     ProgVar(ProgramName program, StrCRef identifier, bool active_only)
-      : BaseOps(ProgVarLoc<VarTag>(program, identifier, active_only)) {
-    }
+      : BaseOps(ProgVarLoc<VarTag>(program, identifier, active_only)) {}
 
     /// Variable with the specified @p identifier in the specified @p program
     ProgVar(ProgramName program, StrCRef identifier, std::nothrow_t)
-      : BaseOps(ProgVarLoc<VarTag>(program, identifier, false)) {
-    }
+      : BaseOps(ProgVarLoc<VarTag>(program, identifier, false)) {}
 };
 
 #define OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VAR_TAG, PROG_VAR, BASE) \

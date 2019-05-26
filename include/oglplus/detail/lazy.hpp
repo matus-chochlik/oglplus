@@ -25,7 +25,7 @@ class LazyImpl;
 template <typename X>
 class Lazy : public LazyImpl<typename Classify<X>::Tag, X> {
 private:
-    typedef LazyImpl<typename Classify<X>::Tag, X> Base;
+    using Base = LazyImpl<typename Classify<X>::Tag, X>;
 
 public:
     using Base::Base;

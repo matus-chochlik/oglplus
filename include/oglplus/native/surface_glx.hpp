@@ -75,7 +75,7 @@ public:
     }
 };
 
-typedef SurfaceGLX Surface;
+using Surface = SurfaceGLX;
 
 } // namespace native
 } // namespace oglplus

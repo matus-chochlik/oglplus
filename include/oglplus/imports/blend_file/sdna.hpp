@@ -56,7 +56,7 @@ private:
 
     // helper comparator
     struct _pstr_less {
-        typedef const std::string* ptr;
+        using ptr = const std::string*;
         bool operator()(ptr a, ptr b) const {
             assert(a && b);
             return *a < *b;
@@ -101,8 +101,7 @@ private:
           : _field_names(field_count)
           , _field_structs(field_count)
           , _field_indices(field_count)
-          , _field_offsets(field_count) {
-        }
+          , _field_offsets(field_count) {}
 
         // returns the number of fields in the flattened structure
         std::size_t _field_count() const {

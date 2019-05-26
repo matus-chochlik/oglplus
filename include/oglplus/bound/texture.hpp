@@ -35,18 +35,16 @@ namespace oglplus {
 template <>
 class BoundObjOps<tag::Texture> {
 private:
-    typedef ObjectOps<tag::ExplicitSel, tag::Texture> ExplicitOps;
+    using ExplicitOps = ObjectOps<tag::ExplicitSel, tag::Texture>;
 
 public:
-    typedef ExplicitOps::Target Target;
+    using Target = ExplicitOps::Target;
     Target target;
 
-    BoundObjOps() {
-    }
+    BoundObjOps() {}
 
     BoundObjOps(Target init_tgt)
-      : target(init_tgt) {
-    }
+      : target(init_tgt) {}
 
     /** Wrapper for Texture::GetIntParam()
      *  @see Texture::GetIntParam()

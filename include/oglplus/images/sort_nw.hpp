@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -46,21 +46,20 @@ namespace images {
  *
  *  @ingroup image_load_gen
  */
-class SortNWMap
- : public Image
-{
+class SortNWMap : public Image {
 private:
-	typedef GLushort T;
-	static unsigned _pot(unsigned n);
-	static unsigned _next_log(unsigned n);
-	static unsigned _num_steps(unsigned size);
+    using T = GLushort;
+    static unsigned _pot(unsigned n);
+    static unsigned _next_log(unsigned n);
+    static unsigned _num_steps(unsigned size);
+
 public:
-	/// Generates the sorting network encoding for size elements
-	SortNWMap(unsigned size);
+    /// Generates the sorting network encoding for size elements
+    SortNWMap(unsigned size);
 };
 
-} // images
-} // oglplus
+} // namespace images
+} // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 #include <oglplus/images/sort_nw.ipp>
