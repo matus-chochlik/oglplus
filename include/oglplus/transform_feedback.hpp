@@ -74,7 +74,7 @@ protected:
 
 public:
     /// TransformFeedback bind targets
-    typedef TransformFeedbackTarget Target;
+    using Target = TransformFeedbackTarget;
 
     /// Returns the current TransformFeedback bound to specified @p target
     /**
@@ -232,8 +232,7 @@ class ObjCommonOps<tag::TransformFeedback>
 {
 protected:
     ObjCommonOps(TransformFeedbackName name) noexcept
-      : TransformFeedbackName(name) {
-    }
+      : TransformFeedbackName(name) {}
 
 public:
     ObjCommonOps(ObjCommonOps&&) = default;
@@ -328,8 +327,8 @@ public:
         OGLPLUS_VERIFY_SIMPLE(ResumeTransformFeedback);
     }
 
-    typedef TransformFeedbackActivator Activator;
-    typedef TransformFeedbackPauser Pauser;
+    using Activator = TransformFeedbackActivator;
+    using Pauser = TransformFeedbackPauser;
 };
 
 /// Wrapper for default feedback operations
@@ -338,23 +337,23 @@ public:
  *
  *  @glverreq{3,0}
  */
-typedef ObjectZero<ObjZeroOps<tag::ImplicitSel, tag::TransformFeedback>>
-  DefaultTransformFeedback;
+using DefaultTransformFeedback =
+  ObjectZero<ObjZeroOps<tag::ImplicitSel, tag::TransformFeedback>>;
 
 #endif // GL_VERSION_3_0
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
 
 /// TransformFeedback operations with explicit selector
-typedef ObjectOps<tag::ImplicitSel, tag::TransformFeedback>
-  TransformFeedbackOps;
+using TransformFeedbackOps =
+  ObjectOps<tag::ImplicitSel, tag::TransformFeedback>;
 
 /// An @ref oglplus_object encapsulating the OpenGL transform feedback
 /// functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<TransformFeedbackOps> TransformFeedback;
+using TransformFeedback = Object<TransformFeedbackOps>;
 
 #endif // GL_VERSION_4_0 || transform feedback 2
 

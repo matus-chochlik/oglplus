@@ -74,8 +74,8 @@ inline GLuint64 GetGLHandle(TextureHandle th) noexcept {
 
 template <>
 struct AdjustProgVar<TextureHandle> {
-    typedef GLuint64 BaseType;
-    typedef TextureHandle ValueType;
+    using BaseType = GLuint64;
+    using ValueType = TextureHandle;
 
     inline static BaseType Adjust(ValueType value) {
         return GetGLHandle(value);
@@ -129,8 +129,8 @@ inline GLuint64 GetGLHandle(ImageHandle ih) noexcept {
 
 template <>
 struct AdjustProgVar<ImageHandle> {
-    typedef GLuint64 BaseType;
-    typedef ImageHandle ValueType;
+    using BaseType = GLuint64;
+    using ValueType = ImageHandle;
 
     inline static BaseType Adjust(ValueType value) {
         return GetGLHandle(value);

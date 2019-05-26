@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -24,33 +24,29 @@ class BufferGPUAddress;
 GLuint64EXT GetGLAddress(BufferGPUAddress);
 
 /// Class encapsulating buffer object GPU address
-class BufferGPUAddress
-{
+class BufferGPUAddress {
 private:
-	friend GLuint64EXT GetGLAddress(BufferGPUAddress);
+    friend GLuint64EXT GetGLAddress(BufferGPUAddress);
 
-	GLuint64EXT _addr;
+    GLuint64EXT _addr;
+
 public:
-	BufferGPUAddress(GLuint64EXT addr)
-	 : _addr(addr)
-	{ }
+    BufferGPUAddress(GLuint64EXT addr)
+      : _addr(addr) {}
 };
 
-inline GLuint64EXT GetGLAddress(BufferGPUAddress bga)
-{
-	return bga._addr;
+inline GLuint64EXT GetGLAddress(BufferGPUAddress bga) {
+    return bga._addr;
 }
 
 template <>
-struct AdjustProgVar<BufferGPUAddress>
-{
-	typedef GLuint64 BaseType;
-	typedef BufferGPUAddress ValueType;
+struct AdjustProgVar<BufferGPUAddress> {
+    using BaseType = GLuint64;
+    using ValueType = BufferGPUAddress;
 
-	inline static BaseType Adjust(ValueType value)
-	{
-		return GetGLAddress(value);
-	}
+    inline static BaseType Adjust(ValueType value) {
+        return GetGLAddress(value);
+    }
 };
 
 } // namespace oglplus

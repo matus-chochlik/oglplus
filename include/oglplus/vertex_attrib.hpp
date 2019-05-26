@@ -234,8 +234,7 @@ class ProgVarCommonOps<tag::VertexAttrib>
   : public ProgVarLoc<tag::VertexAttrib> {
 protected:
     ProgVarCommonOps(VertexAttribLoc valoc)
-      : ProgVarLoc<tag::VertexAttrib>(valoc) {
-    }
+      : ProgVarLoc<tag::VertexAttrib>(valoc) {}
 
     // Functions for autodetection of values-per-vertex
     template <typename T>
@@ -304,8 +303,7 @@ class ProgVarGetSetOps<OpsTag, tag::VertexAttrib, T>
       16> {
 protected:
     ProgVarGetSetOps(VertexAttribLoc valoc)
-      : ProgVarCommonOps<tag::VertexAttrib>(valoc) {
-    }
+      : ProgVarCommonOps<tag::VertexAttrib>(valoc) {}
 
 public:
     /// Set the value of the vertex attribute
@@ -329,8 +327,7 @@ class ProgVarGetSetOps<OpsTag, tag::VertexAttrib, Vector<T, N>>
       4> {
 protected:
     ProgVarGetSetOps(VertexAttribLoc valoc)
-      : ProgVarCommonOps<tag::VertexAttrib>(valoc) {
-    }
+      : ProgVarCommonOps<tag::VertexAttrib>(valoc) {}
 
 public:
     void SetValue(const Vector<T, N>& value) {
@@ -349,8 +346,7 @@ class ProgVarGetSetOps<OpsTag, tag::VertexAttrib, Matrix<T, R, C>>
       16> {
 protected:
     ProgVarGetSetOps(VertexAttribLoc valoc)
-      : ProgVarCommonOps<tag::VertexAttrib>(valoc) {
-    }
+      : ProgVarCommonOps<tag::VertexAttrib>(valoc) {}
 
 public:
     void SetValue(const Matrix<T, R, C>& value) {
@@ -381,8 +377,7 @@ public:
      *  @glfunref{GetAttribLocation}
      */
     VertexArrayAttrib(VertexAttribSlot location)
-      : ProgVarCommonOps<tag::VertexAttrib>(VertexAttribLoc(GLint(location))) {
-    }
+      : ProgVarCommonOps<tag::VertexAttrib>(VertexAttribLoc(GLint(location))) {}
 
     /// References the vertex attribute array at @p location
     /**
@@ -391,8 +386,7 @@ public:
      */
     VertexArrayAttrib(ProgramName program, VertexAttribSlot location)
       : ProgVarCommonOps<tag::VertexAttrib>(
-          VertexAttribLoc(program, GLint(location))) {
-    }
+          VertexAttribLoc(program, GLint(location))) {}
 
     /// References the vertex attrib array @p identifier of the @p program
     /**
@@ -401,8 +395,7 @@ public:
      */
     VertexArrayAttrib(ProgramName program, StrCRef identifier)
       : ProgVarCommonOps<tag::VertexAttrib>(
-          VertexAttribLoc(program, identifier)) {
-    }
+          VertexAttribLoc(program, identifier)) {}
 
     /// Setup the properties of this vertex attribute array
     /** Equivalent to
@@ -488,7 +481,7 @@ public:
      */
     template <typename T>
     const VertexArrayAttrib& Setup(GLuint n = 1) const {
-        typedef decltype(_get_et(TypeTag<T>())) elem_type;
+        using elem_type = decltype(_get_et(TypeTag<T>()));
 
         return Setup(
           _get_vpv(TypeTag<T>()) * GLint(n),

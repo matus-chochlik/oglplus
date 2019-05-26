@@ -72,7 +72,7 @@ protected:
 
 public:
     /// Renderbuffer bind targets
-    typedef RenderbufferTarget Target;
+    using Target = RenderbufferTarget;
 
     /// Returns the current Renderbuffer bound to specified @p target
     /**
@@ -108,8 +108,7 @@ class ObjCommonOps<tag::Renderbuffer>
   , public ObjBindingOps<tag::Renderbuffer> {
 protected:
     ObjCommonOps(RenderbufferName name) noexcept
-      : RenderbufferName(name) {
-    }
+      : RenderbufferName(name) {}
 
 public:
     ObjCommonOps(ObjCommonOps&&) = default;
@@ -137,8 +136,7 @@ class ObjectOps<tag::ExplicitSel, tag::Renderbuffer>
   : public ObjZeroOps<tag::ExplicitSel, tag::Renderbuffer> {
 protected:
     ObjectOps(RenderbufferName name) noexcept
-      : ObjZeroOps<tag::ExplicitSel, tag::Renderbuffer>(name) {
-    }
+      : ObjZeroOps<tag::ExplicitSel, tag::Renderbuffer>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -342,7 +340,7 @@ public:
 };
 
 /// Renderbuffer operations with explicit selector
-typedef ObjectOps<tag::ExplicitSel, tag::Renderbuffer> RenderbufferOps;
+using RenderbufferOps = ObjectOps<tag::ExplicitSel, tag::Renderbuffer>;
 
 // syntax-sugar operators
 
@@ -364,14 +362,14 @@ inline RenderbufferTarget operator<<(
 /**
  *  @ingroup oglplus_objects
  */
-typedef ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::Renderbuffer>>
-  NoRenderbuffer;
+using NoRenderbuffer =
+  ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::Renderbuffer>>;
 
 /// An @ref oglplus_object encapsulating the renderbuffer object functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<RenderbufferOps> Renderbuffer;
+using Renderbuffer = Object<RenderbufferOps>;
 
 } // namespace oglplus
 

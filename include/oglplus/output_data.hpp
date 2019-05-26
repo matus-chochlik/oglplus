@@ -24,7 +24,7 @@ namespace oglplus {
 /// functions
 class OutputData {
 public:
-    typedef OneOf<GLenum, std::tuple<DataType, PixelDataType>> PixDataType;
+    using PixDataType = OneOf<GLenum, std::tuple<DataType, PixelDataType>>;
 
 private:
     PixDataType _type;
@@ -38,47 +38,41 @@ public:
     OutputData(BufferSize size, GLvoid* addr)
       : _type(DataType::UnsignedByte)
       , _size(size)
-      , _addr(addr) {
-    }
+      , _addr(addr) {}
 
     /// Construction from @p type, @p size in bytes and pointer to @p addr
     OutputData(PixDataType type, BufferSize size, GLvoid* addr)
       : _type(type)
       , _size(size)
-      , _addr(addr) {
-    }
+      , _addr(addr) {}
 
     /// Construction from @p count of instances of type @c T at @p addr
     template <typename T>
     OutputData(SizeType count, T* addr)
       : _type(GetDataType<T>())
       , _size(unsigned(count), addr)
-      , _addr(addr) {
-    }
+      , _addr(addr) {}
 
     /// Construction from an array with known size
     template <typename T, std::size_t N>
     OutputData(T (&addr)[N])
       : _type(GetDataType<T>())
       , _size(addr)
-      , _addr(addr) {
-    }
+      , _addr(addr) {}
 
     /// Construction from a std::array
     template <typename T, std::size_t N>
     OutputData(std::array<T, N>& a)
       : _type(GetDataType<T>())
       , _size(a)
-      , _addr(a.data()) {
-    }
+      , _addr(a.data()) {}
 
     /// Construction from a std::vector
     template <typename T>
     OutputData(std::vector<T>& v)
       : _type(GetDataType<T>())
       , _size(v)
-      , _addr(v.data()) {
-    }
+      , _addr(v.data()) {}
 
     PixDataType Type() const {
         return _type;

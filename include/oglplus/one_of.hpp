@@ -72,28 +72,24 @@ private:
 
 public:
     OneOf(V1 value)
-      : _value(Common(value)) {
-    }
+      : _value(Common(value)) {}
 
     OneOf(V2 value)
-      : _value(Common(value)) {
-    }
+      : _value(Common(value)) {}
 
     template <typename T>
     OneOf(
       T value,
       typename std::enable_if<std::is_convertible<T, V1>::value>::type* =
         nullptr)
-      : _value(Common(V1(value))) {
-    }
+      : _value(Common(V1(value))) {}
 
     template <typename T>
     OneOf(
       T value,
       typename std::enable_if<std::is_convertible<T, V2>::value>::type* =
         nullptr)
-      : _value(Common(V2(value))) {
-    }
+      : _value(Common(V2(value))) {}
 
     explicit operator Common() const noexcept {
         return _value;
@@ -108,40 +104,34 @@ private:
 
 public:
     OneOf(V1 value)
-      : _value(Common(value)) {
-    }
+      : _value(Common(value)) {}
 
     OneOf(V2 value)
-      : _value(Common(value)) {
-    }
+      : _value(Common(value)) {}
 
     OneOf(V3 value)
-      : _value(Common(value)) {
-    }
+      : _value(Common(value)) {}
 
     template <typename T>
     OneOf(
       T value,
       typename std::enable_if<std::is_convertible<T, V1>::value>::type* =
         nullptr)
-      : _value(Common(V1(value))) {
-    }
+      : _value(Common(V1(value))) {}
 
     template <typename T>
     OneOf(
       T value,
       typename std::enable_if<std::is_convertible<T, V2>::value>::type* =
         nullptr)
-      : _value(Common(V2(value))) {
-    }
+      : _value(Common(V2(value))) {}
 
     template <typename T>
     OneOf(
       T value,
       typename std::enable_if<std::is_convertible<T, V3>::value>::type* =
         nullptr)
-      : _value(Common(V3(value))) {
-    }
+      : _value(Common(V3(value))) {}
 
     explicit operator Common() const noexcept {
         return _value;
@@ -173,21 +163,19 @@ private:
 
     template <typename T>
     struct find {
-        typedef decltype(_find_one_of<T, Variants...>()) type;
+        using type = decltype(_find_one_of<T, Variants...>());
     };
 
 public:
     template <typename T>
     OneOf(
       T value, typename std::enable_if<is_one_of<T>::value>::type* = nullptr)
-      : _value(aux::OneOfBase<Common, T>::Accept(value)) {
-    }
+      : _value(aux::OneOfBase<Common, T>::Accept(value)) {}
 
     template <typename T>
     OneOf(
       T value, typename std::enable_if<!is_one_of<T>::value>::type* = nullptr)
-      : _value(aux::OneOfBase<Common, typename find<T>::type>::Accept(value)) {
-    }
+      : _value(aux::OneOfBase<Common, typename find<T>::type>::Accept(value)) {}
 
     explicit operator Common() const noexcept {
         return _value;

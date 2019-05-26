@@ -78,7 +78,7 @@ protected:
 
 public:
     /// Sampler bind targets
-    typedef TextureUnitSelector Target;
+    using Target = TextureUnitSelector;
 
     /// Returns the current Sampler bound to specified @p target (tex. unit)
     /**
@@ -130,8 +130,7 @@ class ObjCommonOps<tag::Sampler>
   , public ObjBindingOps<tag::Sampler> {
 protected:
     ObjCommonOps(SamplerName name) noexcept
-      : SamplerName(name) {
-    }
+      : SamplerName(name) {}
 
 public:
     ObjCommonOps(ObjCommonOps&&) = default;
@@ -159,8 +158,7 @@ class ObjectOps<tag::DirectState, tag::Sampler>
   : public ObjZeroOps<tag::DirectState, tag::Sampler> {
 protected:
     ObjectOps(SamplerName name) noexcept
-      : ObjZeroOps<tag::DirectState, tag::Sampler>(name) {
-    }
+      : ObjZeroOps<tag::DirectState, tag::Sampler>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -545,7 +543,7 @@ public:
 };
 
 /// Sampler operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::Sampler> SamplerOps;
+using SamplerOps = ObjectOps<tag::DirectState, tag::Sampler>;
 
 // Helper class for syntax-sugar operators
 struct SamplerOpsAndSlot {
@@ -554,8 +552,7 @@ struct SamplerOpsAndSlot {
 
     SamplerOpsAndSlot(SamplerOps& sa, GLint sl)
       : sam(sa)
-      , slot(sl) {
-    }
+      , slot(sl) {}
 };
 
 // syntax sugar operators
@@ -636,13 +633,13 @@ inline SamplerOps& operator<<(SamplerOps& sam, const Vector<T, 4>& col) {
 /**
  *  @ingroup oglplus_objects
  */
-typedef ObjectZero<ObjZeroOps<tag::DirectState, tag::Sampler>> NoSampler;
+using NoSampler = ObjectZero<ObjZeroOps<tag::DirectState, tag::Sampler>>;
 
 /// An @ref oglplus_object encapsulating the OpenGL sampler functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<SamplerOps> Sampler;
+using Sampler = Object<SamplerOps>;
 
 #endif // sampler object
 

@@ -72,7 +72,7 @@ protected:
 
 template <>
 struct ObjGenTag<tag::DirectState, tag::Shader> {
-    typedef tag::Create Type;
+    using Type = tag::Create;
 };
 
 /// Common shader operations
@@ -82,8 +82,7 @@ template <>
 class ObjCommonOps<tag::Shader> : public ShaderName {
 protected:
     ObjCommonOps(ShaderName name) noexcept
-      : ShaderName(name) {
-    }
+      : ShaderName(name) {}
 
 public:
     ObjCommonOps(ObjCommonOps&&) = default;
@@ -121,8 +120,7 @@ class ObjectOps<tag::DirectState, tag::Shader>
   : public ObjZeroOps<tag::DirectState, tag::Shader> {
 protected:
     ObjectOps(ShaderName name) noexcept
-      : ObjZeroOps<tag::DirectState, tag::Shader>(name) {
-    }
+      : ObjZeroOps<tag::DirectState, tag::Shader>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -133,7 +131,7 @@ public:
     /// Types related to Shader
     struct Property {
         /// The type of a Shader
-        typedef ShaderType Type;
+        using Type = ShaderType;
     };
 
     /// Get the type of the shader
@@ -310,11 +308,11 @@ public:
 };
 
 /// Shader operations (with direct state access)
-typedef ObjectOps<tag::DirectState, tag::Shader> ShaderOps;
+using ShaderOps = ObjectOps<tag::DirectState, tag::Shader>;
 
 template <>
 struct ObjectSubtype<tag::Shader> {
-    typedef ShaderType Type;
+    using Type = ShaderType;
 };
 
 /// An object encasulating the shader object functionality
@@ -335,19 +333,16 @@ protected:
 
     /// Uninitialized construction
     Shader(Uninitialized_ u)
-      : Object<ShaderOps>(u) {
-    }
+      : Object<ShaderOps>(u) {}
 
 public:
     /// Construction with shader @p type specifier
     Shader(ShaderType type)
-      : Object<ShaderOps>(type) {
-    }
+      : Object<ShaderOps>(type) {}
 
     /// Construction with type specifier and textual descriptor
     Shader(ShaderType type, ObjectDesc&& description)
-      : Object<ShaderOps>(type, std::move(description)) {
-    }
+      : Object<ShaderOps>(type, std::move(description)) {}
 
     /// Construction with type and source code wrapper
     Shader(ShaderType type, GLSLString&& glsl_source)
@@ -394,8 +389,7 @@ public:
 
     /// Shaders are movable
     Shader(Shader&& temp)
-      : Object<ShaderOps>(static_cast<Object<ShaderOps>&&>(temp)) {
-    }
+      : Object<ShaderOps>(static_cast<Object<ShaderOps>&&>(temp)) {}
 
     Shader& operator=(Shader&& temp) {
         Object<ShaderOps>::operator=(static_cast<Object<ShaderOps>&&>(temp));
@@ -410,8 +404,7 @@ template <>
 class Array<Shader> : public Array<ObjectOps<tag::DirectState, tag::Shader>> {
 public:
     Array(BigSizeType n, ShaderType type)
-      : Array<ObjectOps<tag::DirectState, tag::Shader>>(n, type) {
-    }
+      : Array<ObjectOps<tag::DirectState, tag::Shader>>(n, type) {}
 };
 
 /// Base template for specialized shader types
@@ -422,47 +415,38 @@ private:
 public:
     /// Default construction
     SpecShader()
-      : Shader(ShType) {
-    }
+      : Shader(ShType) {}
 
     /// Construction with a textual descriptor
     SpecShader(ObjectDesc&& description)
-      : Shader(ShType, std::move(description)) {
-    }
+      : Shader(ShType, std::move(description)) {}
 
     /// Construction with a source code wrapper
     SpecShader(GLSLString&& glsl_source)
-      : Shader(ShType, std::move(glsl_source)) {
-    }
+      : Shader(ShType, std::move(glsl_source)) {}
 
     /// Construction with description and source code wrapper
     SpecShader(ObjectDesc&& description, GLSLString&& glsl_source)
-      : Shader(ShType, std::move(description), std::move(glsl_source)) {
-    }
+      : Shader(ShType, std::move(description), std::move(glsl_source)) {}
 
     /// Construction with a source code wrapper
     SpecShader(GLSLStrings&& glsl_source)
-      : Shader(ShType, std::move(glsl_source)) {
-    }
+      : Shader(ShType, std::move(glsl_source)) {}
 
     /// Construction with description and source code wrapper
     SpecShader(ObjectDesc&& description, GLSLStrings&& glsl_source)
-      : Shader(ShType, std::move(description), std::move(glsl_source)) {
-    }
+      : Shader(ShType, std::move(description), std::move(glsl_source)) {}
 
     /// Construction with a source code wrapper
     SpecShader(const GLSLSource& glsl_source)
-      : Shader(ShType, glsl_source) {
-    }
+      : Shader(ShType, glsl_source) {}
 
     /// Construction with description and source code wrapper
     SpecShader(ObjectDesc&& description, const GLSLSource& glsl_source)
-      : Shader(ShType, std::move(description), glsl_source) {
-    }
+      : Shader(ShType, std::move(description), glsl_source) {}
 
     SpecShader(SpecShader&& temp)
-      : Shader(static_cast<Shader&&>(temp)) {
-    }
+      : Shader(static_cast<Shader&&>(temp)) {}
 
     SpecShader& operator=(SpecShader&& temp) {
         Shader::operator=(static_cast<Shader&&>(temp));
@@ -476,7 +460,7 @@ public:
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<ShaderType::Vertex> VertexShader;
+using VertexShader = SpecShader<ShaderType::Vertex>;
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_GEOMETRY_SHADER
 /// Geometry shader wrapper
@@ -485,7 +469,7 @@ typedef SpecShader<ShaderType::Vertex> VertexShader;
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<ShaderType::Geometry> GeometryShader;
+using GeometryShader = SpecShader<ShaderType::Geometry>;
 #endif
 
 /// Fragment shader wrapper
@@ -494,7 +478,7 @@ typedef SpecShader<ShaderType::Geometry> GeometryShader;
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<ShaderType::Fragment> FragmentShader;
+using FragmentShader = SpecShader<ShaderType::Fragment>;
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_TESS_CONTROL_SHADER
 /// Tesselation control shader wrapper
@@ -503,7 +487,7 @@ typedef SpecShader<ShaderType::Fragment> FragmentShader;
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<ShaderType::TessControl> TessControlShader;
+using TessControlShader = SpecShader<ShaderType::TessControl>;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_TESS_EVALUATION_SHADER
@@ -513,7 +497,7 @@ typedef SpecShader<ShaderType::TessControl> TessControlShader;
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<ShaderType::TessEvaluation> TessEvaluationShader;
+using TessEvaluationShader = SpecShader<ShaderType::TessEvaluation>;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_COMPUTE_SHADER
@@ -523,7 +507,7 @@ typedef SpecShader<ShaderType::TessEvaluation> TessEvaluationShader;
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<ShaderType::Compute> ComputeShader;
+using ComputeShader = SpecShader<ShaderType::Compute>;
 #endif
 
 } // namespace oglplus

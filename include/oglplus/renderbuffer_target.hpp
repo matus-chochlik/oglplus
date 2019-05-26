@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,8 +13,8 @@
 #ifndef OGLPLUS_RENDERBUFFER_TARGET_1201201052_HPP
 #define OGLPLUS_RENDERBUFFER_TARGET_1201201052_HPP
 
-#include <oglplus/fwd.hpp>
 #include <oglplus/enums/renderbuffer_target.hpp>
+#include <oglplus/fwd.hpp>
 
 namespace oglplus {
 
@@ -23,9 +23,8 @@ namespace oglplus {
 #endif
 
 template <>
-struct ObjectTargetTag<RenderbufferTarget>
-{
-	typedef tag::Renderbuffer Type;
+struct ObjectTargetTag<RenderbufferTarget> {
+    using Type = tag::Renderbuffer;
 };
 
 } // namespace oglplus

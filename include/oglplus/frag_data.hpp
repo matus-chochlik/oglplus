@@ -83,8 +83,7 @@ template <>
 class ProgVarCommonOps<tag::FragData> : public ProgVarLoc<tag::FragData> {
 protected:
     ProgVarCommonOps(FragDataLoc fdloc)
-      : ProgVarLoc<tag::FragData>(fdloc) {
-    }
+      : ProgVarLoc<tag::FragData>(fdloc) {}
 
 public:
     void Bind(StrCRef identifier) {
@@ -98,10 +97,10 @@ public:
  *
  *  @ingroup shader_variables
  */
-typedef ProgVar<tag::ImplicitSel, tag::FragData, tag::NoTypecheck, void>
-  FragData;
+using FragData =
+  ProgVar<tag::ImplicitSel, tag::FragData, tag::NoTypecheck, void>;
 
-typedef FragData FragmentData;
+using FragmentData = FragData;
 
 } // namespace oglplus
 

@@ -78,8 +78,7 @@ private:
 
 protected:
     ProgVarCommonOps(UniformBlockLoc ubloc)
-      : ProgVarLoc<tag::UniformBlock>(ubloc) {
-    }
+      : ProgVarLoc<tag::UniformBlock>(ubloc) {}
 
     GLuint _block_index() const {
         if(this->_location < 0) {
@@ -158,8 +157,8 @@ public:
  *
  *  @glvoereq{3,1,ARB,uniform_buffer_object}
  */
-typedef ProgVar<tag::ImplicitSel, tag::UniformBlock, tag::NoTypecheck, void>
-  UniformBlock;
+using UniformBlock =
+  ProgVar<tag::ImplicitSel, tag::UniformBlock, tag::NoTypecheck, void>;
 
 #endif // uniform buffer object
 

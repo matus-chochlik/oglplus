@@ -102,8 +102,7 @@ class ObjCommonOps<tag::VertexArray>
   , public ObjBindingOps<tag::VertexArray> {
 protected:
     ObjCommonOps(VertexArrayName name) noexcept
-      : VertexArrayName(name) {
-    }
+      : VertexArrayName(name) {}
 
 public:
     ObjCommonOps(ObjCommonOps&&) = default;
@@ -124,20 +123,20 @@ public:
 };
 
 /// VertexArray operations with implicit selector
-typedef ObjectOps<tag::ImplicitSel, tag::VertexArray> VertexArrayOps;
+using VertexArrayOps = ObjectOps<tag::ImplicitSel, tag::VertexArray>;
 
 /// An @ref oglplus_object encapsulating vertex array zero functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef ObjectZero<ObjZeroOps<tag::ImplicitSel, tag::VertexArray>>
-  NoVertexArray;
+using NoVertexArray =
+  ObjectZero<ObjZeroOps<tag::ImplicitSel, tag::VertexArray>>;
 
 /// An @ref oglplus_object encapsulating vertex array object functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<VertexArrayOps> VertexArray;
+using VertexArray = Object<VertexArrayOps>;
 
 } // namespace oglplus
 

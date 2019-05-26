@@ -73,7 +73,7 @@ std::false_type _get_is_gl_data_type(...);
 
 template <typename T>
 struct _is_gl_data_type {
-    typedef decltype(_get_is_gl_data_type(&TypeTag<T>())) type;
+    using type = decltype(_get_is_gl_data_type(&TypeTag<T>()));
 };
 
 } // namespace aux

@@ -65,12 +65,12 @@ class EnumToClass;
 
 template <typename Enum>
 struct EnumBaseType {
-    typedef GLenum Type;
+    using Type = GLenum;
 };
 
 template <typename Enum, Enum Value>
 struct EnumAssocType {
-    typedef void Type;
+    using Type = void;
 };
 
 template <typename Enum, Enum Value>
@@ -82,8 +82,8 @@ struct EnumAssocGLType {
     template <typename T>
     static T _get(TypeTag<T>);
 
-    typedef decltype(
-      _get(TypeTag<typename EnumAssocType<Enum, Value>::Type>())) Type;
+    using Type =
+      decltype(_get(TypeTag<typename EnumAssocType<Enum, Value>::Type>()));
 };
 
 inline StrCRef ValueName_(GLenum*, GLenum) {
@@ -93,7 +93,7 @@ inline StrCRef ValueName_(GLenum*, GLenum) {
 template <typename EnumType>
 inline StrCRef EnumValueName(EnumType enum_value) {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-    typedef typename EnumBaseType<EnumType>::Type BaseType;
+    using BaseType = typename EnumBaseType<EnumType>::Type;
     return ValueName_(&TypeTag<EnumType>(), BaseType(enum_value));
 #else
     OGLPLUS_FAKE_USE(enum_value);
@@ -134,8 +134,7 @@ private:
 protected:
     EnumArray(std::size_t count, const Enum* enums)
       : _count(count)
-      , _enums(reinterpret_cast<const GLenum*>(enums)) {
-    }
+      , _enums(reinterpret_cast<const GLenum*>(enums)) {}
 
 public:
     std::size_t Count() const {
@@ -182,21 +181,18 @@ public:
 template <typename Enum>
 class EnumArray : public aux::EnumArray<Enum, sizeof(Enum) != sizeof(GLenum)> {
 private:
-    typedef aux::EnumArray<Enum, sizeof(Enum) != sizeof(GLenum)> Base_;
+    using Base_ = aux::EnumArray<Enum, sizeof(Enum) != sizeof(GLenum)>;
 
 public:
     template <std::size_t N>
     EnumArray(const Enum (&enums)[N])
-      : Base_(N, enums) {
-    }
+      : Base_(N, enums) {}
 
     EnumArray(const std::vector<Enum>& enums)
-      : Base_(enums.size(), enums.data()) {
-    }
+      : Base_(enums.size(), enums.data()) {}
 
     EnumArray(std::size_t count, const Enum* enums)
-      : Base_(count, enums) {
-    }
+      : Base_(count, enums) {}
 };
 
 #endif // OGLPLUS_DOCUMENTATION_ONLY
