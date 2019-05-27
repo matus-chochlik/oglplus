@@ -24,7 +24,7 @@ extern "C" {
 // eglGetProcAddress
 //------------------------------------------------------------------------------
 EGLAPI void EGLAPIENTRY (*eglGetProcAddress(const char* procname))() {
-    typedef void (*fnptr)();
+    using fnptr = void (*)();
 
     // EGL 1.4
     if(std::strcmp(procname, "eglGetError") == 0)

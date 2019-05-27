@@ -73,7 +73,7 @@ bool eglplus_egl_valid_surface(EGLSurface surface) {
     return result;
 }
 //------------------------------------------------------------------------------
-typedef void (*glXSwapIntervalEXTProc)(::Display*, ::GLXDrawable, int);
+using glXSwapIntervalEXTProc = void (*)(::Display*, ::GLXDrawable, int);
 static glXSwapIntervalEXTProc eglplus_egl_glXSwapIntervalEXT = nullptr;
 //------------------------------------------------------------------------------
 // EGL API

@@ -67,8 +67,8 @@ bool eglplus_egl_valid_context(EGLContext context) {
 //------------------------------------------------------------------------------
 // glXCreateContextAttribsARB
 //------------------------------------------------------------------------------
-typedef ::GLXContext (*glXCreateContextAttribsARBProc)(
-  ::Display*, ::GLXFBConfig, ::GLXContext, Bool, const int*);
+using glXCreateContextAttribsARBProc =
+  ::GLXContext (*)(::Display*, ::GLXFBConfig, ::GLXContext, Bool, const int*);
 static glXCreateContextAttribsARBProc eglplus_egl_glXCreateContextAttribsARB =
   0;
 //------------------------------------------------------------------------------

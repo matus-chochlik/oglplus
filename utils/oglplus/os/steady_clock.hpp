@@ -22,7 +22,7 @@ namespace os {
 // Can be used for measuring time in seconds since the clocks creation
 class steady_clock {
 private:
-    typedef std::chrono::system_clock std_clock;
+    using std_clock = std::chrono::system_clock;
     std::chrono::time_point<std_clock> _start;
 
 public:
