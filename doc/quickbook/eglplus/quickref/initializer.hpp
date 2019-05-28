@@ -82,6 +82,6 @@ public:
 //]
 //[eglplus_initializer_alias
 
-typedef __EGLInitializer LibEGL;
+using LibEGL = __EGLInitializer;
 
 //]

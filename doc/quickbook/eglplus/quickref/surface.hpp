@@ -6,12 +6,12 @@
 
 //[eglplus_surface_attribs
 
-typedef __AttributeList<__SurfaceAttrib, ...> SurfaceAttribs; /*<
+using SurfaceAttribs = __AttributeList<__SurfaceAttrib, ...>; /*<
 Attribute list type for surface attributes.
 >*/
 
-typedef __FinishedAttributeList<__SurfaceAttrib, ...>
-  FinishedSurfaceAttribs; /*<
+using FinishedSurfaceAttribs =
+  __FinishedAttributeList<__SurfaceAttrib, ...>; /*<
 Finished attribute list type for surface attributes.
 >*/
 
@@ -87,8 +87,8 @@ public:
     Returns the height of the surface.
     See [eglfunc QuerySurface], [eglconst HEIGHT].
     >*/
-                           //]
-                           //[eglplus_surface_2
+    //]
+    //[eglplus_surface_2
 
     __RenderBuffer RenderBuffer() const; /*<
     Returns the render buffer setting of the surface.

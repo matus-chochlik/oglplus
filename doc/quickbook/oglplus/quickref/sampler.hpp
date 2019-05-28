@@ -9,7 +9,7 @@
 template <>
 class __ObjCommonOps<__tag_Sampler> : public __SamplerName {
 public:
-    typedef __TextureUnitSelector Target; /*<
+    using Target = __TextureUnitSelector; /*<
     Sampler bind target.
     >*/
 
@@ -174,11 +174,11 @@ public:
 };
 //]
 //[oglplus_sampler_def
-typedef ObjectOps<__tag_DirectState, __tag_Sampler> SamplerOps;
+using SamplerOps = ObjectOps<__tag_DirectState, __tag_Sampler>;
 
-typedef __Object<SamplerOps> Sampler;
+using Sampler = __Object<SamplerOps>;
 
-typedef __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_Sampler>> NoSampler;
+using NoSampler = __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_Sampler>>;
 //]
 //[oglplus_sampler_sugar
 

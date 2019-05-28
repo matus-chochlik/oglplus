@@ -8,7 +8,7 @@
 
 template <>
 struct __ObjectSubtype<__tag_Query> {
-    typedef __QueryTarget Type;
+    using Type = __QueryTarget;
 };
 //]
 //[oglplus_query_1
@@ -16,7 +16,7 @@ template <>
 class __ObjectOps<__tag_DirectState, __tag_Query>
   : public __ObjZeroOps<__tag_DirectState, __tag_Query> {
 public:
-    typedef __QueryTarget Target;
+    using Target = __QueryTarget;
 
     void Begin(__QueryTarget target); /*<
     Begins a query on the specified [^target].
@@ -80,7 +80,7 @@ and ends this query and gets its [^result] when it is destroyed.
 >*/
 };
 
-typedef ObjectOps<__tag_DirectState, __tag_Query> QueryOps;
+using QueryOps = ObjectOps<__tag_DirectState, __tag_Query>;
 //]
 //[oglplus_query_activator
 

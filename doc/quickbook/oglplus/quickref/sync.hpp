@@ -9,13 +9,13 @@
 class Sync {
 public:
     struct Property {
-        typedef __SyncCondition Condition;
+        using Condition = __SyncCondition;
 
-        typedef __SyncType Type;
+        using Type = __SyncType;
 
-        typedef __SyncStatus Status;
+        using Status = __SyncStatus;
 
-        typedef __SyncWaitResult WaitResult;
+        using WaitResult = __SyncWaitResult;
     };
 
     Sync(const Sync&) = delete;

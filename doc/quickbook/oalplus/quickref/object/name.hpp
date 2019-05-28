@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -9,14 +9,12 @@
 using __oglplus_ObjectName;
 
 template <typename ObjTag>
-const ALuint GetName(ObjectName<ObjTag> named)
-noexcept;
+const ALuint GetName(ObjectName<ObjTag> named) noexcept;
 
 //]
-//[oalplus_object_name_typedefs
+//[oalplus_object_name_type_aliases
 
-typedef __ObjectName<__tag_Buffer> BufferName;
-typedef ObjectName<__tag_Source> SourceName;
+using BufferName = __ObjectName<__tag_Buffer>;
+using SourceName = ObjectName<__tag_Source>;
 
 //]
-

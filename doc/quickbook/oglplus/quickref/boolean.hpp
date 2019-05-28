@@ -59,6 +59,6 @@ public:
 //]
 //[oglplus_boolean
 
-typedef __BoolImpl<GLboolean, GLint, GL_TRUE, GL_FALSE> Boolean;
+using Boolean = __BoolImpl<GLboolean, GLint, GL_TRUE, GL_FALSE>;
 
 //]

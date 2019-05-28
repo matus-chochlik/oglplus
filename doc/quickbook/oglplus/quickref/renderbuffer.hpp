@@ -9,7 +9,7 @@
 template <>
 class __ObjCommonOps<__tag_Renderbuffer> : public __RenderbufferName {
 public:
-    typedef __RenderbufferTarget Target; /*<
+    using Target = __RenderbufferTarget; /*<
     Renderbuffer bind target.
     >*/
 
@@ -118,12 +118,12 @@ See [glfunc GetRenderbufferParameter], [glconst RENDERBUFFER_INTERNAL_FORMAT].
 //]
 //[oglplus_renderbuffer_def
 
-typedef ObjectOps<__tag_ExplicitSel, __tag_Renderbuffer> RenderbufferOps;
+using RenderbufferOps = ObjectOps<__tag_ExplicitSel, __tag_Renderbuffer>;
 
-typedef __Object<RenderbufferOps> Renderbuffer;
+using Renderbuffer = __Object<RenderbufferOps>;
 
-typedef __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Renderbuffer>>
-  NoRenderbuffer;
+using NoRenderbuffer =
+  __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Renderbuffer>>;
 //]
 //[oglplus_renderbuffer_sugar
 

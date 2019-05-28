@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -46,11 +46,11 @@ public:
 //]
 //[oglplus_frag_data_def
 
-typedef __ProgVar<__tag_ImplicitSel, __tag_FragData, __tag_NoTypecheck, void>
-  FragData; /*<
+using FragData =
+  __ProgVar<__tag_ImplicitSel, __tag_FragData, __tag_NoTypecheck, void>; /*<
 Indirectly inherits from __ProgVarLocOps_FragData, __ProgVarCommonOps_FragData.
 >*/
 
-typedef FragData FragmentData;
+using FragmentData = FragData;
 
 //]

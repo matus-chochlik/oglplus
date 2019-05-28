@@ -8,7 +8,7 @@
 namespace images {
 
 struct ImageSpec {
-    typedef __OneOf<__DataType, __PixelDataType> PixDataType;
+    using PixDataType = __OneOf<__DataType, __PixelDataType>;
 
     ImageSpec(); /*<
     ['Nil] image specification.

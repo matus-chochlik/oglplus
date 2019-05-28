@@ -8,7 +8,7 @@
 
 class OutputData {
 public:
-    typedef __OneOf<__DataType, __PixelDataType> PixDataType;
+    using PixDataType = __OneOf<__DataType, __PixelDataType>;
 
     OutputData(BufferSize size, GLvoid* addr); /*<
     Construction from [^size] in bytes and pointer to [^addr].

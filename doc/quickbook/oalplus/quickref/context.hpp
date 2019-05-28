@@ -6,12 +6,12 @@
 
 //[oalplus_context_attribs
 
-typedef __AttributeList<__ContextAttrib, ...> ContextAttribs; /*<
+using ContextAttribs = __AttributeList<__ContextAttrib, ...>; /*<
 Attribute list type for context attributes.
 >*/
 
-typedef __FinishedAttributeList<__ContextAttrib, ...>
-  FinishedContextAttribs; /*<
+using FinishedContextAttribs =
+  __FinishedAttributeList<__ContextAttrib, ...>; /*<
 Finished list of context attribute values.
 >*/
 
@@ -30,14 +30,14 @@ public:
     See [alcfunc GetString].
     >*/
 
-    static const char* Vendor();   /*<
-      Returns the vendor name.
-      See [alcfunc GetString], [alcconst VENDOR].
-      >*/
-    static const char* Version();  /*<
-     Returns the version string.
-     See [alcfunc GetString], [alcconst VENDOR].
-     >*/
+    static const char* Vendor(); /*<
+    Returns the vendor name.
+    See [alcfunc GetString], [alcconst VENDOR].
+    >*/
+    static const char* Version(); /*<
+    Returns the version string.
+    See [alcfunc GetString], [alcconst VENDOR].
+    >*/
     static const char* Renderer(); /*<
     Returns the renderer name.
     See [alcfunc GetString], [alcconst VENDOR].
@@ -65,35 +65,35 @@ public:
     Suspends this context.
     See [alcfunc SuspendContext].
     >*/
-                    //]
-                    //[oalplus_context_ops_2
+    //]
+    //[oalplus_context_ops_2
 
     static void DistanceModel(__DistanceModel dist_model); /*<
     Sets the distance model to be used by the current context.
     See [alcfunc DistanceModel].
     >*/
-    static __DistanceModel DistanceModel();                /*<
-                   Returns the distance model used by the current context.
-                   See [alcfunc GetIntegerv], [alcconst DISTANCE_MODEL].
-                   >*/
+    static __DistanceModel DistanceModel(); /*<
+    Returns the distance model used by the current context.
+    See [alcfunc GetIntegerv], [alcconst DISTANCE_MODEL].
+    >*/
 
     static void DopplerFactor(ALfloat doppler_factor); /*<
     Sets the doppler factor for the current context.
     See [alcfunc DopplerFactor].
     >*/
-    static ALfloat DopplerFactor();                    /*<
-                       Returns the doppler factor used by the current context.
-                       See [alcfunc GetFloatv], [alcconst DOPPLER_FACTOR].
-                       >*/
+    static ALfloat DopplerFactor(); /*<
+    Returns the doppler factor used by the current context.
+    See [alcfunc GetFloatv], [alcconst DOPPLER_FACTOR].
+    >*/
 
     static void SpeedOfSound(ALfloat speed_of_sound); /*<
     Sets the value of speed of sound for the current context.
     See [alcfunc SpeedOfSound].
     >*/
-    static ALfloat SpeedOfSound();                    /*<
-                       Returns the value of speed of sound used by the current context.
-                       See [alcfunc GetFloatv], [alcconst SPEED_OF_SOUND].
-                       >*/
+    static ALfloat SpeedOfSound(); /*<
+    Returns the value of speed of sound used by the current context.
+    See [alcfunc GetFloatv], [alcconst SPEED_OF_SOUND].
+    >*/
 };
 
 //]

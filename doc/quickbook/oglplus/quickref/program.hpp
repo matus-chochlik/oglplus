@@ -152,7 +152,7 @@ public:
     >*/
 #endif
 
-    typedef __Unspecified InterfaceContext; /*<
+    using InterfaceContext = __Unspecified; /*<
     Helper class for efficient iteration of [^Program] interface items.
     Instances of this class are created by a program for its specific
     interfaces (uniform, vertex attributes, subroutines, etc.) or
@@ -166,7 +166,7 @@ public:
     >*/
 
 #if GL_VERSION_4_3
-    typedef __Range<__ProgramResource> ActiveResourceRange; /*<
+    using ActiveResourceRange = __Range<__ProgramResource>; /*<
     The type of the range for traversing program resource information.
     >*/
 
@@ -210,7 +210,7 @@ public:
         >*/
     };
 
-    typedef __Range<ActiveVariableInfo> ActiveAttribRange; /*<
+    using ActiveAttribRange = __Range<ActiveVariableInfo>; /*<
     The type of the range for traversing active vertex attributes.
     >*/
 
@@ -225,7 +225,7 @@ public:
     be used after the [^Program] goes out of scope and is destroyed.
     >*/
 
-    typedef __Range<ActiveVariableInfo> ActiveUniformRange; /*<
+    using ActiveUniformRange = __Range<ActiveVariableInfo>; /*<
     The type of the range for traversing active uniforms.
     >*/
 
@@ -243,7 +243,7 @@ public:
     //[oglplus_program_4
 
 #if GL_VERSION_4_0 || GL_ARB_shader_subroutine
-    typedef __Range<ActiveVariableInfo> ActiveSubroutineRange; /*<
+    using ActiveSubroutineRange = __Range<ActiveVariableInfo>; /*<
     The type of the range for traversing active subroutines.
     >*/
 
@@ -258,7 +258,7 @@ public:
     be used after the [^Program] goes out of scope and is destroyed.
     >*/
 
-    typedef __Range<ActiveVariableInfo> ActiveSubroutineUniformRange; /*<
+    using ActiveSubroutineUniformRange = __Range<ActiveVariableInfo>; /*<
     The type of the range for traversing active subroutine uniforms.
     >*/
 
@@ -275,7 +275,7 @@ be used after the [^Program] goes out of scope and is destroyed.
 >*/
 #endif
 
-    typedef __Range<ActiveVariableInfo> TransformFeedbackVaryingRange; /*<
+    using TransformFeedbackVaryingRange = __Range<ActiveVariableInfo>; /*<
     The type of the range for traversing transform feedback varyings.
     >*/
 
@@ -357,11 +357,11 @@ be used after the [^Program] goes out of scope and is destroyed.
 //]
 //[oglplus_program_def
 
-typedef __ObjectOps<__tag_DirectState, __tag_Program> ProgramOps;
+using ProgramOps = __ObjectOps<__tag_DirectState, __tag_Program>;
 
-typedef __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_Program>> NoProgram;
+using NoProgram = __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_Program>>;
 
-typedef __Object<ProgramOps> Program;
+using Program = __Object<ProgramOps>;
 
 //]
 //[oglplus_program_sugar

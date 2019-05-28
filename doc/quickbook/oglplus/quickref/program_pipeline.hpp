@@ -34,7 +34,7 @@ class __ObjectOps<__tag_DirectState, __tag_ProgramPipeline>
 {
 public:
     struct Properties {
-        typedef __ProgramPipelineStage Stage;
+        using Stage = __ProgramPipelineStage;
     };
 
     ProgPLUseStages UseStages(__ProgramName program) const; /*<
@@ -112,13 +112,14 @@ public:
 //]
 //[oglplus_program_pipeline_def
 
-typedef ObjectOps<__tag_DirectState, __tag_ProgramPipeline> ProgramPipelineOps;
+using ProgramPipelineOps = ObjectOps<__tag_DirectState, __tag_ProgramPipeline>;
 
-typedef __Object<ProgramPipelineOps> ProgramPipeline;
+using ProgramPipeline = __Object<ProgramPipelineOps>;
 
-typedef __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_ProgramPipeline>> /*<
-Indirectly inherits from __ObjCommonOps_ProgramPipeline<__tag_ProgramPipeline>.
->*/
-  NoProgramPipeline;
+using NoProgramPipeline =
+  __ObjectZero<__ObjZeroOps<__tag_DirectState, __tag_ProgramPipeline>>; /*<
+             Indirectly inherits from
+             __ObjCommonOps_ProgramPipeline<__tag_ProgramPipeline>.
+             >*/
 
 //]

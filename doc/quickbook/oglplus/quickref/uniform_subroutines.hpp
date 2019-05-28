@@ -97,22 +97,20 @@ public:
 //]
 //[oglplus_subroutine_def
 
-typedef __ProgVar_Subroutine<
+using Subroutine = __ProgVar_Subroutine<
   __tag_ImplicitSel,
   __tag_Subroutine,
   __tag_NoTypecheck,
-  void>
-  Subroutine;
+  void>;
 
 //]
 //[oglplus_subroutine_uniform_def
 
-typedef __ProgVar_SubroutineUniform<
+using SubroutineUniform = __ProgVar_SubroutineUniform<
   __tag_ImplicitSel,
   __tag_SubroutineUniform,
   __tag_NoTypecheck,
-  void>
-  SubroutineUniform;
+  void>;
 
 //]
 //[oglplus_uniform_subroutines

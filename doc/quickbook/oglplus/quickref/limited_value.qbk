@@ -1,4 +1,4 @@
-[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
+[/ Copyright 2014-2019 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -15,7 +15,7 @@ It checks if the given numeric value is in the implementation-dependent range
 of allowed values and throws an __LimitError exception if it is not.
 
 [note Do not use this templates directly, use the derived types
-or the typedefs of instantiations instead.
+or the type aliases of instantiations instead.
 ]
 
 [oglplus_limited_value]
