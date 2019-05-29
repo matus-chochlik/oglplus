@@ -13,42 +13,50 @@
 namespace enums {
 #if defined GL_MAX_FRAGMENT_INTERPOLATION_OFFSET
 template <>
-struct EnumAssocType<LimitQuery, LimitQuery::MaxFragmentInterpolationOffset>
-{ typedef float Type; };
+struct EnumAssocType<LimitQuery, LimitQuery::MaxFragmentInterpolationOffset> {
+    using Type = float;
+};
 #endif
 #if defined GL_MAX_PROGRAM_TEXEL_OFFSET
 template <>
-struct EnumAssocType<LimitQuery, LimitQuery::MaxProgramTexelOffset>
-{ typedef float Type; };
+struct EnumAssocType<LimitQuery, LimitQuery::MaxProgramTexelOffset> {
+    using Type = float;
+};
 #endif
 #if defined GL_MAX_PROGRAM_TEXTURE_GATHER_OFFSET
 template <>
-struct EnumAssocType<LimitQuery, LimitQuery::MaxProgramTextureGatherOffset>
-{ typedef float Type; };
+struct EnumAssocType<LimitQuery, LimitQuery::MaxProgramTextureGatherOffset> {
+    using Type = float;
+};
 #endif
 #if defined GL_MAX_SERVER_WAIT_TIMEOUT
 template <>
-struct EnumAssocType<LimitQuery, LimitQuery::MaxServerWaitTimeout>
-{ typedef int64_t Type; };
+struct EnumAssocType<LimitQuery, LimitQuery::MaxServerWaitTimeout> {
+    using Type = int64_t;
+};
 #endif
 #if defined GL_MAX_TEXTURE_LOD_BIAS
 template <>
-struct EnumAssocType<LimitQuery, LimitQuery::MaxTextureLodBias>
-{ typedef float Type; };
+struct EnumAssocType<LimitQuery, LimitQuery::MaxTextureLodBias> {
+    using Type = float;
+};
 #endif
 #if defined GL_MIN_FRAGMENT_INTERPOLATION_OFFSET
 template <>
-struct EnumAssocType<LimitQuery, LimitQuery::MinFragmentInterpolationOffset>
-{ typedef float Type; };
+struct EnumAssocType<LimitQuery, LimitQuery::MinFragmentInterpolationOffset> {
+    using Type = float;
+};
 #endif
 #if defined GL_MIN_PROGRAM_TEXEL_OFFSET
 template <>
-struct EnumAssocType<LimitQuery, LimitQuery::MinProgramTexelOffset>
-{ typedef float Type; };
+struct EnumAssocType<LimitQuery, LimitQuery::MinProgramTexelOffset> {
+    using Type = float;
+};
 #endif
 #if defined GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET
 template <>
-struct EnumAssocType<LimitQuery, LimitQuery::MinProgramTextureGatherOffset>
-{ typedef float Type; };
+struct EnumAssocType<LimitQuery, LimitQuery::MinProgramTextureGatherOffset> {
+    using Type = float;
+};
 #endif
 } // namespace enums

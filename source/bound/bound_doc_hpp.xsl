@@ -240,11 +240,12 @@ template &lt;&gt;
 class __BoundObjOps&lt;__tag_</xsl:text><xsl:value-of select="$Object"/><xsl:text>&gt;
 {
 private:
-	typedef typename __ObjectOps_Explicit_</xsl:text><xsl:value-of select="$Object"/>
-	<xsl:text>&lt;__tag_ExplicitSel, __tag_</xsl:text><xsl:value-of select="$Object"/>
-	<xsl:text>&gt; ExplicitOps;
+	using ExplicitOps = typename __ObjectOps_Explicit_</xsl:text>
+  <xsl:value-of select="$Object"/>
+	<xsl:text>&lt;__tag_ExplicitSel, __tag_</xsl:text>
+	<xsl:value-of select="$Object"/><xsl:text>&gt;;
 public:
-	typedef typename ExplicitOps::Target Target;
+	using Target = typename ExplicitOps::Target;
 
 	Target target;
 

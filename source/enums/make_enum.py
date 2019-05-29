@@ -671,7 +671,7 @@ def action_impl_enum_type_ipp(options):
 					options.enum_name,
 					item.dst_name
 				))
-				print_line(options, "{ typedef %s Type; };" % (item.assoc_type))
+				print_line(options, "{ using Type = %s ; };" % (item.assoc_type))
 				print_line(options, "#endif")
 		except AttributeError:
 			pass

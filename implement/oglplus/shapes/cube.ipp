@@ -25,8 +25,8 @@ std::vector<GLfloat> Cube::_positions() const {
      *(G)-----(C)
      *
      */
-    typedef double T;
-    typedef GLfloat V;
+    using T = double;
+    using V = GLfloat;
     const T half_x = T(_sx) / T(2);
     const T half_y = T(_sy) / T(2);
     const T half_z = T(_sz) / T(2);
@@ -166,7 +166,7 @@ std::vector<GLfloat> Cube::_positions() const {
 
 OGLPLUS_LIB_FUNC
 std::vector<GLfloat> Cube::_normals() const {
-    typedef GLfloat T;
+    using T = GLfloat;
     const T n[6][3] = {{+T(1), T(0), T(0)},
                        {T(0), +T(1), T(0)},
                        {T(0), T(0), +T(1)},
@@ -190,7 +190,7 @@ std::vector<GLfloat> Cube::_normals() const {
 
 OGLPLUS_LIB_FUNC
 std::vector<GLfloat> Cube::_tangents() const {
-    typedef GLfloat T;
+    using T = GLfloat;
     const T n[6][3] = {{T(0), T(0), -T(1)},
                        {+T(1), T(0), T(0)},
                        {+T(1), T(0), T(0)},
@@ -213,7 +213,7 @@ std::vector<GLfloat> Cube::_tangents() const {
 
 OGLPLUS_LIB_FUNC
 std::vector<GLfloat> Cube::_tex_coords() const {
-    typedef GLfloat T;
+    using T = GLfloat;
     const T n[6][2] = {{+T(1), +T(1)},
                        {+T(1), T(0)},
                        {T(0), +T(1)},
