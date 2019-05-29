@@ -131,7 +131,7 @@ public:
 //]
 //[oglplus_math_angle_ext_defs
 #ifdef GL_FLOAT
-typedef __Angle<GLfloat> Anglef;
+using Anglef = __Angle<GLfloat>;
 
 __Angle<GLfloat> Radians(GLfloat value); /*<
 Constructs a new angle from a value in radians.

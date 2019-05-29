@@ -175,34 +175,34 @@ Equality comparison.
 }; // class Matrix
 //]
 
-//[oglplus_math_matrix_typedefs
+//[oglplus_math_matrix_type_aliases
 
 #ifdef GL_FLOAT
-typedef __Matrix<GLfloat, 2, 2> Mat2f; /*<
+using Mat2f = __Matrix<GLfloat, 2, 2>; /*<
 Floating-point matrices.
 >*/
-typedef Matrix<GLfloat, 2, 3> Mat2x3f;
-typedef Matrix<GLfloat, 2, 4> Mat2x4f;
-typedef Matrix<GLfloat, 3, 2> Mat3x2f;
-typedef Matrix<GLfloat, 3, 3> Mat3f;
-typedef Matrix<GLfloat, 3, 4> Mat3x4f;
-typedef Matrix<GLfloat, 4, 2> Mat4x2f;
-typedef Matrix<GLfloat, 4, 3> Mat4x3f;
-typedef Matrix<GLfloat, 4, 4> Mat4f;
+using Mat2x3f = Matrix<GLfloat, 2, 3>;
+using Mat2x4f = Matrix<GLfloat, 2, 4>;
+using Mat3x2f = Matrix<GLfloat, 3, 2>;
+using Mat3f = Matrix<GLfloat, 3, 3>;
+using Mat3x4f = Matrix<GLfloat, 3, 4>;
+using Mat4x2f = Matrix<GLfloat, 4, 2>;
+using Mat4x3f = Matrix<GLfloat, 4, 3>;
+using Mat4f = Matrix<GLfloat, 4, 4>;
 #endif
 
 #ifdef GL_DOUBLE
-typedef __Matrix<GLdouble, 2, 2> Mat2d; /*<
+using Mat2d = __Matrix<GLdouble, 2, 2>; /*<
 Double-precision floating-point matrices.
 >*/
-typedef Matrix<GLdouble, 2, 3> Mat2x3d;
-typedef Matrix<GLdouble, 2, 4> Mat2x4d;
-typedef Matrix<GLdouble, 3, 2> Mat3x2d;
-typedef Matrix<GLdouble, 3, 3> Mat3d;
-typedef Matrix<GLdouble, 3, 4> Mat3x4d;
-typedef Matrix<GLdouble, 4, 2> Mat4x2d;
-typedef Matrix<GLdouble, 4, 3> Mat4x3d;
-typedef Matrix<GLdouble, 4, 4> Mat4d;
+using Mat2x3d = Matrix<GLdouble, 2, 3>;
+using Mat2x4d = Matrix<GLdouble, 2, 4>;
+using Mat3x2d = Matrix<GLdouble, 3, 2>;
+using Mat3d = Matrix<GLdouble, 3, 3>;
+using Mat3x4d = Matrix<GLdouble, 3, 4>;
+using Mat4x2d = Matrix<GLdouble, 4, 2>;
+using Mat4x3d = Matrix<GLdouble, 4, 3>;
+using Mat4d = Matrix<GLdouble, 4, 4>;
 #endif
 //]
 
@@ -251,10 +251,10 @@ along the specified [^axis].
 }; // ModelMatrix
 
 #ifdef GL_FLOAT
-typedef __ModelMatrix<GLfloat> ModelMatrixf;
+using ModelMatrixf = __ModelMatrix<GLfloat>;
 #endif
 #ifdef GL_DOUBLE
-typedef ModelMatrix<GLdouble> ModelMatrixd;
+using ModelMatrixd = ModelMatrix<GLdouble>;
 #endif
 
 //]
@@ -364,10 +364,10 @@ and stretches the normalized device coordinates to show the specified tile.
 }; // CameraMatrix
 
 #ifdef GL_FLOAT
-typedef __CameraMatrix<GLfloat> CamMatrixf;
+using CamMatrixf = __CameraMatrix<GLfloat>;
 #endif
 #ifdef GL_DOUBLE
-typedef CameraMatrix<GLdouble> CamMatrixd;
+using CamMatrixd = CameraMatrix<GLdouble>;
 #endif
 
 //]

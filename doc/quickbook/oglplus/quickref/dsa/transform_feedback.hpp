@@ -54,13 +54,13 @@ public:
 //[oglplus_dsa_transform_feedback_def
 
 #if GL_VERSION_4_0 || GL_ARB_transform_feedback2
-typedef ObjectOps<__tag_ImplicitSel, __tag_TransformFeedback>
-  TransformFeedbackOps;
+using TransformFeedbackOps =
+  ObjectOps<__tag_ImplicitSel, __tag_TransformFeedback>;
 
-typedef __Object<TransformFeedbackOps> TransformFeedback;
+using TransformFeedback = __Object<TransformFeedbackOps>;
 #endif
 
-typedef __ObjectZero<__ObjZeroOps<__tag_ImplicitSel, __tag_TransformFeedback>>
-  DefaultTransformFeedback;
+using DefaultTransformFeedback =
+  __ObjectZero<__ObjZeroOps<__tag_ImplicitSel, __tag_TransformFeedback>>;
 
 //]

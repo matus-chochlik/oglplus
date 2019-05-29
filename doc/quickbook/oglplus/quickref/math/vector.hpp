@@ -204,33 +204,33 @@ Available only for 3-dimensional vectors.
 >*/
 
 //]
-//[oglplus_math_vector_typedefs
+//[oglplus_math_vector_type_aliases
 
 #ifdef GL_INT
-typedef Vector<GLint, 1> Vec1i; /*<
+using Vec1i = Vector<GLint, 1>; /*<
 Vectors with signed integer components.
 >*/
-typedef Vector<GLint, 2> Vec2i;
-typedef Vector<GLint, 3> Vec3i;
-typedef Vector<GLint, 4> Vec4i;
+using Vec2i = Vector<GLint, 2>;
+using Vec3i = Vector<GLint, 3>;
+using Vec4i = Vector<GLint, 4>;
 #endif
 
 #ifdef GL_FLOAT
-typedef Vector<GLfloat, 1> Vec1f; /*<
+using Vec1f = Vector<GLfloat, 1>; /*<
 Vectors with floating-point number components.
 >*/
-typedef Vector<GLfloat, 2> Vec2f;
-typedef Vector<GLfloat, 3> Vec3f;
-typedef Vector<GLfloat, 4> Vec4f;
+using Vec2f = Vector<GLfloat, 2>;
+using Vec3f = Vector<GLfloat, 3>;
+using Vec4f = Vector<GLfloat, 4>;
 #endif
 
 #ifdef GL_DOUBLE
-typedef Vector<GLdouble, 1> Vec1d; /*<
+using Vec1d = Vector<GLdouble, 1>; /*<
 Vectors with double precision floating-point components.
 >*/
-typedef Vector<GLdouble, 2> Vec2d;
-typedef Vector<GLdouble, 3> Vec3d;
-typedef Vector<GLdouble, 4> Vec4d;
+using Vec2d = Vector<GLdouble, 2>;
+using Vec3d = Vector<GLdouble, 3>;
+using Vec4d = Vector<GLdouble, 4>;
 #endif
 
 //]

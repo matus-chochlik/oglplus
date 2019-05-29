@@ -10,13 +10,12 @@
 template <>
 class __BoundObjOps<__tag_Renderbuffer> {
 private:
-    typedef typename __ObjectOps_Explicit_Renderbuffer<
+    using ExplicitOps = typename __ObjectOps_Explicit_Renderbuffer<
       __tag_ExplicitSel,
-      __tag_Renderbuffer>
-      ExplicitOps;
+      __tag_Renderbuffer>;
 
 public:
-    typedef typename ExplicitOps::Target Target;
+    using Target = typename ExplicitOps::Target;
 
     Target target;
 

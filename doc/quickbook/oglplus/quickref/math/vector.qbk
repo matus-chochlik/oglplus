@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2019 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -67,10 +67,11 @@ Friend operators returning new vectors without modifying the arguments.
 
 [oglplus_math_vector_spec_friends]
 
-[heading:typedefs Typedefs]
+[heading:type_aliases Type aliases]
 
-This header also defines several 1 to 4-dimensional __Vector [^typedef]s for convenience.
+This header also defines several 1 to 4-dimensional __Vector type aliases
+for convenience.
 
-[oglplus_math_vector_typedefs]
+[oglplus_math_vector_type_aliases]
 
 [endsect]

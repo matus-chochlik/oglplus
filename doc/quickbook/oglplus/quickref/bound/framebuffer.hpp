@@ -10,13 +10,12 @@
 template <>
 class __BoundObjOps<__tag_Framebuffer> {
 private:
-    typedef typename __ObjectOps_Explicit_Framebuffer<
+    using ExplicitOps = typename __ObjectOps_Explicit_Framebuffer<
       __tag_ExplicitSel,
-      __tag_Framebuffer>
-      ExplicitOps;
+      __tag_Framebuffer>;
 
 public:
-    typedef typename ExplicitOps::Target Target;
+    using Target = typename ExplicitOps::Target;
 
     Target target;
 

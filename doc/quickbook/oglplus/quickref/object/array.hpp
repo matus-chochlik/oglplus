@@ -32,8 +32,8 @@ public:
     Returns the number of instances in the array.
     >*/
 
-    typedef __Reference<__Object> reference;
-    typedef const reference const_reference;
+    using reference = __Reference<__Object>;
+    using const_reference = const reference;
 
     reference operator[](std::size_t index); /*<
     Returns a reference to the i-th instance in the array.
@@ -43,8 +43,8 @@ public:
     Returns a const reference to the i-th instance in the array.
     >*/
 
-    typedef __SeqIterator<__Object> iterator;
-    typedef iterator const_iterator;
+    using iterator = __SeqIterator<__Object>;
+    using const_iterator = iterator;
 
     const_iterator begin() const; /*<
     Returns an iterator pointing to the first element.

@@ -16,11 +16,11 @@ class __ObjectOps<__tag_DirectState, __tag_Buffer>
 {
 public:
     struct Property {
-        typedef __BufferUsage Usage;
-        typedef __BufferMapAccess MapAccess;
+        using Usage = __BufferUsage;
+        using MapAccess = __BufferMapAccess;
     };
 
-    typedef __DSABufferTypedMap<GLubyte> Map; /*<
+    using Map = __DSABufferTypedMap<GLubyte>; /*<
     Mapping of the buffer to the client address space.
     >*/
 
@@ -150,9 +150,9 @@ public:
 //]
 //[oglplus_dsa_buffer_def
 
-typedef ObjectOps<__tag_DirectState, __tag_Buffer> DSABufferOps;
+using DSABufferOps = ObjectOps<__tag_DirectState, __tag_Buffer>;
 
-typedef __Object<DSABufferOps> DSABuffer;
+using DSABuffer = __Object<DSABufferOps>;
 
 //]
 //[oglplus_dsa_buffer_sugar

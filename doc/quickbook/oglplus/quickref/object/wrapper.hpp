@@ -31,10 +31,10 @@ protected:
 template <typename __ObjTag>
 class ObjBindingOps {
 public:
-    typedef __Unspecified Target; /*<
+    using Target = __Unspecified; /*<
     Strongly typed enumeration specifying binding points for object
     type associated with __ObjTag.
-    This typedef is available only if the object type has named,
+    This type alias is available only if the object type has named,
     explicit binding points.
     >*/
 
@@ -128,7 +128,7 @@ public:
     and attaches the specified [^description] to it.
     >*/
 
-    typedef typename __ObjectSubtype<__ObjTag>::Type Subtype; /*<
+    using Subtype = typename __ObjectSubtype<__ObjTag>::Type; /*<
     The subtype of the object. If this object type does not have
     any subtypes, then [^Subtype] is defined as __Nothing.
     >*/
@@ -182,7 +182,7 @@ public:
     >*/
     Object(__GenTag gen_tag, __ObjectDesc&& description);
 
-    typedef typename __ObjectSubtype<__ObjTag>::Type Subtype; /*<
+    using Subtype = typename __ObjectSubtype<__ObjTag>::Type; /*<
     The subtype of the object. If this object type does not have
     any subtypes, then [^Subtype] is defined as __Nothing.
     >*/

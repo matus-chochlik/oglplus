@@ -35,7 +35,7 @@ the class names (as documented here) are not part of the public interface.
 
             operator ObjectName<ObjTag>() const noexcept;
 
-            typedef __SettingHolder<GLuint, ...> Holder;
+            using Holder = __SettingHolder<GLuint, ...>;
 
             Holder Push(__ObjectName<__ObjTag> obj); /*<
             Unwraps the object name, binds it to [^ObjTarget]
@@ -104,7 +104,7 @@ the class names (as documented here) are not part of the public interface.
 
         operator BufferNameAndRange() const noexcept;
 
-        typedef __SettingHolder<BufferNameAndRange, ...> Holder;
+        using Holder = __SettingHolder<BufferNameAndRange, ...>;
 
         Holder Push(__BufferName obj); /*<
         Unwraps the buffer name, binds it to indexed [^BufTarget]
@@ -144,11 +144,10 @@ and calls __SettingStack::Set.
     };
 
 public:
-    typedef __enums_EnumToClass_BufferIndexedTarget<
+    using BufferIndexed = __enums_EnumToClass_BufferIndexedTarget<
       __Nothing,
       __BufferIndexedTarget,
-      CurrentIndexedTargetBuffers>
-      BufferIndexed;
+      CurrentIndexedTargetBuffers>;
     //]
     //[oglplus_client_CurrentObjects3
 private: /*<
@@ -169,7 +168,7 @@ the class names (as documented here) are not part of the public interface.
 
         operator __ObjectName<__ObjTag>() const noexcept;
 
-        typedef __SettingHolder<GLuint, ...> Holder;
+        using Holder = __SettingHolder<GLuint, ...>;
 
         Holder Push(__ObjectName<__ObjTag> obj); /*<
         Unwraps the object name, binds it to the implicit
@@ -205,7 +204,7 @@ the class names (as documented here) are not part of the public interface.
 
         operator TextureName() const noexcept;
 
-        typedef __SettingHolder<GLuint, ...> Holder;
+        using Holder = __SettingHolder<GLuint, ...>;
 
         Holder Push(__TextureName tex); /*<
         Unwraps the texture name, binds it to [^TexTarget]
@@ -224,11 +223,10 @@ the class names (as documented here) are not part of the public interface.
     >*/
     {
     private:
-        typedef __enums_EnumToClass_TextureTarget<
+        using CurrentUnitTextures = __enums_EnumToClass_TextureTarget<
           __TextureUnitSelector,
           __TextureTarget,
-          CurrentUnitTexture>
-          CurrentUnitTextures;
+          CurrentUnitTexture>;
 
     public:
         CurrentUnitTextures& Unit(__TextureUnitSelector index); /*<
@@ -258,7 +256,7 @@ the class names (as documented here) are not part of the public interface.
 
         operator SamplerName() const noexcept;
 
-        typedef __SettingHolder<GLuint, ...> Holder;
+        using Holder = __SettingHolder<GLuint, ...>;
 
         Holder Push(__SamplerName sam); /*<
         Unwraps the sampler name, binds it and pushes it onto the stack.

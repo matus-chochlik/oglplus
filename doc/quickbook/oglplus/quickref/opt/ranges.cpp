@@ -37,7 +37,7 @@ std::cout << CountIf(gl.Extensions(), [](const std::string& ext) -> bool {
 //[oglplus_opt_ranges_ex_max_ext_name
 using namespace oglplus::ranges;
 
-typedef std::pair<std::size_t, std::string> length_and_name;
+using length_and_name = std::pair<std::size_t, std::string>;
 
 __Context gl;
 

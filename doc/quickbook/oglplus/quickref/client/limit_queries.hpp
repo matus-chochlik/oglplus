@@ -16,7 +16,7 @@ private:
     >*/
     {
     public:
-        typedef __Unspecified value_type; /*<
+        using value_type = __Unspecified; /*<
         The type of the value associated with the [^Limit].
         >*/
 

@@ -10,12 +10,11 @@
 template <>
 class __BoundObjOps<__tag_Texture> {
 private:
-    typedef
-      typename __ObjectOps_Explicit_Texture<__tag_ExplicitSel, __tag_Texture>
-        ExplicitOps;
+    using ExplicitOps =
+      typename __ObjectOps_Explicit_Texture<__tag_ExplicitSel, __tag_Texture>;
 
 public:
-    typedef typename ExplicitOps::Target Target;
+    using Target = typename ExplicitOps::Target;
 
     Target target;
 

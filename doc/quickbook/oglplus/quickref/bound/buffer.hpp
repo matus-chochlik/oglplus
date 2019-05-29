@@ -10,12 +10,11 @@
 template <>
 class __BoundObjOps<__tag_Buffer> {
 private:
-    typedef
-      typename __ObjectOps_Explicit_Buffer<__tag_ExplicitSel, __tag_Buffer>
-        ExplicitOps;
+    using ExplicitOps =
+      typename __ObjectOps_Explicit_Buffer<__tag_ExplicitSel, __tag_Buffer>;
 
 public:
-    typedef typename ExplicitOps::Target Target;
+    using Target = typename ExplicitOps::Target;
 
     Target target;
 

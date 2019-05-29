@@ -10,7 +10,7 @@ namespace ranges {
 //[oglplus_opt_ranges_IsRange
 template <typename Range>
 struct IsRange {
-    typedef __Unspecified Type; /*<
+    using Type = __Unspecified; /*<
     [^std::true_type] if [^Range] conforms to the __Range concept or
     [^std::false_type] otherwise.
     >*/
@@ -36,11 +36,11 @@ public:
     AnyRange(AnyRange&& temp);
 
     AnyRange& operator=(const AnyRange& other); /*<
-  Copy and move assignment.
-  >*/
+    Copy and move assignment.
+    >*/
     AnyRange& operator=(AnyRange&& other);
 
-    typedef Element ValueType; /*< The __Range interface. >*/
+    using ValueType = Element; /*< The __Range interface. >*/
     bool Empty() const;
     size_t Size() const;
     void Next();
@@ -62,18 +62,18 @@ range is returned.
 >*/
 
 template <typename Range, typename Predicate>
-__Range FindIf(__Range range, Predicate predicate) /*<
+__Range FindIf(__Range range, Predicate predicate); /*<
 Finds the first a value satisfying a predicate in a range.
 This function traverses a range and stops either if the range
 is empty or if a value satisfying the predicate is found.
 The resulting range is returned.
 >*/
 
-  template <typename Range>
-  bool Contains(__Range range, typename __Range::ValueType value); /*<
-  Returns true if [^range] contains at least one element with
-  the specified value.
-  >*/
+template <typename Range>
+bool Contains(__Range range, typename __Range::ValueType value); /*<
+Returns true if [^range] contains at least one element with
+the specified value.
+>*/
 
 template <typename Range, typename Predicate>
 bool Has(__Range range, Predicate predicate); /*<
