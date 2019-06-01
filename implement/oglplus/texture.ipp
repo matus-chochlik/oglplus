@@ -30,12 +30,14 @@ GLuint TextureTargetDimensions(TextureTarget target) {
 #ifdef GL_TEXTURE_BUFFER
         case GL_TEXTURE_BUFFER:
 #endif
-#ifdef __GNUC__
+#if defined(__clang__)
+#elif defined(__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wswitch-unreachable"
 #endif
             return 1;
-#ifdef __GNUC__
+#if defined(__clang__)
+#elif defined(__GNUC__)
 #pragma GCC diagnostic pop
 #endif
 

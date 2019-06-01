@@ -91,7 +91,7 @@ oglplus::Program SpectraSharedObjects::BuildProgramWithXFB(
     }
 
     prog.Link().Use();
-    return std::move(prog);
+    return prog;
 }
 
 oglplus::Program SpectraSharedObjects::BuildProgramWithXFB(
