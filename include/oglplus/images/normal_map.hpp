@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -22,30 +22,28 @@ namespace images {
 /**
  *  @ingroup image_load_gen
  */
-class NormalMap
- : public FilteredImage<GLfloat, 4>
-{
+class NormalMap : public FilteredImage<GLfloat, 4> {
 public:
-	typedef FilteredImage<GLfloat, 4> Filtered;
+    using Filtered = FilteredImage<GLfloat, 4>;
 
 #if OGLPLUS_DOCUMENTATION_ONLY
-	/// Creates a normal-map from the @p input height-map image
-	/**
-	 *  @param input the height-map image to be filtered
-	 *  @param extractor the height map color component extractor (by
-	 *    default the RED component of the image is used as the height-map
-	 *    value used in normal-map calculation).
-	 */
-	template <typename Extractor>
-	NormalMap(const Image& input, Extractor extractor = Extractor());
+    /// Creates a normal-map from the @p input height-map image
+    /**
+     *  @param input the height-map image to be filtered
+     *  @param extractor the height map color component extractor (by
+     *    default the RED component of the image is used as the height-map
+     *    value used in normal-map calculation).
+     */
+    template <typename Extractor>
+    NormalMap(const Image& input, Extractor extractor = Extractor());
 #endif
-	NormalMap(const Image& input);
-	NormalMap(const Image& input, Filtered::FromRed);
-	NormalMap(const Image& input, Filtered::FromAlpha);
+    NormalMap(const Image& input);
+    NormalMap(const Image& input, Filtered::FromRed);
+    NormalMap(const Image& input, Filtered::FromAlpha);
 };
 
-} // images
-} // oglplus
+} // namespace images
+} // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 #include <oglplus/images/normal_map.ipp>

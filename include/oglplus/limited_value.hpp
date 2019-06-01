@@ -31,7 +31,7 @@ GLuint LimitedCountMax(const LimitedCount<Query>& lim_count);
  *  an @c LimitError exception if it is not.
  *
  *  @note Do not use this templates directly, use the derived types
- *  or the typedefs of instantiations instead.
+ *  or the type-defs of instantiations instead.
  *
  *  @ingroup utility_classes
  */
@@ -84,12 +84,10 @@ protected:
      *  @throws LimitError
      */
     LimitedCount(GLuint value, const char* query_name)
-      : _value(_check_u(value, query_name)) {
-    }
+      : _value(_check_u(value, query_name)) {}
 
     LimitedCount(GLint value, const char* query_name)
-      : _value(_check_i(value, query_name)) {
-    }
+      : _value(_check_i(value, query_name)) {}
 
 public:
     LimitedCount(const LimitedCount&) = default;
@@ -150,13 +148,11 @@ inline GLuint LimitedCountMax(GLuint lim_count) {
 #define OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(NAME, QUERY) \
     class NAME : public LimitedCount<GL_##QUERY> {      \
     public:                                             \
-        typedef GLuint _value_type;                     \
+        using _value_type = GLuint;                     \
         NAME(GLuint value = 0)                          \
-          : LimitedCount<GL_##QUERY>(value, #QUERY) {   \
-        }                                               \
+          : LimitedCount<GL_##QUERY>(value, #QUERY) {}  \
         NAME(GLint value)                               \
-          : LimitedCount<GL_##QUERY>(value, #QUERY) {   \
-        }                                               \
+          : LimitedCount<GL_##QUERY>(value, #QUERY) {}  \
     };
 
 } // namespace oglplus

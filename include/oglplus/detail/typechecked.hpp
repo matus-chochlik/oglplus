@@ -25,7 +25,7 @@ class TypecheckedImpl;
 template <typename X>
 class Typechecked : public TypecheckedImpl<typename Classify<X>::Tag, X> {
 private:
-    typedef TypecheckedImpl<typename Classify<X>::Tag, X> Base;
+    using Base = TypecheckedImpl<typename Classify<X>::Tag, X>;
 
 public:
     using Base::Base;

@@ -115,8 +115,7 @@ class ObjCommonOps<tag::ProgramPipeline>
   , public ObjBindingOps<tag::ProgramPipeline> {
 protected:
     ObjCommonOps(ProgramPipelineName name) noexcept
-      : ProgramPipelineName(name) {
-    }
+      : ProgramPipelineName(name) {}
 
 public:
     ObjCommonOps(ObjCommonOps&&) = default;
@@ -144,8 +143,7 @@ class ObjectOps<tag::DirectState, tag::ProgramPipeline>
   : public ObjZeroOps<tag::DirectState, tag::ProgramPipeline> {
 protected:
     ObjectOps(ProgramPipelineName name) noexcept
-      : ObjZeroOps<tag::DirectState, tag::ProgramPipeline>(name) {
-    }
+      : ObjZeroOps<tag::DirectState, tag::ProgramPipeline>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -156,7 +154,7 @@ public:
     /// Types related to ProgramPipeline
     struct Properties {
         /// The stage of a ProgramPipeline
-        typedef ProgramPipelineStage Stage;
+        using Stage = ProgramPipelineStage;
     };
 
     GLint GetIntParam(GLenum query) const {
@@ -297,21 +295,21 @@ public:
 };
 
 /// Program pipeline operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::ProgramPipeline> ProgramPipelineOps;
+using ProgramPipelineOps = ObjectOps<tag::DirectState, tag::ProgramPipeline>;
 
 /// Class that can be used to unbind the currently bound program pipeline
 /**
  *  @ingroup oglplus_objects
  */
-typedef ObjectZero<ObjZeroOps<tag::DirectState, tag::ProgramPipeline>>
-  NoProgramPipeline;
+using NoProgramPipeline =
+  ObjectZero<ObjZeroOps<tag::DirectState, tag::ProgramPipeline>>;
 
 /// An @ref oglplus_object encapsulating the OpenGL program pipeline
 /// functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<ProgramPipelineOps> ProgramPipeline;
+using ProgramPipeline = Object<ProgramPipelineOps>;
 
 #endif // program pipeline
 

@@ -9,7 +9,7 @@
 template <typename Element>
 class Range {
 public:
-    typedef const Element ValueType; /*<
+    using ValueType = const Element; /*<
     The type into which the value returned by [^Front]
     is implicitly convertible.
     >*/

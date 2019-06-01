@@ -36,55 +36,55 @@ class Matrix;
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLfloat, 2, 2> Mat2f;
+using Mat2f = Matrix<GLfloat, 2, 2>;
 
 /// 2x3 float matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLfloat, 2, 3> Mat2x3f;
+using Mat2x3f = Matrix<GLfloat, 2, 3>;
 
 /// 2x4 float matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLfloat, 2, 4> Mat2x4f;
+using Mat2x4f = Matrix<GLfloat, 2, 4>;
 
 /// 3x2 float matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLfloat, 3, 2> Mat3x2f;
+using Mat3x2f = Matrix<GLfloat, 3, 2>;
 
 /// 3x3 float matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLfloat, 3, 3> Mat3f;
+using Mat3f = Matrix<GLfloat, 3, 3>;
 
 /// 3x4 float matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLfloat, 3, 4> Mat3x4f;
+using Mat3x4f = Matrix<GLfloat, 3, 4>;
 
 /// 4x2 float matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLfloat, 4, 2> Mat4x2f;
+using Mat4x2f = Matrix<GLfloat, 4, 2>;
 
 /// 4x3 float matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLfloat, 4, 3> Mat4x3f;
+using Mat4x3f = Matrix<GLfloat, 4, 3>;
 
 /// 4x4 float matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLfloat, 4, 4> Mat4f;
+using Mat4f = Matrix<GLfloat, 4, 4>;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
@@ -92,55 +92,55 @@ typedef Matrix<GLfloat, 4, 4> Mat4f;
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLdouble, 2, 2> Mat2d;
+using Mat2d = Matrix<GLdouble, 2, 2>;
 
 /// 2x3 double-precision matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLdouble, 2, 3> Mat2x3d;
+using Mat2x3d = Matrix<GLdouble, 2, 3>;
 
 /// 2x4 double-precision matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLdouble, 2, 4> Mat2x4d;
+using Mat2x4d = Matrix<GLdouble, 2, 4>;
 
 /// 3x2 double-precision matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLdouble, 3, 2> Mat3x2d;
+using Mat3x2d = Matrix<GLdouble, 3, 2>;
 
 /// 3x3 double-precision matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLdouble, 3, 3> Mat3d;
+using Mat3d = Matrix<GLdouble, 3, 3>;
 
 /// 3x4 double-precision matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLdouble, 3, 4> Mat3x4d;
+using Mat3x4d = Matrix<GLdouble, 3, 4>;
 
 /// 4x2 double-precision matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLdouble, 4, 2> Mat4x2d;
+using Mat4x2d = Matrix<GLdouble, 4, 2>;
 
 /// 4x3 double-precision matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLdouble, 4, 3> Mat4x3d;
+using Mat4x3d = Matrix<GLdouble, 4, 3>;
 
 /// 4x4 double-precision matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLdouble, 4, 4> Mat4d;
+using Mat4d = Matrix<GLdouble, 4, 4>;
 #endif
 
 namespace aux {
@@ -156,7 +156,7 @@ protected:
         T _elem[Rows][Cols];
     } _m;
 
-    typedef aux::Matrix_spec_ctr_tag _spec_ctr;
+    using _spec_ctr = aux::Matrix_spec_ctr_tag;
 
     struct _op_negate {
         const Matrix& a;
@@ -679,7 +679,7 @@ inline Matrix<T, R, C> Inverse(Matrix<T, R, C> m) {
 template <typename T>
 class ModelMatrix : public Matrix<T, 4, 4> {
 private:
-    typedef Matrix<T, 4, 4> Base;
+    using Base = Matrix<T, 4, 4>;
 
 public:
     /// Constructs an identity matrix
@@ -967,7 +967,7 @@ public:
 /**
  *  @ingroup math_utils
  */
-typedef ModelMatrix<GLfloat> ModelMatrixf;
+using ModelMatrixf = ModelMatrix<GLfloat>;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
@@ -975,7 +975,7 @@ typedef ModelMatrix<GLfloat> ModelMatrixf;
 /**
  *  @ingroup math_utils
  */
-typedef ModelMatrix<GLdouble> ModelMatrixd;
+using ModelMatrixd = ModelMatrix<GLdouble>;
 #endif
 
 /// Class implementing camera matrix named constructors
@@ -987,7 +987,7 @@ typedef ModelMatrix<GLdouble> ModelMatrixd;
 template <typename T>
 class CameraMatrix : public Matrix<T, 4, 4> {
 private:
-    typedef Matrix<T, 4, 4> Base;
+    using Base = Matrix<T, 4, 4>;
 
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -1491,7 +1491,7 @@ public:
 /**
  *  @ingroup math_utils
  */
-typedef CameraMatrix<GLfloat> CamMatrixf;
+using CamMatrixf = CameraMatrix<GLfloat>;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
@@ -1499,7 +1499,7 @@ typedef CameraMatrix<GLfloat> CamMatrixf;
 /**
  *  @ingroup math_utils
  */
-typedef CameraMatrix<GLdouble> CamMatrixd;
+using CamMatrixd = CameraMatrix<GLdouble>;
 #endif
 
 } // namespace oglplus

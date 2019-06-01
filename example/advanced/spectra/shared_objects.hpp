@@ -33,13 +33,13 @@ private:
 
     oglplus::shapes::ShapeWrapper ground_unit_grid, wall_unit_grid;
 
-    typedef std::map<std::pair<GLuint, GLuint>, oglplus::shapes::ShapeWrapper>
-      spectrum_plane_map;
+    using spectrum_plane_map =
+      std::map<std::pair<GLuint, GLuint>, oglplus::shapes::ShapeWrapper>;
 
     spectrum_plane_map spectrum_planes;
 
-    typedef std::map<std::size_t, std::shared_ptr<SpectraCalculator>>
-      spectrum_calculator_map;
+    using spectrum_calculator_map =
+      std::map<std::size_t, std::shared_ptr<SpectraCalculator>>;
 
     spectrum_calculator_map spectrum_calculators;
 

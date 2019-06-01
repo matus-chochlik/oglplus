@@ -28,9 +28,8 @@ class PixelStore
       typename oglplus::enums::EnumAssocGLType<PixelParameter, Parameter>::Type,
       Nothing> {
 private:
-    typedef
-      typename oglplus::enums::EnumAssocGLType<PixelParameter, Parameter>::Type
-        _value_t;
+    using _value_t =
+      typename oglplus::enums::EnumAssocGLType<PixelParameter, Parameter>::Type;
 
     static _value_t _do_get(Nothing) {
         return context::PixelState::PixelStoreValue<Parameter>();
@@ -42,8 +41,7 @@ private:
 
 public:
     PixelStore()
-      : SettingStack<_value_t, Nothing>(&_do_get, &_do_set) {
-    }
+      : SettingStack<_value_t, Nothing>(&_do_get, &_do_set) {}
 };
 #endif
 

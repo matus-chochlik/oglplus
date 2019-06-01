@@ -73,8 +73,7 @@ public:
     Cage()
       : _size(1, 1, 1)
       , _barw(0.15, 0.15, 0.15)
-      , _divs(4, 4, 4) {
-    }
+      , _divs(4, 4, 4) {}
 
     /// Constructs a cage with width, height, depth
     Cage(
@@ -108,7 +107,7 @@ public:
         return FaceOrientation::CW;
     }
 
-    typedef GLuint (Cage::*VertexAttribFunc)(std::vector<GLfloat>&) const;
+    using VertexAttribFunc = GLuint (Cage::*)(std::vector<GLfloat>&) const;
 
     std::vector<GLfloat> _positions() const;
 
@@ -180,16 +179,15 @@ public:
      *  - "Tangent" the vertex tangent vector (Tangents)
      *  - "TexCoord" the ST texture coordinates (TexCoordinates)
      */
-    typedef VertexAttribsInfo<Cage> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<Cage>;
 #else
-    typedef VertexAttribsInfo<
+    using VertexAttribs = VertexAttribsInfo<
       Cage,
       std::tuple<
         VertexPositionsTag,
         VertexNormalsTag,
         VertexTangentsTag,
-        VertexTexCoordinatesTag>>
-      VertexAttribs;
+        VertexTexCoordinatesTag>>;
 #endif
 
     /// Queries the bounding sphere coordinates and dimensions
@@ -200,7 +198,7 @@ public:
     }
 
     /// The type of the index container returned by Indices()
-    typedef std::vector<GLuint> IndexArray;
+    using IndexArray = std::vector<GLuint>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const;

@@ -46,16 +46,16 @@ public:
     /// Types related to Sync
     struct Property {
         /// The synchronization condition
-        typedef SyncCondition Condition;
+        using Condition = SyncCondition;
 
         /// Synchronization object type
-        typedef SyncType Type;
+        using Type = SyncType;
 
         /// Synchronization object status
-        typedef SyncStatus Status;
+        using Status = SyncStatus;
 
         /// Synchronization wait result
-        typedef SyncWaitResult WaitResult;
+        using WaitResult = SyncWaitResult;
     };
 
     /// Creates a new sync object for the specified @p condition

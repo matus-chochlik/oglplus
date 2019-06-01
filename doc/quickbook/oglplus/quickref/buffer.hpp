@@ -9,10 +9,10 @@
 template <>
 class __ObjCommonOps<__tag_Buffer> : public __BufferName {
 public:
-    typedef __BufferTarget Target; /*<
+    using Target = __BufferTarget; /*<
     Buffer bind targets.
     >*/
-    typedef __BufferIndexedTarget IndexedTarget;
+    using IndexedTarget = __BufferIndexedTarget;
 
     static __BufferName Binding(__BufferTarget target); /*<
     Returns the buffer currently bound to the specified [^target].
@@ -138,11 +138,11 @@ class __ObjectOps<__tag_ExplicitSel, __tag_Buffer>
 {
 public:
     struct Property {
-        typedef __BufferUsage Usage;
-        typedef __BufferMapAccess MapAccess;
+        using Usage = __BufferUsage;
+        using MapAccess = __BufferMapAccess;
     };
 
-    typedef __BufferTypedMap<GLubyte> Map; /*<
+    using Map = __BufferTypedMap<GLubyte>; /*<
     Mapping of the buffer to the client address space.
     >*/
 
@@ -329,11 +329,11 @@ See [glfunc MakeBufferResidentNV]
 //]
 //[oglplus_buffer_def
 
-typedef ObjectOps<__tag_ExplicitSel, __tag_Buffer> BufferOps;
+using BufferOps = ObjectOps<__tag_ExplicitSel, __tag_Buffer>;
 
-typedef __Object<BufferOps> Buffer;
+using Buffer = __Object<BufferOps>;
 
-typedef __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Buffer>> NoBuffer;
+using NoBuffer = __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Buffer>>;
 //]
 //[oglplus_buffer_sugar
 

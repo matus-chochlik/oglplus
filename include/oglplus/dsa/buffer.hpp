@@ -22,7 +22,7 @@ namespace oglplus {
 
 template <>
 struct ObjGenTag<tag::DirectState, tag::Buffer> {
-    typedef tag::Create Type;
+    using Type = tag::Create;
 };
 
 /// Class wrapping buffer-related functionality with direct state access
@@ -34,8 +34,7 @@ class ObjectOps<tag::DirectState, tag::Buffer>
   : public ObjZeroOps<tag::DirectState, tag::Buffer> {
 protected:
     ObjectOps(BufferName name) noexcept
-      : ObjZeroOps<tag::DirectState, tag::Buffer>(name) {
-    }
+      : ObjZeroOps<tag::DirectState, tag::Buffer>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -46,10 +45,10 @@ public:
     GLint GetIntParam(GLenum query) const;
 
     /// Types related to Buffer
-    typedef BufferOps::Property Property;
+    using Property = BufferOps::Property;
 
     /// Mapping of the buffer to the client address space
-    typedef DSABufferTypedMap<GLubyte> Map;
+    using Map = DSABufferTypedMap<GLubyte>;
 
     /// Returns true if the buffer is mapped
     /**
@@ -350,7 +349,7 @@ public:
 };
 
 /// Buffer operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::Buffer> DSABufferOps;
+using DSABufferOps = ObjectOps<tag::DirectState, tag::Buffer>;
 
 // Helper class for syntax sugar operators
 struct DSABufferOpsAndUsage {
@@ -359,8 +358,7 @@ struct DSABufferOpsAndUsage {
 
     DSABufferOpsAndUsage(DSABufferOps& b, BufferUsage u)
       : buf(b)
-      , usage(u) {
-    }
+      , usage(u) {}
 };
 
 inline DSABufferOpsAndUsage operator<<(DSABufferOps& buf, BufferUsage usage) {
@@ -374,8 +372,7 @@ struct DSABufferOpsAndIdxTgt {
 
     DSABufferOpsAndIdxTgt(DSABufferOps& b, BufferIndexedTarget t)
       : buf(b)
-      , target(t) {
-    }
+      , target(t) {}
 };
 
 inline DSABufferOpsAndIdxTgt operator<<(
@@ -390,8 +387,7 @@ struct DSABufferOpsAndOffset {
 
     DSABufferOpsAndOffset(DSABufferOps& b, GLintptr o)
       : buf(b)
-      , offset(o) {
-    }
+      , offset(o) {}
 };
 
 inline DSABufferOpsAndOffset operator+(DSABufferOps& buf, GLintptr offset) {
@@ -465,7 +461,7 @@ inline DSABufferOps& operator<<(
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSABufferOps> DSABuffer;
+using DSABuffer = Object<DSABufferOps>;
 
 #endif // GL_ARB_direct_state_access
 

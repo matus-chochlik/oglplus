@@ -157,7 +157,7 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
 /// Instantiation of Sphere using GL floating-point as underlying type
-typedef Sphere<GLfloat> Spheref;
+using Spheref = Sphere<GLfloat>;
 #endif
 
 template <typename T>

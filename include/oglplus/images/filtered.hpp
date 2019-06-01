@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,8 +14,8 @@
 #define OGLPLUS_IMAGES_FILTERED_1107121519_HPP
 
 #include <oglplus/images/image.hpp>
-#include <oglplus/math/vector.hpp>
 #include <oglplus/math/matrix.hpp>
+#include <oglplus/math/vector.hpp>
 
 #include <cassert>
 #include <cmath>
@@ -29,271 +29,212 @@ namespace images {
  *  @ingroup image_load_gen
  */
 template <typename T, unsigned CH>
-class FilteredImage
- : public Image
-{
+class FilteredImage : public Image {
 private:
-	static_assert(
-		CH > 0 && CH <= 4,
-		"Number of channels must be between 1 and 4"
-	);
+    static_assert(
+      CH > 0 && CH <= 4, "Number of channels must be between 1 and 4");
+
 private:
-	template <typename Filter, typename Sampler, typename Extractor>
-	void _calculate(
-		const Image& input,
-		Filter filter,
-		Sampler sampler,
-		Extractor extractor,
-		T one
-	)
-	{
-		sampler.SetInput(input);
-		auto p = this->_begin<T>();
-		GLsizei w = input.Width(), h = input.Height(), d = input.Depth();
+    template <typename Filter, typename Sampler, typename Extractor>
+    void _calculate(
+      const Image& input,
+      Filter filter,
+      Sampler sampler,
+      Extractor extractor,
+      T one) {
+        sampler.SetInput(input);
+        auto p = this->_begin<T>();
+        GLsizei w = input.Width(), h = input.Height(), d = input.Depth();
 
-		for(GLsizei k=0; k<d; ++k)
-		for(GLsizei j=0; j<h; ++j)
-		for(GLsizei i=0; i<w; ++i)
-		{
-			sampler.SetOrigin(i, j, k);
+        for(GLsizei k = 0; k < d; ++k)
+            for(GLsizei j = 0; j < h; ++j)
+                for(GLsizei i = 0; i < w; ++i) {
+                    sampler.SetOrigin(i, j, k);
 
-			Vector<T, CH> outv = filter(extractor, sampler, one);
+                    Vector<T, CH> outv = filter(extractor, sampler, one);
 
-			for(unsigned ci=0; ci!=CH; ++ci)
-			{
-				assert(p != this->_end<T>());
-				*p = outv.At(ci);
-				++p;
-			}
-		}
-		assert(p == this->_end<T>());
-	}
+                    for(unsigned ci = 0; ci != CH; ++ci) {
+                        assert(p != this->_end<T>());
+                        *p = outv.At(ci);
+                        ++p;
+                    }
+                }
+        assert(p == this->_end<T>());
+    }
+
 public:
-	struct DefaultFilter
-	{
-		template <typename Extractor, typename Sampler>
-		Vector<T, CH> operator()(
-			const Extractor& extractor,
-			const Sampler& sampler,
-			T one
-		) const
-		{
-			return Vector<T, CH>(extractor(sampler(0, 0, 0))*one);
-		}
-	};
+    struct DefaultFilter {
+        template <typename Extractor, typename Sampler>
+        Vector<T, CH> operator()(
+          const Extractor& extractor, const Sampler& sampler, T one) const {
+            return Vector<T, CH>(extractor(sampler(0, 0, 0)) * one);
+        }
+    };
 
-	struct NoCoordTransform
-	{
-		void operator()(int, int, int, unsigned, unsigned, unsigned) const
-		{
-		}
-	};
+    struct NoCoordTransform {
+        void operator()(int, int, int, unsigned, unsigned, unsigned) const {}
+    };
 
-	class MatrixCoordTransform
-	{
-	private:
-		Matrix<double, 4, 4> _transf;
-	public:
-		MatrixCoordTransform(const Matrix<double, 4, 4>& transf)
-		 : _transf(transf)
-		{ }
+    class MatrixCoordTransform {
+    private:
+        Matrix<double, 4, 4> _transf;
 
-		void operator()(
-			int& x, int& y, int& z,
-			double w, double h, double d
-		) const
-		{
-			Vector<double, 4> in((x+0.5)/w, (y+0.5)/h, (z+0.5)/d, 1);
-			Vector<double, 4> out = _transf * in;
+    public:
+        MatrixCoordTransform(const Matrix<double, 4, 4>& transf)
+          : _transf(transf) {}
 
-			x = int(std::floor(out.x()*w));
-			y = int(std::floor(out.y()*h));
-			z = int(std::floor(out.z()*d));
-		}
-	};
+        void operator()(
+          int& x, int& y, int& z, double w, double h, double d) const {
+            Vector<double, 4> in(
+              (x + 0.5) / w, (y + 0.5) / h, (z + 0.5) / d, 1);
+            Vector<double, 4> out = _transf * in;
 
-	struct RepeatSample
-	{
-		Vector<double, 4> operator()(
-			const Image& image,
-			unsigned width,
-			unsigned height,
-			unsigned depth,
-			int xpos,
-			int ypos,
-			int zpos
-		) const
-		{
-			if(xpos >= int(width)) xpos %= width;
-			while(xpos < 0) xpos += width;
+            x = int(std::floor(out.x() * w));
+            y = int(std::floor(out.y() * h));
+            z = int(std::floor(out.z() * d));
+        }
+    };
 
-			if(ypos >= int(height)) ypos %= height;
-			while(ypos < 0) ypos += height;
+    struct RepeatSample {
+        Vector<double, 4> operator()(
+          const Image& image,
+          unsigned width,
+          unsigned height,
+          unsigned depth,
+          int xpos,
+          int ypos,
+          int zpos) const {
+            if(xpos >= int(width))
+                xpos %= width;
+            while(xpos < 0)
+                xpos += width;
 
-			if(zpos >= int(depth)) zpos %= depth;
-			while(zpos < 0) zpos += depth;
+            if(ypos >= int(height))
+                ypos %= height;
+            while(ypos < 0)
+                ypos += height;
 
-			assert((xpos >= 0) && (xpos < int(width)));
-			assert((ypos >= 0) && (ypos < int(height)));
-			assert((zpos >= 0) && (zpos < int(depth)));
+            if(zpos >= int(depth))
+                zpos %= depth;
+            while(zpos < 0)
+                zpos += depth;
 
-			return image.Pixel(xpos, ypos, zpos);
-		}
-	};
+            assert((xpos >= 0) && (xpos < int(width)));
+            assert((ypos >= 0) && (ypos < int(height)));
+            assert((zpos >= 0) && (zpos < int(depth)));
 
-	template <typename Transform, typename SampleFunc>
-	class SamplerTpl
-	{
-	private:
-		Transform _transf;
-		SampleFunc _sample;
+            return image.Pixel(xpos, ypos, zpos);
+        }
+    };
 
-		const Image* _image;
-		int _ori_x, _ori_y, _ori_z;
-	public:
-		SamplerTpl(
-			const Transform& transf = Transform(),
-			const SampleFunc& sample = SampleFunc()
-		): _transf(transf)
-		 , _sample(sample)
-		 , _image(nullptr)
-		 , _ori_x(0)
-		 , _ori_y(0)
-		 , _ori_z(0)
-		{ }
+    template <typename Transform, typename SampleFunc>
+    class SamplerTpl {
+    private:
+        Transform _transf;
+        SampleFunc _sample;
 
-		void SetInput(const Image& image)
-		{
-			_image = &image;
-		}
+        const Image* _image;
+        int _ori_x, _ori_y, _ori_z;
 
-		void SetOrigin(
-			GLsizei x,
-			GLsizei y,
-			GLsizei z
-		)
-		{
-			_ori_x = x;
-			_ori_y = y;
-			_ori_z = z;
+    public:
+        SamplerTpl(
+          const Transform& transf = Transform(),
+          const SampleFunc& sample = SampleFunc())
+          : _transf(transf)
+          , _sample(sample)
+          , _image(nullptr)
+          , _ori_x(0)
+          , _ori_y(0)
+          , _ori_z(0) {}
 
-			assert(_image);
+        void SetInput(const Image& image) {
+            _image = &image;
+        }
 
-			_transf(
-				_ori_x,
-				_ori_y,
-				_ori_z,
-				_image->Width(),
-				_image->Height(),
-				_image->Depth()
-			);
-		}
+        void SetOrigin(GLsizei x, GLsizei y, GLsizei z) {
+            _ori_x = x;
+            _ori_y = y;
+            _ori_z = z;
 
-		Vector<double, 4> operator()(
-			int xoffs,
-			int yoffs,
-			int zoffs
-		) const
-		{
-			assert(_image != nullptr);
-			return _sample(
-				*_image,
-				_image->Width(),
-				_image->Height(),
-				_image->Depth(),
-				_ori_x+xoffs,
-				_ori_y+yoffs,
-				_ori_z+zoffs
-			);
-		}
-	};
+            assert(_image);
 
-	template <typename SampleFunc>
-	struct SimpleSampler
-	 : SamplerTpl<NoCoordTransform, SampleFunc>
-	{
-		SimpleSampler(const SampleFunc& sample = SampleFunc())
-		 : SamplerTpl<NoCoordTransform, SampleFunc>(
-			NoCoordTransform(),
-			sample
-		)
-		{ }
-	};
+            _transf(
+              _ori_x,
+              _ori_y,
+              _ori_z,
+              _image->Width(),
+              _image->Height(),
+              _image->Depth());
+        }
 
-	struct DefaultSampler
-	 : SimpleSampler<RepeatSample>
-	{ };
+        Vector<double, 4> operator()(int xoffs, int yoffs, int zoffs) const {
+            assert(_image != nullptr);
+            return _sample(
+              *_image,
+              _image->Width(),
+              _image->Height(),
+              _image->Depth(),
+              _ori_x + xoffs,
+              _ori_y + yoffs,
+              _ori_z + zoffs);
+        }
+    };
 
-	template <typename SampleFunc>
-	struct MatrixTransformSampler
-	 : SamplerTpl<MatrixCoordTransform, SampleFunc>
-	{
-		MatrixTransformSampler(
-			const Matrix<double, 4, 4>& transf,
-			const SampleFunc& sample = SampleFunc()
-		): SamplerTpl<MatrixCoordTransform, SampleFunc>(
-			MatrixCoordTransform(transf),
-			sample
-		)
-		{ }
-	};
+    template <typename SampleFunc>
+    struct SimpleSampler : SamplerTpl<NoCoordTransform, SampleFunc> {
+        SimpleSampler(const SampleFunc& sample = SampleFunc())
+          : SamplerTpl<NoCoordTransform, SampleFunc>(
+              NoCoordTransform(), sample) {}
+    };
 
-	/// Extractor that allows to specify which component to use as input
-	template <unsigned I>
-	struct FromComponentI
-	{
-		double operator()(const Vector<double, 4>& v) const
-		{
-			return v.At(I);
-		}
-	};
+    struct DefaultSampler : SimpleSampler<RepeatSample> {};
 
-	template <unsigned N>
-	struct FirstNComponents
-	{
-		Vector<double, N> operator()(const Vector<double, 4>& v) const
-		{
-			return Vector<double, N>(v);
-		}
-	};
+    template <typename SampleFunc>
+    struct MatrixTransformSampler
+      : SamplerTpl<MatrixCoordTransform, SampleFunc> {
+        MatrixTransformSampler(
+          const Matrix<double, 4, 4>& transf,
+          const SampleFunc& sample = SampleFunc())
+          : SamplerTpl<MatrixCoordTransform, SampleFunc>(
+              MatrixCoordTransform(transf), sample) {}
+    };
 
-	/// Extractor selecting the Red component of the input image
-	typedef FromComponentI<0> FromRed;
-	/// Extractor selecting the Green component of the input image
-	typedef FromComponentI<1> FromGreen;
-	/// Extractor selecting the Blue component of the input image
-	typedef FromComponentI<2> FromBlue;
-	/// Extractor selecting the Alpha component of the input image
-	typedef FromComponentI<3> FromAlpha;
+    /// Extractor that allows to specify which component to use as input
+    template <unsigned I>
+    struct FromComponentI {
+        double operator()(const Vector<double, 4>& v) const {
+            return v.At(I);
+        }
+    };
 
-	typedef FirstNComponents<3> FromRGB;
-	typedef FirstNComponents<4> FromRGBA;
+    template <unsigned N>
+    struct FirstNComponents {
+        Vector<double, N> operator()(const Vector<double, 4>& v) const {
+            return Vector<double, N>(v);
+        }
+    };
 
-	template <typename Filter, typename Sampler, typename Extractor>
-	FilteredImage(
-		const Image& input,
-		Filter filter,
-		Sampler sampler,
-		Extractor extractor
-	): Image(
-		input.Width(),
-		input.Height(),
-		input.Depth(),
-		CH,
-		&TypeTag<T>()
-	)
-	{
-		_calculate(
-			input,
-			filter,
-			sampler,
-			extractor,
-			this->_one(TypeTag<T>())
-		);
-	}
+    /// Extractor selecting the Red component of the input image
+    using FromRed = FromComponentI<0>;
+    /// Extractor selecting the Green component of the input image
+    using FromGreen = FromComponentI<1>;
+    /// Extractor selecting the Blue component of the input image
+    using FromBlue = FromComponentI<2>;
+    /// Extractor selecting the Alpha component of the input image
+    using FromAlpha = FromComponentI<3>;
+
+    using FromRGB = FirstNComponents<3>;
+    using FromRGBA = FirstNComponents<4>;
+
+    template <typename Filter, typename Sampler, typename Extractor>
+    FilteredImage(
+      const Image& input, Filter filter, Sampler sampler, Extractor extractor)
+      : Image(input.Width(), input.Height(), input.Depth(), CH, &TypeTag<T>()) {
+        _calculate(input, filter, sampler, extractor, this->_one(TypeTag<T>()));
+    }
 };
 
-} // images
-} // oglplus
+} // namespace images
+} // namespace oglplus
 
 #endif // include guard

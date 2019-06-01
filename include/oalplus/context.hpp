@@ -32,15 +32,14 @@ struct ContextValueTypeToContextAttrib {
 };
 
 /// Attribute list for context attributes
-typedef AttributeList<
+using ContextAttribs = AttributeList<
   ContextAttrib,
   ContextValueTypeToContextAttrib,
-  AttributeListTraits>
-  ContextAttribs;
+  AttributeListTraits>;
 
 /// Finished list of context attribute values
-typedef FinishedAttributeList<ContextAttrib, AttributeListTraits>
-  FinishedContextAttribs;
+using FinishedContextAttribs =
+  FinishedAttributeList<ContextAttrib, AttributeListTraits>;
 
 /// Base wrapper for OpenAL context operations
 /**

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,10 +13,10 @@
 #ifndef OGLPLUS_PIXEL_DATA_1107121519_HPP
 #define OGLPLUS_PIXEL_DATA_1107121519_HPP
 
-#include <oglplus/enums/pixel_data_type.hpp>
+#include <oglplus/enums/image_unit_format.hpp>
 #include <oglplus/enums/pixel_data_format.hpp>
 #include <oglplus/enums/pixel_data_internal_format.hpp>
-#include <oglplus/enums/image_unit_format.hpp>
+#include <oglplus/enums/pixel_data_type.hpp>
 
 namespace oglplus {
 
@@ -24,13 +24,13 @@ namespace oglplus {
 /**
  *  @ingroup enumerations
  */
-typedef PixelDataFormat Format;
+using Format = PixelDataFormat;
 
 /// Alias for PixelDataInternalFormat
 /**
  *  @ingroup enumerations
  */
-typedef PixelDataInternalFormat InternalFormat;
+using InternalFormat = PixelDataInternalFormat;
 
 } // namespace oglplus
 

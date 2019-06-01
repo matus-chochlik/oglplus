@@ -6,7 +6,7 @@
 
 //[oglplus_context_BufferClearing_helpers
 
-typedef __BufferSelectBit ClearBit;
+using ClearBit = __BufferSelectBit;
 
 namespace context {
 

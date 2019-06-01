@@ -23,8 +23,7 @@ template <typename T>
 class AnyInputIter {
 private:
     struct _intf {
-        virtual ~_intf() {
-        }
+        virtual ~_intf() {}
 
         virtual _intf* _clone() const = 0;
 
@@ -57,8 +56,7 @@ private:
 
     public:
         _impl(Iter iter)
-          : _iter(iter) {
-        }
+          : _iter(iter) {}
 
         _intf* _clone() const override {
             return new _impl(_iter);
@@ -98,21 +96,19 @@ private:
     }
 
 public:
-    typedef T value_type;
-    typedef T* pointer;
-    typedef T& reference;
-    typedef const T& const_reference;
-    typedef std::ptrdiff_t difference_type;
-    typedef std::input_iterator_tag iterator_category;
+    using value_type = T;
+    using pointer = T*;
+    using reference = T&;
+    using const_reference = const T&;
+    using difference_type = std::ptrdiff_t;
+    using iterator_category = std::input_iterator_tag;
 
     template <typename Iter>
     AnyInputIter(Iter i)
-      : _pimpl(new _impl<Iter>(i)) {
-    }
+      : _pimpl(new _impl<Iter>(i)) {}
 
     AnyInputIter(const AnyInputIter& that)
-      : _pimpl(that._clone()) {
-    }
+      : _pimpl(that._clone()) {}
 
     AnyInputIter(AnyInputIter&& tmp)
       : _pimpl(tmp._pimpl) {

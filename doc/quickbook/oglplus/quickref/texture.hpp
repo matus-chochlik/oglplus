@@ -8,7 +8,7 @@
 
 template <>
 struct __ObjectSubtype<__tag_Texture> {
-    typedef __TextureTarget Type;
+    using Type = __TextureTarget;
 };
 
 //]
@@ -17,7 +17,7 @@ struct __ObjectSubtype<__tag_Texture> {
 template <>
 class __ObjCommonOps<__tag_Texture> : public __TextureName {
 public:
-    typedef __TextureTarget Target; /*<
+    using Target = __TextureTarget; /*<
     Texture bind target.
     >*/
 
@@ -160,26 +160,26 @@ class __ObjectOps<__tag_ExplicitSel, __tag_Texture>
 {
 public:
     struct Property {
-        typedef __TextureCompareMode CompareMode;
+        using CompareMode = __TextureCompareMode;
 
-        typedef __TextureFilter Filter;
+        using Filter = __TextureFilter;
 
-        typedef __TextureMagFilter MagFilter;
+        using MagFilter = __TextureMagFilter;
 
-        typedef __TextureMinFilter MinFilter;
+        using MinFilter = __TextureMinFilter;
 
-        typedef __TextureSwizzleCoord SwizzleCoord;
+        using SwizzleCoord = __TextureSwizzleCoord;
 
-        typedef __TextureSwizzle Swizzle;
+        using Swizzle = __TextureSwizzle;
 
 #if GL_VERSION_3_3 || GL_ARB_texture_swizzle
-        typedef __TextureSwizzleTuple SwizzleTuple;
+        using SwizzleTuple = __TextureSwizzleTuple;
 #endif
-        typedef __TextureWrapCoord WrapCoord;
+        using WrapCoord = __TextureWrapCoord;
 
-        typedef __TextureWrap Wrap;
+        using Wrap = __TextureWrap;
 
-        typedef __OneOf<__DataType, __PixelDataType> PixDataType;
+        using PixDataType = __OneOf<__DataType, __PixelDataType>;
     };
 
 #if GL_VERSION_3_0
@@ -979,14 +979,15 @@ See [glfunc GetTexLevelParameter], [glconst TEXTURE_INTERNAL_FORMAT].
 
 //]
 //[oglplus_texture_def
-typedef ObjectOps<__tag_ExplicitSel, __tag_Texture> TextureOps;
+using TextureOps = ObjectOps<__tag_ExplicitSel, __tag_Texture>;
 
-typedef __Object<TextureOps> Texture;
+using Texture = __Object<TextureOps>;
 
-typedef __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Texture>> /*<
+using DefaultTexture =
+  __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Texture>>; /*<
 Indirectly inherits from __ObjCommonOps_Texture<__tag_Texture>.
 >*/
-  DefaultTexture;
+
 //]
 //[oglplus_texture_sugar1
 

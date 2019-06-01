@@ -26,16 +26,15 @@ public:
 //]
 //[oglplus_vertex_array_def
 
-typedef __ObjectOps<__tag_ImplicitSel, __tag_VertexArray> /*<
-Indirectly inherits from __ObjCommonOps_VertexArray<__tag_VertexArray>.
->*/
-  VertexArrayOps;
+using VertexArrayOps = __ObjectOps<__tag_ImplicitSel, __tag_VertexArray>; /*<
+ Indirectly inherits from __ObjCommonOps_VertexArray<__tag_VertexArray>.
+ >*/
 
-typedef __Object<VertexArrayOps> VertexArray;
+using VertexArray = __Object<VertexArrayOps>;
 
-typedef __ObjectZero<__ObjZeroOps<__tag_ImplicitSel, __tag_VertexArray>> /*<
-Indirectly inherits from __ObjCommonOps_VertexArray<__tag_VertexArray>.
->*/
-  NoVertexArray;
+using NoVertexArray =
+  __ObjectZero<__ObjZeroOps<__tag_ImplicitSel, __tag_VertexArray>>; /*<
+ Indirectly inherits from __ObjCommonOps_VertexArray<__tag_VertexArray>.
+ >*/
 
 //]

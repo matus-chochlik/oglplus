@@ -45,8 +45,7 @@ protected:
 
     ListInitializerBase(T value, const ListInitializerBase<T, I - 1>* prev)
       : _value(value)
-      , _prev(prev) {
-    }
+      , _prev(prev) {}
 };
 
 template <typename T>
@@ -68,14 +67,13 @@ protected:
     }
 
     ListInitializerBase(T value)
-      : _value(value) {
-    }
+      : _value(value) {}
 };
 
 template <typename T, std::size_t I>
 class ListInitializer : public ListInitializerBase<T, I> {
 private:
-    typedef ListInitializerBase<T, I> _base;
+    using _base = ListInitializerBase<T, I>;
 
     friend class ListInitializer<T, I - 1>;
 
@@ -88,7 +86,7 @@ private:
 
     static std::vector<T> _result_of_get(std::false_type);
 
-    typedef decltype(_result_of_get(_has_def_ctr(TypeTag<T>()))) ResultOfGet;
+    using ResultOfGet = decltype(_result_of_get(_has_def_ctr(TypeTag<T>())));
 
     template <typename X>
     void _do_get(std::array<X, I + 1>& result) const {
@@ -114,17 +112,14 @@ private:
     ListInitializer(const ListInitializer&);
 
     ListInitializer(T value, const ListInitializer<T, I - 1>* prev)
-      : _base(value, prev) {
-    }
+      : _base(value, prev) {}
 
 public:
     ListInitializer(T value)
-      : _base(value) {
-    }
+      : _base(value) {}
 
     ListInitializer(ListInitializer&& temp)
-      : _base(temp) {
-    }
+      : _base(temp) {}
 
     ListInitializer<T, I + 1> operator()(T value) const {
         return ListInitializer<T, I + 1>(value, this);
@@ -175,8 +170,7 @@ template <typename T>
 class ListOf : public aux::ListInitializer<T, 0> {
 public:
     ListOf(T value)
-      : aux::ListInitializer<T, 0>(value) {
-    }
+      : aux::ListInitializer<T, 0>(value) {}
 };
 
 /// Helper function template that can be used for static container

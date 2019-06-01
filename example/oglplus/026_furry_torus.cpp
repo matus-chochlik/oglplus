@@ -299,7 +299,7 @@ public:
       , model_matrix(prog(), "ModelMatrix") {}
 };
 
-typedef shapes::ShapeWrapper Torus;
+using Torus = shapes::ShapeWrapper;
 
 class FurExample : public Example {
 private:

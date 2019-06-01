@@ -79,8 +79,7 @@ private:
 
 protected:
     ProgVarCommonOps(ShaderStorageBlockLoc ubloc)
-      : ProgVarLoc<tag::ShaderStorageBlock>(ubloc) {
-    }
+      : ProgVarLoc<tag::ShaderStorageBlock>(ubloc) {}
 
     GLuint _block_index() const {
         if(this->_location < 0) {
@@ -162,12 +161,8 @@ public:
  *
  *  @glvoereq{4,3,ARB,shader_storage_buffer_object}
  */
-typedef ProgVar<
-  tag::ImplicitSel,
-  tag::ShaderStorageBlock,
-  tag::NoTypecheck,
-  void>
-  ShaderStorageBlock;
+using ShaderStorageBlock =
+  ProgVar<tag::ImplicitSel, tag::ShaderStorageBlock, tag::NoTypecheck, void>;
 
 #endif // shader-storage buffer object
 

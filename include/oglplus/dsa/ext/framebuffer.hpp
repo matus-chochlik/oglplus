@@ -29,8 +29,7 @@ class ObjectOps<tag::DirectStateEXT, tag::Framebuffer>
   : public ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer> {
 protected:
     ObjectOps(FramebufferName name) noexcept
-      : ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer>(name) {
-    }
+      : ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -42,7 +41,7 @@ public:
     Target target;
 
     /// Types related to Framebuffer
-    typedef FramebufferOps::Property Property;
+    using Property = FramebufferOps::Property;
 
     using ObjZeroOps<tag::DirectStateEXT, tag::Framebuffer>::Bind;
     void Bind() {
@@ -329,10 +328,9 @@ public:
     }
 
     /// Color buffer specification type
-    typedef OneOf<
+    using ColorBuffer = OneOf<
       GLenum,
-      std::tuple<oglplus::ColorBuffer, oglplus::FramebufferColorAttachment>>
-      ColorBuffer;
+      std::tuple<oglplus::ColorBuffer, oglplus::FramebufferColorAttachment>>;
 
     /// Sets the destination color buffer for draw operations
     /**
@@ -368,19 +366,18 @@ public:
 };
 
 /// Framebuffer operations with direct state access
-typedef ObjectOps<tag::DirectStateEXT, tag::Framebuffer> DSAFramebufferOpsEXT;
+using DSAFramebufferOpsEXT = ObjectOps<tag::DirectStateEXT, tag::Framebuffer>;
 
 // Helper class for syntax-sugar operators
 struct DSAFramebufferOpsAndAttchEXT {
-    typedef DSAFramebufferOpsEXT::Property::Attachment Attachment;
+    using Attachment = DSAFramebufferOpsEXT::Property::Attachment;
 
     DSAFramebufferOpsEXT& fbo;
     Attachment attachment;
 
     DSAFramebufferOpsAndAttchEXT(DSAFramebufferOpsEXT& f, Attachment a)
       : fbo(f)
-      , attachment(a) {
-    }
+      , attachment(a) {}
 };
 
 inline DSAFramebufferOpsAndAttchEXT operator<<(
@@ -423,7 +420,7 @@ inline DSAFramebufferOpsEXT& operator<<(
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSAFramebufferOpsEXT> DSAFramebufferEXT;
+using DSAFramebufferEXT = Object<DSAFramebufferOpsEXT>;
 
 #else
 #error Direct State Access Framebuffers not available

@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2019 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -11,8 +11,8 @@
 [import enums/stencil_operation.hpp]
 [oglplus_enums_stencil_operation]
 
-[heading:typedefs Typedefs]
+[heading:type_aliases Type aliases]
 [import stencil_operation.hpp]
-[oglplus_stencil_operation_typedefs]
+[oglplus_stencil_operation_type_aliases]
 
 [endsect]

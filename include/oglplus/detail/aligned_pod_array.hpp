@@ -71,8 +71,7 @@ public:
       , _sizeof(0)
       , _data(nullptr)
       , _delete(nullptr)
-      , _dup(nullptr) {
-    }
+      , _dup(nullptr) {}
 
     template <typename T>
     AlignedPODArray(const T* data, std::size_t count)
@@ -80,24 +79,21 @@ public:
       , _sizeof(sizeof(T))
       , _data(_do_dup<T>(static_cast<const void*>(data), count))
       , _delete(&_do_delete<T>)
-      , _dup(&_do_dup<T>) {
-    }
+      , _dup(&_do_dup<T>) {}
 
     AlignedPODArray(AlignedPODArray&& tmp)
       : _count(tmp._count)
       , _sizeof(tmp._sizeof)
       , _data(tmp._release_data())
       , _delete(tmp._delete)
-      , _dup(tmp._dup) {
-    }
+      , _dup(tmp._dup) {}
 
     AlignedPODArray(const AlignedPODArray& that)
       : _count(that._count)
       , _sizeof(that._sizeof)
       , _data(that._data_copy())
       , _delete(that._delete)
-      , _dup(that._dup) {
-    }
+      , _dup(that._dup) {}
 
     ~AlignedPODArray() {
         _cleanup();
@@ -137,13 +133,13 @@ public:
     }
 
     void* end() const {
-        typedef unsigned char byte;
+        using byte = unsigned char;
         return static_cast<void*>(static_cast<byte*>(begin()) + size());
     }
 
     void* at(std::size_t offs) const {
         assert(!empty());
-        typedef unsigned char byte;
+        using byte = unsigned char;
         std::size_t boffs = offs * _sizeof;
         return static_cast<void*>(static_cast<byte*>(begin()) + boffs);
     }

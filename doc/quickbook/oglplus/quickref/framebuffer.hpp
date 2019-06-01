@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -9,7 +9,7 @@
 template <>
 class __ObjCommonOps<__tag_Framebuffer> : public __FramebufferName {
 public:
-    typedef __FramebufferTarget Target; /*<
+    using Target = __FramebufferTarget; /*<
     Framebuffer bind target.
     >*/
 
@@ -38,20 +38,19 @@ class __ObjectOps<__tag_ExplicitSel, __tag_Framebuffer>
 {
 public:
     struct Property {
-        typedef __OneOf<
+        using Buffer = __OneOf<
           __FramebufferBuffer,
           __FramebufferAttachment,
-          __FramebufferColorAttachment>
-          Buffer; /*<
-        Enumerations specifying framebuffer output buffer.
-        >*/
+          __FramebufferColorAttachment>; /*<
+Enumerations specifying framebuffer output buffer.
+>*/
 
-        typedef __OneOf<__FramebufferAttachment, __FramebufferColorAttachment>
-          Attachment; /*<
-        Enumerations specifying framebuffer attachments.
-        >*/
+        using Attachment =
+          __OneOf<__FramebufferAttachment, __FramebufferColorAttachment>; /*<
+Enumerations specifying framebuffer attachments.
+>*/
 
-        typedef __FramebufferStatus Status;
+        using Status = __FramebufferStatus;
     };
 
     static __FramebufferStatus Status(__FramebufferTarget target); /*<
@@ -190,12 +189,12 @@ public:
 //]
 //[oglplus_framebuffer_def
 
-typedef ObjectOps<__tag_ExplicitSel, __tag_Framebuffer> FramebufferOps;
+using FramebufferOps = ObjectOps<__tag_ExplicitSel, __tag_Framebuffer>;
 
-typedef __Object<FramebufferOps> Framebuffer;
+using Framebuffer = __Object<FramebufferOps>;
 
-typedef __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Framebuffer>>
-  DefaultFramebuffer;
+using DefaultFramebuffer =
+  __ObjectZero<__ObjZeroOps<__tag_ExplicitSel, __tag_Framebuffer>>;
 //]
 //[oglplus_framebuffer_sugar
 

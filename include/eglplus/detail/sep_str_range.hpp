@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,7 +19,7 @@
 namespace eglplus {
 namespace aux {
 
-typedef oglplus::aux::SepStrRangeTpl<String> SepStrRange;
+using SepStrRange = oglplus::aux::SepStrRangeTpl<String>;
 
 } // namespace aux
 } // namespace eglplus

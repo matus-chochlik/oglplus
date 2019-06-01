@@ -48,8 +48,7 @@ public:
      */
     EGLInitializer()
       : _display()
-      , _initialized(_initialize()) {
-    }
+      , _initialized(_initialize()) {}
 
     /// Initializes EGL on the specified display
     /**
@@ -58,8 +57,7 @@ public:
      */
     EGLInitializer(const Display& display)
       : _display(display)
-      , _initialized(_initialize()) {
-    }
+      , _initialized(_initialize()) {}
 
     /// Initializer is move constructible
     EGLInitializer(EGLInitializer&& tmp)
@@ -216,7 +214,7 @@ public:
 };
 
 /// Alternate name for EGLInitializer
-typedef EGLInitializer LibEGL;
+using LibEGL = EGLInitializer;
 
 } // namespace eglplus
 

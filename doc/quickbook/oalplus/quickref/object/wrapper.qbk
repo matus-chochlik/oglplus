@@ -1,4 +1,4 @@
-[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
+[/ Copyright 2014-2019 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -49,10 +49,10 @@ Since AL does not support object copying, instances of [^Object] are ['move-only
 
 [oalplus_object_Object]
 
-[heading:typedefs Typedefs]
+[heading:type_aliases Type aliases]
 
-The library end-users rarely need to use this template directly. Use the [^typedef]s
-of the individual instantiations instead:
+The library end-users rarely need to use this template directly. Use the type
+aliases of the individual instantiations instead:
 
 * __Buffer
 * __Source

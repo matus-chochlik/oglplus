@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -36,27 +36,23 @@ class Object;
  *  @ingroup modifier_classes
  */
 template <typename Object>
-class Reference
- : public Object
-{
+class Reference : public Object {
 private:
-	typedef typename Classify<Object>::ObjTag ObjTag;
+    using ObjTag = typename Classify<Object>::ObjTag;
+
 public:
-	Reference(ObjectName<ObjTag> obj_name)
-	 : Object(obj_name)
-	{ }
+    Reference(ObjectName<ObjTag> obj_name)
+      : Object(obj_name) {}
 };
 
 template <typename ObjectOps>
-struct Reference<Object<ObjectOps>>
- : public Reference<ObjectOps>
-{
+struct Reference<Object<ObjectOps>> : public Reference<ObjectOps> {
 private:
-	typedef typename Classify<Object<ObjectOps>>::ObjTag ObjTag;
+    using ObjTag = typename Classify<Object<ObjectOps>>::ObjTag;
+
 public:
-	Reference(ObjectName<ObjTag> obj_name)
-	 : Reference<ObjectOps>(obj_name)
-	{ }
+    Reference(ObjectName<ObjTag> obj_name)
+      : Reference<ObjectOps>(obj_name) {}
 };
 
 } // namespace oglplus

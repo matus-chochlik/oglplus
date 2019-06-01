@@ -35,7 +35,7 @@ protected:
       : ObjZeroOps<tag::CurrentBound, ObjTag>(name) {}
 
 public:
-    typedef typename BoundObjOps<ObjTag>::Target Target;
+    using Target = typename BoundObjOps<ObjTag>::Target;
 
     ObjectOps(ObjectOps&&) = default;
     ObjectOps(const ObjectOps&) = default;
@@ -47,7 +47,7 @@ template <typename ObjTag>
 class Reference<ObjectOps<tag::CurrentBound, ObjTag>>
   : public ObjectOps<tag::CurrentBound, ObjTag> {
 private:
-    typedef ObjectOps<tag::CurrentBound, ObjTag> Base;
+    using Base = ObjectOps<tag::CurrentBound, ObjTag>;
 
 public:
     Reference()

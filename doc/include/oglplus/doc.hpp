@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -24,11 +24,10 @@ namespace oglplus {
  *
  *  @image html oglplus.png
  *
- *  <A HREF="../index.html">OGLplus</A> is a header-only library which implements
- *  a thin object-oriented facade over the OpenGL® (version 3 and higher)
- *  C-language API. It provides wrappers which automate
- *  resource and object management and make the use of OpenGL
- *  in C++ safer and easier.
+ *  <A HREF="../index.html">OGLplus</A> is a header-only library which
+ * implements a thin object-oriented facade over the OpenGL® (version 3 and
+ * higher) C-language API. It provides wrappers which automate resource and
+ * object management and make the use of OpenGL in C++ safer and easier.
  *
  *  - @ref oglplus_features
  *    - @ref feat_auto_resource_management
@@ -42,7 +41,8 @@ namespace oglplus {
  *  - @ref oglplus_what_it_is_not
  *  - @ref oglplus_screenshot_gallery
  *  - @ref oglplus_download
- *    - <A HREF="http://sourceforge.net/projects/oglplus/files/">Download page</A>
+ *    - <A HREF="http://sourceforge.net/projects/oglplus/files/">Download
+ * page</A>
  *  - @ref oglplus_getting_started
  *    - @ref oglplus_tutorials
  *  - @ref oglplus_getting_it_going
@@ -55,8 +55,8 @@ namespace oglplus {
  *
  *  @subsection feat_auto_resource_management Automatic resource management
  *
- *  Applications using the OpenGL® library typically allocate and use, during their
- *  run-time, resources like buffers, queries, textures, shaders, programs,
+ *  Applications using the OpenGL® library typically allocate and use, during
+ * their run-time, resources like buffers, queries, textures, shaders, programs,
  *  etc. from this library.
  *  @OGLplus uses the RAII idiom to automatically manage the lifetime
  *  of these resources. Classes like @ref oglplus::Buffer "Buffer",
@@ -72,8 +72,8 @@ namespace oglplus {
  *  class.
  *
  *  When several instances of the same resource type should be created
- *  and freed at the same time, the @ref oglplus::Array "Array" template provides
- *  efficient means for doing so.
+ *  and freed at the same time, the @ref oglplus::Array "Array" template
+ * provides efficient means for doing so.
  *
  *  @subsection feat_type_safety Type safety
  *
@@ -89,10 +89,10 @@ namespace oglplus {
  *
  *  Similarly the various enumerations are basically values of the @c GLenum
  *  type and are prone to the same kind of error. You can pass an incompatible
- *  enumerated value to a API function call. @OGLplus again allows to avoid these
- *  errors by separating the values into strongly typed enums and wrapping the
- *  basic OpenGL® API calls by functions accepting only parameters with matching
- *  enumerated types.
+ *  enumerated value to a API function call. @OGLplus again allows to avoid
+ * these errors by separating the values into strongly typed enums and wrapping
+ * the basic OpenGL® API calls by functions accepting only parameters with
+ * matching enumerated types.
  *
  *  @subsection feat_error_handling Error handling and diagnostic
  *
@@ -105,10 +105,11 @@ namespace oglplus {
  *  etc. where the error occured) and optionally also some properties
  *  (string key and value) attached at the throw site or during the propagation
  *  of the exception. If the error is related to a
- *  @ref oglplus_object_description "described" object, then the object description
- *  can also be obtained for a more precise diagnostic.
+ *  @ref oglplus_object_description "described" object, then the object
+ * description can also be obtained for a more precise diagnostic.
  *
- *  @subsection feat_interoperability_with_opengl Interoperability with OpenGL® C API
+ *  @subsection feat_interoperability_with_opengl Interoperability with OpenGL®
+ * C API
  *
  *  As said above, @OGLplus by default encapsulates and hides the OpenGL names
  *  assigned to various objects (resources allocated at the OpenGL server).
@@ -126,47 +127,50 @@ namespace oglplus {
  *  @subsection oglplus_object_description Optional object description
  *
  *  Objects with OpenGL names (unsigned integers) can optionally have a textual
- *  description. This is useful for diagnostic purposes, for example in an application
- *  with lots of different shaders it is easier to track the source of compilation,
- *  linking or validation errors when the individual shader or program objects
- *  have a human-readable description which is attached to the exception raised
- *  by the error.
+ *  description. This is useful for diagnostic purposes, for example in an
+ * application with lots of different shaders it is easier to track the source
+ * of compilation, linking or validation errors when the individual shader or
+ * program objects have a human-readable description which is attached to the
+ * exception raised by the error.
  *
  *  @subsection oglplus_configurability Configurability
  *
  *  If the overhead caused by the object descriptions or other run-time checks
  *  (which are useful during the development and/or debugging) is unacceptable
- *  for release builds of an application using @OGLplus, they can all be compiled
- *  away by setting the value of the @c #OGLPLUS_LOW_PROFILE preprocessor symbol.
- *  Individual features can be also enabled or disabled independently as required
- *  by setting the appropriate @ref oglplus_configuration_options.
+ *  for release builds of an application using @OGLplus, they can all be
+ * compiled away by setting the value of the @c #OGLPLUS_LOW_PROFILE
+ * preprocessor symbol. Individual features can be also enabled or disabled
+ * independently as required by setting the appropriate @ref
+ * oglplus_configuration_options.
  *
  *
  *  @section oglplus_what_it_is_not What OGLplus isn't
  *
- *  Like the OpenGL® C API, @OGLplus does not officially provide nor force you to use code
- *  related to creating of the default framebuffer. There are already
+ *  Like the OpenGL® C API, @OGLplus does not officially provide nor force you
+ * to use code related to creating of the default framebuffer. There are already
  *  several other libraries and frameworks which do it in both platform
  *  dependent and platform independent ways.
  *
- *  @OGLplus also does not include header file(s) declaring the OpenGL® 3 (or higher)
- *  function prototypes and enumerated values. It is the responsibility of the
- *  application to do so. There are several ways how to do it, see
+ *  @OGLplus also does not include header file(s) declaring the OpenGL® 3 (or
+ * higher) function prototypes and enumerated values. It is the responsibility
+ * of the application to do so. There are several ways how to do it, see
  *  @ref oglplus_getting_it_going for some suggestions.
  *
  *   @section oglplus_getting_started Getting started
  *
  *  One of the best ways how to get yourself acquainted with the library is to
- *  look at the examples and to browse through the reference. Many of the examples
- *  are thoroughly commented and for some of them step-by-step
- *  @ref oglplus_tutorials "tutorials" are being added. Also see @ref oglplus_getting_it_going
- *  for a detailed help on building the examples and your own applications.
+ *  look at the examples and to browse through the reference. Many of the
+ * examples are thoroughly commented and for some of them step-by-step
+ *  @ref oglplus_tutorials "tutorials" are being added. Also see @ref
+ * oglplus_getting_it_going for a detailed help on building the examples and
+ * your own applications.
  */
 
 /** @page oglplus_download Source download and repository
  *
  *  The source code can be downloaded from SourceForge at the following URL:
- *  <A HREF="http://sourceforge.net/projects/oglplus/files/">http://sourceforge.net/projects/oglplus/files/</A>.
+ *  <A
+ * HREF="http://sourceforge.net/projects/oglplus/files/">http://sourceforge.net/projects/oglplus/files/</A>.
  *
  *  Git users can get anonymous read-only access to the source repository
  *  by using the following command:
@@ -179,14 +183,15 @@ namespace oglplus {
  *
  *  @section oglplus_build_system Build system
  *
- *  OGLplus uses a CMake-based build/configuration @ref oglplus_cmake_config "system".
- *  The library itself is header only, which means that applications using it do not need to link
- *  to a compiled library, but need just to include the header files.
+ *  OGLplus uses a CMake-based build/configuration @ref oglplus_cmake_config
+ * "system". The library itself is header only, which means that applications
+ * using it do not need to link to a compiled library, but need just to include
+ * the header files.
  *
  *  The build system handles several important tasks:
  *
- *   - Detects if the necessary things are installed and makes a site-configuration
- *     header file
+ *   - Detects if the necessary things are installed and makes a
+ * site-configuration header file
  *   - Builds several additional, automatically generated headers
  *   - Installs all header files to a directory specified by the install prefix
  *   - Builds the examples and textures used by the examples (optional)
@@ -200,25 +205,26 @@ namespace oglplus {
  *
  *   - Doxygen is also required to build the documentation.
  *
- *   - Inkscape is required to convert textures used in examples from SVG to PNG.
- *     This is required only if the textures are not pre-built (typically
- *     when checked out from the repository, packaged releases are shipped with
- *     pre-built textures). Building of the textures is optional, they are not
- *     necessary when the building of examples is disabled.
+ *   - Inkscape is required to convert textures used in examples from SVG to
+ * PNG. This is required only if the textures are not pre-built (typically when
+ * checked out from the repository, packaged releases are shipped with pre-built
+ * textures). Building of the textures is optional, they are not necessary when
+ * the building of examples is disabled.
  *
- *   - The GL/glcorearb.h header or GLEW. OGLplus does not define the OpenGL symbols
- *     (types, constants, functions, etc.) itself and therfore applications using
- *     it need to define them themselves (before including OGLplus). The examples
- *     currently need GLEW (at least version 1.9) or the GL/glcorearb.h header (available
- *     for download from http://www.opengl.org/registry/api/glcorearb.h) and a GL binary
- *     library exporting the OpenGL (3 or higher) functions.
- *     The build system detects the presence of GLEW or glcorearb.h and configures
- *     compilation and linking of the examples accordingly. If both are installed
- *     and the user does not specify otherwise GLEW is used.
+ *   - The GL/glcorearb.h header or GLEW. OGLplus does not define the OpenGL
+ * symbols (types, constants, functions, etc.) itself and therfore applications
+ * using it need to define them themselves (before including OGLplus). The
+ * examples currently need GLEW (at least version 1.9) or the GL/glcorearb.h
+ * header (available for download from
+ * http://www.opengl.org/registry/api/glcorearb.h) and a GL binary library
+ * exporting the OpenGL (3 or higher) functions. The build system detects the
+ * presence of GLEW or glcorearb.h and configures compilation and linking of the
+ * examples accordingly. If both are installed and the user does not specify
+ * otherwise GLEW is used.
  *
- *  -  libPNG. Some examples and some classes provided by OGLplus use libPNG to load
- *     PNG files. These are however not required for the general use of OGLplus,
- *     applications may use other means to load binary image files.
+ *  -  libPNG. Some examples and some classes provided by OGLplus use libPNG to
+ * load PNG files. These are however not required for the general use of
+ * OGLplus, applications may use other means to load binary image files.
  *
  *
  *  @section oglplus_cmake_config CMake-based build configuration
@@ -238,8 +244,8 @@ namespace oglplus {
  *
  *   @section oglplus_config_script User-friendly configuration script
  *
- *  The 'configure' script is a more user-friendly way to invoke cmake and specify
- *  additional parameters for the configuration process.
+ *  The 'configure' script is a more user-friendly way to invoke cmake and
+ * specify additional parameters for the configuration process.
  *
  *  Some of the more important command-line options are described below:
  *
@@ -247,34 +253,39 @@ namespace oglplus {
  *     the value of the CMAKE_INSTALL_PREFIX variable). If this option is not
  *     specified, cmake's default prefix is used.
  *
- *  - @c --include-dir PATH: This options allows to specify additional directiories
- *     to search when looking for header files. It may be used multiple times
- *     to specify multiple directories.
+ *  - @c --include-dir PATH: This options allows to specify additional
+ * directiories to search when looking for header files. It may be used multiple
+ * times to specify multiple directories.
  *
- *  - @c --library-dir PATH: This options allows to specify additional directiories
- *     to search when looking for binary libraries. It may be used multiple times
- *     to specify multiple directories.
+ *  - @c --library-dir PATH: This options allows to specify additional
+ * directiories to search when looking for binary libraries. It may be used
+ * multiple times to specify multiple directories.
  *
- *  See the @c --help option for the full description and detailed info on the usage
- *  of this script.
+ *  See the @c --help option for the full description and detailed info on the
+ * usage of this script.
  *
  *  @section oglplus_building_own_apps Building your own applications
  *
  *  The library itself is header-only, i.e. all an application using it
- *  has to do is to include the necessary header files. The library does not need to be
- *  built nor linked to. The cmake-based build system can be used to install
- *  the necessary files to a platform-default or a user-specified directory.
+ *  has to do is to include the necessary header files. The library does not
+ * need to be built nor linked to. The cmake-based build system can be used to
+ * install the necessary files to a platform-default or a user-specified
+ * directory.
  *
  *  One important thing that an application using @OGLplus needs to take care of
- *  is to make sure that the OpenGL® 3 (or higher) function prototypes, typedefs,
- *  preprocessor symbols, etc. are defined before including any @OGLplus header.
+ *  is to make sure that the OpenGL® 3 (or higher) function prototypes,
+ * type-defs, preprocessor symbols, etc. are defined before including any
+ * @OGLplus header.
  *
  *  There are several different ways how to do this; one of the most convenient
  *  is to download the @c GL/glcorearb.h header file from
- *  <A HREF="http://www.opengl.org/registry/api/glcorearb.h">www.opengl.org/registry/api/glcorearb.h</A>
- *  and place it to a directory implicitly searched by the compiler or to add the
- *  @c -I/path/to/include directive to your @c CXXFLAGS. If the OpengGL dynamic library
- *  or shared object is located in a nonstandard location also update the @c LDFLAGS.
+ *  <A
+ * HREF="http://www.opengl.org/registry/api/glcorearb.h">www.opengl.org/registry/api/glcorearb.h</A>
+ *  and place it to a directory implicitly searched by the compiler or to add
+ * the
+ *  @c -I/path/to/include directive to your @c CXXFLAGS. If the OpengGL dynamic
+ * library or shared object is located in a nonstandard location also update the
+ * @c LDFLAGS.
  *
  *  On Linux and similar systems using Bash as shell you can for example put
  *  the following to your ~/.bashrc file:
@@ -287,8 +298,9 @@ namespace oglplus {
  *  @endcode
  *
  *  Some other alternatives include using GLEW or a similar library or framework
- *  which includes glcorearb.h or defines the necessary symbols itself. See the standalone
- *  examples for working applications using these alternative libraries.
+ *  which includes glcorearb.h or defines the necessary symbols itself. See the
+ * standalone examples for working applications using these alternative
+ * libraries.
  *
  *  @section oglplus_supported_compilers Supported compilers
  *
@@ -300,7 +312,8 @@ namespace oglplus {
  *     and initializer lists) disabled.
  *  - MSVC 12 beta with some features disabled.
  *
- *  @note Please refer to the README.rst file for more up-to-date version of this page.
+ *  @note Please refer to the README.rst file for more up-to-date version of
+ * this page.
  */
 
 /** @page oglplus_example_rationale Example rationale
@@ -308,25 +321,25 @@ namespace oglplus {
  *  @OGLplus does not officially provide means for creating of the
  *  default framebuffer nor any code related to window-system or user-input.
  *
- *  The example code is usually encapsulated in a class derived from the @c Example
- *  class and the build system selects and builds and links the piece of code doing
- *  the initial setup, cleanup and handling of events to the example code
- *  automatically.
- *  This way the examples are not too cluttered by things which are not directly
- *  related to OpenGL® and @OGLplus usage. The examples are numbered and ordered
- *  roughly by their "difficulty", from the easiest to the most complex.
+ *  The example code is usually encapsulated in a class derived from the @c
+ * Example class and the build system selects and builds and links the piece of
+ * code doing the initial setup, cleanup and handling of events to the example
+ * code automatically. This way the examples are not too cluttered by things
+ * which are not directly related to OpenGL® and @OGLplus usage. The examples
+ * are numbered and ordered roughly by their "difficulty", from the easiest to
+ * the most complex.
  *
  *  In the example directory there are however also several standalone examples,
- *  showing complete applications which also contain the initialization and cleanup
- *  code, using various libraries like GLUT, GLEW, etc.
+ *  showing complete applications which also contain the initialization and
+ * cleanup code, using various libraries like GLUT, GLEW, etc.
  */
 
 /** @defgroup math_utils GC-related math utilities
  *
  *  This group contains classes and functions which do not directly deal with
- *  OpenGL, but are related to computer graphics, like angles, vectors, matrices,
- *  etc. The @OGLplus example make use these classes, but the library does not
- *  force you to use them if you don't want to.
+ *  OpenGL, but are related to computer graphics, like angles, vectors,
+ * matrices, etc. The @OGLplus example make use these classes, but the library
+ * does not force you to use them if you don't want to.
  */
 
 /** @defgroup shader_variables Shader variable access
@@ -361,8 +374,7 @@ namespace oglplus {
 /** This type does not actually exist and is only a placeholder for various
  *  internal implementation details not to be used directly by the end-users.
  */
-struct Unspecified
-{ };
+struct Unspecified {};
 
 /** @page oglplus_screenshot_gallery Screenshot gallery
  *
@@ -378,9 +390,9 @@ struct Unspecified
  *  or @ref oglplus::Framebuffer "Framebuffer"
  *  which have a target to which individual
  *  instances can be bound and operated on through the binding point.
- *  DSA objects implement (mostly) the same functions as their non-DSA counterparts
- *  but without the target parameter and the operations are invoked on the instances
- *  themselves.
+ *  DSA objects implement (mostly) the same functions as their non-DSA
+ * counterparts but without the target parameter and the operations are invoked
+ * on the instances themselves.
  *
  *  For example to setup a texture object one might need to do the following:
  *  @code

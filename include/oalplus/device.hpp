@@ -33,10 +33,9 @@ private:
 
 public:
     DeviceSpecRange(const ALchar* ptr)
-      : _ptr(ptr) {
-    }
+      : _ptr(ptr) {}
 
-    typedef const ALchar* ValueType;
+    using ValueType = const ALchar*;
 
     /// Returns true when the range is empty (at the end of traversal)
     bool Empty() const {
@@ -108,8 +107,7 @@ protected:
     friend class ContextOps;
 
     DeviceOps(::ALCdevice* device)
-      : DevCommonOps(device) {
-    }
+      : DevCommonOps(device) {}
 
 public:
     /// Returns the device specifier string
@@ -147,8 +145,7 @@ template <>
 class DeviceOps<tag::Capture> : public DevCommonOps {
 protected:
     DeviceOps(::ALCdevice* device)
-      : DevCommonOps(device) {
-    }
+      : DevCommonOps(device) {}
 
 public:
     /// Returns the capture device specifier string
@@ -224,7 +221,7 @@ public:
 /// Audio playback device
 class Device : public DeviceOps<tag::Playback> {
 private:
-    typedef DeviceOps<tag::Playback> Base;
+    using Base = DeviceOps<tag::Playback>;
 
 public:
     /// Constructs an object referencing the default audio device
@@ -262,7 +259,7 @@ public:
 /// Audio capture device
 class CaptureDevice : public DeviceOps<tag::Capture> {
 private:
-    typedef DeviceOps<tag::Capture> Base;
+    using Base = DeviceOps<tag::Capture>;
 
 public:
     /// Constructs an object referencing the default audio device

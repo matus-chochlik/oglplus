@@ -41,8 +41,7 @@ private:
 
     STBTTFont2DGlyph(const ::stbtt_fontinfo& font)
       : _font(&font)
-      , _index(0) {
-    }
+      , _index(0) {}
 
     void _init_index(CodePoint code_point) {
         _index = ::stbtt_FindGlyphIndex(_font, int(code_point));
@@ -184,7 +183,7 @@ public:
     }
 
     /// A Glyph type
-    typedef STBTTFont2DGlyph Glyph;
+    using Glyph = STBTTFont2DGlyph;
 
     /// Returns the glyph for the specified code point
     Glyph GetGlyph(CodePoint code_point) const {
@@ -204,7 +203,7 @@ public:
     }
 
     /// A layout of glyphs from the specified code points
-    typedef std::vector<Glyph> Layout;
+    using Layout = std::vector<Glyph>;
 
     /// Makes a glyph sequence from code points
     Layout MakeLayout(

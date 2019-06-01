@@ -35,18 +35,16 @@ namespace oglplus {
 template <>
 class BoundObjOps<tag::Renderbuffer> {
 private:
-    typedef ObjectOps<tag::ExplicitSel, tag::Renderbuffer> ExplicitOps;
+    using ExplicitOps = ObjectOps<tag::ExplicitSel, tag::Renderbuffer>;
 
 public:
-    typedef ExplicitOps::Target Target;
+    using Target = ExplicitOps::Target;
     Target target;
 
-    BoundObjOps() {
-    }
+    BoundObjOps() {}
 
     BoundObjOps(Target init_tgt)
-      : target(init_tgt) {
-    }
+      : target(init_tgt) {}
 
     /** Wrapper for Renderbuffer::GetIntParam()
      *  @see Renderbuffer::GetIntParam()

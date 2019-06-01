@@ -14,7 +14,7 @@ namespace shapes {
 
 OGLPLUS_LIB_FUNC
 std::vector<GLfloat> WickerTorus::_positions() const {
-    typedef GLfloat T;
+    using T = GLfloat;
     std::vector<GLfloat> dest(
       2 * 2 * 2 * _rings * (_sections * 3 + 1) * 3 +
       2 * 2 * 2 * _sections * (_rings * 2 + 1) * 3);
@@ -207,7 +207,7 @@ std::vector<GLfloat> WickerTorus::_positions() const {
 
 OGLPLUS_LIB_FUNC
 std::vector<GLfloat> WickerTorus::_normals() const {
-    typedef GLfloat T;
+    using T = GLfloat;
     std::vector<GLfloat> dest(
       2 * 2 * 2 * _rings * (_sections * 3 + 1) * 3 +
       2 * 2 * 2 * _sections * (_rings * 2 + 1) * 3);
@@ -347,7 +347,7 @@ std::vector<GLfloat> WickerTorus::_normals() const {
 
 OGLPLUS_LIB_FUNC
 std::vector<GLfloat> WickerTorus::_tangents() const {
-    typedef GLfloat T;
+    using T = GLfloat;
     std::vector<GLfloat> dest(
       2 * 2 * 2 * _rings * (_sections * 3 + 1) * 3 +
       2 * 2 * 2 * _sections * (_rings * 2 + 1) * 3);
@@ -474,7 +474,7 @@ std::vector<GLfloat> WickerTorus::_tangents() const {
 
 OGLPLUS_LIB_FUNC
 std::vector<GLfloat> WickerTorus::_bitangents() const {
-    typedef GLfloat T;
+    using T = GLfloat;
     std::vector<T> nmls, tgts;
     Normals(nmls);
     Tangents(tgts);
@@ -505,7 +505,7 @@ std::vector<GLfloat> WickerTorus::_bitangents() const {
 
 OGLPLUS_LIB_FUNC
 std::vector<GLfloat> WickerTorus::_tex_coords() const {
-    typedef GLfloat T;
+    using T = GLfloat;
     std::vector<GLfloat> dest(
       2 * 2 * 2 * _rings * (_sections * 3 + 1) * 2 +
       2 * 2 * 2 * _sections * (_rings * 2 + 1) * 2);

@@ -59,8 +59,7 @@ public:
     template <class ShapeBuilder>
     ElementIndexInfo(const ShapeBuilder& builder)
       : _sizeof_index(_get_sizeof_index(builder))
-      , _index_data_type(_get_index_data_type(builder)) {
-    }
+      , _index_data_type(_get_index_data_type(builder)) {}
 
     /// Returns the size (in bytes) of index type used by ShapeBuilder
     size_t Size() const noexcept {
@@ -92,7 +91,7 @@ namespace shapes {
  */
 struct DrawOperation {
     /// Enumeration of drawing methods
-    typedef oglplus::ShapeDrawOperationMethod Method;
+    using Method = oglplus::ShapeDrawOperationMethod;
 
     /// The method to be used to draw
     Method method;
@@ -192,15 +191,13 @@ class DrawingInstructionWriter;
  */
 class DrawingInstructions {
 private:
-    typedef std::vector<DrawOperation> DrawOperationSeq;
+    using DrawOperationSeq = std::vector<DrawOperation>;
     DrawOperationSeq _ops;
 
-    DrawingInstructions() {
-    }
+    DrawingInstructions() {}
 
     DrawingInstructions(DrawOperationSeq&& ops)
-      : _ops(std::move(ops)) {
-    }
+      : _ops(std::move(ops)) {}
 
     friend class DrawingInstructionWriter;
 
@@ -210,8 +207,7 @@ private:
         const IndexArray& _indices;
 
         DrawFromIndices_(const IndexArray& indices)
-          : _indices(indices) {
-        }
+          : _indices(indices) {}
 
         void operator()(
           const DrawOperation& op, GLuint inst_count, GLuint base_inst) const {
@@ -224,8 +220,7 @@ private:
         ElementIndexInfo _index_info;
 
         DrawFromIndexInfo_(const ElementIndexInfo& index_info)
-          : _index_info(index_info) {
-        }
+          : _index_info(index_info) {}
 
         void operator()(
           const DrawOperation& op, GLuint inst_count, GLuint base_inst) const {
@@ -265,12 +260,10 @@ private:
 
 public:
     DrawingInstructions(DrawingInstructions&& temp)
-      : _ops(std::move(temp._ops)) {
-    }
+      : _ops(std::move(temp._ops)) {}
 
     DrawingInstructions(const DrawingInstructions& other)
-      : _ops(other._ops) {
-    }
+      : _ops(other._ops) {}
 
     const std::vector<DrawOperation>& Operations() const {
         return _ops;
@@ -332,7 +325,7 @@ public:
 // Helper base class for shape builder classes making the drawing instructions
 class DrawingInstructionWriter {
 private:
-    typedef DrawingInstructions::DrawOperationSeq Operations;
+    using Operations = DrawingInstructions::DrawOperationSeq;
 
 protected:
     static DrawingInstructions MakeInstructions() {

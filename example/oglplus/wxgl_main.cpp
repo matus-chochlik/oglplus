@@ -8,8 +8,6 @@
  */
 
 #include <oglplus/gl.hpp>
-#include <oglplus/config/fix_gl_extension.hpp>
-#include <oglplus/config/fix_gl_version.hpp>
 
 #include <oglplus/config/site.hpp>
 
@@ -21,6 +19,9 @@
 #include <cassert>
 #include <iomanip>
 #include <iostream>
+
+#include <oglplus/config/fix_gl_extension.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 
 #include <oglplus/error/basic.hpp>
 

@@ -37,8 +37,7 @@ private:
 protected:
     static const char* MsgUsingInactive();
     ProgVarLocOps(ShaderType stage)
-      : _stage(stage) {
-    }
+      : _stage(stage) {}
 
 public:
     /// Finds the subroutine location, throws on failure if active_only
@@ -100,13 +99,11 @@ class ProgVar<tag::ImplicitSel, tag::Subroutine, tag::NoTypecheck, void>
 public:
     /// Subroutine with the specified location
     ProgVar(SubroutineLoc pvloc)
-      : ProgVarLoc<tag::Subroutine>(pvloc) {
-    }
+      : ProgVarLoc<tag::Subroutine>(pvloc) {}
 
     /// Subroutine with the specified @p identifier in @p stage of @p program
     ProgVar(ProgramName program, ShaderType stage, StrCRef identifier)
-      : ProgVarLoc<tag::Subroutine>(stage, program, identifier) {
-    }
+      : ProgVarLoc<tag::Subroutine>(stage, program, identifier) {}
 
     /// Subroutine with the specified @p identifier in @p stage of @p program
     ProgVar(
@@ -114,13 +111,12 @@ public:
       ShaderType stage,
       StrCRef identifier,
       bool active_only)
-      : ProgVarLoc<tag::Subroutine>(stage, program, identifier, active_only) {
-    }
+      : ProgVarLoc<tag::Subroutine>(stage, program, identifier, active_only) {}
 };
 
 /// Subroutine
-typedef ProgVar<tag::ImplicitSel, tag::Subroutine, tag::NoTypecheck, void>
-  Subroutine;
+using Subroutine =
+  ProgVar<tag::ImplicitSel, tag::Subroutine, tag::NoTypecheck, void>;
 
 template <>
 class ProgVarLocOps<tag::SubroutineUniform> {
@@ -131,8 +127,7 @@ private:
 protected:
     static const char* MsgUsingInactive();
     ProgVarLocOps(ShaderType stage)
-      : _stage(stage) {
-    }
+      : _stage(stage) {}
 
 public:
     /// Finds the subroutine uniform location, throws on failure if active_only
@@ -189,13 +184,11 @@ class ProgVar<tag::ImplicitSel, tag::SubroutineUniform, tag::NoTypecheck, void>
 public:
     /// Subroutine uniform with the specified location
     ProgVar(SubroutineUniformLoc pvloc)
-      : ProgVarLoc<tag::SubroutineUniform>(pvloc) {
-    }
+      : ProgVarLoc<tag::SubroutineUniform>(pvloc) {}
 
     /// Sub.uniform with the specified @p identifier in @p stage of @p program
     ProgVar(ProgramName program, ShaderType stage, StrCRef identifier)
-      : ProgVarLoc<tag::SubroutineUniform>(stage, program, identifier) {
-    }
+      : ProgVarLoc<tag::SubroutineUniform>(stage, program, identifier) {}
 
     /// Sub.uniform with the specified @p identifier in @p stage of @p program
     ProgVar(
@@ -204,17 +197,12 @@ public:
       StrCRef identifier,
       bool active_only)
       : ProgVarLoc<tag::SubroutineUniform>(
-          stage, program, identifier, active_only) {
-    }
+          stage, program, identifier, active_only) {}
 };
 
 /// SubroutineUniform
-typedef ProgVar<
-  tag::ImplicitSel,
-  tag::SubroutineUniform,
-  tag::NoTypecheck,
-  void>
-  SubroutineUniform;
+using SubroutineUniform =
+  ProgVar<tag::ImplicitSel, tag::SubroutineUniform, tag::NoTypecheck, void>;
 
 /// Encapsulates the uniform subroutine setting operations
 /**
@@ -254,8 +242,7 @@ public:
     /// Constructs a uniform subroutine setter for a @p stage of a @p program
     UniformSubroutines(ProgramName program, ShaderType stage)
       : _program(program)
-      , _stage(stage) {
-    }
+      , _stage(stage) {}
 
     /// Assigns the @p subroutine to the subroutine @p uniform
     /**

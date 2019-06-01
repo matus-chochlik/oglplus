@@ -45,10 +45,10 @@ public:
     Returns true if the referenced string is empty.
     >*/
 
-    typedef const GLchar* iterator; /*<
+    using iterator = const GLchar*; /*<
     Iterator types.
     >*/
-    typedef iterator const_iterator;
+    using const_iterator = iterator;
 
     const_iterator begin() const noexcept;
     const_iterator end() const noexcept;

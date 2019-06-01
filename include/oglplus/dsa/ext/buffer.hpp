@@ -29,8 +29,7 @@ class ObjectOps<tag::DirectStateEXT, tag::Buffer>
   : public ObjZeroOps<tag::DirectStateEXT, tag::Buffer> {
 protected:
     ObjectOps(BufferName name) noexcept
-      : ObjZeroOps<tag::DirectStateEXT, tag::Buffer>(name) {
-    }
+      : ObjZeroOps<tag::DirectStateEXT, tag::Buffer>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -41,10 +40,10 @@ public:
     GLint GetIntParam(GLenum query) const;
 
     /// Types related to Buffer
-    typedef BufferOps::Property Property;
+    using Property = BufferOps::Property;
 
     /// Mapping of the buffer to the client address space
-    typedef DSABufferTypedMapEXT<GLubyte> Map;
+    using Map = DSABufferTypedMapEXT<GLubyte>;
 
     /// Returns true if the buffer is mapped
     /**
@@ -333,7 +332,7 @@ public:
 };
 
 /// Buffer operations with direct state access
-typedef ObjectOps<tag::DirectStateEXT, tag::Buffer> DSABufferOpsEXT;
+using DSABufferOpsEXT = ObjectOps<tag::DirectStateEXT, tag::Buffer>;
 
 // Helper class for syntax sugar operators
 struct DSABufferOpsAndUsageEXT {
@@ -342,8 +341,7 @@ struct DSABufferOpsAndUsageEXT {
 
     DSABufferOpsAndUsageEXT(DSABufferOpsEXT& b, BufferUsage u)
       : buf(b)
-      , usage(u) {
-    }
+      , usage(u) {}
 };
 
 inline DSABufferOpsAndUsageEXT operator<<(
@@ -358,8 +356,7 @@ struct DSABufferOpsAndIdxTgtEXT {
 
     DSABufferOpsAndIdxTgtEXT(DSABufferOpsEXT& b, BufferIndexedTarget t)
       : buf(b)
-      , target(t) {
-    }
+      , target(t) {}
 };
 
 inline DSABufferOpsAndIdxTgtEXT operator<<(
@@ -374,8 +371,7 @@ struct DSABufferOpsAndOffsetEXT {
 
     DSABufferOpsAndOffsetEXT(DSABufferOpsEXT& b, GLintptr o)
       : buf(b)
-      , offset(o) {
-    }
+      , offset(o) {}
 };
 
 inline DSABufferOpsAndOffsetEXT operator+(
@@ -450,7 +446,7 @@ inline DSABufferOpsEXT& operator<<(
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSABufferOpsEXT> DSABufferEXT;
+using DSABufferEXT = Object<DSABufferOpsEXT>;
 
 #else
 #error Direct State Access Buffers not available

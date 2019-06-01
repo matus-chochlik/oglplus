@@ -14,7 +14,7 @@ namespace shapes {
 
 OGLPLUS_LIB_FUNC
 std::vector<GLfloat> TwistedTorus::_positions() const {
-    typedef GLfloat T;
+    using T = GLfloat;
     std::vector<GLfloat> dest(2 * 2 * 2 * _sections * (_rings + 1) * 3);
     unsigned k = 0;
     //
@@ -83,7 +83,7 @@ std::vector<GLfloat> TwistedTorus::_positions() const {
 
 OGLPLUS_LIB_FUNC
 std::vector<GLfloat> TwistedTorus::_normals() const {
-    typedef GLfloat T;
+    using T = GLfloat;
     std::vector<GLfloat> dest(2 * 2 * 2 * _sections * (_rings + 1) * 3);
     unsigned k = 0;
     //
@@ -145,7 +145,7 @@ std::vector<GLfloat> TwistedTorus::_normals() const {
 
 OGLPLUS_LIB_FUNC
 std::vector<GLfloat> TwistedTorus::_tangents() const {
-    typedef GLfloat T;
+    using T = GLfloat;
     std::vector<T> poss;
     Positions(poss);
 
@@ -224,7 +224,7 @@ std::vector<GLfloat> TwistedTorus::_tangents() const {
 
 OGLPLUS_LIB_FUNC
 std::vector<GLfloat> TwistedTorus::_bitangents() const {
-    typedef GLfloat T;
+    using T = GLfloat;
     std::vector<T> nmls, tgts;
     Normals(nmls);
     Tangents(tgts);
@@ -255,7 +255,7 @@ std::vector<GLfloat> TwistedTorus::_bitangents() const {
 
 OGLPLUS_LIB_FUNC
 std::vector<GLfloat> TwistedTorus::_tex_coords() const {
-    typedef GLfloat T;
+    using T = GLfloat;
     std::vector<GLfloat> dest(2 * 2 * 2 * _sections * (_rings + 1) * 2);
     unsigned k = 0;
     //

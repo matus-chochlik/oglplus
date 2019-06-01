@@ -74,7 +74,7 @@ ObjectOps<tag::DirectState, tag::Program>::Link(std::nothrow_t) {
 OGLPLUS_LIB_FUNC
 Outcome<ObjectOps<tag::DirectState, tag::Program>&>
 ObjectOps<tag::DirectState, tag::Program>::Build() {
-    typedef Outcome<ObjectOps<tag::DirectState, tag::Program>&> Res;
+    using Res = Outcome<ObjectOps<tag::DirectState, tag::Program>&>;
 
     ShaderRange shaders = AttachedShaders();
     while(!shaders.Empty()) {
@@ -94,7 +94,7 @@ OGLPLUS_LIB_FUNC
 Outcome<ObjectOps<tag::DirectState, tag::Program>&>
 ObjectOps<tag::DirectState, tag::Program>::BuildInclude(
   SizeType count, const GLchar* const* paths, const GLint* lengths) {
-    typedef Outcome<ObjectOps<tag::DirectState, tag::Program>&> Res;
+    using Res = Outcome<ObjectOps<tag::DirectState, tag::Program>&>;
 
     ShaderRange shaders = AttachedShaders();
     while(!shaders.Empty()) {

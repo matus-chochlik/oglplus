@@ -3,7 +3,7 @@
  *
  *  .author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -31,7 +31,7 @@
  *  @until #include <iostream>
  *
  *  Include the main header of the GLEW library, which declares the
- *  OpenGL 3 function prototypes, typedefs, enumerations, etc.
+ *  OpenGL 3 function prototypes, type aliases, enumerations, etc.
  *  @until #include <GL/glew.h>
  *
  *  Include the main header of the GLUT library. GLUT defines functions

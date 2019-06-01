@@ -10,7 +10,7 @@ template <>
 class __ObjCommonOps<__tag_TransformFeedback> : public __TransformFeedbackName {
 public:
 #if GL_VERSION_4_0 || GL_ARB_transform_feedback2
-    typedef __TransformFeedbackTarget Target; /*<
+    using Target = __TransformFeedbackTarget; /*<
     Transform feedback bind target.
     >*/
 
@@ -65,31 +65,29 @@ See [glfunc GetIntegerv].
     See [glfunc ResumeTransformFeedback].
     >*/
 
-    typedef __TransformFeedbackActivator Activator;
-    typedef __TransformFeedbackPauser Pauser;
+    using Activator = __TransformFeedbackActivator;
+    using Pauser = __TransformFeedbackPauser;
 };
 //]
 //[oglplus_transform_feedback_def
 
 #if GL_VERSION_4_0 || GL_ARB_transform_feedback2
-typedef ObjectOps<
+using TransformFeedbackOps = ObjectOps<
   __tag_ImplicitSel,
-  __tag_TransformFeedback> /*<
-Indirectly inherits from
-__ObjCommonOps_TransformFeedback<__tag_TransformFeedback>
->*/
-  TransformFeedbackOps;
+  __tag_TransformFeedback>; /*<
+ Indirectly inherits from
+ __ObjCommonOps_TransformFeedback<__tag_TransformFeedback>
+ >*/
 
-typedef __Object<TransformFeedbackOps> TransformFeedback;
+using TransformFeedback = __Object<TransformFeedbackOps>;
 #endif
 
-typedef __ObjectZero<__ObjZeroOps<
+using DefaultTransformFeedback = __ObjectZero<__ObjZeroOps<
   __tag_ImplicitSel,
-  __tag_TransformFeedback>> /*<
-Indirectly inherits from
-__ObjCommonOps_TransformFeedback<__tag_TransformFeedback>
->*/
-  DefaultTransformFeedback;
+  __tag_TransformFeedback>>; /*<
+ Indirectly inherits from
+ __ObjCommonOps_TransformFeedback<__tag_TransformFeedback>
+ >*/
 
 //]
 //[oglplus_transform_feedback_activator

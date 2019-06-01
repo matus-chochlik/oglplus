@@ -378,9 +378,9 @@ private:
     class _impl : public _intf {
     private:
         RenderingUtility _ru;
-        typedef typename RenderingUtility::Renderer Renderer;
-        typedef typename RenderingUtility::Layout Layout;
-        typedef typename RenderingUtility::Font Font;
+        using Renderer = typename RenderingUtility::Renderer;
+        using Layout = typename RenderingUtility::Layout;
+        using Font = typename RenderingUtility::Font;
 
     public:
         _impl(RenderingUtility&& ru)
@@ -429,14 +429,14 @@ public:
         return *this;
     }
 
-    typedef AnyFont Font;
+    using Font = AnyFont;
 
     Font LoadFont(const char* font_name) {
         assert(_pimpl);
         return _pimpl->LoadFont(font_name);
     }
 
-    typedef AnyLayout Layout;
+    using Layout = AnyLayout;
 
     Layout MakeLayout(const Font& font, GLsizei capacity) {
         assert(_pimpl);
@@ -448,7 +448,7 @@ public:
         return _pimpl->MakeLayout(font, str);
     }
 
-    typedef AnyRenderer Renderer;
+    using Renderer = AnyRenderer;
 
     Renderer GetRenderer(const FragmentShader& fragment_shader) {
         assert(_pimpl);
@@ -456,7 +456,7 @@ public:
     }
 };
 
-typedef AnyRendering AnyTextRendering;
+using AnyTextRendering = AnyRendering;
 
 } // namespace text
 } // namespace oglplus

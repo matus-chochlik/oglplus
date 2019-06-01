@@ -109,8 +109,7 @@ class ProgVarGetSetOps<OpsTag, tag::Uniform, T>
   , public ProgVarBaseSetOps<OpsTag, tag::Uniform, tag::NativeTypes, T, 16> {
 protected:
     ProgVarGetSetOps(UniformLoc uloc)
-      : ProgVarCommonOps<tag::Uniform>(uloc) {
-    }
+      : ProgVarCommonOps<tag::Uniform>(uloc) {}
 
 public:
     /// Set the value of the uniform
@@ -136,8 +135,7 @@ class ProgVarGetSetOps<OpsTag, tag::Uniform, Vector<T, N>>
   , public ProgVarBaseSetOps<OpsTag, tag::Uniform, tag::NativeTypes, T, 4> {
 protected:
     ProgVarGetSetOps(UniformLoc uloc)
-      : ProgVarCommonOps<tag::Uniform>(uloc) {
-    }
+      : ProgVarCommonOps<tag::Uniform>(uloc) {}
 
 public:
     void SetValue(const Vector<T, N>& value) {
@@ -180,8 +178,7 @@ class ProgVarGetSetOps<OpsTag, tag::Uniform, Matrix<T, R, C>>
   , public ProgVarBaseSetOps<OpsTag, tag::Uniform, tag::MatrixTypes, T, 16> {
 protected:
     ProgVarGetSetOps(UniformLoc uloc)
-      : ProgVarCommonOps<tag::Uniform>(uloc) {
-    }
+      : ProgVarCommonOps<tag::Uniform>(uloc) {}
 
 public:
     void SetValue(const Matrix<T, R, C>& value) {
@@ -229,23 +226,21 @@ OGLPLUS_DECLARE_PROG_VAR(
   Uniform, tag::ImplicitSel, tag::Uniform, tag::NoTypecheck)
 
 /// Uniform sampler
-typedef Uniform<GLint> UniformSampler;
+using UniformSampler = Uniform<GLint>;
 
 // typeless uniform
 template <typename OpsTag>
 class ProgVar<OpsTag, tag::Uniform, tag::NoTypecheck, void>
   : public ProgVarCommonOps<tag::Uniform> {
 private:
-    typedef ProgVarCommonOps<tag::Uniform> Base;
+    using Base = ProgVarCommonOps<tag::Uniform>;
 
 public:
     ProgVar(ProgramName program, GLuint location)
-      : Base(UniformLoc(program, GLint(location))) {
-    }
+      : Base(UniformLoc(program, GLint(location))) {}
 
     ProgVar(ProgramName program, StrCRef identifier)
-      : Base(UniformLoc(program, identifier)) {
-    }
+      : Base(UniformLoc(program, identifier)) {}
 
     template <typename T>
     void Set(T value) {
@@ -271,8 +266,8 @@ public:
     }
 };
 
-typedef ProgVar<tag::ImplicitSel, tag::Uniform, tag::NoTypecheck, void>
-  UntypedUniform;
+using UntypedUniform =
+  ProgVar<tag::ImplicitSel, tag::Uniform, tag::NoTypecheck, void>;
 
 inline UntypedUniform operator/(ProgramName program, StrCRef identifier) {
     return UntypedUniform(program, identifier);

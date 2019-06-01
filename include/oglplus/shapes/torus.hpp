@@ -38,16 +38,14 @@ public:
       : _radius_out(1.0)
       , _radius_in(0.5)
       , _sections(36)
-      , _rings(24) {
-    }
+      , _rings(24) {}
 
     /// Creates a torus with unit radius centered at the origin
     Torus(double rad_out, double rad_in, unsigned sects, unsigned rings)
       : _radius_out(rad_out)
       , _radius_in(rad_in)
       , _sections(sects)
-      , _rings(rings) {
-    }
+      , _rings(rings) {}
 
     /// Returns the winding direction of faces
     FaceOrientation FaceWinding() const {
@@ -185,17 +183,16 @@ public:
      *  - "Bitangent" the vertex bi-tangent vector (Bitangents)
      *  - "TexCoord" the ST texture coordinates (TexCoordinates)
      */
-    typedef VertexAttribsInfo<Torus> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<Torus>;
 #else
-    typedef VertexAttribsInfo<
+    using VertexAttribs = VertexAttribsInfo<
       Torus,
       std::tuple<
         VertexPositionsTag,
         VertexNormalsTag,
         VertexTangentsTag,
         VertexBitangentsTag,
-        VertexTexCoordinatesTag>>
-      VertexAttribs;
+        VertexTexCoordinatesTag>>;
 #endif
 
     /// Queries the bounding sphere coordinates and dimensions
@@ -205,7 +202,7 @@ public:
     }
 
     /// The type of index container returned by Indices()
-    typedef std::vector<GLuint> IndexArray;
+    using IndexArray = std::vector<GLuint>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const;

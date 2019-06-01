@@ -104,7 +104,7 @@ std::vector<GLchar> InputStreamGLSLSrcWrap::_read_data(
     std::vector<GLchar> data;
     if(size > 0) {
         data.reserve(size + 1);
-        typedef std::istreambuf_iterator<GLchar> _iit;
+        using _iit = std::istreambuf_iterator<GLchar>;
         data.assign(_iit(input), _iit());
         data.push_back('\0');
     }

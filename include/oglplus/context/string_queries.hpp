@@ -27,13 +27,12 @@ private:
     GLenum _param;
 
 public:
-    typedef String ValueType;
+    using ValueType = String;
 
     StrQueryRange(GLuint n, GLenum p)
       : _index(0)
       , _count(n)
-      , _param(p) {
-    }
+      , _param(p) {}
 
     bool Empty() const {
         assert(_index <= _count);

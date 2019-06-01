@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,8 +14,8 @@
 #define OGLPLUS_FWD_1107121519_HPP
 
 #include <oglplus/config/compiler.hpp>
-#include <type_traits>
 #include <cstddef>
+#include <type_traits>
 
 namespace oglplus {
 
@@ -174,9 +174,7 @@ template <typename ObjectT>
 class Reference;
 
 template <typename ObjectT>
-struct Classify<Reference<ObjectT>>
- : Classify<ObjectT>
-{ };
+struct Classify<Reference<ObjectT>> : Classify<ObjectT> {};
 
 template <typename X>
 class Optional;
@@ -192,13 +190,13 @@ class Shader;
 template <typename VarTag>
 class ProgVarLoc;
 
-typedef ProgVarLoc<tag::VertexAttrib> VertexAttribLoc;
-typedef ProgVarLoc<tag::Uniform> UniformLoc;
-typedef ProgVarLoc<tag::UniformBlock> UniformBlockLoc;
-typedef ProgVarLoc<tag::Subroutine> SubroutineLoc;
-typedef ProgVarLoc<tag::SubroutineUniform> SubroutineUniformLoc;
-typedef ProgVarLoc<tag::FragData> FragDataLoc;
-typedef ProgVarLoc<tag::ShaderStorageBlock> ShaderStorageBlockLoc;
+using VertexAttribLoc = ProgVarLoc<tag::VertexAttrib>;
+using UniformLoc = ProgVarLoc<tag::Uniform>;
+using UniformBlockLoc = ProgVarLoc<tag::UniformBlock>;
+using SubroutineLoc = ProgVarLoc<tag::Subroutine>;
+using SubroutineUniformLoc = ProgVarLoc<tag::SubroutineUniform>;
+using FragDataLoc = ProgVarLoc<tag::FragData>;
+using ShaderStorageBlockLoc = ProgVarLoc<tag::ShaderStorageBlock>;
 
 template <typename VarTag>
 class ProgVarLocOps;
@@ -225,14 +223,13 @@ template <typename OpsTag, typename VarTag, typename ChkTag, typename T>
 class ProgVar;
 
 template <typename OpsTg, typename VarTg, typename ChkTg, typename T>
-struct Classify<ProgVar<OpsTg, VarTg, ChkTg, T>>
-{
-	typedef ProgVar<OpsTg, VarTg, ChkTg, T> Base;
-	typedef tag::ProgVar Tag;
-	typedef OpsTg OpsTag;
-	typedef VarTg VarTag;
-	typedef ChkTg ChkTag;
-	typedef T Type;
+struct Classify<ProgVar<OpsTg, VarTg, ChkTg, T>> {
+    using Base = ProgVar<OpsTg, VarTg, ChkTg, T>;
+    using Tag = tag::ProgVar;
+    using OpsTag = OpsTg;
+    using VarTag = VarTg;
+    using ChkTag = ChkTg;
+    using Type = T;
 };
 
 template <typename ProgVar>

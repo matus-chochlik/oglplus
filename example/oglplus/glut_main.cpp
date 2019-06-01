@@ -8,8 +8,6 @@
  */
 
 #include <oglplus/gl.hpp>
-#include <oglplus/config/fix_gl_extension.hpp>
-#include <oglplus/config/fix_gl_version.hpp>
 
 #if OGLPLUS_FREEGLUT_FOUND
 #include <GL/freeglut.h>
@@ -18,6 +16,9 @@
 #else
 #include <GL/glut.h>
 #endif
+
+#include <oglplus/config/fix_gl_extension.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 
 #include <cassert>
 #include <cstddef>

@@ -31,7 +31,7 @@ namespace oglplus {
 
 template <typename T>
 struct SizeImpl {
-    typedef T Type;
+    using Type = T;
 };
 
 #else
@@ -96,21 +96,18 @@ private:
     }
 
 public:
-    typedef SizeImpl Type;
+    using Type = SizeImpl;
 
     SizeImpl() noexcept
-      : _v(T(0)) {
-    }
+      : _v(T(0)) {}
 
     template <typename X>
     SizeImpl(
       X v, typename std::enable_if<std::is_integral<X>::value>::type* = nullptr)
-      : _v(_check(v)) {
-    }
+      : _v(_check(v)) {}
 
     SizeImpl(T v, std::nothrow_t) noexcept
-      : _v(v) {
-    }
+      : _v(v) {}
 
     template <typename X>
     SizeImpl(
@@ -118,8 +115,7 @@ public:
       std::nothrow_t,
       typename std::enable_if<std::is_integral<X>::value>::type* =
         nullptr) noexcept
-      : _v(_conv(v)) {
-    }
+      : _v(_conv(v)) {}
 
     T get() const noexcept {
         return _v;

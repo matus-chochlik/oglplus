@@ -37,8 +37,7 @@ public:
     Sphere()
       : _radius(1.0)
       , _sections(18)
-      , _rings(12) {
-    }
+      , _rings(12) {}
 
     /// Creates a sphere with specified radius centered at the origin
     /**
@@ -219,17 +218,16 @@ public:
      *  - "Bitangents" the vertex bi-tangent vector (Bitangents)
      *  - "TexCoord" the ST texture coordinates (TexCoordinates)
      */
-    typedef VertexAttribsInfo<Sphere> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<Sphere>;
 #else
-    typedef VertexAttribsInfo<
+    using VertexAttribs = VertexAttribsInfo<
       Sphere,
       std::tuple<
         VertexPositionsTag,
         VertexNormalsTag,
         VertexTangentsTag,
         VertexBitangentsTag,
-        VertexTexCoordinatesTag>>
-      VertexAttribs;
+        VertexTexCoordinatesTag>>;
 #endif
 
     /// Queries the bounding sphere coordinates and dimensions
@@ -239,7 +237,7 @@ public:
     }
 
     /// The type of index container returned by Indices()
-    typedef std::vector<GLuint> IndexArray;
+    using IndexArray = std::vector<GLuint>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const;

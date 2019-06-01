@@ -42,8 +42,7 @@ public:
       , _s_slip_coef(0.20)
       , _sections(12)
       , _rings(48)
-      , _twist(12) {
-    }
+      , _twist(12) {}
 
     /// Creates a torus with unit radius centered at the origin
     TwistedTorus(
@@ -157,17 +156,16 @@ public:
      *  - "Bitangent" the vertex bi-tangent vector (Bitangents)
      *  - "TexCoord" the ST texture coordinates (TexCoordinates)
      */
-    typedef VertexAttribsInfo<TwistedTorus> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<TwistedTorus>;
 #else
-    typedef VertexAttribsInfo<
+    using VertexAttribs = VertexAttribsInfo<
       TwistedTorus,
       std::tuple<
         VertexPositionsTag,
         VertexNormalsTag,
         VertexTangentsTag,
         VertexBitangentsTag,
-        VertexTexCoordinatesTag>>
-      VertexAttribs;
+        VertexTexCoordinatesTag>>;
 #endif
 
     /// Queries the bounding sphere coordinates and dimensions
@@ -178,7 +176,7 @@ public:
     }
 
     /// The type of index container returned by Indices()
-    typedef std::vector<GLuint> IndexArray;
+    using IndexArray = std::vector<GLuint>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const {

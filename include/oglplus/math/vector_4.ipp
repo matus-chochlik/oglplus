@@ -12,8 +12,8 @@
 template <typename T>
 class Vector<T, 4> : public VectorBase<T, 4> {
 private:
-    typedef VectorBase<T, 4> Base;
-    typedef typename Base::Unit_ Unit_;
+    using Base = VectorBase<T, 4>;
+    using Unit_ = typename Base::Unit_;
 
 public:
     Vector() {}

@@ -1,4 +1,4 @@
-[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
+[/ Copyright 2014-2019 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -22,7 +22,7 @@ is popped from the stack an the previous GL context setting is restored
 explicitly by calling the [^Pop] member function.
 
 OGLplus library client applications should never need to instantiate
-[^SettingHolder] directly. Either use the [^auto] keyword or the typedefs
+[^SettingHolder] directly. Either use the [^auto] keyword or the type aliases
 in [^SettingStack].
 
 [oglplus_client_SettingHolder]

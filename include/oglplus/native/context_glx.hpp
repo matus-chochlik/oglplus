@@ -85,16 +85,15 @@ inline ::GLXContext GetGLXContext(const ContextGLX& cglx) noexcept {
     return cglx._context;
 }
 
-typedef ContextGLX Context;
+using Context = ContextGLX;
 
 class CurrentContextGLX : public ContextGLX {
 public:
     CurrentContextGLX()
-      : ContextGLX(ContextGLX::Current_()) {
-    }
+      : ContextGLX(ContextGLX::Current_()) {}
 };
 
-typedef CurrentContextGLX CurrentContext;
+using CurrentContext = CurrentContextGLX;
 
 } // namespace native
 } // namespace oglplus

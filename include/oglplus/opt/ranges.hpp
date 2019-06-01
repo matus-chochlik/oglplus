@@ -39,7 +39,7 @@ namespace oglplus {
 class Range {
 public:
     /// The type of value returned by Front
-    typedef const Unspecified ValueType;
+    using ValueType = const Unspecified;
 
     /// Copy constructor
     Range(const Range&);
@@ -79,7 +79,7 @@ namespace ranges {
  */
 template <typename Range>
 struct IsRange {
-    typedef decltype(oglplus::aux::IsRange((Range*)nullptr)) Type;
+    using Type = decltype(oglplus::aux::IsRange((Range*)nullptr));
 };
 
 /// A type erasure for types conforming to the oglplus::Range concept.
@@ -90,8 +90,7 @@ template <typename Element>
 class AnyRange {
 private:
     struct _intf {
-        virtual ~_intf() {
-        }
+        virtual ~_intf() {}
 
         virtual _intf* _clone() const = 0;
 
@@ -109,8 +108,7 @@ private:
 
     public:
         _impl(Rng rng)
-          : _rng(rng) {
-        }
+          : _rng(rng) {}
 
         _intf* _clone() const override {
             return new _impl(*this);
@@ -141,20 +139,17 @@ private:
     }
 
 public:
-    typedef Element ValueType;
+    using ValueType = Element;
 
     AnyRange()
-      : _pimpl(nullptr) {
-    }
+      : _pimpl(nullptr) {}
 
     template <typename Range>
     AnyRange(Range range)
-      : _pimpl(new _impl<Range>(range)) {
-    }
+      : _pimpl(new _impl<Range>(range)) {}
 
     AnyRange(const AnyRange& other)
-      : _pimpl(_clone(other._pimpl)) {
-    }
+      : _pimpl(_clone(other._pimpl)) {}
 
     AnyRange(AnyRange&& temp)
       : _pimpl(temp._pimpl) {
@@ -322,13 +317,12 @@ private:
     Transf _transf;
 
 public:
-    typedef decltype(std::declval<Transf>()(
-      std::declval<typename Range::ValueType>())) ValueType;
+    using ValueType = decltype(
+      std::declval<Transf>()(std::declval<typename Range::ValueType>()));
 
     Transformed(Range range, Transf transf)
       : _range(range)
-      , _transf(transf) {
-    }
+      , _transf(transf) {}
 
     bool Empty() const {
         return _range.Empty();
@@ -393,7 +387,7 @@ private:
     Predicate _pred;
 
 public:
-    typedef typename Range::ValueType ValueType;
+    using ValueType = typename Range::ValueType;
 
     Filtered(Range range, Predicate pred)
       : _range(range)
@@ -439,12 +433,11 @@ private:
     R2 _r2;
 
 public:
-    typedef Element ValueType;
+    using ValueType = Element;
 
     Concatenated(R1 r1, R2 r2)
       : _r1(r1)
-      , _r2(r2) {
-    }
+      , _r2(r2) {}
 
     bool Empty() const {
         return _r1.Empty() && _r2.Empty();

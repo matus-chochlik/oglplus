@@ -37,13 +37,13 @@ namespace oglplus {
 class Debug {
 public:
     /// Debug output severity
-    typedef DebugOutputSeverity Severity;
+    using Severity = DebugOutputSeverity;
 
     /// Debug output source
-    typedef DebugOutputSource Source;
+    using Source = DebugOutputSource;
 
     /// Debug output type
-    typedef DebugOutputType Type;
+    using Type = DebugOutputType;
 
     /// Enables/disables messages with specific parameters
     /**
@@ -76,7 +76,7 @@ public:
     };
 
     /// Type of a callback functor processing debug output
-    typedef std::function<void(const CallbackData&)> Callback;
+    using Callback = std::function<void(const CallbackData&)>;
 
     /// Installs a custom callback processing the debug output
     /**

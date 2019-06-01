@@ -112,8 +112,7 @@ private:
           : _pos(0)
           , _nml(0)
           , _tex(0)
-          , _mtl(0) {
-        }
+          , _mtl(0) {}
     };
 
     // the vertex offsets and counts for individual meshes
@@ -146,7 +145,7 @@ private:
       _loading_options opts);
 
 public:
-    typedef _loading_options LoadingOptions;
+    using LoadingOptions = _loading_options;
 
     ObjMesh(std::istream& input, LoadingOptions opts = LoadingOptions()) {
         const char** p = nullptr;
@@ -166,7 +165,7 @@ public:
         return FaceOrientation::CCW;
     }
 
-    typedef GLuint (ObjMesh::*VertexAttribFunc)(std::vector<GLfloat>&) const;
+    using VertexAttribFunc = GLuint (ObjMesh::*)(std::vector<GLfloat>&) const;
 
     /// Makes the vertex positions and returns the number of values per vertex
     template <typename T>
@@ -237,9 +236,9 @@ public:
      *  - "TexCoords" the vertex texture coordinates
      *  - "Material" the vertex material numbers
      */
-    typedef VertexAttribsInfo<ObjMesh> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<ObjMesh>;
 #else
-    typedef VertexAttribsInfo<
+    using VertexAttribs = VertexAttribsInfo<
       ObjMesh,
       std::tuple<
         VertexPositionsTag,
@@ -247,8 +246,7 @@ public:
         VertexTangentsTag,
         VertexBitangentsTag,
         VertexTexCoordinatesTag,
-        VertexMaterialNumbersTag>>
-      VertexAttribs;
+        VertexMaterialNumbersTag>>;
 #endif
 
     Spheref MakeBoundingSphere() const;
@@ -260,7 +258,7 @@ public:
     }
 
     /// The type of the index container returned by Indices()
-    typedef std::vector<GLuint> IndexArray;
+    using IndexArray = std::vector<GLuint>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const {

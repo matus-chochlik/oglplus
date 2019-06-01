@@ -10,7 +10,7 @@
 
 template <typename T>
 struct SizeImpl {
-    typedef T Type;
+    using Type = T;
 };
 
 #else // !OGLPLUS_LOW_PROFILE
@@ -19,7 +19,7 @@ template <typename T>
 struct SizeImpl
 {
 public:
-	typedef SizeImpl Type;
+	using Type = SizeImpl;
 
 	SizeImpl() /*<
 	Constructs a zero size instance.
@@ -84,8 +84,8 @@ public:
 //]
 //[oglplus_size_type_def
 
-typedef typename __SizeImpl<GLsizei>::Type SizeType;
-typedef typename __SizeImpl<GLsizeiptr>::Type BigSizeType;
+using SizeType = typename __SizeImpl<GLsizei>::Type;
+using BigSizeType = typename __SizeImpl<GLsizeiptr>::Type;
 
 template <typename X, typename = typename is_integral<X>::type>
 SizeImpl MakeSizeImpl(X v, std::nothrow_t)

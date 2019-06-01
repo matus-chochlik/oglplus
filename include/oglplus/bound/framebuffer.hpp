@@ -35,18 +35,16 @@ namespace oglplus {
 template <>
 class BoundObjOps<tag::Framebuffer> {
 private:
-    typedef ObjectOps<tag::ExplicitSel, tag::Framebuffer> ExplicitOps;
+    using ExplicitOps = ObjectOps<tag::ExplicitSel, tag::Framebuffer>;
 
 public:
-    typedef ExplicitOps::Target Target;
+    using Target = ExplicitOps::Target;
     Target target;
 
-    BoundObjOps() {
-    }
+    BoundObjOps() {}
 
     BoundObjOps(Target init_tgt)
-      : target(init_tgt) {
-    }
+      : target(init_tgt) {}
 
     /** Wrapper for Framebuffer::Status()
      *  @see Framebuffer::Status()

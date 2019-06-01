@@ -84,10 +84,10 @@ protected:
 
 public:
     /// Buffer bind targets
-    typedef BufferTarget Target;
+    using Target = BufferTarget;
 
     /// Buffer indexed bind targets
-    typedef BufferIndexedTarget IndexedTarget;
+    using IndexedTarget = BufferIndexedTarget;
 
     /// Returns the current Buffer bound to specified @p target
     /**
@@ -212,8 +212,7 @@ class ObjCommonOps<tag::Buffer>
   , public ObjBindingOps<tag::Buffer> {
 protected:
     ObjCommonOps(BufferName name) noexcept
-      : BufferName(name) {
-    }
+      : BufferName(name) {}
 
 public:
     ObjCommonOps(ObjCommonOps&&) = default;
@@ -352,8 +351,7 @@ class ObjectOps<tag::ExplicitSel, tag::Buffer>
   : public ObjZeroOps<tag::ExplicitSel, tag::Buffer> {
 protected:
     ObjectOps(BufferName name) noexcept
-      : ObjZeroOps<tag::ExplicitSel, tag::Buffer>(name) {
-    }
+      : ObjZeroOps<tag::ExplicitSel, tag::Buffer>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -366,15 +364,15 @@ public:
     /// Types related to Buffer
     struct Property {
         /// The Buffer usage mode
-        typedef BufferUsage Usage;
+        using Usage = BufferUsage;
 
         /// The buffer map access mode
-        typedef BufferMapAccess MapAccess;
+        using MapAccess = BufferMapAccess;
     };
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
     /// Mapping of the buffer to the client address space
-    typedef BufferTypedMap<GLubyte> Map;
+    using Map = BufferTypedMap<GLubyte>;
 
     /// Returns true if the buffer is mapped
     /**
@@ -768,7 +766,7 @@ public:
 };
 
 /// The buffer operations with explicit selector
-typedef ObjectOps<tag::ExplicitSel, tag::Buffer> BufferOps;
+using BufferOps = ObjectOps<tag::ExplicitSel, tag::Buffer>;
 
 // Helper class for syntax sugar operators
 struct BufferTargetAndUsage {
@@ -777,8 +775,7 @@ struct BufferTargetAndUsage {
 
     BufferTargetAndUsage(BufferTarget t, BufferUsage u)
       : target(t)
-      , usage(u) {
-    }
+      , usage(u) {}
 };
 
 inline BufferTargetAndUsage operator<<(BufferTarget target, BufferUsage usage) {
@@ -792,8 +789,7 @@ struct BufferOpsAndIdxTgt {
 
     BufferOpsAndIdxTgt(const BufferOps& b, BufferIndexedTarget t)
       : buf(b)
-      , target(t) {
-    }
+      , target(t) {}
 };
 
 inline BufferOpsAndIdxTgt operator<<(
@@ -808,8 +804,7 @@ struct BufferTargetAndOffset {
 
     BufferTargetAndOffset(BufferTarget t, BufferSize o)
       : target(t)
-      , offset(o) {
-    }
+      , offset(o) {}
 };
 
 inline BufferTargetAndOffset operator+(BufferTarget target, BufferSize offset) {
@@ -853,13 +848,13 @@ inline BufferTarget operator<<(
 /**
  *  @ingroup oglplus_objects
  */
-typedef ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::Buffer>> NoBuffer;
+using NoBuffer = ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::Buffer>>;
 
 /// An @ref oglplus_object encapsulating the OpenGL buffer functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<BufferOps> Buffer;
+using Buffer = Object<BufferOps>;
 
 } // namespace oglplus
 

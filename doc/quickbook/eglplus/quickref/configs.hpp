@@ -6,11 +6,11 @@
 
 //[eglplus_config_attribs
 
-typedef __AttributeList<__ConfigAttrib, ...> ConfigAttribs; /*<
+using ConfigAttribs = __AttributeList<__ConfigAttrib, ...>; /*<
 Attribute list type for config attributes.
 >*/
 
-typedef __FinishedAttributeList<__ConfigAttrib, ...> FinishedConfigAttribs; /*<
+using FinishedConfigAttribs = __FinishedAttributeList<__ConfigAttrib, ...>; /*<
 Finished attribute list type for config attributes.
 >*/
 
@@ -35,40 +35,40 @@ public:
     See [eglfunc GetConfigAttrib], [eglconst BUFFER_SIZE].
     >*/
 
-    EGLint RedSize() const;       /*<
-          Returns the number of bits of the red color component.
-          See [eglfunc GetConfigAttrib], [eglconst RED_SIZE].
-          >*/
-    EGLint GreenSize() const;     /*<
-        Returns the number of bits of the green color component.
-        See [eglfunc GetConfigAttrib], [eglconst GREEN_SIZE].
-        >*/
-    EGLint BlueSize() const;      /*<
-         Returns the number of bits of the blue color component.
-         See [eglfunc GetConfigAttrib], [eglconst BLUE_SIZE].
-         >*/
+    EGLint RedSize() const; /*<
+    Returns the number of bits of the red color component.
+    See [eglfunc GetConfigAttrib], [eglconst RED_SIZE].
+    >*/
+    EGLint GreenSize() const; /*<
+    Returns the number of bits of the green color component.
+    See [eglfunc GetConfigAttrib], [eglconst GREEN_SIZE].
+    >*/
+    EGLint BlueSize() const; /*<
+    Returns the number of bits of the blue color component.
+    See [eglfunc GetConfigAttrib], [eglconst BLUE_SIZE].
+    >*/
     EGLint LuminanceSize() const; /*<
     Returns the number of bits of the luminance component.
     See [eglfunc GetConfigAttrib], [eglconst LUMINANCE_SIZE].
     >*/
-    EGLint AlphaSize() const;     /*<
-        Returns the number of bits of the alpha component.
-        See [eglfunc GetConfigAttrib], [eglconst ALPHA_SIZE].
-        >*/
+    EGLint AlphaSize() const; /*<
+    Returns the number of bits of the alpha component.
+    See [eglfunc GetConfigAttrib], [eglconst ALPHA_SIZE].
+    >*/
 
-    EGLint DepthSize() const;   /*<
-      Returns the number of bits of the depth buffer.
-      See [eglfunc GetConfigAttrib], [eglconst DEPTH_SIZE].
-      >*/
+    EGLint DepthSize() const; /*<
+    Returns the number of bits of the depth buffer.
+    See [eglfunc GetConfigAttrib], [eglconst DEPTH_SIZE].
+    >*/
     EGLint StencilSize() const; /*<
     Returns the number of bits of the stencil buffer.
     See [eglfunc GetConfigAttrib], [eglconst STENCIL_SIZE].
     >*/
 
-    EGLint MaxPbufferWidth() const;  /*<
-     Returns the maximum width of Pbuffers in pixels.
-     See [eglfunc GetConfigAttrib], [eglconst MAX_PBUFFER_WIDTH].
-     >*/
+    EGLint MaxPbufferWidth() const; /*<
+    Returns the maximum width of Pbuffers in pixels.
+    See [eglfunc GetConfigAttrib], [eglconst MAX_PBUFFER_WIDTH].
+    >*/
     EGLint MaxPbufferHeight() const; /*<
     Returns the maximum height of Pbuffers in pixels.
     See [eglfunc GetConfigAttrib], [eglconst MAX_PBUFFER_HEIGHT].
@@ -77,8 +77,8 @@ public:
     Returns the maximum size (number of pixels) of Pbuffers.
     See [eglfunc GetConfigAttrib], [eglconst MAX_PBUFFER_PIXELS].
     >*/
-                                     //]
-                                     //[eglplus_config_2
+    //]
+    //[eglplus_config_2
 
     EGLint MinSwapInterval() const; /*<
     Returns the minimum swap interval.
@@ -114,22 +114,22 @@ public:
     Returns the renderable type bits.
     See [eglfunc GetConfigAttrib], [eglconst RENDERABLE_TYPE].
     >*/
-    bool HasRenderableType(__RenderableTypeBit type) const;  /*<
-     Returns true if a specified renderable type is supported.
-     >*/
+    bool HasRenderableType(__RenderableTypeBit type) const; /*<
+    Returns true if a specified renderable type is supported.
+    >*/
 
     __Bitfield<__SurfaceTypeBit> SurfaceTypes() const; /*<
     Returns the surface type bits.
     See [eglfunc GetConfigAttrib], [eglconst SURFACE_TYPE].
     >*/
-    bool HasSurfaceType(__SurfaceTypeBit type) const;  /*<
-     Returns true if a specified surface type is supported.
-     >*/
+    bool HasSurfaceType(__SurfaceTypeBit type) const; /*<
+    Returns true if a specified surface type is supported.
+    >*/
 
-    __Bitfield<__RenderableTypeBit> Conformant() const;  /*<
-     Returns the conformant bits for this config.
-     See [eglfunc GetConfigAttrib], [eglconst CONFORMANT].
-     >*/
+    __Bitfield<__RenderableTypeBit> Conformant() const; /*<
+    Returns the conformant bits for this config.
+    See [eglfunc GetConfigAttrib], [eglconst CONFORMANT].
+    >*/
     bool IsConformantTo(__RenderableTypeBit type) const; /*<
     Returns true if the config is conformant to a renderable type.
     >*/

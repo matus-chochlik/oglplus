@@ -35,7 +35,7 @@ void CloudData::LoadCSV(const AppData& app_data, std::istream& input) {
     const char sep = '|';
     std::size_t ncol = 0;
 
-    typedef std::pair<std::string, std::size_t> col_pos;
+    using col_pos = std::pair<std::string, std::size_t>;
     std::map<std::string, std::size_t> col_map;
 
     std::stringbuf buf;

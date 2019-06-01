@@ -83,12 +83,11 @@ class BlendFileBlockRange
 private:
     const std::vector<BlendFileBlock>& _blocks;
 
-    typedef BlendFileRangeTpl<BlendFileBlockRange, const BlendFileBlock&> Base;
+    using Base = BlendFileRangeTpl<BlendFileBlockRange, const BlendFileBlock&>;
 
     BlendFileBlockRange(const std::vector<BlendFileBlock>& blocks)
       : Base(blocks.size())
-      , _blocks(blocks) {
-    }
+      , _blocks(blocks) {}
 
     friend class BlendFile;
 

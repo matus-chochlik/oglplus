@@ -33,7 +33,7 @@ public:
         return FaceOrientation::CW;
     }
 
-    typedef GLuint (SkyBox::*VertexAttribFunc)(std::vector<GLfloat>&) const;
+    using VertexAttribFunc = GLuint (SkyBox::*)(std::vector<GLfloat>&) const;
 
     /// Makes the vertices and returns the number of values per vertex
     template <typename T>
@@ -52,10 +52,10 @@ public:
      *  vertex attributes:
      *  - "Position" the vertex positions (Positions)
      */
-    typedef VertexAttribsInfo<SkyBox> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<SkyBox>;
 #else
-    typedef VertexAttribsInfo<SkyBox, std::tuple<VertexPositionsTag>>
-      VertexAttribs;
+    using VertexAttribs =
+      VertexAttribsInfo<SkyBox, std::tuple<VertexPositionsTag>>;
 #endif
 
     /// Queries the bounding sphere coordinates and dimensions
@@ -65,7 +65,7 @@ public:
     }
 
     /// The type of the index container returned by Indices()
-    typedef std::vector<GLushort> IndexArray;
+    using IndexArray = std::vector<GLushort>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const {

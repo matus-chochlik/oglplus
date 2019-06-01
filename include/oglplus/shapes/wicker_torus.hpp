@@ -42,8 +42,7 @@ public:
       , _r_slip_coef(0.25)
       , _s_slip_coef(0.40)
       , _sections(24)
-      , _rings(24) {
-    }
+      , _rings(24) {}
 
     /// Creates a torus with unit radius centered at the origin
     WickerTorus(
@@ -156,17 +155,16 @@ public:
      *  - "Bitangent" the vertex bi-tangent vector (Bitangents)
      *  - "TexCoord" the ST texture coordinates (TexCoordinates)
      */
-    typedef VertexAttribsInfo<WickerTorus> VertexAttribs;
+    using VertexAttribs = VertexAttribsInfo<WickerTorus>;
 #else
-    typedef VertexAttribsInfo<
+    using VertexAttribs = VertexAttribsInfo<
       WickerTorus,
       std::tuple<
         VertexPositionsTag,
         VertexNormalsTag,
         VertexTangentsTag,
         VertexBitangentsTag,
-        VertexTexCoordinatesTag>>
-      VertexAttribs;
+        VertexTexCoordinatesTag>>;
 #endif
 
     /// Queries the bounding sphere coordinates and dimensions
@@ -177,7 +175,7 @@ public:
     }
 
     /// The type of index container returned by Indices()
-    typedef std::vector<GLuint> IndexArray;
+    using IndexArray = std::vector<GLuint>;
 
     /// Returns element indices that are used with the drawing instructions
     IndexArray Indices(Default = Default()) const {

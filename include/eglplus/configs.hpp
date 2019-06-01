@@ -13,12 +13,12 @@
 #ifndef EGLPLUS_CONFIGS_1303292057_HPP
 #define EGLPLUS_CONFIGS_1303292057_HPP
 
+#include <eglplus/config_attrib.hpp>
+#include <eglplus/config_caveat.hpp>
 #include <eglplus/attrib_list.hpp>
 #include <eglplus/bitfield.hpp>
 #include <eglplus/boolean.hpp>
 #include <eglplus/color_buffer_type.hpp>
-#include <eglplus/config_attrib.hpp>
-#include <eglplus/config_caveat.hpp>
 #include <eglplus/display.hpp>
 #include <eglplus/renderable_type_bit.hpp>
 #include <eglplus/surface_type_bit.hpp>
@@ -42,8 +42,7 @@ private:
 public:
     Config(const Display& display, ::EGLConfig handle)
       : _display(display)
-      , _handle(handle) {
-    }
+      , _handle(handle) {}
 
     /// Get the value of a specified attribute
     /**
@@ -371,15 +370,14 @@ struct ConfigValueTypeToConfigAttrib {
 };
 
 /// Attribute list for configuration attributes
-typedef AttributeList<
+using ConfigAttribs = AttributeList<
   ConfigAttrib,
   ConfigValueTypeToConfigAttrib,
-  AttributeListTraits>
-  ConfigAttribs;
+  AttributeListTraits>;
 
 /// Finished list of configuration attribute values
-typedef FinishedAttributeList<ConfigAttrib, AttributeListTraits>
-  FinishedConfigAttribs;
+using FinishedConfigAttribs =
+  FinishedAttributeList<ConfigAttrib, AttributeListTraits>;
 
 /// A provides access to all configurations of a Display
 class Configs {
@@ -391,8 +389,7 @@ private:
         Display _display;
 
         _config_range_conv(const Display& display)
-          : _display(display) {
-        }
+          : _display(display) {}
 
         Config operator()(EGLConfig handle) const {
             return Config(_display, handle);
@@ -415,11 +412,10 @@ public:
         _choose(attribs);
     }
 
-    typedef aux::ConvIterRange<
+    using ConfigRange = aux::ConvIterRange<
       std::vector<EGLConfig>::const_iterator,
       Config,
-      _config_range_conv>
-      ConfigRange;
+      _config_range_conv>;
 
     /// Returns a range of all supported configurations
     ConfigRange All() const {

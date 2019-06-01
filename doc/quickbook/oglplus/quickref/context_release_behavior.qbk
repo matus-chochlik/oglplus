@@ -1,4 +1,4 @@
-[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Copyright 2014-2019 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -11,8 +11,8 @@
 [import enums/context_release_behavior.hpp]
 [oglplus_enums_context_release_behavior]
 
-[heading:typedefs Typedefs]
+[heading:type_aliases Type aliases]
 [import context_release_behavior.hpp]
-[oglplus_context_release_behavior_typedefs]
+[oglplus_context_release_behavior_type_aliases]
 
 [endsect]

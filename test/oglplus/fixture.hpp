@@ -27,6 +27,6 @@ struct TestFixture {
 
 } // namespace oglplus
 
-typedef oglplus::TestFixture OGLplusTestFixture;
+using OGLplusTestFixture = oglplus::TestFixture;
 
 #endif // include guard

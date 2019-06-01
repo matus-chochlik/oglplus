@@ -71,8 +71,7 @@ template <>
 class ObjectOps<tag::DirectState, tag::Source> : public SourceName {
 protected:
     ObjectOps(SourceName name) noexcept
-      : SourceName(name) {
-    }
+      : SourceName(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -648,20 +647,19 @@ class ObjectOps<OpsTag, oalplus::tag::Source>
   : public oalplus::ObjectOps<OpsTag, oalplus::tag::Source> {
 protected:
     ObjectOps(ObjectName<oalplus::tag::Source> name) noexcept
-      : oalplus::ObjectOps<OpsTag, oalplus::tag::Source>(name) {
-    }
+      : oalplus::ObjectOps<OpsTag, oalplus::tag::Source>(name) {}
 };
 
 } // namespace oglplus
 namespace oalplus {
 
-typedef oglplus::ObjectOps<tag::DirectState, tag::Source> SourceOps;
+using SourceOps = oglplus::ObjectOps<tag::DirectState, tag::Source>;
 
 /// An @ref oalplus_object encapsulating the OpenAL source functionality
 /**
  *  @ingroup oalplus_objects
  */
-typedef Object<SourceOps> Source;
+using Source = Object<SourceOps>;
 
 } // namespace oalplus
 

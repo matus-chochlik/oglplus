@@ -109,7 +109,7 @@ public:
      *  @see KHR_debug_Tree
      *  @see KHR_debug_ToXML
      */
-    typedef std::function<void(const CallbackData&)> Callback;
+    using Callback = std::function<void(const CallbackData&)>;
 
     /// Installs a custom callback processing the debug output
     /**
@@ -263,11 +263,10 @@ private:
     std::shared_ptr<Essence> essence;
 
 public:
-    typedef typename KHR_debug::Callback Callback;
+    using Callback = typename KHR_debug::Callback;
 
     KHR_debug_CallbackWithEssence(typename Essence::CtrParam param)
-      : essence(std::make_shared<Essence>(param)) {
-    }
+      : essence(std::make_shared<Essence>(param)) {}
 
     void operator()(const KHR_debug::CallbackData& data) {
         essence->Call(data);
@@ -280,7 +279,7 @@ public:
 
 class KHR_debug_UniqueEssence {
 private:
-    typedef KHR_debug::Callback Callback;
+    using Callback = KHR_debug::Callback;
     Callback _callback;
 
     String buffer;
@@ -289,11 +288,10 @@ private:
     KHR_debug_UniqueEssence(const KHR_debug_UniqueEssence&);
 
 public:
-    typedef const Callback& CtrParam;
+    using CtrParam = const Callback&;
 
     KHR_debug_UniqueEssence(const Callback& callback)
-      : _callback(callback) {
-    }
+      : _callback(callback) {}
 
     void Call(const KHR_debug::CallbackData& data);
 };
@@ -316,7 +314,7 @@ public:
     operator KHR_debug::Callback() const;
 };
 #else
-typedef KHR_debug_CallbackWithEssence<KHR_debug_UniqueEssence> KHR_debug_Unique;
+using KHR_debug_Unique = KHR_debug_CallbackWithEssence<KHR_debug_UniqueEssence>;
 #endif
 
 class KHR_debug_TreeEssence {
@@ -326,7 +324,7 @@ private:
     KHR_debug_TreeEssence(const KHR_debug_TreeEssence&);
 
 public:
-    typedef std::ostream& CtrParam;
+    using CtrParam = std::ostream&;
 
     KHR_debug_TreeEssence(std::ostream& out);
     ~KHR_debug_TreeEssence();
@@ -351,7 +349,7 @@ public:
     operator KHR_debug::Callback() const;
 };
 #else
-typedef KHR_debug_CallbackWithEssence<KHR_debug_TreeEssence> KHR_debug_Tree;
+using KHR_debug_Tree = KHR_debug_CallbackWithEssence<KHR_debug_TreeEssence>;
 #endif
 
 class KHR_debug_ToXMLEssence {
@@ -361,7 +359,7 @@ private:
     KHR_debug_ToXMLEssence(const KHR_debug_ToXMLEssence&);
 
 public:
-    typedef std::ostream& CtrParam;
+    using CtrParam = std::ostream&;
 
     KHR_debug_ToXMLEssence(std::ostream& out);
     ~KHR_debug_ToXMLEssence();
@@ -385,7 +383,7 @@ public:
     operator KHR_debug::Callback() const;
 };
 #else
-typedef KHR_debug_CallbackWithEssence<KHR_debug_ToXMLEssence> KHR_debug_ToXML;
+using KHR_debug_ToXML = KHR_debug_CallbackWithEssence<KHR_debug_ToXMLEssence>;
 #endif
 
 #endif // KHR_debug

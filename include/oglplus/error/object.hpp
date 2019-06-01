@@ -88,14 +88,14 @@ public:
 
     template <typename BindTarget_>
     ObjectError& ObjectBinding(BindTarget_ bind_tgt) {
-        typedef typename ObjectTargetTag<BindTarget_>::Type Tag;
+        using Tag = typename ObjectTargetTag<BindTarget_>::Type;
         Object(ObjBindingOps<Tag>::Binding(bind_tgt));
         return BindTarget(bind_tgt);
     }
 
     template <typename BindTarget_>
     ObjectError& ObjectBinding(BindTarget_ bind_tgt, GLuint index) {
-        typedef typename ObjectTargetTag<BindTarget_>::Type Tag;
+        using Tag = typename ObjectTargetTag<BindTarget_>::Type;
         Object(ObjBindingOps<Tag>::Binding(bind_tgt, index));
         return BindTarget(bind_tgt);
     }
@@ -141,7 +141,7 @@ public:
 
     template <typename BindTarget_>
     ObjectPairError& SubjectBinding(BindTarget_ bind_tgt) {
-        typedef typename ObjectTargetTag<BindTarget_>::Type Tag;
+        using Tag = typename ObjectTargetTag<BindTarget_>::Type;
         return Subject(ObjBindingOps<Tag>::Binding(bind_tgt));
     }
 };

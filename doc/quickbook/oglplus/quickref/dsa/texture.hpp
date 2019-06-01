@@ -16,26 +16,26 @@ class __ObjectOps<__tag_DirectState, __tag_Texture>
 {
 public:
     struct Property {
-        typedef __TextureCompareMode CompareMode;
+        using CompareMode = __TextureCompareMode;
 
-        typedef __TextureFilter Filter;
+        using Filter = __TextureFilter;
 
-        typedef __TextureMagFilter MagFilter;
+        using MagFilter = __TextureMagFilter;
 
-        typedef __TextureMinFilter MinFilter;
+        using MinFilter = __TextureMinFilter;
 
-        typedef __TextureSwizzleCoord SwizzleCoord;
+        using SwizzleCoord = __TextureSwizzleCoord;
 
-        typedef __TextureSwizzle Swizzle;
+        using Swizzle = __TextureSwizzle;
 
 #if GL_ARB_texture_swizzle
-        typedef __TextureSwizzleTuple SwizzleTuple;
+        using SwizzleTuple = __TextureSwizzleTuple;
 #endif
-        typedef __TextureWrapCoord WrapCoord;
+        using WrapCoord = __TextureWrapCoord;
 
-        typedef __TextureWrap Wrap;
+        using Wrap = __TextureWrap;
 
-        typedef __OneOf<__DataType, __PixelDataType> PixDataType;
+        using PixDataType = __OneOf<__DataType, __PixelDataType>;
     };
 
     __SizeType Width(GLint level = 0) const; /*<
@@ -589,9 +589,9 @@ See [glfunc GetTextureLevelParameter], [glconst TEXTURE_COMPRESSED_IMAGE_SIZE].
 
 //]
 //[oglplus_dsa_texture_def
-typedef ObjectOps<__tag_DirectState, __tag_Texture> DSATextureOps;
+using DSATextureOps = ObjectOps<__tag_DirectState, __tag_Texture>;
 
-typedef __Object<DSATextureOps> Texture;
+using Texture = __Object<DSATextureOps>;
 
 //]
 //[oglplus_dsa_texture_sugar1

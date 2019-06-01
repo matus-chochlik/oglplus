@@ -27,7 +27,7 @@ struct EnumBaseType;
 
 template <typename Enum>
 struct IsBitfieldBit {
-    typedef std::false_type Type;
+    using Type = std::false_type;
 };
 
 } // namespace enums
@@ -52,28 +52,24 @@ struct IsBitfieldBit {
 template <typename Bit>
 class Bitfield {
 private:
-    typedef typename enums::EnumBaseType<Bit>::Type BF;
+    using BF = typename enums::EnumBaseType<Bit>::Type;
     BF _bits;
 
 public:
     /// Constructs an empty bitfield
     Bitfield()
-      : _bits(0) {
-    }
+      : _bits(0) {}
 
     /// Construct a bitfield from the underlying type
     Bitfield(BF bits)
-      : _bits(bits) {
-    }
+      : _bits(bits) {}
 
     /// Construct a bitfield from a single strongly-typed enumeration value
     Bitfield(Bit _bit)
-      : _bits(BF(_bit)) {
-    }
+      : _bits(BF(_bit)) {}
 
     Bitfield(Bit _bit_a, Bit _bit_b)
-      : _bits(BF(_bit_a) | BF(_bit_b)) {
-    }
+      : _bits(BF(_bit_a) | BF(_bit_b)) {}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
     /// Construction from a pair of iterators through Bit(s)
@@ -129,11 +125,11 @@ public:
     namespace enums {                                            \
     template <>                                                  \
     struct EnumBaseType<BITS> {                                  \
-        typedef GLbitfield Type;                                 \
+        using Type = GLbitfield;                                 \
     };                                                           \
     template <>                                                  \
     struct IsBitfieldBit<BITS> {                                 \
-        typedef std::true_type Type;                             \
+        using Type = std::true_type;                             \
     };                                                           \
     }                                                            \
     inline oglplus::Bitfield<BITS> operator|(BITS b1, BITS b2) { \

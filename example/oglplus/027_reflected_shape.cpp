@@ -33,7 +33,7 @@ private:
     shapes::Plane::IndexArray plane_indices;
 
     // helper object building and storing shape drawing instructions
-    typedef shapes::TwistedTorus Shape;
+    using Shape = shapes::TwistedTorus;
     Shape make_shape;
     shapes::DrawingInstructions shape_instr;
     Shape::IndexArray shape_indices;

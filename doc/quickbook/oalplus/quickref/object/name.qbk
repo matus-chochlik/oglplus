@@ -1,4 +1,4 @@
-[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
+[/ Copyright 2014-2019 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -20,8 +20,8 @@ a buffer name to a function requiring a source, etc.
 [import name.hpp]
 [oalplus_object_name]
 
-[heading:typedefs Convenience typedefs]
+[heading:type_aliases Convenience type aliases]
 
-[oalplus_object_name_typedefs]
+[oalplus_object_name_type_aliases]
 
 [endsect]

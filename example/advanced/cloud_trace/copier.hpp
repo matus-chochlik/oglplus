@@ -71,9 +71,9 @@ public:
     void Copy(AppData&, Params&, Raytracer&, unsigned tile);
 };
 
-typedef RaytraceCopierNV_copy_image RaytraceCopier;
+using RaytraceCopier = RaytraceCopierNV_copy_image;
 #else
-typedef RaytraceCopierDefault RaytraceCopier;
+using RaytraceCopier = RaytraceCopierDefault;
 #endif
 
 } // namespace cloud_trace

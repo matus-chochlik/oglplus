@@ -49,7 +49,7 @@ public:
     and pushes it on itself as the first element.
     >*/
 
-    typedef __SettingHolder<T, ...> Holder;
+    using Holder = __SettingHolder<T, ...>;
 
     SettingStack& operator[](Index index);
     SettingStack& Indexed(Index index); /*<
@@ -112,7 +112,7 @@ public:
     indexed setting.
     >*/
 
-    typedef __SettingHolder<T, GLuint> Holder;
+    using Holder = __SettingHolder<T, GLuint>;
 
     Holder Push(T value); /*<
     Pushes a new value on the stack at index zero.

@@ -77,8 +77,7 @@ class ObjectOps<tag::DirectState, tag::PathNV>
   : public ObjZeroOps<tag::DirectState, tag::PathNV> {
 protected:
     ObjectOps(ObjectName<tag::PathNV> name) noexcept
-      : ObjZeroOps<tag::DirectState, tag::PathNV>(name) {
-    }
+      : ObjZeroOps<tag::DirectState, tag::PathNV>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -718,13 +717,13 @@ public:
 };
 
 /// PathNV operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::PathNV> PathNVOps;
+using PathNVOps = ObjectOps<tag::DirectState, tag::PathNV>;
 
 /// An @ref oglplus_object encapsulating the nVidia path functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<PathNVOps> PathNV;
+using PathNV = Object<PathNVOps>;
 
 } // namespace oglplus
 

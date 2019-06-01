@@ -1,4 +1,4 @@
-[/ Copyright 2014-2015 Matus Chochlik. Distributed under the Boost  ]
+[/ Copyright 2014-2019 Matus Chochlik. Distributed under the Boost  ]
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
@@ -21,8 +21,8 @@
 [def __tag_DirectState [link oalplus.quickref.ops_tags tag::DirectState]]
 
 [def __ObjectName [link oalplus.quickref.object.name ObjectName]]
-[def __BufferName [link oalplus.quickref.object.name.typedefs BufferName]]
-[def __SourceName [link oalplus.quickref.object.name.typedefs SourceName]]
+[def __BufferName [link oalplus.quickref.object.name.type_aliases BufferName]]
+[def __SourceName [link oalplus.quickref.object.name.type_aliases SourceName]]
 
 [def __ObjectOps [link oalplus.quickref.object.ops ObjectOps]]
 [def __Object [link oalplus.quickref.object.wrapper Object]]

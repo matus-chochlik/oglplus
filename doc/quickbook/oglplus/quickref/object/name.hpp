@@ -36,20 +36,20 @@ GLuint GetGLName(__ObjectName<__ObjTag> named); /*<
 >*/
 
 //]
-//[oglplus_object_name_typedefs
+//[oglplus_object_name_type_aliases
 
-typedef __ObjectName<tag::Renderbuffer> RenderbufferName;
-typedef ObjectName<tag::Framebuffer> FramebufferName;
-typedef ObjectName<tag::Texture> TextureName;
-typedef ObjectName<tag::Buffer> BufferName;
-typedef ObjectName<tag::Query> QueryName;
-typedef ObjectName<tag::ProgramPipeline> ProgramPipelineName;
-typedef ObjectName<tag::Program> ProgramName;
-typedef ObjectName<tag::TransformFeedback> TransformFeedbackName;
-typedef ObjectName<tag::Sampler> SamplerName;
-typedef ObjectName<tag::VertexArray> VertexArrayName;
-typedef ObjectName<tag::Shader> ShaderName;
-typedef ObjectName<tag::PerfMonitorAMD> PerfMonitorAMDName;
-typedef ObjectName<tag::PathNV> PathNVName;
+using RenderbufferName = __ObjectName<tag::Renderbuffer>;
+using FramebufferName = ObjectName<tag::Framebuffer>;
+using TextureName = ObjectName<tag::Texture>;
+using BufferName = ObjectName<tag::Buffer>;
+using QueryName = ObjectName<tag::Query>;
+using ProgramPipelineName = ObjectName<tag::ProgramPipeline>;
+using ProgramName = ObjectName<tag::Program>;
+using TransformFeedbackName = ObjectName<tag::TransformFeedback>;
+using SamplerName = ObjectName<tag::Sampler>;
+using VertexArrayName = ObjectName<tag::VertexArray>;
+using ShaderName = ObjectName<tag::Shader>;
+using PerfMonitorAMDName = ObjectName<tag::PerfMonitorAMD>;
+using PathNVName = ObjectName<tag::PathNV>;
 
 //]

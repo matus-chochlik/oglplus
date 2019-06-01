@@ -80,7 +80,7 @@ protected:
 
 public:
     /// Framebuffer bind targets
-    typedef FramebufferTarget Target;
+    using Target = FramebufferTarget;
 
     /// Returns the current Framebuffer bound to specified @p target
     /**
@@ -112,8 +112,7 @@ class ObjCommonOps<tag::Framebuffer>
   , public ObjBindingOps<tag::Framebuffer> {
 protected:
     ObjCommonOps(FramebufferName name) noexcept
-      : FramebufferName(name) {
-    }
+      : FramebufferName(name) {}
 
 public:
     ObjCommonOps(ObjCommonOps&&) = default;
@@ -141,8 +140,7 @@ class ObjectOps<tag::ExplicitSel, tag::Framebuffer>
   : public ObjZeroOps<tag::ExplicitSel, tag::Framebuffer> {
 protected:
     ObjectOps(FramebufferName name) noexcept
-      : ObjZeroOps<tag::ExplicitSel, tag::Framebuffer>(name) {
-    }
+      : ObjZeroOps<tag::ExplicitSel, tag::Framebuffer>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -153,22 +151,20 @@ public:
     /// Types related to Framebuffer
     struct Property {
         /// Buffer of default FB or attachment of a FBO
-        typedef OneOf<
+        using Buffer = OneOf<
           GLenum,
           std::tuple<
             FramebufferBuffer,
             FramebufferAttachment,
-            FramebufferColorAttachment>>
-          Buffer;
+            FramebufferColorAttachment>>;
 
         /// Attachment of a Framebuffer
-        typedef OneOf<
+        using Attachment = OneOf<
           GLenum,
-          std::tuple<FramebufferAttachment, FramebufferColorAttachment>>
-          Attachment;
+          std::tuple<FramebufferAttachment, FramebufferColorAttachment>>;
 
         /// Status of a Framebuffer
-        typedef FramebufferStatus Status;
+        using Status = FramebufferStatus;
     };
 
     /// Checks the status of the framebuffer
@@ -896,7 +892,7 @@ public:
 };
 
 /// Framebuffer operations with explicit selector
-typedef ObjectOps<tag::ExplicitSel, tag::Framebuffer> FramebufferOps;
+using FramebufferOps = ObjectOps<tag::ExplicitSel, tag::Framebuffer>;
 
 /// Helper class used with syntax-sugar operators
 struct FramebufferComplete {};
@@ -905,13 +901,12 @@ struct FramebufferComplete {};
 struct FramebufferTargetAndAttch {
     FramebufferTarget target;
 
-    typedef FramebufferOps::Property::Attachment Attachment;
+    using Attachment = FramebufferOps::Property::Attachment;
     Attachment attachment;
 
     FramebufferTargetAndAttch(FramebufferTarget& t, Attachment a)
       : target(t)
-      , attachment(a) {
-    }
+      , attachment(a) {}
 };
 
 // syntax sugar operators
@@ -959,8 +954,8 @@ inline FramebufferTarget operator<<(
 /**
  *  @ingroup oglplus_objects
  */
-typedef ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::Framebuffer>>
-  DefaultFramebuffer;
+using DefaultFramebuffer =
+  ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::Framebuffer>>;
 
 inline FramebufferTarget operator<<(
   DefaultFramebuffer dfb, FramebufferTarget target) {
@@ -972,7 +967,7 @@ inline FramebufferTarget operator<<(
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<FramebufferOps> Framebuffer;
+using Framebuffer = Object<FramebufferOps>;
 
 } // namespace oglplus
 

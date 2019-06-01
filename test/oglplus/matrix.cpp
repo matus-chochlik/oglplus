@@ -1070,10 +1070,10 @@ BOOST_AUTO_TEST_CASE(Matrix_multiplication) {
 BOOST_AUTO_TEST_CASE(Matrix_inverse) {
     double eps = 1.0;
     for(unsigned i = 0; i != 1000; ++i) {
-        typedef oglplus::Vector<double, 2> vec2;
-        typedef oglplus::Vector<double, 3> vec3;
-        typedef oglplus::Vector<double, 4> vec4;
-        typedef oglplus::Matrix<double, 4, 4> mat4;
+        using vec2 = oglplus::Vector<double, 2>;
+        using vec3 = oglplus::Vector<double, 3>;
+        using vec4 = oglplus::Vector<double, 4>;
+        using mat4 = oglplus::Matrix<double, 4, 4>;
 
         vec2 v0(
           +1.0f + float(std::rand()) / RAND_MAX,

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -74,16 +74,19 @@ using Uniform = __ProgVar<
    __ProgVarGetSetOps_Uniform.
    >*/
 
-typedef __Uniform<GLint> UniformSampler;
+using UniformSampler = __Uniform<GLint>;
 
 //]
 //[oglplus_untyped_uniform
 
-typedef __ProgVar<__tag_ImplicitSel, __tag_Uniform, __tag_NoTypecheck, void>
-  UntypedUniform; /*<
-[^Uniform] indirectly inherits from __ProgVarLocOps_Uniform and
-__ProgVarGetSetOps_Uniform.
->*/
+using UntypedUniform = __ProgVar<
+  __tag_ImplicitSel,
+  __tag_Uniform,
+  __tag_NoTypecheck,
+  void>; /*<
+     [^Uniform] indirectly inherits from __ProgVarLocOps_Uniform and
+     __ProgVarGetSetOps_Uniform.
+     >*/
 
 UntypedUniform operator/(__ProgramName program, __StrCRef identifier);
 

@@ -38,7 +38,7 @@ private:
     unsigned _current, _count;
 
 public:
-    typedef Element ValueType;
+    using ValueType = Element;
 
     ContextElementRange(Context&& context, unsigned current, unsigned count)
       : _context(std::move(context))
@@ -50,14 +50,12 @@ public:
     ContextElementRange(Context&& context, unsigned count)
       : _context(std::move(context))
       , _current(0)
-      , _count(count) {
-    }
+      , _count(count) {}
 
     ContextElementRange(ContextElementRange&& tmp)
       : _context(std::move(tmp._context))
       , _current(tmp._current)
-      , _count(tmp._count) {
-    }
+      , _count(tmp._count) {}
 
     bool Empty() const {
         return _current == _count;
@@ -89,12 +87,11 @@ private:
     Iterator _pos, _end;
 
 public:
-    typedef const typename std::iterator_traits<Iterator>::reference ValueType;
+    using ValueType = const typename std::iterator_traits<Iterator>::reference;
 
     IterRange(Iterator begin, Iterator end)
       : _pos(begin)
-      , _end(end) {
-    }
+      , _end(end) {}
 
     bool Empty() const {
         return _pos == _end;
@@ -118,11 +115,10 @@ public:
 template <typename Iterator, typename Element>
 class CastIterRange : public IterRange<Iterator> {
 public:
-    typedef Element ValueType;
+    using ValueType = Element;
 
     CastIterRange(Iterator begin, Iterator end)
-      : IterRange<Iterator>(begin, end) {
-    }
+      : IterRange<Iterator>(begin, end) {}
 
     ValueType Front() const {
         return Element(IterRange<Iterator>::Front());
@@ -135,12 +131,11 @@ private:
     Converter _conv;
 
 public:
-    typedef Element ValueType;
+    using ValueType = Element;
 
     ConvIterRange(Converter conv, Iterator begin, Iterator end)
       : IterRange<Iterator>(begin, end)
-      , _conv(conv) {
-    }
+      , _conv(conv) {}
 
     Element Front() const {
         return _conv(IterRange<Iterator>::Front());
@@ -151,13 +146,12 @@ template <typename Element>
 class ArrayRange
   : public CastIterRange<std::vector<unsigned>::const_iterator, Element> {
 private:
-    typedef std::vector<unsigned>::const_iterator iterator;
-    typedef CastIterRange<iterator, Element> _base;
+    using iterator = std::vector<unsigned>::const_iterator;
+    using _base = CastIterRange<iterator, Element>;
 
 public:
     ArrayRange(iterator i, iterator e)
-      : _base(i, e) {
-    }
+      : _base(i, e) {}
 };
 
 } // namespace aux

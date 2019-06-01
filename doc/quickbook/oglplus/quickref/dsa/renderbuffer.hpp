@@ -84,9 +84,9 @@ See [glfunc GetNamedRenderbufferParameter], [glconst RENDERBUFFER_STENCIL_SIZE].
 //]
 //[oglplus_dsa_renderbuffer_def
 
-typedef ObjectOps<__tag_DirectState, __tag_Renderbuffer> DSARenderbufferOps;
+using DSARenderbufferOps = ObjectOps<__tag_DirectState, __tag_Renderbuffer>;
 
-typedef __Object<DSARenderbufferOps> DSARenderbuffer;
+using DSARenderbuffer = __Object<DSARenderbufferOps>;
 
 //]
 //[oglplus_dsa_renderbuffer_sugar

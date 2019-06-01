@@ -102,7 +102,7 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
 /// Instantiation of Plane using GL floating-point as underlying type
-typedef Plane<GLfloat> Planef;
+using Planef = Plane<GLfloat>;
 #endif
 
 } // namespace oglplus

@@ -347,13 +347,13 @@ inline T Tan(const Angle<T>& a) {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
 /// Instantiation of Angle using GL floating-point as underlying type
-typedef Angle<GLfloat> Anglef;
+using Anglef = Angle<GLfloat>;
 
-typedef GLfloat AngleValueType;
+using AngleValueType = GLfloat;
 #elif defined(AL_VERSION_1_1)
-typedef ALfloat AngleValueType;
+using AngleValueType = ALfloat;
 #else
-typedef double AngleValueType;
+using AngleValueType = double;
 #endif
 
 /// Creates a new angle from a value in radians

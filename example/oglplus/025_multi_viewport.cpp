@@ -25,7 +25,7 @@ namespace oglplus {
 
 class MultiViewportExample : public Example {
 private:
-    typedef shapes::SpiralSphere Shape;
+    using Shape = shapes::SpiralSphere;
     // helper object building shape vertex attributes
     Shape make_shape;
     // helper object encapsulating shape drawing instructions

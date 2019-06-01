@@ -8,7 +8,7 @@
 
 template <>
 struct __ObjectSubtype<__tag_Shader> {
-    typedef __ShaderType Type;
+    using Type = __ShaderType;
 };
 
 template <>
@@ -33,7 +33,7 @@ class __ObjectOps<__tag_DirectState, __tag_Shader>
 {
 public:
     struct Property {
-        typedef __ShaderType Type;
+        using Type = __ShaderType;
     };
 
     __ShaderType Type() const; /*<
@@ -107,7 +107,7 @@ public:
 //]
 //[oglplus_shader_2
 
-typedef __ObjectOps<__tag_DirectState, __tag_Shader> ShaderOps;
+using ShaderOps = __ObjectOps<__tag_DirectState, __tag_Shader>;
 
 class Shader : public __Object<ShaderOps> {
 public:
@@ -162,24 +162,24 @@ public:
     SpecShader(SpecShader&&);
 };
 
-typedef __SpecShader<__ShaderType::Vertex> VertexShader;
+using VertexShader = __SpecShader<__ShaderType::Vertex>;
 
 #if GL_TESS_CONTROL_SHADER
-typedef __SpecShader<__ShaderType::TessControl> TessControlShader;
+using TessControlShader = __SpecShader<__ShaderType::TessControl>;
 #endif
 
 #if GL_TESS_EVALUATION_SHADER
-typedef SpecShader<__ShaderType::TessEvaluation> TessEvaluationShader;
+using TessEvaluationShader = SpecShader<__ShaderType::TessEvaluation>;
 #endif
 
 #if GL_GEOMETRY_SHADER
-typedef __SpecShader<__ShaderType::Geometry> GeometryShader;
+using GeometryShader = __SpecShader<__ShaderType::Geometry>;
 #endif
 
-typedef __SpecShader<__ShaderType::Fragment> FragmentShader;
+using FragmentShader = __SpecShader<__ShaderType::Fragment>;
 
 #if GL_COMPUTE_SHADER
-typedef __SpecShader<__ShaderType::Compute> ComputeShader;
+using ComputeShader = __SpecShader<__ShaderType::Compute>;
 #endif
 
 //]

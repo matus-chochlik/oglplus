@@ -79,7 +79,7 @@ public:
     static Reference<
       ObjectOps<tag::CurrentBound, typename Classify<Object>::ObjTag>>
     Current() {
-        typedef typename Classify<Object>::ObjTag ObjTag;
+        using ObjTag = typename Classify<Object>::ObjTag;
 
         return Reference<ObjectOps<tag::CurrentBound, ObjTag>>();
     }
@@ -90,7 +90,7 @@ public:
       tag::CurrentBound,
       typename ObjectTargetTag<ObjectTarget>::Type>>
     Current(ObjectTarget target) {
-        typedef typename ObjectTargetTag<ObjectTarget>::Type ObjTag;
+        using ObjTag = typename ObjectTargetTag<ObjectTarget>::Type;
 
         return Reference<ObjectOps<tag::CurrentBound, ObjTag>>(target);
     }

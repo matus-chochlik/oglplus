@@ -8,10 +8,10 @@
 template <typename __ObjTag>
 class BoundObjOps {
 private:
-    typedef ExplicitOps;
+    using ExplicitOps = __Unspecified;
 
 public:
-    typedef __ObjectOps<__tag_ExplicitSel, __ObjTag>::Target Target;
+    using Target = __ObjectOps<__tag_ExplicitSel, __ObjTag>::Target;
     Target target;
 
     BoundObjOps();
@@ -26,7 +26,7 @@ class ObjectOps<__tag_CurrentBound, ObjTag>
   : public __ObjZeroOps<__tag_CurrentBound, ObjTag>
   , public __BoundObjOps<ObjTag> {
 public:
-    typedef typename __BoundObjOps<__ObjTag>::Target Target;
+    using Target = typename __BoundObjOps<__ObjTag>::Target;
 
     ObjectOps(ObjectOps&&);
     ObjectOps(const ObjectOps&);

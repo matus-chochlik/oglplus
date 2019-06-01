@@ -168,11 +168,10 @@ std::shared_ptr<SpectraCalculator> SpectraGetDefaultCPUFourierTransf(
   SpectraSharedObjects&, std::size_t spectrum_size) {
     std::size_t frame_size = spectrum_size * 2 - 1;
     assert(spectrum_size > 2);
-    typedef SpectraDefaultMatrixTransf<
+    using Transf = SpectraDefaultMatrixTransf<
       std::complex<double>,
       SpectraNoOpValueTransform,
-      SpectraComplexAbsExtract>
-      Transf;
+      SpectraComplexAbsExtract>;
     return std::make_shared<Transf>(
       frame_size,
       spectrum_size,

@@ -23,31 +23,31 @@ namespace shapes {
 template <class ShapeBuilder, class VertexAttributeTag>
 struct VertexAttribInfo;
 
-#define OGLPLUS_SHAPES_HLPR_MAKE_VERT_ATTR_INFO(ATTR_NAME, GETTER_NAME)   \
-    struct Vertex##GETTER_NAME##Tag {};                                   \
-                                                                          \
-    template <class ShapeBuilder>                                         \
-    struct VertexAttribInfo<ShapeBuilder, Vertex##GETTER_NAME##Tag> {     \
-    public:                                                               \
-        static const GLchar* _att_name() {                                \
-            return #ATTR_NAME;                                            \
-        }                                                                 \
-                                                                          \
-        template <typename T>                                             \
-        struct _getter_proc {                                             \
-            typedef GLuint (*type)(const ShapeBuilder&, std::vector<T>&); \
-        };                                                                \
-                                                                          \
-        template <typename T>                                             \
-        static GLuint _getter_wrapper(                                    \
-          const ShapeBuilder& make, std::vector<T>& dest) {               \
-            return make.GETTER_NAME(dest);                                \
-        }                                                                 \
-                                                                          \
-        template <typename T>                                             \
-        static typename _getter_proc<T>::type _getter(TypeTag<T>) {       \
-            return &VertexAttribInfo::_getter_wrapper<T>;                 \
-        }                                                                 \
+#define OGLPLUS_SHAPES_HLPR_MAKE_VERT_ATTR_INFO(ATTR_NAME, GETTER_NAME)    \
+    struct Vertex##GETTER_NAME##Tag {};                                    \
+                                                                           \
+    template <class ShapeBuilder>                                          \
+    struct VertexAttribInfo<ShapeBuilder, Vertex##GETTER_NAME##Tag> {      \
+    public:                                                                \
+        static const GLchar* _att_name() {                                 \
+            return #ATTR_NAME;                                             \
+        }                                                                  \
+                                                                           \
+        template <typename T>                                              \
+        struct _getter_proc {                                              \
+            using type = GLuint (*)(const ShapeBuilder&, std::vector<T>&); \
+        };                                                                 \
+                                                                           \
+        template <typename T>                                              \
+        static GLuint _getter_wrapper(                                     \
+          const ShapeBuilder& make, std::vector<T>& dest) {                \
+            return make.GETTER_NAME(dest);                                 \
+        }                                                                  \
+                                                                           \
+        template <typename T>                                              \
+        static typename _getter_proc<T>::type _getter(TypeTag<T>) {        \
+            return &VertexAttribInfo::_getter_wrapper<T>;                  \
+        }                                                                  \
     };
 
 OGLPLUS_SHAPES_HLPR_MAKE_VERT_ATTR_INFO(Position, Positions)
@@ -120,7 +120,7 @@ protected:
 
     template <typename T>
     struct _getter_proc {
-        typedef GLuint (*type)(const ShapeBuilder&, std::vector<T>&);
+        using type = GLuint (*)(const ShapeBuilder&, std::vector<T>&);
     };
 
 private:
@@ -171,11 +171,10 @@ class VertexAttribsInfo
       VertexAttribTags,
       std::tuple_size<VertexAttribTags>::value> {
 private:
-    typedef VertexAttribsInfoBase<
+    using _base = VertexAttribsInfoBase<
       ShapeBuilder,
       VertexAttribTags,
-      std::tuple_size<VertexAttribTags>::value>
-      _base;
+      std::tuple_size<VertexAttribTags>::value>;
 
 public:
     bool MakesVertexAttrib(StrCRef name) const {

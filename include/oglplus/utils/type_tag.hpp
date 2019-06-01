@@ -20,7 +20,7 @@ namespace oglplus {
 /// A tag template used mainly for data-type-based function overload dispatching
 template <typename T>
 struct TypeTag {
-    typedef T Type;
+    using Type = T;
 
     T* operator&() const noexcept {
         return nullptr;

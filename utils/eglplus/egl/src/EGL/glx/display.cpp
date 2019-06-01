@@ -81,8 +81,7 @@ static ::pthread_mutex_t eglplus_egl_init_display_count_mutex =
 eglplus_egl_glx_DisplayImpl::eglplus_egl_glx_DisplayImpl(
   EGLNativeDisplayType id)
   : _x_display_id(static_cast<::Display*>(id))
-  , _x_open_display(static_cast<::Display*>(nullptr)) {
-}
+  , _x_open_display(static_cast<::Display*>(nullptr)) {}
 //------------------------------------------------------------------------------
 bool eglplus_egl_glx_DisplayImpl::initialized() const {
     return _x_open_display != nullptr;
@@ -152,9 +151,8 @@ bool eglplus_egl_glx_DisplayImpl::_cleanup() {
 // Displays
 //------------------------------------------------------------------------------
 // display id to display namespace map type
-typedef std::
-  map<EGLNativeDisplayType, std::unique_ptr<eglplus_egl_glx_DisplayImpl>>
-    eglplus_egl_display_map;
+using eglplus_egl_display_map =
+  std::map<EGLNativeDisplayType, std::unique_ptr<eglplus_egl_glx_DisplayImpl>>;
 
 // the map of accessed displays
 static eglplus_egl_display_map eglplus_egl_Displays;

@@ -86,7 +86,7 @@ protected:
 
 template <>
 struct ObjectSubtype<tag::Texture> {
-    typedef TextureTarget Type;
+    using Type = TextureTarget;
 };
 
 /// Texture binding operations
@@ -100,7 +100,7 @@ protected:
 
 public:
     /// Texture bind targets
-    typedef TextureTarget Target;
+    using Target = TextureTarget;
 
     /// Returns the current Texture bound to specified @p target
     /**
@@ -200,8 +200,7 @@ class ObjCommonOps<tag::Texture>
   , public ObjBindingOps<tag::Texture> {
 protected:
     ObjCommonOps(TextureName name) noexcept
-      : TextureName(name) {
-    }
+      : TextureName(name) {}
 
 public:
     ObjCommonOps(ObjCommonOps&&) = default;
@@ -413,8 +412,7 @@ class ObjZeroOps<tag::ExplicitSel, tag::Texture>
   : public ObjCommonOps<tag::Texture> {
 protected:
     ObjZeroOps(TextureName name) noexcept
-      : ObjCommonOps<tag::Texture>(name) {
-    }
+      : ObjCommonOps<tag::Texture>(name) {}
 
 public:
     ObjZeroOps(ObjZeroOps&&) = default;
@@ -425,36 +423,36 @@ public:
     /// Types related to Texture
     struct Property {
         /// Depth texture comparison mode
-        typedef TextureCompareMode CompareMode;
+        using CompareMode = TextureCompareMode;
 
         /// Filter
-        typedef TextureFilter Filter;
+        using Filter = TextureFilter;
 
         /// Magnification filter
-        typedef TextureMagFilter MagFilter;
+        using MagFilter = TextureMagFilter;
 
         /// Minification filter
-        typedef TextureMinFilter MinFilter;
+        using MinFilter = TextureMinFilter;
 
         /// Texture swizzle coordinate
-        typedef TextureSwizzleCoord SwizzleCoord;
+        using SwizzleCoord = TextureSwizzleCoord;
 
         /// Texture swizzle value
-        typedef TextureSwizzle Swizzle;
+        using Swizzle = TextureSwizzle;
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
         /// Texture swizzle tuple
-        typedef TextureSwizzleTuple SwizzleTuple;
+        using SwizzleTuple = TextureSwizzleTuple;
 #endif
 
         /// Texture wrap mode for coordinate
-        typedef TextureWrapCoord WrapCoord;
+        using WrapCoord = TextureWrapCoord;
 
         /// Texture wrap mode value
-        typedef TextureWrap Wrap;
+        using Wrap = TextureWrap;
 
         /// The pixel data type
-        typedef OneOf<GLenum, std::tuple<DataType, PixelDataType>> PixDataType;
+        using PixDataType = OneOf<GLenum, std::tuple<DataType, PixelDataType>>;
     };
 
     static GLint GetIntParam(Target target, GLenum query);
@@ -2333,10 +2331,10 @@ public:
 };
 
 /// DefaultTexture operations with explicit selector
-typedef ObjZeroOps<tag::ExplicitSel, tag::Texture> DefaultTextureOps;
+using DefaultTextureOps = ObjZeroOps<tag::ExplicitSel, tag::Texture>;
 
 /// Texture operations with explicit selector
-typedef ObjectOps<tag::ExplicitSel, tag::Texture> TextureOps;
+using TextureOps = ObjectOps<tag::ExplicitSel, tag::Texture>;
 
 /// Selector type used with the syntax sugar operators
 struct TextureMipmap {};
@@ -2348,8 +2346,7 @@ struct TextureTargetAndSlot {
 
     TextureTargetAndSlot(TextureTarget& t, GLint s)
       : target(t)
-      , slot(s) {
-    }
+      , slot(s) {}
 };
 
 // syntax sugar operators
@@ -2364,8 +2361,7 @@ struct TextureUnitAndTarget {
 
     TextureUnitAndTarget(TextureUnitSelector u, TextureTarget t)
       : unit(u)
-      , tgt(t) {
-    }
+      , tgt(t) {}
 };
 
 // syntax sugar operators
@@ -2513,13 +2509,13 @@ inline TextureTarget operator<<(TextureTarget target, TextureMipmap) {
 /**
  *  @ingroup oglplus_objects
  */
-typedef ObjectZero<DefaultTextureOps> DefaultTexture;
+using DefaultTexture = ObjectZero<DefaultTextureOps>;
 
 /// An @ref oglplus_object encapsulating the texture object functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<TextureOps> Texture;
+using Texture = Object<TextureOps>;
 
 } // namespace oglplus
 

@@ -74,7 +74,7 @@ protected:
 
 template <>
 struct ObjGenTag<tag::DirectState, tag::Program> {
-    typedef tag::Create Type;
+    using Type = tag::Create;
 };
 
 /// Program binding operations
@@ -121,8 +121,7 @@ class ObjCommonOps<tag::Program>
   , public ObjBindingOps<tag::Program> {
 protected:
     ObjCommonOps(ProgramName name) noexcept
-      : ProgramName(name) {
-    }
+      : ProgramName(name) {}
 
 public:
     ObjCommonOps(ObjCommonOps&&) = default;
@@ -167,8 +166,7 @@ class ObjectOps<tag::DirectState, tag::Program>
   : public ObjZeroOps<tag::DirectState, tag::Program> {
 protected:
     ObjectOps(ProgramName name) noexcept
-      : ObjZeroOps<tag::DirectState, tag::Program>(name) {
-    }
+      : ObjZeroOps<tag::DirectState, tag::Program>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -411,54 +409,48 @@ public:
      *  The InterfaceContext type should be treated as opaque and only used
      *  with appropriate functions.
      */
-    typedef Unspecified InterfaceContext;
+    using InterfaceContext = Unspecified;
 
     /// The type of the range for traversing program resource information
-    typedef Range<ProgramResource> ActiveResourceRange;
+    using ActiveResourceRange = Range<ProgramResource>;
 
     /// The type of the range for traversing active vertex attributes
-    typedef Range<ActiveVariableInfo> ActiveAttribRange;
+    using ActiveAttribRange = Range<ActiveVariableInfo>;
     /// The type of the range for traversing active uniforms
-    typedef Range<ActiveVariableInfo> ActiveUniformRange;
+    using ActiveUniformRange = Range<ActiveVariableInfo>;
     /// The type of the range for traversing active subroutine uniforms
-    typedef Range<ActiveVariableInfo> ActiveSubroutineUniformRange;
+    using ActiveSubroutineUniformRange = Range<ActiveVariableInfo>;
     /// The type of the range for traversing transform feedback varyings
-    typedef Range<ActiveVariableInfo> TransformFeedbackVaryingRange;
+    using TransformFeedbackVaryingRange = Range<ActiveVariableInfo>;
     /// The type of the range for traversing program's shaders
-    typedef Range<Managed<Shader>> ShaderRange;
+    using ShaderRange = Range<Managed<Shader>>;
 #else
-    typedef aux::ActiveVariableInfo ActiveVariableInfo;
-    typedef aux::ProgramInterfaceContext InterfaceContext;
+    using ActiveVariableInfo = aux::ActiveVariableInfo;
+    using InterfaceContext = aux::ProgramInterfaceContext;
 
 #if GL_VERSION_4_3
-    typedef aux::
-      ContextElementRange<aux::ProgramInterfaceContext, ProgramResource>
-        ActiveResourceRange;
+    using ActiveResourceRange =
+      aux::ContextElementRange<aux::ProgramInterfaceContext, ProgramResource>;
 #endif
 
-    typedef aux::
-      ContextElementRange<aux::ProgramInterfaceContext, aux::ActiveAttribInfo>
-        ActiveAttribRange;
+    using ActiveAttribRange = aux::
+      ContextElementRange<aux::ProgramInterfaceContext, aux::ActiveAttribInfo>;
 
-    typedef aux::
-      ContextElementRange<aux::ProgramInterfaceContext, aux::ActiveUniformInfo>
-        ActiveUniformRange;
+    using ActiveUniformRange = aux::
+      ContextElementRange<aux::ProgramInterfaceContext, aux::ActiveUniformInfo>;
 
 #if GL_VERSION_4_0 || GL_ARB_shader_subroutine
-    typedef aux::ContextElementRange<
+    using ActiveSubroutineRange = aux::ContextElementRange<
       aux::ProgramInterfaceContext,
-      aux::ActiveSubroutineInfo>
-      ActiveSubroutineRange;
+      aux::ActiveSubroutineInfo>;
 
-    typedef aux::ContextElementRange<
+    using ActiveSubroutineUniformRange = aux::ContextElementRange<
       aux::ProgramInterfaceContext,
-      aux::ActiveSubroutineUniformInfo>
-      ActiveSubroutineUniformRange;
+      aux::ActiveSubroutineUniformInfo>;
 #endif
-    typedef aux::ContextElementRange<
+    using TransformFeedbackVaryingRange = aux::ContextElementRange<
       aux::ProgramInterfaceContext,
-      aux::TransformFeedbackVaryingInfo>
-      TransformFeedbackVaryingRange;
+      aux::TransformFeedbackVaryingInfo>;
 
     struct ShaderIterationContext {
         std::vector<GLuint> _shader_names;
@@ -466,19 +458,17 @@ public:
         ShaderIterationContext(GLuint name, GLuint count);
 
         ShaderIterationContext(ShaderIterationContext&& temp)
-          : _shader_names(std::move(temp._shader_names)) {
-        }
+          : _shader_names(std::move(temp._shader_names)) {}
     };
 
     struct IteratedShaderName : ShaderName {
         IteratedShaderName(
           const ShaderIterationContext& context, unsigned index)
-          : ShaderName(context._shader_names.at(index)) {
-        }
+          : ShaderName(context._shader_names.at(index)) {}
     };
 
-    typedef aux::ContextElementRange<ShaderIterationContext, IteratedShaderName>
-      ShaderRange;
+    using ShaderRange =
+      aux::ContextElementRange<ShaderIterationContext, IteratedShaderName>;
 #endif // !OGLPLUS_DOCUMENTATION_ONLY
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
@@ -605,12 +595,11 @@ public:
     };
 
     /// The type of the range for traversing active uniform blocks
-    typedef Range<ActiveUniformBlockInfo> ActiveUniformRange;
+    using ActiveUniformRange = Range<ActiveUniformBlockInfo>;
 #else
-    typedef aux::ContextElementRange<
+    using ActiveUniformBlockRange = aux::ContextElementRange<
       aux::ProgramInterfaceContext,
-      aux::ActiveUniformBlockInfo>
-      ActiveUniformBlockRange;
+      aux::ActiveUniformBlockInfo>;
 #endif
 
     /// Returns a range allowing to do the traversal of active attributes
@@ -815,19 +804,19 @@ public:
 };
 
 /// Program operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::Program> ProgramOps;
+using ProgramOps = ObjectOps<tag::DirectState, tag::Program>;
 
 /// Class that can be used to unbind the currently active program
 /**
  *  @ingroup oglplus_objects
  */
-typedef ObjectZero<ObjZeroOps<tag::DirectState, tag::Program>> NoProgram;
+using NoProgram = ObjectZero<ObjZeroOps<tag::DirectState, tag::Program>>;
 
 /// An @ref oglplus_object encapsulating the program object functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<ProgramOps> Program;
+using Program = Object<ProgramOps>;
 
 // syntax-sugar operators
 
@@ -842,8 +831,7 @@ struct ProgAndXFBMode {
 
     ProgAndXFBMode(ProgramOps& p, TransformFeedbackMode m)
       : prog(p)
-      , mode(m) {
-    }
+      , mode(m) {}
 };
 
 inline ProgAndXFBMode operator<<(ProgramOps& prog, TransformFeedbackMode mode) {
@@ -879,8 +867,7 @@ struct ProgXFBModeAndNames {
     ProgXFBModeAndNames(ProgXFBModeAndNames&& tmp)
       : prog(tmp.prog)
       , mode(tmp.mode)
-      , names(std::move(tmp.names)) {
-    }
+      , names(std::move(tmp.names)) {}
 
     ProgXFBModeAndNames(const ProgXFBModeAndNames&) = delete;
 

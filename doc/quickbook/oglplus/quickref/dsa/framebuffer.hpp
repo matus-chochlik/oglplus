@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,20 +14,19 @@ class __ObjectOps<__tag_DirectState, __tag_Framebuffer>
 {
 public:
     struct Property {
-        typedef __OneOf<
+        using Buffer = __OneOf<
           __FramebufferBuffer,
           __FramebufferAttachment,
-          __FramebufferColorAttachment>
-          Buffer; /*<
+          __FramebufferColorAttachment>; /*<
         Enumerations specifying framebuffer output buffer.
         >*/
 
-        typedef __OneOf<__FramebufferAttachment, __FramebufferColorAttachment>
-          Attachment; /*<
-        Enumerations specifying framebuffer attachments.
-        >*/
+        using Attachment =
+          __OneOf<__FramebufferAttachment, __FramebufferColorAttachment>; /*<
+Enumerations specifying framebuffer attachments.
+>*/
 
-        typedef __FramebufferStatus Status;
+        using Status = __FramebufferStatus;
     };
 
     void Bind(__FramebufferTarget target);
@@ -91,9 +90,9 @@ public:
 //]
 //[oglplus_dsa_framebuffer_def
 
-typedef ObjectOps<__tag_DirectState, __tag_Framebuffer> DSAFramebufferOps;
+using DSAFramebufferOps = ObjectOps<__tag_DirectState, __tag_Framebuffer>;
 
-typedef __Object<DSAFramebufferOps> DSAFramebuffer;
+using DSAFramebuffer = __Object<DSAFramebufferOps>;
 //]
 //[oglplus_dsa_framebuffer_sugar
 

@@ -6,12 +6,12 @@
 
 //[eglplus_context_attribs
 
-typedef __AttributeList<__ContextAttrib, ...> ContextAttribs; /*<
+using ContextAttribs = __AttributeList<__ContextAttrib, ...>; /*<
 Attribute list type for context attributes.
 >*/
 
-typedef __FinishedAttributeList<__ContextAttrib, ...>
-  FinishedContextAttribs; /*<
+using FinishedContextAttribs =
+  __FinishedAttributeList<__ContextAttrib, ...>; /*<
 Finished attribute list type for context attributes.
 >*/
 
@@ -79,8 +79,8 @@ public:
     Releases the current context without assigning a new one.
     See [eglfunc MakeCurrent], [eglconst NO_SURFACE], [eglconst NO_CONTEXT].
     >*/
-                         //]
-                         //[eglplus_context_2
+    //]
+    //[eglplus_context_2
 
     __Boolean Query(__ContextAttrib attrib, EGLint& value) const; /*<
     Queries a context attribute.

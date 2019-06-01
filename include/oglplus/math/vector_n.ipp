@@ -21,8 +21,8 @@
 template <typename T, std::size_t N>
 class Vector : public VectorBase<T, N> {
 private:
-    typedef VectorBase<T, N> Base;
-    typedef typename Base::Unit_ Unit_;
+    using Base = VectorBase<T, N>;
+    using Unit_ = typename Base::Unit_;
 
     void _init_by_pack(std::size_t) {}
 

@@ -23,7 +23,7 @@ namespace images {
 
 /// Class containing data for texture image specification
 struct ImageSpecData {
-    typedef OneOf<GLenum, std::tuple<DataType, PixelDataType>> PixDataType;
+    using PixDataType = OneOf<GLenum, std::tuple<DataType, PixelDataType>>;
 
     GLsizei width;
     GLsizei height;
@@ -47,12 +47,11 @@ struct ImageSpecData {
       , format(fmt)
       , internal_format(ifmt)
       , data_type(type)
-      , data_ptr(data) {
-    }
+      , data_ptr(data) {}
 };
 
 struct ImageSpec : ImageSpecData {
-    typedef ImageSpecData _base;
+    using _base = ImageSpecData;
     static PixelDataInternalFormat _conv(PixelDataFormat fmt) {
         return PixelDataInternalFormat(GLenum(fmt));
     }
@@ -68,24 +67,20 @@ struct ImageSpec : ImageSpecData {
           PixelDataFormat(),
           PixelDataInternalFormat(),
           PixelDataType(),
-          nullptr) {
-    }
+          nullptr) {}
 
     ImageSpec(SizeType w, SizeType h, PixelDataInternalFormat ifmt)
-      : _base(w, h, 1, _conv(ifmt), ifmt, PixelDataType(), nullptr) {
-    }
+      : _base(w, h, 1, _conv(ifmt), ifmt, PixelDataType(), nullptr) {}
 
     ImageSpec(SizeType w, SizeType h, PixelDataFormat fmt, PixDataType type)
-      : _base(w, h, 1, fmt, _conv(fmt), type, nullptr) {
-    }
+      : _base(w, h, 1, fmt, _conv(fmt), type, nullptr) {}
 
     ImageSpec(
       SizeType w,
       PixelDataFormat fmt,
       PixelDataInternalFormat ifmt,
       PixDataType type)
-      : _base(w, 1, 1, fmt, ifmt, type, nullptr) {
-    }
+      : _base(w, 1, 1, fmt, ifmt, type, nullptr) {}
 
     ImageSpec(
       SizeType w,
@@ -93,8 +88,7 @@ struct ImageSpec : ImageSpecData {
       PixelDataFormat fmt,
       PixelDataInternalFormat ifmt,
       PixDataType type)
-      : _base(w, h, 1, fmt, ifmt, type, nullptr) {
-    }
+      : _base(w, h, 1, fmt, ifmt, type, nullptr) {}
 
     ImageSpec(
       SizeType w,
@@ -103,8 +97,7 @@ struct ImageSpec : ImageSpecData {
       PixelDataFormat fmt,
       PixelDataInternalFormat ifmt,
       PixDataType type)
-      : _base(w, h, d, fmt, ifmt, type, nullptr) {
-    }
+      : _base(w, h, d, fmt, ifmt, type, nullptr) {}
 
     template <typename T>
     ImageSpec(
@@ -113,8 +106,7 @@ struct ImageSpec : ImageSpecData {
       PixelDataFormat fmt,
       const T* data,
       typename std::enable_if<IsGLDataType<T>::value, const T*>::type = nullptr)
-      : _base(w, h, 1, fmt, _conv(fmt), GetDataType<T>(), data) {
-    }
+      : _base(w, h, 1, fmt, _conv(fmt), GetDataType<T>(), data) {}
 
     template <typename T>
     ImageSpec(
@@ -125,8 +117,7 @@ struct ImageSpec : ImageSpecData {
       typename std::enable_if<IsGLDataType<T>::value, const T*>::type = nullptr
 
       )
-      : _base(w, 1, 1, fmt, ifmt, GetDataType<T>(), data) {
-    }
+      : _base(w, 1, 1, fmt, ifmt, GetDataType<T>(), data) {}
 
     template <typename T>
     ImageSpec(
@@ -138,8 +129,7 @@ struct ImageSpec : ImageSpecData {
       typename std::enable_if<IsGLDataType<T>::value, const T*>::type = nullptr
 
       )
-      : _base(w, h, 1, fmt, ifmt, GetDataType<T>(), data) {
-    }
+      : _base(w, h, 1, fmt, ifmt, GetDataType<T>(), data) {}
 
     template <typename T>
     ImageSpec(
@@ -152,8 +142,7 @@ struct ImageSpec : ImageSpecData {
       typename std::enable_if<IsGLDataType<T>::value, const T*>::type = nullptr
 
       )
-      : _base(w, h, d, fmt, ifmt, GetDataType<T>(), data) {
-    }
+      : _base(w, h, d, fmt, ifmt, GetDataType<T>(), data) {}
 
     ImageSpec& Format(PixelDataFormat fmt) {
         format = fmt;

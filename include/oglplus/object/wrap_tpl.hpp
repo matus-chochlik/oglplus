@@ -33,7 +33,7 @@ struct ObjectSubtype : Nothing {};
 
 template <typename OpsTag, typename ObjTag>
 struct ObjGenTag {
-    typedef tag::Generate Type;
+    using Type = tag::Generate;
 };
 
 template <typename ObjTag>
@@ -44,10 +44,10 @@ class ObjectOps;
 
 template <typename OpsTg, typename ObjTg>
 struct Classify<ObjectOps<OpsTg, ObjTg>> {
-    typedef ObjectOps<OpsTg, ObjTg> Base;
-    typedef tag::ObjectOps Tag;
-    typedef OpsTg OpsTag;
-    typedef ObjTg ObjTag;
+    using Base = ObjectOps<OpsTg, ObjTg>;
+    using Tag = tag::ObjectOps;
+    using OpsTag = OpsTg;
+    using ObjTag = ObjTg;
 };
 
 /// Implements operations applicable to any object and any operation kind
@@ -111,7 +111,7 @@ class ObjectTpl
   : public NameHolder
   , public ObjGenDelOps<ObjTag> {
 private:
-    typedef typename ObjTag::NameType NameT;
+    using NameT = typename ObjTag::NameType;
 
     // Object is not copy-constructible
     ObjectTpl(const ObjectTpl&);
@@ -172,7 +172,7 @@ public:
         _describe(std::move(description));
     }
 
-    typedef typename ObjectSubtype<ObjTag>::Type Subtype;
+    using Subtype = typename ObjectSubtype<ObjTag>::Type;
 
     template <typename GenTag>
     ObjectTpl(GenTag gen_tag, Subtype subtype)
@@ -236,7 +236,7 @@ public:
 template <typename ObjTag>
 class ObjHandle : public ObjectTpl<ObjTag, ObjectName<ObjTag>> {
 private:
-    typedef ObjectTpl<ObjTag, ObjectName<ObjTag>> Base_;
+    using Base_ = ObjectTpl<ObjTag, ObjectName<ObjTag>>;
     ObjHandle(const ObjHandle&);
 
 public:
@@ -255,7 +255,7 @@ public:
       : Base_(create, std::move(description)) {}
 
     /// Object subtype
-    typedef typename ObjectSubtype<ObjTag>::Type Subtype;
+    using Subtype = typename ObjectSubtype<ObjTag>::Type;
 
     ObjHandle(tag::Generate generate, Subtype subtype)
       : Base_(generate, subtype) {}
@@ -285,8 +285,8 @@ template <typename OpsTag, typename ObjTag>
 class Object<ObjectOps<OpsTag, ObjTag>>
   : public ObjectTpl<ObjTag, ObjectOps<OpsTag, ObjTag>> {
 private:
-    typedef typename ObjGenTag<OpsTag, ObjTag>::Type DefGenTag;
-    typedef ObjectTpl<ObjTag, ObjectOps<OpsTag, ObjTag>> Base_;
+    using DefGenTag = typename ObjGenTag<OpsTag, ObjTag>::Type;
+    using Base_ = ObjectTpl<ObjTag, ObjectOps<OpsTag, ObjTag>>;
 
     Object(const Object&);
 
@@ -328,7 +328,7 @@ public:
       : Base_(create, std::move(description)) {}
 
     /// Object subtype
-    typedef typename ObjectSubtype<ObjTag>::Type Subtype;
+    using Subtype = typename ObjectSubtype<ObjTag>::Type;
 
     /// Construction with subtype specification
     Object(Subtype subtype)
@@ -364,8 +364,8 @@ public:
 template <typename OpsTg, typename ObjTg>
 struct Classify<Object<ObjectOps<OpsTg, ObjTg>>>
   : Classify<ObjectOps<OpsTg, ObjTg>> {
-    typedef Object<ObjectOps<OpsTg, ObjTg>> Base;
-    typedef tag::Object Tag;
+    using Base = Object<ObjectOps<OpsTg, ObjTg>>;
+    using Tag = tag::Object;
 };
 
 } // namespace oglplus

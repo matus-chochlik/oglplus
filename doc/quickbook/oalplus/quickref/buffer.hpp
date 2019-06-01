@@ -46,8 +46,8 @@ public:
 //]
 //[oalplus_buffer_def
 
-typedef ObjectOps<__tag_DirectState, __tag_Buffer> BufferOps;
+using BufferOps = ObjectOps<__tag_DirectState, __tag_Buffer>;
 
-typedef __Object<BufferOps> Buffer;
+using Buffer = __Object<BufferOps>;
 
 //]

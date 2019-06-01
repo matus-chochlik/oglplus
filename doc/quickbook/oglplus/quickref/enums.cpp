@@ -31,8 +31,8 @@ for(auto r = __EnumValueRange<__ContextProfileBit>(); !r.Empty(); r.Next()) /*<
 }
 //]
 //[oglplus_enums_OneOf_example_1
-typedef __OneOf<__FramebufferAttachment, __FramebufferColorAttachment>
-  Attachment;
+using Attachment =
+  __OneOf<__FramebufferAttachment, __FramebufferColorAttachment>;
 
 Attachment a1 = __FramebufferAttachment::Depth;
 Attachment a2 = __FramebufferColorAttachment::_0;
@@ -56,8 +56,8 @@ public:
 //]
 //[oglplus_enums_EnumToClass_ex3
 
-typedef __EnumToClass<Base, SomeEnum, SomeEnumTransform>
-  EnumToClassSomeEnumTransform;
+using EnumToClassSomeEnumTransform =
+  __EnumToClass<Base, SomeEnum, SomeEnumTransform>;
 
 //]
 //[oglplus_enums_EnumToClass_ex4

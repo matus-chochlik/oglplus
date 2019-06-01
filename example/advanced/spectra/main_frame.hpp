@@ -88,12 +88,11 @@ public:
       const std::shared_ptr<SpectraVisualisation>& doc_vis,
       wxGLCanvas* canvas);
 
-    typedef std::function<std::shared_ptr<SpectraRenderer>(
+    using RendererGetter = std::function<std::shared_ptr<SpectraRenderer>(
       SpectraApp&,
       SpectraMainFrame*,
       const std::shared_ptr<SpectraVisualisation>&,
-      wxGLCanvas*)>
-      RendererGetter;
+      wxGLCanvas*)>;
 
     RendererGetter LazyRendererPicker();
 };

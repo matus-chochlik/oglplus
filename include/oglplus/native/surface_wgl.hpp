@@ -73,7 +73,7 @@ public:
     }
 };
 
-typedef SurfaceWGL Surface;
+using Surface = SurfaceWGL;
 
 } // namespace native
 } // namespace oglplus

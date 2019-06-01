@@ -23,7 +23,7 @@ namespace oglplus {
 
 template <>
 struct ObjGenTag<tag::DirectState, tag::TransformFeedback> {
-    typedef tag::Create Type;
+    using Type = tag::Create;
 };
 
 /// Class wrapping transform feedback-related functionality with direct state
@@ -36,8 +36,7 @@ class ObjectOps<tag::DirectState, tag::TransformFeedback>
   : public ObjZeroOps<tag::DirectState, tag::TransformFeedback> {
 protected:
     ObjectOps(TransformFeedbackName name) noexcept
-      : ObjZeroOps<tag::DirectState, tag::TransformFeedback>(name) {
-    }
+      : ObjZeroOps<tag::DirectState, tag::TransformFeedback>(name) {}
 
 public:
     ObjectOps(ObjectOps&&) = default;
@@ -97,15 +96,15 @@ public:
 };
 
 /// TransformFeedback operations with direct state access
-typedef ObjectOps<tag::DirectState, tag::TransformFeedback>
-  DSATransformFeedbackOps;
+using DSATransformFeedbackOps =
+  ObjectOps<tag::DirectState, tag::TransformFeedback>;
 
 /// An @ref oglplus_object encapsulating the OpenGL transform feedback
 /// functionality
 /**
  *  @ingroup oglplus_objects
  */
-typedef Object<DSATransformFeedbackOps> DSATransformFeedback;
+using DSATransformFeedback = Object<DSATransformFeedbackOps>;
 
 #endif // GL_ARB_direct_state_access
 

@@ -9,8 +9,8 @@
 template <typename ObjectT>
 class SeqIterator {
 public:
-    typedef ObjectT value_type;
-    typedef __Unspecified difference_type;
+    using value_type = ObjectT;
+    using difference_type = __Unspecified;
 
     friend bool operator==(SeqIterator a, SeqIterator b);
     friend bool operator!=(SeqIterator a, SeqIterator b);
@@ -47,8 +47,8 @@ public:
     Sequence slice(size_t start) const;
     Sequence slice(size_t start, size_t count) const;
 
-    typedef __SeqIterator<ObjectT> iterator;
-    typedef __SeqIterator<ObjectT> const_iterator;
+    using iterator = __SeqIterator<ObjectT>;
+    using const_iterator = __SeqIterator<ObjectT>;
 
     const_iterator begin() const;
     const_iterator end() const;

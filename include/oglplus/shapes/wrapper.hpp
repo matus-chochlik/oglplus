@@ -126,8 +126,7 @@ public:
       , _vao(std::move(temp._vao))
       , _vbos(std::move(temp._vbos))
       , _npvs(std::move(temp._npvs))
-      , _names(std::move(temp._names)) {
-    }
+      , _names(std::move(temp._names)) {}
 
     ShapeWrapperBase(const ShapeWrapperBase&) = delete;
 
@@ -189,13 +188,11 @@ private:
 
 public:
     ShapeWrapperTpl(ShapeWrapperTpl&& temp)
-      : ShapeWrapperBase(static_cast<ShapeWrapperBase&&>(temp)) {
-    }
+      : ShapeWrapperBase(static_cast<ShapeWrapperBase&&>(temp)) {}
 
     template <typename StdRange, class ShapeBuilder>
     ShapeWrapperTpl(const StdRange& names, const ShapeBuilder& builder)
-      : ShapeWrapperBase(names.begin(), names.end(), builder, _sel()) {
-    }
+      : ShapeWrapperBase(names.begin(), names.end(), builder, _sel()) {}
 
     template <typename StdRange, class ShapeBuilder>
     ShapeWrapperTpl(
@@ -210,8 +207,7 @@ public:
     ShapeWrapperTpl(
       const std::initializer_list<const GLchar*>& names,
       const ShapeBuilder& builder)
-      : ShapeWrapperBase(names.begin(), names.end(), builder, _sel()) {
-    }
+      : ShapeWrapperBase(names.begin(), names.end(), builder, _sel()) {}
 
     template <class ShapeBuilder>
     ShapeWrapperTpl(
@@ -225,8 +221,7 @@ public:
     template <class ShapeBuilder>
     ShapeWrapperTpl(
       const GLchar** names, unsigned name_count, const ShapeBuilder& builder)
-      : ShapeWrapperBase(names, names + name_count, builder, _sel()) {
-    }
+      : ShapeWrapperBase(names, names + name_count, builder, _sel()) {}
 
     template <class ShapeBuilder>
     ShapeWrapperTpl(
@@ -240,8 +235,7 @@ public:
 
     template <class ShapeBuilder>
     ShapeWrapperTpl(const GLchar* name, const ShapeBuilder& builder)
-      : ShapeWrapperBase(&name, (&name) + 1, builder, _sel()) {
-    }
+      : ShapeWrapperBase(&name, (&name) + 1, builder, _sel()) {}
 
     template <class ShapeBuilder>
     ShapeWrapperTpl(
@@ -251,8 +245,8 @@ public:
     }
 };
 
-typedef ShapeWrapperTpl<DrawMode::Default> ShapeWrapper;
-typedef ShapeWrapperTpl<DrawMode::WithAdjacency> ShapeWrapperWithAdjacency;
+using ShapeWrapper = ShapeWrapperTpl<DrawMode::Default>;
+using ShapeWrapperWithAdjacency = ShapeWrapperTpl<DrawMode::WithAdjacency>;
 
 } // namespace shapes
 } // namespace oglplus

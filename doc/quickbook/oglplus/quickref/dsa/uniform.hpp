@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014-2015 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2014-2019 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,6 +16,6 @@ using ProgramUniform = __ProgVar<
    __ProgVarGetSetOps_Uniform.
    >*/
 
-typedef __ProgramUniform<GLint> ProgramUniformSampler;
+using ProgramUniformSampler = __ProgramUniform<GLint>;
 
 //]

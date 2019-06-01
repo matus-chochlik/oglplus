@@ -74,16 +74,15 @@ inline ::HGLRC GetHGLRC(const ContextWGL& cwgl) noexcept {
     return cwgl._context;
 }
 
-typedef ContextWGL Context;
+using Context = ContextWGL;
 
 class CurrentContextWGL : public ContextWGL {
 public:
     CurrentContextWGL()
-      : ContextWGL(ContextWGL::Current_()) {
-    }
+      : ContextWGL(ContextWGL::Current_()) {}
 };
 
-typedef CurrentContextWGL CurrentContext;
+using CurrentContext = CurrentContextWGL;
 
 } // namespace native
 } // namespace oglplus
