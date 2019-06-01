@@ -6,8 +6,18 @@
 	<link>https://oglplus.org/</link>
 	<language>en-us</language>
 	<ttl>1440</ttl>
-	<lastBuildDate>Sun, 24 Feb 2019 07:00:00 GMT</lastBuildDate>
+	<lastBuildDate>Sat, 01 Jun 2019 19:29:35 GMT</lastBuildDate>
 
+	<item>
+		<title>OGLplus 0.74.0 released.</title>
+		<link>https://github.com/matus-chochlik/oglplus</link>
+		<description>
+			New release version of OGLplus is available from github.
+		</description>
+		<guid>https://oglplus.org/news.rss#item-2019-01-06-19:29:35</guid>
+		<pubDate>Sat, 01 Jun 2019 19:29:35 GMT</pubDate>
+		<source url="https://oglplus.org/news.rss">OGLplus news</source>
+	</item>
 	<item>
 		<title>OGLplu2 0.22.0 released.</title>
 		<link>https://github.com/matus-chochlik/oglplu2/archive/master.zip</link>
@@ -104,16 +114,6 @@
 		</description>
 		<guid>https://oglplus.org/news.rss#item-2017-09-21-19:49:07</guid>
 		<pubDate>Thu, 21 Sep 2017 19:49:07 GMT</pubDate>
-		<source url="https://oglplus.org/news.rss">OGLplus news</source>
-	</item>
-	<item>
-		<title>OGLplus 0.71.0 released.</title>
-		<link>https://github.com/matus-chochlik/oglplus</link>
-		<description>
-			New release version of OGLplus is available from github.
-		</description>
-		<guid>https://oglplus.org/news.rss#item-2017-08-20-20:59:25</guid>
-		<pubDate>Sun, 20 Aug 2017 20:59:25 GMT</pubDate>
 		<source url="https://oglplus.org/news.rss">OGLplus news</source>
 	</item>
 </channel>
