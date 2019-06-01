@@ -79,16 +79,15 @@ private:
 public:
     void OnIdle(wxIdleEvent& event);
 
-    typedef std::function<std::shared_ptr<SpectraVisualisation>(
-      SpectraApp&, SpectraMainFrame*, wxGLCanvas*, wxGLContext*)>
-      VisualisationGetter;
+    using VisualisationGetter =
+      std::function<std::shared_ptr<SpectraVisualisation>(
+        SpectraApp&, SpectraMainFrame*, wxGLCanvas*, wxGLContext*)>;
 
-    typedef std::function<std::shared_ptr<SpectraRenderer>(
+    using RendererGetter = std::function<std::shared_ptr<SpectraRenderer>(
       SpectraApp&,
       SpectraMainFrame*,
       const std::shared_ptr<SpectraVisualisation>&,
-      wxGLCanvas*)>
-      RendererGetter;
+      wxGLCanvas*)>;
 
     SpectraDocumentFrame(
       SpectraApp& app,

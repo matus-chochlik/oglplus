@@ -36,7 +36,7 @@ private:
     SpectraApp& parent_app;
     wxWindow* parent_window;
 
-    typedef std::queue<std::shared_ptr<SpectraCoroutine>> coroutine_queue;
+    using coroutine_queue = std::queue<std::shared_ptr<SpectraCoroutine>>;
     coroutine_queue coroutines;
 
     bool UpdateSingle(const std::shared_ptr<SpectraCoroutine>& coroutine);

@@ -20,7 +20,7 @@ class BitmapGlyphExample : public oglplus::StandaloneExample {
 private:
     oglplus::Context gl;
 
-    typedef oglplus::text::BitmapGlyphRendering TextRendering;
+    using TextRendering = oglplus::text::BitmapGlyphRendering;
 
     TextRendering tr;
 

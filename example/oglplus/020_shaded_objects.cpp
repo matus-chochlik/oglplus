@@ -67,7 +67,7 @@ public:
 
         const GLuint n_attr = 3;
         // pointers to the vertex attribute data build functions
-        typedef GLuint (ShapeMaker::*Func)(std::vector<GLfloat>&) const;
+        using Func = GLuint (ShapeMaker::*)(std::vector<GLfloat>&) const;
         Func func[n_attr] = {&ShapeMaker::Positions,
                              &ShapeMaker::Normals,
                              &ShapeMaker::TexCoordinates};

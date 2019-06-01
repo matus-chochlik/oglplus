@@ -21,7 +21,7 @@ class STBTruetypeExample : public oglplus::StandaloneExample {
 private:
     oglplus::Context gl;
 
-    typedef oglplus::text::AnyTextRendering TextRendering;
+    using TextRendering = oglplus::text::AnyTextRendering;
 
     TextRendering tr;
 

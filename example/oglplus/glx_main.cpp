@@ -340,7 +340,7 @@ void run_framedump_loop(
             (0.2f + float(std::rand()) / float(RAND_MAX) * 0.8f));
     }
 
-    typedef CubicBezierLoop<Vec2f, double> Loop;
+    using Loop = CubicBezierLoop<Vec2f, double>;
 
     ExampleTimePeriod t = ExampleTimePeriod::Zero();
     ExampleTimePeriod period = ExampleTimePeriod::Seconds(1.0 / 25.0);

@@ -53,7 +53,7 @@ private:
     Query count_query;
 
     // the pair of picked instance depth and id
-    typedef std::pair<const GLfloat, GLint> DepthAndID;
+    using DepthAndID = std::pair<const GLfloat, GLint>;
 
 public:
     PickingExample()

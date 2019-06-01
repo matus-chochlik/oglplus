@@ -67,7 +67,7 @@ public:
 
         const GLuint n_attr = 2;
         // pointers to the vertex attribute data build functions
-        typedef GLuint (shapes::Sphere::*Func)(std::vector<GLfloat>&) const;
+        using Func = GLuint (shapes::Sphere::*)(std::vector<GLfloat>&) const;
         Func func[n_attr] = {
           &shapes::Sphere::Positions,
           &shapes::Sphere::Normals,

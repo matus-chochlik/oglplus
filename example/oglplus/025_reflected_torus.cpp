@@ -215,7 +215,7 @@ public:
             Buffer::Data(sv::Array, data);
 
             // setup the vertex attribs array for the vertices
-            typedef VertexArrayAttrib VAA;
+            using VAA = VertexArrayAttrib;
             VertexAttribSlot loc_norm = VAA::GetLocation(prog_norm, "Position"),
                              loc_refl = VAA::GetLocation(prog_refl, "Position");
 
@@ -234,7 +234,7 @@ public:
             Buffer::Data(sv::Array, data);
 
             // setup the vertex attribs array for the normals
-            typedef VertexArrayAttrib VAA;
+            using VAA = VertexArrayAttrib;
             VertexAttribSlot loc_norm = VAA::GetLocation(prog_norm, "Normal"),
                              loc_refl = VAA::GetLocation(prog_refl, "Normal");
 

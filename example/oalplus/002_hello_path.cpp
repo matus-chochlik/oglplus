@@ -49,8 +49,8 @@ int main(int argc, char** argv) {
        oalplus::Vec3f(-9.0f, -1.0f, -7.0f)});
     //
     // play the sound for a while
-    typedef std::chrono::system_clock clock;
-    typedef std::chrono::time_point<clock> time_point;
+    using clock = std::chrono::system_clock;
+    using time_point = std::chrono::time_point<clock>;
 
     time_point start = clock::now();
 

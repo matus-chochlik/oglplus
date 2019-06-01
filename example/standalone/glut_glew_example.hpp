@@ -275,7 +275,7 @@ class GlutGlewExampleApp
   : public GlutInit
   , public GlewInit {
 private:
-    typedef SingleExampleTpl<Example> SingleExample;
+    using SingleExample = SingleExampleTpl<Example>;
     SingleExample example;
 
     GlutGlewExampleApp(const GlutGlewExampleApp&);

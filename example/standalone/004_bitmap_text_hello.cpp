@@ -18,7 +18,7 @@ class BitmapGlyphExample : public oglplus::StandaloneExample {
 private:
     oglplus::Context gl;
 
-    typedef oglplus::text::BitmapGlyphRendering TextRendering;
+    using TextRendering = oglplus::text::BitmapGlyphRendering;
 
     TextRendering tr;
 
@@ -72,7 +72,7 @@ public:
     }
 
     void LoadNext() {
-        typedef oglplus::text::Direction Dir;
+        using Dir = oglplus::text::Direction;
         struct {
             Dir direction;
             const char* text;
