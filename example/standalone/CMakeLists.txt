@@ -1,4 +1,4 @@
-#  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -25,7 +25,19 @@ function(standalone_example_common EXAMPLE_NAME)
 	foreach(DEP OPENGL ${ARGN})
 		target_link_libraries(${EXAMPLE_NAME} ${${DEP}_LIBRARIES})
 	endforeach()
-	set_property(TARGET ${EXAMPLE_NAME} PROPERTY FOLDER "Example/Standalone")
+	
+	set_target_properties(
+		${EXAMPLE_NAME}
+		PROPERTIES FOLDER "Example/Standalone"
+	)
+
+	if(CLANG_TIDY_PROG)
+		# TODO
+		#set_target_properties(
+		#	${EXAMPLE_NAME}
+		#	PROPERTIES CXX_CLANG_TIDY "${INVOKE_CLANG_TIDY}"
+		#)
+	endif()
 endfunction()
 
 if(EGL_FOUND AND OPENGL_FOUND)

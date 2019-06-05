@@ -86,6 +86,9 @@ include(config/Compiler.cmake)
 include(config/ExeRequirements.cmake)
 # c++ compiler options / supported feature detection
 include(config/CPPFeature.cmake)
+# static analysis
+include(config/StaticAnalysis.cmake)
+#
 # check if Boost.Config is available
 include(config/FindBoost.cmake)
 
