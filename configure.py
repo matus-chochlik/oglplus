@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
-#  Copyright 2010-2015 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -357,7 +357,7 @@ def get_argument_parser():
 			}
 		)
 
-	gl_init_libs = ["GLUT", "GLFW3", "GLFW", "wxGL", "SDL", "glX", "Qt4GL","Qt5GL",  "EGL"]
+	gl_init_libs = ["GLUT", "GLFW3", "GLFW", "wxGL", "SDL", "glX", "Qt5GL",  "EGL"]
 	argparser_gl_init_lib_group = argparser.add_mutually_exclusive_group()
 	argparser_gl_init_lib_group.add_argument(
 		"--use-gl-init-lib",

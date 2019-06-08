@@ -9,5 +9,7 @@ find_program(
 	DOC "Path to clang-tidy executable"
 )
 
-set(INVOKE_CLANG_TIDY "${CLANG_TIDY_PROG}")
+if(CLANG_TIDY_PROG)
+	set(INVOKE_CLANG_TIDY "${CLANG_TIDY_PROG}")
+endif()
 
