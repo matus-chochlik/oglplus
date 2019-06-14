@@ -42,6 +42,13 @@ set_property(
 	PROPERTY FOLDER "Library/OGLplus"
 )
 
+if(CLANG_TIDY_PROG)
+	set_target_properties(
+		oglplus
+		PROPERTIES CXX_CLANG_TIDY "${INVOKE_CLANG_TIDY}"
+	)
+endif()
+
 if(PNG_FOUND)
 	target_link_libraries(oglplus ${PNG_LIBRARIES})
 endif()
