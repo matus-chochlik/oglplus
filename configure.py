@@ -447,6 +447,14 @@ def get_argument_parser():
 		"""
 	)
 	argparser.add_argument(
+		"--with-clang-tidy",
+		default=False,
+		action="store_true",
+		help="""
+			Configure the clang-tidy checks.
+		"""
+	)
+	argparser.add_argument(
 		"--generator",
 		type=CMakeGeneratorValue,
 		default=None,
@@ -970,6 +978,10 @@ def main(argv):
 	# configure the test suite
 	if(options.with_tests):
 		cmake_options.append("-DOGLPLUS_WITH_TESTS=On")
+
+	# configure the clang-tidy
+	if(options.with_clang_tidy):
+		cmake_options.append("-DOGLPLUS_WITH_CLANG_TIDY=On")
 
 	# set the generator if specified
 	if(options.generator):

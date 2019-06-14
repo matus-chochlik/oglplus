@@ -1,4 +1,4 @@
-#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -111,6 +111,7 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 
 		if(EXAMPLE_CAN_BE_BUILT)
 			add_executable(${TARGET_NAME} EXCLUDE_FROM_ALL ${EXAMPLE_PATH})
+
 			target_link_libraries(${TARGET_NAME} ${COMMON_LIBS})
 			add_all_dependencies(${TARGET_NAME})
 			add_dependencies("${PARENT_TARGET}" ${TARGET_NAME})
@@ -125,6 +126,12 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 						PROPERTY WIN32_EXECUTABLE true
 					)
 				endif()
+			endif()
+			if(CLANG_TIDY_PROG)
+				set_target_properties(
+					${TARGET_NAME}
+					PROPERTIES CXX_CLANG_TIDY "${INVOKE_CLANG_TIDY}"
+				)
 			endif()
 			file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/examples.txt" "${EXAMPLE_NAME}\n")
 		endif()

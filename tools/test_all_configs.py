@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
-#  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2012-2019 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
@@ -140,6 +140,7 @@ def main():
 						"--from-scratch",
 						"--use-gl-api-lib="+gl_api_lib,
 						"--use-gl-init-lib="+gl_init_lib,
+						"--with-clang-tidy",
 						"--build"
 					]+additional_opts, dry_run)
 	except RuntimeError as rte:

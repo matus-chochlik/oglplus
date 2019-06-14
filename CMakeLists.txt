@@ -1,4 +1,4 @@
-#  Copyright 2010-2016 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2019 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -27,6 +27,7 @@ option(OGLPLUS_NO_DOCS "Don't build and install the documentation." Off)
 option(OGLPLUS_NO_BOOST_CONFIG "Don't use the Boost.Config library for the detection of support for C++ features." Off)
 
 option(OGLPLUS_WITH_TESTS "Configure the testsuite." Off)
+option(OGLPLUS_WITH_CLANG_TIDY "Configure clang-tidy checks." Off)
 
 # The low-profile setting
 option(OGLPLUS_CONFIG_SET_LOW_PROFILE "Set the OGLPLUS_LOW_PROFILE switch in site_config.hpp." Off)
