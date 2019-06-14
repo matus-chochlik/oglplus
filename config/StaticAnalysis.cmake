@@ -9,7 +9,17 @@ find_program(
 	DOC "Path to clang-tidy executable"
 )
 
+file(
+	READ
+	"${PROJECT_SOURCE_DIR}/config/clang-tidy-filter.json"
+	CLANG_TIDY_FILTER
+)
+
 if(CLANG_TIDY_PROG)
-	set(INVOKE_CLANG_TIDY "${CLANG_TIDY_PROG}")
+	set(
+		INVOKE_CLANG_TIDY
+		"${CLANG_TIDY_PROG}"
+		"-line-filter=${CLANG_TIDY_FILTER}"
+	)
 endif()
 

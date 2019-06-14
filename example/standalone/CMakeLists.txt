@@ -32,11 +32,10 @@ function(standalone_example_common EXAMPLE_NAME)
 	)
 
 	if(CLANG_TIDY_PROG)
-		# TODO
-		#set_target_properties(
-		#	${EXAMPLE_NAME}
-		#	PROPERTIES CXX_CLANG_TIDY "${INVOKE_CLANG_TIDY}"
-		#)
+		set_target_properties(
+			${EXAMPLE_NAME}
+			PROPERTIES CXX_CLANG_TIDY "${INVOKE_CLANG_TIDY}"
+		)
 	endif()
 endfunction()
 
