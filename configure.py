@@ -6,6 +6,20 @@
 #
 import os, sys, string, getopt, shutil, subprocess
 
+# returns the path to the default build directory
+def get_default_build_dir():
+    try:
+        try:
+            if os.environ['BUILD_DIR']:
+                return os.path.join(os.environ['BUILD_DIR'], 'oglplu2')
+            if os.environ['BINARY_DIR']:
+                return os.path.join(os.environ['BINARY_DIR'], 'oglplu2')
+        except: pass
+
+        with open(os.path.join(get_root_dir(), "BINARY_DIR"), "rt") as bdf:
+            return bdf.read()
+    except: return os.path.join(get_root_dir(), "_build");
+
 # initial values for the configuration options
 
 def get_argument_parser():
@@ -91,7 +105,7 @@ def get_argument_parser():
 	argparser.add_argument(
 		"--build-dir",
 		type=os.path.abspath,
-		default="_build",
+		default=get_default_build_dir(),
 		action="store",
 		help="""
 			Specifies the work directory for cmake, where the cached files,
