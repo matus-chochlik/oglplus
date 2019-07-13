@@ -426,7 +426,7 @@ void main_thread(
     x11::Display display(screen_name.empty() ? nullptr : screen_name.c_str());
 #else
     x11::Display& display = common.display;
-    () screen_name;
+    (void)screen_name;
 #endif
 
     static int visual_attribs[] = {GLX_DRAWABLE_TYPE,
