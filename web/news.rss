@@ -6,8 +6,19 @@
 	<link>https://oglplus.org/</link>
 	<language>en-us</language>
 	<ttl>1440</ttl>
-	<lastBuildDate>Sat, 13 Jul 2019 10:00:00 GMT</lastBuildDate>
+	<lastBuildDate>Sun, 27 Jun 2020 06:30:00 GMT</lastBuildDate>
 
+	<item>
+		<title>OGLplu2 0.24.0 released.</title>
+		<link>https://github.com/matus-chochlik/oglplu2/archive/master.zip</link>
+		<description>
+			Check out version 0.24.0 of our new wrapper
+			for OpenGL written in C++17.
+		</description>
+		<guid>https://oglplus.org/news.rss#item-2020-06-27-06:30:00</guid>
+		<pubDate>Sun, 27 Jun 2020 06:30:00 GMT</pubDate>
+		<source url="https://oglplus.org/news.rss">OGLplus news</source>
+	</item>
 	<item>
 		<title>OGLplu2 0.23.0 released.</title>
 		<link>https://github.com/matus-chochlik/oglplu2/archive/master.zip</link>
@@ -103,17 +114,6 @@
 		</description>
 		<guid>https://oglplus.org/news.rss#item-2017-12-17-11:00:39</guid>
 		<pubDate>Sun, 17 Dec 2017 11:00:39 GMT</pubDate>
-		<source url="https://oglplus.org/news.rss">OGLplus news</source>
-	</item>
-	<item>
-		<title>OGLplu2 0.64.0 released.</title>
-		<link>https://github.com/matus-chochlik/oglplu2/archive/master.zip</link>
-		<description>
-			Check out version 0.16.0 of our new wrapper
-			for OpenGL written in C++14.
-		</description>
-		<guid>https://oglplus.org/news.rss#item-2017-11-18-18:00:00</guid>
-		<pubDate>Sat, 18 Nov 2017 18:00:00 GMT</pubDate>
 		<source url="https://oglplus.org/news.rss">OGLplus news</source>
 	</item>
 </channel>
