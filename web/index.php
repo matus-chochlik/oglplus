@@ -36,23 +36,16 @@
 	<div id="head">
 		<div id="top">
 				Visit the <em>OGLplus</em> pages on
-				<a href="https://plus.google.com/+OglplusOrg/?prsrc=3" style="text-decoration: none;">
-					<img src="https://ssl.gstatic.com/images/icons/gplus-32.png"
-						width="32" height="32"
+				<a href="https://github.com/matus-chochlik/oglplu2" style="text-decoration: none;">
+					<img src="https://github.com/favicon.ico"
 						style="border: 0;"
-						alt="OGLplus page on Google+"
+						alt="OGLplus 2 on GitHub"
 					/>
 				</a>
 				<a href="https://github.com/matus-chochlik/oglplus" style="text-decoration: none;">
 					<img src="https://github.com/favicon.ico"
 						style="border: 0;"
 						alt="OGLplus on GitHub"
-					/>
-				</a>
-				<a href="https://github.com/matus-chochlik/oglplu2" style="text-decoration: none;">
-					<img src="https://github.com/favicon.ico"
-						style="border: 0;"
-						alt="OGLplus 2 on GitHub"
 					/>
 				</a>
 				<a href="https://www.linkedin.com/groups/OGLplus-4592626" style="text-decoration: none;">
@@ -94,7 +87,7 @@
 						<li id="download"><a href="https://sourceforge.net/projects/oglplus/files/">All releases</a></li>
 						<li id="assets"><a href="https://sourceforge.net/projects/oglplus/files/assets/">Assets (models, textures) used in examples</a></li>
 
-						<li id="git-repo"><a href="https://github.com/matus-chochlik/oglplus">GIT repository</a>, <a href="https://github.com/matus-chochlik/oglplu2">GIT repository (oglplu2)</a></li>
+						<li id="git-repo"><a href="https://github.com/matus-chochlik/oglplu2">GIT repository (oglplu2)</a>, <a href="https://github.com/matus-chochlik/oglplus">GIT repository</a></li>
 					</ul>
 					<h3>Documentation</h3>
 					<ul>
@@ -145,8 +138,6 @@
 					<h3>Follow OGLplus</h3>
 					<ul>
 						<li id="github"><a href="https://github.com/matus-chochlik/oglplus">GitHub</a></li>
-						<li id="sourceforge"><a href="https://sourceforge.net/projects/oglplus/">Sourceforge</a></li>
-						<li id="g-plus"><a href="https://plus.google.com/+OglplusOrg/?prsrc=3">Google+ news page</a></li>
 						<li id="linkedin"><a href="https://www.linkedin.com/groups/OGLplus-4592626">LinkedIn group</a></li>
 					</ul>
 				</div>
