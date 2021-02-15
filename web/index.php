@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta name="author" content="Matus Chochlik"/>
-<meta name="copyright" content="Copyright 2010-2019 Matus Chochlik"/>
+<meta name="copyright" content="Copyright 2008-2021 Matus Chochlik"/>
 <meta name="keywords" content="C++ OpenGL Graphics Library"/>
 <meta name="description" content="C++ wrapper for the OpenGL&reg; C API"/>
 
@@ -83,40 +83,22 @@
 				<div id="quick-links" class="content-column-1">
 					<h3>Download</h3>
 					<ul>
-						<li id="direct-download-devel"><a href="https://github.com/matus-chochlik/oglplus/archive/develop.zip">Direct download</a> (development)</li>
-						<li id="download"><a href="https://sourceforge.net/projects/oglplus/files/">All releases</a></li>
-						<li id="assets"><a href="https://sourceforge.net/projects/oglplus/files/assets/">Assets (models, textures) used in examples</a></li>
+						<li id="direct-download-devel"><a href="https://github.com/matus-chochlik/oglplu2/archive/develop.zip">Direct download</a> (development)</li>
+						<li id="direct-download-main"><a href="https://github.com/matus-chochlik/oglplu2/archive/main.zip">Direct download</a> (release)</li>
 
 						<li id="git-repo"><a href="https://github.com/matus-chochlik/oglplu2">GIT repository (oglplu2)</a>, <a href="https://github.com/matus-chochlik/oglplus">GIT repository</a></li>
 					</ul>
 					<h3>Documentation</h3>
 					<ul>
-						<li id="readme"><a href="https://github.com/matus-chochlik/oglplus#oglplus-readme">README</a></li>
-						<li id="quickbook-doc"><a href="https://matus-chochlik.github.io/oglplus/doc/">Quickbook</a></li>
-						<li id="doxygen-doc">Doxygen: <a href="oglplus/html/index.html">OGLplus</a>, <a href="oalplus/html/index.html">OALplus</a>, <a href="eglplus/html/index.html">EGLplus</a></li>
+						<li id="readme"><a href="https://github.com/matus-chochlik/oglplu2#readme">README</a></li>
+						<li id="doxygen-doc"><a href="https://matus-chochlik.github.io/oglplu2/doxygen/">Reference</a></li>
 					</ul>
-					<h3>Components</h3>
+					<h3>Follow OGLplus</h3>
 					<ul>
-						<li><b>OGLplus</b> - a wrapper for modern OpenGL
-						<ul>
-							<li id="oglplus-examples"><a href="oglplus/html/examples.html">Examples</a></li>
-							<li id="oglplus-tutorials"><a href="oglplus/html/oglplus_tutorials.html">Tutorials</a></li>
-						</ul>
-						</li>
-						<li><b>OALplus</b> - a wrapper for OpenAL
-						<ul>
-							<li id="oalplus-examples"><a href="oalplus/html/examples.html">Examples</a></li>
-							<li id="oalplus-tutorials"><a href="oalplus/html/oalplus_tutorials.html">Tutorials</a></li>
-						</ul>
-						</li>
-						<li><b>EGLplus</b> - a wrapper for EGL
-						<ul>
-							<li id="eglplus-examples"><a href="eglplus/html/examples.html">Examples</a></li>
-						</ul>
-						</li>
+						<li id="github"><a href="https://github.com/matus-chochlik/oglplus">GitHub</a></li>
+						<li id="linkedin"><a href="https://www.linkedin.com/groups/OGLplus-4592626">LinkedIn group</a></li>
 					</ul>
-				</div>
-
+			  </div>
 				<div id="features" class="content-column-2">
 					<h3>Features</h3>
 					<ul>
@@ -134,11 +116,6 @@
 							<li>Image loaders / generators</li>
 						</ul>
 						</li>
-					</ul>
-					<h3>Follow OGLplus</h3>
-					<ul>
-						<li id="github"><a href="https://github.com/matus-chochlik/oglplus">GitHub</a></li>
-						<li id="linkedin"><a href="https://www.linkedin.com/groups/OGLplus-4592626">LinkedIn group</a></li>
 					</ul>
 				</div>
 			</div>
@@ -188,9 +165,7 @@
 				</ul>
 				<h3>Related projects</h3>
 				<ul>
-					<li id="oglplu2"><a href="https://github.com/matus-chochlik/eagine">OGLplus 2</a></li>
-					<li id="eagine"><a href="https://github.com/matus-chochlik/eagine">EAGine</a></li>
-					<li id="angles"><a href="https://github.com/matus-chochlik/angle">Angles</a></li>
+					<li id="oglplus"><a href="https://github.com/matus-chochlik/oglplus">OGLplus</a></li>
 				</ul>
 				<h3>Other resources</h3>
 				<ul>
@@ -218,7 +193,7 @@
 		</div>
 	</div>
 	<div id="footer">
-		<em>Copyright &copy; 2008-2019</em> <strong>Matúš Chochlík</strong><br/>
+		<em>Copyright &copy; 2008-2021</em> <strong>Matúš Chochlík</strong><br/>
 		&lt;<a href="mailto:chochlik@gmail.com">chochlik -at -gmail.com</a>&gt;<br/>
 
 		<p>Distributed under the Boost Software License, Version 1.0. (See a copy at
