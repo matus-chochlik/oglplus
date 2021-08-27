@@ -22,6 +22,25 @@ OGLplus README
 .. _wxGL: http://www.wxwidgets.org/
 .. _Qt: http://qt.digia.com/
 
+Important note
+--------------
+
+Please note that this project is obsolete and deprecated.
+A new version of EGL, OpenGL, OpenAL wrapper using modern C++ is implemented
+by the `eagine-all` project and its sub-modules:
+
+ * https://github.com/matus-chochlik/eagine-all
+
+   * https://github.com/matus-chochlik/eagine-core
+   * https://github.com/matus-chochlik/eagine-sslplus
+   * https://github.com/matus-chochlik/eagine-msgbus
+   * https://github.com/matus-chochlik/eagine-shapes
+   * https://github.com/matus-chochlik/eagine-eglplus
+   * https://github.com/matus-chochlik/eagine-oglplus
+   * https://github.com/matus-chochlik/eagine-oalplus
+   * https://github.com/matus-chochlik/eagine-ecs
+   * https://github.com/matus-chochlik/eagine-app
+
 Introduction to OGLplus
 =======================
 
