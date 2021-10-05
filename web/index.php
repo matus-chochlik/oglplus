@@ -36,16 +36,10 @@
 	<div id="head">
 		<div id="top">
 				Visit the <em>OGLplus</em> pages on
-				<a href="https://github.com/matus-chochlik/oglplu2" style="text-decoration: none;">
+				<a href="https://github.com/matus-chochlik/eagine-all" style="text-decoration: none;">
 					<img src="https://github.com/favicon.ico"
 						style="border: 0;"
-						alt="OGLplus 2 on GitHub"
-					/>
-				</a>
-				<a href="https://github.com/matus-chochlik/oglplus" style="text-decoration: none;">
-					<img src="https://github.com/favicon.ico"
-						style="border: 0;"
-						alt="OGLplus on GitHub"
+						alt="OGLplus (EAGine) on GitHub"
 					/>
 				</a>
 				<a href="https://www.linkedin.com/groups/OGLplus-4592626" style="text-decoration: none;">
@@ -81,21 +75,19 @@
 
 			<div class="content-section">
 				<div id="quick-links" class="content-column-1">
-					<h3>Download</h3>
+					<h3>Get the code</h3>
 					<ul>
-						<li id="direct-download-devel"><a href="https://github.com/matus-chochlik/oglplu2/archive/develop.zip">Direct download</a> (development)</li>
-						<li id="direct-download-main"><a href="https://github.com/matus-chochlik/oglplu2/archive/main.zip">Direct download</a> (release)</li>
-
-						<li id="git-repo"><a href="https://github.com/matus-chochlik/oglplu2">GIT repository (oglplu2)</a>, <a href="https://github.com/matus-chochlik/oglplus">GIT repository</a></li>
+						<li id="git-repo"><a href="https://github.com/matus-chochlik/eagine-all">GIT repository (EAGine)</a></li>
+						<li id="git-repo"><a href="https://github.com/matus-chochlik/oglplus">GIT repository (OGLplus, deprecated)</a></li>
 					</ul>
 					<h3>Documentation</h3>
 					<ul>
-						<li id="readme"><a href="https://github.com/matus-chochlik/oglplu2#readme">README</a></li>
+						<li id="readme"><a href="https://github.com/matus-chochlik/eagine-all#readme">README</a></li>
 						<li id="doxygen-doc"><a href="https://matus-chochlik.github.io/oglplu2/doxygen/">Reference</a></li>
 					</ul>
 					<h3>Follow OGLplus</h3>
 					<ul>
-						<li id="github"><a href="https://github.com/matus-chochlik/oglplus">GitHub</a></li>
+						<li id="github"><a href="https://github.com/matus-chochlik/eagine-all">GitHub</a></li>
 						<li id="linkedin"><a href="https://www.linkedin.com/groups/OGLplus-4592626">LinkedIn group</a></li>
 					</ul>
 			  </div>
