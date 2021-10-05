@@ -6,8 +6,18 @@
 	<link>https://oglplus.org/</link>
 	<language>en-us</language>
 	<ttl>1440</ttl>
-	<lastBuildDate>Tue, 28 Sep 2021 06:00:00 GMT</lastBuildDate>
+	<lastBuildDate>Tue, 05 Oct 2021 05:00:00 GMT</lastBuildDate>
 
+	<item>
+		<title>EAGine 0.76.0 released.</title>
+		<link>https://github.com/matus-chochlik/eagine-all</link>
+		<description>
+			New release version of EAGine (modularized OGLplu2) is available from github.
+		</description>
+		<guid>https://oglplus.org/news.rss#item-2021-10-05-05:00:00</guid>
+		<pubDate>Tue, 05 Oct 2021 05:00:00 GMT</pubDate>
+		<source url="https://oglplus.org/news.rss">OGLplus news</source>
+	</item>
 	<item>
 		<title>EAGine 0.75.0 released.</title>
 		<link>https://github.com/matus-chochlik/eagine-all</link>
@@ -96,16 +106,6 @@
 		</description>
 		<guid>https://oglplus.org/news.rss#item-2021-05-11-06:00:00</guid>
 		<pubDate>Tue, 11 May 2021 06:00:00 GMT</pubDate>
-		<source url="https://oglplus.org/news.rss">OGLplus news</source>
-	</item>
-	<item>
-		<title>OGLplu2 0.61.0 released.</title>
-		<link>https://github.com/matus-chochlik/oglplu2/archive/main.zip</link>
-		<description>
-			New release version of OGLplu2 is available from github.
-		</description>
-		<guid>https://oglplus.org/news.rss#item-2021-05-04-06:00:00</guid>
-		<pubDate>Tue, 04 May 2021 06:00:00 GMT</pubDate>
 		<source url="https://oglplus.org/news.rss">OGLplus news</source>
 	</item>
 </channel>
